@@ -15,4 +15,3 @@ Other repos:
 for more information email Live@icpc.global
 
 General broadcast production schema: https://docs.google.com/document/d/1JcOhmkvbRtG3MLLYUpzVBMqiQOoNpamOz-MvppCgcYk
-
