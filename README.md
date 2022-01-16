@@ -11,3 +11,8 @@ Other repos:
 * https://github.com/icpc-live/autoanalyst Autoanalyst
 * https://github.com/pashkal/obs-video-scheduler OBS Video Scheduler Plugin with web interface
 * OBS plugin for shared memory (?)
+
+for more information email Live@icpc.global
+
+General broadcast production schema: https://docs.google.com/document/d/1JcOhmkvbRtG3MLLYUpzVBMqiQOoNpamOz-MvppCgcYk
+
