@@ -10,7 +10,7 @@ Other repos:
 * https://github.com/EgorKulikov/acm_profiles script that collects competitive programming historical data for analytical information
 * https://github.com/icpc-live/autoanalyst Autoanalyst
 * https://github.com/pashkal/obs-video-scheduler OBS Video Scheduler Plugin with web interface
-* OBS plugin for shared memory (?)
+* https://github.com/pmavrin/obs-overlays/tree/master/overlaymaster OBS plugin for shared memory  (dll https://drive.google.com/file/d/1MvCmhlSpftUFC3N2gj0Lv88-ZV2dtnhP)
 
 for more information email Live@icpc.global
 
