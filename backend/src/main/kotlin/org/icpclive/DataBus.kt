@@ -4,10 +4,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
-import org.icpclive.api.MainScreenEvent
-import org.icpclive.api.QueueEvent
-import org.icpclive.events.ContestInfo
-import org.icpclive.events.RunInfo
+import org.icpclive.api.*
+import org.icpclive.events.*
+import org.icpclive.events.RunInfo as ContestRunInfo
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads
@@ -21,7 +20,7 @@ object DataBus {
         runsStorageUpdates.emit(contestInfo.runs.toList())
     }
     //TODO: this should be replaced with ContestInfo flow
-    val runsStorageUpdates = MutableSharedFlow<List<RunInfo>>(
+    val runsStorageUpdates = MutableSharedFlow<List<ContestRunInfo>>(
         extraBufferCapacity = 16,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
