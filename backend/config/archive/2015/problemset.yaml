@@ -1,0 +1,67 @@
+# Problem set configuration
+problems:
+  - letter:     A
+    short-name: artichoke
+    color:      Burgundy
+    rgb:        '#7C0026'
+
+  - letter:     B
+    short-name: asteroids
+    color:      Pink
+    rgb:        '#BD6B80'
+
+  - letter:     C
+    short-name: catering
+    color:      Light green
+    rgb:        '#9C8E00'
+
+  - letter:     D
+    short-name: cheese
+    color:      Black
+    rgb:        '#000000'
+
+  - letter:     E
+    short-name: evolution
+    color:      Purple
+    rgb:        '#5E0078'
+
+  - letter:     F
+    short-name: keyboard
+    color:      White
+    rgb:        '#FFFFFF'
+
+  - letter:     G
+    short-name: pipe
+    color:      Red
+    rgb:        '#960000'
+
+  - letter:     H
+    short-name: qanat
+    color:      Yellow
+    rgb:        '#F0ED00'
+
+  - letter:     I
+    short-name: ship
+    color:      Blue
+    rgb:        '#0151AF'
+
+  - letter:     J
+    short-name: tiles
+    color:      Silver
+    rgb:        '#9E9b9A'
+
+  - letter:     K
+    short-name: tours
+    color:      Orange
+    rgb:        '#CA6D00'
+
+  - letter:     L
+    short-name: weather
+    color:      Green
+    rgb:        '#236E15'
+
+  - letter:     M
+    short-name: windows
+    color:      Gold
+    rgb:        '#CF9931'
+

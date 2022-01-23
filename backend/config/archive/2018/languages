@@ -1,0 +1,6 @@
+[{"id":"c","name":"C"},
+ {"id":"cpp","name":"C++"},
+ {"id":"java","name":"Java"},
+ {"id":"kotlin","name":"Kotlin"},
+ {"id":"python2","name":"Python 2"},
+ {"id":"python3","name":"Python 3"}]

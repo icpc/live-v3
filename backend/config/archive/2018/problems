@@ -1,0 +1,11 @@
+[{"id":"catch","label":"A","name":"Catch the Plane","ordinal":0,"color":"cornflowerblue","rgb":"#58a2d1","test_data_count":25,"time_limit":10},
+ {"id":"comma","label":"B","name":"Comma Sprinkler","ordinal":1,"color":"tomato","rgb":"#fc6d3e","test_data_count":62,"time_limit":8},
+ {"id":"conquertheworld","label":"C","name":"Conquer The World","ordinal":2,"color":"slateblue","rgb":"#7c54aa","test_data_count":70,"time_limit":8},
+ {"id":"gemisland","label":"D","name":"Gem Island","ordinal":3,"color":"mediumturquoise","rgb":"#64d6cb","test_data_count":84,"time_limit":3},
+ {"id":"gettingjump","label":"E","name":"Getting a Jump on Crime","ordinal":4,"color":"white","rgb":"#ffffff","test_data_count":80,"time_limit":2},
+ {"id":"gowithflow","label":"F","name":"Go with the Flow","ordinal":5,"color":"darkkhaki","rgb":"#d5c748","test_data_count":66,"time_limit":12},
+ {"id":"pandapreserve","label":"G","name":"Panda Preserve","ordinal":6,"color":"indianred","rgb":"#e84054","test_data_count":104,"time_limit":10},
+ {"id":"single","label":"H","name":"Single Cut of Failure","ordinal":7,"color":"lightcoral","rgb":"#ef80a6","test_data_count":76,"time_limit":6},
+ {"id":"triangles","label":"I","name":"Triangles","ordinal":8,"color":"black","rgb":"#000000","test_data_count":50,"time_limit":6},
+ {"id":"uncrossedknights","label":"J","name":"Uncrossed Knight's Tour","ordinal":9,"color":"mediumpurple","rgb":"#ad79d3","test_data_count":277,"time_limit":2},
+ {"id":"newfiber","label":"K","name":"Wireless is the New Fiber","ordinal":10,"color":"mediumaquamarine","rgb":"#63d869","test_data_count":37,"time_limit":2}]

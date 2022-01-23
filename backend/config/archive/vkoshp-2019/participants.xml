@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" ?>                                         
+
+<parties
+ id = "vkoshp-2018"
+ xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+<party id = 'B026' region = 'Барнаул' shortname = 'Барнаул, Г123' name = 'Барнаул, Гимназия 123: blue_beavers'/>
+<party id = 'B020' region = 'Барнаул' shortname = 'Барнаул, Г40+Г42' name = 'Барнаул, Гимназия 40 + Гимназия 42: Sbornaya Barnaul - 1'/>
+<party id = 'B001' region = 'Барнаул' shortname = 'Барнаул, Г42 1' name = 'Барнаул, Гимназия 42: BS42_1'/>
+<party id = 'B007' region = 'Барнаул' shortname = 'Барнаул, Г42 2' name = 'Барнаул, Гимназия 42: BS42_2'/>
+<party id = 'B014' region = 'Барнаул' shortname = 'Барнаул, Г42 4' name = 'Барнаул, Гимназия 42: BS42_4'/>
+<party id = 'B011' region = 'Барнаул' shortname = 'Бийск, ЛИ' name = 'Бийск, Лицей-интернат: Biyskliceum1'/>
+<party id = 'B037' region = 'Барнаул' shortname = 'Владивосток, ДВФУ' name = 'Владивосток, ДВФУ: Thoughtful kissel'/>
+<party id = 'B002' region = 'Барнаул' shortname = 'Дивногорск, Г10' name = 'Дивногорск, Гимназия 10: Zlyubi'/>
+<party id = 'B048' region = 'Барнаул' shortname = 'Железн., ШК Komanda' name = 'Железногорск, Школа Космонавтики: Komanda Bezrukih'/>
+<party id = 'B044' region = 'Барнаул' shortname = 'Железн., ШК Palechki' name = 'Железногорск, Школа Космонавтики: Krabovi Palechki'/>
+<party id = 'B045' region = 'Барнаул' shortname = 'Железн., ШК Miklukho' name = 'Железногорск, Школа Космонавтики: Miklukho Maclay'/>
+<party id = 'B052' region = 'Барнаул' shortname = 'Зеленогорск, Л174 Steel' name = 'Зеленогорск, Лицей 174: Brotherhood of steel'/>
+<party id = 'B012' region = 'Барнаул' shortname = 'Зеленогорск, Л174 MAP' name = 'Зеленогорск, Лицей 174: MAP[win]=true'/>
+<party id = 'B053' region = 'Барнаул' shortname = 'Красноярск, Л6' name = 'Красноярск, Лицей 6 Перспектива: 3Gendereggsinfreedom'/>
+<party id = 'B003' region = 'Барнаул' shortname = 'Красноярск, Универс-Г 3' name = 'Красноярск, Универс - 1: gimnazia 1 Univers #3'/>
+<party id = 'B008' region = 'Барнаул' shortname = 'Красноярск, Универс-Г 5' name = 'Красноярск, Универс - 1: gimnazia Univers #5'/>
+<party id = 'B042' region = 'Барнаул' shortname = 'Красноярск, ЦПС Pomoyka' name = 'Красноярск, ЦПС: Pomoyka_team'/>
+<party id = 'B039' region = 'Барнаул' shortname = 'Красноярск, ЦПС Astolfo' name = 'Красноярск, ЦПС: We love Astolfo'/>
+<party id = 'B049' region = 'Барнаул' shortname = 'Красноярск, Ш10' name = 'Красноярск, Школа 10: Neural Network based on a Two-Bit Copybook Paper'/>
+<party id = 'B027' region = 'Барнаул' shortname = 'Куйбышев, ДДТ' name = 'Куйбышев, ДДТ: Sectarians'/>
+<party id = 'B022' region = 'Барнаул' shortname = 'Новокузнецк, Л84 English' name = 'Новокузнецк, Лицей 84 им. Власова: English platezh'/>
+<party id = 'B028' region = 'Барнаул' shortname = 'Новокузнецк, Л84 lyc84' name = 'Новокузнецк, Лицей 84 им. Власова: lyc84'/>
+<party id = 'B040' region = 'Барнаул' shortname = 'Новосиб., ОЦ Me' name = 'Новосибирск,  ОЦ Горностай: Me, myself and I'/>
+<party id = 'B005' region = 'Барнаул' shortname = 'Новосиб., Г1 Djokushka' name = 'Новосибирск, Гимназия 1: Djokushka Lovushkera'/>
+<party id = 'B009' region = 'Барнаул' shortname = 'Новосиб., Г1 Magic' name = 'Новосибирск, Гимназия 1: IT is magic.'/>
+<party id = 'B016' region = 'Барнаул' shortname = 'Новосиб., Г3' name = 'Новосибирск, Гимназия 3 в Академгородке: Gym3_5'/>
+<party id = 'B032' region = 'Барнаул' shortname = 'Новосиб., ОЦ Smishani' name = 'Новосибирск, Горностай: Smishani'/>
+<party id = 'B035' region = 'Барнаул' shortname = 'Новосиб., Л22 licey22' name = 'Новосибирск, Лицей 22 Надежда Сибири: licey22'/>
+<party id = 'B030' region = 'Барнаул' shortname = 'Новосиб., Л22 we_licey_22' name = 'Новосибирск, Лицей 22 Надежда Сибири: we_licey_22'/>
+<party id = 'B021' region = 'Барнаул' shortname = 'Новосиб., ОЦ +СУНЦ+Л130' name = 'Новосибирск, ОЦ Горностай+СУНЦ НГУ+Лицей 130: Binary Flek$$'/>
+<party id = 'B046' region = 'Барнаул' shortname = 'Новосиб., СУНЦ 1' name = 'Новосибирск, СУНЦ НГУ: SESC #1'/>
+<party id = 'B041' region = 'Барнаул' shortname = 'Новосиб., СУНЦ Vanya' name = 'Новосибирск, СУНЦ НГУ: Vanya, OOP Vyrubai.'/>
+<party id = 'B036' region = 'Барнаул' shortname = 'Омск, Л64 Love' name = 'Омск, Лицей 64: From Omsk with love'/>
+<party id = 'B031' region = 'Барнаул' shortname = 'Омск, Л64 Dadyko' name = 'Омск, Лицей 64: Ilya Dadyko'/>
+<party id = 'B043' region = 'Барнаул' shortname = 'Омск, Л64 PPJ' name = 'Омск, Лицей 64: PPJ'/>
+<party id = 'B017' region = 'Барнаул' shortname = 'Омск, Л БИТ + Л64' name = 'Омск, Лицей БИТ + 64: 64BITa'/>
+<party id = 'B010' region = 'Барнаул' shortname = 'Омск, МОЦРО117 + Л25' name = 'Омск, МОЦРО 117 + Лицей 25: Team'/>
+<party id = 'B006' region = 'Барнаул' shortname = 'Омск, МОЦРО117' name = 'Омск, МОЦРО 117: Error'/>
+<party id = 'B023' region = 'Барнаул' shortname = 'Омск, Ш Прогр-та' name = 'Омск, Школа программиста: Omichka'/>
+<party id = 'B024' region = 'Барнаул' shortname = 'Петропавловск, IT-Л' name = 'Петропавловск, Первый IT лицей: AID'/>
+<party id = 'B038' region = 'Барнаул' shortname = 'Рубцовск, АлтГТУ+Л6+Г8' name = 'Рубцовск, Наследники Ползунова при АлтГТУ+Лицей 6+Гимназия 8: Undefined'/>
+<party id = 'B025' region = 'Барнаул' shortname = 'Улан-Удэ, ЦПОС РБ 1' name = 'Улан-Удэ, ЦПОС РБ: CPOS RB #1'/>
+<party id = 'B047' region = 'Барнаул' shortname = 'Улан-Удэ, ЦПОС РБ 2' name = 'Улан-Удэ, ЦПОС РБ: CPOS RB #2'/>
+<party id = 'B019' region = 'Барнаул' shortname = 'Улан-Удэ, ЦПОС РБ 3' name = 'Улан-Удэ, ЦПОС РБ: CPOS RB #3'/>
+<party id = 'B033' region = 'Барнаул' shortname = 'Якутск, РЛИ + ИТЛ' name = 'Якутск, РЛИ + ИТЛ: RLIITL'/>
+<party id = 'B034' region = 'Барнаул' shortname = 'Якутск, Саха Политех Л' name = 'Якутск, Саха политехнический лицей: Yakutsk team'/>
+<party id = 'B004' region = 'Барнаул' shortname = 'Магадан, Г30' name = 'Магаданская область, Гимназия 30, MagGom30'/>
+<party id = 'B015' region = 'Барнаул' shortname = 'Красноярск, Г13' name = 'Красноярск, Гимназия 13, 9e804ки'/>
+<party id = 'B029' region = 'Барнаул' shortname = 'Красноярск, Л9' name = 'Красноярск, Лицей 9, Лидер'/>
+<party id = 'B050' region = 'Барнаул' shortname = 'Норильск, Ш1' name = 'Норильск, Школа 1'/>
+<party id = 'B051' region = 'Барнаул' shortname = 'Канск, Л1' name = 'Канск, Лицей 1'/>
+<party id = 'A101' region = 'Алматы' shortname = 'Алм.+Оск.+Нур-Султан' name = 'Алматы + Оскемен + Нур-Султан, Аксай БИЛ + Оскемен БИЛ + Нурорда: dab'/>
+<party id = 'A102' region = 'Алматы' shortname = 'Алматы+Нур-Сұлтан' name = 'Алматы, Нұр-Сұлтан, Лицей №178 Алматы + НАО РФМШ Алматы + НИШ ФМН Нұр-Сұлтан: umizumi'/>
+<party id = 'A104' region = 'Алматы' shortname = 'Алматы, РФМШ 1' name = 'Алматы, НАО РФМШ #1: Жил до конца, умер как герой'/>
+<party id = 'A103' region = 'Алматы' shortname = 'Бишкек, ЛимАйтматова' name = 'Бишкек, Бишкекский лицей им. Ч. Айтматова & United world international School: No market'/>
+<party id = 'A105' region = 'Алматы' shortname = 'Алматы, Haileybury' name = 'Алматы, Haileybury Almaty: I`m still standing'/>
+<party id = 'A106' region = 'Алматы' shortname = 'Алматы, РФМШ 3' name = 'Алматы, НАО РФМШ #3: TABY`S'/>
+<party id = 'A107' region = 'Алматы' shortname = 'Бишкек, Сапат' name = 'Бишкек, МОУ `Сапат`: 3-ий кыргызский интернационал'/>
+<party id = 'A108' region = 'Алматы' shortname = 'Алматы РФМШ+Л165' name = 'Алматы, НАО РФМШ + Лицей №165: We_love_Mika'/>
+<party id = 'A109' region = 'Алматы' shortname = 'Алматы, Л24+Л39+Л178' name = 'Алматы, Лицей №24 Алматы + Лицей №39 + Лицей №178 Алматы: Jokers'/>
+<party id = 'A110' region = 'Алматы' shortname = 'Oral + Aktobe' name = 'Oral + Aktobe, BIL: Batys men'/>
+<party id = 'A111' region = 'Алматы' shortname = 'Караганда, ШЛ101' name = 'Караганда, Школа-лицей  #101'/>
+<party id = 'A121' region = 'Алматы' shortname = 'Алматы, НИШ228' name = 'Алматы, НИШ #228: Нагибаторы'/>
+<party id = 'A113' region = 'Алматы' shortname = 'Душанбе, ЛОД 1' name = 'Душанбе, Лицей для одарённых детей : MoGatapA #1'/>
+<party id = 'A114' region = 'Алматы' shortname = 'Актобе, БИЛ' name = 'Актобе, БИЛ #2: Пиу Пиу Пиу Акылбек в здании'/>
+<party id = 'A115' region = 'Алматы' shortname = 'Алматы, Л165+ШЛ48' name = 'Алматы, Лицей №165 + Школа-лицей №48: MCube'/>
+<party id = 'A116' region = 'Алматы' shortname = 'Алматы, РФМШ+НИШ+Л178' name = 'Алматы, НАО РФМШ + НИШ ФМН + Лицей №178: Kamaz City'/>
+<party id = 'A117' region = 'Алматы' shortname = 'Алматы, Л178+Г159' name = 'Алматы, Лицей №178 + Гимназия №159: Comeback'/>
+<party id = 'A118' region = 'Алматы' shortname = 'Актау, БИЛ' name = 'Актау, Актау БИЛ #3: AZI no 777'/>
+<party id = 'A119' region = 'Алматы' shortname = 'Душанбе, ТРЛИ NoNaim' name = 'Душанбе, ТРЛИ `Хотам и П.В.`: NoNaim'/>
+<party id = 'A120' region = 'Алматы' shortname = 'Талдыкорган+Есик' name = 'Талдыкорган+Есик, Талдыкорган БИЛ + Есик БИЛ: Дай Винчик'/>
+<party id = 'A112' region = 'Алматы' shortname = 'Алматы + Атырау' name = 'Алматы + Атырау, БИЛ: Impetus'/>
+<party id = 'A122' region = 'Алматы' shortname = 'Караганда, БИЛ1' name = 'Караганда, БИЛ #1: KarBIL#1'/>
+<party id = 'A123' region = 'Алматы' shortname = 'Душанбе, ТРЛИ Fire' name = 'Душанбе, ТРЛИ `Хотам и П.В.`: Icy Fire'/>
+<party id = 'A309' region = 'Алматы' shortname = 'Алматы , НИШ' name = 'Алматы , НИШ: LTR'/>
+<party id = 'A308' region = 'Алматы' shortname = 'Алматы, Л166+Л134' name = 'Алматы, Лицей 166 + Лицей 134: Лицей 166 + Лицей 134'/>
+<party id = 'A124' region = 'Алматы' shortname = 'Тараз, БИЛ' name = 'Тараз, Тараз БИЛ : SilentDarkness'/>
+<party id = 'A127' region = 'Алматы' shortname = 'Нур-Султан + Уральск' name = 'Нур-Султан,Уральск, БИЛ: Old but Gold'/>
+<party id = 'A128' region = 'Алматы' shortname = 'Шымкент, НИШ' name = 'Шымкент, НИШ ХБН Шымкент #1: Stark`s'/>
+<party id = 'A129' region = 'Алматы' shortname = 'Алматы, РФМШ 2' name = 'Алматы, НАО РФМШ #2'/>
+<party id = 'A130' region = 'Алматы' shortname = 'Семей, Л Білім' name = 'Семей, лицей `Білім-инновация`: NewGeneration'/>
+<party id = 'A125' region = 'Алматы' shortname = 'Кокшетау, Білім Л Flow' name = 'Кокшетау, Білім инновация лицей: Code Flow'/>
+<party id = 'A132' region = 'Алматы' shortname = 'Алматы, БИЛ 1' name = 'Алматы, БИЛ #1: Если не место то 12 класс'/>
+<party id = 'A133' region = 'Алматы' shortname = 'Нур-Султан, NURORDA' name = 'Нур-Султан, NURORDA #2: DAB'/>
+<party id = 'A134' region = 'Алматы' shortname = 'Худжанд, Л1' name = 'Худжанд, Лицей 1: CodePride'/>
+<party id = 'A201' region = 'Алматы' shortname = 'Нур-Султан+Павлодар' name = 'Нур-Султан+Павлодар, БИЛ: Пингвины c Севера'/>
+<party id = 'A202' region = 'Алматы' shortname = 'Бишкек+Токмок+Нарын' name = 'Бишкек+Токмок+Нарын, МОУ `Сапат`: Keep calm.'/>
+<party id = 'A203' region = 'Алматы' shortname = 'Байтик, Кут билим УВК' name = 'Байтик, Кут билим УВК: KUTBILIM'/>
+<party id = 'A204' region = 'Алматы' shortname = 'Душанбе, Л Эко 1' name = 'Душанбе, Лицей для одаренных детей с экономическим уклоном: USA-ECO'/>
+<party id = 'A205' region = 'Алматы' shortname = 'Алматы, Л134 + РФМШ' name = 'Алматы, Лицей 134 + НАО РФМШ: Лицей 134 + НАО РФМШ'/>
+<party id = 'A206' region = 'Алматы' shortname = 'Душанбе, Л 2' name = 'Душанбе, Лицей для одарённых детей: MoGatapA #4'/>
+<party id = 'A207' region = 'Алматы' shortname = 'Есік+Шымкент' name = 'Есік+Шымкент, ЕсікБИЛ: NeverLucky'/>
+<party id = 'A208' region = 'Алматы' shortname = 'Нур-Султан, НИШ ФМН' name = 'Нур-Султан, НИШ ФМН г.Нур-Султан: NIS Guardians'/>
+<party id = 'A209' region = 'Алматы' shortname = 'Астана, РФМШ' name = 'Астана, РФМШ г. Астана: Fizmat bananas'/>
+<party id = 'A210' region = 'Алматы' shortname = 'Атырау, БИЛ' name = 'Атырау, Атырау БИЛ #1: Guardian Angels'/>
+<party id = 'A211' region = 'Алматы' shortname = 'Алматы, СЛ165' name = 'Алматы, СЛ№165 #6: 7_10'/>
+<party id = 'A212' region = 'Алматы' shortname = 'Усть-Каменегорск, БИЛ' name = 'Усть-Каменегорск, БИЛ: Могло Быть Ещё Лучше'/>
+<party id = 'A213' region = 'Алматы' shortname = 'Петропав., Назарбаев' name = 'Петропавловск, Назарбаев Интеллектуальная хим-био школа'/>
+<party id = 'A214' region = 'Алматы' shortname = 'Душанбе, Л Эко 2' name = 'Душанбе, Лицей для одаренных детей с экономическим уклоном: Мстители'/>
+<party id = 'A215' region = 'Алматы' shortname = 'Актау, БИЛ' name = 'Актау, Актау БИЛ: raikozver'/>
+<party id = 'A306' region = 'Алматы' shortname = 'Алматы, БИЛ 4' name = 'Алматы, БИЛ #4: Team Twenty Five'/>
+<party id = 'A217' region = 'Алматы' shortname = 'Нур-Султан+Мурагер' name = 'Нур-Султан, Мурагер + NURORDA: RAM'/>
+<party id = 'A301' region = 'Алматы' shortname = 'Актау, БИЛ' name = 'Актау, БИЛ #1: raikomalemes'/>
+<party id = 'A302' region = 'Алматы' shortname = 'Алматы, Л165+РФМШ+ШЛ48' name = 'Алматы, Лицей №165 + НАО РФМШ + Школа-лицей №48: Bizarre team'/>
+<party id = 'A307' region = 'Алматы' shortname = 'Алматы, РФМШ4' name = 'Алматы, НАО РФМШ #4'/>
+<party id = 'A304' region = 'Алматы' shortname = 'Кокшетау, Білім Л ЪЕЪ' name = 'Кокшетау, Білім инновация лицей: ЪЕЪ'/>
+<party id = 'A305' region = 'Алматы' shortname = 'Душанбе, Л' name = 'Душанбе, Лицей для одаренных детей с экономическим уклоном: Таджикистан'/>
+<party id = 'S1' region = 'Санкт-Петербург' shortname = 'СПб, 239+ЛКФУ+Всев., 6' name = 'СПб, 239 + Казань, Лицей КФУ + Всеволожск, 6: Power of Three'/>
+<party id = 'S13' region = 'Санкт-Петербург' shortname = 'СПб, 239 + ЮМШ' name = 'СПб, ФМЛ 239 + ЮМШ: Codewinter Genius'/>
+<party id = 'S25' region = 'Санкт-Петербург' shortname = 'СПб, 239 + 366' name = 'СПб, ФМЛ 239 + ФМЛ 366: артур'/>
+<party id = 'S37' region = 'Санкт-Петербург' shortname = 'СПб, 239 Пёс, пёс, пёска' name = 'СПб, ФМЛ 239: Пёс, пёс, пёска'/>
+<party id = 'S49' region = 'Санкт-Петербург' shortname = 'СПб, 239 Sonic & Knuckles' name = 'СПб, ФМЛ 239: Sonic & Knuckles'/>
+<party id = 'S61' region = 'Санкт-Петербург' shortname = 'СПб, 239 Навуходоносор' name = 'СПб, 239: Навуходоносор'/>
+<party id = 'S73' region = 'Санкт-Петербург' shortname = 'СПб, ФТШ+30' name = 'СПб, ФТШ + ГФМЛ №30: R. I. P. Иван Орлов'/>
+<party id = 'S85' region = 'Санкт-Петербург' shortname = 'СПб, 239: - -' name = 'СПб, ФМЛ 239: -_-'/>
+<party id = 'S97' region = 'Санкт-Петербург' shortname = 'СПб, ФТШ Future Glory' name = 'СПб, ФТШ #1: Future Glory'/>
+<party id = 'S109' region = 'Санкт-Петербург' shortname = 'СПб, ФТШ + 30: Допускай' name = 'СПб, ФТШ + ФМЛ 30: Допускай до интерната'/>
+<party id = 'S121' region = 'Санкт-Петербург' shortname = 'СПб, ЮМШ Машина' name = 'СПб, ЮМШ: Виртуальная Машина'/>
+<party id = 'S133' region = 'Санкт-Петербург' shortname = 'СПб, ФТШ Копилочка' name = 'СПб, ФТШ: Копилочка'/>
+<party id = 'S2' region = 'Санкт-Петербург' shortname = 'СПб, 239 + ЮМШ + Ш27' name = 'СПб, ПФМЛ 239 + ЮМШ + Школа 27: BodroSort'/>
+<party id = 'S14' region = 'Санкт-Петербург' shortname = 'СПб, 239 + 489' name = 'СПб, ФМЛ 239 + Школа 489: Никакой геометрии, ...'/>
+<party id = 'S26' region = 'Санкт-Петербург' shortname = 'СПб, 239 + ФТШ XXX' name = 'СПб, 239 + ФТШ: XXX'/>
+<party id = 'S38' region = 'Санкт-Петербург' shortname = 'СПб, 30 + ФТШ rand() % 2' name = 'СПб, ГФМЛ 30 + ФТШ: rand() % 2'/>
+<party id = 'S50' region = 'Санкт-Петербург' shortname = 'СПб, ФТШ ++победа' name = 'СПб, ФТШ: ++победа'/>
+<party id = 'S62' region = 'Санкт-Петербург' shortname = 'СПб, 239 92+2' name = 'СПб, ФМЛ 239: 92+2'/>
+<party id = 'S74' region = 'Санкт-Петербург' shortname = 'СПб, 30 Галий' name = 'СПб, ГФМЛ 30: Галий, уран, сера - цинк'/>
+<party id = 'S86' region = 'Санкт-Петербург' shortname = 'СПб, ФТШ Давление' name = 'СПб, ФТШ: Отрицательное давление'/>
+<party id = 'S98' region = 'Санкт-Петербург' shortname = 'Калин., КРОШ + М., СУНЦ' name = 'Калининград, КРОШ + Москва, СУНЦ МГУ: Кит, ныряющий в ванну'/>
+<party id = 'S110' region = 'Санкт-Петербург' shortname = 'Рига, Prog.: Middle' name = 'Рига, Progmeistars: Middle'/>
+<party id = 'S122' region = 'Санкт-Петербург' shortname = 'Липецк, Стратегия' name = 'Липецк, Центр поддержки одаренных детей `Стратегия`: not TGLOU'/>
+<party id = 'S134' region = 'Санкт-Петербург' shortname = 'Тол.+Хаб.+Долгоп.' name = 'Тольятти, Хабаровск, Долгопрудный, МБУ `Гимназия №39`, МАОУ `ЛИТ`, АОУ физмат лицей №5: А пошафлить?'/>
+<party id = 'S3' region = 'Санкт-Петербург' shortname = 'Мозырь, КЮП 2' name = 'Мозырь, КЮП #2'/>
+<party id = 'S15' region = 'Санкт-Петербург' shortname = 'Краснодар, Л4+Г23' name = 'Краснодар, Лицей 4 + Гимназия 23: KSP-1'/>
+<party id = 'S27' region = 'Санкт-Петербург' shortname = 'Таганрог, Л28+Ш38' name = 'Таганрог, Лицей 28 + Школа 38: IOSTREAM'/>
+<party id = 'S39' region = 'Санкт-Петербург' shortname = 'Майкоп, РЕМШ' name = 'Майкоп, РЕМШ: Respect bees'/>
+<party id = 'S51' region = 'Санкт-Петербург' shortname = 'Могилев, Г2' name = 'Могилев, Гимназия 2: Случай в казино'/>
+<party id = 'S63' region = 'Санкт-Петербург' shortname = 'Ханты-Мансийск, ЮФМЛ' name = 'Ханты-Мансийск, ЮФМЛ: Greet Kynge Voyage'/>
+<party id = 'S75' region = 'Санкт-Петербург' shortname = 'Киров, ЛИнТех 28' name = 'Киров, ЛИнТех 28: Вот они, слева направо'/>
+<party id = 'S87' region = 'Санкт-Петербург' shortname = 'Ижевск, 7 пядей 3d' name = 'Ижевск, 7 пядей (41+29+29): 3d поцiки'/>
+<party id = 'S99' region = 'Санкт-Петербург' shortname = 'Ижевск, 7 пядей Чип, Дейл' name = 'Ижевск, 7 пядей (29+41+41): Чип, Дейл и Рокфор'/>
+<party id = 'S111' region = 'Санкт-Петербург' shortname = 'Ижевск, 7 пядей TeamWork' name = 'Ижевск, 7 пядей (30+41+41): TeamWork'/>
+<party id = 'S123' region = 'Санкт-Петербург' shortname = 'Ижевск, 7 пядей Tasher' name = 'Ижевск, 7 пядей (41+41+41): MotaTasher'/>
+<party id = 'S135' region = 'Санкт-Петербург' shortname = 'Ижевск, 7 пядей Кофеек' name = 'Ижевск, 7 пядей (29+41+29): Может по кофейку?'/>
+<party id = 'S4' region = 'Санкт-Петербург' shortname = 'Ижевск, 7 пядей 9-2' name = 'Ижевск, 7 пядей (29+41+41): 9-2'/>
+<party id = 'S16' region = 'Санкт-Петербург' shortname = 'Гомель + Мозырь, КЮП' name = 'Гомель + Мозырь, КЮП'/>
+<party id = 'S28' region = 'Санкт-Петербург' shortname = 'М., 2007+179+Саранск, РЛ' name = 'Москва, 2007 + 179 + Саранск, РЛ: а)'/>
+<party id = 'S40' region = 'Санкт-Петербург' shortname = 'М., СУНЦ+57: НЕ СУНЦ-1.' name = 'Москва, СУНЦ МГУ + 57: НЕ СУНЦ-1. Mex Foundation'/>
+<party id = 'S52' region = 'Санкт-Петербург' shortname = 'М., СУНЦ+Самара, ЛИТ' name = 'Москва, СУНЦ МГУ + Самара, ЛИТ: Трави бобров спасай деревья'/>
+<party id = 'S64' region = 'Санкт-Петербург' shortname = 'М., 179+Инт.+Саранск, РЛ' name = 'Москва, 179 + Интеллектуал + Саранск, РЛ: 179 интеллектуал из Мордовии им. маршала Чуйкова'/>
+<party id = 'S76' region = 'Санкт-Петербург' shortname = 'М., 179 + СУНЦ МГУ' name = 'Москва, 179 + СУНЦ МГУ: Пожилая Маракуйя'/>
+<party id = 'S88' region = 'Санкт-Петербург' shortname = 'М., СУНЦ + Глория' name = 'Москва, СУНЦ + Глория: три гендера на троих'/>
+<party id = 'S100' region = 'Санкт-Петербург' shortname = 'М., Школа 57 Triple A+' name = 'Москва, Школа 57: Triple A+'/>
+<party id = 'S112' region = 'Санкт-Петербург' shortname = 'М., 2007 + Летово' name = 'Москва, 2007 + Летово: Быстрее n log n нельзя'/>
+<party id = 'S124' region = 'Санкт-Петербург' shortname = 'Мытищи, МШП 1' name = 'Мытищи, Школа программистов: МШП-1'/>
+<party id = 'S136' region = 'Санкт-Петербург' shortname = 'М., 179: Трое' name = 'Москва, Школа 179: Трое в лодке, не считая питона'/>
+<party id = 'S5' region = 'Санкт-Петербург' shortname = 'М., СУНЦ Пять озёр' name = 'Москва, СУНЦ МГУ #8: Пять озёр в Финляндии'/>
+<party id = 'S17' region = 'Санкт-Петербург' shortname = 'М., СУНЦ + Инт. СИ+' name = 'Москва, СУНЦ МГУ + Интеллектуал: СИ+ Chocolate BvnnY'/>
+<party id = 'S29' region = 'Санкт-Петербург' shortname = 'М., 179 слева направо' name = 'Москва, 179: вот они слева направо…'/>
+<party id = 'S41' region = 'Санкт-Петербург' shortname = 'М., Л2Ш + 1329' name = 'Москва, Лицей Вторая школа + 1329: Баклан'/>
+<party id = 'S53' region = 'Санкт-Петербург' shortname = 'М., СУНЦ КАПЩА!' name = 'Москва, СУНЦ МГУ #7: КАПЩА!'/>
+<party id = 'S65' region = 'Санкт-Петербург' shortname = 'М., 2007 Парни' name = 'Москва, 2007: Суровые Бутовские Парни в вашей деревне'/>
+<party id = 'S77' region = 'Санкт-Петербург' shortname = 'М., 179 Calculus Dash' name = 'Москва, 179: Calculus Dash'/>
+<party id = 'S89' region = 'Санкт-Петербург' shortname = 'М., 179 + 1329' name = 'Москва, 179 + 1329: Криповые типы'/>
+<party id = 'S101' region = 'Санкт-Петербург' shortname = 'М., 2007 Обсуждаем' name = 'Москва, 2007: Обсуждаем задачи'/>
+<party id = 'S113' region = 'Санкт-Петербург' shortname = 'М., Летово+СУНЦ+Л2Ш' name = 'Москва, Летово + СУНЦ МГУ + Лицей Вторая школа: Ого! Кажетсья это $#@!'/>
+<party id = 'S125' region = 'Санкт-Петербург' shortname = 'М., СУНЦ g с шляпой' name = 'Москва, СУНЦ МГУ #3: g с шляпой'/>
+<party id = 'S137' region = 'Санкт-Петербург' shortname = 'М., 2101 + 444' name = 'Москва, 2101 + 444: *6.21*Team'/>
+<party id = 'S6' region = 'Санкт-Петербург' shortname = 'М., Летово' name = 'Москва, Летово: #define int long long'/>
+<party id = 'S18' region = 'Санкт-Петербург' shortname = 'Самара, Сборная' name = 'Самара, СамЛИТ+РЦОД+Перспектива: Totally Spies!'/>
+<party id = 'S30' region = 'Санкт-Петербург' shortname = 'Саратов, ФТЛ1 10' name = 'Саратов, ФТЛ №1 #10'/>
+<party id = 'S42' region = 'Санкт-Петербург' shortname = 'Самара, СамЛИТ' name = 'Самара, СамЛИТ: Фродо'/>
+<party id = 'S54' region = 'Санкт-Петербург' shortname = 'Саратов, ФТЛ1 13' name = 'Саратов, Физико-технический лицей №1 #13'/>
+<party id = 'S66' region = 'Санкт-Петербург' shortname = 'Саратов, Г1' name = 'Саратов, Гимназия №1 #1'/>
+<party id = 'S78' region = 'Санкт-Петербург' shortname = 'Саратов, ФТЛ1 14' name = 'Саратов, Физико-технический лицей №1 #14'/>
+<party id = 'S90' region = 'Санкт-Петербург' shortname = 'Тамбов, Л6' name = 'Тамбов, Лицей №6 #1'/>
+<party id = 'S102' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ + Г9' name = 'Екатеринбург, СУНЦ УрФУ + Гимназия №9: Три кота (два кота и одна кошечка)'/>
+<party id = 'S114' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ divAn' name = 'Екатеринбург, СУНЦ УрФУ: divAn'/>
+<party id = 'S126' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ ndust' name = 'Екатеринбург, СУНЦ УрФУ: ndust'/>
+<party id = 'S138' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ Всё решено' name = 'Екатеринбург, СУНЦ УрФУ: Всё решено, мама, я гум'/>
+<party id = 'S7' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ+Г9+Л130' name = 'Екатеринбург, СУНЦ УрФУ + Гимназия №9 + Лицей №130: СЕРЬЁЗНАЯ проблема'/>
+<party id = 'S19' region = 'Санкт-Петербург' shortname = 'Чел., ФМЛ31 Без' name = 'Челябинск, ФМЛ №31, Челябинск: Без всеросников'/>
+<party id = 'S31' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ квик квик' name = 'Екатеринбург, СУНЦ УрФУ: квик квик'/>
+<party id = 'S43' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ + Г9' name = 'Екатеринбург, СУНЦ УрФУ + Гимназия №9: Абрикос, Крыжовник, Лайм'/>
+<party id = 'S67' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ White space' name = 'Екатеринбург, СУНЦ УрФУ: White space'/>
+<party id = 'S79' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ+Г9+Север., 8' name = 'Екатеринбург, СУНЦ УрФУ + Гимназия №9 + Североуральск, Школа №8: MemoryLimit'/>
+<party id = 'S91' region = 'Санкт-Петербург' shortname = 'Екб., Г9' name = 'Екатеринбург, Гимназия №9: рофланпомойка'/>
+<party id = 'S103' region = 'Санкт-Петербург' shortname = 'Екб., СУНЦ физ-мат' name = 'Екатеринбург, СУНЦ УрФУ: физ-мат подгруппа мат-инф класса'/>
+<party id = 'S127' region = 'Санкт-Петербург' shortname = 'Рыбинск, Л2 1' name = 'Рыбинск, Лицей №2 #1'/>
+<party id = 'S139' region = 'Санкт-Петербург' shortname = 'Вологда, Единство' name = 'Вологда, Единство'/>
+<party id = 'S20' region = 'Санкт-Петербург' shortname = 'Рыбинск, Л2 2' name = 'Рыбинск, Лицей №2 #2'/>
+<party id = 'S32' region = 'Санкт-Петербург' shortname = 'Минск, Г29' name = 'Минск, Гимназия 29: BBK'/>
+<party id = 'S44' region = 'Санкт-Петербург' shortname = 'Гродно + Гожа + Брест' name = 'Гродно + Гожа + Брест: TriOLEXiya'/>
+<party id = 'S56' region = 'Санкт-Петербург' shortname = 'Витебск, Г8 + Г1' name = 'Витебск, Гимназия 8 + Гимназия 1: витебские ковры'/>
+<party id = 'S68' region = 'Санкт-Петербург' shortname = 'Витебск, Г8' name = 'Витебск, Гимназия 8: Барак один'/>
+<party id = 'S80' region = 'Санкт-Петербург' shortname = 'Гродно, Г' name = 'Гродно, Городская гимназия: Vstrecha228'/>
+<party id = 'S92' region = 'Санкт-Петербург' shortname = 'Минск, Л БГУ' name = 'Минск, Лицей БГУ #1: Бобэоби Вээоми'/>
+<party id = 'S104' region = 'Санкт-Петербург' shortname = 'Минск, Л БГУ + Г10' name = 'Минск, Лицей БГУ + Гимназия 10: !EOF'/>
+<party id = 'S116' region = 'Санкт-Петербург' shortname = 'Тюмень, ФМШ ФМШТО1' name = 'Тюмень, ФМШ: ФМШТО1'/>
+<party id = 'S128' region = 'Санкт-Петербург' shortname = 'Тюмень, ФМШ Фанаты' name = 'Тюмень, ФМШ: Фанаты Тимы Ковалева'/>
+<party id = 'S140' region = 'Санкт-Петербург' shortname = 'Ульяновск, Код успеха' name = 'Ульяновск, Центр развития школьников `Код Успеха`: Те челы, слева'/>
+<party id = 'S9' region = 'Санкт-Петербург' shortname = 'Ульяновск, Л20' name = 'Ульяновск, Многопрофильный лицей 20: Кванториум73'/>
+<party id = 'S21' region = 'Санкт-Петербург' shortname = 'Петр., Travmatologi' name = 'Петрозаводск, Travmatologi 2.0'/>
+<party id = 'S33' region = 'Санкт-Петербург' shortname = 'Петр., programming club' name = 'Петрозаводск, We were kicked out from programming club'/>
+<party id = 'S45' region = 'Санкт-Петербург' shortname = 'Пермь, Ш9 + М., СУНЦ' name = 'Пермь, Школа 9 + Москва, СУНЦ МГУ: Однажды Эрнест Хемингуэй…'/>
+<party id = 'S57' region = 'Санкт-Петербург' shortname = 'Пермь, Ш9 ИКАР' name = 'Пермь, Школа 9: ИКАР'/>
+<party id = 'S69' region = 'Санкт-Петербург' shortname = 'Челябинск, Л1 БКШ' name = 'Челябинск, Лицей 31: БКШ'/>
+<party id = 'S81' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 Трактор' name = 'Челябинск, Лицей 31: Пойми, Трактор, код'/>
+<party id = 'S93' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 Дрифт' name = 'Челябинск, Лицей 31: Копейский дрифт'/>
+<party id = 'S105' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 Листай' name = 'Челябинск, Лицей 31: листай дальше, нам нужно наверх'/>
+<party id = 'S117' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 Согласны' name = 'Челябинск, Лицей 31: Согласны(agree)?!?'/>
+<party id = 'S129' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 РаКаЛы' name = 'Челябинск, Лицей 31: РаКаЛы'/>
+<party id = 'S141' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 гг не будет' name = 'Челябинск, Лицей 31: гг не будет'/>
+<party id = 'S10' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 shrex' name = 'Челябинск, Лицей 31: shrex'/>
+<party id = 'S22' region = 'Санкт-Петербург' shortname = 'Челябинск, Л97' name = 'Челябинск, Лицей 97: dead in$ide'/>
+<party id = 'S34' region = 'Санкт-Петербург' shortname = 'Челябинск, Л31 ГуСИ++' name = 'Челябинск, Лицей 31: ГуСИ++'/>
+<party id = 'S46' region = 'Санкт-Петербург' shortname = 'Казань: Овощи' name = 'Казань: Преимущественно овощи'/>
+<party id = 'S58' region = 'Санкт-Петербург' shortname = 'Казань + Инн.: Тяночку' name = 'Казань + Иннополис: Тяночку бы…'/>
+<party id = 'S70' region = 'Санкт-Петербург' shortname = 'Казань, Л13+ЛИ7: Грибы' name = 'Казань, Лицей 13 + ЛИ 7: Грибы'/>
+<party id = 'S82' region = 'Санкт-Петербург' shortname = 'Казань, Г2 + ЛКФУ' name = 'Казань, Гимназия 2 + Лицей КФУ: Очпочмак'/>
+<party id = 'S94' region = 'Санкт-Петербург' shortname = 'Казань, ЛКФУ: Дровосеки' name = 'Казань, Лицей КФУ: Три дровосека'/>
+<party id = 'S106' region = 'Санкт-Петербург' shortname = 'Казань, ЛКФУ: N' name = 'Казань, Лицей КФУ: N'/>
+<party id = 'S118' region = 'Санкт-Петербург' shortname = 'Казань, ЛИнн.' name = 'Казань, Лицей Иннополис: Пользуясь случаем'/>
+<party id = 'S130' region = 'Санкт-Петербург' shortname = 'Казань, ITЛ: Деградируем' name = 'Казань, IT-лицей: Увлеченно деградируем'/>
+<party id = 'S142' region = 'Санкт-Петербург' shortname = 'Казань, ITЛ: imorir insecto!' name = 'Казань, IT-лицей: imorir insecto!'/>
+<party id = 'S11' region = 'Санкт-Петербург' shortname = 'Казань, ЛИ7: Li7' name = 'Казань, Лицей-интернат 7: Li7'/>
+<party id = 'S23' region = 'Санкт-Петербург' shortname = 'Казань, Г122: DRR' name = 'Казань, Гимназия 122: DRR'/>
+<party id = 'S35' region = 'Санкт-Петербург' shortname = 'Сосновый Бор, ОППА F5' name = 'Сосновый Бор, ОППА F5'/>
+<party id = 'S47' region = 'Санкт-Петербург' shortname = 'Великие Луки, ПКС' name = 'Великие Луки, ПКС'/>
+<party id = 'S59' region = 'Санкт-Петербург' shortname = 'Ивье+Лида: Наtaskaнные' name = 'Ивье + Лида: Наtaskaнные'/>
+<party id = 'S71' region = 'Санкт-Петербург' shortname = 'Саранск, РЛ: Тётя дзет' name = 'Саранск, Республиканский лицей: Тётя дзет'/>
+<party id = 'S83' region = 'Санкт-Петербург' shortname = 'НН, Л40 1' name = 'Нижний Новгород, Лицей 40 #1: Король Кекс'/>
+<party id = 'S95' region = 'Санкт-Петербург' shortname = 'НН, Л165: AMD' name = 'Нижний Новгород, Лицей 165: AMD'/>
+<party id = 'S107' region = 'Санкт-Петербург' shortname = 'Оленегорск, Ш4' name = 'Оленегорск, Школа 4: блинчики с мясом'/>
+<party id = 'S131' region = 'Санкт-Петербург' shortname = 'Новгород, Г2' name = 'Новгород, Гимназия 2'/>
+<party id = 'K012' region = 'Кременчуг' shortname = 'Крем., ПОЛИТ 4' name = 'Кременчуг, ПОЛИТ: Polit04(MVP)'/>
+<party id = 'K010' region = 'Кременчуг' shortname = 'Крем., ПОЛИТ 5' name = 'Кременчуг, ПОЛИТ: Polit05-Kushniteam'/>
+<party id = 'K008' region = 'Кременчуг' shortname = 'Крем., ПОЛИТ 3' name = 'Кременчуг, ПОЛИТ: Polit03 - Obidno, da?'/>
+<party id = 'K003' region = 'Кременчуг' shortname = 'Крем., ПОЛИТ 2' name = 'Кременчуг, ПОЛИТ: Polit02-WeNeedTeamName'/>
+<party id = 'K001' region = 'Кременчуг' shortname = 'Крем., ПОЛИТ 1' name = 'Кременчуг, ПОЛИТ: Polit01-Nazik_number_one'/>
+<party id = 'K005' region = 'Кременчуг' shortname = 'Крем., ПОЛИТ 11' name = 'Кременчуг, ПОЛИТ: Polit11'/>
+<party id = 'K004' region = 'Кременчуг' shortname = 'Ужгород, УЗСШІ: Hutsuls' name = 'Ужгород, УЗСШІ з ПВОП: Hutsuls'/>
+<party id = 'K011' region = 'Кременчуг' shortname = 'Киев, УФМЛ' name = 'Киев, УФМЛ: Terminators'/>
+<party id = 'K009' region = 'Кременчуг' shortname = 'Житомир, ЖМЦНТТУМ' name = 'Житомир, ЖМЦНТТУМ: Construktiv'/>
+<party id = 'K007' region = 'Кременчуг' shortname = 'Днепр, ЛИТ: Бегуны' name = 'Днепр, ЛИТ: Бегуны'/>
+<party id = 'K006' region = 'Кременчуг' shortname = 'Днепр, ЛИТ: Стартап' name = 'Днепр, ЛИТ: Стартап'/>
+<party id = 'K002' region = 'Кременчуг' shortname = 'Днепр, ЛИТ: Олимпийцы' name = 'Днепр, ЛИТ: Анонимные олимпийцы'/>
+</parties>

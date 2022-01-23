@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>                                         
+
+
+<parties
+    id = "qual.2021.prev"
+
+    xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+<party id = '607484' name = 'SPb BSTU: i582ch (Kapusta, Seliukhov, Vorobev)' />
+<party id = '607911' name = 'SPb BSTU: Polyuppers (Balkunov, Zuevskoy, Khokhlov)' />
+<party id = '605795' name = 'Mikhailovskaya Mil Artillery A: 1 (Marchenko, Pyankov, Spitsin)' />
+<party id = '605980' name = 'Mikhailovskaya Mil Artillery A: 2 (Semin, Gruzdev, Nekrasov)' />
+<party id = '605990' name = 'Mikhailovskaya Mil Artillery A: 3 (Slavin, Shabalin, Belotelov)' />
+<party id = '605999' name = 'Mikhailovskaya Mil Artillery A: 4 (Kopylov, Fetisov, Limonov)' />
+<party id = '605966' name = 'Mil A of Comm: flabby militants (Kurenckov, Sundukov, Sotin)' />
+<party id = '605975' name = 'Mil A of Comm: pestering calls (Sergeev, Kartavykh, Orlova)' />
+<party id = '604093' name = 'SPb Mozhaisky MSA: 1 (Aliev, Liyaskin, Zakharov)' />
+<party id = '608834' name = 'SPb Mozhaisky MSA: 2 (Gorbunov, Nesbytnov, Zaruchevskij)' />
+<party id = '604085' name = 'SPb Mozhaisky MSA: 3 (Fedorova, Golubeva, Bugaeva)' />
+<party id = '604087' name = 'SPb Mozhaisky MSA: 4 (Cheremuchin, Lukianenko, Malikov)' />
+<party id = '604088' name = 'SPb Mozhaisky MSA: 5 (Salbiev, Fedyanin, Blyudov)' />
+<party id = '605934' name = 'Murmansk Arctic SU: 1 (Markova, Baginskij, Lyamin)' />
+<party id = '605950' name = 'Murmansk Arctic SU: 2 (Borozdin, Gladun, Isaev)' />
+<party id = '606052' name = 'Murmansk Arctic SU: 3 (Zhuykov, Gushchin, Lev)' />
+<party id = '603613' name = 'Murmansk Arctic SU: 4 (Vinogradov, Karavka, Zhurauskas)' />
+<party id = '604227' name = 'Murmansk Arctic SU: Billy_fans (Kravchenko, Romanuck, Borisov)' />
+<party id = '607556' name = 'Murmansk Arctic SU: IVT-MP (Ovchinnikov, Poshevelya, Zagudaev)' />
+<party id = '607643' name = 'Murmansk Arctic SU: Rookie (Shumilov, Kravtsov, Antonov)' />
+<party id = '609821' name = 'Murmansk STU: Bug report (Gatin, Fedorov, Pozdeev)' />
+<party id = '604254' name = 'Murmansk STU: Fixiki (Kornilov, Vishnevskiy, Menshikov)' />
+<party id = '605135' name = 'Murmansk STU: Sardel&apos;ka (Tatarnikov, Bartashevich, Kaverin)' />
+<party id = '606053' name = 'Murmansk STU: team fortress 2 (Kulikov, Sushchenko, Bushova)' />
+<party id = '607063' name = 'Novgorod SU: 1 (Kydruashov, Shlyahanov, Shaklein)' />
+<party id = '607015' name = 'Petrozavodsk SU: adamant (Anisimov, Lezova, Sobianina)' />
+<party id = '607017' name = 'Petrozavodsk SU: Bukva yu (Potapova, Alshanin, Ermakov)' />
+<party id = '607018' name = 'Petrozavodsk SU: Chi111ife (Reikenen, Roitburd, Khusnutdinova)' />
+<party id = '607020' name = 'Petrozavodsk SU: pgt Shya (Krishtal, Masaeva, Koshkarev)' />
+<party id = '607021' name = 'Petrozavodsk SU: squd_dev (Korzhuk, Kruchinin, Simagin)' />
+<party id = '605890' name = 'Pskov SU: 1 (Nefedov, Deev, Nikiforov)' />
+<party id = '605924' name = 'Pskov SU: 2 (Petrov, Lebedev, Toporov)' />
+<party id = '602721' name = 'Russian S Hydromet U: 1 (Matyukhin, Pashentsev, Russkin)' />
+<party id = '601407' name = 'SPb Mining U: 3 (Bender, Brovchenko, Kilyakov)' />
+<party id = '601439' name = 'SPb Mining U: 4 (Erastov, Likhanova, Vorobyov)' />
+<party id = '607426' name = 'SPb Forest TU: C# (Popov, Makarov, Samsonov)' />
+<party id = '607428' name = 'SPb Forest TU: Door Model Team (Yakovlev, Lukina, Kasho)' />
+<party id = '608270' name = 'SPb Forest TU: Scary raptors (Kurguzov, Kutuzov, Ivanov)' />
+<party id = '607417' name = 'SPb Forest TU: StaregaTeam (Romanov, Tikhomirov, Larionov)' />
+<party id = '606169' name = 'SPb SU of Service and Econ: GeekPy (Luca, Ponomarev, Belik)' />
+<party id = '604244' name = 'SPb SU of Arch: C_plus_minus (Yastrebova, Tsyplakova, Vorobev)' />
+<party id = '604246' name = 'SPb SU of Arch: PARAVOZIK (Boitsov, Chernyshev, Smertin)' />
+<party id = '604240' name = 'SPb SU of Arch: Riverside (Fedorichev, Melnichenko, Cherevko)' />
+<party id = '605867' name = 'SPb SU of Arch: Shketi (Asadov, Bakirov, Skorykh)' />
+<party id = '607320' name = 'SPb BSTU: Bogosort (Alexandrov, Eremishin, Petrov)' />
+<party id = '607156' name = 'SPb BSTU: Exploding Kittens (Utkin, Lukashev, Bigachev)' />
+<party id = '607158' name = 'SPb BSTU: ITKittens (Kozlovsky, Prisyazhnyy, Rokhlin)' />
+<party id = '596188' name = 'SPb HSE: Lemon Tree (Surkov, Alferov, Makhnev)' />
+<party id = '606136' name = 'SPb HSE: roflan pomeshchiki (Salkaev, Brilliantov, Sukhodolskii)' />
+<party id = '607387' name = 'SPb ETU: Abobuses (Sabanov, Belkovsky, Lesnichenko)' />
+<party id = '607264' name = 'SPb ITMO: 11 (Chernookiy, Zakharov, Kolchenko)' />
+<party id = '607299' name = 'SPb ITMO: 17 (Karlukova, Nguyen, Vo)' />
+<party id = '607254' name = 'SPb ITMO: 19 (Aknazarov, Ustinov, Meshscheryakov)' />
+<party id = '609128' name = 'SPb ITMO: 28 (Fafurin, Savon, Amirov)' />
+<party id = '607298' name = 'SPb ITMO: #define private public (Galimzyanov, Smagliy, Erov)' />
+<party id = '607265' name = 'SPb ITMO: 07 (Sharipov, Tropin, Chinaeva)' />
+<party id = '607432' name = 'SPb ITMO: 3 CaTe (Chernishev, Levkov, Korobko)' />
+<party id = '608072' name = 'SPb ITMO: Average O(n!) enjoyers (Kotov, Zyzlaev, Belousov)' />
+<party id = '607275' name = 'SPb ITMO: BuhTeam (Andriyanov, Martynov, Eshkin)' />
+<party id = '607411' name = 'SPb ITMO: Cataleptodius (Oreshin, Hakimov, Ibraev)' />
+<party id = '607247' name = 'SPb ITMO: GOST (Dobryagin, Sladkov, Glinskikh)' />
+<party id = '608073' name = 'SPb ITMO: hw (Pleshakov, Filipchyk, Teplyakov)' />
+<party id = '607251' name = 'SPb ITMO: I don&apos;t know (Kutasin, Senkin, Manaev)' />
+<party id = '607295' name = 'SPb ITMO: IIIJP3K II (Vasilyev, Panov, Polchinsky)' />
+<party id = '607297' name = 'SPb ITMO: kumar (Korobeinikov, Labazov, Mamadshoev)' />
+<party id = '607271' name = 'SPb ITMO: NRU FAQ (Chernatskiy, Nyashin, Fitisov)' />
+<party id = '607259' name = 'SPb ITMO: old black maslo 54 y.o (Ushkov, Garipov, Kirsanov)' />
+<party id = '607250' name = 'SPb ITMO: pengzoo (Iakovlev, Golikov, Perveev)' />
+<party id = '607296' name = 'SPb ITMO: pi vyalue (Garipov, Dyuvenzhi, Vorkozhokov)' />
+<party id = '607262' name = 'SPb ITMO: Prefix Sum Fun Club (Drobunin, Ponomarenko, Tyapkin)' />
+<party id = '607263' name = 'SPb ITMO: RED FOLDER (Ruzavin, Sibiryakov, Borodin)' />
+<party id = '607256' name = 'SPb ITMO: rightwing catgirls (Atrashchenok, Veretennikov, Rafikov)' />
+<party id = '607491' name = 'SPb ITMO: TaskAcceptedException (Hruntov, Yatsuk, Damasevich)' />
+<party id = '607302' name = 'SPb ITMO: Unexpected Value (Stepanov, Kuzin, Tran)' />
+<party id = '609963' name = 'SPb ITMO: Usatoe-bratstvo (Rozhkov, Elizbarashvili, Marchenko)' />
+<party id = '607240' name = 'SPb ITMO: Winx (Abdurasul Kyzy, Erbaev, Neevin)' />
+<party id = '602856' name = 'SPb ITMO: YaMi (Vlasov, Panasyuk, Garmanov)' />
+<party id = '607300' name = 'SPb ITMO: ytAlex (Sharepa, Koveshnikov, Shishkin)' />
+<party id = '602739' name = 'SPb SPU: -322iq (Belonogov, Zolotuhin, Epifanov)' />
+<party id = '607571' name = 'SPb SPU: BetterJava (Shakirov, Milke, Kiselyov)' />
+<party id = '607104' name = 'SPb SPU: Binary Musk (Shergalis, Nazarov, Konstantinov)' />
+<party id = '605831' name = 'SPb SPU: Pyshki po 15 (Ershov, Son, Sazykin)' />
+<party id = '606568' name = 'SPb SPU: Team 300 (Sechko, Korzh, Romanov)' />
+<party id = '607603' name = 'SPb SU: 23 (Pakholiuk, Dyadenko, Bikeev)' />
+<party id = '607604' name = 'SPb SU: 24 (Kozlovtseva, Luchinin, Korkin)' />
+<party id = '607605' name = 'SPb SU: 25 (Trubnikov, Chukhin, Khabarov)' />
+<party id = '607607' name = 'SPb SU: 26 (Radionova, Agranovskii, Bezrukov)' />
+<party id = '607332' name = 'SPb SU: 27 (Gubkin, Maksimov, Smirnova)' />
+<party id = '607608' name = 'SPb SU: 28 (Vasilev, Yanin, Tutanov)' />
+<party id = '607610' name = 'SPb SU: 29 (Milshin, Kondratiuk, Tulchinskiy)' />
+<party id = '607611' name = 'SPb SU: 30 (Starkov, Oborin, Tsarev)' />
+<party id = '607612' name = 'SPb SU: 31 (Zaitsev, Petrov, Sevastianov)' />
+<party id = '607613' name = 'SPb SU: 32 (Paramonov, Im, Emdin)' />
+<party id = '607614' name = 'SPb SU: 33 (Fofanov, Hancharou, Shlenskikh)' />
+<party id = '607615' name = 'SPb SU: 34 (Kiselev, Pavliuchenkov, Pavel)' />
+<party id = '607616' name = 'SPb SU: 35 (Smolin, Sulgan, Degtiarev)' />
+<party id = '607644' name = 'SPb SU: 36 (Garaev, Cherepanova, Minnekhanov)' />
+<party id = '607646' name = 'SPb SU: 37 (Gordeev, Smirnov, Gryaznov)' />
+<party id = '607647' name = 'SPb SU: 38 (Shangareev, Gozhev, Urbanskii)' />
+<party id = '607650' name = 'SPb SU: 39 (Dudnikov, Logunov, Buchin)' />
+<party id = '607651' name = 'SPb SU: 40 (Esin, Brynskikh, Filimonov)' />
+<party id = '607652' name = 'SPb SU: 41 (Korol, Ahmatshin, Gabdulhakov)' />
+<party id = '607171' name = 'SPb SU: ?5 (Gaevoi, Petrov, Belichenko)' />
+<party id = '607173' name = 'SPb SU: Andrew Sergeevich (Grigoryev, Gorbachev, Ivanov)' />
+<party id = '605268' name = 'SPb SU: Botwa Jigurda (Saakyan, Mishura, Kravchenko)' />
+<party id = '607335' name = 'SPb SU: dataVase (Gladchenko, Musina, Budnikov)' />
+<party id = '607585' name = 'SPb SU: eto komanda (Savin, Ostapenko, Vyguzov)' />
+<party id = '607334' name = 'SPb SU: HOLY GANG (Belyaeva, Savinov, Melnikov)' />
+<party id = '607594' name = 'SPb SU: How to launch goose workers? (Fadeeva, Grebennikov, Milshin)' />
+<party id = '607337' name = 'SPb SU: jazz (Pospelov, Olemskaya, Fedorkina)' />
+<party id = '607590' name = 'SPb SU: Jet Set Radio (Malov, Belash, Leontev)' />
+<party id = '607592' name = 'SPb SU: LD_PRELOAD (Sadykov, Ibatov, Gavrilov)' />
+<party id = '607339' name = 'SPb SU: Lollipops (Aleshin, Khamzin, Zhdanko)' />
+<party id = '607341' name = 'SPb SU: NPM package (Panenkov, Novozhilov, Martynov)' />
+<party id = '607342' name = 'SPb SU: PUNK alco 24/7 (Romanychev, Romanov, Greben)' />
+<party id = '607586' name = 'SPb SU: PUNK Masters (Kiriushin, Podchischajlov, Bas)' />
+<party id = '607589' name = 'SPb SU: RiskyBeesness (Skalt, Tyuryaev, Kuznets)' />
+<party id = '607326' name = 'SPb SU: Sasha wants to go to PDMI (Schavelev, Sonina, Novozhilov)' />
+<party id = '607176' name = 'SPb SU: Sir Arthur (Averkov, Klimov, Akilov)' />
+<party id = '607177' name = 'SPb SU: Square Ball (Nechaev, Eremeev, Volochai)' />
+<party id = '607172' name = 'SPb SU: Team Chill It (Volkov, Khargelia, Pavlenko)' />
+<party id = '607587' name = 'SPb SU: Team Spirit (Pugin, Raikovskii, Dorosh)' />
+<party id = '600422' name = 'SPb SU of Economics: cat_SQUAD (Shulnyaev, Skibin, Erofeevsky)' />
+<party id = '606038' name = 'SPb SU of Economics: Eye Tea (Shaulskiy, Kalinin, Tutov)' />
+<party id = '596974' name = 'SPb SU of Economics: Python SQUAD (Zakharov, Motyleva, Lepekhina)' />
+<party id = '606035' name = 'SPb SU of Economics: Security guards (Gupalo, Pisotskiy, Seliverstov)' />
+<party id = '597029' name = 'SPb SU of Economics: team001374 (Goilik, Paliy, Romanov)' />
+<party id = '605606' name = 'SPb SU of Economics: Valhalla (Shikhaev, Pogodin, Zaytsev)' />
+<party id = '608468' name = 'SPb SU of Tech and Design: PMI (Khujamov, Ogay, Vavilova)' />
+<party id = '602645' name = 'SPb SU of Telecom: 1 (Volokh, Agarkov, Grushev)' />
+<party id = '602673' name = 'SPb SU of AI: 1703 (Zaripov, Nikiforov, Alekseev)' />
+<party id = '605201' name = 'SPb SU of AI: Anonymous (Chebykin, Mazurash, Titkov)' />
+<party id = '602674' name = 'SPb SU of AI: MegaSmetanka (Zhukov, Kurilov, Fesenko)' />
+<party id = '609557' name = 'SPb U of MIA RF: B1T (Zaytsev, Tyrtychko, Syagaev)' />
+<party id = '605103' name = 'Murmansk STU: Triple Zero (Pilipenko, Sudov, Firsov)' />
+<party id = '609991' name = 'Russian S Hydromet U: 1 (Kozlovskaya, Kutikova, Ajzenberg)' />
+<party id = '602728' name = 'Russian S Hydromet U: 3 (Romanova, Kushakov, Pyatak)' />
+<party id = '609990' name = 'SPb ITMO: 30 (Shanshin, Kolesov, Kurepin)' />
+<party id = '609962' name = 'SPb ITMO: Kormushki (Kislov, Kazakov, Varlamov)' />
+<party id = '609980' name = 'SPb ITMO: Tier A-S Team (Sinitcin, Lezhen, Prasolov)' />
+<party id = '607091' name = 'SPb SPU: 1 (Suknev, Gabrielian, Mrykhin)' />
+<party id = '607436' name = 'SPb SPU: 2 (Emelyanov, Muruz, Borisov)' />
+<party id = '608997' name = 'SPb SPU: Ozornoy Dilijans (Saakyan, Shvydkiy, Bogdanov)' />
+<party id = '607653' name = 'SPb SU: 42 (Bagramov, Konstantinov, Kozin)' />
+<party id = '607175' name = 'SPb SU: Insanely can be the first (Shefer, Shilyaeva, Karpovich)' />
+<party id = '607588' name = 'SPb SU: Pocelui mene uda4a (Babanov, Kremko, Batalshchikov)' />
+<party id = '606096' name = '* Murmansk Arctic SU: Pythagorases ()' />
+<party id = '609854' name = '* Murmansk STU: Ololoha! (Bolmosov, Urmanov)' />
+<party id = '605778' name = '* Murmansk STU: Tundra coders (Bakin, Smirnov)' />
+<party id = '604256' name = 'Murmansk STU: void main() (Shkodin, Rykov, Boyko)' />
+<party id = '601376' name = '* SPb Mining U: 1 (Vydrya, Razumov)' />
+<party id = '601377' name = 'SPb Mining U: 2 (Fedkov, Panova, Belokon)' />
+<party id = '601473' name = 'SPb Mining U: 5 (Savunov, Kosenko, Shishkina)' />
+<party id = '601505' name = '* SPb Mining U: 6 (Andreeva, Guseva)' />
+<party id = '607400' name = '* SPb Forest TU: Prometheus (Gavrilyuk, Knyshev)' />
+<party id = '606390' name = 'SPb HSE: HS of Abbreviations (Vasilevskij, Zakharenko, Ipatov)' />
+<party id = '606425' name = 'SPb HSE: Brawlers (Sarantsev, Peshkov, Babich)' />
+<party id = '606427' name = 'SPb HSE: HSE Peaky Blinders (Gromov, Kuksa, Pozdnyakov)' />
+<party id = '606408' name = 'SPb HSE: Just4Keks (Bukov, Trilis, Mosin)' />
+<party id = '607019' name = 'SPb HSE: Matanlove (Dymashevskij, Chayka, Shestakov)' />
+<party id = '606401' name = 'SPb HSE: Nesquik (Brovarnik, Muratidi, Yutman)' />
+<party id = '606392' name = 'SPb HSE: Pivo (Morozov, Sheremetov, Zhuravlev)' />
+<party id = '606394' name = 'SPb HSE: tricky_lifers (Denisov, Petrochenkov, Vsemirnov)' />
+<party id = '606404' name = 'SPb HSE: VIP (Elizbarashvili, Kholkin, Almazov)' />
+<party id = '603144' name = '* SPb ITMO: IIIP3K II ()' />
+<party id = '607461' name = '* SPb SPU: Ab absurdo 4 (Smolskij, Sukhanov)' />
+<party id = '608237' name = '* SPb SU: 43 ()' />
+<party id = '608238' name = '* SPb SU: 44 ()' />
+<party id = '608239' name = '* SPb SU: 45 ()' />
+<party id = '609993' name = 'SPb ITMO: pentesters (Bulaev, Sharifullin, Borovik)' />
+<party id = '609994' name = 'SPb ITMO: Here we code again (Muminova, Umarov, Borkin)' />
+<party id = '610000' name = 'SPb ITMO: Will be named later (Cherkashin, Kachmar, Fayzieva)' />
+<party id = '610009' name = 'SPb ITMO: ITMEN (Trofimov, Myasnikov, Sannikov)' />
+<party id = '610010' name = '* SPb ITMO: blank (Zabludovsky, Bakturin)' />
+<party id = '610006' name = 'SPb ITMO: 33 (Korniliev, Kurbangaleeva, Latanov)' />
+<party id = '610011' name = 'SPb ITMO: Grandmasters (Mikhailov, Shirikov, Suponev)' />
+<party id = '610012' name = 'SPb ITMO: BigBlackSock (Vybornov, Zhimoedov, Sultanov)' />
+</parties>

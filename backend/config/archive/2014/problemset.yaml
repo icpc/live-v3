@@ -1,0 +1,60 @@
+problems:
+  - letter:     A
+    short-name: baggage
+    color:      purple
+    rgb:        #60008C
+  
+  - letter:     B
+    short-name: buffet
+    color:      red
+    rgb:        #F34423
+  
+  - letter:     C
+    short-name: crane
+    color:      light blue
+    rgb:        #84C1FF
+  
+  - letter:     D
+    short-name: game
+    color:      light pink
+    rgb:        #EECBC1
+  
+  - letter:     E
+    short-name: maze
+    color:      green
+    rgb:        #6FE30F
+
+  - letter:     F
+    short-name: messenger
+    color:      pink
+    rgb:        #B86780
+
+  - letter:     G
+    short-name: metal
+    color:      orange
+    rgb:        #FFB731
+
+  - letter:     H
+    short-name: pachinko
+    color:      white
+    rgb:        #ffffff
+
+  - letter:     I
+    short-name: sensor
+    color:      grey
+    rgb:        #B3B3B3
+
+  - letter:     J
+    short-name: skiing
+    color:      dark blue
+    rgb:        #4D89C6
+
+  - letter:     K
+    short-name: surveillance
+    color:      yellow
+    rgb:        #FFF400
+
+  - letter:     L
+    short-name: wire
+    color:      black
+    rgb:        #000000

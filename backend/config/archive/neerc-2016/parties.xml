@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<parties
+ id = "neerc-2016"
+ xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+<party id = 'K101' region="Kyrgyzstan" shortname='American UCA 1' name = 'American University - Central Asia 1 (Derkenbaev, Kim, Kydyraliev)'/>
+<party id = 'K102' region="Kyrgyzstan" shortname='American UCA 2' name = 'American University - Central Asia 2 (Akramov, Khasanza, Talantbekov)'/>
+<party id = 'K162' shortname='Atyrau SU' name = 'Atyrau State University (Ergozhieva, Kabidenova, Zhanbolayev)'/>
+<party id = 'K169' shortname='East Kazakh STU' name = 'D. Serikbayev East Kazakhstan State Technical University (Aulbekov, Kolotvinov, Shakenov)'/>
+<party id = 'K103' region="Almaty" shortname='Eurasian NU 1' name = 'Eurasian National University named L.N. Gumilev 1 (Duisenbayev, Nurbek, Sultan)'/>
+<party id = 'K104' region="Almaty" shortname='Eurasian NU 2' name = 'Eurasian National University named L.N. Gumilev 2 (Karakozha, Muslim, Yessenbayev)'/>
+<party id = 'K105' region="Almaty" shortname='Eurasian NU 3' name = 'Eurasian National University named L.N. Gumilev 3 (Abdilmanov, Zhaksylyk, Zhussupov)'/>
+<party id = 'K112' region="Kyrgyzstan" shortname='ATATURK U 1' name = 'International ATATURK-ALATOO University 1 (Isaev, Kenzhaliev, Zhusubaliev)'/>
+<party id = 'K113' region="Kyrgyzstan" shortname='ATATURK U 2' name = 'International ATATURK-ALATOO University 2 (Akylbek, Kamil, Omurbek)'/>
+<party id = 'K114' region="Almaty" shortname="Int IT U 1" name = 'International IT University 1 (Kim, Satylkhanov, Sultan)'/>
+<party id = 'K115' region="Almaty" shortname="Int IT U 2" name = 'International IT University 2 (Auganov, Dauirkhan, Oral)'/>
+<party id = 'K116' region="Almaty" shortname="Int IT U 3" name = 'International IT University 3 (Abdysalam, Bakhoduri, Chesnokov)'/>
+<party id = 'K117' region="Almaty" shortname="Int IT U 4" name = 'International IT University 4 (Abdrakhman, Kabdoldin, Mukhtarkhanuly)'/>
+<party id = 'K118' region="Almaty" shortname="Karaganda STU 1" name = 'Karaganda State Technical University 1 (Daukishov, Frolov, Kim)'/>
+<party id = 'K170' region="Almaty" shortname="Karaganda STU 2" name = 'Karaganda State Technical University 2 (Marushka, Omar, Velinskiy)'/>
+<party id = 'K119' region="Almaty" shortname="Kazakh NU 1" name = 'Kazakh National University named Al-Farabi 1 (Kassymbek, Mustafin, Torekul)'/>
+<party id = 'K120' region="Almaty" shortname="Kazakh NU 2" name = 'Kazakh National University named Al-Farabi 2 (Dossanov, Kadyrbek, Mambetniyazov)'/>
+<party id = 'K121' region="Almaty" shortname="Kazakh NU 3" name = 'Kazakh National University named Al-Farabi 3 (Baydaliyev, Salimkhan, Zholmukhanov)'/>
+<party id = 'K122' region="Almaty" shortname="KBTU 1" name = 'Kazakh-British Technical University 1 (Aman, Amanov, Nurmash)'/>
+<party id = 'K123' region="Almaty" shortname="KBTU 2" name = 'Kazakh-British Technical University 2 (Aitzhan, Kenzhegaliyev, Mussinov)'/>
+<party id = 'K124' region="Almaty" shortname="KBTU 3" name = 'Kazakh-British Technical University 3 (Bolatbekov, Amanov, Akhanov)'/>
+<party id = 'K125' region="Almaty" shortname="KBTU 4" name = 'Kazakh-British Technical University 4 (Bekbergen, Nezametdinov, Seydazimov)'/>
+<party id = 'K126' region="Almaty" shortname="KBTU 5" name = 'Kazakh-British Technical University 5 (Tolegenov, Toremuratuly, Zhussupov)'/>
+<party id = 'K127' region="Almaty" shortname="Kaz Branch MSU 1" name = 'Kazakhstan Branch of Moscow State University 1 (Abaiuly, Kamalbekov, Zhuravskaya)'/>
+<party id = 'K131' region="Kyrgyzstan" shortname="Kyrgyz-Turkey MU" name = 'Kyrgyz -Turkey Manas University (Alybaev, Kubanychbekov, Kudaiberdi)'/>
+<party id = 'K132' region="Uzbekistan" shortname="MSU Tashkent 1" name = 'Moscow State University - Tashkent 1 (Akhmedshin, Kosimov, Shin)'/>
+<party id = 'K133' region="Uzbekistan" shortname="MSU Tashkent 2" name = 'Moscow State University - Tashkent 2 (Karaev, Komilova, Pak)'/>
+<party id = 'K134' region="Uzbekistan" shortname="MSU Tashkent 3" name = 'Moscow State University - Tashkent 3 (Kudratullayev, Makhsudov, Suyunbekova)'/>
+<party id = 'K136' region="Uzbekistan" shortname="NU Uzbek 1" name = 'National University of Uzbekistan 1 (Abdurakhmonov, Khasanov, Umarov)'/>
+<party id = 'K137' region="Uzbekistan" shortname="NU Uzbek 2" name = 'National University of Uzbekistan 2 (Agzamov, Akbarov, Israilov)'/>
+<party id = 'K138' region="Almaty" shortname="Nazarbayev U 1" name = 'Nazarbayev University 1 (Adilbekov, Aitzhanov, Kalmurzayev)'/>
+<party id = 'K139' region="Almaty" shortname="Nazarbayev U 2" name = 'Nazarbayev University 2 (Jubatyrov, Khagay, Orynkul)'/>
+<party id = 'K140' region="Almaty" shortname="Nazarbayev U 3" name = 'Nazarbayev University 3 (Mademikhanov, Muryshkin, Toktasynov)'/>
+<party id = 'K141' region="Almaty" shortname="Nazarbayev U 4" name = 'Nazarbayev University 4 (Ilyassov, Kabdygali, Manabayev)'/>
+<party id = 'K143' region="Almaty" shortname="Suleyman D U 1" name = 'Suleyman Demirel University 1 (Seitov, Zharkyn, Zigangirov)'/>
+<party id = 'K144' region="Almaty" shortname="Suleyman D U 2" name = 'Suleyman Demirel University 2 (Aimakov, Akhmetov, Damiyev)'/>
+<party id = 'K145' region="Almaty" shortname="Suleyman D U 3" name = 'Suleyman Demirel University 3 (Mussin, Omar, Tursynbek)'/>
+<party id = 'K146' region="Almaty" shortname="Suleyman D U 4" name = 'Suleyman Demirel University 4 (Kabirov, Nadyrmagambet, Orazgalieva)'/>
+<party id = 'K158' region="Kyrgyzstan" shortname="KSUCTA" name = 'The Institute of New Information Technologies at KSUCTA (Mazurov, Melisbekov, Moldaliev)'/>
+<party id = 'K159' region="Almaty" shortname="U of I Business" name = 'University of International Business (Karkazan, Zhigmytov, Zhuman)'/>
+<party id = 'K160' region="Uzbekistan" shortname="Urgench SU" name = 'Urgench State University (Allayarov, Matlatipov, Sabirov)'/>
+<party id = 'K161' region="Uzbekistan" shortname="Westminster IU" name = 'Westminster International University in Tashkent (Ikramov, Saidkhodjaev, Umidov)'/>
+<party id = 'K172' shortname="KBTU 7" name = '* Kazakh-British Technical University 7 (Dyussenaliyev, Sarsenbi, )'/>
+<party id = 'K163' shortname="KTBU 6" name = '* Kazakh-British Technical University 6 (Kali, Kurbanov, Nuptebek)'/>
+<party id = 'K164' shortname="ETU" name = '* ETU (Berezin, Orazbayev, Nurgaliyev)'/>
+<party id = 'K165' shortname="Nazarbayev U 5" name = '* Nazarbayev University (Sailanbayev, Kalidolda, Nurgabylov)'/>
+<party id = 'K166' shortname="Kazakh NU 5" name = '* Kazakh National University named Al-Farabi 5 (Mahambetgul, Bersenaly, Kenzhebek)'/>
+<party id = 'K167' shortname="Nazarbayev U 8" name = '* Nazarbayev University 8 (Kabdygali, Ilyasov, Manabayev)'/>
+<party id = 'K168' shortname="Int IT U 5" name = '* International IT University 5 (Abdrashn, Aben, Moldagaliev)'/>
+<party id = 'B109' region="West-Siberian" shortname="Altai STU 1" name = 'Altai State Technical University 1 (Ananev, Fast, Lozhkina)'/>
+<party id = 'B141' region="West-Siberian" shortname="Altai STU 2" name = 'Altai State Technical University 2 (Galkin, Kozlov, Kozlov)'/>
+<party id = 'B101' region="West-Siberian" shortname="Altai STU 3" name = 'Altai State Technical University 3 (Lopatin, Renjov, Zyablitskiy)'/>
+<party id = 'B120' region="West-Siberian" shortname="Altai STU 4" name = 'Altai State Technical University 4 (Babushkin, Dyadushenko, Nekrasov)'/>
+<party id = 'B142' region="East-Siberian" shortname="Baikal SU E and L" name = 'Baikal State University of Economics and Law (Fontosh, Golyandin, Savin)'/>
+<party id = 'B112' region="East-Siberian" shortname="Buryat SU 1" name = 'Buryat State University 1 (Bykova, Filippov, Maltsev)'/>
+<party id = 'B136' region="East-Siberian" shortname="Buryat SU 2" name = 'Buryat State University 2 (Badagarov, Guslyakov, Tsydypova)'/>
+<party id = 'B134' region="East-Siberian" shortname="East-Siberian STU" name = 'East-Siberian State Technological University (Bolsoboev, Timofeev, Zhigdorzhiev)'/>
+<party id = 'B144' region="Far-Eastern" shortname="Far Eastern FU 2" name = 'Far Eastern Federal University 2 (Danilov, Shchurov, Zhikhareva)'/>
+<party id = 'B113' region="Far-Eastern" shortname="Far Eastern FU 3" name = 'Far Eastern Federal University 3 (Babich, Dobrynin, Ian)'/>
+<party id = 'B108' region="Far-Eastern" shortname="Far Eastern STU" name = 'Far Eastern State Transportation University (Pisaniy, Seredkin, Usmanov)'/>
+<party id = 'B129' region="East-Siberian" shortname="Irkutsk STU" name = 'Irkutsk State Technical University (Chekan, Fefelov, Skorobogatov)'/>
+<party id = 'B104' region="East-Siberian" shortname="Irkutsk SU 1" name = 'Irkutsk State University 1 (Kondakov, Latyshev, Manich)'/>
+<party id = 'B138' region="East-Siberian" shortname="Irkutsk SU 2" name = 'Irkutsk State University 2 (Antonov, Chumachenko, Sosnerzh)'/>
+<party id = 'B127' region="West-Siberian" shortname="Kemerovo SU" name = 'Kemerovo State University (Bashkirova, Chernousov, Yuskeev)'/>
+<party id = 'B121' region="East-Siberian" shortname="Khakas SU" name = 'Khakas State University (Dron, Tumoyakov, Zemlyanikin)'/>
+<party id = 'B133' region="East-Siberian" shortname="Krasnoyarsk SPU" name = 'Krasnoyarsk State Pedagogical University (Gilyazov, Stankovskii, Strelnikova)'/>
+<party id = 'B117' region="Kyrgyzstan" shortname="Kyrgyz RSU 1" name = 'Kyrgyz Russian Slavic University 1 (Akparaliev, Mustafin, Sapozhnikov)'/>
+<party id = 'B132' region="Kyrgyzstan" shortname="Kyrgyz RSU 2" name = 'Kyrgyz Russian Slavic University 2 (Abdirazakov, Aldaiarov, Bubnov)'/>
+<party id = 'B111' region="Kyrgyzstan" shortname="Kyrgyz TU" name = 'Kyrgyz Technical University (Bolotbek, Askar, Danil)'/>
+<party id = 'B118' region="Far-Eastern" shortname="North-Eastern FU" name = 'North-Eastern Federal University (Dobretsov, Khokholov, Prokopiev)'/>
+<party id = 'B135' region="West-Siberian" shortname="Novosibirsk SPU" name = 'Novosibirsk State Pedagogical University (Rozov, Semenova, Taraskin)'/>
+<party id = 'B143' region="West-Siberian" shortname="Novisibirsk STU 1" name = 'Novosibirsk State Technical University 1 (Ilinykh, Kunts, Prokopyev)'/>
+<party id = 'B102' region="West-Siberian" shortname="Novisibirsk STU 2" name = 'Novosibirsk State Technical University 2 (Kozhekin, Sypko, Utyuganov)'/>
+<party id = 'B140' region="West-Siberian" shortname="Novisibirsk STU 3" name = 'Novosibirsk State Technical University 3 (Kochneva, Koptev, Makarov)'/>
+<party id = 'B122' region="West-Siberian" shortname="Novosibirsk STU 4" name = 'Novosibirsk State Technical University 4 (Katunov, Potapeyko, Sitnikov)'/>
+<party id = 'B106' region="West-Siberian" shortname="Novosibirk SU 1" name = 'Novosibirsk State University 1 (Smirnov, Viktorov, Vishnevskiy)'/>
+<party id = 'B125' region="West-Siberian" shortname="Novosibirk SU 2"  name = 'Novosibirsk State University 2 (Baranov, Karpovsky, Naumenko)'/>
+<party id = 'B147' region="West-Siberian" shortname="Novosibirk SU 3" name = 'Novosibirsk State University 3 (Litvinov, Sklyarov, Skresanov)'/>
+<party id = 'B107' region="West-Siberian" shortname="Novosibirk SU 4" name = 'Novosibirsk State University 4 (Arkhipov, Matveev, Permyashkin)'/>
+<party id = 'B137' region="West-Siberian" shortname="Omsk SU 1" name = 'Omsk State University 1 (Evsyukov, Kudyk, Valchuk)'/>
+<party id = 'B128' region="West-Siberian" shortname="Omsk SU 2" name = 'Omsk State University 2 (Krivosheeva, Sakhno, Shatov)'/>
+<party id = 'B115' region="West-Siberian" shortname="Rubtsovsk IU" name = 'Rubtsovsk Industrial Institute (Kopylova, Lunev, Nagih)'/>
+<party id = 'B124' region="East-Siberian" shortname="Siberian FU 1" name = 'Siberian Federal University 1 (Gritsiv, Halturin, Levanyuk)'/>
+<party id = 'B119' region="East-Siberian" shortname="Siberian FU 2" name = 'Siberian Federal University 2 (Melnikov, Platonov, Zelenin)'/>
+<party id = 'B126' region="East-Siberian" shortname="Siberian FU 3" name = 'Siberian Federal University 3 (Samodelov, Shapovalov, Yovenko)'/>
+<party id = 'B130' region="East-Siberian" shortname="Siberian SU TI 1" name = 'Siberian State University of Telecommunication &amp; Informatics 1 (Boldakov, Turtsev, Velichko)'/>
+<party id = 'B103' region="East-Siberian" shortname="Siberian SU TI 2" name = 'Siberian State University of Telecommunication &amp; Informatics 2 (Dubinin, Pletyuhin, Sakharov)'/>
+<party id = 'B123' region="West-Siberian" shortname="Tomsk PU 1" name = 'Tomsk Polytechnic University 1 (Golub, Kuzivanov, Vetrov)'/>
+<party id = 'B105' region="West-Siberian" shortname="Tomsk PU 2" name = 'Tomsk Polytechnic University 2 (Iovlev, Kuznetsova, Maksimova)'/>
+<party id = 'B116' region="West-Siberian" shortname="Tomsk PU 3" name = 'Tomsk Polytechnic University 3 (Babichev, Chursina, Mnatsakanyan)'/>
+<party id = 'B114' region="West-Siberian" shortname="Tomsk PU 4" name = 'Tomsk Polytechnic University 4 (Bakulin, Komarov, Nesterenko)'/>
+<party id = 'B131' region="West-Siberian" shortname="Tomsk SU 1" name = 'Tomsk State University 1 (Ryakin, Varlakov, Victor)'/>
+<party id = 'B145' region="West-Siberian" shortname="Tomsk SU 2" name = 'Tomsk State University 2 (Grudinin, Kotov, Zhukovskaja)'/>
+<party id = 'B146' region="West-Siberian" shortname="Tomsk SU CSR 1" name = 'Tomsk State University of Control Systems and Radioelectronics 1 (Bogomolov, Bukreyev, Zakharov)'/>
+<party id = 'B139' region="West-Siberian" shortname="Tomsk SU CSR 2" name = 'Tomsk State University of Control Systems and Radioelectronics 2 (Biryukova, Reshetov, Skryl)'/>
+<party id = 'B110' region="East-Siberian" shortname="Transbaikal SU" name = 'Transbaikal State University (Baklanov, Khazagarov, Yatsenko)'/>
+<party id = 'B153' region="West-Siberian" shortname="Ugra SU" name = 'Ugra State University (Petrochenko, Shitselov, Yakimchuk)'/>
+<party id = 'S215' region="Western" shortname="Brest SU" name = 'Alexander Pushkin Brest State University (Paliukhovich, Patsiomkin, Sobin)'/>
+<party id = 'S105' region="Southern" shortname="Astrakhan SU" name = 'Astrakhan State University (Ilmensky, Kolesnikov, Sidorov)'/>
+<party id = 'S602' region="Moscow" shortname="Bauman MSTU" name = 'Bauman Moscow State Technical University (Kudryavtsev, Rudnev, Zashikhin)'/>
+<party id = 'S521' region="Western" shortname="BSU 1" name = 'Belarusian State University 1 (Kulik, Sataneuski, Vilcheuski)'/>
+<party id = 'S408' region="Western" shortname="BSU 2" name = 'Belarusian State University 2 (Shaftsialevich, Vasileuski, Zdanovich)'/>
+<party id = 'S207' region="Western" shortname="BSU 3" name = 'Belarusian State University 3 (Kim, Lukyanov, Vityaz)'/>
+<party id = 'S102' region="Western" shortname="BSU 4" name = 'Belarusian State University 4 (Hrechykha, Medyanikov, Natalevich)'/>
+<party id = 'S702' region="Western" shortname="BSUIR 1" name = 'Belarusian SU of Information and Radioelectron. 1 (Sobal, Valchok, Vistiazh)'/>
+<party id = 'S510' region="Western" shortname="BSUIR 2" name = 'Belarusian SU of Information and Radioelectron. 2 (Darashkevich, Razhkou, Tsiliupa)'/>
+<party id = 'S106' region="Western" shortname="BSUIR 3" name = 'Belarusian SU of Information and Radioelectron. 3 (Kulichok, Medunetski, Novikov)'/>
+<party id = 'S710' region="Eastern" shortname="Chel SU" name = 'Chelyabinsk State University (Anfalov, Anfalova, Voronin)'/>
+<party id = 'S606' region="Taurida" shortname="Crimean NU 1" name = 'Crimean National University 1 (Alekseeva, Bidanets, Voinovsky)'/>
+<party id = 'S709' region="Taurida" shortname="Crimean NU 2" name = 'Crimean National University 2 (Berezin, Farikov, Shtanko)'/>
+<party id = 'S309' region="Taurida" shortname="Crimean NU 3" name = 'Crimean National University 3 (Dudko, Opryshko, Saada)'/>
+<party id = 'S414' region="Far-Eastern" shortname="Far Eastern FU 1" name = 'Far Eastern Federal University 1 (Kuznetcov, Miroedov, Zubarev)'/>
+<party id = 'S508' region="Moscow" shortname="HSE 1" name = 'Higher School of Economics 1 (Danilyuk, Kalashnikov, Svyatokum)'/>
+<party id = 'S607' region="Moscow" shortname="HSE 2" name = 'Higher School of Economics 2 (Aleksandrov, Kashin, Zetilov)'/>
+<party id = 'S108' region="Moscow" shortname="HSE 3" name = 'Higher School of Economics 3 (Iskhakov, Khadaev, Lazarev)'/>
+<party id = 'S203' region="Moscow" shortname="HSE 4" name = 'Higher School of Economics 4 (Mokriy, Posobin, Sabyanin)'/>
+<party id = 'S706' region="Moscow" shortname="HSE 5" name = 'Higher School of Economics 5 (Fedorov, Gladkov, Zimin)'/>
+<party id = 'S608' region="Western" shortname="Kant BFU" name = 'Immanuel Kant Baltic Federal University (Balobanov, Knizhnik, Mosyagin)'/>
+<party id = 'S214' region="Eastern" shortname="Izhevsk STU 1" name = 'Izhevsk State Technical University 1 (Bulatov, Filimonov, Tatarinov)'/>
+<party id = 'S513' region="Eastern" shortname="Izhevsk STU 2" name = 'Izhevsk State Technical University 2 (Maksimov, Poskrebyshev, Sebeldin)'/>
+<party id = 'S307' region="Eastern" shortname="Izhevsk STU 3" name = 'Izhevsk State Technical University 3 (Gorodilov, Musin, Naymushin)'/>
+<party id = 'S210' region="Western" shortname="Kaunas UT" name = 'Kaunas University of Technology (Garbonis, NaruЕЎis, NauДЌius)'/>
+<party id = 'S711' region="Southern" shortname="Kazan FU 1" name = 'Kazan Federal University 1 (Azimov, Savelyev, Zhumaniyozov)'/>
+<party id = 'S411' region="Southern" shortname="Kazan FU 2" name = 'Kazan Federal University 2 (Balakirev, Gazizov, Nigmatullin)'/>
+<party id = 'S504' region="Western" shortname="Latvia U 1" name = 'Latvia University 1 (Kuznecovs, Pakalns, Zajakins)'/>
+<party id = 'S807' region="Western" shortname="Latvia U 2" name = 'Latvia University 2 (Civkulis, Klevickis, Larka)'/>
+<party id = 'S202' region="Southern" shortname="Mordovian SU" name = 'Mordovian State University (Korovin, Kuznetsov, Nemchinova)'/>
+<party id = 'S605' region="Moscow" shortname="MAI 1" name = 'Moscow Aviation Institute 1 (Korovin, Mingalev, Trofimov)'/>
+<party id = 'S503' region="Moscow" shortname="MAI 2" name = 'Moscow Aviation Institute 2 (Bezrukov, Grigoriev, Mokin)'/>
+<party id = 'S213' region="Moscow" shortname="MEPhI" name = 'Moscow Engineering Physics Institute (Akimutin, Korotkikh, Romanov)'/>
+<party id = 'S805' region="Moscow" shortname="MIPT 1" name = 'Moscow Institute of Physics and Technology 1 (Semenov, Smirnov, Zhuk)'/>
+<party id = 'S308' region="Moscow" shortname="MIPT 2" name = 'Moscow Institute of Physics and Technology 2 (Kalinichenko, Sergunin, Stepanov)'/>
+<party id = 'S514' region="Moscow" shortname="MIPT 3" name = 'Moscow Institute of Physics and Technology 3 (Belykh, Popovkin, Proskurin)'/>
+<party id = 'S707' region="Moscow" shortname="MIPT 4" name = 'Moscow Institute of Physics and Technology 4 (Komendantyan, Kulkov, Machula)'/>
+<party id = 'S109' region="Moscow" shortname="MIPT 5" name = 'Moscow Institute of Physics and Technology 5 (Kalinin, Makarov, Mosyagin)'/>
+<party id = 'S415' region="Moscow" shortname="MIPT 6" name = 'Moscow Institute of Physics and Technology 6 (Murzin, Romanenko, Ulyanin)'/>
+<party id = 'S206' region="Moscow" shortname="MSU 1" name = 'Moscow State University 1 (Martynov, Olshanskii, Yagudin)'/>
+<party id = 'S804' region="Moscow" shortname="MSU 2" name = 'Moscow State University 2 (Chufarovskiy, Khalin, Ozhiganov)'/>
+<party id = 'S715' region="Moscow" shortname="MSU 3" name = 'Moscow State University 3 (Bagrov, Kuplyakov, Lakhtanov)'/>
+<party id = 'S512' region="Moscow" shortname="MSU 4" name = 'Moscow State University 4 (Oplachko, Plyushkin, Soloviev)'/>
+<party id = 'S516' region="Nothern" shortname="Mozhaisky MSA" name = 'Mozhaisky Military Space Academy (Ilatovskiy, Kravchenko, Vladislav)'/>
+<party id = 'S505' region="Moscow" shortname="NRU of ET" name = 'National Research University of Electronic Tech. (Kalyagina, Kolesnikova, Terentyev)'/>
+<party id = 'S211' region="Southern" shortname="NNSTU" name = 'Nizhny Novgorod State Technical University (Kazantaev, Neimuschev, Tikhonov)'/>
+<party id = 'S406' region="Nothern" shortname="Nothern FU" name = 'Northern (Arctic) Federal University (Guriev, Popovich, Sysoeva)'/>
+<party id = 'S518' region="Moscow" shortname="MISIS 1" name = 'NU of Science and Technology MISiS 1 (Lopatnikov, Lopukhov, Ovchinkin)'/>
+<party id = 'S418' region="Moscow" shortname="MISIS 2" name = 'NU of Science and Technology MISiS 2 (Kualgin, Romanov, Tropin)'/>
+<party id = 'S704' region="Central" shortname="Orel SU" name = 'Orel State University (Baranov, Strygin, Vorobjov)'/>
+<party id = 'S519' region="Eastern" shortname="Orenburg SU" name = 'Orenburg State University (Larin, Moskaleva, Pilipenko)'/>
+<party id = 'S601' region="Eastern" shortname="Perm HSE" name = 'Perm Higher School of Economics (Faletov, Gaynetdinova, Kuchev)'/>
+<party id = 'S303' region="Eastern" shortname="Perm SU 1" name = 'Perm State University 1 (Kuchumov, Mayorov, Pryshchenko)'/>
+<party id = 'S409' region="Eastern" shortname="Perm SU 2" name = 'Perm State University 2 (Lizunov, Tsaplin, Tsaplin)'/>
+<party id = 'S301' region="Nothern" shortname="Petrozavodsk SU 1" name = 'Petrozavodsk State University 1 (Ermishin, Filev, Starkov)'/>
+<party id = 'S810' region="Nothern" shortname="Petrozavodsk SU 2" name = 'Petrozavodsk State University 2 (Alkin, Ermolin, Titov)'/>
+<party id = 'S802' region="Central" shortname="Rybinsk SATU 1" name = 'Rybinsk State Aviation Technical University 1 (Bolotin, Kamenko, Skrynnik)'/>
+<party id = 'S403' region="Central" shortname="Rybinsk SATU 2" name = 'Rybinsk State Aviation Technical University 2 (Kozhevnikov, Obolensky, Smirnov)'/>
+<party id = 'S801' region="Southern" shortname="Samara NRU 1" name = 'Samara National Research University 1 (Bezrukov, Muravjev, Ponomarev)'/>
+<party id = 'S412' region="Southern" shortname="Samara NRU 2" name = 'Samara National Research University 2 (Dimitrov, Fattakhov, Nugmanov)'/>
+<party id = 'S212' region="Southern" shortname="Samara NRU 3" name = 'Samara National Research University 3 (Grinina, Murtazin, Rykov)'/>
+<party id = 'S701' region="Southern" shortname="Saratov SU 1" name = 'Saratov State University 1 (Finiutin, Los, Sagunov)'/>
+<party id = 'S806' region="Southern" shortname="Saratov SU 2" name = 'Saratov State University 2 (Kireev, Ripinen, Smirnov)'/>
+<party id = 'S104' region="Southern" shortname="Saratov SU 3" name = 'Saratov State University 3 (Androsov, Dalabaev, Petrov)'/>
+<party id = 'S417' region="Southern" shortname="Saratov SU 4" name = 'Saratov State University 4 (Demina, Kurylev, Slutskiy)'/>
+<party id = 'S716' region="Taurida" shortname="Sevastopol SU" name = 'Sevastopol State University (Burkov, Kosaya, Levchenko)'/>
+<party id = 'S808' region="Moscow" shortname="Skolkovo I" name = 'Skolkovo I of Science and Technology (Belov, Burkov, Karpenko)'/>
+<party id = 'S107' region="Eastern" shortname="South Ural SU 1" name = 'South Ural State University 1 (Ashikhmin, Sapronov, Shaveinikov)'/>
+<party id = 'S713' region="Eastern" shortname="South Ural SU 2" name = 'South Ural State University 2 (Lyzhin, Petrov, Romass)'/>
+<party id = 'S501' region="Eastern" shortname="South Ural SU 3" name = 'South Ural State University 3 (Basmanov, Mironov, Obukhov)'/>
+<party id = 'S302' region="Eastern" shortname="South Ural SU 4" name = 'South Ural State University 4 (Belyaev, Klopov, Shurunov)'/>
+<party id = 'S216' region="Southern" shortname="Southern FU" name = 'Southern Federal University (Chizhik, Sviridkin, Velmisov)'/>
+<party id = 'S416' region="Southern" shortname="Southern FU I CT IS" name = 'Southern FU Institute of CompTech and InfoSec (Manych, Minasyan, Mitina)'/>
+<party id = 'S511' region="Nothern" shortname="SPb AU 1" name = 'SPb Academic University 1 (Bogomolov, Podguzov, Smirnov)'/>
+<party id = 'S803' region="Nothern" shortname="SPb AU 2" name = 'SPb Academic University 2 (Stepanov, Zhidkov, Zuev)'/>
+<party id = 'S405' region="Nothern" shortname="SPb AU 3" name = 'SPb Academic University 3 (Fedorov, Tukh, Yutman)'/>
+<party id = 'S520' region="Nothern" shortname="ITMO 1" name = 'SPb ITMO University 1 (Belonogov, Smykalov, Zban)'/>
+<party id = 'S809' region="Nothern" shortname="ITMO 2" name = 'SPb ITMO University 2 (Budin, Putilin, Yakutov)'/>
+<party id = 'S209' region="Nothern" shortname="ITMO 3" name = 'SPb ITMO University 3 (Latyshev, Naumov, Turaev)'/>
+<party id = 'S401' region="Nothern" shortname="ITMO 4" name = 'SPb ITMO University 4 (Berinchik, Kisialiou, Korchagin)'/>
+<party id = 'S502' region="Nothern" shortname="SPb SU 1" name = 'SPb State University 1 (Ershov, Pyshkin, Sayranov)'/>
+<party id = 'S812' region="Nothern" shortname="SPb SU 2" name = 'SPb State University 2 (Hulikau, Kulikov, Yuryev)'/>
+<party id = 'S708' region="Nothern" shortname="SPb SU 3" name = 'SPb State University 3 (Makarov, Ryazanov, Savchenkov)'/>
+<party id = 'S217' region="Nothern" shortname="SPb SU 4" name = 'SPb State University 4 (Alekseev, Novikov, Petrov)'/>
+<party id = 'S603' region="Nothern" shortname="SPb SU 4" name = 'SPb State University 5 (Bochkov, Gaevoy, Ginzburg)'/>
+<party id = 'S507' region="Eastern" shortname="Surgut SU" name = 'Surgut State University (Bobrovskaya, Derkach, Yakovlev)'/>
+<party id = 'S703' region="Western" shortname="Tartu U" name = 'Tartu University (Lill, Nisumaa, Unt)'/>
+<party id = 'S410' region="Eastern" shortname="Tyumen IU" name = 'Tyumen Industrial University (Artemov, Mambetov, Nevtyra)'/>
+<party id = 'S306' region="Eastern" shortname="Tyumen SU" name = 'Tyumen State University (Avriskin, Ivanov, Yagudin)'/>
+<party id = 'S509' region="Eastern" shortname="Udmurt SU" name = 'Udmurt State University (Korablinov, Nikitin, Sidorov)'/>
+<party id = 'S522' region="Eastern" shortname="Ufa SATU 1" name = 'Ufa State Aviation Technical University 1 (Agishev, Fatkhiev, Surkov)'/>
+<party id = 'S407' region="Eastern" shortname="Ufa SATU 2" name = 'Ufa State Aviation Technical University 2 (Kryukov, Manaev, Valiev)'/>
+<party id = 'S517' region="Southern" shortname="Ulyanovsk STU" name = 'Ulyanovsk State Technical University (Gorshkov, Kashichkin, Kondratiev)'/>
+<party id = 'S712' region="Eastern" shortname="Ural FU 1" name = 'Ural Federal University 1 (Borozdin, Kungurtsev, Leskov)'/>
+<party id = 'S604' region="Eastern" shortname="Ural FU 2" name = 'Ural Federal University 2 (Pivko, Samodelkin, Zuev)'/>
+<party id = 'S515' region="Eastern" shortname="Ural FU 3" name = 'Ural Federal University 3 (Khanova, Mullabaev, Permyakov)'/>
+<party id = 'S204' region="Eastern" shortname="Ural FU 4" name = 'Ural Federal University 4 (Ankudinov, Borzunov, Stikhin)'/>
+<party id = 'S304' region="Eastern" shortname="Ural FU 5" name = 'Ural Federal University 5 (Arapova, Bazun, Smirnov)'/>
+<party id = 'S705' region="Western" shortname="Vilnius U" name = 'Vilnius University (Jadenkus, KlimaviДЌius, TraЕЎkeviДЌius)'/>
+<party id = 'S506' region="Southern" shortname="Volgograd STU" name = 'Volgograd State Technical University (Nosov, Nozdrenkov, Penskoy)'/>
+<party id = 'S402' region="Central" shortname="Vologda SU" name = 'Vologda State University (Gerkulesov, Kukushkin, Nazarov)'/>
+<party id = 'S717' region="Southern" shortname="Voronezh SU 1" name = 'Voronezh Stae University 1 (Nogikh, Skobaneva, Zemlyanuhin)'/>
+<party id = 'S110' region="Southern" shortname="Voronezh SU 2" name = 'Voronezh State University 2 (Kuznetsov, Minaev, Perunov)'/>
+<party id = 'S208' region="Central" shortname="Vyatka SU" name = 'Vyatka State University (Dehterev, Prozorova, Vorobyev)'/>
+<party id = 'S101' region="Central" shortname="Yaroslavl SU 1" name = 'Yaroslavl State University 1 (Akhremenko, Krainov, Toropova)'/>
+<party id = 'S714' region="Central" shortname="Yaroslavl SU 2" name = 'Yaroslavl State University 2 (Fedulov, Lyutenkov, Maslenikov)'/>
+<party id = 'G148' shortname="Azer U" name = '* Azerbaijan University (Haciyev, Kerimli, Zakirli)'/>
+<party id = 'G145' shortname="Free U Tbilisi 11" name = '* Free University of Tbilisi 11 (Baghdavadze, Bezhanishvili, Losaberidze)'/>
+<party id = 'G121' shortname="Free U Tbilisi 402" name = '* Free University of Tbilisi 402 (Khosroshvili, Magaltadze, Meshveliani)'/>
+<party id = 'G158' shortname="Free U Tbilisi 6" name = '* Free University of Tbilisi 6 (Doghonadze, Nemsitsveridze, Shalikashvili)'/>
+<party id = 'G168' shortname="Free U Tbilisi 7" name = '* Free University of Tbilisi 7 (Gonashvili, Koreli, Melia)'/>
+<party id = 'G155' shortname="Free U Tbilisi 8" name = '* Free University of Tbilisi 8 (Bezhashvili, Chkhartishvili, Tabatadze)'/>
+<party id = 'G119' shortname="Free U Tbilisi 9" name = '* Free University of Tbilisi 9 (Akophov, Kakhidze, Kerdzaia)'/>
+<party id = 'G110' shortname="Black Sea U 3" name = '* International Black Sea University 3 (Gochitashvili, Miruashvili, Odishvili)'/>
+<party id = 'G128' shortname="Kharkiv NU 1" name = '* Kharkiv NU of Radioelectronics 1 (Logvin, Nazarenko, Yevchenko)'/>
+<party id = 'G137' shortname="Kharkiv NU 2" name = '* Kharkiv NU of Radioelectronics 2 (Aslandukov, Shanin, Vallas)'/>
+<party id = 'G167' shortname="Lviv NU" name = '* Lviv NU (Makar, Radyuk, Savitskyi)'/>
+<party id = 'G124' shortname="Russian-Armenian SUV" name = '* Russian-Armenian (Slavonick) State University Veterans (Gevorgyan, Hovsepyan, Piliposyan)'/>
+<party id = 'G151' shortname="School Kutaisi 1" name = '* School Kutaisi 1 (еще )'/>
+<party id = 'G125' shortname="School Tbilisi 2" name = '* School Tbilisi Demireli-Komarovi (Kldiashvili, Tavdgiridze, -)'/>
+<party id = 'G120' shortname="School Tbilisi 3" name = '* School Tbilisi Komarovi 1 (Gamezardashvili, Gamezardashvili, Khokhiashvili)'/>
+<party id = 'G171' shortname="Tbilisi SUV" name = '* Tbilisi SU Veterans (Jimsheleishvili, Saghinadze, -)'/>
+<party id = 'G163' region="Azerbaijan" shortname="ADA U 1" name = 'ADA University 1 (Farzaliyev, Gadirzada, Huseynzade)'/>
+<party id = 'G144' region="Azerbaijan" shortname="ADA U 2" name = 'ADA University 2 (Gasimov, Hasanov, Mustafali)'/>
+<party id = 'G116' region="Azerbaijan" shortname="ADA U 4" name = 'ADA University 4 (Isgandarli, Ismikhanov, Rahimli)'/>
+<party id = 'G141' region="Armenia" shortname="American UA 1" name = 'American University of Armenia 1 (Gevorgyan, Hayrapetyan, Mirakyan)'/>
+<party id = 'G112' region="Armenia" shortname="American UA 2" name = 'American University of Armenia 2 (Ashughyan, Hayruni, Martirosyan)'/>
+<party id = 'G139' region="Armenia" shortname="American UA 3" name = 'American University of Armenia 3 (Margaryan, Muradyan, Muradyan)'/>
+<party id = 'G156' region="Armenia" shortname="American UA 4" name = 'American University of Armenia 4 (Arakelyan, Hakobyan, Serobyan)'/>
+<party id = 'G149' region="Azerbaijan" shortname="Azerbaijan SOIU" name = 'Azerbaijan State Oil and Industry University (Heydarli, Ismatulin, Suleymanov)'/>
+<party id = 'G108' region="Azerbaijan" shortname="Azerbaijan TU" name = 'Azerbaijan Technical University (Agabeyli, Hajiyev, Maharramli)'/>
+<party id = 'G169' region="Azerbaijan" shortname="Baku HOS 1" name = 'Baku Higher Oil School 1 (Alikhanov, Bakhshili, Shirizada)'/>
+<party id = 'G165' region="Azerbaijan" shortname="Baku HOS 2" name = 'Baku Higher Oil School 2 (Huseynli, Ibrahimov, Samadli)'/>
+<party id = 'G146' region="Azerbaijan" shortname="Baku SU 1" name = 'Baku State University 1 (Badalov, Mirzayev, Sofiyev)'/>
+<party id = 'G104' region="Azerbaijan" shortname="Baku SU 2" name = 'Baku State University 2 (Mammadov, Nabiyev, Talibov)'/>
+<party id = 'G153' region="Georgia" shortname="Batumi SU 1" name = 'Batumi State University 1 (Beria, Khalvashi, Khozrevanidze)'/>
+<party id = 'G164' region="Georgia" shortname="Batumi SU 2" name = 'Batumi State University 2 (Giorgadze, Kakhidze, Meskhidze)'/>
+<party id = 'G160' region="Georgia" shortname="Caucasus U 1" name = 'Caucasus University 1 (Chelidze, chkhetiani, kakhiani)'/>
+<party id = 'G132' region="Georgia" shortname="Caucasus U 2" name = 'Caucasus University 2 (Jijelava, Maruashvili, Pacacia)'/>
+<party id = 'G101' region="Georgia" shortname="Free U Tbilisi 1" name = 'Free University of Tbilisi 1 (Guliashvili, Skhirtladze, Tskhovrebov)'/>
+<party id = 'G131' region="Georgia" shortname="Free U Tbilisi 2" name = 'Free University of Tbilisi 2 (Abuladze, Pataraia, Sakhelashvili)'/>
+<party id = 'G129' region="Georgia" shortname="Free U Tbilisi 3" name = 'Free University of Tbilisi 3 (Azizyan, Nishnianidze, Silagadze)'/>
+<party id = 'G161' region="Georgia" shortname="Free U Tbilisi 4" name = 'Free University of Tbilisi 4 (Bukhnikashvili, Popkhadze, Tsutskhashvili)'/>
+<party id = 'G133' region="Georgia" shortname="Free U Tbilisi 5" name = 'Free University of Tbilisi 5 (Donadze, Khaduri, Magaltadze)'/>
+<party id = 'G157' region="Georgia" shortname="French-Georgian I" name = 'French-Georgian Institute (Gozalishvili, Rekhviashvili, Sultanishvili)'/>
+<party id = 'G166' region="Georgia" shortname="Georgian TU 1" name = 'Georgian Technical University 1 (Arveladze, Gasanov, Madzgarashvili)'/>
+<party id = 'G117' region="Georgia" shortname="Georgian TU 2" name = 'Georgian Technical University 2 (Shinjikashvili, Sirbiladze, Varamashvili)'/>
+<party id = 'G105' region="Georgia" shortname="IH Tbilisi SU 1" name = 'I. Javakhishvili Tbilisi State University 1 (Salia, Svanadze, Zabakhidze)'/>
+<party id = 'G142' region="Georgia" shortname="IH Tbilisi SU 2" name = 'I. Javakhishvili Tbilisi State University 2 (Babunashvili, Bukuri, Gachechiladze)'/>
+<party id = 'G127' region="Georgia" shortname="IH Tbilisi SU 3" name = 'I. Javakhishvili Tbilisi State University 3 (Chelidze, Gobronidze, Modrekiladze)'/>
+<party id = 'G118' region="Georgia" shortname="IH Tbilisi SU 4" name = 'I. Javakhishvili Tbilisi State University 4 (Doliashvili, Ghughunishvili, Sepiashvili)'/>
+<party id = 'G130' region="Georgia" shortname="Black Sea U 1" name = 'International Black Sea University 1 (Mamaiashvili, Morchiladze, Svanidze)'/>
+<party id = 'G136' region="Georgia" shortname="Black Sea U 2" name = 'International Black Sea University 2 (Khagulashvili, Merabov, Tskhvediani)'/>
+<party id = 'G152' region="Georgia" shortname="Kutaisi SU" name = 'Kutaisi State University (Butskhrikidze, Gogsadze, Khantadze)'/>
+<party id = 'G154' region="Azerbaijan" shortname="Qafqaz U 1" name = 'Qafqaz University 1 (Allahverdiyev, Mammadli, Mammadov)'/>
+<party id = 'G170' region="Azerbaijan" shortname="Qafqaz U 2" name = 'Qafqaz University 2 (Hajili, Kerimov, Klyestov)'/>
+<party id = 'G103' region="Azerbaijan" shortname="Qafqaz U 3" name = 'Qafqaz University 3 (Ashrafov, Suleymanli, Yagublu)'/>
+<party id = 'G106' region="Azerbaijan" shortname="Qafqaz U 4" name = 'Qafqaz University 4 (Abbasov, Aghayev, Murtuzaliyev)'/>
+<party id = 'G143' region="Armenia" shortname="Russian-Armenian SU 1" name = 'Russian-Armenian (Slavonick) State University 1 (Arakelyan, Grigoryan, Saryan)'/>
+<party id = 'G134' region="Armenia" shortname="Russian-Armenian SU 2" name = 'Russian-Armenian (Slavonick) State University 2 (Ioanisyan, Lalayan, Oganesyan)'/>
+<party id = 'G140' region="Armenia" shortname="Russian-Armenian SU 4" name = 'Russian-Armenian (Slavonick) State University 4 (Grigoryan, Korolev, Safrastyan)'/>
+<party id = 'G109' region="Georgia" shortname="Patriarchy U" name = 'Saint Andrew the First-Called Georgian University of the Patriarchy of Georgia (Didbaridze, Mikautidze, Tsotsoria)'/>
+<party id = 'G115' region="Georgia" shortname="U of Georgia" name = 'The University of Georgia (Tbilisi, Georgia) (Janjgava, Liklikadze, Orvelashvili)'/>
+<party id = 'G107' region="Armenia" shortname="Yerevan SU 1" name = 'Yerevan State University 1 (Harutyunyan, Mamikonyan, Sahakyan)'/>
+<party id = 'G122' region="Armenia" shortname="Yerevan SU 2" name = 'Yerevan State University 2 (Gomktsyan, Mkrtumyan, Muradyan)'/>
+<party id = 'G113' region="Armenia" shortname="Yerevan SU 3" name = 'Yerevan State University 3 (Abrahamyan, Tamazyan, Topchyan)'/>
+</parties>

@@ -1,0 +1,10 @@
+<challenge>
+    <problem id = "a" alias = "A" problem-id = "a" name = "A" color="#58a2d1"/>
+    <problem id = "b" alias = "B" problem-id = "b" name = "B" color="#fc6d3e"/>
+    <problem id = "c" alias = "C" problem-id = "c" name = "C" color="#7c54aa"/>
+    <problem id = "d" alias = "D" problem-id = "d" name = "D" color="#64d6cb"/>
+    <problem id = "e" alias = "E" problem-id = "e" name = "E" color="#ffffff"/>
+    <problem id = "f" alias = "F" problem-id = "f" name = "F" color="#d5c748"/>
+    <problem id = "g" alias = "G" problem-id = "g" name = "G" color="#e84054"/>
+    <problem id = "h" alias = "H" problem-id = "h" name = "H" color="#ef80a6"/>
+</challenge>

@@ -1,0 +1,13 @@
+{"problem":{"id":"1","label":"A","name":"Balanced Diet","ordinal":1,"color":"Dark blue","rgb":"#0967db","x":49.8,"y":-13.5}}
+{"problem":{"id":"2","label":"B","name":"Branch Assignment","ordinal":2,"color":"Gold","rgb":"#dfbd75","x":49.8,"y":-11.0}}
+{"problem":{"id":"3","label":"C","name":"Ceiling Function","ordinal":3,"color":"Purple","rgb":"#825eaa","x":49.8,"y":-8.5}}
+{"problem":{"id":"4","label":"D","name":"Clock Breaking","ordinal":4,"color":"Light green","rgb":"#63e800","x":49.8,"y":-6.0}}
+{"problem":{"id":"5","label":"E","name":"Forever Young","ordinal":5,"color":"Pink","rgb":"#fb86d8","x":49.8,"y":-3.5}}
+{"problem":{"id":"6","label":"F","name":"Longest Rivers","ordinal":6,"color":"Silver","rgb":"#d0cfce","x":49.8}}
+{"problem":{"id":"7","label":"G","name":"Oil","ordinal":7,"color":"Light blue","rgb":"#76cffa","x":49.8,"y":1.5}}
+{"problem":{"id":"8","label":"H","name":"Polygonal Puzzle","ordinal":8,"color":"Orange","rgb":"#e38c3e","x":-0.8,"y":1.5}}
+{"problem":{"id":"9","label":"I","name":"Road Times","ordinal":9,"color":"Dark green","rgb":"#399956","x":-0.8}}
+{"problem":{"id":"10","label":"J","name":"Spin Doctor","ordinal":10,"color":"White","rgb":"#fbfbfb","x":-0.8,"y":-3.5}}
+{"problem":{"id":"11","label":"K","name":"String Theory","ordinal":11,"color":"Red","rgb":"#df1328","x":-0.8,"y":-6.0}}
+{"problem":{"id":"12","label":"L","name":"Swap Space","ordinal":12,"color":"Yellow","rgb":"#f3eb4b","x":-0.8,"y":-8.5}}
+{"problem":{"id":"13","label":"M","name":"What Really Happened on Mars?","ordinal":13,"color":"Black","rgb":"#000000","x":-0.8,"y":-11.0}}

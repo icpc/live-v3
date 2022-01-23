@@ -1,0 +1,4 @@
+<challenge>
+    <problem-ref id = "y" alias = "Y" problem-id = "yield" name = "Yield" color="#7C0026"/>
+    <problem-ref id = "z" alias = "Z" problem-id = "zero" name = "Zero-complexity Transposition" color="#7C0026"/>
+</challenge>

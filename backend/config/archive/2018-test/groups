@@ -1,0 +1,9 @@
+[{"id":"12725","icpc_id":"12725","name":"North America","color":null,"sortorder":0},
+{"id":"12734","icpc_id":"12734","name":"Latin America","color":null,"sortorder":0},
+{"id":"12735","icpc_id":"12735","name":"Africa and the Middle East","color":null,"sortorder":0},
+{"id":"12736","icpc_id":"12736","name":"Jury","hidden":true,"color":"#94c2ff","sortorder":100},
+{"id":"14907","icpc_id":"14907","name":"Northern Eurasia","color":null,"sortorder":0},
+{"id":"14922","icpc_id":"14922","name":"Asia West","color":null,"sortorder":0},
+{"id":"14923","icpc_id":"14923","name":"Asia East","color":null,"sortorder":0},
+{"id":"14924","icpc_id":"14924","name":"Asia Pacific","color":null,"sortorder":0},
+{"id":"14925","icpc_id":"14925","name":"Admin","hidden":true,"color":"#ffaa99","sortorder":101}]

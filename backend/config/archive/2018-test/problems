@@ -1,0 +1,11 @@
+[{"id":"ascendingphoto","label":"A","name":"Ascending Photo","ordinal":0,"time_limit":3,"short_name":"A","rgb":"#FFFFFF","color":"white","test_data_count":26},
+{"id":"boss","label":"B","name":"Boss Battle","ordinal":1,"time_limit":2,"short_name":"B","rgb":"#0000FF","color":"blue","test_data_count":28},
+{"id":"connect","label":"C","name":"Connect the Dots","ordinal":2,"time_limit":2,"short_name":"C","rgb":"#000000","color":"black","test_data_count":34},
+{"id":"dunglish","label":"D","name":"Dunglish","ordinal":3,"time_limit":2,"short_name":"D","rgb":"#FF0000","color":"red","test_data_count":16},
+{"id":"englishrestaurant","label":"E","name":"English Restaurant","ordinal":4,"time_limit":2,"short_name":"E","rgb":"#800080","color":"purple","test_data_count":40},
+{"id":"factorfree","label":"F","name":"Factor-Free Tree","ordinal":5,"time_limit":6,"short_name":"F","rgb":"#00FFFF","color":"cyan","test_data_count":37},
+{"id":"glyphrecognition","label":"G","name":"Glyph Recognition","ordinal":6,"time_limit":2,"short_name":"G","rgb":"#FFFF00","color":"yellow","test_data_count":58},
+{"id":"highscore","label":"H","name":"High Score","ordinal":7,"time_limit":2,"short_name":"H","rgb":"#8B0000","color":"darkred","test_data_count":30},
+{"id":"installingapps","label":"I","name":"Installing Apps","ordinal":8,"time_limit":2,"short_name":"I","rgb":"#FFA500","color":"orange","test_data_count":34},
+{"id":"jugglingtroupe","label":"J","name":"Juggling Troupe","ordinal":9,"time_limit":3,"short_name":"J","rgb":"#006400","color":"darkgreen","test_data_count":20},
+{"id":"knockout","label":"K","name":"Knockout Tournament","ordinal":10,"time_limit":2,"short_name":"K","rgb":"#3db1ff","color":"dodgerblue","test_data_count":33}]

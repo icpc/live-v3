@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<parties
+ id = "neerc-2017"
+ xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+<party id = 'K102' region = 'Kazakhstan' shortname = 'Almaty U of PET 1' name = 'Almaty U of Power Eng and Telecom 1 (Bakijev, Bolatov, Usserbaev)'/>
+<party id = 'K216' region = 'Kazakhstan' shortname = 'Almaty U of PET 2' name = 'Almaty U of Power Eng and Telecom 2 (Isabekov, Nuraliyeva, Ovezov)'/>
+<party id = 'K104' region = 'Kyrgyzstan' shortname = 'American U in CA 1' name = 'American U - Central Asia 1 (Azisbek uulu, Kenzhaliev, Zhusubaliev)'/>
+<party id = 'K133' region = 'Kyrgyzstan' shortname = 'American U in CA 2' name = 'American U - Central Asia 2 (Derkenbaev, Kim, Kydyraliev)'/>
+<party id = 'K202' region = 'Kyrgyzstan' shortname = 'American U in CA 3' name = 'American U - Central Asia 3 (Ruslanov, Seidaliev, Soltonoev)'/>
+<party id = 'K409' region = 'Uzbekistan' shortname = 'Andijan Mach Build I 1' name = 'Andijan Machine Building I 1 (Jumaboyev, Tohirov, Xamraqulov)'/>
+<party id = 'K212' region = 'Uzbekistan' shortname = 'Andijan Mach Build I 2' name = 'Andijan Machine Building I 2 (Abduhalilov, Iminov, Mamajonov)'/>
+<party id = 'K122' region = 'Kazakhstan' shortname = 'Caspian SU of TE 1' name = 'Esenov Caspian SU of Tech and Eng 1 (Kassanov, Sarsenbek, Zhantileuov)'/>
+<party id = 'K108' region = 'Kazakhstan' shortname = 'Caspian SU of TE 2' name = 'Esenov Caspian SU of Tech and Eng 2 (Aitbayev, Amangos, Junebayev)'/>
+<party id = 'K404' region = 'Kazakhstan' shortname = 'Eurasian NU 1' name = 'Eurasian NU 1 (Duisenbayev, Yessenbayev, Zhussupov)'/>
+<party id = 'K408' region = 'Kazakhstan' shortname = 'Eurasian NU 2' name = 'Eurasian NU 2 (Kundebekov, Nurbek, Sultan)'/>
+<party id = 'K204' region = 'Kazakhstan' shortname = 'Eurasian NU 3' name = 'Eurasian NU 3 (Nagmetulla, Orynbassar, Pulanbekov)'/>
+<party id = 'K117' region = 'Kazakhstan' shortname = 'Eurasian NU 4' name = 'Eurasian NU 4 (Abdikalikova, Tileubergenov, Zakrikchinov)'/>
+<party id = 'K121' region = 'Uzbekistan' shortname = 'Inha U' name = 'Inha U in Tashkent (Khoshimjonov, Oripjonov, Tojimahammatov)'/>
+<party id = 'K118' region = 'Kyrgyzstan' shortname = 'Intl Ataturk-Alatoo U 1' name = 'International Ataturk-Alatoo U 1 (Akylbek uulu, Kadyrbekov, Srazhdinov)'/>
+<party id = 'K131' region = 'Kyrgyzstan' shortname = 'Intl Ataturk-Alatoo U 2' name = 'International Ataturk-Alatoo U 2 (Akunova, Urmatbekov, Zhalieva)'/>
+<party id = 'K302' region = 'Kyrgyzstan' shortname = 'Intl Ataturk-Alatoo U 3' name = 'International Ataturk-Alatoo U 3 (Isaev, Sarygulov, Zhusubaliev)'/>
+<party id = 'K213' region = 'Kazakhstan' shortname = 'Intl IT U 1' name = 'International IT U 1 (Bakhoduri, Kabdoldin, Khlynovskiy)'/>
+<party id = 'K132' region = 'Kazakhstan' shortname = 'Intl IT U 2' name = 'International IT U 2 (Kabdygali, Oral, Tussupbekov)'/>
+<party id = 'K406' region = 'Kazakhstan' shortname = 'Intl IT U 3' name = 'International IT U 3 (Abdrashim, Auganov, Moldagaliyev)'/>
+<party id = 'K105' region = 'Kazakhstan' shortname = 'Intl IT U 4' name = 'International IT U 4 (Kim, Satylkhanov, Sultan)'/>
+<party id = 'K405' region = 'Kazakhstan' shortname = 'Karaganda SIU' name = 'Karaganda S Industrial U (Kim, Prokhorovich, Yusupov)'/>
+<party id = 'K214' region = 'Kazakhstan' shortname = 'Karaganda STU' name = 'Karaganda S Technical U (Kim, Lavrik, Velinskiy)'/>
+<party id = 'K128' region = 'Kazakhstan' shortname = 'Kazakh NU 1' name = 'KazakhNU named Al-Farabi 1 (Amanbayev, Batyr, Paizov)'/>
+<party id = 'K134' region = 'Kazakhstan' shortname = 'Kazakh NU 2' name = 'KazakhNU named Al-Farabi 2 (Kassymbek, Kenzhebek, Mustafin)'/>
+<party id = 'K111' region = 'Kazakhstan' shortname = 'Kazakh NU 3' name = 'KazakhNU named Al-Farabi 3 (Kasym, Yerbulatuly, Zhassulan)'/>
+<party id = 'K125' region = 'Kazakhstan' shortname = 'Kazakh NU 4' name = 'KazakhNU named Al-Farabi 4 (Aldiyarov, Togizbay, Zhassuzak)'/>
+<party id = 'K217' region = 'Kazakhstan' shortname = 'Kazakh NU 5' name = 'KazakhNU named Al-Farabi 5 (Abilov, Yerimbetov, Zhagparov)'/>
+<party id = 'K126' region = 'Kazakhstan' shortname = 'Kazakh-Turkish U' name = 'Kazakh Turkish U named H.A.Yassawe (Seydulla, Taspolat, Usen)'/>
+<party id = 'K107' region = 'Kazakhstan' shortname = 'Kazakh-British TU 1' name = 'Kazakh-British Technical U 1 (Aman, Amanov, Zhussupov)'/>
+<party id = 'K412' region = 'Kazakhstan' shortname = 'Kazakh-British TU 2' name = 'Kazakh-British Technical U 2 (Bolatbekov, Kenen, Okapova)'/>
+<party id = 'K410' region = 'Kazakhstan' shortname = 'Kazakh-British TU 3' name = 'Kazakh-British Technical U 3 (Amanov, Kurmasheva, Prenov)'/>
+<party id = 'K206' region = 'Kazakhstan' shortname = 'Kazakh-British TU 4' name = 'Kazakh-British Technical U 4 (Aitzhan, Mussinov, Temir)'/>
+<party id = 'K402' region = 'Kazakhstan' shortname = 'Kazakh-British TU 5' name = 'Kazakh-British Technical U 5 (Kali, Nuptebek, Omarov)'/>
+<party id = 'K304' region = 'Kazakhstan' shortname = 'Kaz br of MSU 1' name = 'Kazakhstan Branch of Moscow SU 1 (Askergali, Bekmaganbetov, Sharipov)'/>
+<party id = 'K113' region = 'Kazakhstan' shortname = 'Kaz br of MSU 2' name = 'Kazakhstan Branch of Moscow SU 2 (Kunakbayev, Makatova, Yerzhanov)'/>
+<party id = 'K129' region = 'Kazakhstan' shortname = 'Kaz br of MSU 3' name = 'Kazakhstan Branch of Moscow SU 3 (Azatov, Ponamaryov, Vagner)'/>
+<party id = 'K207' region = 'Kazakhstan' shortname = 'Kaz br of MSU 4' name = 'Kazakhstan Branch of Moscow SU 4 (Bolotnikov, Gazizov, Korobov)'/>
+<party id = 'K305' region = 'Kyrgyzstan' shortname = 'Kyrg-Turk Manas U 1' name = 'Kyrgyz-Turkey Manas U 1 (Alybaev, Komar, Kudaiberdi uulu)'/>
+<party id = 'K205' region = 'Kyrgyzstan' shortname = 'Kyrg-Turk Manas U 2' name = 'Kyrgyz-Turkey Manas U 2 (Kalmanbetov, Muhtarov, Myktybekov)'/>
+<party id = 'K110' region = 'Kyrgyzstan' shortname = 'Kyrg-Rus Slav U 1' name = 'Kyrgyz Russian Slavic U 1 (Asanov, Niyazova, Shevchenko)'/>
+<party id = 'K407' region = 'Kyrgyzstan' shortname = 'Kyrg-Rus Slav U 2' name = 'Kyrgyz Russian Slavic U 2 (Akmatov, Mustafin, Usmanov)'/>
+<party id = 'K210' region = 'Kyrgyzstan' shortname = 'Kyrgyz TU 1' name = 'Kyrgyz Technical U 1 (Baigaziev, Ergeshov, Samudinova)'/>
+<party id = 'K203' region = 'Kyrgyzstan' shortname = 'Kyrgyz TU 2' name = 'Kyrgyz Technical U 2 (Bolotbek uulu, Omuraliev, Tashiev)'/>
+<party id = 'K218' region = 'Kyrgyzstan' shortname = 'Kyrgyz TU 3' name = 'Kyrgyz Technical U 3 (Abdukhametov, Esengulov, Seitbek uulu)'/>
+<party id = 'K301' region = 'Kyrgyzstan' shortname = 'Kyrgyz TU 4' name = 'Kyrgyz Technical U 4 (Kiselnikov, Moskalenko, Spirin)'/>
+<party id = 'K123' region = 'Uzbekistan' shortname = 'Tashkent br of MSU 1' name = 'Tashkent Branch of Moscow SU 1 (Akhmedshin, Shin, Sitdikov)'/>
+<party id = 'K101' region = 'Uzbekistan' shortname = 'Tashkent br of MSU 2' name = 'Tashkent Branch of Moscow SU 2 (Kutlimurotova, Pak, Validov)'/>
+<party id = 'K401' region = 'Uzbekistan' shortname = 'Tashkent br of MSU 3' name = 'Tashkent Branch of Moscow SU 3 (Gevorkyan, Makhsudov, Suyunbekova)'/>
+<party id = 'K106' region = 'Uzbekistan' shortname = 'Tashkent br of MSU 4' name = 'Tashkent Branch of Moscow SU 4 (Adylov, Kan, Kosimov)'/>
+<party id = 'K115' region = 'Uzbekistan' shortname = 'Namangan SU' name = 'Namangan SU (Karimov, Umarov, Yuldashev)'/>
+<party id = 'K201' region = 'Uzbekistan' shortname = 'NU of Uzbekistan' name = 'National U of Uzbekistan (Abdurakhmonov, Khasanov, Matlatipov)'/>
+<party id = 'K127' region = 'Kazakhstan' shortname = 'Nazarbayev U 1' name = 'Nazarbayev U 1 (Aitzhanov, Ilyassov, Kalmurzayev)'/>
+<party id = 'K119' region = 'Kazakhstan' shortname = 'Nazarbayev U 2' name = 'Nazarbayev U 2 (Khaitov, Orynkul, Sariyev)'/>
+<party id = 'K215' region = 'Kazakhstan' shortname = 'Nazarbayev U 3' name = 'Nazarbayev U 3 (Abdrakhman, Manabayev, Mukanov)'/>
+<party id = 'K403' region = 'Kazakhstan' shortname = 'Nazarbayev U 4' name = 'Nazarbayev U 4 (Kalidolda, Mademikhanov, Muryshkin)'/>
+<party id = 'K114' region = 'Kazakhstan' shortname = 'Nazarbayev U 5' name = 'Nazarbayev U 5 (Asmatullayev, Iyembergen, Khassen)'/>
+<party id = 'K109' region = 'Kazakhstan' shortname = 'Pavlodar SU' name = 'Pavlodar SU named S. Toraigyrov (Sadullaev, Zhakupov, Zhussip)'/>
+<party id = 'K130' region = 'Kazakhstan' shortname = 'Almaty SDU 1' name = 'Suleyman Demirel U 1 (Gabdrash, Lekerov, Yerlan)'/>
+<party id = 'K209' region = 'Kazakhstan' shortname = 'Almaty SDU 2' name = 'Suleyman Demirel U 2 (Seitov, Zharkyn, Zigangirov)'/>
+<party id = 'K303' region = 'Kazakhstan' shortname = 'Almaty SDU 3' name = 'Suleyman Demirel U 3 (Nadyrmagambet, Orazgalieva, Tursynbek)'/>
+<party id = 'K124' region = 'Kazakhstan' shortname = 'Almaty SDU 4' name = 'Suleyman Demirel U 4 (Kabirov, Kuat, Nassibullina)'/>
+<party id = 'K211' region = 'Uzbekistan' shortname = 'Samarkand br of TUIT' name = 'Tashkent U of IT (Narzullayev, Rakhmonov, Shodiyev)'/>
+<party id = 'K208' region = 'Uzbekistan' shortname = 'Fergana br of TUIT 1' name = 'Fergana Branch of Tashkent U of IT 1 (Ahmadjonov, Gafurov, Sattorov)'/>
+<party id = 'K306' region = 'Uzbekistan' shortname = 'Fergana br of TUIT 2' name = 'Fergana Branch of Tashkent U of IT 2 (Mamurov, Shokirov, Tojaliyev)'/>
+<party id = 'K103' region = 'Kyrgyzstan' shortname = 'Kyrgyz SU of CTA' name = 'The I of New IT at KSUCTA (Modonov, Renatov, Ruslan uulu)'/>
+<party id = 'K120' region = 'Uzbekistan' shortname = 'Urgench br of TUIT 1' name = 'Urgench Branch of Tashkent U of IT 1 (Aminov, Davronov, Ibadullayev)'/>
+<party id = 'K112' region = 'Uzbekistan' shortname = 'Urgench br of TUIT 2' name = 'Urgench Branch of Tashkent U of IT 2 (Abdullayev, Iskandarov, Rahimov)'/>
+<party id = 'K116' region = 'Uzbekistan' shortname = 'Urgench br of TUIT 3' name = 'Urgench Branch of Tashkent U of IT 3 (Egamov, Kuvandikov, Sabirov)'/>
+<party id = 'K411' region = 'Uzbekistan' shortname = 'Urgench SU' name = 'Urgench SU (Davletov, Sabirov, YULDASHOV)'/>
+<party id = 'S101' region = 'Northern' shortname = 'Petrosavodsk SU 2' name = 'Petrozavodsk S U 2 (Evstafeev, Remeslennikov, Titov)'/>
+<party id = 'S102' region = '' shortname = '' name = ' ()'/>
+<party id = 'S103' region = 'Southern' shortname = 'Innopolis U 2' name = 'Innopolis U 2 (Khazhiev, Khilazhev, Umarov)'/>
+<party id = 'S104' region = 'Urals' shortname = 'Izhevsk STU 1' name = 'Izhevsk S Technical U 1 (Maksimov, Naimushin, Zylev)'/>
+<party id = 'S105' region = 'Moscow' shortname = 'Moscow IPT 3' name = 'Moscow I of Physics and Technology 3 (Kalinin, Makarov, Sharipov)'/>
+<party id = 'S106' region = 'Western' shortname = 'Tartu U 2' name = 'Tartu U 2 (Toma, Uustalu, Zvorovski)'/>
+<party id = 'S107' region = 'Central' shortname = 'Orel SU 1' name = 'Orel S U 1 (Barbashov, Rudanovskiy, Stavtsev)'/>
+<party id = 'S108' region = 'Northern' shortname = 'SPb ITMO U 4' name = 'SPb ITMO U 4 (Amirov, Kolobov, Zabashta)'/>
+<party id = 'S109' region = 'Moscow' shortname = 'Moscow Aviation I 2' name = 'Moscow Aviation I 2 (Dorokhov, Krivov, Sorokin)'/>
+<party id = 'S110' region = 'Moscow' shortname = 'MISiS 2' name = 'NU of Science and Technology MISiS 2 (Erdneev, Kulagin, Razumnuy)'/>
+<party id = 'S201' region = '' shortname = '' name = ' ()'/>
+<party id = 'S202' region = 'Northern' shortname = 'SPb Acad U 3' name = 'SPb Academic U 3 (Alferov, Tukh, Yutman)'/>
+<party id = 'S203' region = 'Northern' shortname = 'SPb SU 5' name = 'SPb S U 5 (Bashaev, Pak, Yartsev)'/>
+<party id = 'S204' region = 'Southern' shortname = 'Voronezh SU 1' name = 'Voronezh S U 1 (Kolesov, Nogikh, Zemlyanuhin)'/>
+<party id = 'S205' region = 'Moscow' shortname = 'Moscow IPT 6' name = 'Moscow I of Physics and Technology 6 (Buchnev, Kalinichenko, Proskurin)'/>
+<party id = 'S206' region = 'Western' shortname = 'Kant FU 1' name = 'Immanuel Kant Baltic Federal U 1 (Boka, Chernozhukov, Zonin)'/>
+<party id = 'S207' region = 'Urals' shortname = 'South Ural SU 3' name = 'South Ural S U 3 (Basmanov, Mironov, Obukhov)'/>
+<party id = 'S208' region = 'Western' shortname = 'Belarusian SUIR 3' name = 'Belarusian SU of Inform and Radio 3 (Budniak, Darashkevich, Razhkou)'/>
+<party id = 'S209' region = 'Southern' shortname = 'Kazan FU 2' name = 'Kazan Federal U 2 (Ilikaev, Nigmatullin, Serov)'/>
+<party id = 'S210' region = 'Northern' shortname = 'Mozhaisky MSA 1' name = 'Mozhaisky Military Space A 1 (Ilatovskiy, Kubantsev, Lukin)'/>
+<party id = 'S211' region = 'Central' shortname = 'Yaroslavl SU 2' name = 'Yaroslavl S U 2 (Gibadulin, Kondakov, Povarov)'/>
+<party id = 'S212' region = 'Moscow' shortname = 'NRU HSE 3' name = 'Higher School of Economics 3 (Kalashnykov, Svyatokum, Urusov)'/>
+<party id = 'S213' region = 'Moscow' shortname = 'Moscow SU 2' name = 'Moscow S U 2 (Dzhunusov, Pavlov, Pobegaylo)'/>
+<party id = 'S214' region = 'Urals' shortname = 'Perm br of HSE' name = 'Perm Higher School of Economics (Ketov, Kokovin, Suntsev)'/>
+<party id = 'S215' region = 'Western' shortname = 'Latvia U 1' name = 'Latvia U 1 (Pretkalnins, Pakalns, Zajakins)'/>
+<party id = 'S216' region = 'Northern' shortname = 'SPb ITMO U 2' name = 'SPb ITMO U 2 (Budin, Drozdova, Kirillov)'/>
+<party id = 'S217' region = 'Western' shortname = 'Mogilev SU' name = 'Mogilev S U (Hameza, Husiantsou, Matsiushonak)'/>
+<party id = 'S301' region = '' shortname = '' name = ' ()'/>
+<party id = 'S302' region = 'Moscow' shortname = 'MISiS 1' name = 'NU of Science and Technology MISiS 1 (Kodosov, Piskevich, Tarannikov)'/>
+<party id = 'S303' region = 'Moscow' shortname = 'Moscow SU 1' name = 'Moscow S U 1 (Ipatov, Makeev, Reznikov)'/>
+<party id = 'S304' region = 'Northern' shortname = 'SPb SU 1' name = 'SPb S U 1 (Bochkov, Gaevoi, Petrov)'/>
+<party id = 'S305' region = 'Moscow' shortname = 'Moscow IPT 5' name = 'Moscow I of Physics and Technology 5 (Murzin, Popovkin, Romanenko)'/>
+<party id = 'S306' region = 'Urals' shortname = 'Perm SU 1' name = 'Perm S U 1 (Lizunov, Tsaplin, Tsaplin)'/>
+<party id = 'S307' region = 'Urals' shortname = 'Tyumen Ind U' name = 'Tyumen Industrial U (Artemov, Nevtyra, Romanov)'/>
+<party id = 'S308' region = 'Urals' shortname = 'Ural FU 2' name = 'Ural Federal U 2 (Barbanyagra, Kungurtsev, Shibaev)'/>
+<party id = 'S401' region = 'Urals' shortname = 'Ufa SATU 1' name = 'Ufa S Aviation Technical U 1 (Agishev, Kryukov, Valiev)'/>
+<party id = 'S402' region = 'Urals' shortname = 'Ural FU 1' name = 'Ural Federal U 1 (Borozdin, Leskov, Sivukhin)'/>
+<party id = 'S403' region = 'Urals' shortname = 'South Ural SU 1' name = 'South Ural S U 1 (Alkapov, Lyzhin, Petrov)'/>
+<party id = 'S404' region = 'Urals' shortname = 'Chelyabinsk SU 1' name = 'Chelyabinsk S U 1 (Anfalov, Anfalova, Voronin)'/>
+<party id = 'S405' region = 'Northern' shortname = 'SPb Acad U 1' name = 'SPb Academic U 1 (Podguzov, Smirnov, Stepanov)'/>
+<party id = 'S406' region = '' shortname = '' name = ' ()'/>
+<party id = 'S407' region = 'Central' shortname = 'Yaroslavl SU 3' name = 'Yaroslavl S U 3 (Fedulov, Lyutenkov, Maslenikov)'/>
+<party id = 'S408' region = 'Western' shortname = 'Vilnius U 2' name = 'Vilnius U 2 (Strakšys, Strimaitis, Šimoliūnaitė)'/>
+<party id = 'S409' region = 'Southern' shortname = 'ICTIS of Southerh FU' name = 'Southern FU I of CompTech and InfoSec (Manych, Minasyan, Mitina)'/>
+<party id = 'S410' region = 'Southern' shortname = 'Saratov SU 2' name = 'Saratov S U 2 (Androsov, Dalabaev, Glazov)'/>
+<party id = 'S411' region = 'Taurida' shortname = 'Crimean FU 2' name = 'Crimean Federal U 2 (Ermachkov, Gurjiy, Korolev)'/>
+<party id = 'S412' region = 'Northern' shortname = 'SPb SU 2' name = 'SPb S U 2 (Alekseev, Ivanov, Novikov)'/>
+<party id = 'S413' region = 'Moscow' shortname = 'Moscow SU 3' name = 'Moscow S U 3 (Semashko, Zhabotinskiy, Zhukov)'/>
+<party id = 'S414' region = 'Moscow' shortname = 'NRU HSE 2' name = 'Higher School of Economics 2 (Basmanov, Kovalkov, Tretyakov)'/>
+<party id = 'S415' region = 'Moscow' shortname = 'Moscow EPhI' name = 'Moscow Engineering Physics I (Akimutin, Latyshev, Malashkevich)'/>
+<party id = 'S416' region = 'Western' shortname = 'Tartu U 1' name = 'Tartu U 1 (Lill, Nisumaa, Unt)'/>
+<party id = 'S417' region = 'Moscow' shortname = 'Moscow IPT 4' name = 'Moscow I of Physics and Technology 4 (Komendantian, Machula, Semenov)'/>
+<party id = 'S418' region = 'Western' shortname = 'Belarusian SU 5' name = 'Belarusian S U 5 (Babashau, Rak, Stsiapanau)'/>
+<party id = 'S501' region = 'Urals' shortname = 'Tyumen SU 2' name = 'Tyumen S U 2 (Gaiduk, Martyn, Pospelov)'/>
+<party id = 'S502' region = 'Urals' shortname = 'Perm SU 2' name = 'Perm S U 2 (Ivanov, Pekhotin, Volkov)'/>
+<party id = 'S503' region = 'Moscow' shortname = 'NRU HSE 4' name = 'Higher School of Economics 4 (Anishchenko, Petukhouski, Yuran)'/>
+<party id = 'S504' region = 'Western' shortname = 'Kant FU 2' name = 'Immanuel Kant Baltic Federal U 2 (Demchenko, Markova, Zhdanov)'/>
+<party id = 'S505' region = 'Moscow' shortname = 'MISiS 4' name = 'NU of Science and Technology MISiS 4 (Chirvonaya, Mayorov, Vasiljev)'/>
+<party id = 'S506' region = 'Moscow' shortname = 'Moscow IPT 7' name = 'Moscow I of Physics and Technology 7 (Alekseev, Grishutin, Kolodzey)'/>
+<party id = 'S507' region = 'Moscow' shortname = 'Moscow SU 5' name = 'Moscow S U 5 (Kalendarov, Korolev, Koshelev)'/>
+<party id = 'S508' region = 'Western' shortname = 'Grodno SU' name = 'Grodno Yanka Kupala S U (Adynets, Kolasau, Vilcheuski)'/>
+<party id = 'S509' region = 'Urals' shortname = 'Ural FU 6' name = 'Ural Federal U 6 (Bazun, Lipin, Smirnov)'/>
+<party id = 'S510' region = 'Moscow' shortname = 'Moscow Aviation I 1' name = 'Moscow Aviation I 1 (Mingalev, Mokin, Trofimov)'/>
+<party id = 'S511' region = 'Urals' shortname = 'Izhevsk STU 2' name = 'Izhevsk S Technical U 2 (Bulatov, Egorov, Filimonov)'/>
+<party id = 'S512' region = 'Southern' shortname = 'Kazan FU 1' name = 'Kazan Federal U 1 (Azimov, Belov, Yagafarov)'/>
+<party id = 'S513' region = 'Western' shortname = 'Belarusian SUIR 1' name = 'Belarusian SU of Inform and Radio 1 (Mosko, Shilyaev, Vishneuski)'/>
+<party id = 'S514' region = 'Northern' shortname = 'SPb Acad U 2' name = 'SPb Academic U 2 (Gavrilov, Surkov, Yepifanov)'/>
+<party id = 'S515' region = 'Far-Eastern' shortname = 'Far Eastern FU 1' name = 'Far Eastern Federal U 1 (Blinov, Danilov, Zhikhareva)'/>
+<party id = 'S516' region = 'Southern' shortname = 'Kazan NRTU' name = 'Kazan National Research Technical U (Kurbanov, Maksimov, Shatunov)'/>
+<party id = 'S517' region = 'Southern' shortname = 'Saratov SU 4' name = 'Saratov S U 4 (Nartsev, Romaschenko, Sokolkov)'/>
+<party id = 'S518' region = 'Southern' shortname = 'Samara NRU 1' name = 'Samara National Research U 1 (Bezrukov, Murtazin, Ponomarev)'/>
+<party id = 'S519' region = 'Urals' shortname = 'Ufa SATU 2' name = 'Ufa S Aviation Technical U 2 (Fatkhiev, Nafikov, Shakirov)'/>
+<party id = 'S520' region = 'Western' shortname = 'Belarusian SU 3' name = 'Belarusian S U 3 (Atliha, Subach, Trukhanovich)'/>
+<party id = 'S521' region = 'Northern' shortname = 'SPb S Pol U' name = 'SPb S Polytechnic U (Furman, Ivashev, Larionov)'/>
+<party id = 'S522' region = 'Southern' shortname = 'Volgograd STU 1' name = 'Volgograd S Technical U 1 (Kirienko, Nosov, Penskoy)'/>
+<party id = 'S523' region = '' shortname = '' name = ' ()'/>
+<party id = 'S524' region = 'Southern' shortname = 'Penza SU' name = 'Penza S U (Dunaev, Erkulov, Serov)'/>
+<party id = 'S525' region = '' shortname = '' name = ' ()'/>
+<party id = 'S601' region = 'Urals' shortname = 'South Ural SU 4' name = 'South Ural S U 4 (Bazhanov, Salnikova, Vays)'/>
+<party id = 'S602' region = 'Western' shortname = 'Belarusian SU 4' name = 'Belarusian S U 4 (Hulin, Klimko, Melnichenka)'/>
+<party id = 'S603' region = 'Northern' shortname = 'SPb SU 3' name = 'SPb S U 3 (Logunov, Makarov, Savchenkov)'/>
+<party id = 'S604' region = 'Central' shortname = 'Vologda SU' name = 'Vologda S U (Britvin, Gerkulesov, Yakushenkova)'/>
+<party id = 'S605' region = 'Southern' shortname = 'Samara NRU 2' name = 'Samara National Research U 2 (Dimitrov, Fattakhov, Kaymakov)'/>
+<party id = 'S606' region = 'Western' shortname = 'Belarusian SUIR 2' name = 'Belarusian SU of Inform and Radio 2 (Dukhounik, Tsishkouski, Udovin)'/>
+<party id = 'S607' region = 'Southern' shortname = 'Volgograd STU 2' name = 'Volgograd S Technical U 2 (Bulankin, Kovalev, Kurylev)'/>
+<party id = 'S608' region = 'Southern' shortname = 'Voronezh SU 2' name = 'Voronezh S U 2 (Kiselev, Tishin, Zolotukhin)'/>
+<party id = 'S609' region = 'Southern' shortname = 'Innopolis U 3' name = 'Innopolis U 3 (Badour, Kabirov, Mullanurov)'/>
+<party id = 'S610' region = 'Urals' shortname = 'Surgut SU' name = 'Surgut S U (Borisov, Masniy, Shaymardanov)'/>
+<party id = 'S611' region = 'Central' shortname = 'Yaroslavl SU 1' name = 'Yaroslavl S U 1 (Akhremenko, Medvedev, Toropova)'/>
+<party id = 'S612' region = 'Central' shortname = 'Orel SU 2' name = 'Orel S U 2 (Baranov, Pyatin, Strygin)'/>
+<party id = 'S613' region = 'Northern' shortname = 'SPb ITMO U 1' name = 'SPb ITMO U 1 (Belonogov, Putilin, Zban)'/>
+<party id = 'S614' region = 'Urals' shortname = 'Udmurt SU' name = 'Udmurt S U (Korablinov, Sidorov, Sorokin)'/>
+<party id = 'S615' region = 'Southern' shortname = 'Nizhny Novgorod SU' name = 'Nizhny Novgorod S U (Emelin, Krapivin, Krivonosov)'/>
+<party id = 'S616' region = 'Northern' shortname = 'SPb Acad U 4' name = 'SPb Academic U 4 (Belova, Fedorov, Sayutin)'/>
+<party id = 'S617' region = 'Southern' shortname = 'Saratov SU 1' name = 'Saratov S U 1 (Kireev, Ripinen, Smirnov)'/>
+<party id = 'S618' region = 'Moscow' shortname = 'NRU HSE 1' name = 'Higher School of Economics 1 (Iskhakov, Kraskevich, Zimin)'/>
+<party id = 'S619' region = 'Western' shortname = 'Kaunas UT' name = 'Kaunas U of Technology (Garbonis, Legačinskas, Uselis)'/>
+<party id = 'S620' region = 'Northern' shortname = 'Petrosavodsk SU 1' name = 'Petrozavodsk S U 1 (Ermishin, Ermolin, Kobeleva)'/>
+<party id = 'S621' region = 'Northern' shortname = 'Northern FU' name = 'Northern (Arctic) Federal U (Asyutchenko, Dyachkov, Guriev)'/>
+<party id = 'S622' region = 'Urals' shortname = 'Ural FU 4' name = 'Ural Federal U 4 (Ankudinov, Efanov, Nemtsev)'/>
+<party id = 'S623' region = 'Northern' shortname = 'Mozhaisky MSA 2' name = 'Mozhaisky Military Space A 2 (FOMICHEV, Garkavenko, Kravchenko)'/>
+<party id = 'S624' region = '' shortname = '' name = ' ()'/>
+<party id = 'S625' region = 'Urals' shortname = 'Ufa SATU 3' name = 'Ufa S Aviation Technical U 3 (Kasymov, Orlov, Zaripov)'/>
+<party id = 'S626' region = 'Taurida' shortname = 'Crimean FU 3' name = 'Crimean Federal U 3 (Kiselyov, Nikulin, Tribrat)'/>
+<party id = 'S627' region = 'Southern' shortname = 'Ulyanovsk STU' name = 'Ulyanovsk S Technical U (Gorshkov, Kondratiev, Pecherkin)'/>
+<party id = 'S628' region = 'Moscow' shortname = 'MISiS 3' name = 'NU of Science and Technology MISiS 3 (Ilyuhin, Ivanov, Kholodiakov)'/>
+<party id = 'S629' region = 'Western' shortname = 'Latvia U 2' name = 'Latvia U 2 (Civkulis, Klevickis, Larka)'/>
+<party id = 'S630' region = 'Moscow' shortname = 'Moscow SU 4' name = 'Moscow S U 4 (Lakhtanov, Rukhovich, Saakyan)'/>
+<party id = 'S631' region = 'Moscow' shortname = 'Moscow IPT 1' name = 'Moscow I of Physics and Technology 1 (Golovanov, Ostanin, Uvarov)'/>
+<party id = 'S632' region = '' shortname = '' name = ' ()'/>
+<party id = 'S701' region = 'Northern' shortname = 'Novgorod SU' name = 'Novgorod S U (Ivanov, Lantsetov, Stepanov)'/>
+<party id = 'S702' region = 'Western' shortname = 'Belarusian SU 1' name = 'Belarusian S U 1 (Hrechykha, Medyanikov, Natalevich)'/>
+<party id = 'S703' region = 'Northern' shortname = 'SPb SU 4' name = 'SPb S U 4 (Dobronravov, Dobronravov, Kassihin)'/>
+<party id = 'S704' region = 'Moscow' shortname = 'Moscow IPT 2' name = 'Moscow I of Physics and Technology 2 (Belykh, Sergunin, Stepanov)'/>
+<party id = 'S705' region = 'Urals' shortname = 'Perm SU 3' name = 'Perm S U 3 (Marchenko, Shartsev, Turova)'/>
+<party id = 'S706' region = 'Northern' shortname = 'Petrosavodsk SU 3' name = 'Petrozavodsk S U 3 (Alkin, Kukushkin, Ostakova)'/>
+<party id = 'S707' region = 'Moscow' shortname = 'NRU HSE 5' name = 'Higher School of Economics 5 (Ershov, Semenov, Solonkov)'/>
+<party id = 'S708' region = 'Southern' shortname = 'Innopolis U 1' name = 'Innopolis U 1 (Gaivoronskiy, Karafallakh, Yalalov)'/>
+<party id = 'S709' region = 'Taurida' shortname = 'Crimean FU 1' name = 'Crimean Federal U 1 (Alekseeva, Bidanets, Voinovsky)'/>
+<party id = 'S710' region = 'Central' shortname = 'Rybinsk SATU' name = 'Rybinsk S Aviation Technical U (Koekin, Smirnov, Spirov)'/>
+<party id = 'S711' region = 'Southern' shortname = 'Saratov SU 3' name = 'Saratov S U 3 (Mescheryakov, Petrov, Piklyaev)'/>
+<party id = 'S712' region = 'Western' shortname = 'Vilnius U 1' name = 'Vilnius U 1 (Jadenkus, Klimavičius, Kurtinaitis)'/>
+<party id = 'S713' region = 'Northern' shortname = 'SPb Acad U 5' name = 'SPb Academic U 5 (Babushkin, Makhnev, Trilis)'/>
+<party id = 'S714' region = 'Northern' shortname = 'SPb ITMO U 3' name = 'SPb ITMO U 3 (Naumov, Philipchik, Turaev)'/>
+<party id = 'S715' region = 'Urals' shortname = 'Ural FU 3' name = 'Ural Federal U 3 (Borzunov, Permyakov, Pivko)'/>
+<party id = 'S716' region = '' shortname = '' name = ' ()'/>
+<party id = 'S717' region = '' shortname = '' name = ' ()'/>
+<party id = 'S801' region = 'Moscow' shortname = 'Moscow Ped SU' name = 'Moscow Pedagogical S U (Bobrov, Butarev, Myradov)'/>
+<party id = 'S802' region = '' shortname = '' name = ' ()'/>
+<party id = 'S803' region = 'Urals' shortname = 'Chelyabinsk SU 2' name = 'Chelyabinsk S U 2 (Gribovskiy, Ponomarev, Zhernov)'/>
+<party id = 'S804' region = 'Urals' shortname = 'Izhevsk STU 3' name = 'Izhevsk S Technical U 3 (Gorodilov, Ivchenko, Khasanov)'/>
+<party id = 'S805' region = 'Urals' shortname = 'Tyumen SU 1' name = 'Tyumen S U 1 (Avriskin, Ivanov, Panasura)'/>
+<party id = 'S806' region = 'Moscow' shortname = 'Moscow Aviation I 3' name = 'Moscow Aviation I 3 (Bychkar, Karpovich, Tishin)'/>
+<party id = 'S807' region = 'Urals' shortname = 'Ural FU 5' name = 'Ural Federal U 5 (Chaplygin, Dubikovskiy, Gein)'/>
+<party id = 'S808' region = 'Urals' shortname = 'South Ural SU 2' name = 'South Ural S U 2 (Evgenyev, Gordievskih, Vasilenko)'/>
+<party id = 'S809' region = 'Southern' shortname = 'Togliatti SU' name = 'Togliatti S U (Panin, Sabirov, Zakharov)'/>
+<party id = 'S810' region = 'Western' shortname = 'Belarusian SU 2' name = 'Belarusian S U 2 (Dubovik, Karabeinikau, Vilcheuski)'/>
+<party id = 'S811' region = 'Central' shortname = 'Vyatka SU' name = 'Vyatka S U (Dehterev, Prozorova, Vorobyev)'/>
+<party id = 'S812' region = 'Moscow' shortname = 'Bauman Moscow STU' name = 'Bauman Moscow S Technical U (Kudryavtsev, Rudnev, Zashikhin)'/>
+<party id = 'B605' region = 'East-Siberian' shortname = 'Aerospace Col of SibSAU' name = 'Aerospace College of SibSAU (Fedorov, Lyakhov, Polejaev)'/>
+<party id = 'B202' region = 'West-Siberian' shortname = 'Altai STU 1' name = 'Altai S Technical U 1 (Ananev, Fast, Lozhkina)'/>
+<party id = 'B502' region = 'West-Siberian' shortname = 'Altai STU 2' name = 'Altai S Technical U 2 (Galkin, Kozlov, Kozlov)'/>
+<party id = 'B704' region = 'West-Siberian' shortname = 'Altai STU 3' name = 'Altai S Technical U 3 (Babushkin, Danilin, Shulga)'/>
+<party id = 'B402' region = 'West-Siberian' shortname = 'Altai STU 4' name = 'Altai S Technical U 4 (Avanesyan, Kozlov, Rusakov)'/>
+<party id = 'B506' region = 'West-Siberian' shortname = 'Altai SU' name = 'Altay SU (Boyko, Igor, Panarin)'/>
+<party id = 'B401' region = 'East-Siberian' shortname = 'Buryat SU 1' name = 'Buryat SU 1 (Badagarov, Guslyakov, Tsydypova)'/>
+<party id = 'B207' region = 'East-Siberian' shortname = 'Buryat SU 2' name = 'Buryat SU 2 (Batalov, Dambaeva, Mitypov)'/>
+<party id = 'B105' region = 'East-Siberian' shortname = 'Chita SU' name = 'Chita SU (Belov, Chernykh, Khazagarov)'/>
+<party id = 'B703' region = 'East-Siberian' shortname = 'East-Siberian STU 1' name = 'East-Siberian STU 1 (Badaev, Timofeev, Veselov)'/>
+<party id = 'B603' region = 'East-Siberian' shortname = 'East-Siberian STU 2' name = 'East-Siberian STU 2 (Filippov, Tsyrempilon, Tsyrendorzhiev)'/>
+<party id = 'B802' region = 'East-Siberian' shortname = 'East-Siberian STU 3' name = 'East-Siberian STU 3 (Burdukovsky, Igolkin, Lebedeva)'/>
+
+<party id = 'B806' region = 'Far-Eastern' shortname = 'Far Eastern FU 3' name = 'Far Eastern Federal U 3 (Batrakov, Gusarov, Shchurov)'/>
+<party id = 'B103' region = 'Far-Eastern' shortname = 'Far Eastern STU 1' name = 'Far Eastern S Transportation U 1 (Panova, Usmanov, Usov)'/>
+
+<party id = 'B503' region = 'East-Siberian' shortname = 'IMCS of Siberian FU' name = 'I of Mathematics and CS of Siberian FU (Bachurin, Ryabushev, Sukhikh)'/>
+<party id = 'B801' region = 'East-Siberian' shortname = 'ISIT of Siberian FU 1' name = 'I of Space and IT of Siberian FU 1 (Halturin, Melnikov, Platonov)'/>
+
+<party id = 'B301' region = 'East-Siberian' shortname = 'ISIT of Siberian FU 3' name = 'I of Space and IT of Siberian FU 3 (Garbart, Kislov, Saenko)'/>
+<party id = 'B504' region = 'East-Siberian' shortname = 'ISIT of Siberian FU 4' name = 'I of Space and IT of Siberian FU 4 (Molodan, Spiridonov, Vagner)'/>
+<party id = 'B104' region = 'East-Siberian' shortname = 'Irkutsk STU 1' name = 'Irkutsk S Technical U 1 (Chekan, Pakulev, Skorobogatov)'/>
+<party id = 'B407' region = 'East-Siberian' shortname = 'Irkutsk STU 2' name = 'Irkutsk S Technical U 2 (Kuroptev, Litvincev, Ushakov)'/>
+<party id = 'B805' region = 'East-Siberian' shortname = 'Irkutsk SU' name = 'Irkutsk SU (Antonov, Chumachenko, Zagyzin)'/>
+<party id = 'B702' region = 'East-Siberian' shortname = 'Khakas SU 1' name = 'Khakas SU 1 (Bagaev, Tumoyakov, Zemlyanikin)'/>
+<party id = 'B602' region = 'East-Siberian' shortname = 'Khakas SU 2' name = 'Khakas SU 2 (Dron, Engel, Naletov)'/>
+<party id = 'B304' region = 'East-Siberian' shortname = 'Krasnoyarsk S Ped U' name = 'Krasnoyarsk S Pedagogical U (Gilyazov, Stankovskii, Strelnikova)'/>
+<party id = 'B803' region = 'Kyrgyzstan' shortname = 'Kyrg-Rus Slav U 3' name = 'Kyrgyz Russian Slavic U 3 (Bubnov, Tropeyko, Umetov)'/>
+<party id = 'B403' region = 'Kyrgyzstan' shortname = 'Kyrg-Rus Slav U 4' name = 'Kyrgyz Russian Slavic U 4 (Abdirazakov, Aldaiarov, Bekbolotov)'/>
+<party id = 'B208' region = 'Far-Eastern' shortname = 'Maritime SU' name = 'Maritime SU (Nechepurenko, Patenkova, Shetilin)'/>
+<party id = 'B201' region = 'East-Siberian' shortname = 'Norilsk Ind I' name = 'Norilsk Industrial I (Dobrovolsky, Lukjanchikov, Makarov)'/>
+<party id = 'B102' region = 'Far-Eastern' shortname = 'North-Eastern FU' name = 'North-Eastern Federal U (Artamonov, Khokholov, Khovrov)'/>
+<party id = 'B404' region = 'West-Siberian' shortname = 'Novosibirsk S Ped U' name = 'Novosibirsk S Pedagogical U (Belikov, Kurilenko, Kuznecov)'/>
+<party id = 'B706' region = 'West-Siberian' shortname = 'Novosibirsk STU 1' name = 'Novosibirsk S Technical U 1 (Indikeev, Katunov, Sitnikov)'/>
+<party id = 'B409' region = 'West-Siberian' shortname = 'Novosibirsk STU 2' name = 'Novosibirsk S Technical U 2 (Nagornov, Stabrovsky, Zhurkin)'/>
+<party id = 'B205' region = 'West-Siberian' shortname = 'Novosibirsk STU 3' name = 'Novosibirsk S Technical U 3 (Ivakin, Kunts, Prokopyev)'/>
+<party id = 'B606' region = 'West-Siberian' shortname = 'Novosibirsk SU 1' name = 'Novosibirsk SU 1 (Smirnov, Viktorov, Vishnevskii)'/>
+<party id = 'B408' region = 'West-Siberian' shortname = 'Novosibirsk SU 2' name = 'Novosibirsk SU 2 (Isachenko, Malykh, Matveev)'/>
+<party id = 'B501' region = 'West-Siberian' shortname = 'Novosibirsk SU 3' name = 'Novosibirsk SU 3 (Bykova, Bykova, Filippov)'/>
+<party id = 'B701' region = 'West-Siberian' shortname = 'Novosibirsk SU 4' name = 'Novosibirsk SU 4 (Arkhipov, Ershov, Kozlov)'/>
+<party id = 'B302' region = 'West-Siberian' shortname = 'Omsk STU' name = 'Omsk S Technical U (Hvoryh, Inivatov, Trubin)'/>
+<party id = 'B203' region = 'West-Siberian' shortname = 'Omsk SU 1' name = 'Omsk SU 1 (Gorbunov, Marchenko, Skripov)'/>
+<party id = 'B804' region = 'West-Siberian' shortname = 'Omsk SU 2' name = 'Omsk SU 2 (Boldyr, Lemeshko, Magdin)'/>
+<party id = 'B705' region = 'West-Siberian' shortname = 'Rubtsovsk II' name = 'Rubtsovsk Industrial I (Lunev, Nagih, Nagih)'/>
+
+<party id = 'B410' region = 'West-Siberian' shortname = 'Siberian STU' name = 'Siberian S Transport U (Omelnitsky, Petrov, Pozdnyakov)'/>
+<party id = 'B101' region = 'West-Siberian' shortname = 'Siberian SUTI 1' name = 'Siberian SU of Telecom and Informatics 1 (Cherdakov, Komarevtsev, Pletyuhin)'/>
+<party id = 'B406' region = 'West-Siberian' shortname = 'Siberian SUTI 2' name = 'Siberian SU of Telecom and Informatics 2 (Boldakov, Ili, Renjov)'/>
+<party id = 'B505' region = 'West-Siberian' shortname = 'Tomsk Pol U 1' name = 'Tomsk Polytechnic U 1 (Golub, Komarov, Vetrov)'/>
+<party id = 'B604' region = 'West-Siberian' shortname = 'Tomsk Pol U 2' name = 'Tomsk Polytechnic U 2 (Iovlev, Kuznetsova, Maksimova)'/>
+<party id = 'B204' region = 'West-Siberian' shortname = 'Tomsk Pol U 3' name = 'Tomsk Polytechnic U 3 (Bakulin, Nesterenko, Rybachenko)'/>
+<party id = 'B106' region = 'West-Siberian' shortname = 'Tomsk Pol U 4' name = 'Tomsk Polytechnic U 4 (Babichev, Pestova, liao)'/>
+<party id = 'B601' region = 'West-Siberian' shortname = 'Tomsk SU 1' name = 'Tomsk SU 1 (Kotov, Sakhapov, Zakharov)'/>
+<party id = 'B303' region = 'West-Siberian' shortname = 'Tomsk SU 2' name = 'Tomsk SU 2 (Grudinin, Ryakin, Victor)'/>
+
+<party id = 'B206' region = 'West-Siberian' shortname = 'Tomsk USUR' name = 'Tomsk SU of Control Syst and Radioel (Barkalov, Gorohov, Itskov)'/>
+<party id = 'B305' region = 'West-Siberian' shortname = 'Ugra SU' name = 'Ugra SU (Baluev, Kovalnogov, Zavyalov)'/>
+<party id = 'B405' region = 'Far-Eastern' shortname = 'Vladivostok SU of ES' name = 'Vladivostok SU of Econ and Service (Shishlo, Silchenko, Vasilchenko)'/>
+<party id = 'T049' region = 'Azerbaijan' shortname = 'ADA U 1' name = 'ADA U 1 (Askarov, Isgandarli, Zeynalli)'/>
+<party id = 'T022' region = 'Azerbaijan' shortname = 'ADA U 2' name = 'ADA U 2 (Gasimov, Hasanov, Mustafali)'/>
+<party id = 'T037' region = 'Azerbaijan' shortname = 'ADA U 3' name = 'ADA U 3 (Farzaliyev, Gadirzada, Huseynzade)'/>
+
+
+<party id = 'T039' region = 'Azerbaijan' shortname = 'Azerbaijan U' name = 'Azerbaijan U (Abbaszadeh, Habibli, Zakirli)'/>
+<party id = 'T024' region = 'Armenia' shortname = 'American U of Armenia 1' name = 'American U of Armenia 1 (Ashughyan, Hayrapetyan, Mirakyan)'/>
+<party id = 'T025' region = 'Armenia' shortname = 'American U of Armenia 2' name = 'American U of Armenia 2 (Bunarjyan, Harutyunyan, Zakaryan)'/>
+<party id = 'T057' region = 'Armenia' shortname = 'American U of Armenia 3' name = 'American U of Armenia 3 (Bezirganyan, Sarikyan, Shahumyan)'/>
+
+<party id = 'T032' region = 'Azerbaijan' shortname = 'Baku H Oil S' name = 'Baku HIgher Oil School (Huseynli, Piriyev, Samadli)'/>
+<party id = 'T056' region = 'Azerbaijan' shortname = 'Baku SU' name = 'Baku SU (Qarayev, Sofiyev, Zeynalzade)'/>
+<party id = 'T006' region = 'Azerbaijan' shortname = 'Baku Eng U 1' name = 'Baku Engineering U 1 (Allahverdiyev, Karimov, Mammadov)'/>
+<party id = 'T009' region = 'Azerbaijan' shortname = 'Baku Eng U 2' name = 'Baku Engineering U 2 (Aghayev, Ashrafov, Hajili)'/>
+
+
+
+<party id = 'T016' region = 'Georgia' shortname = 'Batumi SU' name = 'Batumi SU (Beria, Giorgadze, Kakhidze)'/>
+<party id = 'T004' region = 'Georgia' shortname = 'Kutaisi SU 1' name = 'Kutaisi SU 1 (Butskhrikidze, Gogsadze, Leladze)'/>
+<party id = 'T011' region = 'Georgia' shortname = 'Kutaisi SU 2' name = 'Kutaisi SU 2 (Gogiava, Khantadze, Kldiashvili)'/>
+
+
+<party id = 'T033' region = 'Armenia' shortname = 'Rus-Arm (Slav) SU 1' name = 'Russian-Armenian (Slavonick) SU 1 (Arakelyan, Grigoryan, Saryan)'/>
+<party id = 'T017' region = 'Armenia' shortname = 'Rus-Arm (Slav) SU 2' name = 'Russian-Armenian (Slavonick) SU 2 (Ioanisyan, Lalayan, Oganesyan)'/>
+
+<party id = 'T008' region = 'Armenia' shortname = 'Rus-Arm (Slav) SU 4' name = 'Russian-Armenian (Slavonick) SU 4 (Gevorgyan, Ghukasyan, Yeranyan)'/>
+<party id = 'T002' region = 'Georgia' shortname = 'Caucasus U 1' name = 'Caucasus U 1 (Chelidze, chkhetiani, kakhiani)'/>
+<party id = 'T013' region = 'Georgia' shortname = 'Caucasus U 2' name = 'Caucasus U 2 (Gurgenidze, Japaridze, Kurdadze)'/>
+<party id = 'T059' region = 'Georgia' shortname = 'Tbilisi Euro U' name = 'Tbilisi European U (Arabuli, Dolidze, Podiashvili)'/>
+<party id = 'T027' region = 'Georgia' shortname = 'Free U of Tbilisi 1' name = 'Free U of Tbilisi 1 (Guliashvili, Mandzulashvili, Tskhovrebov)'/>
+<party id = 'T010' region = 'Georgia' shortname = 'Free U of Tbilisi 2' name = 'Free U of Tbilisi 2 (Nishnianidze, Popkhadze, Tsutskhashvili)'/>
+<party id = 'T060' region = 'Georgia' shortname = 'Free U of Tbilisi 3' name = 'Free U of Tbilisi 3 (Baghdavadze, Bezhanishvili, Losaberidze)'/>
+<party id = 'T005' region = 'Georgia' shortname = 'Free U of Tbilisi 4' name = 'Free U of Tbilisi 4 (Gogia, Kharshiladze, Kvitsiani)'/>
+<party id = 'T028' region = 'Georgia' shortname = 'Tbilisi IBSU' name = 'International Black Sea U (Morchiladze, Narushvili, Svanidze)'/>
+<party id = 'T036' region = 'Georgia' shortname = 'Tbilisi SANGU 1' name = 'St Andrew the First-Called Georgian U 1 (Chubinidze, Khundzakishvili, Tsotne)'/>
+
+<party id = 'T050' region = 'Georgia' shortname = 'Tbilisi SU 1' name = 'I. Javakhishvili Tbilisi SU 1 (Dzmanashvili, Shonia, Vardishvili)'/>
+<party id = 'T015' region = 'Georgia' shortname = 'Tbilisi SU 2' name = 'I. Javakhishvili Tbilisi SU 2 (Jokhadze, Salia, Zabakhidze)'/>
+<party id = 'T007' region = 'Georgia' shortname = 'Tbilisi SU 3' name = 'I. Javakhishvili Tbilisi SU 3 (Qeropyan, Saatashvili, Tavdgiridze)'/>
+<party id = 'T038' region = 'Georgia' shortname = 'French-Georgian I' name = 'French-Georgian I (Chanukvadze, Rekhviashvili, Sultanishvili)'/>
+<party id = 'T029' region = 'Georgia' shortname = 'Tbilisi SU 4' name = 'I. Javakhishvili Tbilisi SU 4 (Aptsiauri, Gobronidze, Shekiladze)'/>
+
+<party id = 'T001' region = 'Armenia' shortname = 'Yerevan SU 1' name = 'Yerevan SU 1 (Galstyan, Mikaelyan, Muradyan)'/>
+<party id = 'T030' region = 'Armenia' shortname = 'Yerevan SU 2' name = 'Yerevan SU 2 (Altunyan, Hambardzumyan, Sahakyan)'/>
+<party id = 'T012' region = 'Armenia' shortname = 'Yerevan SU 3' name = 'Yerevan SU 3 (Gomktsyan, Khachikyan, Mkrtumyan)'/>
+<party id = 'T051' region = 'Armenia' shortname = 'Yerevan SU 4' name = 'Yerevan SU 4 (Matevosyan, Tamazyan, Topchyan)'/>
+<party id = 'T052' region = 'Georgia' shortname = 'Georgian TU' name = 'Gergian Technical University (Madzgarashvili, Gasanov, Shavardenidze)'/>
+</parties>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>                                         
+
+<parties
+ id = "neerc.2020.main"
+ xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+<party id = '486884' name = 'Yerevan SU: New Era' shortname='Yerevan SU: New Era' hall_id='01'/>
+<party id = '486910' name = 'Budenny Mil Telecom A: 1' shortname='Budenny Mil Telecom A: 1' hall_id='35'/>
+<party id = '486908' name = 'Ufa SATU: Electric Funeral' shortname='Ufa SATU: Electric Funeral' hall_id='54'/>
+<party id = '486907' name = 'MEPhI: SoZo' shortname='MEPhI: SoZo' hall_id='16'/>
+<party id = '486906' name = 'AUCA: #1 Turtles' shortname='AUCA: #1 Turtles' hall_id='08'/>
+<party id = '486905' name = 'Novosibirsk SU 1: Mufasa' shortname='Novosibirsk SU 1: Mufasa' hall_id='06'/>
+<party id = '486904' name = 'YaroslavlSU 1: Crblnge team' shortname='YaroslavlSU 1: Crblnge team' hall_id='25'/>
+<party id = '486903' name = 'MISiS: ToMcKoE 4aellutuE' shortname='MISiS: ToMcKoE 4aellutuE' hall_id='05'/>
+<party id = '486902' name = 'TUIT: MathX' shortname='TUIT: MathX' hall_id='43'/>
+<party id = '486901' name = 'Latvia: LU 1' shortname='Latvia: LU 1' hall_id='101'/>
+<party id = '486900' name = 'Siberian SUTI: Santa-Monika' shortname='Siberian SUTI: Santa-Monika' hall_id='03'/>
+<party id = '486899' name = 'Nizhny Novgorod HSE: 1' shortname='Nizhny Novgorod HSE: 1' hall_id='33'/>
+<party id = '486898' name = 'Baltic FU 1: La Squadra Esecuzioni' shortname='Baltic FU 1: La Squadra' hall_id='12'/>
+<party id = '486897' name = 'Moscow AI: #3' shortname='Moscow AI: #3' hall_id='29'/>
+<party id = '486896' name = 'NNSU: 1' shortname='NNSU: 1' hall_id='15'/>
+<party id = '486895' name = 'Izhevsk STU: Ne nado dumat' shortname='Izhevsk STU: Ne nado dumat' hall_id='37'/>
+<party id = '486894' name = 'Nazarbayev U: 1' shortname='Nazarbayev U: 1' hall_id='22'/>
+<party id = '486893' name = 'Kazakh-British TU: 1' shortname='Kazakh-British TU: 1' hall_id='09'/>
+<party id = '486892' name = 'Ural FU: CheezeKEK' shortname='Ural FU: CheezeKEK' hall_id='10'/>
+<party id = '486891' name = 'Kazan FU: AJ' shortname='Kazan FU: AJ' hall_id='02'/>
+<party id = '486890' name = 'Penza SU: E' shortname='Penza SU: E' hall_id='24'/>
+<party id = '486889' name = 'Tolyatti SU: A' shortname='Tolyatti SU: A' hall_id='13'/>
+<party id = '486888' name = 'SDU 1: Qataly degen ne?' shortname='SDU 1: Qataly degen ne?' hall_id='31'/>
+<party id = '486887' name = 'Belarusian SUIR: #2' shortname='Belarusian SUIR: #2' hall_id='104'/>
+<party id = '486886' name = 'HSE: Smetana fans' shortname='HSE: Smetana fans' hall_id='36'/>
+<party id = '486885' name = 'Moscow SU: boloto' shortname='Moscow SU: boloto' hall_id='21'/>
+<party id = '486883' name = 'SPb ITMO: Unexpected Value' shortname='SPb ITMO: Unexpected Value' hall_id='42'/>
+<party id = '486882' name = 'SPb HSE: VLADBUK' shortname='SPb HSE: VLADBUK' hall_id='28'/>
+<party id = '486881' name = 'Belarusian SU: 2' shortname='Belarusian SU: 2' hall_id='102'/>
+<party id = '486880' name = 'Moscow IPT: 42NA' shortname='Moscow IPT: 42NA' hall_id='23'/>
+<party id = '486879' name = 'Innopolis U: V' shortname='Innopolis U: V' hall_id='101'/>
+<party id = '486878' name = 'Tbilisi Freeuni: 1' shortname='Tbilisi Freeuni: 1' hall_id='102'/>
+<party id = '486877' name = 'Saratov SU: N' shortname='Saratov SU: N' hall_id='20'/>
+<party id = '486876' name = 'IITU: 1' shortname='IITU: 1' hall_id='18'/>
+<party id = '486875' name = 'SPb ITMO: 25' shortname='SPb ITMO: 25' hall_id='07'/>
+<party id = '486874' name = 'St. Petersburg SU: How to turn on computer?' shortname='St. Petersburg SU: computer' hall_id='17'/>
+<party id = '486873' name = 'Moscow SU: Nonames' shortname='Moscow SU: Nonames' hall_id='27'/>
+<party id = '486872' name = 'SPb ITMO: pengzoo' shortname='SPb ITMO: pengzoo' hall_id='11'/>
+<party id = '486871' name = 'Belarusian SU: 3' shortname='Belarusian SU: 3' hall_id='103'/>
+<party id = '486870' name = 'St. Petersburg SU: We solve behind magnifying glasses' shortname='St. Petersburg SU: glasses' hall_id='26'/>
+<party id = '486869' name = 'Moscow IPT: LinkCat' shortname='Moscow IPT: LinkCat' hall_id='39'/>
+<party id = '486868' name = 'Belarusian SU: 1' shortname='Belarusian SU: 1' hall_id='101'/>
+<party id = '486867' name = 'St. Petersburg SU: 25' shortname='St. Petersburg SU: 25' hall_id='30'/>
+<party id = '486866' name = 'St. Petersburg SU: LOUD Enough' shortname='St. Petersburg SU: LOUD Enough' hall_id='32'/>
+<party id = '486865' name = 'St. Petersburg SU: Cheba Kings' shortname='St. Petersburg SU: Cheba Kings' hall_id='38'/>
+<party id = '486864' name = 'Moscow IPT: Malaya Bronnaya' shortname='Moscow IPT: Malaya Bronnaya' hall_id='14'/>
+<party id = '486863' name = 'HSE: Sleeveless shorts' shortname='HSE: Sleeveless shorts' hall_id='34'/>
+<party id = '486862' name = 'HSE: Overtrained' shortname='HSE: Overtrained' hall_id='41'/>
+<party id = '486861' name = 'SPb ITMO: Insert your name' shortname='SPb ITMO: Insert your name' hall_id='04'/>
+<party id = '486860' name = 'SPb HSE 1: Lemon Tree' shortname='SPb HSE 1: Lemon Tree' hall_id='19'/>
+</parties>

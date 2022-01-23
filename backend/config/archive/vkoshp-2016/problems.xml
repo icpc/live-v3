@@ -1,0 +1,13 @@
+<challenge>
+    <problem id = "A" alias = "A" problem-id = "bisect"               name = "Золотые слитки" color="#7C0026" />
+    <problem id = "B" alias = "B" problem-id = "bus"                  name = "Автобус" color="#7C0026" />
+    <problem id = "C" alias = "C" problem-id = "cold"                 name = "Горные лыжи" color="#7C0026" />
+    <problem id = "D" alias = "D" problem-id = "colorful"             name = "IQ тест для роботов" color="#7C0026" />
+    <problem id = "E" alias = "E" problem-id = "concatenateonline"    name = "Расшифровка ДНК" color="#7C0026" />
+    <problem id = "F" alias = "F" problem-id = "data"                 name = "Преобразование таблицы" color="#7C0026" />
+    <problem id = "G" alias = "G" problem-id = "database"             name = "Архивы джедаев" color="#7C0026" />
+    <problem id = "H" alias = "H" problem-id = "museum"               name = "Музей" color="#7C0026" />
+    <problem id = "I" alias = "I" problem-id = "number"               name = "Обычный мальчик" color="#7C0026" />
+    <problem id = "J" alias = "J" problem-id = "polyglots"            name = "Полиглоты-интроверты" color="#7C0026" />
+    <problem id = "K" alias = "K" problem-id = "xormod"               name = "«Исключающее или» наносит ответный удар" color="#7C0026" />
+</challenge>

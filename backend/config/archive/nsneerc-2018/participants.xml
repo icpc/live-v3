@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>                                         
+
+<parties
+ id = "qf-2018.spb"
+ xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+<party id ='101' name = 'SPb ITMO University 1 (Sayutin, Kirillov, Drozdova)' />
+<party id ='103' name = 'Mozhaisky Military Eng. Aerospace U 3 (Scherbakov, Borisov, Hovansky)' />
+<party id ='105' name = 'SPb SU 1 (Gorbachev, Ivanov, Safonov)' />
+<party id ='107' name = 'SPb SU 11 (Afrikanov, Zinnatulin, Varlashov)' />
+<party id ='109' name = 'SPb SU of Econ 4 (Filippov, Sidorov, Abdulin)' />
+<party id ='111' name = 'SPb ITMO University 2 (Korobkov, Poduremennykh, Naumov)' />
+<party id ='201' name = 'Mikhailovskaya MAA 3 (Ahmedov, Temnov, Shemyakin)' />
+<party id ='203' name = 'SPb ITMO University 23 (Gornak, Badyaev, Zakharevich)' />
+<party id ='204' name = 'SPb SU 28 (Derkunskiy, Kulesh, Kravchenko)' />
+<party id ='206' name = 'SPb Polytech U (Kostenko, Ovechkin, Kalugin)' />
+<party id ='207' name = 'Baltic STU 3 (Starovoitov, Shirokov, Bolshakov)' />
+<party id ='209' name = 'SPb ITMO University 16 (Tribrat, Busygin, Khlytin)' />
+<party id ='210' name = 'SPb SU 18 (Batoev, Kanteev, Pravdiukov)' />
+<party id ='212' name = 'Mikhailovskaya MAA 2 (Nekrasov, Evseev, Boyko)' />
+<party id ='214' name = 'SPb ITMO University 3 (Kurbatov, Perveev, Tkach)' />
+<party id ='216' name = 'SPb SU 13 (Varfolomeev, Ionin, Vlaev)' />
+<party id ='302' name = 'SPb ITMO University 4 (Rakhmatullin, Tsaplin, Anoprenko)' />
+<party id ='304' name = 'SPb HSE 5 (Fedorov, Labutin, Ermilov)' />
+<party id ='306' name = 'SPb SU 7 (Gaevoi, Bochkov, Smirnov)' />
+<party id ='307' name = 'SPb SU 31 (Afonina, Privalihin, Pogozhelskaya)' />
+<party id ='308' name = 'Mikhailovskaya MAA 1 (Zekunov, Popov, Spitsyn)' />
+<party id ='402' name = 'SPb ITMO University 7 (Koveshnikov, Kubantsev, Shaposhnikov)' />
+<party id ='405' name = 'SPb SU of Aerospace Instr 2 (Zykov, Kropotin, Fedorov)' />
+<party id ='407' name = 'SPb SU 22 (Luchinin, Bashchuk, Melnikov)' />
+<party id ='409' name = 'SPb ITMO University 5 (Pleshakov, Kozelko, Filipchyk)' />
+<party id ='410' name = 'Mozhaisky Military Eng. Aerospace U 6 (Nagibin, Goncharov, Kruglov)' />
+<party id ='412' name = 'Mikhailovskaya MAA 4 (Piankov, Semin, Marchenkov)' />
+<party id ='413' name = 'SPb ITMO University 14 (Romanenko, Ota, Chezhegov)' />
+<party id ='414' name = 'SPb SU 25 (Raysky, Belichenko, Petrov)' />
+<party id ='415' name = 'SPb SU of Civil Aviation (?)' />
+<party id ='416' name = 'SPb SU 12 (Belousov, Aleksandrov, Kruchinina)' />
+<party id ='417' name = 'Baltic STU 2 (Aleshin, Korneev, Dubinin)' />
+<party id ='418' name = 'Makarov SU of Maritime and Inl. Sh. 2 (Fedorov, Boykov, Kolesnik)' />
+<party id ='501' name = 'SPb SU 23 (Alekseev, Novikov, Azangulov)' />
+<party id ='502' name = 'Mozhaisky Military Eng. Aerospace U 2 (Archakov, Biktashev, Antonov)' />
+<party id ='503' name = 'SPb Forest TU 3 (Korostin, Ivanov, Solovev)' />
+<party id ='504' name = 'SPb HSE 3 (Palchenkova, Bukov, Olemskaya)' />
+<party id ='505' name = 'SPb ITMO University 6 (Gribanov, Mikhniuk, Kulazhenko)' />
+<party id ='506' name = 'SPb SU 14 (Tursunova, Volodin, Gusev)' />
+<party id ='507' name = 'SPb SU of Arch. and Civil Eng. 3 (Yanakov, Ketbiev, Boitsov)' />
+<party id ='508' name = 'Mozhaisky Military Eng. Aerospace U 4 (Sanzharevskiy, Mozgovoy, Kharunov)' />
+<party id ='509' name = 'SPb SU 8 (Grebennikov, Zavarin, Fadeeva)' />
+<party id ='510' name = 'SPb SU of Arch. and Civil Eng. 1 (Sosnilo, Geyer, Arshakyan)' />
+<party id ='511' name = 'SPb SU of Industrial Tech and Design (Dobryanskij, Mironova, Kovalenko)' />
+<party id ='512' name = 'SPb SU 32 (Aslanov, Mishurov, Kostadinov)' />
+<party id ='513' name = 'SPb SU 15 (Vologin, Drozdov, Mochalygin)' />
+<party id ='514' name = 'Petrozavodsk SU 1 (Kobeleva, Ermolin, Alkin)' />
+<party id ='515' name = 'Makarov SU of Maritime and Inl. Sh. 1 (Alexeev, Gudin, Erisova)' />
+<party id ='516' name = 'SPb HSE 2 (Smirnov, Selishchev, Trilis)' />
+<party id ='517' name = 'Petrozavodsk SU 2 (Titov, Remeslennikov, Evstafeev)' />
+<party id ='518' name = 'SPb HSE 4 (Alferov, Yutman, Tukh)' />
+<party id ='519' name = 'SPb ITMO University 8 (Shaldin, Ashikhmin, Fukalov)' />
+<party id ='520' name = 'SPb SU of Arch. and Civil Eng. 5 (Korotkov, Shishatskaya, Ovchinnikov)' />
+<party id ='521' name = 'Budienny Military Telecom. Academy 1 (Kurenckov, Sotin, Sablin)' />
+<party id ='522' name = 'SPb SU 17 (Lavrov, Evmenov, Riabkov)' />
+<party id ='523' name = 'Mozhaisky Military Eng. Aerospace U 5 (Burachek, Nesbytnov, Terekhov)' />
+<party id ='524' name = 'Novgorod SU 2 (Kydruashov, Shlyahanov, Shaklein)' />
+<party id ='526' name = 'SPb SU 6 (Slobodkin, Ishbaev, Kovalchukov)' />
+<party id ='602' name = 'SPb ITMO University 22 (Bocharnikov, Zhelenskiy, Zhelobkovich)' />
+<party id ='603' name = 'SPb SU of Arch. and Civil Eng. 4 (Balankov, Shirobokova, Smolskiy)' />
+<party id ='604' name = 'SPb SU 27 (Maksimov, Smirnova, Gubkin)' />
+<party id ='606' name = 'SPb HSE 6 (Surkov, Makhnev, Babushkin)' />
+<party id ='607' name = 'SPb SU of Econ 2 (Bauer, Abramova, Bykov)' />
+<party id ='609' name = 'SPb ITMO University 21 (Tupikina, Latyshev, Popyrkina)' />
+<party id ='611' name = 'Novgorod SU 1 (Lantsetov, Ivanov, Stepanov)' />
+<party id ='612' name = 'SPb ITMO University 9 (Osipov, Makeev, Krotkov)' />
+<party id ='613' name = 'SPb SU 10 (Bykov, Shangareev, Bosov)' />
+<party id ='614' name = 'SPb SU 9 (Glushen, Aivazian, Shchukin)' />
+<party id ='615' name = 'Petrozavodsk SU 3 (Masaeva, Klimenko, Ostakova)' />
+<party id ='617' name = 'SPb SU 29 (Ivanova, Terekhov, Miroshnichenko)' />
+<party id ='619' name = 'Budienny Military Telecom. Academy 2 (Lunetskaya, Matrosova, Chukhryaeva)' />
+<party id ='621' name = 'Baltic STU 1 (Matveev, Ivanyk, Stepanov)' />
+<party id ='622' name = 'SPb SU 33 (Mironov, Logunov, Yurchenkov)' />
+<party id ='623' name = 'SPb ITMO University 11 (Hlyustov, Ternovoy, Labutina)' />
+<party id ='624' name = 'SPb SU 30 (Shimanskaia, Chernogorsky, Shurgin)' />
+<party id ='701' name = 'Makarov SU of Maritime and Inl. Sh. 3 (Anna, Artemiev, Mihaylov)' />
+<party id ='704' name = 'SPb SU of Aerospace Instr 1 (Fazilov, Zabolotny, Peshakov)' />
+<party id ='705' name = 'SPb ITMO University 19 (Vozleev, Burakov, Utusikov)' />
+<party id ='706' name = 'SPb Forest TU 2 (Sergeev, Yanshina, Veretennikova)' />
+<party id ='709' name = 'SPb SU 5 (Abzalov, Smirnov, Kuzivanov)' />
+<party id ='710' name = 'SPb SU 34 (Gorelov, Berlina, Bukhalov)' />
+<party id ='712' name = 'SPb SU of Aerospace Instr 3 (Mikhailichenko, Urazov, Tischenko)' />
+<party id ='713' name = 'SPb SU 16 (Ninalalov, Kassihin, Mekumyanov)' />
+<party id ='715' name = 'SPb SU of Econ 3 (Alexey, Agafonov, Protchenko)' />
+<party id ='716' name = 'SPb Forest TU 1 (Karimov, Yazkevich, Anokhin)' />
+<party id ='717' name = 'Mozhaisky Military Eng. Aerospace U 1 (Garkavenko, Ilatovskiy, Lebedev)' />
+<party id ='719' name = 'SPb SU 24 (Oborin, Starkov, Tsarev)' />
+<party id ='801' name = 'SPb SU 21 (Panasovets, Efimov, Babenko)' />
+<party id ='802' name = 'SPb Mining U (Muravyev, Vydrya, Bugryshev)' />
+<party id ='804' name = 'SPb SU of Arch. and Civil Eng. 2 (Evsin, Buivolov, Zgoda)' />
+<party id ='806' name = 'SPb SU 26 (Shcherbina, Ponomarenko, Tsatsorin)' />
+<party id ='808' name = 'SPb SU of Econ 1 (Ermakov, Fridman, Vorobiev)' />
+<party id ='810' name = 'SPb ITMO University 10 (Gaynoullin, Kasymov, Madaminov)' />
+<party id ='812' name = 'SPb SU 3 (Novikova, Oleinik, Anisimov)' />
+<party id ='901' name = 'SPb ITMO University 20 (Mahmoud, Ali, Abboud)' />
+<party id ='902' name = 'SPb SU 2 (Milshin, Filippov, Fedorov)' />
+<party id ='904' name = 'SPb SU of Aerospace Instr 4 (Fedulov, Nikiforov, Pshegorlinskii)' />
+<party id ='906' name = 'SPb HSE 1 (Gaev, Lyubort, Nefedov)' />
+<party id ='907' name = 'SPb SU 4 (Konovalov, Pchenikin, Romanychev)' />
+</parties>

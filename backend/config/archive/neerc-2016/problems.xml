@@ -1,0 +1,15 @@
+<challenge>
+    <problem id = "a" alias = "A" problem-id = "abbreviation" name = "Abbreviation" color="#7C0026"/>
+    <problem id = "b" alias = "B" problem-id = "binary" name = "Binary Code" color="#7C0026"/>
+    <problem id = "c" alias = "C" problem-id = "cactus" name = "Cactus Construction" color="#7C0026"/>
+    <problem id = "d" alias = "D" problem-id = "delight" name = "Delight for a Cat" color="#7C0026"/>
+    <problem id = "e" alias = "E" problem-id = "expect" name = "Expect to Wait" color="#7C0026"/>
+    <problem id = "f" alias = "F" problem-id = "foreign" name = "Foreign Postcards" color="#7C0026"/>
+    <problem id = "g" alias = "G" problem-id = "game" name = "Game on graph" color="#7C0026"/>
+    <problem id = "h" alias = "H" problem-id = "hard" name = "Hard Refactoring" color="#7C0026"/>
+    <problem id = "i" alias = "I" problem-id = "indiana" name = "Indiana Jones and the Uniform Cave" color="#7C0026"/>
+    <problem id = "j" alias = "J" problem-id = "jenga" name = "Jenga Boom" color="#7C0026"/>
+    <problem id = "k" alias = "K" problem-id = "kids" name = "Kids Designing Kids" color="#7C0026"/>
+    <problem id = "l" alias = "L" problem-id = "list" name = "List of Primes" color="#7C0026"/>
+    <problem id = "m" alias = "M" problem-id = "mole" name = "Mole Tunnels" color="#7C0026"/>
+</challenge>

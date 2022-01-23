@@ -1,0 +1,163 @@
+<?xml version="1.0" ?>
+<standings>
+    <contest name="RCC 2016 Final" time="15905731" length="18000000" status="running" frozen="yes">
+        <challenge>
+            <problem alias="A" name="Closing ceremony"/>
+            <problem alias="B" name="Cactusophobia"/>
+            <problem alias="C" name="Homework"/>
+            <problem alias="D" name="Slalom"/>
+            <problem alias="E" name="Cipher"/>
+            <problem alias="F" name="Array cover"/>
+        </challenge>
+        <session id="ru.mail.codecup.2016.final.S101" party="Jury" alias="S101" solved="3" penalty="290" time="7360043" accepted="0" attempts="0" score="0">
+            <problem alias="A" id="ru.mail.codecup.2016.final.concert" solved="0" penalty="29" time="1772511" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="1772511">
+                </run>
+                <run accepted="yes" outcome="accepted" time="2401826">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="2724808">
+                </run>
+                <run accepted="yes" outcome="accepted" time="2780313">
+                </run>
+                <run accepted="yes" outcome="accepted" time="3690932">
+                </run>
+                <run accepted="no" outcome="time-limit-exceeded" time="4142314">
+                </run>
+            </problem>
+            <problem alias="B" id="ru.mail.codecup.2016.final.cactus" solved="0" penalty="142" time="7360043" accepted="1" attempts="2" score="0">
+                <run accepted="no" outcome="compilation-error" time="7335987">
+                </run>
+                <run accepted="yes" outcome="accepted" time="7360043">
+                </run>
+            </problem>
+            <problem alias="C" id="ru.mail.codecup.2016.final.corners" solved="0" penalty="265" time="15915731" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="15915731"></run>
+            </problem>
+            <problem alias="D" id="ru.mail.codecup.2016.final.slalom" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="E" id="ru.mail.codecup.2016.final.timer" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="F" id="ru.mail.codecup.2016.final.array-covering" solved="0" penalty="119" time="7141426" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="7141426">
+                </run>
+            </problem>
+        </session>
+        <session id="ru.mail.codecup.2016.final.I103" party="Mikhail Kever" alias="I103" solved="2" penalty="60" time="2612081" accepted="0" attempts="0" score="0">
+            <problem alias="A" id="ru.mail.codecup.2016.final.concert" solved="0" penalty="17" time="1075362" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="1075362">
+                </run>
+            </problem>
+            <problem alias="B" id="ru.mail.codecup.2016.final.cactus" solved="0" penalty="43" time="2612081" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="2612081">
+                </run>
+            </problem>
+            <problem alias="C" id="ru.mail.codecup.2016.final.corners" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="D" id="ru.mail.codecup.2016.final.slalom" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="E" id="ru.mail.codecup.2016.final.timer" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="F" id="ru.mail.codecup.2016.final.array-covering" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+        </session>
+        <session id="ru.mail.codecup.2016.final.I102" party="Vladislav Isenbaev" alias="I102" solved="2" penalty="259" time="5439857" accepted="0" attempts="0" score="0">
+            <problem alias="A" id="ru.mail.codecup.2016.final.concert" solved="0" penalty="90" time="5439857" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="5439857">
+                </run>
+            </problem>
+            <problem alias="B" id="ru.mail.codecup.2016.final.cactus" solved="0" penalty="0" time="0" accepted="0" attempts="1" score="0">
+                <run accepted="no" outcome="memory-limit-exceeded" time = "16278654"></run>
+            </problem>
+            <problem alias="C" id="ru.mail.codecup.2016.final.corners" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="D" id="ru.mail.codecup.2016.final.slalom" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="E" id="ru.mail.codecup.2016.final.timer" solved="0" penalty="169" time="5355325" accepted="1" attempts="5" score="0">
+                <run accepted="no" outcome="idleness-limit-exceeded" time="2630063">
+                </run>
+                <run accepted="no" outcome="memory-limit-exceeded" time="2674305">
+                </run>
+                <run accepted="no" outcome="security-violation" time="3081018">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="4351447">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="5261178">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="5311098">
+                </run>
+                <run accepted="yes" outcome="accepted" time="5355325">
+                </run>
+                <run accepted="yes" outcome="accepted" time="5407086">
+                </run>
+                <run accepted="no" outcome="presentation-error" time="5652777">
+                </run>
+            </problem>
+            <problem alias="F" id="ru.mail.codecup.2016.final.array-covering" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+        </session>
+        <session id="ru.mail.codecup.2016.final.S103" party="Adam Bardashevich" alias="S103" solved="1" penalty="84" time="5084917" accepted="0" attempts="0" score="0">
+            <problem alias="A" id="ru.mail.codecup.2016.final.concert" solved="0" penalty="84" time="5084917" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="5084917">
+                </run>
+            </problem>
+            <problem alias="B" id="ru.mail.codecup.2016.final.cactus" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="C" id="ru.mail.codecup.2016.final.corners" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="D" id="ru.mail.codecup.2016.final.slalom" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="E" id="ru.mail.codecup.2016.final.timer" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="F" id="ru.mail.codecup.2016.final.array-covering" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+        </session>
+        <session id="ru.mail.codecup.2016.final.I101" party="Igor Pyshkin" alias="I101" solved="1" penalty="101" time="6080849" accepted="0" attempts="0" score="0">
+            <problem alias="A" id="ru.mail.codecup.2016.final.concert" solved="0" penalty="0" time="0" accepted="0" attempts="1" score="0">
+                <run accepted="no" outcome="presentation-error" time="4315618">
+                </run>
+            </problem>
+            <problem alias="B" id="ru.mail.codecup.2016.final.cactus" solved="0" penalty="101" time="6080849" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="6080849">
+                </run>
+                <run accepted="yes" outcome="accepted" time="6178228">
+                </run>
+            </problem>
+            <problem alias="C" id="ru.mail.codecup.2016.final.corners" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="D" id="ru.mail.codecup.2016.final.slalom" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="E" id="ru.mail.codecup.2016.final.timer" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="F" id="ru.mail.codecup.2016.final.array-covering" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+        </session>
+        <session id="ru.mail.codecup.2016.final.S105" party="Pavel Mavrin" alias="S105" solved="1" penalty="120" time="7209609" accepted="0" attempts="0" score="0">
+            <problem alias="A" id="ru.mail.codecup.2016.final.concert" solved="0" penalty="0" time="0" accepted="0" attempts="4" score="0">
+                <run accepted="no" outcome="wrong-answer" time="3022329">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="3076321">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="3701468">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="3781513">
+                </run>
+            </problem>
+            <problem alias="B" id="ru.mail.codecup.2016.final.cactus" solved="0" penalty="120" time="7209609" accepted="1" attempts="1" score="0">
+                <run accepted="yes" outcome="accepted" time="7209609">
+                </run>
+            </problem>
+            <problem alias="C" id="ru.mail.codecup.2016.final.corners" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="D" id="ru.mail.codecup.2016.final.slalom" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="E" id="ru.mail.codecup.2016.final.timer" solved="0" penalty="0" time="0" accepted="0" attempts="2" score="0">
+                <run accepted="no" outcome="wrong-answer" time="5362297">
+                </run>
+                <run accepted="no" outcome="wrong-answer" time="5712225">
+                </run>
+            </problem>
+            <problem alias="F" id="ru.mail.codecup.2016.final.array-covering" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+        </session>
+    </contest>
+</standings>
