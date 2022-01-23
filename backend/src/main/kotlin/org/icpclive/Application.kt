@@ -47,5 +47,9 @@ fun Application.module() {
     }
     configureAdminRouting()
     configureOverlayRouting()
+    environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
+        environment.log.info("Using config directory $this")
+        Config.setConfigDirectory(this)
+    }
     runBlocking { EventManager.registerListener(LoggerEventListener()) }
 }
