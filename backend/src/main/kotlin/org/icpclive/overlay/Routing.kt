@@ -4,28 +4,31 @@ import io.ktor.application.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.routing.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import org.icpclive.*
 import org.icpclive.api.*
-import org.icpclive.listeners.*
+import org.icpclive.background.*
+import org.slf4j.LoggerFactory
 
 
 fun Application.configureOverlayRouting() {
     routing {
         webSocket("/overlay/mainScreen") {
-            val listener = object : EventListener {
-                override suspend fun processEvent(e: Event) {
-                    outgoing.send(Frame.Text(Json.encodeToString(e)))
+            val sender = async {
+                DataBus.allEvents.collect {
+                    val text = Frame.Text(Json.encodeToString(it))
+                    outgoing.send(text)
                 }
             }
-            EventManager.registerListener(listener)
             try {
                 for (ignored in incoming) {
                     ignored.let {}
                 }
             } finally {
-                EventManager.unregisterListener(listener)
+                sender.cancel()
             }
         }
     }

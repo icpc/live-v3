@@ -1,7 +1,7 @@
 package org.icpclive.queue
 
 import kotlinx.coroutines.delay
-import org.icpclive.EventManager
+import org.icpclive.DataBus
 import org.icpclive.api.*
 import org.icpclive.events.*
 import org.icpclive.events.RunInfo
@@ -10,15 +10,15 @@ import org.slf4j.*
 class QueueLoader {
     suspend fun run() {
         val runs = mutableMapOf<Int, RunInfo>()
-        var lastProcessedRunId = Int.MIN_VALUE
+        val seenRunsSet = mutableSetOf<Int>()
         while (true) {
             val newRuns = mutableListOf<RunInfo>()
             val modifiedRuns = mutableListOf<RunInfo>()
 
-            for (run in EventsLoader.getInstance().contestData.runs.sortedBy { it.id }) {
-                if (run.id > lastProcessedRunId) {
+            for (run in EventsLoader.getInstance().contestData.runs) {
+                if (run.id !in seenRunsSet) {
                     runs[run.id] = run
-                    lastProcessedRunId = run.id
+                    seenRunsSet.add(run.id)
                     newRuns.add(run)
                 } else {
                     val oldRun = runs[run.id] ?: continue
@@ -39,15 +39,15 @@ class QueueLoader {
             val ignoredRuns = removedRuns.intersect(newRuns.toSet())
             for (run in newRuns) {
                 if (run in ignoredRuns) continue
-                EventManager.processEvent(AddRunToQueueEvent(run.toApi()))
+                DataBus.queueEvents.emit(AddRunToQueueEvent(run.toApi()))
             }
             for (run in modifiedRuns) {
                 if (run in ignoredRuns) continue
-                EventManager.processEvent(ModifyRunInQueueEvent(run.toApi()))
+                DataBus.queueEvents.emit(ModifyRunInQueueEvent(run.toApi()))
             }
             for (run in removedRuns) {
                 if (run in ignoredRuns) continue
-                EventManager.processEvent(RemoveRunFromQueueEvent(run.toApi()))
+                DataBus.queueEvents.emit(RemoveRunFromQueueEvent(run.toApi()))
             }
             delay(1000)
         }

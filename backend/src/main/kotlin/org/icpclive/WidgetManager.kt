@@ -10,7 +10,7 @@ object WidgetManager {
         processEvent(HideWidgetEvent(widgetId))
     }
 
-    private suspend fun processEvent(e: Event) {
-        EventManager.processEvent(e)
+    private suspend fun processEvent(e: MainScreenEvent) {
+        DataBus.mainScreenEvents.emit(e)
     }
 }
