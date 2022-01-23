@@ -1,6 +1,7 @@
 package org.icpclive.events.PCMS;
 
 import org.icpclive.Config;
+import org.icpclive.DataBus;
 import org.icpclive.events.*;
 import org.icpclive.events.ContestInfo.Status;
 import org.jsoup.Jsoup;
@@ -98,6 +99,7 @@ public class PCMSEventsLoader extends EventsLoader {
             }
         }
         initialStandings = initial.getStandings();
+        DataBus.INSTANCE.publishContestInfo(initial);
         contestInfo.set(initial);
         loadProblemsInfo(properties.getProperty("problems.url"));
     }
@@ -138,6 +140,7 @@ public class PCMSEventsLoader extends EventsLoader {
     private void parseAndUpdateStandings(Element element) {
         if ("contest".equals(element.tagName())) {
             PCMSContestInfo updatedContestInfo = parseContestInfo(element);
+            DataBus.INSTANCE.publishContestInfo(updatedContestInfo);
             contestInfo.set(updatedContestInfo);
         } else {
             element.children().forEach(this::parseAndUpdateStandings);

@@ -9,11 +9,11 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import kotlinx.serialization.json.Json
 import io.ktor.websocket.*
-import kotlinx.coroutines.*
 import org.icpclive.admin.configureAdminRouting
 import org.icpclive.background.BackgroundProcessManager
 import org.icpclive.events.EventsLoader
 import org.icpclive.background.LoggerEventListener
+import org.icpclive.background.RunsStorage
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.queue.QueueLoader
 import org.slf4j.event.Level
@@ -60,4 +60,5 @@ fun Application.module() {
     Thread(EventsLoader.getInstance()).start()
     BackgroundProcessManager.launch { QueueLoader().run() }
     BackgroundProcessManager.launch { LoggerEventListener().run() }
+    BackgroundProcessManager.launch { RunsStorage.run() }
 }

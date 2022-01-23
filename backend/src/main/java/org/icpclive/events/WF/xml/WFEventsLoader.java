@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.icpclive.Config;
+import org.icpclive.DataBus;
 import org.icpclive.events.ContestInfo;
 import org.icpclive.events.EventsLoader;
 import org.icpclive.events.NetworkUtils;
@@ -534,6 +535,7 @@ public class WFEventsLoader extends EventsLoader {
                     }
                 }
                 contestInfo.recalcStandings();
+                DataBus.INSTANCE.publishContestInfo(contestInfo);
                 break;
             } catch (Exception e) {
                 log.error("error", e);

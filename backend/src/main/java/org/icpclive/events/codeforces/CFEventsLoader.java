@@ -1,6 +1,7 @@
 package org.icpclive.events.codeforces;
 
 import org.icpclive.Config;
+import org.icpclive.DataBus;
 import org.icpclive.events.EventsLoader;
 import org.icpclive.events.codeforces.api.CFApiCentral;
 import org.icpclive.events.codeforces.api.data.CFContest;
@@ -55,6 +56,7 @@ public class CFEventsLoader extends EventsLoader {
                     central.getStatus();
             log.info("Data received");
             contestInfo.update(standings, submissions);
+            DataBus.INSTANCE.publishContestInfo(contestInfo);
         }, 0, 5, TimeUnit.SECONDS);
         try {
             if (!scheduler.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) {
