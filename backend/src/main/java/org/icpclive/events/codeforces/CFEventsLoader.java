@@ -53,7 +53,7 @@ public class CFEventsLoader extends EventsLoader {
             }
             List<CFSubmission> submissions = standings.contest.phase == CFContest.CFContestPhase.BEFORE ? null :
                     central.getStatus();
-            System.err.println("Data received");
+            log.info("Data received");
             contestInfo.update(standings, submissions);
         }, 0, 5, TimeUnit.SECONDS);
         try {
