@@ -16,6 +16,7 @@ import org.icpclive.listeners.LoggerEventListener
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.queue.QueueLoader
 import org.slf4j.event.Level
+import java.io.File
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
@@ -49,8 +50,10 @@ fun Application.module() {
     }
     configureAdminRouting()
     configureOverlayRouting()
+    environment.log.info("Current working directory is ${File(".").canonicalPath}")
     environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
-        environment.log.info("Using config directory $this")
+        val configPath = File(this).canonicalPath
+        environment.log.info("Using config directory $configPath")
         Config.setConfigDirectory(this)
     }
     Thread(EventsLoader.getInstance()).start()
