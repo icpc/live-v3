@@ -9,3 +9,6 @@ data class Advertisement(val text: String)
 
 @Serializable
 data class Picture(val url: String, val name: String)
+
+@Serializable
+class QueueSettings() // TODO??

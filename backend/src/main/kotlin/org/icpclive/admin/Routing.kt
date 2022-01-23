@@ -2,18 +2,20 @@ package org.icpclive.admin
 
 import io.ktor.application.*
 import io.ktor.html.*
+import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.html.*
 import org.icpclive.admin.advertisement.configureAdvertisement
 import org.icpclive.admin.overlayEvents.configureOverlayEvents
 import org.icpclive.admin.picture.configurePicture
+import org.icpclive.admin.queue.configureQueue
 
-private val topLevelLinks = mutableMapOf<String, String>()
+private lateinit var topLevelLinks: List<Pair<String, String>>
 
 internal fun BODY.adminHead() {
     table {
         tr {
-            for ((url, text) in topLevelLinks.entries.sortedBy { it.key }) {
+            for ((url, text) in topLevelLinks) {
                 td {
                     a(url) { +text }
                 }
@@ -45,9 +47,14 @@ fun Application.configureAdminRouting() {
             configureAdvertisement(environment.config.property("live.presets.advertisements").getString())
         val pictureUrls = configurePicture(environment.config.property("live.presets.pictures").getString())
         val overlayEventsUrls = configureOverlayEvents()
+        val queueUrls = configureQueue()
 
-        topLevelLinks[advertisementUrls.mainPage] = "Advertisement"
-        topLevelLinks[pictureUrls.mainPage] = "Picture"
-        topLevelLinks[overlayEventsUrls.mainPage] = "Events"
+        topLevelLinks = listOf(
+            advertisementUrls.mainPage to "Advertisement",
+            pictureUrls.mainPage to "Picture",
+            overlayEventsUrls.mainPage to "Events",
+            queueUrls.mainPage to "Queue"
+        )
+        get("/admin") { call.respondRedirect(topLevelLinks[0].first) }
     }
 }

@@ -36,3 +36,14 @@ class PictureWidget(val picture: Picture) : Widget(WIDGET_ID, location) {
         val location = LocationRectangle(590, 50, 1300, 960)
     }
 }
+
+@Serializable
+@SerialName("QueueWidget")
+class QueueWidget(val queueSettings: QueueSettings) : Widget(WIDGET_ID, location) {
+    companion object {
+        const val WIDGET_ID = "queue"
+        val location = LocationRectangle(30, 40, 515, 970)
+        const val positionX = 30
+        const val positionY = 1007
+    }
+}

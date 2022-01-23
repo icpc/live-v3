@@ -9,9 +9,12 @@ import kotlinx.serialization.Serializable
 sealed class Event
 
 @Serializable
+sealed class MainScreenEvent : Event()
+
+@Serializable
 @SerialName("ShowWidget")
-class ShowWidgetEvent(val widget: Widget) : Event()
+class ShowWidgetEvent(val widget: Widget) : MainScreenEvent()
 
 @Serializable
 @SerialName("HideWidget")
-class HideWidgetEvent(val id:String) : Event()
+class HideWidgetEvent(val id:String) : MainScreenEvent()
