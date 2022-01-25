@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-public interface TeamInfo extends Comparable<TeamInfo> {
+public interface TeamInfo {
     int getId();
 
     int getRank();
@@ -30,14 +30,6 @@ public interface TeamInfo extends Comparable<TeamInfo> {
     String getHashTag();
 
     TeamInfo copy();
-
-    default public int compareTo(TeamInfo team) {
-        return this.toString().compareTo(team.toString());
-    }
-
-    default SmallTeamInfo getSmallTeamInfo() {
-        return new SmallTeamInfo(this);
-    }
 
     default RunInfo getLastRun(int problem) {
         List<? extends RunInfo> runs = getRuns()[problem];

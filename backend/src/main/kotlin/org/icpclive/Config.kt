@@ -1,21 +1,18 @@
-package org.icpclive;
+package org.icpclive
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
+import kotlin.Throws
+import java.io.IOException
+import java.util.Properties
+import java.io.FileInputStream
+import java.io.File
 
-public class Config {
-
-    public static void setConfigDirectory(String configDirectory) {
-        Config.configDirectory = configDirectory;
-    }
-
-    private static String configDirectory = "config";
-
-    public static Properties loadProperties(String name) throws IOException {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(configDirectory + File.separator + name + ".properties"));
-        return properties;
+object Config {
+    var configDirectory = "config"
+    @JvmStatic
+    @Throws(IOException::class)
+    fun loadProperties(name: String): Properties {
+        val properties = Properties()
+        properties.load(FileInputStream(configDirectory + File.separator + name + ".properties"))
+        return properties
     }
 }

@@ -22,7 +22,6 @@ public class WFRunInfo implements RunInfo {
     public long lastUpdateTime;
 
     public int teamId;
-    public SmallTeamInfo teamInfoBefore;
     public TeamInfo team;
 
     private Set<Integer> passedTests = new HashSet<>();
@@ -59,10 +58,6 @@ public class WFRunInfo implements RunInfo {
 
     public void setLastUpdateTime(long lastUpdateTime) {
         this.lastUpdateTime = Math.max(this.lastUpdateTime, lastUpdateTime); // ?????
-    }
-
-    public void setTeamInfoBefore(SmallTeamInfo teamInfoBefore) {
-        this.teamInfoBefore = teamInfoBefore;
     }
 
     public int getPassedTestsNumber() {
@@ -109,11 +104,6 @@ public class WFRunInfo implements RunInfo {
 
     public int getTeamId() {
         return teamId;
-    }
-
-    @Override
-    public SmallTeamInfo getTeamInfoBefore() {
-        return teamInfoBefore;
     }
 
     public boolean isReallyUnknown() {

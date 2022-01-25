@@ -1,7 +1,6 @@
 package org.icpclive.events.codeforces;
 
 import org.icpclive.events.RunInfo;
-import org.icpclive.events.SmallTeamInfo;
 import org.icpclive.events.codeforces.api.data.CFSubmission;
 
 import java.util.Collections;
@@ -90,11 +89,6 @@ public class CFRunInfo implements RunInfo {
     public int getTeamId() {
         CFTeamInfo participant = CFEventsLoader.getInstance().getContestData().getParticipant(CFContestInfo.getName(submission.author));
         return participant.getId();
-    }
-
-    @Override
-    public SmallTeamInfo getTeamInfoBefore() {
-        return null;
     }
 
     @Override

@@ -55,7 +55,7 @@ fun Application.module() {
     environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
         val configPath = File(this).canonicalPath
         environment.log.info("Using config directory $configPath")
-        Config.setConfigDirectory(this)
+        Config.configDirectory = this
     }
     Thread(EventsLoader.getInstance()).start()
     launch { QueueLoader().run() }

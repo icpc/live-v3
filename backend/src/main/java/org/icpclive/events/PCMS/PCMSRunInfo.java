@@ -2,7 +2,6 @@ package org.icpclive.events.PCMS;
 
 import org.icpclive.events.EventsLoader;
 import org.icpclive.events.ProblemInfo;
-import org.icpclive.events.SmallTeamInfo;
 import org.icpclive.events.RunInfo;
 
 public class PCMSRunInfo implements RunInfo {
@@ -85,10 +84,6 @@ public class PCMSRunInfo implements RunInfo {
 
     public boolean isReallyUnknown() {
         return reallyUnknown;
-    }
-
-    public SmallTeamInfo getTeamInfoBefore() {
-        return null;
     }
 
     public double getPercentage() {

@@ -486,9 +486,6 @@ public class WFEventsLoader extends EventsLoader {
         waitForEmulation(time);
 
         if (runInfo.time <= ContestInfo.FREEZE_TIME) {
-            runInfo.setTeamInfoBefore(
-                    contestInfo.getParticipant(runInfo.teamId).getSmallTeamInfo());
-
             runInfo.result = verdict;
             runInfo.judged = true;
 
