@@ -30,7 +30,7 @@ object DataBus {
     )
     val mainScreenEvents = MutableSharedFlow<MainScreenEvent>(
         extraBufferCapacity = 100000,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
     val queueEvents = MutableSharedFlow<QueueEvent>(
         extraBufferCapacity = 100000,
