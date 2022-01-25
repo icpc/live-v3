@@ -3,13 +3,7 @@ package org.icpclive.events.PCMS.ioi;
 import org.icpclive.events.*;
 import org.icpclive.events.PCMS.PCMSContestInfo;
 
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-
 public class IOIPCMSContestInfo extends PCMSContestInfo {
-    private BlockingQueue<AnalystMessage> messageQueue = new ArrayBlockingQueue<AnalystMessage>(1);
-
     @Override
     public TeamInfo[] getStandings(OptimismLevel optimismLevel) {
         return getStandings();

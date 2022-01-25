@@ -18,7 +18,6 @@ public class WFContestInfo extends ContestInfo {
     protected long[] timeFirstSolved;
     protected int maxRunId;
     protected WFRunInfo[] firstSolvedRun;
-    protected BlockingQueue<AnalystMessage> messageQueue = new LinkedBlockingQueue<>();
 
     private WFTeamInfo[] standings = null;
 
@@ -243,14 +242,5 @@ public class WFContestInfo extends ContestInfo {
         }
 
         return null;
-    }
-
-    @Override
-    public BlockingQueue<AnalystMessage> getAnalystMessages() {
-        return messageQueue;
-    }
-
-    public void addMessage(AnalystMessage message) {
-        messageQueue.add(message);
     }
 }

@@ -8,7 +8,6 @@ import org.icpclive.Config;
 import org.icpclive.events.ContestInfo;
 import org.icpclive.events.EventsLoader;
 import org.icpclive.events.NetworkUtils;
-import org.icpclive.events.WF.WFAnalystMessage;
 import org.icpclive.events.WF.WFOrganizationInfo;
 import org.icpclive.events.WF.WFRunInfo;
 import org.icpclive.events.WF.WFTestCaseInfo;
@@ -526,14 +525,6 @@ public class WFEventsLoader extends EventsLoader {
 
 //        System.err.println(runInfo);
         contestInfo.addTest(testCaseInfo);
-    }
-
-    public WFAnalystMessage readAnalystMessage(JsonObject je) {
-        WFAnalystMessage message = new WFAnalystMessage();
-        message.setPriority(je.get("priority").getAsInt());
-        message.setMessage(je.get("text").getAsString());
-        message.setTime(parseRelativeTime(je.get("contest_time").getAsString()) + contestInfo.getStartTime());
-        return message;
     }
 
     public void run() {

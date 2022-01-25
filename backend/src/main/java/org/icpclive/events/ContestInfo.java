@@ -134,7 +134,5 @@ public abstract class ContestInfo {
 
     public abstract RunInfo getRun(int id);
 
-    public abstract BlockingQueue<AnalystMessage> getAnalystMessages();
-
     public abstract int getLastRunId();
 }

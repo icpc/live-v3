@@ -7,8 +7,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 public class PCMSContestInfo extends ContestInfo {
-    private BlockingQueue<AnalystMessage> messageQueue = new ArrayBlockingQueue<AnalystMessage>(1);
-
     @Override
     public TeamInfo[] getStandings() {
         return standings.stream().toArray(TeamInfo[]::new);
@@ -210,8 +208,4 @@ public class PCMSContestInfo extends ContestInfo {
         return lastRunId;
     }
 
-    @Override
-    public BlockingQueue<AnalystMessage> getAnalystMessages() {
-        return messageQueue;
-    }
 }

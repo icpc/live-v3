@@ -14,7 +14,6 @@ import static java.util.Arrays.sort;
  * @author egor@egork.net
  */
 public class CFContestInfo extends ContestInfo {
-    private BlockingQueue<AnalystMessage> messageQueue = new ArrayBlockingQueue<AnalystMessage>(1);
     private CFStandings standings;
     private final Map<Integer, CFRunInfo> runsById = new HashMap<>();
     private Map<Integer, List<CFRunInfo>[]> runsByTeam = new HashMap<>();
@@ -89,11 +88,6 @@ public class CFContestInfo extends ContestInfo {
         synchronized (runsById) {
             return runsById.get(id);
         }
-    }
-
-    @Override
-    public BlockingQueue<AnalystMessage> getAnalystMessages() {
-        return messageQueue;
     }
 
     @Override
