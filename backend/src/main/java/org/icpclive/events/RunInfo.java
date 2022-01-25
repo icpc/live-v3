@@ -13,4 +13,8 @@ public interface RunInfo {
 
     long getTime();
     long getLastUpdateTime();
+
+    default boolean isFirstSolvedRun() {
+        return EventsLoader.getInstance().getContestData().firstSolvedRun()[getProblemId()] == this;
+    }
 }

@@ -24,7 +24,9 @@ data class RunInfo(
     val teamId: Int,
     val isReallyUnknown: Boolean,
     val percentage: Double,
-    val time: Long
+    val time: Long,
+    val lastUpdateTime: Long,
+    val isFirstSolvedRun: Boolean,
 ) {
     constructor(info: EventsRunInfo): this(
         info.id,
@@ -35,7 +37,9 @@ data class RunInfo(
         info.teamId,
         info.isReallyUnknown,
         info.percentage,
-        info.time
+        info.time,
+        info.lastUpdateTime,
+        info.isFirstSolvedRun
     )
 }
 

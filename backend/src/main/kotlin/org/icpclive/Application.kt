@@ -15,7 +15,7 @@ import org.icpclive.events.EventsLoader
 import org.icpclive.background.LoggerEventListener
 import org.icpclive.background.RunsStorage
 import org.icpclive.overlay.configureOverlayRouting
-import org.icpclive.queue.QueueLoader
+import org.icpclive.background.QueueProcessor
 import org.slf4j.event.Level
 import java.io.File
 import java.time.Duration
@@ -58,7 +58,7 @@ fun Application.module() {
         Config.configDirectory = this
     }
     Thread(EventsLoader.getInstance()).start()
-    launch { QueueLoader().run() }
+    launch { QueueProcessor().run() }
     launch { LoggerEventListener().run() }
     launch { RunsStorage.run() }
 }
