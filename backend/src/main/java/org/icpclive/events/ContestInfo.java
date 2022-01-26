@@ -1,10 +1,11 @@
 package org.icpclive.events;
 
+import org.icpclive.api.ContestStatus;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.concurrent.BlockingQueue;
 import java.util.stream.Stream;
 
 public abstract class ContestInfo {
@@ -15,14 +16,7 @@ public abstract class ContestInfo {
     public long lastTime;
     private static String[] hashtags;
 
-    public enum Status {
-        BEFORE,
-        RUNNING,
-        PAUSED,
-        OVER
-    }
-
-    public Status status = Status.BEFORE;
+    public ContestStatus status = ContestStatus.BEFORE;
 
     public static int CONTEST_LENGTH = 5 * 60 * 60 * 1000;
     public static int FREEZE_TIME = 4 * 60 * 60 * 1000;
@@ -43,7 +37,7 @@ public abstract class ContestInfo {
         return problemNumber;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(ContestStatus status) {
         System.err.println("New status: " + status);
         lastTime = getCurrentTime();
         this.status = status;

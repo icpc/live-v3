@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.icpclive.Config;
+import org.icpclive.api.ContestStatus;
 import org.icpclive.events.ContestInfo;
 import org.icpclive.events.EventsLoader;
 import org.icpclive.events.NetworkUtils;
@@ -16,8 +17,6 @@ import org.slf4j.*;
 import java.awt.*;
 import java.io.*;
 import java.math.BigInteger;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -351,7 +350,7 @@ public class WFEventsLoader extends EventsLoader {
         readTeamInfosRegionals(contestInfo);
         contestInfo.initializationFinish();
 
-        contestInfo.setStatus(ContestInfo.Status.RUNNING);
+        contestInfo.setStatus(ContestStatus.RUNNING);
         contestInfo.setStartTime(this.contestInfo.getStartTime());
 
         contestInfo.recalcStandings();
@@ -380,9 +379,9 @@ public class WFEventsLoader extends EventsLoader {
         JsonElement startTimeElement = je.get("start_time");
         if (!startTimeElement.isJsonNull()) {
             contestInfo.setStartTime(parseTime(startTimeElement.getAsString()));
-            contestInfo.setStatus(ContestInfo.Status.RUNNING);
+            contestInfo.setStatus(ContestStatus.RUNNING);
         } else {
-            contestInfo.setStatus(ContestInfo.Status.BEFORE);
+            contestInfo.setStatus(ContestStatus.BEFORE);
         }
         if (emulation) {
             contestInfo.setStartTime(System.currentTimeMillis());
@@ -403,9 +402,9 @@ public class WFEventsLoader extends EventsLoader {
             contestInfo.setStartTime(System.currentTimeMillis());
         }
         if (je.get("ended").isJsonNull()) {
-            contestInfo.setStatus(ContestInfo.Status.RUNNING);
+            contestInfo.setStatus(ContestStatus.RUNNING);
         } else {
-            contestInfo.setStatus(ContestInfo.Status.OVER);
+            contestInfo.setStatus(ContestStatus.OVER);
         }
     }
 

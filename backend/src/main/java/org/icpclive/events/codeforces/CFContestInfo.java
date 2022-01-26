@@ -1,12 +1,11 @@
 package org.icpclive.events.codeforces;
 
+import org.icpclive.api.ContestStatus;
 import org.icpclive.events.*;
 import org.icpclive.events.codeforces.api.data.*;
 import org.icpclive.events.codeforces.api.results.CFStandings;
 
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 import static java.util.Arrays.sort;
 
@@ -121,10 +120,10 @@ public class CFContestInfo extends ContestInfo {
 //        lastTime = standings.contest.relativeTimeSeconds;
         CONTEST_LENGTH = (int) standings.contest.durationSeconds * 1000;
         CFContest.CFContestPhase phase = standings.contest.phase;
-        if (status == Status.BEFORE && phase == CFContest.CFContestPhase.CODING) {
+        if (status == ContestStatus.BEFORE && phase == CFContest.CFContestPhase.CODING) {
             setStartTime(System.currentTimeMillis() - standings.contest.relativeTimeSeconds * 1000);
         }
-        status = phase == CFContest.CFContestPhase.BEFORE ? Status.BEFORE : phase == CFContest.CFContestPhase.CODING ? Status.RUNNING : Status.OVER;
+        status = phase == CFContest.CFContestPhase.BEFORE ? ContestStatus.BEFORE : phase == CFContest.CFContestPhase.CODING ? ContestStatus.RUNNING : ContestStatus.OVER;
         for (CFRanklistRow row : standings.rows) {
             CFTeamInfo teamInfo = new CFTeamInfo(row);
             if (participantsByName.containsKey(teamInfo.getName())) {

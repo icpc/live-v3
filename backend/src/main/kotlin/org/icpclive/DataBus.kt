@@ -5,8 +5,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import org.icpclive.api.*
-import org.icpclive.api.RunInfo
-import org.icpclive.events.*
+import org.icpclive.events.EventsLoader
+import org.icpclive.events.ContestInfo as EventsContestInfo
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads
@@ -16,9 +16,11 @@ import org.icpclive.events.*
  */
 object DataBus {
     // just wrapper for suspend world for java
-    fun publishContestInfo(contestInfo: ContestInfo) = runBlocking {
+    fun publishContestInfo(contestInfo: EventsContestInfo) = runBlocking {
         runsStorageUpdates.emit(contestInfo.runs.map { it.toApi() })
+        contestInfoFlow.value = contestInfo.toApi()
     }
+    val contestInfoFlow = MutableStateFlow(ContestInfo.EMPTY)
     //TODO: this should be replaced with ContestInfo flow
     val runsStorageUpdates = MutableSharedFlow<List<RunInfo>>(
         extraBufferCapacity = 16,

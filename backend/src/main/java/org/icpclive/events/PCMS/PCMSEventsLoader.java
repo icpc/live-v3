@@ -2,8 +2,9 @@ package org.icpclive.events.PCMS;
 
 import org.icpclive.Config;
 import org.icpclive.DataBus;
+import org.icpclive.api.ContestStatus;
+import static org.icpclive.api.ContestStatus.*;
 import org.icpclive.events.*;
-import org.icpclive.events.ContestInfo.Status;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,8 +25,6 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-
-import static org.icpclive.events.ContestInfo.Status.*;
 
 public class PCMSEventsLoader extends EventsLoader {
     private static final Logger log = LoggerFactory.getLogger(PCMSEventsLoader.class);
@@ -155,9 +154,9 @@ public class PCMSEventsLoader extends EventsLoader {
 
         long previousStartTime = contestInfo.get().getStartTime();
         long currentTime = Long.parseLong(element.attr("time"));
-        Status previousStatus = contestInfo.get().status;
+        ContestStatus previousStatus = contestInfo.get().status;
 
-        updatedContestInfo.setStatus(Status.valueOf(element.attr("status").toUpperCase()));
+        updatedContestInfo.setStatus(ContestStatus.valueOf(element.attr("status").toUpperCase()));
 
         switch (updatedContestInfo.status) {
             case BEFORE:
