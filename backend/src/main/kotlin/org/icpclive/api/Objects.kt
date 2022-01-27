@@ -2,6 +2,7 @@
 
 package org.icpclive.api
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.events.ProblemInfo as EventsProblemsInfo
 import org.icpclive.events.RunInfo as EventsRunInfo
@@ -58,7 +59,7 @@ fun EventsProblemsInfo.toApi() = ProblemInfo(this)
 
 @Serializable
 enum class ContestStatus {
-    BEFORE, RUNNING, PAUSED, OVER
+    UNKNOWN, BEFORE, RUNNING, PAUSED, OVER
 }
 
 @Serializable
@@ -76,14 +77,28 @@ data class ContestInfo(
         EventsContestInfo.CONTEST_LENGTH.toLong(),
         EventsContestInfo.FREEZE_TIME.toLong(),
         info.problems.map { it.toApi() },
-        info.standings.map { it.toApi() }.sortedBy { it.id }
+        info.standings.map { it.toApi() }.sortedWith(compareBy({ it.rank }, { it.name }))
     )
     companion object {
-        val EMPTY = ContestInfo(ContestStatus.BEFORE, 0, 0, 0, emptyList(), emptyList())
+        val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList())
     }
 }
 
 fun EventsContestInfo.toApi() = ContestInfo(this)
+
+@Serializable
+sealed class ProblemResult
+
+//TODO: custom string, problem with score, maybe something else
+@Serializable
+@SerialName("icpc")
+data class ICPCProblemResult(
+    val wrongAttempts: Int,
+    val pendingAttempts: Int,
+    val isSolved: Boolean,
+    val isFirstToSolve: Boolean,
+) : ProblemResult()
+
 
 @Serializable
 data class TeamInfo(
@@ -92,11 +107,12 @@ data class TeamInfo(
     val name: String,
     val shortName: String?,
     val alias: String?,
-    val groups: Set<String?>?,
+    val groups: List<String>,
     val penalty: Int,
     val solvedProblemsNumber: Int,
     val lastAccepted: Long,
     val hashTag: String?,
+    val problemResults: List<ProblemResult>
 ) {
     constructor(info: EventsTeamInfo) : this(
         info.id,
@@ -104,12 +120,34 @@ data class TeamInfo(
         info.name,
         info.shortName,
         info.alias,
-        info.groups,
+        info.groups.toList(),
         info.penalty,
         info.solvedProblemsNumber,
         info.lastAccepted,
-        info.hashTag
+        info.hashTag,
+        parseProblemResults(info.runs)
     )
+
+    companion object {
+        // TODO: move it to EventsTeamInfo when it moved to kotlin
+        fun parseProblemResults(problemRuns: Array<List<EventsRunInfo>>) =
+            problemRuns.map { runs ->
+                val (runsBeforeFirstOk, okRun) = synchronized(runs) {
+                    val okRunIndex = runs.indexOfFirst { it.isAccepted }
+                    if (okRunIndex == -1) {
+                        runs to null
+                    } else {
+                        runs.toList().subList(0, okRunIndex) to runs[okRunIndex]
+                    }
+                }
+                ICPCProblemResult(
+                    runsBeforeFirstOk.count { it.isAddingPenalty },
+                    runsBeforeFirstOk.count { !it.isJudged },
+                    okRun != null,
+                    okRun?.isFirstSolvedRun == true
+                )
+            }
+    }
 }
 
 fun EventsTeamInfo.toApi() = TeamInfo(this)

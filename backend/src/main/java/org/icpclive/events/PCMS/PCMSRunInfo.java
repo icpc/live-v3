@@ -37,6 +37,11 @@ public class PCMSRunInfo implements RunInfo {
     }
 
     @Override
+    public boolean isAddingPenalty() {
+        return isJudged() && !isAccepted() && !"CE".equals(result);
+    }
+
+    @Override
     public boolean isJudged() {
         return judged;
     }

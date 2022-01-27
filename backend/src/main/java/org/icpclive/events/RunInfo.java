@@ -3,6 +3,7 @@ package org.icpclive.events;
 public interface RunInfo {
     int getId();
     boolean isAccepted();
+    boolean isAddingPenalty();
     boolean isJudged();
     String getResult();
     ProblemInfo getProblem();

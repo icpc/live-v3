@@ -78,6 +78,12 @@ public class WFRunInfo implements RunInfo {
     }
 
     @Override
+    public boolean isAddingPenalty() {
+        // TODO: this should be received from cds
+        return isJudged() && !isAccepted() && !"CE".equals(result);
+    }
+
+    @Override
     public boolean isJudged() {
         return judged;
     }

@@ -55,6 +55,11 @@ public class CFRunInfo implements RunInfo {
     }
 
     @Override
+    public boolean isAddingPenalty() {
+        return false;
+    }
+
+    @Override
     public boolean isJudged() {
         return submission.verdict != CFSubmission.CFSubmissionVerdict.TESTING;
     }
