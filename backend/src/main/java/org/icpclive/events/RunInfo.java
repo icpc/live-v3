@@ -1,6 +1,6 @@
 package org.icpclive.events;
 
-public interface RunInfo {
+public interface RunInfo extends Comparable<RunInfo> {
     int getId();
     boolean isAccepted();
     boolean isAddingPenalty();
@@ -17,5 +17,8 @@ public interface RunInfo {
 
     default boolean isFirstSolvedRun() {
         return EventsLoader.getInstance().getContestData().firstSolvedRun()[getProblemId()] == this;
+    }
+    default public int compareTo(RunInfo runInfo) {
+        return Long.compare(getTime(), runInfo.getTime());
     }
 }

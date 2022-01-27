@@ -30,7 +30,7 @@ public class PCMSEventsLoader extends EventsLoader {
     private static final Logger log = LoggerFactory.getLogger(PCMSEventsLoader.class);
 
     public void loadProblemsInfo(String problemsFile) throws IOException {
-        String xml = new String(Files.readAllBytes(Paths.get(problemsFile)), StandardCharsets.UTF_8);
+        String xml = Config.loadFile(problemsFile);
         Document doc = Jsoup.parse(xml, "", Parser.xmlParser());
         Element problems = doc.child(0);
         contestInfo.get().problems = new ArrayList<>();
@@ -56,7 +56,7 @@ public class PCMSEventsLoader extends EventsLoader {
         int problemsNumber = Integer.parseInt(properties.getProperty("problems.number"));
         PCMSContestInfo initial = new PCMSContestInfo(problemsNumber);
         String fn = properties.getProperty("teams.url");
-        String xml = new String(Files.readAllBytes(Paths.get(fn)), StandardCharsets.UTF_8);
+        String xml = Config.loadFile(fn);
         Document doc = Jsoup.parse(xml, "", Parser.xmlParser());
         Element participants = doc.child(0);
         int id = 0;
@@ -98,7 +98,6 @@ public class PCMSEventsLoader extends EventsLoader {
             }
         }
         initialStandings = initial.getStandings();
-        DataBus.INSTANCE.publishContestInfo(initial);
         contestInfo.set(initial);
         loadProblemsInfo(properties.getProperty("problems.url"));
     }

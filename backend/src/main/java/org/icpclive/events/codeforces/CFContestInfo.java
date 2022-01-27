@@ -137,6 +137,7 @@ public class CFContestInfo extends ContestInfo {
         }
         teamNumber = standings.rows.size();
         if (submissions != null) {
+            Collections.reverse(submissions);
             synchronized (runsById) {
                 for (CFSubmission submission : submissions) {
                     if (submission.author.participantType != CFParty.CFPartyParticipantType.CONTESTANT || !participantsByName.containsKey(getName(submission.author))) {
