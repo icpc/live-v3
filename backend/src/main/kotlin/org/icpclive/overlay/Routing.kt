@@ -35,5 +35,8 @@ fun Application.configureOverlayRouting() {
         webSocket("/overlay/mainScreen") { sendFlow(DataBus.mainScreenEvents) }
         webSocket("/overlay/queue") { sendFlow(DataBus.queueEvents) }
         webSocket("/overlay/contestInfo") { sendFlow(DataBus.contestInfoFlow) }
+        webSocket("/overlay/scoreboard/normal") { sendFlow(DataBus.scoreboardFlow) }
+        webSocket("/overlay/scoreboard/optimistic") { sendFlow(DataBus.optimisticScoreboardFlow) }
+        webSocket("/overlay/scoreboard/pessimistic") { sendFlow(DataBus.pessimisticScoreboardFlow) }
     }
 }

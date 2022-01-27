@@ -77,7 +77,7 @@ data class ContestInfo(
         EventsContestInfo.CONTEST_LENGTH.toLong(),
         EventsContestInfo.FREEZE_TIME.toLong(),
         info.problems.map { it.toApi() },
-        info.standings.map { it.toApi() }.sortedWith(compareBy({ it.rank }, { it.name }))
+        info.standings.map { it.toApi() }.sortedBy { it.id }
     )
     companion object {
         val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList())
@@ -112,7 +112,6 @@ data class TeamInfo(
     val solvedProblemsNumber: Int,
     val lastAccepted: Long,
     val hashTag: String?,
-    val problemResults: List<ProblemResult>
 ) {
     constructor(info: EventsTeamInfo) : this(
         info.id,
@@ -124,10 +123,29 @@ data class TeamInfo(
         info.penalty,
         info.solvedProblemsNumber,
         info.lastAccepted,
-        info.hashTag,
+        info.hashTag)
+}
+
+fun EventsTeamInfo.toApi() = TeamInfo(this)
+
+@Serializable
+data class Scoreboard(val rows:List<ScoreboardRow>)
+
+@Serializable
+data class ScoreboardRow(
+    val teamId:Int,
+    val rank:Int,
+    val totalScore:Int,
+    val penalty: Int,
+    val problemResults: List<ProblemResult>,
+) {
+    constructor(info: EventsTeamInfo) : this(
+        info.id,
+        info.rank,
+        info.solvedProblemsNumber,
+        info.penalty,
         parseProblemResults(info.runs)
     )
-
     companion object {
         // TODO: move it to EventsTeamInfo when it moved to kotlin
         fun parseProblemResults(problemRuns: Array<List<EventsRunInfo>>) =
@@ -148,6 +166,5 @@ data class TeamInfo(
                 )
             }
     }
-}
 
-fun EventsTeamInfo.toApi() = TeamInfo(this)
+}

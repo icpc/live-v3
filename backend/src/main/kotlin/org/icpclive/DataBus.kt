@@ -5,7 +5,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import org.icpclive.api.*
-import org.icpclive.events.EventsLoader
+import org.icpclive.events.OptimismLevel
 import org.icpclive.events.ContestInfo as EventsContestInfo
 
 /**
@@ -19,6 +19,10 @@ object DataBus {
     fun publishContestInfo(contestInfo: EventsContestInfo) = runBlocking {
         runsStorageUpdates.emit(contestInfo.runs.map { it.toApi() })
         contestInfoFlow.value = contestInfo.toApi()
+        //TODO: rework to avoid triple computation event it's not needed
+        scoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL).map { ScoreboardRow(it) })
+        optimisticScoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC).map { ScoreboardRow(it) })
+        pessimisticScoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC).map { ScoreboardRow(it) })
     }
     val contestInfoFlow = MutableStateFlow(ContestInfo.EMPTY)
     //TODO: this should be replaced with ContestInfo flow
@@ -38,6 +42,10 @@ object DataBus {
         extraBufferCapacity = 100000,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
+    val scoreboardFlow = MutableStateFlow(Scoreboard(emptyList()))
+    val optimisticScoreboardFlow = MutableStateFlow(Scoreboard(emptyList()))
+    val pessimisticScoreboardFlow = MutableStateFlow(Scoreboard(emptyList()))
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val allEvents get() = merge(mainScreenEvents, queueEvents)
 }
