@@ -248,8 +248,8 @@ public class IOIPCMSEventsLoader extends EventsLoader {
                 run.setTotalScore(totalScore);
             }
 
-            if ((run.isJudged() && team.getRuns()[problemId].size() <= i) ||
-                    (run.isJudged() && !team.getRuns()[problemId].get(i).isJudged())){
+            if ((run.isJudged() && team.getRuns().get(problemId).size() <= i) ||
+                    (run.isJudged() && !team.getRuns().get(problemId).get(i).isJudged())){
                 run.setTotalScore(totalScore);
             }
         }

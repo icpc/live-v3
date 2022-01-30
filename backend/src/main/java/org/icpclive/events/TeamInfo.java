@@ -23,7 +23,7 @@ public interface TeamInfo {
 
     long getLastAccepted();
 
-    List<? extends RunInfo>[] getRuns();
+    List<? extends List<? extends RunInfo>> getRuns();
 
     void addRun(RunInfo run, int problem);
 
@@ -32,7 +32,7 @@ public interface TeamInfo {
     TeamInfo copy();
 
     default RunInfo getLastRun(int problem) {
-        List<? extends RunInfo> runs = getRuns()[problem];
+        List<? extends RunInfo> runs = getRuns().get(problem);
         synchronized (runs) {
             if (runs.size() == 0) return null;
 
@@ -47,7 +47,7 @@ public interface TeamInfo {
     }
 
     default String getShortProblemState(int problem) {
-        List<? extends RunInfo> runs = getRuns()[problem];
+        List<? extends RunInfo> runs = getRuns().get(problem);
         synchronized (runs) {
             if (runs.size() == 0) return "";
             int total = 0;
@@ -70,7 +70,7 @@ public interface TeamInfo {
     }
 
     default boolean isReallyUnknown(int problem) {
-        List<? extends RunInfo> runs = getRuns()[problem];
+        List<? extends RunInfo> runs = getRuns().get(problem);
         synchronized (runs) {
             for (RunInfo run : runs) {
                 if ("AC".equals(run.getResult()) && !run.isReallyUnknown()) {

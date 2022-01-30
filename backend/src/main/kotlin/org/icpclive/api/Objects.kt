@@ -148,7 +148,7 @@ data class ScoreboardRow(
     )
     companion object {
         // TODO: move it to EventsTeamInfo when it moved to kotlin
-        fun parseProblemResults(problemRuns: Array<List<EventsRunInfo>>) =
+        fun parseProblemResults(problemRuns: List<List<EventsRunInfo>>) =
             problemRuns.map { runs ->
                 val (runsBeforeFirstOk, okRun) = synchronized(runs) {
                     val okRunIndex = runs.indexOfFirst { it.isAccepted }

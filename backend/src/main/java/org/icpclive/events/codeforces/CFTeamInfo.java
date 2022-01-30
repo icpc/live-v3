@@ -83,7 +83,7 @@ public class CFTeamInfo implements TeamInfo {
     }
 
     @Override
-    public List<CFRunInfo>[] getRuns() {
+    public List<List<CFRunInfo>> getRuns() {
         return CFEventsLoader.getInstance().getContestData().getRuns(row.party);
     }
 

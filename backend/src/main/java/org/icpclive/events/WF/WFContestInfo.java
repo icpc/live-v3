@@ -47,7 +47,7 @@ public class WFContestInfo extends ContestInfo {
             team.penalty = 0;
             team.lastAccepted = 0;
             for (int j = 0; j < problemNumber; j++) {
-                List<RunInfo> runs = team.getRuns()[j];
+                List<? extends RunInfo> runs = team.getRuns().get(j);
                 int wrong = 0;
                 for (RunInfo run : runs) {
                     WFRunInfo wfrun = (WFRunInfo) run;
@@ -90,7 +90,7 @@ public class WFContestInfo extends ContestInfo {
             team.penalty = 0;
             team.lastAccepted = 0;
             for (int j = 0; j < problemNumber; j++) {
-                List<RunInfo> runs = team.getRuns()[j];
+                List<? extends RunInfo> runs = team.getRuns().get(j);
                 int wrong = 0;
                 for (RunInfo run : runs) {
                     if ("AC".equals(run.getResult())) {
@@ -208,7 +208,7 @@ public class WFContestInfo extends ContestInfo {
         for (WFTeamInfo team : standings) {
             possibleStandings[teamIndex] = team.copy();
             for (int j = 0; j < problemNumber; j++) {
-                List<RunInfo> runs = team.getRuns()[j];
+                List<? extends RunInfo> runs = team.getRuns().get(j);
                 int runIndex = 0;
                 for (RunInfo run : runs) {
                     WFRunInfo clonedRun = new WFRunInfo((WFRunInfo) run);

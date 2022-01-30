@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class WFTeamInfo implements TeamInfo {
 
-    protected ArrayList<RunInfo>[] problem_runs;
+    protected ArrayList<ArrayList<RunInfo>> problem_runs;
 
     public int id = -1;
     public int rank;
@@ -28,15 +28,15 @@ public class WFTeamInfo implements TeamInfo {
     public String hashTag;
 
     public WFTeamInfo(int problems) {
-        problem_runs = new ArrayList[problems];
+        problem_runs = new ArrayList<>(problems);
         for (int i = 0; i < problems; i++) {
-            problem_runs[i] = new ArrayList<>();
+            problem_runs.add(new ArrayList<>());
         }
         groups = new HashSet<>();
     }
 
     public WFTeamInfo(WFTeamInfo teamInfo) {
-        this(teamInfo.getRuns().length);
+        this(teamInfo.getRuns().size());
         id = teamInfo.id;
         rank = teamInfo.rank;
         name = teamInfo.name;
@@ -46,7 +46,7 @@ public class WFTeamInfo implements TeamInfo {
     }
 
     public WFTeamInfo copy() {
-        WFTeamInfo teamInfo = new WFTeamInfo(problem_runs.length);
+        WFTeamInfo teamInfo = new WFTeamInfo(problem_runs.size());
         teamInfo.id = id;
         teamInfo.rank = rank;
         teamInfo.name = name;
@@ -96,7 +96,7 @@ public class WFTeamInfo implements TeamInfo {
         return solved;
     }
 
-    public List<RunInfo>[] getRuns() {
+    public List<? extends List<? extends RunInfo>> getRuns() {
         return problem_runs;
     }
 
@@ -109,7 +109,7 @@ public class WFTeamInfo implements TeamInfo {
     }
 
     public void addRun(RunInfo run, int problemId) {
-        ArrayList<RunInfo> runs = problem_runs[problemId];
+        ArrayList<RunInfo> runs = problem_runs.get(problemId);
         synchronized (runs) {
             runs.add(run);
         }

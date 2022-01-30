@@ -15,7 +15,7 @@ import static java.util.Arrays.sort;
 public class CFContestInfo extends ContestInfo {
     private CFStandings standings;
     private final Map<Integer, CFRunInfo> runsById = new HashMap<>();
-    private Map<Integer, List<CFRunInfo>[]> runsByTeam = new HashMap<>();
+    private Map<Integer, List<List<CFRunInfo>>> runsByTeam = new HashMap<>();
     private Map<String, CFProblemInfo> problemsMap = new HashMap<>();
     private Map<String, CFTeamInfo> participantsByName = new HashMap<>();
     private Map<Integer, CFTeamInfo> participantsById = new HashMap<>();
@@ -170,8 +170,8 @@ public class CFContestInfo extends ContestInfo {
         for (CFRanklistRow row : standings.rows) {
             CFTeamInfo teamInfo = new CFTeamInfo(row);
 
-            for (int i = 0; i < teamInfo.getRuns().length; i++) {
-                for (CFRunInfo runInfo : teamInfo.getRuns()[i]) {
+            for (int i = 0; i < teamInfo.getRuns().size(); i++) {
+                for (CFRunInfo runInfo : teamInfo.getRuns().get(i)) {
                     if (runInfo.getPoints() == 0) {
                         runInfo.setPoints((int) row.problemResults.get(i).points);
                     }
@@ -180,10 +180,10 @@ public class CFContestInfo extends ContestInfo {
         }
     }
 
-    private List<CFRunInfo>[] createEmptyRunsArray() {
-        List<CFRunInfo>[] array = new List[problemsMap.size()];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = new ArrayList<>();
+    private List<List<CFRunInfo>> createEmptyRunsArray() {
+        List<List<CFRunInfo>> array = new ArrayList<>(problemsMap.size());
+        for (int i = 0; i < problemsMap.size(); i++) {
+            array.add(new ArrayList<>());
         }
         return array;
     }
@@ -193,14 +193,14 @@ public class CFContestInfo extends ContestInfo {
     }
 
     public void addRun(CFRunInfo run, int problem) {
-        List<CFRunInfo> runs = getRuns(run.getSubmission().author)[problem];
+        List<CFRunInfo> runs = getRuns(run.getSubmission().author).get(problem);
         synchronized (runs) {
             runs.add(run);
             run.getProblem().update(run);
         }
     }
 
-    public List<CFRunInfo>[] getRuns(CFParty party) {
+    public List<List<CFRunInfo>> getRuns(CFParty party) {
         return runsByTeam.get(participantsByName.get(getName(party)).getId());
     }
 }

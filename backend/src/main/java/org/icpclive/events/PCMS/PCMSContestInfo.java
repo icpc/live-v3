@@ -18,16 +18,16 @@ public class PCMSContestInfo extends ContestInfo {
         PCMSTeamInfo[] standings = new PCMSTeamInfo[original.length];
         for (int i = 0; i < original.length; i++) {
             standings[i] = (PCMSTeamInfo)original[i].copy();
-            List<? extends RunInfo>[] runs = original[i].getRuns();
+            List<? extends List<? extends RunInfo>> runs = original[i].getRuns();
             for (int j = 0; j < problemNumber; j++) {
                 int runIndex = 0;
-                for (RunInfo run : runs[j]) {
+                for (RunInfo run : runs.get(j)) {
                     PCMSRunInfo clonedRun = new PCMSRunInfo(run);
 
                     if (clonedRun.getResult().length() == 0) {
                         clonedRun.judged = true;
                         String expectedResult = optimistic ? "AC" : "WA";
-                        clonedRun.result = runIndex == runs[j].size() - 1 ? expectedResult : "WA";
+                        clonedRun.result = runIndex == runs.get(j).size() - 1 ? expectedResult : "WA";
                         clonedRun.reallyUnknown = true;
                     }
                     standings[i].addRun(clonedRun, j);
@@ -39,10 +39,10 @@ public class PCMSContestInfo extends ContestInfo {
             team.solved = 0;
             team.penalty = 0;
             team.lastAccepted = 0;
-            List<? extends RunInfo>[] runs = team.getRuns();
+            List<? extends List<? extends RunInfo>> runs = team.getRuns();
             for (int j = 0; j < problemNumber; j++) {
                 int wrong = 0;
-                for (RunInfo run : runs[j]) {
+                for (RunInfo run : runs.get(j)) {
                     if ("AC".equals(run.getResult())) {
                         team.solved++;
                         int time = (int)(run.getTime() / 60 / 1000);
@@ -92,9 +92,9 @@ public class PCMSContestInfo extends ContestInfo {
 
     public void fillTimeFirstSolved() {
         standings.forEach(teamInfo -> {
-            ArrayList<RunInfo>[] runs = teamInfo.getRuns();
-            for (int i = 0; i < runs.length; i++) {
-                for (RunInfo run : runs[i]) {
+            ArrayList<ArrayList<RunInfo>> runs = teamInfo.getRuns();
+            for (int i = 0; i < runs.size(); i++) {
+                for (RunInfo run : runs.get(i)) {
                     if (run.isAccepted()) {
                         timeFirstSolved[i] = Math.min(timeFirstSolved[i], run.getTime());
                     }

@@ -27,7 +27,7 @@ public class IOIPCMSTeamInfo extends PCMSTeamInfo {
     @Override
     public IOIPCMSTeamInfo copy() {
         return new IOIPCMSTeamInfo(this.id, this.alias, this.hallId, this.name, this.shortName, this.hashTag,
-                this.groups, problemRuns.length, this.delay);
+                this.groups, problemRuns.size(), this.delay);
     }
 
     static Comparator<IOIPCMSTeamInfo> comparator = new Comparator<IOIPCMSTeamInfo>() {
@@ -41,7 +41,7 @@ public class IOIPCMSTeamInfo extends PCMSTeamInfo {
     };
 
     public String getShortProblemState(int problem) {
-        List<? extends RunInfo> runs = getRuns()[problem];
+        List<? extends RunInfo> runs = getRuns().get(problem);
         synchronized (runs) {
             if (runs.size() == 0) return "";
             int max = -1;
@@ -62,7 +62,7 @@ public class IOIPCMSTeamInfo extends PCMSTeamInfo {
     }
 
     public String getScoreUpTo(IOIPCMSRunInfo run) {
-        List<? extends RunInfo> runs = getRuns()[run.getProblemId()];
+        List<? extends RunInfo> runs = getRuns().get(run.getProblemId());
         synchronized (runs) {
             if (runs.size() == 0) return "";
             int maxBefore = 0;

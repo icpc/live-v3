@@ -12,8 +12,10 @@ public class PCMSTeamInfo implements TeamInfo {
     public String alias;
 
     public PCMSTeamInfo(int problemsNumber) {
-        problemRuns = new ArrayList[problemsNumber];
-        Arrays.setAll(problemRuns, i -> new ArrayList<>());
+        problemRuns = new ArrayList<>(problemsNumber);
+        for (int i = 0; i < problemsNumber; i++) {
+            problemRuns.add(new ArrayList<>());
+        }
         this.rank = 1;
     }
 
@@ -37,25 +39,25 @@ public class PCMSTeamInfo implements TeamInfo {
 
     public PCMSTeamInfo(PCMSTeamInfo pcmsTeamInfo) {
         this(pcmsTeamInfo.id, pcmsTeamInfo.alias, pcmsTeamInfo.hallId, pcmsTeamInfo.name,
-                pcmsTeamInfo.shortName, pcmsTeamInfo.hashTag, pcmsTeamInfo.groups, pcmsTeamInfo.problemRuns.length,
+                pcmsTeamInfo.shortName, pcmsTeamInfo.hashTag, pcmsTeamInfo.groups, pcmsTeamInfo.problemRuns.size(),
                 pcmsTeamInfo.delay);
 
-        for (int i = 0; i < pcmsTeamInfo.problemRuns.length; i++) {
-            problemRuns[i].addAll(pcmsTeamInfo.problemRuns[i]);
+        for (int i = 0; i < pcmsTeamInfo.problemRuns.size(); i++) {
+            problemRuns.get(i).addAll(pcmsTeamInfo.problemRuns.get(i));
         }
     }
 
     @Override
     public void addRun(RunInfo run, int problemId) {
         if (run != null) {
-            problemRuns[problemId].add(run);
+            problemRuns.get(problemId).add(run);
         }
     }
 
     public int mergeRuns(ArrayList<PCMSRunInfo> runs, int problemId, int lastRunId, long currentTime) {
-        int previousSize = problemRuns[problemId].size();
+        int previousSize = problemRuns.get(problemId).size();
         for (int i = 0; i < previousSize && i < runs.size(); i++) {
-            PCMSRunInfo run = (PCMSRunInfo) problemRuns[problemId].get(i);
+            PCMSRunInfo run = (PCMSRunInfo) problemRuns.get(problemId).get(i);
             if (run instanceof IOIPCMSRunInfo) {
                 if ((((IOIPCMSRunInfo) run).getScore() != ((IOIPCMSRunInfo) runs.get(i)).getScore())
                         || (!run.isJudged() && runs.get(i).isJudged())
@@ -79,18 +81,18 @@ public class PCMSTeamInfo implements TeamInfo {
         }
         for (int i = previousSize; i < runs.size(); i++) {
             runs.get(i).id = lastRunId++;
-            problemRuns[problemId].add(runs.get(i));
+            problemRuns.get(problemId).add(runs.get(i));
         }
         return lastRunId;
     }
 
     public int getRunsNumber(int problemId) {
-        return problemRuns[problemId].size();
+        return problemRuns.get(problemId).size();
     }
 
     public long getLastSubmitTime(int problemId) {
         int runsNumber = getRunsNumber(problemId);
-        return runsNumber == 0 ? -1 : problemRuns[problemId].get(runsNumber).getTime();
+        return runsNumber == 0 ? -1 : problemRuns.get(problemId).get(runsNumber).getTime();
     }
 
     public int getId() {
@@ -135,7 +137,7 @@ public class PCMSTeamInfo implements TeamInfo {
         return solved;
     }
 
-    public ArrayList<RunInfo>[] getRuns() {
+    public ArrayList<ArrayList<RunInfo>> getRuns() {
         return problemRuns;
     }
 
@@ -154,7 +156,7 @@ public class PCMSTeamInfo implements TeamInfo {
     @Override
     public PCMSTeamInfo copy() {
         return new PCMSTeamInfo(this.id, this.alias, this.hallId, this.name, this.shortName, this.hashTag,
-                this.groups, problemRuns.length, delay);
+                this.groups, problemRuns.size(), delay);
     }
 
     public String toString() {
@@ -174,7 +176,7 @@ public class PCMSTeamInfo implements TeamInfo {
     public int penalty;
     public long lastAccepted;
 
-    public ArrayList<RunInfo>[] problemRuns;
+    public ArrayList<ArrayList<RunInfo>> problemRuns;
 
     public int delay;
 }
