@@ -2,30 +2,27 @@ package org.icpclive.events
 
 import org.icpclive.api.ContestStatus
 import org.icpclive.events.EventsLoader.Companion.instance
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.util.*
 import kotlin.math.min
 
-abstract class ContestInfo {
-    var teamsNumber = 0
-    var problemsNumber = 0
+abstract class ContestInfo{
+    abstract val problemsNumber: Int
+    abstract val teamsNumber: Int
     var startTime: Long = 0
         set(value) {
-            System.err.println("Set start time " + Date(startTime))
+            logger.info("Set start time " + Date(startTime))
             field = value
         }
     var problems: MutableList<ProblemInfo> = ArrayList()
     var lastTime: Long = 0
     var status = ContestStatus.BEFORE
         set(value) {
-            System.err.println("New status: $value")
+            if (field != value) logger.info("New status: $value")
             lastTime = currentTime
             field = value
         }
-
-    protected constructor() {}
-    protected constructor(problemNumber: Int) {
-        problemsNumber = problemNumber
-    }
 
 
     open val timeFromStart: Long
@@ -33,63 +30,51 @@ abstract class ContestInfo {
     val currentTime: Long
         get() = getCurrentTime(0)
 
-    fun getCurrentTime(delay: Int): Long {
+    private fun getCurrentTime(delay: Int): Long {
         return when (status) {
             ContestStatus.BEFORE -> 0
             ContestStatus.PAUSED -> lastTime
-            ContestStatus.RUNNING -> if (startTime == 0L) 0 else Math.min(
+            ContestStatus.RUNNING -> if (startTime == 0L) 0 else min(
                 timeFromStart,
-                CONTEST_LENGTH.toLong()
+                contestLength.toLong()
             )
             ContestStatus.OVER -> {
                 if (delay != 0) {
                     min(
                         timeFromStart,
-                        (CONTEST_LENGTH + delay).toLong()
+                        (contestLength + delay).toLong()
                     )
-                } else CONTEST_LENGTH.toLong()
+                } else contestLength.toLong()
             }
             else -> 0
         }
     }
 
     val isFrozen: Boolean
-        get() = currentTime >= FREEZE_TIME
+        get() = currentTime >= freezeTime
 
-    abstract fun getParticipant(name: String?): TeamInfo?
+    abstract fun getParticipant(name: String): TeamInfo?
     abstract fun getParticipant(id: Int): TeamInfo?
     abstract fun getParticipantByHashTag(hashTag: String?): TeamInfo?
-    abstract val standings: Array<out TeamInfo>
-    abstract fun getStandings(optimismLevel: OptimismLevel): Array<out TeamInfo>
-    fun getStandings(group: String, optimismLevel: OptimismLevel): Array<out TeamInfo> {
+    abstract val standings: List<TeamInfo>
+    abstract fun getStandings(optimismLevel: OptimismLevel): List<TeamInfo>
+    fun getStandings(group: String, optimismLevel: OptimismLevel): List<TeamInfo> {
         if (ALL_REGIONS == group) {
             return getStandings(optimismLevel)
         }
         val infos = getStandings(optimismLevel)
-        return infos.filter { x: TeamInfo -> x.groups.contains(group) }.toTypedArray()
-    }
-
-    val hashTags by lazy {
-        val hashtags = ArrayList<String>()
-        val infos = standings
-        for (teamInfo in infos) {
-            teamInfo.hashTag?.run {
-                hashtags.add(this)
-            }
-        }
-        hashtags.toTypedArray()
+        return infos.filter { it.groups.contains(group) }
     }
 
     abstract fun firstTimeSolved(): LongArray?
-    abstract val firstSolvedRun: Array<out RunInfo?>
-    abstract val runs: Array<out RunInfo?>
-    abstract fun getRun(id: Int): RunInfo?
-    abstract val lastRunId: Int
+    abstract val firstSolvedRun: List<RunInfo?>
+    abstract val runs: List<RunInfo>
+    var contestLength = 5 * 60 * 60 * 1000
+    var freezeTime = 4 * 60 * 60 * 1000
+    val groups = mutableSetOf<String>()
 
     companion object {
-        var CONTEST_LENGTH = 5 * 60 * 60 * 1000
-        var FREEZE_TIME = 4 * 60 * 60 * 1000
-        val GROUPS = TreeSet<String>()
         const val ALL_REGIONS = "all"
+        val logger: Logger = LoggerFactory.getLogger(ContestInfo::class.java)
     }
 }

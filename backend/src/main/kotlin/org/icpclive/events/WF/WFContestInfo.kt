@@ -5,19 +5,20 @@ import org.icpclive.events.OptimismLevel
 import org.icpclive.events.TeamInfo
 import org.icpclive.events.WF.json.WFProblemInfo
 import java.util.*
+import kotlin.math.max
 
 /**
  * Created by aksenov on 05.05.2015.
  */
 open class WFContestInfo : ContestInfo {
-    protected lateinit var wfRuns: Array<WFRunInfo?>
+    protected lateinit var wfRuns: MutableList<WFRunInfo>
     lateinit var languages: Array<String?>
     lateinit var teamInfos: Array<WFTeamInfo?>
     protected lateinit var timeFirstSolved: LongArray
-    override var lastRunId = 0
-        protected set
-    override lateinit var firstSolvedRun: Array<WFRunInfo?>
-    override var standings: Array<WFTeamInfo> = emptyArray()
+    override lateinit var firstSolvedRun: MutableList<WFRunInfo?>
+    override var standings: List<WFTeamInfo> = emptyList()
+    override var problemsNumber: Int = 0
+    override var teamsNumber: Int = 0
 
     constructor(problemsNumber: Int, teamsNumber: Int) {
         this.problemsNumber = problemsNumber
@@ -25,8 +26,8 @@ open class WFContestInfo : ContestInfo {
         teamInfos = arrayOfNulls(teamsNumber)
         timeFirstSolved = LongArray(problemsNumber)
         languages = arrayOfNulls(100)
-        wfRuns = arrayOfNulls(1000000)
-        firstSolvedRun = arrayOfNulls(problemsNumber)
+        wfRuns = mutableListOf()
+        firstSolvedRun = MutableList(problemsNumber) { null }
     }
 
     protected constructor() {}
@@ -34,7 +35,7 @@ open class WFContestInfo : ContestInfo {
     fun recalcStandings() {
         var n = 0
         Arrays.fill(timeFirstSolved, Long.MAX_VALUE)
-        Arrays.fill(firstSolvedRun, null)
+        firstSolvedRun.fill(null)
         val standings = teamInfos.mapNotNull { team ->
             if (team == null) return@mapNotNull null
             team.solvedProblemsNumber = 0
@@ -73,7 +74,7 @@ open class WFContestInfo : ContestInfo {
                 standings[i].rank = i + 1
             }
         }
-        this.standings = standings.toTypedArray()
+        this.standings = standings
     }
 
     private fun recalcStandings(standings: MutableList<WFTeamInfo>) {
@@ -115,32 +116,23 @@ open class WFContestInfo : ContestInfo {
         return wfRuns[id] != null
     }
 
-    override fun getRun(id: Int): WFRunInfo? {
-        return wfRuns[id]
-    }
-
-    open fun addRun(run: WFRunInfo) {
+    /*open fun addRun(run: WFRunInfo) {
 //		System.err.println("add runId: " + run.getId());
         if (!runExists(run.id)) {
             wfRuns[run.id] = run
             teamInfos[run.teamId]!!.addRun(run, run.problemId)
-            lastRunId = Math.max(lastRunId, run.id)
         }
-    }
+    }*/
 
     fun addTest(test: WFTestCaseInfo) {
-//		System.out.println("Adding test " + test.id + " to runId " + test.runId);
-        if (runExists(test.runId)) {
-            val run = wfRuns[test.runId]
-            run!!.add(test)
-            if (!run.isJudged) {
-                run.lastUpdateTime = Math.max(run.lastUpdateTime, test.time)
-            }
-            //			System.out.println("Run " + runs[test.runId] + " passed " + runs[test.runId].getPassedTestsNumber() + " tests");
+        val run = wfRuns.getOrNull(test.runId) ?: return
+        run.add(test)
+        if (!run.isJudged) {
+            run.lastUpdateTime = max(run.lastUpdateTime, test.time)
         }
     }
 
-    override fun getParticipant(name: String?): TeamInfo? {
+    override fun getParticipant(name: String): TeamInfo? {
         for (i in 0 until teamsNumber) {
             if (teamInfos[i]!!.name == name || teamInfos[i]!!.shortName == name) {
                 return teamInfos[i]
@@ -159,7 +151,7 @@ open class WFContestInfo : ContestInfo {
     }
 
 
-    override val runs: Array<WFRunInfo?>
+    override val runs: List<WFRunInfo>
         get() = wfRuns
 
     fun getProblemById(id: Int): WFProblemInfo {
@@ -175,7 +167,7 @@ open class WFContestInfo : ContestInfo {
         return null
     }
 
-    private fun getPossibleStandings(isOptimistic: Boolean): Array<out TeamInfo> {
+    private fun getPossibleStandings(isOptimistic: Boolean): List<TeamInfo> {
         val possibleStandings = standings.map { team ->
             team.copy().apply {
                 for (j in 0 until problemsNumber) {
@@ -196,11 +188,11 @@ open class WFContestInfo : ContestInfo {
             }
         }.toMutableList()
         recalcStandings(possibleStandings)
-        return possibleStandings.toTypedArray()
+        return possibleStandings
     }
 
-    override fun getStandings(level: OptimismLevel): Array<out TeamInfo> {
-        return when (level) {
+    override fun getStandings(optimismLevel: OptimismLevel): List<TeamInfo> {
+        return when (optimismLevel) {
             OptimismLevel.NORMAL -> standings
             OptimismLevel.OPTIMISTIC -> getPossibleStandings(true)
             OptimismLevel.PESSIMISTIC -> getPossibleStandings(false)

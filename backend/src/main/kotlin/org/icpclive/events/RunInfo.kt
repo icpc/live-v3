@@ -16,7 +16,7 @@ interface RunInfo : Comparable<RunInfo> {
     val isFirstSolvedRun: Boolean
         get() = EventsLoader.instance.contestData!!.firstSolvedRun[problemId] === this
 
-    override fun compareTo(runInfo: RunInfo): Int {
-        return time.compareTo(runInfo.time)
+    override fun compareTo(other: RunInfo): Int {
+        return time.compareTo(other.time)
     }
 }

@@ -29,7 +29,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     private var password: String? = null
     private var regionals = false
     private var emulation = false
-    override val contestData: ContestInfo?
+    override val contestData: ContestInfo
         get() = contestInfo
 
     @Throws(IOException::class)
@@ -58,7 +58,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
             val id = je["id"].asString
             val name = je["name"].asString
             contest.groupById!![id] = name
-            ContestInfo.GROUPS.add(name)
+            contest.groups.add(name)
         }
     }
 
@@ -292,8 +292,8 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         if (emulation) {
             contestInfo.startTime = System.currentTimeMillis()
         }
-        ContestInfo.CONTEST_LENGTH = parseRelativeTime(je["duration"].asString).toInt()
-        ContestInfo.FREEZE_TIME = ContestInfo.CONTEST_LENGTH - parseRelativeTime(
+        contestInfo.contestLength = parseRelativeTime(je["duration"].asString).toInt()
+        contestInfo.freezeTime = contestInfo.contestLength - parseRelativeTime(
             je["scoreboard_freeze_duration"].asString
         ).toInt()
     }
@@ -370,7 +370,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         }
         val time = if (je["end_contest_time"].isJsonNull) 0 else parseRelativeTime(je["end_contest_time"].asString)
         waitForEmulation(time)
-        if (runInfo.time <= ContestInfo.FREEZE_TIME) {
+        if (runInfo.time <= contestInfo.freezeTime) {
             runInfo.result = verdict
             runInfo.isJudged = true
 
@@ -392,7 +392,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         val runInfo = contestInfo.runByJudgementId[je["judgement_id"].asString]
         val time = parseRelativeTime(je["contest_time"].asString)
         waitForEmulation(time)
-        if (runInfo == null || runInfo.time > ContestInfo.FREEZE_TIME || update) {
+        if (runInfo == null || runInfo.time > contestInfo.freezeTime || update) {
             return
         }
         val testCaseInfo = WFTestCaseInfo()

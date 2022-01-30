@@ -3,7 +3,6 @@ package org.icpclive.events.codeforces
 import org.icpclive.api.ContestStatus
 import org.icpclive.events.ContestInfo
 import org.icpclive.events.OptimismLevel
-import org.icpclive.events.RunInfo
 import org.icpclive.events.TeamInfo
 import org.icpclive.events.codeforces.api.data.CFContest.CFContestPhase
 import org.icpclive.events.codeforces.api.data.CFParty
@@ -17,15 +16,19 @@ import java.util.*
  * @author egor@egork.net
  */
 class CFContestInfo : ContestInfo() {
+    override val problemsNumber: Int
+        get() = problemsMap.size
+    override val teamsNumber: Int
+        get() = cfStandings?.rows?.size ?: 0
     private var cfStandings: CFStandings? = null
     private val runsById: MutableMap<Int, CFRunInfo> = HashMap()
     private val runsByTeam: MutableMap<Int, List<MutableList<CFRunInfo>>> = HashMap()
     private val problemsMap: MutableMap<String, CFProblemInfo> = HashMap()
     private val participantsByName: MutableMap<String?, CFTeamInfo> = HashMap()
     private val participantsById: MutableMap<Int, CFTeamInfo> = HashMap()
-    override lateinit var firstSolvedRun: Array<CFRunInfo?>
+    override val firstSolvedRun: MutableList<CFRunInfo?> = mutableListOf()
     private var nextParticipantId = 1
-    override fun getParticipant(name: String?): CFTeamInfo? {
+    override fun getParticipant(name: String): CFTeamInfo? {
         return participantsByName[name]
     }
 
@@ -37,16 +40,16 @@ class CFContestInfo : ContestInfo() {
         return null
     }
 
-    override val standings: Array<TeamInfo>
+    override val standings: List<TeamInfo>
         get() = this.cfStandings?.rows?.map {
             participantsByName[getName(it.party)] as TeamInfo
-        }?.toTypedArray() ?: emptyArray()
+        } ?: emptyList()
 
-    override fun getStandings(optimismLevel: OptimismLevel): Array<TeamInfo> {
+    override fun getStandings(optimismLevel: OptimismLevel): List<TeamInfo> {
         return standings
     }
 
-    override fun firstTimeSolved(): LongArray? {
+    override fun firstTimeSolved(): LongArray {
         val result = LongArray(problemsMap.size)
         for (i in result.indices) {
             result[i] = if (firstSolvedRun[i] == null) 0 else firstSolvedRun[i]!!.time
@@ -54,21 +57,11 @@ class CFContestInfo : ContestInfo() {
         return result
     }
 
-    override val runs: Array<CFRunInfo>
-        get() {
-            synchronized(runsById) {
-                val cfRunInfos = runsById.values.toTypedArray()
-                Arrays.sort(cfRunInfos) { a: CFRunInfo, b: CFRunInfo -> java.lang.Long.compare(a.time, b.time) }
-                return cfRunInfos
-            }
+    override val runs: List<CFRunInfo>
+        get() = synchronized(runsById) {
+            runsById.values.sortedBy { it.time }
         }
 
-    override fun getRun(id: Int): RunInfo? {
-        synchronized(runsById) { return runsById[id] }
-    }
-
-    override val lastRunId: Int
-        get() = runsById.size - 1
     override val timeFromStart: Long
         get() {
             if (cfStandings == null) {
@@ -84,18 +77,16 @@ class CFContestInfo : ContestInfo() {
 
     fun update(standings: CFStandings, submissions: List<CFSubmission?>?) {
         if (problemsMap.isEmpty() && !standings.problems.isEmpty()) {
-            var id = 0
             for (problem in standings.problems) {
-                val problemInfo = CFProblemInfo(problem, id++)
+                val problemInfo = CFProblemInfo(problem, problemsNumber)
                 problemsMap[problem.index] = problemInfo
                 problems.add(problemInfo)
+                firstSolvedRun.add(null)
             }
-            firstSolvedRun = arrayOfNulls(id)
-            problemsNumber = id
         }
         this.cfStandings = standings
         //        lastTime = standings.contest.relativeTimeSeconds;
-        CONTEST_LENGTH = standings.contest.durationSeconds.toInt() * 1000
+        contestLength = standings.contest.durationSeconds.toInt() * 1000
         val phase = standings.contest.phase
         if (status === ContestStatus.BEFORE && phase == CFContestPhase.CODING) {
             this.startTime = System.currentTimeMillis() - standings.contest.relativeTimeSeconds * 1000
@@ -113,7 +104,6 @@ class CFContestInfo : ContestInfo() {
             participantsByName[teamInfo.name] = teamInfo
             participantsById[teamInfo.id] = teamInfo
         }
-        teamsNumber = standings.rows.size
         if (submissions != null) {
             Collections.reverse(submissions)
             synchronized(runsById) {

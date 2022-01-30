@@ -4,7 +4,6 @@ import org.icpclive.Config.loadFile
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus.publishContestInfo
 import org.icpclive.api.ContestStatus
-import org.icpclive.events.ContestInfo
 import org.icpclive.events.EventsLoader
 import org.icpclive.events.NetworkUtils.openAuthorizedStream
 import org.icpclive.events.ProblemInfo
@@ -33,13 +32,13 @@ class PCMSEventsLoader : EventsLoader() {
             val problem = ProblemInfo(
                 element.attr("alias"),
                 element.attr("name"),
-                if (element.attr("color") == null) Color.BLACK else Color.decode(element.attr("color"))
+                if (element.attr("color").isEmpty()) Color.BLACK else Color.decode(element.attr("color"))
             )
             contestInfo.get().problems.add(problem)
         }
     }
 
-    var initialStandings: Array<out TeamInfo>
+    var initialStandings: List<TeamInfo>
 
     @Throws(IOException::class)
     private fun updateStatements() {
@@ -93,7 +92,7 @@ class PCMSEventsLoader : EventsLoader() {
         val previousStatus = contestInfo.get().status
         updatedContestInfo.status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
         when (updatedContestInfo.status) {
-            ContestStatus.BEFORE -> {}
+            ContestStatus.BEFORE, ContestStatus.UNKNOWN, ContestStatus.OVER -> {}
             ContestStatus.RUNNING -> if (previousStatus !== ContestStatus.RUNNING || previousStartTime == 0L) {
                 updatedContestInfo.startTime = System.currentTimeMillis() - currentTime
             } else {
@@ -108,8 +107,6 @@ class PCMSEventsLoader : EventsLoader() {
             }
         }
         updatedContestInfo.frozen = "yes" == element.attr("frozen")
-        ContestInfo.CONTEST_LENGTH = ContestInfo.CONTEST_LENGTH
-        ContestInfo.FREEZE_TIME = ContestInfo.CONTEST_LENGTH
         updatedContestInfo.problems = contestInfo.get().problems
         val standings = contestInfo.get().standings
         val taken = BooleanArray(standings.size)
@@ -127,7 +124,6 @@ class PCMSEventsLoader : EventsLoader() {
                 updatedContestInfo.addTeamStandings(initialStandings[i] as PCMSTeamInfo)
             }
         }
-        updatedContestInfo.lastRunId = lastRunId - 1
         updatedContestInfo.fillTimeFirstSolved()
         updatedContestInfo.calculateRanks()
         updatedContestInfo.makeRuns()
@@ -136,10 +132,7 @@ class PCMSEventsLoader : EventsLoader() {
 
     private fun parseTeamInfo(element: Element): PCMSTeamInfo? {
         val alias = element.attr("alias")
-        val teamInfo = contestInfo.get().getParticipant(alias)
-        if (teamInfo == null || teamInfo.shortName.length == 0) {
-            return null
-        }
+        val teamInfo = contestInfo.get().getParticipant(alias) ?: return null
         val teamInfoCopy = PCMSTeamInfo(teamInfo)
         teamInfoCopy.solvedProblemsNumber = element.attr("solved").toInt()
         teamInfoCopy.penalty = element.attr("penalty").toInt()
@@ -165,7 +158,7 @@ class PCMSEventsLoader : EventsLoader() {
     private fun parseRunInfo(element: Element, problemId: Int, teamId: Int): PCMSRunInfo {
         val time = element.attr("time").toLong()
         val timestamp = (contestInfo.get().startTime + time) / 1000
-        val isFrozen = time >= ContestInfo.FREEZE_TIME
+        val isFrozen = time >= contestInfo.get().freezeTime
         val isJudged = !isFrozen && "undefined" != element.attr("outcome")
         val result = if ("yes" == element.attr("accepted")) "AC" else if (!isJudged) "" else outcomeMap.getOrDefault(
             element.attr("outcome"), "WA"
@@ -181,16 +174,15 @@ class PCMSEventsLoader : EventsLoader() {
     init {
         properties = loadProperties("events")
         emulationSpeed = properties.getProperty("emulation.speed", "1").toDouble()
-        ContestInfo.CONTEST_LENGTH = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt()
-        ContestInfo.FREEZE_TIME = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt()
         val problemsNumber = properties.getProperty("problems.number").toInt()
         val initial = PCMSContestInfo(problemsNumber)
+        initial.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt()
+        initial.freezeTime = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt()
         val fn = properties.getProperty("teams.url")
         val xml = loadFile(fn)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
         val participants = doc.child(0)
-        var id = 0
-        for (participant in participants.children()) {
+        for ((id, participant) in participants.children().withIndex()) {
             val participantName = participant.attr("name")
             val alias = participant.attr("id")
             var hallId = participant.attr("hall_id")
@@ -198,7 +190,7 @@ class PCMSEventsLoader : EventsLoader() {
                 hallId = alias
             }
             var shortName = participant.attr("shortname")
-            if (shortName == null || shortName.length == 0) {
+            if (shortName.isEmpty()) {
                 var index = participantName.indexOf("(")
                 shortName = participantName.substring(0, index - 1)
                 index = -1 //shortName.indexOf(",");
@@ -208,13 +200,13 @@ class PCMSEventsLoader : EventsLoader() {
                 }
             }
             var region = participant.attr("region")
-            if (region?.length == 0) {
+            if (region.isEmpty()) {
                 val index = participantName.indexOf(",")
                 if (index != -1) region = participantName.substring(0, index)
             }
             val hashTag = participant.attr("hashtag")
-            if (region != null && region?.length != 0) {
-                ContestInfo.GROUPS.add(region)
+            if (region.isNotEmpty()) {
+                contestInfo.get().groups.add(region)
             }
             val groups = HashSet<String>()
             groups.add(region)
@@ -222,9 +214,8 @@ class PCMSEventsLoader : EventsLoader() {
                 id, alias, hallId, participantName, shortName,
                 hashTag, groups, initial.problemsNumber, 0
             )
-            if (team.shortName.length != 0) {
+            if (team.shortName.isNotEmpty()) {
                 initial.addTeamStandings(team)
-                id++
             }
         }
         initialStandings = initial.standings

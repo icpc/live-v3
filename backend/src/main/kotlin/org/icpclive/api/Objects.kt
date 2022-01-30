@@ -74,8 +74,8 @@ data class ContestInfo(
     constructor(info: EventsContestInfo) : this(
         info.status,
         info.startTime,
-        EventsContestInfo.CONTEST_LENGTH.toLong(),
-        EventsContestInfo.FREEZE_TIME.toLong(),
+        info.contestLength.toLong(),
+        info.freezeTime.toLong(),
         info.problems.map { it.toApi() },
         info.standings.map { it.toApi() }.sortedBy { it.id }
     )
