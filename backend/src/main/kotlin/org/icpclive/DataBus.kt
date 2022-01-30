@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.runBlocking
 import org.icpclive.api.*
-import org.icpclive.events.OptimismLevel
-import org.icpclive.events.ContestInfo as EventsContestInfo
+import org.icpclive.cds.OptimismLevel
+import org.icpclive.cds.ContestInfo as EventsContestInfo
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads

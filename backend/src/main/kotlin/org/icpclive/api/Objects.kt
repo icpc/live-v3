@@ -4,10 +4,10 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.events.ContestInfo as EventsContestInfo
-import org.icpclive.events.ProblemInfo as EventsProblemsInfo
-import org.icpclive.events.RunInfo as EventsRunInfo
-import org.icpclive.events.TeamInfo as EventsTeamInfo
+import org.icpclive.cds.ContestInfo as CDSContestInfo
+import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
+import org.icpclive.cds.RunInfo as CDSRunInfo
+import org.icpclive.cds.TeamInfo as CDSTeamInfo
 
 @Serializable
 data class Advertisement(val text: String)
@@ -32,7 +32,7 @@ data class RunInfo(
     val lastUpdateTime: Long,
     val isFirstSolvedRun: Boolean,
 ) {
-    constructor(info: EventsRunInfo) : this(
+    constructor(info: CDSRunInfo) : this(
         info.id,
         info.isAccepted,
         info.isJudged,
@@ -47,15 +47,15 @@ data class RunInfo(
     )
 }
 
-fun EventsRunInfo.toApi() = RunInfo(this)
+fun CDSRunInfo.toApi() = RunInfo(this)
 
 @Serializable
 data class ProblemInfo(val letter: String, val name: String, val color: String) {
-    constructor(info: EventsProblemsInfo) :
+    constructor(info: CDSProblemsInfo) :
             this(info.letter, info.name, "#" + "%08x".format(info.color.rgb))
 }
 
-fun EventsProblemsInfo.toApi() = ProblemInfo(this)
+fun CDSProblemsInfo.toApi() = ProblemInfo(this)
 
 @Serializable
 enum class ContestStatus {
@@ -71,7 +71,7 @@ data class ContestInfo(
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>
 ) {
-    constructor(info: EventsContestInfo) : this(
+    constructor(info: CDSContestInfo) : this(
         info.status,
         info.startTime,
         info.contestLength.toLong(),
@@ -85,7 +85,7 @@ data class ContestInfo(
     }
 }
 
-fun EventsContestInfo.toApi() = ContestInfo(this)
+fun CDSContestInfo.toApi() = ContestInfo(this)
 
 @Serializable
 sealed class ProblemResult
@@ -114,7 +114,7 @@ data class TeamInfo(
     val lastAccepted: Long,
     val hashTag: String?,
 ) {
-    constructor(info: EventsTeamInfo) : this(
+    constructor(info: CDSTeamInfo) : this(
         info.id,
         info.rank,
         info.name,
@@ -128,7 +128,7 @@ data class TeamInfo(
     )
 }
 
-fun EventsTeamInfo.toApi() = TeamInfo(this)
+fun CDSTeamInfo.toApi() = TeamInfo(this)
 
 @Serializable
 data class Scoreboard(val rows: List<ScoreboardRow>)
@@ -141,7 +141,7 @@ data class ScoreboardRow(
     val penalty: Int,
     val problemResults: List<ProblemResult>,
 ) {
-    constructor(info: EventsTeamInfo) : this(
+    constructor(info: CDSTeamInfo) : this(
         info.id,
         info.rank,
         info.solvedProblemsNumber,
@@ -150,8 +150,8 @@ data class ScoreboardRow(
     )
 
     companion object {
-        // TODO: move it to EventsTeamInfo when it moved to kotlin
-        fun parseProblemResults(problemRuns: List<List<EventsRunInfo>>) =
+        // TODO: move it to CDSTeamInfo when it moved to kotlin
+        fun parseProblemResults(problemRuns: List<List<CDSRunInfo>>) =
             problemRuns.map { runs ->
                 val (runsBeforeFirstOk, okRun) = synchronized(runs) {
                     val okRunIndex = runs.indexOfFirst { it.isAccepted }

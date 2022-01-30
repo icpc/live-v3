@@ -10,7 +10,7 @@ import org.icpclive.api.AddRunToQueueEvent
 import org.icpclive.api.ModifyRunInQueueEvent
 import org.icpclive.api.RemoveRunFromQueueEvent
 import org.icpclive.api.RunInfo
-import org.icpclive.events.EventsLoader
+import org.icpclive.cds.EventsLoader
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

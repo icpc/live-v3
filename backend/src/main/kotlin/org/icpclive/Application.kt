@@ -14,7 +14,7 @@ import org.icpclive.admin.configureAdminRouting
 import org.icpclive.background.LoggerEventListener
 import org.icpclive.background.QueueProcessor
 import org.icpclive.background.RunsStorage
-import org.icpclive.events.EventsLoader
+import org.icpclive.cds.EventsLoader
 import org.icpclive.overlay.configureOverlayRouting
 import org.slf4j.event.Level
 import java.io.File
