@@ -11,15 +11,11 @@ import java.nio.file.Paths
 
 object Config {
     var configDirectory = "config"
-    @JvmStatic
-    @Throws(IOException::class)
     fun loadProperties(name: String): Properties {
         val properties = Properties()
         properties.load(FileInputStream(configDirectory + File.separator + name + ".properties"))
         return properties
     }
-    @JvmStatic
-    @Throws(IOException::class)
     fun loadFile(name:String) =
         String(Files.readAllBytes(Paths.get(configDirectory, name)), StandardCharsets.UTF_8)
 }

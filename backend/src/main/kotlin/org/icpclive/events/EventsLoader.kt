@@ -12,12 +12,10 @@ import org.icpclive.events.codeforces.CFEventsLoader
 abstract class EventsLoader : Runnable {
     var emulationSpeed = 0.0
         protected set
-    @JvmField
     protected var emulationStartTime: Long = 0
     abstract val contestData: ContestInfo?
 
     companion object {
-        @JvmStatic
         val instance by lazy {
             val properties = loadProperties("events")
             val standingsType = properties.getProperty("standings.type")

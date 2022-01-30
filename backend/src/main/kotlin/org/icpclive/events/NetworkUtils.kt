@@ -24,7 +24,6 @@ import java.util.*
  */
 object NetworkUtils {
     private val log = LoggerFactory.getLogger(NetworkUtils::class.java)
-    @JvmStatic
     fun prepareNetwork(login: String?, password: String?) {
         if (login == null || password == null) return
         val trustAllCerts = arrayOf<TrustManager>(
@@ -64,8 +63,6 @@ object NetworkUtils {
 //        System.setProperty("javax.net.ssl.trustStore", "C:/work/icpc-live/resources/key.jks");
     }
 
-    @JvmStatic
-    @Throws(IOException::class)
     fun openAuthorizedStream(url: String, login: String?, password: String): InputStream {
         if (!url.contains("http")) {
             return FileInputStream(url)

@@ -13,9 +13,7 @@ abstract class ContestInfo {
             System.err.println("Set start time " + Date(startTime))
             field = value
         }
-    @JvmField
     var problems: MutableList<ProblemInfo> = ArrayList()
-    @JvmField
     var lastTime: Long = 0
     var status = ContestStatus.BEFORE
         set(value) {
@@ -89,11 +87,8 @@ abstract class ContestInfo {
     abstract val lastRunId: Int
 
     companion object {
-        @JvmField
         var CONTEST_LENGTH = 5 * 60 * 60 * 1000
-        @JvmField
         var FREEZE_TIME = 4 * 60 * 60 * 1000
-        @JvmField
         val GROUPS = TreeSet<String>()
         const val ALL_REGIONS = "all"
     }

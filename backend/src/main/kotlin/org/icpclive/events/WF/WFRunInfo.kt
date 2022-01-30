@@ -15,7 +15,6 @@ class WFRunInfo : RunInfo {
     override var isJudged = false
     override var isReallyUnknown = false
     override var result = ""
-    @JvmField
     var languageId = 0
     override var problemId = 0
     var passedTestsNumber = 0
@@ -26,7 +25,6 @@ class WFRunInfo : RunInfo {
             field = Math.max(field, value) // ?????
         }
     override var teamId = 0
-    @JvmField
     var team: TeamInfo? = null
     private val passedTests: MutableSet<Int> = HashSet()
 
