@@ -1,7 +1,5 @@
 package org.icpclive.events
 
-import org.icpclive.events.EventsLoader
-
 interface RunInfo : Comparable<RunInfo> {
     val id: Int
     val isAccepted: Boolean

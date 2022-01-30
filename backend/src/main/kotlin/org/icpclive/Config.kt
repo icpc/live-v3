@@ -1,13 +1,11 @@
 package org.icpclive
 
-import kotlin.Throws
-import java.io.IOException
-import java.util.Properties
-import java.io.FileInputStream
 import java.io.File
+import java.io.FileInputStream
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.util.*
 
 object Config {
     var configDirectory = "config"
@@ -16,6 +14,7 @@ object Config {
         properties.load(FileInputStream(configDirectory + File.separator + name + ".properties"))
         return properties
     }
-    fun loadFile(name:String) =
+
+    fun loadFile(name: String) =
         String(Files.readAllBytes(Paths.get(configDirectory, name)), StandardCharsets.UTF_8)
 }

@@ -1,13 +1,10 @@
 package org.icpclive.events.PCMS
 
 import org.icpclive.events.ContestInfo
-import java.util.Arrays
 import org.icpclive.events.OptimismLevel
 import org.icpclive.events.RunInfo
 import org.icpclive.events.TeamInfo
-import java.util.ArrayList
-import java.util.HashMap
-import java.util.function.Consumer
+import java.util.*
 
 class PCMSContestInfo(problemNumber: Int) : ContestInfo(problemNumber) {
     fun getPossibleStandings(optimistic: Boolean): Array<out TeamInfo> {

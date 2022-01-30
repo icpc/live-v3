@@ -1,19 +1,16 @@
 package org.icpclive.events.codeforces
 
-import org.icpclive.events.codeforces.api.results.CFStandings
-import java.util.HashMap
-import org.icpclive.events.OptimismLevel
-import java.util.Arrays
-import org.icpclive.events.codeforces.api.data.CFSubmission
-import org.icpclive.events.codeforces.api.data.CFProblem
-import org.icpclive.events.codeforces.api.data.CFContest.CFContestPhase
 import org.icpclive.api.ContestStatus
 import org.icpclive.events.ContestInfo
+import org.icpclive.events.OptimismLevel
 import org.icpclive.events.RunInfo
 import org.icpclive.events.TeamInfo
-import java.util.Collections
+import org.icpclive.events.codeforces.api.data.CFContest.CFContestPhase
 import org.icpclive.events.codeforces.api.data.CFParty
-import java.util.ArrayList
+import org.icpclive.events.codeforces.api.data.CFProblem
+import org.icpclive.events.codeforces.api.data.CFSubmission
+import org.icpclive.events.codeforces.api.results.CFStandings
+import java.util.*
 
 
 /**
@@ -42,8 +39,8 @@ class CFContestInfo : ContestInfo() {
 
     override val standings: Array<TeamInfo>
         get() = this.cfStandings?.rows?.map {
-                participantsByName[getName(it.party)] as TeamInfo
-            }?.toTypedArray() ?: emptyArray()
+            participantsByName[getName(it.party)] as TeamInfo
+        }?.toTypedArray() ?: emptyArray()
 
     override fun getStandings(optimismLevel: OptimismLevel): Array<TeamInfo> {
         return standings

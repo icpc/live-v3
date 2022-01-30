@@ -10,6 +10,7 @@ sealed class Event
 
 @Serializable
 sealed class MainScreenEvent : Event()
+
 @Serializable
 sealed class QueueEvent : Event()
 
@@ -19,17 +20,17 @@ class ShowWidgetEvent(val widget: Widget) : MainScreenEvent()
 
 @Serializable
 @SerialName("HideWidget")
-class HideWidgetEvent(val id:String) : MainScreenEvent()
+class HideWidgetEvent(val id: String) : MainScreenEvent()
 
 @Serializable
 @SerialName("AddRunToQueue")
-class AddRunToQueueEvent(val info:RunInfo) : QueueEvent()
+class AddRunToQueueEvent(val info: RunInfo) : QueueEvent()
 
 @Serializable
 @SerialName("RemoveRunFromQueue")
-class RemoveRunFromQueueEvent(val info:RunInfo) : QueueEvent()
+class RemoveRunFromQueueEvent(val info: RunInfo) : QueueEvent()
 
 @Serializable
 @SerialName("ModifyRunInQueue")
-class ModifyRunInQueueEvent(val info:RunInfo) : QueueEvent()
+class ModifyRunInQueueEvent(val info: RunInfo) : QueueEvent()
 

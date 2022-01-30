@@ -2,27 +2,25 @@ package org.icpclive.events.PCMS
 
 import org.icpclive.Config.loadFile
 import org.icpclive.Config.loadProperties
-import org.icpclive.events.NetworkUtils.openAuthorizedStream
 import org.icpclive.DataBus.publishContestInfo
-import kotlin.Throws
-import java.io.IOException
-import org.jsoup.Jsoup
-import java.io.BufferedReader
-import java.util.stream.Collectors
-import java.lang.InterruptedException
 import org.icpclive.api.ContestStatus
-import org.icpclive.events.*
-import java.util.Locale
+import org.icpclive.events.ContestInfo
+import org.icpclive.events.EventsLoader
+import org.icpclive.events.NetworkUtils.openAuthorizedStream
+import org.icpclive.events.ProblemInfo
+import org.icpclive.events.TeamInfo
+import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import org.slf4j.LoggerFactory
 import java.awt.Color
+import java.io.BufferedReader
+import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.atomic.AtomicReference
-import java.util.Properties
-import java.util.HashSet
+import java.util.stream.Collectors
 
 class PCMSEventsLoader : EventsLoader() {
     @Throws(IOException::class)
@@ -41,6 +39,7 @@ class PCMSEventsLoader : EventsLoader() {
     }
 
     var initialStandings: Array<out TeamInfo>
+
     @Throws(IOException::class)
     private fun updateStatements() {
         try {
@@ -155,7 +154,7 @@ class PCMSEventsLoader : EventsLoader() {
         if (contestInfo.get().status === ContestStatus.BEFORE) {
             return runs
         }
-        element.children().forEach{ run: Element ->
+        element.children().forEach { run: Element ->
             val runInfo = parseRunInfo(run, problemId, teamId)
             runs.add(runInfo)
         }
@@ -235,19 +234,19 @@ class PCMSEventsLoader : EventsLoader() {
     companion object {
         private val log = LoggerFactory.getLogger(PCMSEventsLoader::class.java)
         private val outcomeMap = mapOf(
-                "undefined" to "UD",
-                "fail" to "FL",
-                "unknown" to "",
-                "accepted" to "AC",
-                "compilation-error" to "CE",
-                "wrong-answer" to "WA",
-                "presentation-error" to "PE",
-                "runtime-error" to "RE",
-                "time-limit-exceeded" to "TL",
-                "memory-limit-exceeded" to "ML",
-                "output-limit-exceeded" to "OL",
-                "idleness-limit-exceeded" to "IL",
-                "security-violation" to "SV",
+            "undefined" to "UD",
+            "fail" to "FL",
+            "unknown" to "",
+            "accepted" to "AC",
+            "compilation-error" to "CE",
+            "wrong-answer" to "WA",
+            "presentation-error" to "PE",
+            "runtime-error" to "RE",
+            "time-limit-exceeded" to "TL",
+            "memory-limit-exceeded" to "ML",
+            "output-limit-exceeded" to "OL",
+            "idleness-limit-exceeded" to "IL",
+            "security-violation" to "SV",
         )
     }
 }

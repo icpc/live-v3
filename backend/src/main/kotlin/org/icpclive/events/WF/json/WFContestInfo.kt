@@ -1,14 +1,13 @@
 package org.icpclive.events.WF.json
 
-import org.icpclive.events.NetworkUtils.openAuthorizedStream
-import org.icpclive.events.WF.WFRunInfo
-import java.util.HashMap
-import java.io.BufferedReader
 import com.google.gson.Gson
 import com.google.gson.JsonArray
+import org.icpclive.events.NetworkUtils.openAuthorizedStream
 import org.icpclive.events.TeamInfo
 import org.icpclive.events.WF.WFContestInfo
+import org.icpclive.events.WF.WFRunInfo
 import org.icpclive.events.WF.WFTeamInfo
+import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 

@@ -1,8 +1,5 @@
 package org.icpclive.events
 
-import org.icpclive.events.OptimismLevel
-import java.lang.IllegalArgumentException
-
 enum class OptimismLevel {
     NORMAL, OPTIMISTIC, PESSIMISTIC;
 

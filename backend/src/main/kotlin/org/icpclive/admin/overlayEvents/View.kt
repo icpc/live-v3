@@ -1,6 +1,5 @@
 package org.icpclive.admin.overlayEvents
 
-import kotlinx.html.HTML
 import kotlinx.html.*
 import org.icpclive.admin.adminHead
 

@@ -7,21 +7,21 @@ import io.ktor.http.content.*
 import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
-import kotlinx.serialization.json.Json
 import io.ktor.websocket.*
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting
-import org.icpclive.events.EventsLoader
 import org.icpclive.background.LoggerEventListener
-import org.icpclive.background.RunsStorage
-import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.background.QueueProcessor
+import org.icpclive.background.RunsStorage
+import org.icpclive.events.EventsLoader
+import org.icpclive.overlay.configureOverlayRouting
 import org.slf4j.event.Level
 import java.io.File
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
-        io.ktor.server.netty.EngineMain.main(args)
+    io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {

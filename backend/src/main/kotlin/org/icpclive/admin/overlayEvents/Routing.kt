@@ -11,7 +11,7 @@ import org.icpclive.DataBus
 import org.icpclive.admin.Urls
 
 
-fun Routing.configureOverlayEvents() : Urls {
+fun Routing.configureOverlayEvents(): Urls {
     val urls = object : Urls {
         override val mainPage = "/admin/overlayEvents"
     }

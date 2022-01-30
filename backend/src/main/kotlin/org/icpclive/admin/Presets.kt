@@ -4,7 +4,9 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
 import java.util.concurrent.atomic.AtomicReference
 
 class Presets<T>(private val path: String, private val decode: (String) -> List<T>) {

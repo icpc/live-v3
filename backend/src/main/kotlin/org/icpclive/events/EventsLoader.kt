@@ -1,12 +1,8 @@
 package org.icpclive.events
 
 import org.icpclive.Config.loadProperties
-import java.lang.Runnable
-import org.icpclive.events.EventsLoader
-import kotlin.jvm.Synchronized
-import java.util.Properties
-import org.icpclive.events.WF.json.WFEventsLoader
 import org.icpclive.events.PCMS.PCMSEventsLoader
+import org.icpclive.events.WF.json.WFEventsLoader
 import org.icpclive.events.codeforces.CFEventsLoader
 
 abstract class EventsLoader : Runnable {

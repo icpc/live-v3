@@ -1,23 +1,15 @@
 package org.icpclive.events
 
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
-import javax.net.ssl.SSLContext
-import javax.net.ssl.HttpsURLConnection
-import java.security.NoSuchAlgorithmException
-import org.icpclive.events.NetworkUtils
 import org.slf4j.LoggerFactory
-import java.security.KeyManagementException
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLSession
-import kotlin.Throws
-import java.io.IOException
 import java.io.FileInputStream
 import java.io.InputStream
 import java.net.*
+import java.security.KeyManagementException
+import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.*
+import javax.net.ssl.*
 
 /**
  * Created by aksenov on 15.04.2015.

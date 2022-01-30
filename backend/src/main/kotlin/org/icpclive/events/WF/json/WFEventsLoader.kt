@@ -1,31 +1,24 @@
 package org.icpclive.events.WF.json
 
-import org.icpclive.Config.loadProperties
-import org.icpclive.events.NetworkUtils.prepareNetwork
-import org.icpclive.events.NetworkUtils.openAuthorizedStream
-import org.icpclive.events.EventsLoader
-import kotlin.Throws
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import java.util.HashMap
-import java.util.Arrays
-import org.icpclive.events.WF.WFOrganizationInfo
+import org.icpclive.Config.loadProperties
 import org.icpclive.api.ContestStatus
 import org.icpclive.events.ContestInfo
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
-import java.lang.InterruptedException
+import org.icpclive.events.EventsLoader
+import org.icpclive.events.NetworkUtils.openAuthorizedStream
+import org.icpclive.events.NetworkUtils.prepareNetwork
+import org.icpclive.events.WF.WFOrganizationInfo
 import org.icpclive.events.WF.WFRunInfo
 import org.icpclive.events.WF.WFTestCaseInfo
 import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.io.*
-import java.util.Properties
-import kotlin.jvm.Volatile
 import java.math.BigInteger
-import java.lang.Exception
-import java.util.ArrayList
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 /**
  * Created by aksenov on 16.04.2015.
@@ -485,6 +478,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
             }
         }
     }
+
     @Volatile
     private lateinit var contestInfo: WFContestInfo
 

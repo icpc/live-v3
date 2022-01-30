@@ -4,7 +4,9 @@ import io.ktor.routing.*
 import kotlinx.html.p
 import kotlinx.html.radioInput
 import kotlinx.html.textArea
-import org.icpclive.admin.*
+import org.icpclive.admin.AdminActionException
+import org.icpclive.admin.setupSimpleWidgetRouting
+import org.icpclive.admin.simpleWidgetViewFun
 import org.icpclive.api.Advertisement
 import org.icpclive.api.AdvertisementWidget
 

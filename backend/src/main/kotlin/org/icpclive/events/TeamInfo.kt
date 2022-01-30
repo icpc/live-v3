@@ -1,7 +1,5 @@
 package org.icpclive.events
 
-import java.util.Comparator
-
 interface TeamInfo {
     val id: Int
     val rank: Int

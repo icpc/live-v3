@@ -2,8 +2,6 @@ package org.icpclive.events.WF
 
 import org.icpclive.events.RunInfo
 import org.icpclive.events.TeamInfo
-import java.util.ArrayList
-import java.util.HashSet
 
 /**
  * Created by Meepo on 3/5/2018.

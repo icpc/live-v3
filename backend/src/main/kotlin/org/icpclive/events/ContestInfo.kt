@@ -1,7 +1,7 @@
 package org.icpclive.events
 
-import org.icpclive.events.EventsLoader.Companion.instance
 import org.icpclive.api.ContestStatus
+import org.icpclive.events.EventsLoader.Companion.instance
 import java.util.*
 import kotlin.math.min
 

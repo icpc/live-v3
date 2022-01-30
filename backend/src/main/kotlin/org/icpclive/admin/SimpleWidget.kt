@@ -16,16 +16,16 @@ open class SimpleWidgetUrls(prefix: String, reloadable: Boolean) : Urls {
     val reloadQuery = "/admin/$prefix/reload".takeIf { reloadable }
 }
 
-internal inline fun <reified ContentType, reified WidgetType: Widget> Routing.setupSimpleWidgetRouting(
+internal inline fun <reified ContentType, reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
     prefix: String,
     widgetId: String,
     presetPath: String?,
-    crossinline view: HTML.(presets:Presets<ContentType>?, urls:SimpleWidgetUrls) -> Unit,
+    crossinline view: HTML.(presets: Presets<ContentType>?, urls: SimpleWidgetUrls) -> Unit,
     crossinline createWidget: (Parameters) -> WidgetType,
-) : SimpleWidgetUrls {
+): SimpleWidgetUrls {
     val urls = SimpleWidgetUrls(prefix, presetPath != null)
     val presets = presetPath?.let { Presets<ContentType>(it) }
-    get(urls.mainPage) { call.respondHtml { view(presets, urls) }}
+    get(urls.mainPage) { call.respondHtml { view(presets, urls) } }
     post(urls.showQuery) {
         call.catchAdminAction(urls.mainPage) {
             WidgetManager.showWidget(createWidget(receiveParameters()))
@@ -75,7 +75,9 @@ internal fun HTML.simpleWidgetView(name: String, urls: SimpleWidgetUrls, paramet
     }
 }
 
-internal inline fun <reified T> simpleWidgetViewFun(name: String, crossinline parameters: FORM.(Presets<T>?) -> Unit) : HTML.(Presets<T>?, SimpleWidgetUrls) -> Unit = {
-        presets, urls ->
+internal inline fun <reified T> simpleWidgetViewFun(
+    name: String,
+    crossinline parameters: FORM.(Presets<T>?) -> Unit
+): HTML.(Presets<T>?, SimpleWidgetUrls) -> Unit = { presets, urls ->
     simpleWidgetView(name, urls) { parameters(presets) }
 }

@@ -1,11 +1,10 @@
 package org.icpclive.events.WF
 
 import org.icpclive.events.ContestInfo
-import java.util.Arrays
-import org.icpclive.events.WF.json.WFProblemInfo
 import org.icpclive.events.OptimismLevel
-import org.icpclive.events.RunInfo
 import org.icpclive.events.TeamInfo
+import org.icpclive.events.WF.json.WFProblemInfo
+import java.util.*
 
 /**
  * Created by aksenov on 05.05.2015.

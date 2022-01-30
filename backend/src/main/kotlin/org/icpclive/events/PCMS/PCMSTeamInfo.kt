@@ -1,9 +1,7 @@
 package org.icpclive.events.PCMS
 
-import java.util.HashSet
 import org.icpclive.events.RunInfo
 import org.icpclive.events.TeamInfo
-import java.util.ArrayList
 
 class PCMSTeamInfo(problemsNumber: Int) : TeamInfo {
     override lateinit var alias: String

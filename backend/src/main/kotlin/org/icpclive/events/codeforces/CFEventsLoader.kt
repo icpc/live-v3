@@ -4,11 +4,10 @@ import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus.publishContestInfo
 import org.icpclive.events.EventsLoader
 import org.icpclive.events.codeforces.api.CFApiCentral
-import java.util.concurrent.Executors
 import org.icpclive.events.codeforces.api.data.CFContest
 import org.slf4j.LoggerFactory
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-import java.lang.InterruptedException
 
 /**
  * @author egor@egork.net

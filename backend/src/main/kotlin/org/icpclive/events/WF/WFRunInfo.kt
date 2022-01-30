@@ -1,7 +1,6 @@
 package org.icpclive.events.WF
 
 import org.icpclive.events.EventsLoader.Companion.instance
-import java.util.HashSet
 import org.icpclive.events.ProblemInfo
 import org.icpclive.events.RunInfo
 import org.icpclive.events.TeamInfo

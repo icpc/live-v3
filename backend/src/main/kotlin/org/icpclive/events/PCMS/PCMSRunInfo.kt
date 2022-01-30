@@ -1,7 +1,6 @@
 package org.icpclive.events.PCMS
 
 import org.icpclive.events.EventsLoader
-import org.icpclive.events.ProblemInfo
 import org.icpclive.events.RunInfo
 
 class PCMSRunInfo : RunInfo {
