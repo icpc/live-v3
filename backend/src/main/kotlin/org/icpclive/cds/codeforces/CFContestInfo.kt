@@ -16,6 +16,9 @@ import java.util.*
  * @author egor@egork.net
  */
 class CFContestInfo : ContestInfo() {
+    override val problems = mutableListOf<CFProblemInfo>()
+    override val teams: List<TeamInfo>
+        get() = participantsById.values.toList()
     override val problemsNumber: Int
         get() = problemsMap.size
     override val teamsNumber: Int
@@ -36,18 +39,16 @@ class CFContestInfo : ContestInfo() {
         return participantsById[id]
     }
 
-    override fun getParticipantByHashTag(hashTag: String?): CFTeamInfo? {
+    override fun getParticipantByHashTag(hashTag: String): CFTeamInfo? {
         return null
     }
 
-    override val standings: List<TeamInfo>
+    private val standings: List<TeamInfo>
         get() = this.cfStandings?.rows?.map {
             participantsByName[getName(it.party)] as TeamInfo
         } ?: emptyList()
 
-    override fun getStandings(optimismLevel: OptimismLevel): List<TeamInfo> {
-        return standings
-    }
+    override fun getStandings(optimismLevel: OptimismLevel) = standings.map { it.apiScoreboardRow }
 
     override fun firstTimeSolved(): LongArray {
         val result = LongArray(problemsMap.size)

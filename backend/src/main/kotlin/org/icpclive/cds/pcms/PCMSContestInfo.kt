@@ -1,15 +1,15 @@
 package org.icpclive.cds.pcms
 
-import org.icpclive.cds.ContestInfo
-import org.icpclive.cds.OptimismLevel
-import org.icpclive.cds.RunInfo
-import org.icpclive.cds.TeamInfo
+import org.icpclive.cds.*
 import kotlin.collections.ArrayList
 import kotlin.math.*
 
 class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
+    override val problems : MutableList<ProblemInfo> = mutableListOf()
+    override val teams: List<TeamInfo>
+        get() = standings
     private fun getPossibleStandings(optimistic: Boolean): List<TeamInfo> {
-        val original = standings_
+        val original = standings
         val standings = original.indices.map { i ->
             val row = original[i].copy()
             val runs = original[i].runs
@@ -60,16 +60,15 @@ class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
         return standings
     }
 
-    override fun getStandings(optimismLevel: OptimismLevel): List<TeamInfo> {
-        return when (optimismLevel) {
+    override fun getStandings(optimismLevel: OptimismLevel) =
+        when (optimismLevel) {
             OptimismLevel.NORMAL -> standings
             OptimismLevel.OPTIMISTIC -> getPossibleStandings(true)
             OptimismLevel.PESSIMISTIC -> getPossibleStandings(false)
-        }
-    }
+        }.map { it.apiScoreboardRow }
 
     fun fillTimeFirstSolved() {
-        standings_.forEach { teamInfo: PCMSTeamInfo ->
+        standings.forEach { teamInfo: PCMSTeamInfo ->
             val runs = teamInfo.runs
             for (i in runs.indices) {
                 for (run in runs[i]) {
@@ -82,19 +81,19 @@ class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
     }
 
     fun calculateRanks() {
-        standings_[0].rank = 1
-        for (i in 1 until standings_.size) {
-            if (TeamInfo.comparator.compare(standings_[i], standings_[i - 1]) == 0) {
-                standings_[i].rank = standings_[i - 1].rank
+        standings[0].rank = 1
+        for (i in 1 until standings.size) {
+            if (TeamInfo.comparator.compare(standings[i], standings[i - 1]) == 0) {
+                standings[i].rank = standings[i - 1].rank
             } else {
-                standings_[i].rank = i + 1
+                standings[i].rank = i + 1
             }
         }
     }
 
     fun makeRuns() {
         val runs = ArrayList<RunInfo>()
-        for (team in standings_) {
+        for (team in standings) {
             for (innerRuns in team.runs) {
                 runs.addAll(innerRuns)
             }
@@ -109,15 +108,15 @@ class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
     }
 
     fun addTeamStandings(teamInfo: PCMSTeamInfo) {
-        standings_.add(teamInfo)
-        positions[teamInfo.alias] = standings_.size - 1
+        standings.add(teamInfo)
+        positions[teamInfo.alias] = standings.size - 1
     }
 
     override val teamsNumber
-        get() = standings_.size
+        get() = standings.size
 
     private fun getParticipant(teamRank: Int?): PCMSTeamInfo? {
-        return if (teamRank == null) null else standings_[teamRank]
+        return if (teamRank == null) null else standings[teamRank]
     }
 
     override fun getParticipant(name: String): PCMSTeamInfo? {
@@ -126,7 +125,7 @@ class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
     }
 
     override fun getParticipant(id: Int): PCMSTeamInfo? {
-        for (team in standings_) {
+        for (team in standings) {
             if (team.id == id) {
                 return team
             }
@@ -142,8 +141,8 @@ class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
         return timeFirstSolved
     }
 
-    override fun getParticipantByHashTag(hashTag: String?): PCMSTeamInfo? {
-        for (teamInfo in standings_) {
+    override fun getParticipantByHashTag(hashTag: String): PCMSTeamInfo? {
+        for (teamInfo in standings) {
             if (hashTag != null && hashTag.equals(teamInfo.hashTag, ignoreCase = true)) {
                 return teamInfo
             }
@@ -151,9 +150,7 @@ class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
         return null
     }
 
-    var standings_: ArrayList<PCMSTeamInfo> = ArrayList()
-    override val standings: List<TeamInfo>
-        get() = standings_
+    var standings: ArrayList<PCMSTeamInfo> = ArrayList()
     override val firstSolvedRun: List<RunInfo?>
         get() = firstSolvedRuns
     var timeFirstSolved = LongArray(problemsNumber)

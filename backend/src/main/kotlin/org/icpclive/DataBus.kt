@@ -19,14 +19,12 @@ import org.icpclive.cds.ContestInfo as EventsContestInfo
 object DataBus {
     // just wrapper for suspend world for java
     fun publishContestInfo(contestInfo: EventsContestInfo) = runBlocking {
-        runsStorageUpdates.emit(contestInfo.runs.mapNotNull { it?.toApi() })
+        runsStorageUpdates.emit(contestInfo.runs.map { it.toApi() })
         contestInfoFlow.value = contestInfo.toApi()
         //TODO: rework to avoid triple computation event it's not needed
-        scoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL).map { ScoreboardRow(it) })
-        optimisticScoreboardFlow.value =
-            Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC).map { ScoreboardRow(it) })
-        pessimisticScoreboardFlow.value =
-            Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC).map { ScoreboardRow(it) })
+        scoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL))
+        optimisticScoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC))
+        pessimisticScoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC))
     }
 
     val contestInfoFlow = MutableStateFlow(ContestInfo.EMPTY)

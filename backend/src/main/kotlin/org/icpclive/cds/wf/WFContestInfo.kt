@@ -1,5 +1,6 @@
 package org.icpclive.cds.wf
 
+import org.icpclive.api.ScoreboardRow
 import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.TeamInfo
@@ -11,12 +12,15 @@ import kotlin.math.max
  * Created by aksenov on 05.05.2015.
  */
 open class WFContestInfo : ContestInfo {
+    override val problems: MutableList<WFProblemInfo> = mutableListOf()
+    override val teams: List<TeamInfo>
+        get() = teamInfos.mapNotNull { it }
     protected lateinit var wfRuns: MutableList<WFRunInfo>
     lateinit var languages: Array<String?>
     lateinit var teamInfos: Array<WFTeamInfo?>
     protected lateinit var timeFirstSolved: LongArray
     override lateinit var firstSolvedRun: MutableList<WFRunInfo?>
-    override var standings: List<WFTeamInfo> = emptyList()
+    var standings: List<WFTeamInfo> = emptyList()
     override var problemsNumber: Int = 0
     override var teamsNumber: Int = 0
 
@@ -133,12 +137,7 @@ open class WFContestInfo : ContestInfo {
     }
 
     override fun getParticipant(name: String): TeamInfo? {
-        for (i in 0 until teamsNumber) {
-            if (teamInfos[i]!!.name == name || teamInfos[i]!!.shortName == name) {
-                return teamInfos[i]
-            }
-        }
-        return null
+        return teams.firstOrNull { it.name == name || it.shortName == name }
     }
 
     override fun getParticipant(id: Int): TeamInfo? {
@@ -155,16 +154,11 @@ open class WFContestInfo : ContestInfo {
         get() = wfRuns
 
     fun getProblemById(id: Int): WFProblemInfo {
-        return problems[id] as WFProblemInfo
+        return problems[id]
     }
 
-    override fun getParticipantByHashTag(hashTag: String?): WFTeamInfo? {
-        for (i in 0 until teamsNumber) {
-            if (hashTag != null && hashTag.equals(teamInfos[i]!!.hashTag, ignoreCase = true)) {
-                return teamInfos[i]
-            }
-        }
-        return null
+    override fun getParticipantByHashTag(hashTag: String): WFTeamInfo? {
+        return teamInfos.firstOrNull { hashTag.equals(it?.hashTag, ignoreCase = true) }
     }
 
     private fun getPossibleStandings(isOptimistic: Boolean): List<TeamInfo> {
@@ -191,11 +185,11 @@ open class WFContestInfo : ContestInfo {
         return possibleStandings
     }
 
-    override fun getStandings(optimismLevel: OptimismLevel): List<TeamInfo> {
+    override fun getStandings(optimismLevel: OptimismLevel): List<ScoreboardRow> {
         return when (optimismLevel) {
             OptimismLevel.NORMAL -> standings
             OptimismLevel.OPTIMISTIC -> getPossibleStandings(true)
             OptimismLevel.PESSIMISTIC -> getPossibleStandings(false)
-        }
+        }.map { it.apiScoreboardRow }
     }
 }

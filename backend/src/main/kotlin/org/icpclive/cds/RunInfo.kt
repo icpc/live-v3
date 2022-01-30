@@ -19,4 +19,18 @@ interface RunInfo : Comparable<RunInfo> {
     override fun compareTo(other: RunInfo): Int {
         return time.compareTo(other.time)
     }
+
+    fun toApi() = org.icpclive.api.RunInfo(
+        id,
+        isAccepted,
+        isJudged,
+        result,
+        problemId,
+        teamId,
+        isReallyUnknown,
+        percentage,
+        time,
+        lastUpdateTime,
+        isFirstSolvedRun
+    )
 }

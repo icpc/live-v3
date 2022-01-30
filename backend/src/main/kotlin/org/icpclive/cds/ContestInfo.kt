@@ -1,6 +1,8 @@
 package org.icpclive.cds
 
 import org.icpclive.api.ContestStatus
+import org.icpclive.api.ScoreboardRow
+import org.icpclive.api.toApi
 import org.icpclive.cds.EventsLoader.Companion.instance
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -15,7 +17,8 @@ abstract class ContestInfo{
             logger.info("Set start time " + Date(startTime))
             field = value
         }
-    var problems: MutableList<ProblemInfo> = ArrayList()
+    abstract val problems: List<ProblemInfo>
+    abstract val teams: List<TeamInfo>
     var lastTime: Long = 0
     var status = ContestStatus.BEFORE
         set(value) {
@@ -55,17 +58,8 @@ abstract class ContestInfo{
 
     abstract fun getParticipant(name: String): TeamInfo?
     abstract fun getParticipant(id: Int): TeamInfo?
-    abstract fun getParticipantByHashTag(hashTag: String?): TeamInfo?
-    abstract val standings: List<TeamInfo>
-    abstract fun getStandings(optimismLevel: OptimismLevel): List<TeamInfo>
-    fun getStandings(group: String, optimismLevel: OptimismLevel): List<TeamInfo> {
-        if (ALL_REGIONS == group) {
-            return getStandings(optimismLevel)
-        }
-        val infos = getStandings(optimismLevel)
-        return infos.filter { it.groups.contains(group) }
-    }
-
+    abstract fun getParticipantByHashTag(hashTag: String): TeamInfo?
+    abstract fun getStandings(optimismLevel: OptimismLevel): List<ScoreboardRow>
     abstract fun firstTimeSolved(): LongArray?
     abstract val firstSolvedRun: List<RunInfo?>
     abstract val runs: List<RunInfo>
@@ -77,4 +71,13 @@ abstract class ContestInfo{
         const val ALL_REGIONS = "all"
         val logger: Logger = LoggerFactory.getLogger(ContestInfo::class.java)
     }
+
+    fun toApi() = org.icpclive.api.ContestInfo(
+        status,
+        startTime,
+        contestLength.toLong(),
+        freezeTime.toLong(),
+        problems.map { it.toApi() },
+        teams.map { it.toApi() }.sortedBy { it.id }
+    )
 }

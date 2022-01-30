@@ -27,7 +27,7 @@ class PCMSEventsLoader : EventsLoader() {
         val xml = loadFile(problemsFile!!)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
         val problems = doc.child(0)
-        contestInfo.get().problems = ArrayList()
+        contestInfo.get().problems.clear()
         for (element in problems.children()) {
             val problem = ProblemInfo(
                 element.attr("alias"),
@@ -107,7 +107,8 @@ class PCMSEventsLoader : EventsLoader() {
             }
         }
         updatedContestInfo.frozen = "yes" == element.attr("frozen")
-        updatedContestInfo.problems = contestInfo.get().problems
+        updatedContestInfo.problems.clear()
+        updatedContestInfo.problems.addAll(contestInfo.get().problems)
         val standings = contestInfo.get().standings
         val taken = BooleanArray(standings.size)
         element.children().forEach { session: Element ->

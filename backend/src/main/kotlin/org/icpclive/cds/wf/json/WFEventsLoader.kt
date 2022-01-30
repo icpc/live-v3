@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import org.icpclive.Config.loadProperties
+import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.EventsLoader
@@ -67,7 +68,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         val jsonProblems = Gson().fromJson(
             readJsonArray("$url/problems"), JsonArray::class.java
         )
-        contest.problems = ArrayList()
+        contest.problems.clear()
         contest.problemById = HashMap()
         contest.problemById = HashMap()
         val problems = jsonProblems.sortedBy {
@@ -456,9 +457,10 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
                                 }
                                 else -> {}
                             }
+                            //TODO: do it more granular
+                            DataBus.publishContestInfo(contestInfo)
                         }
                     }
-                    return
                 }
             } catch (e: Throwable) {
                 log.error("error", e)
