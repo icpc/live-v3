@@ -70,29 +70,23 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         contest.problems = ArrayList()
         contest.problemById = HashMap()
         contest.problemById = HashMap()
-        val problems = arrayOfNulls<WFProblemInfo>(jsonProblems.size())
-        for (i in 0 until jsonProblems.size()) {
-            val je = jsonProblems[i].asJsonObject
-            val problemInfo = WFProblemInfo(contest.languages.size)
+        val problems = jsonProblems.sortedBy {
+            it.asJsonObject["ordianal"].asInt
+        }.mapIndexed { index, je_ ->
+            val je = je_.asJsonObject
             val cdsId = je["id"].asString
-            problemInfo.name = je["name"].asString
-            problemInfo.id = je["ordinal"].asInt
-            problemInfo.color = Color.decode(je["rgb"].asString)
-            if (je["test_data_count"] == null) {
-                // TODO
-                problemInfo.testCount = 100
-            } else {
-                problemInfo.testCount = je["test_data_count"].asInt
+            WFProblemInfo(
+                contest.languages.size,
+                je["label"].asString,
+                je["name"].asString,
+                Color.decode(je["rgb"].asString),
+                index,
+                je["test_data_count"]?.asInt ?: 100
+            ).also {
+                contest.problemById[cdsId] = it
             }
-            problemInfo.letter = je["label"].asString
-            problems[i] = problemInfo
-            contest.problemById[cdsId] = problemInfo
         }
-        Arrays.sort(problems) { a: WFProblemInfo?, b: WFProblemInfo? -> a!!.id - b!!.id }
-        for (i in problems.indices) {
-            problems[i]!!.id = i
-            contest.problems.add(problems[i]!!)
-        }
+        contest.problems.addAll(problems)
     }
 
     internal class Organization(

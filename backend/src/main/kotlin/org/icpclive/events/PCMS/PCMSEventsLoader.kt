@@ -30,10 +30,11 @@ class PCMSEventsLoader : EventsLoader() {
         val problems = doc.child(0)
         contestInfo.get().problems = ArrayList()
         for (element in problems.children()) {
-            val problem = ProblemInfo()
-            problem.letter = element.attr("alias")
-            problem.name = element.attr("name")
-            problem.color = if (element.attr("color") == null) Color.BLACK else Color.decode(element.attr("color"))
+            val problem = ProblemInfo(
+                element.attr("alias"),
+                element.attr("name"),
+                if (element.attr("color") == null) Color.BLACK else Color.decode(element.attr("color"))
+            )
             contestInfo.get().problems.add(problem)
         }
     }
