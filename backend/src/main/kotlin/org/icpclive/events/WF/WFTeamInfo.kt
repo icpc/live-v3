@@ -1,121 +1,62 @@
-package org.icpclive.events.WF;
+package org.icpclive.events.WF
 
-import org.icpclive.events.RunInfo;
-import org.icpclive.events.TeamInfo;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import org.icpclive.events.RunInfo
+import org.icpclive.events.TeamInfo
+import java.util.ArrayList
+import java.util.HashSet
 
 /**
  * Created by Meepo on 3/5/2018.
  */
-public class WFTeamInfo implements TeamInfo {
+open class WFTeamInfo(problems: Int) : TeamInfo {
+    protected var problem_runs: ArrayList<ArrayList<RunInfo>>
+    override var id = -1
+    override var rank = 0
+    override lateinit var name: String
+    override var solvedProblemsNumber = 0
+    override var penalty = 0
+    override var lastAccepted: Long = 0
+    override lateinit var groups: HashSet<String>
+    override lateinit var shortName: String
+    override var hashTag: String? = null
 
-    protected ArrayList<ArrayList<RunInfo>> problem_runs;
-
-    public int id = -1;
-    public int rank;
-    public String name;
-
-    public int solved;
-    public int penalty;
-    public long lastAccepted;
-    public HashSet<String> groups;
-
-    public String shortName;
-
-    public String hashTag;
-
-    public WFTeamInfo(int problems) {
-        problem_runs = new ArrayList<>(problems);
-        for (int i = 0; i < problems; i++) {
-            problem_runs.add(new ArrayList<>());
+    init {
+        problem_runs = ArrayList(problems)
+        for (i in 0 until problems) {
+            problem_runs.add(ArrayList())
         }
-        groups = new HashSet<>();
+        groups = HashSet()
     }
 
-    public WFTeamInfo(WFTeamInfo teamInfo) {
-        this(teamInfo.getRuns().size());
-        id = teamInfo.id;
-        rank = teamInfo.rank;
-        name = teamInfo.name;
-
-        groups = new HashSet<>(teamInfo.groups);
-        shortName = teamInfo.shortName;
+    constructor(teamInfo: WFTeamInfo) : this(teamInfo.runs.size) {
+        id = teamInfo.id
+        rank = teamInfo.rank
+        name = teamInfo.name
+        groups = HashSet(teamInfo.groups)
+        shortName = teamInfo.shortName
     }
 
-    public WFTeamInfo copy() {
-        WFTeamInfo teamInfo = new WFTeamInfo(problem_runs.size());
-        teamInfo.id = id;
-        teamInfo.rank = rank;
-        teamInfo.name = name;
-        teamInfo.groups = new HashSet<>(groups);
-        teamInfo.shortName = shortName;
-
-        return teamInfo;
+    override fun copy(): WFTeamInfo {
+        val teamInfo = WFTeamInfo(problem_runs.size)
+        teamInfo.id = id
+        teamInfo.rank = rank
+        teamInfo.name = name
+        teamInfo.groups = HashSet(groups)
+        teamInfo.shortName = shortName
+        return teamInfo
     }
 
-    @Override
-    public int getId() {
-        return id;
+    override val alias: String
+        get() = (id + 1).toString() + ""
+    override val runs: List<List<RunInfo>>
+        get() = problem_runs
+
+    override fun addRun(run: RunInfo, problemId: Int) {
+        val runs = problem_runs[problemId]
+        synchronized(runs!!) { runs.add(run) }
     }
 
-    @Override
-    public int getRank() {
-        return rank;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getShortName() {
-        return shortName;
-    }
-
-    @Override
-    public String getAlias() {
-        return (id + 1) + "";
-    }
-
-    @Override
-    public HashSet<String> getGroups() {
-        return groups;
-    }
-
-    @Override
-    public int getPenalty() {
-        return penalty;
-    }
-
-    @Override
-    public int getSolvedProblemsNumber() {
-        return solved;
-    }
-
-    public List<? extends List<? extends RunInfo>> getRuns() {
-        return problem_runs;
-    }
-
-    public long getLastAccepted() {
-        return lastAccepted;
-    }
-
-    public String getHashTag() {
-        return hashTag;
-    }
-
-    public void addRun(RunInfo run, int problemId) {
-        ArrayList<RunInfo> runs = problem_runs.get(problemId);
-        synchronized (runs) {
-            runs.add(run);
-        }
-    }
-
-    public String toString() {
-        return String.format("%03d", id + 1) + ". " + shortName;
+    override fun toString(): String {
+        return String.format("%03d", id + 1) + ". " + shortName
     }
 }

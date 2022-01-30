@@ -1,641 +1,597 @@
-package org.icpclive.events.WF.json;
+package org.icpclive.events.WF.json
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import org.icpclive.Config;
-import org.icpclive.api.ContestStatus;
-import org.icpclive.events.ContestInfo;
-import org.icpclive.events.EventsLoader;
-import org.icpclive.events.NetworkUtils;
-import org.icpclive.events.WF.WFOrganizationInfo;
-import org.icpclive.events.WF.WFRunInfo;
-import org.icpclive.events.WF.WFTestCaseInfo;
-import org.slf4j.*;
-
-import java.awt.*;
-import java.io.*;
-import java.math.BigInteger;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import org.icpclive.Config.loadProperties
+import org.icpclive.events.NetworkUtils.prepareNetwork
+import org.icpclive.events.NetworkUtils.openAuthorizedStream
+import org.icpclive.events.EventsLoader
+import kotlin.Throws
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import java.util.HashMap
+import java.util.Arrays
+import org.icpclive.events.WF.WFOrganizationInfo
+import org.icpclive.api.ContestStatus
+import org.icpclive.events.ContestInfo
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.lang.InterruptedException
+import org.icpclive.events.WF.WFRunInfo
+import org.icpclive.events.WF.WFTestCaseInfo
+import org.slf4j.LoggerFactory
+import java.awt.Color
+import java.io.*
+import java.util.Properties
+import kotlin.jvm.Volatile
+import java.math.BigInteger
+import java.lang.Exception
+import java.util.ArrayList
 
 /**
  * Created by aksenov on 16.04.2015.
  */
-public class WFEventsLoader extends EventsLoader {
-    private static final Logger log = LoggerFactory.getLogger(WFEventsLoader.class);
-    public static final Object GLOBAL_LOCK = new Object();
+class WFEventsLoader(regionals: Boolean) : EventsLoader() {
+    private var url: String? = null
+    private var login: String? = null
+    private var password: String? = null
+    private var regionals = false
+    private var emulation = false
+    override val contestData: ContestInfo?
+        get() = contestInfo
 
-    private static volatile WFContestInfo contestInfo;
+    @Throws(IOException::class)
+    fun readJsonArray(url: String?): String {
+        val br = BufferedReader(
+            InputStreamReader(
+                openAuthorizedStream(url!!, login, password!!)
+            )
+        )
+        var json = ""
+        var line: String
+        while (br.readLine().also { line = it } != null) {
+            json += line.trim { it <= ' ' }
+        }
+        return json
+    }
 
-    private String url;
-    private String login;
-    private String password;
-    private boolean regionals;
-
-    private boolean emulation;
-
-    public WFEventsLoader(boolean regionals) {
-        try {
-            Properties properties = Config.loadProperties("events");
-
-            login = properties.getProperty("login");
-            password = properties.getProperty("password");
-
-            NetworkUtils.prepareNetwork(login, password);
-
-            // in format https://example.com/api/contests/wf14/
-            url = properties.getProperty("url");
-            emulationSpeed = Double.parseDouble(properties.getProperty("emulation.speed", "1"));
-            emulationStartTime = Long.parseLong(properties.getProperty("emulation.startTime", "0"));
-
-            if (!(url.startsWith("http") || url.startsWith("https"))) {
-                emulation = true;
-            } else {
-                emulationSpeed = 1;
-            }
-
-            this.regionals = regionals;
-            contestInfo = initialize();
-        } catch (IOException e) {
-            log.error("error", e);
+    @Throws(IOException::class)
+    private fun readGroupsInfo(contest: WFContestInfo) {
+        val jsonGroups = Gson().fromJson(
+            readJsonArray("$url/groups"), JsonArray::class.java
+        )
+        contest.groupById = HashMap()
+        for (i in 0 until jsonGroups.size()) {
+            val je = jsonGroups[i].asJsonObject
+            val id = je["id"].asString
+            val name = je["name"].asString
+            contest.groupById!![id] = name
+            ContestInfo.GROUPS.add(name)
         }
     }
 
-    public ContestInfo getContestData() {
-        return contestInfo;
-    }
-
-    public String readJsonArray(String url) throws IOException {
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(
-                        NetworkUtils.openAuthorizedStream(url, login, password)));
-        String json = "";
-        String line;
-        while ((line = br.readLine()) != null) {
-            json += line.trim();
-        }
-        return json;
-    }
-
-    private void readGroupsInfo(WFContestInfo contest) throws IOException {
-        JsonArray jsonGroups = new Gson().fromJson(
-                readJsonArray(url + "/groups"), JsonArray.class);
-        contest.groupById = new HashMap<>();
-        for (int i = 0; i < jsonGroups.size(); i++) {
-            JsonObject je = jsonGroups.get(i).getAsJsonObject();
-            String id = je.get("id").getAsString();
-            String name = je.get("name").getAsString();
-            contest.groupById.put(id, name);
-            ContestInfo.GROUPS.add(name);
-        }
-    }
-
-    private void readProblemInfos(WFContestInfo contest) throws IOException {
-        JsonArray jsonProblems = new Gson().fromJson(
-                readJsonArray(url + "/problems"), JsonArray.class);
-        contest.problems = new ArrayList<>();
-        contest.problemById = new HashMap<>();
-        contest.problemById = new HashMap<>();
-        WFProblemInfo[] problems = new WFProblemInfo[jsonProblems.size()];
-        for (int i = 0; i < jsonProblems.size(); i++) {
-            JsonObject je = jsonProblems.get(i).getAsJsonObject();
-
-            WFProblemInfo problemInfo = new WFProblemInfo(contest.languages.length);
-            String cdsId = je.get("id").getAsString();
-            problemInfo.name = je.get("name").getAsString();
-            problemInfo.id = je.get("ordinal").getAsInt();
-            problemInfo.color = Color.decode(je.get("rgb").getAsString());
-            if (je.get("test_data_count") == null) {
+    @Throws(IOException::class)
+    private fun readProblemInfos(contest: WFContestInfo) {
+        val jsonProblems = Gson().fromJson(
+            readJsonArray("$url/problems"), JsonArray::class.java
+        )
+        contest.problems = ArrayList()
+        contest.problemById = HashMap()
+        contest.problemById = HashMap()
+        val problems = arrayOfNulls<WFProblemInfo>(jsonProblems.size())
+        for (i in 0 until jsonProblems.size()) {
+            val je = jsonProblems[i].asJsonObject
+            val problemInfo = WFProblemInfo(contest.languages.size)
+            val cdsId = je["id"].asString
+            problemInfo.name = je["name"].asString
+            problemInfo.id = je["ordinal"].asInt
+            problemInfo.color = Color.decode(je["rgb"].asString)
+            if (je["test_data_count"] == null) {
                 // TODO
-                problemInfo.testCount = 100;
+                problemInfo.testCount = 100
             } else {
-                problemInfo.testCount = je.get("test_data_count").getAsInt();
+                problemInfo.testCount = je["test_data_count"].asInt
             }
-            problemInfo.letter = je.get("label").getAsString();
-            problems[i] = problemInfo;
-            contest.problemById.put(cdsId, problemInfo);
+            problemInfo.letter = je["label"].asString
+            problems[i] = problemInfo
+            contest.problemById[cdsId] = problemInfo
         }
-
-        Arrays.sort(problems, (WFProblemInfo a, WFProblemInfo b) -> a.id - b.id);
-        for (int i = 0; i < problems.length; i++) {
-            problems[i].id = i;
-            contest.problems.add(problems[i]);
-        }
-    }
-
-    private static int compareAsNumbers(String a, String b) {
-        for (int i = 0; i < Math.min(a.length(), b.length()); i++) {
-            if (a.charAt(i) != b.charAt(i)) {
-                boolean aDigit = Character.isDigit(a.charAt(i));
-                boolean bDigit = Character.isDigit(b.charAt(i));
-                if (!aDigit) {
-                    if (!bDigit) {
-                        return Character.compare(a.charAt(i), b.charAt(i));
-                    } else {
-                        if (i > 0 && Character.isDigit(a.charAt(i - 1))) {
-                            return -1;
-                        }
-                        return Character.compare(a.charAt(i), b.charAt(i));
-                    }
-                } else {
-                    if (!bDigit) {
-                        if (i > 0 && Character.isDigit(a.charAt(i - 1))) {
-                            return 1;
-                        }
-                        return Character.compare(a.charAt(i), b.charAt(i));
-                    } else {
-                        int aTo = i + 1;
-                        while (aTo < a.length() && Character.isDigit(a.charAt(aTo))) {
-                            aTo++;
-                        }
-                        int bTo = i + 1;
-                        while (bTo < b.length() && Character.isDigit(b.charAt(bTo))) {
-                            bTo++;
-                        }
-                        if (aTo != bTo) {
-                            return Integer.compare(aTo, bTo);
-                        }
-                        return new BigInteger(a.substring(i, aTo)).compareTo(new BigInteger(b.substring(i, bTo)));
-                    }
-                }
-            }
-        }
-        return Integer.compare(a.length(), b.length());
-    }
-
-    static class Organization {
-        private String formalName;
-        private String shortName;
-        private String hashTag;
-        private String id;
-
-        public Organization(String formalName, String shortName, String hashTag, String id) {
-            this.formalName = formalName;
-            this.shortName = shortName;
-            this.hashTag = hashTag;
-            this.id = id;
+        Arrays.sort(problems) { a: WFProblemInfo?, b: WFProblemInfo? -> a!!.id - b!!.id }
+        for (i in problems.indices) {
+            problems[i]!!.id = i
+            contest.problems.add(problems[i]!!)
         }
     }
 
-    private void readTeamInfosWF(WFContestInfo contest) throws IOException {
-        JsonArray jsonOrganizations = new Gson().fromJson(
-                readJsonArray(url + "/organizations"), JsonArray.class);
-        HashMap<String, Organization> organizations = new HashMap<>();
-        for (int i = 0; i < jsonOrganizations.size(); i++) {
-            JsonObject je = jsonOrganizations.get(i).getAsJsonObject();
+    internal class Organization(
+        val formalName: String,
+        val shortName: String,
+        val hashTag: String?,
+        private val id: String
+    )
+
+    @Throws(IOException::class)
+    private fun readTeamInfosWF(contest: WFContestInfo) {
+        val jsonOrganizations = Gson().fromJson(
+            readJsonArray("$url/organizations"), JsonArray::class.java
+        )
+        val organizations = HashMap<String, Organization>()
+        for (i in 0 until jsonOrganizations.size()) {
+            val je = jsonOrganizations[i].asJsonObject
             // TODO
-            String name = je.get("formal_name").getAsString();
-            String shortName = je.get("name").getAsString();
-            String hashTag = je.get("twitter_hashtag") == null ?
-                    null : je.get("twitter_hashtag").getAsString();
-            String id = je.get("id").getAsString();
-            organizations.put(id, new Organization(name, shortName, hashTag, id));
+            val name = je["formal_name"].asString
+            val shortName = je["name"].asString
+            val hashTag = if (je["twitter_hashtag"] == null) null else je["twitter_hashtag"].asString
+            val id = je["id"].asString
+            organizations[id] = Organization(name, shortName, hashTag, id)
         }
-
-        JsonArray jsonTeams = new Gson().fromJson(
-                readJsonArray(url + "/teams"), JsonArray.class);
-        contest.teamById = new HashMap<>();
-        contest.teamInfos = new org.icpclive.events.WF.WFTeamInfo[jsonTeams.size()];
-        for (int i = 0; i < jsonTeams.size(); i++) {
-            JsonObject je = jsonTeams.get(i).getAsJsonObject();
-            if (je.get("organization_id").isJsonNull()) {
-                continue;
+        val jsonTeams = Gson().fromJson(
+            readJsonArray("$url/teams"), JsonArray::class.java
+        )
+        contest.teamById = HashMap()
+        contest.teamInfos = arrayOfNulls(jsonTeams.size())
+        for (i in 0 until jsonTeams.size()) {
+            val je = jsonTeams[i].asJsonObject
+            if (je["organization_id"].isJsonNull) {
+                continue
             }
-            Organization teamOrg = organizations.get(je.get("organization_id").getAsString());
-            WFTeamInfo teamInfo = new WFTeamInfo(contest.problems.size());
-            teamInfo.shortName = teamOrg.shortName;
-            teamInfo.name = teamOrg.formalName;
-            teamInfo.hashTag = teamOrg.hashTag;
-
-            JsonArray groups = je.get("group_ids").getAsJsonArray();
-            for (int j = 0; j < groups.size(); j++) {
-                String groupId = groups.get(j).getAsString();
-                String group = contest.groupById.get(groupId);
-                teamInfo.groups.add(group);
+            val teamOrg = organizations[je["organization_id"].asString]
+            val teamInfo = WFTeamInfo(contest.problems.size)
+            teamInfo.shortName = teamOrg!!.shortName
+            teamInfo.name = teamOrg.formalName
+            teamInfo.hashTag = teamOrg.hashTag
+            val groups = je["group_ids"].asJsonArray
+            for (j in 0 until groups.size()) {
+                val groupId = groups[j].asString
+                val group = contest.groupById!![groupId]
+                teamInfo.groups.add(group!!)
             }
-
-            if (je.get("desktop") != null) {
-                JsonArray hrefs = je.get("desktop").getAsJsonArray();
-                teamInfo.screens = new String[hrefs.size()];
-                for (int j = 0; j < hrefs.size(); j++) {
-                    teamInfo.screens[j] = hrefs.get(j).getAsJsonObject().get("href").getAsString();
-                }
+            if (je["desktop"] != null) {
+                val hrefs = je["desktop"].asJsonArray
+                teamInfo.screens = hrefs.map { it.asJsonObject["href"].asString }.toTypedArray()
             }
-
-            if (je.get("webcam") != null) {
-                JsonArray hrefs = je.get("webcam").getAsJsonArray();
-                teamInfo.cameras = new String[hrefs.size()];
-                for (int j = 0; j < hrefs.size(); j++) {
-                    teamInfo.cameras[j] = hrefs.get(j).getAsJsonObject().get("href").getAsString();
-                }
+            if (je["webcam"] != null) {
+                val hrefs = je["webcam"].asJsonArray
+                teamInfo.cameras = hrefs.map {
+                    it.asJsonObject["href"].asString!!
+                }.toTypedArray()
             }
-
-            teamInfo.cdsId = je.get("id").getAsString();
-            contest.teamById.put(teamInfo.cdsId, teamInfo);
-            contest.teamInfos[i] = teamInfo;
+            teamInfo.alias = je["id"].asString
+            contest.teamById[teamInfo.alias] = teamInfo
+            contest.teamInfos[i] = teamInfo
         }
-        Arrays.sort(contest.teamInfos, (a, b) -> compareAsNumbers(((WFTeamInfo) a).cdsId, ((WFTeamInfo) b).cdsId));
-
-        for (int i = 0; i < contest.teamInfos.length; i++) {
-            contest.teamInfos[i].id = i;
+        Arrays.sort(contest.teamInfos) { a: org.icpclive.events.WF.WFTeamInfo?, b: org.icpclive.events.WF.WFTeamInfo? ->
+            compareAsNumbers(
+                (a as WFTeamInfo?)!!.alias, (b as WFTeamInfo?)!!.alias
+            )
+        }
+        for (i in contest.teamInfos.indices) {
+            contest.teamInfos[i]!!.id = i
         }
     }
 
-    private void readTeamInfosRegionals(WFContestInfo contest) throws IOException {
-        JsonArray jsonOrganizations = new Gson().fromJson(
-                readJsonArray(url + "/organizations"), JsonArray.class);
-        HashMap<String, WFOrganizationInfo> organizations = new HashMap<>();
-        for (int i = 0; i < jsonOrganizations.size(); i++) {
-            JsonObject je = jsonOrganizations.get(i).getAsJsonObject();
-            WFOrganizationInfo organizationInfo = new WFOrganizationInfo();
+    @Throws(IOException::class)
+    private fun readTeamInfosRegionals(contest: WFContestInfo) {
+        val jsonOrganizations = Gson().fromJson(
+            readJsonArray("$url/organizations"), JsonArray::class.java
+        )
+        val organizations = HashMap<String, WFOrganizationInfo>()
+        for (i in 0 until jsonOrganizations.size()) {
+            val je = jsonOrganizations[i].asJsonObject
+            val organizationInfo = WFOrganizationInfo()
             // TODO
-            organizationInfo.formalName = je.get("formal_name").getAsString();
-            organizationInfo.name = je.get("name").getAsString();
-            organizations.put(je.get("id").getAsString(), organizationInfo);
+            organizationInfo.formalName = je["formal_name"].asString
+            organizationInfo.name = je["name"].asString
+            organizations[je["id"].asString] = organizationInfo
         }
-
-        JsonArray jsonTeams = new Gson().fromJson(
-                readJsonArray(url + "/teams"), JsonArray.class);
-        contest.teamInfos = new org.icpclive.events.WF.WFTeamInfo[jsonTeams.size()];
-        contest.teamById = new HashMap<>();
-        for (int i = 0; i < jsonTeams.size(); i++) {
-            JsonObject je = jsonTeams.get(i).getAsJsonObject();
-            if (je.get("organization_id").isJsonNull()) {
-                continue;
+        val jsonTeams = Gson().fromJson(
+            readJsonArray("$url/teams"), JsonArray::class.java
+        )
+        contest.teamInfos = arrayOfNulls(jsonTeams.size())
+        contest.teamById = HashMap()
+        for (i in 0 until jsonTeams.size()) {
+            val je = jsonTeams[i].asJsonObject
+            if (je["organization_id"].isJsonNull) {
+                continue
             }
-            WFTeamInfo teamInfo = new WFTeamInfo(contest.problems.size());
-
-            WFOrganizationInfo organizationInfo = organizations.get(je.get("organization_id").getAsString());
-
-            teamInfo.name = organizationInfo.name + ": " + je.get("name").getAsString();
-            teamInfo.shortName = shortName(teamInfo.name);
-
-            JsonArray groups = je.get("group_ids").getAsJsonArray();
-            for (int j = 0; j < groups.size(); j++) {
-                String groupId = groups.get(j).getAsString();
-                String group = contest.groupById.get(groupId);
-                teamInfo.groups.add(group);
+            val teamInfo = WFTeamInfo(contest.problems.size)
+            val organizationInfo = organizations[je["organization_id"].asString]
+            teamInfo.name = organizationInfo!!.name + ": " + je["name"].asString
+            teamInfo.shortName = shortName(teamInfo.name)!!
+            val groups = je["group_ids"].asJsonArray
+            for (j in 0 until groups.size()) {
+                val groupId = groups[j].asString
+                val group = contest.groupById!![groupId]
+                teamInfo.groups.add(group!!)
             }
-
-            if (je.get("desktop") != null) {
-                JsonArray hrefs = je.get("desktop").getAsJsonArray();
-                teamInfo.screens = new String[hrefs.size()];
-                for (int j = 0; j < hrefs.size(); j++) {
-                    teamInfo.screens[j] = hrefs.get(j).getAsJsonObject().get("href").getAsString();
-                }
+            if (je["desktop"] != null) {
+                val hrefs = je["desktop"].asJsonArray
+                teamInfo.screens = hrefs.map { it.asJsonObject["href"].asString!! }.toTypedArray()
             }
-
-            if (je.get("webcam") != null) {
-                JsonArray hrefs = je.get("webcam").getAsJsonArray();
-                teamInfo.cameras = new String[hrefs.size()];
-                for (int j = 0; j < hrefs.size(); j++) {
-                    teamInfo.cameras[j] = hrefs.get(j).getAsJsonObject().get("href").getAsString();
-                }
+            if (je["webcam"] != null) {
+                val hrefs = je["webcam"].asJsonArray
+                teamInfo.cameras = hrefs.map { it.asJsonObject["href"].asString!! }.toTypedArray()
             }
-
-            teamInfo.cdsId = je.get("id").getAsString();
-            contest.teamById.put(teamInfo.cdsId, teamInfo);
-            contest.teamInfos[i] = teamInfo;
+            teamInfo.alias = je["id"].asString
+            contest.teamById[teamInfo.alias] = teamInfo
+            contest.teamInfos[i] = teamInfo
         }
-        Arrays.sort(contest.teamInfos, (a, b) -> compareAsNumbers(((WFTeamInfo) a).cdsId, ((WFTeamInfo) b).cdsId));
-
-        for (int i = 0; i < contest.teamInfos.length; i++) {
-            contest.teamInfos[i].id = i;
+        Arrays.sort(contest.teamInfos) { a: org.icpclive.events.WF.WFTeamInfo?, b: org.icpclive.events.WF.WFTeamInfo? ->
+            compareAsNumbers(
+                (a as WFTeamInfo?)!!.alias, (b as WFTeamInfo?)!!.alias
+            )
+        }
+        for (i in contest.teamInfos.indices) {
+            contest.teamInfos[i]!!.id = i
         }
     }
 
-    public void readLanguagesInfos(WFContestInfo contestInfo) throws IOException {
-        JsonArray jsonLanguages = new Gson().fromJson(
-                readJsonArray(url + "/languages"), JsonArray.class);
-        contestInfo.languages = new WFLanguageInfo[jsonLanguages.size()];
-        contestInfo.languageById = new HashMap<>();
-        for (int i = 0; i < jsonLanguages.size(); i++) {
-            JsonObject je = jsonLanguages.get(i).getAsJsonObject();
-            WFLanguageInfo languageInfo = new WFLanguageInfo();
-            String cdsId = je.get("id").getAsString();
-            languageInfo.name = je.get("name").getAsString();
-            contestInfo.languages[i] = languageInfo;
-            contestInfo.languageById.put(cdsId, languageInfo);
+    @Throws(IOException::class)
+    fun readLanguagesInfos(contestInfo: WFContestInfo) {
+        val jsonLanguages = Gson().fromJson(
+            readJsonArray("$url/languages"), JsonArray::class.java
+        )
+        contestInfo.languages = arrayOfNulls(jsonLanguages.size())
+        contestInfo.languageById = HashMap()
+        for (i in 0 until jsonLanguages.size()) {
+            val je = jsonLanguages[i].asJsonObject
+            val languageInfo = WFLanguageInfo()
+            val cdsId = je["id"].asString
+            languageInfo.name = je["name"].asString
+            contestInfo.languages[i] = languageInfo.name
+            contestInfo.languageById[cdsId] = languageInfo
         }
     }
 
-    private WFContestInfo initialize() throws IOException {
-        WFContestInfo contestInfo = new WFContestInfo();
-        readGroupsInfo(contestInfo);
-        System.err.println("Groups");
-        readLanguagesInfos(contestInfo);
-        System.err.println("lanugage");
-        readProblemInfos(contestInfo);
-        System.err.println("problem");
+    @Throws(IOException::class)
+    private fun initialize(): WFContestInfo {
+        val contestInfo = WFContestInfo()
+        readGroupsInfo(contestInfo)
+        System.err.println("Groups")
+        readLanguagesInfos(contestInfo)
+        System.err.println("lanugage")
+        readProblemInfos(contestInfo)
+        System.err.println("problem")
         if (regionals) {
-            readTeamInfosRegionals(contestInfo);
+            readTeamInfosRegionals(contestInfo)
         } else {
-            readTeamInfosWF(contestInfo);
+            readTeamInfosWF(contestInfo)
         }
-        contestInfo.initializationFinish();
-        log.info("Problems " + contestInfo.problems.size() + ", teamInfos " + contestInfo.teamInfos.length);
-
-        contestInfo.recalcStandings();
-        return contestInfo;
+        contestInfo.initializationFinish()
+        log.info("Problems " + contestInfo.problems.size + ", teamInfos " + contestInfo.teamInfos.size)
+        contestInfo.recalcStandings()
+        return contestInfo
     }
 
-    public void reinitialize() throws IOException {
-        WFContestInfo contestInfo = new WFContestInfo();
-        readGroupsInfo(contestInfo);
-        readLanguagesInfos(contestInfo);
-        readProblemInfos(contestInfo);
-        readTeamInfosRegionals(contestInfo);
-        contestInfo.initializationFinish();
-
-        contestInfo.setStatus(ContestStatus.RUNNING);
-        contestInfo.setStartTime(this.contestInfo.getStartTime());
-
-        contestInfo.recalcStandings();
-        this.contestInfo = contestInfo;
+    @Throws(IOException::class)
+    fun reinitialize() {
+        val contestInfo = WFContestInfo()
+        readGroupsInfo(contestInfo)
+        readLanguagesInfos(contestInfo)
+        readProblemInfos(contestInfo)
+        readTeamInfosRegionals(contestInfo)
+        contestInfo.initializationFinish()
+        contestInfo.status = ContestStatus.RUNNING
+        contestInfo.startTime = this.contestInfo.startTime
+        contestInfo.recalcStandings()
+        this.contestInfo = contestInfo
     }
 
-    public long parseTime(String time) {
-        ZonedDateTime zdt = ZonedDateTime.parse(time + ":00", DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-//        ZonedDateTime zdt = ZonedDateTime.parse(time, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        return zdt.toInstant().toEpochMilli();
-//        LocalDateTime ldt = LocalDateTime.parse(time + ":00", DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    fun parseTime(time: String): Long {
+        val zdt = ZonedDateTime.parse("$time:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+        //        ZonedDateTime zdt = ZonedDateTime.parse(time, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        return zdt.toInstant().toEpochMilli()
+        //        LocalDateTime ldt = LocalDateTime.parse(time + ":00", DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 //        return ldt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
-    public long parseRelativeTime(String time) {
-        String[] z = time.split("\\.");
-        String[] t = z[0].split(":");
-        int h = Integer.parseInt(t[0]);
-        int m = Integer.parseInt(t[1]);
-        int s = Integer.parseInt(t[2]);
-        int ms = z.length == 1 ? 0 : Integer.parseInt(z[1]);
-        return ((h * 60 + m) * 60 + s) * 1000 + ms;
+    fun parseRelativeTime(time: String): Long {
+        val z = time.split("\\.").toTypedArray()
+        val t = z[0].split(":").toTypedArray()
+        val h = t[0].toInt()
+        val m = t[1].toInt()
+        val s = t[2].toInt()
+        val ms = if (z.size == 1) 0 else z[1].toInt()
+        return (((h * 60 + m) * 60 + s) * 1000 + ms).toLong()
     }
 
-    public void readContest(WFContestInfo contestInfo, JsonObject je) {
-        JsonElement startTimeElement = je.get("start_time");
-        if (!startTimeElement.isJsonNull()) {
-            contestInfo.setStartTime(parseTime(startTimeElement.getAsString()));
-            contestInfo.setStatus(ContestStatus.RUNNING);
+    fun readContest(contestInfo: WFContestInfo, je: JsonObject) {
+        val startTimeElement = je["start_time"]
+        if (!startTimeElement.isJsonNull) {
+            contestInfo.startTime = parseTime(startTimeElement.asString)
+            contestInfo.status = ContestStatus.RUNNING
         } else {
-            contestInfo.setStatus(ContestStatus.BEFORE);
+            contestInfo.status = ContestStatus.BEFORE
         }
         if (emulation) {
-            contestInfo.setStartTime(System.currentTimeMillis());
+            contestInfo.startTime = System.currentTimeMillis()
         }
-        WFContestInfo.CONTEST_LENGTH =
-                (int) parseRelativeTime(je.get("duration").getAsString());
-        WFContestInfo.FREEZE_TIME = WFContestInfo.CONTEST_LENGTH -
-                (int) parseRelativeTime(je.get("scoreboard_freeze_duration").getAsString());
+        ContestInfo.CONTEST_LENGTH = parseRelativeTime(je["duration"].asString).toInt()
+        ContestInfo.FREEZE_TIME = ContestInfo.CONTEST_LENGTH - parseRelativeTime(
+            je["scoreboard_freeze_duration"].asString
+        ).toInt()
     }
 
-    public void readState(WFContestInfo contestInfo, JsonObject je) {
-        if (je.get("started").isJsonNull()) {
-            return;
+    fun readState(contestInfo: WFContestInfo, je: JsonObject) {
+        if (je["started"].isJsonNull) {
+            return
         }
-        String startTime = je.get("started").getAsString();
-        contestInfo.setStartTime(parseTime(startTime));
+        val startTime = je["started"].asString
+        contestInfo.startTime = parseTime(startTime)
         if (emulation) {
-            contestInfo.setStartTime(System.currentTimeMillis());
+            contestInfo.startTime = System.currentTimeMillis()
         }
-        if (je.get("ended").isJsonNull()) {
-            contestInfo.setStatus(ContestStatus.RUNNING);
+        if (je["ended"].isJsonNull) {
+            contestInfo.status = ContestStatus.RUNNING
         } else {
-            contestInfo.setStatus(ContestStatus.OVER);
+            contestInfo.status = ContestStatus.OVER
         }
     }
 
-    boolean firstRun = true;
-
-    public void waitForEmulation(long time) {
+    var firstRun = true
+    fun waitForEmulation(time: Long) {
         if (emulation) {
             try {
 //                if (firstRun) {
 //                    contestInfo.setStartTime((long) (contestInfo.getStartTime() - emulationStartTime * 60000 / emulationSpeed));
 //                    firstRun = false;
 //                }
-                long dt = (long) ((time - contestInfo.getCurrentTime()) / emulationSpeed);
+                val dt = ((time - contestInfo!!.currentTime) / emulationSpeed).toLong()
                 //System.err.println("wait for " + dt + " ms");
-                if (dt > 0) Thread.sleep(dt);
-            } catch (InterruptedException e) {
-                log.error("error", e);
+                if (dt > 0) Thread.sleep(dt)
+            } catch (e: InterruptedException) {
+                log.error("error", e)
             }
         }
     }
 
-    public void readSubmission(WFContestInfo contestInfo, JsonObject je, boolean update) {
-        waitForEmulation(parseRelativeTime(je.get("contest_time").getAsString()));
+    fun readSubmission(contestInfo: WFContestInfo, je: JsonObject, update: Boolean) {
+        waitForEmulation(parseRelativeTime(je["contest_time"].asString))
         if (update) {
-            return;
+            return
         }
-        WFRunInfo run = new WFRunInfo();
-
-        String cdsId = je.get("id").getAsString();
-
-        WFLanguageInfo languageInfo = contestInfo.languageById.get(je.get("language_id").getAsString());
-        run.languageId = languageInfo.id;
-
-        WFProblemInfo problemInfo = contestInfo.problemById.get(je.get("problem_id").getAsString());
-        run.problemId = problemInfo.id;
-
-        WFTeamInfo teamInfo = (WFTeamInfo) contestInfo.teamById.get(je.get("team_id").getAsString());
-        run.teamId = teamInfo.id;
-        run.team = teamInfo;
-
-        run.time = parseRelativeTime(je.get("contest_time").getAsString());
-
-        run.setLastUpdateTime(run.time);
-
-        contestInfo.addRun(run);
-
-        contestInfo.runBySubmissionId.put(cdsId, run);
+        val run = WFRunInfo()
+        val cdsId = je["id"].asString
+        val languageInfo = contestInfo.languageById[je["language_id"].asString]
+        run.languageId = languageInfo!!.id
+        val problemInfo = contestInfo.problemById[je["problem_id"].asString]
+        run.problemId = problemInfo!!.id
+        val teamInfo = contestInfo.teamById[je["team_id"].asString] as WFTeamInfo?
+        run.teamId = teamInfo!!.id
+        run.team = teamInfo
+        run.time = parseRelativeTime(je["contest_time"].asString)
+        run.lastUpdateTime = run.time
+        contestInfo.addRun(run)
+        contestInfo.runBySubmissionId[cdsId] = run
     }
 
-    public void readJudgement(WFContestInfo contestInfo, JsonObject je) {
-        String cdsId = je.get("id").getAsString();
-
-        WFRunInfo runInfo = contestInfo.runBySubmissionId.get(je.get("submission_id").getAsString());
-
+    fun readJudgement(contestInfo: WFContestInfo, je: JsonObject) {
+        val cdsId = je["id"].asString
+        val runInfo = contestInfo.runBySubmissionId[je["submission_id"].asString]
         if (runInfo == null) {
-            System.err.println("FAIL! " + je);
-            return;
+            System.err.println("FAIL! $je")
+            return
         }
-
-        contestInfo.runByJudgementId.put(cdsId, runInfo);
-
-
-        JsonElement verdictElement = je.get("judgement_type_id");
-        String verdict = verdictElement.isJsonNull() ? "" : verdictElement.getAsString();
-
-        log.info("Judging " + contestInfo.getParticipant(runInfo.getTeamId()) + " " + verdict);
-
-        if (verdictElement.isJsonNull()) {
-            runInfo.judged = false;
-            runInfo.result = "";
-            waitForEmulation(parseRelativeTime(je.get("start_contest_time").getAsString()));
-            return;
+        contestInfo.runByJudgementId[cdsId] = runInfo
+        val verdictElement = je["judgement_type_id"]
+        val verdict = if (verdictElement.isJsonNull) "" else verdictElement.asString
+        log.info("Judging " + contestInfo.getParticipant(runInfo.teamId) + " " + verdict)
+        if (verdictElement.isJsonNull) {
+            runInfo.isJudged = false
+            runInfo.result = ""
+            waitForEmulation(parseRelativeTime(je["start_contest_time"].asString))
+            return
         }
-
-        long time = je.get("end_contest_time").isJsonNull() ? 0 :
-                parseRelativeTime(je.get("end_contest_time").getAsString());
-        waitForEmulation(time);
-
+        val time = if (je["end_contest_time"].isJsonNull) 0 else parseRelativeTime(je["end_contest_time"].asString)
+        waitForEmulation(time)
         if (runInfo.time <= ContestInfo.FREEZE_TIME) {
-            runInfo.result = verdict;
-            runInfo.judged = true;
+            runInfo.result = verdict
+            runInfo.isJudged = true
 
 //            long start = System.currentTimeMillis();
-            contestInfo.recalcStandings();
-//            contestInfo.checkStandings(url, login, password);
+            contestInfo.recalcStandings()
+            //            contestInfo.checkStandings(url, login, password);
 //            log.info("Standing are recalculated in " + (System.currentTimeMillis() - start) + " ms");
         } else {
-            runInfo.judged = false;
+            runInfo.isJudged = false
         }
-
-        runInfo.setLastUpdateTime(time);
+        runInfo.lastUpdateTime = time
     }
 
-    public void readRun(WFContestInfo contestInfo, JsonObject je, boolean update) {
-        if (je.get("judgement_id").isJsonNull()) {
-            System.err.println(je);
-            return;
+    fun readRun(contestInfo: WFContestInfo, je: JsonObject, update: Boolean) {
+        if (je["judgement_id"].isJsonNull) {
+            System.err.println(je)
+            return
         }
-
-        WFRunInfo runInfo = contestInfo.runByJudgementId.get(je.get("judgement_id").getAsString());
-
-        long time = parseRelativeTime(je.get("contest_time").getAsString());
-
-        waitForEmulation(time);
-
+        val runInfo = contestInfo.runByJudgementId[je["judgement_id"].asString]
+        val time = parseRelativeTime(je["contest_time"].asString)
+        waitForEmulation(time)
         if (runInfo == null || runInfo.time > ContestInfo.FREEZE_TIME || update) {
-            return;
+            return
         }
-
-        WFTestCaseInfo testCaseInfo = new WFTestCaseInfo();
-        testCaseInfo.id = je.get("ordinal").getAsInt();
-        testCaseInfo.result = je.get("judgement_type_id").getAsString();
-        testCaseInfo.time = time;
-        testCaseInfo.timestamp = parseTime(je.get("time").getAsString());
-        testCaseInfo.runId = runInfo.id;
-        testCaseInfo.total = contestInfo.getProblemById(runInfo.problemId).testCount;
+        val testCaseInfo = WFTestCaseInfo()
+        testCaseInfo.id = je["ordinal"].asInt
+        testCaseInfo.result = je["judgement_type_id"].asString
+        testCaseInfo.time = time
+        testCaseInfo.timestamp = parseTime(je["time"].asString).toDouble()
+        testCaseInfo.runId = runInfo.id
+        testCaseInfo.total = contestInfo.getProblemById(runInfo.problemId).testCount
 
 //        System.err.println(runInfo);
-        contestInfo.addTest(testCaseInfo);
+        contestInfo.addTest(testCaseInfo)
     }
 
-    public void run() {
-        String lastEvent = null;
-        boolean initialized = false;
+    override fun run() {
+        var lastEvent: String? = null
+        var initialized = false
         while (true) {
-            try (BufferedReader br = new BufferedReader(
-                    new InputStreamReader(NetworkUtils.openAuthorizedStream(this.url + "/event-feed", login, password),
-                            "utf-8"))) {
-                String abortedEvent = lastEvent;
-                lastEvent = null;
-
-                WFContestInfo contestInfo = initialize();
-                if (abortedEvent == null) {
-                    WFEventsLoader.contestInfo = contestInfo;
-                }
-                System.err.println("Aborted event " + abortedEvent);
-
-                while (true) {
-                    String line = br.readLine();
-                    if (line == null) {
-                        break;
+            try {
+                BufferedReader(
+                    InputStreamReader(
+                        openAuthorizedStream(url + "/event-feed", login, password!!),
+                        "utf-8"
+                    )
+                ).use { br ->
+                    val abortedEvent = lastEvent
+                    lastEvent = null
+                    val contestInfo = initialize()
+                    if (abortedEvent == null) {
+                        this.contestInfo = contestInfo
                     }
+                    System.err.println("Aborted event $abortedEvent")
+                    while (true) {
+                        val line = br.readLine() ?: break
 
 //                    System.err.println(line);
-                    JsonObject je = new Gson().fromJson(line, JsonObject.class);
-                    if (je == null) {
-                        log.info("Non-json line");
-                        System.err.println("Non-json line: " + Arrays.toString(line.toCharArray()));
-                        continue;
-                    }
-                    String id = je.get("id").getAsString().substring(3);
-
-                    if (id.equals(abortedEvent)) {
-                        WFEventsLoader.contestInfo = contestInfo;
-                    }
-                    lastEvent = id;
-                    boolean update = !je.get("op").getAsString().equals("create");
-                    String type = je.get("type").getAsString();
-                    JsonObject json = je.get("data").getAsJsonObject();
-
-                    synchronized (GLOBAL_LOCK) {
-                        switch (type) {
-                            case "contests":
-                                readContest(contestInfo, json);
-                                break;
-                            case "state":
-                                readState(contestInfo, json);
-                                break;
-                            case "submissions":
-                                readSubmission(contestInfo, json, update);
-                                break;
-                            case "judgements":
-                                readJudgement(contestInfo, json);
-                                break;
-                            case "runs":
-                                readRun(contestInfo, json, update);
-                                break;
-                            case "problems":
-                                if (!update && !initialized) {
-                                    initialized = true;
-                                    throw new Exception("Problems weren't loaded, exception to restart feed");
+                        val je = Gson().fromJson(line, JsonObject::class.java)
+                        if (je == null) {
+                            log.info("Non-json line")
+                            System.err.println("Non-json line: " + Arrays.toString(line.toCharArray()))
+                            continue
+                        }
+                        val id = je["id"].asString.substring(3)
+                        if (id == abortedEvent) {
+                            this.contestInfo = contestInfo
+                        }
+                        lastEvent = id
+                        val update = je["op"].asString != "create"
+                        val type = je["type"].asString
+                        val json = je["data"].asJsonObject
+                        synchronized(GLOBAL_LOCK) {
+                            when (type) {
+                                "contests" -> readContest(contestInfo, json)
+                                "state" -> readState(contestInfo, json)
+                                "submissions" -> readSubmission(contestInfo, json, update)
+                                "judgements" -> readJudgement(contestInfo, json)
+                                "runs" -> readRun(contestInfo, json, update)
+                                "problems" -> if (!update && !initialized) {
+                                    initialized = true
+                                    throw Exception("Problems weren't loaded, exception to restart feed")
                                 }
-                            default:
+                                else -> {}
+                            }
+                        }
+                    }
+                    return
+                }
+            } catch (e: Throwable) {
+                log.error("error", e)
+                try {
+                    Thread.sleep(2000)
+                } catch (e1: InterruptedException) {
+                    log.error("error", e1)
+                }
+                log.info("Restart event feed")
+                System.err.println("Restarting feed")
+            }
+        }
+    }
+    @Volatile
+    private lateinit var contestInfo: WFContestInfo
+
+    init {
+        try {
+            val properties = loadProperties("events")
+            login = properties.getProperty("login")
+            password = properties.getProperty("password")
+            prepareNetwork(login, password)
+
+            // in format https://example.com/api/contests/wf14/
+            url = properties.getProperty("url")
+            emulationSpeed = properties.getProperty("emulation.speed", "1").toDouble()
+            emulationStartTime = properties.getProperty("emulation.startTime", "0").toLong()
+            if (!(url!!.startsWith("http") || url!!.startsWith("https"))) {
+                emulation = true
+            } else {
+                emulationSpeed = 1.0
+            }
+            this.regionals = regionals
+            this.contestInfo = initialize()
+        } catch (e: IOException) {
+            log.error("error", e)
+        }
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(WFEventsLoader::class.java)
+        val GLOBAL_LOCK = Any()
+
+        private fun compareAsNumbers(a: String, b: String): Int {
+            for (i in 0 until Math.min(a.length, b.length)) {
+                if (a[i] != b[i]) {
+                    val aDigit = Character.isDigit(a[i])
+                    val bDigit = Character.isDigit(b[i])
+                    return if (!aDigit) {
+                        if (!bDigit) {
+                            Character.compare(a[i], b[i])
+                        } else {
+                            if (i > 0 && Character.isDigit(a[i - 1])) {
+                                -1
+                            } else Character.compare(a[i], b[i])
+                        }
+                    } else {
+                        if (!bDigit) {
+                            if (i > 0 && Character.isDigit(a[i - 1])) {
+                                1
+                            } else Character.compare(
+                                a[i],
+                                b[i]
+                            )
+                        } else {
+                            var aTo = i + 1
+                            while (aTo < a.length && Character.isDigit(a[aTo])) {
+                                aTo++
+                            }
+                            var bTo = i + 1
+                            while (bTo < b.length && Character.isDigit(b[bTo])) {
+                                bTo++
+                            }
+                            if (aTo != bTo) {
+                                Integer.compare(aTo, bTo)
+                            } else BigInteger(a.substring(i, aTo)).compareTo(BigInteger(b.substring(i, bTo)))
                         }
                     }
                 }
-                return;
-            } catch (Throwable e) {
-                log.error("error", e);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e1) {
-                    log.error("error", e1);
+            }
+            return Integer.compare(a.length, b.length)
+        }
+
+        // public static ArrayBlockingQueue<RunInfo> getAllRuns() {
+        var shortNames: MutableMap<String, String?> = HashMap()
+
+        init {
+            try {
+                val properties = Properties()
+                properties.load(WFEventsLoader::class.java.classLoader.getResourceAsStream("events.properties"))
+                val override = File(
+                    properties.getProperty(
+                        "teamInfos.shortnames.override",
+                        "override.txt"
+                    )
+                )
+                if (override.exists()) {
+                    val `in` = BufferedReader(FileReader("override.txt"))
+                    var line: String
+                    while (`in`.readLine()
+                            .also { line = it } != null
+                    ) {
+                        val ss: Array<String> = line.split("\t").toTypedArray()
+                        shortNames[ss.get(0)] = ss.get(1)
+                    }
                 }
-                log.info("Restart event feed");
-                System.err.println("Restarting feed");
+            } catch (e: Exception) {
+                log.error("error", e)
             }
         }
-    }
 
-    // public static ArrayBlockingQueue<RunInfo> getAllRuns() {
-
-    static Map<String, String> shortNames = new HashMap<>();
-
-    static {
-        try {
-            Properties properties = new Properties();
-            properties.load(WFEventsLoader.class.getClassLoader().getResourceAsStream("events.properties"));
-
-            File override = new File(properties.getProperty("teamInfos.shortnames.override", "override.txt"));
-            if (override.exists()) {
-                BufferedReader in = new BufferedReader(new FileReader("override.txt"));
-                String line;
-                while ((line = in.readLine()) != null) {
-                    String[] ss = line.split("\t");
-                    shortNames.put(ss[0], ss[1]);
-                }
+        fun shortName(name: String): String? {
+            assert(shortNames[name] == null)
+            return if (shortNames.containsKey(name)) {
+                shortNames[name]
+            } else if (name.length > 22) {
+                name.substring(0, 19) + "..."
+            } else {
+                name
             }
-        } catch (Exception e) {
-            log.error("error", e);
-        }
-    }
-
-    static String shortName(String name) {
-        assert shortNames.get(name) == null;
-        if (shortNames.containsKey(name)) {
-            return shortNames.get(name);
-        } else if (name.length() > 22) {
-            return name.substring(0, 19) + "...";
-        } else {
-            return name;
         }
     }
 }

@@ -1,129 +1,80 @@
-package org.icpclive.events.codeforces;
+package org.icpclive.events.codeforces
 
-import org.icpclive.events.RunInfo;
-import org.icpclive.events.codeforces.api.data.CFSubmission;
-
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.Map;
+import org.icpclive.events.RunInfo
+import org.icpclive.events.codeforces.api.data.CFSubmission
+import org.icpclive.events.codeforces.api.data.CFSubmission.CFSubmissionVerdict
 
 /**
  * @author egor@egork.net
  */
-public class CFRunInfo implements RunInfo {
-    private static final Map<CFSubmission.CFSubmissionVerdict, String> verdictToString;
+class CFRunInfo(var submission: CFSubmission) : RunInfo {
+    private var lastUpdate: Long
+    var points = 0
 
-    static {
-        EnumMap<CFSubmission.CFSubmissionVerdict, String> vts = new EnumMap<CFSubmission.CFSubmissionVerdict, String>(CFSubmission.CFSubmissionVerdict.class);
-        vts.put(CFSubmission.CFSubmissionVerdict.CHALLENGED, "CH");
-        vts.put(CFSubmission.CFSubmissionVerdict.COMPILATION_ERROR, "CE");
-        vts.put(CFSubmission.CFSubmissionVerdict.CRASHED, "CR");
-        vts.put(CFSubmission.CFSubmissionVerdict.FAILED, "FL");
-        vts.put(CFSubmission.CFSubmissionVerdict.IDLENESS_LIMIT_EXCEEDED, "IL");
-        vts.put(CFSubmission.CFSubmissionVerdict.INPUT_PREPARATION_CRASHED, "IC");
-        vts.put(CFSubmission.CFSubmissionVerdict.MEMORY_LIMIT_EXCEEDED, "ML");
-        vts.put(CFSubmission.CFSubmissionVerdict.OK, "AC");
-        vts.put(CFSubmission.CFSubmissionVerdict.PARTIAL, "PA");
-        vts.put(CFSubmission.CFSubmissionVerdict.PRESENTATION_ERROR, "PE");
-        vts.put(CFSubmission.CFSubmissionVerdict.REJECTED, "RJ");
-        vts.put(CFSubmission.CFSubmissionVerdict.RUNTIME_ERROR, "RE");
-        vts.put(CFSubmission.CFSubmissionVerdict.SECURITY_VIOLATED, "SV");
-        vts.put(CFSubmission.CFSubmissionVerdict.SKIPPED, "SK");
-        vts.put(CFSubmission.CFSubmissionVerdict.TESTING, "");
-        vts.put(CFSubmission.CFSubmissionVerdict.TIME_LIMIT_EXCEEDED, "TL");
-        vts.put(CFSubmission.CFSubmissionVerdict.WRONG_ANSWER, "WA");
-        verdictToString = Collections.unmodifiableMap(vts);
+    init {
+        lastUpdate = submission.relativeTimeSeconds
     }
 
-    private CFSubmission submission;
-    private long lastUpdate;
-    private int points = 0;
-
-    public CFRunInfo(CFSubmission submission) {
-        this.submission = submission;
-        lastUpdate = this.submission.relativeTimeSeconds;
-    }
-
-    @Override
-    public int getId() {
-        return (int) submission.id;
-    }
-
-    @Override
-    public boolean isAccepted() {
-        return submission.verdict == CFSubmission.CFSubmissionVerdict.OK;
-    }
-
-    @Override
-    public boolean isAddingPenalty() {
-        return false;
-    }
-
-    @Override
-    public boolean isJudged() {
-        return submission.verdict != CFSubmission.CFSubmissionVerdict.TESTING;
-    }
-
-    @Override
-    public String getResult() {
-        if (submission.verdict == null) {
-            return "";
+    override val id: Int
+        get() = submission.id.toInt()
+    override val isAccepted: Boolean
+        get() = submission.verdict == CFSubmissionVerdict.OK
+    override val isAddingPenalty: Boolean
+        get() = false
+    override val isJudged: Boolean
+        get() = submission.verdict != CFSubmissionVerdict.TESTING
+    override val result: String
+        get() = if (submission.verdict == null) {
+            ""
+        } else verdictToString[submission.verdict]!!
+    override val problem: CFProblemInfo
+        get() = CFEventsLoader.instance.contestData.getProblem(submission.problem)!!
+    override val problemId: Int
+        get() = problem.id
+    override val teamId: Int
+        get() {
+            val participant = CFEventsLoader.instance.contestData.getParticipant(
+                CFContestInfo.getName(
+                    submission.author
+                )
+            )
+            return participant!!.id
         }
-        return verdictToString.get(submission.verdict);
-    }
+    override val isReallyUnknown: Boolean
+        get() = false
+    override val percentage: Double
+        get() = submission.passedTestCount.toDouble() / problem.totalTests
+    override val time: Long
+        get() = submission.relativeTimeSeconds * 1000
+    override val lastUpdateTime: Long
+        get() = lastUpdate * 1000
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    @Override
-    public CFProblemInfo getProblem() {
-        return CFEventsLoader.getInstance().getContestData().getProblem(submission.problem);
-    }
-
-    @Override
-    public int getProblemId() {
-        return getProblem().id;
-    }
-
-    @Override
-    public int getTeamId() {
-        CFTeamInfo participant = CFEventsLoader.getInstance().getContestData().getParticipant(CFContestInfo.getName(submission.author));
-        return participant.getId();
-    }
-
-    @Override
-    public boolean isReallyUnknown() {
-        return false;
-    }
-
-    @Override
-    public double getPercentage() {
-        return (double) submission.passedTestCount / getProblem().getTotalTests();
-    }
-
-    @Override
-    public long getTime() {
-        return submission.relativeTimeSeconds * 1000;
-    }
-
-    @Override
-    public long getLastUpdateTime() {
-        return lastUpdate * 1000;
-    }
-
-    public CFSubmission getSubmission() {
-        return submission;
-    }
-
-    public void updateFrom(CFSubmission submission, long contestTime) {
+    fun updateFrom(submission: CFSubmission, contestTime: Long) {
         if (submission.verdict != this.submission.verdict || submission.passedTestCount != this.submission.passedTestCount) {
-            this.submission = submission;
-            lastUpdate = contestTime;
+            this.submission = submission
+            lastUpdate = contestTime
         }
+    }
+
+    companion object {
+        private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
+            CFSubmissionVerdict.CHALLENGED to "CH",
+            CFSubmissionVerdict.COMPILATION_ERROR to "CE",
+            CFSubmissionVerdict.CRASHED to "CR",
+            CFSubmissionVerdict.FAILED to "FL",
+            CFSubmissionVerdict.IDLENESS_LIMIT_EXCEEDED to "IL",
+            CFSubmissionVerdict.INPUT_PREPARATION_CRASHED to "IC",
+            CFSubmissionVerdict.MEMORY_LIMIT_EXCEEDED to "ML",
+            CFSubmissionVerdict.OK to "AC",
+            CFSubmissionVerdict.PARTIAL to "PA",
+            CFSubmissionVerdict.PRESENTATION_ERROR to "PE",
+            CFSubmissionVerdict.REJECTED to "RJ",
+            CFSubmissionVerdict.RUNTIME_ERROR to "RE",
+            CFSubmissionVerdict.SECURITY_VIOLATED to "SV",
+            CFSubmissionVerdict.SKIPPED to "SK",
+            CFSubmissionVerdict.TESTING to "",
+            CFSubmissionVerdict.TIME_LIMIT_EXCEEDED to "TL",
+            CFSubmissionVerdict.WRONG_ANSWER to "WA",
+        )
     }
 }

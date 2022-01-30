@@ -1,62 +1,45 @@
-package org.icpclive.events.WF.json;
+package org.icpclive.events.WF.json
+
+import org.icpclive.events.WF.WFTeamInfo
 
 /**
  * Created by Meepo on  4/1/2018.
  */
-public class WFTeamInfo extends org.icpclive.events.WF.WFTeamInfo {
-    public String cdsId;
+class WFTeamInfo(problems: Int) : WFTeamInfo(problems) {
+    override var alias: String = ""
 
     // videos url
-    public String photo;
-    public String video;
-    public String[] screens;
-    public String[] cameras;
-
-    public WFTeamInfo(int problems) {
-        super(problems);
-    }
-
-    public String getAlias() {
-        return cdsId;
-    }
-
-    public boolean isTemplated(String type) {
-        switch (type) {
-            case "screen":
-                return false;
-            case "camera":
-                return false;
+    var photo: String? = null
+    var video: String? = null
+    lateinit var screens: Array<String>
+    lateinit var cameras: Array<String>
+    fun isTemplated(type: String?): Boolean {
+        when (type) {
+            "screen" -> return false
+            "camera" -> return false
         }
-        return true;
+        return true
     }
 
-    public String getUrlByType(String type) {
-        switch (type) {
-            case "screen":
-                return screens[0];
-            case "camera":
-                return cameras[0];
-            case "video":
-                return cdsId;
-            default:
-                return "";
+    fun getUrlByType(type: String?): String? {
+        return when (type) {
+            "screen" -> screens[0]
+            "camera" -> cameras[0]
+            "video" -> alias
+            else -> ""
         }
     }
 
-    public String getUrlByType(String type, int id) {
-        switch (type) {
-            case "screen":
-                return screens[id % screens.length];
-            case "camera":
-                return cameras[id % cameras.length];
-            case "video":
-                return cdsId;
-            default:
-                return "";
+    fun getUrlByType(type: String?, id: Int): String? {
+        return when (type) {
+            "screen" -> screens[id % screens.size]
+            "camera" -> cameras[id % cameras.size]
+            "video" -> alias
+            else -> ""
         }
     }
 
-    public String toString() {
-        return cdsId + ". " + shortName;
+    override fun toString(): String {
+        return alias + ". " + shortName
     }
 }

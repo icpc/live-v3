@@ -1,107 +1,53 @@
-package org.icpclive.events.PCMS;
+package org.icpclive.events.PCMS
 
-import org.icpclive.events.EventsLoader;
-import org.icpclive.events.ProblemInfo;
-import org.icpclive.events.RunInfo;
+import org.icpclive.events.EventsLoader
+import org.icpclive.events.ProblemInfo
+import org.icpclive.events.RunInfo
 
-public class PCMSRunInfo implements RunInfo {
-    public PCMSRunInfo() {
-        this.judged = true;
+class PCMSRunInfo : RunInfo {
+    constructor() {
+        isJudged = true
     }
 
-    public PCMSRunInfo(boolean judged, String result, int problem, long time, long timestamp, int teamId) {
-        this.judged = judged;
-        this.result = result;
-        this.problem = problem;
-        this.time = time;
-        this.timestamp = timestamp;
-        this.lastUpdateTimestamp = time;
-        this.teamId = teamId;
+    constructor(judged: Boolean, result: String, problem: Int, time: Long, timestamp: Long, teamId: Int) {
+        isJudged = judged
+        this.result = result
+        problemId = problem
+        this.time = time
+        this.timestamp = timestamp
+        lastUpdateTime = time
+        this.teamId = teamId
     }
 
-    public PCMSRunInfo(RunInfo run) {
-        this.judged = run.isJudged();
-        this.result = run.getResult();
-        this.problem = run.getProblemId();
-        this.time = run.getTime();
-        this.lastUpdateTimestamp = run.getLastUpdateTime();
-        this.teamId = run.getTeamId();
+    constructor(run: RunInfo) {
+        isJudged = run.isJudged
+        result = run.result
+        problemId = run.problemId
+        time = run.time
+        lastUpdateTime = run.lastUpdateTime
+        teamId = run.teamId
     }
 
-    public int getId() {
-        return id;
-    }
+    override val isAccepted: Boolean
+        get() = "AC" == result
+    override val isAddingPenalty: Boolean
+        get() = isJudged && !isAccepted && "CE" != result
 
-    public boolean isAccepted() {
-        return "AC".equals(result);
-    }
+    override val problem
+        get() = EventsLoader.instance.contestData!!.problems[problemId]
 
-    @Override
-    public boolean isAddingPenalty() {
-        return isJudged() && !isAccepted() && !"CE".equals(result);
-    }
-
-    @Override
-    public boolean isJudged() {
-        return judged;
-    }
-
-    public void setIsJudged(boolean judged) {
-        this.judged = judged;
-    }
-
-    @Override
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    @Override
-    public ProblemInfo getProblem() {
-        return EventsLoader.getInstance().getContestData().problems.get(getProblemId());
-    }
-
-    @Override
-    public int getProblemId() {
-        return problem;
-    }
-
-    @Override
-    public long getTime() {
-        return time;
-    }
-
-    @Override
-    public long getLastUpdateTime() {
-        return lastUpdateTimestamp;
-    }
-
-    public void setLastUpdateTimestamp(long lastUpdateTimestamp) {
-        lastUpdateTimestamp = System.currentTimeMillis();
-    }
-
-    public int getTeamId() {
-        return teamId;
-    }
-
-    public boolean isReallyUnknown() {
-        return reallyUnknown;
-    }
-
-    public double getPercentage() {
-        return 0;
-    }
-
-    protected boolean judged;
-    protected String result = "";
-    protected int id;
-    protected int teamId;
-    protected int problem;
-    protected long time;
-    protected long timestamp;
-    protected long lastUpdateTimestamp;
-    public boolean reallyUnknown;
+    override val percentage: Double
+        get() = 0.0
+    override var isJudged: Boolean
+    override var result = ""
+    override var id = 0
+    override var teamId = 0
+    override var problemId = 0
+    override var time: Long = 0
+    protected var timestamp: Long = 0
+    override var lastUpdateTime: Long = 0
+        set(value) {
+            field = System.currentTimeMillis()
+        }
+    override var isReallyUnknown = false
 }

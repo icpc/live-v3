@@ -1,16 +1,19 @@
-package org.icpclive.events.WF.json;
+package org.icpclive.events.WF.json
 
-import org.icpclive.events.ProblemInfo;
+import org.icpclive.events.ProblemInfo
 
 /**
  * Created by Aksenov239 on 3/5/2018.
  */
-public class WFProblemInfo extends ProblemInfo {
-    public int id;
-    public int testCount;
-    public int[] submissions;
+class WFProblemInfo(languages: Int) : ProblemInfo() {
+    @JvmField
+    var id = 0
+    @JvmField
+    var testCount = 0
+    @JvmField
+    var submissions: IntArray
 
-    public WFProblemInfo(int languages) {
-        submissions = new int[languages];
+    init {
+        submissions = IntArray(languages)
     }
 }

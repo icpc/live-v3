@@ -1,182 +1,105 @@
-package org.icpclive.events.PCMS;
+package org.icpclive.events.PCMS
 
-import org.icpclive.events.PCMS.ioi.IOIPCMSRunInfo;
-import org.icpclive.events.RunInfo;
-import org.icpclive.events.TeamInfo;
+import java.util.HashSet
+import org.icpclive.events.RunInfo
+import org.icpclive.events.TeamInfo
+import java.util.ArrayList
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+class PCMSTeamInfo(problemsNumber: Int) : TeamInfo {
+    override lateinit var alias: String
 
-public class PCMSTeamInfo implements TeamInfo {
-    public String alias;
-
-    public PCMSTeamInfo(int problemsNumber) {
-        problemRuns = new ArrayList<>(problemsNumber);
-        for (int i = 0; i < problemsNumber; i++) {
-            problemRuns.add(new ArrayList<>());
-        }
-        this.rank = 1;
+    constructor(
+        id: Int, alias: String, hallId: String, name: String, shortName: String, hashTag: String?,
+        groups: Set<String>, problemsNumber: Int, delay: Int
+    ) : this(problemsNumber) {
+        this.id = id
+        this.alias = alias
+        this.hallId = hallId
+        this.name = name
+        this.shortName = shortName
+        this.groups = groups
+        this.hashTag = hashTag
+        this.delay = delay
     }
 
-    public PCMSTeamInfo(int id, String alias, String hallId, String name, String shortName, String hashTag,
-                        HashSet<String> groups, int problemsNumber, int delay) {
-        this(problemsNumber);
-
-        this.id = id;
-        this.alias = alias;
-        this.hallId = hallId;
-        this.name = name;
-        this.shortName = shortName;
-        this.groups = groups == null ? null : new HashSet<>(groups);
-        this.hashTag = hashTag;
-        this.delay = delay;
-    }
-
-    public PCMSTeamInfo(String name, int problemsNumber) {
-        this(-1, "", "1", name, null, null, null, problemsNumber, 0);
-    }
-
-    public PCMSTeamInfo(PCMSTeamInfo pcmsTeamInfo) {
-        this(pcmsTeamInfo.id, pcmsTeamInfo.alias, pcmsTeamInfo.hallId, pcmsTeamInfo.name,
-                pcmsTeamInfo.shortName, pcmsTeamInfo.hashTag, pcmsTeamInfo.groups, pcmsTeamInfo.problemRuns.size(),
-                pcmsTeamInfo.delay);
-
-        for (int i = 0; i < pcmsTeamInfo.problemRuns.size(); i++) {
-            problemRuns.get(i).addAll(pcmsTeamInfo.problemRuns.get(i));
+    constructor(name: String, problemsNumber: Int) : this(-1, "", "1", name, "", null, emptySet(), problemsNumber, 0) {}
+    constructor(pcmsTeamInfo: PCMSTeamInfo) : this(
+        pcmsTeamInfo.id, pcmsTeamInfo.alias, pcmsTeamInfo.hallId, pcmsTeamInfo.name,
+        pcmsTeamInfo.shortName, pcmsTeamInfo.hashTag, pcmsTeamInfo.groups, pcmsTeamInfo.problemRuns.size,
+        pcmsTeamInfo.delay
+    ) {
+        for (i in pcmsTeamInfo.problemRuns.indices) {
+            problemRuns[i]!!.addAll(pcmsTeamInfo.problemRuns[i]!!)
         }
     }
 
-    @Override
-    public void addRun(RunInfo run, int problemId) {
+    override fun addRun(run: RunInfo, problemId: Int) {
         if (run != null) {
-            problemRuns.get(problemId).add(run);
+            problemRuns[problemId]!!.add(run)
         }
     }
 
-    public int mergeRuns(ArrayList<PCMSRunInfo> runs, int problemId, int lastRunId, long currentTime) {
-        int previousSize = problemRuns.get(problemId).size();
-        for (int i = 0; i < previousSize && i < runs.size(); i++) {
-            PCMSRunInfo run = (PCMSRunInfo) problemRuns.get(problemId).get(i);
-            if (run instanceof IOIPCMSRunInfo) {
-                if ((((IOIPCMSRunInfo) run).getScore() != ((IOIPCMSRunInfo) runs.get(i)).getScore())
-                        || (!run.isJudged() && runs.get(i).isJudged())
-                        || (((IOIPCMSRunInfo) run).getTotalScore() < ((IOIPCMSRunInfo) runs.get(i)).getTotalScore())) {
-                    run.setLastUpdateTimestamp(currentTime);
-                    run.setResult(runs.get(i).result);
-                    run.setIsJudged(true);
-                    IOIPCMSRunInfo ioiRun = (IOIPCMSRunInfo) run;
-                    ioiRun.setScore(((IOIPCMSRunInfo) runs.get(i)).getScore());
-                    ioiRun.setTotalScore(((IOIPCMSRunInfo) runs.get(i)).getTotalScore());
-                }
-
-            } else {
-                if (!run.isJudged() &&
-                        runs.get(i).isJudged()) {
-                    run.setLastUpdateTimestamp(currentTime);
-                    run.setResult(runs.get(i).result);
-                    run.setIsJudged(true);
-                }
+    fun mergeRuns(runs: ArrayList<PCMSRunInfo>, problemId: Int, lastRunId: Int, currentTime: Long): Int {
+        var lastRunId = lastRunId
+        val previousSize = problemRuns[problemId]!!.size
+        var i = 0
+        while (i < previousSize && i < runs.size) {
+            val pcmsRun = problemRuns[problemId]!![i] as PCMSRunInfo
+            if (!pcmsRun.isJudged && runs[i].isJudged) {
+                pcmsRun.lastUpdateTime = currentTime
+                pcmsRun.result = runs[i].result
+                pcmsRun.isJudged = true
             }
+            i++
         }
-        for (int i = previousSize; i < runs.size(); i++) {
-            runs.get(i).id = lastRunId++;
-            problemRuns.get(problemId).add(runs.get(i));
+        for (i in previousSize until runs.size) {
+            runs[i].id = lastRunId++
+            problemRuns[problemId]!!.add(runs[i])
         }
-        return lastRunId;
+        return lastRunId
     }
 
-    public int getRunsNumber(int problemId) {
-        return problemRuns.get(problemId).size();
+    fun getRunsNumber(problemId: Int): Int {
+        return problemRuns[problemId]!!.size
     }
 
-    public long getLastSubmitTime(int problemId) {
-        int runsNumber = getRunsNumber(problemId);
-        return runsNumber == 0 ? -1 : problemRuns.get(problemId).get(runsNumber).getTime();
+    fun getLastSubmitTime(problemId: Int): Long {
+        val runsNumber = getRunsNumber(problemId)
+        return if (runsNumber == 0) -1 else problemRuns[problemId]!![runsNumber].time
     }
 
-    public int getId() {
-        return id;
+    override val runs: List<List<RunInfo>>
+        get() = problemRuns
+
+    override fun copy(): PCMSTeamInfo {
+        return PCMSTeamInfo(
+            id, alias, hallId, name, shortName, hashTag,
+            groups, problemRuns.size, delay
+        )
     }
 
-    @Override
-    public int getRank() {
-        return rank;
+    override fun toString(): String {
+        return "$hallId. $shortName"
     }
 
-    public String getAlias() {
-        return alias;
+    override var id: Int = 0
+    lateinit var hallId: String
+    override lateinit var name: String
+    override lateinit var shortName: String
+    override lateinit var groups: Set<String>
+    override var hashTag: String? = null
+    override var rank: Int = 0
+    override var solvedProblemsNumber = 0
+    override var penalty = 0
+    override var lastAccepted: Long = 0
+    var problemRuns: ArrayList<ArrayList<RunInfo>>
+    var delay: Int = 0
+
+    init {
+        problemRuns = ArrayList(problemsNumber)
+        for (i in 0 until problemsNumber) {
+            problemRuns.add(ArrayList())
+        }
+        rank = 1
     }
-
-    public String getHallId() {
-        return hallId;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getShortName() {
-        return shortName;
-    }
-
-    @Override
-    public HashSet<String> getGroups() {
-        return groups;
-    }
-
-    @Override
-    public int getPenalty() {
-        return penalty;
-    }
-
-    @Override
-    public int getSolvedProblemsNumber() {
-        return solved;
-    }
-
-    public ArrayList<ArrayList<RunInfo>> getRuns() {
-        return problemRuns;
-    }
-
-    public long getLastAccepted() {
-        return lastAccepted;
-    }
-
-    public String getHashTag() {
-        return hashTag;
-    }
-
-    public int getDelay() {
-        return delay;
-    }
-
-    @Override
-    public PCMSTeamInfo copy() {
-        return new PCMSTeamInfo(this.id, this.alias, this.hallId, this.name, this.shortName, this.hashTag,
-                this.groups, problemRuns.size(), delay);
-    }
-
-    public String toString() {
-        return hallId + ". " + shortName;
-    }
-
-    public int id;
-
-    public String hallId;
-    public String name;
-    public String shortName;
-    public HashSet<String> groups;
-    public String hashTag;
-
-    public int rank;
-    public int solved;
-    public int penalty;
-    public long lastAccepted;
-
-    public ArrayList<ArrayList<RunInfo>> problemRuns;
-
-    public int delay;
 }

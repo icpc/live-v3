@@ -1,108 +1,60 @@
-package org.icpclive.events.codeforces;
+package org.icpclive.events.codeforces
 
-import org.icpclive.events.RunInfo;
-import org.icpclive.events.TeamInfo;
-import org.icpclive.events.codeforces.api.data.CFProblemResult;
-import org.icpclive.events.codeforces.api.data.CFRanklistRow;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import org.icpclive.events.RunInfo
+import org.icpclive.events.TeamInfo
+import org.icpclive.events.codeforces.api.data.CFRanklistRow
 
 /**
  * @author egor@egork.net
  */
-public class CFTeamInfo implements TeamInfo {
-    private final CFRanklistRow row;
-    private int id;
+class CFTeamInfo(private val row: CFRanklistRow) : TeamInfo {
+    override var id = 0
 
-    public CFTeamInfo(CFRanklistRow row) {
-        this.row = row;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public int getRank() {
-        return row.rank;
-    }
-
-    @Override
-    public String getName() {
-        if (row.party.teamName != null) {
-            return row.party.teamName;
-        }
-        return row.party.members.get(0).handle;
-    }
-
-    @Override
-    public String getShortName() {
-        return getName();
-    }
-
-    @Override
-    public String getAlias() {
-        return getName();
-    }
-
-    @Override
-    public Set<String> getGroups() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public int getPenalty() {
-        return row.penalty == 0 ? (int) row.points : row.penalty;
-    }
-
-    public int getPoints() {
-        return (int) row.points;
-    }
-
-    @Override
-    public int getSolvedProblemsNumber() {
-        int solved = 0;
-        for (CFProblemResult result : row.problemResults) {
-            solved += result.points > 0 ? 1 : 0;
-        }
-        return solved;
-    }
-
-    @Override
-    public long getLastAccepted() {
-        long last = 0;
-        for (CFProblemResult result : row.problemResults) {
-            if (result.points > 0) {
-                last = Math.max(last, result.bestSubmissionTimeSeconds);
+    override val rank: Int
+        get() = row.rank
+    override val name: String
+        get() = if (row.party.teamName != null) {
+            row.party.teamName
+        } else row.party.members[0].handle
+    override val shortName: String
+        get() = name
+    override val alias: String
+        get() = name
+    override val groups: Set<String>
+        get() = emptySet()
+    override val penalty: Int
+        get() = if (row.penalty == 0) row.points.toInt() else row.penalty
+    val points: Int
+        get() = row.points.toInt()
+    override val solvedProblemsNumber: Int
+        get() {
+            var solved = 0
+            for (result in row.problemResults) {
+                solved += if (result.points > 0) 1 else 0
             }
+            return solved
         }
-        return last;
+    override val lastAccepted: Long
+        get() {
+            var last: Long = 0
+            for (result in row.problemResults) {
+                if (result.points > 0) {
+                    last = Math.max(last, result.bestSubmissionTimeSeconds)
+                }
+            }
+            return last
+        }
+    override val runs: List<List<CFRunInfo>>
+        get() = CFEventsLoader.instance.contestData.getRuns(row.party)
+
+    override fun addRun(run: RunInfo, problem: Int) {
+        CFEventsLoader.instance.contestData.addRun(run as CFRunInfo, problem)
     }
 
-    @Override
-    public List<List<CFRunInfo>> getRuns() {
-        return CFEventsLoader.getInstance().getContestData().getRuns(row.party);
-    }
+    override val hashTag: String
+        get() = ""
 
-    @Override
-    public void addRun(RunInfo run, int problem) {
-        CFEventsLoader.getInstance().getContestData().addRun((CFRunInfo) run, problem);
-    }
-
-    @Override
-    public String getHashTag() {
-        return "";
-    }
-
-    @Override
-    public TeamInfo copy() {
-        return new CFTeamInfo(row);
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    override fun copy(): TeamInfo {
+        return CFTeamInfo(row)
     }
 }

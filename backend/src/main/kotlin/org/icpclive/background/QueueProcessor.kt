@@ -27,7 +27,7 @@ class QueueProcessor {
             }
         }
         merge(DataBus.runsUpdates, ticker).collect { run ->
-            val currentTime = EventsLoader.getInstance().contestData.currentTime
+            val currentTime = EventsLoader.instance.contestData!!.currentTime
             if (run != null) {
                 logger.debug("Receive run $run")
                 if (run.toOldAtTime > currentTime) {

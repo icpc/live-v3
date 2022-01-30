@@ -57,7 +57,7 @@ fun Application.module() {
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
-    Thread(EventsLoader.getInstance()).start()
+    Thread(EventsLoader.instance).start()
     launch { QueueProcessor().run() }
     launch { LoggerEventListener().run() }
     launch { RunsStorage.run() }

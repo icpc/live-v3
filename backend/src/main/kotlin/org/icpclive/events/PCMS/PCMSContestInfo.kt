@@ -1,211 +1,178 @@
-package org.icpclive.events.PCMS;
+package org.icpclive.events.PCMS
 
-import org.icpclive.events.*;
+import org.icpclive.events.ContestInfo
+import java.util.Arrays
+import org.icpclive.events.OptimismLevel
+import org.icpclive.events.RunInfo
+import org.icpclive.events.TeamInfo
+import java.util.ArrayList
+import java.util.HashMap
+import java.util.function.Consumer
 
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-
-public class PCMSContestInfo extends ContestInfo {
-    @Override
-    public TeamInfo[] getStandings() {
-        return standings.stream().toArray(TeamInfo[]::new);
-    }
-
-    public TeamInfo[] getPossibleStandings(boolean optimistic) {
-        TeamInfo[] original = getStandings();
-
-        PCMSTeamInfo[] standings = new PCMSTeamInfo[original.length];
-        for (int i = 0; i < original.length; i++) {
-            standings[i] = (PCMSTeamInfo)original[i].copy();
-            List<? extends List<? extends RunInfo>> runs = original[i].getRuns();
-            for (int j = 0; j < problemNumber; j++) {
-                int runIndex = 0;
-                for (RunInfo run : runs.get(j)) {
-                    PCMSRunInfo clonedRun = new PCMSRunInfo(run);
-
-                    if (clonedRun.getResult().length() == 0) {
-                        clonedRun.judged = true;
-                        String expectedResult = optimistic ? "AC" : "WA";
-                        clonedRun.result = runIndex == runs.get(j).size() - 1 ? expectedResult : "WA";
-                        clonedRun.reallyUnknown = true;
+class PCMSContestInfo(problemNumber: Int) : ContestInfo(problemNumber) {
+    fun getPossibleStandings(optimistic: Boolean): Array<out TeamInfo> {
+        val original = standings_
+        val standings = original.indices.map { i ->
+            val row = original[i].copy()
+            val runs = original[i].runs
+            for (j in 0 until problemsNumber) {
+                var runIndex = 0
+                for (run in runs[j]) {
+                    val clonedRun = PCMSRunInfo(run)
+                    if (clonedRun.result.length == 0) {
+                        clonedRun.isJudged = true
+                        val expectedResult = if (optimistic) "AC" else "WA"
+                        clonedRun.result = if (runIndex == runs[j].size - 1) expectedResult else "WA"
+                        clonedRun.isReallyUnknown = true
                     }
-                    standings[i].addRun(clonedRun, j);
-                    runIndex++;
+                    row.addRun(clonedRun, j)
+                    runIndex++
                 }
             }
-        }
-        for (PCMSTeamInfo team : standings) {
-            team.solved = 0;
-            team.penalty = 0;
-            team.lastAccepted = 0;
-            List<? extends List<? extends RunInfo>> runs = team.getRuns();
-            for (int j = 0; j < problemNumber; j++) {
-                int wrong = 0;
-                for (RunInfo run : runs.get(j)) {
-                    if ("AC".equals(run.getResult())) {
-                        team.solved++;
-                        int time = (int)(run.getTime() / 60 / 1000);
-                        team.penalty += wrong * 20 + time;
-                        team.lastAccepted = Math.max(team.lastAccepted, run.getTime());
-                        break;
-                    } else if (run.getResult().length() > 0 && !"CE".equals(run.getResult())) {
-                        wrong++;
+            row
+        }.toMutableList()
+        for (team in standings) {
+            team!!.solvedProblemsNumber = 0
+            team.penalty = 0
+            team.lastAccepted = 0
+            val runs = team.runs
+            for (j in 0 until problemsNumber) {
+                var wrong = 0
+                for (run in runs[j]) {
+                    if ("AC" == run.result) {
+                        team.solvedProblemsNumber++
+                        val time = (run.time / 60 / 1000).toInt()
+                        team.penalty += wrong * 20 + time
+                        team.lastAccepted = Math.max(team.lastAccepted, run.time)
+                        break
+                    } else if (run.result.length > 0 && "CE" != run.result) {
+                        wrong++
                     }
                 }
             }
         }
-
-        Arrays.sort(standings, TeamInfo.comparator);
-
-        for (int i = 0; i < standings.length; i++) {
-            if (i > 0 && TeamInfo.comparator.compare(standings[i - 1], standings[i]) == 0) {
-                standings[i].rank = standings[i - 1].rank;
+        standings.sortWith(TeamInfo.comparator)
+        for (i in standings.indices) {
+            if (i > 0 && TeamInfo.comparator.compare(standings[i - 1], standings[i]) === 0) {
+                standings[i]!!.rank = standings[i - 1]!!.rank
             } else {
-                standings[i].rank = i + 1;
+                standings[i]!!.rank = i + 1
             }
         }
-        return standings;
+        return standings.toTypedArray()
     }
 
-    @Override
-    public TeamInfo[] getStandings(OptimismLevel optimismLevel) {
-        switch (optimismLevel) {
-            case NORMAL:
-                return getStandings();
-            case OPTIMISTIC:
-                return getPossibleStandings(true);
-            case PESSIMISTIC:
-                return getPossibleStandings(false);
+    override fun getStandings(optimismLevel: OptimismLevel): Array<out TeamInfo> {
+        return when (optimismLevel) {
+            OptimismLevel.NORMAL -> standings
+            OptimismLevel.OPTIMISTIC -> getPossibleStandings(true)
+            OptimismLevel.PESSIMISTIC -> getPossibleStandings(false)
         }
-        return null;
     }
 
-    public PCMSContestInfo(int problemNumber) {
-        super(problemNumber);
-        standings = new ArrayList<>();
-        positions = new HashMap<>();
-        timeFirstSolved = new long[problemNumber];
-
-        FREEZE_TIME = 4 * 60 * 60 * 1000;
-    }
-
-    public void fillTimeFirstSolved() {
-        standings.forEach(teamInfo -> {
-            ArrayList<ArrayList<RunInfo>> runs = teamInfo.getRuns();
-            for (int i = 0; i < runs.size(); i++) {
-                for (RunInfo run : runs.get(i)) {
-                    if (run.isAccepted()) {
-                        timeFirstSolved[i] = Math.min(timeFirstSolved[i], run.getTime());
+    fun fillTimeFirstSolved() {
+        standings_.forEach { teamInfo: PCMSTeamInfo ->
+            val runs = teamInfo.runs
+            for (i in runs.indices) {
+                for (run in runs[i]) {
+                    if (run.isAccepted) {
+                        timeFirstSolved[i] = Math.min(timeFirstSolved[i], run.time)
                     }
                 }
             }
-        });
+        }
     }
 
-    public void calculateRanks() {
-        standings.get(0).rank = 1;
-        for (int i = 1; i < standings.size(); i++) {
-            if (TeamInfo.comparator.compare(standings.get(i), standings.get(i - 1)) == 0) {
-                standings.get(i).rank = standings.get(i - 1).rank;
+    fun calculateRanks() {
+        standings_[0].rank = 1
+        for (i in 1 until standings_.size) {
+            if (TeamInfo.comparator.compare(standings_[i], standings_[i - 1]) === 0) {
+                standings_[i].rank = standings_[i - 1].rank
             } else {
-                standings.get(i).rank = i + 1;
+                standings_[i].rank = i + 1
             }
         }
     }
 
-    public void makeRuns() {
-        ArrayList<RunInfo> runs = new ArrayList<>();
-        for (TeamInfo team : standings) {
-            for (List<? extends RunInfo> innerRuns : team.getRuns()) {
-                runs.addAll(innerRuns);
+    fun makeRuns() {
+        val runs = ArrayList<RunInfo>()
+        for (team in standings_) {
+            for (innerRuns in team.runs) {
+                runs.addAll(innerRuns)
             }
         }
-        this.runs = runs.toArray(new PCMSRunInfo[0]);
-        Arrays.sort(this.runs);
-
-        firstSolvedRuns = new PCMSRunInfo[problemNumber];
-        for (RunInfo run : this.runs) {
-            if (firstSolvedRuns[run.getProblemId()] == null && run.isAccepted() &&
-                    run.getTime() <= FREEZE_TIME) {
-                firstSolvedRuns[run.getProblemId()] = run;
+        this.runs = runs.toTypedArray()
+        Arrays.sort(this.runs)
+        firstSolvedRuns = arrayOfNulls(problemsNumber)
+        for (run in this.runs) {
+            if (firstSolvedRuns[run.problemId] == null && run.isAccepted && run.time <= FREEZE_TIME) {
+                firstSolvedRuns[run.problemId] = run as PCMSRunInfo
             }
         }
     }
 
-    public void addTeamStandings(PCMSTeamInfo teamInfo) {
-        standings.add(teamInfo);
-        positions.put(teamInfo.getAlias(), standings.size() - 1);
-        teamNumber = standings.size();
+    fun addTeamStandings(teamInfo: PCMSTeamInfo) {
+        standings_.add(teamInfo)
+        positions[teamInfo.alias] = standings_.size - 1
+        teamsNumber = standings_.size
     }
 
-    PCMSTeamInfo getParticipant(Integer teamRank) {
-        return teamRank == null ? new PCMSTeamInfo(problemNumber) : standings.get(teamRank);
+    fun getParticipant(teamRank: Int?): PCMSTeamInfo {
+        return if (teamRank == null) PCMSTeamInfo(problemsNumber) else standings_[teamRank]
     }
 
-    @Override
-    public PCMSTeamInfo getParticipant(String name) {
-        Integer teamRank = getParticipantRankByName(name);
-        return getParticipant(teamRank);
+    override fun getParticipant(name: String?): PCMSTeamInfo? {
+        val teamRank = getParticipantRankByName(name)
+        return getParticipant(teamRank)
     }
 
-    @Override
-    public PCMSTeamInfo getParticipant(int id) {
-        for (PCMSTeamInfo team: standings) {
-            if (team.getId() == id) {
-                return team;
+    override fun getParticipant(id: Int): PCMSTeamInfo? {
+        for (team in standings_) {
+            if (team.id == id) {
+                return team
             }
         }
-        return null;
+        return null
     }
 
-    Integer getParticipantRankByName(String participantName) {
-        return positions.get(participantName);
+    fun getParticipantRankByName(participantName: String?): Int? {
+        return positions[participantName]
     }
 
-    public long[] firstTimeSolved() {
-        return timeFirstSolved;
+    override fun firstTimeSolved(): LongArray? {
+        return timeFirstSolved
     }
 
-    @Override
-    public RunInfo[] firstSolvedRun() {
-        return firstSolvedRuns;
-    }
-
-    @Override
-    public PCMSTeamInfo getParticipantByHashTag(String hashTag) {
-        for (PCMSTeamInfo teamInfo : standings) {
-            if (hashTag != null && hashTag.equalsIgnoreCase(teamInfo.getHashTag())) {
-                return teamInfo;
+    override fun getParticipantByHashTag(hashTag: String?): PCMSTeamInfo? {
+        for (teamInfo in standings_) {
+            if (hashTag != null && hashTag.equals(teamInfo.hashTag, ignoreCase = true)) {
+                return teamInfo
             }
         }
-        return null;
+        return null
     }
 
-    protected ArrayList<PCMSTeamInfo> standings;
-    protected long[] timeFirstSolved;
+    protected lateinit var standings_: ArrayList<PCMSTeamInfo>
+    override val standings: Array<out TeamInfo>
+        get() = standings_.toTypedArray()
+    override val firstSolvedRun: Array<out RunInfo?>
+        get() = firstSolvedRuns
+    protected var timeFirstSolved: LongArray
+    var positions: MutableMap<String?, Int>
+    var frozen = false
+    override lateinit var runs: Array<RunInfo>
+        private set
+    private lateinit var firstSolvedRuns: Array<PCMSRunInfo?>
+    override var lastRunId = 0
 
-    public Map<String, Integer> positions;
-    public boolean frozen;
-
-    private RunInfo[] runs;
-    private RunInfo[] firstSolvedRuns;
-
-    public int lastRunId = 0;
-    
-	@Override
-	public RunInfo[] getRuns() {
-		return runs;
-	}
-
-    @Override
-    public RunInfo getRun(int id) {
-        return null;
+    init {
+        standings_ = ArrayList()
+        positions = HashMap()
+        timeFirstSolved = LongArray(problemNumber)
+        FREEZE_TIME = 4 * 60 * 60 * 1000
     }
 
-    @Override
-    public int getLastRunId() {
-        return lastRunId;
+    override fun getRun(id: Int): RunInfo? {
+        return null
     }
-
 }

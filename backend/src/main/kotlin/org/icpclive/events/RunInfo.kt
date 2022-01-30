@@ -1,24 +1,24 @@
-package org.icpclive.events;
+package org.icpclive.events
 
-public interface RunInfo extends Comparable<RunInfo> {
-    int getId();
-    boolean isAccepted();
-    boolean isAddingPenalty();
-    boolean isJudged();
-    String getResult();
-    ProblemInfo getProblem();
-    int getProblemId();
-    int getTeamId();
-    boolean isReallyUnknown();
-    double getPercentage();
+import org.icpclive.events.EventsLoader
 
-    long getTime();
-    long getLastUpdateTime();
+interface RunInfo : Comparable<RunInfo> {
+    val id: Int
+    val isAccepted: Boolean
+    val isAddingPenalty: Boolean
+    val isJudged: Boolean
+    val result: String
+    val problem: ProblemInfo?
+    val problemId: Int
+    val teamId: Int
+    val isReallyUnknown: Boolean
+    val percentage: Double
+    val time: Long
+    val lastUpdateTime: Long
+    val isFirstSolvedRun: Boolean
+        get() = EventsLoader.instance.contestData!!.firstSolvedRun[problemId] === this
 
-    default boolean isFirstSolvedRun() {
-        return EventsLoader.getInstance().getContestData().firstSolvedRun()[getProblemId()] == this;
-    }
-    default public int compareTo(RunInfo runInfo) {
-        return Long.compare(getTime(), runInfo.getTime());
+    override fun compareTo(runInfo: RunInfo): Int {
+        return time.compareTo(runInfo.time)
     }
 }

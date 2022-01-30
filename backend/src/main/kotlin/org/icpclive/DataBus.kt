@@ -17,7 +17,7 @@ import org.icpclive.events.ContestInfo as EventsContestInfo
 object DataBus {
     // just wrapper for suspend world for java
     fun publishContestInfo(contestInfo: EventsContestInfo) = runBlocking {
-        runsStorageUpdates.emit(contestInfo.runs.map { it.toApi() })
+        runsStorageUpdates.emit(contestInfo.runs.mapNotNull { it?.toApi() })
         contestInfoFlow.value = contestInfo.toApi()
         //TODO: rework to avoid triple computation event it's not needed
         scoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL).map { ScoreboardRow(it) })

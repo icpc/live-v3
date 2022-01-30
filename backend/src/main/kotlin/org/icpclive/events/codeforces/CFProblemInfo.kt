@@ -1,28 +1,22 @@
-package org.icpclive.events.codeforces;
+package org.icpclive.events.codeforces
 
-import org.icpclive.events.ProblemInfo;
-import org.icpclive.events.codeforces.api.data.CFProblem;
+import org.icpclive.events.ProblemInfo
+import org.icpclive.events.codeforces.api.data.CFProblem
+import kotlin.math.max
 
 /**
  * @author egor@egork.net
  */
-public class CFProblemInfo extends ProblemInfo {
-    public final CFProblem problem;
-    public final int id;
-    private int totalTests = 1;
+class CFProblemInfo(val problem: CFProblem, val id: Int) : ProblemInfo() {
+    var totalTests = 1
+        private set
 
-    public CFProblemInfo(CFProblem problem, int id) {
-        this.problem = problem;
-        this.id = id;
-        letter = problem.index;
-        name = problem.name;
+    init {
+        letter = problem.index
+        name = problem.name
     }
 
-    public void update(CFRunInfo run) {
-        totalTests = Math.max(totalTests, run.getSubmission().passedTestCount + (run.isAccepted() ? 0 : 1));
-    }
-
-    public int getTotalTests() {
-        return totalTests;
+    fun update(run: CFRunInfo) {
+        totalTests = max(totalTests, run.submission.passedTestCount + if (run.isAccepted) 0 else 1)
     }
 }

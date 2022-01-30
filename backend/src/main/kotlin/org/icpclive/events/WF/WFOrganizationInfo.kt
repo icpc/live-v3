@@ -1,11 +1,13 @@
-package org.icpclive.events.WF;
+package org.icpclive.events.WF
 
 /**
  * Created by icpclive on 11/8/2019.
  */
-public class WFOrganizationInfo {
-    public int id = -1;
-    public String name;
-    public String formalName;
-    public String country;
+class WFOrganizationInfo {
+    var id = -1
+    @JvmField
+    var name: String? = null
+    @JvmField
+    var formalName: String? = null
+    var country: String? = null
 }

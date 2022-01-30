@@ -1,246 +1,210 @@
-package org.icpclive.events.WF;
+package org.icpclive.events.WF
 
-import org.icpclive.events.*;
-import org.icpclive.events.WF.json.WFProblemInfo;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import org.icpclive.events.ContestInfo
+import java.util.Arrays
+import org.icpclive.events.WF.json.WFProblemInfo
+import org.icpclive.events.OptimismLevel
+import org.icpclive.events.RunInfo
+import org.icpclive.events.TeamInfo
 
 /**
  * Created by aksenov on 05.05.2015.
  */
-public class WFContestInfo extends ContestInfo {
-    protected WFRunInfo[] runs;
-    public String[] languages;
-    public WFTeamInfo[] teamInfos;
-    protected long[] timeFirstSolved;
-    protected int maxRunId;
-    protected WFRunInfo[] firstSolvedRun;
+open class WFContestInfo : ContestInfo {
+    protected lateinit var wfRuns: Array<WFRunInfo?>
+    lateinit var languages: Array<String?>
+    lateinit var teamInfos: Array<WFTeamInfo?>
+    protected lateinit var timeFirstSolved: LongArray
+    override var lastRunId = 0
+        protected set
+    override lateinit var firstSolvedRun: Array<WFRunInfo?>
+    override var standings: Array<WFTeamInfo> = emptyArray()
 
-    private WFTeamInfo[] standings = null;
-
-    public WFContestInfo(int problemsNumber, int teamsNumber) {
-        problemNumber = problemsNumber;
-        teamNumber = teamsNumber;
-        teamInfos = new WFTeamInfo[teamsNumber];
-        timeFirstSolved = new long[problemsNumber];
-        languages = new String[100];
-        runs = new WFRunInfo[1000000];
-        firstSolvedRun = new WFRunInfo[problemsNumber];
+    constructor(problemsNumber: Int, teamsNumber: Int) {
+        this.problemsNumber = problemsNumber
+        this.teamsNumber = teamsNumber
+        teamInfos = arrayOfNulls(teamsNumber)
+        timeFirstSolved = LongArray(problemsNumber)
+        languages = arrayOfNulls(100)
+        wfRuns = arrayOfNulls(1000000)
+        firstSolvedRun = arrayOfNulls(problemsNumber)
     }
 
-    protected WFContestInfo() {
-    }
+    protected constructor() {}
 
-    public void recalcStandings() {
-        WFTeamInfo[] standings = new WFTeamInfo[teamNumber];
-        int n = 0;
-        Arrays.fill(timeFirstSolved, Integer.MAX_VALUE);
-        Arrays.fill(firstSolvedRun, null);
-        for (WFTeamInfo team : teamInfos) {
-            if (team == null)
-                continue;
-
-            team.solved = 0;
-            team.penalty = 0;
-            team.lastAccepted = 0;
-            for (int j = 0; j < problemNumber; j++) {
-                List<? extends RunInfo> runs = team.getRuns().get(j);
-                int wrong = 0;
-                for (RunInfo run : runs) {
-                    WFRunInfo wfrun = (WFRunInfo) run;
-                    if ("AC".equals(run.getResult())) {
-                        if (!run.isJudged()) {
-                            System.err.println("!!!");
+    fun recalcStandings() {
+        var n = 0
+        Arrays.fill(timeFirstSolved, Long.MAX_VALUE)
+        Arrays.fill(firstSolvedRun, null)
+        val standings = teamInfos.mapNotNull { team ->
+            if (team == null) return@mapNotNull null
+            team.solvedProblemsNumber = 0
+            team.penalty = 0
+            team.lastAccepted = 0
+            for (j in 0 until problemsNumber) {
+                val runs = team.runs[j]
+                var wrong = 0
+                for (run in runs) {
+                    val wfrun = run as WFRunInfo
+                    if ("AC" == run.result) {
+                        if (!run.isJudged) {
+                            System.err.println("!!!")
                         }
-                        team.solved++;
-                        int time = (int) (wfrun.getTime() / 60000);
-                        team.penalty += wrong * 20 + time;
-                        team.lastAccepted = Math.max(team.lastAccepted, wfrun.getTime());
-                        if (wfrun.getTime() < timeFirstSolved[j]) {
-                            timeFirstSolved[j] = wfrun.getTime();
-                            firstSolvedRun[j] = wfrun;
+                        team.solvedProblemsNumber++
+                        val time = (wfrun.time / 60000).toInt()
+                        team.penalty += wrong * 20 + time
+                        team.lastAccepted = Math.max(team.lastAccepted, wfrun.time)
+                        if (wfrun.time < timeFirstSolved[j]) {
+                            timeFirstSolved[j] = wfrun.time
+                            firstSolvedRun[j] = wfrun
                         }
-                        break;
-                    } else if (wfrun.getResult().length() > 0 && !"CE".equals(wfrun.getResult())) {
-                        wrong++;
+                        break
+                    } else if (wfrun.result.length > 0 && "CE" != wfrun.result) {
+                        wrong++
                     }
                 }
             }
-            standings[n++] = team;
-        }
-
-        Arrays.sort(standings, 0, n, TeamInfo.strictComparator);
-
-        for (int i = 0; i < n; i++) {
+            team
+        }.toMutableList()
+        standings.sortWith(TeamInfo.comparator)
+        for (i in 0 until n) {
             if (i > 0 && TeamInfo.comparator.compare(standings[i], standings[i - 1]) == 0) {
-                standings[i].rank = standings[i - 1].rank;
+                standings[i].rank = standings[i - 1].rank
             } else {
-                standings[i].rank = i + 1;
+                standings[i].rank = i + 1
             }
         }
-        this.standings = standings;
+        this.standings = standings.toTypedArray()
     }
 
-    public void recalcStandings(WFTeamInfo[] standings) {
-        for (WFTeamInfo team : standings) {
-            team.solved = 0;
-            team.penalty = 0;
-            team.lastAccepted = 0;
-            for (int j = 0; j < problemNumber; j++) {
-                List<? extends RunInfo> runs = team.getRuns().get(j);
-                int wrong = 0;
-                for (RunInfo run : runs) {
-                    if ("AC".equals(run.getResult())) {
-                        team.solved++;
-                        int time = (int) (run.getTime() / 60000);
-                        team.penalty += wrong * 20 + time;
-                        team.lastAccepted = Math.max(team.lastAccepted, run.getTime());
-                        break;
-                    } else if (run.getResult().length() > 0 && !"CE".equals(run.getResult())) {
-                        wrong++;
+    private fun recalcStandings(standings: MutableList<WFTeamInfo>) {
+        for (team in standings) {
+            team.solvedProblemsNumber = 0
+            team.penalty = 0
+            team.lastAccepted = 0
+            for (j in 0 until problemsNumber) {
+                val runs = team.runs[j]
+                var wrong = 0
+                for (run in runs) {
+                    if ("AC" == run.result) {
+                        team.solvedProblemsNumber++
+                        val time = (run.time / 60000).toInt()
+                        team.penalty += wrong * 20 + time
+                        team.lastAccepted = Math.max(team.lastAccepted, run.time)
+                        break
+                    } else if (run.result.length > 0 && "CE" != run.result) {
+                        wrong++
                     }
                 }
             }
         }
-
-        Arrays.sort(standings, 0, standings.length, TeamInfo.strictComparator);
-
-        for (int i = 0; i < standings.length; i++) {
+        standings.sortWith(TeamInfo.strictComparator)
+        for (i in standings.indices) {
             if (i > 0 && TeamInfo.comparator.compare(standings[i], standings[i - 1]) == 0) {
-                standings[i].rank = standings[i - 1].rank;
+                standings[i].rank = standings[i - 1].rank
             } else {
-                standings[i].rank = i + 1;
+                standings[i].rank = i + 1
             }
         }
     }
 
-
-    public void addTeam(WFTeamInfo team) {
-        teamInfos[team.getId()] = team;
+    fun addTeam(team: WFTeamInfo) {
+        teamInfos[team.id] = team
     }
 
-    public boolean runExists(int id) {
-        return runs[id] != null;
+    fun runExists(id: Int): Boolean {
+        return wfRuns[id] != null
     }
 
-    public WFRunInfo getRun(int id) {
-        return runs[id];
+    override fun getRun(id: Int): WFRunInfo? {
+        return wfRuns[id]
     }
 
-    public void addRun(WFRunInfo run) {
+    open fun addRun(run: WFRunInfo) {
 //		System.err.println("add runId: " + run.getId());
-        if (!runExists(run.getId())) {
-            runs[run.getId()] = run;
-            teamInfos[run.getTeamId()].addRun(run, run.getProblemId());
-            maxRunId = Math.max(maxRunId, run.getId());
+        if (!runExists(run.id)) {
+            wfRuns[run.id] = run
+            teamInfos[run.teamId]!!.addRun(run, run.problemId)
+            lastRunId = Math.max(lastRunId, run.id)
         }
     }
 
-    public int getLastRunId() {
-        return maxRunId;
-    }
-
-    public void addTest(WFTestCaseInfo test) {
+    fun addTest(test: WFTestCaseInfo) {
 //		System.out.println("Adding test " + test.id + " to runId " + test.runId);
         if (runExists(test.runId)) {
-            WFRunInfo run = runs[test.runId];
-            run.add(test);
-            if (!run.isJudged()) {
-                run.setLastUpdateTime(Math.max(run.getLastUpdateTime(), test.time));
+            val run = wfRuns[test.runId]
+            run!!.add(test)
+            if (!run.isJudged) {
+                run.lastUpdateTime = Math.max(run.lastUpdateTime, test.time)
             }
-//			System.out.println("Run " + runs[test.runId] + " passed " + runs[test.runId].getPassedTestsNumber() + " tests");
+            //			System.out.println("Run " + runs[test.runId] + " passed " + runs[test.runId].getPassedTestsNumber() + " tests");
         }
     }
 
-    @Override
-    public TeamInfo getParticipant(String name) {
-        for (int i = 0; i < teamNumber; i++) {
-            if (teamInfos[i].getName().equals(name) || teamInfos[i].getShortName().equals(name)) {
-                return teamInfos[i];
+    override fun getParticipant(name: String?): TeamInfo? {
+        for (i in 0 until teamsNumber) {
+            if (teamInfos[i]!!.name == name || teamInfos[i]!!.shortName == name) {
+                return teamInfos[i]
             }
         }
-        return null;
+        return null
     }
 
-    @Override
-    public TeamInfo getParticipant(int id) {
-        return teamInfos[id];
+    override fun getParticipant(id: Int): TeamInfo? {
+        return teamInfos[id]
     }
 
-    public TeamInfo[] getStandings() {
-        return standings;
+
+    override fun firstTimeSolved(): LongArray? {
+        return timeFirstSolved
     }
 
-    @Override
-    public long[] firstTimeSolved() {
-        return timeFirstSolved;
+
+    override val runs: Array<WFRunInfo?>
+        get() = wfRuns
+
+    fun getProblemById(id: Int): WFProblemInfo {
+        return problems[id] as WFProblemInfo
     }
 
-    @Override
-    public RunInfo[] firstSolvedRun() {
-        return firstSolvedRun;
-    }
-
-    @Override
-    public RunInfo[] getRuns() {
-        return runs;
-    }
-
-    public WFProblemInfo getProblemById(int id) {
-        return (WFProblemInfo) problems.get(id);
-    }
-
-    public WFTeamInfo getParticipantByHashTag(String hashTag) {
-        for (int i = 0; i < teamNumber; i++) {
-            if (hashTag != null && hashTag.equalsIgnoreCase(teamInfos[i].getHashTag())) {
-                return teamInfos[i];
+    override fun getParticipantByHashTag(hashTag: String?): WFTeamInfo? {
+        for (i in 0 until teamsNumber) {
+            if (hashTag != null && hashTag.equals(teamInfos[i]!!.hashTag, ignoreCase = true)) {
+                return teamInfos[i]
             }
         }
-        return null;
+        return null
     }
 
-    private TeamInfo[] getPossibleStandings(boolean isOptimistic) {
-        WFTeamInfo[] possibleStandings = new WFTeamInfo[teamNumber];
-        int teamIndex = 0;
-        for (WFTeamInfo team : standings) {
-            possibleStandings[teamIndex] = team.copy();
-            for (int j = 0; j < problemNumber; j++) {
-                List<? extends RunInfo> runs = team.getRuns().get(j);
-                int runIndex = 0;
-                for (RunInfo run : runs) {
-                    WFRunInfo clonedRun = new WFRunInfo((WFRunInfo) run);
-
-                    if (clonedRun.getResult().length() == 0) {
-                        clonedRun.judged = true;
-                        String expectedResult = isOptimistic ? "AC" : "WA";
-                        clonedRun.result = (runIndex == runs.size() - 1) ? expectedResult : "WA";
-                        clonedRun.reallyUnknown = true;
+    private fun getPossibleStandings(isOptimistic: Boolean): Array<out TeamInfo> {
+        val possibleStandings = standings.map { team ->
+            team.copy().apply {
+                for (j in 0 until problemsNumber) {
+                    val runs = team.runs[j]
+                    var runIndex = 0
+                    for (run in runs) {
+                        val clonedRun = WFRunInfo((run as WFRunInfo))
+                        if (clonedRun.result.length == 0) {
+                            clonedRun.isJudged = true
+                            val expectedResult = if (isOptimistic) "AC" else "WA"
+                            clonedRun.result = if (runIndex == runs.size - 1) expectedResult else "WA"
+                            clonedRun.isReallyUnknown = true
+                        }
+                        addRun(clonedRun, j)
+                        runIndex++
                     }
-                    possibleStandings[teamIndex].addRun(clonedRun, j);
-                    runIndex++;
                 }
             }
-            teamIndex++;
-        }
-
-        recalcStandings(possibleStandings);
-
-        return possibleStandings;
+        }.toMutableList()
+        recalcStandings(possibleStandings)
+        return possibleStandings.toTypedArray()
     }
 
-    public TeamInfo[] getStandings(OptimismLevel level) {
-        switch (level) {
-            case NORMAL:
-                return getStandings();
-            case OPTIMISTIC:
-                return getPossibleStandings(true);
-            case PESSIMISTIC:
-                return getPossibleStandings(false);
+    override fun getStandings(level: OptimismLevel): Array<out TeamInfo> {
+        return when (level) {
+            OptimismLevel.NORMAL -> standings
+            OptimismLevel.OPTIMISTIC -> getPossibleStandings(true)
+            OptimismLevel.PESSIMISTIC -> getPossibleStandings(false)
         }
-
-        return null;
     }
 }

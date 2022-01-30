@@ -1,11 +1,12 @@
-package org.icpclive.events;
+package org.icpclive.events
 
-import java.awt.*;
+import java.awt.Color
 
-public class ProblemInfo {
-
-    public String letter = "?";
-    public String name = "?";
-    public Color color = Color.BLACK;
-
+open class ProblemInfo {
+    @JvmField
+    var letter = "?"
+    @JvmField
+    var name = "?"
+    @JvmField
+    var color = Color.BLACK
 }

@@ -1,96 +1,96 @@
-package org.icpclive.events.WF.json;
+package org.icpclive.events.WF.json
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import org.icpclive.events.NetworkUtils;
-import org.icpclive.events.TeamInfo;
-import org.icpclive.events.WF.WFRunInfo;
-import org.icpclive.events.WF.WFTeamInfo;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
+import org.icpclive.events.NetworkUtils.openAuthorizedStream
+import org.icpclive.events.WF.WFRunInfo
+import java.util.HashMap
+import java.io.BufferedReader
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import org.icpclive.events.TeamInfo
+import org.icpclive.events.WF.WFContestInfo
+import org.icpclive.events.WF.WFTeamInfo
+import java.io.IOException
+import java.io.InputStreamReader
 
 /**
  * Created by Aksenov239 on 3/5/2018.
  */
-public class WFContestInfo extends org.icpclive.events.WF.WFContestInfo {
-    public WFContestInfo() {
-        problemById = new HashMap<>();
-        teamById = new HashMap<>();
-        languageById = new HashMap<>();
-        runBySubmissionId = new HashMap<>();
-        runByJudgementId = new HashMap<>();
-    }
-
-    public void initializationFinish() {
-        problemNumber = problems.size();
-        teamNumber = teamInfos.length;
-        timeFirstSolved = new long[problemNumber];
-        runs = new WFRunInfo[1000000];
-        firstSolvedRun = new WFRunInfo[problemNumber];
+class WFContestInfo : WFContestInfo() {
+    fun initializationFinish() {
+        problemsNumber = problems.size
+        teamsNumber = teamInfos.size
+        timeFirstSolved = LongArray(problemsNumber)
+        wfRuns = arrayOfNulls(1000000)
+        firstSolvedRun = arrayOfNulls(problemsNumber)
     }
 
     // Groups
-    HashMap<String, String> groupById;
+    var groupById: HashMap<String, String>? = null
 
     // Problems
-    HashMap<String, WFProblemInfo> problemById;
+    var problemById: HashMap<String, WFProblemInfo>
 
     // Teams
-    HashMap<String, WFTeamInfo> teamById;
+    var teamById: HashMap<String, WFTeamInfo>
 
     // Languages
-    WFLanguageInfo[] languages;
-    HashMap<String, WFLanguageInfo> languageById;
+    var languageById: HashMap<String, WFLanguageInfo>
 
     // Submissions
-    HashMap<String, WFRunInfo> runBySubmissionId;
-    HashMap<String, WFRunInfo> runByJudgementId;
+    var runBySubmissionId: HashMap<String, WFRunInfo>
+    var runByJudgementId: HashMap<String, WFRunInfo>
 
-    public void addRun(WFRunInfo runInfo) {
-        runInfo.id = maxRunId + 1;
-        runs[runInfo.id] = runInfo;
-        teamInfos[runInfo.teamId].addRun(runInfo, runInfo.problemId);
-        getProblemById(runInfo.problemId).submissions[runInfo.languageId]++;
-        maxRunId++;
+    init {
+        problemById = HashMap()
+        teamById = HashMap()
+        languageById = HashMap()
+        runBySubmissionId = HashMap()
+        runByJudgementId = HashMap()
     }
 
-    public WFTeamInfo getTeamByCDSId(String cdsId) {
-        return teamById.get(cdsId);
+    override fun addRun(runInfo: WFRunInfo) {
+        runInfo.id = lastRunId + 1
+        wfRuns[runInfo.id] = runInfo
+        teamInfos[runInfo.teamId]!!.addRun(runInfo, runInfo.problemId)
+        getProblemById(runInfo.problemId).submissions[runInfo.languageId]++
+        lastRunId++
     }
 
-    public void checkStandings(String url, String login, String password) {
+    fun getTeamByCDSId(cdsId: String): WFTeamInfo? {
+        return teamById[cdsId]
+    }
+
+    fun checkStandings(url: String, login: String?, password: String?) {
         try {
-            TeamInfo[] standings = getStandings();
-            BufferedReader br = new BufferedReader(new InputStreamReader(
-                    NetworkUtils.openAuthorizedStream(url + "/scoreboard", login, password)
-            ));
-            String json = "";
-            String line;
-            while ((line = br.readLine()) != null) {
-                json += line.trim();
+            val standings: Array<out TeamInfo> = standings
+            val br = BufferedReader(
+                InputStreamReader(
+                    openAuthorizedStream("$url/scoreboard", login, password!!)
+                )
+            )
+            var json = ""
+            var line: String
+            while (br.readLine().also { line = it } != null) {
+                json += line.trim { it <= ' ' }
             }
-
-            JsonArray jsonTeams = new Gson().fromJson(json, JsonArray.class);
-            for (int i = 0; i < jsonTeams.size(); i++) {
-                JsonObject je = jsonTeams.get(i).getAsJsonObject();
-                String id = je.get("team_id").getAsString();
-                JsonObject score = je.get("score").getAsJsonObject();
-                int num_solved = score.get("num_solved").getAsInt();
-                int total_time = score.get("total_time").getAsInt();
-                TeamInfo team = getTeamByCDSId(id);
-                if (team.getSolvedProblemsNumber() != num_solved ||
-                        team.getPenalty() != total_time) {
-                    System.err.println("Incorrect for team " + team);
-                    return;
+            val jsonTeams = Gson().fromJson(json, JsonArray::class.java)
+            for (i in 0 until jsonTeams.size()) {
+                val je = jsonTeams[i].asJsonObject
+                val id = je["team_id"].asString
+                val score = je["score"].asJsonObject
+                val num_solved = score["num_solved"].asInt
+                val total_time = score["total_time"].asInt
+                val team: TeamInfo? = getTeamByCDSId(id)
+                if (team!!.solvedProblemsNumber != num_solved ||
+                    team.penalty != total_time
+                ) {
+                    System.err.println("Incorrect for team $team")
+                    return
                 }
             }
-            System.err.println("Correct scoreboard");
-        } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Correct scoreboard")
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 }

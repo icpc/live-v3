@@ -1,129 +1,73 @@
-package org.icpclive.events.WF;
+package org.icpclive.events.WF
 
-import org.icpclive.events.*;
-
-import java.util.HashSet;
-import java.util.Set;
+import org.icpclive.events.EventsLoader.Companion.instance
+import java.util.HashSet
+import org.icpclive.events.ProblemInfo
+import org.icpclive.events.RunInfo
+import org.icpclive.events.TeamInfo
+import kotlin.math.max
 
 /**
  * Created by aksenov on 16.04.2015.
  */
-public class WFRunInfo implements RunInfo {
-    public int id;
-    public boolean judged;
-    public boolean reallyUnknown;
-
-    public String result = "";
-    public int languageId;
-    public int problemId;
-    public int passed;
-    public int total;
-    public long time;
-    public long lastUpdateTime;
-
-    public int teamId;
-    public TeamInfo team;
-
-    private Set<Integer> passedTests = new HashSet<>();
-
-    public WFRunInfo() {
-    }
-
-    public WFRunInfo(WFRunInfo another) {
-        this.id = another.id;
-        this.judged = another.judged;
-        this.result = another.result;
-        this.languageId = another.languageId;
-        this.problemId = another.problemId;
-        this.teamId = another.teamId;
-        this.time = another.time;
-        this.passed = another.getPassedTestsNumber();
-        this.total = another.getTotalTestsNumber();
-        this.lastUpdateTime = another.getLastUpdateTime();
-    }
-
-    public void add(WFTestCaseInfo test) {
-        if (total == 0) {
-            total = test.total;
+class WFRunInfo : RunInfo {
+    override var id = 0
+    override var isJudged = false
+    override var isReallyUnknown = false
+    override var result = ""
+    @JvmField
+    var languageId = 0
+    override var problemId = 0
+    var passedTestsNumber = 0
+    var totalTestsNumber = 0
+    override var time: Long = 0
+    override var lastUpdateTime: Long = 0
+        set(value) {
+            field = Math.max(field, value) // ?????
         }
-        passedTests.add(test.id);
-        passed = passedTests.size();
-        lastUpdateTime = Math.max(lastUpdateTime, test.time);
+    override var teamId = 0
+    @JvmField
+    var team: TeamInfo? = null
+    private val passedTests: MutableSet<Int> = HashSet()
+
+    constructor() {}
+    constructor(another: WFRunInfo) {
+        id = another.id
+        isJudged = another.isJudged
+        result = another.result
+        languageId = another.languageId
+        problemId = another.problemId
+        teamId = another.teamId
+        time = another.time
+        passedTestsNumber = another.passedTestsNumber
+        totalTestsNumber = another.totalTestsNumber
+        lastUpdateTime = another.lastUpdateTime
     }
 
-    @Override
-    public long getLastUpdateTime() {
-        return lastUpdateTime;
+    fun add(test: WFTestCaseInfo) {
+        if (totalTestsNumber == 0) {
+            totalTestsNumber = test.total
+        }
+        passedTests.add(test.id)
+        passedTestsNumber = passedTests.size
+        lastUpdateTime = max(lastUpdateTime, test.time)
     }
 
-    public void setLastUpdateTime(long lastUpdateTime) {
-        this.lastUpdateTime = Math.max(this.lastUpdateTime, lastUpdateTime); // ?????
-    }
+    override val isAccepted: Boolean
+        get() = "AC" == result
 
-    public int getPassedTestsNumber() {
-        return passed;
-    }
+    // TODO: this should be received from cds
+    override val isAddingPenalty: Boolean
+        get() =// TODO: this should be received from cds
+            isJudged && !isAccepted && "CE" != result
+    override val problem: ProblemInfo
+        get() = instance.contestData!!.problems[problemId]
+    override val percentage: Double
+        get() = 1.0 * passedTestsNumber / totalTestsNumber
 
-    public int getTotalTestsNumber() {
-        return total;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public boolean isAccepted() {
-        return "AC".equals(result);
-    }
-
-    @Override
-    public boolean isAddingPenalty() {
-        // TODO: this should be received from cds
-        return isJudged() && !isAccepted() && !"CE".equals(result);
-    }
-
-    @Override
-    public boolean isJudged() {
-        return judged;
-    }
-
-    @Override
-    public String getResult() {
-        return result;
-    }
-
-    @Override
-    public ProblemInfo getProblem() {
-        return EventsLoader.getInstance().getContestData().problems.get(getProblemId());
-    }
-
-    @Override
-    public int getProblemId() {
-        return problemId;
-    }
-
-    @Override
-    public long getTime() {
-        return time;
-    }
-
-    public int getTeamId() {
-        return teamId;
-    }
-
-    public boolean isReallyUnknown() {
-        return reallyUnknown;
-    }
-
-    public double getPercentage() {
-        return 1.0 * this.getPassedTestsNumber() / this.getTotalTestsNumber();
-    }
-
-    @Override
-    public String toString() {
-        String teamName = "" + teamId;
-        if (team != null) teamName = team.getShortName();
-        return teamName + " " + (char) ('A' + problemId) + " " + result;
+    override fun toString(): String {
+        var teamName = "" + teamId
+        if (team != null) teamName = team!!.shortName
+        return teamName + " " + ('A'.code + problemId).toChar() + " " + result
     }
 }

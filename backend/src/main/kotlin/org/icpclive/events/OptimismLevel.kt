@@ -1,21 +1,17 @@
-package org.icpclive.events;
+package org.icpclive.events
 
-public enum OptimismLevel {
-    NORMAL,
-    OPTIMISTIC,
-    PESSIMISTIC;
+import org.icpclive.events.OptimismLevel
+import java.lang.IllegalArgumentException
 
-    public String toString() {
-        switch (this) {
-            case NORMAL:
-                return "Normal";
-            case OPTIMISTIC:
-                return "Optimistic";
-            case PESSIMISTIC:
-                return "Pessimistic";
+enum class OptimismLevel {
+    NORMAL, OPTIMISTIC, PESSIMISTIC;
 
-            default:
-                throw new IllegalArgumentException();
+    override fun toString(): String {
+        return when (this) {
+            NORMAL -> "Normal"
+            OPTIMISTIC -> "Optimistic"
+            PESSIMISTIC -> "Pessimistic"
+            else -> throw IllegalArgumentException()
         }
     }
 }
