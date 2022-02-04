@@ -1,5 +1,6 @@
 package org.icpclive.cds.codeforces
 
+import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.RunInfo
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.data.CFSubmission.CFSubmissionVerdict
@@ -27,7 +28,7 @@ class CFRunInfo(var submission: CFSubmission) : RunInfo {
         get() = if (submission.verdict == null) {
             ""
         } else verdictToString[submission.verdict]!!
-    override val problem: CFProblemInfo
+    val problem: CFProblemInfo
         get() = CFEventsLoader.instance.contestData.getProblem(submission.problem)!!
     override val problemId: Int
         get() = problem.id
@@ -40,8 +41,6 @@ class CFRunInfo(var submission: CFSubmission) : RunInfo {
             )
             return participant!!.id
         }
-    override val isReallyUnknown: Boolean
-        get() = false
     override val percentage: Double
         get() = submission.passedTestCount.toDouble() / problem.totalTests
     override val time: Long
@@ -55,6 +54,10 @@ class CFRunInfo(var submission: CFSubmission) : RunInfo {
             lastUpdate = contestTime
         }
     }
+
+    override val isFirstSolvedRun: Boolean
+        get() = CFEventsLoader.instance.contestData.firstSolvedRun[problemId] === this
+
 
     companion object {
         private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(

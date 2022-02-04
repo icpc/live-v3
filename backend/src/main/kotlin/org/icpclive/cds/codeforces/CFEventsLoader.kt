@@ -49,7 +49,7 @@ class CFEventsLoader : EventsLoader() {
         }
     }
 
-    override val contestData: CFContestInfo
+    val contestData: CFContestInfo
         get() = contestInfo
 
     companion object {

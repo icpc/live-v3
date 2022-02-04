@@ -1,9 +1,7 @@
 package org.icpclive.cds.wf
 
 import org.icpclive.api.ScoreboardRow
-import org.icpclive.cds.ContestInfo
-import org.icpclive.cds.OptimismLevel
-import org.icpclive.cds.TeamInfo
+import org.icpclive.cds.*
 import org.icpclive.cds.wf.json.WFProblemInfo
 import java.util.*
 import kotlin.math.max
@@ -161,37 +159,11 @@ open class WFContestInfo : ContestInfo {
         return teamInfos.firstOrNull { hashTag.equals(it?.hashTag, ignoreCase = true) }
     }
 
-    private fun getPossibleStandings(isOptimistic: Boolean): List<TeamInfo> {
-        val possibleStandings = standings.map { team ->
-            team.copy().apply {
-                for (j in 0 until problemsNumber) {
-                    val runs = team.runs[j]
-                    var runIndex = 0
-                    for (run in runs) {
-                        val clonedRun = WFRunInfo((run as WFRunInfo))
-                        if (clonedRun.result.length == 0) {
-                            clonedRun.isJudged = true
-                            val expectedResult = if (isOptimistic) "AC" else "WA"
-                            clonedRun.result = if (runIndex == runs.size - 1) expectedResult else "WA"
-                            clonedRun.isReallyUnknown = true
-                        }
-                        addRun(clonedRun, j)
-                        runIndex++
-                    }
-                }
-            }
-        }.toMutableList()
-        recalcStandings(possibleStandings)
-        return possibleStandings
-    }
 
-    override fun getStandings(optimismLevel: OptimismLevel): List<ScoreboardRow> {
-        return when (optimismLevel) {
-            OptimismLevel.NORMAL -> standings
-            OptimismLevel.OPTIMISTIC -> getPossibleStandings(true)
-            OptimismLevel.PESSIMISTIC -> getPossibleStandings(false)
-        }.map { it.apiScoreboardRow }
-    }
+    override fun getStandings(optimismLevel: OptimismLevel) =
+        MutableList(teams.size) {
+            teams[it].getTeamScoreboardRow(optimismLevel)
+        }.apply { sortAndSetRanks(this, teams) }.toList()
 
     override val contestTime= TODO()
 }

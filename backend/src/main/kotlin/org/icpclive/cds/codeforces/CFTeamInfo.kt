@@ -47,10 +47,6 @@ class CFTeamInfo(private val row: CFRanklistRow) : TeamInfo {
     override val runs: List<List<CFRunInfo>>
         get() = CFEventsLoader.instance.contestData.getRuns(row.party)
 
-    override fun addRun(run: RunInfo, problem: Int) {
-        CFEventsLoader.instance.contestData.addRun(run as CFRunInfo, problem)
-    }
-
     override val hashTag: String
         get() = ""
 

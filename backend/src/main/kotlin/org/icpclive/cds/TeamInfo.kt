@@ -2,6 +2,7 @@ package org.icpclive.cds
 
 import org.icpclive.api.ICPCProblemResult
 import org.icpclive.api.ScoreboardRow
+import kotlin.math.max
 
 interface TeamInfo {
     val id: Int
@@ -14,36 +15,8 @@ interface TeamInfo {
     val solvedProblemsNumber: Int
     val lastAccepted: Long
     val runs: List<List<RunInfo>>
-    fun addRun(run: RunInfo, problem: Int)
     val hashTag: String?
     fun copy(): TeamInfo
-
-    val apiScoreboardRow
-        get() = ScoreboardRow(
-            id,
-            rank,
-            solvedProblemsNumber,
-            penalty,
-            apiProblemResults()
-        )
-
-    fun apiProblemResults() =
-        runs.map { problemRuns ->
-            val (runsBeforeFirstOk, okRun) = synchronized(problemRuns) {
-                val okRunIndex = problemRuns.indexOfFirst { it.isAccepted }
-                if (okRunIndex == -1) {
-                    problemRuns to null
-                } else {
-                    problemRuns.toList().subList(0, okRunIndex) to problemRuns[okRunIndex]
-                }
-            }
-            ICPCProblemResult(
-                runsBeforeFirstOk.count { it.isAddingPenalty },
-                runsBeforeFirstOk.count { !it.isJudged },
-                okRun != null,
-                okRun?.isFirstSolvedRun == true
-            )
-        }
 
 
     companion object {
@@ -57,14 +30,10 @@ interface TeamInfo {
 
     fun toApi() = org.icpclive.api.TeamInfo(
         id,
-        rank,
         name,
         shortName,
         alias,
         groups.toList(),
-        penalty,
-        solvedProblemsNumber,
-        lastAccepted,
         hashTag
     )
 

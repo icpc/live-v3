@@ -49,7 +49,7 @@ open class WFTeamInfo(problems: Int) : TeamInfo {
     override val runs: List<List<RunInfo>>
         get() = problem_runs
 
-    override fun addRun(run: RunInfo, problemId: Int) {
+    fun addRun(run: RunInfo, problemId: Int) {
         val runs = problem_runs[problemId]
         synchronized(runs!!) { runs.add(run) }
     }

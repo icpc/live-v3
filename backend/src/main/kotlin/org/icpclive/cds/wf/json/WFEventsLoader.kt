@@ -30,7 +30,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     private var password: String? = null
     private var regionals = false
     private var emulation = false
-    override val contestData: ContestInfo
+    val contestData: ContestInfo
         get() = contestInfo
 
     @Throws(IOException::class)

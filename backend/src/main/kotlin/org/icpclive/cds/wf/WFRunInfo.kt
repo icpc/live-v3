@@ -1,9 +1,11 @@
 package org.icpclive.cds.wf
 
+import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.EventsLoader.Companion.instance
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.cds.RunInfo
 import org.icpclive.cds.TeamInfo
+import org.icpclive.cds.wf.json.WFEventsLoader
 import kotlin.math.max
 
 /**
@@ -12,7 +14,6 @@ import kotlin.math.max
 class WFRunInfo : RunInfo {
     override var id = 0
     override var isJudged = false
-    override var isReallyUnknown = false
     override var result = ""
     var languageId = 0
     override var problemId = 0
@@ -57,8 +58,6 @@ class WFRunInfo : RunInfo {
     override val isAddingPenalty: Boolean
         get() =// TODO: this should be received from cds
             isJudged && !isAccepted && "CE" != result
-    override val problem: ProblemInfo
-        get() = instance.contestData!!.problems[problemId]
     override val percentage: Double
         get() = 1.0 * passedTestsNumber / totalTestsNumber
 
@@ -67,4 +66,8 @@ class WFRunInfo : RunInfo {
         if (team != null) teamName = team!!.shortName
         return teamName + " " + ('A'.code + problemId).toChar() + " " + result
     }
+
+    override val isFirstSolvedRun: Boolean
+        get() = (instance as WFEventsLoader).contestData.firstSolvedRun[problemId] === this
+
 }

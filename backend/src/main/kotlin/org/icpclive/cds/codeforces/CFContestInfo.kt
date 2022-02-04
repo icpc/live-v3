@@ -9,6 +9,7 @@ import org.icpclive.cds.codeforces.api.data.CFParty
 import org.icpclive.cds.codeforces.api.data.CFProblem
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
+import org.icpclive.cds.getTeamScoreboardRow
 import java.util.*
 
 
@@ -48,7 +49,7 @@ class CFContestInfo : ContestInfo() {
             participantsByName[getName(it.party)] as TeamInfo
         } ?: emptyList()
 
-    override fun getStandings(optimismLevel: OptimismLevel) = standings.map { it.apiScoreboardRow }
+    override fun getStandings(optimismLevel: OptimismLevel) = standings.map { it.getTeamScoreboardRow(optimismLevel) }
 
     override fun firstTimeSolved(): LongArray {
         val result = LongArray(problemsMap.size)

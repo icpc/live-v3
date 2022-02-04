@@ -26,7 +26,6 @@ data class RunInfo(
     val result: String,
     val problemId: Int,
     val teamId: Int,
-    val isReallyUnknown: Boolean,
     val percentage: Double,
     val time: Long,
     val lastUpdateTime: Long,
@@ -43,7 +42,7 @@ fun CDSProblemsInfo.toApi() = ProblemInfo(this)
 
 @Serializable
 enum class ContestStatus {
-    UNKNOWN, BEFORE, RUNNING, PAUSED, OVER
+    UNKNOWN, BEFORE, RUNNING, OVER
 }
 
 @Serializable
@@ -57,7 +56,11 @@ data class ContestInfo(
     val emulationSpeed: Int,
 ) {
     val currentContestTimeMs
-        get() = (System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed
+        get() = when (status) {
+            ContestStatus.BEFORE, ContestStatus.UNKNOWN -> 0
+            ContestStatus.RUNNING -> (System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed
+            ContestStatus.OVER -> contestLengthMs
+        }
     companion object {
         val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList(), 1)
     }
@@ -80,14 +83,10 @@ data class ICPCProblemResult(
 @Serializable
 data class TeamInfo(
     val id: Int,
-    val rank: Int,
     val name: String,
     val shortName: String?,
     val alias: String?,
     val groups: List<String>,
-    val penalty: Int,
-    val solvedProblemsNumber: Int,
-    val lastAccepted: Long,
     val hashTag: String?,
 )
 
@@ -100,5 +99,6 @@ data class ScoreboardRow(
     val rank: Int,
     val totalScore: Int,
     val penalty: Int,
+    val lastAccepted: Long,
     val problemResults: List<ProblemResult>,
 )

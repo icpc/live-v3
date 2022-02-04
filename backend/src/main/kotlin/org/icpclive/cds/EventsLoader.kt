@@ -11,7 +11,6 @@ abstract class EventsLoader : Runnable {
     var emulationEnabled = false
         protected set
     protected var emulationStartTime: Long = 0
-    abstract val contestData: ContestInfo?
 
     companion object {
         val instance by lazy {
