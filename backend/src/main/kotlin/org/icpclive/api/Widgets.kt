@@ -23,7 +23,7 @@ sealed class Widget(
 @SerialName("AdvertisementWidget")
 class AdvertisementWidget(val advertisement: Advertisement) : Widget(WIDGET_ID, location) {
     companion object {
-        const val WIDGET_ID = "advisement"
+        const val WIDGET_ID = "advertisement"
         val location = LocationRectangle(0, 860, 1920, 90)
     }
 }

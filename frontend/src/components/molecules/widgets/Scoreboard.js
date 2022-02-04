@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import star from "../../../assets/star.svg";
+import star from "../../../assets/icons/star.svg";
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {

@@ -4,11 +4,12 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
+import "./assets/fonts/fonts.scss";
 
 import { persistor, store } from "./redux/store";
 
 
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`  
   body {
     margin: 0;
     padding: 0;

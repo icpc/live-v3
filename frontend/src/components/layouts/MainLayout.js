@@ -1,10 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import bg from "../../assets/bg.jpeg";
-import Scoreboard from "../molecules/widgets/Scoreboard";
-import Status from "../molecules/widgets/Status";
-import Ticker from "../molecules/widgets/Ticker";
+import bg from "../../assets/images/bg.jpeg";
+import Advertisement from "../molecules/widgets/Advertisement";
 
 const TickerWrap = styled.div`
   position: absolute;
@@ -36,23 +34,45 @@ const ScoreboardWrap = styled.div`
   //background: rgba(196, 196, 196, 0.53);
 `;
 
+const WidgetWrap = styled.div.attrs(
+    ({ left, bottom, width, height }) => {
+        return { style: {
+            left: left+"px",
+            bottom: bottom+"px",
+            width: width+"px",
+            height: height+"px"
+        } };
+    }
+)`
+  position: absolute;
+  overflow: hidden;
+`;
+
 const MainLayoutWrap = styled.div`
   width: 1920px;
   height: 1080px;
   background: url(${bg});
 `;
 
+const WIDGETS = {
+    AdvertisementWidget: Advertisement
+};
 
 export const MainLayout = () => {
     const widgets = useSelector(state => state.widgets.widgets);
     return <MainLayoutWrap>
-        {"scoreboard" in widgets && (
-            <ScoreboardWrap><Scoreboard/></ScoreboardWrap>
-        )}
-        {"queue" in widgets && (
-            <StatusWrap><Status/></StatusWrap>
-        )}
-        <TickerWrap><Ticker/></TickerWrap>
+        {Object.values(widgets).map((obj) => {
+            const Widget = WIDGETS[obj.type];
+            return <WidgetWrap
+                key={obj.widgetId}
+                left={obj.location.positionX}
+                bottom={obj.location.positionY}
+                width={obj.location.sizeX}
+                height={obj.location.sizeY}
+            >
+                <Widget widgetData={obj}/>
+            </WidgetWrap>;
+        })})
     </MainLayoutWrap>;
 };
 
