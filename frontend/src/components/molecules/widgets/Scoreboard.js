@@ -170,11 +170,6 @@ export const Scoreboard = () => {
         return () => clearInterval(id);
     }, []);
 
-
-    useEffect(() => {
-        console.log(positions);
-    }, [positions]);
-
     return <ScoreboardWrap>
         <ScoreboardHeader/>
         {elems.map((i) => (

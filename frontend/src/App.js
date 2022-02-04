@@ -4,6 +4,7 @@ import MainLayout from "./components/layouts/MainLayout";
 import { StatusLayout } from "./components/layouts/StatusLayout";
 import { pushLog } from "./redux/debug";
 import { setWebsocketStatus, WebsocketStatus } from "./redux/status";
+import { handleMessage } from "./services/ws/mainScreen";
 
 function App() {
     const dispatch = useDispatch();
@@ -26,10 +27,8 @@ function App() {
 
     const gettingData = useCallback(() => {
         if (!ws.current) return;
-        ws.current.onmessage = e => {
-            const message = JSON.parse(e.data);
-        };
-    }, []);
+        ws.current.onmessage = handleMessage(dispatch);
+    }, [ws]);
 
     return (
         <>

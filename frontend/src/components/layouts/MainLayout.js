@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import bg from "../../assets/bg.jpeg";
 import Scoreboard from "../molecules/widgets/Scoreboard";
@@ -43,9 +44,14 @@ const MainLayoutWrap = styled.div`
 
 
 export const MainLayout = () => {
+    const widgets = useSelector(state => state.widgets.widgets);
     return <MainLayoutWrap>
-        <ScoreboardWrap><Scoreboard/></ScoreboardWrap>
-        <StatusWrap><Status/></StatusWrap>
+        {"scoreboard" in widgets && (
+            <ScoreboardWrap><Scoreboard/></ScoreboardWrap>
+        )}
+        {"queue" in widgets && (
+            <StatusWrap><Status/></StatusWrap>
+        )}
         <TickerWrap><Ticker/></TickerWrap>
     </MainLayoutWrap>;
 };
