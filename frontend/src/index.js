@@ -1,7 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import {createGlobalStyle} from "styled-components";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { createGlobalStyle } from "styled-components";
+import App from "./App";
+
+import { persistor, store } from "./redux/store";
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -27,10 +31,14 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 ReactDOM.render(
-  <React.StrictMode>
-      <GlobalStyle/>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <GlobalStyle/>
+                <App />
+            </PersistGate>
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
 

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import bg from "../../assets/bg.jpeg";
-import Scoreboard from "../molecules/Scoreboard";
-import Status from "../molecules/Status";
-import Ticker from "../molecules/Ticker";
+import Scoreboard from "../molecules/widgets/Scoreboard";
+import Status from "../molecules/widgets/Status";
+import Ticker from "../molecules/widgets/Ticker";
 
 const TickerWrap = styled.div`
   position: absolute;
@@ -39,7 +39,7 @@ const MainLayoutWrap = styled.div`
   width: 1920px;
   height: 1080px;
   background: url(${bg});
-`
+`;
 
 
 export const MainLayout = () => {
@@ -47,7 +47,7 @@ export const MainLayout = () => {
         <ScoreboardWrap><Scoreboard/></ScoreboardWrap>
         <StatusWrap><Status/></StatusWrap>
         <TickerWrap><Ticker/></TickerWrap>
-    </MainLayoutWrap>
-}
+    </MainLayoutWrap>;
+};
 
 export default MainLayout;
