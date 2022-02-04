@@ -8,12 +8,11 @@ class PCMSRunInfo(
     override var result: String,
     override val problemId: Int,
     override val time: Long,
-    val timestamp: Long,
     override val teamId: Int
-    ) : RunInfo {
+) : RunInfo {
 
     constructor(run: PCMSRunInfo): this(
-        run.isJudged, run.result, run.problemId, run.time, run.timestamp, run.teamId
+        run.isJudged, run.result, run.problemId, run.time, run.teamId
     ) {
         lastUpdateTime = run.lastUpdateTime
     }
@@ -30,8 +29,5 @@ class PCMSRunInfo(
         get() = 0.0
     override var id = 0
     override var lastUpdateTime: Long = 0
-        set(value) {
-            field = System.currentTimeMillis()
-        }
     override var isReallyUnknown = false
 }

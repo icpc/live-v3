@@ -192,4 +192,6 @@ open class WFContestInfo : ContestInfo {
             OptimismLevel.PESSIMISTIC -> getPossibleStandings(false)
         }.map { it.apiScoreboardRow }
     }
+
+    override val contestTime= TODO()
 }

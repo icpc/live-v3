@@ -319,13 +319,14 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     fun waitForEmulation(time: Long) {
         if (emulation) {
             try {
+                TODO()
 //                if (firstRun) {
 //                    contestInfo.setStartTime((long) (contestInfo.getStartTime() - emulationStartTime * 60000 / emulationSpeed));
 //                    firstRun = false;
 //                }
-                val dt = ((time - contestInfo!!.currentTime) / emulationSpeed).toLong()
+                    //val dt = ((time - contestInfo!!.currentTime) / emulationSpeed).toLong()
                 //System.err.println("wait for " + dt + " ms");
-                if (dt > 0) Thread.sleep(dt)
+                //if (dt > 0) Thread.sleep(dt)
             } catch (e: InterruptedException) {
                 log.error("error", e)
             }

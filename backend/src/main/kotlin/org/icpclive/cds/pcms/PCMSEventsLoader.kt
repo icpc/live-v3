@@ -17,6 +17,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
+import java.time.DateTimeException
 import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import java.util.stream.Collectors
@@ -53,7 +54,7 @@ class PCMSEventsLoader : EventsLoader() {
             val doc = Jsoup.parse(xml, "", Parser.xmlParser())
             parseAndUpdateStandings(doc)
         } catch (e: IOException) {
-            log.error("error", e)
+            logger.error("error", e)
         }
     }
 
@@ -66,9 +67,9 @@ class PCMSEventsLoader : EventsLoader() {
                     Thread.sleep(5000)
                 }
             } catch (e: IOException) {
-                log.error("error", e)
+                logger.error("error", e)
             } catch (e: InterruptedException) {
-                log.error("error", e)
+                logger.error("error", e)
             }
         }
     }
@@ -88,22 +89,37 @@ class PCMSEventsLoader : EventsLoader() {
         val problemsNumber = properties.getProperty("problems.number").toInt()
         val updatedContestInfo = PCMSContestInfo(problemsNumber)
         val previousStartTime = contestInfo.get().startTime
-        val currentTime = element.attr("time").toLong()
         val previousStatus = contestInfo.get().status
         updatedContestInfo.status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
-        when (updatedContestInfo.status) {
-            ContestStatus.BEFORE, ContestStatus.UNKNOWN, ContestStatus.OVER -> {}
-            ContestStatus.RUNNING -> if (previousStatus !== ContestStatus.RUNNING || previousStartTime == 0L) {
-                updatedContestInfo.startTime = System.currentTimeMillis() - currentTime
-            } else {
-                updatedContestInfo.startTime = previousStartTime
-            }
-            ContestStatus.PAUSED -> if (previousStatus !== ContestStatus.PAUSED) {
-                updatedContestInfo.startTime = previousStartTime
+        if (emulationEnabled) {
+            val timeByEmulation = ((System.currentTimeMillis() - emulationStartTime) * emulationSpeed).toLong()
+            if (timeByEmulation < 0) {
+                updatedContestInfo.contestTime = 0
+                updatedContestInfo.status = ContestStatus.BEFORE
+            } else if (timeByEmulation < updatedContestInfo.contestLength) {
+                updatedContestInfo.contestTime = timeByEmulation
                 updatedContestInfo.status = ContestStatus.RUNNING
-                updatedContestInfo.status = ContestStatus.PAUSED
             } else {
-                updatedContestInfo.lastTime = contestInfo.get().lastTime
+                updatedContestInfo.contestTime = updatedContestInfo.contestLength.toLong()
+                updatedContestInfo.status = ContestStatus.OVER
+            }
+            updatedContestInfo.startTime = emulationStartTime
+        } else {
+            updatedContestInfo.contestTime = element.attr("time").toLong()
+            when (updatedContestInfo.status) {
+                ContestStatus.BEFORE, ContestStatus.UNKNOWN, ContestStatus.OVER -> {}
+                ContestStatus.RUNNING -> if (previousStatus !== ContestStatus.RUNNING || previousStartTime == 0L) {
+                    updatedContestInfo.startTime = System.currentTimeMillis() - updatedContestInfo.contestTime
+                } else {
+                    updatedContestInfo.startTime = previousStartTime
+                }
+                ContestStatus.PAUSED -> if (previousStatus !== ContestStatus.PAUSED) {
+                    updatedContestInfo.startTime = previousStartTime
+                    updatedContestInfo.status = ContestStatus.RUNNING
+                    updatedContestInfo.status = ContestStatus.PAUSED
+                } else {
+                    updatedContestInfo.contestTime = contestInfo.get().contestTime
+                }
             }
         }
         updatedContestInfo.frozen = "yes" == element.attr("frozen")
@@ -113,7 +129,7 @@ class PCMSEventsLoader : EventsLoader() {
         val taken = BooleanArray(standings.size)
         element.children().forEach { session: Element ->
             if ("session" == session.tagName()) {
-                val teamInfo = parseTeamInfo(session)
+                val teamInfo = parseTeamInfo(session, updatedContestInfo.contestTime)
                 if (teamInfo != null) {
                     updatedContestInfo.addTeamStandings(teamInfo)
                     taken[teamInfo.id] = true
@@ -131,40 +147,38 @@ class PCMSEventsLoader : EventsLoader() {
         return updatedContestInfo
     }
 
-    private fun parseTeamInfo(element: Element): PCMSTeamInfo? {
+    private fun parseTeamInfo(element: Element, timeBound: Long): PCMSTeamInfo? {
         val alias = element.attr("alias")
         val teamInfo = contestInfo.get().getParticipant(alias) ?: return null
         val teamInfoCopy = PCMSTeamInfo(teamInfo)
         teamInfoCopy.solvedProblemsNumber = element.attr("solved").toInt()
         teamInfoCopy.penalty = element.attr("penalty").toInt()
         for (i in element.children().indices) {
-            val problemRuns = parseProblemRuns(element.child(i), i, teamInfoCopy.id)
-            lastRunId = teamInfoCopy.mergeRuns(problemRuns, i, lastRunId, contestInfo.get().currentTime)
+            val problemRuns = parseProblemRuns(element.child(i), i, teamInfoCopy.id, timeBound)
+            lastRunId = teamInfoCopy.mergeRuns(problemRuns, i, lastRunId, timeBound)
         }
         return teamInfoCopy
     }
 
-    private fun parseProblemRuns(element: Element, problemId: Int, teamId: Int): ArrayList<PCMSRunInfo> {
-        val runs = ArrayList<PCMSRunInfo>()
+    private fun parseProblemRuns(element: Element, problemId: Int, teamId: Int, timeBound: Long): List<PCMSRunInfo> {
         if (contestInfo.get().status === ContestStatus.BEFORE) {
-            return runs
+            return emptyList()
         }
-        element.children().forEach { run: Element ->
-            val runInfo = parseRunInfo(run, problemId, teamId)
-            runs.add(runInfo)
+        return element.children().map { run: Element ->
+            parseRunInfo(run, problemId, teamId)
+        }.filter {
+            it.time <= timeBound
         }
-        return runs
     }
 
     private fun parseRunInfo(element: Element, problemId: Int, teamId: Int): PCMSRunInfo {
         val time = element.attr("time").toLong()
-        val timestamp = (contestInfo.get().startTime + time) / 1000
         val isFrozen = time >= contestInfo.get().freezeTime
         val isJudged = !isFrozen && "undefined" != element.attr("outcome")
         val result = if ("yes" == element.attr("accepted")) "AC" else if (!isJudged) "" else outcomeMap.getOrDefault(
             element.attr("outcome"), "WA"
         )
-        return PCMSRunInfo(isJudged, result, problemId, time, timestamp, teamId)
+        return PCMSRunInfo(isJudged, result, problemId, time, teamId)
     }
 
     override val contestData: PCMSContestInfo
@@ -174,7 +188,16 @@ class PCMSEventsLoader : EventsLoader() {
 
     init {
         properties = loadProperties("events")
-        emulationSpeed = properties.getProperty("emulation.speed", "1").toDouble()
+        val emulationSpeedProp : String? = properties.getProperty("emulation.speed")
+        if (emulationSpeedProp == null) {
+            emulationEnabled = false
+            emulationSpeed = 1.0
+        } else {
+            emulationEnabled = true
+            emulationSpeed = emulationSpeedProp.toDouble()
+            emulationStartTime = properties.getProperty("emulation.startTime").toLong() * 1000
+            logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${Date(emulationStartTime)}")
+        }
         val problemsNumber = properties.getProperty("problems.number").toInt()
         val initial = PCMSContestInfo(problemsNumber)
         initial.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt()
@@ -225,7 +248,7 @@ class PCMSEventsLoader : EventsLoader() {
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(PCMSEventsLoader::class.java)
+        private val logger = LoggerFactory.getLogger(PCMSEventsLoader::class.java)
         private val outcomeMap = mapOf(
             "undefined" to "UD",
             "fail" to "FL",

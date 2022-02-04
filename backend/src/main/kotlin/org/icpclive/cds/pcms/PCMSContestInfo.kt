@@ -8,6 +8,7 @@ class PCMSContestInfo(override val problemsNumber: Int) : ContestInfo() {
     override val problems : MutableList<ProblemInfo> = mutableListOf()
     override val teams: List<TeamInfo>
         get() = standings
+    override var contestTime: Long = 0
     private fun getPossibleStandings(optimistic: Boolean): List<TeamInfo> {
         val original = standings
         val standings = original.indices.map { i ->

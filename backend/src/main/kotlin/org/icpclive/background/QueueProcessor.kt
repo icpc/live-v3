@@ -29,7 +29,7 @@ class QueueProcessor {
             }
         }
         merge(DataBus.runsUpdates, ticker).collect { run ->
-            val currentTime = EventsLoader.instance.contestData!!.currentTime
+            val currentTime = DataBus.contestInfoFlow.value.currentContestTimeMs
             if (run != null) {
                 logger.debug("Receive run $run")
                 if (run.toOldAtTime > currentTime) {
@@ -42,7 +42,7 @@ class QueueProcessor {
                         DataBus.queueEvents.emit(ModifyRunInQueueEvent(run))
                     }
                 } else {
-                    logger.info("Ignore run ${run.id} in queue as too old")
+                    logger.info("Ignore run ${run.id} in queue as too old (currentTime = ${currentTime}, run.time = ${run.lastUpdateTime}, diff = ${currentTime - run.lastUpdateTime}")
                 }
             }
 

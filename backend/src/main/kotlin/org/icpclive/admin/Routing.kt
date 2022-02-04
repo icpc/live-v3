@@ -9,6 +9,7 @@ import org.icpclive.admin.advertisement.configureAdvertisement
 import org.icpclive.admin.overlayEvents.configureOverlayEvents
 import org.icpclive.admin.picture.configurePicture
 import org.icpclive.admin.queue.configureQueue
+import org.icpclive.admin.scoreboard.configureScoreboard
 
 private lateinit var topLevelLinks: List<Pair<String, String>>
 
@@ -48,12 +49,14 @@ fun Application.configureAdminRouting() {
         val pictureUrls = configurePicture(environment.config.property("live.presets.pictures").getString())
         val overlayEventsUrls = configureOverlayEvents()
         val queueUrls = configureQueue()
+        val scoreboardUrls = configureScoreboard()
 
         topLevelLinks = listOf(
             advertisementUrls.mainPage to "Advertisement",
             pictureUrls.mainPage to "Picture",
             overlayEventsUrls.mainPage to "Events",
-            queueUrls.mainPage to "Queue"
+            queueUrls.mainPage to "Queue",
+            scoreboardUrls.mainPage to "Scoreboard"
         )
         get("/admin") { call.respondRedirect(topLevelLinks[0].first) }
     }

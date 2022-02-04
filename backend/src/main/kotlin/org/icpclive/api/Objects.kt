@@ -13,7 +13,10 @@ data class Advertisement(val text: String)
 data class Picture(val url: String, val name: String)
 
 @Serializable
-class QueueSettings() // TODO??
+class QueueSettings()
+
+@Serializable
+class ScoreboardSettings()
 
 @Serializable
 data class RunInfo(
@@ -50,10 +53,13 @@ data class ContestInfo(
     val contestLengthMs: Long,
     val freezeTimeMs: Long,
     val problems: List<ProblemInfo>,
-    val teams: List<TeamInfo>
+    val teams: List<TeamInfo>,
+    val emulationSpeed: Int,
 ) {
+    val currentContestTimeMs
+        get() = (System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed
     companion object {
-        val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList())
+        val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList(), 1)
     }
 }
 

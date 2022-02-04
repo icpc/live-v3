@@ -63,7 +63,7 @@ class CFContestInfo : ContestInfo() {
             runsById.values.sortedBy { it.time }
         }
 
-    override val timeFromStart: Long
+    override val contestTime: Long
         get() {
             if (cfStandings == null) {
                 return 0

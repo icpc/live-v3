@@ -29,7 +29,7 @@ class PCMSTeamInfo(
         runs[problem].add(run as PCMSRunInfo)
     }
 
-    fun mergeRuns(runs: ArrayList<PCMSRunInfo>, problemId: Int, lastRunId: Int, currentTime: Long): Int {
+    fun mergeRuns(runs: List<PCMSRunInfo>, problemId: Int, lastRunId: Int, currentTime: Long): Int {
         var lastRunId = lastRunId
         val previousSize = this.runs[problemId].size
         for (i in 0 until min(previousSize,  runs.size)) {
@@ -42,7 +42,9 @@ class PCMSTeamInfo(
         }
         for (i in previousSize until runs.size) {
             runs[i].id = lastRunId++
+            runs[i].lastUpdateTime = currentTime
             this.runs[problemId].add(runs[i])
+
         }
         return lastRunId
     }

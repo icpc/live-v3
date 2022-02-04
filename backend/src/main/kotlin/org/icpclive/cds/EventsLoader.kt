@@ -8,6 +8,8 @@ import org.icpclive.cds.codeforces.CFEventsLoader
 abstract class EventsLoader : Runnable {
     var emulationSpeed = 0.0
         protected set
+    var emulationEnabled = false
+        protected set
     protected var emulationStartTime: Long = 0
     abstract val contestData: ContestInfo?
 

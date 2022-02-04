@@ -30,6 +30,7 @@ fun Application.module() {
         filter { call -> call.request.path().startsWith("/") }
     }
     install(AutoHeadResponse)
+    install(IgnoreTrailingSlash)
     install(ContentNegotiation) {
         json(Json {
             encodeDefaults = true
