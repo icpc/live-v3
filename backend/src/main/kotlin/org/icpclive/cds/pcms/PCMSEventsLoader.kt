@@ -20,8 +20,7 @@ import java.util.*
 import java.util.stream.Collectors
 
 class PCMSEventsLoader : EventsLoader() {
-    @Throws(IOException::class)
-    fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
+    private fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
         val xml = loadFile(problemsFile!!)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
         val problems = doc.child(0)
@@ -34,25 +33,19 @@ class PCMSEventsLoader : EventsLoader() {
         }
     }
 
-    @Throws(IOException::class)
     private fun updateContest() {
-        try {
-            val url = properties.getProperty("url")
-            val login = properties.getProperty("login")
-            val password = properties.getProperty("password")
-            val inputStream = openAuthorizedStream(url, login, password)
-            val xml = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                .lines()
-                .collect(Collectors.joining())
-            val doc = Jsoup.parse(xml, "", Parser.xmlParser())
-            parseAndUpdateStandings(doc)
-        } catch (e: IOException) {
-            logger.error("error", e)
-        }
+        val url = properties.getProperty("url")
+        val login = properties.getProperty("login")
+        val password = properties.getProperty("password")
+        val inputStream = openAuthorizedStream(url, login, password)
+        val xml = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
+            .lines()
+            .collect(Collectors.joining())
+        val doc = Jsoup.parse(xml, "", Parser.xmlParser())
+        parseAndUpdateStandings(doc)
     }
 
     override fun run() {
-        //log.debug(check.getName() + " " + check.getShortName());
         while (true) {
             try {
                 while (true) {
@@ -79,10 +72,14 @@ class PCMSEventsLoader : EventsLoader() {
 
     private var lastRunId = 0
     private fun parseContestInfo(element: Element): PCMSContestInfo {
-        val updatedContestInfo = PCMSContestInfo(contestData.problems, contestData.teams.map { it.copy() })
+        val updatedContestInfo = PCMSContestInfo(
+            contestData.problems,
+            contestData.teams.map { it.copy() },
+            contestData.startTime,
+            contestData.status
+        )
         val previousStartTime = contestData.startTime
         val previousStatus = contestData.status
-        updatedContestInfo.status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
         if (emulationEnabled) {
             val timeByEmulation = ((System.currentTimeMillis() - emulationStartTime) * emulationSpeed).toLong()
             if (timeByEmulation < 0) {
@@ -97,6 +94,7 @@ class PCMSEventsLoader : EventsLoader() {
             }
             updatedContestInfo.startTime = emulationStartTime
         } else {
+            updatedContestInfo.status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
             updatedContestInfo.contestTime = element.attr("time").toLong()
             when (updatedContestInfo.status) {
                 ContestStatus.BEFORE, ContestStatus.UNKNOWN, ContestStatus.OVER -> {}
@@ -160,7 +158,7 @@ class PCMSEventsLoader : EventsLoader() {
         )
     }
 
-    var contestData: PCMSContestInfo
+    private var contestData: PCMSContestInfo
     private val properties: Properties = loadProperties("events")
 
     init {
@@ -183,29 +181,18 @@ class PCMSEventsLoader : EventsLoader() {
             val participantName = participant.attr("name")
             val alias = participant.attr("id")
             val hallId = participant.attr("hall_id").takeIf { it.isNotEmpty() } ?: alias
-            var shortName = participant.attr("shortname")
-            if (shortName.isEmpty()) {
-                var index = participantName.indexOf("(")
-                shortName = participantName.substring(0, index - 1)
-                index = -1 //shortName.indexOf(",");
-                shortName = shortName.substring(if (index == -1) 0 else index + 2)
-                if (shortName.length >= 30) {
-                    shortName = shortName.substring(0, 27) + "..."
-                }
-            }
-            var region = participant.attr("region")
-            if (region.isEmpty()) {
-                val index = participantName.indexOf(",")
-                if (index != -1) region = participantName.substring(0, index)
-            }
+            val shortName = participant.attr("shortname")
+                .split("(")[0]
+                .let { if (it.length >= 30) it.substring(0..27) + "..." else it }
+            val region = participant.attr("region").split(",")[0]
             val hashTag = participant.attr("hashtag")
-            val groups = mutableSetOf(region)
+            val groups = if (region.isEmpty()) emptySet() else mutableSetOf(region)
             PCMSTeamInfo(
                 index, alias, hallId, participantName, shortName,
-                hashTag, groups, problemInfo.size, 0
+                hashTag, groups, problemInfo.size
             )
         }
-        contestData = PCMSContestInfo(problemInfo, teams)
+        contestData = PCMSContestInfo(problemInfo, teams, 0, ContestStatus.UNKNOWN)
         contestData.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt()
         contestData.freezeTime = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt()
         contestData.groups.addAll(teams.flatMap { it.groups }.filter { it.isNotEmpty() })

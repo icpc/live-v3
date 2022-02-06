@@ -13,7 +13,7 @@ class LoggerEventListener() {
     @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun run() {
         DataBus.allEvents.collect {
-            logger.info(Json.encodeToString(it))
+            logger.debug(Json.encodeToString(it))
         }
     }
 }

@@ -1,19 +1,20 @@
 package org.icpclive.cds.pcms
 
+import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
 
 class PCMSContestInfo(
     override val problems: List<ProblemInfo>,
     override val teams: List<PCMSTeamInfo>,
-    ) : ContestInfo() {
+    startTime: Long,
+    status: ContestStatus,
+    ) : ContestInfo(startTime, status) {
     override val problemsNumber: Int
         get() = problems.size
     override var contestTime: Long = 0
 
     override fun getStandings(optimismLevel: OptimismLevel) =
-        MutableList(teams.size) {
-            teams[it].getTeamScoreboardRow(optimismLevel)
-        }.apply { sortAndSetRanks(this, teams) }.toList()
+        ICPCTools.getScoreboard(teams, optimismLevel)
 
 
     fun calculateRanks() {

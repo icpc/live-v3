@@ -9,7 +9,7 @@ class PCMSRunInfo(
     override val problemId: Int,
     override val time: Long,
     override val teamId: Int,
-    override val lastUpdateTime: Long
+    override val lastUpdateTime: Long,
 ) : RunInfo {
     override val isAccepted: Boolean
         get() = "AC" == result

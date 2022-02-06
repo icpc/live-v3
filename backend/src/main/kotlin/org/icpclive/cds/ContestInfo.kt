@@ -7,21 +7,26 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class ContestInfo{
+abstract class ContestInfo(
+    private var startTime_: Long,
+    private var status_: ContestStatus,
+){
     abstract val problemsNumber: Int
     abstract val teamsNumber: Int
-    var startTime: Long = 0
+    var startTime
+        get() = startTime_
         set(value) {
-            logger.info("Set start time " + Date(value))
-            field = value
+            if (startTime_ != value) logger.info("Set start time " + Date(value))
+            startTime_ = value
         }
     abstract val problems: List<ProblemInfo>
     abstract val teams: List<TeamInfo>
     abstract val contestTime: Long
-    var status = ContestStatus.BEFORE
+    var status 
+        get() = status_
         set(value) {
-            if (field != value) logger.info("New status: $value")
-            field = value
+            if (status_ != value) logger.info("New status: $value")
+            status_ = value
         }
 
 

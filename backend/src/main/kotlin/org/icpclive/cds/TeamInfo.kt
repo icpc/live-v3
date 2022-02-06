@@ -1,8 +1,6 @@
 package org.icpclive.cds
 
-import org.icpclive.api.ICPCProblemResult
 import org.icpclive.api.ScoreboardRow
-import kotlin.math.max
 
 interface TeamInfo {
     val id: Int
@@ -16,6 +14,8 @@ interface TeamInfo {
     val lastAccepted: Long
     val runs: List<List<RunInfo>>
     val hashTag: String?
+    val cdsScoreboardRow: ScoreboardRow?
+        get() = null
     fun copy(): TeamInfo
 
 

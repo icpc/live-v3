@@ -1,5 +1,6 @@
 package org.icpclive.cds.wf
 
+import org.icpclive.api.ContestStatus
 import org.icpclive.api.ScoreboardRow
 import org.icpclive.cds.*
 import org.icpclive.cds.wf.json.WFProblemInfo
@@ -22,7 +23,7 @@ open class WFContestInfo : ContestInfo {
     override var problemsNumber: Int = 0
     override var teamsNumber: Int = 0
 
-    constructor(problemsNumber: Int, teamsNumber: Int) {
+    constructor(problemsNumber: Int, teamsNumber: Int) : super(0, ContestStatus.BEFORE) {
         this.problemsNumber = problemsNumber
         this.teamsNumber = teamsNumber
         teamInfos = arrayOfNulls(teamsNumber)
@@ -32,7 +33,7 @@ open class WFContestInfo : ContestInfo {
         firstSolvedRun = MutableList(problemsNumber) { null }
     }
 
-    protected constructor() {}
+    protected constructor() : super(0, ContestStatus.UNKNOWN)
 
     fun recalcStandings() {
         var n = 0
@@ -161,9 +162,7 @@ open class WFContestInfo : ContestInfo {
 
 
     override fun getStandings(optimismLevel: OptimismLevel) =
-        MutableList(teams.size) {
-            teams[it].getTeamScoreboardRow(optimismLevel)
-        }.apply { sortAndSetRanks(this, teams) }.toList()
+        ICPCTools.getScoreboard(teams, optimismLevel)
 
     override val contestTime= TODO()
 }
