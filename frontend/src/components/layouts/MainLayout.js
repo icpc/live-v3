@@ -4,7 +4,8 @@ import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.jpeg";
 import { WIDGET_TRANSITION_TIME } from "../../config";
-import Advertisement from "../molecules/widgets/Advertisement";
+import Advertisement from "../organisms/widgets/Advertisement";
+import Queue from "../organisms/widgets/Queue";
 
 const fadeIn = keyframes`
   from {
@@ -27,10 +28,10 @@ const fadeOut = keyframes`
 `;
 
 const WidgetWrap = styled.div.attrs(
-    ({ left, bottom, width, height }) => {
+    ({ left, top, width, height }) => {
         return { style: {
             left: left+"px",
-            bottom: bottom+"px",
+            top: top+"px",
             width: width+"px",
             height: height+"px"
         } };
@@ -39,7 +40,7 @@ const WidgetWrap = styled.div.attrs(
   position: absolute;
   overflow: hidden;
   animation: ${props => props.animation } ${WIDGET_TRANSITION_TIME}ms linear;
-  opacity: ${props => props.shown ? "1" : "0" };
+  // opacity: ${props => props.shown && props.shown ? "1" : "0" };
 `;
 
 const MainLayoutWrap = styled.div`
@@ -49,7 +50,8 @@ const MainLayoutWrap = styled.div`
 `;
 
 const WIDGETS = {
-    AdvertisementWidget: Advertisement
+    AdvertisementWidget: Advertisement,
+    QueueWidget: Queue
 };
 
 const transitionProps = {
@@ -66,17 +68,17 @@ export const MainLayout = () => {
             {Object.values(widgets).map((obj) => {
                 const Widget = WIDGETS[obj.type];
                 return <Transition key={obj.widgetId} timeout={WIDGET_TRANSITION_TIME}>
-                    {state => {
-                        return <WidgetWrap
+                    {state =>
+                        <WidgetWrap
                             left={obj.location.positionX}
-                            bottom={obj.location.positionY}
+                            top={obj.location.positionY}
                             width={obj.location.sizeX}
                             height={obj.location.sizeY}
                             {...transitionProps[state]}
                         >
-                            <Widget widgetData={obj}/>
-                        </WidgetWrap>;
-                    }}
+                            <Widget widgetData={obj} state={state}/>
+                        </WidgetWrap>
+                    }
                 </Transition>;
             })}
         </TransitionGroup>

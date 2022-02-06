@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 const ActionTypes = {
     SHOW_WIDGET: "SHOW_WIDGET",
     HIDE_WIDGET: "HIDE_WIDGET",
@@ -30,11 +32,6 @@ export const hideWidget = (widgetId) => {
 };
 
 
-const omitKey = (obj, key) => {
-    let { [key]: omit, ...res } = obj;
-    return res;
-};
-
 export function widgetsReducer(state = initialState, action) {
     switch (action.type) {
     case ActionTypes.SHOW_WIDGET:
@@ -46,7 +43,7 @@ export function widgetsReducer(state = initialState, action) {
         };
     case ActionTypes.HIDE_WIDGET:
         return {
-            widgets: omitKey(state.widgets, action.payload.widgetId)
+            widgets: _.omit(state.widgets, action.payload.widgetId)
         };
     default:
         return state;

@@ -1,6 +1,6 @@
 import React from "react";
-import { DebugLog } from "../molecules/status/Log";
-import { StatusLightbulbs } from "../molecules/status/StatusLightbulbs";
+import { DebugLog } from "../organisms/status/Log";
+import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
 
 export const StatusLayout = () => {
     return <>

@@ -1,34 +1,41 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import _ from "lodash";
+import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import MainLayout from "./components/layouts/MainLayout";
 import { StatusLayout } from "./components/layouts/StatusLayout";
+import { WEBSOCKETS } from "./consts";
 import { pushLog } from "./redux/debug";
 import { setWebsocketStatus, WebsocketStatus } from "./redux/status";
-import { handleMessage } from "./services/ws/mainScreen";
+import { WEBSOCKET_HANDLERS } from "./services/ws/ws";
+
+const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
+    dispatch(setWebsocketStatus(wsName, WebsocketStatus.CONNECTING));
+    ws.current = new WebSocket(`ws://localhost:8080/overlay/${wsName}`);
+    ws.current.onopen = () => {
+        dispatch(pushLog(`Connected to WS ${wsName}`));
+        return dispatch(setWebsocketStatus(wsName, WebsocketStatus.CONNECTED));
+    };
+    ws.current.onclose = () => {
+        dispatch(pushLog(`Disconnected from WS ${wsName}`));
+        return dispatch(setWebsocketStatus(wsName, WebsocketStatus.DISCONNECTED));
+    };
+    ws.current.onmessage = handleMessage;
+    return () => ws.current.close();
+};
+
 
 function App() {
     const dispatch = useDispatch();
-    const ws = useRef(null);
+    const makeWebsocket = useMakeWebsocket(dispatch);
+    const wss = Object.fromEntries(Object.keys(WEBSOCKETS).map((key) => {
+        return [key, useRef(null)];
+    }));
 
     useEffect(() => {
-        dispatch(setWebsocketStatus("mainScreen", WebsocketStatus.CONNECTING));
-        ws.current = new WebSocket("ws://localhost:8080/overlay/mainScreen");
-        ws.current.onopen = () => {
-            dispatch(pushLog("Connected to WS"));
-            return dispatch(setWebsocketStatus("mainScreen", WebsocketStatus.CONNECTED));
-        };
-        ws.current.onclose = () => {
-            dispatch(pushLog("Disconnected to WS"));
-            return dispatch(setWebsocketStatus("mainScreen", WebsocketStatus.DISCONNECTED));
-        };
-        gettingData();
-        return () => ws.current.close();
-    }, [ws]);
-
-    const gettingData = useCallback(() => {
-        if (!ws.current) return;
-        ws.current.onmessage = handleMessage(dispatch);
-    }, [ws]);
+        _.forEach(wss, (v, k) => {
+            makeWebsocket(v, k, WEBSOCKET_HANDLERS[k](dispatch));
+        });
+    }, []);
 
     return (
         <>

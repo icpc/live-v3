@@ -1,7 +1,10 @@
+import _ from "lodash";
 import { DateTime } from "luxon";
+import { LOG_LINES } from "../config";
 
 const ActionTypes = {
-    PUSH_LOG: "PUSH_LOG"
+    PUSH_LOG: "PUSH_LOG",
+    CLEAR_LOG: "CLEAR_LOG"
 };
 
 const initialState = {
@@ -20,15 +23,28 @@ export const pushLog = (text) => {
     };
 };
 
+export const clearLog = () => {
+    return async dispatch => {
+        dispatch({
+            type: ActionTypes.CLEAR_LOG,
+        });
+    };
+};
+
 export function debugReducer(state = initialState, action) {
     switch (action.type) {
     case ActionTypes.PUSH_LOG:
         return {
             ...state,
-            log: [
+            log: _.takeRight([
                 ...state.log,
                 action.payload
-            ]
+            ], LOG_LINES)
+        };
+    case ActionTypes.CLEAR_LOG:
+        return {
+            ...state,
+            log: []
         };
     default:
         return state;

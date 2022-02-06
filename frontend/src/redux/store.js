@@ -4,13 +4,15 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunkMiddleware from "redux-thunk";
 import { debugReducer } from "./debug";
+import { queueReducer } from "./queue";
 import { statusReducer } from "./status";
 import { widgetsReducer } from "./widgets";
 
 const combinedReducer = combineReducers({
     widgets: widgetsReducer,
     status: statusReducer,
-    debug: debugReducer
+    debug: debugReducer,
+    queue: queueReducer
 });
 
 const persistConfig = {
