@@ -1,37 +1,29 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import { Transition, TransitionGroup } from "react-transition-group";
+import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.jpeg";
+import { WIDGET_TRANSITION_TIME } from "../../config";
 import Advertisement from "../molecules/widgets/Advertisement";
 
-const TickerWrap = styled.div`
-  position: absolute;
-  width: 1920px;
-  height: 44px;
-  left: 0;
-  top: 1029px;
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
 
-  background: #C4C4C4;
+  to {
+    opacity: 1;
+  }
 `;
 
-const StatusWrap = styled.div`
-  position: absolute;
-  width: 511px;
-  height: 616px;
-  left: 31px;
-  top: 392px;
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
 
-  background: #C4C4C4;
-`;
-
-const ScoreboardWrap = styled.div`
-  position: absolute;
-  width: 1300px;
-  height: 942px;
-  left: 589px;
-  top: 66px;
-  overflow: hidden;
-  //background: rgba(196, 196, 196, 0.53);
+  to {
+    opacity: 0;
+  }
 `;
 
 const WidgetWrap = styled.div.attrs(
@@ -46,6 +38,8 @@ const WidgetWrap = styled.div.attrs(
 )`
   position: absolute;
   overflow: hidden;
+  animation: ${props => props.animation } ${WIDGET_TRANSITION_TIME}ms linear;
+  opacity: ${props => props.shown ? "1" : "0" };
 `;
 
 const MainLayoutWrap = styled.div`
@@ -58,21 +52,34 @@ const WIDGETS = {
     AdvertisementWidget: Advertisement
 };
 
+const transitionProps = {
+    entering: { animation: fadeIn },
+    entered:  {  },
+    exiting:  { animation: fadeOut },
+    exited:  { shown: false },
+};
+
 export const MainLayout = () => {
     const widgets = useSelector(state => state.widgets.widgets);
     return <MainLayoutWrap>
-        {Object.values(widgets).map((obj) => {
-            const Widget = WIDGETS[obj.type];
-            return <WidgetWrap
-                key={obj.widgetId}
-                left={obj.location.positionX}
-                bottom={obj.location.positionY}
-                width={obj.location.sizeX}
-                height={obj.location.sizeY}
-            >
-                <Widget widgetData={obj}/>
-            </WidgetWrap>;
-        })})
+        <TransitionGroup component={null}>
+            {Object.values(widgets).map((obj) => {
+                const Widget = WIDGETS[obj.type];
+                return <Transition key={obj.widgetId} timeout={WIDGET_TRANSITION_TIME}>
+                    {state => {
+                        return <WidgetWrap
+                            left={obj.location.positionX}
+                            bottom={obj.location.positionY}
+                            width={obj.location.sizeX}
+                            height={obj.location.sizeY}
+                            {...transitionProps[state]}
+                        >
+                            <Widget widgetData={obj}/>
+                        </WidgetWrap>;
+                    }}
+                </Transition>;
+            })}
+        </TransitionGroup>
     </MainLayoutWrap>;
 };
 

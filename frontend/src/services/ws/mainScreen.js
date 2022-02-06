@@ -3,7 +3,6 @@ import { hideWidget, showWidget } from "../../redux/widgets";
 
 export const handleMessage = (dispatch) => (e) => {
     const message = JSON.parse(e.data);
-    console.log(message);
     dispatch(pushLog(JSON.stringify(message)));
     switch (message.type) {
     case "ShowWidget":

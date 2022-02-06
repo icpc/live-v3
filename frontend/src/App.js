@@ -11,15 +11,15 @@ function App() {
     const ws = useRef(null);
 
     useEffect(() => {
-        dispatch(setWebsocketStatus(WebsocketStatus.CONNECTING));
+        dispatch(setWebsocketStatus("mainScreen", WebsocketStatus.CONNECTING));
         ws.current = new WebSocket("ws://localhost:8080/overlay/mainScreen");
         ws.current.onopen = () => {
             dispatch(pushLog("Connected to WS"));
-            return dispatch(setWebsocketStatus(WebsocketStatus.CONNECTED));
+            return dispatch(setWebsocketStatus("mainScreen", WebsocketStatus.CONNECTED));
         };
         ws.current.onclose = () => {
             dispatch(pushLog("Disconnected to WS"));
-            return dispatch(setWebsocketStatus(WebsocketStatus.DISCONNECTED));
+            return dispatch(setWebsocketStatus("mainScreen", WebsocketStatus.DISCONNECTED));
         };
         gettingData();
         return () => ws.current.close();

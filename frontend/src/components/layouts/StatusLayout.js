@@ -1,10 +1,10 @@
 import React from "react";
 import { DebugLog } from "../molecules/status/Log";
-import { StatusLightbulb } from "../molecules/status/StatusLightbulb";
+import { StatusLightbulbs } from "../molecules/status/StatusLightbulbs";
 
 export const StatusLayout = () => {
     return <>
-        <StatusLightbulb/>
+        <StatusLightbulbs/>
         <DebugLog/>
     </>;
 };

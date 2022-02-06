@@ -1,3 +1,5 @@
+import { WEBSOCKETS } from "../consts";
+
 const ActionTypes = {
     SET_WEBSOCKET_STATUS: "SET_WEBSOCKET_STATUS"
 };
@@ -9,15 +11,17 @@ export const WebsocketStatus = Object.freeze({
 });
 
 const initialState = {
-    websocketStatus: undefined,
+    websockets: Object.fromEntries(Object.keys(WEBSOCKETS).map((key) => {
+        return [key, undefined];
+    })),
 };
 
-export const setWebsocketStatus = (newStatus) => {
+export const setWebsocketStatus = (socket, newStatus) => {
     return async dispatch => {
         dispatch({
             type: ActionTypes.SET_WEBSOCKET_STATUS,
             payload: {
-                websocketStatus: newStatus
+                [socket]: newStatus
             }
         });
     };
@@ -28,7 +32,10 @@ export function statusReducer(state = initialState, action) {
     case ActionTypes.SET_WEBSOCKET_STATUS:
         return {
             ...state,
-            websocketStatus: action.payload.websocketStatus
+            websockets: {
+                ...state.websockets,
+                ...action.payload
+            },
         };
     default:
         return state;
