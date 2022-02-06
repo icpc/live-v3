@@ -19,7 +19,11 @@ class PCMSTeamInfo(
         return PCMSTeamInfo(
             id, alias, hallId, name, shortName, hashTag,
             groups, runs.size
-        )
+        ).apply {
+            for (i in 0 until runs.size) {
+                runs[i] = this@PCMSTeamInfo.runs[i].toList()
+            }
+        }
     }
 
     override fun toString(): String {

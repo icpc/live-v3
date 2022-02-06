@@ -107,7 +107,7 @@ class PCMSEventsLoader : EventsLoader() {
         }
         element.children().forEach { session: Element ->
             if ("session" == session.tagName()) {
-                parseTeamInfo(updatedContestInfo, session, updatedContestInfo.contestTime)
+                parseTeamInfo(updatedContestInfo, contestData, session, updatedContestInfo.contestTime)
             }
         }
         updatedContestInfo.calculateRanks()
@@ -115,13 +115,14 @@ class PCMSEventsLoader : EventsLoader() {
         return updatedContestInfo
     }
 
-    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element, timeBound: Long) {
+    private fun parseTeamInfo(contestInfo: PCMSContestInfo, oldContestInfo: PCMSContestInfo, element: Element, timeBound: Long) {
         val alias = element.attr("alias")
+        val oldParticipant = oldContestInfo.getParticipant(alias)
         contestInfo.getParticipant(alias)?.apply {
             solvedProblemsNumber = element.attr("solved").toInt()
             penalty = element.attr("penalty").toInt()
             for (i in element.children().indices) {
-                runs[i] = parseProblemRuns(contestInfo, element.child(i), runs[i], i, id, timeBound)
+                runs[i] = parseProblemRuns(contestInfo, element.child(i), oldParticipant?.runs?.get(i) ?: emptyList(), i, id, timeBound)
             }
         }
     }
@@ -130,15 +131,14 @@ class PCMSEventsLoader : EventsLoader() {
         if (contestInfo.status === ContestStatus.BEFORE) {
             return emptyList()
         }
-        return element.children().mapIndexed { index, run ->
-            parseRunInfo(contestInfo, run, oldRuns.getOrNull(index), problemId, teamId)
-        }.filter {
-            it.time <= timeBound
+        return element.children().mapIndexedNotNull { index, run ->
+            parseRunInfo(contestInfo, run, oldRuns.getOrNull(index), problemId, teamId, timeBound)
         }
     }
 
-    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, oldRun: PCMSRunInfo?, problemId: Int, teamId: Int): PCMSRunInfo {
+    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, oldRun: PCMSRunInfo?, problemId: Int, teamId: Int, timeBound: Long): PCMSRunInfo? {
         val time = element.attr("time").toLong()
+        if (time > timeBound) return null
         val isFrozen = time >= contestInfo.freezeTime
         val isJudged = !isFrozen && "undefined" != element.attr("outcome")
         val result = when {

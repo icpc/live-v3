@@ -42,7 +42,7 @@ class QueueProcessor {
                         DataBus.queueEvents.emit(ModifyRunInQueueEvent(run))
                     }
                 } else {
-                    logger.info("Ignore run ${run.id} in queue as too old (currentTime = ${currentTime}, run.time = ${run.lastUpdateTime}, diff = ${currentTime - run.lastUpdateTime}")
+                    logger.debug("Ignore run ${run.id} in queue as too old (currentTime = ${currentTime}, run.time = ${run.lastUpdateTime}, diff = ${currentTime - run.lastUpdateTime}")
                 }
             }
 
