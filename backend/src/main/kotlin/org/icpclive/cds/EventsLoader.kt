@@ -5,12 +5,14 @@ import org.icpclive.cds.pcms.PCMSEventsLoader
 import org.icpclive.cds.wf.json.WFEventsLoader
 import org.icpclive.cds.codeforces.CFEventsLoader
 
-abstract class EventsLoader : Runnable {
+abstract class EventsLoader {
     var emulationSpeed = 0.0
         protected set
     var emulationEnabled = false
         protected set
     protected var emulationStartTime: Long = 0
+
+    abstract suspend fun run()
 
     companion object {
         val instance by lazy {

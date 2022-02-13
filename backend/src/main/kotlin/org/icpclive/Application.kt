@@ -8,6 +8,7 @@ import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting
@@ -58,7 +59,7 @@ fun Application.module() {
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
-    Thread(EventsLoader.instance).start()
+    launch(Dispatchers.IO) { EventsLoader.instance.run() }
     launch { QueueProcessor().run() }
     launch { LoggerEventListener().run() }
     launch { RunsStorage.run() }

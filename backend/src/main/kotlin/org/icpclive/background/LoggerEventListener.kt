@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory
 class LoggerEventListener() {
     private val logger = LoggerFactory.getLogger(LoggerEventListener::class.java)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun run() {
         DataBus.allEvents.collect {
             logger.debug(Json.encodeToString(it))

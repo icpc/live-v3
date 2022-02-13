@@ -17,6 +17,16 @@ application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 }
 
+kotlin {
+    sourceSets {
+        all {
+            languageSettings.optIn("kotlin.time.ExperimentalTime")
+            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
+            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
+    }
+}
+
 repositories {
     mavenCentral()
 }

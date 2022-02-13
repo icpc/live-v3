@@ -1,5 +1,6 @@
 package org.icpclive.cds.pcms
 
+import kotlinx.coroutines.delay
 import org.icpclive.Config.loadFile
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus.publishContestInfo
@@ -19,6 +20,8 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 import java.util.stream.Collectors
 import kotlin.random.Random
+import kotlin.time.*
+import kotlin.time.Duration.Companion.seconds
 
 class PCMSEventsLoader : EventsLoader() {
     private fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
@@ -46,13 +49,11 @@ class PCMSEventsLoader : EventsLoader() {
         parseAndUpdateStandings(doc)
     }
 
-    override fun run() {
+    override suspend fun run() {
         while (true) {
             try {
-                while (true) {
-                    updateContest()
-                    Thread.sleep(5000)
-                }
+                updateContest()
+                delay(5.seconds)
             } catch (e: IOException) {
                 logger.error("error", e)
             } catch (e: InterruptedException) {

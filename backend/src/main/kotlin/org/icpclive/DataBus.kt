@@ -50,7 +50,6 @@ object DataBus {
     val optimisticScoreboardFlow = MutableStateFlow(Scoreboard(emptyList()))
     val pessimisticScoreboardFlow = MutableStateFlow(Scoreboard(emptyList()))
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val allEvents
         get() = merge(mainScreenEvents, queueEvents)
 }

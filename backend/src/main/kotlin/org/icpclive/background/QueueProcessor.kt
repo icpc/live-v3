@@ -1,6 +1,7 @@
 package org.icpclive.background
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.ticker
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -18,7 +19,6 @@ class QueueProcessor {
 
     private val RunInfo.toOldAtTime get() = lastUpdateTime + if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun run() {
         val runs = mutableMapOf<Int, RunInfo>()
         val seenRunsSet = mutableSetOf<Int>()

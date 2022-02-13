@@ -1,6 +1,5 @@
 package org.icpclive.admin
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -27,7 +26,6 @@ class Presets<T>(private val path: String, private val decode: (String) -> List<
     }
 }
 
-@OptIn(ExperimentalSerializationApi::class)
 inline fun <reified T> Presets(path: String) = Presets<T>(path) {
     Json.decodeFromStream(FileInputStream(File(it)))
 }

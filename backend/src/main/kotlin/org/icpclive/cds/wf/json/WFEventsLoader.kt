@@ -3,6 +3,7 @@ package org.icpclive.cds.wf.json
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import kotlinx.coroutines.delay
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
@@ -20,6 +21,7 @@ import java.math.BigInteger
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Created by aksenov on 16.04.2015.
@@ -409,7 +411,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         contestInfo.addTest(testCaseInfo)
     }
 
-    override fun run() {
+    override suspend fun run() {
         var lastEvent: String? = null
         var initialized = false
         while (true) {
@@ -466,7 +468,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
             } catch (e: Throwable) {
                 log.error("error", e)
                 try {
-                    Thread.sleep(2000)
+                    delay(2.seconds)
                 } catch (e1: InterruptedException) {
                     log.error("error", e1)
                 }
