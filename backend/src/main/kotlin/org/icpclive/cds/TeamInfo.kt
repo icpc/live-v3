@@ -16,8 +16,6 @@ interface TeamInfo {
     val hashTag: String?
     val cdsScoreboardRow: ScoreboardRow?
         get() = null
-    fun copy(): TeamInfo
-
 
     companion object {
         val comparator = compareBy<TeamInfo>(

@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 import java.util.stream.Collectors
 import kotlin.random.Random
-import kotlin.time.*
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 class PCMSEventsLoader : EventsLoader() {
@@ -53,6 +53,9 @@ class PCMSEventsLoader : EventsLoader() {
         while (true) {
             try {
                 updateContest()
+                if (contestData.status == ContestStatus.RUNNING) {
+                    logger.info("Updated for contest time = ${contestData.contestTime.milliseconds}")
+                }
                 delay(5.seconds)
             } catch (e: IOException) {
                 logger.error("error", e)
@@ -64,87 +67,74 @@ class PCMSEventsLoader : EventsLoader() {
 
     private fun parseAndUpdateStandings(element: Element) {
         if ("contest" == element.tagName()) {
-            val updatedContestInfo = parseContestInfo(element)
-            publishContestInfo(updatedContestInfo)
-            contestData = updatedContestInfo
+            parseContestInfo(element)
+            publishContestInfo(contestData)
         } else {
             element.children().forEach { parseAndUpdateStandings(it) }
         }
     }
 
     private var lastRunId = 0
-    private fun parseContestInfo(element: Element): PCMSContestInfo {
-        val updatedContestInfo = PCMSContestInfo(
-            contestData.problems,
-            contestData.teams.map { it.copy() },
-            contestData.startTime,
-            contestData.status
-        )
-        val previousStartTime = contestData.startTime
-        val previousStatus = contestData.status
+    private fun parseContestInfo(element: Element) {
         if (emulationEnabled) {
             val timeByEmulation = ((System.currentTimeMillis() - emulationStartTime) * emulationSpeed).toLong()
             if (timeByEmulation < 0) {
-                updatedContestInfo.contestTime = 0
-                updatedContestInfo.status = ContestStatus.BEFORE
-            } else if (timeByEmulation < updatedContestInfo.contestLength) {
-                updatedContestInfo.contestTime = timeByEmulation
-                updatedContestInfo.status = ContestStatus.RUNNING
+                contestData.contestTime = 0
+                contestData.status = ContestStatus.BEFORE
+            } else if (timeByEmulation < contestData.contestLength) {
+                contestData.contestTime = timeByEmulation
+                contestData.status = ContestStatus.RUNNING
             } else {
-                updatedContestInfo.contestTime = updatedContestInfo.contestLength.toLong()
-                updatedContestInfo.status = ContestStatus.OVER
+                contestData.contestTime = contestData.contestLength.toLong()
+                contestData.status = ContestStatus.OVER
             }
-            updatedContestInfo.startTime = emulationStartTime
+            contestData.startTime = emulationStartTime
         } else {
-            updatedContestInfo.status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
-            updatedContestInfo.contestTime = element.attr("time").toLong()
-            when (updatedContestInfo.status) {
-                ContestStatus.BEFORE, ContestStatus.UNKNOWN, ContestStatus.OVER -> {}
-                ContestStatus.RUNNING -> if (previousStatus !== ContestStatus.RUNNING || previousStartTime == 0L) {
-                    updatedContestInfo.startTime = System.currentTimeMillis() - updatedContestInfo.contestTime
-                } else {
-                    updatedContestInfo.startTime = previousStartTime
-                }
+            val status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
+            val contestTime = element.attr("time").toLong()
+            if (status == ContestStatus.RUNNING && (contestData.status !== ContestStatus.RUNNING || contestData.startTime == 0L)) {
+                contestData.startTime = System.currentTimeMillis() - contestTime
             }
+            contestData.status = status
+            contestData.contestTime = contestTime
         }
         element.children().forEach { session: Element ->
             if ("session" == session.tagName()) {
-                parseTeamInfo(updatedContestInfo, contestData, session, updatedContestInfo.contestTime)
+                parseTeamInfo(contestData, session)
             }
         }
-        updatedContestInfo.calculateRanks()
-        updatedContestInfo.makeRuns()
-        return updatedContestInfo
+        contestData.calculateRanks()
+        contestData.makeRuns()
     }
 
-    private fun parseTeamInfo(contestInfo: PCMSContestInfo, oldContestInfo: PCMSContestInfo, element: Element, timeBound: Long) {
+    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element) {
         val alias = element.attr("alias")
-        val oldParticipant = oldContestInfo.getParticipant(alias)
         contestInfo.getParticipant(alias)?.apply {
             solvedProblemsNumber = element.attr("solved").toInt()
             penalty = element.attr("penalty").toInt()
             for (i in element.children().indices) {
-                runs[i] = parseProblemRuns(contestInfo, element.child(i), oldParticipant?.runs?.get(i) ?: emptyList(), i, id, timeBound)
+                runs[i] = parseProblemRuns(contestInfo, element.child(i), i, id)
             }
         }
     }
 
-    private fun parseProblemRuns(contestInfo: PCMSContestInfo, element: Element, oldRuns: List<PCMSRunInfo>, problemId: Int, teamId: Int, timeBound: Long): List<PCMSRunInfo> {
+    private fun parseProblemRuns(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int): List<PCMSRunInfo> {
         if (contestInfo.status === ContestStatus.BEFORE) {
             return emptyList()
         }
         return element.children().mapIndexedNotNull { index, run ->
-            parseRunInfo(contestInfo, run, oldRuns.getOrNull(index), problemId, teamId, timeBound)
+            parseRunInfo(contestInfo, run, problemId, teamId, index)
         }
     }
 
-    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, oldRun: PCMSRunInfo?, problemId: Int, teamId: Int, timeBound: Long): PCMSRunInfo? {
+    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, attemptId: Int): PCMSRunInfo? {
         val time = element.attr("time").toLong()
-        if (time > timeBound) return null
+        if (time > contestInfo.contestTime) return null
         val isFrozen = time >= contestInfo.freezeTime
+        val oldRun = contestInfo.teams[teamId].runs[problemId].getOrNull(attemptId)
         val percentage = when {
             isFrozen -> 0.0
-            emulationEnabled -> if (timeBound - time >= 60000) 1.0 else minOf(1.0, (oldRun?.percentage ?: 0.0) + Random.nextDouble(1.0))
+            emulationEnabled -> if (contestInfo.contestTime - time >= 60000) 1.0 else minOf(1.0, (oldRun?.percentage ?: 0.0) + Random.nextDouble(1.0))
             "undefined" == element.attr("outcome") -> 0.0
             else -> 1.0
         }

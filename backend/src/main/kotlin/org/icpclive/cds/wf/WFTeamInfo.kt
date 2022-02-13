@@ -34,16 +34,6 @@ open class WFTeamInfo(problems: Int) : TeamInfo {
         shortName = teamInfo.shortName
     }
 
-    override fun copy(): WFTeamInfo {
-        val teamInfo = WFTeamInfo(problem_runs.size)
-        teamInfo.id = id
-        teamInfo.rank = rank
-        teamInfo.name = name
-        teamInfo.groups = HashSet(groups)
-        teamInfo.shortName = shortName
-        return teamInfo
-    }
-
     override val alias: String
         get() = (id + 1).toString() + ""
     override val runs: List<List<RunInfo>>

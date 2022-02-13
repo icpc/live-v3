@@ -49,8 +49,4 @@ class CFTeamInfo(private val row: CFRanklistRow) : TeamInfo {
 
     override val hashTag: String
         get() = ""
-
-    override fun copy(): TeamInfo {
-        return CFTeamInfo(row)
-    }
 }
