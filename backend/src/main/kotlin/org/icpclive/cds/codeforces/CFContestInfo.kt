@@ -1,5 +1,7 @@
 package org.icpclive.cds.codeforces
 
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.ICPCTools
@@ -11,12 +13,14 @@ import org.icpclive.cds.codeforces.api.data.CFProblem
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import java.util.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 
 /**
  * @author egor@egork.net
  */
-class CFContestInfo : ContestInfo(0, ContestStatus.UNKNOWN) {
+class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN) {
     override val problems = mutableListOf<CFProblemInfo>()
     override val teams: List<TeamInfo>
         get() = participantsById.values.toList()
@@ -67,16 +71,16 @@ class CFContestInfo : ContestInfo(0, ContestStatus.UNKNOWN) {
             runsById.values.sortedBy { it.time }
         }
 
-    override val contestTime: Long
+    override val contestTime: Duration
         get() {
             if (cfStandings == null) {
-                return 0
+                return 0.seconds
             }
             return if (cfStandings!!.contest.relativeTimeSeconds == null) {
-                0
-            } else Math.min(
-                System.currentTimeMillis() - startTime,
-                cfStandings!!.contest.durationSeconds * 1000
+                0.seconds
+            } else minOf(
+                Clock.System.now() - startTime,
+                cfStandings!!.contest.durationSeconds.seconds
             )
         }
 
@@ -91,10 +95,10 @@ class CFContestInfo : ContestInfo(0, ContestStatus.UNKNOWN) {
         }
         this.cfStandings = standings
         //        lastTime = standings.contest.relativeTimeSeconds;
-        contestLength = standings.contest.durationSeconds.toInt() * 1000
+        contestLength = standings.contest.durationSeconds.seconds
         val phase = standings.contest.phase
         if (status === ContestStatus.BEFORE && phase == CFContestPhase.CODING) {
-            this.startTime = System.currentTimeMillis() - standings.contest.relativeTimeSeconds * 1000
+            this.startTime = Clock.System.now() - standings.contest.relativeTimeSeconds.seconds
         }
         status =
             if (phase == CFContestPhase.BEFORE) ContestStatus.BEFORE else if (phase == CFContestPhase.CODING) ContestStatus.RUNNING else ContestStatus.OVER

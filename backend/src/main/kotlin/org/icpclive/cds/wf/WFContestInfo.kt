@@ -1,5 +1,6 @@
 package org.icpclive.cds.wf
 
+import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.ScoreboardRow
 import org.icpclive.cds.*
@@ -23,7 +24,7 @@ open class WFContestInfo : ContestInfo {
     override var problemsNumber: Int = 0
     override var teamsNumber: Int = 0
 
-    constructor(problemsNumber: Int, teamsNumber: Int) : super(0, ContestStatus.BEFORE) {
+    constructor(problemsNumber: Int, teamsNumber: Int) : super(Instant.fromEpochMilliseconds(0), ContestStatus.BEFORE) {
         this.problemsNumber = problemsNumber
         this.teamsNumber = teamsNumber
         teamInfos = arrayOfNulls(teamsNumber)
@@ -33,7 +34,7 @@ open class WFContestInfo : ContestInfo {
         firstSolvedRun = MutableList(problemsNumber) { null }
     }
 
-    protected constructor() : super(0, ContestStatus.UNKNOWN)
+    protected constructor() : super(Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
 
     fun recalcStandings() {
         var n = 0

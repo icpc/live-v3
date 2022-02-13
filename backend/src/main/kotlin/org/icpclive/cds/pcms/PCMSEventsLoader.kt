@@ -1,6 +1,8 @@
 package org.icpclive.cds.pcms
 
+import guessDatetimeFormat
 import kotlinx.coroutines.delay
+import kotlinx.datetime.*
 import org.icpclive.Config.loadFile
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus.publishContestInfo
@@ -54,7 +56,7 @@ class PCMSEventsLoader : EventsLoader() {
             try {
                 updateContest()
                 if (contestData.status == ContestStatus.RUNNING) {
-                    logger.info("Updated for contest time = ${contestData.contestTime.milliseconds}")
+                    logger.info("Updated for contest time = ${contestData.contestTime}")
                 }
                 delay(5.seconds)
             } catch (e: IOException) {
@@ -77,23 +79,23 @@ class PCMSEventsLoader : EventsLoader() {
     private var lastRunId = 0
     private fun parseContestInfo(element: Element) {
         if (emulationEnabled) {
-            val timeByEmulation = ((System.currentTimeMillis() - emulationStartTime) * emulationSpeed).toLong()
-            if (timeByEmulation < 0) {
-                contestData.contestTime = 0
+            val timeByEmulation = (Clock.System.now() - emulationStartTime) * emulationSpeed
+            if (timeByEmulation.isNegative()) {
+                contestData.contestTime = 0.milliseconds
                 contestData.status = ContestStatus.BEFORE
             } else if (timeByEmulation < contestData.contestLength) {
                 contestData.contestTime = timeByEmulation
                 contestData.status = ContestStatus.RUNNING
             } else {
-                contestData.contestTime = contestData.contestLength.toLong()
+                contestData.contestTime = contestData.contestLength
                 contestData.status = ContestStatus.OVER
             }
             contestData.startTime = emulationStartTime
         } else {
             val status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
-            val contestTime = element.attr("time").toLong()
-            if (status == ContestStatus.RUNNING && (contestData.status !== ContestStatus.RUNNING || contestData.startTime == 0L)) {
-                contestData.startTime = System.currentTimeMillis() - contestTime
+            val contestTime = element.attr("time").toLong().milliseconds
+            if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
+                contestData.startTime = Clock.System.now() - contestTime
             }
             contestData.status = status
             contestData.contestTime = contestTime
@@ -128,13 +130,13 @@ class PCMSEventsLoader : EventsLoader() {
     }
 
     private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, attemptId: Int): PCMSRunInfo? {
-        val time = element.attr("time").toLong()
+        val time = element.attr("time").toLong().milliseconds
         if (time > contestInfo.contestTime) return null
         val isFrozen = time >= contestInfo.freezeTime
         val oldRun = contestInfo.teams[teamId].runs[problemId].getOrNull(attemptId)
         val percentage = when {
             isFrozen -> 0.0
-            emulationEnabled -> if (contestInfo.contestTime - time >= 60000) 1.0 else minOf(1.0, (oldRun?.percentage ?: 0.0) + Random.nextDouble(1.0))
+            emulationEnabled -> if (contestInfo.contestTime - time >= 60.seconds) 1.0 else minOf(1.0, (oldRun?.percentage ?: 0.0) + Random.nextDouble(1.0))
             "undefined" == element.attr("outcome") -> 0.0
             else -> 1.0
         }
@@ -146,12 +148,12 @@ class PCMSEventsLoader : EventsLoader() {
         }
         return PCMSRunInfo(
             oldRun?.id ?: lastRunId++,
-            isJudged, result, problemId, time, teamId,
+            isJudged, result, problemId, time.inWholeMilliseconds, teamId,
             percentage,
             if (isJudged == oldRun?.isJudged && result == oldRun.result)
                 oldRun.lastUpdateTime
             else
-                contestInfo.contestTime
+                contestInfo.contestTime.inWholeMilliseconds
         )
     }
 
@@ -166,8 +168,8 @@ class PCMSEventsLoader : EventsLoader() {
         } else {
             emulationEnabled = true
             emulationSpeed = emulationSpeedProp.toDouble()
-            emulationStartTime = properties.getProperty("emulation.startTime").toLong() * 1000
-            logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${Date(emulationStartTime)}")
+            emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
+            logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = $emulationStartTime")
         }
         val problemInfo = loadProblemsInfo(properties.getProperty("problems.url"))
         val fn = properties.getProperty("teams.url")
@@ -189,9 +191,9 @@ class PCMSEventsLoader : EventsLoader() {
                 hashTag, groups, problemInfo.size
             )
         }
-        contestData = PCMSContestInfo(problemInfo, teams, 0, ContestStatus.UNKNOWN)
-        contestData.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt()
-        contestData.freezeTime = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt()
+        contestData = PCMSContestInfo(problemInfo, teams, Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
+        contestData.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt().milliseconds
+        contestData.freezeTime = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt().milliseconds
         contestData.groups.addAll(teams.flatMap { it.groups }.filter { it.isNotEmpty() })
         loadProblemsInfo(properties.getProperty("problems.url"))
     }

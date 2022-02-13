@@ -1,5 +1,6 @@
 package org.icpclive.cds
 
+import kotlinx.datetime.Instant
 import org.icpclive.Config.loadProperties
 import org.icpclive.cds.pcms.PCMSEventsLoader
 import org.icpclive.cds.wf.json.WFEventsLoader
@@ -10,7 +11,7 @@ abstract class EventsLoader {
         protected set
     var emulationEnabled = false
         protected set
-    protected var emulationStartTime: Long = 0
+    protected var emulationStartTime = Instant.fromEpochMilliseconds(0)
 
     abstract suspend fun run()
 

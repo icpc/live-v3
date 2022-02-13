@@ -1,14 +1,17 @@
 package org.icpclive.cds
 
+import humanReadable
+import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.ScoreboardRow
 import org.icpclive.api.toApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import java.util.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
 
 abstract class ContestInfo(
-    private var startTime_: Long,
+    private var startTime_: Instant,
     private var status_: ContestStatus,
 ){
     abstract val problemsNumber: Int
@@ -16,12 +19,12 @@ abstract class ContestInfo(
     var startTime
         get() = startTime_
         set(value) {
-            if (startTime_ != value) logger.info("Set start time " + Date(value))
+            if (startTime_ != value) logger.info("Set start time ${value.humanReadable}")
             startTime_ = value
         }
     abstract val problems: List<ProblemInfo>
     abstract val teams: List<TeamInfo>
-    abstract val contestTime: Long
+    abstract val contestTime: Duration
     var status 
         get() = status_
         set(value) {
@@ -40,8 +43,8 @@ abstract class ContestInfo(
     abstract fun firstTimeSolved(): LongArray?
     abstract val firstSolvedRun: List<RunInfo?>
     abstract val runs: List<RunInfo>
-    var contestLength = 5 * 60 * 60 * 1000
-    var freezeTime = 4 * 60 * 60 * 1000
+    var contestLength = 5.hours
+    var freezeTime = 4.hours
     val groups = mutableSetOf<String>()
 
     companion object {
@@ -51,9 +54,9 @@ abstract class ContestInfo(
 
     fun toApi() = org.icpclive.api.ContestInfo(
         status,
-        startTime,
-        contestLength.toLong(),
-        freezeTime.toLong(),
+        startTime.toEpochMilliseconds(),
+        contestLength.inWholeMilliseconds,
+        freezeTime.inWholeMilliseconds,
         problems.map { it.toApi() },
         teams.map { it.toApi() }.sortedBy { it.id },
         EventsLoader.instance.emulationSpeed.toInt(),

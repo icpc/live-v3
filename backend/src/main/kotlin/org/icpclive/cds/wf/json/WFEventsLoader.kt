@@ -3,7 +3,11 @@ package org.icpclive.cds.wf.json
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import guessDatetimeFormat
 import kotlinx.coroutines.delay
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.datetime.toKotlinInstant
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
@@ -21,6 +25,8 @@ import java.math.BigInteger
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -266,22 +272,22 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         this.contestInfo = contestInfo
     }
 
-    fun parseTime(time: String): Long {
+    fun parseTime(time: String): Instant {
         val zdt = ZonedDateTime.parse("$time:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME)
         //        ZonedDateTime zdt = ZonedDateTime.parse(time, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        return zdt.toInstant().toEpochMilli()
+        return zdt.toInstant().toKotlinInstant()
         //        LocalDateTime ldt = LocalDateTime.parse(time + ":00", DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 //        return ldt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
-    fun parseRelativeTime(time: String): Long {
+    fun parseRelativeTime(time: String): Duration {
         val z = time.split("\\.").toTypedArray()
         val t = z[0].split(":").toTypedArray()
         val h = t[0].toInt()
         val m = t[1].toInt()
         val s = t[2].toInt()
         val ms = if (z.size == 1) 0 else z[1].toInt()
-        return (((h * 60 + m) * 60 + s) * 1000 + ms).toLong()
+        return (((h * 60 + m) * 60 + s) * 1000 + ms).milliseconds
     }
 
     fun readContest(contestInfo: WFContestInfo, je: JsonObject) {
@@ -293,12 +299,10 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
             contestInfo.status = ContestStatus.BEFORE
         }
         if (emulation) {
-            contestInfo.startTime = System.currentTimeMillis()
+            contestInfo.startTime = Clock.System.now()
         }
-        contestInfo.contestLength = parseRelativeTime(je["duration"].asString).toInt()
-        contestInfo.freezeTime = contestInfo.contestLength - parseRelativeTime(
-            je["scoreboard_freeze_duration"].asString
-        ).toInt()
+        contestInfo.contestLength = parseRelativeTime(je["duration"].asString)
+        contestInfo.freezeTime = contestInfo.contestLength - parseRelativeTime(je["scoreboard_freeze_duration"].asString)
     }
 
     fun readState(contestInfo: WFContestInfo, je: JsonObject) {
@@ -308,7 +312,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         val startTime = je["started"].asString
         contestInfo.startTime = parseTime(startTime)
         if (emulation) {
-            contestInfo.startTime = System.currentTimeMillis()
+            contestInfo.startTime = Clock.System.now()
         }
         if (je["ended"].isJsonNull) {
             contestInfo.status = ContestStatus.RUNNING
@@ -318,7 +322,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     }
 
     var firstRun = true
-    fun waitForEmulation(time: Long) {
+    fun waitForEmulation(time: Duration) {
         if (emulation) {
             try {
                 TODO()
@@ -349,7 +353,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         val teamInfo = contestInfo.teamById[je["team_id"].asString] as WFTeamInfo?
         run.teamId = teamInfo!!.id
         run.team = teamInfo
-        run.time = parseRelativeTime(je["contest_time"].asString)
+        run.time = parseRelativeTime(je["contest_time"].asString).inWholeMilliseconds
         run.lastUpdateTime = run.time
         contestInfo.addRun(run)
         contestInfo.runBySubmissionId[cdsId] = run
@@ -372,9 +376,9 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
             waitForEmulation(parseRelativeTime(je["start_contest_time"].asString))
             return
         }
-        val time = if (je["end_contest_time"].isJsonNull) 0 else parseRelativeTime(je["end_contest_time"].asString)
+        val time = if (je["end_contest_time"].isJsonNull) 0.seconds else parseRelativeTime(je["end_contest_time"].asString)
         waitForEmulation(time)
-        if (runInfo.time <= contestInfo.freezeTime) {
+        if (runInfo.time.milliseconds <= contestInfo.freezeTime) {
             runInfo.result = verdict
             runInfo.isJudged = true
 
@@ -385,7 +389,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         } else {
             runInfo.isJudged = false
         }
-        runInfo.lastUpdateTime = time
+        runInfo.lastUpdateTime = time.inWholeMilliseconds
     }
 
     fun readRun(contestInfo: WFContestInfo, je: JsonObject, update: Boolean) {
@@ -396,14 +400,14 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         val runInfo = contestInfo.runByJudgementId[je["judgement_id"].asString]
         val time = parseRelativeTime(je["contest_time"].asString)
         waitForEmulation(time)
-        if (runInfo == null || runInfo.time > contestInfo.freezeTime || update) {
+        if (runInfo == null || runInfo.time.milliseconds > contestInfo.freezeTime || update) {
             return
         }
         val testCaseInfo = WFTestCaseInfo()
         testCaseInfo.id = je["ordinal"].asInt
         testCaseInfo.result = je["judgement_type_id"].asString
-        testCaseInfo.time = time
-        testCaseInfo.timestamp = parseTime(je["time"].asString).toDouble()
+        testCaseInfo.time = time.inWholeMilliseconds
+        testCaseInfo.timestamp = parseTime(je["time"].asString).toEpochMilliseconds().toDouble()
         testCaseInfo.runId = runInfo.id
         testCaseInfo.total = contestInfo.getProblemById(runInfo.problemId).testCount
 
@@ -491,7 +495,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
             // in format https://example.com/api/contests/wf14/
             url = properties.getProperty("url")
             emulationSpeed = properties.getProperty("emulation.speed", "1").toDouble()
-            emulationStartTime = properties.getProperty("emulation.startTime", "0").toLong()
+            emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime", "0"))
             if (!(url!!.startsWith("http") || url!!.startsWith("https"))) {
                 emulation = true
             } else {

@@ -1,17 +1,19 @@
 package org.icpclive.cds.pcms
 
+import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
+import kotlin.time.Duration.Companion.seconds
 
 class PCMSContestInfo(
     override val problems: List<ProblemInfo>,
     override val teams: List<PCMSTeamInfo>,
-    startTime: Long,
+    startTime: Instant,
     status: ContestStatus,
     ) : ContestInfo(startTime, status) {
     override val problemsNumber: Int
         get() = problems.size
-    override var contestTime: Long = 0
+    override var contestTime = 0.seconds
 
     override fun getStandings(optimismLevel: OptimismLevel) =
         ICPCTools.getScoreboard(teams, optimismLevel)
