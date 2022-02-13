@@ -18,6 +18,7 @@ import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import java.util.*
 import java.util.stream.Collectors
+import kotlin.random.Random
 
 class PCMSEventsLoader : EventsLoader() {
     private fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
@@ -140,17 +141,22 @@ class PCMSEventsLoader : EventsLoader() {
         val time = element.attr("time").toLong()
         if (time > timeBound) return null
         val isFrozen = time >= contestInfo.freezeTime
-        val isJudged = !isFrozen && "undefined" != element.attr("outcome")
+        val percentage = when {
+            isFrozen -> 0.0
+            emulationEnabled -> if (timeBound - time >= 60000) 1.0 else minOf(1.0, (oldRun?.percentage ?: 0.0) + Random.nextDouble(1.0))
+            "undefined" == element.attr("outcome") -> 0.0
+            else -> 1.0
+        }
+        val isJudged = percentage >= 1.0
         val result = when {
             !isJudged -> ""
             "yes" == element.attr("accepted") -> "AC"
-            else -> outcomeMap.getOrDefault(
-                element.attr("outcome"), "WA"
-            )
+            else -> outcomeMap.getOrDefault(element.attr("outcome"), "WA")
         }
         return PCMSRunInfo(
             oldRun?.id ?: lastRunId++,
             isJudged, result, problemId, time, teamId,
+            percentage,
             if (isJudged == oldRun?.isJudged && result == oldRun.result)
                 oldRun.lastUpdateTime
             else
