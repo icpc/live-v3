@@ -25,6 +25,7 @@ data class RunInfo(
     val id: Int,
     val isAccepted: Boolean,
     val isJudged: Boolean,
+    val isAddingPenalty: Boolean,
     val result: String,
     val problemId: Int,
     val teamId: Int,

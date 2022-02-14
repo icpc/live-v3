@@ -150,7 +150,7 @@ open class WFContestInfo : ContestInfo {
     }
 
 
-    override val runs: List<WFRunInfo>
+    val runs: List<WFRunInfo>
         get() = wfRuns
 
     fun getProblemById(id: Int): WFProblemInfo {

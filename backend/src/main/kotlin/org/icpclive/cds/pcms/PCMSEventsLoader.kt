@@ -1,26 +1,33 @@
 package org.icpclive.cds.pcms
 
 import guessDatetimeFormat
-import kotlinx.coroutines.delay
+import humanReadable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.*
 import org.icpclive.Config.loadFile
 import org.icpclive.Config.loadProperties
-import org.icpclive.DataBus.publishContestInfo
+import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
+import org.icpclive.api.RunInfo
+import org.icpclive.api.Scoreboard
 import org.icpclive.cds.EventsLoader
-import org.icpclive.cds.NetworkUtils.openAuthorizedStream
+import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.ProblemInfo
+import org.icpclive.service.*
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import org.slf4j.LoggerFactory
 import java.awt.Color
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
 import java.util.*
-import java.util.stream.Collectors
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -39,30 +46,36 @@ class PCMSEventsLoader : EventsLoader() {
         }
     }
 
-    private fun updateContest() {
-        val url = properties.getProperty("url")
-        val login = properties.getProperty("login")
-        val password = properties.getProperty("password")
-        val inputStream = openAuthorizedStream(url, login, password)
-        val xml = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-            .lines()
-            .collect(Collectors.joining())
-        val doc = Jsoup.parse(xml, "", Parser.xmlParser())
-        parseAndUpdateStandings(doc)
-    }
+    private val rawRunsFlow = MutableSharedFlow<RunInfo>(
+        extraBufferCapacity = 100000,
+        onBufferOverflow = BufferOverflow.SUSPEND
+    )
 
     override suspend fun run() {
-        while (true) {
-            try {
-                updateContest()
+        coroutineScope {
+            val xmlLoaderFlow = MutableStateFlow(Document(""))
+            launch { FirstToSolveService(contestData.problemsNumber, rawRunsFlow, DataBus.runsUpdates).run() }
+            launch(Dispatchers.IO) {
+                object : RegularLoaderService<Document>(
+                    xmlLoaderFlow,
+                    5.seconds / emulationSpeed
+                ) {
+                    override val url = properties.getProperty("url")
+                    override val login = properties.getProperty("login")
+                    override val password = properties.getProperty("password")
+                    override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
+                }.run()
+            }
+            launch { ICPCNormalScoreboardService(contestData.problemsNumber, DataBus.runsUpdates, DataBus.scoreboardFlow).run() }
+            launch { ICPCOptimisticScoreboardService(contestData.problemsNumber, DataBus.runsUpdates, DataBus.optimisticScoreboardFlow).run() }
+            launch { ICPCPessimisticScoreboardService(contestData.problemsNumber, DataBus.runsUpdates, DataBus.pessimisticScoreboardFlow).run() }
+
+            xmlLoaderFlow.collect {
+                parseAndUpdateStandings(it)
+                DataBus.contestInfoFlow.value = contestData.toApi()
                 if (contestData.status == ContestStatus.RUNNING) {
                     logger.info("Updated for contest time = ${contestData.contestTime}")
                 }
-                delay(5.seconds)
-            } catch (e: IOException) {
-                logger.error("error", e)
-            } catch (e: InterruptedException) {
-                logger.error("error", e)
             }
         }
     }
@@ -70,7 +83,6 @@ class PCMSEventsLoader : EventsLoader() {
     private fun parseAndUpdateStandings(element: Element) {
         if ("contest" == element.tagName()) {
             parseContestInfo(element)
-            publishContestInfo(contestData)
         } else {
             element.children().forEach { parseAndUpdateStandings(it) }
         }
@@ -106,7 +118,6 @@ class PCMSEventsLoader : EventsLoader() {
             }
         }
         contestData.calculateRanks()
-        contestData.makeRuns()
     }
 
     private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element) {
@@ -146,7 +157,7 @@ class PCMSEventsLoader : EventsLoader() {
             "yes" == element.attr("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.attr("outcome"), "WA")
         }
-        return PCMSRunInfo(
+        val run = PCMSRunInfo(
             oldRun?.id ?: lastRunId++,
             isJudged, result, problemId, time.inWholeMilliseconds, teamId,
             percentage,
@@ -155,6 +166,10 @@ class PCMSEventsLoader : EventsLoader() {
             else
                 contestInfo.contestTime.inWholeMilliseconds
         )
+        if (run.toApi() != oldRun?.toApi()) {
+            runBlocking { rawRunsFlow.emit(run.toApi()) }
+        }
+        return run
     }
 
     private var contestData: PCMSContestInfo
@@ -169,7 +184,7 @@ class PCMSEventsLoader : EventsLoader() {
             emulationEnabled = true
             emulationSpeed = emulationSpeedProp.toDouble()
             emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-            logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = $emulationStartTime")
+            logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
         }
         val problemInfo = loadProblemsInfo(properties.getProperty("problems.url"))
         val fn = properties.getProperty("teams.url")

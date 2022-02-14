@@ -1,14 +1,15 @@
-package org.icpclive.background
+package org.icpclive.service
 
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
 import org.icpclive.DataBus
-import org.icpclive.api.RunInfo as ApiRunInfo
+import org.icpclive.api.RunInfo
 
-object RunsStorage {
-    private val storage = mutableMapOf<Int, ApiRunInfo>()
+class RunsBufferService(val runsStorageUpdates: SharedFlow<List<RunInfo>>) {
+    private val storage = mutableMapOf<Int, RunInfo>()
 
     suspend fun run() {
-        DataBus.runsStorageUpdates.collect {
+        runsStorageUpdates.collect {
             for (run in it) {
                 if (storage[run.id] != run) {
                     storage[run.id] = run

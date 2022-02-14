@@ -30,21 +30,6 @@ class PCMSContestInfo(
         }
     }
 
-    fun makeRuns() {
-        this.runs = teams.flatMap { it.runs.flatten() }.sortedWith(compareBy(
-            { it.time },
-            { it.id }
-        ))
-        for (run in this.runs) {
-            if (firstSolvedRun[run.problemId] == null && run.isAccepted) {
-                firstSolvedRun[run.problemId] = run
-                run.isFirstSolvedRun = true
-            } else {
-                run.isFirstSolvedRun = false
-            }
-        }
-    }
-
     override val teamsNumber
         get() = teams.size
 
@@ -64,6 +49,5 @@ class PCMSContestInfo(
         return teams.firstOrNull { hashTag.equals(it.hashTag, ignoreCase = true)}
     }
 
-    override var runs: List<PCMSRunInfo> = mutableListOf()
     override var firstSolvedRun: MutableList<PCMSRunInfo?> = MutableList(problemsNumber) { null }
 }

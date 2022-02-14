@@ -12,9 +12,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting
-import org.icpclive.background.LoggerEventListener
-import org.icpclive.background.QueueProcessor
-import org.icpclive.background.RunsStorage
+import org.icpclive.service.EventLoggerService
+import org.icpclive.service.QueueService
+import org.icpclive.service.RunsBufferService
 import org.icpclive.cds.EventsLoader
 import org.icpclive.overlay.configureOverlayRouting
 import org.slf4j.event.Level
@@ -59,8 +59,7 @@ fun Application.module() {
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
-    launch(Dispatchers.IO) { EventsLoader.instance.run() }
-    launch { QueueProcessor().run() }
-    launch { LoggerEventListener().run() }
-    launch { RunsStorage.run() }
+    launch { EventsLoader.instance.run() }
+    launch { QueueService().run() }
+    launch { EventLoggerService().run() }
 }

@@ -4,20 +4,26 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import guessDatetimeFormat
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
+import org.icpclive.api.RunInfo
+import org.icpclive.api.Scoreboard
 import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.NetworkUtils.openAuthorizedStream
 import org.icpclive.cds.NetworkUtils.prepareNetwork
+import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.wf.WFOrganizationInfo
 import org.icpclive.cds.wf.WFRunInfo
 import org.icpclive.cds.wf.WFTestCaseInfo
+import org.icpclive.service.RunsBufferService
 import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.io.*
@@ -416,68 +422,84 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     }
 
     override suspend fun run() {
-        var lastEvent: String? = null
-        var initialized = false
-        while (true) {
-            try {
-                BufferedReader(
-                    InputStreamReader(
-                        openAuthorizedStream(url + "/event-feed", login, password!!),
-                        "utf-8"
-                    )
-                ).use { br ->
-                    val abortedEvent = lastEvent
-                    lastEvent = null
-                    val contestInfo = initialize()
-                    if (abortedEvent == null) {
-                        this.contestInfo = contestInfo
-                    }
-                    System.err.println("Aborted event $abortedEvent")
-                    while (true) {
-                        val line = br.readLine() ?: break
+        withContext(Dispatchers.IO) {
+            coroutineScope {
+                val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
+                    extraBufferCapacity = 16,
+                    onBufferOverflow = BufferOverflow.DROP_OLDEST
+                )
+                launch { RunsBufferService(runsBufferFlow).run() }
+
+                var lastEvent: String? = null
+                var initialized = false
+                while (true) {
+                    try {
+                        BufferedReader(
+                            InputStreamReader(
+                                openAuthorizedStream(url + "/event-feed", login, password!!),
+                                "utf-8"
+                            )
+                        ).use { br ->
+                            val abortedEvent = lastEvent
+                            lastEvent = null
+                            val contestInfo = initialize()
+                            if (abortedEvent == null) {
+                                this@WFEventsLoader.contestInfo = contestInfo
+                            }
+                            System.err.println("Aborted event $abortedEvent")
+                            while (true) {
+                                val line = br.readLine() ?: break
 
 //                    System.err.println(line);
-                        val je = Gson().fromJson(line, JsonObject::class.java)
-                        if (je == null) {
-                            log.info("Non-json line")
-                            System.err.println("Non-json line: " + Arrays.toString(line.toCharArray()))
-                            continue
-                        }
-                        val id = je["id"].asString.substring(3)
-                        if (id == abortedEvent) {
-                            this.contestInfo = contestInfo
-                        }
-                        lastEvent = id
-                        val update = je["op"].asString != "create"
-                        val type = je["type"].asString
-                        val json = je["data"].asJsonObject
-                        synchronized(GLOBAL_LOCK) {
-                            when (type) {
-                                "contests" -> readContest(contestInfo, json)
-                                "state" -> readState(contestInfo, json)
-                                "submissions" -> readSubmission(contestInfo, json, update)
-                                "judgements" -> readJudgement(contestInfo, json)
-                                "runs" -> readRun(contestInfo, json, update)
-                                "problems" -> if (!update && !initialized) {
-                                    initialized = true
-                                    throw Exception("Problems weren't loaded, exception to restart feed")
+                                val je = Gson().fromJson(line, JsonObject::class.java)
+                                if (je == null) {
+                                    log.info("Non-json line")
+                                    System.err.println("Non-json line: " + Arrays.toString(line.toCharArray()))
+                                    continue
                                 }
-                                else -> {}
+                                val id = je["id"].asString.substring(3)
+                                if (id == abortedEvent) {
+                                    this@WFEventsLoader.contestInfo = contestInfo
+                                }
+                                lastEvent = id
+                                val update = je["op"].asString != "create"
+                                val type = je["type"].asString
+                                val json = je["data"].asJsonObject
+                                synchronized(GLOBAL_LOCK) {
+                                    when (type) {
+                                        "contests" -> readContest(contestInfo, json)
+                                        "state" -> readState(contestInfo, json)
+                                        "submissions" -> readSubmission(contestInfo, json, update)
+                                        "judgements" -> readJudgement(contestInfo, json)
+                                        "runs" -> readRun(contestInfo, json, update)
+                                        "problems" -> if (!update && !initialized) {
+                                            initialized = true
+                                            throw Exception("Problems weren't loaded, exception to restart feed")
+                                        }
+                                        else -> {}
+                                    }
+                                }
+                                runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
+                                DataBus.contestInfoFlow.value = contestInfo.toApi()
+                                DataBus.scoreboardFlow.value =
+                                    Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL))
+                                DataBus.optimisticScoreboardFlow.value =
+                                    Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC))
+                                DataBus.pessimisticScoreboardFlow.value =
+                                    Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC))
                             }
-                            //TODO: do it more granular
-                            DataBus.publishContestInfo(contestInfo)
                         }
+                    } catch (e: Throwable) {
+                        log.error("error", e)
+                        try {
+                            delay(2.seconds)
+                        } catch (e1: InterruptedException) {
+                            log.error("error", e1)
+                        }
+                        log.info("Restart event feed")
+                        System.err.println("Restarting feed")
                     }
                 }
-            } catch (e: Throwable) {
-                log.error("error", e)
-                try {
-                    delay(2.seconds)
-                } catch (e1: InterruptedException) {
-                    log.error("error", e1)
-                }
-                log.info("Restart event feed")
-                System.err.println("Restarting feed")
             }
         }
     }

@@ -1,14 +1,18 @@
 package org.icpclive.cds.codeforces
 
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.Config.loadProperties
-import org.icpclive.DataBus.publishContestInfo
+import org.icpclive.DataBus
+import org.icpclive.api.RunInfo
+import org.icpclive.api.Scoreboard
 import org.icpclive.cds.EventsLoader
+import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFContest
+import org.icpclive.service.RunsBufferService
 import org.slf4j.LoggerFactory
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -34,13 +38,29 @@ class CFEventsLoader : EventsLoader() {
     }
 
     override suspend fun run() {
-        while (true) {
-            val standings = central.standings ?: continue
-            val submissions = if (standings.contest.phase == CFContest.CFContestPhase.BEFORE) null else central.status
-            log.info("Data received")
-            contestInfo.update(standings, submissions)
-            publishContestInfo(contestInfo)
-            delay(5.seconds)
+        withContext(Dispatchers.IO) {
+            coroutineScope {
+                val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
+                    extraBufferCapacity = 16,
+                    onBufferOverflow = BufferOverflow.DROP_OLDEST
+                )
+                launch { RunsBufferService(runsBufferFlow).run() }
+                while (true) {
+                    val standings = central.standings ?: continue
+                    val submissions =
+                        if (standings.contest.phase == CFContest.CFContestPhase.BEFORE) null else central.status
+                    log.info("Data received")
+                    contestInfo.update(standings, submissions)
+                    DataBus.contestInfoFlow.emit(contestInfo.toApi())
+                    runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
+                    DataBus.scoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL))
+                    DataBus.optimisticScoreboardFlow.value =
+                        Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC))
+                    DataBus.pessimisticScoreboardFlow.value =
+                        Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC))
+                    delay(5.seconds)
+                }
+            }
         }
     }
 

@@ -1,7 +1,5 @@
-package org.icpclive.background
+package org.icpclive.service
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.ticker
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -11,11 +9,10 @@ import org.icpclive.api.AddRunToQueueEvent
 import org.icpclive.api.ModifyRunInQueueEvent
 import org.icpclive.api.RemoveRunFromQueueEvent
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.EventsLoader
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class QueueProcessor {
+class QueueService {
 
     private val RunInfo.toOldAtTime get() = lastUpdateTime + if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
@@ -63,7 +60,7 @@ class QueueProcessor {
     }
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(QueueProcessor::class.java)
+        val logger: Logger = LoggerFactory.getLogger(QueueService::class.java)
 
         private const val WAIT_TIME = 60000L
         private const val FIRST_TO_SOLVE_WAIT_TIME = 120000L

@@ -3,8 +3,8 @@ package org.icpclive.cds
 interface RunInfo {
     val id: Int
     val isAccepted: Boolean
-    val isAddingPenalty: Boolean
     val isJudged: Boolean
+    val isAddingPenalty: Boolean
     val result: String
     val problemId: Int
     val teamId: Int
@@ -17,6 +17,7 @@ interface RunInfo {
         id,
         isAccepted,
         isJudged,
+        isAddingPenalty,
         result,
         problemId,
         teamId,

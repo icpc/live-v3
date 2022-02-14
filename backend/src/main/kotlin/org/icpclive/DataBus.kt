@@ -17,26 +17,10 @@ import org.icpclive.cds.ContestInfo as EventsContestInfo
  * Only runs are published now, with copy of list to make this data immutable
  */
 object DataBus {
-    // just wrapper for suspend world for java
-    fun publishContestInfo(contestInfo: EventsContestInfo) = runBlocking {
-        runsStorageUpdates.emit(contestInfo.runs.map { it.toApi() })
-        contestInfoFlow.value = contestInfo.toApi()
-        //TODO: rework to avoid triple computation event it's not needed
-        scoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL))
-        optimisticScoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC))
-        pessimisticScoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC))
-    }
-
     val contestInfoFlow = MutableStateFlow(ContestInfo.EMPTY)
-
-    //TODO: this should be replaced with ContestInfo flow
-    val runsStorageUpdates = MutableSharedFlow<List<RunInfo>>(
-        extraBufferCapacity = 16,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
     val runsUpdates = MutableSharedFlow<RunInfo>(
-        extraBufferCapacity = 100000,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+        extraBufferCapacity = 1000000,
+        onBufferOverflow = BufferOverflow.SUSPEND
     )
     val mainScreenEvents = MutableSharedFlow<MainScreenEvent>(
         extraBufferCapacity = 100000,

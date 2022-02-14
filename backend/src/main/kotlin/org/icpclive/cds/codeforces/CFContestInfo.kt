@@ -66,7 +66,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         return result
     }
 
-    override val runs: List<CFRunInfo>
+    val runs: List<CFRunInfo>
         get() = synchronized(runsById) {
             runsById.values.sortedBy { it.time }
         }

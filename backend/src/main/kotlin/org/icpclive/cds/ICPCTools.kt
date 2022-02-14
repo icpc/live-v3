@@ -35,7 +35,7 @@ object ICPCTools {
             ).also {
                 if (it.isSolved) {
                     solved++
-                    penalty += (okRun!!.time / 1000 / 60).toInt()
+                    penalty += (okRun!!.time / 1000 / 60).toInt() + it.wrongAttempts * 20
                     lastAccepted = max(lastAccepted, okRun.time)
                 }
             }

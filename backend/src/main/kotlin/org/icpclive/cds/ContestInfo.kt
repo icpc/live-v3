@@ -42,7 +42,6 @@ abstract class ContestInfo(
     abstract fun getStandings(optimismLevel: OptimismLevel): List<ScoreboardRow>
     abstract fun firstTimeSolved(): LongArray?
     abstract val firstSolvedRun: List<RunInfo?>
-    abstract val runs: List<RunInfo>
     var contestLength = 5.hours
     var freezeTime = 4.hours
     val groups = mutableSetOf<String>()
