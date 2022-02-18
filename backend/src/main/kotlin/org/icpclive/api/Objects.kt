@@ -2,10 +2,8 @@
 
 package org.icpclive.api
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.time.Duration
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
 @Serializable
@@ -56,16 +54,16 @@ data class ContestInfo(
     val freezeTimeMs: Long,
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
-    val emulationSpeed: Int,
+    val emulationSpeed: Double = 1.0,
 ) {
     val currentContestTimeMs
         get() = when (status) {
             ContestStatus.BEFORE, ContestStatus.UNKNOWN -> 0
-            ContestStatus.RUNNING -> (System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed
+            ContestStatus.RUNNING -> ((System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed).toLong()
             ContestStatus.OVER -> contestLengthMs
         }
     companion object {
-        val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList(), 1)
+        val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList())
     }
 }
 

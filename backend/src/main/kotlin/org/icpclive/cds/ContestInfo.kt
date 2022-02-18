@@ -58,6 +58,5 @@ abstract class ContestInfo(
         freezeTime.inWholeMilliseconds,
         problems.map { it.toApi() },
         teams.map { it.toApi() }.sortedBy { it.id },
-        EventsLoader.instance.emulationSpeed.toInt(),
     )
 }

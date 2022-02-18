@@ -13,24 +13,25 @@ import java.nio.charset.StandardCharsets
 import java.util.stream.Collectors
 import kotlin.time.Duration
 
-abstract class RegularLoaderService<T>(
-    private val flow: MutableStateFlow<T>,
-    private val period: Duration
-    ) {
+abstract class RegularLoaderService<T> {
 
     abstract val url: String
     abstract val login: String
     abstract val password: String
     abstract fun processLoaded(data: String) : T
 
-    suspend fun run() {
+    fun loadOnce() : T {
+        val inputStream = NetworkUtils.openAuthorizedStream(url, login, password)
+        val xml = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
+            .lines()
+            .collect(Collectors.joining())
+        return processLoaded(xml)
+    }
+
+    suspend fun run(flow: MutableStateFlow<T>, period: Duration) {
         while (true) {
             try {
-                val inputStream = NetworkUtils.openAuthorizedStream(url, login, password)
-                val xml = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                    .lines()
-                    .collect(Collectors.joining())
-                flow.value = processLoaded(xml)
+                flow.value = loadOnce()
                 delay(period)
             } catch (e: IOException) {
                 logger.error("Failed to load xml", e)

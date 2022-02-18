@@ -5,9 +5,7 @@ import humanReadable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.*
@@ -16,9 +14,7 @@ import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.icpclive.api.Scoreboard
 import org.icpclive.cds.EventsLoader
-import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.service.*
 import org.jsoup.Jsoup
@@ -46,108 +42,110 @@ class PCMSEventsLoader : EventsLoader() {
         }
     }
 
-    private val rawRunsFlow = MutableSharedFlow<RunInfo>(
-        extraBufferCapacity = 100000,
-        onBufferOverflow = BufferOverflow.SUSPEND
-    )
 
     override suspend fun run() {
         coroutineScope {
-            val xmlLoaderFlow = MutableStateFlow(Document(""))
-            launch { FirstToSolveService(contestData.problemsNumber, rawRunsFlow, DataBus.runsUpdates).run() }
-            launch(Dispatchers.IO) {
-                object : RegularLoaderService<Document>(
-                    xmlLoaderFlow,
-                    5.seconds / emulationSpeed
-                ) {
-                    override val url = properties.getProperty("url")
-                    override val login = properties.getProperty("login")
-                    override val password = properties.getProperty("password")
-                    override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
-                }.run()
-            }
-            launch { ICPCNormalScoreboardService(contestData.problemsNumber, DataBus.runsUpdates, DataBus.scoreboardFlow).run() }
-            launch { ICPCOptimisticScoreboardService(contestData.problemsNumber, DataBus.runsUpdates, DataBus.optimisticScoreboardFlow).run() }
-            launch { ICPCPessimisticScoreboardService(contestData.problemsNumber, DataBus.runsUpdates, DataBus.pessimisticScoreboardFlow).run() }
+            val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                extraBufferCapacity = 100000,
+                onBufferOverflow = BufferOverflow.SUSPEND
+            )
+            launchICPCServices(contestData.problemsNumber, rawRunsFlow)
 
-            xmlLoaderFlow.collect {
-                parseAndUpdateStandings(it)
-                DataBus.contestInfoFlow.value = contestData.toApi()
-                if (contestData.status == ContestStatus.RUNNING) {
-                    logger.info("Updated for contest time = ${contestData.contestTime}")
+            val xmlLoader = object : RegularLoaderService<Document>() {
+                override val url = properties.getProperty("url")
+                override val login = properties.getProperty("login")
+                override val password = properties.getProperty("password")
+                override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
+            }
+
+            val emulationSpeedProp : String? = properties.getProperty("emulation.speed")
+            if (emulationSpeedProp == null) {
+                val xmlLoaderFlow = MutableStateFlow(Document(""))
+                launch(Dispatchers.IO) {
+                    xmlLoader.run(xmlLoaderFlow, 5.seconds)
+                }
+                xmlLoaderFlow.collect {
+                    parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
+                    DataBus.contestInfoFlow.value = contestData.toApi()
+                    if (contestData.status == ContestStatus.RUNNING) {
+                        logger.info("Updated for contest time = ${contestData.contestTime}")
+                    }
+                }
+            } else {
+                val runs = mutableListOf<RunInfo>()
+                parseAndUpdateStandings(xmlLoader.loadOnce()) { runs.add(it) }
+                if (contestData.status != ContestStatus.OVER) {
+                    throw IllegalStateException("Emulation mode require over contest")
+                }
+                val emulationSpeed = emulationSpeedProp.toDouble()
+                val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
+                logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
+                launch {
+                    EmulationService(
+                        emulationStartTime,
+                        emulationSpeed,
+                        runs.toList(),
+                        contestData.toApi(),
+                        rawRunsFlow
+                    ).run()
                 }
             }
+
         }
     }
 
-    private fun parseAndUpdateStandings(element: Element) {
+    private fun parseAndUpdateStandings(element: Element, onRunChanges: (RunInfo) -> Unit) {
         if ("contest" == element.tagName()) {
-            parseContestInfo(element)
+            parseContestInfo(element, onRunChanges)
         } else {
-            element.children().forEach { parseAndUpdateStandings(it) }
+            element.children().forEach { parseAndUpdateStandings(it, onRunChanges) }
         }
     }
 
     private var lastRunId = 0
-    private fun parseContestInfo(element: Element) {
-        if (emulationEnabled) {
-            val timeByEmulation = (Clock.System.now() - emulationStartTime) * emulationSpeed
-            if (timeByEmulation.isNegative()) {
-                contestData.contestTime = 0.milliseconds
-                contestData.status = ContestStatus.BEFORE
-            } else if (timeByEmulation < contestData.contestLength) {
-                contestData.contestTime = timeByEmulation
-                contestData.status = ContestStatus.RUNNING
-            } else {
-                contestData.contestTime = contestData.contestLength
-                contestData.status = ContestStatus.OVER
-            }
-            contestData.startTime = emulationStartTime
-        } else {
-            val status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
-            val contestTime = element.attr("time").toLong().milliseconds
-            if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
-                contestData.startTime = Clock.System.now() - contestTime
-            }
-            contestData.status = status
-            contestData.contestTime = contestTime
+    private fun parseContestInfo(element: Element, onRunChanges: (RunInfo) -> Unit) {
+        val status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
+        val contestTime = element.attr("time").toLong().milliseconds
+        if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
+            contestData.startTime = Clock.System.now() - contestTime
         }
+        contestData.status = status
+        contestData.contestTime = contestTime
         element.children().forEach { session: Element ->
             if ("session" == session.tagName()) {
-                parseTeamInfo(contestData, session)
+                parseTeamInfo(contestData, session, onRunChanges)
             }
         }
         contestData.calculateRanks()
     }
 
-    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element) {
+    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element,onRunChanges: (RunInfo) -> Unit) {
         val alias = element.attr("alias")
         contestInfo.getParticipant(alias)?.apply {
             solvedProblemsNumber = element.attr("solved").toInt()
             penalty = element.attr("penalty").toInt()
             for (i in element.children().indices) {
-                runs[i] = parseProblemRuns(contestInfo, element.child(i), i, id)
+                runs[i] = parseProblemRuns(contestInfo, element.child(i), i, id, onRunChanges)
             }
         }
     }
 
-    private fun parseProblemRuns(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int): List<PCMSRunInfo> {
+    private fun parseProblemRuns(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, onRunChanges: (RunInfo) -> Unit): List<PCMSRunInfo> {
         if (contestInfo.status === ContestStatus.BEFORE) {
             return emptyList()
         }
         return element.children().mapIndexedNotNull { index, run ->
-            parseRunInfo(contestInfo, run, problemId, teamId, index)
+            parseRunInfo(contestInfo, run, problemId, teamId, index, onRunChanges)
         }
     }
 
-    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, attemptId: Int): PCMSRunInfo? {
+    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, attemptId: Int, onRunChanges: (RunInfo) -> Unit): PCMSRunInfo? {
         val time = element.attr("time").toLong().milliseconds
         if (time > contestInfo.contestTime) return null
         val isFrozen = time >= contestInfo.freezeTime
         val oldRun = contestInfo.teams[teamId].runs[problemId].getOrNull(attemptId)
         val percentage = when {
             isFrozen -> 0.0
-            emulationEnabled -> if (contestInfo.contestTime - time >= 60.seconds) 1.0 else minOf(1.0, (oldRun?.percentage ?: 0.0) + Random.nextDouble(1.0))
             "undefined" == element.attr("outcome") -> 0.0
             else -> 1.0
         }
@@ -167,7 +165,7 @@ class PCMSEventsLoader : EventsLoader() {
                 contestInfo.contestTime.inWholeMilliseconds
         )
         if (run.toApi() != oldRun?.toApi()) {
-            runBlocking { rawRunsFlow.emit(run.toApi()) }
+            onRunChanges(run.toApi())
         }
         return run
     }
@@ -176,16 +174,6 @@ class PCMSEventsLoader : EventsLoader() {
     private val properties: Properties = loadProperties("events")
 
     init {
-        val emulationSpeedProp : String? = properties.getProperty("emulation.speed")
-        if (emulationSpeedProp == null) {
-            emulationEnabled = false
-            emulationSpeed = 1.0
-        } else {
-            emulationEnabled = true
-            emulationSpeed = emulationSpeedProp.toDouble()
-            emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-            logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
-        }
         val problemInfo = loadProblemsInfo(properties.getProperty("problems.url"))
         val fn = properties.getProperty("teams.url")
         val xml = loadFile(fn)

@@ -9,8 +9,6 @@ import org.icpclive.cds.codeforces.CFEventsLoader
 abstract class EventsLoader {
     var emulationSpeed = 0.0
         protected set
-    var emulationEnabled = false
-        protected set
     protected var emulationStartTime = Instant.fromEpochMilliseconds(0)
 
     abstract suspend fun run()
