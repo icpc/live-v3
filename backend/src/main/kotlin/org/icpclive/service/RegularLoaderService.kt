@@ -1,9 +1,7 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.isActive
 import org.icpclive.cds.NetworkUtils
 import org.slf4j.LoggerFactory
 import java.io.BufferedReader
@@ -22,13 +20,13 @@ abstract class RegularLoaderService<T> {
 
     fun loadOnce() : T {
         val inputStream = NetworkUtils.openAuthorizedStream(url, login, password)
-        val xml = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
+        val content = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
             .lines()
             .collect(Collectors.joining())
-        return processLoaded(xml)
+        return processLoaded(content)
     }
 
-    suspend fun run(flow: MutableStateFlow<T>, period: Duration) {
+    suspend fun run(flow: MutableStateFlow<in T>, period: Duration) {
         while (true) {
             try {
                 flow.value = loadOnce()

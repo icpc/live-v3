@@ -43,9 +43,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
     }
 
     val runs: List<CFRunInfo>
-        get() = synchronized(runsById) {
-            runsById.values.sortedBy { it.time }
-        }
+        get() = runsById.values.sortedBy { it.time }
 
     override val contestTime: Duration
         get() {
@@ -122,10 +120,8 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
 
     fun addRun(run: CFRunInfo?, problem: Int) {
         val runs = getRuns(run!!.submission.author)[problem]
-        synchronized(runs) {
-            runs.add(run)
-            run.problem.update(run)
-        }
+        runs.add(run)
+        run.problem.update(run)
     }
 
     fun getRuns(party: CFParty): List<MutableList<CFRunInfo>> {
