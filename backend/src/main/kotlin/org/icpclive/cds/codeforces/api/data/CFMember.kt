@@ -1,8 +1,9 @@
-package org.icpclive.cds.codeforces.api.data;
+package org.icpclive.cds.codeforces.api.data
 
-/**
- * @author egor@egork.net
- */
-public class CFMember {
-    public String handle;
-}
+import kotlinx.serialization.*
+
+@Serializable
+data class CFMember(
+    val handle: String,
+    val name: String? = null,
+)

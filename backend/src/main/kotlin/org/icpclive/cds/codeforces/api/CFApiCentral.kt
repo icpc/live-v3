@@ -1,125 +1,114 @@
-package org.icpclive.cds.codeforces.api;
+package org.icpclive.cds.codeforces.api
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.icpclive.cds.codeforces.api.data.CFSubmission;
-import org.icpclive.cds.codeforces.api.results.CFStandings;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import org.icpclive.cds.codeforces.api.results.CFStandings
+import java.util.Collections
+import java.io.IOException
+import java.security.NoSuchAlgorithmException
+import org.icpclive.cds.codeforces.api.data.CFSubmission
+import kotlin.Throws
+import java.util.SortedMap
+import java.util.TreeMap
+import java.lang.StringBuilder
+import java.lang.InterruptedException
+import kotlinx.serialization.json.*
+import org.slf4j.LoggerFactory
+import java.net.URL
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
+import java.util.concurrent.ThreadLocalRandom
+import kotlin.jvm.JvmStatic
 
 /**
  * @author egor@egork.net
  */
-public class CFApiCentral {
-    private static final Logger log = LoggerFactory.getLogger(CFApiCentral.class);
-    private static final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    private static final ThreadLocalRandom random = ThreadLocalRandom.current();
-
-    private String apiKey;
-    private String apiSecret;
-
-    public final int contestId;
-
-    public CFApiCentral(int contestId) {
-        this.contestId = contestId;
+class CFApiCentral(val contestId: Int) {
+    private var apiKey: String? = null
+    private var apiSecret: String? = null
+    fun setApiKeyAndSecret(apiKey: String?, apiSecret: String?) {
+        this.apiKey = apiKey
+        this.apiSecret = apiSecret
     }
 
-    public void setApiKeyAndSecret(String apiKey, String apiSecret) {
-        this.apiKey = apiKey;
-        this.apiSecret = apiSecret;
-    }
+    private val standingsUrl: String
+        get() = apiRequestUrl("contest.standings", mapOf("contestId" to contestId.toString()))
+    private val statusUrl: String
+        get() = apiRequestUrl("contest.status", mapOf("contestId" to contestId.toString()))
 
-    public CFStandings getStandings() {
-        try {
-            JsonNode node = apiRequest("contest.standings", Collections.singletonMap("contestId", String.valueOf(contestId)));
-            return mapper.treeToValue(node, CFStandings.class);
-        } catch (IOException | NoSuchAlgorithmException e) {
-            log.error("", e);
-            return null;
+    val standings: CFStandings?
+        get() = try {
+            Json.decodeFromJsonElement(apiRequest(standingsUrl))
+        } catch (e: IOException) {
+            log.error("", e)
+            null
         }
-    }
-
-    public List<CFSubmission> getStatus() {
-        try {
-            JsonNode node = apiRequest("contest.status", Collections.singletonMap("contestId", String.valueOf(contestId)));
-            List<CFSubmission> result = new ArrayList<>();
-            Iterator<JsonNode> elements = node.elements();
-            while (elements.hasNext()) {
-                result.add(mapper.treeToValue(elements.next(), CFSubmission.class));
-            }
-            return result;
-        } catch (IOException | NoSuchAlgorithmException e) {
-            log.error("", e);
-            return null;
+    val status: List<CFSubmission>?
+        get() = try {
+            Json.decodeFromJsonElement(apiRequest(statusUrl))
+        } catch (e: IOException) {
+            log.error("", e)
+            null
         }
-    }
 
-    private static String hash(String s) throws NoSuchAlgorithmException {
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-        byte[] bytes = messageDigest.digest(s.getBytes(StandardCharsets.UTF_8));
-        StringBuilder hash = new StringBuilder();
-        for (byte byte_ : bytes) {
-            hash.append(Integer.toHexString((byte_ & 0xff) | 0x100), 1, 3);
-        }
-        return hash.toString();
-    }
-
-    private JsonNode apiRequest(String method, Map<String, String> params) throws IOException, NoSuchAlgorithmException {
-        SortedMap<String, String> sortedParams = new TreeMap<>(params);
-
-        long time = System.currentTimeMillis() / 1000;
-        sortedParams.put("time", String.valueOf(time));
-        sortedParams.put("apiKey", apiKey);
-
-        String rand = String.valueOf(random.nextInt(900000) + 100000);
-        StringBuilder toHash = new StringBuilder(rand).append("/").append(method).append("?");
-        for (Map.Entry<String, String> paramAndValue : sortedParams.entrySet()) {
-            toHash.append(paramAndValue.getKey()).append("=").append(paramAndValue.getValue()).append("&");
-        }
-        toHash.deleteCharAt(toHash.length() - 1).append("#").append(apiSecret);
-        sortedParams.put("apiSig", rand + hash(toHash.toString()));
-
-        StringBuilder address = new StringBuilder("https://codeforces.com/api/").append(method).append("?");
-        for (Map.Entry<String, String> paramAndValue : sortedParams.entrySet()) {
-            address.append(paramAndValue.getKey()).append("=").append(paramAndValue.getValue()).append("&");
-        }
-        address.deleteCharAt(address.length() - 1);
-
-        URL url = new URL(address.toString());
-        JsonNode node = null;
-        boolean goon = true;
-        while (goon) {
+    private fun apiRequest(urlString: String): JsonElement {
+        val url = URL(urlString)
+        var node: JsonElement? = null
+        while (node == null) {
             try {
-                node = mapper.readTree(url.openConnection().getInputStream());
-                goon = false;
-            } catch (Exception e) {
-                e.printStackTrace();
+                val bytes = url.openConnection().getInputStream().readAllBytes()
+                val content = String(bytes, Charsets.UTF_8)
+                node = Json.parseToJsonElement(content)
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
             try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.sleep(10000)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
             }
         }
-        if (node == null || !"OK".equals(node.get("status").asText())) {
-            throw new IOException("Request " + address + " unsuccessful");
+        if (node.jsonObject["status"]!!.jsonPrimitive.content != "OK") {
+            throw IOException("Request $urlString unsuccessful")
         }
-        node = node.get("result");
-        return node;
+        return node.jsonObject["result"]!!
     }
 
-    public static void main(String[] args) {
-        CFApiCentral cfApiCentral = new CFApiCentral(1564);
-        cfApiCentral.getStatus();
-        cfApiCentral.getStandings();
+    private fun apiRequestUrl(
+        method: String,
+        params: Map<String, String>
+    ): String {
+        val sortedParams: SortedMap<String, String> = TreeMap(params)
+        val time = System.currentTimeMillis() / 1000
+        sortedParams["time"] = time.toString()
+        sortedParams["apiKey"] = apiKey
+        val rand = (random.nextInt(900000) + 100000).toString()
+        val toHash = StringBuilder(rand).append("/").append(method).append("?")
+        for ((key, value) in sortedParams) {
+            toHash.append(key).append("=").append(value).append("&")
+        }
+        toHash.deleteCharAt(toHash.length - 1).append("#").append(apiSecret)
+        sortedParams["apiSig"] = rand + hash(toHash.toString())
+        return buildString {
+            append("https://codeforces.com/api/")
+            append(method)
+            append("?")
+            for ((key, value) in sortedParams) {
+                append(key)
+                append("=")
+                append(value)
+                append("&")
+            }
+            deleteCharAt(length - 1)
+        }
+    }
+
+    companion object {
+        private val log = LoggerFactory.getLogger(CFApiCentral::class.java)
+        private val random = ThreadLocalRandom.current()
+        private fun hash(s: String): String {
+            val messageDigest = MessageDigest.getInstance("SHA-512")
+            return messageDigest.digest(s.toByteArray(StandardCharsets.UTF_8)).joinToString("") {
+                Integer.toHexString(it.toInt() and 0xff or 0x100).substring(1)
+            }
+        }
     }
 }

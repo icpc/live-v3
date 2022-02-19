@@ -75,16 +75,16 @@ abstract class ICPCScoreboardService(
         val runs = runs.values
             .sortedWith(compareBy({it.time}, {it.id}))
             .groupBy { it.teamId }
-        val teamsInfo = DataBus.contestInfoFlow.value.teams
+        val teamsInfo = DataBus.contestInfoFlow.value.teams.associateBy { it.id }
         val comparator = compareBy<ScoreboardRow>(
             { -it.totalScore },
             { it.penalty },
             { it.lastAccepted }
         )
 
-        val rows = teamsInfo.
+        val rows = teamsInfo.values.
             map { getScoreboardRow(it.id, runs[it.id] ?: emptyList()) }.
-            sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId].name })
+            sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
             .toMutableList()
         if (rows.isNotEmpty()) {
             var rank = 1

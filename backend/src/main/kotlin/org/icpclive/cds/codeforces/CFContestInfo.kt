@@ -5,10 +5,7 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.TeamInfo
-import org.icpclive.cds.codeforces.api.data.CFContest.CFContestPhase
-import org.icpclive.cds.codeforces.api.data.CFParty
-import org.icpclive.cds.codeforces.api.data.CFProblem
-import org.icpclive.cds.codeforces.api.data.CFSubmission
+import org.icpclive.cds.codeforces.api.data.*
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import java.util.*
 import kotlin.time.Duration
@@ -32,7 +29,6 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
     private val problemsMap: MutableMap<String, CFProblemInfo> = HashMap()
     private val participantsByName: MutableMap<String?, CFTeamInfo> = HashMap()
     private val participantsById: MutableMap<Int, CFTeamInfo> = HashMap()
-    val firstSolvedRun: MutableList<CFRunInfo?> = mutableListOf()
     private var nextParticipantId = 1
     override fun getParticipant(name: String): CFTeamInfo? {
         return participantsByName[name]
@@ -45,11 +41,6 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
     override fun getParticipantByHashTag(hashTag: String): CFTeamInfo? {
         return null
     }
-
-    private val standings: List<TeamInfo>
-        get() = this.cfStandings?.rows?.map {
-            participantsByName[getName(it.party)] as TeamInfo
-        } ?: emptyList()
 
     val runs: List<CFRunInfo>
         get() = synchronized(runsById) {
@@ -65,12 +56,12 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
                 0.seconds
             } else minOf(
                 Clock.System.now() - startTime,
-                cfStandings!!.contest.durationSeconds.seconds
+                cfStandings!!.contest.durationSeconds!!.seconds
             )
         }
 
-    fun update(standings: CFStandings, submissions: List<CFSubmission?>?) {
-        if (problemsMap.isEmpty() && !standings.problems.isEmpty()) {
+    fun updateStandings(standings: CFStandings) {
+        if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for (problem in standings.problems) {
                 val problemInfo = CFProblemInfo(problem, problemsNumber)
                 problemsMap[problem.index] = problemInfo
@@ -78,16 +69,16 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
             }
         }
         this.cfStandings = standings
-        //        lastTime = standings.contest.relativeTimeSeconds;
-        contestLength = standings.contest.durationSeconds.seconds
+        contestLength = standings.contest.durationSeconds!!.seconds
         val phase = standings.contest.phase
-        if (status === ContestStatus.BEFORE && phase == CFContestPhase.CODING) {
-            this.startTime = Clock.System.now() - standings.contest.relativeTimeSeconds.seconds
+        this.startTime = standings.contest.startTimeSeconds?.let { Instant.fromEpochSeconds(it) } ?: Instant.DISTANT_FUTURE
+        status = when (phase) {
+            CFContestPhase.BEFORE -> ContestStatus.BEFORE
+            CFContestPhase.CODING -> ContestStatus.RUNNING
+            else -> ContestStatus.OVER
         }
-        status =
-            if (phase == CFContestPhase.BEFORE) ContestStatus.BEFORE else if (phase == CFContestPhase.CODING) ContestStatus.RUNNING else ContestStatus.OVER
         for (row in standings.rows) {
-            val teamInfo = CFTeamInfo(row!!)
+            val teamInfo = CFTeamInfo(row)
             if (participantsByName.containsKey(teamInfo.name)) {
                 teamInfo.id = participantsByName[teamInfo.name]!!.id
             } else {
@@ -97,43 +88,22 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
             participantsByName[teamInfo.name] = teamInfo
             participantsById[teamInfo.id] = teamInfo
         }
-        if (submissions != null) {
-            Collections.reverse(submissions)
-            synchronized(runsById) {
-                for (submission in submissions) {
-                    if (submission!!.author.participantType != CFParty.CFPartyParticipantType.CONTESTANT || !participantsByName.containsKey(
-                            getName(
-                                submission.author
-                            )
-                        )
-                    ) {
-                        continue
-                    }
-                    var runInfo: CFRunInfo?
-                    var isNew: Boolean
-                    if (runsById.containsKey(submission.id.toInt())) {
-                        runInfo = runsById[submission.id.toInt()]
-                        runInfo!!.updateFrom(submission, standings.contest.relativeTimeSeconds)
-                        isNew = false
-                    } else {
-                        runInfo = CFRunInfo(submission)
-                        runsById[runInfo.id] = runInfo
-                        isNew = true
-                    }
-                    if (isNew) {
-                        addRun(runInfo, runInfo!!.problemId)
-                    }
-                }
+    }
+    fun updateSubmissions(submissions: List<CFSubmission?>) {
+        for (submission in submissions.reversed()) {
+            if (submission!!.author.participantType != CFPartyParticipantType.CONTESTANT) {
+                continue
             }
-        }
-        for (row in standings.rows) {
-            val teamInfo = CFTeamInfo(row)
-            for (i in teamInfo.runs.indices) {
-                for (runInfo in teamInfo.runs[i]) {
-                    if (runInfo.points == 0) {
-                        runInfo.points = row.problemResults[i].points.toInt()
-                    }
-                }
+            if (!participantsByName.containsKey(getName(submission.author))) {
+                continue
+            }
+            if (runsById.containsKey(submission.id.toInt())) {
+                val runInfo = runsById[submission.id.toInt()]
+                runInfo!!.updateFrom(submission, (Clock.System.now() - startTime).inWholeMilliseconds)
+            } else {
+                val runInfo = CFRunInfo(submission)
+                runsById[runInfo.id] = runInfo
+                addRun(runInfo, runInfo.problemId)
             }
         }
     }

@@ -43,7 +43,6 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("com.google.code.gson:gson:$gson_version")
     implementation("org.jsoup:jsoup:$jsoup_version")
-    implementation("com.fasterxml.jackson.core:jackson-databind:$fasterxml_version")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")

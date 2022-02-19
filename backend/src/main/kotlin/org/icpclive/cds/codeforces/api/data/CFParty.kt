@@ -1,21 +1,19 @@
-package org.icpclive.cds.codeforces.api.data;
+package org.icpclive.cds.codeforces.api.data
 
-import java.util.List;
+import kotlinx.serialization.*
 
-/**
- * @author egor@egork.net
- */
-public class CFParty {
-    public Integer contestId;
-    public List<CFMember> members;
-    public CFPartyParticipantType participantType;
-    public Integer teamId;
-    public String teamName;
-    public boolean ghost;
-    public Integer room;
-    public Long startTimeSeconds;
-
-    public enum CFPartyParticipantType {
-        CONTESTANT, PRACTICE, VIRTUAL, MANAGER, OUT_OF_COMPETITION
-    }
+enum class CFPartyParticipantType {
+    CONTESTANT, PRACTICE, VIRTUAL, MANAGER, OUT_OF_COMPETITION
 }
+
+@Serializable
+data class CFParty(
+    val contestId: Int? = null,
+    val members: List<CFMember>,
+    val participantType: CFPartyParticipantType,
+    val teamId: Int? = null,
+    val teamName: String? = null,
+    val ghost: Boolean,
+    val room: Int? = null,
+    val startTimeSeconds: Long? = null,
+)

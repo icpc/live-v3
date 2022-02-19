@@ -1,17 +1,15 @@
-package org.icpclive.cds.codeforces.api.data;
+package org.icpclive.cds.codeforces.api.data
 
-import java.util.List;
+import kotlinx.serialization.*
 
-/**
- * @author egor@egork.net
- */
-public class CFRanklistRow {
-    public CFParty party;
-    public int rank;
-    public double points;
-    public int penalty;
-    public int successfulHackCount;
-    public int unsuccessfulHackCount;
-    public List<CFProblemResult> problemResults;
-    public Long lastSubmissionTimeSeconds;
-}
+@Serializable
+data class CFRanklistRow(
+    val party: CFParty,
+    val rank: Int,
+    val points: Double,
+    val penalty: Int,
+    val successfulHackCount: Int,
+    val unsuccessfulHackCount: Int,
+    val problemResults: List<CFProblemResult>,
+    val lastSubmissionTimeSeconds: Long? = null,
+)

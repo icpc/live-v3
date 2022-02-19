@@ -1,22 +1,20 @@
-package org.icpclive.cds.codeforces.api.data;
+package org.icpclive.cds.codeforces.api.data
 
-import java.util.List;
+import kotlinx.serialization.*
 
-/**
- * @author egor@egork.net
- */
-public class CFProblem {
-    public Integer contestId;
-    public String problemsetName;
-    public String index;
-    public String name;
-    public CFProblemType type;
-    public Double points;
-    public Integer rating;
-    public List<String> tags;
-
-    public enum CFProblemType {
-        PROGRAMMING,
-        QUESTION
-    }
+enum class CFProblemType {
+    PROGRAMMING, QUESTION
 }
+
+
+@Serializable
+data class CFProblem(
+    val contestId: Int,
+    val problemsetName: String? = null,
+    val index: String,
+    val name: String? = null,
+    val type: CFProblemType,
+    val points: Double? = null,
+    val rating: Int? = null,
+    val tags: List<String>? = null,
+)

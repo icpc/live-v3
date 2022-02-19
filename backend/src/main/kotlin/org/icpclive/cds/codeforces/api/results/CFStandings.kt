@@ -1,16 +1,13 @@
-package org.icpclive.cds.codeforces.api.results;
+package org.icpclive.cds.codeforces.api.results
 
-import org.icpclive.cds.codeforces.api.data.CFContest;
-import org.icpclive.cds.codeforces.api.data.CFProblem;
-import org.icpclive.cds.codeforces.api.data.CFRanklistRow;
+import org.icpclive.cds.codeforces.api.data.CFContest
+import org.icpclive.cds.codeforces.api.data.CFProblem
+import org.icpclive.cds.codeforces.api.data.CFRanklistRow
+import kotlinx.serialization.Serializable
 
-import java.util.List;
-
-/**
- * @author egor@egork.net
- */
-public class CFStandings {
-    public CFContest contest;
-    public List<CFProblem> problems;
-    public List<CFRanklistRow> rows;
-}
+@Serializable
+data class CFStandings(
+    val contest: CFContest,
+    val problems: List<CFProblem>,
+    val rows: List<CFRanklistRow>,
+)

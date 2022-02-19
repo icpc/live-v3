@@ -1,16 +1,14 @@
 package org.icpclive.cds.codeforces
 
-import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.RunInfo
 import org.icpclive.cds.codeforces.api.data.CFSubmission
-import org.icpclive.cds.codeforces.api.data.CFSubmission.CFSubmissionVerdict
+import org.icpclive.cds.codeforces.api.data.CFSubmissionVerdict
 
 /**
  * @author egor@egork.net
  */
 class CFRunInfo(var submission: CFSubmission) : RunInfo {
     private var lastUpdate: Long
-    var points = 0
 
     init {
         lastUpdate = submission.relativeTimeSeconds

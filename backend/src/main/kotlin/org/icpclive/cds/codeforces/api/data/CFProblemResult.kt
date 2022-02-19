@@ -1,16 +1,16 @@
-package org.icpclive.cds.codeforces.api.data;
+package org.icpclive.cds.codeforces.api.data
 
-/**
- * @author egor@egork.net
- */
-public class CFProblemResult {
-    public double points;
-    public int penalty;
-    public int rejectedAttemptCount;
-    public CFProblemResultType type;
-    public long bestSubmissionTimeSeconds;
+import kotlinx.serialization.*
 
-    public enum CFProblemResultType {
-        PRELIMINARY, FINAL
-    }
+enum class CFProblemResultType {
+    PRELIMINARY, FINAL
 }
+
+@Serializable
+data class CFProblemResult(
+    val points: Double,
+    val penalty: Int? = null,
+    val rejectedAttemptCount: Int,
+    val type: CFProblemResultType,
+    val bestSubmissionTimeSeconds: Long? = null,
+)
