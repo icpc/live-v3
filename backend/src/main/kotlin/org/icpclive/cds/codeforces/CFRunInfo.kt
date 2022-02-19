@@ -55,10 +55,6 @@ class CFRunInfo(var submission: CFSubmission) : RunInfo {
         }
     }
 
-    override val isFirstSolvedRun: Boolean
-        get() = CFEventsLoader.instance.contestData.firstSolvedRun[problemId] === this
-
-
     companion object {
         private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
             CFSubmissionVerdict.CHALLENGED to "CH",

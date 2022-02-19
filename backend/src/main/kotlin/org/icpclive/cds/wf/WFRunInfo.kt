@@ -1,11 +1,7 @@
 package org.icpclive.cds.wf
 
-import org.icpclive.cds.EventsLoader
-import org.icpclive.cds.EventsLoader.Companion.instance
-import org.icpclive.cds.ProblemInfo
 import org.icpclive.cds.RunInfo
 import org.icpclive.cds.TeamInfo
-import org.icpclive.cds.wf.json.WFEventsLoader
 import kotlin.math.max
 
 /**
@@ -66,8 +62,5 @@ class WFRunInfo : RunInfo {
         if (team != null) teamName = team!!.shortName
         return teamName + " " + ('A'.code + problemId).toChar() + " " + result
     }
-
-    override val isFirstSolvedRun: Boolean
-        get() = (instance as WFEventsLoader).contestData.firstSolvedRun[problemId] === this
 
 }

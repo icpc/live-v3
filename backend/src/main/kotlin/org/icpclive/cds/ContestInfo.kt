@@ -33,21 +33,13 @@ abstract class ContestInfo(
         }
 
 
-    val isFrozen: Boolean
-        get() = contestTime >= freezeTime
-
     abstract fun getParticipant(name: String): TeamInfo?
     abstract fun getParticipant(id: Int): TeamInfo?
     abstract fun getParticipantByHashTag(hashTag: String): TeamInfo?
-    abstract fun getStandings(optimismLevel: OptimismLevel): List<ScoreboardRow>
-    abstract fun firstTimeSolved(): LongArray?
-    abstract val firstSolvedRun: List<RunInfo?>
     var contestLength = 5.hours
     var freezeTime = 4.hours
-    val groups = mutableSetOf<String>()
 
     companion object {
-        const val ALL_REGIONS = "all"
         val logger: Logger = LoggerFactory.getLogger(ContestInfo::class.java)
     }
 

@@ -24,7 +24,6 @@ import org.jsoup.parser.Parser
 import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.util.*
-import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -116,14 +115,11 @@ class PCMSEventsLoader : EventsLoader() {
                 parseTeamInfo(contestData, session, onRunChanges)
             }
         }
-        contestData.calculateRanks()
     }
 
     private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element,onRunChanges: (RunInfo) -> Unit) {
         val alias = element.attr("alias")
         contestInfo.getParticipant(alias)?.apply {
-            solvedProblemsNumber = element.attr("solved").toInt()
-            penalty = element.attr("penalty").toInt()
             for (i in element.children().indices) {
                 runs[i] = parseProblemRuns(contestInfo, element.child(i), i, id, onRunChanges)
             }
@@ -197,7 +193,6 @@ class PCMSEventsLoader : EventsLoader() {
         contestData = PCMSContestInfo(problemInfo, teams, Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
         contestData.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt().milliseconds
         contestData.freezeTime = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt().milliseconds
-        contestData.groups.addAll(teams.flatMap { it.groups }.filter { it.isNotEmpty() })
         loadProblemsInfo(properties.getProperty("problems.url"))
     }
 

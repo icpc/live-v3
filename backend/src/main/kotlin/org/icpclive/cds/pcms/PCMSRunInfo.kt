@@ -16,5 +16,4 @@ class PCMSRunInfo(
         get() = "AC" == result
     override val isAddingPenalty: Boolean
         get() = !isAccepted && "CE" != result
-    override var isFirstSolvedRun = false
 }

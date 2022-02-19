@@ -6,12 +6,11 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.RunInfo
-import org.icpclive.api.Scoreboard
 import org.icpclive.cds.EventsLoader
-import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFContest
 import org.icpclive.service.RunsBufferService
+import org.icpclive.service.launchICPCServices
 import org.slf4j.LoggerFactory
 import kotlin.time.Duration.Companion.seconds
 
@@ -25,14 +24,11 @@ class CFEventsLoader : EventsLoader() {
     init {
         val properties = loadProperties("events")
         emulationSpeed = 1.0
-        central = CFApiCentral(
-            properties.getProperty("contest_id").toInt()
-        )
+        central = CFApiCentral(properties.getProperty("contest_id").toInt())
         if (properties.containsKey(CF_API_KEY_PROPERTY_NAME) && properties.containsKey(CF_API_SECRET_PROPERTY_NAME)) {
             central.setApiKeyAndSecret(
-                properties.getProperty(CF_API_KEY_PROPERTY_NAME), properties.getProperty(
-                    CF_API_SECRET_PROPERTY_NAME
-                )
+                properties.getProperty(CF_API_KEY_PROPERTY_NAME),
+                properties.getProperty(CF_API_SECRET_PROPERTY_NAME)
             )
         }
     }
@@ -44,20 +40,27 @@ class CFEventsLoader : EventsLoader() {
                     extraBufferCapacity = 16,
                     onBufferOverflow = BufferOverflow.DROP_OLDEST
                 )
-                launch { RunsBufferService(runsBufferFlow).run() }
+                val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                    extraBufferCapacity = 100000,
+                    onBufferOverflow = BufferOverflow.SUSPEND
+                )
+                launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
+                var servicesLaunched = false
                 while (true) {
                     val standings = central.standings ?: continue
                     val submissions =
                         if (standings.contest.phase == CFContest.CFContestPhase.BEFORE) null else central.status
                     log.info("Data received")
                     contestInfo.update(standings, submissions)
-                    DataBus.contestInfoFlow.emit(contestInfo.toApi())
+                    if (!servicesLaunched && contestData.problems.isEmpty()) {
+                        launchICPCServices(
+                            contestData.problems.size,
+                            rawRunsFlow
+                        )
+                        servicesLaunched = true
+                    }
+                    DataBus.contestInfoFlow.value = contestInfo.toApi()
                     runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
-                    DataBus.scoreboardFlow.value = Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL))
-                    DataBus.optimisticScoreboardFlow.value =
-                        Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC))
-                    DataBus.pessimisticScoreboardFlow.value =
-                        Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC))
                     delay(5.seconds)
                 }
             }

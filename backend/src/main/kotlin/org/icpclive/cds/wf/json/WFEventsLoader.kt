@@ -14,16 +14,15 @@ import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.icpclive.api.Scoreboard
 import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.NetworkUtils.openAuthorizedStream
 import org.icpclive.cds.NetworkUtils.prepareNetwork
-import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.wf.WFOrganizationInfo
 import org.icpclive.cds.wf.WFRunInfo
 import org.icpclive.cds.wf.WFTestCaseInfo
 import org.icpclive.service.RunsBufferService
+import org.icpclive.service.launchICPCServices
 import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.io.*
@@ -44,7 +43,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     private var password: String? = null
     private var regionals = false
     private var emulation = false
-    val contestData: ContestInfo
+    val contestData: WFContestInfo
         get() = contestInfo
 
     @Throws(IOException::class)
@@ -73,7 +72,6 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
             val id = je["id"].asString
             val name = je["name"].asString
             contest.groupById!![id] = name
-            contest.groups.add(name)
         }
     }
 
@@ -260,7 +258,6 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         }
         contestInfo.initializationFinish()
         log.info("Problems " + contestInfo.problems.size + ", teamInfos " + contestInfo.teamInfos.size)
-        contestInfo.recalcStandings()
         return contestInfo
     }
 
@@ -274,7 +271,6 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         contestInfo.initializationFinish()
         contestInfo.status = ContestStatus.RUNNING
         contestInfo.startTime = this.contestInfo.startTime
-        contestInfo.recalcStandings()
         this.contestInfo = contestInfo
     }
 
@@ -387,11 +383,6 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         if (runInfo.time.milliseconds <= contestInfo.freezeTime) {
             runInfo.result = verdict
             runInfo.isJudged = true
-
-//            long start = System.currentTimeMillis();
-            contestInfo.recalcStandings()
-            //            contestInfo.checkStandings(url, login, password);
-//            log.info("Standing are recalculated in " + (System.currentTimeMillis() - start) + " ms");
         } else {
             runInfo.isJudged = false
         }
@@ -428,7 +419,12 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
                     extraBufferCapacity = 16,
                     onBufferOverflow = BufferOverflow.DROP_OLDEST
                 )
-                launch { RunsBufferService(runsBufferFlow).run() }
+                val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                    extraBufferCapacity = 100000,
+                    onBufferOverflow = BufferOverflow.SUSPEND
+                )
+                launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
+                launchICPCServices(contestInfo.problemsNumber, rawRunsFlow)
 
                 var lastEvent: String? = null
                 var initialized = false
@@ -481,21 +477,11 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
                                 }
                                 runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
                                 DataBus.contestInfoFlow.value = contestInfo.toApi()
-                                DataBus.scoreboardFlow.value =
-                                    Scoreboard(contestInfo.getStandings(OptimismLevel.NORMAL))
-                                DataBus.optimisticScoreboardFlow.value =
-                                    Scoreboard(contestInfo.getStandings(OptimismLevel.OPTIMISTIC))
-                                DataBus.pessimisticScoreboardFlow.value =
-                                    Scoreboard(contestInfo.getStandings(OptimismLevel.PESSIMISTIC))
                             }
                         }
                     } catch (e: Throwable) {
                         log.error("error", e)
-                        try {
-                            delay(2.seconds)
-                        } catch (e1: InterruptedException) {
-                            log.error("error", e1)
-                        }
+                        delay(2.seconds)
                         log.info("Restart event feed")
                         System.err.println("Restarting feed")
                     }

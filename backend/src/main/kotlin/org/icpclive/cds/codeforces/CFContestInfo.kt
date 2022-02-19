@@ -4,8 +4,6 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.ContestInfo
-import org.icpclive.cds.ICPCTools
-import org.icpclive.cds.OptimismLevel
 import org.icpclive.cds.TeamInfo
 import org.icpclive.cds.codeforces.api.data.CFContest.CFContestPhase
 import org.icpclive.cds.codeforces.api.data.CFParty
@@ -34,7 +32,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
     private val problemsMap: MutableMap<String, CFProblemInfo> = HashMap()
     private val participantsByName: MutableMap<String?, CFTeamInfo> = HashMap()
     private val participantsById: MutableMap<Int, CFTeamInfo> = HashMap()
-    override val firstSolvedRun: MutableList<CFRunInfo?> = mutableListOf()
+    val firstSolvedRun: MutableList<CFRunInfo?> = mutableListOf()
     private var nextParticipantId = 1
     override fun getParticipant(name: String): CFTeamInfo? {
         return participantsByName[name]
@@ -52,19 +50,6 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         get() = this.cfStandings?.rows?.map {
             participantsByName[getName(it.party)] as TeamInfo
         } ?: emptyList()
-
-    override fun getStandings(optimismLevel: OptimismLevel) =
-        standings.map {
-            ICPCTools.getTeamScoreboardRow(it, optimismLevel)
-        }
-
-    override fun firstTimeSolved(): LongArray {
-        val result = LongArray(problemsMap.size)
-        for (i in result.indices) {
-            result[i] = if (firstSolvedRun[i] == null) 0 else firstSolvedRun[i]!!.time
-        }
-        return result
-    }
 
     val runs: List<CFRunInfo>
         get() = synchronized(runsById) {
@@ -90,7 +75,6 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
                 val problemInfo = CFProblemInfo(problem, problemsNumber)
                 problemsMap[problem.index] = problemInfo
                 problems.add(problemInfo)
-                firstSolvedRun.add(null)
             }
         }
         this.cfStandings = standings
@@ -138,12 +122,6 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
                     }
                     if (isNew) {
                         addRun(runInfo, runInfo!!.problemId)
-                    }
-                    if (runInfo!!.isAccepted) {
-                        val pid = runInfo.problemId
-                        if (firstSolvedRun[pid] == null || firstSolvedRun[pid]!!.time > runInfo.time) {
-                            firstSolvedRun[pid] = runInfo
-                        }
                     }
                 }
             }

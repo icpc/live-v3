@@ -11,7 +11,6 @@ interface RunInfo {
     val percentage: Double
     val time: Long
     val lastUpdateTime: Long
-    val isFirstSolvedRun: Boolean
 
     fun toApi() = org.icpclive.api.RunInfo(
         id,
@@ -24,6 +23,6 @@ interface RunInfo {
         percentage,
         time,
         lastUpdateTime,
-        isFirstSolvedRun
+        false,
     )
 }

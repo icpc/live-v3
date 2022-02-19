@@ -36,19 +36,21 @@ class EmulationService(
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0
-            do {
-                val submittedRun = run.copy(
-                    percentage = percentage,
-                    isJudged = false,
-                    isAccepted = false,
-                    isAddingPenalty = false,
-                    result = "",
-                    lastUpdateTime = (run.time + timeShift)
-                )
-                add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(submittedRun) })
-                percentage += Random.nextDouble(1.0)
-                timeShift += Random.nextInt(20000)
-            } while (percentage < 1.0)
+            if (run.isJudged) {
+                do {
+                    val submittedRun = run.copy(
+                        percentage = percentage,
+                        isJudged = false,
+                        isAccepted = false,
+                        isAddingPenalty = false,
+                        result = "",
+                        lastUpdateTime = (run.time + timeShift)
+                    )
+                    add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(submittedRun) })
+                    percentage += Random.nextDouble(1.0)
+                    timeShift += Random.nextInt(20000)
+                } while (percentage < 1.0)
+            }
             add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(run.copy(lastUpdateTime = run.time + timeShift)) })
         }
     }.sortedBy { it.time }

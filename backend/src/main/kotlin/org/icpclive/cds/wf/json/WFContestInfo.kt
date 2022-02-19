@@ -11,9 +11,7 @@ class WFContestInfo : WFContestInfo() {
     fun initializationFinish() {
         problemsNumber = problems.size
         teamsNumber = teamInfos.size
-        timeFirstSolved = LongArray(problemsNumber)
         wfRuns = mutableListOf()
-        firstSolvedRun = MutableList(problemsNumber) { null }
     }
 
     // Groups
