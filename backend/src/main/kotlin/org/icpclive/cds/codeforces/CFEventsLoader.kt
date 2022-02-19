@@ -1,5 +1,7 @@
 package org.icpclive.cds.codeforces
 
+import guessDatetimeFormat
+import humanReadable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
@@ -17,11 +19,14 @@ import org.icpclive.cds.codeforces.api.data.CFContestPhase
 import org.icpclive.cds.codeforces.api.data.CFContestType
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
+import org.icpclive.cds.pcms.PCMSEventsLoader
+import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.slf4j.LoggerFactory
 import java.io.IOException
+import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -72,37 +77,65 @@ class CFEventsLoader : EventsLoader() {
                 throw IOException(e)
             }
         }
-        val standingsFlow = MutableStateFlow<CFStandings?>(null)
-        val statusFlow = MutableStateFlow(CFSubmissionList(emptyList()))
-        coroutineScope {
-            launch(Dispatchers.IO) { standingsLoader.run(standingsFlow, 5.seconds) }
-            val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
-                extraBufferCapacity = 16,
-                onBufferOverflow = BufferOverflow.DROP_OLDEST
-            )
-            val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                extraBufferCapacity = 100000,
-                onBufferOverflow = BufferOverflow.SUSPEND
-            )
-            launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
-            val processedStandingsFlow = standingsFlow
-                .filterNotNull()
-                .onEach {
-                    contestInfo.updateStandings(it)
-                    DataBus.contestInfoFlow.value = contestInfo.toApi()
+        val properties: Properties = loadProperties("events")
+        val emulationSpeedProp : String? = properties.getProperty("emulation.speed")
+
+        if (emulationSpeedProp != null) {
+            contestInfo.updateStandings(standingsLoader.loadOnce())
+            contestInfo.updateSubmissions(statusLoader.loadOnce().list)
+            coroutineScope {
+                val emulationSpeed = emulationSpeedProp.toDouble()
+                val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
+                log.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
+                val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                    extraBufferCapacity = 100000,
+                    onBufferOverflow = BufferOverflow.SUSPEND
+                )
+                launch {
+                    EmulationService(
+                        emulationStartTime,
+                        emulationSpeed,
+                        contestData.runs.map { it.toApi() },
+                        contestData.toApi(),
+                        rawRunsFlow
+                    ).run()
                 }
-            val standingsRunning = processedStandingsFlow
-                .dropWhile { it.contest.phase == CFContestPhase.BEFORE }
-                .first()
-            launchICPCServices(standingsRunning.problems.size, rawRunsFlow)
-            launch(Dispatchers.IO) { statusLoader.run(statusFlow, 5.seconds) }
-
-            val processedStatusFlow = statusFlow.onEach {
-                contestInfo.updateSubmissions(it.list)
-                runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
+                launchICPCServices(contestData.problemsNumber, rawRunsFlow)
             }
+        } else {
+            coroutineScope {
+                val standingsFlow = MutableStateFlow<CFStandings?>(null)
+                val statusFlow = MutableStateFlow(CFSubmissionList(emptyList()))
+                launch(Dispatchers.IO) { standingsLoader.run(standingsFlow, 5.seconds) }
+                val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
+                    extraBufferCapacity = 16,
+                    onBufferOverflow = BufferOverflow.DROP_OLDEST
+                )
+                val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                    extraBufferCapacity = 100000,
+                    onBufferOverflow = BufferOverflow.SUSPEND
+                )
+                launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
+                val processedStandingsFlow = standingsFlow
+                    .filterNotNull()
+                    .onEach {
+                        contestInfo.updateStandings(it)
+                        DataBus.contestInfoFlow.value = contestInfo.toApi()
+                    }
+                val standingsRunning = processedStandingsFlow
+                    .dropWhile { it.contest.phase == CFContestPhase.BEFORE }
+                    .first()
+                launchICPCServices(standingsRunning.problems.size, rawRunsFlow)
+                launch(Dispatchers.IO) { statusLoader.run(statusFlow, 5.seconds) }
 
-            merge(processedStandingsFlow, processedStatusFlow).collect {}
+                val processedStatusFlow = statusFlow.onEach {
+                    contestInfo.updateSubmissions(it.list)
+                    log.info("Loaded ${it.list.size} runs")
+                    runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
+                }
+
+                merge(processedStandingsFlow, processedStatusFlow).collect {}
+            }
         }
     }
 
