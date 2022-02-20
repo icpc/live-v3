@@ -22,10 +22,7 @@ object DataBus {
         extraBufferCapacity = 1000000,
         onBufferOverflow = BufferOverflow.SUSPEND
     )
-    val mainScreenEvents = MutableSharedFlow<MainScreenEvent>(
-        extraBufferCapacity = 100000,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST,
-    )
+    val mainScreenEvents = WidgetManager.widgetsFlow
     val queueEvents = MutableSharedFlow<QueueEvent>(
         extraBufferCapacity = 100000,
         onBufferOverflow = BufferOverflow.DROP_OLDEST

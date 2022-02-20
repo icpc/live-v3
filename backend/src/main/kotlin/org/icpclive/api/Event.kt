@@ -23,6 +23,10 @@ class ShowWidgetEvent(val widget: Widget) : MainScreenEvent()
 class HideWidgetEvent(val id: String) : MainScreenEvent()
 
 @Serializable
+@SerialName("MainScreenSnapshot")
+class MainScreenSnapshotEvent(val widgets: List<Widget>) : MainScreenEvent()
+
+@Serializable
 @SerialName("AddRunToQueue")
 class AddRunToQueueEvent(val info: RunInfo) : QueueEvent()
 
