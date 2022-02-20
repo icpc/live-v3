@@ -1,3 +1,5 @@
+package org.icpclive.utils
+
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.*

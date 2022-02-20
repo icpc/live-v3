@@ -6,7 +6,7 @@ import org.icpclive.DataBus
 import org.icpclive.api.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import tickerFlow
+import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration.Companion.seconds
 
 class QueueService {

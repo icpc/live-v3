@@ -1,9 +1,8 @@
 package org.icpclive.cds
 
-import humanReadable
+import org.icpclive.utils.*
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
-import org.icpclive.api.ScoreboardRow
 import org.icpclive.api.toApi
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
