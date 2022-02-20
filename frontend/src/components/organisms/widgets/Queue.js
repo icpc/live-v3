@@ -1,13 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { QUEUE_ROW_HEIGHT, QUEUE_ROWS_COUNT } from "../../../config";
+import { QueueRow } from "../../molecules/queue/QueueRow";
 
-const QueueWrap = styled.div`
+const WidgetWrap = styled.div`
   background-color: grey;
   width: 100%;
   height: 100%;
   
-  display: flex;
+  position: relative;
 `;
 
 const BreakingNewsContainer = styled.div`
@@ -18,8 +20,42 @@ const QueueContainer = styled.div`
     
 `;
 
-export const Queue = ({ state }) => {
+const QueueWrap = styled.div`
+  height: ${QUEUE_ROW_HEIGHT*QUEUE_ROWS_COUNT}px;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+
+  background-color: lightblue;
+`;
+
+const QueueRowWrap = styled(QueueRow).attrs(({ bottom }) => ({
+    style: {
+        bottom: bottom + "px"
+    }
+}))`
+    position: absolute;
+    transition: bottom linear 1s;
+`;
+
+export const Queue = () => {
     const queue = useSelector(state => state.queue.queue);
-    return <QueueWrap>{JSON.stringify(queue)}</QueueWrap>;
+    const allRows = [];
+    let queueRowsCount = 0;
+    let firstToSolveCount = 0;
+    for(let queueEntry of queue) {
+        let bottom = QUEUE_ROW_HEIGHT * queueRowsCount;
+        if (queueEntry.isFirstSolvedRun) {
+            bottom = (QUEUE_ROWS_COUNT - firstToSolveCount) * QUEUE_ROW_HEIGHT + QUEUE_ROW_HEIGHT/2;
+        }
+        const el = <QueueRowWrap key={queueEntry.id} bottom={bottom} entryData={queueEntry} teamData={undefined}/>;
+        allRows.push(el);
+        queueRowsCount += !queueEntry.isFirstSolvedRun;
+        firstToSolveCount += !!queueEntry.isFirstSolvedRun;
+    }
+    return <WidgetWrap>
+        {/*{JSON.stringify(queue)}*/}
+        {allRows}
+    </WidgetWrap>;
 };
 export default Queue;

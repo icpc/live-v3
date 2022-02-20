@@ -1,5 +1,5 @@
 import { pushLog } from "../../redux/debug";
-import { addRun, removeRun } from "../../redux/queue";
+import { addRun, modifyRun, removeRun } from "../../redux/queue";
 
 export const handleMessage = (dispatch) => (e) => {
     const message = JSON.parse(e.data);
@@ -10,6 +10,9 @@ export const handleMessage = (dispatch) => (e) => {
         break;
     case "RemoveRunFromQueue":
         dispatch(removeRun(message.info.id));
+        break;
+    case "ModifyRunInQueue":
+        dispatch(modifyRun(message.info));
         break;
     }
 };

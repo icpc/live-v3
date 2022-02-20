@@ -13,11 +13,11 @@ const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
     ws.current = new WebSocket(`ws://localhost:8080/overlay/${wsName}`);
     ws.current.onopen = () => {
         dispatch(pushLog(`Connected to WS ${wsName}`));
-        return dispatch(setWebsocketStatus(wsName, WebsocketStatus.CONNECTED));
+        dispatch(setWebsocketStatus(wsName, WebsocketStatus.CONNECTED));
     };
     ws.current.onclose = () => {
         dispatch(pushLog(`Disconnected from WS ${wsName}`));
-        return dispatch(setWebsocketStatus(wsName, WebsocketStatus.DISCONNECTED));
+        dispatch(setWebsocketStatus(wsName, WebsocketStatus.DISCONNECTED));
     };
     ws.current.onmessage = handleMessage;
     return () => ws.current.close();

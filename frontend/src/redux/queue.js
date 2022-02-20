@@ -24,6 +24,7 @@ export const addRun = (runData) => {
 
 export const modifyRun = (runData) => {
     return async dispatch => {
+        console.log(runData);
         dispatch({
             type: ActionTypes.MODIFY_RUN,
             payload: {
@@ -49,13 +50,15 @@ export function queueReducer(state = initialState, action) {
     case ActionTypes.ADD_RUN:
         return {
             queue: [
-                ...state.queue,
-                action.payload.newRun
+                action.payload.newRun,
+                ...state.queue
             ]
         };
     case ActionTypes.MODIFY_RUN:
         return {
-            queue: state.queue.map((run) => run === action.payload.runData.id ? action.paylod.runData : run)
+            queue: state.queue.map((run) => run.id === action.payload.runData.id ?
+                action.payload.runData :
+                run)
         };
     case ActionTypes.REMOVE_RUN:
         return {

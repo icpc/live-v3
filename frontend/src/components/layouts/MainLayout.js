@@ -67,6 +67,9 @@ export const MainLayout = () => {
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
                 const Widget = WIDGETS[obj.type];
+                if(Widget === undefined) {
+                    return null;
+                }
                 return <Transition key={obj.widgetId} timeout={WIDGET_TRANSITION_TIME}>
                     {state =>
                         <WidgetWrap
