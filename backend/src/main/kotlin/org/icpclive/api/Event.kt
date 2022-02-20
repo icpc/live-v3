@@ -38,3 +38,6 @@ class RemoveRunFromQueueEvent(val info: RunInfo) : QueueEvent()
 @SerialName("ModifyRunInQueue")
 class ModifyRunInQueueEvent(val info: RunInfo) : QueueEvent()
 
+@Serializable
+@SerialName("QueueSnapshot")
+class QueueSnapshotEvent(val infos: List<RunInfo>) : QueueEvent()

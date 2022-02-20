@@ -1,6 +1,9 @@
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 import java.util.*
+import kotlin.time.Duration
 
 inline fun <reified T> catchToNull(f: () -> T) = try { f() } catch (_: Exception) { null }
 
@@ -17,3 +20,10 @@ fun guessDatetimeFormat(time: String) : Instant =
 
 val Instant.humanReadable: String
     get() = Date(this.toEpochMilliseconds()).toString()
+
+fun tickerFlow(interval: Duration) = flow {
+    while (true) {
+        emit(null)
+        delay(interval)
+    }
+}

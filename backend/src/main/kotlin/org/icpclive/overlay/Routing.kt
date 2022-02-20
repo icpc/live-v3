@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.DataBus
+import org.icpclive.cds.OptimismLevel
 
 private suspend inline fun <reified T> DefaultWebSocketServerSession.sendFlow(flow: Flow<T>) {
     val sender = async {
@@ -29,11 +30,15 @@ private suspend inline fun <reified T> DefaultWebSocketServerSession.sendFlow(fl
 
 fun Application.configureOverlayRouting() {
     routing {
-        webSocket("/overlay/mainScreen") { sendFlow(DataBus.mainScreenEvents) }
-        webSocket("/overlay/queue") { sendFlow(DataBus.queueEvents) }
-        webSocket("/overlay/contestInfo") { sendFlow(DataBus.contestInfoFlow) }
-        webSocket("/overlay/scoreboard/normal") { sendFlow(DataBus.scoreboardFlow) }
-        webSocket("/overlay/scoreboard/optimistic") { sendFlow(DataBus.optimisticScoreboardFlow) }
-        webSocket("/overlay/scoreboard/pessimistic") { sendFlow(DataBus.pessimisticScoreboardFlow) }
+        route("/overlay") {
+            webSocket("/mainScreen") { sendFlow(DataBus.mainScreenEvents()) }
+            webSocket("/queue") { sendFlow(DataBus.queueEvents()) }
+            webSocket("/contestInfo") { sendFlow(DataBus.contestInfoFlow) }
+            route("/scoreboard") {
+                webSocket("/normal") { sendFlow(DataBus.scoreboardEvents(OptimismLevel.NORMAL)) }
+                webSocket("/optimistic") { sendFlow(DataBus.scoreboardEvents(OptimismLevel.OPTIMISTIC)) }
+                webSocket("/pessimistic") { sendFlow(DataBus.scoreboardEvents(OptimismLevel.PESSIMISTIC)) }
+            }
+        }
     }
 }

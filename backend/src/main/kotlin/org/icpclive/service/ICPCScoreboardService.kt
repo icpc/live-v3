@@ -6,13 +6,18 @@ import org.icpclive.api.ICPCProblemResult
 import org.icpclive.api.RunInfo
 import org.icpclive.api.Scoreboard
 import org.icpclive.api.ScoreboardRow
+import org.icpclive.cds.OptimismLevel
 import kotlin.math.max
 
 abstract class ICPCScoreboardService(
     private val problemsCount: Int,
     private val runsFlow: Flow<RunInfo>,
-    private val flow: MutableStateFlow<Scoreboard>
+    optimismLevel: OptimismLevel
     ) {
+    val flow = MutableStateFlow(Scoreboard(emptyList()))
+    init {
+        DataBus.setScoreboardEvents(optimismLevel, flow)
+    }
     val runs = mutableMapOf<Int, RunInfo>()
 
     abstract fun isAccepted(runInfo: RunInfo, index:Int, count:Int): Boolean
@@ -100,22 +105,22 @@ abstract class ICPCScoreboardService(
     }
 }
 
-class ICPCNormalScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>, flow: MutableStateFlow<Scoreboard>):
-        ICPCScoreboardService(problemsCount, runsFlow, flow) {
+class ICPCNormalScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>):
+        ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.NORMAL) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
 }
 
-class ICPCPessimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>, flow: MutableStateFlow<Scoreboard>):
-    ICPCScoreboardService(problemsCount, runsFlow, flow) {
+class ICPCPessimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>):
+    ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.PESSIMISTIC) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
 }
 
-class ICPCOptimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>, flow: MutableStateFlow<Scoreboard>):
-    ICPCScoreboardService(problemsCount, runsFlow, flow) {
+class ICPCOptimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>):
+    ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.OPTIMISTIC) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted || (!runInfo.isJudged && index == count - 1)
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAddingPenalty || (!runInfo.isJudged && index != count - 1)
