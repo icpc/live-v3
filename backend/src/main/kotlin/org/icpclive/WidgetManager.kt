@@ -38,7 +38,7 @@ object WidgetManager {
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
 
-    val widgetsFlow: Flow<MainScreenEvent> = flow {
+    private val widgetsFlow: Flow<MainScreenEvent> = flow {
         var subscriptionTimer = 0L
         widgetsFlowWrite
             .onSubscription {
@@ -49,5 +49,9 @@ object WidgetManager {
             .filter { it.first >= subscriptionTimer }
             .map { it.second }
             .collect { emit(it) }
+    }
+
+    init {
+        DataBus.setMainScreenEvents(widgetsFlow)
     }
 }

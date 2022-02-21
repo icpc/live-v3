@@ -19,6 +19,9 @@ class QueueSettings
 class ScoreboardSettings
 
 @Serializable
+class StatisticSettings
+
+@Serializable
 data class RunInfo(
     val id: Int,
     val isAccepted: Boolean,
@@ -103,3 +106,9 @@ data class ScoreboardRow(
     val lastAccepted: Long,
     val problemResults: List<ProblemResult>,
 )
+
+@Serializable
+data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pending: Int)
+
+@Serializable
+data class SolutionsStatistic(val stats:List<ProblemSolutionsStatistic>)

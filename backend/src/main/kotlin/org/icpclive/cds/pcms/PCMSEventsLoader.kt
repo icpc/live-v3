@@ -20,7 +20,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
-import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.util.*
 import kotlin.time.Duration.Companion.milliseconds
@@ -64,7 +63,7 @@ class PCMSEventsLoader : EventsLoader() {
                 }
                 xmlLoaderFlow.collect {
                     parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
-                    DataBus.contestInfoFlow.value = contestData.toApi()
+                    DataBus.contestInfoUpdates.value = contestData.toApi()
                     if (contestData.status == ContestStatus.RUNNING) {
                         logger.info("Updated for contest time = ${contestData.contestTime}")
                     }

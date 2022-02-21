@@ -474,7 +474,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
                                     }
                                 }
                                 runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
-                                DataBus.contestInfoFlow.value = contestInfo.toApi()
+                                DataBus.contestInfoUpdates.value = contestInfo.toApi()
                             }
                         }
                     } catch (e: Throwable) {

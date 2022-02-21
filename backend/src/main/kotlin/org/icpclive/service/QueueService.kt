@@ -13,7 +13,7 @@ private class Run(val run: RunInfo): QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
 
-class QueueService {
+class QueueService(val runsFlow: Flow<RunInfo>) {
     private val runs = mutableMapOf<Int, RunInfo>()
     private val seenRunsSet = mutableSetOf<Int>()
 
@@ -25,7 +25,7 @@ class QueueService {
     private val subscriberFlow = MutableStateFlow(0)
 
     init {
-        DataBus.queueEventsFlowHolder.value = flow {
+        DataBus.setQueueEvents(flow {
             var nothingSent = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }
@@ -36,7 +36,7 @@ class QueueService {
                         nothingSent = false
                     }
                 }
-        }
+        })
     }
 
     private val RunInfo.toOldAtTime get() = lastUpdateTime + if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
@@ -47,19 +47,19 @@ class QueueService {
     }
 
     suspend fun run() {
-        val removerFlow = tickerFlow(1.seconds).map { Clean }
-        val runsFlow = DataBus.runsUpdates.map { Run(it) }
-        val subscriberFlow = this.subscriberFlow.map { Subscribe }
+        val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
+        val runsFlowTrigger = runsFlow.map { Run(it) }
+        val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
         // it's important to have all side effects after merge, as part before merge will be executed concurrently
-        merge(runsFlow, removerFlow, subscriberFlow).collect { event ->
+        merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger).collect { event ->
             when (event) {
                 is Clean -> {
-                    val currentTime = DataBus.contestInfoFlow.value.currentContestTimeMs
+                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTimeMs
                     runs.values.filter { currentTime >= it.toOldAtTime }.forEach { removeRun(it) }
                 }
                 is Run -> {
                     val run = event.run
-                    val currentTime = DataBus.contestInfoFlow.value.currentContestTimeMs
+                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTimeMs
                     logger.debug("Receive run $run")
                     if (run.toOldAtTime > currentTime) {
                         if (run.id !in seenRunsSet || (run.isFirstSolvedRun && run.id !in runs)) {

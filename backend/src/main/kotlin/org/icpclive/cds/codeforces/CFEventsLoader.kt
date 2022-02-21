@@ -116,7 +116,7 @@ class CFEventsLoader : EventsLoader() {
                     .filterNotNull()
                     .onEach {
                         contestInfo.updateStandings(it)
-                        DataBus.contestInfoFlow.value = contestInfo.toApi()
+                        DataBus.contestInfoUpdates.value = contestInfo.toApi()
                     }
                 val standingsRunning = processedStandingsFlow
                     .dropWhile { it.contest.phase == CFContestPhase.BEFORE }

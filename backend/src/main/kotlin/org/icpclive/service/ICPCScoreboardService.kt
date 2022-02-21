@@ -14,9 +14,8 @@ abstract class ICPCScoreboardService(
     private val runsFlow: Flow<RunInfo>,
     optimismLevel: OptimismLevel
     ) {
-    val flow = MutableStateFlow(Scoreboard(emptyList()))
-    init {
-        DataBus.setScoreboardEvents(optimismLevel, flow)
+    val flow = MutableStateFlow(Scoreboard(emptyList())).also {
+        DataBus.setScoreboardEvents(optimismLevel, it)
     }
     val runs = mutableMapOf<Int, RunInfo>()
 
@@ -25,7 +24,7 @@ abstract class ICPCScoreboardService(
     abstract fun isAddingPenalty(runInfo: RunInfo, index:Int, count:Int): Boolean
 
     suspend fun run() {
-        merge(runsFlow, DataBus.contestInfoFlow).collect { run ->
+        merge(runsFlow, DataBus.contestInfoUpdates).collect { run ->
             if (run is RunInfo) {
                 val oldRun = runs[run.id]
                 runs[run.id] = run
@@ -80,7 +79,7 @@ abstract class ICPCScoreboardService(
         val runs = runs.values
             .sortedWith(compareBy({it.time}, {it.id}))
             .groupBy { it.teamId }
-        val teamsInfo = DataBus.contestInfoFlow.value.teams.associateBy { it.id }
+        val teamsInfo = DataBus.contestInfoUpdates.value.teams.associateBy { it.id }
         val comparator = compareBy<ScoreboardRow>(
             { -it.totalScore },
             { it.penalty },

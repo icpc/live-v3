@@ -29,10 +29,10 @@ class EmulationService(
     )
     private val events = buildList {
         add(Event(0.seconds) {
-            DataBus.contestInfoFlow.value = contestInfo.copy(status = ContestStatus.RUNNING)}
+            DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.RUNNING)}
         )
         add(Event(contestInfo.contestLengthMs.milliseconds) {
-            DataBus.contestInfoFlow.value = contestInfo.copy(status = ContestStatus.OVER)})
+            DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.OVER)})
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0
@@ -56,7 +56,7 @@ class EmulationService(
     }.sortedBy { it.time }
 
     suspend fun run() {
-        DataBus.contestInfoFlow.value = contestInfo.copy(status = ContestStatus.BEFORE)
+        DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.BEFORE)
         var lastLoggedTime = 0.seconds
         for (event in events) {
             val nextEventTime = (startTime + event.time / emulationSpeed)

@@ -1,7 +1,7 @@
 package org.icpclive.utils
 
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 import org.slf4j.LoggerFactory
@@ -33,3 +33,5 @@ fun tickerFlow(interval: Duration) = flow {
 }
 
 fun getLogger(clazz: KClass<*>) = LoggerFactory.getLogger(clazz.java)!!
+
+suspend fun <T> Flow<T?>.firstNotNull() = this.filterNotNull().first()
