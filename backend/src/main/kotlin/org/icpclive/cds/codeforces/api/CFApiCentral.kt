@@ -11,7 +11,7 @@ import kotlin.random.Random
 /**
  * @author egor@egork.net
  */
-class CFApiCentral(val contestId: Int) {
+class CFApiCentral(private val contestId: Int) {
     private var apiKey: String? = null
     private var apiSecret: String? = null
     fun setApiKeyAndSecret(apiKey: String?, apiSecret: String?) {

@@ -18,9 +18,9 @@ import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
+import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
 import org.icpclive.utils.humanReadable
-import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
@@ -127,7 +127,7 @@ class CFEventsLoader : EventsLoader() {
                 val processedStatusFlow = statusFlow.onEach {
                     contestInfo.updateSubmissions(it.list)
                     log.info("Loaded ${it.list.size} runs")
-                    runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
+                    runsBufferFlow.emit(contestInfo.runs.map { run -> run.toApi() })
                 }
 
                 merge(processedStandingsFlow, processedStatusFlow).collect {}
@@ -139,7 +139,7 @@ class CFEventsLoader : EventsLoader() {
         get() = contestInfo
 
     companion object {
-        private val log = LoggerFactory.getLogger(CFEventsLoader::class.java)
+        private val log = getLogger(CFEventsLoader::class)
         private const val CF_API_KEY_PROPERTY_NAME = "cf.api.key"
         private const val CF_API_SECRET_PROPERTY_NAME = "cf.api.secret"
         val instance: CFEventsLoader

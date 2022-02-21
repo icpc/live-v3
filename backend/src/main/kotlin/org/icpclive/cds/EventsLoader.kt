@@ -16,8 +16,7 @@ abstract class EventsLoader {
     companion object {
         val instance by lazy {
             val properties = loadProperties("events")
-            val standingsType = properties.getProperty("standings.type")
-            when (standingsType) {
+            when (val standingsType = properties.getProperty("standings.type")) {
                 "WF" -> WFEventsLoader(false)
                 "WFRegionals" -> WFEventsLoader(true)
                 "PCMS" -> PCMSEventsLoader()

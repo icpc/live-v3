@@ -7,7 +7,7 @@ import kotlin.math.max
 /**
  * @author egor@egork.net
  */
-class CFProblemInfo(val problem: CFProblem, val id: Int) : ProblemInfo(problem.index, problem.name!!) {
+class CFProblemInfo(problem: CFProblem, val id: Int) : ProblemInfo(problem.index, problem.name!!) {
     var totalTests = 1
         private set
 

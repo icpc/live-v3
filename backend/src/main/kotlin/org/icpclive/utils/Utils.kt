@@ -4,7 +4,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
+import org.slf4j.LoggerFactory
 import java.util.*
+import kotlin.reflect.KClass
 import kotlin.time.Duration
 
 inline fun <reified T> catchToNull(f: () -> T) = try { f() } catch (_: Exception) { null }
@@ -29,3 +31,5 @@ fun tickerFlow(interval: Duration) = flow {
         delay(interval)
     }
 }
+
+fun getLogger(clazz: KClass<*>) = LoggerFactory.getLogger(clazz.java)!!

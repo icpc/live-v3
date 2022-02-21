@@ -14,15 +14,14 @@ import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.EventsLoader
-import org.icpclive.cds.NetworkUtils.openAuthorizedStream
-import org.icpclive.cds.NetworkUtils.prepareNetwork
+import org.icpclive.utils.NetworkUtils.openAuthorizedStream
+import org.icpclive.utils.NetworkUtils.prepareNetwork
 import org.icpclive.cds.wf.WFOrganizationInfo
 import org.icpclive.cds.wf.WFRunInfo
 import org.icpclive.cds.wf.WFTestCaseInfo
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.*
-import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.io.*
 import java.math.BigInteger
@@ -516,7 +515,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(WFEventsLoader::class.java)
+        private val log = getLogger(WFEventsLoader::class)
         val GLOBAL_LOCK = Any()
 
         private fun compareAsNumbers(a: String, b: String): Int {

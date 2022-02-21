@@ -13,10 +13,10 @@ data class Advertisement(val text: String)
 data class Picture(val url: String, val name: String)
 
 @Serializable
-class QueueSettings()
+class QueueSettings
 
 @Serializable
-class ScoreboardSettings()
+class ScoreboardSettings
 
 @Serializable
 data class RunInfo(

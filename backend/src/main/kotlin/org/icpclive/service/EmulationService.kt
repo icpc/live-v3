@@ -8,7 +8,7 @@ import org.icpclive.DataBus
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.slf4j.LoggerFactory
+import org.icpclive.utils.getLogger
 import kotlin.random.Random
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -71,6 +71,6 @@ class EmulationService(
     }
 
     companion object {
-        val logger = LoggerFactory.getLogger(EmulationService::class.java)
+        private val logger = getLogger(EmulationService::class)
     }
 }

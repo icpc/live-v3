@@ -8,7 +8,6 @@ enum class OptimismLevel {
             NORMAL -> "Normal"
             OPTIMISTIC -> "Optimistic"
             PESSIMISTIC -> "Pessimistic"
-            else -> throw IllegalArgumentException()
         }
     }
 }

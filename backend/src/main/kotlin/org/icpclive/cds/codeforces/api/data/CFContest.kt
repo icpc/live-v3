@@ -1,3 +1,4 @@
+@file:Suppress("UNUSED")
 package org.icpclive.cds.codeforces.api.data
 
 import kotlinx.serialization.*

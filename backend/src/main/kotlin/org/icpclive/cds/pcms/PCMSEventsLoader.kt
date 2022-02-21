@@ -196,7 +196,7 @@ class PCMSEventsLoader : EventsLoader() {
     }
 
     companion object {
-        private val logger = LoggerFactory.getLogger(PCMSEventsLoader::class.java)
+        private val logger = getLogger(PCMSEventsLoader::class)
         private val outcomeMap = mapOf(
             "undefined" to "UD",
             "fail" to "FL",

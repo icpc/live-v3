@@ -2,8 +2,8 @@ package org.icpclive.service
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import org.icpclive.cds.NetworkUtils
-import org.slf4j.LoggerFactory
+import org.icpclive.utils.NetworkUtils
+import org.icpclive.utils.getLogger
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -38,6 +38,6 @@ abstract class RegularLoaderService<T> {
     }
 
     companion object {
-        val logger = LoggerFactory.getLogger(RegularLoaderService::class.java)
+        val logger = getLogger(RegularLoaderService::class)
     }
 }

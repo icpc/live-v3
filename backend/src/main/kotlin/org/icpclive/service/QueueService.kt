@@ -4,9 +4,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.DataBus
 import org.icpclive.api.*
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.icpclive.utils.tickerFlow
+import org.icpclive.utils.*
 import kotlin.time.Duration.Companion.seconds
 
 private sealed class QueueProcessTrigger
@@ -90,7 +88,7 @@ class QueueService {
     }
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(QueueService::class.java)
+        val logger = getLogger(QueueService::class)
 
         private const val WAIT_TIME = 60000L
         private const val FIRST_TO_SOLVE_WAIT_TIME = 120000L

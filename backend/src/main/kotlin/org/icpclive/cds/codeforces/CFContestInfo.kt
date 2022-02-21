@@ -118,7 +118,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         return problemsMap[problem.index]
     }
 
-    fun addRun(run: CFRunInfo?, problem: Int) {
+    private fun addRun(run: CFRunInfo?, problem: Int) {
         val runs = getRuns(run!!.submission.author)[problem]
         runs.add(run)
         run.problem.update(run)
@@ -130,7 +130,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
 
     companion object {
         fun getName(party: CFParty): String {
-            return if (party.teamName == null) party.members[0].handle else party.teamName
+            return party.teamName ?: party.members[0].handle
         }
     }
 }
