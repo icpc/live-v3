@@ -9,6 +9,12 @@ import org.slf4j.LoggerFactory
 import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration.Companion.seconds
 
+private sealed class QueueProcessTrigger
+private object Clean : QueueProcessTrigger()
+private class Run(val run: RunInfo): QueueProcessTrigger()
+private object Subscribe : QueueProcessTrigger()
+
+
 class QueueService {
     private val runs = mutableMapOf<Int, RunInfo>()
     private val seenRunsSet = mutableSetOf<Int>()
@@ -33,8 +39,6 @@ class QueueService {
                     }
                 }
         }
-
-
     }
 
     private val RunInfo.toOldAtTime get() = lastUpdateTime + if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
@@ -45,38 +49,44 @@ class QueueService {
     }
 
     suspend fun run() {
-        val removerFlow = tickerFlow(1.seconds)
-            .map { DataBus.contestInfoFlow.value.currentContestTimeMs }
-            .onEach { currentTime ->
-                runs.values.filter { currentTime >= it.toOldAtTime }.forEach { removeRun(it) }
-            }
-        val runsFlow = DataBus.runsUpdates.onEach { run ->
-            val currentTime = DataBus.contestInfoFlow.value.currentContestTimeMs
-            logger.debug("Receive run $run")
-            if (run.toOldAtTime > currentTime) {
-                if (run.id !in seenRunsSet || (run.isFirstSolvedRun && run.id !in runs)) {
-                    runs[run.id] = run
-                    seenRunsSet.add(run.id)
-                    resultFlow.emit(AddRunToQueueEvent(run))
-                } else if (run.id in runs) {
-                    runs[run.id] = run
-                    resultFlow.emit(ModifyRunInQueueEvent(run))
+        val removerFlow = tickerFlow(1.seconds).map { Clean }
+        val runsFlow = DataBus.runsUpdates.map { Run(it) }
+        val subscriberFlow = this.subscriberFlow.map { Subscribe }
+        // it's important to have all side effects after merge, as part before merge will be executed concurrently
+        merge(runsFlow, removerFlow, subscriberFlow).collect { event ->
+            when (event) {
+                is Clean -> {
+                    val currentTime = DataBus.contestInfoFlow.value.currentContestTimeMs
+                    runs.values.filter { currentTime >= it.toOldAtTime }.forEach { removeRun(it) }
                 }
-            } else {
-                logger.debug("Ignore run ${run.id} in queue as too old (currentTime = ${currentTime}, run.time = ${run.lastUpdateTime}, diff = ${currentTime - run.lastUpdateTime}")
+                is Run -> {
+                    val run = event.run
+                    val currentTime = DataBus.contestInfoFlow.value.currentContestTimeMs
+                    logger.debug("Receive run $run")
+                    if (run.toOldAtTime > currentTime) {
+                        if (run.id !in seenRunsSet || (run.isFirstSolvedRun && run.id !in runs)) {
+                            runs[run.id] = run
+                            seenRunsSet.add(run.id)
+                            resultFlow.emit(AddRunToQueueEvent(run))
+                        } else if (run.id in runs) {
+                            runs[run.id] = run
+                            resultFlow.emit(ModifyRunInQueueEvent(run))
+                        }
+                    } else {
+                        logger.debug("Ignore run ${run.id} in queue as too old (currentTime = ${currentTime}, run.time = ${run.lastUpdateTime}, diff = ${currentTime - run.lastUpdateTime}")
+                    }
+                }
+                is Subscribe -> {
+                    resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
+                }
             }
-        }
-        val subscriberFlow = this.subscriberFlow.onEach {
-            resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
-        }
-        merge(runsFlow, removerFlow, subscriberFlow).onEach { _ ->
             while (runs.size >= MAX_QUEUE_SIZE) {
                 runs.values.asSequence()
                     .filterNot { it.isFirstSolvedRun }
                     .minByOrNull { it.id }
-                    ?.let { removeRun(it) }
+                    ?.run { removeRun(this) }
             }
-        }.collect()
+        }
     }
 
     companion object {
