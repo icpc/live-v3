@@ -44,14 +44,13 @@ class EmulationService(
                         isAccepted = false,
                         isAddingPenalty = false,
                         result = "",
-                        lastUpdateTime = (run.time + timeShift)
                     )
                     add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(submittedRun) })
                     percentage += Random.nextDouble(1.0)
                     timeShift += Random.nextInt(20000)
                 } while (percentage < 1.0)
             }
-            add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(run.copy(lastUpdateTime = run.time + timeShift)) })
+            add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(run) })
         }
     }.sortedBy { it.time }
 

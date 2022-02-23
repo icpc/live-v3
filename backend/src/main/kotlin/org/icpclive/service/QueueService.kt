@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.DataBus
 import org.icpclive.api.*
 import org.icpclive.utils.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 private sealed class QueueProcessTrigger
@@ -13,9 +15,9 @@ private class Run(val run: RunInfo): QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
 
-class QueueService(val runsFlow: Flow<RunInfo>) {
+class QueueService(private val runsFlow: Flow<RunInfo>) {
     private val runs = mutableMapOf<Int, RunInfo>()
-    private val seenRunsSet = mutableSetOf<Int>()
+    private val lastUpdateTime = mutableMapOf<Int, Duration>()
 
     private val resultFlow = MutableSharedFlow<QueueEvent>(
         extraBufferCapacity = 100000,
@@ -39,12 +41,13 @@ class QueueService(val runsFlow: Flow<RunInfo>) {
         })
     }
 
-    private val RunInfo.toOldAtTime get() = lastUpdateTime + if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
-
     private suspend fun removeRun(run: RunInfo) {
         runs.remove(run.id)
         resultFlow.emit(RemoveRunFromQueueEvent(run))
     }
+
+    private val RunInfo.timeInQueue
+        get() = if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
     suspend fun run() {
         val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
@@ -54,25 +57,17 @@ class QueueService(val runsFlow: Flow<RunInfo>) {
         merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger).collect { event ->
             when (event) {
                 is Clean -> {
-                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTimeMs
-                    runs.values.filter { currentTime >= it.toOldAtTime }.forEach { removeRun(it) }
+                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTime
+                    runs.values
+                        .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }.forEach { removeRun(it) }
                 }
                 is Run -> {
                     val run = event.run
-                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTimeMs
+                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTime
                     logger.debug("Receive run $run")
-                    if (run.toOldAtTime > currentTime) {
-                        if (run.id !in seenRunsSet || (run.isFirstSolvedRun && run.id !in runs)) {
-                            runs[run.id] = run
-                            seenRunsSet.add(run.id)
-                            resultFlow.emit(AddRunToQueueEvent(run))
-                        } else if (run.id in runs) {
-                            runs[run.id] = run
-                            resultFlow.emit(ModifyRunInQueueEvent(run))
-                        }
-                    } else {
-                        logger.debug("Ignore run ${run.id} in queue as too old (currentTime = ${currentTime}, run.time = ${run.lastUpdateTime}, diff = ${currentTime - run.lastUpdateTime}")
-                    }
+                    lastUpdateTime[run.id] = currentTime
+                    runs[run.id] = run
+                    resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
                 }
                 is Subscribe -> {
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
@@ -90,8 +85,8 @@ class QueueService(val runsFlow: Flow<RunInfo>) {
     companion object {
         val logger = getLogger(QueueService::class)
 
-        private const val WAIT_TIME = 60000L
-        private const val FIRST_TO_SOLVE_WAIT_TIME = 120000L
+        private val WAIT_TIME = 1.minutes
+        private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes
         private const val MAX_QUEUE_SIZE = 15
     }
 }
