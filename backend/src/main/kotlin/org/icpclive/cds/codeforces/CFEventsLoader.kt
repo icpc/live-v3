@@ -9,7 +9,6 @@ import kotlinx.serialization.json.decodeFromJsonElement
 import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFContestPhase
 import org.icpclive.cds.codeforces.api.data.CFSubmission
@@ -28,13 +27,12 @@ import kotlin.time.Duration.Companion.seconds
 /**
  * @author egor@egork.net
  */
-class CFEventsLoader : EventsLoader() {
+class CFEventsLoader {
     private val contestInfo = CFContestInfo()
     private val central: CFApiCentral
 
     init {
         val properties = loadProperties("events")
-        emulationSpeed = 1.0
         central = CFApiCentral(properties.getProperty("contest_id").toInt())
         if (properties.containsKey(CF_API_KEY_PROPERTY_NAME) && properties.containsKey(CF_API_SECRET_PROPERTY_NAME)) {
             central.setApiKeyAndSecret(
@@ -44,7 +42,7 @@ class CFEventsLoader : EventsLoader() {
         }
     }
 
-    override suspend fun run() {
+    suspend fun run() {
         val standingsLoader = object : RegularLoaderService<CFStandings>() {
             override val url = central.standingsUrl
             override val login = ""

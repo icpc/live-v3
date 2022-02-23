@@ -12,7 +12,6 @@ import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.service.*
 import org.icpclive.utils.*
@@ -25,7 +24,7 @@ import java.util.*
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class PCMSEventsLoader : EventsLoader() {
+class PCMSEventsLoader {
     private fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
         val xml = loadFile(problemsFile!!)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
@@ -40,7 +39,7 @@ class PCMSEventsLoader : EventsLoader() {
     }
 
 
-    override suspend fun run() {
+    suspend fun run() {
         coroutineScope {
             val rawRunsFlow = MutableSharedFlow<RunInfo>(
                 extraBufferCapacity = 100000,

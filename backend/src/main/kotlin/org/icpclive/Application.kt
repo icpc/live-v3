@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting
 import org.icpclive.service.EventLoggerService
-import org.icpclive.cds.EventsLoader
+import org.icpclive.cds.launchEventsLoader
 import org.icpclive.overlay.configureOverlayRouting
 import org.slf4j.event.Level
 import java.io.File
@@ -56,6 +56,6 @@ fun Application.module() {
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
-    launch { EventsLoader.instance.run() }
+    launchEventsLoader()
     launch { EventLoggerService().run() }
 }

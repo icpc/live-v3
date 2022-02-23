@@ -13,7 +13,6 @@ import org.icpclive.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.EventsLoader
 import org.icpclive.utils.NetworkUtils.openAuthorizedStream
 import org.icpclive.utils.NetworkUtils.prepareNetwork
 import org.icpclive.cds.wf.WFOrganizationInfo
@@ -35,7 +34,10 @@ import kotlin.time.Duration.Companion.seconds
 /**
  * Created by aksenov on 16.04.2015.
  */
-class WFEventsLoader(regionals: Boolean) : EventsLoader() {
+class WFEventsLoader(regionals: Boolean) {
+    var emulationSpeed = 0.0
+        protected set
+    protected var emulationStartTime = Instant.fromEpochMilliseconds(0)
     private var url: String? = null
     private var login: String? = null
     private var password: String? = null
@@ -410,7 +412,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         contestInfo.addTest(testCaseInfo)
     }
 
-    override suspend fun run() {
+    suspend fun run() {
         withContext(Dispatchers.IO) {
             coroutineScope {
                 val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
