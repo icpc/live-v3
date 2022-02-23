@@ -17,9 +17,6 @@ class CFTeamInfo(private val row: CFRankListRow) : TeamInfo {
         get() = name
     override val groups: Set<String>
         get() = emptySet()
-    val runs: List<List<CFRunInfo>>
-        get() = CFEventsLoader.instance.contestData.getRuns(row.party)
-
     override val hashTag: String
         get() = ""
 }

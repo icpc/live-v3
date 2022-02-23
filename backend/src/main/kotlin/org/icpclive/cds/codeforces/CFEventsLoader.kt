@@ -78,7 +78,7 @@ class CFEventsLoader : EventsLoader() {
 
         if (emulationSpeedProp != null) {
             contestInfo.updateStandings(standingsLoader.loadOnce())
-            contestInfo.updateSubmissions(statusLoader.loadOnce().list)
+            val runs = contestInfo.parseSubmissions(statusLoader.loadOnce().list)
             coroutineScope {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
@@ -91,12 +91,12 @@ class CFEventsLoader : EventsLoader() {
                     EmulationService(
                         emulationStartTime,
                         emulationSpeed,
-                        contestData.runs.map { it.toApi() },
-                        contestData.toApi(),
+                        runs,
+                        contestInfo.toApi(),
                         rawRunsFlow
                     ).run()
                 }
-                launchICPCServices(contestData.problemsNumber, rawRunsFlow)
+                launchICPCServices(contestInfo.problemsNumber, rawRunsFlow)
             }
         } else {
             coroutineScope {
@@ -112,41 +112,34 @@ class CFEventsLoader : EventsLoader() {
                     onBufferOverflow = BufferOverflow.SUSPEND
                 )
                 launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
-                val processedStandingsFlow = standingsFlow
+                val standingsRunning = standingsFlow
                     .filterNotNull()
-                    .onEach {
-                        contestInfo.updateStandings(it)
-                        DataBus.contestInfoUpdates.value = contestInfo.toApi()
-                    }
-                val standingsRunning = processedStandingsFlow
                     .dropWhile { it.contest.phase == CFContestPhase.BEFORE }
                     .first()
                 launchICPCServices(standingsRunning.problems.size, rawRunsFlow)
                 launch(Dispatchers.IO) { statusLoader.run(statusFlow, 5.seconds) }
 
-                val processedStatusFlow = statusFlow.onEach {
-                    contestInfo.updateSubmissions(it.list)
-                    log.info("Loaded ${it.list.size} runs")
-                    runsBufferFlow.emit(contestInfo.runs.map { run -> run.toApi() })
-                }
 
-                merge(processedStandingsFlow, processedStatusFlow).collect {}
+                merge(standingsFlow.filterNotNull(), statusFlow).collect {
+                    when (it) {
+                        is CFStandings -> {
+                            contestInfo.updateStandings(it)
+                            DataBus.contestInfoUpdates.value = contestInfo.toApi()
+                        }
+                        is CFSubmissionList -> {
+                            val submissions = contestInfo.parseSubmissions(it.list)
+                            log.info("Loaded ${submissions.size} runs")
+                            runsBufferFlow.emit(submissions)
+                        }
+                    }
+                }
             }
         }
     }
-
-    val contestData: CFContestInfo
-        get() = contestInfo
 
     companion object {
         private val log = getLogger(CFEventsLoader::class)
         private const val CF_API_KEY_PROPERTY_NAME = "cf.api.key"
         private const val CF_API_SECRET_PROPERTY_NAME = "cf.api.secret"
-        val instance: CFEventsLoader
-            get() {
-                val eventsLoader = EventsLoader.instance
-                check(eventsLoader is CFEventsLoader)
-                return eventsLoader
-            }
     }
 }
