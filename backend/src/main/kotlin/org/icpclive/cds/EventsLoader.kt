@@ -2,12 +2,10 @@ package org.icpclive.cds
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Instant
-import org.icpclive.Config.loadProperties
+import org.icpclive.config.Config.loadProperties
 import org.icpclive.cds.pcms.PCMSEventsLoader
 import org.icpclive.cds.wf.json.WFEventsLoader
 import org.icpclive.cds.codeforces.CFEventsLoader
-import kotlin.coroutines.CoroutineContext
 
 fun CoroutineScope.launchEventsLoader() {
     val properties = loadProperties("events")

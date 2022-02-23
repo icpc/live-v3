@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
-import org.icpclive.Config.loadProperties
+import org.icpclive.config.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
@@ -43,8 +43,6 @@ class WFEventsLoader(regionals: Boolean) {
     private var password: String? = null
     private var regionals = false
     private var emulation = false
-    val contestData: WFContestInfo
-        get() = contestInfo
 
     @Throws(IOException::class)
     fun readJsonArray(url: String?): String {

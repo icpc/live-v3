@@ -13,6 +13,7 @@ import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting
 import org.icpclive.service.EventLoggerService
 import org.icpclive.cds.launchEventsLoader
+import org.icpclive.config.Config
 import org.icpclive.overlay.configureOverlayRouting
 import org.slf4j.event.Level
 import java.io.File

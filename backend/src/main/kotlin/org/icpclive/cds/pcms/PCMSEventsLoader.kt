@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.*
-import org.icpclive.Config.loadFile
-import org.icpclive.Config.loadProperties
+import org.icpclive.config.Config.loadFile
+import org.icpclive.config.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo

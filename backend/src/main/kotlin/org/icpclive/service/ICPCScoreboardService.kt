@@ -7,6 +7,7 @@ import org.icpclive.api.RunInfo
 import org.icpclive.api.Scoreboard
 import org.icpclive.api.ScoreboardRow
 import org.icpclive.cds.OptimismLevel
+import org.icpclive.config.loadMedalSettings
 import kotlin.math.max
 
 abstract class ICPCScoreboardService(
@@ -22,6 +23,8 @@ abstract class ICPCScoreboardService(
     abstract fun isAccepted(runInfo: RunInfo, index:Int, count:Int): Boolean
     abstract fun isPending(runInfo: RunInfo, index:Int, count:Int): Boolean
     abstract fun isAddingPenalty(runInfo: RunInfo, index:Int, count:Int): Boolean
+
+    val medalsSettings = loadMedalSettings()
 
     suspend fun run() {
         merge(runsFlow, DataBus.contestInfoUpdates).collect { run ->
@@ -70,6 +73,7 @@ abstract class ICPCScoreboardService(
             solved,
             penalty,
             lastAccepted,
+            null,
             problemResults
         )
 
@@ -92,12 +96,12 @@ abstract class ICPCScoreboardService(
             .toMutableList()
         if (rows.isNotEmpty()) {
             var rank = 1
-            rows[0] = rows[0].copy(rank = 1)
-            for (i in 1 until rows.size) {
-                if (comparator.compare(rows[i-1], rows[i]) < 0) {
+            for (i in 0 until rows.size) {
+                if (i != 0 && comparator.compare(rows[i-1], rows[i]) < 0) {
                     rank++
                 }
-                rows[i] = rows[i].copy(rank = rank)
+                val medal = medalsSettings.medalColorByRank(rank).takeIf { rows[i].totalScore > 0 }
+                rows[i] = rows[i].copy(rank = rank, medalType = medal)
             }
         }
         return Scoreboard(rows)

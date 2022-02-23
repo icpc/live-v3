@@ -4,6 +4,7 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.utils.toHex
 import kotlin.time.Duration.Companion.milliseconds
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
@@ -39,7 +40,7 @@ data class RunInfo(
 @Serializable
 data class ProblemInfo(val letter: String, val name: String, val color: String) {
     constructor(info: CDSProblemsInfo) :
-            this(info.letter, info.name, "#" + "%08x".format(info.color.rgb))
+            this(info.letter, info.name, info.color.toHex())
 }
 
 fun CDSProblemsInfo.toApi() = ProblemInfo(this)
@@ -104,6 +105,7 @@ data class ScoreboardRow(
     val totalScore: Int,
     val penalty: Int,
     val lastAccepted: Long,
+    val medalType: String?,
     val problemResults: List<ProblemResult>,
 )
 
