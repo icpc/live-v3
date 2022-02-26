@@ -4,10 +4,12 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.DataBus
-import org.slf4j.LoggerFactory
+import org.icpclive.utils.getLogger
 
 class EventLoggerService {
-    private val logger = LoggerFactory.getLogger(EventLoggerService::class.java)
+    companion object {
+        private val logger = getLogger(EventLoggerService::class)
+    }
 
     suspend fun run() {
         DataBus.allEvents.collect {

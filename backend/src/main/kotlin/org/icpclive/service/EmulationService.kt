@@ -8,7 +8,7 @@ import org.icpclive.DataBus
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.slf4j.LoggerFactory
+import org.icpclive.utils.getLogger
 import kotlin.random.Random
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -29,10 +29,10 @@ class EmulationService(
     )
     private val events = buildList {
         add(Event(0.seconds) {
-            DataBus.contestInfoFlow.value = contestInfo.copy(status = ContestStatus.RUNNING)}
+            DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.RUNNING)}
         )
         add(Event(contestInfo.contestLengthMs.milliseconds) {
-            DataBus.contestInfoFlow.value = contestInfo.copy(status = ContestStatus.OVER)})
+            DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.OVER)})
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0
@@ -44,19 +44,18 @@ class EmulationService(
                         isAccepted = false,
                         isAddingPenalty = false,
                         result = "",
-                        lastUpdateTime = (run.time + timeShift)
                     )
                     add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(submittedRun) })
                     percentage += Random.nextDouble(1.0)
                     timeShift += Random.nextInt(20000)
                 } while (percentage < 1.0)
             }
-            add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(run.copy(lastUpdateTime = run.time + timeShift)) })
+            add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(run) })
         }
     }.sortedBy { it.time }
 
     suspend fun run() {
-        DataBus.contestInfoFlow.value = contestInfo.copy(status = ContestStatus.BEFORE)
+        DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.BEFORE)
         var lastLoggedTime = 0.seconds
         for (event in events) {
             val nextEventTime = (startTime + event.time / emulationSpeed)
@@ -71,6 +70,6 @@ class EmulationService(
     }
 
     companion object {
-        val logger = LoggerFactory.getLogger(EmulationService::class.java)
+        private val logger = getLogger(EmulationService::class)
     }
 }

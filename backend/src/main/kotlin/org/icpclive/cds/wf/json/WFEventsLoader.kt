@@ -9,20 +9,18 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
-import org.icpclive.Config.loadProperties
+import org.icpclive.config.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.EventsLoader
-import org.icpclive.cds.NetworkUtils.openAuthorizedStream
-import org.icpclive.cds.NetworkUtils.prepareNetwork
+import org.icpclive.utils.NetworkUtils.openAuthorizedStream
+import org.icpclive.utils.NetworkUtils.prepareNetwork
 import org.icpclive.cds.wf.WFOrganizationInfo
 import org.icpclive.cds.wf.WFRunInfo
 import org.icpclive.cds.wf.WFTestCaseInfo
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.*
-import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.io.*
 import java.math.BigInteger
@@ -36,14 +34,15 @@ import kotlin.time.Duration.Companion.seconds
 /**
  * Created by aksenov on 16.04.2015.
  */
-class WFEventsLoader(regionals: Boolean) : EventsLoader() {
+class WFEventsLoader(regionals: Boolean) {
+    var emulationSpeed = 0.0
+        protected set
+    protected var emulationStartTime = Instant.fromEpochMilliseconds(0)
     private var url: String? = null
     private var login: String? = null
     private var password: String? = null
     private var regionals = false
     private var emulation = false
-    val contestData: WFContestInfo
-        get() = contestInfo
 
     @Throws(IOException::class)
     fun readJsonArray(url: String?): String {
@@ -411,7 +410,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
         contestInfo.addTest(testCaseInfo)
     }
 
-    override suspend fun run() {
+    suspend fun run() {
         withContext(Dispatchers.IO) {
             coroutineScope {
                 val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
@@ -475,7 +474,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
                                     }
                                 }
                                 runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
-                                DataBus.contestInfoFlow.value = contestInfo.toApi()
+                                DataBus.contestInfoUpdates.value = contestInfo.toApi()
                             }
                         }
                     } catch (e: Throwable) {
@@ -516,7 +515,7 @@ class WFEventsLoader(regionals: Boolean) : EventsLoader() {
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(WFEventsLoader::class.java)
+        private val log = getLogger(WFEventsLoader::class)
         val GLOBAL_LOCK = Any()
 
         private fun compareAsNumbers(a: String, b: String): Int {

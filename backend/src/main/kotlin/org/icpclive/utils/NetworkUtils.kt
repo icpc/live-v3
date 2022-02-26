@@ -1,6 +1,5 @@
-package org.icpclive.cds
+package org.icpclive.utils
 
-import org.slf4j.LoggerFactory
 import java.io.FileInputStream
 import java.io.InputStream
 import java.net.*
@@ -15,7 +14,7 @@ import javax.net.ssl.*
  * Created by aksenov on 15.04.2015.
  */
 object NetworkUtils {
-    private val log = LoggerFactory.getLogger(NetworkUtils::class.java)
+    private val log = getLogger(NetworkUtils::class)
     fun prepareNetwork(login: String?, password: String?) {
         if (login == null || password == null) return
         val trustAllCerts = arrayOf<TrustManager>(

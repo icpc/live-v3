@@ -10,6 +10,7 @@ import org.icpclive.admin.overlayEvents.configureOverlayEvents
 import org.icpclive.admin.picture.configurePicture
 import org.icpclive.admin.queue.configureQueue
 import org.icpclive.admin.scoreboard.configureScoreboard
+import org.icpclive.admin.statistics.configureStatistics
 
 private lateinit var topLevelLinks: List<Pair<String, String>>
 
@@ -50,13 +51,15 @@ fun Application.configureAdminRouting() {
         val overlayEventsUrls = configureOverlayEvents()
         val queueUrls = configureQueue()
         val scoreboardUrls = configureScoreboard()
+        val statisticsUrls = configureStatistics()
 
         topLevelLinks = listOf(
             advertisementUrls.mainPage to "Advertisement",
             pictureUrls.mainPage to "Picture",
             overlayEventsUrls.mainPage to "Events",
             queueUrls.mainPage to "Queue",
-            scoreboardUrls.mainPage to "Scoreboard"
+            scoreboardUrls.mainPage to "Scoreboard",
+            statisticsUrls.mainPage to "Statistics"
         )
         get("/admin") { call.respondRedirect(topLevelLinks[0].first) }
     }

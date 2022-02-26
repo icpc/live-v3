@@ -8,14 +8,12 @@ import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.websocket.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting
 import org.icpclive.service.EventLoggerService
-import org.icpclive.service.QueueService
-import org.icpclive.service.RunsBufferService
-import org.icpclive.cds.EventsLoader
+import org.icpclive.cds.launchEventsLoader
+import org.icpclive.config.Config
 import org.icpclive.overlay.configureOverlayRouting
 import org.slf4j.event.Level
 import java.io.File
@@ -59,7 +57,6 @@ fun Application.module() {
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
-    launch { EventsLoader.instance.run() }
-    launch { QueueService().run() }
+    launchEventsLoader()
     launch { EventLoggerService().run() }
 }

@@ -1,29 +1,21 @@
 package org.icpclive.cds
 
-import kotlinx.datetime.Instant
-import org.icpclive.Config.loadProperties
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import org.icpclive.config.Config.loadProperties
 import org.icpclive.cds.pcms.PCMSEventsLoader
 import org.icpclive.cds.wf.json.WFEventsLoader
 import org.icpclive.cds.codeforces.CFEventsLoader
 
-abstract class EventsLoader {
-    var emulationSpeed = 0.0
-        protected set
-    protected var emulationStartTime = Instant.fromEpochMilliseconds(0)
-
-    abstract suspend fun run()
-
-    companion object {
-        val instance by lazy {
-            val properties = loadProperties("events")
-            val standingsType = properties.getProperty("standings.type")
-            when (standingsType) {
-                "WF" -> WFEventsLoader(false)
-                "WFRegionals" -> WFEventsLoader(true)
-                "PCMS" -> PCMSEventsLoader()
-                "CF" -> CFEventsLoader()
-                else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
-            }
+fun CoroutineScope.launchEventsLoader() {
+    val properties = loadProperties("events")
+    launch {
+        when (val standingsType = properties.getProperty("standings.type")) {
+            "WF" -> WFEventsLoader(false).run()
+            "WFRegionals" -> WFEventsLoader(true).run()
+            "PCMS" -> PCMSEventsLoader().run()
+            "CF" -> CFEventsLoader().run()
+            else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
         }
     }
 }

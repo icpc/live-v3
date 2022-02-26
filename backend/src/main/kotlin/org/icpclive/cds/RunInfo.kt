@@ -22,7 +22,6 @@ interface RunInfo {
         teamId,
         percentage,
         time,
-        lastUpdateTime,
         false,
     )
 }

@@ -4,8 +4,6 @@ import org.icpclive.utils.*
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.toApi
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
@@ -39,7 +37,7 @@ abstract class ContestInfo(
     var freezeTime = 4.hours
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(ContestInfo::class.java)
+        val logger = getLogger(ContestInfo::class)
     }
 
     fun toApi() = org.icpclive.api.ContestInfo(

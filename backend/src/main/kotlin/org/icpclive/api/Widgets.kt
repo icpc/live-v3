@@ -54,3 +54,12 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, loc
         val location = LocationRectangle(550,  40, 1900, 970)
     }
 }
+
+@Serializable
+@SerialName("StatisticsWidget")
+class StatisticsWidget(val settings: StatisticSettings) : Widget(WIDGET_ID, location) {
+    companion object {
+        const val WIDGET_ID = "statistics"
+        val location = LocationRectangle(590, 520, 1300, 500)
+    }
+}

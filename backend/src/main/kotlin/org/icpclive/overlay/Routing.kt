@@ -32,8 +32,9 @@ fun Application.configureOverlayRouting() {
     routing {
         route("/overlay") {
             webSocket("/mainScreen") { sendFlow(DataBus.mainScreenEvents()) }
+            webSocket("/contestInfo") { sendFlow(DataBus.contestInfoUpdates) }
             webSocket("/queue") { sendFlow(DataBus.queueEvents()) }
-            webSocket("/contestInfo") { sendFlow(DataBus.contestInfoFlow) }
+            webSocket("/statistics") { sendFlow(DataBus.statisticEvents()) }
             route("/scoreboard") {
                 webSocket("/normal") { sendFlow(DataBus.scoreboardEvents(OptimismLevel.NORMAL)) }
                 webSocket("/optimistic") { sendFlow(DataBus.scoreboardEvents(OptimismLevel.OPTIMISTIC)) }

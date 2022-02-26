@@ -4,6 +4,8 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.utils.toHex
+import kotlin.time.Duration.Companion.milliseconds
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
 @Serializable
@@ -13,10 +15,13 @@ data class Advertisement(val text: String)
 data class Picture(val url: String, val name: String)
 
 @Serializable
-class QueueSettings()
+class QueueSettings
 
 @Serializable
-class ScoreboardSettings()
+class ScoreboardSettings
+
+@Serializable
+class StatisticSettings
 
 @Serializable
 data class RunInfo(
@@ -29,14 +34,13 @@ data class RunInfo(
     val teamId: Int,
     val percentage: Double,
     val time: Long,
-    val lastUpdateTime: Long,
     val isFirstSolvedRun: Boolean,
 )
 
 @Serializable
 data class ProblemInfo(val letter: String, val name: String, val color: String) {
     constructor(info: CDSProblemsInfo) :
-            this(info.letter, info.name, "#" + "%08x".format(info.color.rgb))
+            this(info.letter, info.name, info.color.toHex())
 }
 
 fun CDSProblemsInfo.toApi() = ProblemInfo(this)
@@ -56,12 +60,12 @@ data class ContestInfo(
     val teams: List<TeamInfo>,
     val emulationSpeed: Double = 1.0,
 ) {
-    val currentContestTimeMs
+    val currentContestTime
         get() = when (status) {
             ContestStatus.BEFORE, ContestStatus.UNKNOWN -> 0
             ContestStatus.RUNNING -> ((System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed).toLong()
             ContestStatus.OVER -> contestLengthMs
-        }
+        }.milliseconds
     companion object {
         val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList())
     }
@@ -101,5 +105,12 @@ data class ScoreboardRow(
     val totalScore: Int,
     val penalty: Int,
     val lastAccepted: Long,
+    val medalType: String?,
     val problemResults: List<ProblemResult>,
 )
+
+@Serializable
+data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pending: Int)
+
+@Serializable
+data class SolutionsStatistic(val stats:List<ProblemSolutionsStatistic>)

@@ -7,12 +7,11 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.*
-import org.icpclive.Config.loadFile
-import org.icpclive.Config.loadProperties
+import org.icpclive.config.Config.loadFile
+import org.icpclive.config.Config.loadProperties
 import org.icpclive.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.EventsLoader
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.service.*
 import org.icpclive.utils.*
@@ -20,13 +19,12 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
-import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.util.*
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class PCMSEventsLoader : EventsLoader() {
+class PCMSEventsLoader {
     private fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
         val xml = loadFile(problemsFile!!)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
@@ -41,7 +39,7 @@ class PCMSEventsLoader : EventsLoader() {
     }
 
 
-    override suspend fun run() {
+    suspend fun run() {
         coroutineScope {
             val rawRunsFlow = MutableSharedFlow<RunInfo>(
                 extraBufferCapacity = 100000,
@@ -64,7 +62,7 @@ class PCMSEventsLoader : EventsLoader() {
                 }
                 xmlLoaderFlow.collect {
                     parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
-                    DataBus.contestInfoFlow.value = contestData.toApi()
+                    DataBus.contestInfoUpdates.value = contestData.toApi()
                     if (contestData.status == ContestStatus.RUNNING) {
                         logger.info("Updated for contest time = ${contestData.contestTime}")
                     }
@@ -196,7 +194,7 @@ class PCMSEventsLoader : EventsLoader() {
     }
 
     companion object {
-        private val logger = LoggerFactory.getLogger(PCMSEventsLoader::class.java)
+        private val logger = getLogger(PCMSEventsLoader::class)
         private val outcomeMap = mapOf(
             "undefined" to "UD",
             "fail" to "FL",

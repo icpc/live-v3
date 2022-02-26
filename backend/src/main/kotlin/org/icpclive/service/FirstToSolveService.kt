@@ -4,8 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import org.icpclive.api.RunInfo
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.icpclive.utils.getLogger
 import java.util.*
 
 class FirstToSolveService(problemsCount: Int, private val rawRunsFlow: Flow<RunInfo>, private val runsFlow: MutableSharedFlow<RunInfo>) {
@@ -68,6 +67,6 @@ class FirstToSolveService(problemsCount: Int, private val rawRunsFlow: Flow<RunI
     }
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(FirstToSolveService::class.java)
+        private val logger = getLogger(FirstToSolveService::class)
     }
 }

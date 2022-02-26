@@ -4,14 +4,20 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.DataBus
 import org.icpclive.api.*
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.icpclive.utils.tickerFlow
+import org.icpclive.utils.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-class QueueService {
+private sealed class QueueProcessTrigger
+private object Clean : QueueProcessTrigger()
+private class Run(val run: RunInfo): QueueProcessTrigger()
+private object Subscribe : QueueProcessTrigger()
+
+
+class QueueService(private val runsFlow: Flow<RunInfo>) {
     private val runs = mutableMapOf<Int, RunInfo>()
-    private val seenRunsSet = mutableSetOf<Int>()
+    private val lastUpdateTime = mutableMapOf<Int, Duration>()
 
     private val resultFlow = MutableSharedFlow<QueueEvent>(
         extraBufferCapacity = 100000,
@@ -21,7 +27,7 @@ class QueueService {
     private val subscriberFlow = MutableStateFlow(0)
 
     init {
-        DataBus.queueEventsFlowHolder.value = flow {
+        DataBus.setQueueEvents(flow {
             var nothingSent = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }
@@ -32,58 +38,55 @@ class QueueService {
                         nothingSent = false
                     }
                 }
-        }
-
-
+        })
     }
-
-    private val RunInfo.toOldAtTime get() = lastUpdateTime + if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
     private suspend fun removeRun(run: RunInfo) {
         runs.remove(run.id)
         resultFlow.emit(RemoveRunFromQueueEvent(run))
     }
 
+    private val RunInfo.timeInQueue
+        get() = if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
+
     suspend fun run() {
-        val removerFlow = tickerFlow(1.seconds)
-            .map { DataBus.contestInfoFlow.value.currentContestTimeMs }
-            .onEach { currentTime ->
-                runs.values.filter { currentTime >= it.toOldAtTime }.forEach { removeRun(it) }
-            }
-        val runsFlow = DataBus.runsUpdates.onEach { run ->
-            val currentTime = DataBus.contestInfoFlow.value.currentContestTimeMs
-            logger.debug("Receive run $run")
-            if (run.toOldAtTime > currentTime) {
-                if (run.id !in seenRunsSet || (run.isFirstSolvedRun && run.id !in runs)) {
-                    runs[run.id] = run
-                    seenRunsSet.add(run.id)
-                    resultFlow.emit(AddRunToQueueEvent(run))
-                } else if (run.id in runs) {
-                    runs[run.id] = run
-                    resultFlow.emit(ModifyRunInQueueEvent(run))
+        val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
+        val runsFlowTrigger = runsFlow.map { Run(it) }
+        val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
+        // it's important to have all side effects after merge, as part before merge will be executed concurrently
+        merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger).collect { event ->
+            when (event) {
+                is Clean -> {
+                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTime
+                    runs.values
+                        .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }.forEach { removeRun(it) }
                 }
-            } else {
-                logger.debug("Ignore run ${run.id} in queue as too old (currentTime = ${currentTime}, run.time = ${run.lastUpdateTime}, diff = ${currentTime - run.lastUpdateTime}")
+                is Run -> {
+                    val run = event.run
+                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTime
+                    logger.debug("Receive run $run")
+                    lastUpdateTime[run.id] = currentTime
+                    runs[run.id] = run
+                    resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
+                }
+                is Subscribe -> {
+                    resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
+                }
             }
-        }
-        val subscriberFlow = this.subscriberFlow.onEach {
-            resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
-        }
-        merge(runsFlow, removerFlow, subscriberFlow).onEach { _ ->
             while (runs.size >= MAX_QUEUE_SIZE) {
                 runs.values.asSequence()
                     .filterNot { it.isFirstSolvedRun }
                     .minByOrNull { it.id }
-                    ?.let { removeRun(it) }
+                    ?.run { removeRun(this) }
             }
-        }.collect()
+        }
     }
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(QueueService::class.java)
+        val logger = getLogger(QueueService::class)
 
-        private const val WAIT_TIME = 60000L
-        private const val FIRST_TO_SOLVE_WAIT_TIME = 120000L
+        private val WAIT_TIME = 1.minutes
+        private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes
         private const val MAX_QUEUE_SIZE = 15
     }
 }
