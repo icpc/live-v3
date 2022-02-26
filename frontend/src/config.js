@@ -7,6 +7,8 @@ export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
 // Timings
 export const WIDGET_TRANSITION_TIME = 300; // ms
 export const QUEUE_ROW_TRANSITION_TIME = 1000; // ms
+export const QUEUE_ROW_APPEAR_TIME = QUEUE_ROW_TRANSITION_TIME; // ms
+export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 
 
 

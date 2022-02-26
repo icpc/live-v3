@@ -39,7 +39,7 @@ const WidgetWrap = styled.div.attrs(
 )`
   position: absolute;
   overflow: hidden;
-  animation: ${props => props.animation } ${WIDGET_TRANSITION_TIME}ms linear;
+  animation: ${props => props.animation} ${WIDGET_TRANSITION_TIME}ms linear;
 `;
 
 const MainLayoutWrap = styled.div`

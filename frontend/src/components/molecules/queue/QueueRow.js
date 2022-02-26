@@ -16,14 +16,14 @@ import { ProblemCell, TeamNameCell, VerdictCell } from "../ContestCells";
 const QueueRowWrap = styled.div`
   height: ${QUEUE_ROW_HEIGHT}px;
   display: flex;
-  width: 100%;
+  flex-wrap: nowrap;
+  max-width: 100%;
 `;
 
 export const QueueRow = ({ entryData }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[entryData.teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[entryData.teamId]);
     return <QueueRowWrap>
-        {/*{entryData.id} - {entryData.teamId} - {entryData.problemId} - {entryData.result} - {JSON.stringify(scoreboardData)}*/}
         <Cell width={CELL_QUEUE_RANK_WIDTH}>
             {scoreboardData?.rank ?? "??"}
         </Cell>

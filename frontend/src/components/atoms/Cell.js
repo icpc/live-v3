@@ -8,6 +8,7 @@ export const Cell = styled.div`
   display: inline-block;
   flex-shrink: 0;
   flex: ${props => props.flex};
+  flex-basis: ${props => props.width};
 
   text-align: center;
   font-family: ${CELL_FONT_FAMILY};

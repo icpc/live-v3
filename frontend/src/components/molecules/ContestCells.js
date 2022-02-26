@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
@@ -77,28 +77,25 @@ const TeamNameCellContainer = styled.div`
   height: 100%;
   white-space: nowrap;
   transform: scaleX(${props => props.scaleY});
-  width: 1px;
+  transform-origin: left;
+  text-align: left;
 `;
 
 const TeamNameWrap = styled(Cell)`
   flex-grow: 1;
   flex-shrink: 1;
+  overflow-x: clip;
 `;
 
 export const TeamNameCell = ({ teamName }) => {
     const cellRef = useRef(null);
-    const teamNameWidth = useMemo(() => getTextWidth(teamName, CELL_FONT_SIZE + " " + CELL_FONT_FAMILY), [teamName]);
-    console.log(teamNameWidth);
-    const [scaleFactor, setScaleFactor] = useState(undefined);
-    useEffect(() => {
-        if(cellRef.current !== null) {
-            const styles = getComputedStyle(cellRef.current);
-            const haveWidth = parseFloat(styles.width);
-            console.log(teamName, teamNameWidth, haveWidth);
-            setScaleFactor(Math.min(1, haveWidth/teamNameWidth));
-        }
-    }, [cellRef, teamNameWidth]);
-    // console.log(scaleFactor);
+    const teamNameWidth = getTextWidth(teamName, CELL_FONT_SIZE + " " + CELL_FONT_FAMILY);
+    let scaleFactor = undefined;
+    if(cellRef.current !== null) {
+        const styles = getComputedStyle(cellRef.current);
+        const haveWidth = parseFloat(styles.width);
+        scaleFactor = Math.min(1, haveWidth/teamNameWidth);
+    }
     return <TeamNameWrap ref={cellRef}>
         {scaleFactor !== undefined &&
             <TeamNameCellContainer scaleY={scaleFactor}>
