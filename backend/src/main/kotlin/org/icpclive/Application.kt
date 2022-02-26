@@ -59,4 +59,6 @@ fun Application.module() {
     }
     launchEventsLoader()
     launch { EventLoggerService().run() }
+    // to trigger init
+    WidgetManager.let{}
 }
