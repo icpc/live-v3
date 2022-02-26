@@ -1,7 +1,10 @@
 import _ from "lodash";
+import { SCOREBOARD_TYPES } from "../../consts";
 import { pushLog } from "../../redux/debug";
+import { handleMessage as contestInfoHandler } from "./contestInfo";
 import { handleMessage as mainScreenHandler } from "./mainScreen";
 import { handleMessage as queueHandler } from "./queue";
+import { handleMessage as scoreboardHandler } from "./scoreboard";
 
 
 let handler = {
@@ -21,4 +24,7 @@ let handler = {
 export const WEBSOCKET_HANDLERS = new Proxy({
     mainScreen: mainScreenHandler,
     queue: queueHandler,
+    scoreboardOptimistic: scoreboardHandler(SCOREBOARD_TYPES.optimistic),
+    scoreboardNormal: scoreboardHandler(SCOREBOARD_TYPES.normal),
+    contestInfo: contestInfoHandler
 }, handler);

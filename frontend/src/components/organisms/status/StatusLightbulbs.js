@@ -28,7 +28,6 @@ const StatusLightbulbsWrap = styled.div`
 
 export const StatusLightbulbs = () => {
     const status = useSelector(state => state.status.websockets);
-    console.log(status);
     return <StatusLightbulbsWrap>
         {Object.entries(status).map(([key, value]) => {
             return <LightbulbWrap key={key}>

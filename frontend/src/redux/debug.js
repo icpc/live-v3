@@ -16,7 +16,7 @@ export const pushLog = (text) => {
         dispatch({
             type: ActionTypes.PUSH_LOG,
             payload: {
-                text,
+                text: _.truncate(text, { length: 100 }),
                 timestamp: DateTime.now().toLocaleString(DateTime.TIME_24_WITH_SECONDS)
             }
         });

@@ -1,5 +1,5 @@
+import { addRun, modifyRun, removeRun, setFromSnapshot } from "../../redux/contest/queue";
 import { pushLog } from "../../redux/debug";
-import { addRun, modifyRun, removeRun, setFromSnapshot } from "../../redux/queue";
 
 export const handleMessage = (dispatch) => (e) => {
     const message = JSON.parse(e.data);

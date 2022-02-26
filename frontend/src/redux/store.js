@@ -3,8 +3,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import thunkMiddleware from "redux-thunk";
+import { contestInfoReducer } from "./contest/contestInfo";
+import { queueReducer } from "./contest/queue";
+import { scoreboardReducer } from "./contest/scoreboard";
 import { debugReducer } from "./debug";
-import { queueReducer } from "./queue";
 import { statusReducer } from "./status";
 import { widgetsReducer } from "./widgets";
 
@@ -12,7 +14,9 @@ const combinedReducer = combineReducers({
     widgets: widgetsReducer,
     status: statusReducer,
     debug: debugReducer,
-    queue: queueReducer
+    queue: queueReducer,
+    scoreboard: scoreboardReducer,
+    contestInfo: contestInfoReducer
 });
 
 const persistConfig = {

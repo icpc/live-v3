@@ -4,7 +4,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.DataBus
 import org.icpclive.api.*
-import org.icpclive.utils.*
+import org.icpclive.utils.getLogger
+import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
@@ -66,8 +67,8 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
                     val currentTime = DataBus.contestInfoUpdates.value.currentContestTime
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
-                    runs[run.id] = run
                     resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
+                    runs[run.id] = run
                 }
                 is Subscribe -> {
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))

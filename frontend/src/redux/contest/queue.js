@@ -25,7 +25,6 @@ export const addRun = (runData) => {
 
 export const modifyRun = (runData) => {
     return async dispatch => {
-        console.log(runData);
         dispatch({
             type: ActionTypes.QUEUE_MODIFY_RUN,
             payload: {

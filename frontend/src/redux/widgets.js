@@ -58,7 +58,7 @@ export function widgetsReducer(state = initialState, action) {
         };
     case ActionTypes.SET_WIDGETS:
         return {
-            widgets: Object.fromEntries(action.payload.widgets.map((widget) => [widget.widgetId, widget]))
+            widgets: _.keyBy(action.payload.widgets, "widgetId")
         };
     default:
         return state;

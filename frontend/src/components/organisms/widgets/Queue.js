@@ -1,11 +1,11 @@
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { QUEUE_ROW_HEIGHT, QUEUE_ROW_TRANSITION_TIME, QUEUE_ROWS_COUNT } from "../../../config";
+import { QUEUE_FTS_PADDING, QUEUE_ROW_HEIGHT, QUEUE_ROW_TRANSITION_TIME, QUEUE_ROWS_COUNT } from "../../../config";
 import { QueueRow } from "../../molecules/queue/QueueRow";
 
 const WidgetWrap = styled.div`
-  background-color: grey;
   width: 100%;
   height: 100%;
   
@@ -45,16 +45,16 @@ export const Queue = () => {
     const allRows = [];
     let queueRowsCount = 0;
     let firstToSolveCount = 0;
-    for(let queueEntry of queue) {
+    for(let queueEntry of _.sortBy(queue, "isFirstSolvedRun")) {
         let bottom = QUEUE_ROW_HEIGHT * queueRowsCount;
         if (queueEntry.isFirstSolvedRun) {
-            bottom = (QUEUE_ROWS_COUNT - firstToSolveCount) * QUEUE_ROW_HEIGHT + QUEUE_ROW_HEIGHT/2;
+            bottom = queueRowsCount * QUEUE_ROW_HEIGHT + QUEUE_FTS_PADDING * (queueRowsCount > 0);
         }
         if(justRendered) {
             bottom = 0;
         }
         const el = <QueueRowWrap key={queueEntry.id} bottom={bottom}>
-            <QueueRow entryData={queueEntry} teamData={undefined}/>
+            <QueueRow entryData={queueEntry}/>
         </QueueRowWrap>;
         allRows.push(el);
         queueRowsCount += !queueEntry.isFirstSolvedRun;
@@ -64,7 +64,6 @@ export const Queue = () => {
         setJustRendered(false);
     }, [justRendered]);
     return <WidgetWrap>
-        {/*{JSON.stringify(queue)}*/}
         {allRows}
     </WidgetWrap>;
 };
