@@ -1,5 +1,5 @@
 import { pushLog } from "../../redux/debug";
-import { addRun, modifyRun, removeRun } from "../../redux/queue";
+import { addRun, modifyRun, removeRun, setFromSnapshot } from "../../redux/queue";
 
 export const handleMessage = (dispatch) => (e) => {
     const message = JSON.parse(e.data);
@@ -13,6 +13,12 @@ export const handleMessage = (dispatch) => (e) => {
         break;
     case "ModifyRunInQueue":
         dispatch(modifyRun(message.info));
+        break;
+    case "QueueSnapshot":
+        dispatch(setFromSnapshot(message.infos));
+        break;
+    default:
+        dispatch(pushLog(`UNKNOWN MESSAGE TYPE: ${message.type}`));
         break;
     }
 };

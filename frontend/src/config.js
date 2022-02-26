@@ -1,5 +1,8 @@
 // Timings
 export const WIDGET_TRANSITION_TIME = 300; // ms
+export const QUEUE_ROW_TRANSITION_TIME = 1000; // ms
+export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
+
 
 
 // Styles

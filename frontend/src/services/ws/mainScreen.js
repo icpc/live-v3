@@ -1,5 +1,5 @@
 import { pushLog } from "../../redux/debug";
-import { hideWidget, showWidget } from "../../redux/widgets";
+import { hideWidget, setWidgets, showWidget } from "../../redux/widgets";
 
 export const handleMessage = (dispatch) => (e) => {
     const message = JSON.parse(e.data);
@@ -10,6 +10,12 @@ export const handleMessage = (dispatch) => (e) => {
         break;
     case "HideWidget":
         dispatch(hideWidget(message.id));
+        break;
+    case "MainScreenSnapshot":
+        dispatch(setWidgets(message.widgets));
+        break;
+    default:
+        dispatch(pushLog(`UNKNOWN MESSAGE TYPE: ${message.type}`));
         break;
     }
 };

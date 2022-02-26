@@ -40,7 +40,6 @@ const WidgetWrap = styled.div.attrs(
   position: absolute;
   overflow: hidden;
   animation: ${props => props.animation } ${WIDGET_TRANSITION_TIME}ms linear;
-  // opacity: ${props => props.shown && props.shown ? "1" : "0" };
 `;
 
 const MainLayoutWrap = styled.div`
@@ -58,7 +57,7 @@ const transitionProps = {
     entering: { animation: fadeIn },
     entered:  {  },
     exiting:  { animation: fadeOut },
-    exited:  { shown: false },
+    exited:  { },
 };
 
 export const MainLayout = () => {

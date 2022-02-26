@@ -1,9 +1,10 @@
 import _ from "lodash";
 
 const ActionTypes = {
-    ADD_RUN: "ADD_RUN",
-    MODIFY_RUN: "MODIFY_RUN",
-    REMOVE_RUN: "REMOVE_RUN",
+    QUEUE_ADD_RUN: "QUEUE_ADD_RUN",
+    QUEUE_MODIFY_RUN: "QUEUE_MODIFY_RUN",
+    QUEUE_REMOVE_RUN: "QUEUE_REMOVE_RUN",
+    QUEUE_SET_FROM_SNAPSHOT: "QUEUE_SET_FROM_SNAPSHOT"
 };
 
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
 export const addRun = (runData) => {
     return async dispatch => {
         dispatch({
-            type: ActionTypes.ADD_RUN,
+            type: ActionTypes.QUEUE_ADD_RUN,
             payload: {
                 newRun: runData
             }
@@ -26,7 +27,7 @@ export const modifyRun = (runData) => {
     return async dispatch => {
         console.log(runData);
         dispatch({
-            type: ActionTypes.MODIFY_RUN,
+            type: ActionTypes.QUEUE_MODIFY_RUN,
             payload: {
                 runData
             }
@@ -37,7 +38,7 @@ export const modifyRun = (runData) => {
 export const removeRun = (runId) => {
     return async dispatch => {
         dispatch({
-            type: ActionTypes.REMOVE_RUN,
+            type: ActionTypes.QUEUE_REMOVE_RUN,
             payload: {
                 runId
             }
@@ -45,24 +46,39 @@ export const removeRun = (runId) => {
     };
 };
 
+export const setFromSnapshot = (snapshot) => {
+    return async dispatch => {
+        dispatch({
+            type: ActionTypes.QUEUE_SET_FROM_SNAPSHOT,
+            payload: {
+                runs: snapshot
+            }
+        });
+    };
+};
+
 export function queueReducer(state = initialState, action) {
     switch (action.type) {
-    case ActionTypes.ADD_RUN:
+    case ActionTypes.QUEUE_ADD_RUN:
         return {
             queue: [
                 action.payload.newRun,
                 ...state.queue
             ]
         };
-    case ActionTypes.MODIFY_RUN:
+    case ActionTypes.QUEUE_MODIFY_RUN:
         return {
             queue: state.queue.map((run) => run.id === action.payload.runData.id ?
                 action.payload.runData :
                 run)
         };
-    case ActionTypes.REMOVE_RUN:
+    case ActionTypes.QUEUE_REMOVE_RUN:
         return {
             queue: _.differenceBy(state.queue, [{ id: action.payload.runId }], "id")
+        };
+    case ActionTypes.QUEUE_SET_FROM_SNAPSHOT:
+        return {
+            queue: _.reverse(action.payload.runs)
         };
     default:
         return state;
