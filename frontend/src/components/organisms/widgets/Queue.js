@@ -5,6 +5,7 @@ import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import {
     QUEUE_FTS_PADDING,
+    QUEUE_OPACITY,
     QUEUE_ROW_APPEAR_TIME,
     QUEUE_ROW_FTS_TRANSITION_TIME,
     QUEUE_ROW_HEIGHT,
@@ -16,7 +17,7 @@ import { QueueRow } from "../../molecules/queue/QueueRow";
 const WidgetWrap = styled.div`
   width: 100%;
   height: 100%;
-  //background-color: gray;
+  opacity: ${QUEUE_OPACITY};
   position: relative;
 `;
 
@@ -80,7 +81,7 @@ const transitionProps = {
 };
 
 export const Queue = () => {
-    const queue = useSelector(state => state.queue.queue);
+    const { queue, totalQueueItems } = useSelector(state => state.queue);
     const [justRendered, setJustRendered] = useState(true);
     let allRows = [];
     let queueRowsCount = 0;
@@ -92,13 +93,14 @@ export const Queue = () => {
         if (justRendered) {
             bottom = 0;
         }
+        const isEven = (totalQueueItems - queueRowsCount) % 2 === 0;
         const el =
             <Transition key={queueEntry.id} timeout={QUEUE_ROW_APPEAR_TIME}>
                 {state =>
                     state !== "exited" &&
                     <QueueRowWrap bottom={bottom} fts={queueEntry.isFirstSolvedRun}
                         {...transitionProps[state]}>
-                        <QueueRow entryData={queueEntry}/>
+                        <QueueRow entryData={queueEntry} isEven={isEven}/>
                     </QueueRowWrap>
                 }
             </Transition>;

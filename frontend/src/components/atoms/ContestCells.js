@@ -1,25 +1,25 @@
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
     CELL_FONT_FAMILY,
     CELL_FONT_SIZE,
+    CELL_NAME_LEFT_PADDING,
+    CELL_NAME_RIGHT_PADDING,
     CELL_PROBLEM_LINE_WIDTH,
-    CELL_QUEUE_VERDICT_WIDTH,
+    getMedalColor,
     VERDICT_NOK,
     VERDICT_OK,
     VERDICT_UNKNOWN
 } from "../../config";
-import { Cell } from "../atoms/Cell";
+import { Cell } from "./Cell";
+import { StarIcon } from "./Star";
 
 export const ProblemCellWrap = styled(Cell) `
   border-bottom: ${props => props.probColor} ${CELL_PROBLEM_LINE_WIDTH} solid;
-  flex-shrink: 0;
 `;
 
-export const ProblemCell = ({ probInd, ...props }) => {
-    const probData = useSelector((state) => state.contestInfo.info?.problems[probInd]);
+export const ProblemCell = ({ probData, ...props }) => {
     return <ProblemCellWrap probColor={probData?.color ?? "red"} {...props}>
         {probData?.name ?? "??"}
     </ProblemCellWrap>;
@@ -27,7 +27,7 @@ export const ProblemCell = ({ probInd, ...props }) => {
 
 ProblemCell.propTypes = {
     ...Cell.propTypes,
-    probInd: PropTypes.number.isRequired
+    probData: PropTypes.object
 };
 
 const VerdictCellProgressBar = styled.div.attrs(({ width }) => ({
@@ -41,20 +41,21 @@ const VerdictCellProgressBar = styled.div.attrs(({ width }) => ({
 `;
 
 
-export const VerdictCell = ({ verdict: { isAccepted, isJudged, result, percentage }, ...props }) => {
+export const VerdictCell = ({ verdict: { isAccepted, isJudged, result, percentage, isFirstToSolve }, ...props }) => {
     return <Cell
         background={isJudged ?
             isAccepted ? VERDICT_OK : VERDICT_NOK
             : undefined}
-        width={CELL_QUEUE_VERDICT_WIDTH}
         {...props}
     >
+        {isFirstToSolve && <StarIcon/>}
         {percentage !== 0 && !isJudged && <VerdictCellProgressBar width={percentage*100+"%"}/>}
         {isJudged && result}
     </Cell>;
 };
 
 VerdictCell.propTypes = {
+    ...Cell.propTypes,
     verdict: PropTypes.shape({
         isAccepted: PropTypes.bool.isRequired,
         isJudged: PropTypes.bool.isRequired,
@@ -74,7 +75,6 @@ function getTextWidth(text, font) {
 
 
 const TeamNameCellContainer = styled.div`
-  height: 100%;
   white-space: nowrap;
   transform: scaleX(${props => props.scaleY});
   transform-origin: left;
@@ -82,21 +82,24 @@ const TeamNameCellContainer = styled.div`
 `;
 
 const TeamNameWrap = styled(Cell)`
-  flex-grow: 1;
-  flex-shrink: 1;
+  flex-grow: ${props => (props.canGrow ?? true) ? 1 : 0};
+  flex-shrink: ${props => (props.canShrink ?? true) ? 1 : 0};
   overflow-x: clip;
+  justify-content: start;
+  padding-left: ${CELL_NAME_LEFT_PADDING};
+  padding-right: ${CELL_NAME_RIGHT_PADDING};
 `;
 
-export const TeamNameCell = ({ teamName }) => {
+export const TeamNameCell = ({ teamName, ...props }) => {
     const cellRef = useRef(null);
     const teamNameWidth = getTextWidth(teamName, CELL_FONT_SIZE + " " + CELL_FONT_FAMILY);
     let scaleFactor = undefined;
     if(cellRef.current !== null) {
         const styles = getComputedStyle(cellRef.current);
-        const haveWidth = parseFloat(styles.width);
+        const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
         scaleFactor = Math.min(1, haveWidth/teamNameWidth);
     }
-    return <TeamNameWrap ref={cellRef}>
+    return <TeamNameWrap ref={cellRef} {...props}>
         {scaleFactor !== undefined &&
             <TeamNameCellContainer scaleY={scaleFactor}>
                 {teamName}
@@ -106,5 +109,19 @@ export const TeamNameCell = ({ teamName }) => {
 };
 
 TeamNameCell.propTypes = {
+    ...Cell.propTypes,
+    canGrow: PropTypes.bool,
+    canShrink: PropTypes.bool,
     teamName: PropTypes.string.isRequired
+};
+
+export const RankCell = ({ rank, ...props }) => {
+    return <Cell background={getMedalColor(rank)} {...props}>
+        {rank ?? "??"}
+    </Cell>;
+};
+
+RankCell.propTypes = {
+    ...Cell.propTypes,
+    rank: PropTypes.number
 };

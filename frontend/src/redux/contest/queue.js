@@ -9,6 +9,7 @@ const ActionTypes = {
 
 const initialState = {
     queue: [],
+    totalQueueItems: 0,
     breakingNews: undefined
 };
 
@@ -60,23 +61,28 @@ export function queueReducer(state = initialState, action) {
     switch (action.type) {
     case ActionTypes.QUEUE_ADD_RUN:
         return {
+            ...state,
             queue: [
                 action.payload.newRun,
                 ...state.queue
-            ]
+            ],
+            totalQueueItems: state.totalQueueItems + 1
         };
     case ActionTypes.QUEUE_MODIFY_RUN:
         return {
+            ...state,
             queue: state.queue.map((run) => run.id === action.payload.runData.id ?
                 action.payload.runData :
                 run)
         };
     case ActionTypes.QUEUE_REMOVE_RUN:
         return {
+            ...state,
             queue: _.differenceBy(state.queue, [{ id: action.payload.runId }], "id")
         };
     case ActionTypes.QUEUE_SET_FROM_SNAPSHOT:
         return {
+            ...state,
             queue: _.reverse(action.payload.runs)
         };
     default:
