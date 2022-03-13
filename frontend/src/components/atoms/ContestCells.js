@@ -35,23 +35,28 @@ const VerdictCellProgressBar = styled.div.attrs(({ width }) => ({
         width
     }
 }))`
-    height: 100%;
-    position: absolute;
+  height: 100%;
+  position: absolute;
+  left: 0;
   background-color: ${VERDICT_UNKNOWN};
 `;
 
+const VerdictCellWrap = styled(Cell)`
+  position: relative;
+`;
 
 export const VerdictCell = ({ verdict: { isAccepted, isJudged, result, percentage, isFirstToSolve }, ...props }) => {
-    return <Cell
-        background={isJudged ?
-            isAccepted ? VERDICT_OK : VERDICT_NOK
-            : undefined}
+    return <VerdictCellWrap
+        background=
+            {isJudged ?
+                isAccepted ? VERDICT_OK : VERDICT_NOK
+                : undefined}
         {...props}
     >
         {isFirstToSolve && <StarIcon/>}
-        {percentage !== 0 && !isJudged && <VerdictCellProgressBar width={percentage*100+"%"}/>}
+        {percentage !== 0 && !isJudged && <VerdictCellProgressBar width={percentage * 100 + "%"}/>}
         {isJudged && result}
-    </Cell>;
+    </VerdictCellWrap>;
 };
 
 VerdictCell.propTypes = {

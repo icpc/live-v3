@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
@@ -16,19 +16,9 @@ function shuffleArray(array) {
 }
 
 const NUM = 30;
-const TASKS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
-const ROWHEIGHT = 42;
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
 const STATWIDTH = 80;
-
-const elems = [...Array(NUM).keys()];
-
-const getNewPos = () => {
-    let arr = Array.from(elems);
-    // shuffleArray(arr);
-    return arr.map((el) => el);
-};
 
 const ScoreboardWrap = styled.div`
   height: 100%;
@@ -39,7 +29,7 @@ const ScoreboardWrap = styled.div`
   table-layout: fixed;
 `;
 
-const ScoreboardRowWrap = styled.div`
+const ScoreboardRowContainer = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
@@ -100,7 +90,7 @@ ScoreboardTaskCell.propTypes = {
     attempts: PropTypes.number
 };
 
-const ScoreboardHeaderWrap = styled(ScoreboardRowWrap)`
+const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
   height: ${props => props.rowHeight}px;
 `;
 
@@ -130,22 +120,26 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     }
 }
 
-const ScoreboardRow = ({ data: { rank, teamId, totalScore, penalty, problemResults } }) => {
+const ScoreboardRow = ({ teamId }) => {
+    const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    return <ScoreboardRowWrap>
-        <RankCell rank={rank} width={NUMWIDTH + "px"}/>
+    return <ScoreboardRowContainer>
+        <RankCell rank={scoreboardData.rank} width={NUMWIDTH + "px"}/>
         <TeamNameCell teamName={teamData.name} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
-            {totalScore}
+            {scoreboardData.totalScore}
         </ScoreboardStatCell>
         <ScoreboardStatCell>
-            {penalty}
+            {scoreboardData.penalty}
         </ScoreboardStatCell>
-        {problemResults.map(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve }, i) =>
+        {scoreboardData.problemResults.map(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve }, i) =>
             <ScoreboardTaskCell key={i} status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
                 attempts={wrongAttempts + pendingAttempts}/>
         )}
-    </ScoreboardRowWrap>;
+    </ScoreboardRowContainer>;
+};
+ScoreboardRow.propTypes = {
+    teamId: PropTypes.number.isRequired
 };
 
 const ScoreboardHeader = ({ problems, rowHeight }) => {
@@ -163,7 +157,17 @@ ScoreboardHeader.propTypes = {
     problems: PropTypes.arrayOf(PropTypes.object)
 };
 
-const ScoreboardRowWrapWrap = styled.div.attrs((props) => ({
+const appearAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const ScoreboardRowWrap = styled.div.attrs((props) => ({
     style: {
         top: props.pos + "px"
     }
@@ -173,11 +177,12 @@ const ScoreboardRowWrapWrap = styled.div.attrs((props) => ({
   height: ${props => props.rowHeight}px;
   transition: top 1s ease-in-out;
   position: absolute;
+  animation: ${appearAnimation} 5s linear;
 `;
 
 const scrollTime = 3000;
 const teamsOnPage = 23;
-const maxPages = Infinity;
+const maxPages = 2;
 const SCOREBOARD_TYPE = SCOREBOARD_TYPES.normal;
 
 export const Scoreboard = ({ widgetData }) => {
@@ -195,13 +200,21 @@ export const Scoreboard = ({ widgetData }) => {
         }, scrollTime);
         return () => clearInterval(id);
     }, [teamsOnPage, rows]);
+    let rowComps = [];
+    for (let i = 0; i < rows.length; i++) {
+        const el = <ScoreboardRowWrap key={rows[i].teamId} pos={(i - offset) * rowHeight + rowHeight} rowHeight={rowHeight}>
+            <ScoreboardRow teamId={rows[i].teamId}/>
+        </ScoreboardRowWrap>;
+        rowComps.unshift(el);
+    }
     return <ScoreboardWrap>
-        {rows.map((data, i) => (
-            <ScoreboardRowWrapWrap key={data.teamId} pos={(i - offset) * rowHeight + rowHeight} rowHeight={rowHeight}>
-                <ScoreboardRow data={data}/>
-            </ScoreboardRowWrapWrap>
-        ))}
+        {rowComps}
         <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight}/>
     </ScoreboardWrap>;
 };
+
+Scoreboard.propTypes = {
+    widgetData: PropTypes.object.isRequired
+};
+
 export default Scoreboard;
