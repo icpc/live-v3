@@ -50,6 +50,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         get() = cfStandings?.rows?.size ?: 0
     private var cfStandings: CFStandings? = null
     private val problemsMap = mutableMapOf<String, ProblemInfo>()
+    private val problemsIdMap = mutableMapOf<String, Int>()
     private val participantsByName = mutableMapOf<String, CFTeamInfo>()
     private val participantsById = mutableMapOf<Int, CFTeamInfo>()
     private var nextParticipantId = 1
@@ -80,9 +81,10 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
 
     fun updateStandings(standings: CFStandings) {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
-            for (problem in standings.problems) {
+            for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(problem.index, problem.name!!, Color.BLACK)
                 problemsMap[problem.index] = problemInfo
+                problemsIdMap[problem.index] = id
                 problems.add(problemInfo)
             }
         }
@@ -97,12 +99,12 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         }
         for (row in standings.rows) {
             val teamInfo = CFTeamInfo(row)
-            if (participantsByName.containsKey(teamInfo.name)) {
-                teamInfo.id = participantsByName[teamInfo.name]!!.id
+            if (participantsByName.containsKey(getName(row.party))) {
+                teamInfo.id = participantsByName[getName(row.party)]!!.id
             } else {
                 teamInfo.id = nextParticipantId++
             }
-            participantsByName[teamInfo.name] = teamInfo
+            participantsByName[getName(row.party)] = teamInfo
             participantsById[teamInfo.id] = teamInfo
         }
     }
@@ -115,7 +117,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
             .filter { it.author.participantType == CFPartyParticipantType.CONTESTANT }
             .filter { participantsByName.containsKey(getName(it.author)) }
             .map {
-                val problemId = it.problem.index.toInt()
+                val problemId = problemsIdMap[it.problem.index]!!
                 val verdict = it.verdict ?: CFSubmissionVerdict.TESTING
                 val problemTests = problemTestsCount[it.problem.index]!!
                 RunInfo(
