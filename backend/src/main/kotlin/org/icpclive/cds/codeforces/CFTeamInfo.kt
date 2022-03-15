@@ -10,7 +10,7 @@ class CFTeamInfo(private val row: CFRankListRow) : TeamInfo {
     override var id = 0
 
     override val name: String
-        get() = row.party.teamName ?: row.party.members[0].handle
+        get() = row.party.teamName ?: row.party.members[0].let { it.name ?: it.handle }
     override val shortName: String
         get() = name
     override val alias: String
