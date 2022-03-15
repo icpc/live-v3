@@ -51,7 +51,7 @@ class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
 class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "scoreboard"
-        val location = LocationRectangle(550,  40, 1900, 970)
+        val location = LocationRectangle(550,  40, 1350, 970)
     }
 }
 
