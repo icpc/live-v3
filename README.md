@@ -2,7 +2,8 @@
 
 Welcome to the ICPC Live Source Code Repository.
 
-* git config core.symlinks=true
+git config --global core.symlinks true
+git config --global core.autocrlf true
 
 Previous versions:
 * https://github.com/icpc-live
