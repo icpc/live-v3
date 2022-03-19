@@ -4,8 +4,8 @@ Welcome to the ICPC Live Source Code Repository.
 
 Run as admin
 
-* git config core.symlinks true
-* git config core.autocrlf true
+* git config --global core.symlinks true
+* git config --global core.autocrlf input
 
 Previous versions:
 * https://github.com/icpc-live
