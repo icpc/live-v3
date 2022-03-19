@@ -2,6 +2,8 @@
 
 Welcome to the ICPC Live Source Code Repository.
 
+* git config core.symlinks=true
+
 Previous versions:
 * https://github.com/icpc-live
 * https://github.com/Aksenov239/icpc-live-v2
