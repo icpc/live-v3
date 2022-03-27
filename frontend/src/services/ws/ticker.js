@@ -1,17 +1,17 @@
 import { pushLog } from "../../redux/debug";
-import { hideWidget, setWidgets, showWidget } from "../../redux/widgets";
+import { addMessage, removeMessage, setMessages } from "../../redux/ticker";
 
 export const handleMessage = (dispatch, e) => {
     const message = JSON.parse(e.data);
     switch (message.type) {
-    case "ShowWidget":
-        dispatch(showWidget(message.widget));
+    case "AddMessage":
+        dispatch(addMessage(message.message));
         break;
-    case "HideWidget":
-        dispatch(hideWidget(message.id));
+    case "RemoveMessage":
+        dispatch(removeMessage(message.messageId));
         break;
-    case "MainScreenSnapshot":
-        dispatch(setWidgets(message.widgets));
+    case "TickerSnapshot":
+        dispatch(setMessages(message.messages));
         break;
     default:
         dispatch(pushLog(`UNKNOWN MESSAGE TYPE: ${message.type}`));
