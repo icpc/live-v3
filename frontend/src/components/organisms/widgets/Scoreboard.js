@@ -3,7 +3,15 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { SCOREBOARD_ROW_TRANSITION_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import {
+    SCOREBOARD_MAX_PAGES,
+    SCOREBOARD_ROW_TRANSITION_TIME,
+    SCOREBOARD_SCROLL_INTERVAL,
+    SCOREBOARD_TEAMS_ON_PAGE,
+    VERDICT_NOK,
+    VERDICT_OK,
+    VERDICT_UNKNOWN
+} from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
@@ -107,6 +115,10 @@ const ScoreboardHeaderStatCell = styled(ScoreboardStatCell)`
   text-align: center;
 `;
 
+const ScoreboardHeaderProblemCell = styled(ProblemCell)`
+  position: relative;
+`;
+
 function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
@@ -149,7 +161,7 @@ const ScoreboardHeader = ({ problems, rowHeight }) => {
         <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
         <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>
         {problems && problems.map((probData) =>
-            <ProblemCell key={probData.name} probData={probData} canGrow={true} canShrink={true} basis={"100%"}/>
+            <ScoreboardHeaderProblemCell key={probData.name} probData={probData} canGrow={true} canShrink={true} basis={"100%"}/>
         )}
     </ScoreboardHeaderWrap>;
 };
@@ -165,7 +177,7 @@ const PositionedScoreboardRowWrap = styled.div.attrs((props) => ({
 }))`
   left: 0;
   right: 0;
-  height: ${props => props.rowHeight}px;
+  height: ${props => props.rowHeight + 2}px; // FIXME lol
   transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
   position: absolute;
 `;
@@ -183,9 +195,6 @@ PositionedScoreboardRow.propTypes = {
     children: PropTypes.node
 };
 
-const scrollTime = 1000;
-const teamsOnPage = 23;
-const maxPages = 1;
 const SCOREBOARD_TYPE = SCOREBOARD_TYPES.normal;
 
 export const Scoreboard = ({ widgetData }) => {
@@ -193,14 +202,14 @@ export const Scoreboard = ({ widgetData }) => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const [offset, setOffset] = useState(0);
     const totalHeight = widgetData.location.sizeY;
-    const rowHeight = (totalHeight / (teamsOnPage + 1));
+    const rowHeight = (totalHeight / (SCOREBOARD_TEAMS_ON_PAGE + 1));
     useEffect(() => {
         const id = setInterval(() => {
             setOffset((offset) => {
-                let newStart = offset + teamsOnPage;
-                return (newStart >= Math.min(rows.length, maxPages * teamsOnPage) ? 0 : newStart);
+                let newStart = offset + SCOREBOARD_TEAMS_ON_PAGE;
+                return (newStart >= Math.min(rows.length, SCOREBOARD_MAX_PAGES * SCOREBOARD_TEAMS_ON_PAGE) ? 0 : newStart);
             });
-        }, scrollTime);
+        }, SCOREBOARD_SCROLL_INTERVAL);
         return () => clearInterval(id);
     }, [rows.length]);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();

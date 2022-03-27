@@ -4,13 +4,17 @@ export const BASE_URL_WS = "ws://localhost:8080/overlay";
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
 
+export const SCOREBOARD_TEAMS_ON_PAGE = 23;
+export const SCOREBOARD_MAX_PAGES = Infinity;
+
+
 // Timings
 export const WIDGET_TRANSITION_TIME = 300; // ms
 export const QUEUE_ROW_TRANSITION_TIME = 1000; // ms
 export const QUEUE_ROW_APPEAR_TIME = QUEUE_ROW_TRANSITION_TIME; // ms
 export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
-
+export const SCOREBOARD_SCROLL_INTERVAL = 2000; // ms;
 
 // Styles
 export const VERDICT_OK = "#1b8041";
