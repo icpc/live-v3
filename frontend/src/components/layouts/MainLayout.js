@@ -5,6 +5,7 @@ import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.jpeg";
 import { WIDGET_TRANSITION_TIME } from "../../config";
 import Advertisement from "../organisms/widgets/Advertisement";
+import Pictures from "../organisms/widgets/Pictures";
 import Queue from "../organisms/widgets/Queue";
 import Scoreboard from "../organisms/widgets/Scoreboard";
 
@@ -49,12 +50,6 @@ const MainLayoutWrap = styled.div`
   background: url(${bg});
 `;
 
-const WIDGETS = {
-    AdvertisementWidget: Advertisement,
-    ScoreboardWidget: Scoreboard,
-    QueueWidget: Queue
-};
-
 const transitionProps = {
     entering: { animation: fadeIn },
     entered:  {  },
@@ -62,25 +57,32 @@ const transitionProps = {
     exited:  { },
 };
 
+const WIDGETS = {
+    AdvertisementWidget: [Advertisement, transitionProps],
+    ScoreboardWidget: [Scoreboard, transitionProps],
+    QueueWidget: [Queue, transitionProps],
+    PictureWidget: [Pictures, transitionProps]
+};
+
 export const MainLayout = () => {
     const widgets = useSelector(state => state.widgets.widgets);
     return <MainLayoutWrap>
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
-                const Widget = WIDGETS[obj.type];
+                const [Widget, transitionProps] = WIDGETS[obj.type];
                 if(Widget === undefined) {
                     return null;
                 }
                 return <Transition key={obj.widgetId} timeout={WIDGET_TRANSITION_TIME}>
                     {state =>
-                        <WidgetWrap
+                        state !== "exited" && <WidgetWrap
                             left={obj.location.positionX}
                             top={obj.location.positionY}
                             width={obj.location.sizeX}
                             height={obj.location.sizeY}
                             {...transitionProps[state]}
                         >
-                            <Widget widgetData={obj} state={state}/>
+                            <Widget widgetData={obj} state={state} {...transitionProps[state]}/>
                         </WidgetWrap>
                     }
                 </Transition>;
