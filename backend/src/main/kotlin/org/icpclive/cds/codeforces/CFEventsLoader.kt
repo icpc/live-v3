@@ -7,7 +7,7 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromJsonElement
 import org.icpclive.config.Config.loadProperties
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFContestPhase

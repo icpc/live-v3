@@ -63,3 +63,12 @@ class StatisticsWidget(val settings: StatisticSettings) : Widget(WIDGET_ID, loca
         val location = LocationRectangle(590, 520, 1300, 500)
     }
 }
+
+@Serializable
+@SerialName("CreepingLineWidget")
+class CreepingLineWidget(val settings: CreepingLineSettings) : Widget(WIDGET_ID, location) {
+    companion object {
+        const val WIDGET_ID = "creeping_line"
+        val location = LocationRectangle(0, 1025, 1920, 50)
+    }
+}

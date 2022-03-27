@@ -14,6 +14,8 @@ import org.icpclive.admin.configureAdminRouting
 import org.icpclive.service.EventLoggerService
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
+import org.icpclive.data.CreepingLineManager
+import org.icpclive.data.WidgetManager
 import org.icpclive.overlay.configureOverlayRouting
 import org.slf4j.event.Level
 import java.io.File
@@ -60,5 +62,6 @@ fun Application.module() {
     launchEventsLoader()
     launch { EventLoggerService().run() }
     // to trigger init
+    CreepingLineManager.let{}
     WidgetManager.let{}
 }

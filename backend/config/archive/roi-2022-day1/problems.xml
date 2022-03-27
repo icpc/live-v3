@@ -1,0 +1,6 @@
+<challenge>
+    <problem id = "1" alias = "1" problem-id = "1" name = "1" color="#58a2d1"/>
+    <problem id = "2" alias = "2" problem-id = "2" name = "2" color="#fc6d3e"/>
+    <problem id = "3" alias = "3" problem-id = "3" name = "3" color="#7c54aa"/>
+    <problem id = "4" alias = "4" problem-id = "4" name = "4" color="#64d6cb"/>
+</challenge>

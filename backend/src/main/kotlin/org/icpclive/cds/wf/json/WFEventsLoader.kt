@@ -8,9 +8,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.datetime.toKotlinInstant
 import org.icpclive.config.Config.loadProperties
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.utils.NetworkUtils.openAuthorizedStream
@@ -24,8 +23,6 @@ import org.icpclive.utils.*
 import java.awt.Color
 import java.io.*
 import java.math.BigInteger
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -86,11 +83,12 @@ class WFEventsLoader(regionals: Boolean) {
         }.mapIndexed { index, je_ ->
             val je = je_.asJsonObject
             val cdsId = je["id"].asString
+            val colorString = je.get("rgb")?.takeIf { it.isJsonPrimitive }?.asString
             WFProblemInfo(
                 contest.languages.size,
                 je["label"].asString,
                 je["name"].asString,
-                Color.decode(je["rgb"].asString),
+                colorString?.let { Color.decode(it) } ?: Color.GRAY,
                 index,
                 je["test_data_count"]?.asInt ?: 100
             ).also {
@@ -272,23 +270,9 @@ class WFEventsLoader(regionals: Boolean) {
         this.contestInfo = contestInfo
     }
 
-    fun parseTime(time: String): Instant {
-        val zdt = ZonedDateTime.parse("$time:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-        //        ZonedDateTime zdt = ZonedDateTime.parse(time, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        return zdt.toInstant().toKotlinInstant()
-        //        LocalDateTime ldt = LocalDateTime.parse(time + ":00", DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-//        return ldt.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-    }
+    private fun parseTime(time: String) = ClicksTime.parseTime(time)
 
-    fun parseRelativeTime(time: String): Duration {
-        val z = time.split("\\.").toTypedArray()
-        val t = z[0].split(":").toTypedArray()
-        val h = t[0].toInt()
-        val m = t[1].toInt()
-        val s = t[2].toInt()
-        val ms = if (z.size == 1) 0 else z[1].toInt()
-        return (((h * 60 + m) * 60 + s) * 1000 + ms).milliseconds
-    }
+    private fun parseRelativeTime(time: String) = ClicksTime.parseRelativeTime(time)
 
     fun readContest(contestInfo: WFContestInfo, je: JsonObject) {
         val startTimeElement = je["start_time"]

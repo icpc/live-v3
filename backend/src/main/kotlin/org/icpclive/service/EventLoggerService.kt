@@ -3,7 +3,7 @@ package org.icpclive.service
 import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.utils.getLogger
 
 class EventLoggerService {
