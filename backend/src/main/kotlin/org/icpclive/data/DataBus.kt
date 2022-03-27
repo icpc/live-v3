@@ -16,7 +16,7 @@ object DataBus {
     val contestInfoUpdates = MutableStateFlow(ContestInfo.EMPTY)
     private val mainScreenEventsHolder = MutableStateFlow<Flow<MainScreenEvent>?>(null)
     private val queueEventsFlowHolder = MutableStateFlow<Flow<QueueEvent>?>(null)
-    private val creepingLineFlowHolder = MutableStateFlow<Flow<CreepingLineEvent>?>(null)
+    private val tickerFlowHolder = MutableStateFlow<Flow<TickerEvent>?>(null)
     private val scoreboardFlowHolders = Array(OptimismLevel.values().size) { MutableStateFlow<Flow<Scoreboard>?>(null) }
     private val statisticFlowHolder = MutableStateFlow<Flow<SolutionsStatistic>?>(null)
 
@@ -26,17 +26,17 @@ object DataBus {
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
         scoreboardFlowHolders[level.ordinal].value = flow
     }
-    fun setCreepingLineEvents(value: Flow<CreepingLineEvent>)  { creepingLineFlowHolder.value = value }
+    fun setTickerEvents(value: Flow<TickerEvent>)  { tickerFlowHolder.value = value }
 
     suspend fun mainScreenEvents() = mainScreenEventsHolder.firstNotNull()
     suspend fun queueEvents() = queueEventsFlowHolder.firstNotNull()
-    suspend fun creepingLineEvents() = creepingLineFlowHolder.firstNotNull()
+    suspend fun tickerEvents() = tickerFlowHolder.firstNotNull()
     suspend fun statisticEvents() = statisticFlowHolder.firstNotNull()
     suspend fun scoreboardEvents(level: OptimismLevel) = scoreboardFlowHolders[level.ordinal].firstNotNull()
 
     @OptIn(FlowPreview::class)
     val allEvents
-        get() = listOf(mainScreenEventsHolder, queueEventsFlowHolder, creepingLineFlowHolder)
+        get() = listOf(mainScreenEventsHolder, queueEventsFlowHolder, tickerFlowHolder)
             .map { it.filterNotNull().take(1) }
             .merge()
             .flattenMerge(concurrency = Int.MAX_VALUE)

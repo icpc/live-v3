@@ -1,4 +1,4 @@
-package org.icpclive.admin.creepingLine
+package org.icpclive.admin.ticker
 
 import io.ktor.application.*
 import io.ktor.request.*
@@ -10,17 +10,15 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.admin.*
-import org.icpclive.admin.setupSimpleWidgetRouting
-import org.icpclive.admin.simpleWidgetViewFun
 import org.icpclive.api.*
-import org.icpclive.data.CreepingLineManager
+import org.icpclive.data.TickerManager
 
-fun Routing.configureCreepingLine(presetPath: String) : SimpleWidgetUrls {
-    val extra = fun BODY.(presets: Presets<CreepingLineMessage>?) {
-        val shown = runBlocking { CreepingLineManager.getMessagesSubscribeEvents().second.map { it.id }.toSet() }
+fun Routing.configureTicker(presetPath: String) : SimpleWidgetUrls {
+    val extra = fun BODY.(presets: Presets<TickerMessage>?) {
+        val shown = runBlocking { TickerManager.getMessagesSubscribeEvents().second.map { it.id }.toSet() }
         form {
             method = FormMethod.post
-            action = "/admin/creepingLine/add"
+            action = "/admin/ticker/add"
             for (i in presets!!.data.get()) {
                 if (i.id !in shown) {
                     p {
@@ -36,7 +34,7 @@ fun Routing.configureCreepingLine(presetPath: String) : SimpleWidgetUrls {
         }
         form {
             method = FormMethod.post
-            action = "/admin/creepingLine/remove"
+            action = "/admin/ticker/remove"
             for (i in presets!!.data.get()) {
                 if (i.id in shown) {
                     p {
@@ -52,24 +50,24 @@ fun Routing.configureCreepingLine(presetPath: String) : SimpleWidgetUrls {
         }
     }
     val urls = setupSimpleWidgetRouting(
-        prefix = "creepingLine",
-        widgetId = CreepingLineWidget.WIDGET_ID,
+        prefix = "ticker",
+        widgetId = TickerWidget.WIDGET_ID,
         presetPath = presetPath,
         createWidget = {
-            CreepingLineWidget(CreepingLineSettings())
+            TickerWidget(TickerSettings())
         },
-        view = simpleWidgetViewFun("Creeping Line", extra) {},
+        view = simpleWidgetViewFun("Ticker", extra) {},
     )
-    route("/admin/creepingLine") {
+    route("/admin/ticker") {
         post("/add") {
             call.catchAdminAction(urls.mainPage) {
-                CreepingLineManager.addMessage(Json.decodeFromString(receiveParameters()["value"] ?: throw AdminActionException("No value specified")))
+                TickerManager.addMessage(Json.decodeFromString(receiveParameters()["value"] ?: throw AdminActionException("No value specified")))
                 respondRedirect(urls.mainPage)
             }
         }
         post("/remove") {
             call.catchAdminAction(urls.mainPage) {
-                CreepingLineManager.removeMessage(Json.decodeFromString(receiveParameters()["value"] ?: throw AdminActionException("No value specified")))
+                TickerManager.removeMessage(Json.decodeFromString(receiveParameters()["value"] ?: throw AdminActionException("No value specified")))
                 respondRedirect(urls.mainPage)
             }
 

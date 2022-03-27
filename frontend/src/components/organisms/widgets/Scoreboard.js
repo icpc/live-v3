@@ -161,7 +161,8 @@ const ScoreboardHeader = ({ problems, rowHeight }) => {
         <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
         <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>
         {problems && problems.map((probData) =>
-            <ScoreboardHeaderProblemCell key={probData.name} probData={probData} canGrow={true} canShrink={true} basis={"100%"}/>
+            <ScoreboardHeaderProblemCell key={probData.name} probData={probData} canGrow={true} canShrink={true}
+                basis={"100%"}/>
         )}
     </ScoreboardHeaderWrap>;
 };
@@ -170,7 +171,7 @@ ScoreboardHeader.propTypes = {
     problems: PropTypes.arrayOf(PropTypes.object)
 };
 
-const PositionedScoreboardRowWrap = styled.div.attrs((props) => ({
+const ScoreboardRowWrap = styled.div.attrs((props) => ({
     style: {
         top: props.pos + "px"
     }
@@ -181,13 +182,25 @@ const PositionedScoreboardRowWrap = styled.div.attrs((props) => ({
   transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
   position: absolute;
 `;
+/**
+ * Aligned vertically with zIndex
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, function({zIndex: *}): {style: {zIndex: *}}, keyof function({zIndex: *}): {style: {zIndex: *}}>}
+ */
+const PositionedScoreboardRowWrap = styled.div.attrs(({ zIndex }) => ({
+    style: {
+        zIndex: zIndex
+    }
+}
+))`
+  position: relative;
+`;
 
 const PositionedScoreboardRow = ({ zIndex, children, ...rest }) => {
-    return <div style={{ zIndex: zIndex }}>
-        <PositionedScoreboardRowWrap {...rest}>
+    return <PositionedScoreboardRowWrap zIndex={zIndex}>
+        <ScoreboardRowWrap {...rest}>
             {children}
-        </PositionedScoreboardRowWrap>
-    </div>;
+        </ScoreboardRowWrap>
+    </PositionedScoreboardRowWrap>;
 };
 
 PositionedScoreboardRow.propTypes = {
@@ -213,7 +226,6 @@ export const Scoreboard = ({ widgetData }) => {
         return () => clearInterval(id);
     }, [rows.length]);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
-    console.log(teams);
     return <ScoreboardWrap>
         <div>
             {teams.map(([ind, teamRowData]) =>

@@ -24,7 +24,7 @@ class ScoreboardSettings
 class StatisticSettings
 
 @Serializable
-class CreepingLineSettings
+class TickerSettings
 
 
 @Serializable
