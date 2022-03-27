@@ -6,8 +6,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 enum class CreepingLinePart {
-    LOGO,
-    LONG;
+    short,
+    long;
 }
 
 @Serializable
