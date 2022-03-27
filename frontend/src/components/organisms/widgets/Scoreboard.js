@@ -1,7 +1,8 @@
+import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
@@ -125,7 +126,7 @@ const ScoreboardRow = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
         <RankCell rank={scoreboardData.rank} width={NUMWIDTH + "px"}/>
-        <TeamNameCell teamName={teamData.name} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
+        <TeamNameCell teamName={teamData.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData.totalScore}
         </ScoreboardStatCell>
@@ -157,16 +158,6 @@ ScoreboardHeader.propTypes = {
     problems: PropTypes.arrayOf(PropTypes.object)
 };
 
-const appearAnimation = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
 const ScoreboardRowWrap = styled.div.attrs((props) => ({
     style: {
         top: props.pos + "px"
@@ -175,18 +166,17 @@ const ScoreboardRowWrap = styled.div.attrs((props) => ({
   left: 0;
   right: 0;
   height: ${props => props.rowHeight}px;
-  transition: top 1s ease-in-out;
+  transition: top 1s ease-out;
   position: absolute;
-  animation: ${appearAnimation} 5s linear;
 `;
 
-const scrollTime = 3000;
+const scrollTime = 1000;
 const teamsOnPage = 23;
-const maxPages = 2;
+const maxPages = 1;
 const SCOREBOARD_TYPE = SCOREBOARD_TYPES.normal;
 
 export const Scoreboard = ({ widgetData }) => {
-    const rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPE].rows);
+    let rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPE].rows);
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const [offset, setOffset] = useState(0);
     const totalHeight = widgetData.location.sizeY;
@@ -199,17 +189,18 @@ export const Scoreboard = ({ widgetData }) => {
             });
         }, scrollTime);
         return () => clearInterval(id);
-    }, [teamsOnPage, rows]);
-    let rowComps = [];
-    for (let i = 0; i < rows.length; i++) {
-        const el = <ScoreboardRowWrap key={rows[i].teamId} pos={(i - offset) * rowHeight + rowHeight} rowHeight={rowHeight}>
-            <ScoreboardRow teamId={rows[i].teamId}/>
-        </ScoreboardRowWrap>;
-        rowComps.unshift(el);
-    }
+    }, [rows.length]);
+    const teams = _(rows).toPairs().sortBy("[1].teamId").value();
+    console.log(teams);
     return <ScoreboardWrap>
-        {rowComps}
-        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight}/>
+        <div>
+            {teams.map(([ind, teamRowData]) =>
+                <ScoreboardRowWrap key={teamRowData.teamId} pos={(ind - offset) * rowHeight + rowHeight} rowHeight={rowHeight}>
+                    <ScoreboardRow teamId={teamRowData.teamId}/>
+                </ScoreboardRowWrap>
+            )}
+        </div>
+        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>
     </ScoreboardWrap>;
 };
 

@@ -36,6 +36,11 @@ export const CELL_QUEUE_TASK_WIDTH = "50px"; // css property
 
 export const CELL_NAME_LEFT_PADDING = "5px"; // css property
 export const CELL_NAME_RIGHT_PADDING = CELL_NAME_LEFT_PADDING; // css property
+export const CELL_NAME_FONT = CELL_FONT_SIZE + " " + CELL_FONT_FAMILY;
+export const CELL_QUEUE_NAME_WIDTH = 315; //px
+export const CELL_SCOREBOARD_NAME_WIDTH = 300; //px
+
+
 
 export const STAR_SIZE = 10; // px
 

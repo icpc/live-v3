@@ -1,4 +1,6 @@
 import _ from "lodash";
+import { getTextWidth } from "../../components/atoms/ContestCells";
+import { CELL_NAME_FONT } from "../../config";
 
 const ActionTypes = {
     CONTEST_INFO_SET: "CONTEST_INFO_SET",
@@ -22,6 +24,7 @@ export const setInfo = (info) => {
 export function contestInfoReducer(state = initialState, action) {
     switch (action.type) {
     case ActionTypes.CONTEST_INFO_SET:
+        _.forEach(action.payload.info.teams, (team) => getTextWidth(team.shortName, CELL_NAME_FONT));
         return {
             ...state,
             info: {
