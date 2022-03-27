@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { SCOREBOARD_ROW_TRANSITION_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
@@ -158,7 +158,7 @@ ScoreboardHeader.propTypes = {
     problems: PropTypes.arrayOf(PropTypes.object)
 };
 
-const ScoreboardRowWrap = styled.div.attrs((props) => ({
+const PositionedScoreboardRowWrap = styled.div.attrs((props) => ({
     style: {
         top: props.pos + "px"
     }
@@ -166,9 +166,22 @@ const ScoreboardRowWrap = styled.div.attrs((props) => ({
   left: 0;
   right: 0;
   height: ${props => props.rowHeight}px;
-  transition: top 1s ease-out;
+  transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
   position: absolute;
 `;
+
+const PositionedScoreboardRow = ({ zIndex, children, ...rest }) => {
+    return <div style={{ zIndex: zIndex }}>
+        <PositionedScoreboardRowWrap {...rest}>
+            {children}
+        </PositionedScoreboardRowWrap>
+    </div>;
+};
+
+PositionedScoreboardRow.propTypes = {
+    zIndex: PropTypes.number,
+    children: PropTypes.node
+};
 
 const scrollTime = 1000;
 const teamsOnPage = 23;
@@ -195,9 +208,10 @@ export const Scoreboard = ({ widgetData }) => {
     return <ScoreboardWrap>
         <div>
             {teams.map(([ind, teamRowData]) =>
-                <ScoreboardRowWrap key={teamRowData.teamId} pos={(ind - offset) * rowHeight + rowHeight} rowHeight={rowHeight}>
+                <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - offset) * rowHeight + rowHeight}
+                    rowHeight={rowHeight} zIndex={ind}>
                     <ScoreboardRow teamId={teamRowData.teamId}/>
-                </ScoreboardRowWrap>
+                </PositionedScoreboardRow>
             )}
         </div>
         <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>
