@@ -44,7 +44,7 @@ const VerdictCellWrap = styled(Cell)`
   position: relative;
 `;
 
-export const VerdictCell = ({ verdict: { isAccepted, isJudged, result, percentage, isFirstToSolve }, ...props }) => {
+export const VerdictCell = ({ verdict: { isAccepted, isJudged, result, percentage, isFirstToSolve, isFirstSolvedRun }, ...props }) => {
     return <VerdictCellWrap
         background=
             {isJudged ?
@@ -52,7 +52,7 @@ export const VerdictCell = ({ verdict: { isAccepted, isJudged, result, percentag
                 : undefined}
         {...props}
     >
-        {isFirstToSolve && <StarIcon/>}
+        {isFirstToSolve || isFirstSolvedRun && <StarIcon/>}
         {percentage !== 0 && !isJudged && <VerdictCellProgressBar width={percentage * 100 + "%"}/>}
         {isJudged && result}
     </VerdictCellWrap>;
