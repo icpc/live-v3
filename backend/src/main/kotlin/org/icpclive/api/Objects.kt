@@ -9,9 +9,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
 @Serializable
-data class Advertisement(val text: String) {
-    val id: Int = this.hashCode()
-}
+data class Advertisement(val text: String)
 
 @Serializable
 data class Picture(val url: String, val name: String)

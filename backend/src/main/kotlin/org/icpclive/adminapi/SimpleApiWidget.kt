@@ -53,6 +53,12 @@ internal inline fun <reified ContentType, reified WidgetType : Widget> Routing.s
                 call.respond(mapOf("status" to "ok"))
             }
         }
+        post(urls.deletePresetQuery) {
+            call.catchAdminApiAction {
+                presets?.let { it.data -= listOf(createContent(receiveParameters())) }
+                call.respond(mapOf("status" to "ok"))
+            }
+        }
         post(urls.reloadQuery) {
             call.catchAdminAction(urls.mainPage) {
                 respondText("abobus")
