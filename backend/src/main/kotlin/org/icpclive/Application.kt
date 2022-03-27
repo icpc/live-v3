@@ -2,6 +2,7 @@ package org.icpclive
 
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.http.content.*
 import io.ktor.request.*
@@ -11,6 +12,7 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting
+import org.icpclive.adminapi.configureAdminApiRouting
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
 import org.icpclive.data.TickerManager
@@ -27,17 +29,9 @@ fun main(args: Array<String>): Unit =
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
     install(CORS) {
-        method(HttpMethod.Options)
-        method(HttpMethod.Put)
-        method(HttpMethod.Delete)
-        method(HttpMethod.Patch)
-        header(HttpHeaders.Authorization)
-        header(HttpHeaders.AccessControlAllowOrigin)
         allowNonSimpleContentTypes = true
-        allowCredentials = true
-        allowSameOrigin = true
-        host(frontendHost, listOf("http", "https")) // frontendHost might be "*"
-        logger.info { "CORS enabled for $hosts" }
+        allowHeadersPrefixed("")
+        anyHost()
     }
     install(CallLogging) {
         level = Level.INFO
@@ -65,6 +59,7 @@ fun Application.module() {
         static("/static") { resources("static") }
     }
     configureAdminRouting()
+    configureAdminApiRouting()
     configureOverlayRouting()
     environment.log.info("Current working directory is ${File(".").canonicalPath}")
     environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
