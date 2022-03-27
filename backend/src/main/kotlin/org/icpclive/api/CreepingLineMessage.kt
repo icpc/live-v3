@@ -5,41 +5,41 @@ package org.icpclive.api
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-enum class CreepingLinePart {
+enum class TickerPart {
     short,
     long;
 }
 
 @Serializable
-sealed class CreepingLineMessage {
+sealed class TickerMessage {
     abstract val id: Long
-    abstract val part: CreepingLinePart
+    abstract val part: TickerPart
     abstract val periodMs: Long
 }
 
 @Serializable
 @SerialName("text")
-data class TextCreepingLineMessage(
+data class TextTickerMessage(
     val text: String,
     override val id: Long,
-    override val part: CreepingLinePart,
+    override val part: TickerPart,
     override val periodMs: Long
-) : CreepingLineMessage()
+) : TickerMessage()
 
 @Serializable
 @SerialName("clock")
-data class ClockCreepingLineMessage(
+data class ClockTickerMessage(
     override val id: Long,
-    override val part: CreepingLinePart,
+    override val part: TickerPart,
     override val periodMs: Long
-) : CreepingLineMessage()
+) : TickerMessage()
 
 @Serializable
 @SerialName("scoreboard")
-data class ScoreboardCreepingLineMessage(
+data class ScoreboardTickerMessage(
     val from:Int,
     val to:Int,
     override val id: Long,
-    override val part: CreepingLinePart,
+    override val part: TickerPart,
     override val periodMs: Long
-) : CreepingLineMessage()
+) : TickerMessage()

@@ -7,6 +7,7 @@ import { WIDGET_TRANSITION_TIME } from "../../config";
 import Advertisement from "../organisms/widgets/Advertisement";
 import Queue from "../organisms/widgets/Queue";
 import Scoreboard from "../organisms/widgets/Scoreboard";
+import Ticker from "../organisms/widgets/Ticker";
 
 const fadeIn = keyframes`
   from {
@@ -52,7 +53,8 @@ const MainLayoutWrap = styled.div`
 const WIDGETS = {
     AdvertisementWidget: Advertisement,
     ScoreboardWidget: Scoreboard,
-    QueueWidget: Queue
+    QueueWidget: Queue,
+    TickerWidget: Ticker
 };
 
 const transitionProps = {
