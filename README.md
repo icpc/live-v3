@@ -23,6 +23,20 @@ Requirements:
 Contest configs are stored at \live-v3\backend\config\ .
 Setup configDirectory in \live-v3\backend\config\application.conf .
 
+
+## Running frontend separate from backend
+Frontend takes base url from environment variable `REACT_APP_WEBSOCKET_URL`
+On linux:
+```
+REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/overlay npm run start
+```
+
+On Windows:
+```
+set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/overlay  
+npm run start
+```
+
 Previous versions:
 * https://github.com/icpc-live
 * https://github.com/Aksenov239/icpc-live-v2
