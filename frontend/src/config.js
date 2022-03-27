@@ -1,5 +1,5 @@
 // Strings
-export const BASE_URL_WS = "ws://localhost:8080/overlay";
+export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? "ws://localhost:8080/overlay";
 
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
