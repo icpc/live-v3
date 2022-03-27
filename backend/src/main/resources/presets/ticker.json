@@ -17,14 +17,14 @@
     "id": 3,
     "part": "long",
     "periodMs": 10000,
-    "text": "Creeping line message 1"
+    "text": "Ticker message 1"
   },
   {
     "type": "text",
     "id": 4,
     "part": "long",
     "periodMs": 10000,
-    "text": "Creeping line message 2"
+    "text": "Ticker message 2"
   },
   {
     "type": "scoreboard",

@@ -6,12 +6,12 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.html.*
 import org.icpclive.admin.advertisement.configureAdvertisement
-import org.icpclive.admin.creepingLine.configureCreepingLine
 import org.icpclive.admin.overlayEvents.configureOverlayEvents
 import org.icpclive.admin.picture.configurePicture
 import org.icpclive.admin.queue.configureQueue
 import org.icpclive.admin.scoreboard.configureScoreboard
 import org.icpclive.admin.statistics.configureStatistics
+import org.icpclive.admin.ticker.configureTicker
 
 private lateinit var topLevelLinks: List<Pair<String, String>>
 
@@ -53,7 +53,7 @@ fun Application.configureAdminRouting() {
         val queueUrls = configureQueue()
         val scoreboardUrls = configureScoreboard()
         val statisticsUrls = configureStatistics()
-        val creepingLineUrls = configureCreepingLine(environment.config.property("live.presets.creepingLine").getString())
+        val tickerUrls = configureTicker(environment.config.property("live.presets.ticker").getString())
 
         topLevelLinks = listOf(
             advertisementUrls.mainPage to "Advertisement",
@@ -62,7 +62,7 @@ fun Application.configureAdminRouting() {
             queueUrls.mainPage to "Queue",
             scoreboardUrls.mainPage to "Scoreboard",
             statisticsUrls.mainPage to "Statistics",
-            creepingLineUrls.mainPage to "Creeping Line"
+            tickerUrls.mainPage to "Ticker"
         )
         get("/admin") { call.respondRedirect(topLevelLinks[0].first) }
     }

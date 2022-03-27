@@ -6,21 +6,21 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
 
-object CreepingLineManager {
+object TickerManager {
     private val mutex = Mutex()
     private var timer = 0L
-    private val messages = mutableListOf<CreepingLineMessage>()
+    private val messages = mutableListOf<TickerMessage>()
 
-    suspend fun addMessage(message: CreepingLineMessage) = mutex.withLock {
+    suspend fun addMessage(message: TickerMessage) = mutex.withLock {
         messages.add(message)
         timer++
-        messagesFlowWrite.emit(timer to AddMessageCreepingLineEvent(message))
+        messagesFlowWrite.emit(timer to AddMessageTickerEvent(message))
     }
 
     suspend fun removeMessage(id: Long) = mutex.withLock {
         if (messages.removeIf { it.id == id }) {
             timer++
-            messagesFlowWrite.emit(timer to RemoveMessageCreepingLineEvent(id))
+            messagesFlowWrite.emit(timer to RemoveMessageTickerEvent(id))
         }
     }
 
@@ -29,19 +29,19 @@ object CreepingLineManager {
         timer to messages.toList()
     }
 
-    private val messagesFlowWrite = MutableSharedFlow<Pair<Long, CreepingLineEvent>>(
+    private val messagesFlowWrite = MutableSharedFlow<Pair<Long, TickerEvent>>(
         replay = 32,
         extraBufferCapacity = 100000,
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
 
-    private val messagesFlow: Flow<CreepingLineEvent> = flow {
+    private val messagesFlow: Flow<TickerEvent> = flow {
         var subscriptionTimer = 0L
         messagesFlowWrite
             .onSubscription {
                 val (timer, messages) = getMessagesSubscribeEvents()
                 subscriptionTimer = timer
-                emit(timer to CreepingLineSnapshotEvent(messages))
+                emit(timer to TickerSnapshotEvent(messages))
             }
             .filter { it.first >= subscriptionTimer }
             .map { it.second }
@@ -49,7 +49,7 @@ object CreepingLineManager {
     }
 
     init {
-        DataBus.setCreepingLineEvents(messagesFlow)
+        DataBus.setTickerEvents(messagesFlow)
     }
 
 }
