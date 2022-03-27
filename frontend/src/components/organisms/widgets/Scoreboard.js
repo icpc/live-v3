@@ -182,7 +182,10 @@ const ScoreboardRowWrap = styled.div.attrs((props) => ({
   transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
   position: absolute;
 `;
-
+/**
+ * Aligned vertically with zIndex
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, function({zIndex: *}): {style: {zIndex: *}}, keyof function({zIndex: *}): {style: {zIndex: *}}>}
+ */
 const PositionedScoreboardRowWrap = styled.div.attrs(({ zIndex }) => ({
     style: {
         zIndex: zIndex
