@@ -6,6 +6,7 @@ import { handleMessage as mainScreenHandler } from "./mainScreen";
 import { handleMessage as queueHandler } from "./queue";
 import { handleMessage as scoreboardHandler } from "./scoreboard";
 import { handleMessage as tickerHandler } from "./ticker";
+import { handleMessage as statisticsHandler } from "./statistics";
 
 
 let handler = {
@@ -32,5 +33,6 @@ export const WEBSOCKET_HANDLERS = new Proxy({
     scoreboardOptimistic: scoreboardHandler(SCOREBOARD_TYPES.optimistic),
     scoreboardNormal: scoreboardHandler(SCOREBOARD_TYPES.normal),
     contestInfo: contestInfoHandler,
-    ticker: tickerHandler
+    ticker: tickerHandler,
+    statistics: statisticsHandler,
 }, handler);
