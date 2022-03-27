@@ -19,9 +19,11 @@ Requirements:
 2. live-v3\backend\gradlew.bat run
 3. live-v3\frontend\ npm ci
 4. live-v3\frontend\ npm run start
+5. open http://localhost:8080/admin
 
 Contest configs are stored at \live-v3\backend\config\ .
 Setup configDirectory in \live-v3\backend\config\application.conf .
+
 
 
 ## Running frontend separate from backend
