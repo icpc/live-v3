@@ -4,12 +4,17 @@ export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? "ws://localhos
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
 
+export const SCOREBOARD_TEAMS_ON_PAGE = 23;
+export const SCOREBOARD_MAX_PAGES = Infinity;
+
+
 // Timings
 export const WIDGET_TRANSITION_TIME = 300; // ms
 export const QUEUE_ROW_TRANSITION_TIME = 1000; // ms
 export const QUEUE_ROW_APPEAR_TIME = QUEUE_ROW_TRANSITION_TIME; // ms
 export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
-
+export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
+export const SCOREBOARD_SCROLL_INTERVAL = 2000; // ms;
 
 // Styles
 export const VERDICT_OK = "#1b8041";
@@ -37,8 +42,6 @@ export const CELL_QUEUE_TASK_WIDTH = "50px"; // css property
 export const CELL_NAME_LEFT_PADDING = "5px"; // css property
 export const CELL_NAME_RIGHT_PADDING = CELL_NAME_LEFT_PADDING; // css property
 export const CELL_NAME_FONT = CELL_FONT_SIZE + " " + CELL_FONT_FAMILY;
-export const CELL_QUEUE_NAME_WIDTH = 315; //px
-export const CELL_SCOREBOARD_NAME_WIDTH = 300; //px
 
 
 
