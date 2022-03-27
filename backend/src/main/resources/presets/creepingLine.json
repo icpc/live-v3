@@ -1,7 +1,37 @@
 [
-  {"type":"clock","id": 1,"part": "LOGO","periodMs": 30000},
-  {"type":"text","id": 2,"part": "LOGO","periodMs": 10000, "text": "#ICPC"},
-  {"type":"text","id": 3,"part": "LONG","periodMs": 10000, "text": "Creeping line message 1"},
-  {"type":"text","id": 4,"part": "LONG","periodMs": 10000, "text": "Creeping line message 2"},
-  {"type":"scoreboard","id": 5,"part": "LONG","periodMs": 30000, "from": 1, "to":  12}
+  {
+    "type": "clock",
+    "id": 1,
+    "part": "short",
+    "periodMs": 30000
+  },
+  {
+    "type": "text",
+    "id": 2,
+    "part": "short",
+    "periodMs": 10000,
+    "text": "#ICPC"
+  },
+  {
+    "type": "text",
+    "id": 3,
+    "part": "long",
+    "periodMs": 10000,
+    "text": "Creeping line message 1"
+  },
+  {
+    "type": "text",
+    "id": 4,
+    "part": "long",
+    "periodMs": 10000,
+    "text": "Creeping line message 2"
+  },
+  {
+    "type": "scoreboard",
+    "id": 5,
+    "part": "long",
+    "periodMs": 30000,
+    "from": 1,
+    "to": 12
+  }
 ]
