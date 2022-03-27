@@ -37,7 +37,6 @@ fun Application.module() {
         method(HttpMethod.Post)
         method(HttpMethod.Get)
         header("*")
-//        allowCredentials = true
         allowSameOrigin = true
         anyHost()
     }
@@ -49,9 +48,12 @@ fun Application.module() {
     install(IgnoreTrailingSlash)
     install(ContentNegotiation) {
         json(Json {
+            encodeDefaults = true
+            isLenient = true
             allowSpecialFloatingPointValues = true
             allowStructuredMapKeys = true
             prettyPrint = false
+            useArrayPolymorphism = false
         })
     }
     install(WebSockets) {

@@ -5,7 +5,7 @@ import simpleRestProvider from "ra-data-simple-rest";
 import { AdvertisementList, AdvertisementCreate, AdvertisementEdit } from "./posts";
 import { PictureList, PictureCreate, PictureEdit } from "./posts";
 import { Layout, AppBar, UserMenu, Menu, MenuItemLink } from "react-admin";
-import fakeDataProvider from "ra-data-fakerest";
+// import fakeDataProvider from "ra-data-fakerest";
 import routs from "./routs";
 
 // const fetchJson = (url, options = {}) => {
@@ -18,7 +18,7 @@ import routs from "./routs";
 //     return fetchUtils.fetchJson(url, options);
 // };
 
-export const dataProvider = simpleRestProvider("http://localhost:8080/adminapi", fetchUtils.fetchJson);//, "X-Total-Count");
+export const dataProvider = simpleRestProvider("http://localhost:8080/adminapi", fetchUtils.fetchJson, "X-Total-Count");
 // const dataProvider = fakeDataProvider({
 //     advertisement: [
 //         { text: "Контест начался" },

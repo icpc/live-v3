@@ -33,6 +33,7 @@ internal inline fun <reified ContentType, reified WidgetType : Widget> Routing.s
     get(urls.mainPage) {
         presets?.let {
             val response = it.data
+            call.response.header("Access-Control-Expose-Headers", "X-Total-Count")
             call.response.header("X-Total-Count", response.size)
             call.respond(response)
         }
