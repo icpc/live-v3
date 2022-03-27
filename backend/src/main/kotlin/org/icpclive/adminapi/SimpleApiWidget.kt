@@ -31,7 +31,11 @@ internal inline fun <reified ContentType, reified WidgetType : Widget> Routing.s
     val urls = SimpleWidgetApiUrls(prefix, presetPath != null)
     val presets = presetPath?.let { Presets<ContentType>(it) }
     get(urls.mainPage) {
-        presets?.let { call.respond(it.data) }
+        presets?.let {
+            val response = it.data
+            call.response.header("X-Total-Count", response.size)
+            call.respond(response)
+        }
     }
     post(urls.showQuery) {
         call.catchAdminApiAction {

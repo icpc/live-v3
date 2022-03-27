@@ -28,9 +28,17 @@ fun main(args: Array<String>): Unit =
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
+    install(DefaultHeaders)
     install(CORS) {
-        allowNonSimpleContentTypes = true
-        allowHeadersPrefixed("")
+        header("Access-Control-Expose-Headers: X-Total-Count")
+        method(HttpMethod.Options)
+        method(HttpMethod.Put)
+        method(HttpMethod.Delete)
+        method(HttpMethod.Post)
+        method(HttpMethod.Get)
+        header("*")
+//        allowCredentials = true
+        allowSameOrigin = true
         anyHost()
     }
     install(CallLogging) {
@@ -41,12 +49,9 @@ fun Application.module() {
     install(IgnoreTrailingSlash)
     install(ContentNegotiation) {
         json(Json {
-            encodeDefaults = true
-            isLenient = true
             allowSpecialFloatingPointValues = true
             allowStructuredMapKeys = true
             prettyPrint = false
-            useArrayPolymorphism = false
         })
     }
     install(WebSockets) {
