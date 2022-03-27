@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.cds.OptimismLevel
 
 private suspend inline fun <reified T> DefaultWebSocketServerSession.sendFlow(flow: Flow<T>) {
@@ -35,6 +35,7 @@ fun Application.configureOverlayRouting() {
             webSocket("/contestInfo") { sendFlow(DataBus.contestInfoUpdates) }
             webSocket("/queue") { sendFlow(DataBus.queueEvents()) }
             webSocket("/statistics") { sendFlow(DataBus.statisticEvents()) }
+            webSocket("/creepingLine") { sendFlow(DataBus.creepingLineEvents()) }
             route("/scoreboard") {
                 webSocket("/normal") { sendFlow(DataBus.scoreboardEvents(OptimismLevel.NORMAL)) }
                 webSocket("/optimistic") { sendFlow(DataBus.scoreboardEvents(OptimismLevel.OPTIMISTIC)) }

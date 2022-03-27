@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.*
 import org.icpclive.config.Config.loadFile
 import org.icpclive.config.Config.loadProperties
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ProblemInfo

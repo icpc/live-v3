@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.config.Config.loadProperties
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.utils.NetworkUtils.openAuthorizedStream

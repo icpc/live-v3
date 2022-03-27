@@ -15,6 +15,9 @@ sealed class MainScreenEvent : Event()
 sealed class QueueEvent : Event()
 
 @Serializable
+sealed class CreepingLineEvent: Event()
+
+@Serializable
 @SerialName("ShowWidget")
 class ShowWidgetEvent(val widget: Widget) : MainScreenEvent()
 
@@ -41,3 +44,15 @@ class ModifyRunInQueueEvent(val info: RunInfo) : QueueEvent()
 @Serializable
 @SerialName("QueueSnapshot")
 class QueueSnapshotEvent(val infos: List<RunInfo>) : QueueEvent()
+
+@Serializable
+@SerialName("AddMessage")
+class AddMessageCreepingLineEvent(val message: CreepingLineMessage): CreepingLineEvent()
+
+@Serializable
+@SerialName("RemoveMessage")
+class RemoveMessageCreepingLineEvent(val messageId: Long): CreepingLineEvent()
+
+@Serializable
+@SerialName("CreepingLineSnapshot")
+class CreepingLineSnapshotEvent(val messages: List<CreepingLineMessage>): CreepingLineEvent()

@@ -3,7 +3,7 @@ package org.icpclive.service
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.api.ProblemSolutionsStatistic
 import org.icpclive.api.RunInfo
 import org.icpclive.api.SolutionsStatistic

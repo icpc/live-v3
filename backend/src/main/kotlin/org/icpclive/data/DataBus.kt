@@ -1,7 +1,6 @@
-package org.icpclive
+package org.icpclive.data
 
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.OptimismLevel
@@ -15,12 +14,9 @@ import org.icpclive.utils.firstNotNull
  */
 object DataBus {
     val contestInfoUpdates = MutableStateFlow(ContestInfo.EMPTY)
-    val runsUpdates = MutableSharedFlow<RunInfo>(
-        extraBufferCapacity = 1000000,
-        onBufferOverflow = BufferOverflow.SUSPEND
-    )
     private val mainScreenEventsHolder = MutableStateFlow<Flow<MainScreenEvent>?>(null)
     private val queueEventsFlowHolder = MutableStateFlow<Flow<QueueEvent>?>(null)
+    private val creepingLineFlowHolder = MutableStateFlow<Flow<CreepingLineEvent>?>(null)
     private val scoreboardFlowHolders = Array(OptimismLevel.values().size) { MutableStateFlow<Flow<Scoreboard>?>(null) }
     private val statisticFlowHolder = MutableStateFlow<Flow<SolutionsStatistic>?>(null)
 
@@ -30,15 +26,17 @@ object DataBus {
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
         scoreboardFlowHolders[level.ordinal].value = flow
     }
+    fun setCreepingLineEvents(value: Flow<CreepingLineEvent>)  { creepingLineFlowHolder.value = value }
 
     suspend fun mainScreenEvents() = mainScreenEventsHolder.firstNotNull()
     suspend fun queueEvents() = queueEventsFlowHolder.firstNotNull()
+    suspend fun creepingLineEvents() = creepingLineFlowHolder.firstNotNull()
     suspend fun statisticEvents() = statisticFlowHolder.firstNotNull()
     suspend fun scoreboardEvents(level: OptimismLevel) = scoreboardFlowHolders[level.ordinal].firstNotNull()
 
     @OptIn(FlowPreview::class)
     val allEvents
-        get() = listOf(mainScreenEventsHolder, queueEventsFlowHolder)
+        get() = listOf(mainScreenEventsHolder, queueEventsFlowHolder, creepingLineFlowHolder)
             .map { it.filterNotNull().take(1) }
             .merge()
             .flattenMerge(concurrency = Int.MAX_VALUE)

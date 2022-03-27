@@ -1,7 +1,7 @@
 package org.icpclive.service
 
 import kotlinx.coroutines.flow.*
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.api.ICPCProblemResult
 import org.icpclive.api.RunInfo
 import org.icpclive.api.Scoreboard
