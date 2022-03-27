@@ -1,0 +1,8 @@
+<challenge>
+    <problem id = "1" alias = "A" problem-id = "roi.2022.practice.aplusbioi" name = "1" color="#58a2d1"/>
+    <problem id = "2" alias = "B" problem-id = "roi.2022.practice.sequence" name = "2" color="#fc6d3e"/>
+    <problem id = "3" alias = "C" problem-id = "roi.2022.practice.guessioi" name = "3" color="#7c54aa"/>
+    <problem id = "4" alias = "D" problem-id = "roi.2022.practice.error-correction" name = "4" color="#64d6cb"/>
+    <problem id = "5" alias = "E" problem-id = "roi.2022.practice.double-search" name = "5" color="#ffffff"/>
+    <problem id = "6" alias = "F" problem-id = "roi.2022.practice.gcd" name = "6" color="#d5c748"/>
+</challenge>
