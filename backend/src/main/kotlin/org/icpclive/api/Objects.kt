@@ -24,6 +24,10 @@ class ScoreboardSettings
 class StatisticSettings
 
 @Serializable
+class CreepingLineSettings
+
+
+@Serializable
 data class RunInfo(
     val id: Int,
     val isAccepted: Boolean,

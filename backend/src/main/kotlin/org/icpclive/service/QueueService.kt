@@ -2,7 +2,7 @@ package org.icpclive.service
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.icpclive.DataBus
+import org.icpclive.data.DataBus
 import org.icpclive.api.*
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.tickerFlow

@@ -6,7 +6,7 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.routing.*
 import kotlinx.html.*
-import org.icpclive.WidgetManager
+import org.icpclive.data.WidgetManager
 import org.icpclive.api.Widget
 
 open class SimpleWidgetUrls(prefix: String, reloadable: Boolean) : Urls {
@@ -49,7 +49,7 @@ internal inline fun <reified ContentType, reified WidgetType : Widget> Routing.s
     return urls
 }
 
-internal fun HTML.simpleWidgetView(name: String, urls: SimpleWidgetUrls, parameters: FORM.() -> Unit) {
+internal fun HTML.simpleWidgetView(name: String, urls: SimpleWidgetUrls, extra: BODY.() -> Unit, parameters: FORM.() -> Unit) {
     body {
         adminHead()
         h1 { +name }
@@ -72,12 +72,14 @@ internal fun HTML.simpleWidgetView(name: String, urls: SimpleWidgetUrls, paramet
                 submitInput { value = "Reload" }
             }
         }
+        extra()
     }
 }
 
 internal inline fun <reified T> simpleWidgetViewFun(
     name: String,
-    crossinline parameters: FORM.(Presets<T>?) -> Unit
+    crossinline extra: BODY.(Presets<T>?) -> Unit = {},
+    crossinline parameters: FORM.(Presets<T>?) -> Unit,
 ): HTML.(Presets<T>?, SimpleWidgetUrls) -> Unit = { presets, urls ->
-    simpleWidgetView(name, urls) { parameters(presets) }
+    simpleWidgetView(name, urls, { extra(presets) }, { parameters(presets) })
 }

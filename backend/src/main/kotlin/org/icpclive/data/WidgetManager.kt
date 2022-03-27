@@ -1,4 +1,4 @@
-package org.icpclive
+package org.icpclive.data
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
