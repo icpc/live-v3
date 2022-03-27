@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import styled from "styled-components";
 import {
-    CELL_FONT_FAMILY,
-    CELL_FONT_SIZE,
+    CELL_NAME_FONT,
     CELL_NAME_LEFT_PADDING,
     CELL_NAME_RIGHT_PADDING,
     CELL_PROBLEM_LINE_WIDTH,
@@ -15,7 +14,7 @@ import {
 import { Cell } from "./Cell";
 import { StarIcon } from "./Star";
 
-export const ProblemCellWrap = styled(Cell) `
+export const ProblemCellWrap = styled(Cell)`
   border-bottom: ${props => props.probColor} ${CELL_PROBLEM_LINE_WIDTH} solid;
 `;
 
@@ -69,19 +68,31 @@ VerdictCell.propTypes = {
     })
 };
 
-function getTextWidth(text, font) {
-    // re-use canvas object for better performance
-    const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
-    const context = canvas.getContext("2d");
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-}
+const storage = window.localStorage;
+export const getTextWidth = (text, font) => {
+    const key = text + ";" + font;
+    const cached = storage.getItem(key);
+    if (cached) {
+        return cached;
+    } else {
+        // re-use canvas object for better performance
+        const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+        const context = canvas.getContext("2d");
+        context.font = font;
+        const metrics = context.measureText(text);
+        const result = metrics.width;
+        storage.setItem(key, result);
+        return result;
+    }
+};
 
 
-const TeamNameCellContainer = styled.div`
+const TeamNameCellContainer = styled.div.attrs(({ scaleY }) => ({
+    style: {
+        transform: `scaleX(${scaleY})`
+    }
+}))`
   white-space: nowrap;
-  transform: scaleX(${props => props.scaleY});
   transform-origin: left;
   text-align: left;
 `;
@@ -97,12 +108,12 @@ const TeamNameWrap = styled(Cell)`
 
 export const TeamNameCell = ({ teamName, ...props }) => {
     const cellRef = useRef(null);
-    const teamNameWidth = getTextWidth(teamName, CELL_FONT_SIZE + " " + CELL_FONT_FAMILY);
+    const teamNameWidth = getTextWidth(teamName, CELL_NAME_FONT);
     let scaleFactor = undefined;
-    if(cellRef.current !== null) {
+    if (cellRef.current !== null) {
         const styles = getComputedStyle(cellRef.current);
         const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
-        scaleFactor = Math.min(1, haveWidth/teamNameWidth);
+        scaleFactor = Math.min(1, haveWidth / teamNameWidth);
     }
     return <TeamNameWrap ref={cellRef} {...props}>
         {scaleFactor !== undefined &&

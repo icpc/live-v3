@@ -78,7 +78,7 @@ export function queueReducer(state = initialState, action) {
     case ActionTypes.QUEUE_REMOVE_RUN:
         return {
             ...state,
-            queue: _.differenceBy(state.queue, [{ id: action.payload.runId }], "id")
+            queue: _.filter(state.queue, (run) => run.id !== action.payload.runId)
         };
     case ActionTypes.QUEUE_SET_FROM_SNAPSHOT:
         return {
