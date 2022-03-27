@@ -18,16 +18,3 @@ fun Routing.configureAdvertisementApi(presetPath: String) =
         },
         createWidget = { AdvertisementWidget(it) }
     )
-//PresetWidgetRoutingSetter(
-//prefix = "advertisement",
-//widgetId = AdvertisementWidget.WIDGET_ID,
-//presetPath = presetPath,
-//createContent = { parameters ->
-//    val text = parameters["text"] ?: throw AdminActionException("No advertisement chosen")
-//    Advertisement(text)
-//},
-//createWidget = { parameters ->
-//    val text = parameters["text"] ?: throw AdminActionException("No advertisement chosen")
-//    AdvertisementWidget(Advertisement(text))
-//},
-//).setup(this)
