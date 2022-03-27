@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "ci": "^2.1.1",
     "ra-data-fakerest": "^3.19.10",
+    "ra-data-simple-rest": "^3.19.10",
     "react": "^17.0.2",
     "react-admin": "^3.19.10",
     "react-dom": "^17.0.2",
