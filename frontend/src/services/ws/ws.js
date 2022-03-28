@@ -5,12 +5,18 @@ import { handleMessage as contestInfoHandler } from "./contestInfo";
 import { handleMessage as mainScreenHandler } from "./mainScreen";
 import { handleMessage as queueHandler } from "./queue";
 import { handleMessage as scoreboardHandler } from "./scoreboard";
+import { handleMessage as tickerHandler } from "./ticker";
+import { handleMessage as statisticsHandler } from "./statistics";
 
 
 let handler = {
     get: function(target, name) {
         if (Object.getOwnPropertyDescriptor(target, name)) {
-            return target[name];
+            return (dispatch) => (e) => {
+                dispatch(pushLog(`${name} - ${e.data}`));
+                console.log(e);
+                target[name](dispatch, e);
+            };
         } else {
             return (dispatch) => (e) => {
                 const m = `NO HANDLER FOR WEBSOCKET ${name}. GOT EVENT ${_.truncate(e.data, { length: 100 })}`;
@@ -26,5 +32,7 @@ export const WEBSOCKET_HANDLERS = new Proxy({
     queue: queueHandler,
     scoreboardOptimistic: scoreboardHandler(SCOREBOARD_TYPES.optimistic),
     scoreboardNormal: scoreboardHandler(SCOREBOARD_TYPES.normal),
-    contestInfo: contestInfoHandler
+    contestInfo: contestInfoHandler,
+    ticker: tickerHandler,
+    statistics: statisticsHandler,
 }, handler);

@@ -1,7 +1,9 @@
 export const WEBSOCKETS = {
     mainScreen: "mainScreen",
-    queue: "queue",
     contestInfo: "contestInfo",
+    queue: "queue",
+    statistics: "statistics",
+    ticker: "ticker",
     scoreboardNormal: "scoreboard/normal",
     scoreboardOptimistic: "scoreboard/optimistic",
 };
