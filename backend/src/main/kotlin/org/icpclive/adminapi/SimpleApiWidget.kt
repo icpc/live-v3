@@ -7,9 +7,11 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.html.*
+import org.icpclive.admin.AdminActionException
 import org.icpclive.data.WidgetManager
 import org.icpclive.admin.Urls
 import org.icpclive.admin.catchAdminAction
+import org.icpclive.api.ObjectPreset
 import org.icpclive.api.Widget
 
 open class SimpleWidgetApiUrls(prefix: String, val isReloadable: Boolean) : Urls {
@@ -21,7 +23,7 @@ open class SimpleWidgetApiUrls(prefix: String, val isReloadable: Boolean) : Urls
     val deletePresetQuery = "/adminapi/$prefix/delete"
 }
 
-internal inline fun <reified ContentType, reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
+internal inline fun <reified ContentType : ObjectPreset, reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
     prefix: String,
     widgetId: String,
     presetPath: String?,
@@ -34,10 +36,56 @@ internal inline fun <reified ContentType, reified WidgetType : Widget> Routing.s
         presets?.let {
             val response = it.data
             call.response.header("Access-Control-Expose-Headers", "X-Total-Count")
-            call.response.header("X-Total-Count", response.size)
+            call.response.header("Content-Range", response.size.toString())
             call.respond(response)
         }
     }
+    get("${urls.mainPage}/{id}") {
+        call.catchAdminApiAction {
+            val id = call.parameters["id"]?.toInt() ?: throw AdminActionException("Error load preset by id")
+
+            presets?.let {
+                for (preset in it.data) {
+                    if (preset.id == id) {
+                        call.respond(preset)
+                        return@let
+                    }
+                }
+            }
+        }
+    }
+    post(urls.mainPage) {
+        call.catchAdminApiAction {
+            val prm = call.parameters
+            val getting = call.receive<ContentType>()
+            println(getting)
+
+            call.respond(mapOf("status" to "ok"))
+//
+            presets?.let {
+//                for (preset in it.data) {
+//                    if (preset.id == 1) {
+//                        call.respond(preset)
+//                        return@let
+//                    }
+//                }
+            }
+        }
+    }
+//    post("${urls.mainPage}/{id}") {
+//        call.catchAdminApiAction {
+//            val id = call.parameters["id"]?.toInt() ?: throw AdminActionException("Error load preset by id")
+//
+//            presets?.let {
+//                for (preset in it.data) {
+//                    if (preset.id == id) {
+//                        call.respond(preset)
+//                        return@let
+//                    }
+//                }
+//            }
+//        }
+//    }
     post(urls.showQuery) {
         call.catchAdminApiAction {
             WidgetManager.showWidget(createWidget(createContent(receiveParameters())))
