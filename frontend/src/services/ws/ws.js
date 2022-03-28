@@ -14,7 +14,6 @@ let handler = {
         if (Object.getOwnPropertyDescriptor(target, name)) {
             return (dispatch) => (e) => {
                 dispatch(pushLog(`${name} - ${e.data}`));
-                console.log(e);
                 target[name](dispatch, e);
             };
         } else {
