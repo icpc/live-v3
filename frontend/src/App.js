@@ -43,6 +43,12 @@ function App() {
         });
     }, []);
 
+    useEffect(() => {
+        document.addEventListener("error", (message) => {
+            dispatch(pushLog(`Global error on document: ${message}`));
+        });
+    }, []);
+
     return (
         <>
             <MainLayout/>

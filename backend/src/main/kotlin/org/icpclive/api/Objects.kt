@@ -9,7 +9,9 @@ import kotlin.time.Duration.Companion.milliseconds
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
 @Serializable
-data class Advertisement(val text: String)
+data class Advertisement(val text: String) {
+    val id: Int = this.hashCode()
+}
 
 @Serializable
 data class Picture(val url: String, val name: String)
@@ -70,6 +72,7 @@ data class ContestInfo(
             ContestStatus.RUNNING -> ((System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed).toLong()
             ContestStatus.OVER -> contestLengthMs
         }.milliseconds
+
     companion object {
         val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList())
     }
@@ -117,4 +120,4 @@ data class ScoreboardRow(
 data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pending: Int)
 
 @Serializable
-data class SolutionsStatistic(val stats:List<ProblemSolutionsStatistic>)
+data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
