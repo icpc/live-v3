@@ -8,6 +8,7 @@ import Advertisement from "../organisms/widgets/Advertisement";
 import Queue from "../organisms/widgets/Queue";
 import Scoreboard from "../organisms/widgets/Scoreboard";
 import Ticker from "../organisms/widgets/Ticker";
+import Statistics from "../organisms/widgets/Statistics";
 
 const fadeIn = keyframes`
   from {
@@ -54,7 +55,8 @@ const WIDGETS = {
     AdvertisementWidget: Advertisement,
     ScoreboardWidget: Scoreboard,
     QueueWidget: Queue,
-    TickerWidget: Ticker
+    TickerWidget: Ticker,
+    StatisticsWidget: Statistics
 };
 
 const transitionProps = {
