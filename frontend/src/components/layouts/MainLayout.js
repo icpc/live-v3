@@ -58,10 +58,10 @@ const transitionProps = {
 };
 
 const WIDGETS = {
-    AdvertisementWidget: [Advertisement, transitionProps],
-    ScoreboardWidget: [Scoreboard, transitionProps],
-    QueueWidget: [Queue, transitionProps],
-    PictureWidget: [Pictures, transitionProps]
+    AdvertisementWidget: Advertisement,
+    ScoreboardWidget: Scoreboard,
+    QueueWidget: Queue,
+    PictureWidget: Pictures
 };
 
 export const MainLayout = () => {
@@ -69,20 +69,20 @@ export const MainLayout = () => {
     return <MainLayoutWrap>
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
-                const [Widget, transitionProps] = WIDGETS[obj.type];
+                const Widget = WIDGETS[obj.type];
                 if(Widget === undefined) {
                     return null;
                 }
-                return <Transition key={obj.widgetId} timeout={WIDGET_TRANSITION_TIME}>
+                return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
                             left={obj.location.positionX}
                             top={obj.location.positionY}
                             width={obj.location.sizeX}
                             height={obj.location.sizeY}
-                            {...transitionProps[state]}
+                            {...(transitionProps[state] && !Widget.ignoreTransition)}
                         >
-                            <Widget widgetData={obj} state={state} {...transitionProps[state]}/>
+                            <Widget widgetData={obj} transitionState={state}/>
                         </WidgetWrap>
                     }
                 </Transition>;

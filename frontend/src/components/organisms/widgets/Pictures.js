@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { WIDGET_TRANSITION_TIME } from "../../../config";
+import PropTypes from "prop-types";
+import { PICTURES_APPEAR_TIME } from "../../../config";
+import { pushLog } from "../../../redux/debug";
+import { useDispatch } from "react-redux";
 
 
 const slideIn = keyframes`
@@ -13,29 +16,23 @@ const slideIn = keyframes`
 `;
 
 const slideOut = keyframes`
- from {
-   left: 0;
- }
+  from {
+    left: 0;
+  }
   to {
     left: 100%;
   }
 `;
 
-export const transition = {
-    entering: { animationInner: slideIn },
-    entered:  {  },
-    exiting:  { animationInner: slideOut },
-    exited:  { },
-};
 
 const PicturesContainerWrap = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
+  display: ${props => props.show ? "flex" : "none"};
+  justify-content: start;
   align-items: center;
-  animation: ${props => props.animation} 3000ms linear;
+  animation: ${props => props.animation} ${PICTURES_APPEAR_TIME}ms ${props => props.animationStyle};
 `;
 
 
@@ -58,10 +55,38 @@ const PicturesImgWrap = styled.div`
   background-color: white;
 `;
 
-export const Pictures = ({ widgetData, animationInner }) => {
-    return <PicturesContainerWrap animation={animationInner}><PicturesContainer>
-        <PicturesImgWrap><img  src={widgetData.picture.url} alt = {widgetData.picture.name}/> </PicturesImgWrap>
-        <PicturesCaptionWrap>{widgetData.picture.name}</PicturesCaptionWrap>
-    </PicturesContainer></PicturesContainerWrap>;
+export const Pictures = ({ widgetData, transitionState }) => {
+    const [isLoaded, setIsLoaded] = useState(false);
+    const dispatch = useDispatch();
+    return <PicturesContainerWrap
+        show={isLoaded}
+        animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
+        animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
+    >
+        <PicturesContainer>
+            <PicturesImgWrap>
+                <img src={widgetData.picture.url} 
+                    alt={widgetData.picture.name}
+                    onLoad={() => setIsLoaded(true)}
+                    onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+                />
+            </PicturesImgWrap>
+            <PicturesCaptionWrap>{widgetData.picture.name}</PicturesCaptionWrap>
+        </PicturesContainer>
+    </PicturesContainerWrap>;
 };
+
+Pictures.propTypes = {
+    widgetData: PropTypes.shape({
+        picture: PropTypes.shape({
+            url: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired
+        })
+    }),
+    transitionState: PropTypes.string
+};
+
+Pictures.ignoreAnimation = true;
+Pictures.overrideTimeout = PICTURES_APPEAR_TIME;
+
 export default Pictures;
