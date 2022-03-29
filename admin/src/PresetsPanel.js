@@ -1,13 +1,13 @@
 import React from "react";
-import {BACKEND_API_URL} from "./config";
+import { BACKEND_API_URL } from "./config";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import {PresetsTable} from "./PresetsTable";
+import { PresetsTable } from "./PresetsTable";
 
 export class PresetsPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {items: []};
+        this.state = { items: [] };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -30,14 +30,14 @@ export class PresetsPanel extends React.Component {
                         error
                     });
                 }
-            )
+            );
     }
 
     openAddForm() {
         const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({text: 'React Hooks POST Request Example'})
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: "React Hooks POST Request Example" })
         };
         fetch(BACKEND_API_URL + "/advertisement", requestOptions)
             .then(response => response.json())
@@ -56,7 +56,7 @@ export class PresetsPanel extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({text: e.target.value});
+        this.setState({ text: e.target.value });
     }
 
     handleSubmit(e) {

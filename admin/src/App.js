@@ -1,14 +1,13 @@
 import React from "react";
 import "./App.css";
 
-import './App.css';
 import AppNav from "./AppNav";
 import Container from "@mui/material/Container";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Controls from "./Controls";
 import Advertisement from "./Advertisement";
-import {PresetsPanel} from "./PresetsPanel";
+import { PresetsPanel } from "./PresetsPanel";
 
 
 function App() {

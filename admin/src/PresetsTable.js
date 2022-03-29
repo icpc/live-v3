@@ -1,6 +1,6 @@
 import React from "react";
-import {PresetsTableRow} from "./PresetsTableRow";
-import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
+import { PresetsTableRow } from "./PresetsTableRow";
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 
 export class PresetsTable extends React.Component {
     constructor(props) {
@@ -19,7 +19,7 @@ export class PresetsTable extends React.Component {
 
     render() {
         return (
-            <Table sx={{minWidth: 650}} aria-label="simple table">
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     {this.renderHeader()}
                 </TableHead>
