@@ -8,6 +8,7 @@ import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow}
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import {BACKEND_API_URL} from "./config";
 
 class PresetsPanel extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class PresetsPanel extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://localhost:8080/adminapi/advertisement/")
+        fetch(BACKEND_API_URL + "/advertisement")
             .then(res => res.json())
             .then(
                 (result) => {
