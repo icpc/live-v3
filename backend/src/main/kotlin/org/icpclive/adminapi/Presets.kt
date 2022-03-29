@@ -5,45 +5,39 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 import org.icpclive.admin.AdminActionException
+import org.icpclive.api.Preset
+import org.icpclive.api.ContentPreset
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicReference
 
-class Presets<T>(
-    private val path: String,
-    private val decode: (String) -> List<T>,
-    private val encode: (List<T>, String) -> Unit
-) {
-    var data: List<T>
-        get() = synchronized(this) { load() }
-        set(data) = synchronized(this) { save(data) }
+class Presets<T : ContentPreset>(private val path: String,
+                                 private var innerData: List<Preset<T>> = emptyList(),
+                                 private var currentID: Int = innerData.size) {
 
+    val data: List<Preset<T>>
+        get() = synchronized(this) { innerData }
 
-    private fun load(): List<T> {
+    private fun save(list: List<Preset<T>>) {
         try {
-            return decode(path)
+            innerData = list
+            Json.encodeToStream(innerData.map { preset -> preset.content }, FileOutputStream(File(path)))
         } catch (e: SerializationException) {
-            throw AdminActionException("Failed to deserialize presets: ${e.message}")
+            throw AdminActionException("Failed to serialize presets: ${e.message}")
         } catch (e: IOException) {
-            throw AdminActionException("Error reading presets: ${e.message}")
-        }
-    }
-
-    private fun save(list: List<T>) {
-        try {
-            encode(list, path)
-        } catch (e: SerializationException) {
-            throw AdminActionException("Failed to deserialize presets: ${e.message}")
-        } catch (e: IOException) {
-            throw AdminActionException("Error reading presets: ${e.message}")
+            throw AdminActionException("Error writing presets: ${e.message}")
         }
     }
 }
 
-inline fun <reified T> Presets(presetsType: String) = Presets<T>(presetsType, {
-    Json.decodeFromStream(FileInputStream(File(it)))
-}, { data, fileName ->
-    Json.encodeToStream(data, FileOutputStream(File(fileName)))
-})
+inline fun <reified T : ContentPreset> Presets(path: String) = Presets(
+        path,
+        Json.decodeFromStream<List<T>>(FileInputStream(File(path))).mapIndexed { index, content ->
+            Preset(index + 1, content)
+        }
+)
+
+
+

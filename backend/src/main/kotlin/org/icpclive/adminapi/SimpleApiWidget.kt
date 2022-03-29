@@ -140,7 +140,7 @@ internal fun HTML.simpleWidgetApiView(name: String, urls: SimpleWidgetApiUrls, p
     }
 }
 
-internal inline fun <reified T> simpleWidgetApiViewFun(
+internal inline fun <reified T: ContentPreset> simpleWidgetApiViewFun(
     name: String,
     crossinline parameters: FORM.(Presets<T>?) -> Unit
 ): HTML.(Presets<T>?, SimpleWidgetApiUrls) -> Unit = { presets, urls ->
