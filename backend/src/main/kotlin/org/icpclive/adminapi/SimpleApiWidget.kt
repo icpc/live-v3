@@ -56,36 +56,29 @@ internal inline fun <reified ContentType : ObjectPreset, reified WidgetType : Wi
     }
     post(urls.mainPage) {
         call.catchAdminApiAction {
-            val prm = call.parameters
             val getting = call.receive<ContentType>()
             println(getting)
 
-            call.respond(mapOf("status" to "ok"))
-//
             presets?.let {
-//                for (preset in it.data) {
-//                    if (preset.id == 1) {
-//                        call.respond(preset)
-//                        return@let
-//                    }
-//                }
+                it.data += getting
+                call.respond(mapOf("status" to "ok"))
             }
         }
     }
-//    post("${urls.mainPage}/{id}") {
-//        call.catchAdminApiAction {
-//            val id = call.parameters["id"]?.toInt() ?: throw AdminActionException("Error load preset by id")
-//
-//            presets?.let {
-//                for (preset in it.data) {
-//                    if (preset.id == id) {
-//                        call.respond(preset)
-//                        return@let
-//                    }
-//                }
-//            }
-//        }
-//    }
+    post("${urls.mainPage}/{id}") {
+        call.catchAdminApiAction {
+            println(call.parameters["id"])
+            val id = call.parameters["id"]?.toInt() ?: throw AdminActionException("Error load preset by id")
+
+            val getting = call.receive<ContentType>()
+            println(getting)
+
+            presets?.let {
+                it.data = it.data.map { v -> if (v.id == id) getting else v }
+                call.respond(mapOf("status" to "ok"))
+            }
+        }
+    }
     post(urls.showQuery) {
         call.catchAdminApiAction {
             WidgetManager.showWidget(createWidget(createContent(receiveParameters())))
