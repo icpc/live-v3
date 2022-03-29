@@ -8,10 +8,10 @@ import org.icpclive.utils.toHex
 import kotlin.time.Duration.Companion.milliseconds
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
+interface ContentPreset
+
 @Serializable
-data class Advertisement(val text: String) {
-    val id: Int = this.hashCode()
-}
+data class Advertisement(val text: String) : ContentPreset
 
 @Serializable
 data class Picture(val url: String, val name: String)
@@ -28,6 +28,8 @@ class StatisticSettings
 @Serializable
 class TickerSettings
 
+@Serializable
+data class Preset<ContentType: ContentPreset>(val id: Int, val content: ContentType, val shown: Boolean = false)
 
 @Serializable
 data class RunInfo(
