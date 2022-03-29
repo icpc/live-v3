@@ -6,7 +6,6 @@ import AppNav from "./AppNav";
 import Container from "@mui/material/Container";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import AppNav from "./AppNav";
 import Controls from "./Controls";
 import Advertisement from "./Advertisement";
 import {PresetsPanel} from "./PresetsPanel";

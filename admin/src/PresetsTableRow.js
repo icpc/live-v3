@@ -6,8 +6,10 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {BACKEND_API_URL} from "./config";
+import ShowButton from "./ShowButton";
 
 const onClickEdit = (currentRow) => () => {
+    console.log("anbodsfcdsa")
     if (currentRow.state.editValue === undefined) {
         currentRow.setState(state => ({...state, editValue: state.value}));
     } else {
@@ -38,6 +40,9 @@ export class PresetsTableRow extends React.Component {
             key={this.state.value["id"]}
             sx={{'&:last-child td, &:last-child th': {border: 0}}}
         >
+            <TableCell component="th" scope="row" align={"left"}>
+                <ShowButton onClick={() => {console.log("aboba");}}/>
+            </TableCell>
             {this.props.keys.map((rowKey) => (
                 <TableCell component="th" scope="row" sx={{flexGrow: 1}} key={rowKey}>
                     {this.state.editValue === undefined ? this.state.value[rowKey] : (
@@ -54,10 +59,9 @@ export class PresetsTableRow extends React.Component {
                 </TableCell>
             ))}
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
-                <Box sx={{'& > button': {m: 1}}}>
-                    <Button variant="outlined" size="small"><VisibilityIcon/></Button>
-                    <Button variant="outlined" size="small" onClick={onClickEdit(currentRow)}><EditIcon/></Button>
-                    <Button variant="outlined" size="small" color="error"><DeleteIcon/></Button>
+                <Box sx={{ "& > button": { m: 1 } }}>
+                    <Button size="small" onClick={onClickEdit(currentRow)}><EditIcon/></Button>
+                    <Button size="small" color="error"><DeleteIcon/></Button>
                 </Box>
             </TableCell>
         </TableRow>);
