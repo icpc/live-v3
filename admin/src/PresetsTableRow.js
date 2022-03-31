@@ -16,7 +16,6 @@ const onClickEdit = (currentRow, path) => () => {
     } else {
         const requestOptions = {
             method: "POST",
-            mode: "no-cors",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: currentRow.props.row.content.text })
         };
