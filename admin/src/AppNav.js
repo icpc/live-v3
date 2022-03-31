@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 
-const pages = { "Controls": "controls", "Advertisement": "advertisement", "Picture": "picture" };
+const pages = { "Controls": "controls", "Advertisement": "advertisement", "Picture": "picture", "Ticker": "ticker" };
 
 
 const ResponsiveAppBar = () => {

@@ -2,14 +2,14 @@ import React from "react";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { BACKEND_API_URL } from "./config";
+import { grey } from "@mui/material/colors";
+
 import ShowButton from "./ShowButton";
+import { BACKEND_API_URL } from "./config";
 
 const onClickEdit = (currentRow) => () => {
-    console.log("anbodsfcdsa");
     if (currentRow.state.editValue === undefined) {
         currentRow.setState(state => ({ ...state, editValue: state.value }));
     } else {
@@ -29,8 +29,9 @@ export class PresetsTableRow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            "value": props.row,
-            "editValue": undefined,
+            value: props.row,
+            editValue: undefined,
+            active: false
         };
     }
 
@@ -38,13 +39,19 @@ export class PresetsTableRow extends React.Component {
         const currentRow = this;
         return (<TableRow
             key={this.state.value["id"]}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-        >
+            sx={{ backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor ) }}>
             <TableCell component="th" scope="row" align={"left"}>
-                <ShowButton onClick={() => {console.log("aboba");}}/>
+                <ShowButton
+                    onClick={() => this.setState((state) => ({ ...state, active: !state.active }))}
+                    active={this.state.active}
+                />
             </TableCell>
             {this.props.keys.map((rowKey) => (
-                <TableCell component="th" scope="row" sx={{ flexGrow: 1 }} key={rowKey}>
+                <TableCell
+                    component="th"
+                    scope="row"
+                    key={rowKey}
+                    sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
                     {this.state.editValue === undefined ? this.state.value[rowKey] : (
                         <TextField
                             hiddenLabel
@@ -59,7 +66,7 @@ export class PresetsTableRow extends React.Component {
                 </TableCell>
             ))}
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
-                <Box sx={{ "& > button": { m: 1 } }}>
+                <Box>
                     <Button size="small" onClick={onClickEdit(currentRow)}><EditIcon/></Button>
                     <Button size="small" color="error"><DeleteIcon/></Button>
                 </Box>
