@@ -14,9 +14,6 @@ interface ContentPreset
 data class Advertisement(val text: String) : ContentPreset
 
 @Serializable
-data class Advertisement(val text: String, override val id: Int = text.hashCode()) : ObjectPreset
-
-@Serializable
 data class Picture(val url: String, val name: String)
 
 @Serializable
