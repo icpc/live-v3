@@ -6,6 +6,7 @@ import io.ktor.routing.*
 import kotlinx.coroutines.channels.ticker
 import kotlinx.html.*
 import org.icpclive.adminapi.advertisement.*
+import org.icpclive.adminapi.picture.*
 import org.icpclive.adminapi.scoreboard.*
 import org.icpclive.adminapi.queue.*
 import org.icpclive.adminapi.statistics.*
@@ -36,6 +37,9 @@ fun Application.configureAdminApiRouting() {
     routing {
         val advertisementUrls =
                 configureAdvertisementApi(environment.config.property("live.presets.advertisements").getString())
+        val pictureUrls =
+                configurePictureApi(environment.config.property("live.presets.pictures").getString())
+
         val scoreboardUrls = configureScoreboardApi()
         val queueUrls = configureQueueApi()
         val tickerUrls = configureTickerApi()
@@ -43,6 +47,7 @@ fun Application.configureAdminApiRouting() {
 
         topLevelLinks = listOf(
                 advertisementUrls.mainPage to "Advertisement",
+                pictureUrls.mainPage to "Picture",
                 scoreboardUrls.mainPage to "Scoreboard",
                 statisticsUrls.mainPage to "Statistics",
                 queueUrls.mainPage to "Queue",
