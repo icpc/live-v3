@@ -19,19 +19,23 @@ const VideosContainer = styled.div`
 `;
 
 const VideosWrap = styled.div`
-  background-color: white;
 `;
 
 export const Videos = ({ widgetData }) => {
-    const [isLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
     return <VideosContainerWrap
         show={isLoaded}
     >
         <VideosContainer>
             <VideosWrap>
-                <video width={"100%"} height={"100%"} src={widgetData.videos.url}>
-                    widgetData.videos.name
-                </video>
+                <video
+                    width="100%"
+                    height="100%"
+                    src={widgetData.video.url}
+                    onLoadedData={() => setIsLoaded(true)}
+                    autoPlay
+                    muted
+                />
             </VideosWrap>
         </VideosContainer>
     </VideosContainerWrap>;

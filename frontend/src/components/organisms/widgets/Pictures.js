@@ -65,7 +65,8 @@ export const Pictures = ({ widgetData, transitionState }) => {
     >
         <PicturesContainer>
             <PicturesImgWrap>
-                <img src={widgetData.picture.url} 
+                <img
+                    src={widgetData.picture.url}
                     alt={widgetData.picture.name}
                     onLoad={() => setIsLoaded(true)}
                     onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
