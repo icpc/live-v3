@@ -9,16 +9,47 @@ import { grey } from "@mui/material/colors";
 import ShowButton from "./ShowButton";
 import { BACKEND_API_URL } from "./config";
 
-const onClickEdit = (currentRow, path) => () => {
+const show = (currentRow) => {
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    };
+    fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/show", requestOptions)
+        .then(response => response.json())
+        .then(console.log);
+    currentRow.setState(state => ({ ...state, editValue: undefined }));
+};
+
+const hide = (currentRow) => {
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+    };
+    fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/hide", requestOptions)
+        .then(response => response.json())
+        .then(console.log);
+    currentRow.setState(state => ({ ...state, editValue: undefined }));
+};
+
+const onClickShow = (currentRow) => {
+    if (currentRow.state.active) {
+        hide(currentRow);
+    } else {
+        show(currentRow);
+    }
+    currentRow.props.updateTable();
+};
+
+const onClickEdit = (currentRow) => () => {
     if (currentRow.state.editValue === undefined) {
         currentRow.setState(state => ({ ...state, editValue: state.value }));
     } else {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: currentRow.props.row.content.text })
+            body: JSON.stringify({ text: currentRow.state.editValue.content.text }),
         };
-        fetch(BACKEND_API_URL + path + "/" + currentRow.props.row.id, requestOptions)
+        fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
             .then(console.log);
         currentRow.setState(state => ({ ...state, editValue: undefined }));
@@ -26,13 +57,12 @@ const onClickEdit = (currentRow, path) => () => {
     currentRow.props.updateTable();
 };
 
-const onClickDelete = (currentRow, path) => () => {
+const onClickDelete = (currentRow) => () => {
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: currentRow.props.row.content.text })
     };
-    fetch(BACKEND_API_URL + path + "/" + currentRow.props.row.id + "/delete", requestOptions)
+    fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/delete", requestOptions)
         .then(response => response.json())
         .then(console.log);
     currentRow.setState(state => ({ ...state, editValue: undefined }));
@@ -45,7 +75,7 @@ export class PresetsTableRow extends React.Component {
         this.state = {
             value: props.row,
             editValue: undefined,
-            active: false
+            active: !(props.row.widgetId === null)
         };
     }
 
@@ -56,7 +86,13 @@ export class PresetsTableRow extends React.Component {
             sx={{ backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor ) }}>
             <TableCell component="th" scope="row" align={"left"}>
                 <ShowButton
-                    onClick={() => this.setState((state) => ({ ...state, active: !state.active }))}
+                    onClick={
+                        () => {
+                            console.log("aboba");
+                            onClickShow(currentRow);
+                            this.setState({ active: !this.state.active });
+                        }
+                    }
                     active={this.state.active}
                 />
             </TableCell>
@@ -67,7 +103,7 @@ export class PresetsTableRow extends React.Component {
                     key={rowKey}
                     sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
                     {this.state.editValue === undefined ? this.state.value.content[rowKey] : (
-                        <Box onSubmit={onClickEdit(currentRow, this.props.path)} component="form" type="submit">
+                        <Box onSubmit={onClickEdit(currentRow)} component="form" type="submit">
                             <TextField
                                 hiddenLabel
                                 defaultValue={this.state.value.content[rowKey]}
@@ -84,8 +120,8 @@ export class PresetsTableRow extends React.Component {
             ))}
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
-                    <Button size="small" onClick={onClickEdit(currentRow, this.props.path)}><EditIcon/></Button>
-                    <Button size="small" color="error" onClick={onClickDelete(currentRow, this.props.path)}><DeleteIcon/></Button>
+                    <Button size="small" onClick={onClickEdit(currentRow)}><EditIcon/></Button>
+                    <Button size="small" color="error" onClick={onClickDelete(currentRow)}><DeleteIcon/></Button>
                 </Box>
             </TableCell>
         </TableRow>);

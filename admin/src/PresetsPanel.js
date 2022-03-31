@@ -45,7 +45,7 @@ export default class PresetsPanel extends React.Component {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: "React Hooks POST Request Example" })
+            body: JSON.stringify({ text: "New Advertisement" })
         };
         fetch(BACKEND_API_URL + "/advertisement", requestOptions)
             .then(response => response.json())
