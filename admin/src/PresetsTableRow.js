@@ -10,7 +10,6 @@ import ShowButton from "./ShowButton";
 import { BACKEND_API_URL } from "./config";
 
 const onClickEdit = (currentRow, path) => () => {
-    console.log("edit\n");
     if (currentRow.state.editValue === undefined) {
         currentRow.setState(state => ({ ...state, editValue: state.value }));
     } else {
@@ -24,6 +23,20 @@ const onClickEdit = (currentRow, path) => () => {
             .then(console.log);
         currentRow.setState(state => ({ ...state, editValue: undefined }));
     }
+    currentRow.props.updateTable();
+};
+
+const onClickDelete = (currentRow, path) => () => {
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: currentRow.props.row.content.text })
+    };
+    fetch(BACKEND_API_URL + path + "/" + currentRow.props.row.id + "/delete", requestOptions)
+        .then(response => response.json())
+        .then(console.log);
+    currentRow.setState(state => ({ ...state, editValue: undefined }));
+    currentRow.props.updateTable();
 };
 
 export class PresetsTableRow extends React.Component {
@@ -72,7 +85,7 @@ export class PresetsTableRow extends React.Component {
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
                     <Button size="small" onClick={onClickEdit(currentRow, this.props.path)}><EditIcon/></Button>
-                    <Button size="small" color="error"><DeleteIcon/></Button>
+                    <Button size="small" color="error" onClick={onClickDelete(currentRow, this.props.path)}><DeleteIcon/></Button>
                 </Box>
             </TableCell>
         </TableRow>);

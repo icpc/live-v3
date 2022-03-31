@@ -16,6 +16,7 @@ export default class PresetsPanel extends React.Component {
     }
 
     update() {
+        console.log("update\n");
         fetch(BACKEND_API_URL + this.props.path)
             .then(res => res.json())
             .then(
@@ -37,16 +38,12 @@ export default class PresetsPanel extends React.Component {
     }
 
     componentDidMount() {
-        // const fullPath = BACKEND_API_URL + String(this.props.path);
-        // console.log(this);
-        // console.log(fullPath);
         this.update();
     }
 
     openAddForm() {
         const requestOptions = {
             method: "POST",
-            mode: "no-cors",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: "React Hooks POST Request Example" })
         };
@@ -54,12 +51,6 @@ export default class PresetsPanel extends React.Component {
             .then(response => response.json())
             .then(console.log);
         this.update();
-        // console.log("a");
-        // this.setState((oldState) => { return {
-        //     items: [...oldState.items, oldState.items[0]]
-        // };});
-        // console.log(this.state.items[0]);
-        // generateRows();
 
     }
 
@@ -67,11 +58,11 @@ export default class PresetsPanel extends React.Component {
         return (
             <div>
                 <PresetsTable
-                    path={ this.props.path }
-                    activeColor={ this.props.activeColor }
-                    inactiveColor={ this.props.inactiveColor }
+                    path={this.props.path}
+                    updateTable={() => {this.update();}}
+                    activeColor={this.props.activeColor}
+                    inactiveColor={this.props.inactiveColor}
                     items={this.state.items}
-                    headers={["Text", ""]}
                     keys={["text"]}/>
                 <div>
                     <Button type="submit" size="large" onClick={() => {this.openAddForm();}}><AddIcon/></Button>

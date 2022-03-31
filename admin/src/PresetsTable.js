@@ -14,9 +14,10 @@ export class PresetsTable extends React.Component {
                     {this.props.items !== undefined &&
                     this.props.items.map((row) =>
                         <PresetsTableRow
-                            activeColor={ this.props.activeColor }
-                            inactiveColor={ this.props.inactiveColor }
-                            path={ this.props.path }
+                            path={this.props.path}
+                            updateTable={() => {this.props.updateTable();}}
+                            activeColor={this.props.activeColor}
+                            inactiveColor={this.props.inactiveColor}
                             row={row}
                             key={row.id}
                             keys={this.props.keys}/>)
