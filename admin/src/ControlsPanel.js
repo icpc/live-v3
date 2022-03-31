@@ -8,31 +8,13 @@ import { BACKEND_API_URL } from "./config";
 export default class ControlsPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { items: [{ text: "Scoreboard" }, { text: "Queue" }, { text: "Ticker" }] };
+        this.state = { items: [
+            { text: "Scoreboard", id: "/scoreboard" },
+            { text: "Queue", id: "/queue" },
+            { text: "Ticker", id: "/ticker" }] };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    // componentDidMount() {
-    //     fetch(BACKEND_API_URL + "/advertisement")
-    //         .then(res => res.json())
-    //         .then(
-    //             (result) => {
-    //                 console.log(this.state);
-    //                 console.log("result", result);
-    //                 this.setState({
-    //                     isLoaded: true,
-    //                     items: result,
-    //                 });
-    //             },
-    //             (error) => {
-    //                 this.setState({
-    //                     isLoaded: true,
-    //                     error
-    //                 });
-    //             }
-    //         );
-    // }
 
     openAddForm() {
         const requestOptions = {
@@ -49,8 +31,8 @@ export default class ControlsPanel extends React.Component {
         return (
             <div>
                 <ControlsTable
-                    activeColor={ this.props.activeColor }
-                    inactiveColor={ this.props.inactiveColor }
+                    activeColor={this.props.activeColor}
+                    inactiveColor={this.props.inactiveColor}
                     items={this.state.items}
                     headers={["Text"]}
                     keys={["text"]}/>

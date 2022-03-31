@@ -6,39 +6,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { grey } from "@mui/material/colors";
 
-import ShowButton from "./ShowButton";
+import { ShowButton, onClickShow } from "./ShowButton";
 import { BACKEND_API_URL } from "./config";
-
-const show = (currentRow) => {
-    const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-    };
-    fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/show", requestOptions)
-        .then(response => response.json())
-        .then(console.log);
-    currentRow.setState(state => ({ ...state, editValue: undefined }));
-};
-
-const hide = (currentRow) => {
-    const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-    };
-    fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/hide", requestOptions)
-        .then(response => response.json())
-        .then(console.log);
-    currentRow.setState(state => ({ ...state, editValue: undefined }));
-};
-
-const onClickShow = (currentRow) => {
-    if (currentRow.state.active) {
-        hide(currentRow);
-    } else {
-        show(currentRow);
-    }
-    currentRow.props.updateTable();
-};
 
 const onClickEdit = (currentRow) => () => {
     if (currentRow.state.editValue === undefined) {
@@ -88,7 +57,6 @@ export class PresetsTableRow extends React.Component {
                 <ShowButton
                     onClick={
                         () => {
-                            console.log("aboba");
                             onClickShow(currentRow);
                             this.setState({ active: !this.state.active });
                         }
