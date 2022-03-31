@@ -11,16 +11,8 @@ export default class PresetsPanel extends React.Component {
         super(props);
         this.state = { items: [] };
         this.handleChange = this.handleChange.bind(this);
-        this.generateRows = this.generateRows.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.update = this.update.bind(this);
-    }
-
-    generateRows() {
-        var newItems = this.state.items.slice();
-        newItems.push("new value");
-        this.setState({ items: newItems });
-        // this.state.items = items + [];
     }
 
     update() {
@@ -54,6 +46,7 @@ export default class PresetsPanel extends React.Component {
     openAddForm() {
         const requestOptions = {
             method: "POST",
+            mode: "no-cors",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: "React Hooks POST Request Example" })
         };

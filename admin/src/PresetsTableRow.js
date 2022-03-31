@@ -9,16 +9,18 @@ import { grey } from "@mui/material/colors";
 import ShowButton from "./ShowButton";
 import { BACKEND_API_URL } from "./config";
 
-const onClickEdit = (currentRow) => () => {
+const onClickEdit = (currentRow, path) => () => {
+    console.log("edit\n");
     if (currentRow.state.editValue === undefined) {
         currentRow.setState(state => ({ ...state, editValue: state.value }));
     } else {
         const requestOptions = {
             method: "POST",
+            mode: "no-cors",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: currentRow.props.row.id, text: currentRow.props.row.text })
+            body: JSON.stringify({ text: currentRow.props.row.content.text })
         };
-        fetch(BACKEND_API_URL + "/advertisement/" + currentRow.props.row.id, requestOptions)
+        fetch(BACKEND_API_URL + path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
             .then(console.log);
         currentRow.setState(state => ({ ...state, editValue: undefined }));
@@ -52,22 +54,25 @@ export class PresetsTableRow extends React.Component {
                     scope="row"
                     key={rowKey}
                     sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
-                    {this.state.editValue === undefined ? this.state.value[rowKey] : (
-                        <TextField
-                            hiddenLabel
-                            id="filled-hidden-label-small"
-                            defaultValue={this.state.value[rowKey]}
-                            size="small"
-                            onChange={(e) => {
-                                currentRow.state.editValue[rowKey] = e.target.value;
-                            }}
-                        />)
+                    {this.state.editValue === undefined ? this.state.value.content[rowKey] : (
+                        <Box onSubmit={onClickEdit(currentRow, this.props.path)} component="form" type="submit">
+                            <TextField
+                                hiddenLabel
+                                defaultValue={this.state.value.content[rowKey]}
+                                id="filled-hidden-label-small"
+                                type="text"
+                                size="small"
+                                onChange={(e) => {
+                                    currentRow.state.editValue.content[rowKey] = e.target.value;
+                                }}
+                            />
+                        </Box>)
                     }
                 </TableCell>
             ))}
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
-                    <Button size="small" onClick={onClickEdit(currentRow)}><EditIcon/></Button>
+                    <Button size="small" onClick={onClickEdit(currentRow, this.props.path)}><EditIcon/></Button>
                     <Button size="small" color="error"><DeleteIcon/></Button>
                 </Box>
             </TableCell>

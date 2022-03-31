@@ -10,14 +10,14 @@ class TickerPanel extends PresetsPanel {
         super(props);
     }
     render() {
-        return <PresetsPanel activeColor={ lightBlue[100] } inactiveColor={ "white" } />;
+        return <PresetsPanel path={ this.props.path } activeColor={ lightBlue[100] } inactiveColor={ "white" } />;
     }
 }
 
 function Ticker() {
     return (
         <div className="TickerPanel">
-            <TickerPanel/>
+            <TickerPanel path="/ticker"/>
         </div>
     );
 }
