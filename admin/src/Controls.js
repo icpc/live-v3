@@ -8,7 +8,7 @@ import ControlsPanel from "./ControlsPanel";
 function Advertisement() {
     return (
         <div className="ControlsPanel">
-            <ControlsPanel activeColor={ lightBlue[100] } inactiveColor={ "white" }/>
+            <ControlsPanel activeColor={lightBlue[100]} inactiveColor={"white"}/>
         </div>
     );
 }

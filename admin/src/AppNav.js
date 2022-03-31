@@ -40,14 +40,16 @@ const ResponsiveAppBar = () => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="div"
-                        sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-                    >
-                        ICPC Live Admin
-                    </Typography>
+                    <Box>
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            onClick={() => navigate("/")}
+                            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+                        >
+                            ICPC Live Admin
+                        </Typography>
+                    </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         {Object.entries(pages).map(([name, url]) => <Button
                             key={url}

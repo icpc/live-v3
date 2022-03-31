@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 
 import { ControlsTable } from "./ControlsTable";
@@ -37,7 +37,7 @@ export default class ControlsPanel extends React.Component {
                     headers={["Text"]}
                     keys={["text"]}/>
                 <div>
-                    <Button variant="text" size="large" onClick={this.openAddForm}><AddIcon/></Button>
+                    <IconButton color="primary" size="large" onClick={this.openAddForm}><AddIcon/></IconButton>
                 </div>
             </div>
         );

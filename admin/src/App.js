@@ -17,8 +17,9 @@ function App() {
                 <AppNav/>
                 <Container maxWidth="l" sx={{ pt: 2 }}>
                     <Routes>
-                        <Route path = "/advertisement" element={<Advertisement/>}/>
+                        <Route path = "/" element={<Controls/>}/>
                         <Route path = "/controls" element={<Controls/>}/>
+                        <Route path = "/advertisement" element={<Advertisement/>}/>
                         <Route path = "/ticker" element={<Ticker/>}/>
                     </Routes>
                 </Container>

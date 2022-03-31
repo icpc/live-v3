@@ -1,7 +1,7 @@
 import React from "react";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { grey } from "@mui/material/colors";
@@ -88,8 +88,8 @@ export class PresetsTableRow extends React.Component {
             ))}
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
-                    <Button size="small" onClick={onClickEdit(currentRow)}><EditIcon/></Button>
-                    <Button size="small" color="error" onClick={onClickDelete(currentRow)}><DeleteIcon/></Button>
+                    <IconButton color="inherit" onClick={onClickEdit(currentRow)}><EditIcon/></IconButton>
+                    <IconButton color="error" onClick={onClickDelete(currentRow)}><DeleteIcon/></IconButton>
                 </Box>
             </TableCell>
         </TableRow>);

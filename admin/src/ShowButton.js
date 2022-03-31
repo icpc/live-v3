@@ -3,7 +3,7 @@ import React from "react";
 import "./App.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 
 import { BACKEND_API_URL } from "./config";
 
@@ -54,10 +54,10 @@ export class ShowButton extends React.Component{
     }
 
     render() {
-        if (this.props.active === false) {
-            return <Button onClick={this.props.onClick}><VisibilityOffIcon/></Button>;
+        if (this.props.active) {
+            return <IconButton color="primary" onClick={this.props.onClick}><VisibilityIcon/></IconButton>;
         } else {
-            return <Button onClick={this.props.onClick}><VisibilityIcon/></Button>;
+            return <IconButton color="primary" onClick={this.props.onClick}><VisibilityOffIcon/></IconButton>;
         }
     }
 }

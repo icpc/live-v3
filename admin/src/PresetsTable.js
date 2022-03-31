@@ -9,7 +9,7 @@ export class PresetsTable extends React.Component {
 
     render() {
         return (
-            <Table align={ "center" } aria-label="simple table" sx={{ maxWidth: "md" }}>
+            <Table align={ "center" } aria-label="simple table" sx={{ maxWidth: "sm" }}>
                 <TableBody>
                     {this.props.items !== undefined &&
                     this.props.items.map((row) =>

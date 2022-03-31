@@ -1,40 +1,39 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 
 import { PresetsTable } from "./PresetsTable";
-import { PresetsTableRow } from "./PresetsTableRow";
 import { BACKEND_API_URL } from "./config";
 
 export default class PresetsPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = { items: [] };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.update = this.update.bind(this);
     }
 
     update() {
-        console.log("update\n");
-        fetch(BACKEND_API_URL + this.props.path)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    console.log(this.state);
-                    console.log("result", result);
-                    this.setState({
-                        isLoaded: true,
-                        items: result,
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            );
+        setTimeout ( () => {
+            return fetch(BACKEND_API_URL + this.props.path)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        console.log(this.state);
+                        console.log("result", result);
+                        this.setState({
+                            isLoaded: true,
+                            items: result,
+                        });
+                    },
+                    (error) => {
+                        this.setState({
+                            isLoaded: true,
+                            error
+                        });
+                    }
+                );
+        },
+        15); // Timeout in order to render properly ¯\_(ツ)_/¯
     }
 
     componentDidMount() {
@@ -65,36 +64,10 @@ export default class PresetsPanel extends React.Component {
                     items={this.state.items}
                     keys={["text"]}/>
                 <div>
-                    <Button type="submit" size="large" onClick={() => {this.openAddForm();}}><AddIcon/></Button>
+                    <IconButton color="primary" size="large" onClick={() => {this.openAddForm();}}><AddIcon/></IconButton>
                 </div>
             </div>
         );
-    }
-
-    handleChange(e) {
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: "React Hooks POST Request Example" })
-        };
-        fetch(BACKEND_API_URL + this.props.path, requestOptions)
-            .then(response => response.json())
-            .then(console.log);
-        this.setState({ text: e.target.value });
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        if (this.state.text.length === 0) {
-            return;
-        }
-        const newItem = {
-            text: this.state.text,
-            id: Date.now()
-        };
-        this.setState(state => ({
-            items: state.items.concat(newItem),
-        }));
     }
 }
 
