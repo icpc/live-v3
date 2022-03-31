@@ -7,7 +7,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import org.icpclive.admin.AdminActionException
 import org.icpclive.admin.Urls
-import org.icpclive.api.ContentPreset
+import org.icpclive.api.Content
 import org.icpclive.api.Widget
 
 open class SimpleWidgetApiUrls(prefix: String) : Urls {
@@ -53,7 +53,7 @@ internal inline fun <reified WidgetType : Widget> Routing.setupSimpleWidgetRouti
     return urls
 }
 
-internal inline fun <reified ContentType : ContentPreset, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
+internal inline fun <reified ContentType : Content, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
         prefix: String,
         widgetId: String,
         presetPath: String,

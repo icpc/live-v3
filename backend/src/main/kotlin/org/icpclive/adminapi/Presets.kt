@@ -1,6 +1,5 @@
 package org.icpclive.adminapi
 
-import io.ktor.application.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.SerializationException
@@ -9,18 +8,15 @@ import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 import org.icpclive.admin.AdminActionException
 import org.icpclive.api.Preset
-import org.icpclive.api.ContentPreset
+import org.icpclive.api.Content
 import org.icpclive.api.Widget
 import org.icpclive.data.WidgetManager
-import org.icpclive.admin.catchAdminAction
-import java.awt.Window
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.concurrent.atomic.AtomicReference
 
-class Presets<ContentType : ContentPreset, WidgetType : Widget>(
+class Presets<ContentType : Content, WidgetType : Widget>(
         private val path: String,
         private val decode: (String) -> MutableList<Preset<ContentType>>,
         private val encode: (MutableList<Preset<ContentType>>, String) -> Unit,
@@ -111,8 +107,8 @@ class Presets<ContentType : ContentPreset, WidgetType : Widget>(
     }
 }
 
-inline fun <reified ContentType : ContentPreset, reified WidgetType : Widget> Presets(path: String,
-                                                                                      noinline createWidget: (ContentType) -> WidgetType) =
+inline fun <reified ContentType : Content, reified WidgetType : Widget> Presets(path: String,
+                                                                                noinline createWidget: (ContentType) -> WidgetType) =
         Presets<ContentType, WidgetType>(path,
                 {
                     Json.decodeFromStream<List<ContentType>>(FileInputStream(File(path))).mapIndexed { index, content ->
@@ -123,6 +119,3 @@ inline fun <reified ContentType : ContentPreset, reified WidgetType : Widget> Pr
                     Json { prettyPrint = true }.encodeToStream(data.map { it.content }, FileOutputStream(File(fileName)))
                 },
                 createWidget)
-
-
-
