@@ -30,11 +30,15 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     install(DefaultHeaders)
     install(CORS) {
+<<<<<<< HEAD
         method(HttpMethod.Options)
         method(HttpMethod.Put)
         method(HttpMethod.Delete)
         method(HttpMethod.Post)
         method(HttpMethod.Get)
+=======
+        header("Access-Control-Expose-Headers: X-Total-Count")
+>>>>>>> main
         header(HttpHeaders.ContentType)
         header("*")
         allowSameOrigin = true

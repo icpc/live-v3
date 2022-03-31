@@ -15,6 +15,7 @@ export const QUEUE_ROW_APPEAR_TIME = QUEUE_ROW_TRANSITION_TIME; // ms
 export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
 export const SCOREBOARD_SCROLL_INTERVAL = 2000; // ms;
+export const PICTURES_APPEAR_TIME = 1000; // ms
 
 // Styles
 export const VERDICT_OK = "#1b8041";
@@ -27,10 +28,19 @@ export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
 export const QUEUE_ROWS_COUNT = 15; // n
 export const QUEUE_OPACITY = 0.8;
 
+export const STATISTICS_TITLE_FONT_SIZE = "30px";
+export const STATISTICS_OPACITY = 0.8;
+export const STATISTICS_BG_COLOR = "#000000";
+export const STATISTICS_TITLE_COLOR = "#FFFFFF";
+export const STATISTICS_STATS_VALUE_FONT_SIZE = "24pt";
+export const STATISTICS_STATS_VALUE_FONT_FAMILY = "Helvetica, serif";
+export const STATISTICS_STATS_VALUE_COLOR = "#FFFFFF";
+
+
 export const CELL_FONT_FAMILY = "Helvetica, serif";
 export const CELL_FONT_SIZE = "22pt";
-export const CELL_TEXT_COLOR = "white";
-export const CELL_BG_COLOR = "rgba(1, 1, 1, 1)";
+export const CELL_TEXT_COLOR = "#FFFFFF";
+export const CELL_BG_COLOR = "#000000";
 export const CELL_BG_COLOR_ODD = "rgba(1, 1, 1, 0.9)";
 
 export const CELL_PROBLEM_LINE_WIDTH = "5px"; // css property

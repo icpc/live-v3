@@ -9,6 +9,8 @@ import { scoreboardReducer } from "./contest/scoreboard";
 import { debugReducer } from "./debug";
 import { statusReducer } from "./status";
 import { widgetsReducer } from "./widgets";
+import { tickerReducer } from "./ticker";
+import { statisticsReducer } from "./contest/statistics";
 
 const combinedReducer = combineReducers({
     widgets: widgetsReducer,
@@ -16,7 +18,9 @@ const combinedReducer = combineReducers({
     debug: debugReducer,
     queue: queueReducer,
     scoreboard: scoreboardReducer,
-    contestInfo: contestInfoReducer
+    contestInfo: contestInfoReducer,
+    ticker: tickerReducer,
+    statistics: statisticsReducer
 });
 
 const persistConfig = {
