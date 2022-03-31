@@ -8,7 +8,7 @@ import org.icpclive.api.ScoreboardWidget
 
 
 fun Routing.configureScoreboardApi() =
-        setupSimpleWidgetRouting<ScoreboardWidget>(
+        setupSimpleWidgetRouting<ScoreboardSettings, ScoreboardWidget>(
                 prefix = "scoreboard",
                 widgetId = ScoreboardWidget.WIDGET_ID,
                 createWidget = { ScoreboardWidget(ScoreboardSettings()) }

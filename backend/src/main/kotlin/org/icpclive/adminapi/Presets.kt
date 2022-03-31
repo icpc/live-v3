@@ -2,13 +2,12 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
-import kotlinx.serialization.json.encodeToStream
+import kotlinx.serialization.json.*
 import org.icpclive.admin.AdminActionException
 import org.icpclive.api.Preset
-import org.icpclive.api.Content
+import org.icpclive.api.ObjectSettings
 import org.icpclive.api.Widget
 import org.icpclive.data.WidgetManager
 import java.io.File
@@ -16,27 +15,28 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 
-class Presets<ContentType : Content, WidgetType : Widget>(
+class Presets<SettingsType : ObjectSettings, WidgetType : Widget>(
         private val path: String,
-        private val decode: (String) -> MutableList<Preset<ContentType>>,
-        private val encode: (MutableList<Preset<ContentType>>, String) -> Unit,
-        private val createWidget: (ContentType) -> WidgetType,
-        private var innerData: MutableList<Preset<ContentType>> = decode(path),
+        private val decode: (String) -> List<Preset<SettingsType>>,
+        private val encode: (List<Preset<SettingsType>>, String) -> Unit,
+        private val createWidget: (SettingsType) -> WidgetType,
+        private var innerData: List<Preset<SettingsType>> = decode(path),
         private var currentID: Int = innerData.size
 ) {
     private val mutex = Mutex()
 
-    val data: List<Preset<ContentType>>
-        get() = innerData
+    suspend fun get(): List<Preset<SettingsType>> = mutex.withLock {
+        return innerData.map { it.copy() }
+    }
 
-    suspend fun append(content: ContentType) {
+    suspend fun append(settings: SettingsType) {
         mutex.withLock {
-            innerData.add(Preset(++currentID, content))
+            innerData = innerData.plus(Preset(++currentID, settings))
         }
         save()
     }
 
-    suspend fun edit(id: Int, content: ContentType) {
+    suspend fun edit(id: Int, content: SettingsType) {
         mutex.withLock {
             for (preset in innerData) {
                 if (preset.id == id)
@@ -56,7 +56,7 @@ class Presets<ContentType : Content, WidgetType : Widget>(
                 }
                 preset.widgetId = null
             }
-            innerData = innerData.filterNot { it.id == id }.toMutableList()
+            innerData = innerData.filterNot { it.id == id }
         }
         save()
     }
@@ -80,7 +80,6 @@ class Presets<ContentType : Content, WidgetType : Widget>(
                 continue
             preset.widgetId?.let {
                 WidgetManager.hideWidget(it)
-                println(it)
             }
             preset.widgetId = null
         }
@@ -107,13 +106,14 @@ class Presets<ContentType : Content, WidgetType : Widget>(
     }
 }
 
-inline fun <reified ContentType : Content, reified WidgetType : Widget> Presets(path: String,
-                                                                                noinline createWidget: (ContentType) -> WidgetType) =
-        Presets<ContentType, WidgetType>(path,
+@ExperimentalSerializationApi
+inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
+                                                                                        noinline createWidget: (SettingsType) -> WidgetType) =
+        Presets<SettingsType, WidgetType>(path,
                 {
-                    Json.decodeFromStream<List<ContentType>>(FileInputStream(File(path))).mapIndexed { index, content ->
+                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
                         Preset(index + 1, content)
-                    }.toMutableList()
+                    }
                 },
                 { data, fileName ->
                     Json { prettyPrint = true }.encodeToStream(data.map { it.content }, FileOutputStream(File(fileName)))

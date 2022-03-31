@@ -7,7 +7,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import org.icpclive.admin.AdminActionException
 import org.icpclive.admin.Urls
-import org.icpclive.api.Content
+import org.icpclive.api.ObjectSettings
 import org.icpclive.api.Widget
 
 open class SimpleWidgetApiUrls(prefix: String) : Urls {
@@ -25,10 +25,10 @@ open class PresetWidgetApiUrls(prefix: String) : Urls {
     val deletePage = "/adminapi/$prefix/{id}/delete"
 }
 
-internal inline fun <reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
+internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
         prefix: String,
         widgetId: String,
-        noinline createWidget: (Parameters) -> WidgetType,
+        noinline createWidget: (SettingsType) -> WidgetType,
 ): SimpleWidgetApiUrls {
     val urls = SimpleWidgetApiUrls(prefix)
     val widgetWrapper = WidgetWrapper(createWidget)
@@ -40,7 +40,8 @@ internal inline fun <reified WidgetType : Widget> Routing.setupSimpleWidgetRouti
     }
     post(urls.showPage) {
         call.catchAdminApiAction {
-            widgetWrapper.show(receiveParameters())
+            val settings = call.receive<SettingsType>()
+            widgetWrapper.show(settings)
             call.respond(mapOf("status" to "ok"))
         }
     }
@@ -53,34 +54,34 @@ internal inline fun <reified WidgetType : Widget> Routing.setupSimpleWidgetRouti
     return urls
 }
 
-internal inline fun <reified ContentType : Content, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
+internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
         prefix: String,
         widgetId: String,
         presetPath: String,
-        noinline createWidget: (ContentType) -> WidgetType,
+        noinline createWidget: (SettingsType) -> WidgetType,
 ): PresetWidgetApiUrls {
     val urls = PresetWidgetApiUrls(prefix)
-    val presets = Presets<ContentType, WidgetType>(presetPath, createWidget)
+    val presets = Presets<SettingsType, WidgetType>(presetPath, createWidget)
     get(urls.mainPage) {
         presets.let {
-            val response = it.data
+            val response = it.get()
             call.respond(response)
         }
     }
     post(urls.addPage) {
         call.catchAdminApiAction {
-            val getting = call.receive<ContentType>()
+            val settings = call.receive<SettingsType>()
 
-            presets.append(getting)
+            presets.append(settings)
             call.respond(mapOf("status" to "ok"))
         }
     }
     post(urls.editPage) {
         call.catchAdminApiAction {
             val id = call.parameters["id"]?.toInt() ?: throw AdminActionException("Error load preset by id")
-            val getting = call.receive<ContentType>()
+            val settings = call.receive<SettingsType>()
 
-            presets.edit(id, getting)
+            presets.edit(id, settings)
             call.respond(mapOf("status" to "ok"))
         }
     }

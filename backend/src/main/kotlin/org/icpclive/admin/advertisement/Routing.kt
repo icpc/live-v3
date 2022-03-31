@@ -7,7 +7,7 @@ import kotlinx.html.textArea
 import org.icpclive.admin.AdminActionException
 import org.icpclive.admin.setupSimpleWidgetRouting
 import org.icpclive.admin.simpleWidgetViewFun
-import org.icpclive.api.Advertisement
+import org.icpclive.api.AdvertisementSettings
 import org.icpclive.api.AdvertisementWidget
 
 
@@ -24,9 +24,9 @@ fun Routing.configureAdvertisement(presetPath: String) =
                     it
                 }
             } ?: throw AdminActionException("No advertisement chosen")
-            AdvertisementWidget(Advertisement(text))
+            AdvertisementWidget(AdvertisementSettings(text))
         },
-        view = simpleWidgetViewFun<Advertisement>("Advertisement") { presets ->
+        view = simpleWidgetViewFun<AdvertisementSettings>("Advertisement") { presets ->
             for (ad in presets!!.data.get()) {
                 p {
                     radioInput {

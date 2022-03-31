@@ -8,30 +8,28 @@ import org.icpclive.utils.toHex
 import kotlin.time.Duration.Companion.milliseconds
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
-interface Content
-
-@Serializable
-data class Advertisement(val text: String) : Content
-
-@Serializable
-data class Picture(val url: String, val name: String) : Content
-
 interface ObjectSettings
 
 @Serializable
-class QueueSettings
+data class AdvertisementSettings(val text: String) : ObjectSettings
 
 @Serializable
-class ScoreboardSettings
+data class PictureSettings(val url: String, val name: String) : ObjectSettings
 
 @Serializable
-class StatisticSettings
+class QueueSettings : ObjectSettings
 
 @Serializable
-class TickerSettings
+class ScoreboardSettings : ObjectSettings
 
 @Serializable
-data class Preset<ContentType : Content>(val id: Int, var content: ContentType, var widgetId: String? = null)
+class StatisticSettings : ObjectSettings
+
+@Serializable
+class TickerSettings : ObjectSettings
+
+@Serializable
+data class Preset<ContentType : ObjectSettings>(val id: Int, var content: ContentType, var widgetId: String? = null)
 
 @Serializable
 data class RunInfo(

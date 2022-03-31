@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 import org.icpclive.admin.AdminActionException
 import org.icpclive.admin.setupSimpleWidgetRouting
 import org.icpclive.admin.simpleWidgetViewFun
-import org.icpclive.api.Picture
+import org.icpclive.api.PictureSettings
 import org.icpclive.api.PictureWidget
 
 fun Routing.configurePicture(presetPath: String) =
@@ -19,11 +19,11 @@ fun Routing.configurePicture(presetPath: String) =
         widgetId = PictureWidget.WIDGET_ID,
         presetPath = presetPath,
         createWidget = { parameters ->
-            val picture = parameters["picture"]?.let { Json.decodeFromString<Picture>(it) }
+            val pictureSettings = parameters["picture"]?.let { Json.decodeFromString<PictureSettings>(it) }
                 ?: throw AdminActionException("No picture chosen")
-            PictureWidget(picture)
+            PictureWidget(pictureSettings)
         },
-        view = simpleWidgetViewFun<Picture>("Picture") { presets ->
+        view = simpleWidgetViewFun<PictureSettings>("Picture") { presets ->
             for (pic in presets!!.data.get()) {
                 p {
                     radioInput {
