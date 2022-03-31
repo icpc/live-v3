@@ -27,7 +27,6 @@ open class PresetWidgetApiUrls(prefix: String) : Urls {
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
         prefix: String,
-        widgetId: String,
         noinline createWidget: (SettingsType) -> WidgetType,
 ): SimpleWidgetApiUrls {
     val urls = SimpleWidgetApiUrls(prefix)
@@ -56,7 +55,6 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
         prefix: String,
-        widgetId: String,
         presetPath: String,
         noinline createWidget: (SettingsType) -> WidgetType,
 ): PresetWidgetApiUrls {

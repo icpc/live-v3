@@ -7,9 +7,8 @@ import org.icpclive.api.AdvertisementWidget
 
 
 fun Routing.configureAdvertisementApi(presetPath: String) =
-    setupPresetWidgetRouting<AdvertisementSettings, AdvertisementWidget>(
-        prefix = "advertisement",
-        widgetId = AdvertisementWidget.WIDGET_ID,
-        presetPath = presetPath,
-        createWidget = { AdvertisementWidget(it) }
-    )
+        setupPresetWidgetRouting<AdvertisementSettings, AdvertisementWidget>(
+                prefix = "advertisement",
+                presetPath = presetPath,
+                createWidget = { AdvertisementWidget(it) }
+        )
