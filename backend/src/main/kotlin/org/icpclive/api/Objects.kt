@@ -23,7 +23,7 @@ class QueueSettings : ObjectSettings
 class ScoreboardSettings : ObjectSettings
 
 @Serializable
-class StatisticSettings : ObjectSettings
+class StatisticsSettings : ObjectSettings
 
 @Serializable
 class TickerSettings : ObjectSettings
