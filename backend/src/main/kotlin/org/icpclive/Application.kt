@@ -30,7 +30,6 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     install(DefaultHeaders)
     install(CORS) {
-
         header("Access-Control-Expose-Headers: X-Total-Count")
         header(HttpHeaders.ContentType)
         header("*")
