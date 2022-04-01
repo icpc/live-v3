@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import { BACKEND_API_URL } from "./config";
 
 const getUrl = (currentRow) => {
-    console.log(currentRow);
     return (BACKEND_API_URL + currentRow.props.row.path);
 };
 

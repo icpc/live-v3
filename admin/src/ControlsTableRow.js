@@ -7,12 +7,9 @@ import { ShowWidgetButton, onClickShow } from "./ShowWidgetButton";
 export class ControlsTableRow extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Row:", this.props.row.active);
     }
 
     render() {
-        console.log("render row:",this.props.row);
-        console.log("render row:",this.props.row);
         const currentRow = this;
         return (<TableRow
             sx={{ backgroundColor: (this.props.row.active ? this.props.activeColor : this.props.inactiveColor ), maxWidth: "sm" }}>
@@ -20,9 +17,6 @@ export class ControlsTableRow extends React.Component {
                 <ShowWidgetButton
                     onClick={
                         () => {
-                            console.log("SHOW");
-                            console.log(this.props.row);
-                            console.log("SHOW");
                             onClickShow(currentRow);
                             this.setState({ active: !this.props.row.active });
                             currentRow.props.updateTable();

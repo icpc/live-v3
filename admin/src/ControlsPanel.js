@@ -24,7 +24,6 @@ export default class ControlsPanel extends React.Component {
             })
         );
         this.setState({ items: newItems, loaded: true });
-        console.log("update:",this.state.items);
     }
 
     async componentDidMount() {
@@ -32,7 +31,6 @@ export default class ControlsPanel extends React.Component {
     }
 
     render() {
-        console.log("render:",this.state.items);
         return (
             <div>
                 { this.state.loaded && <ControlsTable

@@ -18,8 +18,6 @@ export default class PresetsPanel extends React.Component {
                 .then(res => res.json())
                 .then(
                     (result) => {
-                        console.log(this.state);
-                        console.log("result", result);
                         this.setState({
                             isLoaded: true,
                             items: result,

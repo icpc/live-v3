@@ -8,8 +8,6 @@ export class ControlsTable extends React.Component {
     }
 
     render() {
-        console.log("render table:",this.props.items);
-        console.log("render table:",this.props.items.map(row => {return row;}));
         return (
             <Table align="center" aria-label="simple table" sx={{ maxWidth: "sm" }}>
                 <TableBody>
