@@ -6,7 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { grey } from "@mui/material/colors";
 
-import { ShowButton, onClickShow } from "./ShowButton";
+import { ShowPresetButton, onClickShow } from "./ShowPresetButton";
 import { BACKEND_API_URL } from "./config";
 
 const onClickEdit = (currentRow) => () => {
@@ -20,10 +20,10 @@ const onClickEdit = (currentRow) => () => {
         };
         fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
+            .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
+            .then(currentRow.props.updateTable())
             .then(console.log);
-        currentRow.setState(state => ({ ...state, editValue: undefined }));
     }
-    currentRow.props.updateTable();
 };
 
 const onClickDelete = (currentRow) => () => {
@@ -33,9 +33,9 @@ const onClickDelete = (currentRow) => () => {
     };
     fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/delete", requestOptions)
         .then(response => response.json())
+        .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
+        .then(currentRow.props.updateTable())
         .then(console.log);
-    currentRow.setState(state => ({ ...state, editValue: undefined }));
-    currentRow.props.updateTable();
 };
 
 export class PresetsTableRow extends React.Component {
@@ -54,7 +54,7 @@ export class PresetsTableRow extends React.Component {
             key={this.state.value["id"]}
             sx={{ backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor ) }}>
             <TableCell component="th" scope="row" align={"left"}>
-                <ShowButton
+                <ShowPresetButton
                     onClick={
                         () => {
                             onClickShow(currentRow);

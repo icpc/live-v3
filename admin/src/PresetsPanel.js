@@ -48,8 +48,8 @@ export default class PresetsPanel extends React.Component {
         };
         fetch(BACKEND_API_URL + "/advertisement", requestOptions)
             .then(response => response.json())
+            .then(this.update())
             .then(console.log);
-        this.update();
 
     }
 

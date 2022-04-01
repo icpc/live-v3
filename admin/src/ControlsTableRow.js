@@ -2,32 +2,34 @@ import React from "react";
 import { TableCell, TableRow } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
-import { ShowButton, onClickShow } from "./ShowButton";
+import { ShowWidgetButton, onClickShow } from "./ShowWidgetButton";
 
 export class ControlsTableRow extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: props.row,
-            active: false
-        };
+        console.log("Row:", this.props.row.active);
+        // console.log("Row:", this.props.active);
     }
 
     render() {
+        console.log("render row:",this.props.row);
+        console.log("render row:",this.props.row);
         const currentRow = this;
         return (<TableRow
-            key={this.state.value["id"]}
-            sx={{ backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor ), maxWidth: "sm" }}>
+            sx={{ backgroundColor: (this.props.row.active ? this.props.activeColor : this.props.inactiveColor ), maxWidth: "sm" }}>
             <TableCell component="th" scope="row" align={"left"}>
-                <ShowButton
+                <ShowWidgetButton
                     onClick={
                         () => {
-                            console.log(this.state.value);
+                            console.log("SHOW");
+                            console.log(this.props.row);
+                            console.log("SHOW");
                             onClickShow(currentRow);
-                            this.setState({ active: !this.state.active });
+                            this.setState({ active: !this.props.row.active });
+                            currentRow.props.updateTable();
                         }
                     }
-                    active={this.state.active}
+                    active={this.props.row.active}
                 />
             </TableCell>
             {this.props.keys.map((rowKey) => (
@@ -36,8 +38,8 @@ export class ControlsTableRow extends React.Component {
                     scope="row"
                     key={rowKey}
                     align="left"
-                    sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
-                    { this.state.value[rowKey] }
+                    sx={{ color: (this.props.row.active ? grey[900] : grey[700]) }}>
+                    { this.props.row[rowKey] }
                 </TableCell>
             ))}
         </TableRow>);

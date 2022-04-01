@@ -8,16 +8,19 @@ export class ControlsTable extends React.Component {
     }
 
     render() {
+        console.log("render table:",this.props.items);
+        console.log("render table:",this.props.items.map(row => {return row;}));
         return (
             <Table align="center" aria-label="simple table" sx={{ maxWidth: "sm" }}>
                 <TableBody>
                     {this.props.items !== undefined &&
-                    this.props.items.map((row) =>
+                    this.props.items.map(row =>
                         <ControlsTableRow
-                            activeColor={ this.props.activeColor }
-                            inactiveColor={ this.props.inactiveColor }
+                            updateTable={() => {this.props.updateTable();}}
+                            activeColor={this.props.activeColor}
+                            inactiveColor={this.props.inactiveColor}
                             row={row}
-                            key={row.id}
+                            key={row.text}
                             keys={this.props.keys}/>)
                     }
                 </TableBody>

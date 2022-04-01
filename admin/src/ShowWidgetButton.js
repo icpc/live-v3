@@ -8,37 +8,32 @@ import IconButton from "@mui/material/IconButton";
 import { BACKEND_API_URL } from "./config";
 
 const getUrl = (currentRow) => {
-    return (
-        BACKEND_API_URL +
-        (currentRow.props.path === undefined ? "" : currentRow.props.path + "/") +
-        currentRow.props.row.id
-    );
+    console.log(currentRow);
+    return (BACKEND_API_URL + currentRow.props.row.path);
 };
 
 const show = (currentRow) => {
     const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
     };
     fetch(getUrl(currentRow) + "/show", requestOptions)
         .then(response => response.json())
         .then(console.log);
-    currentRow.setState(state => ({ ...state, editValue: undefined }));
 };
 
 const hide = (currentRow) => {
     const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
     };
     fetch(getUrl(currentRow) + "/hide", requestOptions)
         .then(response => response.json())
         .then(console.log);
-    currentRow.setState(state => ({ ...state, editValue: undefined }));
 };
 
 export const onClickShow = (currentRow) => {
-    if (currentRow.state.active) {
+    if (currentRow.props.row.active) {
         hide(currentRow);
     } else {
         show(currentRow);
@@ -48,7 +43,7 @@ export const onClickShow = (currentRow) => {
     }
 };
 
-export class ShowButton extends React.Component{
+export class ShowWidgetButton extends React.Component{
     constructor(props) {
         super(props);
     }
