@@ -6,6 +6,7 @@ class AdvertisementPanel extends PresetsPanel {
 }
 
 AdvertisementPanel.defaultProps = {
+    ...AdvertisementPanel.defaultProps,
     path: "/advertisement",
     tableKeys: ["text"],
 };

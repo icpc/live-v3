@@ -93,6 +93,7 @@ export default class PresetsPanel extends React.Component {
 }
 
 PresetsPanel.defaultProps = {
+    ...PresetsPanel.defaultProps,
     activeColor: lightBlue[100],
     inactiveColor: "white",
 };
