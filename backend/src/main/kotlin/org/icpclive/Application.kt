@@ -35,7 +35,7 @@ fun Application.module() {
         header("*")
         allowSameOrigin = true
         anyHost()
-    }   
+    }
     install(CallLogging) {
         level = Level.INFO
         filter { call -> call.request.path().startsWith("/") }
