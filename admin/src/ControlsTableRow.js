@@ -8,7 +8,6 @@ export class ControlsTableRow extends React.Component {
     constructor(props) {
         super(props);
         console.log("Row:", this.props.row.active);
-        // console.log("Row:", this.props.active);
     }
 
     render() {

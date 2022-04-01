@@ -5,7 +5,7 @@ import { lightBlue } from "@mui/material/colors";
 
 import ControlsPanel from "./ControlsPanel";
 
-function Advertisement() {
+function Controls() {
     return (
         <div className="ControlsPanel">
             <ControlsPanel activeColor={lightBlue[100]} inactiveColor={"white"}/>
@@ -13,4 +13,4 @@ function Advertisement() {
     );
 }
 
-export default Advertisement;
+export default Controls;

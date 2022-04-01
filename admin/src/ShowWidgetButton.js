@@ -15,7 +15,8 @@ const getUrl = (currentRow) => {
 const show = (currentRow) => {
     const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: { "Content-Type": "application/json" },
+        body: {}
     };
     fetch(getUrl(currentRow) + "/show", requestOptions)
         .then(response => response.json())
@@ -25,7 +26,8 @@ const show = (currentRow) => {
 const hide = (currentRow) => {
     const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: { "Content-Type": "application/json" },
+        body: {}
     };
     fetch(getUrl(currentRow) + "/hide", requestOptions)
         .then(response => response.json())
