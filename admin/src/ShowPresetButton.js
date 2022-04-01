@@ -22,7 +22,6 @@ const show = (currentRow) => {
     };
     fetch(getUrl(currentRow) + "/show", requestOptions)
         .then(response => response.json())
-        .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
         .then(console.log);
 };
 
@@ -33,7 +32,6 @@ const hide = (currentRow) => {
     };
     fetch(getUrl(currentRow) + "/hide", requestOptions)
         .then(response => response.json())
-        .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
         .then(console.log);
 };
 
@@ -61,4 +59,3 @@ export class ShowPresetButton extends React.Component{
         }
     }
 }
-

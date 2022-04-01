@@ -1,5 +1,14 @@
 [
-  {"text":"Сообщение на русском"},
-  {"text":"Message in english"},
-  {"text":"Новое сообщение 1234"}
+    {
+        "text": "Сообщение на русском"
+    },
+    {
+        "text": "Message in english"
+    },
+    {
+        "text": "Новое сообщение 1234"
+    },
+    {
+        "text": "New Advertisement 123"
+    }
 ]

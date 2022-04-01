@@ -13,25 +13,22 @@ export default class PresetsPanel extends React.Component {
     }
 
     update() {
-        setTimeout ( () => {
-            return fetch(BACKEND_API_URL + this.props.path)
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        this.setState({
-                            isLoaded: true,
-                            items: result,
-                        });
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                );
-        },
-        15); // Timeout in order to render properly ¯\_(ツ)_/¯
+        fetch(BACKEND_API_URL + this.props.path)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        items: result,
+                    });
+                },
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            );
     }
 
     componentDidMount() {
@@ -46,7 +43,7 @@ export default class PresetsPanel extends React.Component {
         };
         fetch(BACKEND_API_URL + "/advertisement", requestOptions)
             .then(response => response.json())
-            .then(this.update())
+            .then(this.update)
             .then(console.log);
 
     }

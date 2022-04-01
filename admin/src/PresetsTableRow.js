@@ -21,7 +21,7 @@ const onClickEdit = (currentRow) => () => {
         fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
             .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
-            .then(currentRow.props.updateTable())
+            .then(currentRow.props.updateTable)
             .then(console.log);
     }
 };
@@ -29,12 +29,12 @@ const onClickEdit = (currentRow) => () => {
 const onClickDelete = (currentRow) => () => {
     const requestOptions = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" }
     };
     fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/delete", requestOptions)
         .then(response => response.json())
         .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
-        .then(currentRow.props.updateTable())
+        .then(currentRow.props.updateTable)
         .then(console.log);
 };
 
