@@ -30,11 +30,12 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     install(DefaultHeaders)
     install(CORS) {
+        header("Access-Control-Expose-Headers: X-Total-Count")
         header(HttpHeaders.ContentType)
-        header(HttpHeaders.Authorization)
+        header("*")
         allowSameOrigin = true
         anyHost()
-    }
+    }   
     install(CallLogging) {
         level = Level.INFO
         filter { call -> call.request.path().startsWith("/") }
