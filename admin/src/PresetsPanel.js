@@ -41,7 +41,7 @@ export default class PresetsPanel extends React.Component {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: "New Advertisement" })
         };
-        fetch(BACKEND_API_URL + "/advertisement", requestOptions)
+        fetch(BACKEND_API_URL + this.props.path, requestOptions)
             .then(response => response.json())
             .then(this.update)
             .then(console.log);
