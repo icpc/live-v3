@@ -3,6 +3,7 @@ import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { grey } from "@mui/material/colors";
 
@@ -16,13 +17,13 @@ const onClickEdit = (currentRow) => () => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: currentRow.state.editValue.content.text }),
+            body: JSON.stringify(currentRow.state.editValue.content),
         };
         fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
             .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
             .then(currentRow.props.updateTable)
-            .then(console.log);
+            .catch(currentRow.props.onErrorHandle("Failed to edit preset"));
     }
 };
 
@@ -35,7 +36,7 @@ const onClickDelete = (currentRow) => () => {
         .then(response => response.json())
         .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
         .then(currentRow.props.updateTable)
-        .then(console.log);
+        .catch(currentRow.props.onErrorHandle("Failed to delete preset"));
 };
 
 export class PresetsTableRow extends React.Component {
@@ -52,19 +53,14 @@ export class PresetsTableRow extends React.Component {
         const currentRow = this;
         return (<TableRow
             key={this.state.value["id"]}
-            sx={{ backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor ) }}>
+            sx={{ backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor) }}>
             <TableCell component="th" scope="row" align={"left"}>
                 <ShowPresetButton
-                    onClick={
-                        () => {
-                            onClickShow(currentRow);
-                            this.setState({ active: !this.state.active });
-                        }
-                    }
+                    onClick={onClickShow(currentRow)}
                     active={this.state.active}
                 />
             </TableCell>
-            {this.props.keys.map((rowKey) => (
+            {this.props.tableKeys.map((rowKey) => (
                 <TableCell
                     component="th"
                     scope="row"
@@ -78,6 +74,7 @@ export class PresetsTableRow extends React.Component {
                                 id="filled-hidden-label-small"
                                 type="text"
                                 size="small"
+                                sx={{ width: 1 }}
                                 onChange={(e) => {
                                     currentRow.state.editValue.content[rowKey] = e.target.value;
                                 }}
@@ -88,7 +85,9 @@ export class PresetsTableRow extends React.Component {
             ))}
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
-                    <IconButton color="inherit" onClick={onClickEdit(currentRow)}><EditIcon/></IconButton>
+                    <IconButton color="inherit" onClick={onClickEdit(currentRow)}>
+                        {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
+                    </IconButton>
                     <IconButton color="error" onClick={onClickDelete(currentRow)}><DeleteIcon/></IconButton>
                 </Box>
             </TableCell>

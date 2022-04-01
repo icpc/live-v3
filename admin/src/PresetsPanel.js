@@ -4,12 +4,30 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { PresetsTable } from "./PresetsTable";
 import { BACKEND_API_URL } from "./config";
+import { Alert, Snackbar } from "@mui/material";
+import { lightBlue } from "@mui/material/colors";
 
 export default class PresetsPanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = { items: [] };
         this.update = this.update.bind(this);
+        this.onErrorHandle = this.onErrorHandle.bind(this);
+        this.hideErrorAlert = this.hideErrorAlert.bind(this);
+    }
+
+    onErrorHandle(cause) {
+        return (error) => {
+            console.log(cause + ":", error);
+            this.setState(state => ({
+                ...state,
+                error: cause,
+            }));
+        };
+    }
+
+    hideErrorAlert() {
+        this.setState(state => ({ ...state, error: undefined }));
     }
 
     update() {
@@ -17,34 +35,32 @@ export default class PresetsPanel extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
-                    this.setState({
-                        isLoaded: true,
+                    this.setState(state => ({
+                        ...state,
                         items: result,
-                    });
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            );
+                        error: undefined,
+                    }));
+                })
+            .catch(this.onErrorHandle("Failed to load list of presets"));
     }
 
     componentDidMount() {
         this.update();
     }
 
-    openAddForm() {
+    addPresetRequest() {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: "New Advertisement" })
+            body: JSON.stringify(this.props.tableKeys.reduce((defaultObj, key) => {
+                defaultObj[key] = "";
+                return defaultObj;
+            }, {}))
         };
         fetch(BACKEND_API_URL + this.props.path, requestOptions)
             .then(response => response.json())
             .then(this.update)
-            .then(console.log);
+            .catch(this.onErrorHandle("Failed to add preset"));
 
     }
 
@@ -53,16 +69,32 @@ export default class PresetsPanel extends React.Component {
             <div>
                 <PresetsTable
                     path={this.props.path}
-                    updateTable={() => {this.update();}}
+                    updateTable={() => {
+                        this.update();
+                    }}
                     activeColor={this.props.activeColor}
                     inactiveColor={this.props.inactiveColor}
                     items={this.state.items}
-                    keys={["text"]}/>
-                <div>
-                    <IconButton color="primary" size="large" onClick={() => {this.openAddForm();}}><AddIcon/></IconButton>
-                </div>
+                    tableKeys={this.props.tableKeys}
+                    onErrorHandle={this.onErrorHandle}/>
+                <IconButton color="primary" size="large" onClick={() => {
+                    this.addPresetRequest();
+                }}><AddIcon/></IconButton>
+
+                <Snackbar open={this.state.error !== undefined} autoHideDuration={10000}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+                    <Alert onClose={this.hideErrorAlert} severity="error" sx={{ width: "100%" }}>
+                        {this.state.error}
+                    </Alert>
+                </Snackbar>
             </div>
         );
     }
 }
+
+PresetsPanel.defaultProps = {
+    activeColor: lightBlue[100],
+    inactiveColor: "white",
+};
+
 

@@ -15,38 +15,19 @@ const getUrl = (currentRow) => {
     );
 };
 
-const show = (currentRow) => {
+export const onClickShow = (currentRow) => () => {
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
     };
-    fetch(getUrl(currentRow) + "/show", requestOptions)
+    fetch(getUrl(currentRow) + (currentRow.state.active ? "/hide" : "/show"), requestOptions)
         .then(response => response.json())
-        .then(console.log);
+        .then(() => currentRow.setState(state => ({ ...state, active: !currentRow.state.active })))
+        .then(currentRow.props.updateTable)
+        .catch(currentRow.props.onErrorHandle("Failed to hide preset"));
 };
 
-const hide = (currentRow) => {
-    const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-    };
-    fetch(getUrl(currentRow) + "/hide", requestOptions)
-        .then(response => response.json())
-        .then(console.log);
-};
-
-export const onClickShow = (currentRow) => {
-    if (currentRow.state.active) {
-        hide(currentRow);
-    } else {
-        show(currentRow);
-    }
-    if (!(currentRow.props.updateTable === undefined)) {
-        currentRow.props.updateTable();
-    }
-};
-
-export class ShowPresetButton extends React.Component{
+export class ShowPresetButton extends React.Component {
     constructor(props) {
         super(props);
     }

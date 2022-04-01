@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Ticker from "./Ticker";
 import Controls from "./Controls";
 import Advertisement from "./Advertisement";
+import Picture from "./Picture";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                         <Route path = "/" element={<Controls/>}/>
                         <Route path = "/controls" element={<Controls/>}/>
                         <Route path = "/advertisement" element={<Advertisement/>}/>
+                        <Route path = "/picture" element={<Picture/>}/>
                         <Route path = "/ticker" element={<Ticker/>}/>
                     </Routes>
                 </Container>

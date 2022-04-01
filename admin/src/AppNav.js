@@ -44,12 +44,12 @@ const ResponsiveAppBar = () => {
                             variant="h5"
                             noWrap
                             onClick={() => navigate("/")}
-                            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+                            sx={{ mr: 2, display: { md: "flex" } }}
                         >
-                            ICPC Live Admin
+                            ICPC Live 3
                         </Typography>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                    <Box sx={{ flexGrow: 1, display: { xs: "flex" } }}>
                         {Object.entries(pages).map(([name, url]) => <Button
                             key={url}
                             onClick={() => navigate(url)}

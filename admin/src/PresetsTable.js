@@ -9,18 +9,19 @@ export class PresetsTable extends React.Component {
 
     render() {
         return (
-            <Table align={ "center" } aria-label="simple table" sx={{ maxWidth: "sm" }}>
+            <Table align={"center"} aria-label="simple table" sx={{ maxWidth: "md" }}>
                 <TableBody>
                     {this.props.items !== undefined &&
                     this.props.items.map((row) =>
                         <PresetsTableRow
                             path={this.props.path}
-                            updateTable={() => {this.props.updateTable();}}
+                            updateTable={this.props.updateTable}
                             activeColor={this.props.activeColor}
                             inactiveColor={this.props.inactiveColor}
                             row={row}
                             key={row.id}
-                            keys={this.props.keys}/>)
+                            tableKeys={this.props.tableKeys}
+                            onErrorHandle={this.props.onErrorHandle}/>)
                     }
                 </TableBody>
             </Table>
