@@ -21,7 +21,7 @@ sealed class Widget(
 
 @Serializable
 @SerialName("AdvertisementWidget")
-class AdvertisementWidget(val advertisement: Advertisement) : Widget(WIDGET_ID, location) {
+class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "advertisement"
         val location = LocationRectangle(0, 860, 1920, 90)
@@ -30,7 +30,7 @@ class AdvertisementWidget(val advertisement: Advertisement) : Widget(WIDGET_ID, 
 
 @Serializable
 @SerialName("PictureWidget")
-class PictureWidget(val picture: Picture) : Widget(WIDGET_ID, location) {
+class PictureWidget(val picture: PictureSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "picture"
         val location = LocationRectangle(590, 50, 1300, 960)
@@ -57,7 +57,7 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, loc
 
 @Serializable
 @SerialName("StatisticsWidget")
-class StatisticsWidget(val settings: StatisticSettings) : Widget(WIDGET_ID, location) {
+class StatisticsWidget(val settings: StatisticsSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "statistics"
         val location = LocationRectangle(590, 520, 1300, 500)

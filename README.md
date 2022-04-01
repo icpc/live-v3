@@ -28,6 +28,7 @@ Setup configDirectory in \live-v3\backend\config\application.conf .
 
 ## Running frontend separate from backend
 Frontend takes base url from environment variable `REACT_APP_WEBSOCKET_URL`
+
 On linux:
 ```
 REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/overlay npm run start
@@ -39,7 +40,20 @@ set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/overlay
 npm run start
 ```
 
-Previous versions:
+To add source to OBS:
+
+1. +Source
+1. Browser
+1. URL http://localhost:3000/
+1. W H 1920*1920! (not 1920*1080)
+1. Custom css: 
+```
+#root > div {
+background: unset;
+}
+```
+
+# Previous versions:
 * https://github.com/icpc-live
 * https://github.com/Aksenov239/icpc-live-v2
 
