@@ -16,7 +16,7 @@ const show = (currentRow) => {
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: {}
+        body: JSON.stringify({})
     };
     fetch(getUrl(currentRow) + "/show", requestOptions)
         .then(response => response.json())
@@ -27,7 +27,7 @@ const hide = (currentRow) => {
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: {}
+        body: JSON.stringify({})
     };
     fetch(getUrl(currentRow) + "/hide", requestOptions)
         .then(response => response.json())
