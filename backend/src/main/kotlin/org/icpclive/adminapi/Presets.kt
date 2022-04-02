@@ -16,12 +16,12 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 class Presets<SettingsType : ObjectSettings, WidgetType : Widget>(
-        private val path: String,
-        private val decode: (String) -> List<Preset<SettingsType>>,
-        private val encode: (List<Preset<SettingsType>>, String) -> Unit,
-        private val createWidget: (SettingsType) -> WidgetType,
-        private var innerData: List<Preset<SettingsType>> = decode(path),
-        private var currentID: Int = innerData.size
+    private val path: String,
+    private val decode: (String) -> List<Preset<SettingsType>>,
+    private val encode: (List<Preset<SettingsType>>, String) -> Unit,
+    private val createWidget: (SettingsType) -> WidgetType,
+    private var innerData: List<Preset<SettingsType>> = decode(path),
+    private var currentID: Int = innerData.size
 ) {
     private val mutex = Mutex()
 
@@ -85,7 +85,7 @@ class Presets<SettingsType : ObjectSettings, WidgetType : Widget>(
         }
     }
 
-    suspend private fun load() = mutex.withLock {
+    private suspend fun load() = mutex.withLock {
         try {
             innerData = decode(path)
         } catch (e: SerializationException) {
@@ -95,7 +95,7 @@ class Presets<SettingsType : ObjectSettings, WidgetType : Widget>(
         }
     }
 
-    suspend private fun save() = mutex.withLock {
+    private suspend fun save() = mutex.withLock {
         try {
             encode(innerData, path)
         } catch (e: SerializationException) {
@@ -106,16 +106,21 @@ class Presets<SettingsType : ObjectSettings, WidgetType : Widget>(
     }
 }
 
+val jsonPrettyEncoder = Json { prettyPrint = true }
+
 @ExperimentalSerializationApi
-inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
-                                                                                        noinline createWidget: (SettingsType) -> WidgetType) =
-        Presets<SettingsType, WidgetType>(path,
-                {
-                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
-                        Preset(index + 1, content)
-                    }
-                },
-                { data, fileName ->
-                    Json { prettyPrint = true }.encodeToStream(data.map { it.content }, FileOutputStream(File(fileName)))
-                },
-                createWidget)
+inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(
+    path: String,
+    noinline createWidget: (SettingsType) -> WidgetType
+) = Presets(
+    path,
+    {
+        Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
+            Preset(index + 1, content)
+        }
+    },
+    { data, fileName ->
+        jsonPrettyEncoder.encodeToStream(data.map { it.content }, FileOutputStream(File(fileName)))
+    },
+    createWidget
+)
