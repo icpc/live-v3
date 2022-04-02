@@ -32,6 +32,7 @@ fun Application.module() {
     install(CORS) {
         header(HttpHeaders.ContentType)
         header(HttpHeaders.Authorization)
+        header("*")
         allowSameOrigin = true
         anyHost()
     }

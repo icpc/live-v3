@@ -20,9 +20,9 @@ export const onClickShow = (currentRow) => () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
     };
-    fetch(getUrl(currentRow) + (currentRow.state.active ? "/hide" : "/show"), requestOptions)
+    fetch(getUrl(currentRow) + (currentRow.state.shown ? "/hide" : "/show"), requestOptions)
         .then(response => response.json())
-        .then(() => currentRow.setState(state => ({ ...state, active: !currentRow.state.active })))
+        .then(() => currentRow.setState(state => ({ ...state, shown: !currentRow.state.shown })))
         .then(currentRow.props.updateTable)
         .catch(currentRow.props.onErrorHandle("Failed to hide preset"));
 };

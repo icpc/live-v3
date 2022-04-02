@@ -17,9 +17,10 @@ export default class ControlsPanel extends React.Component {
     async update() {
         const newItems = await Promise.all(
             this.state.items.map(async (element) => {
-                const result = await fetch(BASE_URL_BACKEND + element.path);
+                let result = await fetch(BASE_URL_BACKEND + element.path);
+                result = await result.json();
                 try {
-                    return { ...element, active: await result.json() };
+                    return { ...element, ...result };
                 } catch {
                     return { ...element };
                 }
@@ -33,6 +34,7 @@ export default class ControlsPanel extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
                 { this.state.loaded && <ControlsTable

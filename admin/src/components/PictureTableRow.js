@@ -20,12 +20,13 @@ const onClickEdit = (currentRow) => () => {
     if (currentRow.state.editValue === undefined) {
         currentRow.setState(state => ({ ...state, editValue: state.value }));
     } else {
+        console.log(currentRow.state.editValue);
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                name: currentRow.state.editValue.content.name,
-                url: currentRow.props.row.content.url }),
+                name: getSettings(currentRow.state.editValue).name,
+                url: getSettings(currentRow.props.row).url }),
         };
         fetch(BASE_URL_BACKEND + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
@@ -47,13 +48,17 @@ const onClickDelete = (currentRow) => () => {
         .then(console.log);
 };
 
+const getSettings = (row) => {
+    return row.settings;
+};
+
 export class PictureTableRow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             value: props.row,
             editValue: undefined,
-            active: props.row.widgetId !== null
+            shown: props.row.shown
         };
     }
 
@@ -68,27 +73,27 @@ export class PictureTableRow extends React.Component {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor ) }} >
+                            backgroundColor: (this.state.shown ? this.props.activeColor : this.props.inactiveColor ) }} >
                         <CardMedia
                             sx={{ display: "flex", flexDirection: "column", maxBlockSize: "sm" }}
                             component="img"
-                            image={currentRow.props.row.content.url}
+                            image={getSettings(currentRow.props.row).url}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h6" component="div">
                                 {this.props.keys.map((rowKey) => (
                                     <div key={rowKey}>
-                                        {this.state.editValue === undefined ? this.state.value.content[rowKey] : (
+                                        {this.state.editValue === undefined ? getSettings(currentRow.props.row)[rowKey] : (
                                             <Box onSubmit={onClickEdit(currentRow)} component="form" type="submit">
                                                 <TextField
                                                     autoFocus
                                                     hiddenLabel
-                                                    defaultValue={this.state.value.content[rowKey]}
+                                                    defaultValue={getSettings(currentRow.props.row)[rowKey]}
                                                     id="filled-hidden-label-small"
                                                     type="text"
                                                     size="small"
                                                     onChange={(e) => {
-                                                        currentRow.state.editValue.content[rowKey] = e.target.value;
+                                                        getSettings(currentRow.state.editValue)[rowKey] = e.target.value;
                                                     }}
                                                 />
                                             </Box>)
@@ -100,7 +105,7 @@ export class PictureTableRow extends React.Component {
                         <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
                             <ShowPresetButton
                                 onClick={onClickShow(currentRow)}
-                                active={this.state.active}
+                                active={this.state.shown}
                             />
                             <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"} onClick={onClickEdit(currentRow)}>
                                 {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
@@ -110,34 +115,6 @@ export class PictureTableRow extends React.Component {
                     </Card>
                 </Box>
             </TableCell>
-            {/* {this.props.keys.map((rowKey) => (
-                <TableCell
-                    component="th"
-                    scope="row"
-                    key={rowKey}
-                    sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
-                    {this.state.editValue === undefined ? this.state.value.content[rowKey] : (
-                        <Box onSubmit={onClickEdit(currentRow)} component="form" type="submit">
-                            <TextField
-                                hiddenLabel
-                                defaultValue={this.state.value.content[rowKey]}
-                                id="filled-hidden-label-small"
-                                type="text"
-                                size="small"
-                                onChange={(e) => {
-                                    currentRow.state.editValue.content[rowKey] = e.target.value;
-                                }}
-                            />
-                        </Box>)
-                    }
-                </TableCell>
-            ))} */}
-            {/* <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
-                <Box>
-                    <IconButton color="inherit" onClick={onClickEdit(currentRow)}><EditIcon/></IconButton>
-                    <IconButton color="error" onClick={onClickDelete(currentRow)}><DeleteIcon/></IconButton>
-                </Box>
-            </TableCell> */}
         </TableRow>);
     }
 }
