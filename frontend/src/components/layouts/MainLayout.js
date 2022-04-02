@@ -84,7 +84,7 @@ export const MainLayout = () => {
                             top={obj.location.positionY}
                             width={obj.location.sizeX}
                             height={obj.location.sizeY}
-                            {...(transitionProps[state] && !Widget.ignoreTransition)}
+                            {...(!Widget.ignoreAnimation && transitionProps[state])}
                         >
                             <Widget widgetData={obj} transitionState={state}/>
                         </WidgetWrap>
