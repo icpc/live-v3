@@ -69,6 +69,7 @@ export class PresetsTableRow extends React.Component {
                     {this.state.editValue === undefined ? this.state.value.content[rowKey] : (
                         <Box onSubmit={onClickEdit(currentRow)} component="form" type="submit">
                             <TextField
+                                autoFocus
                                 hiddenLabel
                                 defaultValue={this.state.value.content[rowKey]}
                                 id="filled-hidden-label-small"
@@ -85,7 +86,7 @@ export class PresetsTableRow extends React.Component {
             ))}
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
-                    <IconButton color="inherit" onClick={onClickEdit(currentRow)}>
+                    <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"} onClick={onClickEdit(currentRow)}>
                         {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
                     </IconButton>
                     <IconButton color="error" onClick={onClickDelete(currentRow)}><DeleteIcon/></IconButton>

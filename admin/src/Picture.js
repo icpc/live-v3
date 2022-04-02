@@ -1,14 +1,9 @@
 import React from "react";
 import "./App.css";
-import PresetsPanel from "./PresetsPanel";
+import PicturePanel from "./PicturePanel";
 
-class PicturePanel extends PresetsPanel {
-}
-
-PicturePanel.defaultProps = {
-    path: "/picture",
-    tableKeys: ["name", "url"],
-};
+// class PicturePanel extends PresetsPanel {
+// }
 
 function Picture() {
     return (

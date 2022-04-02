@@ -1,19 +1,17 @@
 import React from "react";
-import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
-
-import { PresetsTable } from "./PresetsTable";
-import { BACKEND_API_URL } from "./config";
-import { Alert, Snackbar } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
 
-export default class PresetsPanel extends React.Component {
+import { PictureTable } from "./PictureTable";
+import { BACKEND_API_URL } from "./config";
+
+import FormDialog from "./PictureDIalog";
+
+export default class PicturePanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = { items: [] };
         this.update = this.update.bind(this);
-        this.onErrorHandle = this.onErrorHandle.bind(this);
-        this.hideErrorAlert = this.hideErrorAlert.bind(this);
+        this.addPictureRequest = this.addPictureRequest.bind(this);
     }
 
     onErrorHandle(cause) {
@@ -48,53 +46,43 @@ export default class PresetsPanel extends React.Component {
         this.update();
     }
 
-    addPresetRequest() {
+    addPictureRequest(name="", url="") {
+        const keys = [...this.props.tableKeys, "url"];
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(this.props.tableKeys.reduce((defaultObj, key) => {
-                defaultObj[key] = "";
-                return defaultObj;
-            }, {}))
+            body: JSON.stringify({ "name": name, "url": url })
         };
         fetch(BACKEND_API_URL + this.props.path, requestOptions)
             .then(response => response.json())
             .then(this.update)
-            .catch(this.onErrorHandle("Failed to add preset"));
+            .catch(this.onErrorHandle("Failed to add picture"));
     }
 
     render() {
         return (
             <div>
-                <PresetsTable
+                <PictureTable
                     path={this.props.path}
-                    updateTable={() => {
-                        this.update();
-                    }}
+                    updateTable={() => {this.update();}}
                     activeColor={this.props.activeColor}
                     inactiveColor={this.props.inactiveColor}
                     items={this.state.items}
-                    tableKeys={this.props.tableKeys}
+                    keys={this.props.tableKeys}
                     onErrorHandle={this.onErrorHandle}/>
-                <IconButton color="primary" size="large" onClick={() => {
-                    this.addPresetRequest();
-                }}><AddIcon/></IconButton>
+                <div>
 
-                <Snackbar open={this.state.error !== undefined} autoHideDuration={10000}
-                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
-                    <Alert onClose={this.hideErrorAlert} severity="error" sx={{ width: "100%" }}>
-                        {this.state.error}
-                    </Alert>
-                </Snackbar>
+                </div>
+                <FormDialog addRequest={this.addPictureRequest}/>
             </div>
         );
     }
 }
 
-PresetsPanel.defaultProps = {
-    ...PresetsPanel.defaultProps,
+PicturePanel.defaultProps = {
+    ...PicturePanel.defaultProps,
+    path: "/picture",
+    tableKeys: ["name"],
     activeColor: lightBlue[100],
     inactiveColor: "white",
 };
-
-

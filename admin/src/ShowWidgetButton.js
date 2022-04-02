@@ -58,3 +58,8 @@ export class ShowWidgetButton extends React.Component{
     }
 }
 
+ShowWidgetButton.defaultProps = {
+    ...ShowWidgetButton.defaultProps,
+    onClick: onClickShow
+};
+

@@ -40,3 +40,8 @@ export class ShowPresetButton extends React.Component {
         }
     }
 }
+
+ShowPresetButton.defaultProps = {
+    ...ShowPresetButton.defaultProps,
+    onClick: onClickShow
+};
