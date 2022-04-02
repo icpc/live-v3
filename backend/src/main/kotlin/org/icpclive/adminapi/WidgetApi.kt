@@ -28,10 +28,9 @@ open class PresetWidgetApiUrls(prefix: String) : Urls {
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
         prefix: String,
-        noinline createWidget: (SettingsType) -> WidgetType,
+        widgetWrapper: WidgetWrapper<SettingsType, WidgetType>,
 ): SimpleWidgetApiUrls {
     val urls = SimpleWidgetApiUrls(prefix)
-    val widgetWrapper = WidgetWrapper(createWidget)
     get(urls.mainPage) {
         call.catchAdminApiAction {
             val response = widgetWrapper.getStatus()
@@ -57,7 +56,6 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     return urls
 }
 
-@ExperimentalSerializationApi
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
         prefix: String,
         presetPath: String,

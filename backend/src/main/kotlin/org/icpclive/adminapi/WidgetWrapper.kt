@@ -9,7 +9,7 @@ import org.icpclive.data.WidgetManager
 
 class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
         private val createWidget: (SettingsType) -> WidgetType,
-        var settings: SettingsType? = null,
+        var settings: SettingsType,
         val id: Int? = null) {
     private val mutex = Mutex()
 
@@ -29,11 +29,9 @@ class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
         mutex.withLock {
             if (widgetId != null)
                 return
-            settings?.let {
-                val widget = createWidget(it)
-                WidgetManager.showWidget(widget)
-                widgetId = widget.widgetId
-            }
+            val widget = createWidget(settings)
+            WidgetManager.showWidget(widget)
+            widgetId = widget.widgetId
         }
     }
 

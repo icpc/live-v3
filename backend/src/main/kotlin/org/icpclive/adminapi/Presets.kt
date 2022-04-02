@@ -79,32 +79,19 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
 
     suspend private fun load() {
         mutex.withLock {
-            try {
-                innerData = decode(path)
-            } catch (e: SerializationException) {
-                throw AdminActionException("Failed to deserialize presets: ${e.message}")
-            } catch (e: IOException) {
-                throw AdminActionException("Error reading presets: ${e.message}")
-            }
+            innerData = decode(path)
         }
     }
 
     suspend private fun save() {
         mutex.withLock {
-            try {
-                encode(innerData, path)
-            } catch (e: SerializationException) {
-                throw AdminActionException("Failed to deserialize presets: ${e.message}")
-            } catch (e: IOException) {
-                throw AdminActionException("Error reading presets: ${e.message}")
-            }
+            encode(innerData, path)
         }
     }
 }
 
 val jsonPrettyEncoder = Json { prettyPrint = true }
 
-@ExperimentalSerializationApi
 inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
                                                                                         noinline createWidget: (SettingsType) -> WidgetType) =
         PresetsManager<SettingsType, WidgetType>(path,
