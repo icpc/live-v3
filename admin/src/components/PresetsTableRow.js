@@ -10,6 +10,10 @@ import { grey } from "@mui/material/colors";
 import { ShowPresetButton, onClickShow } from "./ShowPresetButton";
 import { BASE_URL_BACKEND } from "../config";
 
+const getSettings = (row) => {
+    return row.settings;
+};
+
 const onClickEdit = (currentRow) => () => {
     if (currentRow.state.editValue === undefined) {
         currentRow.setState(state => ({ ...state, editValue: state.value }));
@@ -17,7 +21,7 @@ const onClickEdit = (currentRow) => () => {
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(currentRow.state.editValue.content),
+            body: JSON.stringify(getSettings(currentRow.state.editValue)),
         };
         fetch(BASE_URL_BACKEND + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
@@ -45,7 +49,7 @@ export class PresetsTableRow extends React.Component {
         this.state = {
             value: props.row,
             editValue: undefined,
-            active: !(props.row.widgetId === null)
+            shown: props.row.shown
         };
     }
 
@@ -53,11 +57,11 @@ export class PresetsTableRow extends React.Component {
         const currentRow = this;
         return (<TableRow
             key={this.state.value["id"]}
-            sx={{ backgroundColor: (this.state.active ? this.props.activeColor : this.props.inactiveColor) }}>
+            sx={{ backgroundColor: (this.state.shown ? this.props.activeColor : this.props.inactiveColor) }}>
             <TableCell component="th" scope="row" align={"left"}>
                 <ShowPresetButton
                     onClick={onClickShow(currentRow)}
-                    active={this.state.active}
+                    active={this.state.shown}
                 />
             </TableCell>
             {this.props.tableKeys.map((rowKey) => (
@@ -66,18 +70,18 @@ export class PresetsTableRow extends React.Component {
                     scope="row"
                     key={rowKey}
                     sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
-                    {this.state.editValue === undefined ? this.state.value.content[rowKey] : (
+                    {this.state.editValue === undefined ? getSettings(this.state.value)[rowKey] : (
                         <Box onSubmit={onClickEdit(currentRow)} component="form" type="submit">
                             <TextField
                                 autoFocus
                                 hiddenLabel
-                                defaultValue={this.state.value.content[rowKey]}
+                                defaultValue={getSettings(this.state.value)[rowKey]}
                                 id="filled-hidden-label-small"
                                 type="text"
                                 size="small"
                                 sx={{ width: 1 }}
                                 onChange={(e) => {
-                                    currentRow.state.editValue.content[rowKey] = e.target.value;
+                                    getSettings(currentRow.state.editValue)[rowKey] = e.target.value;
                                 }}
                             />
                         </Box>)

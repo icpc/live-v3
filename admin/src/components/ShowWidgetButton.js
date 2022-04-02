@@ -34,12 +34,12 @@ const hide = (currentRow) => {
 };
 
 export const onClickShow = (currentRow) => {
-    if (currentRow.props.row.active) {
+    if (currentRow.props.row.shown) {
         hide(currentRow);
     } else {
         show(currentRow);
     }
-    if (!(currentRow.props.updateTable === undefined)) {
+    if (currentRow.props.updateTable !== undefined) {
         currentRow.props.updateTable();
     }
 };
