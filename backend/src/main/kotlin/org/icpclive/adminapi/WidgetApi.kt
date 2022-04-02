@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import org.icpclive.admin.AdminActionException
 import org.icpclive.admin.Urls
 import org.icpclive.api.ObjectSettings
@@ -34,18 +35,21 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     get(urls.mainPage) {
         call.catchAdminApiAction {
             val response = widgetWrapper.getStatus()
+
             call.respond(response)
         }
     }
     post(urls.showPage) {
         call.catchAdminApiAction {
             val settings = call.receive<SettingsType>()
+
             widgetWrapper.show(settings)
             call.respond(mapOf("status" to "ok"))
         }
     }
     post(urls.hidePage) {
         call.catchAdminApiAction {
+
             widgetWrapper.hide()
             call.respond(mapOf("status" to "ok"))
         }
@@ -53,6 +57,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     return urls
 }
 
+@ExperimentalSerializationApi
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
         prefix: String,
         presetPath: String,
@@ -63,6 +68,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     get(urls.mainPage) {
         presets.let {
             val response = it.getStatus()
+
             call.respond(response)
         }
     }
