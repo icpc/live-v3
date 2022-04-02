@@ -33,7 +33,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     val widgetWrapper = WidgetWrapper(createWidget)
     get(urls.mainPage) {
         call.catchAdminApiAction {
-            val response = widgetWrapper.status
+            val response = widgetWrapper.getStatus()
             call.respond(response)
         }
     }
@@ -62,7 +62,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     val presets = Presets<SettingsType, WidgetType>(presetPath, createWidget)
     get(urls.mainPage) {
         presets.let {
-            val response = it.get()
+            val response = it.getStatus()
             call.respond(response)
         }
     }

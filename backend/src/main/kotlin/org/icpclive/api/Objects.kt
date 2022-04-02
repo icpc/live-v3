@@ -11,31 +11,25 @@ import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 interface ObjectSettings
 
 @Serializable
-@SerialName("Advertisement")
 data class AdvertisementSettings(val text: String) : ObjectSettings
 
 @Serializable
-@SerialName("Picture")
 data class PictureSettings(val url: String, val name: String) : ObjectSettings
 
 @Serializable
-@SerialName("Queue")
 class QueueSettings : ObjectSettings
 
 @Serializable
-@SerialName("Scoreboard")
 class ScoreboardSettings : ObjectSettings
 
 @Serializable
-@SerialName("Statistics")
 class StatisticsSettings : ObjectSettings
 
 @Serializable
-@SerialName("Ticker")
 class TickerSettings : ObjectSettings
 
 @Serializable
-data class Preset<ContentType : ObjectSettings>(val id: Int, var content: ContentType, var widgetId: String? = null)
+data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val settings: SettingsType?, val id: Int?)
 
 @Serializable
 data class RunInfo(
