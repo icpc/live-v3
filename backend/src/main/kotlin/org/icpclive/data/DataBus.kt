@@ -4,7 +4,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.OptimismLevel
-import org.icpclive.utils.firstNotNull
+import org.icpclive.utils.LateInitFlow
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads
@@ -14,30 +14,22 @@ import org.icpclive.utils.firstNotNull
  */
 object DataBus {
     val contestInfoUpdates = MutableStateFlow(ContestInfo.EMPTY)
-    private val mainScreenEventsHolder = MutableStateFlow<Flow<MainScreenEvent>?>(null)
-    private val queueEventsFlowHolder = MutableStateFlow<Flow<QueueEvent>?>(null)
-    private val tickerFlowHolder = MutableStateFlow<Flow<TickerEvent>?>(null)
-    private val scoreboardFlowHolders = Array(OptimismLevel.values().size) { MutableStateFlow<Flow<Scoreboard>?>(null) }
-    private val statisticFlowHolder = MutableStateFlow<Flow<SolutionsStatistic>?>(null)
+    val mainScreenFlow = LateInitFlow<MainScreenEvent>()
+    val queueFlow = LateInitFlow<QueueEvent>()
+    val tickerFlow = LateInitFlow<TickerEvent>()
+    private val scoreboardFlow = Array(OptimismLevel.values().size) { LateInitFlow<Scoreboard>() }
+    val statisticFlow = LateInitFlow<SolutionsStatistic>()
 
-    fun setMainScreenEvents(value: Flow<MainScreenEvent>) { mainScreenEventsHolder.value = value }
-    fun setQueueEvents(value: Flow<QueueEvent>) { queueEventsFlowHolder.value = value }
-    fun setStatisticEvents(value: Flow<SolutionsStatistic>) { statisticFlowHolder.value = value }
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
-        scoreboardFlowHolders[level.ordinal].value = flow
+        scoreboardFlow[level.ordinal].set(flow)
     }
-    fun setTickerEvents(value: Flow<TickerEvent>)  { tickerFlowHolder.value = value }
+    suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].get()
 
-    suspend fun mainScreenEvents() = mainScreenEventsHolder.firstNotNull()
-    suspend fun queueEvents() = queueEventsFlowHolder.firstNotNull()
-    suspend fun tickerEvents() = tickerFlowHolder.firstNotNull()
-    suspend fun statisticEvents() = statisticFlowHolder.firstNotNull()
-    suspend fun scoreboardEvents(level: OptimismLevel) = scoreboardFlowHolders[level.ordinal].firstNotNull()
 
     @OptIn(FlowPreview::class)
     val allEvents
-        get() = listOf(mainScreenEventsHolder, queueEventsFlowHolder, tickerFlowHolder)
-            .map { it.filterNotNull().take(1) }
+        get() = listOf(mainScreenFlow, queueFlow, tickerFlow)
+            .map { flow { emit(it.get()) } }
             .merge()
             .flattenMerge(concurrency = Int.MAX_VALUE)
 }

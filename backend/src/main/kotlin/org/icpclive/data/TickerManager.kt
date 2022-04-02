@@ -49,7 +49,7 @@ object TickerManager {
     }
 
     init {
-        DataBus.setTickerEvents(messagesFlow)
+        DataBus.tickerFlow.set(messagesFlow)
     }
 
 }
