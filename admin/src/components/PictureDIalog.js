@@ -34,8 +34,6 @@ export default class FormDialog extends React.Component {
             <div>
                 <IconButton color="primary" size="large" onClick={() => {
                     this.handleClickOpen();
-                // FormDialog();
-                // this.addPresetRequest();
                 }}><AddIcon/></IconButton>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>Add picture</DialogTitle>

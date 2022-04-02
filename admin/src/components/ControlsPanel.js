@@ -7,9 +7,11 @@ export default class ControlsPanel extends React.Component {
         super(props);
         this.state = {
             loaded: false,
-            items: [{ text: "Scoreboard", path: "/scoreboard", active: false },
+            items: [
+                { text: "Scoreboard", path: "/scoreboard", active: false },
                 { text: "Queue", path: "/queue", active: false },
-                { text: "Ticker", path: "/ticker", active: false }] };
+                { text: "Ticker", path: "/ticker", active: false },
+                { text: "Statistics", path: "/statistics", active: false }] };
     }
 
     async update() {
