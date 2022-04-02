@@ -16,6 +16,7 @@ export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
 export const SCOREBOARD_SCROLL_INTERVAL = 2000; // ms;
 export const PICTURES_APPEAR_TIME = 1000; // ms
+export const TICKER_SCROLL_TRANSITION_TIME = 300; //ms
 
 // Styles
 export const VERDICT_OK = "#1b8041";
@@ -53,6 +54,11 @@ export const CELL_NAME_LEFT_PADDING = "5px"; // css property
 export const CELL_NAME_RIGHT_PADDING = CELL_NAME_LEFT_PADDING; // css property
 export const CELL_NAME_FONT = CELL_FONT_SIZE + " " + CELL_FONT_FAMILY;
 
+export const TICKER_SMALL_SIZE = "10%"; // css property
+export const TICKER_SMALL_BACKGROUND = VERDICT_NOK;
+export const TICKER_BACKGROUND = CELL_BG_COLOR;
+export const TICKER_OPACITY = 0.8;
+export const TICKER_FONT_COLOR = "#FFFFFF";
 
 
 export const STAR_SIZE = 10; // px
