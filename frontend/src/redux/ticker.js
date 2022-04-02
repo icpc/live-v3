@@ -1,21 +1,19 @@
 import _ from "lodash";
 
 const ActionTypes = {
-    ADD_MESSAGE: "ADD_MESSAGE",
-    REMOVE_MESSAGE: "REMOVE_MESSAGE",
-    SET_MESSAGES: "SET_MESSAGES",
-    SET_CUR_DISPLAYING: "SET_CUR_DISPLAYING",
+    ADD_MESSAGE: "TICKER_ADD_MESSAGE",
+    REMOVE_MESSAGE: "TICKER_REMOVE_MESSAGE",
+    SET_MESSAGES: "TICKER_SET_MESSAGES",
+    SET_CUR_DISPLAYING: "TICKER_SET_CUR_DISPLAYING",
+    START_DISPLAYING: "TICKER_START_DISPLAYING",
+    STOP_DISPLAYING: "TICKER_STOP_DISPLAYING"
 };
 
 const TICKER_PARTS = Object.freeze(["long", "short"]);
-//     messages: [],
-//     curDisplaying: undefined,
-//     curDisplayingIndex: 0,
-//     curTimeout: 0
 const defaultTickerBody = {
     messages: [],
     curDisplaying: undefined,
-    curDisplayingIndex: 0,
+    curDisplayingIndex: undefined,
     curTimeout: undefined,
     isFirst: true
 };
@@ -24,14 +22,18 @@ const initialState = {
         [part, defaultTickerBody]
     ))),
     messages: {},
-    isLoaded: false
+    isLoaded: false,
+    isDisplaying: false
 };
 
 export const startScrolling = () => {
     return async (dispatch, getState) => {
+        dispatch({
+            type: ActionTypes.START_DISPLAYING
+        });
         const state = getState();
         for (const part of TICKER_PARTS) {
-            await advanceScrolling(part, 1)(dispatch, () => state);
+            await advanceScrolling(part, 0, true)(dispatch, () => state);
         }
     };
 };
@@ -42,49 +44,60 @@ export const stopScrolling = () => {
         for (const part of TICKER_PARTS) {
             clearTimeout(state.ticker.tickers[part].curTimeout);
         }
+        dispatch({
+            type: ActionTypes.STOP_DISPLAYING
+        });
     };
 };
 
-export const advanceScrolling = (part, add = 1) => {
+export const advanceScrolling = (part, add = 1, isFirst = true) => {
     return async (dispatch, getState) => {
-        console.log("!advanceScrolling");
         const state = getState();
-        const curDisplayingIndex = state.ticker.tickers[part].curDisplayingIndex;
-        console.log(curDisplayingIndex);
+        const curDisplayingIndex = state.ticker.tickers[part].curDisplayingIndex ?? 0;
         const messages = state.ticker.tickers[part].messages;
-        console.log(messages);
         const newCurDisplayIndex = (curDisplayingIndex + add) % messages.length;
-        console.log(newCurDisplayIndex);
         const newMessage = messages[newCurDisplayIndex];
-        console.log(newMessage);
-        const timeout = newMessage !== undefined ? setTimeout(() => {
-            dispatch(advanceScrolling(part, 1));
-        }, newMessage.periodMs) : undefined;
-        dispatch({
-            type: ActionTypes.SET_CUR_DISPLAYING,
-            payload: {
-                part,
-                ind: newCurDisplayIndex,
-                message: newMessage,
-                timeout
-            }
-        });
+        if (newMessage !== undefined) {
+            clearTimeout(state.ticker.tickers[part].curTimeout);
+            const timeout = setTimeout(() => {
+                dispatch(advanceScrolling(part, 1, false));
+            }, newMessage.periodMs);
+            dispatch({
+                type: ActionTypes.SET_CUR_DISPLAYING,
+                payload: {
+                    part,
+                    ind: newCurDisplayIndex,
+                    message: newMessage,
+                    timeout,
+                    isFirst
+                }
+            });
+        } else {
+            dispatch({
+                type: ActionTypes.SET_CUR_DISPLAYING,
+                payload: {
+                    part,
+                    ind: undefined,
+                    message: undefined,
+                    timeout: undefined
+                }
+            });
+        }
     };
 };
 
 export const addMessage = (messageData) => {
     return async (dispatch, getState) => {
-        const state = getState();
+        const { ticker } = getState();
         const part = messageData.part;
-        const ticker = state.ticker.tickers[part];
         dispatch({
             type: ActionTypes.ADD_MESSAGE,
             payload: {
                 newMessage: messageData
             }
         });
-        if(ticker.curTimeout === undefined) {
-            dispatch(advanceScrolling(part, 0));
+        if(ticker.isDisplaying && ticker.tickers[part].curTimeout === undefined) {
+            dispatch(advanceScrolling(part, 0, false));
         }
     };
 };
@@ -94,9 +107,6 @@ export const removeMessage = (messageId) => {
         const { ticker } = getState();
         const part = ticker.messages[messageId].part;
         const curMessage = ticker.tickers[part].curDisplaying;
-        if (curMessage && curMessage.id === messageId) {
-            dispatch(advanceScrolling(part, 1));
-        }
         dispatch({
             type: ActionTypes.REMOVE_MESSAGE,
             payload: {
@@ -104,6 +114,9 @@ export const removeMessage = (messageId) => {
                 messageId
             }
         });
+        if (curMessage && curMessage.id === messageId) {
+            dispatch(advanceScrolling(part, 0, false));
+        }
     };
 };
 
@@ -132,7 +145,6 @@ export function tickerReducer(state = initialState, action) {
                         ...state.tickers[action.payload.newMessage.part].messages,
                         action.payload.newMessage
                     ],
-                    curDisplaying: state.tickers[action.payload.newMessage.part].curDisplaying ?? action.payload.newMessage
                 }
             },
             messages: {
@@ -159,7 +171,6 @@ export function tickerReducer(state = initialState, action) {
                 [part, {
                     ...defaultTickerBody,
                     messages: _.filter(action.payload.messages, ["part", part]),
-                    curDisplaying: _.find(action.payload.messages, ["part", part])
                 }]
             ))),
             messages: _.keyBy(action.payload.messages, "id"),
@@ -175,9 +186,28 @@ export function tickerReducer(state = initialState, action) {
                     curDisplaying: action.payload.message,
                     curDisplayingIndex: action.payload.ind,
                     curTimeout: action.payload.timeout,
-                    isFirst: false
+                    isFirst: action.payload.isFirst
                 }
             }
+        };
+    case ActionTypes.START_DISPLAYING:
+        return {
+            ...state,
+            isDisplaying: true
+        };
+    case ActionTypes.STOP_DISPLAYING:
+        return {
+            ...state,
+            isDisplaying: false,
+            tickers: Object.fromEntries(Object.entries(state.tickers).map(([part, ticker]) => (
+                [part, {
+                    ...ticker,
+                    curDisplaying: undefined,
+                    curDisplayingIndex: undefined,
+                    curTimeout: undefined,
+                    isFirst: true
+                }]
+            )))
         };
     default:
         return state;
