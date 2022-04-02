@@ -19,7 +19,10 @@ Requirements:
 2. live-v3\backend\gradlew.bat run
 3. live-v3\frontend\ npm ci
 4. live-v3\frontend\ npm run start
-5. open http://localhost:8080/admin
+5. set PORT=8000
+6. live-v3\admin\ npm ci
+7. live-v3\admin\ npm run start
+8. open http://localhost:8080
 
 Contest configs are stored at \live-v3\backend\config\ .
 Setup configDirectory in \live-v3\backend\config\application.conf .
@@ -45,7 +48,7 @@ To add source to OBS:
 1. +Source
 1. Browser
 1. URL http://localhost:3000/
-1. W H 1920*1920! (not 1920*1080)
+1. W H 1920x1920! (not 1920x1080)
 1. Custom css: 
 ```
 #root > div {

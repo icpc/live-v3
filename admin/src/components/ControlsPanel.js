@@ -1,6 +1,6 @@
 import React from "react";
 import { ControlsTable } from "./ControlsTable";
-import { BACKEND_API_URL } from "./config";
+import { BASE_URL_BACKEND } from "../config";
 
 export default class ControlsPanel extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ export default class ControlsPanel extends React.Component {
     async update() {
         const newItems = await Promise.all(
             this.state.items.map(async (element) => {
-                const result = await fetch(BACKEND_API_URL + element.path);
+                const result = await fetch(BASE_URL_BACKEND + element.path);
                 try {
                     return { ...element, active: await result.json() };
                 } catch {

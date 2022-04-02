@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./App.css";
+import "../App.css";
 import { lightBlue } from "@mui/material/colors";
 
 import ControlsPanel from "./ControlsPanel";

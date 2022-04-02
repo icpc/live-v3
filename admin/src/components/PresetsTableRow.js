@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { grey } from "@mui/material/colors";
 
 import { ShowPresetButton, onClickShow } from "./ShowPresetButton";
-import { BACKEND_API_URL } from "./config";
+import { BASE_URL_BACKEND } from "../config";
 
 const onClickEdit = (currentRow) => () => {
     if (currentRow.state.editValue === undefined) {
@@ -19,7 +19,7 @@ const onClickEdit = (currentRow) => () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(currentRow.state.editValue.content),
         };
-        fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
+        fetch(BASE_URL_BACKEND + currentRow.props.path + "/" + currentRow.props.row.id, requestOptions)
             .then(response => response.json())
             .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
             .then(currentRow.props.updateTable)
@@ -32,7 +32,7 @@ const onClickDelete = (currentRow) => () => {
         method: "POST",
         headers: { "Content-Type": "application/json" }
     };
-    fetch(BACKEND_API_URL + currentRow.props.path + "/" + currentRow.props.row.id + "/delete", requestOptions)
+    fetch(BASE_URL_BACKEND + currentRow.props.path + "/" + currentRow.props.row.id + "/delete", requestOptions)
         .then(response => response.json())
         .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
         .then(currentRow.props.updateTable)

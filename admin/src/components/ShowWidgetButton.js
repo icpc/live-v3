@@ -1,14 +1,14 @@
 import React from "react";
 
-import "./App.css";
+import "../App.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 
-import { BACKEND_API_URL } from "./config";
+import { BASE_URL_BACKEND } from "../config";
 
 const getUrl = (currentRow) => {
-    return (BACKEND_API_URL + currentRow.props.row.path);
+    return (BASE_URL_BACKEND + currentRow.props.row.path);
 };
 
 const show = (currentRow) => {

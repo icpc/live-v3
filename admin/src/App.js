@@ -5,10 +5,10 @@ import AppNav from "./AppNav";
 import Container from "@mui/material/Container";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Ticker from "./Ticker";
-import Controls from "./Controls";
-import Advertisement from "./Advertisement";
-import Picture from "./Picture";
+import Ticker from "./components/Ticker";
+import Controls from "./components/Controls";
+import Advertisement from "./components/Advertisement";
+import Picture from "./components/Picture";
 
 
 function App() {

@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "../App.css";
 import PicturePanel from "./PicturePanel";
 
 // class PicturePanel extends PresetsPanel {
