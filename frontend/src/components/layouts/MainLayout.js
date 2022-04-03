@@ -10,6 +10,7 @@ import Queue from "../organisms/widgets/Queue";
 import Scoreboard from "../organisms/widgets/Scoreboard";
 import Ticker from "../organisms/widgets/Ticker";
 import Statistics from "../organisms/widgets/Statistics";
+import TeamView from "../organisms/widgets/TeamView";
 
 const fadeIn = keyframes`
   from {
@@ -63,7 +64,7 @@ const WIDGETS = {
     AdvertisementWidget: Advertisement,
     ScoreboardWidget: Scoreboard,
     QueueWidget: Queue,
-    PictureWidget: Pictures,
+    PictureWidget: TeamView,
     TickerWidget: Ticker,
     StatisticsWidget: Statistics
 };
