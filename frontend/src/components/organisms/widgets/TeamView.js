@@ -40,6 +40,8 @@ const ScoreboardTaskCellWrap = styled(ScoreboardCell)`
   flex-shrink: 1;
   flex-basis: 100%;
   height: 100%;
+  padding: 5px;
+  min-width: 40px;
 `;
 
 const TeamTaskStatus = Object.freeze({
@@ -65,11 +67,6 @@ const TeamTaskSymbol = Object.freeze({
     [TeamTaskStatus.unknown]: "?",
     [TeamTaskStatus.first]: "+",
 });
-
-const ScoreboardTaskCellWrapper = styled.div`
-    display: flex;
-    padding: 0;
-`;
 
 const ScoreboardTaskCell = ({ status, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
