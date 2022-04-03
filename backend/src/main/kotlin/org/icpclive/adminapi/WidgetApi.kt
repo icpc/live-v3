@@ -6,8 +6,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.serialization.ExperimentalSerializationApi
-import org.icpclive.admin.AdminActionException
-import org.icpclive.admin.Urls
+import org.icpclive.adminapi.Urls
 import org.icpclive.api.ObjectSettings
 import org.icpclive.api.Widget
 
@@ -80,7 +79,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post(urls.editPage) {
         call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
             val settings = call.receive<SettingsType>()
 
             presets.edit(id, settings)
@@ -89,7 +88,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post(urls.deletePage) {
         call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
 
             presets.delete(id)
             call.respond(mapOf("status" to "ok"))
@@ -97,7 +96,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post(urls.showPage) {
         call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
 
             presets.show(id)
             call.respond(mapOf("status" to "ok"))
@@ -105,7 +104,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post(urls.hidePage) {
         call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
 
             presets.hide(id)
             call.respond(mapOf("status" to "ok"))

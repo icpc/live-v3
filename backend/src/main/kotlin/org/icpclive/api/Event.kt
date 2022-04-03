@@ -51,7 +51,7 @@ class AddMessageTickerEvent(val message: TickerMessage): TickerEvent()
 
 @Serializable
 @SerialName("RemoveMessage")
-class RemoveMessageTickerEvent(val messageId: Long): TickerEvent()
+class RemoveMessageTickerEvent(val messageId: String): TickerEvent()
 
 @Serializable
 @SerialName("TickerSnapshot")

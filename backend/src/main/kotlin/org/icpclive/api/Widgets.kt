@@ -7,16 +7,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class LocationRectangle(
-    val positionX: Int,
-    val positionY: Int,
-    val sizeX: Int,
-    val sizeY: Int,
+        val positionX: Int,
+        val positionY: Int,
+        val sizeX: Int,
+        val sizeY: Int,
 )
 
 @Serializable
 sealed class Widget(
-    val widgetId: String,
-    val location: LocationRectangle
+        val widgetId: String,
+        val location: LocationRectangle
 )
 
 @Serializable
@@ -51,7 +51,7 @@ class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
 class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "scoreboard"
-        val location = LocationRectangle(550,  40, 1350, 970)
+        val location = LocationRectangle(550, 40, 1350, 970)
     }
 }
 
