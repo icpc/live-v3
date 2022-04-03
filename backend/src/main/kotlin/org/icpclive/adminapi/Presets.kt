@@ -87,13 +87,11 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
     }
 }
 
-val jsonPrettyEncoder = Json { prettyPrint = true }
-
 inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
                                                                                         noinline createWidget: (SettingsType) -> WidgetType) =
         PresetsManager<SettingsType, WidgetType>(path,
                 {
-                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
+                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(it))).mapIndexed { index, content ->
                         WidgetWrapper(createWidget, content, index + 1)
                     }
                 },

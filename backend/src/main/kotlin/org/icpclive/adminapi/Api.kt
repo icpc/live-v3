@@ -1,14 +1,10 @@
 package org.icpclive.adminapi
 
 import io.ktor.application.*
-import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import kotlinx.serialization.ExperimentalSerializationApi
-import org.icpclive.adminapi.Urls
-import org.icpclive.api.ObjectSettings
-import org.icpclive.api.Widget
+import org.icpclive.api.*
 
 open class SimpleWidgetApiUrls(prefix: String) : Urls {
     override val mainPage = "/adminapi/$prefix"
@@ -81,6 +77,64 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
         call.catchAdminApiAction {
             val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
             val settings = call.receive<SettingsType>()
+
+            presets.edit(id, settings)
+            call.respond(mapOf("status" to "ok"))
+        }
+    }
+    post(urls.deletePage) {
+        call.catchAdminApiAction {
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
+
+            presets.delete(id)
+            call.respond(mapOf("status" to "ok"))
+        }
+    }
+    post(urls.showPage) {
+        call.catchAdminApiAction {
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
+
+            presets.show(id)
+            call.respond(mapOf("status" to "ok"))
+        }
+    }
+    post(urls.hidePage) {
+        call.catchAdminApiAction {
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
+
+            presets.hide(id)
+            call.respond(mapOf("status" to "ok"))
+        }
+    }
+    return urls
+}
+
+internal inline fun Routing.setupPresetTickerRouting(
+        prefix: String,
+        presetPath: String,
+        noinline createMessage: (TickerMessageSettings) -> TickerMessage,
+): PresetWidgetApiUrls {
+    val urls = PresetWidgetApiUrls(prefix)
+    val presets = TickerPresets(presetPath, createMessage)
+    get(urls.mainPage) {
+        presets.let {
+            val response = it.getStatus()
+
+            call.respond(response)
+        }
+    }
+    post(urls.addPage) {
+        call.catchAdminApiAction {
+            val settings = call.receive<TickerMessageSettings>()
+
+            presets.append(settings)
+            call.respond(mapOf("status" to "ok"))
+        }
+    }
+    post(urls.editPage) {
+        call.catchAdminApiAction {
+            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
+            val settings = call.receive<TickerMessageSettings>()
 
             presets.edit(id, settings)
             call.respond(mapOf("status" to "ok"))

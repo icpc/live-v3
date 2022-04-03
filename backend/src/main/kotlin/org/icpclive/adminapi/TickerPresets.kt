@@ -12,28 +12,72 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 // TODO: Unify with PresetManager
-/*
+
+class TickerWrappper(
+        private val createMessage: (TickerMessageSettings) -> TickerMessage,
+        var settings: TickerMessageSettings,
+        val id: Int? = null) {
+    private val mutex = Mutex()
+
+    private var tickerId: String? = null
+
+    suspend fun getStatus(): ObjectStatus<TickerMessageSettings> = mutex.withLock {
+        return ObjectStatus(tickerId != null, settings, id)
+    }
+
+    suspend fun set(newSettings: TickerMessageSettings) {
+        mutex.withLock {
+            settings = newSettings
+        }
+    }
+
+    suspend fun show() {
+        mutex.withLock {
+            if (tickerId != null)
+                return
+            val message = createMessage(settings)
+            TickerManager.addMessage(message)
+            tickerId = message.id
+        }
+    }
+
+    suspend fun show(newSettings: TickerMessageSettings) {
+        set(newSettings)
+        show()
+    }
+
+    suspend fun hide() {
+        mutex.withLock {
+            tickerId?.let {
+                TickerManager.removeMessage(it)
+            }
+            tickerId = null
+        }
+    }
+}
+
 class TickerPresetsManager(
         private val path: String,
-        private val decode: (String) -> List<Pair<TickerMessage, Int>>,
-        private val encode: (List<Pair<TickerMessage, Int>>, String) -> Unit,
-        private var innerData: List<WidgetWrapper<SettingsType, WidgetType>> = decode(path),
+        private val decode: (String) -> List<TickerWrappper>,
+        private val encode: (List<TickerWrappper>, String) -> Unit,
+        private val createMessage: (TickerMessageSettings) -> TickerMessage,
+        private var innerData: List<TickerWrappper> = decode(path),
         private var currentID: Int = innerData.size
 ) {
     private val mutex = Mutex()
 
-    suspend fun getStatus(): List<ObjectStatus<SettingsType>> = mutex.withLock {
+    suspend fun getStatus(): List<ObjectStatus<TickerMessageSettings>> = mutex.withLock {
         return innerData.map { it.getStatus() }
     }
 
-    suspend fun append(settings: SettingsType) {
+    suspend fun append(settings: TickerMessageSettings) {
         mutex.withLock {
-            innerData = innerData.plus(WidgetWrapper(createWidget, settings, ++currentID))
+            innerData = innerData.plus(TickerWrappper(createMessage, settings, ++currentID))
         }
         save()
     }
 
-    suspend fun edit(id: Int, content: SettingsType) {
+    suspend fun edit(id: Int, content: TickerMessageSettings) {
         mutex.withLock {
             for (preset in innerData) {
                 if (preset.id == id)
@@ -89,18 +133,15 @@ class TickerPresetsManager(
     }
 }
 
-val jsonPrettyEncoder = Json { prettyPrint = true }
-
-inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
-                                                                                        noinline createWidget: (SettingsType) -> WidgetType) =
-        PresetsManager<SettingsType, WidgetType>(path,
+inline fun TickerPresets(path: String,
+                                noinline createMessage: (TickerMessageSettings) -> TickerMessage) =
+        TickerPresetsManager(path,
                 {
-                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
-                        WidgetWrapper(createWidget, content, index + 1)
+                    Json.decodeFromStream<List<TickerMessageSettings>>(FileInputStream(File(it))).mapIndexed { index, content ->
+                        TickerWrappper(createMessage, content, index + 1)
                     }
                 },
                 { data, fileName ->
                     Json { prettyPrint = true }.encodeToStream(data.map { it.settings }, FileOutputStream(File(fileName)))
                 },
-                createWidget)
-*/
+                createMessage)

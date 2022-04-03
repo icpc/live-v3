@@ -11,7 +11,6 @@ import io.ktor.serialization.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import org.icpclive.admin.configureAdminRouting
 import org.icpclive.adminapi.configureAdminApiRouting
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
@@ -61,7 +60,6 @@ fun Application.module() {
     routing {
         static("/static") { resources("static") }
     }
-    configureAdminRouting()
     configureAdminApiRouting()
     configureOverlayRouting()
     environment.log.info("Current working directory is ${File(".").canonicalPath}")

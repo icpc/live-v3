@@ -35,15 +35,17 @@ suspend inline fun ApplicationCall.catchAdminApiAction(block: ApplicationCall.()
 
 fun Application.configureAdminApiRouting() {
     routing {
-        val advertisementUrls =
-                configureAdvertisementApi(environment.config.property("live.presets.advertisements").getString())
-        val pictureUrls =
-                configurePictureApi(environment.config.property("live.presets.pictures").getString())
-
         val scoreboardUrls = configureScoreboardApi()
         val queueUrls = configureQueueApi()
         val tickerUrls = configureTickerApi()
         val statisticsUrls = configureStatisticsApi()
+
+        val advertisementUrls =
+                configureAdvertisementApi(environment.config.property("live.presets.advertisements").getString())
+        val pictureUrls =
+                configurePictureApi(environment.config.property("live.presets.pictures").getString())
+        val tickerMessagesUrls =
+                configureTickerMessagesApi(environment.config.property("live.presets.ticker").getString())
 
         topLevelLinks = listOf(
                 advertisementUrls.mainPage to "Advertisement",
@@ -52,6 +54,7 @@ fun Application.configureAdminApiRouting() {
                 statisticsUrls.mainPage to "Statistics",
                 queueUrls.mainPage to "Queue",
                 tickerUrls.mainPage to "Ticker",
+                tickerMessagesUrls.mainPage to "TickerMessages",
         )
     }
 }

@@ -30,7 +30,7 @@ class ClockTickerMessage(val settings: ClockTickerSettings) : TickerMessage(ID) 
 
 @Serializable
 @SerialName("scoreboard")
-class ScorebordTickerMessage(val settings: ScoreboardTickerSettings) : TickerMessage(ID) {
+class ScoreboardTickerMessage(val settings: ScoreboardTickerSettings) : TickerMessage(ID) {
     companion object {
         val ID: String = Random.nextInt().toString()
     }

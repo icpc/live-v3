@@ -32,7 +32,7 @@ class StatisticsSettings : ObjectSettings
 class TickerSettings : ObjectSettings
 
 @Serializable
-abstract class TickerMessageSettings : ObjectSettings {
+sealed class TickerMessageSettings : ObjectSettings {
     abstract val part: TickerPart
     abstract val periodMs: Long
 }
