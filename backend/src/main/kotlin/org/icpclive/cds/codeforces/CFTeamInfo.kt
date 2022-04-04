@@ -1,5 +1,6 @@
 package org.icpclive.cds.codeforces
 
+import org.icpclive.api.MediaType
 import org.icpclive.cds.TeamInfo
 import org.icpclive.cds.codeforces.api.data.CFRankListRow
 
@@ -15,8 +16,7 @@ class CFTeamInfo(private val row: CFRankListRow) : TeamInfo {
         get() = name
     override val alias: String
         get() = name
-    override val groups: Set<String>
-        get() = emptySet()
-    override val hashTag: String
-        get() = ""
+    override val groups = emptySet<String>()
+    override val hashTag: String? = null
+    override val medias = emptyMap<MediaType, String>()
 }

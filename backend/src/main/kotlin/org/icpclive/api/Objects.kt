@@ -95,6 +95,16 @@ data class ICPCProblemResult(
 
 
 @Serializable
+enum class MediaType {
+    @SerialName("camera")
+    CAMERA,
+    @SerialName("screen")
+    SCREEN,
+    @SerialName("record")
+    RECORD
+}
+
+@Serializable
 data class TeamInfo(
         val id: Int,
         val name: String,
@@ -102,6 +112,7 @@ data class TeamInfo(
         val alias: String?,
         val groups: List<String>,
         val hashTag: String?,
+        val medias: Map<MediaType, String>
 )
 
 @Serializable
