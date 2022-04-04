@@ -59,6 +59,7 @@ abstract class ICPCScoreboardService(
                 runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                 okRun != null,
                 okRun?.isFirstSolvedRun == true,
+                (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
             ).also {
                 if (it.isSolved) {
                     solved++

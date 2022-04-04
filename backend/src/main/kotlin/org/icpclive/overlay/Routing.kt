@@ -11,11 +11,13 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.OptimismLevel
 import org.icpclive.data.DataBus
+import org.icpclive.utils.defaultJsonSettings
 
 private suspend inline fun <reified T> DefaultWebSocketServerSession.sendFlow(flow: Flow<T>) {
+    val formatter = defaultJsonSettings()
     val sender = async {
         flow.collect {
-            val text = Frame.Text(Json.encodeToString(it))
+            val text = Frame.Text(formatter.encodeToString(it))
             outgoing.send(text)
         }
     }

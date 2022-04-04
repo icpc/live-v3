@@ -91,6 +91,7 @@ data class ICPCProblemResult(
         val pendingAttempts: Int,
         val isSolved: Boolean,
         val isFirstToSolve: Boolean,
+        val lastSubmitTimeMs: Long?,
 ) : ProblemResult()
 
 

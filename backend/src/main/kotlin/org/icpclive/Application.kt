@@ -19,6 +19,7 @@ import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.EventLoggerService
+import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.File
 import java.time.Duration
@@ -43,14 +44,7 @@ fun Application.module() {
     install(AutoHeadResponse)
     install(IgnoreTrailingSlash)
     install(ContentNegotiation) {
-        json(Json {
-            encodeDefaults = true
-            isLenient = true
-            allowSpecialFloatingPointValues = true
-            allowStructuredMapKeys = true
-            prettyPrint = false
-            useArrayPolymorphism = false
-        })
+        json(defaultJsonSettings())
     }
     install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)
