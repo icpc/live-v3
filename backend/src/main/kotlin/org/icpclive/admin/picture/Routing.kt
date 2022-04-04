@@ -1,6 +1,6 @@
 package org.icpclive.admin.picture
 
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import kotlinx.html.img
 import kotlinx.html.p
 import kotlinx.html.radioInput

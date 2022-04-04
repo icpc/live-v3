@@ -1,6 +1,6 @@
 package org.icpclive.admin.advertisement
 
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import kotlinx.html.p
 import kotlinx.html.radioInput
 import kotlinx.html.textArea

@@ -1,8 +1,8 @@
 package org.icpclive.adminapi
 
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlinx.coroutines.channels.ticker
 import kotlinx.html.*
 import org.icpclive.adminapi.advertisement.*
@@ -36,9 +36,9 @@ suspend inline fun ApplicationCall.catchAdminApiAction(block: ApplicationCall.()
 fun Application.configureAdminApiRouting() {
     routing {
         val advertisementUrls =
-                configureAdvertisementApi(environment.config.property("live.presets.advertisements").getString())
+                configureAdvertisementApi(environment!!.config.property("live.presets.advertisements").getString())
         val pictureUrls =
-                configurePictureApi(environment.config.property("live.presets.pictures").getString())
+                configurePictureApi(environment!!.config.property("live.presets.pictures").getString())
 
         val scoreboardUrls = configureScoreboardApi()
         val queueUrls = configureQueueApi()

@@ -1,6 +1,6 @@
 package org.icpclive.adminapi.queue
 
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import org.icpclive.adminapi.WidgetWrapper
 import org.icpclive.adminapi.setupSimpleWidgetRouting
 import org.icpclive.api.QueueSettings

@@ -1,14 +1,14 @@
 package org.icpclive
 
-import io.ktor.application.*
-import io.ktor.features.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.*
 import io.ktor.http.*
-import io.ktor.http.cio.websocket.*
-import io.ktor.http.content.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.serialization.*
 import io.ktor.websocket.*
+import io.ktor.server.http.content.*
+import io.ktor.server.request.*
+import io.ktor.server.routing.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.icpclive.admin.configureAdminRouting

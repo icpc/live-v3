@@ -1,9 +1,9 @@
 package org.icpclive.admin
 
-import io.ktor.application.*
-import io.ktor.html.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.server.application.*
+import io.ktor.server.html.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlinx.html.*
 import org.icpclive.admin.advertisement.configureAdvertisement
 import org.icpclive.admin.overlayEvents.configureOverlayEvents
@@ -47,13 +47,13 @@ suspend inline fun ApplicationCall.catchAdminAction(back: String, block: Applica
 fun Application.configureAdminRouting() {
     routing {
         val advertisementUrls =
-            configureAdvertisement(environment.config.property("live.presets.advertisements").getString())
-        val pictureUrls = configurePicture(environment.config.property("live.presets.pictures").getString())
+            configureAdvertisement(environment!!.config.property("live.presets.advertisements").getString())
+        val pictureUrls = configurePicture(environment!!.config.property("live.presets.pictures").getString())
         val overlayEventsUrls = configureOverlayEvents()
         val queueUrls = configureQueue()
         val scoreboardUrls = configureScoreboard()
         val statisticsUrls = configureStatistics()
-        val tickerUrls = configureTicker(environment.config.property("live.presets.ticker").getString())
+        val tickerUrls = configureTicker(environment!!.config.property("live.presets.ticker").getString())
 
         topLevelLinks = listOf(
             advertisementUrls.mainPage to "Advertisement",

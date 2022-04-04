@@ -1,6 +1,6 @@
 package org.icpclive.admin.statistics
 
-import io.ktor.routing.*
+import io.ktor.server.routing.*
 import org.icpclive.admin.setupSimpleWidgetRouting
 import org.icpclive.admin.simpleWidgetViewFun
 import org.icpclive.api.StatisticsSettings
