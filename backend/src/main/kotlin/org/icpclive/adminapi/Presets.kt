@@ -29,7 +29,7 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
 
     suspend fun append(settings: SettingsType) {
         mutex.withLock {
-            innerData = innerData.plus(WidgetWrapper(createWidget, settings, ++currentID))
+            innerData = innerData.plus(WidgetWrapper(settings, ++currentID, createWidget))
         }
         save()
     }
@@ -97,10 +97,10 @@ inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> 
         PresetsManager<SettingsType, WidgetType>(path,
                 {
                     Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
-                        WidgetWrapper(createWidget, content, index + 1)
+                        WidgetWrapper(content, index + 1, createWidget)
                     }
                 },
                 { data, fileName ->
-                    Json { prettyPrint = true }.encodeToStream(data.map { it.settings }, FileOutputStream(File(fileName)))
+                    jsonPrettyEncoder.encodeToStream(data.map { it.settings }, FileOutputStream(File(fileName)))
                 },
                 createWidget)

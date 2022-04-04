@@ -1,115 +1,73 @@
 package org.icpclive.adminapi
 
 import io.ktor.server.application.*
-import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.icpclive.admin.AdminActionException
-import org.icpclive.admin.Urls
 import org.icpclive.api.ObjectSettings
 import org.icpclive.api.Widget
 
-open class SimpleWidgetApiUrls(prefix: String) : Urls {
-    override val mainPage = "/adminapi/$prefix"
-    val showPage = "/adminapi/$prefix/show"
-    val hidePage = "/adminapi/$prefix/hide"
-}
 
-open class PresetWidgetApiUrls(prefix: String) : Urls {
-    override val mainPage = "/adminapi/$prefix"
-    val showPage = "/adminapi/$prefix/{id}/show"
-    val hidePage = "/adminapi/$prefix/{id}/hide"
-    val addPage = "/adminapi/$prefix"
-    val editPage = "/adminapi/$prefix/{id}"
-    val deletePage = "/adminapi/$prefix/{id}/delete"
-}
-
-internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupSimpleWidgetRouting(
-        prefix: String,
-        widgetWrapper: WidgetWrapper<SettingsType, WidgetType>,
-): SimpleWidgetApiUrls {
-    val urls = SimpleWidgetApiUrls(prefix)
-    get(urls.mainPage) {
-        call.catchAdminApiAction {
+internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
+    initialSettings: SettingsType,
+    noinline createWidget: (SettingsType) -> WidgetType
+) {
+    val widgetWrapper = WidgetWrapper(initialSettings, createWidget = createWidget)
+    get {
+        call.adminApiAction {
             val response = widgetWrapper.getStatus()
 
             call.respond(response)
         }
     }
-    post(urls.showPage) {
-        call.catchAdminApiAction {
-            val settings = call.receive<SettingsType>()
-
-            widgetWrapper.show(settings)
-            call.respond(mapOf("status" to "ok"))
+    post("/show") {
+        call.adminApiAction {
+            widgetWrapper.show(call.receive())
         }
     }
-    post(urls.hidePage) {
-        call.catchAdminApiAction {
-
+    post("/hide") {
+        call.adminApiAction {
             widgetWrapper.hide()
-            call.respond(mapOf("status" to "ok"))
         }
     }
-    return urls
 }
 
-internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Routing.setupPresetWidgetRouting(
-        prefix: String,
+
+fun ApplicationCall.id() = parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
+
+internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
         presetPath: String,
         noinline createWidget: (SettingsType) -> WidgetType,
-): PresetWidgetApiUrls {
-    val urls = PresetWidgetApiUrls(prefix)
-    val presets = Presets<SettingsType, WidgetType>(presetPath, createWidget)
-    get(urls.mainPage) {
-        presets.let {
-            val response = it.getStatus()
-
-            call.respond(response)
+) {
+    val presets = Presets(presetPath, createWidget)
+    get {
+        call.respond(presets.getStatus())
+    }
+    post {
+        call.adminApiAction {
+            presets.append(call.receive())
         }
     }
-    post(urls.addPage) {
-        call.catchAdminApiAction {
-            val settings = call.receive<SettingsType>()
-
-            presets.append(settings)
-            call.respond(mapOf("status" to "ok"))
+    post("/{id}") {
+        call.adminApiAction {
+            presets.edit(call.id(), call.receive())
         }
     }
-    post(urls.editPage) {
-        call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
-            val settings = call.receive<SettingsType>()
-
-            presets.edit(id, settings)
-            call.respond(mapOf("status" to "ok"))
+    //TODO: why not delete("/{id}")?
+    post("/{id}/delete") {
+        call.adminApiAction {
+            presets.delete(call.id())
         }
     }
-    post(urls.deletePage) {
-        call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
-
-            presets.delete(id)
-            call.respond(mapOf("status" to "ok"))
+    post("/{id}/show") {
+        call.adminApiAction {
+            presets.show(call.id())
         }
     }
-    post(urls.showPage) {
-        call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
-
-            presets.show(id)
-            call.respond(mapOf("status" to "ok"))
+    post("/{id}/hide") {
+        call.adminApiAction {
+            presets.hide(call.id())
         }
     }
-    post(urls.hidePage) {
-        call.catchAdminApiAction {
-            val id = call.parameters["id"]?.toIntOrNull() ?: throw AdminActionException("Error load preset by id")
-
-            presets.hide(id)
-            call.respond(mapOf("status" to "ok"))
-        }
-    }
-    return urls
 }
