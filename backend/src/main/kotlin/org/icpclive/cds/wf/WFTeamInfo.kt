@@ -1,5 +1,6 @@
 package org.icpclive.cds.wf
 
+import org.icpclive.api.MediaType
 import org.icpclive.cds.RunInfo
 import org.icpclive.cds.TeamInfo
 
@@ -13,6 +14,7 @@ open class WFTeamInfo(problems: Int) : TeamInfo {
     override lateinit var groups: HashSet<String>
     override lateinit var shortName: String
     override var hashTag: String? = null
+    override val medias: Map<MediaType, String> = emptyMap()
 
     init {
         problem_runs = ArrayList(problems)

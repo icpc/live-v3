@@ -4,6 +4,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
+import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.util.*
@@ -31,6 +32,16 @@ fun tickerFlow(interval: Duration) = flow {
         emit(null)
         delay(interval)
     }
+}
+
+fun defaultJsonSettings() = Json {
+    encodeDefaults = true
+    isLenient = true
+    allowSpecialFloatingPointValues = true
+    allowStructuredMapKeys = true
+    prettyPrint = false
+    useArrayPolymorphism = false
+    explicitNulls = false
 }
 
 fun getLogger(clazz: KClass<*>) = LoggerFactory.getLogger(clazz.java)!!

@@ -1,14 +1,14 @@
 package org.icpclive
 
-import io.ktor.application.*
-import io.ktor.features.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.*
 import io.ktor.http.*
-import io.ktor.http.cio.websocket.*
-import io.ktor.http.content.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.serialization.*
 import io.ktor.websocket.*
+import io.ktor.server.http.content.*
+import io.ktor.server.request.*
+import io.ktor.server.routing.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.icpclive.adminapi.configureAdminApiRouting
@@ -18,6 +18,7 @@ import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.EventLoggerService
+import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.File
 import java.time.Duration
@@ -42,14 +43,7 @@ fun Application.module() {
     install(AutoHeadResponse)
     install(IgnoreTrailingSlash)
     install(ContentNegotiation) {
-        json(Json {
-            encodeDefaults = true
-            isLenient = true
-            allowSpecialFloatingPointValues = true
-            allowStructuredMapKeys = true
-            prettyPrint = false
-            useArrayPolymorphism = false
-        })
+        json(defaultJsonSettings())
     }
     install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)

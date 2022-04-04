@@ -1,5 +1,6 @@
 package org.icpclive.cds.pcms
 
+import org.icpclive.api.MediaType
 import org.icpclive.cds.TeamInfo
 
 class PCMSTeamInfo(
@@ -10,6 +11,7 @@ class PCMSTeamInfo(
     override val shortName: String,
     override val hashTag: String?,
     override val groups: Set<String>,
+    override val medias: Map<MediaType, String>,
     problemsNumber: Int
 ) : TeamInfo {
     val runs: MutableList<List<PCMSRunInfo>> =

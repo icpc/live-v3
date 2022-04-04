@@ -16,7 +16,7 @@ fun CoroutineScope.launchICPCServices(problemsNumber:Int, rawRuns: Flow<RunInfo>
         onBufferOverflow = BufferOverflow.SUSPEND
     )
     launch { QueueService(runsUpdates).run() }
-    launch { StatisticsService(problemsNumber, DataBus.scoreboardEvents(OptimismLevel.NORMAL)).run() }
+    launch { StatisticsService(problemsNumber, DataBus.getScoreboardEvents(OptimismLevel.NORMAL)).run() }
     launch { FirstToSolveService(problemsNumber, rawRuns, runsUpdates).run() }
     launch { ICPCNormalScoreboardService(problemsNumber, runsUpdates).run() }
     launch { ICPCOptimisticScoreboardService(problemsNumber, runsUpdates).run() }

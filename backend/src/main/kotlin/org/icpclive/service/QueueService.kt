@@ -28,7 +28,7 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
     private val subscriberFlow = MutableStateFlow(0)
 
     init {
-        DataBus.setQueueEvents(flow {
+        DataBus.queueFlow.set(flow {
             var nothingSent = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }

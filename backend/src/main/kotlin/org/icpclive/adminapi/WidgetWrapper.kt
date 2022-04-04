@@ -1,16 +1,15 @@
 package org.icpclive.adminapi
 
-import io.ktor.http.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.html.Entities
 import org.icpclive.api.*
 import org.icpclive.data.WidgetManager
 
 class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
-        private val createWidget: (SettingsType) -> WidgetType,
         var settings: SettingsType,
-        val id: Int? = null) {
+        val id: Int? = null,
+        private val createWidget: (SettingsType) -> WidgetType
+) {
     private val mutex = Mutex()
 
     private var widgetId: String? = null

@@ -52,6 +52,6 @@ object WidgetManager {
     }
 
     init {
-        DataBus.setMainScreenEvents(widgetsFlow)
+        DataBus.mainScreenFlow.set(widgetsFlow)
     }
 }

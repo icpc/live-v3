@@ -115,8 +115,19 @@ data class ICPCProblemResult(
         val pendingAttempts: Int,
         val isSolved: Boolean,
         val isFirstToSolve: Boolean,
+        val lastSubmitTimeMs: Long?,
 ) : ProblemResult()
 
+
+@Serializable
+enum class MediaType {
+    @SerialName("camera")
+    CAMERA,
+    @SerialName("screen")
+    SCREEN,
+    @SerialName("record")
+    RECORD
+}
 
 @Serializable
 data class TeamInfo(
@@ -126,6 +137,7 @@ data class TeamInfo(
         val alias: String?,
         val groups: List<String>,
         val hashTag: String?,
+        val medias: Map<MediaType, String>
 )
 
 @Serializable

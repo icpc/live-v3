@@ -2,7 +2,10 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
+import org.icpclive.admin.AdminActionException
 import org.icpclive.api.*
 import org.icpclive.data.WidgetManager
 import java.io.File
@@ -87,11 +90,13 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
     }
 }
 
+val jsonPrettyEncoder = Json { prettyPrint = true }
+
 inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
                                                                                         noinline createWidget: (SettingsType) -> WidgetType) =
         PresetsManager<SettingsType, WidgetType>(path,
                 {
-                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(it))).mapIndexed { index, content ->
+                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
                         WidgetWrapper(createWidget, content, index + 1)
                     }
                 },

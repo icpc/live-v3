@@ -1,60 +1,28 @@
 package org.icpclive.adminapi
 
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.routing.*
-import kotlinx.coroutines.channels.ticker
-import kotlinx.html.*
-import org.icpclive.adminapi.advertisement.*
-import org.icpclive.adminapi.picture.*
-import org.icpclive.adminapi.scoreboard.*
-import org.icpclive.adminapi.queue.*
-import org.icpclive.adminapi.statistics.*
-import org.icpclive.adminapi.ticker.*
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import org.icpclive.api.*
 
-private lateinit var topLevelLinks: List<Pair<String, String>>
-
-internal fun BODY.adminApiHead() {
-    table {
-        tr {
-            for ((url, text) in topLevelLinks) {
-                td {
-                    a(url) { +text }
-                }
-            }
-        }
-    }
-}
-
-suspend inline fun ApplicationCall.catchAdminApiAction(block: ApplicationCall.() -> Unit) = try {
+suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> Unit) = try {
     block()
+    respond(mapOf("status" to "ok"))
 } catch (e: AdminActionApiException) {
     respond(mapOf("status" to "error", "message" to e.message))
 }
 
 
 fun Application.configureAdminApiRouting() {
+    fun path(name: String) = environment.config.property("live.presets.$name").getString()
     routing {
-        val scoreboardUrls = configureScoreboardApi()
-        val queueUrls = configureQueueApi()
-        val tickerUrls = configureTickerApi()
-        val statisticsUrls = configureStatisticsApi()
-
-        val advertisementUrls =
-                configureAdvertisementApi(environment.config.property("live.presets.advertisements").getString())
-        val pictureUrls =
-                configurePictureApi(environment.config.property("live.presets.pictures").getString())
-        val tickerMessagesUrls =
-                configureTickerMessagesApi(environment.config.property("live.presets.ticker").getString())
-
-        topLevelLinks = listOf(
-                advertisementUrls.mainPage to "Advertisement",
-                pictureUrls.mainPage to "Picture",
-                scoreboardUrls.mainPage to "Scoreboard",
-                statisticsUrls.mainPage to "Statistics",
-                queueUrls.mainPage to "Queue",
-                tickerUrls.mainPage to "Ticker",
-                tickerMessagesUrls.mainPage to "TickerMessages",
-        )
+        route("/adminapi") {
+            route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
+            route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
+            route("/scoreboard") { setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) }
+            route("/queue") { setupSimpleWidgetRouting(QueueSettings(), ::QueueWidget) }
+            route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
+            route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
+        }
     }
 }
