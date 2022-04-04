@@ -17,12 +17,22 @@ fun Application.configureAdminApiRouting() {
     fun path(name: String) = environment.config.property("live.presets.$name").getString()
     routing {
         route("/adminapi") {
-            route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
-            route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
             route("/scoreboard") { setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) }
             route("/queue") { setupSimpleWidgetRouting(QueueSettings(), ::QueueWidget) }
             route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
             route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
+            route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
+            route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
+            route("/tickermessage") {
+                setupPresetTickerRouting(path("ticker"), {
+                    when (it) {
+                        is TextTickerSettings -> TextTickerMessage(it)
+                        is ClockTickerSettings -> ClockTickerMessage(it)
+                        is ScoreboardTickerSettings -> ScoreboardTickerMessage(it)
+                        else -> TODO("Some bug in sealed class")
+                    }
+                })
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ import java.io.IOException
 
 class TickerWrappper(
         private val createMessage: (TickerMessageSettings) -> TickerMessage,
-        var settings: TickerMessageSettings,
+        private var settings: TickerMessageSettings,
         val id: Int? = null) {
     private val mutex = Mutex()
 
@@ -23,6 +23,11 @@ class TickerWrappper(
 
     suspend fun getStatus(): ObjectStatus<TickerMessageSettings> = mutex.withLock {
         return ObjectStatus(tickerId != null, settings, id)
+    }
+
+    //TODO: Use under mutex
+    fun getSettings(): TickerMessageSettings {
+        return settings
     }
 
     suspend fun set(newSettings: TickerMessageSettings) {
@@ -142,6 +147,6 @@ inline fun TickerPresets(path: String,
                     }
                 },
                 { data, fileName ->
-                    Json { prettyPrint = true }.encodeToStream(data.map { it.settings }, FileOutputStream(File(fileName)))
+                    Json { prettyPrint = true }.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
                 },
                 createMessage)

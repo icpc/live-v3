@@ -2,16 +2,11 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
-import org.icpclive.admin.AdminActionException
 import org.icpclive.api.*
-import org.icpclive.data.WidgetManager
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.IOException
 
 class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
         private val path: String,
@@ -101,6 +96,6 @@ inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> 
                     }
                 },
                 { data, fileName ->
-                    Json { prettyPrint = true }.encodeToStream(data.map { it.settings }, FileOutputStream(File(fileName)))
+                    Json { prettyPrint = true }.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
                 },
                 createWidget)
