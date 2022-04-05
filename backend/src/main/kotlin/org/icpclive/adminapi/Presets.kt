@@ -2,16 +2,11 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
-import org.icpclive.admin.AdminActionException
 import org.icpclive.api.*
-import org.icpclive.data.WidgetManager
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.IOException
 
 class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
         private val path: String,
@@ -29,7 +24,7 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
 
     suspend fun append(settings: SettingsType) {
         mutex.withLock {
-            innerData = innerData.plus(WidgetWrapper(settings, ++currentID, createWidget))
+            innerData = innerData.plus(WidgetWrapper(createWidget, settings, ++currentID))
         }
         save()
     }
@@ -97,10 +92,10 @@ inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> 
         PresetsManager<SettingsType, WidgetType>(path,
                 {
                     Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
-                        WidgetWrapper(content, index + 1, createWidget)
+                        WidgetWrapper(createWidget, content, index + 1)
                     }
                 },
                 { data, fileName ->
-                    jsonPrettyEncoder.encodeToStream(data.map { it.settings }, FileOutputStream(File(fileName)))
+                    jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
                 },
                 createWidget)

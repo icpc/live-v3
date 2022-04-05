@@ -11,7 +11,7 @@ const pages = {
     "Controls": "controls",
     "Advertisement": "advertisement",
     "Picture": "picture",
-    "Ticker": "ticker"
+    "TickerMessage": "tickermessage"
 };
 
 

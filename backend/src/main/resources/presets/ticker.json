@@ -1,37 +1,38 @@
 [
-  {
-    "type": "clock",
-    "id": 1,
-    "part": "short",
-    "periodMs": 30000
-  },
-  {
-    "type": "text",
-    "id": 2,
-    "part": "short",
-    "periodMs": 10000,
-    "text": "#ICPC"
-  },
-  {
-    "type": "text",
-    "id": 3,
-    "part": "long",
-    "periodMs": 10000,
-    "text": "Ticker message 1"
-  },
-  {
-    "type": "text",
-    "id": 4,
-    "part": "long",
-    "periodMs": 10000,
-    "text": "Ticker message 2"
-  },
-  {
-    "type": "scoreboard",
-    "id": 5,
-    "part": "long",
-    "periodMs": 30000,
-    "from": 1,
-    "to": 12
-  }
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 10000,
+        "text": "#ICPC"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Ticker message 1"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Ticker message 2"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 10000,
+        "text": "KEK"
+    }
 ]

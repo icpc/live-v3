@@ -6,9 +6,9 @@ import org.icpclive.api.*
 import org.icpclive.data.WidgetManager
 
 class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
-        var settings: SettingsType,
-        val id: Int? = null,
-        private val createWidget: (SettingsType) -> WidgetType
+        private val createWidget: (SettingsType) -> WidgetType,
+        private var settings: SettingsType,
+        val id: Int? = null
 ) {
     private val mutex = Mutex()
 
@@ -16,6 +16,11 @@ class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
 
     suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
         return ObjectStatus(widgetId != null, settings, id)
+    }
+
+    //TODO: Use under mutex
+    fun getSettings() : ObjectSettings {
+        return settings
     }
 
     suspend fun set(newSettings: SettingsType) {

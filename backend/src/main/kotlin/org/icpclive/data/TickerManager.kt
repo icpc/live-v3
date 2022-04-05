@@ -6,6 +6,8 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
 
+// TODO: Unify with WidgetManager
+
 object TickerManager {
     private val mutex = Mutex()
     private var timer = 0L
@@ -17,7 +19,7 @@ object TickerManager {
         messagesFlowWrite.emit(timer to AddMessageTickerEvent(message))
     }
 
-    suspend fun removeMessage(id: Long) = mutex.withLock {
+    suspend fun removeMessage(id: String) = mutex.withLock {
         if (messages.removeIf { it.id == id }) {
             timer++
             messagesFlowWrite.emit(timer to RemoveMessageTickerEvent(id))

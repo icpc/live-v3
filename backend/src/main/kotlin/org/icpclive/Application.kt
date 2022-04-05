@@ -11,7 +11,6 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import org.icpclive.admin.configureAdminRouting
 import org.icpclive.adminapi.configureAdminApiRouting
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
@@ -34,6 +33,7 @@ fun Application.module() {
         header(HttpHeaders.ContentType)
         header(HttpHeaders.Authorization)
         header("*")
+        method(HttpMethod.Delete)
         allowSameOrigin = true
         anyHost()
     }
@@ -55,7 +55,6 @@ fun Application.module() {
     routing {
         static("/static") { resources("static") }
     }
-    configureAdminRouting()
     configureAdminApiRouting()
     configureOverlayRouting()
     environment.log.info("Current working directory is ${File(".").canonicalPath}")
