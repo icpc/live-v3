@@ -5,7 +5,7 @@ import AppNav from "./AppNav";
 import Container from "@mui/material/Container";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Ticker from "./components/Ticker";
+import TickerMessage from "./components/TickerMessage";
 import Controls from "./components/Controls";
 import Advertisement from "./components/Advertisement";
 import Picture from "./components/Picture";
@@ -22,7 +22,7 @@ function App() {
                         <Route path = "/controls" element={<Controls/>}/>
                         <Route path = "/advertisement" element={<Advertisement/>}/>
                         <Route path = "/picture" element={<Picture/>}/>
-                        <Route path = "/ticker" element={<Ticker/>}/>
+                        <Route path = "/tickermessage" element={<TickerMessage/>}/>
                     </Routes>
                 </Container>
             </div>
