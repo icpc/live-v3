@@ -11,7 +11,7 @@ import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 interface ObjectSettings
 
 @Serializable
-data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val settings: SettingsType?, val id: Int?)
+data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val settings: SettingsType, val id: Int?)
 
 @Serializable
 data class AdvertisementSettings(val text: String) : ObjectSettings

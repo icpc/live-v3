@@ -96,6 +96,6 @@ inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> 
                     }
                 },
                 { data, fileName ->
-                    Json { prettyPrint = true }.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
+                    jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
                 },
                 createWidget)

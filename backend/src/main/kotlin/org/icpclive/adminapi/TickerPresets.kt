@@ -147,6 +147,6 @@ inline fun TickerPresets(path: String,
                     }
                 },
                 { data, fileName ->
-                    Json { prettyPrint = true }.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
+                    jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
                 },
                 createMessage)
