@@ -11,12 +11,10 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
         initialSettings: SettingsType,
         noinline createWidget: (SettingsType) -> WidgetType
 ) {
-    val widgetWrapper = WidgetWrapper(createWidget = createWidget, initialSettings)
+    val widgetWrapper = WidgetWrapper(createWidget, initialSettings)
     get {
         call.adminApiAction {
-            val response = widgetWrapper.getStatus()
-
-            call.respond(response)
+            call.respond(widgetWrapper.getStatus())
         }
     }
     post("/show") {
@@ -40,7 +38,10 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 ) {
     val presets = Presets(presetPath, createWidget)
     get {
-        call.respond(presets.getStatus())
+        //TODO: Somehow it drops an error when you erase let
+        presets?.let {
+            call.respond(it.getStatus())
+        }
     }
     post {
         call.adminApiAction {

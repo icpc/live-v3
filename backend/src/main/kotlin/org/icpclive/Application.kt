@@ -33,6 +33,7 @@ fun Application.module() {
         header(HttpHeaders.ContentType)
         header(HttpHeaders.Authorization)
         header("*")
+        method(HttpMethod.Delete)
         allowSameOrigin = true
         anyHost()
     }
