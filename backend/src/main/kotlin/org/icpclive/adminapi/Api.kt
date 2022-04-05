@@ -52,8 +52,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
             presets.edit(call.id(), call.receive())
         }
     }
-    //TODO: why not delete("/{id}")?
-    post("/{id}/delete") {
+    delete("/{id}") {
         call.adminApiAction {
             presets.delete(call.id())
         }
@@ -88,8 +87,7 @@ internal inline fun Route.setupPresetTickerRouting(
             presets.edit(call.id(), call.receive())
         }
     }
-    //TODO: why not delete("/{id}")?
-    post("/{id}/delete") {
+    delete("/{id}") {
         call.adminApiAction {
             presets.delete(call.id())
         }
