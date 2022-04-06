@@ -2,9 +2,12 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
+import kotlinx.serialization.serializer
 import org.icpclive.api.*
 import org.icpclive.data.Manager
 import org.icpclive.data.TickerManager
@@ -13,16 +16,18 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
+private val jsonPrettyEncoder = Json { prettyPrint = true }
+
 class PresetsManager<SettingsType : ObjectSettings, WidgetType : TypeWithId>(
     private val path: String,
-    private val decode: (String) -> List<Wrapper<SettingsType, WidgetType>>,
-    private val encode: (List<Wrapper<SettingsType, WidgetType>>, String) -> Unit,
+    settingsSerializer: KSerializer<SettingsType>,
     private val createWidget: (SettingsType) -> WidgetType,
     private val manager: Manager<WidgetType>,
-    private var innerData: List<Wrapper<SettingsType, WidgetType>> = decode(path),
-    private var currentID: Int = innerData.size
 ) {
     private val mutex = Mutex()
+    private val serializer = ListSerializer(settingsSerializer)
+    private var innerData = load()
+    private var currentID = innerData.size
 
     suspend fun getStatus(): List<ObjectStatus<SettingsType>> = mutex.withLock {
         return innerData.map { it.getStatus() }
@@ -78,35 +83,24 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : TypeWithId>(
         }
     }
 
-    private suspend fun load() {
-        mutex.withLock {
-            innerData = decode(path)
-        }
+    private fun load() = Json.decodeFromStream(serializer, FileInputStream(File(path))).mapIndexed { index, content ->
+        Wrapper(createWidget, content, manager, index + 1)
     }
 
     private suspend fun save() {
         mutex.withLock {
-            encode(innerData, path)
+            jsonPrettyEncoder.encodeToStream(serializer, innerData.map { it.getSettings() }, FileOutputStream(File(path)))
         }
     }
 }
 
-val jsonPrettyEncoder = Json { prettyPrint = true }
 
 inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> widgetPresets(
     path: String,
     noinline createWidget: (SettingsType) -> WidgetType
-) =
-    PresetsManager(
+) = PresetsManager(
         path,
-        {
-            Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
-                Wrapper(createWidget, content, WidgetManager, index + 1)
-            }
-        },
-        { data, fileName ->
-            jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
-        },
+        serializer(),
         createWidget,
         WidgetManager
     )
@@ -114,17 +108,9 @@ inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> 
 fun tickerPresets(
     path: String,
     createMessage: (TickerMessageSettings) -> TickerMessage
-) =
-    PresetsManager(
+) = PresetsManager(
         path,
-        {
-            Json.decodeFromStream<List<TickerMessageSettings>>(FileInputStream(File(it))).mapIndexed { index, content ->
-                Wrapper(createMessage, content, TickerManager, index + 1)
-            }
-        },
-        { data, fileName ->
-            jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
-        },
+        serializer(),
         createMessage,
         TickerManager
     )
