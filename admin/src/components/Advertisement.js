@@ -1,20 +1,20 @@
 import React from "react";
 import "../App.css";
-import PresetsPanel from "./PresetsPanel";
+import { PresetsTable } from "./PresetsTable";
 
-class AdvertisementPanel extends PresetsPanel {
+class AdvertisementTable extends PresetsTable {
 }
 
-AdvertisementPanel.defaultProps = {
-    ...AdvertisementPanel.defaultProps,
-    path: "/advertisement",
-    tableKeys: ["text"],
+AdvertisementTable.defaultProps = {
+    ...PresetsTable.defaultProps,
+    apiPath: "/advertisement",
+    apiTableKeys: ["text"],
 };
 
 function Advertisement() {
     return (
         <div className="Advertisement">
-            <AdvertisementPanel/>
+            <AdvertisementTable/>
         </div>
     );
 }

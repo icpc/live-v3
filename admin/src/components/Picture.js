@@ -1,14 +1,26 @@
 import React from "react";
 import "../App.css";
-import PicturePanel from "./PicturePanel";
+import { PictureTableRow } from "./PictureTableRow";
+import { PresetsTable } from "./PresetsTable";
 
-// class PicturePanel extends PresetsPanel {
-// }
+
+export class PictureTable extends PresetsTable {
+    constructor(props) {
+        super(props);
+    }
+}
+
+PictureTable.defaultProps = {
+    ...PresetsTable.defaultProps,
+    apiPath: "/picture",
+    apiTableKeys: ["name", "url"],
+    rowComponent: PictureTableRow,
+};
 
 function Picture() {
     return (
         <div className="Pictures">
-            <PicturePanel/>
+            <PictureTable/>
         </div>
     );
 }
