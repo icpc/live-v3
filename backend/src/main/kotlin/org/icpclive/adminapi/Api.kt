@@ -44,9 +44,9 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     presets: PresetsManager<SettingsType, WidgetType>
 ) {
     get {
-        //TODO: Somehow it drops an error when you erase let
-        presets?.let {
-            call.respond(it.getStatus())
+        // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
+        run {
+            call.respond(presets.getStatus())
         }
     }
     post {
