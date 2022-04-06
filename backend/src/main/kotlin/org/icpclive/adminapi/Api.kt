@@ -9,12 +9,15 @@ import org.icpclive.api.*
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
 
+private suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
+    receive()
+} catch (e: SerializationException) {
+    throw AdminActionApiException("Failed to deserialize data")
+}
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
-        initialSettings: SettingsType,
-        noinline createWidget: (SettingsType) -> WidgetType
+    widgetWrapper: Wrapper<SettingsType, WidgetType>
 ) {
-    val widgetWrapper = Wrapper(createWidget, initialSettings, WidgetManager)
     get {
         call.adminApiAction {
             call.respond(widgetWrapper.getStatus())
@@ -32,13 +35,8 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
 }
 
-
-private fun ApplicationCall.id() = parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
-private suspend inline fun <reified T> ApplicationCall.safeReceive() : T = try {
-    receive()
-} catch (e: SerializationException) {
-    throw AdminActionApiException("Failed to deserialize data")
-}
+private fun ApplicationCall.id() =
+    parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : TypeWithId> Route.setupPresetRouting(
     presets: PresetsManager<SettingsType, WidgetType>
@@ -76,12 +74,17 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
 }
 
+internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
+    initialSettings: SettingsType,
+    noinline createWidget: (SettingsType) -> WidgetType
+) = setupSimpleWidgetRouting(Wrapper(createWidget, initialSettings, WidgetManager))
+
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
     presetPath: String,
     noinline createWidget: (SettingsType) -> WidgetType
 ) = setupPresetRouting(Presets(presetPath, WidgetManager, createWidget))
 
 internal fun Route.setupPresetTickerRouting(
-        presetPath: String,
-        createMessage: (TickerMessageSettings) -> TickerMessage,
+    presetPath: String,
+    createMessage: (TickerMessageSettings) -> TickerMessage,
 ) = setupPresetRouting(Presets(presetPath, TickerManager, createMessage))
