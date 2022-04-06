@@ -8,52 +8,13 @@ import org.icpclive.utils.toHex
 import kotlin.time.Duration.Companion.milliseconds
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
-interface ObjectSettings
+
+interface TypeWithId {
+    val id: String
+}
 
 @Serializable
 data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val settings: SettingsType, val id: Int?)
-
-@Serializable
-data class AdvertisementSettings(val text: String) : ObjectSettings
-
-@Serializable
-data class PictureSettings(val url: String, val name: String) : ObjectSettings
-
-@Serializable
-class QueueSettings : ObjectSettings
-
-@Serializable
-class ScoreboardSettings : ObjectSettings
-
-@Serializable
-class StatisticsSettings : ObjectSettings
-
-@Serializable
-class TickerSettings : ObjectSettings
-
-@Serializable
-sealed class TickerMessageSettings : ObjectSettings {
-    abstract val part: TickerPart
-    abstract val periodMs: Long
-}
-
-@Serializable
-enum class TickerPart {
-    short,
-    long;
-}
-
-@Serializable
-@SerialName("text")
-data class TextTickerSettings(override val part: TickerPart, override val periodMs: Long, val text: String) : TickerMessageSettings()
-
-@Serializable
-@SerialName("clock")
-data class ClockTickerSettings(override val part: TickerPart, override val periodMs: Long) : TickerMessageSettings()
-
-@Serializable
-@SerialName("scoreboard")
-data class ScoreboardTickerSettings(override val part: TickerPart, override val periodMs: Long, val from: Int, val to: Int) : TickerMessageSettings()
 
 @Serializable
 data class RunInfo(

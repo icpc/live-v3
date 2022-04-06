@@ -15,9 +15,9 @@ class LocationRectangle(
 
 @Serializable
 sealed class Widget(
-        val widgetId: String,
-        val location: LocationRectangle
-)
+    @SerialName("widgetId") override val id: String,
+    val location: LocationRectangle
+) : TypeWithId
 
 @Serializable
 @SerialName("AdvertisementWidget")

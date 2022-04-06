@@ -5,13 +5,14 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.icpclive.api.*
+import org.icpclive.data.WidgetManager
 
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
         initialSettings: SettingsType,
         noinline createWidget: (SettingsType) -> WidgetType
 ) {
-    val widgetWrapper = WidgetWrapper(createWidget, initialSettings)
+    val widgetWrapper = Wrapper(createWidget, initialSettings, WidgetManager)
     get {
         call.adminApiAction {
             call.respond(widgetWrapper.getStatus())
@@ -32,11 +33,9 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 
 fun ApplicationCall.id() = parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
 
-internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
-        presetPath: String,
-        noinline createWidget: (SettingsType) -> WidgetType,
+internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : TypeWithId> Route.setupPresetRouting(
+    presets: PresetsManager<SettingsType, WidgetType>
 ) {
-    val presets = Presets(presetPath, createWidget)
     get {
         //TODO: Somehow it drops an error when you erase let
         presets?.let {
@@ -70,37 +69,12 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
 }
 
-internal inline fun Route.setupPresetTickerRouting(
+internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
+    presetPath: String,
+    noinline createWidget: (SettingsType) -> WidgetType
+) = setupPresetRouting(widgetPresets(presetPath, createWidget))
+
+internal fun Route.setupPresetTickerRouting(
         presetPath: String,
-        noinline createMessage: (TickerMessageSettings) -> TickerMessage,
-) {
-    val presets = TickerPresets(presetPath, createMessage)
-    get {
-        call.respond(presets.getStatus())
-    }
-    post {
-        call.adminApiAction {
-            presets.append(call.receive())
-        }
-    }
-    post("/{id}") {
-        call.adminApiAction {
-            presets.edit(call.id(), call.receive())
-        }
-    }
-    delete("/{id}") {
-        call.adminApiAction {
-            presets.delete(call.id())
-        }
-    }
-    post("/{id}/show") {
-        call.adminApiAction {
-            presets.show(call.id())
-        }
-    }
-    post("/{id}/hide") {
-        call.adminApiAction {
-            presets.hide(call.id())
-        }
-    }
-}
+        createMessage: (TickerMessageSettings) -> TickerMessage,
+) = setupPresetRouting(tickerPresets(presetPath, createMessage))

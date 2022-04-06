@@ -8,50 +8,12 @@ import org.icpclive.api.*
 
 // TODO: Unify with WidgetManager
 
-object TickerManager {
-    private val mutex = Mutex()
-    private var timer = 0L
-    private val messages = mutableListOf<TickerMessage>()
-
-    suspend fun addMessage(message: TickerMessage) = mutex.withLock {
-        messages.add(message)
-        timer++
-        messagesFlowWrite.emit(timer to AddMessageTickerEvent(message))
-    }
-
-    suspend fun removeMessage(id: String) = mutex.withLock {
-        if (messages.removeIf { it.id == id }) {
-            timer++
-            messagesFlowWrite.emit(timer to RemoveMessageTickerEvent(id))
-        }
-    }
-
-    suspend fun getMessagesSubscribeEvents() = mutex.withLock {
-        timer++
-        timer to messages.toList()
-    }
-
-    private val messagesFlowWrite = MutableSharedFlow<Pair<Long, TickerEvent>>(
-        replay = 32,
-        extraBufferCapacity = 100000,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST,
-    )
-
-    private val messagesFlow: Flow<TickerEvent> = flow {
-        var subscriptionTimer = 0L
-        messagesFlowWrite
-            .onSubscription {
-                val (timer, messages) = getMessagesSubscribeEvents()
-                subscriptionTimer = timer
-                emit(timer to TickerSnapshotEvent(messages))
-            }
-            .filter { it.first >= subscriptionTimer }
-            .map { it.second }
-            .collect { emit(it) }
-    }
+object TickerManager : ManagerWithEvents<TickerMessage, TickerEvent>() {
+    override fun createAddEvent(item: TickerMessage) = AddMessageTickerEvent(item)
+    override fun createRemoveEvent(id: String) = RemoveMessageTickerEvent(id)
+    override fun createSnapshotEvent(items: List<TickerMessage>) = TickerSnapshotEvent(items)
 
     init {
-        DataBus.tickerFlow.set(messagesFlow)
+        DataBus.tickerFlow.set(flow)
     }
-
 }

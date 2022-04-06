@@ -2,19 +2,25 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.encodeToStream
 import org.icpclive.api.*
+import org.icpclive.data.Manager
+import org.icpclive.data.TickerManager
+import org.icpclive.data.WidgetManager
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
-        private val path: String,
-        private val decode: (String) -> List<WidgetWrapper<SettingsType, WidgetType>>,
-        private val encode: (List<WidgetWrapper<SettingsType, WidgetType>>, String) -> Unit,
-        private val createWidget: (SettingsType) -> WidgetType,
-        private var innerData: List<WidgetWrapper<SettingsType, WidgetType>> = decode(path),
-        private var currentID: Int = innerData.size
+class PresetsManager<SettingsType : ObjectSettings, WidgetType : TypeWithId>(
+    private val path: String,
+    private val decode: (String) -> List<Wrapper<SettingsType, WidgetType>>,
+    private val encode: (List<Wrapper<SettingsType, WidgetType>>, String) -> Unit,
+    private val createWidget: (SettingsType) -> WidgetType,
+    private val manager: Manager<WidgetType>,
+    private var innerData: List<Wrapper<SettingsType, WidgetType>> = decode(path),
+    private var currentID: Int = innerData.size
 ) {
     private val mutex = Mutex()
 
@@ -24,7 +30,7 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
 
     suspend fun append(settings: SettingsType) {
         mutex.withLock {
-            innerData = innerData.plus(WidgetWrapper(createWidget, settings, ++currentID))
+            innerData = innerData.plus(Wrapper(createWidget, settings, manager, ++currentID))
         }
         save()
     }
@@ -72,13 +78,13 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
         }
     }
 
-    suspend private fun load() {
+    private suspend fun load() {
         mutex.withLock {
             innerData = decode(path)
         }
     }
 
-    suspend private fun save() {
+    private suspend fun save() {
         mutex.withLock {
             encode(innerData, path)
         }
@@ -87,15 +93,38 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
 
 val jsonPrettyEncoder = Json { prettyPrint = true }
 
-inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
-                                                                                        noinline createWidget: (SettingsType) -> WidgetType) =
-        PresetsManager<SettingsType, WidgetType>(path,
-                {
-                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
-                        WidgetWrapper(createWidget, content, index + 1)
-                    }
-                },
-                { data, fileName ->
-                    jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
-                },
-                createWidget)
+inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> widgetPresets(
+    path: String,
+    noinline createWidget: (SettingsType) -> WidgetType
+) =
+    PresetsManager(
+        path,
+        {
+            Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
+                Wrapper(createWidget, content, WidgetManager, index + 1)
+            }
+        },
+        { data, fileName ->
+            jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
+        },
+        createWidget,
+        WidgetManager
+    )
+
+fun tickerPresets(
+    path: String,
+    createMessage: (TickerMessageSettings) -> TickerMessage
+) =
+    PresetsManager(
+        path,
+        {
+            Json.decodeFromStream<List<TickerMessageSettings>>(FileInputStream(File(it))).mapIndexed { index, content ->
+                Wrapper(createMessage, content, TickerManager, index + 1)
+            }
+        },
+        { data, fileName ->
+            jsonPrettyEncoder.encodeToStream(data.map { it.getSettings() }, FileOutputStream(File(fileName)))
+        },
+        createMessage,
+        TickerManager
+    )

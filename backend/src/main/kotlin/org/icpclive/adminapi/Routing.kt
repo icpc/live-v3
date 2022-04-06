@@ -23,16 +23,7 @@ fun Application.configureAdminApiRouting() {
             route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
             route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
             route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
-            route("/tickermessage") {
-                setupPresetTickerRouting(path("ticker"), {
-                    when (it) {
-                        is TextTickerSettings -> TextTickerMessage(it)
-                        is ClockTickerSettings -> ClockTickerMessage(it)
-                        is ScoreboardTickerSettings -> ScoreboardTickerMessage(it)
-                        else -> TODO("Some bug in sealed class")
-                    }
-                })
-            }
+            route("/tickermessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }
         }
     }
 }

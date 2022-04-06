@@ -8,9 +8,9 @@ import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
 @Serializable
-sealed class TickerMessage(
-        val id: String
-)
+sealed class TickerMessage (
+    override val id: String
+) : TypeWithId
 
 @Serializable
 @SerialName("text")
