@@ -5,6 +5,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.icpclive.api.*
+import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
 
 
@@ -72,9 +73,9 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
     presetPath: String,
     noinline createWidget: (SettingsType) -> WidgetType
-) = setupPresetRouting(widgetPresets(presetPath, createWidget))
+) = setupPresetRouting(Presets(presetPath, WidgetManager, createWidget))
 
 internal fun Route.setupPresetTickerRouting(
         presetPath: String,
         createMessage: (TickerMessageSettings) -> TickerMessage,
-) = setupPresetRouting(tickerPresets(presetPath, createMessage))
+) = setupPresetRouting(Presets(presetPath, TickerManager, createMessage))

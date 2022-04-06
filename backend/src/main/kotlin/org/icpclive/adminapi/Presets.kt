@@ -18,11 +18,11 @@ import java.io.FileOutputStream
 
 private val jsonPrettyEncoder = Json { prettyPrint = true }
 
-class PresetsManager<SettingsType : ObjectSettings, WidgetType : TypeWithId>(
+class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
     private val path: String,
     settingsSerializer: KSerializer<SettingsType>,
-    private val createWidget: (SettingsType) -> WidgetType,
-    private val manager: Manager<WidgetType>,
+    private val createItem: (SettingsType) -> ItemType,
+    private val manager: Manager<ItemType>,
 ) {
     private val mutex = Mutex()
     private val serializer = ListSerializer(settingsSerializer)
@@ -35,7 +35,7 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : TypeWithId>(
 
     suspend fun append(settings: SettingsType) {
         mutex.withLock {
-            innerData = innerData.plus(Wrapper(createWidget, settings, manager, ++currentID))
+            innerData = innerData.plus(Wrapper(createItem, settings, manager, ++currentID))
         }
         save()
     }
@@ -84,7 +84,7 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : TypeWithId>(
     }
 
     private fun load() = Json.decodeFromStream(serializer, FileInputStream(File(path))).mapIndexed { index, content ->
-        Wrapper(createWidget, content, manager, index + 1)
+        Wrapper(createItem, content, manager, index + 1)
     }
 
     private suspend fun save() {
@@ -95,22 +95,13 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : TypeWithId>(
 }
 
 
-inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> widgetPresets(
+inline fun <reified SettingsType : ObjectSettings, reified ItemType : TypeWithId> Presets(
     path: String,
-    noinline createWidget: (SettingsType) -> WidgetType
+    manager: Manager<ItemType>,
+    noinline createItem: (SettingsType) -> ItemType
 ) = PresetsManager(
         path,
         serializer(),
-        createWidget,
-        WidgetManager
-    )
-
-fun tickerPresets(
-    path: String,
-    createMessage: (TickerMessageSettings) -> TickerMessage
-) = PresetsManager(
-        path,
-        serializer(),
-        createMessage,
-        TickerManager
+        createItem,
+        manager
     )
