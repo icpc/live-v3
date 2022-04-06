@@ -4,6 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.SerializationException
 import org.icpclive.api.*
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
@@ -21,7 +22,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post("/show") {
         call.adminApiAction {
-            widgetWrapper.show(call.receive())
+            widgetWrapper.show(call.safeReceive())
         }
     }
     post("/hide") {
@@ -32,7 +33,12 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 }
 
 
-fun ApplicationCall.id() = parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
+private fun ApplicationCall.id() = parameters["id"]?.toIntOrNull() ?: throw AdminActionApiException("Error load preset by id")
+private suspend inline fun <reified T> ApplicationCall.safeReceive() : T = try {
+    receive()
+} catch (e: SerializationException) {
+    throw AdminActionApiException("Failed to deserialize data")
+}
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : TypeWithId> Route.setupPresetRouting(
     presets: PresetsManager<SettingsType, WidgetType>
@@ -45,12 +51,12 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post {
         call.adminApiAction {
-            presets.append(call.receive())
+            presets.append(call.safeReceive())
         }
     }
     post("/{id}") {
         call.adminApiAction {
-            presets.edit(call.id(), call.receive())
+            presets.edit(call.id(), call.safeReceive())
         }
     }
     delete("/{id}") {
