@@ -4,6 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.icpclive.api.*
+import org.icpclive.data.*
 
 suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> Unit) = try {
     block()
@@ -21,6 +22,12 @@ fun Application.configureAdminApiRouting() {
             route("/queue") { setupSimpleWidgetRouting(QueueSettings(), ::QueueWidget) }
             route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
             route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
+            route("/teamview") {
+                setupSimpleWidgetRouting(TeamViewSettings(), ::TeamViewWidget, {
+                    DataBus.contestInfoUpdates.value.teams
+                })
+            }
+
             route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
             route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
             route("/tickermessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }

@@ -8,6 +8,7 @@ import kotlinx.serialization.SerializationException
 import org.icpclive.api.*
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
+import org.icpclive.data.DataBus
 
 private suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
     receive()
@@ -16,7 +17,8 @@ private suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
 }
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
-    widgetWrapper: Wrapper<SettingsType, WidgetType>
+    widgetWrapper: Wrapper<SettingsType, WidgetType>,
+    noinline getInfo: (() -> Any)?
 ) {
     get {
         call.adminApiAction {
@@ -31,6 +33,14 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     post("/hide") {
         call.adminApiAction {
             widgetWrapper.hide()
+        }
+    }
+    getInfo?.let {
+        get("/info") {
+            call.adminApiAction {
+                val response = it()
+                call.respond(response)
+            }
         }
     }
 }
@@ -76,8 +86,9 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
     initialSettings: SettingsType,
-    noinline createWidget: (SettingsType) -> WidgetType
-) = setupSimpleWidgetRouting(Wrapper(createWidget, initialSettings, WidgetManager))
+    noinline createWidget: (SettingsType) -> WidgetType,
+    noinline getInfo: (() -> Any)? = null
+) = setupSimpleWidgetRouting(Wrapper(createWidget, initialSettings, WidgetManager), getInfo)
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
     presetPath: String,

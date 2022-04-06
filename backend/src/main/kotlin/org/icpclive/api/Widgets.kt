@@ -72,3 +72,12 @@ class TickerWidget(val settings: TickerSettings) : Widget(WIDGET_ID, location) {
         val location = LocationRectangle(0, 1025, 1920, 50)
     }
 }
+
+@Serializable
+@SerialName("TeamViewWidget")
+class TeamViewWidget(val settings: TeamViewSettings) : Widget(WIDGET_ID, location) {
+    companion object {
+        const val WIDGET_ID = "teamview"
+        val location = LocationRectangle(550, 40, 1350, 970)
+    }
+}
