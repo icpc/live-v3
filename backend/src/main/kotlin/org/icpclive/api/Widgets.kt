@@ -4,6 +4,10 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.random.Random
+import kotlin.random.nextUInt
+
+fun GenerateId(widgetPrefix: String): String = widgetPrefix + '-' + Random.nextUInt().toString()
 
 @Serializable
 class LocationRectangle(
@@ -21,18 +25,18 @@ sealed class Widget(
 
 @Serializable
 @SerialName("AdvertisementWidget")
-class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(WIDGET_ID, location) {
+class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(GenerateId(WIDGET_ID_PREFIX), location) {
     companion object {
-        const val WIDGET_ID = "advertisement"
+        const val WIDGET_ID_PREFIX = "advertisement"
         val location = LocationRectangle(0, 860, 1920, 90)
     }
 }
 
 @Serializable
 @SerialName("PictureWidget")
-class PictureWidget(val picture: PictureSettings) : Widget(WIDGET_ID, location) {
+class PictureWidget(val picture: PictureSettings) : Widget(GenerateId(WIDGET_ID_PREFIX), location) {
     companion object {
-        const val WIDGET_ID = "picture"
+        const val WIDGET_ID_PREFIX = "picture"
         val location = LocationRectangle(590, 50, 1300, 960)
     }
 }
