@@ -1,7 +1,9 @@
-import { DateTime } from "luxon";
+import { DateTime, Settings } from "luxon";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { TextWrap } from "./Text";
+
+Settings.defaultZone = "utc";
 
 export const Clock = ({ tickerSettings }) => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
@@ -12,7 +14,7 @@ export const Clock = ({ tickerSettings }) => {
             return "BEFORE";
         if(milliseconds >= contestInfo.contestLengthMs)
             return "OVER";
-        return DateTime.fromMillis(milliseconds).toFormat("h:mm:ss");
+        return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
     }, [contestInfo]);
     const [status, setStatus] = useState(getStatus());
     useEffect(() => {
