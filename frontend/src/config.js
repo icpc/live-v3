@@ -63,6 +63,11 @@ export const TICKER_SMALL_BACKGROUND = VERDICT_NOK;
 export const TICKER_BACKGROUND = CELL_BG_COLOR;
 export const TICKER_OPACITY = 0.8;
 export const TICKER_FONT_COLOR = "#FFFFFF";
+export const TICKER_FONT_FAMILY = "Helvetica, serif";
+export const TICKER_TEXT_FONT_SIZE = "34px"; // css property
+export const TICKER_TEXT_MARGIN_LEFT = "7px"; // css property
+export const TICKER_CLOCK_FONT_SIZE = "34px"; // css property
+export const TICKER_CLOCK_MARGIN_LEFT = "7px"; // css property
 
 
 export const STAR_SIZE = 10; // px

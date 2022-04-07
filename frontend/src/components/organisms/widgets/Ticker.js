@@ -6,6 +6,7 @@ import styled, { keyframes } from "styled-components";
 import {
     TICKER_BACKGROUND,
     TICKER_FONT_COLOR,
+    TICKER_FONT_FAMILY,
     TICKER_OPACITY,
     TICKER_SCROLL_TRANSITION_TIME,
     TICKER_SMALL_BACKGROUND,
@@ -49,6 +50,8 @@ const TickerRowContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  font-family: ${TICKER_FONT_FAMILY};
 `;
 
 const TickerRow = ({ children, state }) => {
@@ -88,7 +91,7 @@ export const SingleTicker = ({ part, color }) => {
                         if(TickerComponent === undefined) {
                             dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
                         }
-                        return <TickerRow
+                        return state !== "exited" && <TickerRow
                             state={isFirst && state === "entering" ? "entered" : state}> {/* ignore first entering render */}
                             <TickerComponent tickerSettings={curMessage.settings}/>
                         </TickerRow>;
