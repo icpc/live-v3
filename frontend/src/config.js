@@ -29,6 +29,10 @@ export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
 export const QUEUE_ROWS_COUNT = 15; // n
 export const QUEUE_OPACITY = 0.8;
 
+export const SCOREBOARD_RANK_WIDTH = 80; // px
+export const SCOREBOARD_NAME_WIDTH = 300; // px
+export const SCOREBOARD_SUM_PEN_WIDTH = 80; // px
+
 export const STATISTICS_TITLE_FONT_SIZE = "30px";
 export const STATISTICS_OPACITY = 0.8;
 export const STATISTICS_BG_COLOR = "#000000";

@@ -5,8 +5,11 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
     SCOREBOARD_MAX_PAGES,
+    SCOREBOARD_NAME_WIDTH,
+    SCOREBOARD_RANK_WIDTH,
     SCOREBOARD_ROW_TRANSITION_TIME,
     SCOREBOARD_SCROLL_INTERVAL,
+    SCOREBOARD_SUM_PEN_WIDTH,
     SCOREBOARD_TEAMS_ON_PAGE,
     VERDICT_NOK,
     VERDICT_OK,
@@ -17,17 +20,6 @@ import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-const NUM = 30;
-const NUMWIDTH = 80;
-const NAMEWIDTH = 300;
-const STATWIDTH = 80;
 
 const ScoreboardWrap = styled.div`
   height: 100%;
@@ -55,7 +47,7 @@ const ScoreboardCell = styled(Cell)`
 `;
 
 const ScoreboardStatCell = styled(ScoreboardCell)`
-  width: ${STATWIDTH}px;
+  width: ${SCOREBOARD_SUM_PEN_WIDTH}px;
 `;
 
 const ScoreboardTaskCellWrap = styled(ScoreboardCell)`
@@ -107,13 +99,13 @@ const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
 
 const ScoreboardHeaderTitle = styled(ScoreboardCell)`
   background: red;
-  width: ${NUMWIDTH + NAMEWIDTH}px;
+  width: ${SCOREBOARD_RANK_WIDTH + SCOREBOARD_NAME_WIDTH}px;
   font-size: 30px;
 `;
 
 const ScoreboardHeaderStatCell = styled(ScoreboardStatCell)`
   background: black;
-  width: ${STATWIDTH}px;
+  width: ${SCOREBOARD_SUM_PEN_WIDTH}px;
   text-align: center;
 `;
 
@@ -139,8 +131,8 @@ const ScoreboardRow = ({ teamId }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
-        <RankCell rank={scoreboardData.rank} width={NUMWIDTH + "px"}/>
-        <TeamNameCell teamName={teamData.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
+        <RankCell rank={scoreboardData.rank} width={SCOREBOARD_RANK_WIDTH + "px"}/>
+        <TeamNameCell teamName={teamData.shortName} width={SCOREBOARD_NAME_WIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData.totalScore}
         </ScoreboardStatCell>
