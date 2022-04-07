@@ -13,7 +13,7 @@ class TickerTable extends PresetsTable {
 TickerTable.defaultProps = {
     ...PresetsTable.defaultProps,
     apiPath: "/tickermessage",
-    apiTableKeys: ["type", "text", "periodMs", "from", "to"],
+    apiTableKeys: ["type", "text", "periodMs"],
 };
 
 TickerTable.propTypes = {
