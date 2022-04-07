@@ -50,6 +50,7 @@ const QueueRowWrap = styled.div.attrs(({ bottom }) => ({
   transition: bottom linear ${props => props.fts ? QUEUE_ROW_FTS_TRANSITION_TIME : QUEUE_ROW_TRANSITION_TIME}ms;
   animation: ${props => props.animation} ${QUEUE_ROW_APPEAR_TIME}ms linear;
   box-sizing: border-box;
+  z-index: ${props => props.fts ? 1 : "unset"};
 `;
 
 const rowExpand = keyframes`
