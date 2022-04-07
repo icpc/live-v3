@@ -11,7 +11,10 @@ import {
     TICKER_SMALL_BACKGROUND,
     TICKER_SMALL_SIZE
 } from "../../../config";
+import { pushLog } from "../../../redux/debug";
 import { startScrolling, stopScrolling } from "../../../redux/ticker";
+import Clock from "../tickers/Clock";
+import Text from "../tickers/Text";
 
 const rowAppear = keyframes`
   from {
@@ -40,7 +43,12 @@ const TickerRowContainer = styled.div`
   position: absolute;
   overflow: hidden;
   height: 100%;
-  animation: ${props => props.animation} linear ${TICKER_SCROLL_TRANSITION_TIME}ms;
+  width: 100%;
+  animation: ${props => props.animation} ease-in-out ${TICKER_SCROLL_TRANSITION_TIME}ms;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TickerRow = ({ children, state }) => {
@@ -50,22 +58,44 @@ const TickerRow = ({ children, state }) => {
 };
 
 const SingleTickerWrap = styled.div`
+  position: relative;
   height: 100%;
   width: 100%;
   background-color: ${props => props.color};
 `;
 
+const widgetTypes = Object.freeze({
+    text: Text,
+    clock: Clock
+});
+
+const DefaultTicker = ({ tickerSettings }) => {
+    return <div style={{ backgroundColor: "red", wordBreak: "break-all" }}>
+        {JSON.stringify(tickerSettings)}
+    </div>;
+};
+
 export const SingleTicker = ({ part, color }) => {
+    const dispatch = useDispatch();
     const curMessage = useSelector((state) => state.ticker.tickers[part].curDisplaying);
+    const isFirst = useSelector((state) => state.ticker.tickers[part].isFirst);
     return <SingleTickerWrap color={color}>
         <TransitionGroup component={null}>
-            <Transition key={curMessage?.id} timeout={TICKER_SCROLL_TRANSITION_TIME}>
-                {state =>
-                    <TickerRow state={state}>
-                        {part} {curMessage?.type} {curMessage ? curMessage.text ?? "NO_TEXT" : "NO_MESSAGE"}
-                    </TickerRow>
-                }
-            </Transition>
+            {curMessage &&
+                <Transition key={curMessage?.id} timeout={TICKER_SCROLL_TRANSITION_TIME}>
+                    {(state) => {
+                        const TickerComponent = widgetTypes[curMessage.type] ?? DefaultTicker;
+                        if(TickerComponent === undefined) {
+                            dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
+                        }
+                        return <TickerRow
+                            state={isFirst && state === "entering" ? "entered" : state}> {/* ignore first entering render */}
+                            <TickerComponent tickerSettings={curMessage.settings}/>
+                        </TickerRow>;
+                    }
+                    }
+                </Transition>
+            }
         </TransitionGroup>
     </SingleTickerWrap>;
 };
