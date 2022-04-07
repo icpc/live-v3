@@ -36,6 +36,8 @@ const ScoreboardWrap = styled.div`
   border: none;
   border-collapse: collapse;
   table-layout: fixed;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScoreboardRowContainer = styled.div`
@@ -215,7 +217,7 @@ export const Scoreboard = ({ widgetData }) => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const [offset, setOffset] = useState(0);
     const totalHeight = widgetData.location.sizeY;
-    const rowHeight = (totalHeight / (SCOREBOARD_TEAMS_ON_PAGE + 1));
+    const rowHeight = (totalHeight / (SCOREBOARD_TEAMS_ON_PAGE));
     useEffect(() => {
         const id = setInterval(() => {
             setOffset((offset) => {
@@ -227,15 +229,15 @@ export const Scoreboard = ({ widgetData }) => {
     }, [rows.length]);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
     return <ScoreboardWrap>
-        <div>
+        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>
+        <div style={{ overflow: "hidden", height: "100%" }}>
             {teams.map(([ind, teamRowData]) =>
-                <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - offset) * rowHeight + rowHeight}
-                    rowHeight={rowHeight} zIndex={ind}>
+                <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - offset) * rowHeight}
+                    rowHeight={rowHeight} zIndex={-ind}>
                     <ScoreboardRow teamId={teamRowData.teamId}/>
                 </PositionedScoreboardRow>
             )}
         </div>
-        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>
     </ScoreboardWrap>;
 };
 
