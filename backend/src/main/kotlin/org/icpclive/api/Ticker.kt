@@ -8,13 +8,15 @@ import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
 @Serializable
-sealed class TickerMessage (
-    override val id: String
+sealed class TickerMessage(
+    override val id: String,
+    val part: TickerPart,
+    val periodMs: Long
 ) : TypeWithId
 
 @Serializable
 @SerialName("text")
-class TextTickerMessage(val settings: TextTickerSettings) : TickerMessage(ID) {
+class TextTickerMessage(val settings: TextTickerSettings) : TickerMessage(ID, settings.part, settings.periodMs) {
     companion object {
         val ID: String = Random.nextInt().toString()
     }
@@ -22,7 +24,7 @@ class TextTickerMessage(val settings: TextTickerSettings) : TickerMessage(ID) {
 
 @Serializable
 @SerialName("clock")
-class ClockTickerMessage(val settings: ClockTickerSettings) : TickerMessage(ID) {
+class ClockTickerMessage(val settings: ClockTickerSettings) : TickerMessage(ID, settings.part, settings.periodMs) {
     companion object {
         val ID: String = Random.nextInt().toString()
     }
@@ -30,7 +32,8 @@ class ClockTickerMessage(val settings: ClockTickerSettings) : TickerMessage(ID) 
 
 @Serializable
 @SerialName("scoreboard")
-class ScoreboardTickerMessage(val settings: ScoreboardTickerSettings) : TickerMessage(ID) {
+class ScoreboardTickerMessage(val settings: ScoreboardTickerSettings) :
+    TickerMessage(ID, settings.part, settings.periodMs) {
     companion object {
         val ID: String = Random.nextInt().toString()
     }
