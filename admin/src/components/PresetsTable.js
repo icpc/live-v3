@@ -89,10 +89,11 @@ export class PresetsTable extends React.Component {
                             rowData={row}
                             key={row.id}
                             createErrorHandler={this.props.createErrorHandler}
+                            isImmutable={this.props.isImmutable}
                         />)}
                 </TableBody>
             </Table>
-            {this.renderAddButton()}
+            {this.props.isImmutable !== true && this.renderAddButton()}
         </div>);
     }
 
@@ -113,6 +114,7 @@ PresetsTable.propTypes = {
     }),
     rowComponent: PropTypes.elementType,
     createErrorHandler: PropTypes.func,
+    isImmutable: PropTypes.bool,
 };
 
 PresetsTable.defaultProps = {
@@ -121,6 +123,5 @@ PresetsTable.defaultProps = {
         inactiveColor: "white",
     },
     rowComponent: PresetsTableRow,
-    createErrorHandler: () => () => {
-    },
+    createErrorHandler: () => () => {},
 };

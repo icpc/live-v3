@@ -82,7 +82,7 @@ export class PresetsTableRow extends React.Component {
                     }
                 </TableCell>
             ))}
-            <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
+            {this.props.isImmutable !== true && <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
                     <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
                         onClick={this.onClickEdit}>
@@ -90,7 +90,7 @@ export class PresetsTableRow extends React.Component {
                     </IconButton>
                     <IconButton color="error" onClick={this.onClickDelete}><DeleteIcon/></IconButton>
                 </Box>
-            </TableCell>
+            </TableCell>}
         </TableRow>);
     }
 }
@@ -104,9 +104,10 @@ PresetsTableRow.propTypes = {
         inactiveColor: PropTypes.string,
     }).isRequired,
     rowData: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         shown: PropTypes.bool.isRequired,
         settings: PropTypes.object.isRequired,
     }),
-    createErrorHandler: PropTypes.func
+    createErrorHandler: PropTypes.func,
+    isImmutable: PropTypes.bool,
 };
