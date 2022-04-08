@@ -55,8 +55,8 @@ export class PresetsTable extends React.Component {
         return this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
     }
 
-    doAddPreset() {
-        this.apiPost("", this.getDefaultRowData())
+    doAddPreset(rowData = this.getDefaultRowData()) {
+        this.apiPost("", rowData)
             .then(this.updateData)
             .catch(this.props.createErrorHandler("Failed to add preset"));
     }
@@ -73,7 +73,8 @@ export class PresetsTable extends React.Component {
                 <TableHead>
                     <TableRow>
                         <TableCell key="__show_btn_row__"/>
-                        {this.props.tableKeysHeaders.map(row => <TableCell key={row} sx={{ fontWeight: "bold" }}>{row}</TableCell>)}
+                        {this.props.tableKeysHeaders.map(row =>
+                            <TableCell key={row} sx={{ fontWeight: "bold" }}>{row}</TableCell>)}
                         <TableCell key="__manage_row__"/>
                     </TableRow>
                 </TableHead>}
@@ -91,10 +92,14 @@ export class PresetsTable extends React.Component {
                         />)}
                 </TableBody>
             </Table>
-            <IconButton color="primary" size="large" onClick={() => {
-                this.doAddPreset();
-            }}><AddIcon/></IconButton>
+            {this.renderAddButton()}
         </div>);
+    }
+
+    renderAddButton() {
+        return (<IconButton color="primary" size="large" onClick={() => {
+            this.doAddPreset();
+        }}><AddIcon/></IconButton>);
     }
 }
 
