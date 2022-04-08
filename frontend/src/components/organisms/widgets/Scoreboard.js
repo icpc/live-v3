@@ -4,8 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+    SCOREBOARD_HEADER_BG_COLOR,
+    SCOREBOARD_HEADER_TITLE_BG_COLOR,
+    SCOREBOARD_HEADER_TITLE_FONT_SIZE,
     SCOREBOARD_MAX_PAGES,
     SCOREBOARD_NAME_WIDTH,
+    SCOREBOARD_OPACITY,
     SCOREBOARD_RANK_WIDTH,
     SCOREBOARD_ROW_TRANSITION_TIME,
     SCOREBOARD_SCROLL_INTERVAL,
@@ -24,7 +28,7 @@ import { StarIcon } from "../../atoms/Star";
 const ScoreboardWrap = styled.div`
   height: 100%;
   width: 100%;
-  opacity: 0.8;
+  opacity: ${SCOREBOARD_OPACITY};
   border: none;
   border-collapse: collapse;
   table-layout: fixed;
@@ -98,13 +102,13 @@ const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
 `;
 
 const ScoreboardHeaderTitle = styled(ScoreboardCell)`
-  background: red;
+  background: ${SCOREBOARD_HEADER_TITLE_BG_COLOR};
   width: ${SCOREBOARD_RANK_WIDTH + SCOREBOARD_NAME_WIDTH}px;
-  font-size: 30px;
+  font-size: ${SCOREBOARD_HEADER_TITLE_FONT_SIZE};
 `;
 
 const ScoreboardHeaderStatCell = styled(ScoreboardStatCell)`
-  background: black;
+  background: ${SCOREBOARD_HEADER_BG_COLOR};
   width: ${SCOREBOARD_SUM_PEN_WIDTH}px;
   text-align: center;
 `;
@@ -127,7 +131,7 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     }
 }
 
-const ScoreboardRow = ({ teamId }) => {
+export const ScoreboardRow = ({ teamId, hideTasks }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
@@ -139,14 +143,15 @@ const ScoreboardRow = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData.penalty}
         </ScoreboardStatCell>
-        {scoreboardData.problemResults.map(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve }, i) =>
+        {!hideTasks && scoreboardData.problemResults.map(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve }, i) =>
             <ScoreboardTaskCell key={i} status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
                 attempts={wrongAttempts + pendingAttempts}/>
         )}
     </ScoreboardRowContainer>;
 };
 ScoreboardRow.propTypes = {
-    teamId: PropTypes.number.isRequired
+    teamId: PropTypes.number.isRequired,
+    hideTasks: PropTypes.bool
 };
 
 const ScoreboardHeader = ({ problems, rowHeight }) => {

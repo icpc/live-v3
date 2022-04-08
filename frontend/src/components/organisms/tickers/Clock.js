@@ -14,7 +14,7 @@ const ClockWrap = styled.div`
     font-size: ${TICKER_CLOCK_FONT_SIZE};
 `;
 
-export const Clock = ({ tickerSettings }) => {
+export const Clock = () => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const getStatus = useCallback(() => {
         const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *

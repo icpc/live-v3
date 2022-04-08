@@ -32,6 +32,10 @@ export const QUEUE_OPACITY = 0.8;
 export const SCOREBOARD_RANK_WIDTH = 80; // px
 export const SCOREBOARD_NAME_WIDTH = 300; // px
 export const SCOREBOARD_SUM_PEN_WIDTH = 80; // px
+export const SCOREBOARD_HEADER_TITLE_BG_COLOR = VERDICT_NOK;
+export const SCOREBOARD_HEADER_TITLE_FONT_SIZE = "30px";
+export const SCOREBOARD_HEADER_BG_COLOR = "#000000";
+export const SCOREBOARD_OPACITY = 0.8;
 
 export const STATISTICS_TITLE_FONT_SIZE = "30px";
 export const STATISTICS_OPACITY = 0.8;

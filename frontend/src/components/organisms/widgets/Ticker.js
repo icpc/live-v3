@@ -118,7 +118,7 @@ const TickerWrap = styled.div`
   grid-template-columns: ${TICKER_SMALL_SIZE} auto;
 `;
 
-export const Ticker = ({ widgetData }) => {
+export const Ticker = () => {
     const dispatch = useDispatch();
     const isLoaded = useSelector((state) => state.ticker.isLoaded);
     useEffect(() => {
