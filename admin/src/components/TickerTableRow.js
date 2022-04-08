@@ -13,12 +13,6 @@ import ShowPresetButton from "./ShowPresetButton";
 import { PresetsTableRow } from "./PresetsTableRow";
 
 export class TickerTableRow extends PresetsTableRow {
-    onClickEdit() {
-        if (this.state.value.settings.type !== "scoreboard") {
-            super.onClickEdit();
-        }
-    }
-
     render() {
         return (<TableRow key={this.state.value.id}
             sx={{ backgroundColor: (this.props.rowData.shown ? this.props.tStyle.activeColor : this.props.tStyle.inactiveColor) }}>
@@ -37,8 +31,25 @@ export class TickerTableRow extends PresetsTableRow {
                         <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.text}
                             id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
                             onChange={(e) => {
-                                this.state.editValue.settings.text = e.target.value; }}
+                                this.state.editValue.settings.text = e.target.value;
+                            }}
                         />
+                    </Box>)
+                )}
+                {this.state.value.settings.type === "scoreboard" &&
+                (this.state.editValue === undefined ?
+                    "From " + this.state.value.settings.from + " to " + this.state.value.settings.to
+                    : (<Box onSubmit={this.onClickEdit} component="form" type="submit" sx={{ display: "flex", flexDirection: "row" }}>
+                        <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.from}
+                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
+                            onChange={(e) => {
+                                this.state.editValue.settings.from = e.target.value;
+                            }}/>
+                        <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.to}
+                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
+                            onChange={(e) => {
+                                this.state.editValue.settings.to = e.target.value;
+                            }}/>
                     </Box>)
                 )}
             </TableCell>
@@ -46,9 +57,10 @@ export class TickerTableRow extends PresetsTableRow {
                 {this.state.editValue === undefined ? this.state.value.settings.periodMs : (
                     <Box onSubmit={this.onClickEdit} component="form" type="submit">
                         <TextField autoFocus hiddenLabel defaultValue={this.state.value.settings.periodMs}
-                            id="filled-hidden-label-small" type="text" size="small"
+                            id="filled-hidden-label-small" type="number" size="small"
                             onChange={(e) => {
-                                this.state.editValue.settings.periodMs = e.target.value; }}
+                                this.state.editValue.settings.periodMs = e.target.value;
+                            }}
                         />
                     </Box>)
                 }

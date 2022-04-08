@@ -2,35 +2,26 @@ import React from "react";
 import "../App.css";
 import { PresetsTable } from "./PresetsTable";
 import PropTypes from "prop-types";
-import Typography from "@mui/material/Typography";
+import { IconButton, ButtonGroup, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
 import AddIcon from "@mui/icons-material/Add";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
-import IconButton from "@mui/material/IconButton";
-import { ButtonGroup } from "@mui/material";
 import { TickerTableRow } from "./TickerTableRow";
 
 const addPresetButtons = [
     {
-        part: "short",
         type: "clock",
         component: ClockIcon,
         settings: { periodMs: 30000 },
-    }, {
-        part: "short",
-        type: "text",
-        component: TextIcon,
-        settings: { text: "", periodMs: 30000 },
     }, {
         part: "long",
         type: "scoreboard",
         component: ScoreboardIcon,
         settings: { periodMs: 30000, from: 1, to: 12 },
     }, {
-        part: "long",
         type: "text",
         component: TextIcon,
         settings: { text: "", periodMs: 30000 },
@@ -44,9 +35,9 @@ class TickerTable extends PresetsTable {
 
     renderAddButton() {
         return (<ButtonGroup>
-            {addPresetButtons.filter(p => p.part === this.props.partType).map(p =>
+            {addPresetButtons.filter(p => p.part === undefined || p.part === this.props.partType).map(p =>
                 <IconButton color="primary" size="large" key={p.type}
-                    onClick={() => {this.doAddPreset({ ...p.settings, type: p.type, part: p.part });}}>
+                    onClick={() => {this.doAddPreset({ ...p.settings, type: p.type, part: this.props.partType });}}>
                     <AddIcon/><p.component/>
                 </IconButton>)}
         </ButtonGroup>);
@@ -71,7 +62,7 @@ function TickerMessage() {
         <div className="TickerPanel">
             <Typography variant="h5" gutterBottom>Short</Typography>
             <TickerTable partType={"short"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
-            <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>Long</Typography>
+            <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>Long</Typography>
             <TickerTable partType={"long"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </div>
     );
