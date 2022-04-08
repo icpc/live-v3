@@ -10,12 +10,18 @@ class TickerTable extends PresetsTable {
     rowsFilter(row) {
         return super.rowsFilter(row) && row.settings.part === this.props.partType;
     }
+
+    getDefaultRowData() {
+        // return { ...super.getDefaultRowData(), part: this.props.partType, periodMs: 10000, type: "text", text: "" };
+        return { ...super.getDefaultRowData(), part: this.props.partType, periodMs: 10000, type: "scoreboard", text: "" };
+    }
 }
 
 TickerTable.defaultProps = {
     ...PresetsTable.defaultProps,
     apiPath: "/tickermessage",
     apiTableKeys: ["type", "text", "periodMs"],
+    tableKeysHeaders: ["Type", "Text", "Period (ms)"]
 };
 
 TickerTable.propTypes = {

@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { PresetsTableRow } from "./PresetsTableRow";
-import { Table, TableBody } from "@mui/material";
+import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
-import { BASE_URL_BACKEND } from "../config";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
+import { BASE_URL_BACKEND } from "../config";
+import { PresetsTableRow } from "./PresetsTableRow";
 
 export class PresetsTable extends React.Component {
     constructor(props) {
@@ -51,8 +51,12 @@ export class PresetsTable extends React.Component {
         this.updateData();
     }
 
+    getDefaultRowData() {
+        return this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
+    }
+
     doAddPreset() {
-        this.apiPost("", this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {}))
+        this.apiPost("", this.getDefaultRowData())
             .then(this.updateData)
             .catch(this.props.createErrorHandler("Failed to add preset"));
     }
@@ -65,6 +69,14 @@ export class PresetsTable extends React.Component {
         const RowComponent = this.props.rowComponent;
         return (<div>
             <Table align={"center"}>
+                {this.props.tableKeysHeaders !== undefined &&
+                <TableHead>
+                    <TableRow>
+                        <TableCell key="__show_btn_row__"/>
+                        {this.props.tableKeysHeaders.map(row => <TableCell key={row} sx={{ fontWeight: "bold" }}>{row}</TableCell>)}
+                        <TableCell key="__manage_row__"/>
+                    </TableRow>
+                </TableHead>}
                 <TableBody>
                     {this.state.dataElements !== undefined &&
                     this.state.dataElements.filter((r) => this.rowsFilter(r)).map((row) =>
@@ -89,6 +101,7 @@ export class PresetsTable extends React.Component {
 PresetsTable.propTypes = {
     apiPath: PropTypes.string.isRequired,
     apiTableKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    tableKeysHeaders: PropTypes.arrayOf(PropTypes.string),
     tStyle: PropTypes.shape({
         activeColor: PropTypes.string,
         inactiveColor: PropTypes.string,
@@ -103,5 +116,6 @@ PresetsTable.defaultProps = {
         inactiveColor: "white",
     },
     rowComponent: PresetsTableRow,
-    createErrorHandler: () => () => {},
+    createErrorHandler: () => () => {
+    },
 };

@@ -4,8 +4,8 @@ Welcome to the ICPC Live Source Code Repository.
 
 Run as admin
 
-* git config --global core.symlinks true
-* git config --global core.autocrlf input
+* `git config --global core.symlinks true`
+* `git config --global core.autocrlf input`
 
 git clone this repository.
 
@@ -15,17 +15,17 @@ Requirements:
 * jdk
 * browser
 
-1. live-v3\backend\gradlew.bat
-2. live-v3\backend\gradlew.bat run
-3. live-v3\frontend\ npm ci
-4. live-v3\frontend\ npm run start
-5. set PORT=8000
-6. live-v3\admin\ npm ci
-7. live-v3\admin\ npm run start
-8. open http://localhost:8080
+1. `live-v3\backend\gradlew.bat`
+2. `live-v3\backend\gradlew.bat run`
+3. `live-v3\frontend\ npm ci`
+4. `live-v3\frontend\ npm run start`
+5. set `PORT=8000`
+6. `live-v3\admin\ npm ci`
+7. `live-v3\admin\ npm run start`
+8. `open http://localhost:8000`
 
-Contest configs are stored at \live-v3\backend\config\ .
-Setup configDirectory in \live-v3\backend\config\application.conf .
+Contest configs are stored at `live-v3\backend\config\`.
+Setup configDirectory in `live-v3\backend\config\application.conf`.
 
 
 
