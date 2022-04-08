@@ -45,7 +45,7 @@ const TickerRowContainer = styled.div`
   overflow: hidden;
   height: 100%;
   width: 100%;
-  animation: ${props => props.animation} ease-in-out ${TICKER_SCROLL_TRANSITION_TIME}ms;
+  animation: ${props => props.animation} ease-in-out ${TICKER_SCROLL_TRANSITION_TIME + 10}ms;
   
   display: flex;
   justify-content: center;
