@@ -4,7 +4,6 @@ import { PresetsTableRow } from "./PresetsTableRow";
 import { Table, TableBody } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
 import { BASE_URL_BACKEND } from "../config";
-import { addErrorHandler } from "../errors";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 
@@ -26,7 +25,13 @@ export class PresetsTable extends React.Component {
             body: JSON.stringify(body),
         };
         return fetch(this.apiUrl() + path, requestOptions)
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(response => {
+                if (response.status !== "ok") {
+                    throw new Error("Server return not ok status: " + response);
+                }
+                return response;
+            });
     }
 
     updateData() {
@@ -39,7 +44,7 @@ export class PresetsTable extends React.Component {
                         dataElements: result,
                     }));
                 })
-            .catch(addErrorHandler("Failed to load list of presets"));
+            .catch(this.props.createErrorHandler("Failed to load list of presets"));
     }
 
     componentDidMount() {
@@ -49,10 +54,10 @@ export class PresetsTable extends React.Component {
     doAddPreset() {
         this.apiPost("", this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {}))
             .then(this.updateData)
-            .catch(addErrorHandler("Failed to add preset"));
+            .catch(this.props.createErrorHandler("Failed to add preset"));
     }
 
-    rowsFilter(row) {
+    rowsFilter() {
         return true;
     }
 
@@ -70,6 +75,7 @@ export class PresetsTable extends React.Component {
                             tStyle={this.props.tStyle}
                             rowData={row}
                             key={row.id}
+                            createErrorHandler={this.props.createErrorHandler}
                         />)}
                 </TableBody>
             </Table>
@@ -87,6 +93,8 @@ PresetsTable.propTypes = {
         activeColor: PropTypes.string,
         inactiveColor: PropTypes.string,
     }),
+    rowComponent: PropTypes.elementType,
+    createErrorHandler: PropTypes.func,
 };
 
 PresetsTable.defaultProps = {
@@ -95,4 +103,5 @@ PresetsTable.defaultProps = {
         inactiveColor: "white",
     },
     rowComponent: PresetsTableRow,
+    createErrorHandler: () => () => {},
 };

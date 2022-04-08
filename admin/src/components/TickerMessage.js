@@ -3,6 +3,8 @@ import "../App.css";
 import { PresetsTable } from "./PresetsTable";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
+import { useSnackbar } from "notistack";
+import { errorHandlerWithSnackbar } from "../errors";
 
 class TickerTable extends PresetsTable {
     rowsFilter(row) {
@@ -21,12 +23,13 @@ TickerTable.propTypes = {
 };
 
 function TickerMessage() {
+    const { enqueueSnackbar,  } = useSnackbar();
     return (
         <div className="TickerPanel">
             <Typography variant="h5" gutterBottom>Short</Typography>
-            <TickerTable partType={"short"}/>
+            <TickerTable partType={"short"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
             <Typography variant="h5" gutterBottom>Long</Typography>
-            <TickerTable partType={"long"}/>
+            <TickerTable partType={"long"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </div>
     );
 }

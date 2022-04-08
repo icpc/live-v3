@@ -1,26 +1,19 @@
 import React from "react";
-import { FormControl, TableCell, TableRow, TextField } from "@mui/material";
+import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
-import { grey } from "@mui/material/colors";
-
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
 import ShowPresetButton from "./ShowPresetButton";
-import { onClickDelete, onClickEdit, onClickShow, PresetsTableRow } from "./PresetsTableRow";
+import { PresetsTableRow } from "./PresetsTableRow";
 
 export class PictureTableRow extends PresetsTableRow {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (<TableRow key={this.state.value["id"]}>
             <TableCell component="th" scope="row" key="Picture card" sx={{ p: 1, border: 0 }}>
@@ -29,7 +22,7 @@ export class PictureTableRow extends PresetsTableRow {
                     <CardMedia sx={{ display: "flex", width: "25%" }} component="img"
                         image={this.props.rowData.settings.url}/>
                     <Box sx={{ display: "flex", width: "75%", flexDirection: "column" }}>
-                        <CardContent sx={{ pl: 2 }} onSubmit={onClickEdit(this)}>
+                        <CardContent sx={{ pl: 2 }} onSubmit={this.onClickEdit}>
                             {this.state.editValue === undefined &&
                             <Typography gutterBottom variant="h6" sx={{ mb: 0 }}>{this.props.rowData.settings.name}</Typography>}
                             {this.state.editValue === undefined &&
@@ -37,7 +30,7 @@ export class PictureTableRow extends PresetsTableRow {
 
                             {this.state.editValue !== undefined &&
                             this.props.apiTableKeys.map((rowKey) => (
-                                <Box onSubmit={onClickEdit(this)} component="form" type="submit" key={rowKey}>
+                                <Box onSubmit={this.onClickEdit} component="form" type="submit" key={rowKey}>
                                     <TextField
                                         autoFocus
                                         fullWidth
@@ -53,14 +46,14 @@ export class PictureTableRow extends PresetsTableRow {
                         </CardContent>
                         <Box sx={{ display: "flex", pl: 1, pr: 1, justifyContent: "center" }}>
                             <ShowPresetButton
-                                onClick={onClickShow(this)}
+                                onClick={this.onClickShow}
                                 active={this.props.rowData.shown}
                             />
                             <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
-                                onClick={onClickEdit(this)}>
+                                onClick={this.onClickEdit}>
                                 {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
                             </IconButton>
-                            <IconButton color="error" onClick={onClickDelete(this)}><DeleteIcon/></IconButton>
+                            <IconButton color="error" onClick={this.onClickDelete}><DeleteIcon/></IconButton>
                         </Box>
                     </Box>
                 </Card>

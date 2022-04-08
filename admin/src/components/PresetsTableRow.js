@@ -8,34 +8,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { grey } from "@mui/material/colors";
 import ShowPresetButton from "./ShowPresetButton";
-import { addErrorHandler } from "../errors";
 
 const getSettings = (row) => {
     return row.settings;
-};
-
-export const onClickEdit = (currentRow) => () => {
-    if (currentRow.state.editValue === undefined) {
-        currentRow.setState(state => ({ ...state, editValue: state.value }));
-    } else {
-        currentRow.props.apiPostFunc("/" + currentRow.props.rowData.id, getSettings(currentRow.state.editValue))
-            .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
-            .then(currentRow.props.updateTable)
-            .catch(addErrorHandler("Failed to edit preset"));
-    }
-};
-
-export const onClickDelete = (currentRow) => () => {
-    currentRow.props.apiPostFunc("/" + currentRow.props.rowData.id, {}, "DELETE")
-        .then(currentRow.setState(state => ({ ...state, editValue: undefined })))
-        .then(currentRow.props.updateTable)
-        .catch(addErrorHandler("Failed to delete preset"));
-};
-
-export const onClickShow = (currentRow) => () => {
-    currentRow.props.apiPostFunc("/" + currentRow.props.rowData.id + (currentRow.props.rowData.shown ? "/hide" : "/show"))
-        .then(currentRow.props.updateTable)
-        .catch(addErrorHandler("Failed to hide preset"));
 };
 
 export class PresetsTableRow extends React.Component {
@@ -45,6 +20,32 @@ export class PresetsTableRow extends React.Component {
             value: props.rowData,
             editValue: undefined,
         };
+        this.onClickEdit = this.onClickEdit.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
+        this.onClickShow = this.onClickShow.bind(this);
+    }
+
+    onClickEdit() {
+        if (this.state.editValue === undefined) {
+            this.setState(state => ({ ...state, editValue: state.value }));
+        } else {
+            this.props.apiPostFunc("/" + this.props.rowData.id, getSettings(this.state.editValue))
+                .then(() => this.setState(state => ({ ...state, editValue: undefined })))
+                .then(this.props.updateTable)
+                .catch(this.props.createErrorHandler("Failed to edit preset"));
+        }
+    }
+
+    onClickDelete() {
+        this.props.apiPostFunc("/" + this.props.rowData.id, {}, "DELETE")
+            .then(this.props.updateTable)
+            .catch(this.props.createErrorHandler("Failed to delete preset"));
+    }
+
+    onClickShow() {
+        this.props.apiPostFunc("/" + this.props.rowData.id + (this.props.rowData.shown ? "/hide" : "/show"))
+            .then(this.props.updateTable)
+            .catch(this.props.createErrorHandler("Failed to show or hide preset"));
     }
 
     render() {
@@ -53,7 +54,7 @@ export class PresetsTableRow extends React.Component {
             sx={{ backgroundColor: (this.props.rowData.shown ? this.props.tStyle.activeColor : this.props.tStyle.inactiveColor) }}>
             <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
                 <ShowPresetButton
-                    onClick={onClickShow(this)}
+                    onClick={this.onClickShow}
                     active={this.props.rowData.shown}
                 />
             </TableCell>
@@ -64,7 +65,7 @@ export class PresetsTableRow extends React.Component {
                     key={rowKey}
                     sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
                     {this.state.editValue === undefined ? getSettings(this.state.value)[rowKey] : (
-                        <Box onSubmit={onClickEdit(this)} component="form" type="submit">
+                        <Box onSubmit={this.onClickEdit} component="form" type="submit">
                             <TextField
                                 autoFocus
                                 hiddenLabel
@@ -84,10 +85,10 @@ export class PresetsTableRow extends React.Component {
             <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
                     <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
-                        onClick={onClickEdit(this)}>
+                        onClick={this.onClickEdit}>
                         {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
                     </IconButton>
-                    <IconButton color="error" onClick={onClickDelete(this)}><DeleteIcon/></IconButton>
+                    <IconButton color="error" onClick={this.onClickDelete}><DeleteIcon/></IconButton>
                 </Box>
             </TableCell>
         </TableRow>);
@@ -102,4 +103,10 @@ PresetsTableRow.propTypes = {
         activeColor: PropTypes.string,
         inactiveColor: PropTypes.string,
     }).isRequired,
+    rowData: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        shown: PropTypes.bool.isRequired,
+        settings: PropTypes.object.isRequired,
+    }),
+    createErrorHandler: PropTypes.func
 };

@@ -2,6 +2,8 @@ import React from "react";
 import "../App.css";
 import { PictureTableRow } from "./PictureTableRow";
 import { PresetsTable } from "./PresetsTable";
+import { useSnackbar } from "notistack";
+import { errorHandlerWithSnackbar } from "../errors";
 
 
 export class PictureTable extends PresetsTable {
@@ -18,9 +20,10 @@ PictureTable.defaultProps = {
 };
 
 function Picture() {
+    const { enqueueSnackbar,  } = useSnackbar();
     return (
         <div className="Pictures">
-            <PictureTable/>
+            <PictureTable createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </div>
     );
 }

@@ -1,18 +1,7 @@
-import React from "react";
-
-export const ErrorContext = React.createContext({
-    error: undefined,
-});
-
-export const addErrorHandler = (cause) => {
-    // const [_, setContext] = useContext(ErrorContext);
-
-    return (error) => {
-        console.log(cause + ":", error);
-        //todo: show alert
-
-        // ErrorContext.data = ({ error: cause });
+export const errorHandlerWithSnackbar = (snackBarEnqueue) =>
+    (cause) => {
+        return (error) => {
+            console.error(cause + ": " + error);
+            snackBarEnqueue(cause, { variant: "error" });
+        };
     };
-};
-
-
