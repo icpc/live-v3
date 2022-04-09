@@ -15,7 +15,7 @@ sealed class MainScreenEvent : Event()
 sealed class QueueEvent : Event()
 
 @Serializable
-sealed class TickerEvent: Event()
+sealed class TickerEvent : Event()
 
 @Serializable
 @SerialName("ShowWidget")
@@ -47,12 +47,12 @@ class QueueSnapshotEvent(val infos: List<RunInfo>) : QueueEvent()
 
 @Serializable
 @SerialName("AddMessage")
-class AddMessageTickerEvent(val message: TickerMessage): TickerEvent()
+class AddMessageTickerEvent(val message: TickerMessage) : TickerEvent()
 
 @Serializable
 @SerialName("RemoveMessage")
-class RemoveMessageTickerEvent(val messageId: String): TickerEvent()
+class RemoveMessageTickerEvent(val messageId: String) : TickerEvent()
 
 @Serializable
 @SerialName("TickerSnapshot")
-class TickerSnapshotEvent(val messages: List<TickerMessage>): TickerEvent()
+class TickerSnapshotEvent(val messages: List<TickerMessage>) : TickerEvent()

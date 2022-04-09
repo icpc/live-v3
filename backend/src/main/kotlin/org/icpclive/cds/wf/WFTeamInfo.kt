@@ -38,7 +38,7 @@ open class WFTeamInfo(problems: Int) : TeamInfo {
 
     fun addRun(run: RunInfo, problemId: Int) {
         val runs = problem_runs[problemId]
-        synchronized(runs!!) { runs.add(run) }
+        synchronized(runs) { runs.add(run) }
     }
 
     override fun toString(): String {

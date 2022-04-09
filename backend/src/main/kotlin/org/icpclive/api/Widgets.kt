@@ -11,10 +11,10 @@ fun GenerateId(widgetPrefix: String): String = widgetPrefix + '-' + Random.nextU
 
 @Serializable
 class LocationRectangle(
-        val positionX: Int,
-        val positionY: Int,
-        val sizeX: Int,
-        val sizeY: Int,
+    val positionX: Int,
+    val positionY: Int,
+    val sizeX: Int,
+    val sizeY: Int,
 )
 
 @Serializable

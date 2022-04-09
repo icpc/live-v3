@@ -1,7 +1,8 @@
 @file:Suppress("UNUSED")
+
 package org.icpclive.cds.codeforces.api.data
 
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 
 enum class CFPartyParticipantType {
     CONTESTANT, PRACTICE, VIRTUAL, MANAGER, OUT_OF_COMPETITION

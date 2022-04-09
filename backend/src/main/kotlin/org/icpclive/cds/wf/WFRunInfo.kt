@@ -24,7 +24,7 @@ class WFRunInfo : RunInfo {
     var team: TeamInfo? = null
     private val passedTests: MutableSet<Int> = HashSet()
 
-    constructor() {}
+    constructor()
     constructor(another: WFRunInfo) {
         id = another.id
         isJudged = another.isJudged

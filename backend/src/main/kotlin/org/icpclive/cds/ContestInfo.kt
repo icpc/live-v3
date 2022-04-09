@@ -1,16 +1,17 @@
 package org.icpclive.cds
 
-import org.icpclive.utils.*
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.toApi
+import org.icpclive.utils.getLogger
+import org.icpclive.utils.humanReadable
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 abstract class ContestInfo(
     private var startTime_: Instant,
     private var status_: ContestStatus,
-){
+) {
     abstract val problemsNumber: Int
     abstract val teamsNumber: Int
     var startTime
@@ -22,7 +23,7 @@ abstract class ContestInfo(
     abstract val problems: List<ProblemInfo>
     abstract val teams: List<TeamInfo>
     abstract val contestTime: Duration
-    var status 
+    var status
         get() = status_
         set(value) {
             if (status_ != value) logger.info("New status: $value")

@@ -8,10 +8,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 import kotlinx.serialization.serializer
-import org.icpclive.api.*
+import org.icpclive.api.ObjectSettings
+import org.icpclive.api.ObjectStatus
+import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
-import org.icpclive.data.TickerManager
-import org.icpclive.data.WidgetManager
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -89,7 +89,11 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
 
     private suspend fun save() {
         mutex.withLock {
-            jsonPrettyEncoder.encodeToStream(serializer, innerData.map { it.getSettings() }, FileOutputStream(File(path)))
+            jsonPrettyEncoder.encodeToStream(
+                serializer,
+                innerData.map { it.getSettings() },
+                FileOutputStream(File(path))
+            )
         }
     }
 }
@@ -100,8 +104,8 @@ inline fun <reified SettingsType : ObjectSettings, reified ItemType : TypeWithId
     manager: Manager<ItemType>,
     noinline createItem: (SettingsType) -> ItemType
 ) = PresetsManager(
-        path,
-        serializer(),
-        createItem,
-        manager
-    )
+    path,
+    serializer(),
+    createItem,
+    manager
+)

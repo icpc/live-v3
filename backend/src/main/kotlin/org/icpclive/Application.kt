@@ -1,21 +1,18 @@
 package org.icpclive
 
-import io.ktor.server.application.*
-import io.ktor.server.plugins.*
 import io.ktor.http.*
-import io.ktor.websocket.*
-import io.ktor.server.http.content.*
-import io.ktor.server.request.*
-import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
+import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.*
 import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.server.request.*
+import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import org.icpclive.adminapi.configureAdminApiRouting
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
@@ -71,6 +68,6 @@ fun Application.module() {
     launchEventsLoader()
     launch { EventLoggerService().run() }
     // to trigger init
-    TickerManager.let{}
-    WidgetManager.let{}
+    TickerManager.let {}
+    WidgetManager.let {}
 }

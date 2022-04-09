@@ -1,14 +1,12 @@
 package org.icpclive.overlay
 
 import io.ktor.server.application.*
-import io.ktor.websocket.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.ktor.websocket.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.icpclive.cds.OptimismLevel
 import org.icpclive.data.DataBus
 import org.icpclive.utils.defaultJsonSettings

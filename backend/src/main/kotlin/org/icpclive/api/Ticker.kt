@@ -5,7 +5,6 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.api.GenerateId
 
 @Serializable
 sealed class TickerMessage(

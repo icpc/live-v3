@@ -18,16 +18,16 @@ data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val s
 
 @Serializable
 data class RunInfo(
-        val id: Int,
-        val isAccepted: Boolean,
-        val isJudged: Boolean,
-        val isAddingPenalty: Boolean,
-        val result: String,
-        val problemId: Int,
-        val teamId: Int,
-        val percentage: Double,
-        val time: Long,
-        val isFirstSolvedRun: Boolean,
+    val id: Int,
+    val isAccepted: Boolean,
+    val isJudged: Boolean,
+    val isAddingPenalty: Boolean,
+    val result: String,
+    val problemId: Int,
+    val teamId: Int,
+    val percentage: Double,
+    val time: Long,
+    val isFirstSolvedRun: Boolean,
 )
 
 @Serializable
@@ -45,13 +45,13 @@ enum class ContestStatus {
 
 @Serializable
 data class ContestInfo(
-        val status: ContestStatus,
-        val startTimeUnixMs: Long,
-        val contestLengthMs: Long,
-        val freezeTimeMs: Long,
-        val problems: List<ProblemInfo>,
-        val teams: List<TeamInfo>,
-        val emulationSpeed: Double = 1.0,
+    val status: ContestStatus,
+    val startTimeUnixMs: Long,
+    val contestLengthMs: Long,
+    val freezeTimeMs: Long,
+    val problems: List<ProblemInfo>,
+    val teams: List<TeamInfo>,
+    val emulationSpeed: Double = 1.0,
 ) {
     val currentContestTime
         get() = when (status) {
@@ -72,11 +72,11 @@ sealed class ProblemResult
 @Serializable
 @SerialName("icpc")
 data class ICPCProblemResult(
-        val wrongAttempts: Int,
-        val pendingAttempts: Int,
-        val isSolved: Boolean,
-        val isFirstToSolve: Boolean,
-        val lastSubmitTimeMs: Long?,
+    val wrongAttempts: Int,
+    val pendingAttempts: Int,
+    val isSolved: Boolean,
+    val isFirstToSolve: Boolean,
+    val lastSubmitTimeMs: Long?,
 ) : ProblemResult()
 
 
@@ -84,21 +84,23 @@ data class ICPCProblemResult(
 enum class MediaType {
     @SerialName("camera")
     CAMERA,
+
     @SerialName("screen")
     SCREEN,
+
     @SerialName("record")
     RECORD
 }
 
 @Serializable
 data class TeamInfo(
-        val id: Int,
-        val name: String,
-        val shortName: String?,
-        val alias: String?,
-        val groups: List<String>,
-        val hashTag: String?,
-        val medias: Map<MediaType, String>
+    val id: Int,
+    val name: String,
+    val shortName: String?,
+    val alias: String?,
+    val groups: List<String>,
+    val hashTag: String?,
+    val medias: Map<MediaType, String>
 )
 
 @Serializable
@@ -106,13 +108,13 @@ data class Scoreboard(val rows: List<ScoreboardRow>)
 
 @Serializable
 data class ScoreboardRow(
-        val teamId: Int,
-        val rank: Int,
-        val totalScore: Int,
-        val penalty: Int,
-        val lastAccepted: Long,
-        val medalType: String?,
-        val problemResults: List<ProblemResult>,
+    val teamId: Int,
+    val rank: Int,
+    val totalScore: Int,
+    val penalty: Int,
+    val lastAccepted: Long,
+    val medalType: String?,
+    val problemResults: List<ProblemResult>,
 )
 
 @Serializable

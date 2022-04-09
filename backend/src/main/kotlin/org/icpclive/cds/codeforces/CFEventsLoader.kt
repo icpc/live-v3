@@ -1,18 +1,20 @@
 package org.icpclive.cds.codeforces
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromJsonElement
-import org.icpclive.config.Config.loadProperties
-import org.icpclive.data.DataBus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFContestPhase
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
+import org.icpclive.config.Config.loadProperties
+import org.icpclive.data.DataBus
 import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
@@ -72,7 +74,7 @@ class CFEventsLoader {
             }
         }
         val properties: Properties = loadProperties("events")
-        val emulationSpeedProp : String? = properties.getProperty("emulation.speed")
+        val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
 
         if (emulationSpeedProp != null) {
             contestInfo.updateStandings(standingsLoader.loadOnce())

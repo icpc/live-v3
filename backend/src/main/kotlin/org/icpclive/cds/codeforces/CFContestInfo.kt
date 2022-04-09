@@ -35,7 +35,6 @@ private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
 )
 
 
-
 /**
  * @author egor@egork.net
  */
@@ -91,7 +90,9 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         this.cfStandings = standings
         contestLength = standings.contest.durationSeconds!!.seconds
         val phase = standings.contest.phase
-        this.startTime = standings.contest.startTimeSeconds?.let { Instant.fromEpochSeconds(it) } ?: Instant.DISTANT_FUTURE
+        this.startTime = standings.contest.startTimeSeconds
+            ?.let { Instant.fromEpochSeconds(it) }
+            ?: Instant.DISTANT_FUTURE
         status = when (phase) {
             CFContestPhase.BEFORE -> ContestStatus.BEFORE
             CFContestPhase.CODING -> ContestStatus.RUNNING
@@ -109,7 +110,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         }
     }
 
-    fun parseSubmissions(submissions: List<CFSubmission>) : List<RunInfo> {
+    fun parseSubmissions(submissions: List<CFSubmission>): List<RunInfo> {
         val problemTestsCount = submissions.groupingBy { it.problem.index }.fold(Int.MAX_VALUE) { acc, submit ->
             minOf(acc, submit.passedTestCount + if (submit.verdict == CFSubmissionVerdict.OK) 0 else 1)
         }
@@ -136,7 +137,6 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
                 )
             }.toList()
     }
-
 
 
     companion object {

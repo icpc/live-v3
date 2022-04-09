@@ -41,7 +41,11 @@ enum class TickerPart {
 
 @Serializable
 @SerialName("text")
-data class TextTickerSettings(override val part: TickerPart, override val periodMs: Long, val text: String) : TickerMessageSettings() {
+data class TextTickerSettings(
+    override val part: TickerPart,
+    override val periodMs: Long,
+    val text: String
+) : TickerMessageSettings() {
     override fun toMessage() = TextTickerMessage(this)
 }
 
@@ -53,6 +57,11 @@ data class ClockTickerSettings(override val part: TickerPart, override val perio
 
 @Serializable
 @SerialName("scoreboard")
-data class ScoreboardTickerSettings(override val part: TickerPart, override val periodMs: Long, val from: Int, val to: Int) : TickerMessageSettings() {
+data class ScoreboardTickerSettings(
+    override val part: TickerPart,
+    override val periodMs: Long,
+    val from: Int,
+    val to: Int
+) : TickerMessageSettings() {
     override fun toMessage() = ScoreboardTickerMessage(this)
 }

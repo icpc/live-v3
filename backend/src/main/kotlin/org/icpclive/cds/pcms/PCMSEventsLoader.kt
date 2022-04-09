@@ -3,18 +3,24 @@ package org.icpclive.cds.pcms
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.datetime.*
-import org.icpclive.config.*
-import org.icpclive.data.DataBus
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.MediaType
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ProblemInfo
-import org.icpclive.service.*
-import org.icpclive.utils.*
+import org.icpclive.config.Config
+import org.icpclive.data.DataBus
+import org.icpclive.service.EmulationService
+import org.icpclive.service.RegularLoaderService
+import org.icpclive.service.launchICPCServices
+import org.icpclive.utils.getLogger
+import org.icpclive.utils.guessDatetimeFormat
+import org.icpclive.utils.humanReadable
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -25,7 +31,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 class PCMSEventsLoader {
-    private fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
+    private fun loadProblemsInfo(problemsFile: String?): List<ProblemInfo> {
         val xml = Config.loadFile(problemsFile!!)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
         val problems = doc.child(0)
@@ -54,7 +60,7 @@ class PCMSEventsLoader {
                 override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
             }
 
-            val emulationSpeedProp : String? = properties.getProperty("emulation.speed")
+            val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
             if (emulationSpeedProp == null) {
                 val xmlLoaderFlow = MutableStateFlow(Document(""))
                 launch(Dispatchers.IO) {
@@ -114,7 +120,7 @@ class PCMSEventsLoader {
         }
     }
 
-    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element,onRunChanges: (RunInfo) -> Unit) {
+    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element, onRunChanges: (RunInfo) -> Unit) {
         val alias = element.attr("alias")
         contestInfo.getParticipant(alias)?.apply {
             for (i in element.children().indices) {
@@ -123,7 +129,13 @@ class PCMSEventsLoader {
         }
     }
 
-    private fun parseProblemRuns(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, onRunChanges: (RunInfo) -> Unit): List<PCMSRunInfo> {
+    private fun parseProblemRuns(
+        contestInfo: PCMSContestInfo,
+        element: Element,
+        problemId: Int,
+        teamId: Int,
+        onRunChanges: (RunInfo) -> Unit
+    ): List<PCMSRunInfo> {
         if (contestInfo.status === ContestStatus.BEFORE) {
             return emptyList()
         }
@@ -132,7 +144,14 @@ class PCMSEventsLoader {
         }
     }
 
-    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, attemptId: Int, onRunChanges: (RunInfo) -> Unit): PCMSRunInfo? {
+    private fun parseRunInfo(
+        contestInfo: PCMSContestInfo,
+        element: Element,
+        problemId: Int,
+        teamId: Int,
+        attemptId: Int,
+        onRunChanges: (RunInfo) -> Unit
+    ): PCMSRunInfo? {
         val time = element.attr("time").toLong().milliseconds
         if (time > contestInfo.contestTime) return null
         val isFrozen = time >= contestInfo.freezeTime

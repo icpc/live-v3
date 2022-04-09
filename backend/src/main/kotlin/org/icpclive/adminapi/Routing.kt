@@ -4,7 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.icpclive.api.*
-import org.icpclive.data.*
+import org.icpclive.data.DataBus
 
 suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> Unit) = try {
     block()

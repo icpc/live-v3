@@ -16,9 +16,9 @@ abstract class RegularLoaderService<T> {
     abstract val url: String
     abstract val login: String
     abstract val password: String
-    abstract fun processLoaded(data: String) : T
+    abstract fun processLoaded(data: String): T
 
-    fun loadOnce() : T {
+    fun loadOnce(): T {
         val inputStream = NetworkUtils.openAuthorizedStream(url, login, password)
         val content = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
             .lines()

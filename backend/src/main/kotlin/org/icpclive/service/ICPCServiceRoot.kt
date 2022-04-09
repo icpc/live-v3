@@ -10,7 +10,7 @@ import org.icpclive.cds.OptimismLevel
 import org.icpclive.data.DataBus
 
 
-fun CoroutineScope.launchICPCServices(problemsNumber:Int, rawRuns: Flow<RunInfo>) {
+fun CoroutineScope.launchICPCServices(problemsNumber: Int, rawRuns: Flow<RunInfo>) {
     val runsUpdates = MutableSharedFlow<RunInfo>(
         extraBufferCapacity = 1000000,
         onBufferOverflow = BufferOverflow.SUSPEND

@@ -23,7 +23,7 @@ abstract class ManagerWithEvents<in T : TypeWithId, E> : Manager<T>() {
 
     protected abstract fun createAddEvent(item: T): E
     protected abstract fun createRemoveEvent(id: String): E
-    protected abstract fun createSnapshotEvent(items: List<T>) : E
+    protected abstract fun createSnapshotEvent(items: List<T>): E
 
     override suspend fun add(item: T) = mutex.withLock {
         items.add(item)

@@ -2,14 +2,16 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.icpclive.api.*
+import org.icpclive.api.ObjectSettings
+import org.icpclive.api.ObjectStatus
+import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
 
 class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
-        private val createWidget: (SettingsType) -> DataType,
-        private var settings: SettingsType,
-        private val manager: Manager<DataType>,
-        val id: Int? = null
+    private val createWidget: (SettingsType) -> DataType,
+    private var settings: SettingsType,
+    private val manager: Manager<DataType>,
+    val id: Int? = null
 ) {
     private val mutex = Mutex()
 
@@ -20,7 +22,7 @@ class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
     }
 
     //TODO: Use under mutex
-    fun getSettings() : SettingsType {
+    fun getSettings(): SettingsType {
         return settings
     }
 

@@ -8,7 +8,6 @@ import kotlinx.serialization.SerializationException
 import org.icpclive.api.*
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
-import org.icpclive.data.DataBus
 
 private suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
     receive()

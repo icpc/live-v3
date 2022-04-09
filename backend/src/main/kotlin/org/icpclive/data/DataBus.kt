@@ -23,6 +23,7 @@ object DataBus {
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
         scoreboardFlow[level.ordinal].set(flow)
     }
+
     suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].get()
 
 

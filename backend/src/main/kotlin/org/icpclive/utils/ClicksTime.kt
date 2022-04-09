@@ -1,16 +1,15 @@
 package org.icpclive.utils
 
-import kotlinx.datetime.*
+import kotlinx.datetime.Instant
+import kotlinx.datetime.toKotlinInstant
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
 import kotlin.math.round
-import kotlin.math.roundToInt
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.Duration.Companion.hours
 
 object ClicksTime {
     // https://ccs-specs.icpc.io/2021-11/contest_api#json-attribute-types
