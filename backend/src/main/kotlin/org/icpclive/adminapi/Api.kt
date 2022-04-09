@@ -20,7 +20,8 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     noinline getInfo: (() -> Any)?
 ) {
     get {
-        call.adminApiAction {
+        // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
+        run {
             call.respond(widgetWrapper.getStatus())
         }
     }
