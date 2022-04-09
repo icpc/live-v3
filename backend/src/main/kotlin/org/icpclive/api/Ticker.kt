@@ -16,26 +16,26 @@ sealed class TickerMessage(
 @Serializable
 @SerialName("text")
 class TextTickerMessage(val settings: TextTickerSettings) :
-    TickerMessage(GenerateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
+    TickerMessage(generateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
     companion object {
-        val TICKER_ID_PREFIX: String = "ticker_text"
+        const val TICKER_ID_PREFIX: String = "ticker_text"
     }
 }
 
 @Serializable
 @SerialName("clock")
 class ClockTickerMessage(val settings: ClockTickerSettings) :
-    TickerMessage(GenerateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
+    TickerMessage(generateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
     companion object {
-        val TICKER_ID_PREFIX: String = "ticker_clock"
+        const val TICKER_ID_PREFIX: String = "ticker_clock"
     }
 }
 
 @Serializable
 @SerialName("scoreboard")
 class ScoreboardTickerMessage(val settings: ScoreboardTickerSettings) :
-    TickerMessage(GenerateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
+    TickerMessage(generateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
     companion object {
-        val TICKER_ID_PREFIX: String = "ticker_scoreboard"
+        const val TICKER_ID_PREFIX: String = "ticker_scoreboard"
     }
 }

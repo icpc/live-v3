@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlin.random.Random
 import kotlin.random.nextUInt
 
-fun GenerateId(widgetPrefix: String): String = widgetPrefix + '-' + Random.nextUInt().toString()
+fun generateId(widgetPrefix: String): String = "$widgetPrefix-${Random.nextUInt()}"
 
 @Serializable
 class LocationRectangle(
@@ -25,7 +25,7 @@ sealed class Widget(
 
 @Serializable
 @SerialName("AdvertisementWidget")
-class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(GenerateId(WIDGET_ID_PREFIX), location) {
+class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "advertisement"
         val location = LocationRectangle(0, 860, 1920, 90)
@@ -34,7 +34,7 @@ class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(Gen
 
 @Serializable
 @SerialName("PictureWidget")
-class PictureWidget(val picture: PictureSettings) : Widget(GenerateId(WIDGET_ID_PREFIX), location) {
+class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "picture"
         val location = LocationRectangle(590, 50, 1300, 960)

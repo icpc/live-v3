@@ -55,9 +55,9 @@ object ClicksTime {
         }
     }
 
-    private val RELTIME_PATTERN = Pattern.compile("^([-+])?(([0-9]{1,}):)?(([0-9]{1,}):)?([0-9]{1,}([.][0-9]{1,})?)$")
+    private val RELATIVE_TIME_PATTERN = Pattern.compile("^([-+])?(([0-9]+):)?(([0-9]+):)?([0-9]+([.][0-9]+)?)$")
     fun parseRelativeTime(csTime: CharSequence): Duration {
-        val matcher = RELTIME_PATTERN.matcher(csTime)
+        val matcher = RELATIVE_TIME_PATTERN.matcher(csTime)
         return if (matcher.matches()) {
             val signStr = matcher.group(1)
             var hourStr = matcher.group(3)

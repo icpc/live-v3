@@ -23,9 +23,9 @@ fun Application.configureAdminApiRouting() {
             route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
             route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
             route("/teamview") {
-                setupSimpleWidgetRouting(TeamViewSettings(), ::TeamViewWidget, {
+                setupSimpleWidgetRouting(TeamViewSettings(), ::TeamViewWidget) {
                     DataBus.contestInfoUpdates.value.teams
-                })
+                }
             }
 
             route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }

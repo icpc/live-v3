@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.icpclive.api
 
 import kotlinx.serialization.SerialName
@@ -35,8 +37,11 @@ sealed class TickerMessageSettings : ObjectSettings {
 
 @Serializable
 enum class TickerPart {
-    short,
-    long;
+    @SerialName("short")
+    SHORT,
+
+    @SerialName("long")
+    LONG;
 }
 
 @Serializable

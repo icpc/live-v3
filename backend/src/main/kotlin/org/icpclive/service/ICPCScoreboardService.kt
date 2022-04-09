@@ -26,7 +26,7 @@ abstract class ICPCScoreboardService(
     abstract fun isPending(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
 
-    val medalsSettings = loadMedalSettings()
+    private val medalsSettings = loadMedalSettings()
 
     suspend fun run() {
         merge(runsFlow, DataBus.contestInfoUpdates).collect { run ->
