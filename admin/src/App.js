@@ -7,6 +7,7 @@ import TickerMessage from "./components/TickerMessage";
 import Controls from "./components/Controls";
 import Advertisement from "./components/Advertisement";
 import Picture from "./components/Picture";
+import TeamView from "./components/TeamView";
 import { SnackbarProvider } from "notistack";
 
 
@@ -22,6 +23,7 @@ function App() {
                             <Route path="/controls" element={<Controls/>}/>
                             <Route path="/advertisement" element={<Advertisement/>}/>
                             <Route path="/picture" element={<Picture/>}/>
+                            <Route path="/teamview" element={<TeamView/>}/>
                             <Route path="/ticker" element={<TickerMessage/>}/>
                         </Routes>
                     </Container>
