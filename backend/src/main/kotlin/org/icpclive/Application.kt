@@ -8,6 +8,11 @@ import io.ktor.server.http.content.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.plugins.autohead.*
+import io.ktor.server.plugins.callloging.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.plugins.cors.*
+import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -30,10 +35,10 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     install(DefaultHeaders)
     install(CORS) {
-        header(HttpHeaders.ContentType)
-        header(HttpHeaders.Authorization)
-        header("*")
-        method(HttpMethod.Delete)
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.Authorization)
+        allowHeader("*")
+        allowMethod(HttpMethod.Delete)
         allowSameOrigin = true
         anyHost()
     }
