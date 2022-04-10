@@ -1,3 +1,6 @@
+import java.nio.file.Path as NioPath
+import kotlin.text.replaceFirstChar
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -10,6 +13,7 @@ plugins {
     application
     kotlin("jvm") version "1.6.20"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.6.20"
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "org.icpclive"
@@ -25,6 +29,43 @@ kotlin {
             languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             languageSettings.optIn("kotlin.RequiresOptIn")
+        }
+    }
+}
+
+val jsList = listOf("frontend", "admin")
+
+tasks {
+    shadowJar {
+        dependsOn("buildJs")
+        manifest {
+            attributes("Main-Class" to "io.ktor.server.netty.EngineMain")
+        }
+    }
+    task("buildJs") {
+        for (js in jsList) {
+            dependsOn("copyJs${js.capitalize()}")
+        }
+    }
+    for (js in jsList) {
+        val dir = project.rootDir.resolve("..").resolve(js)
+        task("buildJs${js.capitalize()}") {
+            doLast {
+                exec {
+                    workingDir(dir)
+                    commandLine("npm", "ci")
+                }
+                exec {
+                    workingDir(dir)
+                    environment("PUBLIC_URL" to "/$js")
+                    commandLine("npm", "run", "build")
+                }
+            }
+        }
+        register<Copy>("copyJs${js.capitalize()}") {
+            dependsOn("buildJs${js.capitalize()}")
+            from(dir.resolve("build"))
+            destinationDir = project.buildDir.resolve("resources").resolve("main").resolve(js)
         }
     }
 }

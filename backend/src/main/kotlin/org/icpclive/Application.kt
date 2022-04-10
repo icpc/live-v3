@@ -65,6 +65,16 @@ fun Application.module() {
     routing {
         static("/static") { resources("static") }
         static("/media") { files(mediaPath.toString()) }
+        singlePageApplication {
+            useResources = true
+            applicationRoute = "admin"
+            react("admin")
+        }
+        singlePageApplication {
+            useResources = true
+            applicationRoute = "frontend"
+            react("frontend")
+        }
     }
     configureAdminApiRouting()
     configureOverlayRouting()
