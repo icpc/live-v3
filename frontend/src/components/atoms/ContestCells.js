@@ -6,7 +6,7 @@ import {
     CELL_NAME_LEFT_PADDING,
     CELL_NAME_RIGHT_PADDING,
     CELL_PROBLEM_LINE_WIDTH,
-    getMedalColor,
+    MEDAL_COLORS,
     VERDICT_NOK,
     VERDICT_OK,
     VERDICT_UNKNOWN
@@ -131,8 +131,8 @@ TeamNameCell.propTypes = {
     teamName: PropTypes.string.isRequired
 };
 
-export const RankCell = ({ rank, ...props }) => {
-    return <Cell background={getMedalColor(rank)} {...props}>
+export const RankCell = ({ rank, medal, ...props }) => {
+    return <Cell background={MEDAL_COLORS[medal]} {...props}>
         {rank ?? "??"}
     </Cell>;
 };

@@ -81,18 +81,11 @@ export const STAR_SIZE = 10; // px
 
 
 // Medals
-export const getMedalColor = (rank) => {
-    switch (true) {
-    case (rank < 5):
-        return "gold";
-    case (rank < 10):
-        return "silver";
-    case (rank < 15):
-        return "#7f4c19";
-    default:
-        return undefined;
-    }
-};
+export const MEDAL_COLORS = Object.freeze({
+    "gold": "gold",
+    "silver": "silver",
+    "bronze": "#7f4c19"
+});
 
 // Debug Behaviour
 export const LOG_LINES = 300;
