@@ -122,8 +122,7 @@ export class TeamTable extends React.Component {
                 alignContent: "center",
                 justifyContent: "center",
                 alignItems: "center",
-                flexDirection: "column",
-                minWidth: "90%" }}>
+                flexDirection: "column" }}>
                 <Box container sx={{
                     display: "flex",
                     width: "100%",
@@ -158,7 +157,7 @@ export class TeamTable extends React.Component {
                             style: { height: "36.5px" }
                         }} />
                 </Box>
-                <Box sx={{ display: "grid", width: "140%", gridTemplateColumns: "repeat(4, 6fr)", gap: 0.25 }}>
+                <Box sx={{ display: "grid", width: "140%", gridTemplateColumns: { "md": "repeat(4, 6fr)", "xs": "repeat(2, 6fr)" }, gap: 0.25 }}>
                     {this.state.dataElements !== undefined &&
                     this.state.dataElements.filter((r) => this.rowsFilter(r)).map((row) =>
                         <RowComponent

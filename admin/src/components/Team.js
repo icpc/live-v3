@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import CircleIcon from "@mui/icons-material/Circle";
-import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import { grey } from "@mui/material/colors";
 
 const getSettings = (row) => {
