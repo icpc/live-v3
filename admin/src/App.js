@@ -14,7 +14,7 @@ import ScoreboardSettings from "./components/ScoreboardSettings";
 
 function App() {
     return (
-        <BrowserRouter basename={process.env.BASE_URL ?? ""}>
+        <BrowserRouter basename={process.env.PUBLIC_URL ?? ""}>
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
                     <AppNav/>

@@ -36,15 +36,17 @@ const apiPost = (path, body = {}, method = "POST") => {
         });
 };
 
-function Nuum(props) {
+function NumericField(props) {
     return (<div>
         <IconButton onClick={() => props.onChange(props.value - 1)}><ArrowBackIosIcon/></IconButton>
-        <TextField type="number" size="small" value={props.value}/>
+        <TextField type="number" size="small" onChange={(e) => {
+            props.onChange(e.target.value);
+        }} value={props.value} sx={{ maxWidth: 0.5 }}/>
         <IconButton onClick={() => props.onChange(props.value + 1)}><ArrowForwardIosIcon/></IconButton>
     </div>);
 }
 
-Nuum.propTypes = {
+NumericField.propTypes = {
     value: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
 };
@@ -77,11 +79,15 @@ function ScoreboardSettings(props) {
     }, []);
 
     const onClickHide = () => {
-        apiPost("/hide").then(update);
+        apiPost("/hide")
+            .then(update)
+            .catch(createErrorHandler("Failed to hide scoreboard"));
     };
 
     const onClickShow = () => {
-        apiPost("/show", sSettings).then(update);
+        apiPost("/show", sSettings)
+            .then(() => setSShown(true))
+            .catch(createErrorHandler("Failed to show scoreboard"));
     };
 
     return (
@@ -113,16 +119,14 @@ function ScoreboardSettings(props) {
                                 setSSettings(state => ({ ...state, optimismLevel: e.target.value }));
                             }}>
                             {["normal", "optimistic", "pessimistic"].map(type =>
-                                <ToggleButton value={type} key={type}>{type}</ToggleButton>)}
+                                <ToggleButton value={type} key={type}>{type.substr(0, 6)}</ToggleButton>)}
                         </ToggleButtonGroup></TableCell>
                     </TableRow>
                     <TableRow>
                         <TableCell>Start from page</TableCell>
                         <TableCell align="right">
-                            <Nuum value={sSettings.startFromPage} onChange={(v) => {
-                                if (v > 0) {
-                                    setSSettings(state => ({ ...state, startFromPage: v }));
-                                }
+                            <NumericField value={sSettings.startFromPage} onChange={(v) => {
+                                setSSettings(state => ({ ...state, startFromPage: v }));
                             }}/>
                         </TableCell>
                     </TableRow>
@@ -136,10 +140,8 @@ function ScoreboardSettings(props) {
                                         numPages: t.target.checked ? 1 : undefined
                                     }))}/>
                                 {sSettings.numPages !== undefined &&
-                                <Nuum value={sSettings.numPages} onChange={(v) => {
-                                    if (v > 0) {
-                                        setSSettings(state => ({ ...state, numPages: v }));
-                                    }
+                                <NumericField value={sSettings.numPages} onChange={(v) => {
+                                    setSSettings(state => ({ ...state, numPages: v }));
                                 }}/>}
                             </Box>
                         </TableCell>
