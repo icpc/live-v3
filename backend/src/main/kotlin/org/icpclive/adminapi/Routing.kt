@@ -4,7 +4,11 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.icpclive.api.*
+import org.icpclive.config.Config
 import org.icpclive.data.DataBus
+import java.io.File
+import java.nio.file.Path
+import java.nio.file.Paths
 
 suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> Unit) = try {
     block()
@@ -15,7 +19,9 @@ suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> U
 
 
 fun Application.configureAdminApiRouting() {
-    fun path(name: String) = environment.config.property("live.presets.$name").getString()
+    val presetsDirectory = Path.of(Config.configDirectory, environment.config.property("live.presetsDirectory").getString())
+    presetsDirectory.toFile().mkdirs()
+    fun path(name: String) = Path.of(presetsDirectory.toString(), "$name.json")
     routing {
         route("/adminapi") {
             route("/scoreboard") { setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) }
