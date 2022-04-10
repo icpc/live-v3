@@ -10,7 +10,6 @@ function TeamView() {
         <div className="TeamTable">
             <TeamTable
                 apiPath="/teamview"
-                apiTableKeys={["id", "name"]}
                 createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </div>
     );

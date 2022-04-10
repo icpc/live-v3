@@ -171,7 +171,6 @@ export class TeamTable extends React.Component {
                     this.state.dataElements.filter((r) => this.rowsFilter(r)).map((row) =>
                         <RowComponent
                             apiPostFunc={this.apiPost.bind(this)}
-                            apiTableKeys={this.props.apiTableKeys}
                             updateTable={this.updateData}
                             tStyle={this.props.tStyle}
                             rowData={row}
@@ -187,7 +186,6 @@ export class TeamTable extends React.Component {
 
 TeamTable.propTypes = {
     apiPath: PropTypes.string.isRequired,
-    apiTableKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
     tableKeysHeaders: PropTypes.arrayOf(PropTypes.string),
     tStyle: PropTypes.shape({
         activeColor: PropTypes.string,
