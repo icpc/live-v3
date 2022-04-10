@@ -26,6 +26,7 @@ export class Team extends React.Component {
                             this.props.tStyle.selectedColor :
                             this.props.tStyle.inactiveColor)),
                 display: "flex",
+                alignItems: "flex-start",
                 width: "100%",
                 height: "100%",
                 cursor: "pointer",
@@ -33,19 +34,12 @@ export class Team extends React.Component {
                 borderBottom: "1px solid rgba(224, 224, 224, 1)",
                 color: (this.props.rowData.selected || this.props.rowData.shown ? grey[900] : grey[700]) }}
                 onClick={() => this.props.onClick(this.props.rowData.id)}>
-                <Box sx={{ display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                    margin: "4px" }}key="id">
-                    {this.props.rowData.shown ?
-                        <CircleIcon  color="error" fontSize="10px"/> :
-                        <CircleOutlinedIcon  color="disabled" fontSize="10px"/>}
+                <Box key="id" sx={{
+                    margin: "4px" }}>
                     {getSettings(this.props.rowData).id}
                 </Box>
                 <Box key="name" sx={{ display: "flex",
                     flexDirection: "row",
-                    alignItems: "center",
                     margin: "4px" }}>
                     {getSettings(this.props.rowData).name}
                 </Box>
