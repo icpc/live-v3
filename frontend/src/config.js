@@ -4,9 +4,10 @@ export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? "ws://" + wind
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
 
+// Behaviour
 export const SCOREBOARD_TEAMS_ON_PAGE = 23;
-export const SCOREBOARD_MAX_PAGES = Infinity;
-
+export const SCOREBOARD_MAX_PAGES = 1;
+export const TICKER_SCOREBOARD_REPEATS = 1;
 
 // Timings
 export const WIDGET_TRANSITION_TIME = 300; // ms
@@ -17,6 +18,9 @@ export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
 export const SCOREBOARD_SCROLL_INTERVAL = 2000; // ms;
 export const PICTURES_APPEAR_TIME = 1000; // ms
 export const TICKER_SCROLL_TRANSITION_TIME = 1000; //ms
+export const TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME = 300; //ms
+
+// Behaviour
 
 // Styles
 export const VERDICT_OK = "#1b8041";
@@ -29,9 +33,9 @@ export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
 export const QUEUE_ROWS_COUNT = 15; // n
 export const QUEUE_OPACITY = 0.8;
 
-export const SCOREBOARD_RANK_WIDTH = 80; // px
-export const SCOREBOARD_NAME_WIDTH = 300; // px
-export const SCOREBOARD_SUM_PEN_WIDTH = 80; // px
+export const SCOREBOARD_RANK_WIDTH = "80px"; // px
+export const SCOREBOARD_NAME_WIDTH = "300px"; // px
+export const SCOREBOARD_SUM_PEN_WIDTH = "80px"; // px
 export const SCOREBOARD_HEADER_TITLE_BG_COLOR = VERDICT_NOK;
 export const SCOREBOARD_HEADER_TITLE_FONT_SIZE = "30px";
 export const SCOREBOARD_HEADER_BG_COLOR = "#000000";
@@ -72,6 +76,7 @@ export const TICKER_TEXT_FONT_SIZE = "34px"; // css property
 export const TICKER_TEXT_MARGIN_LEFT = "7px"; // css property
 export const TICKER_CLOCK_FONT_SIZE = "34px"; // css property
 export const TICKER_CLOCK_MARGIN_LEFT = "7px"; // css property
+export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
 
 
 export const STAR_SIZE = 10; // px
