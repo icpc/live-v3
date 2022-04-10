@@ -157,7 +157,11 @@ export class TeamTable extends React.Component {
                             style: { height: "36.5px" }
                         }} />
                 </Box>
-                <Box sx={{ display: "grid", width: "140%", gridTemplateColumns: { "md": "repeat(4, 6fr)", "xs": "repeat(2, 6fr)" }, gap: 0.25 }}>
+                <Box sx={{
+                    display: "grid",
+                    width: { "md": "140%", "sm": "100%", "xs": "100%" },
+                    gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(3, 6fr)", "xs": "repeat(2, 6fr)" },
+                    gap: 0.25 }}>
                     {this.state.dataElements !== undefined &&
                     this.state.dataElements.filter((r) => this.rowsFilter(r)).map((row) =>
                         <RowComponent
