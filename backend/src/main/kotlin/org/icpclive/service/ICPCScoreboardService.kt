@@ -124,7 +124,7 @@ class ICPCPessimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInf
     ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.PESSIMISTIC) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
-    override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
+    override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged || runInfo.isAddingPenalty
 }
 
 class ICPCOptimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>) :
