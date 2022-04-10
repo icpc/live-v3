@@ -211,19 +211,23 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
             onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
             autoPlay
             muted/>
+
     </TeamVideoAnimationWrapper>;
 };
 
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
     console.log(settings);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(settings.mediaType === undefined);
+    const medias = useSelector((state) => state.contestInfo.info?.teamsId[settings.teamId]);
 
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
-        <TeamVideo teamId={settings.teamId} type={settings.mediaType} setIsLoaded={setIsLoaded}/>
+        {settings.mediaType !== undefined &&
+            <TeamVideo teamId={settings.teamId} type={settings.mediaType} setIsLoaded={setIsLoaded}/>
+        }
         <ScoreboardColumn teamId={settings.teamId}/>
     </TeamViewContainer>;
 };
