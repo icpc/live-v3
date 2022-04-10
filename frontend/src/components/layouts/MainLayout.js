@@ -10,6 +10,8 @@ import Queue from "../organisms/widgets/Queue";
 import Scoreboard from "../organisms/widgets/Scoreboard";
 import Ticker from "../organisms/widgets/Ticker";
 import Statistics from "../organisms/widgets/Statistics";
+import TeamView from "../organisms/widgets/TeamView";
+import Videos from "../organisms/widgets/Videos";
 
 const fadeIn = keyframes`
   from {
@@ -65,7 +67,8 @@ const WIDGETS = {
     QueueWidget: Queue,
     PictureWidget: Pictures,
     TickerWidget: Ticker,
-    StatisticsWidget: Statistics
+    StatisticsWidget: Statistics,
+    TeamViewWidget: TeamView
 };
 
 export const MainLayout = () => {
@@ -77,7 +80,7 @@ export const MainLayout = () => {
                 if(Widget === undefined) {
                     return null;
                 }
-                return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME}>
+                return <Transition key={obj.widgetId} timeout={(Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME) - 50}>
                     {state =>
                         state !== "exited" && <WidgetWrap
                             left={obj.location.positionX}
