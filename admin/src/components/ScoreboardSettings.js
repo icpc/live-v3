@@ -1,24 +1,22 @@
-import { useSnackbar } from "notistack";
-// import { errorHandlerWithSnackbar } from "../errors";
 import React, { useEffect, useState } from "react";
-import * as PropTypes from "prop-types";
-import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
 import {
     ButtonGroup,
-    Grid,
+    Box, IconButton,
     Switch,
     Table,
     TableBody,
     TableCell,
-    TableHead,
-    TableRow,
+    TableRow, TextField,
     ToggleButton,
-    ToggleButtonGroup
+    ToggleButtonGroup,
+    Button
 } from "@mui/material";
-import ShowPresetButton from "./ShowPresetButton";
-import Button from "@mui/material/Button";
-import { BASE_URL_BACKEND } from "../config";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
+import { BASE_URL_BACKEND } from "../config";
 
 const apiUrl = BASE_URL_BACKEND + "/scoreboard";
 
@@ -38,14 +36,29 @@ const apiPost = (path, body = {}, method = "POST") => {
         });
 };
 
+function Nuum(props) {
+    return (<div>
+        <IconButton onClick={() => props.onChange(props.value - 1)}><ArrowBackIosIcon/></IconButton>
+        <TextField type="number" size="small" value={props.value}/>
+        <IconButton onClick={() => props.onChange(props.value + 1)}><ArrowForwardIosIcon/></IconButton>
+    </div>);
+}
+
+Nuum.propTypes = {
+    value: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
+
 function ScoreboardSettings(props) {
-    const { enqueueSnackbar,  } = useSnackbar();
+    const { enqueueSnackbar, } = useSnackbar();
     const createErrorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
 
     const [sShown, setSShown] = useState(false);
     const [sSettings, setSSettings] = useState({
         isInfinite: true,
         optimismLevel: "Normal",
+        startFromPage: 1,
+        numPages: undefined,
     });
 
     const update = () => {
@@ -77,7 +90,7 @@ function ScoreboardSettings(props) {
                 <TableBody>
                     <TableRow>
                         <TableCell>Visibility</TableCell>
-                        <TableCell>
+                        <TableCell align="right">
                             <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                 <Button color="primary" disabled={sShown === true} onClick={onClickShow}>Show</Button>
                                 <Button color="error" disabled={sShown !== true} onClick={onClickHide}>Hide</Button>
@@ -86,19 +99,50 @@ function ScoreboardSettings(props) {
                     </TableRow>
                     <TableRow>
                         <TableCell>Infinity playing</TableCell>
-                        <TableCell><Switch checked={sSettings.isInfinite}
-                            onChange={t => setSSettings(state => ({ ...state, isInfinite: t.target.checked }))}/>
+                        <TableCell align="right"><Switch checked={sSettings.isInfinite}
+                            onChange={t => setSSettings(state => ({
+                                ...state,
+                                isInfinite: t.target.checked
+                            }))}/>
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell>Infinity playing</TableCell>
-                        <TableCell><ToggleButtonGroup color="primary" value={sSettings.optimismLevel}
+                        <TableCell>Optimistic level</TableCell>
+                        <TableCell align="right"><ToggleButtonGroup color="primary" value={sSettings.optimismLevel}
                             exclusive onChange={(e) => {
                                 setSSettings(state => ({ ...state, optimismLevel: e.target.value }));
                             }}>
                             {["normal", "optimistic", "pessimistic"].map(type =>
                                 <ToggleButton value={type} key={type}>{type}</ToggleButton>)}
                         </ToggleButtonGroup></TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Start from page</TableCell>
+                        <TableCell align="right">
+                            <Nuum value={sSettings.startFromPage} onChange={(v) => {
+                                if (v > 0) {
+                                    setSSettings(state => ({ ...state, startFromPage: v }));
+                                }
+                            }}/>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Num pages</TableCell>
+                        <TableCell align="right">
+                            <Box sx={{ display: "flex", justifyContent: "flex-end", flexDirection: "row" }}>
+                                <Switch checked={sSettings.numPages !== undefined}
+                                    onChange={t => setSSettings(state => ({
+                                        ...state,
+                                        numPages: t.target.checked ? 1 : undefined
+                                    }))}/>
+                                {sSettings.numPages !== undefined &&
+                                <Nuum value={sSettings.numPages} onChange={(v) => {
+                                    if (v > 0) {
+                                        setSSettings(state => ({ ...state, numPages: v }));
+                                    }
+                                }}/>}
+                            </Box>
+                        </TableCell>
                     </TableRow>
                 </TableBody>
             </Table>
