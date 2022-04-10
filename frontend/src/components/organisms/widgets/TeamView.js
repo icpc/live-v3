@@ -25,10 +25,12 @@ const ScoreboardStatCell = styled(ScoreboardCell)`
 
 const TeamViewContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: flex-end;
+  position: relative;
 `;
 
 const TeamInfoWrapper = styled.div`
@@ -138,6 +140,7 @@ const TeamInfo = ({ teamId }) => {
 
 export const TeamView = ({ widgetData }) => {
     return <TeamViewContainer>
+        <video src="http://localhost:8080/static/kek.mp4" style={{ position: "absolute", width: "100%",  top: "0" }} autoPlay muted/>
         <TeamInfo teamId={48}/>
         <ScoreboardColumn teamId={48}/>
     </TeamViewContainer>;
