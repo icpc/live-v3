@@ -36,7 +36,6 @@ export class TeamTable extends React.Component {
     }
 
     apiPost(path, body = {}, method = "POST") {
-        console.log(body);
         const requestOptions = {
             method: method,
             headers: { "Content-Type": "application/json" },
@@ -93,7 +92,6 @@ export class TeamTable extends React.Component {
     }
 
     rowsFilter(elem) {
-        console.log(elem);
         if (this.state.searchFieldValue === "") {
             return true;
         }
