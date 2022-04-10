@@ -7,19 +7,16 @@ import {
     SCOREBOARD_HEADER_BG_COLOR,
     SCOREBOARD_HEADER_TITLE_BG_COLOR,
     SCOREBOARD_HEADER_TITLE_FONT_SIZE,
-    SCOREBOARD_MAX_PAGES,
     SCOREBOARD_NAME_WIDTH,
     SCOREBOARD_OPACITY,
     SCOREBOARD_RANK_WIDTH,
     SCOREBOARD_ROW_TRANSITION_TIME,
     SCOREBOARD_SCROLL_INTERVAL,
     SCOREBOARD_SUM_PEN_WIDTH,
-    SCOREBOARD_TEAMS_ON_PAGE,
     VERDICT_NOK,
     VERDICT_OK,
     VERDICT_UNKNOWN
 } from "../../../config";
-import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
@@ -133,8 +130,8 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     }
 }
 
-export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenWidth, nameGrows }) => {
-    const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
+export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenWidth, nameGrows, optimismLevel }) => {
+    const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
         <RankCell rank={scoreboardData.rank} width={rankWidth ?? SCOREBOARD_RANK_WIDTH}/>
@@ -209,19 +206,28 @@ PositionedScoreboardRow.propTypes = {
     children: PropTypes.node
 };
 
-const SCOREBOARD_TYPE = SCOREBOARD_TYPES.normal;
-
-export const Scoreboard = ({ widgetData }) => {
-    let rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPE].rows);
+export const Scoreboard = ({ widgetData: { settings, location } }) => {
+    const optimismLevel = settings.optimismLevel;
+    const teamsOnPage = settings.teamsOnPage;
+    let rows = useSelector((state) => state.scoreboard[optimismLevel].rows);
     const contestInfo = useSelector((state) => state.contestInfo.info);
-    const [offset, setOffset] = useState(0);
-    const totalHeight = widgetData.location.sizeY;
-    const rowHeight = (totalHeight / (SCOREBOARD_TEAMS_ON_PAGE));
+    const startPageRow = (settings.startFromPage - 1) * teamsOnPage;
+    const [row, setRow] = useState(startPageRow);
+    const totalHeight = location.sizeY;
+    const rowHeight = (totalHeight / (teamsOnPage + 1));
     useEffect(() => {
         const id = setInterval(() => {
-            setOffset((offset) => {
-                let newStart = offset + SCOREBOARD_TEAMS_ON_PAGE;
-                return (newStart >= Math.min(rows.length, SCOREBOARD_MAX_PAGES * SCOREBOARD_TEAMS_ON_PAGE) ? 0 : newStart);
+            setRow((offset) => {
+                let newStart = offset + teamsOnPage;
+                if (newStart >= Math.min(rows.length, ((settings.numPages || Infinity) + startPageRow) * teamsOnPage)) {
+                    if(settings.isInfinite) {
+                        return startPageRow;
+                    } else {
+                        return offset;
+                    }
+                } else {
+                    return newStart;
+                }
             });
         }, SCOREBOARD_SCROLL_INTERVAL);
         return () => clearInterval(id);
@@ -231,9 +237,9 @@ export const Scoreboard = ({ widgetData }) => {
         <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>
         <div style={{ overflow: "hidden", height: "100%" }}>
             {teams.map(([ind, teamRowData]) =>
-                <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - offset) * rowHeight}
-                    rowHeight={rowHeight} zIndex={-ind}>
-                    <ScoreboardRow teamId={teamRowData.teamId}/>
+                <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - row) * rowHeight}
+                    rowHeight={rowHeight} zIndex={rows.length - ind}>
+                    <ScoreboardRow teamId={teamRowData.teamId} optimismLevel={optimismLevel}/>
                 </PositionedScoreboardRow>
             )}
         </div>

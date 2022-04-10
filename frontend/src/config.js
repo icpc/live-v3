@@ -5,8 +5,6 @@ export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? "ws://" + wind
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
 
 // Behaviour
-export const SCOREBOARD_TEAMS_ON_PAGE = 23;
-export const SCOREBOARD_MAX_PAGES = 1;
 export const TICKER_SCOREBOARD_REPEATS = 1;
 
 // Timings

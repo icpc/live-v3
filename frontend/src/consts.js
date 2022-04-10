@@ -6,9 +6,11 @@ export const WEBSOCKETS = {
     ticker: "ticker",
     scoreboardNormal: "scoreboard/normal",
     scoreboardOptimistic: "scoreboard/optimistic",
+    scoreboardPessimistic: "scoreboard/pessimistic",
 };
 
 export const SCOREBOARD_TYPES = Object.freeze({
     normal: "normal",
-    optimistic: "optimistic"
+    optimistic: "optimistic",
+    pessimistic: "pessimistic"
 });

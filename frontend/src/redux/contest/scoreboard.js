@@ -13,6 +13,10 @@ const initialState = {
     [SCOREBOARD_TYPES.optimistic]: {
         rows: [],
         ids: {}
+    },
+    [SCOREBOARD_TYPES.pessimistic]: {
+        rows: [],
+        ids: {}
     }
 };
 
