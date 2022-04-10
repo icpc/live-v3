@@ -27,7 +27,7 @@ export class TickerTableRow extends PresetsTableRow {
             <TableCell component="th" scope="row" sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
                 {this.state.value.settings.type === "text" &&
                 (this.state.editValue === undefined ? this.state.value.settings.text : (
-                    <Box onSubmit={this.onClickEdit} component="form" type="submit">
+                    <Box onSubmit={this.onSubmitEdit} component="form" type="submit">
                         <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.text}
                             id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
                             onChange={(e) => {
@@ -39,7 +39,7 @@ export class TickerTableRow extends PresetsTableRow {
                 {this.state.value.settings.type === "scoreboard" &&
                 (this.state.editValue === undefined ?
                     "From " + this.state.value.settings.from + " to " + this.state.value.settings.to
-                    : (<Box onSubmit={this.onClickEdit} component="form" type="submit" sx={{ display: "flex", flexDirection: "row" }}>
+                    : (<Box onSubmit={this.onSubmitEdit} component="form" type="submit" sx={{ display: "flex", flexDirection: "row" }}>
                         <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.from}
                             id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
                             onChange={(e) => {
@@ -55,7 +55,7 @@ export class TickerTableRow extends PresetsTableRow {
             </TableCell>
             <TableCell component="th" scope="row" sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
                 {this.state.editValue === undefined ? this.state.value.settings.periodMs : (
-                    <Box onSubmit={this.onClickEdit} component="form" type="submit">
+                    <Box onSubmit={this.onSubmitEdit} component="form" type="submit">
                         <TextField autoFocus hiddenLabel defaultValue={this.state.value.settings.periodMs}
                             id="filled-hidden-label-small" type="number" size="small"
                             onChange={(e) => {

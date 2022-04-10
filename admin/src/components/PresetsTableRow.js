@@ -21,6 +21,7 @@ export class PresetsTableRow extends React.Component {
             editValue: undefined,
         };
         this.onClickEdit = this.onClickEdit.bind(this);
+        this.onSubmitEdit = this.onSubmitEdit.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
         this.onClickShow = this.onClickShow.bind(this);
     }
@@ -34,6 +35,11 @@ export class PresetsTableRow extends React.Component {
                 .then(this.props.updateTable)
                 .catch(this.props.createErrorHandler("Failed to edit preset"));
         }
+    }
+
+    onSubmitEdit(e) {
+        e.preventDefault();
+        this.onClickEdit();
     }
 
     onClickDelete() {
@@ -65,7 +71,7 @@ export class PresetsTableRow extends React.Component {
                     key={rowKey}
                     sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
                     {this.state.editValue === undefined ? getSettings(this.state.value)[rowKey] : (
-                        <Box onSubmit={this.onClickEdit} component="form" type="submit">
+                        <Box onSubmit={this.onSubmitEdit} component="form" type="submit">
                             <TextField
                                 autoFocus
                                 hiddenLabel
@@ -82,7 +88,8 @@ export class PresetsTableRow extends React.Component {
                     }
                 </TableCell>
             ))}
-            {this.props.isImmutable !== true && <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
+            {this.props.isImmutable !== true &&
+            <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
                     <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
                         onClick={this.onClickEdit}>

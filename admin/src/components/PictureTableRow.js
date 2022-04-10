@@ -30,7 +30,7 @@ export class PictureTableRow extends PresetsTableRow {
 
                             {this.state.editValue !== undefined &&
                             this.props.apiTableKeys.map((rowKey) => (
-                                <Box onSubmit={this.onClickEdit} component="form" type="submit" key={rowKey}>
+                                <Box onSubmit={this.onSubmitEdit} component="form" type="submit" key={rowKey}>
                                     <TextField
                                         autoFocus
                                         fullWidth
