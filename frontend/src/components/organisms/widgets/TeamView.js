@@ -1,11 +1,30 @@
-import React, { Fragment } from "react";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
+import React, { Fragment, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
 import { Cell } from "../../atoms/Cell";
 import { StarIcon } from "../../atoms/Star";
-import { VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { pushLog } from "../../../redux/debug";
+
+const slideIn = keyframes`
+  from {
+    opacity: 0.1;
+  }
+  to {
+     opacity: 1;
+  }
+`;
+
+const slideOut = keyframes`
+  from {
+     opacity: 1;
+  }
+  to {
+      opacity: 0.1;
+  }
+`;
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -26,15 +45,17 @@ const ScoreboardStatCell = styled(ScoreboardCell)`
 const TeamViewContainer = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
+  display: ${props => props.show ? "flex" : "none"};
   flex-direction: column;
   justify-content: start;
   align-items: flex-end;
   position: relative;
+  animation: ${props => props.animation} ${TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
 `;
 
 const TeamInfoWrapper = styled.div`
   display: flex;
+  position: relative;
 `;
 
 const ScoreboardTaskCellWrap = styled(ScoreboardCell)`
@@ -101,6 +122,7 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
 const ScoreboardColumnWrapper = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;  
+  position: relative;
 `;
 
 const ScoreboardColumn = ({ teamId }) => {
@@ -138,11 +160,52 @@ const TeamInfo = ({ teamId }) => {
     </TeamInfoWrapper>;
 };
 
-export const TeamView = ({ widgetData }) => {
-    return <TeamViewContainer>
-        <video src="http://localhost:8080/static/kek.mp4" style={{ position: "absolute", width: "100%",  top: "0" }} autoPlay muted/>
-        <TeamInfo teamId={48}/>
-        <ScoreboardColumn teamId={48}/>
+const TeamVideoWrapper =styled.video`
+    position: absolute;
+    width: 100%;
+    top: 0;
+`;
+
+const TeamVideoAnimationWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+`;
+
+const TeamVideo = ({ teamId, type, setIsLoaded }) => {
+    const dispatch = useDispatch();
+
+    const medias = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
+    if(!medias)
+        return null;
+    return <TeamVideoAnimationWrapper>
+        <TeamVideoWrapper
+            src={"https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"}
+            onCanPlay={() => setIsLoaded(true)}
+            onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+            autoPlay
+            muted/>
+    </TeamVideoAnimationWrapper>;
+};
+
+export const TeamView = ({ widgetData: { settings }, transitionState }) => {
+    console.log(settings);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    return <TeamViewContainer
+        show={isLoaded}
+        animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
+        animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
+    >
+        <TeamVideo teamId={settings.teamId} type={settings.mediaType} setIsLoaded={setIsLoaded}/>
+        <TeamInfo teamId={settings.teamId}/>
+        <ScoreboardColumn teamId={settings.teamId}/>
     </TeamViewContainer>;
 };
+TeamView.ignoreAnimation = true;
+TeamView.overrideTimeout = TEAM_VIEW_APPEAR_TIME;
+
 export default TeamView;

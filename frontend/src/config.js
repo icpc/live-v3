@@ -17,6 +17,8 @@ export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
 export const SCOREBOARD_SCROLL_INTERVAL = 2000; // ms;
 export const PICTURES_APPEAR_TIME = 1000; // ms
+export const VIDEO_APPEAR_TIME = 100; // ms
+export const TEAM_VIEW_APPEAR_TIME = 1000; // ms
 export const TICKER_SCROLL_TRANSITION_TIME = 1000; //ms
 export const TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME = 300; //ms
 
