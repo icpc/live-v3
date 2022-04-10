@@ -36,11 +36,15 @@ kotlin {
 val jsList = listOf("frontend", "admin")
 
 tasks {
+    named("run") {
+        (this as JavaExec).args = listOf("-config=config/application.conf")
+    }
     shadowJar {
         dependsOn("buildJs")
         manifest {
             attributes("Main-Class" to "io.ktor.server.netty.EngineMain")
         }
+        archiveFileName.set("${project.name}-${project.version}.jar")
     }
     task("buildJs") {
         for (js in jsList) {
@@ -67,6 +71,11 @@ tasks {
             from(dir.resolve("build"))
             destinationDir = project.buildDir.resolve("resources").resolve("main").resolve(js)
         }
+    }
+    task<Copy>("release") {
+        dependsOn("shadowJar")
+        from(project.buildDir.resolve("libs").resolve("${project.name}-${project.version}.jar"))
+        destinationDir = project.rootDir
     }
 }
 

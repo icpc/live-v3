@@ -1,1 +1,1 @@
-rootProject.name = "live-v3"
+rootProject.name = "icpclive"
