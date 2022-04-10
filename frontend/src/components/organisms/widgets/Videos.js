@@ -53,7 +53,7 @@ export const Videos = ({ widgetData, transitionState }) => {
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
         <VideosContainer
-            src={"https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"}
+            src={widgetData.video.url}
             onCanPlay={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
             autoPlay

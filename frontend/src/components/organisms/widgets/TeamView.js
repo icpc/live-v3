@@ -7,6 +7,8 @@ import { Cell } from "../../atoms/Cell";
 import { StarIcon } from "../../atoms/Star";
 import { TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { pushLog } from "../../../redux/debug";
+import { DateTime } from "luxon";
+import _ from "lodash";
 
 const slideIn = keyframes`
   from {
@@ -56,6 +58,7 @@ const TeamViewContainer = styled.div`
 const TeamInfoWrapper = styled.div`
   display: flex;
   position: relative;
+  height: 100%;
 `;
 
 const ScoreboardTaskCellWrap = styled(ScoreboardCell)`
@@ -105,6 +108,16 @@ const StatisticsProblemCell = styled(ProblemCell)`
   box-sizing: border-box;
 `;
 
+const ScoreboardTimeCell = styled(ScoreboardCell)`
+   flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 100%;
+  height: 100%;
+  padding: 5px;
+  padding-left: 10px;
+  min-width: 40px;
+`;
+
 function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
@@ -120,25 +133,35 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
 }
 
 const ScoreboardColumnWrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;  
-  position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-auto-rows: 1fr;
+    position: relative;
+`;
+const ScoreboardTeamInfoRow = styled.div`
+    grid-column-start: 1;
+    grid-column-end: 3;
+`;
+const TaskRow = styled.div`
+    display: flex;
+    width: 100%;
+    grid-column-start: 2;
+    grid-column-end: 3;
 `;
 
 const ScoreboardColumn = ({ teamId }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     return <ScoreboardColumnWrapper>
-        {scoreboardData?.problemResults.map(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve }, index) =>
-            <Fragment key={index}>
-                {getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) !== TeamTaskStatus.untouched &&
-                    <StatisticsProblemCell probData={tasks[index]}/>}
-
-                {getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) !== TeamTaskStatus.untouched &&
-                    <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)} attempts={wrongAttempts + pendingAttempts}/>
-                }
-
-            </Fragment>
+        <ScoreboardTeamInfoRow>
+            <TeamInfo teamId={teamId}/>
+        </ScoreboardTeamInfoRow>
+        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs }, index) =>
+            getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null : <TaskRow key={index}>
+                <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
+                <StatisticsProblemCell probData={tasks[index]}/>
+                <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)} attempts={wrongAttempts + pendingAttempts}/>
+            </TaskRow>
         )}
     </ScoreboardColumnWrapper>;
 };
@@ -183,7 +206,7 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
         return null;
     return <TeamVideoAnimationWrapper>
         <TeamVideoWrapper
-            src={"https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"}
+            src={medias.medias[type]}
             onCanPlay={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
             autoPlay
@@ -201,7 +224,6 @@ export const TeamView = ({ widgetData: { settings }, transitionState }) => {
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
         <TeamVideo teamId={settings.teamId} type={settings.mediaType} setIsLoaded={setIsLoaded}/>
-        <TeamInfo teamId={settings.teamId}/>
         <ScoreboardColumn teamId={settings.teamId}/>
     </TeamViewContainer>;
 };
