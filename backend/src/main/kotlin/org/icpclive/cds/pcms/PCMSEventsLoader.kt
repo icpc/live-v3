@@ -56,8 +56,8 @@ class PCMSEventsLoader {
 
             val xmlLoader = object : RegularLoaderService<Document>() {
                 override val url = properties.getProperty("url")
-                override val login = properties.getProperty("login")
-                override val password = properties.getProperty("password")
+                override val login = properties.getProperty("login") ?: ""
+                override val password = properties.getProperty("password") ?: ""
                 override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
             }
 
@@ -200,6 +200,7 @@ class PCMSEventsLoader {
             val shortName = participant.attr("shortname")
                 .split("(")[0]
                 .let { if (it.length >= 30) it.substring(0..27) + "..." else it }
+                .takeIf { it.isNotEmpty() } ?: participantName
             val region = participant.attr("region").split(",")[0]
             val hashTag = participant.attr("hashtag")
             val groups = if (region.isEmpty()) emptySet() else mutableSetOf(region)

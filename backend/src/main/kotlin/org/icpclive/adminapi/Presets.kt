@@ -101,7 +101,7 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
                 innerData.map { it.getSettings() },
                 FileOutputStream(tempFile.toFile())
             )
-            Files.delete(path)
+            Files.deleteIfExists(path)
             Files.move(tempFile, path)
         }
     }
