@@ -1,13 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Box, Button } from "@mui/material";
+import { Grid, Box, Button, ButtonGroup } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
 import { Team } from "./Team";
 import { BASE_URL_BACKEND } from "../config";
 
 const gridButton = {
-    margin: "8px"
+    margin: "4px"
 };
+
+const showButtonsSettings = [
+    { text: "camera", mediaType: "camera" },
+    { text: "screen", mediaType: "screen" },
+    { text: "record", mediaType: "record" },
+    { text: "info", mediaType: undefined },];
 
 export class TeamTable extends React.Component {
     constructor(props) {
@@ -95,15 +101,17 @@ export class TeamTable extends React.Component {
         const RowComponent = this.props.rowComponent;
         return (
             <Grid sx={{ display: "flex", flexDirection: "column", minWidth: "90%" }}>
-                <Box container sx={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", mx: "auto" }}>
-                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
-                        () => {this.showTeam("camera");}}>Camera</Button>
-                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
-                        () => {this.showTeam("screen");}}>Screen</Button>
-                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
-                        () => {this.showTeam("record");}}>Record</Button>
-                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
-                        () => {this.showTeam();}}>Statistics</Button>
+                <Box container sx={{ display: "flex", width: "100%", justifyContent: "center", flexDirection: "row", mx: "auto" }}>
+                    <ButtonGroup>
+                        {showButtonsSettings.map((elem) => (
+                            <Button
+                                disabled={this.state.selectedId === undefined}
+                                sx={gridButton}
+                                variant="contained"
+                                key={elem.text}
+                                onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
+                        ))}
+                    </ButtonGroup>
                     <Button sx={gridButton} variant="contained" color="error" onClick={
                         () => {this.hideTeam();}}>Hide</Button>
                 </Box>
