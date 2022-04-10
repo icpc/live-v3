@@ -11,39 +11,11 @@ const getSettings = (row) => {
 export class Team extends React.Component {
     constructor(props) {
         super(props);
-        this.onClickEdit = this.onClickEdit.bind(this);
-        this.onClickDelete = this.onClickDelete.bind(this);
-        this.onClickShow = this.onClickShow.bind(this);
-    }
-
-    onClickEdit() {
-        if (this.state.editValue === undefined) {
-            this.setState(state => ({ ...state, editValue: state.value }));
-        } else {
-            this.props.apiPostFunc("/" + this.props.rowData.id, getSettings(this.state.editValue))
-                .then(() => this.setState(state => ({ ...state, editValue: undefined })))
-                .then(this.props.updateTable)
-                .catch(this.props.createErrorHandler("Failed to edit preset"));
-        }
-    }
-
-    onClickDelete() {
-        this.props.apiPostFunc("/" + this.props.rowData.id, {}, "DELETE")
-            .then(this.props.updateTable)
-            .catch(this.props.createErrorHandler("Failed to delete preset"));
-    }
-
-    onClickShow() {
-        this.props.apiPostFunc(
-            "/" + (this.props.rowData.shown ? "/hide" : "/show"),
-            { teamId: this.props.rowData.id })
-            .then(this.props.updateTable)
-            .catch(this.props.createErrorHandler("Failed to show or hide preset"));
     }
 
     render() {
         return (<Grid sx={{ display: "flex", width: "100%", height: "100%" }}>
-            <TableRow
+            <Box
                 key={this.props.rowData.id}
                 sx={{ backgroundColor:
                     (this.props.rowData.shown?
@@ -57,18 +29,16 @@ export class Team extends React.Component {
                 width: "100%",
                 height: "100%",
                 cursor: "pointer",
+                margin: "4px",
+                borderBottom: "1px solid rgba(224, 224, 224, 1)",
                 color: (this.props.rowData.selected || this.props.rowData.shown ? grey[900] : grey[700]) }}
                 onClick={() => this.props.onClick(this.props.rowData.id)}>
-                <TableCell sx = {{
-                    display: "flex",
-                }}>
-                    {this.props.apiTableKeys.map((rowKey) => (
-                        <Box key={rowKey} sx={{ margin: "8px" }}>
-                            {getSettings(this.props.rowData)[rowKey]}
-                        </Box>
-                    ))}
-                </TableCell>
-            </TableRow>
+                {this.props.apiTableKeys.map((rowKey) => (
+                    <Box key={rowKey} sx={{ margin: "8px" }}>
+                        {getSettings(this.props.rowData)[rowKey]}
+                    </Box>
+                ))}
+            </Box>
         </Grid>);
     }
 }
