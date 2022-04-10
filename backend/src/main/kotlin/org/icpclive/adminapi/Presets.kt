@@ -12,14 +12,16 @@ import org.icpclive.api.ObjectSettings
 import org.icpclive.api.ObjectStatus
 import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
-import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.nio.file.Files
+import java.nio.file.Path
 
 private val jsonPrettyEncoder = Json { prettyPrint = true }
 
 class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
-    private val path: String,
+    private val path: Path,
     settingsSerializer: KSerializer<SettingsType>,
     private val createItem: (SettingsType) -> ItemType,
     private val manager: Manager<ItemType>,
@@ -83,24 +85,31 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
         }
     }
 
-    private fun load() = Json.decodeFromStream(serializer, FileInputStream(File(path))).mapIndexed { index, content ->
-        Wrapper(createItem, content, manager, index + 1)
+    private fun load() = try {
+        Json.decodeFromStream(serializer, FileInputStream(path.toFile())).mapIndexed { index, content ->
+            Wrapper(createItem, content, manager, index + 1)
+        }
+    } catch (e: FileNotFoundException) {
+        emptyList()
     }
 
     private suspend fun save() {
         mutex.withLock {
+            val tempFile = Files.createTempFile(path.parent, null, null)
             jsonPrettyEncoder.encodeToStream(
                 serializer,
                 innerData.map { it.getSettings() },
-                FileOutputStream(File(path))
+                FileOutputStream(tempFile.toFile())
             )
+            Files.delete(path)
+            Files.move(tempFile, path)
         }
     }
 }
 
 
 inline fun <reified SettingsType : ObjectSettings, reified ItemType : TypeWithId> Presets(
-    path: String,
+    path: Path,
     manager: Manager<ItemType>,
     noinline createItem: (SettingsType) -> ItemType
 ) = PresetsManager(

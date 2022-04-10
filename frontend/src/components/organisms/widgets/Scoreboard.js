@@ -40,6 +40,8 @@ const ScoreboardRowContainer = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
+  overflow: hidden;
+  //box-sizing: border-box;
 `;
 
 const ScoreboardCell = styled(Cell)`
@@ -51,7 +53,7 @@ const ScoreboardCell = styled(Cell)`
 `;
 
 const ScoreboardStatCell = styled(ScoreboardCell)`
-  width: ${SCOREBOARD_SUM_PEN_WIDTH}px;
+  width: ${props => props.width};
 `;
 
 const ScoreboardTaskCellWrap = styled(ScoreboardCell)`
@@ -103,13 +105,13 @@ const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
 
 const ScoreboardHeaderTitle = styled(ScoreboardCell)`
   background: ${SCOREBOARD_HEADER_TITLE_BG_COLOR};
-  width: ${SCOREBOARD_RANK_WIDTH + SCOREBOARD_NAME_WIDTH}px;
+  width: calc(${SCOREBOARD_RANK_WIDTH} + ${SCOREBOARD_NAME_WIDTH});
   font-size: ${SCOREBOARD_HEADER_TITLE_FONT_SIZE};
 `;
 
 const ScoreboardHeaderStatCell = styled(ScoreboardStatCell)`
   background: ${SCOREBOARD_HEADER_BG_COLOR};
-  width: ${SCOREBOARD_SUM_PEN_WIDTH}px;
+  width: ${SCOREBOARD_SUM_PEN_WIDTH};
   text-align: center;
 `;
 
@@ -131,16 +133,16 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     }
 }
 
-export const ScoreboardRow = ({ teamId, hideTasks }) => {
+export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenWidth, nameGrows }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
-        <RankCell rank={scoreboardData.rank} width={SCOREBOARD_RANK_WIDTH + "px"}/>
-        <TeamNameCell teamName={teamData.shortName} width={SCOREBOARD_NAME_WIDTH + "px"} canGrow={false} canShrink={false}/>
-        <ScoreboardStatCell>
+        <RankCell rank={scoreboardData.rank} width={rankWidth ?? SCOREBOARD_RANK_WIDTH}/>
+        <TeamNameCell teamName={teamData.shortName} width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)} canGrow={nameGrows ?? false} canShrink={nameGrows?? false}/>
+        <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData.totalScore}
         </ScoreboardStatCell>
-        <ScoreboardStatCell>
+        <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData.penalty}
         </ScoreboardStatCell>
         {!hideTasks && scoreboardData.problemResults.map(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve }, i) =>

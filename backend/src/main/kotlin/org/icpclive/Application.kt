@@ -23,6 +23,7 @@ import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.File
+import java.nio.file.Path
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
@@ -54,17 +55,20 @@ fun Application.module() {
         maxFrameSize = Long.MAX_VALUE
         masking = false
     }
-    routing {
-        static("/static") { resources("static") }
-    }
-    configureAdminApiRouting()
-    configureOverlayRouting()
-    environment.log.info("Current working directory is ${File(".").canonicalPath}")
     environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
         val configPath = File(this).canonicalPath
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
+    val mediaPath = Path.of(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
+    mediaPath.toFile().mkdirs()
+    routing {
+        static("/static") { resources("static") }
+        static("/media") { files(mediaPath.toString()) }
+    }
+    configureAdminApiRouting()
+    configureOverlayRouting()
+    environment.log.info("Current working directory is ${File(".").canonicalPath}")
     launchEventsLoader()
     launch { EventLoggerService().run() }
     // to trigger init

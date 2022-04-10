@@ -15,6 +15,7 @@ import {
 import { pushLog } from "../../../redux/debug";
 import { startScrolling, stopScrolling } from "../../../redux/ticker";
 import Clock from "../tickers/Clock";
+import Scoreboard from "../tickers/Scoreboard";
 import Text from "../tickers/Text";
 
 const rowAppear = keyframes`
@@ -69,7 +70,8 @@ const SingleTickerWrap = styled.div`
 
 const widgetTypes = Object.freeze({
     text: Text,
-    clock: Clock
+    clock: Clock,
+    scoreboard: Scoreboard
 });
 
 const DefaultTicker = ({ tickerSettings }) => {
@@ -91,9 +93,9 @@ export const SingleTicker = ({ part, color }) => {
                         if(TickerComponent === undefined) {
                             dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
                         }
-                        return state !== "exited" && <TickerRow
-                            state={isFirst && state === "entering" ? "entered" : state}> {/* ignore first entering render */}
-                            <TickerComponent tickerSettings={curMessage.settings}/>
+                        const sanitizedState = isFirst && state === "entering" ? "entered" : state; // ignore first entering render
+                        return state !== "exited" && <TickerRow state={sanitizedState}>
+                            <TickerComponent tickerSettings={curMessage.settings} state={sanitizedState}/>
                         </TickerRow>;
                     }
                     }

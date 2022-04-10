@@ -46,7 +46,8 @@ class CFEventsLoader {
 
     suspend fun run() {
         val standingsLoader = object : RegularLoaderService<CFStandings>() {
-            override val url = central.standingsUrl
+            override val url
+                get() = central.standingsUrl
             override val login = ""
             override val password = ""
             override fun processLoaded(data: String) = try {
@@ -61,7 +62,8 @@ class CFEventsLoader {
         class CFSubmissionList(val list: List<CFSubmission>)
 
         val statusLoader = object : RegularLoaderService<CFSubmissionList>() {
-            override val url = central.statusUrl
+            override val url
+                get() = central.statusUrl
             override val login = ""
             override val password = ""
             override fun processLoaded(data: String) = try {

@@ -8,6 +8,7 @@ import kotlinx.serialization.SerializationException
 import org.icpclive.api.*
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
+import java.nio.file.Path
 
 private suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
     receive()
@@ -91,11 +92,11 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 ) = setupSimpleWidgetRouting(Wrapper(createWidget, initialSettings, WidgetManager), getInfo)
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
-    presetPath: String,
+    presetPath: Path,
     noinline createWidget: (SettingsType) -> WidgetType
 ) = setupPresetRouting(Presets(presetPath, WidgetManager, createWidget))
 
 internal fun Route.setupPresetTickerRouting(
-    presetPath: String,
+    presetPath: Path,
     createMessage: (TickerMessageSettings) -> TickerMessage,
 ) = setupPresetRouting(Presets(presetPath, TickerManager, createMessage))
