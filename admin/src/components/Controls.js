@@ -9,8 +9,8 @@ import { BASE_URL_BACKEND } from "../config";
 const controlElements = [
     { text: "Scoreboard", path: "/scoreboard" },
     { text: "Queue", path: "/queue" },
-    { text: "Ticker", path: "/ticker" },
-    { text: "Statistics", path: "/statistics" }];
+    { text: "Statistics", path: "/statistics" },
+    { text: "Ticker", path: "/ticker" }];
 
 class ControlsTable extends PresetsTable {
     updateData() {
