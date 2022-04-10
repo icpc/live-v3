@@ -15,11 +15,10 @@ import { BASE_URL_BACKEND } from "../config";
 export class TeamTable extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { dataElements: [], loaded: false, openShowForm: false, selectedId: undefined };
+        this.state = { dataElements: [], loaded: false, selectedId: undefined };
         this.updateData = this.updateData.bind(this);
-        this.openShowForm = this.openShowForm.bind(this);
-        this.closeShowForm = this.closeShowForm.bind(this);
         this.showTeam = this.showTeam.bind(this);
+        this.hideTeam = this.hideTeam.bind(this);
     }
 
     apiUrl() {
@@ -75,18 +74,14 @@ export class TeamTable extends React.Component {
         return true;
     }
 
-    openShowForm() {
-        this.setState({ ...this.state, openShowForm: true });
-    }
-
-    closeShowForm() {
-        this.setState({ ...this.state, openShowForm: false });
-    }
-
     async showTeam(mediaType = undefined) {
         await this.apiPost("/show", { teamId: this.state.selectedId, mediaType });
         await this.updateData();
-        await this.closeShowForm();
+    }
+
+    async hideTeam() {
+        await this.apiPost("/hide");
+        await this.updateData();
     }
 
     render() {
@@ -94,37 +89,17 @@ export class TeamTable extends React.Component {
         const RowComponent = this.props.rowComponent;
         return (
             <Grid sx={{ display: "flex", flexDirection: "column", maxWidth: "xl", mx: "auto" }}>
-                <Dialog
-                    open={this.state.openShowForm}
-                    onClose={this.closeShowForm}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    maxWidth="xl"
-                >
-                    <DialogTitle id="alert-dialog-title">
-                        {"TeamView"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Choose what type of media you wish to show.
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions sx={{ display: "grid", gridTemplateColumns: "repeat(2, 2fr)", gap: 2 }}>
-                        <Button onClick={
-                            () => {this.showTeam("camera");}}>Camera</Button>
-                        <Button onClick={
-                            () => {this.showTeam("screen");}}>Screen</Button>
-                        <Button onClick={
-                            () => {this.showTeam("record");}}>Record</Button>
-                        <Button onClick={
-                            () => {this.showTeam();}}>Statistics</Button>
-                        <Button color="error" onClick={this.closeShowForm} autoFocus>
-                            Close
-                        </Button>
-                    </DialogActions>
-                </Dialog>
                 <Box container display="flex" justifyContent="center">
-                    <Button variant="contained" onClick={this.openShowForm}>SHOW</Button>
+                    <Button variant="contained" onClick={
+                        () => {this.showTeam("camera");}}>Camera</Button>
+                    <Button variant="contained" onClick={
+                        () => {this.showTeam("screen");}}>Screen</Button>
+                    <Button variant="contained" onClick={
+                        () => {this.showTeam("record");}}>Record</Button>
+                    <Button variant="contained" onClick={
+                        () => {this.showTeam();}}>Statistics</Button>
+                    <Button variant="contained" color="error" onClick={
+                        () => {this.hideTeam();}}>Hide</Button>
                 </Box>
                 <Box sx={{ display: "grid", maxWidth: "xl", gridTemplateColumns: "repeat(3, 6fr)", gap: 2 }}>
                     {this.state.dataElements !== undefined &&
