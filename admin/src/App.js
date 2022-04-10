@@ -9,11 +9,12 @@ import Advertisement from "./components/Advertisement";
 import Picture from "./components/Picture";
 import TeamView from "./components/TeamView";
 import { SnackbarProvider } from "notistack";
+import ScoreboardSettings from "./components/ScoreboardSettings";
 
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.BASE_URL ?? ""}>
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
                     <AppNav/>
@@ -24,6 +25,7 @@ function App() {
                             <Route path="/advertisement" element={<Advertisement/>}/>
                             <Route path="/picture" element={<Picture/>}/>
                             <Route path="/teamview" element={<TeamView/>}/>
+                            <Route path="/scoreboard" element={<ScoreboardSettings/>}/>
                             <Route path="/ticker" element={<TickerMessage/>}/>
                         </Routes>
                     </Container>

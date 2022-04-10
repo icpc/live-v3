@@ -12,7 +12,8 @@ const pages = {
     "Advertisement": "advertisement",
     "Picture": "picture",
     "TeamView": "teamview",
-    "Ticker": "ticker"
+    "Scoreboard": "scoreboard",
+    "Ticker": "ticker",
 };
 
 
