@@ -1,7 +1,7 @@
 package org.icpclive.cds
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 enum class OptimismLevel {
@@ -9,7 +9,7 @@ enum class OptimismLevel {
     NORMAL,
     @SerialName("optimistic")
     OPTIMISTIC,
-    @SerialName("pressimistic")
+    @SerialName("pessimistic")
     PESSIMISTIC;
 
     override fun toString(): String {
