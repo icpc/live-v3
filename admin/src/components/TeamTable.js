@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Box, Button, ButtonGroup, TextField } from "@mui/material";
+import { Grid, Box, Button, TextField } from "@mui/material";
 import { lightBlue, grey } from "@mui/material/colors";
 import { Team } from "./Team";
 import { BASE_URL_BACKEND } from "../config";
@@ -126,28 +126,32 @@ export class TeamTable extends React.Component {
                 <Box container sx={{
                     display: "flex",
                     width: "100%",
+                    flexWrap: "wrap-reverse",
                     alignContent: "center",
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "row" }}>
-                    {showButtonsSettings.map((elem) => (
+                    <Box>
+                        {showButtonsSettings.map((elem) => (
+                            <Button
+                                disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
+                                sx={{ ...gridButton,
+                                    backgroundColor: (this.state.shownMediaType === elem.mediaType ? "#1976d2" : "primary")
+                                }}
+                                variant={this.state.shownMediaType === elem.mediaType ? "contained" : "outlined"}
+                                key={elem.text}
+                                onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
+                        ))}
                         <Button
-                            disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
-                            sx={{ ...gridButton, backgroundColor: (this.state.shownMediaType === elem.mediaType ? "#1976d2" : "primary") }}
-                            variant={this.state.shownMediaType === elem.mediaType ? "contained" : "outlined"}
-                            key={elem.text}
-                            onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
-                    ))}
-                    <Button
-                        sx={gridButton}
-                        disabled={this.state.shownId === undefined}
-                        variant={this.state.shownId === undefined ? "outlined" : "contained"}
-                        color="error"
-                        onClick={() => {this.hideTeam();}}>hide</Button>
+                            sx={gridButton}
+                            disabled={this.state.shownId === undefined}
+                            variant={this.state.shownId === undefined ? "outlined" : "contained"}
+                            color="error"
+                            onClick={() => {this.hideTeam();}}>hide</Button>
+                    </Box>
                     <TextField
                         onChange={this.handleSearchFieldChange}
                         value={this.state.searchFieldValue}
-                        align="center"
                         id="Search field"
                         size="small"
                         margin="none"
@@ -155,12 +159,13 @@ export class TeamTable extends React.Component {
                         variant="outlined"
                         InputProps={{
                             style: { height: "36.5px" }
-                        }} />
+                        }}
+                    />
                 </Box>
                 <Box sx={{
                     display: "grid",
                     width: { "md": "140%", "sm": "100%", "xs": "100%" },
-                    gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(3, 6fr)", "xs": "repeat(2, 6fr)" },
+                    gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(2, 6fr)", "xs": "repeat(1, 6fr)" },
                     gap: 0.25 }}>
                     {this.state.dataElements !== undefined &&
                     this.state.dataElements.filter((r) => this.rowsFilter(r)).map((row) =>
