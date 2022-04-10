@@ -27,6 +27,7 @@ import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import java.awt.Color
 import java.util.*
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
@@ -135,7 +136,7 @@ class PCMSEventsLoader {
         problemId: Int,
         teamId: Int,
         onRunChanges: (RunInfo) -> Unit
-    ): List<PCMSRunInfo> {
+    ): List<RunInfo> {
         if (contestInfo.status === ContestStatus.BEFORE) {
             return emptyList()
         }
@@ -151,7 +152,7 @@ class PCMSEventsLoader {
         teamId: Int,
         attemptId: Int,
         onRunChanges: (RunInfo) -> Unit
-    ): PCMSRunInfo? {
+    ): RunInfo? {
         val time = element.attr("time").toLong().milliseconds
         if (time > contestInfo.contestTime) return null
         val isFrozen = time >= contestInfo.freezeTime
@@ -161,23 +162,25 @@ class PCMSEventsLoader {
             "undefined" == element.attr("outcome") -> 0.0
             else -> 1.0
         }
-        val isJudged = percentage >= 1.0
         val result = when {
-            !isJudged -> ""
+            !(percentage >= 1.0) -> ""
             "yes" == element.attr("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.attr("outcome"), "WA")
         }
-        val run = PCMSRunInfo(
-            oldRun?.id ?: lastRunId++,
-            isJudged, result, problemId, time.inWholeMilliseconds, teamId,
-            percentage,
-            if (isJudged == oldRun?.isJudged && result == oldRun.result)
-                oldRun.lastUpdateTime
-            else
-                contestInfo.contestTime.inWholeMilliseconds
+        val run = RunInfo(
+            id = oldRun?.id ?: lastRunId++,
+            isAccepted = "AC" == result,
+            isJudged = percentage >= 1.0,
+            isAddingPenalty = "AC" != result && "CE" != result,
+            result = result,
+            problemId = problemId,
+            teamId = teamId,
+            percentage = percentage,
+            time = time.inWholeMilliseconds,
+            isFirstSolvedRun = false
         )
-        if (run.toApi() != oldRun?.toApi()) {
-            onRunChanges(run.toApi())
+        if (run != oldRun) {
+            onRunChanges(run)
         }
         return run
     }
@@ -212,8 +215,8 @@ class PCMSEventsLoader {
             )
         }
         contestData = PCMSContestInfo(problemInfo, teams, Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
-        contestData.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt().milliseconds
-        contestData.freezeTime = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt().milliseconds
+        contestData.contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
+        contestData.freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
         loadProblemsInfo(properties.getProperty("problems.url"))
     }
 
