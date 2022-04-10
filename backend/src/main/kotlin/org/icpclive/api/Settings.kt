@@ -4,6 +4,7 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.cds.OptimismLevel
 
 interface ObjectSettings
 
@@ -17,7 +18,13 @@ data class PictureSettings(val url: String, val name: String) : ObjectSettings
 class QueueSettings : ObjectSettings
 
 @Serializable
-class ScoreboardSettings : ObjectSettings
+data class ScoreboardSettings(
+    val isInfinite: Boolean = true,
+    val numPages: Int? = null,
+    val startFromPage: Int = 1,
+    val optimismLevel: OptimismLevel = OptimismLevel.NORMAL,
+    val teamsOnPage: Int = 23
+) : ObjectSettings
 
 @Serializable
 class StatisticsSettings : ObjectSettings
