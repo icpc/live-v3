@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Box, Button, ButtonGroup } from "@mui/material";
+import { Grid, Box, Button, ButtonGroup, TextField } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
 import { Team } from "./Team";
 import { BASE_URL_BACKEND } from "../config";
@@ -20,6 +20,7 @@ export class TeamTable extends React.Component {
         super(props);
         this.state = { dataElements: [],
             loaded: false,
+            searchFieldValue: "",
             selectedId: undefined,
             shownId: undefined,
             shownMediaType: null };
@@ -27,6 +28,7 @@ export class TeamTable extends React.Component {
         this.showTeam = this.showTeam.bind(this);
         this.hideTeam = this.hideTeam.bind(this);
         this.apiUrl = this.apiUrl.bind(this);
+        this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
     }
 
     apiUrl() {
@@ -90,8 +92,16 @@ export class TeamTable extends React.Component {
         return this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
     }
 
-    rowsFilter() {
-        return true;
+    rowsFilter(elem) {
+        console.log(elem);
+        if (this.state.searchFieldValue === "") {
+            return true;
+        }
+        return elem.name.toLowerCase().includes(this.state.searchFieldValue.toLowerCase());
+    }
+
+    handleSearchFieldChange(elem) {
+        this.setState({ searchFieldValue : elem.target.value });
     }
 
     async showTeam(mediaType = undefined) {
@@ -107,11 +117,17 @@ export class TeamTable extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         const RowComponent = this.props.rowComponent;
         return (
             <Grid sx={{ display: "flex", flexDirection: "column", minWidth: "90%" }}>
-                <Box container sx={{ display: "flex", width: "100%", justifyContent: "center", flexDirection: "row", mx: "auto" }}>
+                <Box container sx={{
+                    display: "flex",
+                    width: "100%",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    mx: "auto" }}>
                     <ButtonGroup>
                         {showButtonsSettings.map((elem) => (
                             <Button
@@ -122,8 +138,24 @@ export class TeamTable extends React.Component {
                                 onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
                         ))}
                     </ButtonGroup>
-                    <Button sx={gridButton} variant="contained" color="error" onClick={
-                        () => {this.hideTeam();}}>hide</Button>
+                    <Button
+                        sx={gridButton}
+                        disabled={this.state.shownId === undefined}
+                        variant={this.state.shownId === undefined ? "outlined" : "contained"}
+                        color="error"
+                        onClick={() => {this.hideTeam();}}>hide</Button>
+                    <TextField
+                        onChange={this.handleSearchFieldChange}
+                        value={this.state.searchFieldValue}
+                        align="center"
+                        id="Search field"
+                        size="small"
+                        margin="none"
+                        label="Search"
+                        variant="outlined"
+                        InputProps={{
+                            style: { height: "36.5px" }
+                        }} />
                 </Box>
                 <Box sx={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(4, 6fr)", gap: 2 }}>
                     {this.state.dataElements !== undefined &&
