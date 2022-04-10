@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { TableCell, TableRow, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import { grey } from "@mui/material/colors";
-import ShowPresetButton from "./ShowPresetButton";
 
 const getSettings = (row) => {
     return row;
@@ -43,7 +42,7 @@ export class Team extends React.Component {
     }
 
     render() {
-        return (<Grid>
+        return (<Grid sx={{ display: "flex", width: "100%", height: "100%" }}>
             <TableRow
                 key={this.props.rowData.id}
                 sx={{ backgroundColor:
@@ -53,18 +52,22 @@ export class Team extends React.Component {
                             this.props.tStyle.activeColor) :
                         this.props.rowData.selected ?
                             this.props.tStyle.selectedColor :
-                            this.props.tStyle.inactiveColor)
-                }}
+                            this.props.tStyle.inactiveColor),
+                display: "flex",
+                width: "100%",
+                height: "100%",
+                cursor: "pointer",
+                color: (this.props.rowData.selected || this.props.rowData.shown ? grey[900] : grey[700]) }}
                 onClick={() => this.props.onClick(this.props.rowData.id)}>
-                {this.props.apiTableKeys.map((rowKey) => (
-                    <TableCell
-                        component="th"
-                        scope="row"
-                        key={rowKey}
-                        sx={{ color: (this.props.rowData.selected || this.props.rowData.shown ? grey[900] : grey[700]) }}>
-                        {getSettings(this.props.rowData)[rowKey]}
-                    </TableCell>
-                ))}
+                <TableCell sx = {{
+                    display: "flex",
+                }}>
+                    {this.props.apiTableKeys.map((rowKey) => (
+                        <Box key={rowKey} sx={{ margin: "8px" }}>
+                            {getSettings(this.props.rowData)[rowKey]}
+                        </Box>
+                    ))}
+                </TableCell>
             </TableRow>
         </Grid>);
     }

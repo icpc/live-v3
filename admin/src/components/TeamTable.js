@@ -1,16 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Table, TableBody, TableCell, TableHead, TableRow, Grid, Box, Button } from "@mui/material";
+import { Grid, Box, Button } from "@mui/material";
 import { lightBlue } from "@mui/material/colors";
-import AddIcon from "@mui/icons-material/Add";
-import IconButton from "@mui/material/IconButton";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import { Team } from "./Team";
 import { BASE_URL_BACKEND } from "../config";
+
+const gridButton = {
+    margin: "8px"
+};
 
 export class TeamTable extends React.Component {
     constructor(props) {
@@ -55,6 +52,9 @@ export class TeamTable extends React.Component {
     }
 
     selectItem(id) {
+        if (id == this.state.selectedId) {
+            id = undefined;
+        }
         const newDataElements = this.state.dataElements.map((elem) => ({
             ...elem,
             selected: (id === elem.id)
@@ -89,16 +89,16 @@ export class TeamTable extends React.Component {
         const RowComponent = this.props.rowComponent;
         return (
             <Grid sx={{ display: "flex", flexDirection: "column", maxWidth: "xl", mx: "auto" }}>
-                <Box container display="flex" justifyContent="center">
-                    <Button variant="contained" onClick={
+                <Box container sx={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", maxWidth: "xl", mx: "auto" }}>
+                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
                         () => {this.showTeam("camera");}}>Camera</Button>
-                    <Button variant="contained" onClick={
+                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
                         () => {this.showTeam("screen");}}>Screen</Button>
-                    <Button variant="contained" onClick={
+                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
                         () => {this.showTeam("record");}}>Record</Button>
-                    <Button variant="contained" onClick={
+                    <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
                         () => {this.showTeam();}}>Statistics</Button>
-                    <Button variant="contained" color="error" onClick={
+                    <Button sx={gridButton} variant="contained" color="error" onClick={
                         () => {this.hideTeam();}}>Hide</Button>
                 </Box>
                 <Box sx={{ display: "grid", maxWidth: "xl", gridTemplateColumns: "repeat(3, 6fr)", gap: 2 }}>
