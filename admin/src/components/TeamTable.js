@@ -16,6 +16,7 @@ export class TeamTable extends React.Component {
         this.updateData = this.updateData.bind(this);
         this.showTeam = this.showTeam.bind(this);
         this.hideTeam = this.hideTeam.bind(this);
+        this.apiUrl = this.apiUrl.bind(this);
     }
 
     apiUrl() {
@@ -40,15 +41,20 @@ export class TeamTable extends React.Component {
     }
 
     async updateData() {
-        const stat = await (await fetch(this.apiUrl())).json();
-        let result = await (await fetch(this.apiUrl() + "/info")).json();
-        result = await result.map((elem) => {
+        const [stat, response] = await Promise.all([
+            fetch(this.apiUrl())
+                .then(res => res.json())
+                .catch(this.props.createErrorHandler("Failed to load list of teams")),
+            fetch(this.apiUrl() + "/info")
+                .then(res => res.json())
+                .catch(this.props.createErrorHandler("Failed to load list of teams"))
+        ]);
+        const result = response.map((elem) => {
             elem.shown = (stat.shown && stat.settings.teamId === elem.id);
             elem.selected = false;
             return elem;
         });
         this.setState({ ...this.state, dataElements: result });
-        // .catch(this.props.createErrorHandler("Failed to load list of teams"));
     }
 
     selectItem(id) {
@@ -88,8 +94,8 @@ export class TeamTable extends React.Component {
         console.log(this.state);
         const RowComponent = this.props.rowComponent;
         return (
-            <Grid sx={{ display: "flex", flexDirection: "column", maxWidth: "xl", mx: "auto" }}>
-                <Box container sx={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", maxWidth: "xl", mx: "auto" }}>
+            <Grid sx={{ display: "flex", flexDirection: "column", minWidth: "90%" }}>
+                <Box container sx={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", mx: "auto" }}>
                     <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
                         () => {this.showTeam("camera");}}>Camera</Button>
                     <Button disabled={this.state.selectedId === undefined} sx={gridButton} variant="contained" onClick={
@@ -101,7 +107,7 @@ export class TeamTable extends React.Component {
                     <Button sx={gridButton} variant="contained" color="error" onClick={
                         () => {this.hideTeam();}}>Hide</Button>
                 </Box>
-                <Box sx={{ display: "grid", maxWidth: "xl", gridTemplateColumns: "repeat(3, 6fr)", gap: 2 }}>
+                <Box sx={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(4, 6fr)", gap: 2 }}>
                     {this.state.dataElements !== undefined &&
                     this.state.dataElements.filter((r) => this.rowsFilter(r)).map((row) =>
                         <RowComponent
