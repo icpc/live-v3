@@ -46,6 +46,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
             hideTasks={true}
             rankWidth={TICKER_SCOREBOARD_RANK_WIDTH}
             nameGrows={true}
+            optimismLevel={SCOREBOARD_TYPES.normal}
         />)}
     </ScoreboardWrap>;
 };
