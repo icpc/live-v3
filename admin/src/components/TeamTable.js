@@ -130,18 +130,15 @@ export class TeamTable extends React.Component {
                     alignContent: "center",
                     justifyContent: "center",
                     alignItems: "center",
-                    flexDirection: "row",
-                    mx: "auto" }}>
-                    <ButtonGroup>
-                        {showButtonsSettings.map((elem) => (
-                            <Button
-                                disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
-                                sx={{ ...gridButton, backgroundColor: (this.state.shownMediaType === elem.mediaType ? "#1976d2" : "primary") }}
-                                variant={this.state.shownMediaType === elem.mediaType ? "contained" : "default"}
-                                key={elem.text}
-                                onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
-                        ))}
-                    </ButtonGroup>
+                    flexDirection: "row" }}>
+                    {showButtonsSettings.map((elem) => (
+                        <Button
+                            disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
+                            sx={{ ...gridButton, backgroundColor: (this.state.shownMediaType === elem.mediaType ? "#1976d2" : "primary") }}
+                            variant={this.state.shownMediaType === elem.mediaType ? "contained" : "outlined"}
+                            key={elem.text}
+                            onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
+                    ))}
                     <Button
                         sx={gridButton}
                         disabled={this.state.shownId === undefined}
