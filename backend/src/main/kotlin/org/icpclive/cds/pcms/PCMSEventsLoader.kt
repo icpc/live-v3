@@ -3,30 +3,37 @@ package org.icpclive.cds.pcms
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.datetime.*
-import org.icpclive.config.Config.loadFile
-import org.icpclive.config.Config.loadProperties
-import org.icpclive.data.DataBus
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
+import org.icpclive.api.MediaType
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ProblemInfo
-import org.icpclive.service.*
-import org.icpclive.utils.*
+import org.icpclive.config.Config
+import org.icpclive.data.DataBus
+import org.icpclive.service.EmulationService
+import org.icpclive.service.RegularLoaderService
+import org.icpclive.service.launchICPCServices
+import org.icpclive.utils.getLogger
+import org.icpclive.utils.guessDatetimeFormat
+import org.icpclive.utils.humanReadable
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import java.awt.Color
 import java.util.*
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 class PCMSEventsLoader {
-    private fun loadProblemsInfo(problemsFile: String?) : List<ProblemInfo> {
-        val xml = loadFile(problemsFile!!)
+    private fun loadProblemsInfo(problemsFile: String?): List<ProblemInfo> {
+        val xml = Config.loadFile(problemsFile!!)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
         val problems = doc.child(0)
         return problems.children().map { element ->
@@ -54,7 +61,7 @@ class PCMSEventsLoader {
                 override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
             }
 
-            val emulationSpeedProp : String? = properties.getProperty("emulation.speed")
+            val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
             if (emulationSpeedProp == null) {
                 val xmlLoaderFlow = MutableStateFlow(Document(""))
                 launch(Dispatchers.IO) {
@@ -114,7 +121,7 @@ class PCMSEventsLoader {
         }
     }
 
-    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element,onRunChanges: (RunInfo) -> Unit) {
+    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element, onRunChanges: (RunInfo) -> Unit) {
         val alias = element.attr("alias")
         contestInfo.getParticipant(alias)?.apply {
             for (i in element.children().indices) {
@@ -123,7 +130,13 @@ class PCMSEventsLoader {
         }
     }
 
-    private fun parseProblemRuns(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, onRunChanges: (RunInfo) -> Unit): List<PCMSRunInfo> {
+    private fun parseProblemRuns(
+        contestInfo: PCMSContestInfo,
+        element: Element,
+        problemId: Int,
+        teamId: Int,
+        onRunChanges: (RunInfo) -> Unit
+    ): List<RunInfo> {
         if (contestInfo.status === ContestStatus.BEFORE) {
             return emptyList()
         }
@@ -132,7 +145,14 @@ class PCMSEventsLoader {
         }
     }
 
-    private fun parseRunInfo(contestInfo: PCMSContestInfo, element: Element, problemId: Int, teamId: Int, attemptId: Int, onRunChanges: (RunInfo) -> Unit): PCMSRunInfo? {
+    private fun parseRunInfo(
+        contestInfo: PCMSContestInfo,
+        element: Element,
+        problemId: Int,
+        teamId: Int,
+        attemptId: Int,
+        onRunChanges: (RunInfo) -> Unit
+    ): RunInfo? {
         val time = element.attr("time").toLong().milliseconds
         if (time > contestInfo.contestTime) return null
         val isFrozen = time >= contestInfo.freezeTime
@@ -142,34 +162,35 @@ class PCMSEventsLoader {
             "undefined" == element.attr("outcome") -> 0.0
             else -> 1.0
         }
-        val isJudged = percentage >= 1.0
         val result = when {
-            !isJudged -> ""
+            !(percentage >= 1.0) -> ""
             "yes" == element.attr("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.attr("outcome"), "WA")
         }
-        val run = PCMSRunInfo(
-            oldRun?.id ?: lastRunId++,
-            isJudged, result, problemId, time.inWholeMilliseconds, teamId,
-            percentage,
-            if (isJudged == oldRun?.isJudged && result == oldRun.result)
-                oldRun.lastUpdateTime
-            else
-                contestInfo.contestTime.inWholeMilliseconds
+        val run = RunInfo(
+            id = oldRun?.id ?: lastRunId++,
+            isAccepted = "AC" == result,
+            isJudged = percentage >= 1.0,
+            isAddingPenalty = "AC" != result && "CE" != result,
+            result = result,
+            problemId = problemId,
+            teamId = teamId,
+            percentage = percentage,
+            time = time.inWholeMilliseconds,
+            isFirstSolvedRun = false
         )
-        if (run.toApi() != oldRun?.toApi()) {
-            onRunChanges(run.toApi())
+        if (run != oldRun) {
+            onRunChanges(run)
         }
         return run
     }
 
     private var contestData: PCMSContestInfo
-    private val properties: Properties = loadProperties("events")
+    private val properties: Properties = Config.loadProperties("events")
 
     init {
         val problemInfo = loadProblemsInfo(properties.getProperty("problems.url"))
-        val fn = properties.getProperty("teams.url")
-        val xml = loadFile(fn)
+        val xml = Config.loadFile(properties.getProperty("teams.url"))
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
         val participants = doc.child(0)
         val teams = participants.children().withIndex().map { (index, participant) ->
@@ -182,14 +203,20 @@ class PCMSEventsLoader {
             val region = participant.attr("region").split(",")[0]
             val hashTag = participant.attr("hashtag")
             val groups = if (region.isEmpty()) emptySet() else mutableSetOf(region)
+            val medias = listOfNotNull(
+                participant.attr("screen").takeIf { it.isNotEmpty() }?.let { MediaType.SCREEN to it },
+                participant.attr("camera").takeIf { it.isNotEmpty() }?.let { MediaType.CAMERA to it },
+                participant.attr("record").takeIf { it.isNotEmpty() }?.let { MediaType.RECORD to it },
+            ).associate { it }
             PCMSTeamInfo(
                 index, alias, hallId, participantName, shortName,
-                hashTag, groups, problemInfo.size
+                hashTag, groups, medias,
+                problemInfo.size,
             )
         }
         contestData = PCMSContestInfo(problemInfo, teams, Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
-        contestData.contestLength = properties.getProperty("contest.length", "" + 5 * 60 * 60 * 1000).toInt().milliseconds
-        contestData.freezeTime = properties.getProperty("freeze.time", "" + 4 * 60 * 60 * 1000).toInt().milliseconds
+        contestData.contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
+        contestData.freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
         loadProblemsInfo(properties.getProperty("problems.url"))
     }
 

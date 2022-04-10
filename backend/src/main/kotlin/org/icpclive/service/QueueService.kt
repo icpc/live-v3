@@ -2,8 +2,8 @@ package org.icpclive.service
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import org.icpclive.data.DataBus
 import org.icpclive.api.*
+import org.icpclive.data.DataBus
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration
@@ -12,7 +12,7 @@ import kotlin.time.Duration.Companion.seconds
 
 private sealed class QueueProcessTrigger
 private object Clean : QueueProcessTrigger()
-private class Run(val run: RunInfo): QueueProcessTrigger()
+private class Run(val run: RunInfo) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
 
@@ -28,7 +28,7 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
     private val subscriberFlow = MutableStateFlow(0)
 
     init {
-        DataBus.setQueueEvents(flow {
+        DataBus.queueFlow.set(flow {
             var nothingSent = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }

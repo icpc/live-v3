@@ -1,17 +1,18 @@
 package org.icpclive
 
-import io.ktor.application.*
-import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.http.cio.websocket.*
-import io.ktor.http.content.*
-import io.ktor.request.*
-import io.ktor.routing.*
-import io.ktor.serialization.*
-import io.ktor.websocket.*
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
+import io.ktor.server.http.content.*
+import io.ktor.server.plugins.autohead.*
+import io.ktor.server.plugins.callloging.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.plugins.cors.*
+import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.server.request.*
+import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import org.icpclive.admin.configureAdminRouting
 import org.icpclive.adminapi.configureAdminApiRouting
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
@@ -19,8 +20,10 @@ import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.EventLoggerService
+import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.File
+import java.nio.file.Path
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
@@ -30,9 +33,10 @@ fun main(args: Array<String>): Unit =
 fun Application.module() {
     install(DefaultHeaders)
     install(CORS) {
-        header(HttpHeaders.ContentType)
-        header(HttpHeaders.Authorization)
-        header("*")
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.Authorization)
+        allowHeader("*")
+        allowMethod(HttpMethod.Delete)
         allowSameOrigin = true
         anyHost()
     }
@@ -43,14 +47,7 @@ fun Application.module() {
     install(AutoHeadResponse)
     install(IgnoreTrailingSlash)
     install(ContentNegotiation) {
-        json(Json {
-            encodeDefaults = true
-            isLenient = true
-            allowSpecialFloatingPointValues = true
-            allowStructuredMapKeys = true
-            prettyPrint = false
-            useArrayPolymorphism = false
-        })
+        json(defaultJsonSettings())
     }
     install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)
@@ -58,21 +55,23 @@ fun Application.module() {
         maxFrameSize = Long.MAX_VALUE
         masking = false
     }
-    routing {
-        static("/static") { resources("static") }
-    }
-    configureAdminRouting()
-    configureAdminApiRouting()
-    configureOverlayRouting()
-    environment.log.info("Current working directory is ${File(".").canonicalPath}")
     environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
         val configPath = File(this).canonicalPath
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
+    val mediaPath = Path.of(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
+    mediaPath.toFile().mkdirs()
+    routing {
+        static("/static") { resources("static") }
+        static("/media") { files(mediaPath.toString()) }
+    }
+    configureAdminApiRouting()
+    configureOverlayRouting()
+    environment.log.info("Current working directory is ${File(".").canonicalPath}")
     launchEventsLoader()
     launch { EventLoggerService().run() }
     // to trigger init
-    TickerManager.let{}
-    WidgetManager.let{}
+    TickerManager.let {}
+    WidgetManager.let {}
 }

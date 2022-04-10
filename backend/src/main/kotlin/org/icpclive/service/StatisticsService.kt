@@ -1,13 +1,17 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.flow.*
-import org.icpclive.api.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import org.icpclive.api.ICPCProblemResult
+import org.icpclive.api.ProblemSolutionsStatistic
+import org.icpclive.api.Scoreboard
+import org.icpclive.api.SolutionsStatistic
 import org.icpclive.data.DataBus
 
 class StatisticsService(private val problemNumber: Int, private val scoreboardFlow: Flow<Scoreboard>) {
     val result = MutableStateFlow(SolutionsStatistic(List(problemNumber) {
         ProblemSolutionsStatistic(0, 0, 0)
-    })).also { DataBus.setStatisticEvents(it) }
+    })).also { DataBus.statisticFlow.set(it) }
 
     suspend fun run() {
         scoreboardFlow.collect { scoreboard ->

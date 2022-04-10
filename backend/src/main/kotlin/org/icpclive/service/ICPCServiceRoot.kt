@@ -10,13 +10,13 @@ import org.icpclive.cds.OptimismLevel
 import org.icpclive.data.DataBus
 
 
-fun CoroutineScope.launchICPCServices(problemsNumber:Int, rawRuns: Flow<RunInfo>) {
+fun CoroutineScope.launchICPCServices(problemsNumber: Int, rawRuns: Flow<RunInfo>) {
     val runsUpdates = MutableSharedFlow<RunInfo>(
         extraBufferCapacity = 1000000,
         onBufferOverflow = BufferOverflow.SUSPEND
     )
     launch { QueueService(runsUpdates).run() }
-    launch { StatisticsService(problemsNumber, DataBus.scoreboardEvents(OptimismLevel.NORMAL)).run() }
+    launch { StatisticsService(problemsNumber, DataBus.getScoreboardEvents(OptimismLevel.NORMAL)).run() }
     launch { FirstToSolveService(problemsNumber, rawRuns, runsUpdates).run() }
     launch { ICPCNormalScoreboardService(problemsNumber, runsUpdates).run() }
     launch { ICPCOptimisticScoreboardService(problemsNumber, runsUpdates).run() }

@@ -2,10 +2,9 @@ package org.icpclive.cds.wf
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
-import org.icpclive.api.ScoreboardRow
-import org.icpclive.cds.*
+import org.icpclive.cds.ContestInfo
+import org.icpclive.cds.TeamInfo
 import org.icpclive.cds.wf.json.WFProblemInfo
-import java.util.*
 import kotlin.math.max
 
 /**
@@ -76,5 +75,5 @@ open class WFContestInfo : ContestInfo {
     }
 
 
-    override val contestTime= TODO()
+    override val contestTime = TODO()
 }

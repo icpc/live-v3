@@ -9,7 +9,7 @@ import "./assets/fonts/fonts.scss";
 import { persistor, store } from "./redux/store";
 
 
-export const GlobalStyle = createGlobalStyle`  
+export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
@@ -24,10 +24,20 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   #root {
     height: 100vh;
     width: 100vw;
+  }
+
+  * {
+    -ms-overflow-style: none;
+    //noinspection CssUnknownProperty
+    scrollbar-width: none
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
   }
 `;
 

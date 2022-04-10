@@ -4,6 +4,10 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.random.Random
+import kotlin.random.nextUInt
+
+fun generateId(widgetPrefix: String): String = "$widgetPrefix-${Random.nextUInt()}"
 
 @Serializable
 class LocationRectangle(
@@ -15,24 +19,24 @@ class LocationRectangle(
 
 @Serializable
 sealed class Widget(
-    val widgetId: String,
+    @SerialName("widgetId") override val id: String,
     val location: LocationRectangle
-)
+) : TypeWithId
 
 @Serializable
 @SerialName("AdvertisementWidget")
-class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(WIDGET_ID, location) {
+class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
-        const val WIDGET_ID = "advertisement"
+        const val WIDGET_ID_PREFIX = "advertisement"
         val location = LocationRectangle(0, 860, 1920, 90)
     }
 }
 
 @Serializable
 @SerialName("PictureWidget")
-class PictureWidget(val picture: PictureSettings) : Widget(WIDGET_ID, location) {
+class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
-        const val WIDGET_ID = "picture"
+        const val WIDGET_ID_PREFIX = "picture"
         val location = LocationRectangle(590, 50, 1300, 960)
     }
 }
@@ -51,7 +55,7 @@ class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
 class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "scoreboard"
-        val location = LocationRectangle(550,  40, 1350, 970)
+        val location = LocationRectangle(550, 40, 1350, 970)
     }
 }
 
@@ -70,5 +74,14 @@ class TickerWidget(val settings: TickerSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "ticker"
         val location = LocationRectangle(0, 1025, 1920, 50)
+    }
+}
+
+@Serializable
+@SerialName("TeamViewWidget")
+class TeamViewWidget(val settings: TeamViewSettings) : Widget(WIDGET_ID, location) {
+    companion object {
+        const val WIDGET_ID = "teamview"
+        val location = LocationRectangle(550, 40, 1350, 970)
     }
 }

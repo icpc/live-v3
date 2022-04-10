@@ -1,22 +1,29 @@
 package org.icpclive.adminapi
 
-import io.ktor.http.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.html.Entities
-import org.icpclive.api.*
-import org.icpclive.data.WidgetManager
+import org.icpclive.api.ObjectSettings
+import org.icpclive.api.ObjectStatus
+import org.icpclive.api.TypeWithId
+import org.icpclive.data.Manager
 
-class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
-        private val createWidget: (SettingsType) -> WidgetType,
-        var settings: SettingsType,
-        val id: Int? = null) {
+class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
+    private val createWidget: (SettingsType) -> DataType,
+    private var settings: SettingsType,
+    private val manager: Manager<DataType>,
+    val id: Int? = null
+) {
     private val mutex = Mutex()
 
     private var widgetId: String? = null
 
     suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
         return ObjectStatus(widgetId != null, settings, id)
+    }
+
+    //TODO: Use under mutex
+    fun getSettings(): SettingsType {
+        return settings
     }
 
     suspend fun set(newSettings: SettingsType) {
@@ -30,8 +37,8 @@ class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
             if (widgetId != null)
                 return
             val widget = createWidget(settings)
-            WidgetManager.showWidget(widget)
-            widgetId = widget.widgetId
+            manager.add(widget)
+            widgetId = widget.id
         }
     }
 
@@ -43,7 +50,7 @@ class WidgetWrapper<SettingsType : ObjectSettings, WidgetType : Widget>(
     suspend fun hide() {
         mutex.withLock {
             widgetId?.let {
-                WidgetManager.hideWidget(it)
+                manager.remove(it)
             }
             widgetId = null
         }

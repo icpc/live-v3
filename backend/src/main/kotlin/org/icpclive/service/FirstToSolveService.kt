@@ -2,12 +2,15 @@ package org.icpclive.service
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 import org.icpclive.api.RunInfo
 import org.icpclive.utils.getLogger
 import java.util.*
 
-class FirstToSolveService(problemsCount: Int, private val rawRunsFlow: Flow<RunInfo>, private val runsFlow: MutableSharedFlow<RunInfo>) {
+class FirstToSolveService(
+    problemsCount: Int,
+    private val rawRunsFlow: Flow<RunInfo>,
+    private val runsFlow: MutableSharedFlow<RunInfo>
+) {
     private val firstSolve = Array<RunInfo?>(problemsCount) { null }
     private val runComparator = compareBy<RunInfo>({ it.time }, { it.id })
     private val solved = Array(problemsCount) { TreeSet(runComparator) }

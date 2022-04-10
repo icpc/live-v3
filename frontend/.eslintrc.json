@@ -51,7 +51,7 @@
       "warn"
     ],
     "react/prop-types": [
-      "warn"
+      "off"
     ]
   }
 }

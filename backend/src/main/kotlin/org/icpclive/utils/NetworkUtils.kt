@@ -10,9 +10,6 @@ import java.security.cert.X509Certificate
 import java.util.*
 import javax.net.ssl.*
 
-/**
- * Created by aksenov on 15.04.2015.
- */
 object NetworkUtils {
     private val log = getLogger(NetworkUtils::class)
     fun prepareNetwork(login: String?, password: String?) {
@@ -39,7 +36,7 @@ object NetworkUtils {
 
 
         // Create all-trusting host name verifier
-        val allHostsValid = HostnameVerifier { hostname, session -> true }
+        val allHostsValid = HostnameVerifier { _, _ -> true }
         // Install the all-trusting host verifier
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid)
         Authenticator.setDefault(

@@ -4,30 +4,9 @@ import "../App.css";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
+import PropTypes from "prop-types";
 
-import { BASE_URL_BACKEND } from "../config";
-
-const getUrl = (currentRow) => {
-    return (
-        BASE_URL_BACKEND +
-        (currentRow.props.path === undefined ? "" : currentRow.props.path + "/") +
-        currentRow.props.row.id
-    );
-};
-
-export const onClickShow = (currentRow) => () => {
-    const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-    };
-    fetch(getUrl(currentRow) + (currentRow.state.shown ? "/hide" : "/show"), requestOptions)
-        .then(response => response.json())
-        .then(() => currentRow.setState(state => ({ ...state, shown: !currentRow.state.shown })))
-        .then(currentRow.props.updateTable)
-        .catch(currentRow.props.onErrorHandle("Failed to hide preset"));
-};
-
-export class ShowPresetButton extends React.Component {
+export default class ShowPresetButton extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -41,7 +20,8 @@ export class ShowPresetButton extends React.Component {
     }
 }
 
-ShowPresetButton.defaultProps = {
-    ...ShowPresetButton.defaultProps,
-    onClick: onClickShow
+
+ShowPresetButton.propTypes = {
+    active: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
 };

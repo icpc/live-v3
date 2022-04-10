@@ -2,7 +2,8 @@ package org.icpclive.cds.pcms
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
-import org.icpclive.cds.*
+import org.icpclive.cds.ContestInfo
+import org.icpclive.cds.ProblemInfo
 import kotlin.time.Duration.Companion.seconds
 
 class PCMSContestInfo(
@@ -10,7 +11,7 @@ class PCMSContestInfo(
     override val teams: List<PCMSTeamInfo>,
     startTime: Instant,
     status: ContestStatus,
-    ) : ContestInfo(startTime, status) {
+) : ContestInfo(startTime, status) {
     override val problemsNumber: Int
         get() = problems.size
     override var contestTime = 0.seconds
@@ -28,6 +29,6 @@ class PCMSContestInfo(
     }
 
     override fun getParticipantByHashTag(hashTag: String): PCMSTeamInfo? {
-        return teams.firstOrNull { hashTag.equals(it.hashTag, ignoreCase = true)}
+        return teams.firstOrNull { hashTag.equals(it.hashTag, ignoreCase = true) }
     }
 }

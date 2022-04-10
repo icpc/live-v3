@@ -9,8 +9,7 @@ import {
     QUEUE_ROW_APPEAR_TIME,
     QUEUE_ROW_FTS_TRANSITION_TIME,
     QUEUE_ROW_HEIGHT,
-    QUEUE_ROW_TRANSITION_TIME,
-    QUEUE_ROWS_COUNT
+    QUEUE_ROW_TRANSITION_TIME
 } from "../../../config";
 import { QueueRow } from "../../molecules/queue/QueueRow";
 
@@ -19,23 +18,6 @@ const WidgetWrap = styled.div`
   height: 100%;
   opacity: ${QUEUE_OPACITY};
   position: relative;
-`;
-
-const BreakingNewsContainer = styled.div`
-
-`;
-
-const QueueContainer = styled.div`
-
-`;
-
-const QueueWrap = styled.div`
-  height: ${QUEUE_ROW_HEIGHT * QUEUE_ROWS_COUNT}px;
-  width: 100%;
-  bottom: 0;
-  position: absolute;
-
-  background-color: lightblue;
 `;
 
 const QueueRowWrap = styled.div.attrs(({ bottom }) => ({
@@ -48,8 +30,9 @@ const QueueRowWrap = styled.div.attrs(({ bottom }) => ({
 
   position: absolute;
   transition: bottom linear ${props => props.fts ? QUEUE_ROW_FTS_TRANSITION_TIME : QUEUE_ROW_TRANSITION_TIME}ms;
-  animation: ${props => props.animation} ${QUEUE_ROW_APPEAR_TIME}ms linear;
+  animation: ${props => props.animation} ${QUEUE_ROW_APPEAR_TIME + 10}ms linear;
   box-sizing: border-box;
+  z-index: ${props => props.fts ? 1 : "unset"};
 `;
 
 const rowExpand = keyframes`

@@ -1,16 +1,15 @@
 package org.icpclive.utils
 
-import kotlinx.datetime.*
+import kotlinx.datetime.Instant
+import kotlinx.datetime.toKotlinInstant
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
 import kotlin.math.round
-import kotlin.math.roundToInt
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.Duration.Companion.hours
 
 object ClicksTime {
     // https://ccs-specs.icpc.io/2021-11/contest_api#json-attribute-types
@@ -56,9 +55,9 @@ object ClicksTime {
         }
     }
 
-    private val RELTIME_PATTERN = Pattern.compile("^([-+])?(([0-9]{1,}):)?(([0-9]{1,}):)?([0-9]{1,}([.][0-9]{1,})?)$")
+    private val RELATIVE_TIME_PATTERN = Pattern.compile("^([-+])?(([0-9]+):)?(([0-9]+):)?([0-9]+([.][0-9]+)?)$")
     fun parseRelativeTime(csTime: CharSequence): Duration {
-        val matcher = RELTIME_PATTERN.matcher(csTime)
+        val matcher = RELATIVE_TIME_PATTERN.matcher(csTime)
         return if (matcher.matches()) {
             val signStr = matcher.group(1)
             var hourStr = matcher.group(3)

@@ -1,30 +1,32 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.flow.*
-import org.icpclive.data.DataBus
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.merge
 import org.icpclive.api.ICPCProblemResult
 import org.icpclive.api.RunInfo
 import org.icpclive.api.Scoreboard
 import org.icpclive.api.ScoreboardRow
 import org.icpclive.cds.OptimismLevel
 import org.icpclive.config.loadMedalSettings
+import org.icpclive.data.DataBus
 import kotlin.math.max
 
 abstract class ICPCScoreboardService(
     private val problemsCount: Int,
     private val runsFlow: Flow<RunInfo>,
     optimismLevel: OptimismLevel
-    ) {
+) {
     val flow = MutableStateFlow(Scoreboard(emptyList())).also {
         DataBus.setScoreboardEvents(optimismLevel, it)
     }
     val runs = mutableMapOf<Int, RunInfo>()
 
-    abstract fun isAccepted(runInfo: RunInfo, index:Int, count:Int): Boolean
-    abstract fun isPending(runInfo: RunInfo, index:Int, count:Int): Boolean
-    abstract fun isAddingPenalty(runInfo: RunInfo, index:Int, count:Int): Boolean
+    abstract fun isAccepted(runInfo: RunInfo, index: Int, count: Int): Boolean
+    abstract fun isPending(runInfo: RunInfo, index: Int, count: Int): Boolean
+    abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
 
-    val medalsSettings = loadMedalSettings()
+    private val medalsSettings = loadMedalSettings()
 
     suspend fun run() {
         merge(runsFlow, DataBus.contestInfoUpdates).collect { run ->
@@ -39,7 +41,7 @@ abstract class ICPCScoreboardService(
         }
     }
 
-    private fun getScoreboardRow(teamId: Int, runs: List<RunInfo>) : ScoreboardRow {
+    private fun getScoreboardRow(teamId: Int, runs: List<RunInfo>): ScoreboardRow {
         var solved = 0
         var penalty = 0
         var lastAccepted = 0L
@@ -47,7 +49,9 @@ abstract class ICPCScoreboardService(
         val problemResults = List(problemsCount) { problemId ->
             val problemRuns = runsByProblem.getOrElse(problemId) { emptyList() }
             val (runsBeforeFirstOk, okRun) = run {
-                val okRunIndex = problemRuns.withIndex().indexOfFirst { isAccepted(it.value, it.index, problemRuns.size) }
+                val okRunIndex = problemRuns
+                    .withIndex()
+                    .indexOfFirst { isAccepted(it.value, it.index, problemRuns.size) }
                 if (okRunIndex == -1) {
                     problemRuns to null
                 } else {
@@ -59,6 +63,7 @@ abstract class ICPCScoreboardService(
                 runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                 okRun != null,
                 okRun?.isFirstSolvedRun == true,
+                (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
             ).also {
                 if (it.isSolved) {
                     solved++
@@ -79,9 +84,9 @@ abstract class ICPCScoreboardService(
 
     }
 
-    private fun getScoreboard() : Scoreboard {
+    private fun getScoreboard(): Scoreboard {
         val runs = runs.values
-            .sortedWith(compareBy({it.time}, {it.id}))
+            .sortedWith(compareBy({ it.time }, { it.id }))
             .groupBy { it.teamId }
         val teamsInfo = DataBus.contestInfoUpdates.value.teams.associateBy { it.id }
         val comparator = compareBy<ScoreboardRow>(
@@ -90,14 +95,14 @@ abstract class ICPCScoreboardService(
             { it.lastAccepted }
         )
 
-        val rows = teamsInfo.values.
-            map { getScoreboardRow(it.id, runs[it.id] ?: emptyList()) }.
-            sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
+        val rows = teamsInfo.values
+            .map { getScoreboardRow(it.id, runs[it.id] ?: emptyList()) }
+            .sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
             .toMutableList()
         if (rows.isNotEmpty()) {
             var rank = 1
             for (i in 0 until rows.size) {
-                if (i != 0 && comparator.compare(rows[i-1], rows[i]) < 0) {
+                if (i != 0 && comparator.compare(rows[i - 1], rows[i]) < 0) {
                     rank++
                 }
                 val medal = medalsSettings.medalColorByRank(rank).takeIf { rows[i].totalScore > 0 }
@@ -108,23 +113,26 @@ abstract class ICPCScoreboardService(
     }
 }
 
-class ICPCNormalScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>):
-        ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.NORMAL) {
+class ICPCNormalScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>) :
+    ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.NORMAL) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
 }
 
-class ICPCPessimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>):
+class ICPCPessimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>) :
     ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.PESSIMISTIC) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
 }
 
-class ICPCOptimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>):
+class ICPCOptimisticScoreboardService(problemsCount: Int, runsFlow: Flow<RunInfo>) :
     ICPCScoreboardService(problemsCount, runsFlow, OptimismLevel.OPTIMISTIC) {
-    override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted || (!runInfo.isJudged && index == count - 1)
+    override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) =
+        runInfo.isAccepted || (!runInfo.isJudged && index == count - 1)
+
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
-    override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAddingPenalty || (!runInfo.isJudged && index != count - 1)
+    override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) =
+        runInfo.isAddingPenalty || (!runInfo.isJudged && index != count - 1)
 }

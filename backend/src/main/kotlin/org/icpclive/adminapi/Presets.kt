@@ -2,26 +2,34 @@ package org.icpclive.adminapi
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.*
-import org.icpclive.admin.AdminActionException
-import org.icpclive.api.*
-import org.icpclive.data.WidgetManager
-import java.io.File
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.encodeToStream
+import kotlinx.serialization.serializer
+import org.icpclive.api.ObjectSettings
+import org.icpclive.api.ObjectStatus
+import org.icpclive.api.TypeWithId
+import org.icpclive.data.Manager
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.Path
 
-class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
-        private val path: String,
-        private val decode: (String) -> List<WidgetWrapper<SettingsType, WidgetType>>,
-        private val encode: (List<WidgetWrapper<SettingsType, WidgetType>>, String) -> Unit,
-        private val createWidget: (SettingsType) -> WidgetType,
-        private var innerData: List<WidgetWrapper<SettingsType, WidgetType>> = decode(path),
-        private var currentID: Int = innerData.size
+private val jsonPrettyEncoder = Json { prettyPrint = true }
+
+class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
+    private val path: Path,
+    settingsSerializer: KSerializer<SettingsType>,
+    private val createItem: (SettingsType) -> ItemType,
+    private val manager: Manager<ItemType>,
 ) {
     private val mutex = Mutex()
+    private val serializer = ListSerializer(settingsSerializer)
+    private var innerData = load()
+    private var currentID = innerData.size
 
     suspend fun getStatus(): List<ObjectStatus<SettingsType>> = mutex.withLock {
         return innerData.map { it.getStatus() }
@@ -29,7 +37,7 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
 
     suspend fun append(settings: SettingsType) {
         mutex.withLock {
-            innerData = innerData.plus(WidgetWrapper(createWidget, settings, ++currentID))
+            innerData = innerData.plus(Wrapper(createItem, settings, manager, ++currentID))
         }
         save()
     }
@@ -77,30 +85,36 @@ class PresetsManager<SettingsType : ObjectSettings, WidgetType : Widget>(
         }
     }
 
-    suspend private fun load() {
-        mutex.withLock {
-            innerData = decode(path)
+    private fun load() = try {
+        Json.decodeFromStream(serializer, FileInputStream(path.toFile())).mapIndexed { index, content ->
+            Wrapper(createItem, content, manager, index + 1)
         }
+    } catch (e: FileNotFoundException) {
+        emptyList()
     }
 
-    suspend private fun save() {
+    private suspend fun save() {
         mutex.withLock {
-            encode(innerData, path)
+            val tempFile = Files.createTempFile(path.parent, null, null)
+            jsonPrettyEncoder.encodeToStream(
+                serializer,
+                innerData.map { it.getSettings() },
+                FileOutputStream(tempFile.toFile())
+            )
+            Files.delete(path)
+            Files.move(tempFile, path)
         }
     }
 }
 
-val jsonPrettyEncoder = Json { prettyPrint = true }
 
-inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Presets(path: String,
-                                                                                        noinline createWidget: (SettingsType) -> WidgetType) =
-        PresetsManager<SettingsType, WidgetType>(path,
-                {
-                    Json.decodeFromStream<List<SettingsType>>(FileInputStream(File(path))).mapIndexed { index, content ->
-                        WidgetWrapper(createWidget, content, index + 1)
-                    }
-                },
-                { data, fileName ->
-                    Json { prettyPrint = true }.encodeToStream(data.map { it.settings }, FileOutputStream(File(fileName)))
-                },
-                createWidget)
+inline fun <reified SettingsType : ObjectSettings, reified ItemType : TypeWithId> Presets(
+    path: Path,
+    manager: Manager<ItemType>,
+    noinline createItem: (SettingsType) -> ItemType
+) = PresetsManager(
+    path,
+    serializer(),
+    createItem,
+    manager
+)

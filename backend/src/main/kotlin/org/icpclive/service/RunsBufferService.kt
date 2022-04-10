@@ -1,12 +1,13 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.api.RunInfo
 
 class RunsBufferService(
     private val runsStorageUpdates: Flow<List<RunInfo>>,
     private val runsFlow: MutableSharedFlow<RunInfo>
-    ) {
+) {
     private val storage = mutableMapOf<Int, RunInfo>()
 
     suspend fun run() {

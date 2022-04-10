@@ -1,20 +1,23 @@
 import React from "react";
 import "../App.css";
-import PresetsPanel from "./PresetsPanel";
+import { PresetsTable } from "./PresetsTable";
+import { useSnackbar } from "notistack";
+import { errorHandlerWithSnackbar } from "../errors";
 
-class AdvertisementPanel extends PresetsPanel {
+class AdvertisementTable extends PresetsTable {
 }
 
-AdvertisementPanel.defaultProps = {
-    ...AdvertisementPanel.defaultProps,
-    path: "/advertisement",
-    tableKeys: ["text"],
+AdvertisementTable.defaultProps = {
+    ...PresetsTable.defaultProps,
+    apiPath: "/advertisement",
+    apiTableKeys: ["text"],
 };
 
 function Advertisement() {
+    const { enqueueSnackbar,  } = useSnackbar();
     return (
         <div className="Advertisement">
-            <AdvertisementPanel/>
+            <AdvertisementTable createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </div>
     );
 }
