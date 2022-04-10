@@ -1,5 +1,6 @@
 package org.icpclive.adminapi
 
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -14,7 +15,7 @@ suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> U
     block()
     respond(mapOf("status" to "ok"))
 } catch (e: AdminActionApiException) {
-    respond(mapOf("status" to "error", "message" to e.message))
+    respond(HttpStatusCode.BadRequest, mapOf("status" to "error", "message" to e.message))
 }
 
 

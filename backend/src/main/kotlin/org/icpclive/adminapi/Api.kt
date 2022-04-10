@@ -36,12 +36,9 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
             widgetWrapper.hide()
         }
     }
-    getInfo?.let {
+    if (getInfo != null) {
         get("/info") {
-            call.adminApiAction {
-                val response = it()
-                call.respond(response)
-            }
+            call.respond(getInfo())
         }
     }
 }
