@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TableCell, TableRow, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
+import CircleIcon from "@mui/icons-material/Circle";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import { grey } from "@mui/material/colors";
 
 const getSettings = (row) => {
@@ -19,12 +21,10 @@ export class Team extends React.Component {
                 key={this.props.rowData.id}
                 sx={{ backgroundColor:
                     (this.props.rowData.shown?
+                        this.props.tStyle.activeColor :
                         (this.props.rowData.selected?
-                            this.props.tStyle.selectedActiveColor :
-                            this.props.tStyle.activeColor) :
-                        this.props.rowData.selected ?
                             this.props.tStyle.selectedColor :
-                            this.props.tStyle.inactiveColor),
+                            this.props.tStyle.inactiveColor)),
                 display: "flex",
                 width: "100%",
                 height: "100%",
@@ -33,11 +33,22 @@ export class Team extends React.Component {
                 borderBottom: "1px solid rgba(224, 224, 224, 1)",
                 color: (this.props.rowData.selected || this.props.rowData.shown ? grey[900] : grey[700]) }}
                 onClick={() => this.props.onClick(this.props.rowData.id)}>
-                {this.props.apiTableKeys.map((rowKey) => (
-                    <Box key={rowKey} sx={{ margin: "8px" }}>
-                        {getSettings(this.props.rowData)[rowKey]}
-                    </Box>
-                ))}
+                <Box sx={{ display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                    margin: "4px" }}key="id">
+                    {this.props.rowData.shown ?
+                        <CircleIcon  color="error" fontSize="10px"/> :
+                        <CircleOutlinedIcon  color="disabled" fontSize="10px"/>}
+                    {getSettings(this.props.rowData).id}
+                </Box>
+                <Box key="name" sx={{ display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    margin: "4px" }}>
+                    {getSettings(this.props.rowData).name}
+                </Box>
             </Box>
         </Grid>);
     }
@@ -51,7 +62,6 @@ Team.propTypes = {
         activeColor: PropTypes.string,
         inactiveColor: PropTypes.string,
         selectedColor: PropTypes.string,
-        selectedActiveColor: PropTypes.string,
     }).isRequired,
     rowData: PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,

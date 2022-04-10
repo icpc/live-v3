@@ -18,7 +18,11 @@ const showButtonsSettings = [
 export class TeamTable extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { dataElements: [], loaded: false, selectedId: undefined };
+        this.state = { dataElements: [],
+            loaded: false,
+            selectedId: undefined,
+            shownId: undefined,
+            shownMediaType: null };
         this.updateData = this.updateData.bind(this);
         this.showTeam = this.showTeam.bind(this);
         this.hideTeam = this.hideTeam.bind(this);
@@ -60,7 +64,11 @@ export class TeamTable extends React.Component {
             elem.selected = false;
             return elem;
         });
-        this.setState({ ...this.state, dataElements: result });
+        this.setState({ ...this.state,
+            dataElements: result,
+            shownMediaType: (stat.shown ? stat.settings.mediaType : null),
+            shownId: (stat.shown ? stat.settings.teamId : undefined)
+        });
     }
 
     selectItem(id) {
@@ -89,11 +97,13 @@ export class TeamTable extends React.Component {
     async showTeam(mediaType = undefined) {
         await this.apiPost("/show", { teamId: this.state.selectedId, mediaType });
         await this.updateData();
+        this.setState({ ...this.state, selectedId: undefined });
     }
 
     async hideTeam() {
         await this.apiPost("/hide");
         await this.updateData();
+        this.setState({ ...this.stat, selectedId: undefined });
     }
 
     render() {
@@ -105,15 +115,15 @@ export class TeamTable extends React.Component {
                     <ButtonGroup>
                         {showButtonsSettings.map((elem) => (
                             <Button
-                                disabled={this.state.selectedId === undefined}
-                                sx={gridButton}
-                                variant="contained"
+                                disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
+                                sx={{ ...gridButton, backgroundColor: (this.state.shownMediaType === elem.mediaType ? "#1976d2" : "primary") }}
+                                variant={this.state.shownMediaType === elem.mediaType ? "contained" : "default"}
                                 key={elem.text}
                                 onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
                         ))}
                     </ButtonGroup>
                     <Button sx={gridButton} variant="contained" color="error" onClick={
-                        () => {this.hideTeam();}}>Hide</Button>
+                        () => {this.hideTeam();}}>hide</Button>
                 </Box>
                 <Box sx={{ display: "grid", width: "100%", gridTemplateColumns: "repeat(4, 6fr)", gap: 2 }}>
                     {this.state.dataElements !== undefined &&
@@ -151,7 +161,6 @@ TeamTable.defaultProps = {
     tStyle: {
         selectedColor: lightBlue[50],
         activeColor: lightBlue[100],
-        selectedActiveColor: lightBlue[200],
         inactiveColor: "white",
     },
     rowComponent: Team,
