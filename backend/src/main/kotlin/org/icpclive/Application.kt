@@ -23,7 +23,7 @@ import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.File
-import java.nio.file.Path
+import java.nio.file.Paths
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
@@ -60,7 +60,7 @@ fun Application.module() {
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
-    val mediaPath = Path.of(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
+    val mediaPath = Paths.get(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
     mediaPath.toFile().mkdirs()
     routing {
         static("/static") { resources("static") }
