@@ -17,7 +17,7 @@ plugins {
 }
 
 group = "org.icpclive"
-version = "0.0.2"
+version = rootProject.findProperty("version")!!
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 }
@@ -44,7 +44,7 @@ tasks {
         manifest {
             attributes("Main-Class" to "io.ktor.server.netty.EngineMain")
         }
-        archiveFileName.set("${project.name}-${project.version}.jar")
+        archiveFileName.set("${rootProject.name}-${project.version}.jar")
     }
     task("buildJs") {
         for (js in jsList) {
@@ -52,30 +52,17 @@ tasks {
         }
     }
     for (js in jsList) {
-        val dir = project.rootDir.resolve("..").resolve(js)
-        task("buildJs${js.capitalize()}") {
-            doLast {
-                exec {
-                    workingDir(dir)
-                    commandLine("npm", "ci")
-                }
-                exec {
-                    workingDir(dir)
-                    environment("PUBLIC_URL" to "/$js")
-                    commandLine("npm", "run", "build")
-                }
-            }
-        }
+        val dir = rootProject.rootDir.resolve(js)
         register<Copy>("copyJs${js.capitalize()}") {
-            dependsOn("buildJs${js.capitalize()}")
+            dependsOn(":$js:npm_run_build")
             from(dir.resolve("build"))
             destinationDir = project.buildDir.resolve("resources").resolve("main").resolve(js)
         }
     }
     task<Copy>("release") {
         dependsOn("shadowJar")
-        from(project.buildDir.resolve("libs").resolve("${project.name}-${project.version}.jar"))
-        destinationDir = project.rootDir
+        from(project.buildDir.resolve("libs").resolve("${rootProject.name}-${project.version}.jar"))
+        destinationDir = rootProject.rootDir
     }
 }
 
