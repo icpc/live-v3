@@ -21,9 +21,8 @@ class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
         return ObjectStatus(widgetId != null, settings, id)
     }
 
-    //TODO: Use under mutex
-    fun getSettings(): SettingsType {
-        return settings
+    suspend fun getSettings() = mutex.withLock {
+        settings
     }
 
     suspend fun set(newSettings: SettingsType) {
