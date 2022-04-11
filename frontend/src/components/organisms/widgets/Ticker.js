@@ -87,7 +87,7 @@ export const SingleTicker = ({ part, color }) => {
     return <SingleTickerWrap color={color}>
         <TransitionGroup component={null}>
             {curMessage &&
-                <Transition key={curMessage?.id} timeout={TICKER_SCROLL_TRANSITION_TIME}>
+                <Transition key={curMessage?.id} timeout={TICKER_SCROLL_TRANSITION_TIME - 15}>
                     {(state) => {
                         const TickerComponent = widgetTypes[curMessage.type] ?? DefaultTicker;
                         if(TickerComponent === undefined) {
@@ -120,6 +120,31 @@ const TickerWrap = styled.div`
   grid-template-columns: ${TICKER_SMALL_SIZE} auto;
 `;
 
+const MegaTickerRow = styled.div.attrs(({ top, left }) => ({ style: { top, left } }))`
+    width: 3936px;
+    height: 96px;
+    position: absolute;
+    overflow: hidden;
+`;
+
+function TickerComponent(props) {
+    return <TickerWrap>
+        {props.loaded &&
+            <>
+                <SingleTicker part={"short"} color={TICKER_SMALL_BACKGROUND}/>
+                <SingleTicker part={"long"}/>
+            </>
+        }
+    </TickerWrap>;
+}
+
+const TickerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
+TickerComponent.propTypes = { loaded: PropTypes.any };
 export const Ticker = () => {
     const dispatch = useDispatch();
     const isLoaded = useSelector((state) => state.ticker.isLoaded);
@@ -130,14 +155,16 @@ export const Ticker = () => {
         dispatch(startScrolling());
         return () => dispatch(stopScrolling());
     }, [isLoaded]);
-    return <TickerWrap>
-        {isLoaded &&
-            <>
-                <SingleTicker part={"short"} color={TICKER_SMALL_BACKGROUND}/>
-                <SingleTicker part={"long"}/>
-            </>
-        }
-    </TickerWrap>;
+    return <TickerContainer>
+        <MegaTickerRow><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+        <MegaTickerRow top="96px" left="-1920px"><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+        <MegaTickerRow top="192px"><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+        <MegaTickerRow top="288px" left="-1920px"><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+        <MegaTickerRow top="384px"><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+        <MegaTickerRow top="480px" left="-1920px"><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+        <MegaTickerRow top="576px"><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+        <MegaTickerRow top="672px" left="-1920px"><TickerComponent loaded={isLoaded}/></MegaTickerRow>
+    </TickerContainer>;
 };
 
 export default Ticker;

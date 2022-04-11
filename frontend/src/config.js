@@ -72,11 +72,12 @@ export const TICKER_BACKGROUND = CELL_BG_COLOR;
 export const TICKER_OPACITY = 0.8;
 export const TICKER_FONT_COLOR = "#FFFFFF";
 export const TICKER_FONT_FAMILY = "Helvetica, serif";
-export const TICKER_TEXT_FONT_SIZE = "34px"; // css property
+export const TICKER_TEXT_FONT_SIZE = "72px"; // css property
 export const TICKER_TEXT_MARGIN_LEFT = "7px"; // css property
-export const TICKER_CLOCK_FONT_SIZE = "34px"; // css property
+export const TICKER_CLOCK_FONT_SIZE = "72px"; // css property
 export const TICKER_CLOCK_MARGIN_LEFT = "7px"; // css property
 export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
+export const TICKER_SCOREBOARD_TEXT_SIZE = "72px";
 
 
 export const STAR_SIZE = 10; // px
@@ -86,8 +87,9 @@ export const STAR_SIZE = 10; // px
 export const MEDAL_COLORS = Object.freeze({
     "gold": "gold",
     "silver": "silver",
-    "bronze": "#7f4c19"
+    "bronze": "#7f4c19",
+    "undefined": "#2f2f2f"
 });
 
 // Debug Behaviour
-export const LOG_LINES = 300;
+export const LOG_LINES = 100;

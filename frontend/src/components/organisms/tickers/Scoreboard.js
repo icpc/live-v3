@@ -15,8 +15,8 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
     { style: { top } }
 ))`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(${props => props.nrows}, 100%);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(${props => props.nrows}, 50%);
   height: 100%;
   width: 100%;
   position: absolute;
@@ -27,7 +27,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
     const { from, to, periodMs } = tickerSettings;
     const [row, setRow] = useState(0);
     const rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
-    const nrows = Math.ceil(rows.length / 4);
+    const nrows = Math.ceil(rows.length / 5);
     useEffect(() => {
         if(state !== "entering") {
             const interval = setInterval(() => {
@@ -39,7 +39,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
             return () => clearInterval(interval);
         }
     }, [nrows, periodMs, state]);
-    return <ScoreboardWrap nrows={nrows} top={-row * 100 + "%"}>
+    return <ScoreboardWrap nrows={nrows} top={-row * 50 + "%"}>
         {rows.map((row) => <ScoreboardRow
             key={row.teamId}
             teamId={row.teamId}

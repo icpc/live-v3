@@ -17,6 +17,8 @@ const ClockWrap = styled.div`
 export const Clock = () => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const getStatus = useCallback(() => {
+        if(contestInfo === undefined)
+            return "??";
         const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
             (contestInfo.emulationSpeed ?? 0);
         if(milliseconds < 0)
@@ -29,7 +31,7 @@ export const Clock = () => {
     useEffect(() => {
         const interval = setInterval(() => setStatus(getStatus()), 200);
         return () => clearInterval(interval);
-    }, []);
+    }, [contestInfo]);
     return <ClockWrap>
         {status}
     </ClockWrap>;
