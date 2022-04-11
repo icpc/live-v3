@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
-import bg from "../../assets/images/bg.jpeg";
+import bg from "../../assets/images/tinkoffbg.png";
 import { WIDGET_TRANSITION_TIME } from "../../config";
 import Advertisement from "../organisms/widgets/Advertisement";
 import Pictures from "../organisms/widgets/Pictures";
@@ -48,9 +48,10 @@ const WidgetWrap = styled.div.attrs(
 `;
 
 const MainLayoutWrap = styled.div`
-  width: 1920px;
-  height: 1080px;
-  background: url(${bg});
+  width: 2048px;
+  height: 768px;
+  //background: url(${bg});
+  background-color: black;
 `;
 
 const transitionProps = {
@@ -96,5 +97,8 @@ export const MainLayout = () => {
         </TransitionGroup>
     </MainLayoutWrap>;
 };
+
+//2016+1920x96
+//every second is 96 pixel to the left.
 
 export default MainLayout;

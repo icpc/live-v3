@@ -1,8 +1,8 @@
 import _ from "lodash";
 import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import MainLayout from "./components/layouts/MainLayout";
 import { StatusLayout } from "./components/layouts/StatusLayout";
+import TinkoffRowLayout from "./components/layouts/TinkoffRowLayout";
 import { BASE_URL_WS, WEBSOCKET_RECONNECT_TIME } from "./config";
 import { WEBSOCKETS } from "./consts";
 import { pushLog } from "./redux/debug";
@@ -51,7 +51,7 @@ function App() {
 
     return (
         <>
-            <MainLayout/>
+            <TinkoffRowLayout/>
             <StatusLayout/>
         </>
     );

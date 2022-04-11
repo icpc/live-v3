@@ -176,7 +176,7 @@ const ScoreboardRowWrap = styled.div.attrs((props) => ({
 }))`
   left: 0;
   right: 0;
-  height: ${props => props.rowHeight + 2}px; // FIXME lol
+  height: ${props => props.rowHeight}px;
   transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
   position: absolute;
 `;
@@ -214,12 +214,12 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const startPageRow = (settings.startFromPage - 1) * teamsOnPage;
     const [row, setRow] = useState(startPageRow);
     const totalHeight = location.sizeY;
-    const rowHeight = (totalHeight / (teamsOnPage + 1));
+    const rowHeight = (totalHeight / (teamsOnPage));
     useEffect(() => {
         const id = setInterval(() => {
             setRow((offset) => {
                 let newStart = offset + teamsOnPage;
-                if (newStart >= Math.min(rows.length, ((settings.numPages || Infinity) + startPageRow) * teamsOnPage)) {
+                if (newStart >= Math.min(rows.length, ((settings.numPages || Infinity) + startPageRow - teamsOnPage) * (teamsOnPage))) {
                     if(settings.isInfinite) {
                         return startPageRow;
                     } else {
@@ -234,7 +234,7 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
     }, [rows.length]);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
     return <ScoreboardWrap>
-        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>
+        {/*<ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>*/}
         <div style={{ overflow: "hidden", height: "100%" }}>
             {teams.map(([ind, teamRowData]) =>
                 <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - row) * rowHeight}

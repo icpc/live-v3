@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { SCOREBOARD_TYPES } from "../../../consts";
-import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
-import { Cell } from "../../atoms/Cell";
-import { StarIcon } from "../../atoms/Star";
-import { TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
-import { pushLog } from "../../../redux/debug";
-import { DateTime } from "luxon";
 import _ from "lodash";
+import { DateTime } from "luxon";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled, { keyframes } from "styled-components";
+import { TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { SCOREBOARD_TYPES } from "../../../consts";
+import { pushLog } from "../../../redux/debug";
+import { Cell } from "../../atoms/Cell";
+import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
+import { StarIcon } from "../../atoms/Star";
 
 const slideIn = keyframes`
   from {
@@ -210,7 +210,9 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
             onCanPlay={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
             autoPlay
-            muted/>
+            muted
+            nocontrols
+        />
 
     </TeamVideoAnimationWrapper>;
 };
