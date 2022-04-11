@@ -70,7 +70,7 @@ const TeamTaskStatus = Object.freeze({
 const TeamTaskSymbol = Object.freeze({
     [TeamTaskStatus.solved]: "+",
     [TeamTaskStatus.failed]: "-",
-    [TeamTaskStatus.untouched]: "",
+    [TeamTaskStatus.untouched]: ".",
     [TeamTaskStatus.unknown]: "?",
     [TeamTaskStatus.first]: "+",
 });
@@ -219,7 +219,7 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
         const id = setInterval(() => {
             setRow((offset) => {
                 let newStart = offset + teamsOnPage;
-                if (newStart >= Math.min(rows.length, ((settings.numPages || Infinity) + startPageRow - teamsOnPage) * (teamsOnPage))) {
+                if (newStart >= Math.min(rows.length - teamsOnPage - 1, ((settings.numPages || Infinity) + startPageRow) * teamsOnPage)) {
                     if(settings.isInfinite) {
                         return startPageRow;
                     } else {
