@@ -87,8 +87,10 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
     }
 
     private fun load() = try {
-        Json.decodeFromStream(serializer, FileInputStream(path.toFile())).mapIndexed { index, content ->
-            Wrapper(createItem, content, manager, index + 1)
+        FileInputStream(path.toFile()).use {
+            Json.decodeFromStream(serializer, it).mapIndexed { index, content ->
+                Wrapper(createItem, content, manager, index + 1)
+            }
         }
     } catch (e: FileNotFoundException) {
         emptyList()
