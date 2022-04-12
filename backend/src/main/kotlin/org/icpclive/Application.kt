@@ -9,8 +9,10 @@ import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.*
 import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
 import org.icpclive.adminapi.configureAdminApiRouting
@@ -54,6 +56,13 @@ fun Application.module() {
         timeout = Duration.ofSeconds(15)
         maxFrameSize = Long.MAX_VALUE
         masking = false
+    }
+
+    install(StatusPages) {
+        exception<Throwable> { call, ex ->
+            call.application.environment.log.error("Query ${call.url()} failed with exception", ex)
+            throw ex
+        }
     }
     environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
         val configPath = File(this).canonicalPath
