@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { TICKER_CLOCK_FONT_SIZE, TICKER_CLOCK_MARGIN_LEFT } from "../../../config";
+import { TextWrap } from "./Text";
 
 Settings.defaultZone = "utc";
 
@@ -32,9 +33,9 @@ export const Clock = () => {
         const interval = setInterval(() => setStatus(getStatus()), 200);
         return () => clearInterval(interval);
     }, []);
-    return <ClockWrap>
+    return <TextWrap>
         {status}
-    </ClockWrap>;
+    </TextWrap>;
 };
 
 export default Clock;

@@ -67,6 +67,10 @@ const SingleTickerWrap = styled.div`
   height: 100%;
   width: 100%;
   background-color: ${props => props.color};
+  display: flex;
+  justify-content: ${props => props.justify};
+  padding-left: ${props => props.padding};
+  box-sizing: border-box;
 `;
 
 const widgetTypes = Object.freeze({
@@ -96,7 +100,7 @@ export const SingleTicker = ({ part, color }) => {
                         }
                         const sanitizedState = isFirst && state === "entering" ? "entered" : state; // ignore first entering render
                         return state !== "exited" && <TickerRow state={sanitizedState}>
-                            <TickerComponent tickerSettings={curMessage.settings} state={sanitizedState}/>
+                            <TickerComponent tickerSettings={curMessage.settings} state={sanitizedState} part={part}/>
                         </TickerRow>;
                     }
                     }

@@ -13,7 +13,7 @@ export const QUEUE_ROW_TRANSITION_TIME = 1000; // ms
 export const QUEUE_ROW_APPEAR_TIME = QUEUE_ROW_TRANSITION_TIME; // ms
 export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
-export const SCOREBOARD_SCROLL_INTERVAL = 2000; // ms;
+export const SCOREBOARD_SCROLL_INTERVAL = 8000; // ms;
 export const PICTURES_APPEAR_TIME = 1000; // ms
 export const VIDEO_APPEAR_TIME = 100; // ms
 export const TEAM_VIEW_APPEAR_TIME = 1000; // ms
@@ -73,9 +73,9 @@ export const TICKER_OPACITY = 0.8;
 export const TICKER_FONT_COLOR = "#FFFFFF";
 export const TICKER_FONT_FAMILY = "Helvetica, serif";
 export const TICKER_TEXT_FONT_SIZE = "34px"; // css property
-export const TICKER_TEXT_MARGIN_LEFT = "7px"; // css property
+export const TICKER_TEXT_MARGIN_LEFT = "10px"; // css property
 export const TICKER_CLOCK_FONT_SIZE = "34px"; // css property
-export const TICKER_CLOCK_MARGIN_LEFT = "7px"; // css property
+export const TICKER_CLOCK_MARGIN_LEFT = "10px"; // css property
 export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
 
 
