@@ -1,14 +1,14 @@
 <challenge>
     <problem id = "a" alias = "A" problem-id = "a" name = "A" color="#E9D1DE"/>
     <problem id = "b" alias = "B" problem-id = "b" name = "B" color="#761946"/>
-    <problem id = "c" alias = "C" problem-id = "c" name = "C" color="#FF00FE"/>
-    <problem id = "d" alias = "D" problem-id = "d" name = "D" color="#45BEC6"/>
-    <problem id = "e" alias = "E" problem-id = "e" name = "E" color="#FE0000"/>
+    <problem id = "c" alias = "C" problem-id = "c" name = "C" color="#0000FE"/>
+    <problem id = "d" alias = "D" problem-id = "d" name = "D" color="#FE0000"/>
+    <problem id = "e" alias = "E" problem-id = "e" name = "E" color="#45BEC6"/>
     <problem id = "f" alias = "F" problem-id = "f" name = "F" color="#04FF00"/>
     <problem id = "g" alias = "G" problem-id = "g" name = "G" color="#38771E"/>
     <problem id = "h" alias = "H" problem-id = "h" name = "H" color="#FFFFFF"/>
-    <problem id = "i" alias = "I" problem-id = "i" name = "I" color="#0000FE"/>
-    <problem id = "j" alias = "J" problem-id = "j" name = "J" color="#FFFF00"/>
+    <problem id = "i" alias = "I" problem-id = "i" name = "I" color="#FF00FE"/>
+    <problem id = "j" alias = "J" problem-id = "j" name = "J" color="#FE9900"/>
     <problem id = "k" alias = "K" problem-id = "k" name = "K" color="#9B01FF"/>
-    <problem id = "l" alias = "L" problem-id = "l" name = "L" color="#FE9900"/>
+    <problem id = "l" alias = "L" problem-id = "l" name = "L" color="#FFFF00"/>
 </challenge>
