@@ -17,13 +17,15 @@ const ClockWrap = styled.div`
 export const Clock = () => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const getStatus = useCallback(() => {
-        const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
-            (contestInfo.emulationSpeed ?? 0);
-        if(milliseconds < 0)
-            return "BEFORE";
-        if(milliseconds >= contestInfo.contestLengthMs)
-            return "OVER";
-        return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
+        if(contestInfo === undefined)
+            return "??";
+        if(contestInfo.status === "RUNNING") {
+            const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
+                (contestInfo.emulationSpeed ?? 1);
+            return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
+        } else {
+            return contestInfo.status;
+        }
     }, [contestInfo]);
     const [status, setStatus] = useState(getStatus());
     useEffect(() => {
