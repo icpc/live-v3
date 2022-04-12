@@ -53,6 +53,7 @@ const TeamViewContainer = styled.div`
   align-items: flex-end;
   position: relative;
   animation: ${props => props.animation} ${TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
+  animation-fill-mode: forwards;
 `;
 
 const TeamInfoWrapper = styled.div`
