@@ -51,4 +51,4 @@ fun defaultJsonSettings() = Json {
 
 fun getLogger(clazz: KClass<*>) = LoggerFactory.getLogger(clazz.java)!!
 
-fun Color.toHex() = "#" + "%08x".format(rgb)
+fun Color.toHex() = "#%02x%02x%02x%02x".format(red, green, blue, alpha)
