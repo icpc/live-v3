@@ -19,13 +19,13 @@ export const Clock = () => {
     const getStatus = useCallback(() => {
         if(contestInfo === undefined)
             return "??";
-        const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
-            (contestInfo.emulationSpeed ?? 0);
-        if(milliseconds < 0)
-            return "BEFORE";
-        if(milliseconds >= contestInfo.contestLengthMs)
-            return "OVER";
-        return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
+        if(contestInfo.status === "RUNNING") {
+            const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
+                (contestInfo.emulationSpeed ?? 1);
+            return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
+        } else {
+            return contestInfo.status;
+        }
     }, [contestInfo]);
     const [status, setStatus] = useState(getStatus());
     useEffect(() => {
