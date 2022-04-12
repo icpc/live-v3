@@ -73,7 +73,7 @@ class StatisticsWidget(val settings: StatisticsSettings) : Widget(WIDGET_ID, loc
 class TickerWidget(val settings: TickerSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "ticker"
-        val location = LocationRectangle(0, 1025, 1920, 50)
+        val location = LocationRectangle(0, 0, 2016, 768)
     }
 }
 
