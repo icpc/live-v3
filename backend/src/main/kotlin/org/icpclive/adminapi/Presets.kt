@@ -99,11 +99,13 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
     private suspend fun save() {
         mutex.withLock {
             val tempFile = Files.createTempFile(path.parent, null, null)
-            jsonPrettyEncoder.encodeToStream(
-                serializer,
-                innerData.map { it.getSettings() },
-                FileOutputStream(tempFile.toFile())
-            )
+            FileOutputStream(tempFile.toFile()).use { file ->
+                jsonPrettyEncoder.encodeToStream(
+                    serializer,
+                    innerData.map { it.getSettings() },
+                    file
+                )
+            }
             Files.deleteIfExists(path)
             Files.move(tempFile, path)
         }
