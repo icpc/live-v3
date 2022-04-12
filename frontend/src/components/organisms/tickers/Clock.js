@@ -8,7 +8,7 @@ Settings.defaultZone = "utc";
 
 
 const ClockWrap = styled.div`
-    width: 100%;
+    //width: 100%;
     block-size: fit-content;
     margin-left: ${TICKER_CLOCK_MARGIN_LEFT};
     font-size: ${TICKER_CLOCK_FONT_SIZE};

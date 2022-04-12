@@ -73,9 +73,9 @@ export const TICKER_OPACITY = 0.8;
 export const TICKER_FONT_COLOR = "#FFFFFF";
 export const TICKER_FONT_FAMILY = "Helvetica, serif";
 export const TICKER_TEXT_FONT_SIZE = "72px"; // css property
-export const TICKER_TEXT_MARGIN_LEFT = "7px"; // css property
+export const TICKER_TEXT_MARGIN_LEFT = "0px"; // css property
 export const TICKER_CLOCK_FONT_SIZE = "72px"; // css property
-export const TICKER_CLOCK_MARGIN_LEFT = "7px"; // css property
+export const TICKER_CLOCK_MARGIN_LEFT = "0px"; // css property
 export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
 export const TICKER_SCOREBOARD_TEXT_SIZE = "72px";
 

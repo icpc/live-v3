@@ -11,28 +11,82 @@
         "text": "#ICPC"
     },
     {
-        "type": "text",
-        "part": "long",
-        "periodMs": 10000,
-        "text": "Ticker message 1"
-    },
-    {
-        "type": "text",
-        "part": "long",
-        "periodMs": 10000,
-        "text": "Ticker message 2"
-    },
-    {
         "type": "scoreboard",
         "part": "long",
         "periodMs": 30000,
         "from": 1,
-        "to": 12
+        "to": 30
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Welcome to the Northern Eurasia Finals!"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "14:00\tRegistration"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "15:00\tYandex Quiz Start"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "16:00\tYandex Talk by Ivan Bibilov"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "17:00\tTinkoff Quiz"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "18:00\tOpening Ceremony"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "19:00\tPractice Session"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "The contest has started"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "The scoreboard is frozen "
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "The contest is over"
     },
     {
         "type": "text",
         "part": "short",
-        "periodMs": 10000,
-        "text": "KEK"
+        "periodMs": 30000,
+        "text": "#NERC"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Please, do touch anything"
     }
 ]
