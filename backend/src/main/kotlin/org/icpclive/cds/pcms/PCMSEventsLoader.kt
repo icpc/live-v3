@@ -112,6 +112,10 @@ class PCMSEventsLoader {
         if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
             contestData.startTime = Clock.System.now() - contestTime
         }
+        Config.advancedProperties.getProperty("contest.startTime")?.let {
+            val unix = guessDatetimeFormat(it) ?: return@let
+            contestData.startTime = unix
+        }
         contestData.status = status
         contestData.contestTime = contestTime
         element.children().forEach { session: Element ->

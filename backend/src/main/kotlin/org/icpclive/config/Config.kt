@@ -1,5 +1,6 @@
 package org.icpclive.config
 
+import org.icpclive.utils.getLogger
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.nio.charset.StandardCharsets
@@ -28,4 +29,11 @@ object Config {
             loadFile(name)
         else
             null
+
+    var advancedProperties = Properties()
+
+    fun reloadAdvancedProperties() {
+       advancedProperties = loadPropertiesIfExists("advanced") ?: Properties()
+        getLogger(Config::class).debug(advancedProperties.toString())
+    }
 }

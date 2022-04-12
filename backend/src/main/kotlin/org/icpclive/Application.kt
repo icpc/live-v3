@@ -68,6 +68,7 @@ fun Application.module() {
         val configPath = File(this).canonicalPath
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
+        Config.reloadAdvancedProperties()
     }
     val mediaPath = Paths.get(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
     mediaPath.toFile().mkdirs()
