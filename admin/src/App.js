@@ -10,6 +10,7 @@ import Picture from "./components/Picture";
 import TeamView from "./components/TeamView";
 import { SnackbarProvider } from "notistack";
 import ScoreboardSettings from "./components/ScoreboardSettings";
+import AdvancedProperties from "./components/AdvancedProperties";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                             <Route path="/teamview" element={<TeamView/>}/>
                             <Route path="/scoreboard" element={<ScoreboardSettings/>}/>
                             <Route path="/ticker" element={<TickerMessage/>}/>
+                            <Route path="/advancedproperties" element={<AdvancedProperties/>}/>
                         </Routes>
                     </Container>
                 </div>
