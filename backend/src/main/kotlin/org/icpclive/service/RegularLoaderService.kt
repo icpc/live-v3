@@ -19,10 +19,11 @@ abstract class RegularLoaderService<T> {
     abstract fun processLoaded(data: String): T
 
     fun loadOnce(): T {
-        val inputStream = NetworkUtils.openAuthorizedStream(url, login, password)
-        val content = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-            .lines()
-            .collect(Collectors.joining())
+        val content = NetworkUtils.openAuthorizedStream(url, login, password).use {
+           BufferedReader(InputStreamReader(it, StandardCharsets.UTF_8))
+                .lines()
+                .collect(Collectors.joining())
+        }
         return processLoaded(content)
     }
 

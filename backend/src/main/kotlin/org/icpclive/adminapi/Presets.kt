@@ -15,6 +15,7 @@ import org.icpclive.data.Manager
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -86,8 +87,10 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
     }
 
     private fun load() = try {
-        Json.decodeFromStream(serializer, FileInputStream(path.toFile())).mapIndexed { index, content ->
-            Wrapper(createItem, content, manager, index + 1)
+        FileInputStream(path.toFile()).use {
+            Json.decodeFromStream(serializer, it).mapIndexed { index, content ->
+                Wrapper(createItem, content, manager, index + 1)
+            }
         }
     } catch (e: FileNotFoundException) {
         emptyList()
@@ -96,11 +99,13 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
     private suspend fun save() {
         mutex.withLock {
             val tempFile = Files.createTempFile(path.parent, null, null)
-            jsonPrettyEncoder.encodeToStream(
-                serializer,
-                innerData.map { it.getSettings() },
-                FileOutputStream(tempFile.toFile())
-            )
+            FileOutputStream(tempFile.toFile()).use { file ->
+                jsonPrettyEncoder.encodeToStream(
+                    serializer,
+                    innerData.map { it.getSettings() },
+                    file
+                )
+            }
             Files.deleteIfExists(path)
             Files.move(tempFile, path)
         }

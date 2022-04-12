@@ -16,7 +16,7 @@ object Config {
         val path = Paths.get(configDirectory, "$name.properties")
         if (!Files.exists(path)) return null
         val properties = Properties()
-        properties.load(FileInputStream(path.toString()))
+        FileInputStream(path.toString()).use { properties.load(it) }
         return properties
     }
 

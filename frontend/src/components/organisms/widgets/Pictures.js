@@ -33,6 +33,7 @@ const PicturesContainerWrap = styled.div`
   justify-content: start;
   align-items: center;
   animation: ${props => props.animation} ${PICTURES_APPEAR_TIME}ms ${props => props.animationStyle};
+  animation-fill-mode: forwards;
 `;
 
 

@@ -9,8 +9,10 @@ import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.*
 import io.ktor.server.plugins.defaultheaders.*
+import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
+import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
 import org.icpclive.adminapi.configureAdminApiRouting
@@ -23,7 +25,7 @@ import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.File
-import java.nio.file.Path
+import java.nio.file.Paths
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
@@ -55,12 +57,19 @@ fun Application.module() {
         maxFrameSize = Long.MAX_VALUE
         masking = false
     }
+
+    install(StatusPages) {
+        exception<Throwable> { call, ex ->
+            call.application.environment.log.error("Query ${call.url()} failed with exception", ex)
+            throw ex
+        }
+    }
     environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
         val configPath = File(this).canonicalPath
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = this
     }
-    val mediaPath = Path.of(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
+    val mediaPath = Paths.get(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
     mediaPath.toFile().mkdirs()
     routing {
         static("/static") { resources("static") }

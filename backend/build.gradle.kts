@@ -1,6 +1,3 @@
-import java.nio.file.Path as NioPath
-import kotlin.text.replaceFirstChar
-
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -8,6 +5,12 @@ val gson_version: String by project
 val jsoup_version: String by project
 val datetime_version: String by project
 val serialization_version: String by project
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
 
 plugins {
     application
@@ -81,6 +84,7 @@ dependencies {
     implementation("io.ktor:ktor-server-cors:$ktor_version")
     implementation("io.ktor:ktor-server-default-headers:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
+    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
     implementation("io.ktor:ktor-server-websockets:$ktor_version")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version")

@@ -45,6 +45,7 @@ const WidgetWrap = styled.div.attrs(
   position: absolute;
   overflow: hidden;
   animation: ${props => props.animation} ${WIDGET_TRANSITION_TIME}ms linear;
+  animation-fill-mode: forwards;
 `;
 
 const MainLayoutWrap = styled.div`
@@ -79,7 +80,7 @@ export const MainLayout = () => {
                 if(Widget === undefined) {
                     return null;
                 }
-                return <Transition key={obj.widgetId} timeout={(Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME) - 50}>
+                return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
                             left={obj.location.positionX}
