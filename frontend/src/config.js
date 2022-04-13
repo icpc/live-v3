@@ -31,7 +31,7 @@ export const VERDICT_UNKNOWN = "#a59e0c";
 export const QUEUE_ROW_HEIGHT = 41; // px
 export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
 export const QUEUE_ROWS_COUNT = 15; // n
-export const QUEUE_OPACITY = 0.8;
+export const QUEUE_OPACITY = 0.95;
 
 export const SCOREBOARD_RANK_WIDTH = "80px"; // px
 export const SCOREBOARD_NAME_WIDTH = "300px"; // px
@@ -39,10 +39,10 @@ export const SCOREBOARD_SUM_PEN_WIDTH = "80px"; // px
 export const SCOREBOARD_HEADER_TITLE_BG_COLOR = VERDICT_NOK;
 export const SCOREBOARD_HEADER_TITLE_FONT_SIZE = "30px";
 export const SCOREBOARD_HEADER_BG_COLOR = "#000000";
-export const SCOREBOARD_OPACITY = 0.8;
+export const SCOREBOARD_OPACITY = 0.95;
 
 export const STATISTICS_TITLE_FONT_SIZE = "30px";
-export const STATISTICS_OPACITY = 0.8;
+export const STATISTICS_OPACITY = 0.95;
 export const STATISTICS_BG_COLOR = "#000000";
 export const STATISTICS_TITLE_COLOR = "#FFFFFF";
 export const STATISTICS_STATS_VALUE_FONT_SIZE = "24pt";
@@ -69,7 +69,7 @@ export const CELL_NAME_FONT = CELL_FONT_SIZE + " " + CELL_FONT_FAMILY;
 export const TICKER_SMALL_SIZE = "10%"; // css property
 export const TICKER_SMALL_BACKGROUND = VERDICT_NOK;
 export const TICKER_BACKGROUND = CELL_BG_COLOR;
-export const TICKER_OPACITY = 0.8;
+export const TICKER_OPACITY = 0.95;
 export const TICKER_FONT_COLOR = "#FFFFFF";
 export const TICKER_FONT_FAMILY = "Helvetica, serif";
 export const TICKER_TEXT_FONT_SIZE = "34px"; // css property
@@ -79,13 +79,13 @@ export const TICKER_CLOCK_MARGIN_LEFT = "10px"; // css property
 export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
 
 
-export const STAR_SIZE = 10; // px
+export const STAR_SIZE = 20; // px
 
 
 // Medals
 export const MEDAL_COLORS = Object.freeze({
-    "gold": "gold",
-    "silver": "silver",
+    "gold": "#C2AC15",
+    "silver": "#ABABAB",
     "bronze": "#7f4c19"
 });
 

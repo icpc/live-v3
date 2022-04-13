@@ -14,13 +14,13 @@
         "type": "text",
         "part": "long",
         "periodMs": 10000,
-        "text": "Ticker message 1"
+        "text": "Hello world!"
     },
     {
         "type": "text",
         "part": "long",
         "periodMs": 10000,
-        "text": "Ticker message 2"
+        "text": "Сайт: nerc.itmo.ru"
     },
     {
         "type": "scoreboard",
@@ -33,6 +33,18 @@
         "type": "text",
         "part": "short",
         "periodMs": 10000,
-        "text": "KEK"
+        "text": "NERC 2021"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Группа VK: vk.com/nercnews"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Канал Telegram: t.me/NERCNews"
     }
 ]

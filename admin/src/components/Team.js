@@ -36,6 +36,7 @@ export class Team extends React.Component {
                     flexDirection: "row",
                     margin: "4px" }}>
                     {getSettings(this.props.rowData).name}
+                    {getSettings(this.props.rowData).medias.screen}
                 </Box>
             </Box>
         </Grid>);
