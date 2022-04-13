@@ -13,9 +13,9 @@
     {
         "type": "scoreboard",
         "part": "long",
-        "periodMs": 30000,
+        "periodMs": 60000,
         "from": 1,
-        "to": 30
+        "to": 60
     },
     {
         "type": "text",
@@ -87,6 +87,31 @@
         "type": "text",
         "part": "long",
         "periodMs": 30000,
-        "text": "Please, do touch anything"
+        "text": "Please leave the contest floor"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 40
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "⚠️ Please do NOT turn off your laptops"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Hi Ivan"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 30000,
+        "text": "OVER"
     }
 ]
