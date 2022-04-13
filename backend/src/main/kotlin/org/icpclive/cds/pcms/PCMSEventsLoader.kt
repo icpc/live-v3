@@ -202,8 +202,8 @@ class PCMSEventsLoader {
             val alias = participant.attr("id")
             val hallId = participant.attr("hall_id").takeIf { it.isNotEmpty() } ?: alias
             val shortName = participant.attr("shortname")
-                .split("(")[0]
-                .let { if (it.length >= 30) it.substring(0..27) + "..." else it }
+//                .split("(")[0]
+//                .let { if (it.length >= 30) it.substring(0..27) + "..." else it }
                 .takeIf { it.isNotEmpty() } ?: participantName
             val region = participant.attr("region").split(",")[0]
             val hashTag = participant.attr("hashtag")
