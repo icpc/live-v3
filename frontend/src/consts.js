@@ -5,12 +5,12 @@ export const WEBSOCKETS = {
     statistics: "statistics",
     ticker: "ticker",
     scoreboardNormal: "scoreboard/normal",
-    scoreboardOptimistic: "scoreboard/optimistic",
-    scoreboardPessimistic: "scoreboard/pessimistic",
+    // scoreboardOptimistic: "scoreboard/optimistic",
+    // scoreboardPessimistic: "scoreboard/pessimistic",
 };
 
 export const SCOREBOARD_TYPES = Object.freeze({
     normal: "normal",
-    optimistic: "optimistic",
-    pessimistic: "pessimistic"
+    // optimistic: "optimistic",
+    // pessimistic: "pessimistic"
 });
