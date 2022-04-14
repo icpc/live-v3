@@ -32,7 +32,7 @@ fun Application.configureOverlayRouting() {
     routing {
         route("/overlay") {
             webSocket("/mainScreen") { sendFlow(DataBus.mainScreenFlow.await()) }
-            webSocket("/contestInfo") { sendFlow(DataBus.contestInfoUpdates) }
+            webSocket("/contestInfo") { sendFlow(DataBus.contestInfoUpdates.await()) }
             webSocket("/queue") { sendFlow(DataBus.queueFlow.await()) }
             webSocket("/statistics") { sendFlow(DataBus.statisticFlow.await()) }
             webSocket("/ticker") { sendFlow(DataBus.tickerFlow.await()) }

@@ -59,10 +59,6 @@ data class ContestInfo(
             ContestStatus.RUNNING -> ((System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed).toLong()
             ContestStatus.OVER -> contestLengthMs
         }.milliseconds
-
-    companion object {
-        val EMPTY = ContestInfo(ContestStatus.UNKNOWN, 0, 0, 0, emptyList(), emptyList())
-    }
 }
 
 @Serializable

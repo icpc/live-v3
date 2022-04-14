@@ -3,10 +3,7 @@ package org.icpclive.service
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.merge
-import org.icpclive.api.ICPCProblemResult
-import org.icpclive.api.RunInfo
-import org.icpclive.api.Scoreboard
-import org.icpclive.api.ScoreboardRow
+import org.icpclive.api.*
 import org.icpclive.cds.OptimismLevel
 import org.icpclive.config.loadMedalSettings
 import org.icpclive.data.DataBus
@@ -29,7 +26,8 @@ abstract class ICPCScoreboardService(
     private val medalsSettings = loadMedalSettings()
 
     suspend fun run() {
-        merge(runsFlow, DataBus.contestInfoUpdates).collect { run ->
+        val contestInfoUpdates = DataBus.contestInfoUpdates.await()
+        merge(runsFlow, contestInfoUpdates).collect { run ->
             if (run is RunInfo) {
                 val oldRun = runs[run.id]
                 runs[run.id] = run
@@ -37,7 +35,7 @@ abstract class ICPCScoreboardService(
                     return@collect
                 }
             }
-            flow.value = getScoreboard()
+            flow.value = getScoreboard(contestInfoUpdates.value)
         }
     }
 
@@ -84,11 +82,11 @@ abstract class ICPCScoreboardService(
 
     }
 
-    private fun getScoreboard(): Scoreboard {
+    private fun getScoreboard(info: ContestInfo): Scoreboard {
         val runs = runs.values
             .sortedWith(compareBy({ it.time }, { it.id }))
             .groupBy { it.teamId }
-        val teamsInfo = DataBus.contestInfoUpdates.value.teams.associateBy { it.id }
+        val teamsInfo = info.teams.associateBy { it.id }
         val comparator = compareBy<ScoreboardRow>(
             { -it.totalScore },
             { it.penalty },

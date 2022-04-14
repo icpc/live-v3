@@ -2,6 +2,7 @@ package org.icpclive.service
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestInfo
@@ -21,6 +22,7 @@ class EmulationService(
     private val emulationSpeed: Double,
     private val runs: List<RunInfo>,
     contestInfo_: ContestInfo,
+    private val contestInfoFlow: MutableStateFlow<ContestInfo>,
     private val runsFlow: MutableSharedFlow<RunInfo>
 ) {
     val contestInfo = contestInfo_.copy(
@@ -29,10 +31,10 @@ class EmulationService(
     )
     private val events = buildList {
         add(Event(0.seconds) {
-            DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.RUNNING)
+            contestInfoFlow.value = contestInfo.copy(status = ContestStatus.RUNNING)
         })
         add(Event(contestInfo.contestLengthMs.milliseconds) {
-            DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.OVER)
+            contestInfoFlow.value = contestInfo.copy(status = ContestStatus.OVER)
         })
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
@@ -56,7 +58,7 @@ class EmulationService(
     }.sortedBy { it.time }
 
     suspend fun run() {
-        DataBus.contestInfoUpdates.value = contestInfo.copy(status = ContestStatus.BEFORE)
+        contestInfoFlow.value = contestInfo.copy(status = ContestStatus.BEFORE)
         var lastLoggedTime = 0.seconds
         for (event in events) {
             val nextEventTime = (startTime + event.time / emulationSpeed)

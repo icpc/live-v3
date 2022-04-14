@@ -7,8 +7,6 @@ import io.ktor.server.routing.*
 import org.icpclive.api.*
 import org.icpclive.config.Config
 import org.icpclive.data.DataBus
-import java.io.File
-import java.nio.file.Path
 import java.nio.file.Paths
 
 suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> Unit) = try {
@@ -31,7 +29,7 @@ fun Application.configureAdminApiRouting() {
             route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
             route("/teamview") {
                 setupSimpleWidgetRouting(TeamViewSettings(), ::TeamViewWidget) {
-                    DataBus.contestInfoUpdates.value.teams
+                    DataBus.contestInfoUpdates.await().value.teams
                 }
             }
 

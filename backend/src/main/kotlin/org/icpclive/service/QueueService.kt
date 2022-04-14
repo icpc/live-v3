@@ -2,6 +2,7 @@ package org.icpclive.service
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.future.asCompletableFuture
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.getLogger
@@ -51,6 +52,7 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
         get() = if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
     suspend fun run() {
+        val contestInfoFlow = DataBus.contestInfoUpdates.await()
         val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
         val runsFlowTrigger = runsFlow.map { Run(it) }
         val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
@@ -58,13 +60,13 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
         merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger).collect { event ->
             when (event) {
                 is Clean -> {
-                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTime
+                    val currentTime = contestInfoFlow.value.currentContestTime
                     runs.values
                         .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }.forEach { removeRun(it) }
                 }
                 is Run -> {
                     val run = event.run
-                    val currentTime = DataBus.contestInfoUpdates.value.currentContestTime
+                    val currentTime = contestInfoFlow.value.currentContestTime
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
                     resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))

@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.MediaType
 import org.icpclive.api.RunInfo
@@ -18,6 +19,7 @@ import org.icpclive.data.DataBus
 import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
+import org.icpclive.utils.catchToNull
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
 import org.icpclive.utils.humanReadable
@@ -69,7 +71,7 @@ class PCMSEventsLoader {
                 }
                 xmlLoaderFlow.collect {
                     parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
-                    DataBus.contestInfoUpdates.value = contestData.toApi()
+                    contestInfoFlow.value = contestData.toApi()
                     if (contestData.status == ContestStatus.RUNNING) {
                         logger.info("Updated for contest time = ${contestData.contestTime}")
                     }
@@ -89,6 +91,7 @@ class PCMSEventsLoader {
                         emulationSpeed,
                         runs.toList(),
                         contestData.toApi(),
+                        contestInfoFlow,
                         rawRunsFlow
                     ).run()
                 }
@@ -113,7 +116,7 @@ class PCMSEventsLoader {
             contestData.startTime = Clock.System.now() - contestTime
         }
         Config.advancedProperties.getProperty("contest.startTime")?.let {
-            val unix = guessDatetimeFormat(it) ?: return@let
+            val unix = catchToNull { guessDatetimeFormat(it) } ?: return@let
             contestData.startTime = unix
         }
         contestData.status = status
@@ -190,6 +193,7 @@ class PCMSEventsLoader {
     }
 
     private var contestData: PCMSContestInfo
+    private var contestInfoFlow: MutableStateFlow<ContestInfo>
     private val properties: Properties = Config.loadProperties("events")
 
     init {
@@ -222,6 +226,7 @@ class PCMSEventsLoader {
         contestData = PCMSContestInfo(problemInfo, teams, Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
         contestData.contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
         contestData.freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
+        contestInfoFlow = MutableStateFlow(contestData.toApi()).also { DataBus.contestInfoUpdates.complete(it) }
         loadProblemsInfo(properties.getProperty("problems.url"))
     }
 

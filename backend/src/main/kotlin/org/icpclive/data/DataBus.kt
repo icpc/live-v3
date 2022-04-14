@@ -13,7 +13,7 @@ import org.icpclive.cds.OptimismLevel
  * Only runs are published now, with copy of list to make this data immutable
  */
 object DataBus {
-    val contestInfoUpdates = MutableStateFlow(ContestInfo.EMPTY)
+    val contestInfoUpdates = CompletableDeferred<StateFlow<ContestInfo>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()

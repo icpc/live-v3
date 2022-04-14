@@ -6,8 +6,10 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.wf.WFOrganizationInfo
@@ -460,7 +462,7 @@ class WFEventsLoader(regionals: Boolean) {
                                     }
                                 }
                                 runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
-                                DataBus.contestInfoUpdates.value = contestInfo.toApi()
+                                contestInfoFlow.value = contestInfo.toApi()
                             }
                         }
                     } catch (e: Throwable) {
@@ -475,29 +477,27 @@ class WFEventsLoader(regionals: Boolean) {
     }
 
     @Volatile
-    private lateinit var contestInfo: WFContestInfo
+    private var contestInfo: WFContestInfo
+    private val contestInfoFlow: MutableStateFlow<ContestInfo>
 
     init {
-        try {
-            val properties = loadProperties("events")
-            login = properties.getProperty("login")
-            password = properties.getProperty("password")
-            prepareNetwork(login, password)
+        val properties = loadProperties("events")
+        login = properties.getProperty("login")
+        password = properties.getProperty("password")
+        prepareNetwork(login, password)
 
-            // in format https://example.com/api/contests/wf14/
-            url = properties.getProperty("url")
-            emulationSpeed = properties.getProperty("emulation.speed", "1").toDouble()
-            emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime", "0"))
-            if (!(url!!.startsWith("http") || url!!.startsWith("https"))) {
-                emulation = true
-            } else {
-                emulationSpeed = 1.0
-            }
-            this.regionals = regionals
-            this.contestInfo = initialize()
-        } catch (e: IOException) {
-            log.error("error", e)
+        // in format https://example.com/api/contests/wf14/
+        url = properties.getProperty("url")
+        emulationSpeed = properties.getProperty("emulation.speed", "1").toDouble()
+        emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime", "0"))
+        if (!(url!!.startsWith("http") || url!!.startsWith("https"))) {
+            emulation = true
+        } else {
+            emulationSpeed = 1.0
         }
+        this.regionals = regionals
+        this.contestInfo = initialize()
+        contestInfoFlow = MutableStateFlow(contestInfo.toApi()).also { DataBus.contestInfoUpdates.complete(it) }
     }
 
     companion object {

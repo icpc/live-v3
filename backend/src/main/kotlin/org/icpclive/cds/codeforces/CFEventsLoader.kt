@@ -45,6 +45,7 @@ class CFEventsLoader {
     }
 
     suspend fun run() {
+        val contestInfoFlow = MutableStateFlow(contestInfo.toApi()).also { DataBus.contestInfoUpdates.complete(it) }
         val standingsLoader = object : RegularLoaderService<CFStandings>() {
             override val url
                 get() = central.standingsUrl
@@ -95,6 +96,7 @@ class CFEventsLoader {
                         emulationSpeed,
                         runs,
                         contestInfo.toApi(),
+                        contestInfoFlow,
                         rawRunsFlow
                     ).run()
                 }
@@ -126,7 +128,7 @@ class CFEventsLoader {
                     when (it) {
                         is CFStandings -> {
                             contestInfo.updateStandings(it)
-                            DataBus.contestInfoUpdates.value = contestInfo.toApi()
+                            contestInfoFlow.value = contestInfo.toApi()
                         }
                         is CFSubmissionList -> {
                             val submissions = contestInfo.parseSubmissions(it.list)
