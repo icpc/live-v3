@@ -8,6 +8,6 @@ object TickerManager : ManagerWithEvents<TickerMessage, TickerEvent>() {
     override fun createSnapshotEvent(items: List<TickerMessage>) = TickerSnapshotEvent(items)
 
     init {
-        DataBus.tickerFlow.set(flow)
+        DataBus.tickerFlow.complete(flow)
     }
 }

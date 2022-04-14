@@ -11,7 +11,7 @@ import org.icpclive.data.DataBus
 class StatisticsService(private val problemNumber: Int, private val scoreboardFlow: Flow<Scoreboard>) {
     val result = MutableStateFlow(SolutionsStatistic(List(problemNumber) {
         ProblemSolutionsStatistic(0, 0, 0)
-    })).also { DataBus.statisticFlow.set(it) }
+    })).also { DataBus.statisticFlow.complete(it) }
 
     suspend fun run() {
         scoreboardFlow.collect { scoreboard ->

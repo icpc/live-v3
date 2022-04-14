@@ -31,11 +31,11 @@ private suspend inline fun <reified T> DefaultWebSocketServerSession.sendFlow(fl
 fun Application.configureOverlayRouting() {
     routing {
         route("/overlay") {
-            webSocket("/mainScreen") { sendFlow(DataBus.mainScreenFlow.get()) }
+            webSocket("/mainScreen") { sendFlow(DataBus.mainScreenFlow.await()) }
             webSocket("/contestInfo") { sendFlow(DataBus.contestInfoUpdates) }
-            webSocket("/queue") { sendFlow(DataBus.queueFlow.get()) }
-            webSocket("/statistics") { sendFlow(DataBus.statisticFlow.get()) }
-            webSocket("/ticker") { sendFlow(DataBus.tickerFlow.get()) }
+            webSocket("/queue") { sendFlow(DataBus.queueFlow.await()) }
+            webSocket("/statistics") { sendFlow(DataBus.statisticFlow.await()) }
+            webSocket("/ticker") { sendFlow(DataBus.tickerFlow.await()) }
             route("/scoreboard") {
                 webSocket("/normal") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
                 webSocket("/optimistic") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.OPTIMISTIC)) }

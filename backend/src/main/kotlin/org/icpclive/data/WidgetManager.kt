@@ -8,6 +8,6 @@ object WidgetManager : ManagerWithEvents<Widget, MainScreenEvent>() {
     override fun createSnapshotEvent(items: List<Widget>) = MainScreenSnapshotEvent(items)
 
     init {
-        DataBus.mainScreenFlow.set(flow)
+        DataBus.mainScreenFlow.complete(flow)
     }
 }
