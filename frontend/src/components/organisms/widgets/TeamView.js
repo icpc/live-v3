@@ -150,14 +150,18 @@ const TaskRow = styled.div`
 `;
 
 const ScoreboardColumn = ({ teamId }) => {
-    const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
+    let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
+    for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
+        scoreboardData.problemResults[i]["index"] = i;
+    }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
+    console.log(scoreboardData);
     return <ScoreboardColumnWrapper>
         <ScoreboardTeamInfoRow>
             <TeamInfo teamId={teamId}/>
         </ScoreboardTeamInfoRow>
-        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs }, index) =>
-            getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null : <TaskRow key={index}>
+        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs, index }, i) =>
+            getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null : <TaskRow key={i}>
                 <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
                 <StatisticsProblemCell probData={tasks[index]}/>
                 <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)} attempts={wrongAttempts + pendingAttempts}/>
@@ -167,7 +171,7 @@ const ScoreboardColumn = ({ teamId }) => {
 };
 
 const TeamInfo = ({ teamId }) => {
-    console.log(useSelector((state) => state.contestInfo.info?.teamsId[teamId]));
+    // console.log(useSelector((state) => state.contestInfo.info?.teamsId[teamId]));
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     return <TeamInfoWrapper>
@@ -216,7 +220,7 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
 };
 
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
-    console.log(settings);
+    // console.log(settings);
     const [isLoaded, setIsLoaded] = useState(settings.mediaType === undefined);
     const medias = useSelector((state) => state.contestInfo.info?.teamsId[settings.teamId]);
 
