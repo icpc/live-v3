@@ -49,8 +49,7 @@ class CFEventsLoader {
         val standingsLoader = object : RegularLoaderService<CFStandings>() {
             override val url
                 get() = central.standingsUrl
-            override val login = ""
-            override val password = ""
+            override val auth = null
             override fun processLoaded(data: String) = try {
                 central.parseAndUnwrapStatus(data)
                     ?.let { Json.decodeFromJsonElement<CFStandings>(it) }
@@ -65,8 +64,7 @@ class CFEventsLoader {
         val statusLoader = object : RegularLoaderService<CFSubmissionList>() {
             override val url
                 get() = central.statusUrl
-            override val login = ""
-            override val password = ""
+            override val auth = null
             override fun processLoaded(data: String) = try {
                 central.parseAndUnwrapStatus(data)
                     ?.let { Json.decodeFromJsonElement<List<CFSubmission>>(it) }

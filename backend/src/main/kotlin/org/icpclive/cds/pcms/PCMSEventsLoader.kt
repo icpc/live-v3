@@ -19,10 +19,7 @@ import org.icpclive.data.DataBus
 import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.catchToNull
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.guessDatetimeFormat
-import org.icpclive.utils.humanReadable
+import org.icpclive.utils.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -58,8 +55,16 @@ class PCMSEventsLoader {
 
             val xmlLoader = object : RegularLoaderService<Document>() {
                 override val url = properties.getProperty("url")
-                override val login = properties.getProperty("login") ?: ""
-                override val password = properties.getProperty("password") ?: ""
+                override val auth: ClientAuth?
+                init {
+                    val login = properties.getProperty("login")
+                    val password = properties.getProperty("password")
+                    auth = if (login != null) {
+                        BasicAuth(login, password!!)
+                    } else {
+                        null
+                    }
+                }
                 override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
             }
 

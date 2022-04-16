@@ -19,6 +19,7 @@ import org.icpclive.config.Config.loadProperties
 import org.icpclive.data.DataBus
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
+import org.icpclive.utils.BasicAuth
 import org.icpclive.utils.ClicksTime
 import org.icpclive.utils.NetworkUtils.openAuthorizedStream
 import org.icpclive.utils.NetworkUtils.prepareNetwork
@@ -49,7 +50,7 @@ class WFEventsLoader(regionals: Boolean) {
     fun readJsonArray(url: String?): String {
         val br = BufferedReader(
             InputStreamReader(
-                openAuthorizedStream(url!!, login, password!!)
+                openAuthorizedStream(url!!, BasicAuth(login!!, password!!))
             )
         )
         var json = ""
@@ -418,7 +419,7 @@ class WFEventsLoader(regionals: Boolean) {
                     try {
                         BufferedReader(
                             InputStreamReader(
-                                openAuthorizedStream(url + "/event-feed", login, password!!),
+                                openAuthorizedStream(url + "/event-feed", BasicAuth(login!!, password!!)),
                                 "utf-8"
                             )
                         ).use { br ->

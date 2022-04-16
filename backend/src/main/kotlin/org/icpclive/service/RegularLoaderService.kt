@@ -2,6 +2,7 @@ package org.icpclive.service
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.icpclive.utils.ClientAuth
 import org.icpclive.utils.NetworkUtils
 import org.icpclive.utils.getLogger
 import java.io.BufferedReader
@@ -14,12 +15,11 @@ import kotlin.time.Duration
 abstract class RegularLoaderService<T> {
 
     abstract val url: String
-    abstract val login: String
-    abstract val password: String
+    abstract val auth: ClientAuth?
     abstract fun processLoaded(data: String): T
 
     fun loadOnce(): T {
-        val content = NetworkUtils.openAuthorizedStream(url, login, password).use {
+        val content = NetworkUtils.openAuthorizedStream(url, auth).use {
            BufferedReader(InputStreamReader(it, StandardCharsets.UTF_8))
                 .lines()
                 .collect(Collectors.joining())

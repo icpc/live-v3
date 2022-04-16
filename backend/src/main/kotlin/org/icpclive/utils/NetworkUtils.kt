@@ -10,6 +10,16 @@ import java.security.cert.X509Certificate
 import java.util.*
 import javax.net.ssl.*
 
+sealed class ClientAuth {
+    abstract val header: String
+}
+class BasicAuth(login: String, password: String) : ClientAuth() {
+    override val header = "Basic " + Base64.getEncoder().encodeToString("$login:$password".toByteArray())
+}
+class OAuthAuth(token: String) : ClientAuth() {
+    override val header = "OAuth $token"
+}
+
 object NetworkUtils {
     private val log = getLogger(NetworkUtils::class)
     fun prepareNetwork(login: String?, password: String?) {
@@ -51,17 +61,14 @@ object NetworkUtils {
 //        System.setProperty("javax.net.ssl.trustStore", "C:/work/icpc-live/resources/key.jks");
     }
 
-    fun openAuthorizedStream(url: String, login: String?, password: String): InputStream {
+    fun openAuthorizedStream(url: String, auth: ClientAuth?): InputStream {
         if (!url.contains("http")) {
             return FileInputStream(url)
         }
         CookieHandler.setDefault(CookieManager(null, CookiePolicy.ACCEPT_ALL))
         val con = URL(url).openConnection() as HttpURLConnection
-        if (login != null) {
-            con.setRequestProperty(
-                "Authorization",
-                "Basic " + Base64.getEncoder().encodeToString("$login:$password".toByteArray())
-            )
+        auth?.run {
+            con.setRequestProperty("Authorization", auth.header)
         }
         con.connect()
         for ((key, value) in con.headerFields) {
@@ -69,4 +76,5 @@ object NetworkUtils {
         }
         return con.inputStream
     }
+
 }
