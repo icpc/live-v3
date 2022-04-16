@@ -26,7 +26,7 @@ export const QueueRow = ({ entryData, isEven }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[entryData.teamId]);
     const probData = useSelector((state) => state.contestInfo.info?.problems[entryData.problemId]);
     return <QueueRowWrap>
-        <RankCell width={CELL_QUEUE_RANK_WIDTH} isEven={isEven} rank={scoreboardData?.rank}/>
+        <RankCell width={CELL_QUEUE_RANK_WIDTH} isEven={isEven} rank={scoreboardData?.rank} medal={scoreboardData.medalType}/>
         <TeamNameCell teamName={teamData?.shortName ?? "??"} isEven={isEven}/>
         <Cell width={CELL_QUEUE_TOTAL_SCORE_WIDTH} isEven={isEven}>
             {scoreboardData?.totalScore ?? "??"}
