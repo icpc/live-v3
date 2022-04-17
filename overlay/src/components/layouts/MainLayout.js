@@ -67,6 +67,7 @@ const WIDGETS = {
     ScoreboardWidget: Scoreboard,
     QueueWidget: Queue,
     PictureWidget: Pictures,
+    VideoWidget: Videos,
     TickerWidget: Ticker,
     StatisticsWidget: Statistics,
     TeamViewWidget: TeamView

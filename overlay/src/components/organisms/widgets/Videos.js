@@ -64,7 +64,7 @@ export const Videos = ({ widgetData, transitionState }) => {
 
 Videos.propTypes = {
     widgetData: PropTypes.shape({
-        picture: PropTypes.shape({
+        video: PropTypes.shape({
             url: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired
         })
