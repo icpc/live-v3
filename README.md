@@ -27,6 +27,15 @@ background: unset;
 
 Also, check emulation mode part of development doc for testing.
 
+# Authorisation
+
+For now http basic auth is used. If you try to login with 
+user, which does not exist, it will be automatically created.
+First created receives admin rights. Others only receive them when
+someone with admin rights confirms, it's okey.
+
+Consider, if you are okay with passing your passwords using plain HTTP. 
+
 # Run in development mode
 
 Requirements:
