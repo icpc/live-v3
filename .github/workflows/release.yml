@@ -27,14 +27,13 @@ jobs:
           name: artifacts
           path: artifacts
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      - name: Create release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          tag_name: ${GITHUB_REF#*/*/}
-          release_name: Release ${GITHUB_REF#*/*/}
-          draft: true
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
+          automatic_release_tag: "${{ github.event.inputs.tagname }}"
+          draft: true
+          files: |
+            artifact/*.jar
 
