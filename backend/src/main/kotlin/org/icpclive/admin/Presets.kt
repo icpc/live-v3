@@ -1,4 +1,4 @@
-package org.icpclive.adminapi
+package org.icpclive.admin
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -15,7 +15,6 @@ import org.icpclive.data.Manager
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 

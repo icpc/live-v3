@@ -15,7 +15,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
-import org.icpclive.adminapi.configureAdminApiRouting
+import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
 import org.icpclive.data.TickerManager
@@ -82,12 +82,16 @@ fun Application.module() {
         }
         singlePageApplication {
             useResources = true
-            applicationRoute = "frontend"
-            react("frontend")
+            applicationRoute = "overlay"
+            react("overlay")
         }
     }
-    configureAdminApiRouting()
-    configureOverlayRouting()
+    routing {
+        route("/api") {
+            route("/admin") { configureAdminApiRouting() }
+            route("/overlay") { configureOverlayRouting() }
+        }
+    }
     environment.log.info("Current working directory is ${File(".").canonicalPath}")
     launchEventsLoader()
     launch { EventLoggerService().run() }

@@ -36,7 +36,7 @@ kotlin {
     }
 }
 
-val jsList = listOf("frontend", "admin")
+val jsList = listOf("overlay", "admin")
 
 tasks {
     named("run") {

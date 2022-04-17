@@ -28,19 +28,15 @@ private suspend inline fun <reified T> DefaultWebSocketServerSession.sendFlow(fl
     }
 }
 
-fun Application.configureOverlayRouting() {
-    routing {
-        route("/overlay") {
-            webSocket("/mainScreen") { sendFlow(DataBus.mainScreenFlow.await()) }
-            webSocket("/contestInfo") { sendFlow(DataBus.contestInfoUpdates.await()) }
-            webSocket("/queue") { sendFlow(DataBus.queueFlow.await()) }
-            webSocket("/statistics") { sendFlow(DataBus.statisticFlow.await()) }
-            webSocket("/ticker") { sendFlow(DataBus.tickerFlow.await()) }
-            route("/scoreboard") {
-                webSocket("/normal") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
-                webSocket("/optimistic") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.OPTIMISTIC)) }
-                webSocket("/pessimistic") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.PESSIMISTIC)) }
-            }
-        }
+fun Route.configureOverlayRouting() {
+    webSocket("/mainScreen") { sendFlow(DataBus.mainScreenFlow.await()) }
+    webSocket("/contestInfo") { sendFlow(DataBus.contestInfoUpdates.await()) }
+    webSocket("/queue") { sendFlow(DataBus.queueFlow.await()) }
+    webSocket("/statistics") { sendFlow(DataBus.statisticFlow.await()) }
+    webSocket("/ticker") { sendFlow(DataBus.tickerFlow.await()) }
+    route("/scoreboard") {
+        webSocket("/normal") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
+        webSocket("/optimistic") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.OPTIMISTIC)) }
+        webSocket("/pessimistic") { sendFlow(DataBus.getScoreboardEvents(OptimismLevel.PESSIMISTIC)) }
     }
 }

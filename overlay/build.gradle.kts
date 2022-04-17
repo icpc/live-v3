@@ -12,6 +12,6 @@ node {
 
 tasks {
     named("npm_run_build") {
-        (this as NpmTask).environment.set(mapOf("PUBLIC_URL" to "/frontend"))
+        (this as NpmTask).environment.set(mapOf("PUBLIC_URL" to "/overlay"))
     }
 }

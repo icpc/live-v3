@@ -1,4 +1,4 @@
-package org.icpclive.adminapi
+package org.icpclive.admin
 
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

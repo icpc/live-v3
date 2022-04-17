@@ -1,4 +1,4 @@
-package org.icpclive.adminapi
+package org.icpclive.admin
 
 import io.ktor.server.application.*
 import io.ktor.server.request.*

@@ -17,8 +17,8 @@ Requirements:
 
 1. `live-v3\backend\gradlew.bat`
 2. `live-v3\backend\gradlew.bat run`
-3. `live-v3\frontend\ npm ci`
-4. `live-v3\frontend\ npm run start`
+3. `live-v3\overlay\ npm ci`
+4. `live-v3\overlay\ npm run start`
 5. set `PORT=8000`
 6. `live-v3\admin\ npm ci`
 7. `live-v3\admin\ npm run start`

@@ -9,7 +9,7 @@ function TeamView() {
     return (
         <div className="TeamTable">
             <TeamTable
-                apiPath="/teamview"
+                apiPath="/teamView"
                 createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </div>
     );

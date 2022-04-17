@@ -46,7 +46,7 @@ class TickerTable extends PresetsTable {
 
 TickerTable.defaultProps = {
     ...PresetsTable.defaultProps,
-    apiPath: "/tickermessage",
+    apiPath: "/tickerMessage",
     apiTableKeys: ["type", "text", "periodMs"],
     tableKeysHeaders: ["Type", "Text", "Period (ms)"],
     rowComponent: TickerTableRow,
