@@ -118,3 +118,6 @@ data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pendi
 
 @Serializable
 data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
+
+@Serializable
+data class AdminUser(val login: String, val confirmed: Boolean)

@@ -78,6 +78,7 @@ dependencies {
     implementation("com.google.code.gson:gson:$gson_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("io.ktor:ktor-server-auto-head-response:$ktor_version")
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
     implementation("io.ktor:ktor-server-call-logging:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-server-core:$ktor_version")
