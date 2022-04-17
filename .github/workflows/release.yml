@@ -41,5 +41,5 @@ jobs:
           automatic_release_tag: "${{ github.event.inputs.tagname }}"
           draft: true
           files: |
-            artifact/*.jar
+            artifacts/*.jar
 
