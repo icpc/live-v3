@@ -176,7 +176,7 @@ const TeamInfo = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     return <TeamInfoWrapper>
-        <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"}/>
+        <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medal}/>
         <TeamNameCell teamName={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData?.totalScore}
