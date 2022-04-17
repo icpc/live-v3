@@ -65,7 +65,7 @@ tasks {
     task<Copy>("release") {
         dependsOn("shadowJar")
         from(project.buildDir.resolve("libs").resolve("${rootProject.name}-${project.version}.jar"))
-        destinationDir = rootProject.rootDir
+        destinationDir = rootProject.rootDir.resolve("artifacts")
     }
 }
 
