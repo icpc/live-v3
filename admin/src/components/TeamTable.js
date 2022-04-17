@@ -87,9 +87,9 @@ export class TeamTable extends React.Component {
         this.updateData();
     }
 
-    getDefaultRowData() {
-        return this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
-    }
+    // getDefaultRowData() {
+    //     return this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
+    // }
 
     rowsFilter(elem) {
         if (this.state.searchFieldValue === "") {

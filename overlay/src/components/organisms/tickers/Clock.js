@@ -1,19 +1,19 @@
 import { DateTime, Settings } from "luxon";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
-import { TICKER_CLOCK_FONT_SIZE, TICKER_CLOCK_MARGIN_LEFT } from "../../../config";
+// import styled from "styled-components";
+// import { TICKER_CLOCK_FONT_SIZE, TICKER_CLOCK_MARGIN_LEFT } from "../../../config";
 import { TextWrap } from "./Text";
 
 Settings.defaultZone = "utc";
 
 
-const ClockWrap = styled.div`
-    width: 100%;
-    block-size: fit-content;
-    margin-left: ${TICKER_CLOCK_MARGIN_LEFT};
-    font-size: ${TICKER_CLOCK_FONT_SIZE};
-`;
+// const ClockWrap = styled.div`
+//     width: 100%;
+//     block-size: fit-content;
+//     margin-left: ${TICKER_CLOCK_MARGIN_LEFT};
+//     font-size: ${TICKER_CLOCK_FONT_SIZE};
+// `;
 
 export const Clock = () => {
     const contestInfo = useSelector((state) => state.contestInfo.info);

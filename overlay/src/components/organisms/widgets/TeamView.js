@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { SCOREBOARD_TYPES } from "../../../consts";
@@ -223,7 +223,7 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
     // console.log(settings);
     const [isLoaded, setIsLoaded] = useState(settings.mediaType === undefined);
-    const medias = useSelector((state) => state.contestInfo.info?.teamsId[settings.teamId]);
+    // const medias = useSelector((state) => state.contestInfo.info?.teamsId[settings.teamId]);
 
     return <TeamViewContainer
         show={isLoaded}

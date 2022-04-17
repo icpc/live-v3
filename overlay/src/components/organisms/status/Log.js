@@ -16,12 +16,13 @@ const DebugLogContainer = styled.div`
 `;
 
 export const DebugLog = () => {
-    const log = useSelector(state => state.debug.log);
+    const debug = useSelector(state => state.debug);
     const dispatch = useDispatch();
     return <DebugLogContainer>
         <button onClick={() => dispatch(clearLog())}>Clear log</button>
+        {!debug.enabled && "LOGGING IS DISABLED!"}
         <LogWrap>
-            {log.map((obj, index) => {
+            {debug.log.map((obj, index) => {
                 return <React.Fragment key={index}>{obj.timestamp} - {obj.text}<br/></React.Fragment>;
             })}
             &gt;

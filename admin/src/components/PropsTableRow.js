@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
-import DeleteIcon from "@mui/icons-material/Delete";
+// import IconButton from "@mui/material/IconButton";
+// import EditIcon from "@mui/icons-material/Edit";
+// import SaveIcon from "@mui/icons-material/Save";
+// import DeleteIcon from "@mui/icons-material/Delete";
 import { grey } from "@mui/material/colors";
-import ShowPresetButton from "./ShowPresetButton";
+// import ShowPresetButton from "./ShowPresetButton";
 
 const getSettings = (row) => {
     return row;
@@ -112,6 +112,8 @@ PropsTableRow.propTypes = {
     rowData: PropTypes.shape({
         key: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        shown: PropTypes.bool.isRequired
     }),
     createErrorHandler: PropTypes.func,
     isImmutable: PropTypes.bool,

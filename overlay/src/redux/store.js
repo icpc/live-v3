@@ -11,6 +11,7 @@ import { statusReducer } from "./status";
 import { widgetsReducer } from "./widgets";
 import { tickerReducer } from "./ticker";
 import { statisticsReducer } from "./contest/statistics";
+import { getPersistConfig } from "redux-deep-persist";
 
 const combinedReducer = combineReducers({
     widgets: widgetsReducer,
@@ -23,12 +24,12 @@ const combinedReducer = combineReducers({
     statistics: statisticsReducer
 });
 
-const persistConfig = {
+const persistConfig = getPersistConfig({
     key: "root",
     storage,
-    whitelist: ["debug"],
-    // blacklist: ["auth.isLoading"]
-};
+    whitelist: ["debug.log"],
+    rootReducer: combinedReducer
+});
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
 

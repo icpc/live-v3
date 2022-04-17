@@ -58,4 +58,5 @@ Team.propTypes = {
     }),
     createErrorHandler: PropTypes.func,
     isImmutable: PropTypes.bool,
+    onClick: PropTypes.func.isRequired
 };

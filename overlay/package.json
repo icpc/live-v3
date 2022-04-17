@@ -16,6 +16,7 @@
     "react-scripts": "4.0.3",
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.2",
+    "redux-deep-persist": "^1.0.6",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",

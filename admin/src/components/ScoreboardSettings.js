@@ -51,7 +51,7 @@ NumericField.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
-function ScoreboardSettings(props) {
+function ScoreboardSettings() {
     const { enqueueSnackbar, } = useSnackbar();
     const createErrorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
 
