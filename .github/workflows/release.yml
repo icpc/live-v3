@@ -15,6 +15,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@master
         with:
+          distribution: adopt
           java-version: 17
 
       - name: Build with Gradle
@@ -23,7 +24,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: "${{ github.ref }}"
+          name: ${{ github.ref }}
           path: artifacts
 
       - name: Create Release
