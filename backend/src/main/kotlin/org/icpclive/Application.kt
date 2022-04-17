@@ -24,9 +24,9 @@ import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
-import java.io.File
 import java.nio.file.Paths
 import java.time.Duration
+import kotlin.io.path.exists
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
@@ -64,13 +64,19 @@ fun Application.module() {
             throw ex
         }
     }
-    environment.config.propertyOrNull("live.configDirectory")?.getString()?.run {
-        val configPath = File(this).canonicalPath
+    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
+    run {
+        val configDir = environment.config.propertyOrNull("live.configDirectory")
+            ?.getString()
+            ?: throw IllegalStateException("Config directory should be set")
+        val configPath = Paths.get(configDir).toAbsolutePath()
+        if (!configPath.exists()) throw IllegalStateException("Config directory $configPath does not exist")
         environment.log.info("Using config directory $configPath")
-        Config.configDirectory = this
+        Config.configDirectory = Paths.get(configDir)
         Config.reloadAdvancedProperties()
     }
-    val mediaPath = Paths.get(Config.configDirectory, environment.config.property("live.mediaDirectory").getString())
+
+    val mediaPath = Config.configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())
     mediaPath.toFile().mkdirs()
     routing {
         static("/static") { resources("static") }
@@ -92,7 +98,6 @@ fun Application.module() {
             route("/overlay") { configureOverlayRouting() }
         }
     }
-    environment.log.info("Current working directory is ${File(".").canonicalPath}")
     launchEventsLoader()
     launch { EventLoggerService().run() }
     // to trigger init

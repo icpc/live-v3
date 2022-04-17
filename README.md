@@ -2,31 +2,89 @@
 
 Welcome to the ICPC Live Source Code Repository.
 
-Run as admin
+# Run release version
 
-* `git config --global core.symlinks true`
-* `git config --global core.autocrlf input`
+* Download release from https://github.com/icpc/live-v3/releases
+* Create contest config files
+  * [Example for CDS](https://github.com/icpc/live-v3/tree/main/backend/config/archive/2019)
+  * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/backend/config/archive/nerc-2021)
+  * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/backend/config/archive/vkoshp-junior-2022)
+  * TODO: Example for Yandex
+* Run `java -jar icpclive-3.0.0.jar -port=8080 -P:live.configDirectory=/path/to/config/directory`
+  * Port 8080 is default, if you are okay with it option can be omitted
+* Add source to OBS
+  * +Source
+  * Browser
+  * URL http://localhost:8080/overlay
+  * W H 1920x1920! (not 1920x1080)
+  * Custom css:
+```
+#root > div {
+background: unset;
+}
+```
+* Use http://localhost:8080/admin in your browser to control overlay
 
-git clone this repository.
+Also, check emulation mode part of development doc for testing.
+
+# Run in development mode
 
 Requirements:
 * gradle
-* node
 * jdk
 * browser
 
-1. `live-v3\backend\gradlew.bat`
-2. `live-v3\backend\gradlew.bat run`
-3. `live-v3\overlay\ npm ci`
-4. `live-v3\overlay\ npm run start`
-5. set `PORT=8000`
-6. `live-v3\admin\ npm ci`
-7. `live-v3\admin\ npm run start`
-8. `open http://localhost:8000`
+Before cloning on Windows configure correct crlf handling
 
-Contest configs are stored at `live-v3\backend\config\`.
-Setup configDirectory in `live-v3\backend\config\application.conf`.
+* `git config --global core.symlinks true`
 
+## Developing backend
+
+### To test your changes:
+
+1. Setup configDirectory in `live-v3\backend\config\application.conf`
+2. `live-v3\backend\gradlew buildJs`
+3. `live-v3\backend\gradlew run`
+4. open http://localhost:8000/admin to control overlay 
+5. open http://localhost:8000/overlay to view result
+
+Beware of separate release config in resources directory if adding new fields to config.
+
+### General backend architecture
+
+Backend is implemented in kotlin as [ktor](https://ktor.io/docs/) server.
+
+Admin api endpoints are `/api/admin`. They are using REST-like conventions for naming,
+and mostly implemented in `org.icpclive.admin` package. All data is stored in json-files in
+contest config directory for now. 
+
+Overlay api endpoints are `/api/overlay`. They are websockets with updates, read by
+overlay frontend part. Internally, they are implemented as [flows](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)
+from kotlinx.coroutines.
+
+Admin and overlay can be hosted over `/admin` and `/overlay` paths as SPA using ktor builtin 
+SPA hosting.
+
+Contest systems integrations are implemented in `org.icpclive.cds` package. Currently,
+CDS, PCMS, Codeforces and Yandex.Contest are supported. Currently, only ICPC mode
+is supported. 
+
+Basically, to add new contest data provider, you need to implement contest information updates
+(start time, list of problems, list of teams, etc.) and runs updates (events like new run, run status changes, partial and final testing).
+Everything else should work automatically in same manner for all CDS sources.
+
+## Emulation mode
+
+If `elmulation.startTime` property is defined, instead of regular updating, cds provider need to download all runs once, and
+they would be timely pushed further automatically. This is useful to check everything on already happened contest.
+
+```
+emulation.speed=10
+emulation.startTime=2022-04-03 22:50
+```
+
+Now, for supporting this in new contest data provider, you need to copypaste code
+parsing the option, and starting corresponding services. Hope, it will be fixed later.
 
 
 ## Running frontend separate from backend
@@ -41,19 +99,6 @@ On Windows:
 ```
 set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/overlay  
 npm run start
-```
-
-To add source to OBS:
-
-1. +Source
-1. Browser
-1. URL http://localhost:3000/
-1. W H 1920x1920! (not 1920x1080)
-1. Custom css: 
-```
-#root > div {
-background: unset;
-}
 ```
 
 # Previous versions:

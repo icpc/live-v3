@@ -19,7 +19,7 @@ suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> U
 
 fun Route.configureAdminApiRouting() {
     val presetsDirectory =
-        Paths.get(Config.configDirectory, application.environment.config.property("live.presetsDirectory").getString())
+        Config.configDirectory.resolve(application.environment.config.property("live.presetsDirectory").getString())
     presetsDirectory.toFile().mkdirs()
     fun path(name: String) = Paths.get(presetsDirectory.toString(), "$name.json")
     route("/scoreboard") { setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) }
