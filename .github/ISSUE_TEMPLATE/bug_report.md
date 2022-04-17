@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Use this template to report bugs 
-title: "[DATE]: [BUG DESCRIPTION]"
+title: "bug: [BUG DESCRIPTION]"
 labels: tracking issue, needs triage, bug
 assignees: irdkwmnsb
 ---
