@@ -64,7 +64,7 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, loc
 class StatisticsWidget(val settings: StatisticsSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "statistics"
-        val location = LocationRectangle(590, 520, 1300, 500)
+        val location = LocationRectangle(550, 510, 1350, 500)
     }
 }
 
