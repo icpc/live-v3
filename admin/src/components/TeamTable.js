@@ -103,7 +103,7 @@ export class TeamTable extends React.Component {
     }
 
     async showTeam(mediaType = undefined) {
-        await this.apiPost("/show", { teamId: this.state.selectedId, mediaType });
+        await this.apiPost("/show_with_settings", { teamId: this.state.selectedId, mediaType });
         await this.updateData();
         this.setState({ ...this.state, selectedId: undefined });
     }

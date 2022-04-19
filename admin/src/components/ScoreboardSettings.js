@@ -85,7 +85,7 @@ function ScoreboardSettings() {
     };
 
     const onClickShow = () => {
-        apiPost("/show", sSettings)
+        apiPost("/show_with_settings", sSettings)
             .then(() => setSShown(true))
             .catch(createErrorHandler("Failed to show scoreboard"));
     };

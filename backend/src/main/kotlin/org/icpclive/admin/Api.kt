@@ -26,7 +26,17 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
             call.respond(widgetWrapper.getStatus())
         }
     }
+    post {
+        call.adminApiAction {
+            widgetWrapper.set(call.safeReceive())
+        }
+    }
     post("/show") {
+        call.adminApiAction {
+            widgetWrapper.show()
+        }
+    }
+    post("/show_with_settings") {
         call.adminApiAction {
             widgetWrapper.show(call.safeReceive())
         }

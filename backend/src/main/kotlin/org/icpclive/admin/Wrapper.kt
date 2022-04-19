@@ -27,8 +27,6 @@ class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
 
     suspend fun set(newSettings: SettingsType) {
         mutex.withLock {
-            if (widgetId != null)
-                return
             settings = newSettings
         }
     }
@@ -44,8 +42,14 @@ class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
     }
 
     suspend fun show(newSettings: SettingsType) {
-        set(newSettings)
-        show()
+        mutex.withLock {
+            if (widgetId != null)
+                return
+            settings = newSettings
+            val widget = createWidget(settings)
+            manager.add(widget)
+            widgetId = widget.id
+        }
     }
 
     suspend fun hide() {
