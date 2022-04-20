@@ -42,17 +42,6 @@ fun Route.configureAdminApiRouting() {
         route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
         route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/tickerMessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }
-        route("/advancedProperties") {
-            post("reload") {
-                Config.reloadAdvancedProperties()
-                call.respond(mapOf("status" to "ok"))
-            }
-            get {
-                val result = Config.advancedProperties.keys().toList().filterIsInstance<String>()
-                    .map { mapOf("key" to it, "value" to (Config.advancedProperties.getProperty(it) ?: "")) }
-                call.respond(result)
-            }
-        }
         route("/users") {configureUser() }
     }
 }

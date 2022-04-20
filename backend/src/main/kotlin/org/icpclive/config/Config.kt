@@ -31,10 +31,4 @@ object Config {
         else
             null
 
-    var advancedProperties = Properties()
-
-    fun reloadAdvancedProperties() {
-       advancedProperties = loadPropertiesIfExists("advanced") ?: Properties()
-        getLogger(Config::class).debug(advancedProperties.toString())
-    }
 }

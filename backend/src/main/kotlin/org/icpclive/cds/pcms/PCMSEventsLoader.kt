@@ -15,7 +15,6 @@ import org.icpclive.api.MediaType
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.config.Config
-import org.icpclive.data.DataBus
 import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
@@ -48,10 +47,10 @@ class PCMSEventsLoader {
     suspend fun run() {
         coroutineScope {
             val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                extraBufferCapacity = 100000,
+                extraBufferCapacity = Int.MAX_VALUE,
                 onBufferOverflow = BufferOverflow.SUSPEND
             )
-            launchICPCServices(contestData.problemsNumber, rawRunsFlow)
+            launchICPCServices(rawRunsFlow, contestInfoFlow)
 
             val xmlLoader = object : RegularLoaderService<Document>() {
                 override val url = properties.getProperty("url")
@@ -95,7 +94,6 @@ class PCMSEventsLoader {
                         emulationStartTime,
                         emulationSpeed,
                         runs.toList(),
-                        contestData.toApi(),
                         contestInfoFlow,
                         rawRunsFlow
                     ).run()
@@ -119,10 +117,6 @@ class PCMSEventsLoader {
         val contestTime = element.attr("time").toLong().milliseconds
         if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
             contestData.startTime = Clock.System.now() - contestTime
-        }
-        Config.advancedProperties.getProperty("contest.startTime")?.let {
-            val unix = catchToNull { guessDatetimeFormat(it) } ?: return@let
-            contestData.startTime = unix
         }
         contestData.status = status
         contestData.contestTime = contestTime
@@ -231,7 +225,7 @@ class PCMSEventsLoader {
         contestData = PCMSContestInfo(problemInfo, teams, Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
         contestData.contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
         contestData.freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
-        contestInfoFlow = MutableStateFlow(contestData.toApi()).also { DataBus.contestInfoUpdates.complete(it) }
+        contestInfoFlow = MutableStateFlow(contestData.toApi())
         loadProblemsInfo(properties.getProperty("problems.url"))
     }
 

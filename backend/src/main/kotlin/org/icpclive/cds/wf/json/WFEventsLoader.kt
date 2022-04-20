@@ -16,7 +16,6 @@ import org.icpclive.cds.wf.WFOrganizationInfo
 import org.icpclive.cds.wf.WFRunInfo
 import org.icpclive.cds.wf.WFTestCaseInfo
 import org.icpclive.config.Config.loadProperties
-import org.icpclive.data.DataBus
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.BasicAuth
@@ -407,11 +406,11 @@ class WFEventsLoader(regionals: Boolean) {
                     onBufferOverflow = BufferOverflow.DROP_OLDEST
                 )
                 val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                    extraBufferCapacity = 100000,
+                    extraBufferCapacity = Int.MAX_VALUE,
                     onBufferOverflow = BufferOverflow.SUSPEND
                 )
                 launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
-                launchICPCServices(contestInfo.problemsNumber, rawRunsFlow)
+                launchICPCServices(rawRunsFlow, contestInfoFlow)
 
                 var lastEvent: String? = null
                 var initialized = false
@@ -498,7 +497,7 @@ class WFEventsLoader(regionals: Boolean) {
         }
         this.regionals = regionals
         this.contestInfo = initialize()
-        contestInfoFlow = MutableStateFlow(contestInfo.toApi()).also { DataBus.contestInfoUpdates.complete(it) }
+        contestInfoFlow = MutableStateFlow(contestInfo.toApi())
     }
 
     companion object {

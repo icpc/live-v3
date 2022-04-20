@@ -121,3 +121,9 @@ data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
 
 @Serializable
 data class AdminUser(val login: String, val confirmed: Boolean)
+
+@Serializable
+data class AdvancedProperties(
+    val startTime: String? = null,
+    val teamNamesOverrides: Map<String, String>? = null
+)

@@ -8,7 +8,6 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
-import org.icpclive.data.DataBus
 import org.icpclive.utils.getLogger
 import kotlin.random.Random
 import kotlin.time.Duration
@@ -21,11 +20,10 @@ class EmulationService(
     private val startTime: Instant,
     private val emulationSpeed: Double,
     private val runs: List<RunInfo>,
-    contestInfo_: ContestInfo,
     private val contestInfoFlow: MutableStateFlow<ContestInfo>,
     private val runsFlow: MutableSharedFlow<RunInfo>
 ) {
-    val contestInfo = contestInfo_.copy(
+    val contestInfo = contestInfoFlow.value.copy(
         startTimeUnixMs = startTime.toEpochMilliseconds(),
         emulationSpeed = emulationSpeed
     )

@@ -83,7 +83,6 @@ fun Application.module() {
         if (!configPath.exists()) throw IllegalStateException("Config directory $configPath does not exist")
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = Paths.get(configDir)
-        Config.reloadAdvancedProperties()
     }
 
     val mediaPath = Config.configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())
