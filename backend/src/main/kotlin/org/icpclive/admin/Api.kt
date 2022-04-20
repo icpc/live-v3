@@ -70,6 +70,11 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
             presets.append(call.safeReceive())
         }
     }
+    post("/reload") {
+        call.adminApiAction {
+            presets.reload()
+        }
+    }
     post("/{id}") {
         call.adminApiAction {
             presets.edit(call.id(), call.safeReceive())

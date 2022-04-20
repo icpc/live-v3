@@ -85,6 +85,15 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
         }
     }
 
+    suspend fun reload() {
+        mutex.withLock {
+            for (preset in innerData) {
+                preset.hide()
+            }
+            innerData = load()
+        }
+    }
+
     private fun load() = try {
         FileInputStream(path.toFile()).use {
             Json.decodeFromStream(serializer, it).mapIndexed { index, content ->
