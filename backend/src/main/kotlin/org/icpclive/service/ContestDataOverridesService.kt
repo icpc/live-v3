@@ -8,6 +8,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.AdvancedProperties
 import org.icpclive.api.ContestInfo
+import org.icpclive.api.TeamInfo
 import org.icpclive.config.Config
 import org.icpclive.data.DataBus
 import org.icpclive.utils.catchToNull
@@ -38,21 +39,25 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
         merge(contestInfoInputFlow, advancedPropsFlow).collect {
             val overrides = advancedPropsFlow.value
             val info = contestInfoInputFlow.value
-            val teamInfos = if (overrides.teamNamesOverrides == null) {
+            val teamInfos = if (overrides.teamOverrides == null) {
                 info.teams
             } else {
                 val done = mutableSetOf<String>()
                 info.teams.map {
-                    if (it.alias in overrides.teamNamesOverrides) {
-                        done.add(it.alias!!)
-                        it.copy(shortName = overrides.teamNamesOverrides[it.alias])
-                    } else {
-                        it
-                    }
+                    val override = overrides.teamOverrides[it.alias] ?: return@map it
+                    TeamInfo(
+                        it.id,
+                        override.name ?: it.name,
+                        override.shortname ?: it.shortName,
+                        it.alias,
+                        override.groups ?: it.groups,
+                        override.hashTag ?: it.hashTag,
+                        if (override.medias != null) (it.medias + override.medias).filterValues { it != null }.mapValues { it.value!! } else it.medias
+                    )
                 }.also {
-                    for (alias in overrides.teamNamesOverrides.keys) {
+                    for (alias in overrides.teamOverrides.keys) {
                         if (alias !in done) {
-                            logger.warn("No team ${alias} found for override")
+                            logger.warn("No team $alias found for override")
                         }
                     }
                 }

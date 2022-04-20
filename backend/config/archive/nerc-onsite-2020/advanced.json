@@ -1,5 +1,14 @@
 {
-  "teamNamesOverrides": {
-    "486861" : "ITMO test override"
+  "startTime": null,
+  "teamOverrides": {
+    "486861": {
+      "shortname": "ITMO test override",
+      "hashTag": "#ItMo",
+      "groups": [],
+      "medias": {
+        "camera": "localhost:12345/specialitmovideo",
+        "screen": null
+      }
+    }
   }
 }

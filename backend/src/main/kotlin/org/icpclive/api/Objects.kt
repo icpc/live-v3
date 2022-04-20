@@ -123,7 +123,16 @@ data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
 data class AdminUser(val login: String, val confirmed: Boolean)
 
 @Serializable
+data class TeamInfoOverride(
+    val name: String? = null,
+    val shortname: String? = null,
+    val groups: List<String>? = null,
+    val hashTag: String? = null,
+    val medias: Map<MediaType, String?>? = null,
+)
+
+@Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
-    val teamNamesOverrides: Map<String, String>? = null
+    val teamOverrides: Map<String, TeamInfoOverride?>? = null
 )
