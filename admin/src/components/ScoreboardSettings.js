@@ -10,7 +10,8 @@ import {
     TableRow, TextField,
     ToggleButton,
     ToggleButtonGroup,
-    Button
+    Button,
+    Container
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -91,7 +92,7 @@ function ScoreboardSettings() {
     };
 
     return (
-        <div className="ScoreboardSettings">
+        <Container maxWidth="md" sx={{ pt: 2 }} className="ScoreboardSettings">
             <Table align={"center"}>
                 <TableBody>
                     <TableRow>
@@ -148,7 +149,7 @@ function ScoreboardSettings() {
                     </TableRow>
                 </TableBody>
             </Table>
-        </div>
+        </Container>
     );
 }
 

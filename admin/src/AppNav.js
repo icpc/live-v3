@@ -16,7 +16,8 @@ const pages = {
     "TeamView": "teamview",
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
-    "Advanced Properties": "AdvancedProperties",
+    "Dashboard": "dashboard",
+    // "Advanced Properties": "AdvancedProperties",
 };
 
 

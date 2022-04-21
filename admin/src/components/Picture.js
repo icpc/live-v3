@@ -1,4 +1,6 @@
 import React from "react";
+import Container from "@mui/material/Container";
+
 import "../App.css";
 import { PictureTableRow } from "./PictureTableRow";
 import { PresetsTable } from "./PresetsTable";
@@ -22,9 +24,9 @@ PictureTable.defaultProps = {
 function Picture() {
     const { enqueueSnackbar,  } = useSnackbar();
     return (
-        <div className="Pictures">
+        <Container maxWidth="md" sx={{ pt: 2 }} className="Pictures">
             <PictureTable createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
-        </div>
+        </Container>
     );
 }
 

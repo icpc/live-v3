@@ -11,7 +11,7 @@ import TeamView from "./components/TeamView";
 import { SnackbarProvider } from "notistack";
 import ScoreboardSettings from "./components/ScoreboardSettings";
 import AdvancedProperties from "./components/AdvancedProperties";
-
+import Dashboard from "./components/Dashboard";
 
 function App() {
     return (
@@ -19,18 +19,17 @@ function App() {
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
                     <AppNav/>
-                    <Container maxWidth="md" sx={{ pt: 2 }}>
-                        <Routes>
-                            <Route path="/" element={<Controls/>}/>
-                            <Route path="/controls" element={<Controls/>}/>
-                            <Route path="/advertisement" element={<Advertisement/>}/>
-                            <Route path="/picture" element={<Picture/>}/>
-                            <Route path="/teamview" element={<TeamView/>}/>
-                            <Route path="/scoreboard" element={<ScoreboardSettings/>}/>
-                            <Route path="/ticker" element={<TickerMessage/>}/>
-                            <Route path="/advancedproperties" element={<AdvancedProperties/>}/>
-                        </Routes>
-                    </Container>
+                    <Routes>
+                        <Route path="/" element={<Controls/>}/>
+                        <Route path="/controls" element={<Controls/>}/>
+                        <Route path="/advertisement" element={<Advertisement/>}/>
+                        <Route path="/picture" element={<Picture/>}/>
+                        <Route path="/teamview" element={<TeamView/>}/>
+                        <Route path="/scoreboard" element={<ScoreboardSettings/>}/>
+                        <Route path="/ticker" element={<TickerMessage/>}/>
+                        <Route path="/dashboard" element={<Dashboard/>}/>
+                        {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}
+                    </Routes>
                 </div>
             </SnackbarProvider>
         </BrowserRouter>

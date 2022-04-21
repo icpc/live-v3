@@ -164,7 +164,7 @@ export class TeamTable extends React.Component {
                 </Box>
                 <Box sx={{
                     display: "grid",
-                    width: { "md": "140%", "sm": "100%", "xs": "100%" },
+                    width: { "md": "75%", "sm": "100%", "xs": "100%" },
                     gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(2, 6fr)", "xs": "repeat(1, 6fr)" },
                     gap: 0.25 }}>
                     {this.state.dataElements !== undefined &&

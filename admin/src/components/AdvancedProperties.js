@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Container from "@mui/material/Container";
+
 import "../App.css";
 import { PresetsTable } from "./PresetsTable";
 import { PropsTableRow } from "./PropsTableRow";
@@ -45,7 +47,7 @@ function AdvancedSettings() {
     const [loaded, setLoaded] = useState(true);
 
     return (
-        (loaded && <div className="AdvancedProperties">
+        (loaded && <Container maxWidth="md" sx={{ pt: 2 }} className="AdvancedProperties">
             <PropsTable createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
             <Button
                 onClick={async () => {
@@ -55,7 +57,7 @@ function AdvancedSettings() {
                 }}>
                 Reload
             </Button>
-        </div>)
+        </Container>)
     );
 }
 

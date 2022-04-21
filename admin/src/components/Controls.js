@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "@mui/material/Container";
 
 import "../App.css";
 import { PresetsTable } from "./PresetsTable";
@@ -37,9 +38,9 @@ ControlsTable.defaultProps = {
 function Controls() {
     const { enqueueSnackbar, } = useSnackbar();
     return (
-        <div className="Controls">
+        <Container maxWidth="md" sx={{ pt: 2 }} className="Controls">
             <ControlsTable createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
-        </div>
+        </Container>
     );
 }
 

@@ -1,4 +1,6 @@
 import React from "react";
+import Container from "@mui/material/Container";
+
 import "../App.css";
 import { PresetsTable } from "./PresetsTable";
 import PropTypes from "prop-types";
@@ -59,12 +61,12 @@ TickerTable.propTypes = {
 function TickerMessage() {
     const { enqueueSnackbar, } = useSnackbar();
     return (
-        <div className="TickerPanel">
+        <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
             <Typography variant="h5" gutterBottom>Short</Typography>
             <TickerTable partType={"short"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
             <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>Long</Typography>
             <TickerTable partType={"long"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
-        </div>
+        </Container>
     );
 }
 
