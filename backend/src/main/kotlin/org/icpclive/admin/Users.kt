@@ -21,9 +21,10 @@ private val usersMutex = Mutex()
 data class User(val name: String, val pass: String, val confirmed: Boolean) : Principal
 
 private val users = mutableMapOf<String, User>()
-private fun String.digest() = MessageDigest.getInstance("SHA-256").apply {
+private fun String.digest() = MessageDigest.getInstance("SHA-256").run {
     update("icpclive".toByteArray())
-    digest(toByteArray())
+    update(this@digest.toByteArray())
+    digest()
 }
 
 private val prettyPrinter = Json { prettyPrint = true }
@@ -41,17 +42,17 @@ private fun loadUsers() {
     }
 }
 
-suspend fun validateAdminApiCreds(name:String, password: String) : User? {
+suspend fun validateAdminApiCredits(name: String, password: String): User? {
     val digest = password.digest()
     val user = usersMutex.withLock {
         users[name] ?: run {
-            val newUser = User(name, digest.digest().encodeBase64(), users.isEmpty())
-            users.put(name, newUser)
+            val newUser = User(name, digest.encodeBase64(), users.isEmpty())
+            users[name] = newUser
             saveUsers()
             newUser
         }
     }
-    return user.takeIf { MessageDigest.isEqual(digest.digest(), user.pass.decodeBase64Bytes()) }
+    return user.takeIf { MessageDigest.isEqual(digest, user.pass.decodeBase64Bytes()) }
 }
 
 fun Route.configureUser() {
