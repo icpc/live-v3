@@ -155,13 +155,13 @@ class WFEventsLoader(regionals: Boolean) {
                     it.asJsonObject["href"].asString!!
                 }.toTypedArray()
             }
-            teamInfo.alias = je["id"].asString
-            contest.teamById[teamInfo.alias] = teamInfo
+            teamInfo.contestSystemId = je["id"].asString
+            contest.teamById[teamInfo.contestSystemId] = teamInfo
             contest.teamInfos[i] = teamInfo
         }
         Arrays.sort(contest.teamInfos) { a: org.icpclive.cds.wf.WFTeamInfo?, b: org.icpclive.cds.wf.WFTeamInfo? ->
             compareAsNumbers(
-                (a as WFTeamInfo?)!!.alias, (b as WFTeamInfo?)!!.alias
+                (a as WFTeamInfo?)!!.contestSystemId, (b as WFTeamInfo?)!!.contestSystemId
             )
         }
         for (i in contest.teamInfos.indices) {
@@ -211,13 +211,13 @@ class WFEventsLoader(regionals: Boolean) {
                 val hrefs = je["webcam"].asJsonArray
                 teamInfo.cameras = hrefs.map { it.asJsonObject["href"].asString!! }.toTypedArray()
             }
-            teamInfo.alias = je["id"].asString
-            contest.teamById[teamInfo.alias] = teamInfo
+            teamInfo.contestSystemId = je["id"].asString
+            contest.teamById[teamInfo.contestSystemId] = teamInfo
             contest.teamInfos[i] = teamInfo
         }
         Arrays.sort(contest.teamInfos) { a: org.icpclive.cds.wf.WFTeamInfo?, b: org.icpclive.cds.wf.WFTeamInfo? ->
             compareAsNumbers(
-                (a as WFTeamInfo?)!!.alias, (b as WFTeamInfo?)!!.alias
+                (a as WFTeamInfo?)!!.contestSystemId, (b as WFTeamInfo?)!!.contestSystemId
             )
         }
         for (i in contest.teamInfos.indices) {

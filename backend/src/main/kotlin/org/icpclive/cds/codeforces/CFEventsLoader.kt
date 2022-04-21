@@ -112,10 +112,6 @@ class CFEventsLoader {
                     onBufferOverflow = BufferOverflow.SUSPEND
                 )
                 launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
-                val standingsRunning = standingsFlow
-                    .filterNotNull()
-                    .dropWhile { it.contest.phase == CFContestPhase.BEFORE }
-                    .first()
                 launchICPCServices(rawRunsFlow, contestInfoFlow)
                 launch(Dispatchers.IO) { statusLoader.run(statusFlow, 5.seconds) }
 

@@ -6,7 +6,7 @@ import org.icpclive.cds.wf.WFTeamInfo
  * Created by Meepo on  4/1/2018.
  */
 class WFTeamInfo(problems: Int) : WFTeamInfo(problems) {
-    override var alias: String = ""
+    override var contestSystemId: String = ""
 
     // videos url
     var photo: String? = null
@@ -25,7 +25,7 @@ class WFTeamInfo(problems: Int) : WFTeamInfo(problems) {
         return when (type) {
             "screen" -> screens[0]
             "camera" -> cameras[0]
-            "video" -> alias
+            "video" -> contestSystemId
             else -> ""
         }
     }
@@ -34,12 +34,12 @@ class WFTeamInfo(problems: Int) : WFTeamInfo(problems) {
         return when (type) {
             "screen" -> screens[id % screens.size]
             "camera" -> cameras[id % cameras.size]
-            "video" -> alias
+            "video" -> contestSystemId
             else -> ""
         }
     }
 
     override fun toString(): String {
-        return alias + ". " + shortName
+        return contestSystemId + ". " + shortName
     }
 }

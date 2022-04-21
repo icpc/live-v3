@@ -14,8 +14,8 @@ class CFTeamInfo(private val row: CFRankListRow) : TeamInfo {
         get() = row.party.teamName ?: row.party.members[0].let { it.name ?: it.handle }
     override val shortName: String
         get() = name
-    override val alias: String
-        get() = name
+    override val contestSystemId: String
+        get() = row.party.teamName ?: row.party.members[0].handle
     override val groups = emptySet<String>()
     override val hashTag: String? = null
     override val medias = emptyMap<MediaType, String>()

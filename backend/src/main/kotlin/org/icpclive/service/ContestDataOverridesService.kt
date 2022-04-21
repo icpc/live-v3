@@ -23,7 +23,7 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
     }
     suspend fun run() {
         val advancedPropsFlow = CoroutineScope(Dispatchers.IO).let { scope ->
-            fileChangesFlow(Config.configDirectory.resolve("advanced.json")).mapNotNull { path ->
+            val flow = fileChangesFlow(Config.configDirectory.resolve("advanced.json")).mapNotNull { path ->
                 logger.info("Reloading $path")
                 try {
                     path.inputStream().use {
@@ -33,7 +33,9 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
                     logger.error("Failed to reload $path", e)
                     null
                 }
-            }.stateIn(scope)
+            }
+            flow.onStart { emit(AdvancedProperties(null, null)) }
+                .stateIn(scope)
         }
 
         merge(contestInfoInputFlow, advancedPropsFlow).collect {
@@ -44,12 +46,12 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
             } else {
                 val done = mutableSetOf<String>()
                 info.teams.map {
-                    val override = overrides.teamOverrides[it.alias] ?: return@map it
+                    val override = overrides.teamOverrides[it.contestSystemId] ?: return@map it
                     TeamInfo(
                         it.id,
                         override.name ?: it.name,
                         override.shortname ?: it.shortName,
-                        it.alias,
+                        it.contestSystemId,
                         override.groups ?: it.groups,
                         override.hashTag ?: it.hashTag,
                         if (override.medias != null) (it.medias + override.medias).filterValues { it != null }.mapValues { it.value!! } else it.medias

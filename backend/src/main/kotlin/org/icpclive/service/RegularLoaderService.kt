@@ -31,10 +31,10 @@ abstract class RegularLoaderService<T> {
         while (true) {
             try {
                 flow.value = loadOnce()
-                delay(period)
             } catch (e: IOException) {
-                logger.error("Failed to load xml", e)
+                logger.error("Failed to load $url", e)
             }
+            delay(period)
         }
     }
 

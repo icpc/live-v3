@@ -21,7 +21,7 @@ class PCMSContestInfo(
         get() = teams.size
 
     override fun getParticipant(name: String): PCMSTeamInfo? {
-        return teams.firstOrNull { it.alias == name }
+        return teams.firstOrNull { it.contestSystemId == name }
     }
 
     override fun getParticipant(id: Int): PCMSTeamInfo? {

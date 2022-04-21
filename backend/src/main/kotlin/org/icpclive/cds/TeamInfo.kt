@@ -7,7 +7,7 @@ interface TeamInfo {
     val id: Int
     val name: String
     val shortName: String
-    val alias: String
+    val contestSystemId: String
     val groups: Set<String>
     val hashTag: String?
     val cdsScoreboardRow: ScoreboardRow?
@@ -18,7 +18,7 @@ interface TeamInfo {
         id,
         name,
         shortName,
-        alias,
+        contestSystemId,
         groups.toList(),
         hashTag,
         medias

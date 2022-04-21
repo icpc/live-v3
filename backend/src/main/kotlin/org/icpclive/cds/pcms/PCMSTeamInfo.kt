@@ -6,7 +6,7 @@ import org.icpclive.cds.TeamInfo
 
 class PCMSTeamInfo(
     override val id: Int,
-    override val alias: String,
+    override val contestSystemId: String,
     private val hallId: String,
     override val name: String,
     override val shortName: String,

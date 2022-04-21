@@ -31,7 +31,7 @@ open class WFTeamInfo(problems: Int) : TeamInfo {
         shortName = teamInfo.shortName
     }
 
-    override val alias: String
+    override val contestSystemId: String
         get() = (id + 1).toString() + ""
     val runs: List<List<RunInfo>>
         get() = problem_runs
