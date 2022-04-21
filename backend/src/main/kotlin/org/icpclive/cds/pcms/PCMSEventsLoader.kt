@@ -17,6 +17,7 @@ import org.icpclive.cds.ProblemInfo
 import org.icpclive.config.Config
 import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
+import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.*
 import org.jsoup.Jsoup
@@ -46,12 +47,6 @@ class PCMSEventsLoader {
 
     suspend fun run() {
         coroutineScope {
-            val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                extraBufferCapacity = Int.MAX_VALUE,
-                onBufferOverflow = BufferOverflow.SUSPEND
-            )
-            launchICPCServices(rawRunsFlow, contestInfoFlow)
-
             val xmlLoader = object : RegularLoaderService<Document>() {
                 override val url = properties.getProperty("url")
                 override val auth: ClientAuth?
@@ -73,6 +68,11 @@ class PCMSEventsLoader {
                 launch(Dispatchers.IO) {
                     xmlLoader.run(xmlLoaderFlow, 5.seconds)
                 }
+                val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                    extraBufferCapacity = Int.MAX_VALUE,
+                    onBufferOverflow = BufferOverflow.SUSPEND
+                )
+                launchICPCServices(rawRunsFlow, contestInfoFlow)
                 xmlLoaderFlow.collect {
                     parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
                     contestInfoFlow.value = contestData.toApi()
@@ -89,17 +89,8 @@ class PCMSEventsLoader {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
                 logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
-                launch {
-                    EmulationService(
-                        emulationStartTime,
-                        emulationSpeed,
-                        runs.toList(),
-                        contestInfoFlow,
-                        rawRunsFlow
-                    ).run()
-                }
+                launchEmulation(emulationStartTime, emulationSpeed, runs.toList(), contestData.toApi())
             }
-
         }
     }
 

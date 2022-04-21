@@ -13,6 +13,7 @@ import org.icpclive.config.Config
 import org.icpclive.data.DataBus
 import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
+import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.OAuthAuth
 import org.icpclive.utils.getLogger
@@ -58,17 +59,7 @@ class YandexEventLoader  {
             coroutineScope {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                log.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
-                launch {
-                    EmulationService(
-                        emulationStartTime,
-                        emulationSpeed,
-                        TODO(),
-                        contestInfoFlow,
-                        rawRunsFlow
-                    ).run()
-                }
-                launchICPCServices(rawRunsFlow, contestInfoFlow)
+                launchEmulation(emulationStartTime, emulationSpeed, TODO(), contestInfo)
             }
         } else {
             coroutineScope {

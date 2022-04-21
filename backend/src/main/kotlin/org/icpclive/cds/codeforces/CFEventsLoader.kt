@@ -14,10 +14,7 @@ import org.icpclive.cds.codeforces.api.data.CFContestPhase
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.config.Config.loadProperties
-import org.icpclive.service.EmulationService
-import org.icpclive.service.RegularLoaderService
-import org.icpclive.service.RunsBufferService
-import org.icpclive.service.launchICPCServices
+import org.icpclive.service.*
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
 import org.icpclive.utils.humanReadable
@@ -82,21 +79,7 @@ class CFEventsLoader {
             coroutineScope {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                log.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
-                val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                    extraBufferCapacity = Int.MAX_VALUE,
-                    onBufferOverflow = BufferOverflow.SUSPEND
-                )
-                launch {
-                    EmulationService(
-                        emulationStartTime,
-                        emulationSpeed,
-                        runs,
-                        contestInfoFlow,
-                        rawRunsFlow
-                    ).run()
-                }
-                launchICPCServices(rawRunsFlow, contestInfoFlow)
+                launchEmulation(emulationStartTime, emulationSpeed, runs, contestInfo.toApi())
             }
         } else {
             coroutineScope {
