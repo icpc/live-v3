@@ -1,5 +1,7 @@
 // Strings
-export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? "ws://" + window.location.hostname + ":8080/api/overlay";
+const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
+const WS_PORT = process.env.ENV === "dev" ? "8080" : window.location.port;
+export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname  + ":" + WS_PORT + "/api/overlay";
 
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
