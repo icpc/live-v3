@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { DateTime } from "luxon";
 import { LOG_LINES } from "../config";
+import { DEBUG } from "../consts";
 
 const ActionTypes = {
     PUSH_LOG: "PUSH_LOG",
@@ -9,7 +10,7 @@ const ActionTypes = {
 
 const initialState = {
     log: [],
-    enabled: process.env.NODE_ENV === "development"
+    enabled: DEBUG
 };
 
 export const pushLog = (text) => {

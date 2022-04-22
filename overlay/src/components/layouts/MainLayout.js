@@ -4,6 +4,7 @@ import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.jpeg";
 import { WIDGET_TRANSITION_TIME } from "../../config";
+import { DEBUG } from "../../consts";
 import Advertisement from "../organisms/widgets/Advertisement";
 import Pictures from "../organisms/widgets/Pictures";
 import Queue from "../organisms/widgets/Queue";
@@ -52,7 +53,7 @@ const WidgetWrap = styled.div.attrs(
 const MainLayoutWrap = styled.div`
   width: 1920px;
   height: 1080px;
-  background: url(${bg});
+  background: ${DEBUG ? `url(${bg})` : undefined};
 `;
 
 const transitionProps = {

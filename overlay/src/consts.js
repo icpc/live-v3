@@ -1,3 +1,5 @@
+export const DEBUG = process.env.NODE_ENV === "development";
+
 export const WEBSOCKETS = {
     mainScreen: "mainScreen",
     contestInfo: "contestInfo",

@@ -49,10 +49,12 @@ function App() {
         });
     }, []);
 
+    const noStatus = window.location.search.includes("noStatus");
+
     return (
         <>
             <MainLayout/>
-            <StatusLayout/>
+            {noStatus ? null : <StatusLayout/>}
         </>
     );
 }
