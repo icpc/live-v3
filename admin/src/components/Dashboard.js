@@ -7,7 +7,6 @@ import Controls from "./Controls";
 import Advertisement from "./Advertisement";
 import Picture from "./Picture";
 import ScoreboardSettings from "./ScoreboardSettings";
-import AdvancedProperties from "./AdvancedProperties";
 
 
 import Paper from "@mui/material/Paper";

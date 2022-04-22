@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import AppNav from "./AppNav";
-import Container from "@mui/material/Container";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TickerMessage from "./components/TickerMessage";
 import Controls from "./components/Controls";
@@ -10,7 +9,6 @@ import Picture from "./components/Picture";
 import TeamView from "./components/TeamView";
 import { SnackbarProvider } from "notistack";
 import ScoreboardSettings from "./components/ScoreboardSettings";
-import AdvancedProperties from "./components/AdvancedProperties";
 import Dashboard from "./components/Dashboard";
 
 function App() {
