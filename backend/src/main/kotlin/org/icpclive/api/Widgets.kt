@@ -42,6 +42,22 @@ class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_
 }
 
 @Serializable
+@SerialName("SvgWidget")
+class SvgWidget(val content: String, private val position: Position) :
+    Widget(generateId(WIDGET_ID_PREFIX), getLocation(position)) {
+    companion object {
+        const val WIDGET_ID_PREFIX = "svg"
+        val getLocation = { position: Position ->
+            when (position) {
+                Position.CENTER -> LocationRectangle(760, 510, 400, 500)
+                Position.LEFT -> LocationRectangle(0, 510, 400, 500)
+                Position.RIGHT -> LocationRectangle(1520, 510, 400, 500)
+            }
+        }
+    }
+}
+
+@Serializable
 @SerialName("QueueWidget")
 class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
     companion object {

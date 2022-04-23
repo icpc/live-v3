@@ -7,6 +7,7 @@ import { WIDGET_TRANSITION_TIME } from "../../config";
 import { DEBUG } from "../../consts";
 import Advertisement from "../organisms/widgets/Advertisement";
 import Pictures from "../organisms/widgets/Pictures";
+import Svg from "../organisms/widgets/Svg";
 import Queue from "../organisms/widgets/Queue";
 import Scoreboard from "../organisms/widgets/Scoreboard";
 import Ticker from "../organisms/widgets/Ticker";
@@ -68,6 +69,7 @@ const WIDGETS = {
     ScoreboardWidget: Scoreboard,
     QueueWidget: Queue,
     PictureWidget: Pictures,
+    SvgWidget: Svg,
     VideoWidget: Videos,
     TickerWidget: Ticker,
     StatisticsWidget: Statistics,

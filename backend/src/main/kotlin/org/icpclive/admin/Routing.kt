@@ -22,11 +22,13 @@ suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> U
 }
 
 
-
 fun Route.configureAdminApiRouting() {
     val presetsDirectory =
         Config.configDirectory.resolve(application.environment.config.property("live.presetsDirectory").getString())
+    val mediaDirectory =
+        Config.configDirectory.resolve(application.environment.config.property("live.mediaDirectory").getString())
     presetsDirectory.toFile().mkdirs()
+    mediaDirectory.toFile().mkdirs()
     fun path(name: String) = Paths.get(presetsDirectory.toString(), "$name.json")
     authenticate("admin-api-auth") {
         route("/scoreboard") { setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) }
@@ -40,8 +42,18 @@ fun Route.configureAdminApiRouting() {
         }
 
         route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
+        route("/title") {
+            setupPresetWidgetRouting(path("title")) { titleSettings: TitleSettings ->
+                SvgWidget(
+                    SvgTransformer(mediaDirectory, titleSettings.preset).format(
+                        titleSettings.name,
+                        titleSettings.surname
+                    ).toBase64(), titleSettings.position
+                )
+            }
+        }
         route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/tickerMessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }
-        route("/users") {configureUser() }
+        route("/users") { configureUser() }
     }
 }

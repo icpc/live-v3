@@ -9,7 +9,23 @@ import org.icpclive.cds.OptimismLevel
 interface ObjectSettings
 
 @Serializable
+enum class Position {
+    @SerialName("center")
+    CENTER,
+
+    @SerialName("left")
+    LEFT,
+
+    @SerialName("right")
+    RIGHT;
+}
+
+@Serializable
 data class AdvertisementSettings(val text: String) : ObjectSettings
+
+@Serializable
+data class TitleSettings(val name: String, val surname: String, val preset: String, val position: Position) :
+    ObjectSettings
 
 @Serializable
 data class PictureSettings(val url: String, val name: String) : ObjectSettings
