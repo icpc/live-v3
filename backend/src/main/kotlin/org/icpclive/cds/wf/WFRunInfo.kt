@@ -55,7 +55,7 @@ class WFRunInfo : RunInfo {
         get() =// TODO: this should be received from cds
             isJudged && !isAccepted && "CE" != result
     override val percentage: Double
-        get() = 1.0 * passedTestsNumber / totalTestsNumber
+        get() = if (totalTestsNumber == 0) 0.0 else 1.0 * passedTestsNumber / totalTestsNumber
 
     override fun toString(): String {
         var teamName = "" + teamId

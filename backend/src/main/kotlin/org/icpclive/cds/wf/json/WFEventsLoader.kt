@@ -53,9 +53,9 @@ class WFEventsLoader(regionals: Boolean) {
             )
         )
         var json = ""
-        var line: String
+        var line: String?
         while (br.readLine().also { line = it } != null) {
-            json += line.trim { it <= ' ' }
+            json += line?.trim { it <= ' ' }
         }
         return json
     }
@@ -83,7 +83,7 @@ class WFEventsLoader(regionals: Boolean) {
         contest.problemById = HashMap()
         contest.problemById = HashMap()
         val problems = jsonProblems.sortedBy {
-            it.asJsonObject["ordianal"].asInt
+            it.asJsonObject.run { this["ordianal"] ?: this["ordinal"] }.asInt
         }.mapIndexed { index, je_ ->
             val je = je_.asJsonObject
             val cdsId = je["id"].asString
@@ -290,7 +290,8 @@ class WFEventsLoader(regionals: Boolean) {
             contestInfo.startTime = Clock.System.now()
         }
         contestInfo.contestLength = parseRelativeTime(je["duration"].asString)
-        contestInfo.freezeTime = contestInfo.contestLength - parseRelativeTime(je["scoreboard_freeze_duration"].asString)
+        contestInfo.freezeTime =
+            contestInfo.contestLength - parseRelativeTime(je["scoreboard_freeze_duration"].asString)
     }
 
     fun readState(contestInfo: WFContestInfo, je: JsonObject) {
@@ -336,10 +337,14 @@ class WFEventsLoader(regionals: Boolean) {
         val cdsId = je["id"].asString
         val languageInfo = contestInfo.languageById[je["language_id"].asString]
         run.languageId = languageInfo!!.id
-        val problemInfo = contestInfo.problemById[je["problem_id"].asString]
-        run.problemId = problemInfo!!.id
-        val teamInfo = contestInfo.teamById[je["team_id"].asString] as WFTeamInfo?
-        run.teamId = teamInfo!!.id
+        val problemId = je["problem_id"].asString
+        val problemInfo = contestInfo.problemById[problemId]
+            ?: contestInfo.problemById[problemId.replace("rmc21.", "")]
+            ?: contestInfo.problemById[problemId.replace("rmc21.", "") + "2"]
+            ?: throw IllegalStateException("Couldn't find task $problemId in contestInfo.problems");
+        run.problemId = problemInfo.id
+        val teamInfo = contestInfo.teamById[je["team_id"].asString] as WFTeamInfo
+        run.teamId = teamInfo.id
         run.team = teamInfo
         run.time = parseRelativeTime(je["contest_time"].asString).inWholeMilliseconds
         run.lastUpdateTime = run.time
@@ -364,7 +369,8 @@ class WFEventsLoader(regionals: Boolean) {
             waitForEmulation(parseRelativeTime(je["start_contest_time"].asString))
             return
         }
-        val time = if (je["end_contest_time"].isJsonNull) 0.seconds else parseRelativeTime(je["end_contest_time"].asString)
+        val time =
+            if (je["end_contest_time"].isJsonNull) 0.seconds else parseRelativeTime(je["end_contest_time"].asString)
         waitForEmulation(time)
         if (runInfo.time.milliseconds <= contestInfo.freezeTime) {
             runInfo.result = verdict
@@ -412,68 +418,79 @@ class WFEventsLoader(regionals: Boolean) {
                 launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
                 launchICPCServices(rawRunsFlow, contestInfoFlow)
 
-                var lastEvent: String? = null
-                var initialized = false
+                var lastLoadedEvent: String? = null
+                var isInitialized = false
                 while (true) {
-                    try {
-                        BufferedReader(
-                            InputStreamReader(
-                                openAuthorizedStream(url + "/event-feed", BasicAuth(login!!, password!!)),
-                                "utf-8"
-                            )
-                        ).use { br ->
-                            val abortedEvent = lastEvent
-                            lastEvent = null
-                            val contestInfo = initialize()
-                            if (abortedEvent == null) {
-                                this@WFEventsLoader.contestInfo = contestInfo
-                            }
-                            System.err.println("Aborted event $abortedEvent")
-                            while (true) {
-                                val line = br.readLine() ?: break
-
-//                    System.err.println(line);
-                                val je = Gson().fromJson(line, JsonObject::class.java)
-                                if (je == null) {
-                                    log.info("Non-json line")
-                                    System.err.println("Non-json line: " + Arrays.toString(line.toCharArray()))
-                                    continue
-                                }
-                                val id = je["id"].asString.substring(3)
-                                if (id == abortedEvent) {
-                                    this@WFEventsLoader.contestInfo = contestInfo
-                                }
-                                lastEvent = id
-                                val update = je["op"].asString != "create"
-                                val type = je["type"].asString
-                                val json = je["data"].asJsonObject
-                                synchronized(GLOBAL_LOCK) {
-                                    when (type) {
-                                        "contests" -> readContest(contestInfo, json)
-                                        "state" -> readState(contestInfo, json)
-                                        "submissions" -> readSubmission(contestInfo, json, update)
-                                        "judgements" -> readJudgement(contestInfo, json)
-                                        "runs" -> readRun(contestInfo, json, update)
-                                        "problems" -> if (!update && !initialized) {
-                                            initialized = true
-                                            throw Exception("Problems weren't loaded, exception to restart feed")
-                                        }
-                                        else -> {}
-                                    }
-                                }
-                                runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
-                                contestInfoFlow.value = contestInfo.toApi()
-                            }
-                        }
-                    } catch (e: Throwable) {
-                        log.error("error", e)
-                        delay(2.seconds)
-                        log.info("Restart event feed")
-                        System.err.println("Restarting feed")
-                    }
+                    val (lastEvent, wasInitialized) = loadEvents(lastLoadedEvent, isInitialized, runsBufferFlow)
+                    lastLoadedEvent = lastEvent
+                    isInitialized = wasInitialized
                 }
+                println("ABOBA!")
             }
         }
+    }
+
+    private suspend fun loadEvents(
+        lastEvent: String?,
+        initialized: Boolean,
+        runsBufferFlow: MutableSharedFlow<List<RunInfo>>
+    ): Pair<String?, Boolean> {
+        var lastLoadedEvent = lastEvent
+        var isInitialized = initialized
+        try {
+            BufferedReader(
+                InputStreamReader(openAuthorizedStream(url + "/event-feed", BasicAuth(login!!, password!!)), "utf-8")
+            ).use { br ->
+                val abortedEvent = lastLoadedEvent
+                lastLoadedEvent = null
+                val contestInfo = initialize()
+                if (abortedEvent == null) {
+                    this@WFEventsLoader.contestInfo = contestInfo
+                }
+                System.err.println("Aborted event $abortedEvent")
+
+                while (true) {
+                    val line = br.readLine() ?: break
+
+                    val je = Gson().fromJson(line, JsonObject::class.java)
+                    if (je == null) {
+                        log.info("Non-json line")
+                        System.err.println("Non-json line: " + line.toCharArray().contentToString())
+                        continue
+                    }
+                    val id = je["id"].asString.substring(3)
+                    if (id == abortedEvent) {
+                        this@WFEventsLoader.contestInfo = contestInfo
+                    }
+                    lastLoadedEvent = id
+                    val update = je["op"].asString != "create"
+                    val type = je["type"].asString
+                    val json = je["data"].asJsonObject
+                    synchronized(GLOBAL_LOCK) {
+                        when (type) {
+                            "contests" -> readContest(contestInfo, json)
+                            "state" -> readState(contestInfo, json)
+                            "submissions" -> readSubmission(contestInfo, json, update)
+                            "judgements" -> readJudgement(contestInfo, json)
+                            "runs" -> readRun(contestInfo, json, update)
+                            "problems" -> if (!update && !isInitialized) {
+                                isInitialized = true
+                                throw Exception("Problems weren't loaded, exception to restart feed")
+                            }
+                            else -> {}
+                        }
+                    }
+                    runsBufferFlow.emit(contestInfo.runs.map { it.toApi() })
+                    contestInfoFlow.value = contestInfo.toApi()
+                }
+            }
+        } catch (e: Throwable) {
+            log.error("error", e)
+            delay(2.seconds)
+            log.info("Restart event feed")
+            System.err.println("Restarting feed")
+        }
+        return lastEvent to isInitialized
     }
 
     @Volatile

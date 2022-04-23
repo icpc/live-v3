@@ -1,5 +1,6 @@
 package org.icpclive.cds.wf
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.ContestInfo
@@ -75,5 +76,5 @@ open class WFContestInfo : ContestInfo {
     }
 
 
-    override val contestTime = TODO()
+    override val contestTime = minOf(Clock.System.now() - startTime, contestLength) // todo: here was TODO()
 }
