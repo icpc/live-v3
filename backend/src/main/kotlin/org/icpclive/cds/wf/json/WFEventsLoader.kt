@@ -425,7 +425,6 @@ class WFEventsLoader(regionals: Boolean) {
                     lastLoadedEvent = lastEvent
                     isInitialized = wasInitialized
                 }
-                println("ABOBA!")
             }
         }
     }
@@ -446,15 +445,14 @@ class WFEventsLoader(regionals: Boolean) {
                 val contestInfo = initialize()
                 if (abortedEvent == null) {
                     this@WFEventsLoader.contestInfo = contestInfo
+                } else {
+                    System.err.println("Aborted event $abortedEvent")
                 }
-                System.err.println("Aborted event $abortedEvent")
-
                 while (true) {
                     val line = br.readLine() ?: break
 
                     val je = Gson().fromJson(line, JsonObject::class.java)
                     if (je == null) {
-                        log.info("Non-json line")
                         System.err.println("Non-json line: " + line.toCharArray().contentToString())
                         continue
                     }
@@ -475,7 +473,7 @@ class WFEventsLoader(regionals: Boolean) {
                             "runs" -> readRun(contestInfo, json, update)
                             "problems" -> if (!update && !isInitialized) {
                                 isInitialized = true
-                                throw Exception("Problems weren't loaded, exception to restart feed")
+                                return lastEvent to isInitialized // Problems weren't loaded, exception to restart feed
                             }
                             else -> {}
                         }
