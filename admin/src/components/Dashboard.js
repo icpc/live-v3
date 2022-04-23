@@ -1,15 +1,14 @@
 import React from "react";
 
 import "../App.css";
-import Container from "@mui/material/Container";
+import { Paper, Container, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import TickerMessage from "./TickerMessage";
 import Controls from "./Controls";
 import Advertisement from "./Advertisement";
 import Picture from "./Picture";
 import ScoreboardSettings from "./ScoreboardSettings";
 
-
-import Paper from "@mui/material/Paper";
 const elements = {
     "Controls": <Controls/>,
     "Advertisement": <Advertisement/>,
@@ -26,10 +25,22 @@ function Dashboard() {
             pt: 6,
             display: "grid",
             width: "100%",
-            gridTemplateColumns: { "md": "repeat(2, 6fr)", "sm": "repeat(1, 6fr)" },
+            gridTemplateColumns: { "md": "repeat(2, 4fr)", "sm": "repeat(1, 4fr)" },
             gap: 0.25 }}>
             {Object.entries(elements).map(([name, element]) => (
-                <Paper elevation={3} key={name} sx={{ margin: 2, padding: 2 }}>
+                <Paper
+                    elevation={1}
+                    key={name}
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        margin: 1,
+                        padding: 1 }}
+                >
+                    <Typography color={grey[400]} variant="h6">
+                        {name}
+                    </Typography>
                     {element}
                 </Paper>
             ))}
