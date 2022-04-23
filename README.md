@@ -110,6 +110,22 @@ set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/overlay
 npm run start
 ```
 
+Admin panel takes base url from environment variable `REACT_APP_BACKEND_URL`
+
+On linux:
+```
+REACT_APP_BACKEND_URL=ws://<IP>:8080/api/admin npm run start
+```
+
+On Windows:
+```
+set REACT_APP_BACKEND_URL=http://<IP>:8080/api/admin  
+npm run start
+```
+
+Also you can run frontend separate from backend on one host and don't write full path.
+Just set environment variable `REACT_APP_WEBSOCKET_PORT` for overlay and `REACT_APP_BACKEND_PORT` for admin. By default, backend use port **8080**. 
+
 # Previous versions:
 * https://github.com/icpc-live
 * https://github.com/Aksenov239/icpc-live-v2
