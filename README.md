@@ -101,12 +101,12 @@ Frontend takes base url from environment variable `REACT_APP_WEBSOCKET_URL`
 
 On linux:
 ```
-REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/overlay npm run start
+REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/overlay npm run start
 ```
 
 On Windows:
 ```
-set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/overlay  
+set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/overlay  
 npm run start
 ```
 
