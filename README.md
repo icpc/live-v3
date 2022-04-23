@@ -15,9 +15,9 @@ Welcome to the ICPC Live Source Code Repository.
 * Add source to OBS
   * +Source
   * Browser
-  * URL http://localhost:8080/overlay
-  * W H 1920x1920! (not 1920x1080)
-  * Custom css:
+  * URL http://localhost:8080/overlay?noStatus
+  * W H 1920x1080
+  * OBS Custom css:
 ```
 #root > div {
 background: unset;
