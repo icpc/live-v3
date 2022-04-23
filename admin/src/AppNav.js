@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 const pages = {
     "Controls": "controls",
     "Advertisement": "advertisement",
+    "Title": "title",
     "Picture": "picture",
     "TeamView": "teamview",
     "Scoreboard": "scoreboard",
