@@ -97,7 +97,7 @@ class YandexEventLoader  {
             override val url = "$API_BASE/contests/$contestId/participants"
             override val auth = OAuthAuth(apiKey)
             override fun processLoaded(data: String) =
-                    formatter.decodeFromString<List<Participant>>(data).filter { it.login.startsWith(loginPrefix) }
+                    formatter.decodeFromString<List<Participant>>(data).filter { it.login.matches(Regex(loginPrefix)) }
         }
 
         allSubmissionsLoader = object : RegularLoaderService<List<Submission>>() {
