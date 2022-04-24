@@ -1,7 +1,6 @@
 package org.icpclive.cds.yandex.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.api.RunInfo
 
 @Serializable
 data class Submissions(
@@ -17,23 +16,13 @@ data class Submission(
     val problemId: String,
     val problemAlias: String,
     val verdict: String,
-    val
-) {
-    fun toRun(): RunInfo {
-        val result = getResult(verdict)
+    val test: Long,
+    val time: Long,
+    val memory: Long
+)
 
-        return RunInfo(
-            id = id.toInt(),
-            isAccepted = result == "OK",
-            isJudged = result != "",
-            isAddingPenalty = listOf("OK", "Compi").contains(verdict),
-            result = result,
-            problemId = problemAlias,
-            teamId = teamId,
-            percentage = percentage,
-            time = time.inWholeMilliseconds,
-            isFirstSolvedRun = false
-        )
-    }
-
-}
+// Use only with ignoreMissingKeys = true
+@Serializable
+data class SimplifiedFullRunReport(
+    val timeFromStart: Long
+)
