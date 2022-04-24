@@ -151,7 +151,7 @@ class YandexEventLoader  {
                 launchICPCServices(rawRunsFlow, contestInfoFlow)
                 launch(Dispatchers.IO) { reloadContestInfo(rawContestInfoFlow, contestInfoFlow, 30.seconds) }
                 launch(Dispatchers.IO) { fetchNewRunsOnly(rawContestInfoFlow, runsBufferFlow, pendingRunIdFlow, 1.seconds) }
-                launch(Dispatchers.IO) { reloadAllRuns(rawContestInfoFlow, runsBufferFlow, 60.seconds) }
+                launch(Dispatchers.IO) { reloadAllRuns(rawContestInfoFlow, runsBufferFlow, 120.seconds) }
                 launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
             }
         }
@@ -190,7 +190,6 @@ class YandexEventLoader  {
     ) {
         while (true) {
             try {
-                log.info("Fetch all runs")
                 val rawContestInfo = rawContestInfoFlow.value
                 val submissions = allSubmissionsLoader.loadOnce().filter(rawContestInfo::isTeamSubmission).map {
                     rawContestInfo.submissionToRun(it, timeExtractingService.getTime(it.id))
@@ -211,7 +210,6 @@ class YandexEventLoader  {
     ) {
         while (true) {
             try {
-                log.info("Fetch new runs")
                 val rawContestInfo = rawContestInfoFlow.value
                 var page = 1
                 val runs = mutableListOf<RunInfo>()
