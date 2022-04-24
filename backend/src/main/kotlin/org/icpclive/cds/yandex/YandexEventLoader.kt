@@ -74,6 +74,7 @@ class YandexEventLoader  {
 
             engine {
                 threadsCount = 2
+                connectTimeout = 40000
             }
         }
 
