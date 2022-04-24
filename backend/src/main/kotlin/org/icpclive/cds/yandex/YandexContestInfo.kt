@@ -1,36 +1,49 @@
 package org.icpclive.cds.yandex
 
 import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
-import kotlinx.datetime.plus
 import org.icpclive.api.ContestStatus
+import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.cds.TeamInfo
 import org.icpclive.cds.yandex.api.ContestDescription
 import org.icpclive.cds.yandex.api.Participant
 import org.icpclive.cds.yandex.api.Problem
+import org.icpclive.cds.yandex.api.Submission
+import org.icpclive.cds.yandex.api.getResult
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 class YandexContestInfo(
     startTime: Instant,
-    durationMs: Long,
+    duration: Duration,
+    freezeTime: Duration,
     override val problems: List<ProblemInfo>,
-    override val teams: List<TeamInfo>
+    override val teams: List<TeamInfo>,
+    private val testCountByProblem: List<Int?>
 ): ContestInfo(
     startTime,
-    deduceStatus(startTime, durationMs)
+    deduceStatus(startTime, duration)
 ) {
+    private val teamIds: Set<Int> = teams.map(TeamInfo::id).toSet()
+
+    init {
+        contestLength = duration
+        this.freezeTime = freezeTime
+    }
+
     constructor(
-        contestDescription: ContestDescription,
-        problems: List<Problem>,
-        participants: List<Participant>
+            contestDescription: ContestDescription,
+            problems: List<Problem>,
+            participants: List<Participant>
     ) : this(
-        Instant.parse(contestDescription.startTime),
-        contestDescription.duration * 1000,
-        problems.map(Problem::toProblemInfo),
-        participants.map(Participant::toTeamInfo)
+            Instant.parse(contestDescription.startTime),
+            contestDescription.duration.seconds,
+            (contestDescription.freezeTime ?: contestDescription.duration).seconds,
+            problems.map(Problem::toProblemInfo),
+            participants.map(Participant::toTeamInfo),
+            problems.map(Problem::testCount)
     )
 
     override val problemsNumber: Int
@@ -53,17 +66,61 @@ class YandexContestInfo(
         return null
     }
 
-    fun
+    fun submissionToRun(submission: Submission, time: Long): RunInfo {
+        val problemId = problems.indexOfFirst { it.letter == submission.problemAlias }
+        if (problemId == -1) {
+            throw IllegalStateException("Problem not found: ${submission.problemAlias}")
+        }
+        val testCount = testCountByProblem[problemId]
+
+        if (time >= freezeTime.inWholeMilliseconds) {
+            return RunInfo(
+                id = submission.id.toInt(),
+                isAccepted = false,
+                isJudged = false,
+                isAddingPenalty = false,
+                result = "",
+                problemId = problemId,
+                teamId = submission.authorId.toInt(),
+                percentage = 0.0,
+                time = time,
+                isFirstSolvedRun = false
+            )
+        }
+
+        val result = getResult(submission.verdict)
+        return RunInfo(
+            id = submission.id.toInt(),
+            isAccepted = result == "OK",
+            isJudged = result != "",
+            isAddingPenalty = result !in listOf("OK", "CE", ""),
+            result = result,
+            problemId = problemId,
+            teamId = submission.authorId.toInt(),
+            percentage = when {
+                result != "" -> 100.0
+                testCount == null || testCount == 0 -> 0.0
+                submission.test == -1L -> 0.0
+                submission.test >= testCount -> 100.0
+                else -> submission.test.toDouble() / testCount
+            },
+            time = time,
+            isFirstSolvedRun = false
+        )
+    }
+
+    fun isTeamSubmission(submission: Submission): Boolean {
+        return submission.authorId.toInt() in teamIds
+    }
 }
 
 // There is no way to fetch YC server time, so here we go
-fun deduceStatus(startTime: Instant, durationMs: Long): ContestStatus {
+fun deduceStatus(startTime: Instant, duration: Duration): ContestStatus {
     val now = Clock.System.now()
-    val endTime = startTime.plus(durationMs, DateTimeUnit.MILLISECOND)
 
     return when {
         now < startTime -> ContestStatus.BEFORE
-        now < endTime -> ContestStatus.RUNNING
+        now < startTime + duration -> ContestStatus.RUNNING
         else -> ContestStatus.OVER
     }
 }
