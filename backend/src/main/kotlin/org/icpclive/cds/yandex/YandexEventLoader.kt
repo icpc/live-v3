@@ -136,7 +136,7 @@ class YandexEventLoader  {
             }
         } else {
             val rawContestInfoFlow = MutableStateFlow(rawContestInfo)
-            val contestInfoFlow = MutableStateFlow(contestInfo).also { DataBus.contestInfoUpdates.complete(it) }
+            val contestInfoFlow = MutableStateFlow(contestInfo)
 
             val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
                     extraBufferCapacity = 16,

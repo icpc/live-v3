@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.future.asCompletableFuture
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
+import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration
@@ -29,7 +30,7 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
     private val subscriberFlow = MutableStateFlow(0)
 
     init {
-        DataBus.queueFlow.complete(flow {
+        DataBus.queueFlow.completeOrThrow(flow {
             var nothingSent = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }

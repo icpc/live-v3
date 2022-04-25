@@ -7,11 +7,12 @@ import org.icpclive.api.ProblemSolutionsStatistic
 import org.icpclive.api.Scoreboard
 import org.icpclive.api.SolutionsStatistic
 import org.icpclive.data.DataBus
+import org.icpclive.utils.completeOrThrow
 
 class StatisticsService(private val problemNumber: Int, private val scoreboardFlow: Flow<Scoreboard>) {
     val result = MutableStateFlow(SolutionsStatistic(List(problemNumber) {
         ProblemSolutionsStatistic(0, 0, 0)
-    })).also { DataBus.statisticFlow.complete(it) }
+    })).also { DataBus.statisticFlow.completeOrThrow(it) }
 
     suspend fun run() {
         scoreboardFlow.collect { scoreboard ->

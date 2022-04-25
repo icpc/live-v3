@@ -1,5 +1,6 @@
 package org.icpclive.utils
 
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.Instant
@@ -52,3 +53,7 @@ fun defaultJsonSettings() = Json {
 fun getLogger(clazz: KClass<*>) = LoggerFactory.getLogger(clazz.java)!!
 
 fun Color.toHex() = "#%02x%02x%02x%02x".format(red, green, blue, alpha)
+
+fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
+    complete(value) || throw IllegalStateException("Double complete of CompletableDeferred")
+}

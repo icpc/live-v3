@@ -5,6 +5,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.OptimismLevel
+import org.icpclive.utils.completeOrThrow
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads
@@ -21,7 +22,7 @@ object DataBus {
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
-        scoreboardFlow[level.ordinal].complete(flow)
+        scoreboardFlow[level.ordinal].completeOrThrow(flow)
     }
 
     suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].await()

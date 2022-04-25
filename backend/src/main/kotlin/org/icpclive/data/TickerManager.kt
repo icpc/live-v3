@@ -1,6 +1,7 @@
 package org.icpclive.data
 
 import org.icpclive.api.*
+import org.icpclive.utils.completeOrThrow
 
 object TickerManager : ManagerWithEvents<TickerMessage, TickerEvent>() {
     override fun createAddEvent(item: TickerMessage) = AddMessageTickerEvent(item)
@@ -8,6 +9,6 @@ object TickerManager : ManagerWithEvents<TickerMessage, TickerEvent>() {
     override fun createSnapshotEvent(items: List<TickerMessage>) = TickerSnapshotEvent(items)
 
     init {
-        DataBus.tickerFlow.complete(flow)
+        DataBus.tickerFlow.completeOrThrow(flow)
     }
 }

@@ -11,15 +11,12 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.TeamInfo
 import org.icpclive.config.Config
 import org.icpclive.data.DataBus
-import org.icpclive.utils.catchToNull
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.guessDatetimeFormat
-import org.icpclive.utils.humanReadable
+import org.icpclive.utils.*
 import kotlin.io.path.inputStream
 
 class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInfo>) {
     private val outputFlow = MutableStateFlow(contestInfoInputFlow.value).also {
-        DataBus.contestInfoUpdates.complete(it)
+        DataBus.contestInfoUpdates.completeOrThrow(it)
     }
     suspend fun run() {
         val advancedPropsFlow = CoroutineScope(Dispatchers.IO).let { scope ->

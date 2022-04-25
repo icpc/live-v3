@@ -1,6 +1,7 @@
 package org.icpclive.data
 
 import org.icpclive.api.*
+import org.icpclive.utils.completeOrThrow
 
 object WidgetManager : ManagerWithEvents<Widget, MainScreenEvent>() {
     override fun createAddEvent(item: Widget) = ShowWidgetEvent(item)
@@ -8,6 +9,6 @@ object WidgetManager : ManagerWithEvents<Widget, MainScreenEvent>() {
     override fun createSnapshotEvent(items: List<Widget>) = MainScreenSnapshotEvent(items)
 
     init {
-        DataBus.mainScreenFlow.complete(flow)
+        DataBus.mainScreenFlow.completeOrThrow(flow)
     }
 }
