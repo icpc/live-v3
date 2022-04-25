@@ -33,6 +33,7 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
             }
             flow.onStart { emit(AdvancedProperties(null, null)) }
                 .stateIn(scope)
+                .also { DataBus.advancedPropertiesFlow.completeOrThrow(it) }
         }
 
         merge(contestInfoInputFlow, advancedPropsFlow).collect {

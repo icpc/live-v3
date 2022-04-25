@@ -42,6 +42,7 @@ fun Route.configureAdminApiRouting() {
         route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
         route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/tickerMessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }
-        route("/users") {configureUser() }
+        route("/users") { setupUserRouting() }
+        get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().value) } }
     }
 }

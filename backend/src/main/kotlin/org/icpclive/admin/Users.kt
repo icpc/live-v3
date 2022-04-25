@@ -55,7 +55,7 @@ suspend fun validateAdminApiCredits(name: String, password: String): User? {
     return user.takeIf { MessageDigest.isEqual(digest, user.pass.decodeBase64Bytes()) }
 }
 
-fun Route.configureUser() {
+fun Route.setupUserRouting() {
     loadUsers()
     get {
         val result = usersMutex.withLock {

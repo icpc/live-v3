@@ -20,6 +20,7 @@ object DataBus {
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()
     private val scoreboardFlow = Array(OptimismLevel.values().size) { CompletableDeferred<Flow<Scoreboard>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
+    val advancedPropertiesFlow = CompletableDeferred<StateFlow<AdvancedProperties>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
         scoreboardFlow[level.ordinal].completeOrThrow(flow)
