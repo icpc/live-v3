@@ -10,7 +10,7 @@ Welcome to the ICPC Live Source Code Repository.
   * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/backend/config/archive/nerc-2021)
   * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/backend/config/archive/vkoshp-junior-2022)
   * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/backend/config/archive/yandex-example/)
-* Run `java -jar icpclive-3.0.0.jar -port=8080 -P:live.configDirectory=/path/to/config/directory`
+* Run `java -jar icpclive-3.0.2.jar -port=8080 -P:live.configDirectory=/path/to/config/directory`
   * Port 8080 is default, if you are okay with it option can be omitted
 * Add source to OBS
   * +Source
