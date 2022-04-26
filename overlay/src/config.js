@@ -21,6 +21,7 @@ export const VIDEO_APPEAR_TIME = 100; // ms
 export const TEAM_VIEW_APPEAR_TIME = 1000; // ms
 export const TICKER_SCROLL_TRANSITION_TIME = 1000; //ms
 export const TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME = 300; //ms
+export const STATISTICS_CELL_MORPH_TIME = 200; //ms
 
 // Behaviour
 

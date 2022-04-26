@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import {
     CELL_FONT_FAMILY,
     STATISTICS_BG_COLOR,
+    STATISTICS_CELL_MORPH_TIME,
     STATISTICS_OPACITY,
     STATISTICS_STATS_VALUE_COLOR,
     STATISTICS_STATS_VALUE_FONT_FAMILY,
@@ -68,7 +69,7 @@ const StatEntry = styled(Cell).attrs(({ targetWidth }) => ({
     }
 }))`
   background: ${props => props.color};
-  transition: width linear 200ms;
+  transition: width linear ${STATISTICS_CELL_MORPH_TIME}ms;
   height: 100%;
   overflow: hidden;
   float: left;
