@@ -17,9 +17,16 @@ import {
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell } from "../../atoms/ContestCells";
 
-const StatisticsWrap = styled.div`
+const AllDiv = styled.div`
   width: 100%;
   height: 100%;
+  position: relative;
+`;
+
+const StatisticsWrap = styled.div`
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
   display: flex;
   flex-direction: column;
   opacity: ${STATISTICS_OPACITY};
@@ -45,62 +52,68 @@ const SubmissionStats = styled.div`
   grid-column: 2;
   overflow: hidden;
   text-align: end;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  height: 100%;
+  width: 100%;
   font-size: ${STATISTICS_STATS_VALUE_FONT_SIZE};
   font-family: ${STATISTICS_STATS_VALUE_FONT_FAMILY};
   color: ${STATISTICS_STATS_VALUE_COLOR};
 `;
 
-const StatEntry = styled(Cell).attrs(({ width }) => ({ style: { width: width } }))`
+const StatEntry = styled(Cell).attrs(({ targetWidth }) => ({
+    style: {
+        width: targetWidth,
+    }
+}))`
   background: ${props => props.color};
   transition: width linear 200ms;
-
   height: 100%;
   overflow: hidden;
   float: left;
-  text-align: center;
-
-`;
-
-const StatisticsText = styled.div`
-  margin: 0 0.1rem 0 0.1rem;
+  box-sizing: border-box;
   text-align: center;
   font-family: ${CELL_FONT_FAMILY}
 `;
+
 
 const StatisticsProblemCell = styled(ProblemCell)`
   padding: 0 10px;
   box-sizing: border-box;
 `;
 
+const getFormattedWidth = (count) => (val) => {
+    return `calc(max(${val / count * 100}%, ${val === 0 ? 0 : (val + "").length + 1}ch))`;
+};
+
 export const Statistics = () => {
     const statistics = useSelector(state => state.statistics.statistics);
     const count = useSelector(state => state.contestInfo?.info?.teams?.length);
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-
-    return <StatisticsWrap>
-        <Title>Statistics</Title>
-        <Table>
-            {statistics?.map(({ success, wrong, pending }, index) =>
-                <Fragment key={index}>
-                    <StatisticsProblemCell probData={tasks[index]}/>
-                    <SubmissionStats>
-                        <StatEntry width={success / count * 100 + "%"} color={VERDICT_OK}>
-                            <StatisticsText>{success}</StatisticsText>
-                        </StatEntry>
-                        <StatEntry width={pending / count * 100 + "%"} color={VERDICT_UNKNOWN}>
-                            <StatisticsText>
+    const calculator = getFormattedWidth(count);
+    return <AllDiv>
+        <StatisticsWrap>
+            <Title>Statistics</Title>
+            <Table>
+                {statistics?.map(({ success, wrong, pending }, index) =>
+                    <Fragment key={index}>
+                        <StatisticsProblemCell probData={tasks[index]}/>
+                        <SubmissionStats>
+                            <StatEntry targetWidth={calculator(success)} color={VERDICT_OK}>
+                                {success}
+                            </StatEntry>
+                            <StatEntry targetWidth={calculator(pending)} color={VERDICT_UNKNOWN}>
                                 {pending}
-                            </StatisticsText>
-                        </StatEntry>
-                        <StatEntry width={wrong / count * 100 + "%"} color={VERDICT_NOK}>
-                            <StatisticsText>
+                            </StatEntry>
+                            <StatEntry targetWidth={calculator(wrong)} color={VERDICT_NOK}>
                                 {wrong}
-                            </StatisticsText>
-                        </StatEntry>
-                    </SubmissionStats>
-                </Fragment>
-            )}
-        </Table>
-    </StatisticsWrap>;
+                            </StatEntry>
+                        </SubmissionStats>
+                    </Fragment>
+                )}
+            </Table>
+        </StatisticsWrap>
+    </AllDiv>;
 };
 export default Statistics;
