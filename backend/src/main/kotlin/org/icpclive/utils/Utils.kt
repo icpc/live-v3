@@ -8,6 +8,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.serialization.json.Json
+import org.icpclive.config.Config
 import org.slf4j.LoggerFactory
 import java.awt.Color
 import java.util.*
@@ -56,4 +57,12 @@ fun Color.toHex() = "#%02x%02x%02x%02x".format(red, green, blue, alpha)
 
 fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
     complete(value) || throw IllegalStateException("Double complete of CompletableDeferred")
+}
+
+fun String.processCreds() : String {
+    val prefix = "\$creds."
+    return if (startsWith(prefix))
+        Config.creds[substring(prefix.length)] ?: throw IllegalStateException("Cred $prefix not found")
+    else
+        this
 }

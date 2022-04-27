@@ -36,6 +36,7 @@ import org.icpclive.cds.yandex.api.Problems
 import org.icpclive.cds.yandex.api.Submission
 import org.icpclive.cds.yandex.api.Submissions
 import org.icpclive.service.RunsBufferService
+import org.icpclive.utils.processCreds
 import java.io.IOException
 import java.util.Properties
 import kotlin.time.Duration
@@ -60,7 +61,7 @@ class YandexEventLoader  {
 
     init {
         val props = Config.loadProperties("events")
-        apiKey = props.getProperty(TOKEN_PROPERTY_NAME)
+        apiKey = props.getProperty(TOKEN_PROPERTY_NAME).processCreds()
         contestId = props.getProperty(CONTEST_ID_PROPERTY_NAME).toLong()
         loginPrefix = props.getProperty(LOGIN_PREFIX_PROPERTY_NAME)
 
@@ -85,25 +86,25 @@ class YandexEventLoader  {
         contestDescriptionLoader = object : RegularLoaderService<ContestDescription>(auth) {
             override val url = "$API_BASE/contests/$contestId"
             override fun processLoaded(data: String) =
-                    formatter.decodeFromString<ContestDescription>(data)
+                formatter.decodeFromString<ContestDescription>(data)
         }
 
         problemLoader = object : RegularLoaderService<List<Problem>>(auth) {
             override val url = "$API_BASE/contests/$contestId/problems"
             override fun processLoaded(data: String) =
-                    formatter.decodeFromString<Problems>(data).problems.sortedBy { it.alias }
+                formatter.decodeFromString<Problems>(data).problems.sortedBy { it.alias }
         }
 
         participantLoader = object : RegularLoaderService<List<Participant>>(auth) {
             override val url = "$API_BASE/contests/$contestId/participants"
             override fun processLoaded(data: String) =
-                    formatter.decodeFromString<List<Participant>>(data).filter { it.login.matches(Regex(loginPrefix)) }
+                formatter.decodeFromString<List<Participant>>(data).filter { it.login.matches(Regex(loginPrefix)) }
         }
 
         allSubmissionsLoader = object : RegularLoaderService<List<Submission>>(auth) {
             override val url = "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
             override fun processLoaded(data: String) =
-                    formatter.decodeFromString<Submissions>(data).submissions.reversed()
+                formatter.decodeFromString<Submissions>(data).submissions.reversed()
         }
     }
 

@@ -18,12 +18,9 @@ import org.icpclive.cds.wf.WFTestCaseInfo
 import org.icpclive.config.Config.loadProperties
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.BasicAuth
-import org.icpclive.utils.ClicksTime
+import org.icpclive.utils.*
 import org.icpclive.utils.NetworkUtils.openAuthorizedStream
 import org.icpclive.utils.NetworkUtils.prepareNetwork
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.guessDatetimeFormat
 import java.awt.Color
 import java.io.*
 import java.math.BigInteger
@@ -497,8 +494,8 @@ class WFEventsLoader(regionals: Boolean) {
 
     init {
         val properties = loadProperties("events")
-        login = properties.getProperty("login")
-        password = properties.getProperty("password")
+        login = properties.getProperty("login")?.processCreds()
+        password = properties.getProperty("password")?.processCreds()
         prepareNetwork(login, password)
 
         // in format https://example.com/api/contests/wf14/

@@ -18,6 +18,7 @@ import org.icpclive.service.*
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
 import org.icpclive.utils.humanReadable
+import org.icpclive.utils.processCreds
 import java.io.IOException
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
@@ -34,8 +35,8 @@ class CFEventsLoader {
         central = CFApiCentral(properties.getProperty("contest_id").toInt())
         if (properties.containsKey(CF_API_KEY_PROPERTY_NAME) && properties.containsKey(CF_API_SECRET_PROPERTY_NAME)) {
             central.setApiKeyAndSecret(
-                properties.getProperty(CF_API_KEY_PROPERTY_NAME),
-                properties.getProperty(CF_API_SECRET_PROPERTY_NAME)
+                properties.getProperty(CF_API_KEY_PROPERTY_NAME).processCreds(),
+                properties.getProperty(CF_API_SECRET_PROPERTY_NAME).processCreds()
             )
         }
     }

@@ -48,8 +48,8 @@ class PCMSEventsLoader {
     suspend fun run() {
         coroutineScope {
             val auth = run {
-                val login = properties.getProperty("login")
-                val password = properties.getProperty("password")
+                val login = properties.getProperty("login")?.processCreds()
+                val password = properties.getProperty("password")?.processCreds()
                 if (login != null) {
                     BasicAuth(login, password!!)
                 } else {

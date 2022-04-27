@@ -1,16 +1,15 @@
 package org.icpclive.config
 
-import org.icpclive.utils.getLogger
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.util.*
 
 object Config {
     lateinit var configDirectory: Path
+    lateinit var creds: Map<String, String>
     fun loadProperties(name: String) =
         loadPropertiesIfExists(name) ?: throw FileNotFoundException("$name.properties not found in $configDirectory")
 
