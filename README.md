@@ -34,7 +34,10 @@ user, which does not exist, it will be automatically created.
 First created receives admin rights. Others only receive them when
 someone with admin rights confirms, it's okey.
 
-Consider, if you are okay with passing your passwords using plain HTTP. 
+Consider, if you are okay with passing your passwords using plain HTTP.
+
+If you don't need auth, you can disable it by -P:auth.disabled=true command-line option,
+or corresponding property in config file. 
 
 # Run in development mode
 
