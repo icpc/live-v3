@@ -16,8 +16,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
-import org.icpclive.admin.configureAdminApiRouting
-import org.icpclive.admin.validateAdminApiCredits
+import org.icpclive.admin.*
 import org.icpclive.cds.launchEventsLoader
 import org.icpclive.config.Config
 import org.icpclive.data.TickerManager
@@ -63,9 +62,18 @@ private fun Application.setupKtorPlugins() {
         masking = false
     }
     install(Authentication) {
-        basic("admin-api-auth") {
-            realm = "Access to the '/api/admin' path"
-            validate { credentials -> validateAdminApiCredits(credentials.name, credentials.password) }
+        if (this@setupKtorPlugins.environment.config.propertyOrNull("auth.disabled")?.getString() == "true") {
+            val config = object : AuthenticationProvider.Config("admin-api-auth") {}
+            register(object : AuthenticationProvider(config) {
+                override suspend fun onAuthenticate(context: AuthenticationContext) {
+                    context.principal(createFakeUser())
+                }
+            })
+        } else {
+            basic("admin-api-auth") {
+                realm = "Access to the '/api/admin' path"
+                validate { credentials -> validateAdminApiCredits(credentials.name, credentials.password) }
+            }
         }
     }
 }

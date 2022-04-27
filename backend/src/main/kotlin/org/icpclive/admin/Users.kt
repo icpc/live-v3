@@ -42,6 +42,9 @@ private fun loadUsers() {
     }
 }
 
+val fakeUser by lazy { User("developer", "", true) }
+fun createFakeUser() = fakeUser
+
 suspend fun validateAdminApiCredits(name: String, password: String): User? {
     val digest = password.digest()
     val user = usersMutex.withLock {
