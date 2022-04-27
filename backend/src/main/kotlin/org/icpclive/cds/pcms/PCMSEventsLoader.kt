@@ -47,18 +47,17 @@ class PCMSEventsLoader {
 
     suspend fun run() {
         coroutineScope {
-            val xmlLoader = object : RegularLoaderService<Document>() {
-                override val url = properties.getProperty("url")
-                override val auth: ClientAuth?
-                init {
-                    val login = properties.getProperty("login")
-                    val password = properties.getProperty("password")
-                    auth = if (login != null) {
-                        BasicAuth(login, password!!)
-                    } else {
-                        null
-                    }
+            val auth = run {
+                val login = properties.getProperty("login")
+                val password = properties.getProperty("password")
+                if (login != null) {
+                    BasicAuth(login, password!!)
+                } else {
+                    null
                 }
+            }
+            val xmlLoader = object : RegularLoaderService<Document>(auth) {
+                override val url = properties.getProperty("url")
                 override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
             }
 

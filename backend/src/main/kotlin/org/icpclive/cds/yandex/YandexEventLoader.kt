@@ -80,30 +80,28 @@ class YandexEventLoader  {
 
         timeExtractingService = TimeExtractingService(httpClient)
 
-        contestDescriptionLoader = object : RegularLoaderService<ContestDescription>() {
+        val auth = OAuthAuth(apiKey)
+
+        contestDescriptionLoader = object : RegularLoaderService<ContestDescription>(auth) {
             override val url = "$API_BASE/contests/$contestId"
-            override val auth = OAuthAuth(apiKey)
             override fun processLoaded(data: String) =
                     formatter.decodeFromString<ContestDescription>(data)
         }
 
-        problemLoader = object : RegularLoaderService<List<Problem>>() {
+        problemLoader = object : RegularLoaderService<List<Problem>>(auth) {
             override val url = "$API_BASE/contests/$contestId/problems"
-            override val auth = OAuthAuth(apiKey)
             override fun processLoaded(data: String) =
                     formatter.decodeFromString<Problems>(data).problems.sortedBy { it.alias }
         }
 
-        participantLoader = object : RegularLoaderService<List<Participant>>() {
+        participantLoader = object : RegularLoaderService<List<Participant>>(auth) {
             override val url = "$API_BASE/contests/$contestId/participants"
-            override val auth = OAuthAuth(apiKey)
             override fun processLoaded(data: String) =
                     formatter.decodeFromString<List<Participant>>(data).filter { it.login.matches(Regex(loginPrefix)) }
         }
 
-        allSubmissionsLoader = object : RegularLoaderService<List<Submission>>() {
+        allSubmissionsLoader = object : RegularLoaderService<List<Submission>>(auth) {
             override val url = "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
-            override val auth = OAuthAuth(apiKey)
             override fun processLoaded(data: String) =
                     formatter.decodeFromString<Submissions>(data).submissions.reversed()
         }

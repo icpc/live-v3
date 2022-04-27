@@ -42,10 +42,9 @@ class CFEventsLoader {
 
     suspend fun run() {
         val contestInfoFlow = MutableStateFlow(contestInfo.toApi())
-        val standingsLoader = object : RegularLoaderService<CFStandings>() {
+        val standingsLoader = object : RegularLoaderService<CFStandings>(null) {
             override val url
                 get() = central.standingsUrl
-            override val auth = null
             override fun processLoaded(data: String) = try {
                 central.parseAndUnwrapStatus(data)
                     ?.let { Json.decodeFromJsonElement<CFStandings>(it) }
@@ -57,10 +56,9 @@ class CFEventsLoader {
 
         class CFSubmissionList(val list: List<CFSubmission>)
 
-        val statusLoader = object : RegularLoaderService<CFSubmissionList>() {
+        val statusLoader = object : RegularLoaderService<CFSubmissionList>(null) {
             override val url
                 get() = central.statusUrl
-            override val auth = null
             override fun processLoaded(data: String) = try {
                 central.parseAndUnwrapStatus(data)
                     ?.let { Json.decodeFromJsonElement<List<CFSubmission>>(it) }
