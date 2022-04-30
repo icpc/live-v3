@@ -6,12 +6,14 @@ import { grey } from "@mui/material/colors";
 import TickerMessage from "./TickerMessage";
 import Controls from "./Controls";
 import Advertisement from "./Advertisement";
+import Title from "./Title";
 import Picture from "./Picture";
 import ScoreboardSettings from "./ScoreboardSettings";
 
 const elements = {
     "Controls": <Controls/>,
     "Advertisement": <Advertisement/>,
+    "Title": <Title/>,
     "Picture": <Picture/>,
     "Scoreboard": <ScoreboardSettings/>,
     "Ticker": <TickerMessage/>,
