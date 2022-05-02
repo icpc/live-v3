@@ -33,6 +33,13 @@ const ScoreboardWrap = styled.div`
   flex-direction: column;
 `;
 
+
+const nameTable = {
+    normal: "CURRENT",
+    optimistic: "OPTIMISTIC",
+    pessimistic: "PESSIMISTIC",
+};
+
 const ScoreboardRowContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -153,9 +160,9 @@ ScoreboardRow.propTypes = {
     hideTasks: PropTypes.bool
 };
 
-const ScoreboardHeader = ({ problems, rowHeight }) => {
+const ScoreboardHeader = ({ problems, rowHeight, name }) => {
     return <ScoreboardHeaderWrap rowHeight={rowHeight}>
-        <ScoreboardHeaderTitle>CURRENT STANDINGS</ScoreboardHeaderTitle>
+        <ScoreboardHeaderTitle>{nameTable[name]} STANDINGS</ScoreboardHeaderTitle>
         <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
         <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>
         {problems && problems.map((probData) =>
@@ -234,7 +241,7 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
     }, [rows.length]);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
     return <ScoreboardWrap>
-        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} key={"header"}/>
+        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>
         <div style={{ overflow: "hidden", height: "100%" }}>
             {teams.map(([ind, teamRowData]) =>
                 <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - row) * rowHeight}
