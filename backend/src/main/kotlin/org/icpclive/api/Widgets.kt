@@ -37,7 +37,7 @@ class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(gen
 class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "picture"
-        val location = LocationRectangle(590, 50, 1300, 960)
+        val location = LocationRectangle(550, 40, 1350, 970)
     }
 }
 
