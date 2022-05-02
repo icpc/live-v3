@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {
     SCOREBOARD_HEADER_BG_COLOR,
     SCOREBOARD_HEADER_TITLE_BG_COLOR,
+    SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR,
     SCOREBOARD_HEADER_TITLE_FONT_SIZE,
     SCOREBOARD_NAME_WIDTH,
     SCOREBOARD_OPACITY,
@@ -107,8 +108,11 @@ const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
   height: ${props => props.rowHeight}px;
 `;
 
-const ScoreboardHeaderTitle = styled(ScoreboardCell)`
-  background: ${SCOREBOARD_HEADER_TITLE_BG_COLOR};
+const ScoreboardHeaderTitle = styled(ScoreboardCell).attrs( ({ color }) => ({
+    style: {
+        background: color
+    }
+}))`
   width: calc(${SCOREBOARD_RANK_WIDTH} + ${SCOREBOARD_NAME_WIDTH});
   font-size: ${SCOREBOARD_HEADER_TITLE_FONT_SIZE};
 `;
@@ -161,8 +165,13 @@ ScoreboardRow.propTypes = {
 };
 
 const ScoreboardHeader = ({ problems, rowHeight, name }) => {
+    let color = SCOREBOARD_HEADER_TITLE_BG_COLOR;
+    if (name === "optimistic") {
+        color = SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR;
+    }
+    console.log(color);
     return <ScoreboardHeaderWrap rowHeight={rowHeight}>
-        <ScoreboardHeaderTitle>{nameTable[name]} STANDINGS</ScoreboardHeaderTitle>
+        <ScoreboardHeaderTitle color={color}>{nameTable[name]} STANDINGS</ScoreboardHeaderTitle>
         <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
         <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>
         {problems && problems.map((probData) =>
