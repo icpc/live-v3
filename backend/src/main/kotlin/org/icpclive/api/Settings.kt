@@ -17,7 +17,10 @@ enum class Position {
     LEFT,
 
     @SerialName("right")
-    RIGHT;
+    RIGHT,
+
+    @SerialName("full")
+    FULL;
 }
 
 @Serializable

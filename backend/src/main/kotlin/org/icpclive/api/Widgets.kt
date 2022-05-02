@@ -52,6 +52,7 @@ class SvgWidget(val content: String, private val position: Position) :
                 Position.CENTER -> LocationRectangle(760, 510, 400, 500)
                 Position.LEFT -> LocationRectangle(0, 510, 400, 500)
                 Position.RIGHT -> LocationRectangle(1520, 510, 400, 500)
+                Position.FULL -> LocationRectangle(0, 0, 1920, 1080)
             }
         }
     }
