@@ -4,6 +4,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.config.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
@@ -90,8 +91,12 @@ fun Application.module() {
         if (!configPath.exists()) throw IllegalStateException("Config directory $configPath does not exist")
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = Paths.get(configDir)
-        Config.creds = environment.config.config("credentials").let {
-            it.keys().associateWith { key -> it.property(key).getString() }
+        Config.creds = try {
+             environment.config.config("credentials").let {
+                it.keys().associateWith { key -> it.property(key).getString() }
+            }
+        } catch (e: ApplicationConfigurationException){
+            emptyMap()
         }
     }
 
