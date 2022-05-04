@@ -62,7 +62,7 @@ fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
 fun String.processCreds() : String {
     val prefix = "\$creds."
     return if (startsWith(prefix))
-        Config.creds[substring(prefix.length)] ?: throw IllegalStateException("Cred $prefix not found")
+        Config.creds[substring(prefix.length)] ?: throw IllegalStateException("Cred ${substring(prefix.length)} not found")
     else
         this
 }
