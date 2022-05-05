@@ -1,7 +1,7 @@
 <svg width="700" height="160" viewBox="0 0 700 160" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect width="700" height="160" fill="red"/>
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Arial" font-size="39" letter-spacing="0em"><tspan x="283.845" y="116.021">%s</tspan></text>
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Arial" font-size="39" font-weight="bold" letter-spacing="0em"><tspan x="277.37" y="71.0205">%s&#x2028;</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Arial" font-size="39" letter-spacing="0em"><tspan x="283.845" y="116.021">{name}</tspan></text>
+<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Arial" font-size="39" font-weight="bold" letter-spacing="0em"><tspan x="277.37" y="71.0205">{surname}&#x2028;</tspan></text>
 <path d="M697.353 38.8964L671.581 51.7585L673.228 55.0469L699 42.1848L697.353 38.8964Z" fill="white"/>
 <path d="M685.756 20.6294L662.625 41.1485L665.072 43.8978L688.203 23.3786L685.756 20.6294Z" fill="white"/>
 <path d="M663.473 5.72034L651.26 33.9376L654.643 35.3969L666.856 7.17962L663.473 5.72034Z" fill="white"/>

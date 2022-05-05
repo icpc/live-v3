@@ -45,10 +45,7 @@ fun Route.configureAdminApiRouting() {
         route("/title") {
             setupPresetWidgetRouting(path("title")) { titleSettings: TitleSettings ->
                 SvgWidget(
-                    SvgTransformer(mediaDirectory, titleSettings.preset).format(
-                        titleSettings.name,
-                        titleSettings.surname
-                    ).toBase64(), titleSettings.position
+                    SvgTransformer(mediaDirectory, titleSettings.preset, titleSettings.data).toBase64()
                 )
             }
         }

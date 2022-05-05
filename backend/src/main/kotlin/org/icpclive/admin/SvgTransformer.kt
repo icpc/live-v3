@@ -4,10 +4,14 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
 
-class SvgTransformer(private val content: String) {
-    constructor(paths: Path, name: String) : this(Paths.get(paths.toString(), name).toFile().readText())
+class SvgTransformer(paths: Path, name: String, substitute: Map<String, String>) {
+    private val content: String
 
-    fun format(vararg args: String) = SvgTransformer(content.format(*args))
+    init {
+        var text: String = Paths.get(paths.toString(), name).toFile().readText()
+        substitute.forEach{text = text.replace("{${it.key}}", it.value)}
+        content = text
+    }
 
     fun toBase64() = "data: image/svg+xml; utf8; base64," + Base64.getEncoder().encodeToString(content.toByteArray())
 }

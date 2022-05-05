@@ -12,8 +12,8 @@ class TitleTable extends PresetsTable {
 TitleTable.defaultProps = {
     ...PresetsTable.defaultProps,
     apiPath: "/title",
-    apiTableKeys: ["name", "surname", "position", "preset"],
-    tableKeysHeaders: ["Name", "Surname", "Position", "Preset"]
+    apiTableKeys: ["preset", "data"],
+    tableKeysHeaders: ["Preset", "Data"]
 };
 
 function Title() {
