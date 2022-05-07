@@ -132,7 +132,15 @@ data class TeamInfoOverride(
 )
 
 @Serializable
+data class ProblemInfoOverride(
+    val name: String? = null,
+    val color: String? = null,
+)
+
+
+@Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
-    val teamOverrides: Map<String, TeamInfoOverride?>? = null
+    val teamOverrides: Map<String, TeamInfoOverride>? = null,
+    val problemOverrides: Map<String, ProblemInfoOverride>? = null
 )
