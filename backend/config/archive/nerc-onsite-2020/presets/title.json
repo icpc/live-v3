@@ -5,5 +5,10 @@
             "name": "Мистер",
             "surname": "Чел"
         }
+    },
+    {
+        "preset": "animation.svg",
+        "data": {
+        }
     }
 ]
