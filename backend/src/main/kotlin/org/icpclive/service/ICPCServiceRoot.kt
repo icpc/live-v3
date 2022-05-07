@@ -17,12 +17,14 @@ fun CoroutineScope.launchICPCServices(rawRuns: Flow<RunInfo>, infoFlow: StateFlo
     )
     launch { ContestDataOverridesService(infoFlow).run() }
     launch { QueueService(runsUpdates).run() }
+    launch { ICPCNormalScoreboardService(runsUpdates).run() }
+    launch { ICPCOptimisticScoreboardService(runsUpdates).run() }
+    launch { ICPCPessimisticScoreboardService(runsUpdates).run() }
+    launch { FirstToSolveService(rawRuns, runsUpdates).run() }
     launch {
-        val problemsNumber = infoFlow.filterNot { it.problems.isEmpty() }.first().problems.size
-        launch { StatisticsService(problemsNumber, DataBus.getScoreboardEvents(OptimismLevel.NORMAL)).run() }
-        launch { FirstToSolveService(problemsNumber, rawRuns, runsUpdates).run() }
-        launch { ICPCNormalScoreboardService(problemsNumber, runsUpdates).run() }
-        launch { ICPCOptimisticScoreboardService(problemsNumber, runsUpdates).run() }
-        launch { ICPCPessimisticScoreboardService(problemsNumber, runsUpdates).run() }
+        StatisticsService(
+            DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
+            DataBus.contestInfoUpdates.await()
+        ).launch(this)
     }
 }
