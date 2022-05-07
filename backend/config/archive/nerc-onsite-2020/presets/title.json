@@ -1,14 +1,14 @@
 [
     {
-        "name": "Азат",
-        "surname": "Исмагилов",
-        "preset": "title.svg",
-        "position": "right"
+        "preset": "title-webcam.svg",
+        "data": {
+            "name": "Мистер",
+            "surname": "Чел"
+        }
     },
     {
-        "name": "Мистер",
-        "surname": "Чел",
-        "preset": "title_red.svg",
-        "position": "left"
+        "preset": "animation.svg",
+        "data": {
+        }
     }
 ]

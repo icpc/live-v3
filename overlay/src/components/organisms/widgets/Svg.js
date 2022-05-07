@@ -3,9 +3,9 @@ import { SVG_APPEAR_TIME } from "../../../config";
 import PropTypes from "prop-types";
 
 export const Svg = ({ widgetData }) => {
-    return <img
-        src={widgetData.content}
-        alt="None"
+    return <object
+        type="image/svg+xml"
+        data={widgetData.content}
     />;
 };
 
