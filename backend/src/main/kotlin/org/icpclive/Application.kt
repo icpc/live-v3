@@ -9,7 +9,7 @@ import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.cors.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
@@ -35,14 +35,6 @@ fun main(args: Array<String>): Unit =
 
 private fun Application.setupKtorPlugins() {
     install(DefaultHeaders)
-    install(CORS) {
-        allowHeader(HttpHeaders.ContentType)
-        allowHeader(HttpHeaders.Authorization)
-        allowHeader("*")
-        allowMethod(HttpMethod.Delete)
-        allowSameOrigin = true
-        anyHost()
-    }
     install(CallLogging) {
         level = Level.INFO
         filter { call -> call.request.path().startsWith("/") }
@@ -79,6 +71,17 @@ private fun Application.setupKtorPlugins() {
     }
 }
 
+private fun Route.setupCors() {
+    install(CORS) {
+        allowHeader(HttpHeaders.Authorization)
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader("*")
+        allowMethod(HttpMethod.Delete)
+        allowSameOrigin = true
+        anyHost()
+    }
+}
+
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
     setupKtorPlugins()
@@ -97,12 +100,15 @@ fun Application.module() {
             }
         } catch (e: ApplicationConfigurationException){
             emptyMap()
+        } catch (e: com.typesafe.config.ConfigException) {
+            emptyMap()
         }
     }
 
     val mediaPath = Config.configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())
     mediaPath.toFile().mkdirs()
     routing {
+        setupCors()
         static("/static") { resources("static") }
         static("/media") { files(mediaPath.toString()) }
         singlePageApplication {
