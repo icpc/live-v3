@@ -25,7 +25,7 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
                 try {
                     path.inputStream().use {
                         Json.decodeFromStream<AdvancedProperties>(it)
-                    }.also { logger.info("Successfully reloaded $path") }
+                    }
                 } catch (e: Exception) {
                     logger.error("Failed to reload $path", e)
                     null
@@ -39,11 +39,13 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
         merge(contestInfoInputFlow, advancedPropsFlow).collect {
             val overrides = advancedPropsFlow.value
             val info = contestInfoInputFlow.value
+            var teamsNotFound = 0
             val teamInfos = if (overrides.teamOverrides == null) {
                 info.teams
             } else {
                 val done = mutableSetOf<String>()
                 info.teams.map {
+                    done.add(it.contestSystemId)
                     val override = overrides.teamOverrides[it.contestSystemId] ?: return@map it
                     TeamInfo(
                         it.id,
@@ -57,6 +59,7 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
                 }.also {
                     for (alias in overrides.teamOverrides.keys) {
                         if (alias !in done) {
+                            teamsNotFound++
                             logger.warn("No team $alias found for override")
                         }
                     }
@@ -71,6 +74,7 @@ class ContestDataOverridesService(val contestInfoInputFlow: StateFlow<ContestInf
                 startTimeUnixMs = startTime,
                 teams = teamInfos
             )
+            logger.info("Reloaded overrides with $teamsNotFound not found teams")
         }
     }
     companion object {

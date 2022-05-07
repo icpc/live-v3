@@ -92,8 +92,8 @@ enum class MediaType {
 data class TeamInfo(
     val id: Int,
     val name: String,
-    val shortName: String?,
-    val contestSystemId: String?,
+    val shortName: String,
+    val contestSystemId: String,
     val groups: List<String>,
     val hashTag: String?,
     val medias: Map<MediaType, String>
