@@ -104,21 +104,16 @@ class WF2Model {
         val run = submissions[judgementObject.submission_id]
             ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgementObject.submission_id}")
         judgementObject.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
-        judgementObject.judgement_type_id?.let { run.result = it }
-
-
-//        val problem = problems[submissionObject.problem_id]
-//            ?: throw IllegalStateException("Failed to load submission with problem_id ${submissionObject.problem_id}")
-//        val team = teams[submissionObject.team_id]
-//            ?: throw IllegalStateException("Failed to load submission with team_id ${submissionObject.team_id}")
-//        val run = WF2RunInfo(
-//            id = id,
-//            problemId = problem.id,
-//            teamId = team.id,
-//            submissionTime = submissionObject.contest_time
-//        )
-//        submissions[id] = run
+        judgementObject.judgement_type_id?.let { run.result = judgementType(it) }
         return run
+    }
+
+    private fun judgementType(typeId: String) = when (typeId) {
+        "RTE" -> "RE"
+        "MLE" -> "ML"
+        "OLE" -> "OL"
+        "TLE" -> "TL"
+        else -> typeId
     }
 
     private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }

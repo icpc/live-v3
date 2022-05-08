@@ -2,19 +2,22 @@ package org.icpclive.cds.wf2
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.*
-import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.config.Config
 import org.icpclive.service.EventFeedLoaderService
+import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
+import org.icpclive.utils.guessDatetimeFormat
 
 class WF2EventsLoader {
     private val properties = Config.loadProperties("events")
     private val central = WF2ApiCentral(properties)
+    private val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
 
     private val model = WF2Model()
 
@@ -66,8 +69,17 @@ class WF2EventsLoader {
                 }
             }
 
-            launchICPCServices(rawRunsFlow, contestInfoFlow)
-
+            if (emulationSpeedProp != null) {
+                println("loading emulation...")
+                val emulationSpeed = emulationSpeedProp.toDouble()
+                val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
+                delay(2000)
+                println("emulation loaded")
+                val runs = model.submissions.values.map { it.toApi() }
+                launchEmulation(emulationStartTime, emulationSpeed, runs, model.contestInfo.toApi())
+            } else {
+                launchICPCServices(rawRunsFlow, contestInfoFlow)
+            }
 //            delay(1000)
 //            model.problems.forEach { (id, pr) -> println(pr) }
         }
