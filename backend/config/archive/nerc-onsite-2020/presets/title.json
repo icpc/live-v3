@@ -10,5 +10,12 @@
         "preset": "animation.svg",
         "data": {
         }
+    },
+    {
+        "preset": "title-webcam-animated.svg",
+        "data": {
+            "name": "Невероятно длинное название",
+            "surname": "Для тестирования"
+        }
     }
 ]
