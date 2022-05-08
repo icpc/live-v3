@@ -2,71 +2,86 @@ package org.icpclive.cds.wf2
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.json.*
+import org.icpclive.cds.wf2.api.WF2Contest
+import org.icpclive.cds.wf2.api.WF2Organisation
+import org.icpclive.cds.wf2.api.WF2Problem
+import org.icpclive.cds.wf2.api.WF2Team
 import org.icpclive.cds.wf2.model.WF2ContestInfo
 import org.icpclive.cds.wf2.model.WF2OrganisationInfo
 import org.icpclive.cds.wf2.model.WF2ProblemInfo
 import org.icpclive.cds.wf2.model.WF2TeamInfo
 import java.awt.Color
-import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
 
 class WF2Model {
     val problems = mutableMapOf<Int, WF2ProblemInfo>()
     private val organisations = mutableMapOf<String, WF2OrganisationInfo>()
-    val teams = mutableMapOf<Int, WF2TeamInfo>()
+    val teams = mutableMapOf<String, WF2TeamInfo>()
+    var startTime = Instant.fromEpochMilliseconds(0)
+    var contestLength = 5.hours
+    var freezeTime = 4.hours
 
     val contestInfo: WF2ContestInfo
         get() = WF2ContestInfo(
             problemsMap = problems,
             teams = teams.values.toList(),
-            Duration.ZERO,
+            startTime = startTime,
+            contestLength = contestLength,
+            freezeTime = freezeTime
         )
 
-    fun processProblem(o: JsonObject) {
-        val ordinal = o["ordinal"]?.jsonPrimitive?.intOrNull ?: failHasNo("Problem", "ordinal number")
+    fun processContest(o: JsonObject) {
+        val contestObject = jsonDecoder.decodeFromJsonElement<WF2Contest>(o)
+        contestObject.start_time?.let { startTime = it }
+        contestLength = contestObject.duration
+        contestObject.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
+    }
 
-        problems[ordinal] = WF2ProblemInfo(
-            id = ordinal,
-            letter = o["label"]?.jsonPrimitive?.contentOrNull ?: "",
-            name = o["name"]?.jsonPrimitive?.contentOrNull ?: failHasNo("Problem", "name"),
-            color = o["rgb"]?.jsonPrimitive?.contentOrNull?.let { Color.decode(it) } ?: Color.GRAY,
-            testCount = o["test_data_count"]?.jsonPrimitive?.intOrNull
+    fun processProblem(o: JsonObject) {
+        val problemObject = jsonDecoder.decodeFromJsonElement<WF2Problem>(o)
+        problems[problemObject.ordinal] = WF2ProblemInfo(
+            id = problemObject.ordinal,
+            letter = problemObject.label,
+            name = problemObject.name,
+            color = problemObject.rgb?.let { Color.decode(it) } ?: Color.GRAY,
+            testCount = problemObject.test_data_count
         )
     }
 
     fun processOrganisation(o: JsonObject) {
-        val id = o["id"]?.jsonPrimitive?.contentOrNull ?: failHasNo("Organisation", "id")
-        val name = o["name"]?.jsonPrimitive?.contentOrNull ?: failHasNo("Organisation", "name")
+        val organisationObject = jsonDecoder.decodeFromJsonElement<WF2Organisation>(o)
+
+        val id = organisationObject.id
         organisations[id] = WF2OrganisationInfo(
             id = id,
-            name = name,
-            formalName = o["formal_name"]?.jsonPrimitive?.contentOrNull ?: name,
-            country = o["country"]?.jsonPrimitive?.contentOrNull,
-            countryFlag = o["country_flag"]?.jsonPrimitive?.contentOrNull,
-            logo = o["logo"]?.jsonArray?.lastOrNull()?.jsonObject?.get("href")?.jsonPrimitive?.content,
-            hashtag = o["twitter_hashtag"]?.jsonPrimitive?.contentOrNull
+            name = organisationObject.name,
+            formalName = organisationObject.formal_name ?: organisationObject.name,
+            logo = organisationObject.logo.lastOrNull()?.href,
+            hashtag = organisationObject.twitter_hashtag
         )
         // todo: update team if something changed
     }
 
     fun processTeam(o: JsonObject) {
-        val id = o["id"]?.jsonPrimitive?.intOrNull ?: failHasNo("Team", "id")
-        val teamOrganization = o["organization_id"]?.jsonPrimitive?.contentOrNull?.let { organisations[it] }
-        val name = o["name"]?.jsonPrimitive?.contentOrNull ?: failHasNo("Team", "name")
+        val teamObject = jsonDecoder.decodeFromJsonElement<WF2Team>(o)
+        val id = teamObject.id
+        val teamOrganization = teamObject.organization_id?.let { organisations[it] }
 
         teams[id] = WF2TeamInfo(
-            id = id,
-            name = teamOrganization?.formalName ?: name,
-            shortName = teamOrganization?.name ?: name,
-            contestSystemId = id.toString(),
+            id = id.hashCode(),
+            name = teamOrganization?.formalName ?: teamObject.name,
+            shortName = teamOrganization?.name ?: teamObject.name,
+            contestSystemId = id,
             groups = emptySet(),
             hashTag = teamOrganization?.hashtag,
-            photo = o["photo"]?.jsonArray?.firstOrNull()?.jsonPrimitive?.content,
-            video = o["video"]?.jsonArray?.firstOrNull()?.jsonPrimitive?.content,
-            screens = o["desktop"]?.jsonArray?.map { it.jsonPrimitive.content } ?: emptyList(),
-            cameras = o["webcam"]?.jsonArray?.map { it.jsonPrimitive.content } ?: emptyList(),
+            photo = teamObject.photo.firstOrNull()?.href,
+            video = teamObject.video.firstOrNull()?.href,
+            screens = teamObject.desktop.map { it.href},
+            cameras = teamObject.webcam.map { it.href },
         )
     }
 
-    private fun failHasNo(type: String, field: String): Nothing =
-        throw IllegalArgumentException("$type object hasn't $field")
+
+
+    private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
 }

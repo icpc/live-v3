@@ -2,7 +2,6 @@ package org.icpclive.cds.wf2
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -49,6 +48,7 @@ class WF2EventsLoader {
                     val type = it["type"]?.jsonPrimitive?.contentOrNull
                     val data = it["data"]?.jsonObject ?: throw IllegalArgumentException("Event has no data field")
                     when (type) {
+                        "contests" -> model::processContest
                         "problems" -> model::processProblem
                         "organizations" -> model::processOrganisation
                         "teams" -> model::processTeam
