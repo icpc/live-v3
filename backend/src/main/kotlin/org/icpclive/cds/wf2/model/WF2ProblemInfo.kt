@@ -9,4 +9,8 @@ class WF2ProblemInfo(
     name: String,
     color: Color,
     val testCount: Int?
-) : ProblemInfo(letter, name, color)
+) : ProblemInfo(letter, name, color) {
+    override fun toString(): String {
+        return "WF2ProblemInfo(id=$id, letter=$letter name=$name color=${color} testCount=$testCount)"
+    }
+}
