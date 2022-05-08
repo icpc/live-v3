@@ -33,7 +33,7 @@ class WF2EventsLoader {
                 onBufferOverflow = BufferOverflow.SUSPEND
             )
 
-            val contestInfoFlow = MutableStateFlow<ContestInfo>(model.contestInfo.toApi())
+            val contestInfoFlow = MutableStateFlow(model.contestInfo.toApi())
             val rawRunsFlow = MutableSharedFlow<RunInfo>(
                 extraBufferCapacity = Int.MAX_VALUE,
                 onBufferOverflow = BufferOverflow.SUSPEND
@@ -47,18 +47,22 @@ class WF2EventsLoader {
                 rawEventsFlow.collect {
                     val type = it["type"]?.jsonPrimitive?.contentOrNull
                     val data = it["data"]?.jsonObject ?: throw IllegalArgumentException("Event has no data field")
-                    when (type) {
-                        "contests" -> model::processContest
-                        "problems" -> model::processProblem
-                        "organizations" -> model::processOrganisation
-                        "teams" -> model::processTeam
-                        else -> null
-                    }?.invoke(data)
-                    when (type) {
-                        "problems", "organizations", "teams" -> {
-                            contestInfoFlow.value = model.contestInfo.toApi()
-                        }
+                    if (type in setOf("contests", "problems", "organizations", "teams")) {
+                        when (type) {
+                            "contests" -> model::processContest
+                            "problems" -> model::processProblem
+                            "organizations" -> model::processOrganisation
+                            "teams" -> model::processTeam
+                            else -> null
+                        }?.invoke(data)
+                        contestInfoFlow.value = model.contestInfo.toApi()
+                        return@collect
                     }
+                    when (type) {
+                        "submissions" -> model::processSubmission
+                        "judgements" -> model::processJudgement
+                        else -> null
+                    }?.invoke(data)?.let { run -> rawRunsFlow.emit(run.toApi()) }
                 }
             }
 

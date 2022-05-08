@@ -8,7 +8,7 @@ import org.icpclive.cds.TeamInfo
 import kotlin.time.Duration
 
 open class WF2ContestInfo(
-    problemsMap: Map<Int, WF2ProblemInfo>,
+    problemsMap: Map<String, WF2ProblemInfo>,
     final override val teams: List<TeamInfo>,
     startTime: Instant,
     override var contestLength: Duration,
