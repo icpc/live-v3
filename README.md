@@ -117,7 +117,7 @@ Admin panel takes base url from environment variable `REACT_APP_BACKEND_URL`
 
 On linux:
 ```
-REACT_APP_BACKEND_URL=ws://<IP>:8080/api/admin npm run start
+REACT_APP_BACKEND_URL=http://<IP>:8080/api/admin npm run start
 ```
 
 On Windows:

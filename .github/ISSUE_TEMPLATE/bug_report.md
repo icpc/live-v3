@@ -3,7 +3,7 @@ name: Bug report
 about: Use this template to report bugs 
 title: "bug: [BUG DESCRIPTION]"
 labels: tracking issue, needs triage, bug
-assignees: irdkwmnsb
+assignees: lperovskaya
 ---
 <!--- Provide a general summary of the issue in the Title above -->
 ## Context (Environment)

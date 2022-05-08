@@ -92,8 +92,8 @@ enum class MediaType {
 data class TeamInfo(
     val id: Int,
     val name: String,
-    val shortName: String?,
-    val contestSystemId: String?,
+    val shortName: String,
+    val contestSystemId: String,
     val groups: List<String>,
     val hashTag: String?,
     val medias: Map<MediaType, String>
@@ -132,7 +132,15 @@ data class TeamInfoOverride(
 )
 
 @Serializable
+data class ProblemInfoOverride(
+    val name: String? = null,
+    val color: String? = null,
+)
+
+
+@Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
-    val teamOverrides: Map<String, TeamInfoOverride?>? = null
+    val teamOverrides: Map<String, TeamInfoOverride>? = null,
+    val problemOverrides: Map<String, ProblemInfoOverride>? = null
 )

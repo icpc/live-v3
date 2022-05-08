@@ -7,20 +7,21 @@ import org.icpclive.utils.getLogger
 import java.util.*
 
 class FirstToSolveService(
-    problemsCount: Int,
     private val rawRunsFlow: Flow<RunInfo>,
     private val runsFlow: MutableSharedFlow<RunInfo>
 ) {
-    private val firstSolve = Array<RunInfo?>(problemsCount) { null }
+    private val firstSolve = mutableMapOf<Int, RunInfo>()
     private val runComparator = compareBy<RunInfo>({ it.time }, { it.id })
-    private val solved = Array(problemsCount) { TreeSet(runComparator) }
+    private val solved = mutableMapOf<Int, TreeSet<RunInfo>>()
     private val solvedById = mutableMapOf<Int, RunInfo>()
+
+    fun getSolved(problemId: Int) = solved.getOrPut(problemId) { TreeSet(runComparator) }
 
     private suspend fun replace(old: RunInfo, new: RunInfo) {
         require(old.id == new.id)
         require(old.isAccepted && new.isAccepted)
-        solved[old.problemId].remove(old)
-        solved[new.problemId].add(new)
+        getSolved(old.problemId).remove(old)
+        getSolved(new.problemId).add(new)
         solvedById[old.id] = new
         if (old.problemId != new.problemId) {
             logger.warn("Run ${old.id} changes problem from ${old.problemId} to ${new.problemId}")
@@ -36,11 +37,11 @@ class FirstToSolveService(
                     replace(solvedById[it.id]!!, it)
                 } else {
                     solvedById.remove(oldRun.problemId)
-                    solved[oldRun.problemId].remove(oldRun)
+                    getSolved(oldRun.problemId).remove(oldRun)
                     recalculateFTS(oldRun.problemId)
                 }
             } else if (it.isAccepted) {
-                solved[it.problemId].add(it)
+                getSolved(it.problemId).add(it)
                 solvedById[it.id] = it
             }
             recalculateFTS(it.problemId)
@@ -51,7 +52,7 @@ class FirstToSolveService(
     }
 
     private suspend fun recalculateFTS(problemId: Int) {
-        val result = if (solved[problemId].isEmpty()) null else solved[problemId].first()
+        val result = if (getSolved(problemId).isEmpty()) null else getSolved(problemId).first()
         if (firstSolve[problemId] == result) return
         firstSolve[problemId].takeIf { it?.id != result?.id }?.run {
             val newVersion = copy(isFirstSolvedRun = false)
@@ -60,7 +61,7 @@ class FirstToSolveService(
             logger.warn("First to solve for problem $problemId was replaced from $id to ${result?.id}")
         }
         if (result == null) {
-            firstSolve[problemId] = null
+            firstSolve.remove(problemId)
             return
         }
         val newVersion = result.copy(isFirstSolvedRun = true)
