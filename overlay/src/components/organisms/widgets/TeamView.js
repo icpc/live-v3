@@ -5,7 +5,7 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
 import { Cell } from "../../atoms/Cell";
 import { StarIcon } from "../../atoms/Star";
-import { TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { TEAM_VIEW_OPACITY, TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { pushLog } from "../../../redux/debug";
 import { DateTime } from "luxon";
 import _ from "lodash";
@@ -135,6 +135,7 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
 
 const ScoreboardColumnWrapper = styled.div`
     display: grid;
+    opacity: ${TEAM_VIEW_OPACITY};
     grid-template-columns: repeat(2, auto);
     grid-auto-rows: 1fr;
     position: relative;
@@ -176,7 +177,7 @@ const TeamInfo = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     return <TeamInfoWrapper>
-        <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medal}/>
+        <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TeamNameCell teamName={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData?.totalScore}
