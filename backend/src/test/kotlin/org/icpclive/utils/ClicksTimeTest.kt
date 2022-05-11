@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.utils.ClicksTime.formatIso
-import org.icpclive.utils.ClicksTime.parseRelativeTime
+import org.icpclive.utils.ClicsTime.formatIso
+import org.icpclive.utils.ClicsTime.parseRelativeTime
 import org.junit.Assert
 import org.junit.Test
 import java.time.ZonedDateTime
@@ -81,7 +81,7 @@ class ClicksTimeTest {
             )
             val zdt = ZonedDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
             val expect = zdt.toInstant().toEpochMilli()
-            val result: Long = ClicksTime.parseTime(testTime).toEpochMilliseconds()
+            val result: Long = ClicsTime.parseTime(testTime).toEpochMilliseconds()
             Assert.assertEquals("$testTime vs $isoDateTime", expect, result)
         }
     }
@@ -145,7 +145,7 @@ class ClicksTimeTest {
     fun durationJsonSerialisation() {
         @Serializable
         data class ObjectWithDuration(
-            @Serializable(with = ClicksTime.DurationSerializer::class)
+            @Serializable(with = ClicsTime.DurationSerializer::class)
             val dur: Duration
         )
 

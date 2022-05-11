@@ -1,26 +1,26 @@
-package org.icpclive.cds.wf2
+package org.icpclive.cds.clics
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.json.*
-import org.icpclive.cds.wf2.api.*
-import org.icpclive.cds.wf2.model.*
+import org.icpclive.cds.clics.api.*
+import org.icpclive.cds.clics.model.*
 import java.awt.Color
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.DurationUnit
 
-class WF2Model {
-    val problems = mutableMapOf<String, WF2ProblemInfo>()
-    private val organisations = mutableMapOf<String, WF2OrganisationInfo>()
-    val teams = mutableMapOf<String, WF2TeamInfo>()
+class ClicsModel {
+    val problems = mutableMapOf<String, ClicsProblemInfo>()
+    private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
+    val teams = mutableMapOf<String, ClicsTeamInfo>()
     private val submissionCdsIdToInt = mutableMapOf<String, Int>()
-    val submissions = mutableMapOf<String, WF2RunInfo>()
+    val submissions = mutableMapOf<String, ClicsRunInfo>()
 
     var startTime = Instant.fromEpochMilliseconds(0)
     var contestLength = 5.hours
     var freezeTime = 4.hours
 
-    val contestInfo: WF2ContestInfo
-        get() = WF2ContestInfo(
+    val contestInfo: ClicsContestInfo
+        get() = ClicsContestInfo(
             problemsMap = problems,
             teams = teams.values.toList(),
             startTime = startTime,
@@ -29,15 +29,15 @@ class WF2Model {
         )
 
     fun processContest(o: JsonObject) {
-        val contestObject = jsonDecoder.decodeFromJsonElement<WF2Contest>(o)
+        val contestObject = jsonDecoder.decodeFromJsonElement<Contest>(o)
         contestObject.start_time?.let { startTime = it }
         contestLength = contestObject.duration
         contestObject.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
     }
 
     fun processProblem(o: JsonObject) {
-        val problemObject = jsonDecoder.decodeFromJsonElement<WF2Problem>(o)
-        problems[problemObject.id] = WF2ProblemInfo(
+        val problemObject = jsonDecoder.decodeFromJsonElement<Problem>(o)
+        problems[problemObject.id] = ClicsProblemInfo(
             id = problemObject.ordinal - 1, // todo: это не может работать
             letter = problemObject.label,
             name = problemObject.name,
@@ -47,8 +47,8 @@ class WF2Model {
     }
 
     fun processOrganisation(o: JsonObject) {
-        val organisationObject = jsonDecoder.decodeFromJsonElement<WF2Organisation>(o)
-        organisations[organisationObject.id] = WF2OrganisationInfo(
+        val organisationObject = jsonDecoder.decodeFromJsonElement<Organisation>(o)
+        organisations[organisationObject.id] = ClicsOrganisationInfo(
             id = organisationObject.id,
             name = organisationObject.name,
             formalName = organisationObject.formal_name ?: organisationObject.name,
@@ -59,11 +59,11 @@ class WF2Model {
     }
 
     fun processTeam(o: JsonObject) {
-        val teamObject = jsonDecoder.decodeFromJsonElement<WF2Team>(o)
+        val teamObject = jsonDecoder.decodeFromJsonElement<Team>(o)
 
         val id = teamObject.id
         val teamOrganization = teamObject.organization_id?.let { organisations[it] }
-        teams[id] = WF2TeamInfo(
+        teams[id] = ClicsTeamInfo(
             id = id.hashCode(),
             name = teamOrganization?.formalName ?: teamObject.name,
             shortName = teamOrganization?.name ?: teamObject.name,
@@ -77,8 +77,8 @@ class WF2Model {
         )
     }
 
-    fun processSubmission(o: JsonObject): WF2RunInfo {
-        val submissionObject = jsonDecoder.decodeFromJsonElement<WF2Submission>(o)
+    fun processSubmission(o: JsonObject): ClicsRunInfo {
+        val submissionObject = jsonDecoder.decodeFromJsonElement<Submission>(o)
 
         val id = synchronized(submissionCdsIdToInt) {
             return@synchronized submissionCdsIdToInt.putIfAbsent(submissionObject.id, submissionCdsIdToInt.size + 1)
@@ -88,7 +88,7 @@ class WF2Model {
             ?: throw IllegalStateException("Failed to load submission with problem_id ${submissionObject.problem_id}")
         val team = teams[submissionObject.team_id]
             ?: throw IllegalStateException("Failed to load submission with team_id ${submissionObject.team_id}")
-        val run = WF2RunInfo(
+        val run = ClicsRunInfo(
             id = id,
             problemId = problem.id,
             teamId = team.id,
@@ -98,8 +98,8 @@ class WF2Model {
         return run
     }
 
-    fun processJudgement(o: JsonObject): WF2RunInfo {
-        val judgementObject = jsonDecoder.decodeFromJsonElement<WF2Judgement>(o)
+    fun processJudgement(o: JsonObject): ClicsRunInfo {
+        val judgementObject = jsonDecoder.decodeFromJsonElement<Judgement>(o)
 
         val run = submissions[judgementObject.submission_id]
             ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgementObject.submission_id}")

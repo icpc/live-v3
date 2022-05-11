@@ -1,14 +1,14 @@
-package org.icpclive.cds.wf2.model
+package org.icpclive.cds.clics.model
 
 import org.icpclive.cds.RunInfo
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
-class WF2RunInfo(
+class ClicsRunInfo(
     override val id: Int, override val problemId: Int, override val teamId: Int, private val submissionTime: Duration
 ) : RunInfo {
     override var result = ""
-    override val isJudged:Boolean
+    override val isJudged: Boolean
         get() = result != ""
     override val isAddingPenalty: Boolean
         get() = "AC" != result && "CE" != result

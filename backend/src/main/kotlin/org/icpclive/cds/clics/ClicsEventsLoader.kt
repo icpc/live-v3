@@ -1,4 +1,4 @@
-package org.icpclive.cds.wf2
+package org.icpclive.cds.clics
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
@@ -14,12 +14,12 @@ import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.guessDatetimeFormat
 
-class WF2EventsLoader {
+class ClicsEventsLoader {
     private val properties = Config.loadProperties("events")
-    private val central = WF2ApiCentral(properties)
+    private val central = ClicsApiCentral(properties)
     private val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
 
-    private val model = WF2Model()
+    private val model = ClicsModel()
 
     suspend fun run() {
         coroutineScope {

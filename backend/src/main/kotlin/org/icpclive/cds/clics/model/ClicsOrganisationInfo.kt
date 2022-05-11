@@ -1,6 +1,6 @@
-package org.icpclive.cds.wf2.model
+package org.icpclive.cds.clics.model
 
-data class WF2OrganisationInfo(
+data class ClicsOrganisationInfo(
     val id: String,
     val name: String,
     val formalName: String,

@@ -1,9 +1,9 @@
-package org.icpclive.cds.wf2.model
+package org.icpclive.cds.clics.model
 
 import org.icpclive.api.MediaType
 import org.icpclive.cds.TeamInfo
 
-data class WF2TeamInfo(
+data class ClicsTeamInfo(
     override val id: Int,
     override val name: String,
     override val shortName: String,

@@ -1,13 +1,11 @@
-package org.icpclive.cds.wf2
+package org.icpclive.cds.clics
 
 import org.icpclive.utils.BasicAuth
 import org.icpclive.utils.NetworkUtils
 import org.icpclive.utils.processCreds
-import java.nio.charset.StandardCharsets
-import java.security.MessageDigest
 import java.util.*
 
-class WF2ApiCentral(properties: Properties) {
+class ClicsApiCentral(properties: Properties) {
     private val contestUrl = properties.getProperty("url")
     private val login = properties.getProperty("login")?.processCreds()
     private val password = properties.getProperty("password")?.processCreds()

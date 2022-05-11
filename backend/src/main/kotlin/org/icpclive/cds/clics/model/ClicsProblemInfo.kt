@@ -1,9 +1,9 @@
-package org.icpclive.cds.wf2.model
+package org.icpclive.cds.clics.model
 
 import org.icpclive.cds.ProblemInfo
 import java.awt.Color
 
-class WF2ProblemInfo(
+class ClicsProblemInfo(
     val id: Int,
     letter: String,
     name: String,

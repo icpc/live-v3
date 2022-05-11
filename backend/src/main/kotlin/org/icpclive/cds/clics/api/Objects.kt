@@ -1,22 +1,21 @@
-package org.icpclive.cds.wf2.api
+package org.icpclive.cds.clics.api
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.utils.ClicksTime
-import java.util.StringJoiner
+import org.icpclive.utils.ClicsTime
 import kotlin.time.Duration
 
 @Serializable
-data class WF2Contest(
+data class Contest(
     val start_time: Instant? = null,
-    @Serializable(with = ClicksTime.DurationSerializer::class)
+    @Serializable(with = ClicsTime.DurationSerializer::class)
     val duration: Duration,
-    @Serializable(with = ClicksTime.DurationSerializer::class)
+    @Serializable(with = ClicsTime.DurationSerializer::class)
     val scoreboard_freeze_duration: Duration?
 )
 
 @Serializable
-data class WF2Problem(
+data class Problem(
     val id: String,
     val ordinal: Int,
     val label: String,
@@ -26,47 +25,47 @@ data class WF2Problem(
 )
 
 @Serializable
-data class WF2Media(
+data class Media(
     val href: String
 )
 
 @Serializable
-data class WF2Organisation(
+data class Organisation(
     val id: String,
     val name: String,
     val formal_name: String? = null,
-    val logo: List<WF2Media>,
+    val logo: List<Media>,
     val twitter_hashtag: String? = null
 )
 
 @Serializable
-data class WF2Team(
+data class Team(
     val id: String,
     val organization_id: String? = null,
     val name: String,
-    val photo: List<WF2Media> = emptyList(),
-    val video: List<WF2Media> = emptyList(),
-    val desktop: List<WF2Media> = emptyList(),
-    val webcam: List<WF2Media> = emptyList(),
+    val photo: List<Media> = emptyList(),
+    val video: List<Media> = emptyList(),
+    val desktop: List<Media> = emptyList(),
+    val webcam: List<Media> = emptyList(),
 )
 
 @Serializable
-data class WF2Submission(
+data class Submission(
     val id: String,
     val language_id: String,
     val problem_id: String,
     val team_id: String,
-    @Serializable(with = ClicksTime.DurationSerializer::class)
+    @Serializable(with = ClicsTime.DurationSerializer::class)
     val contest_time: Duration
 )
 
 @Serializable
-data class WF2Judgement(
+data class Judgement(
     val id: String,
     val submission_id: String,
     val judgement_type_id: String?,
-    @Serializable(with = ClicksTime.DurationSerializer::class)
+    @Serializable(with = ClicsTime.DurationSerializer::class)
     val start_contest_time: Duration,
-    @Serializable(with = ClicksTime.DurationSerializer::class)
+    @Serializable(with = ClicsTime.DurationSerializer::class)
     val end_contest_time: Duration?,
 )

@@ -1,4 +1,4 @@
-package org.icpclive.cds.wf2.model
+package org.icpclive.cds.clics.model
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -7,8 +7,8 @@ import org.icpclive.cds.ContestInfo
 import org.icpclive.cds.TeamInfo
 import kotlin.time.Duration
 
-open class WF2ContestInfo(
-    problemsMap: Map<String, WF2ProblemInfo>,
+open class ClicsContestInfo(
+    problemsMap: Map<String, ClicsProblemInfo>,
     final override val teams: List<TeamInfo>,
     startTime: Instant,
     override var contestLength: Duration,
@@ -17,10 +17,10 @@ open class WF2ContestInfo(
     private val participantsByName = teams.groupBy { it.name }.mapValues { it.value.first() }
     override val problemsNumber: Int = problemsMap.size
     override val teamsNumber: Int = teams.size
-    override val problems: List<WF2ProblemInfo> = problemsMap.values.toList()
+    override val problems: List<ClicsProblemInfo> = problemsMap.values.toList()
     override val contestTime: Duration
         get() = minOf(Clock.System.now() - startTime, contestLength)
-        // todo: fix this
+    // todo: fix this
 
     override fun getParticipant(name: String) = participantsByName[name]
     private val participantsById = teams.groupBy { it.id }.mapValues { it.value.first() }

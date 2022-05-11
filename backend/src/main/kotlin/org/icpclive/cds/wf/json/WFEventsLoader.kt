@@ -271,9 +271,9 @@ class WFEventsLoader(regionals: Boolean) {
         this.contestInfo = contestInfo
     }
 
-    private fun parseTime(time: String) = ClicksTime.parseTime(time)
+    private fun parseTime(time: String) = ClicsTime.parseTime(time)
 
-    private fun parseRelativeTime(time: String) = ClicksTime.parseRelativeTime(time)
+    private fun parseRelativeTime(time: String) = ClicsTime.parseRelativeTime(time)
 
     fun readContest(contestInfo: WFContestInfo, je: JsonObject) {
         val startTimeElement = je["start_time"]
