@@ -1,7 +1,6 @@
 package org.icpclive.cds.clics
 
 import kotlinx.datetime.Instant
-import kotlinx.serialization.json.*
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.model.*
 import java.awt.Color
@@ -28,83 +27,74 @@ class ClicsModel {
             freezeTime = freezeTime
         )
 
-    fun processContest(o: JsonObject) {
-        val contestObject = jsonDecoder.decodeFromJsonElement<Contest>(o)
-        contestObject.start_time?.let { startTime = it }
-        contestLength = contestObject.duration
-        contestObject.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
+    fun processContest(contest : Contest) {
+        contest.start_time?.let { startTime = it }
+        contestLength = contest.duration
+        contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
     }
 
-    fun processProblem(o: JsonObject) {
-        val problemObject = jsonDecoder.decodeFromJsonElement<Problem>(o)
-        problems[problemObject.id] = ClicsProblemInfo(
-            id = problemObject.ordinal - 1, // todo: это не может работать
-            letter = problemObject.label,
-            name = problemObject.name,
-            color = problemObject.rgb?.let { Color.decode(it) } ?: Color.GRAY,
-            testCount = problemObject.test_data_count
+    fun processProblem(problem: Problem) {
+        problems[problem.id] = ClicsProblemInfo(
+            id = problem.ordinal - 1, // todo: это не может работать
+            letter = problem.label,
+            name = problem.name,
+            color = problem.rgb?.let { Color.decode(it) } ?: Color.GRAY,
+            testCount = problem.test_data_count
         )
     }
 
-    fun processOrganisation(o: JsonObject) {
-        val organisationObject = jsonDecoder.decodeFromJsonElement<Organisation>(o)
-        organisations[organisationObject.id] = ClicsOrganisationInfo(
-            id = organisationObject.id,
-            name = organisationObject.name,
-            formalName = organisationObject.formal_name ?: organisationObject.name,
-            logo = organisationObject.logo.lastOrNull()?.href,
-            hashtag = organisationObject.twitter_hashtag
+    fun processOrganization(organization: Organization) {
+        organisations[organization.id] = ClicsOrganisationInfo(
+            id = organization.id,
+            name = organization.name,
+            formalName = organization.formal_name ?: organization.name,
+            logo = organization.logo.lastOrNull()?.href,
+            hashtag = organization.twitter_hashtag
         )
         // todo: update team if something changed
     }
 
-    fun processTeam(o: JsonObject) {
-        val teamObject = jsonDecoder.decodeFromJsonElement<Team>(o)
-
-        val id = teamObject.id
-        val teamOrganization = teamObject.organization_id?.let { organisations[it] }
+    fun processTeam(team: Team) {
+        val id = team.id
+        val teamOrganization = team.organization_id?.let { organisations[it] }
         teams[id] = ClicsTeamInfo(
             id = id.hashCode(),
-            name = teamOrganization?.formalName ?: teamObject.name,
-            shortName = teamOrganization?.name ?: teamObject.name,
+            name = teamOrganization?.formalName ?: team.name,
+            shortName = teamOrganization?.name ?: team.name,
             contestSystemId = id,
             groups = emptySet(),
             hashTag = teamOrganization?.hashtag,
-            photo = teamObject.photo.firstOrNull()?.href,
-            video = teamObject.video.firstOrNull()?.href,
-            screens = teamObject.desktop.map { it.href },
-            cameras = teamObject.webcam.map { it.href },
+            photo = team.photo.firstOrNull()?.href,
+            video = team.video.firstOrNull()?.href,
+            screens = team.desktop.map { it.href },
+            cameras = team.webcam.map { it.href },
         )
     }
 
-    fun processSubmission(o: JsonObject): ClicsRunInfo {
-        val submissionObject = jsonDecoder.decodeFromJsonElement<Submission>(o)
-
+    fun processSubmission(submission: Submission): ClicsRunInfo {
         val id = synchronized(submissionCdsIdToInt) {
-            return@synchronized submissionCdsIdToInt.putIfAbsent(submissionObject.id, submissionCdsIdToInt.size + 1)
-                ?: submissionCdsIdToInt[submissionObject.id]!!
+            return@synchronized submissionCdsIdToInt.putIfAbsent(submission.id, submissionCdsIdToInt.size + 1)
+                ?: submissionCdsIdToInt[submission.id]!!
         }
-        val problem = problems[submissionObject.problem_id]
-            ?: throw IllegalStateException("Failed to load submission with problem_id ${submissionObject.problem_id}")
-        val team = teams[submissionObject.team_id]
-            ?: throw IllegalStateException("Failed to load submission with team_id ${submissionObject.team_id}")
+        val problem = problems[submission.problem_id]
+            ?: throw IllegalStateException("Failed to load submission with problem_id ${submission.problem_id}")
+        val team = teams[submission.team_id]
+            ?: throw IllegalStateException("Failed to load submission with team_id ${submission.team_id}")
         val run = ClicsRunInfo(
             id = id,
             problemId = problem.id,
             teamId = team.id,
-            submissionTime = submissionObject.contest_time
+            submissionTime = submission.contest_time
         )
-        submissions[submissionObject.id] = run
+        submissions[submission.id] = run
         return run
     }
 
-    fun processJudgement(o: JsonObject): ClicsRunInfo {
-        val judgementObject = jsonDecoder.decodeFromJsonElement<Judgement>(o)
-
-        val run = submissions[judgementObject.submission_id]
-            ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgementObject.submission_id}")
-        judgementObject.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
-        judgementObject.judgement_type_id?.let { run.result = judgementType(it) }
+    fun processJudgement(judgement: Judgement) : ClicsRunInfo {
+        val run = submissions[judgement.submission_id]
+            ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgement.submission_id}")
+        judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
+        judgement.judgement_type_id?.let { run.result = judgementType(it) }
         return run
     }
 
@@ -115,6 +105,4 @@ class ClicsModel {
         "TLE" -> "TL"
         else -> typeId
     }
-
-    private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
 }

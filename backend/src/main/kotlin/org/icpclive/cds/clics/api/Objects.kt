@@ -1,6 +1,7 @@
 package org.icpclive.cds.clics.api
 
 import kotlinx.datetime.Instant
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.utils.ClicsTime
 import kotlin.time.Duration
@@ -30,7 +31,7 @@ data class Media(
 )
 
 @Serializable
-data class Organisation(
+data class Organization(
     val id: String,
     val name: String,
     val formal_name: String? = null,
@@ -69,3 +70,22 @@ data class Judgement(
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val end_contest_time: Duration?,
 )
+
+
+@Serializable sealed class Event { abstract val id: String }
+@Serializable sealed class UpdateContestEvent: Event()
+@Serializable sealed class UpdateRunEvent: Event()
+@Serializable sealed class IgnoredEvent: Event()
+@Serializable @SerialName("contests") class ContestEvent(override val id: String, val data: Contest): UpdateContestEvent()
+@Serializable @SerialName("problems") class ProblemEvent(override val id: String, val data: Problem): UpdateContestEvent()
+@Serializable @SerialName("teams") class TeamEvent(override val id: String, val data: Team): UpdateContestEvent()
+@Serializable @SerialName("organizations") class OrganizationEvent(override val id: String, val data: Organization): UpdateContestEvent()
+@Serializable @SerialName("submissions") class SubmissionEvent(override val id: String, val data: Submission): UpdateRunEvent()
+@Serializable @SerialName("judgements") class JudgementEvent(override val id: String, val data: Judgement): UpdateRunEvent()
+@Serializable @SerialName("commentary") class CommentaryEvent(override val id: String): IgnoredEvent()
+@Serializable @SerialName("runs") class RunsEvent(override val id: String): IgnoredEvent()
+@Serializable @SerialName("awards") class AwardsEvent(override val id: String): IgnoredEvent()
+@Serializable @SerialName("state") class StateEvent(override val id: String): IgnoredEvent()
+@Serializable @SerialName("judgement-types") class JudgementTypeEvent(override val id: String): IgnoredEvent()
+@Serializable @SerialName("languages") class LanguageEvent(override val id: String): IgnoredEvent()
+@Serializable @SerialName("groups") class GroupsEvent(override val id: String): IgnoredEvent()

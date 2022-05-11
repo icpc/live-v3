@@ -1,24 +1,21 @@
 package org.icpclive.service
 
 import io.ktor.client.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import io.ktor.client.call.*
+import io.ktor.client.plugins.*
+import io.ktor.client.request.*
+import io.ktor.utils.io.*
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.withContext
 import org.icpclive.utils.ClientAuth
-import org.icpclive.utils.NetworkUtils
 import org.icpclive.utils.getLogger
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
-import kotlin.time.Duration
+import org.icpclive.utils.setupAuth
 
 abstract class EventFeedLoaderService<T>(private val auth: ClientAuth?) {
     private val httpClient = HttpClient {
-//        if (auth != null) {
-//            setupAuth(auth)
-//        }
+        install(HttpTimeout)
+        if (auth != null) {
+            setupAuth(auth)
+        }
         engine {
             threadsCount = 2
         }
@@ -27,25 +24,21 @@ abstract class EventFeedLoaderService<T>(private val auth: ClientAuth?) {
     abstract val url: String
     abstract fun processEvent(data: String): T?
 
-    private fun buildReader() =
-        BufferedReader(InputStreamReader(NetworkUtils.openAuthorizedStream(url, auth), StandardCharsets.UTF_8))
 
-    suspend fun loadOnce(flow: MutableSharedFlow<T>) {
-        val reader = buildReader()
+    suspend fun run(flow: MutableSharedFlow<T>) {
         while (true) {
-            val eventString = withContext(Dispatchers.IO) { reader.readLine() }
-            eventString?.let { processEvent(it)?.let { e -> flow.emit(e) } } ?: break
-        }
-    }
-
-    suspend fun run(flow: MutableSharedFlow<T>, period: Duration) {
-        while (true) {
-            try {
-
-            } catch (e: IOException) {
-                logger.error("Failed to load events from $url", e)
+            httpClient.prepareGet(url) {
+                timeout {
+                    socketTimeoutMillis = Long.MAX_VALUE
+                    requestTimeoutMillis = Long.MAX_VALUE
+                }
+            }.execute { httpResponse ->
+                val channel: ByteReadChannel = httpResponse.body()
+                while (!channel.isClosedForRead) {
+                    val line = channel.readUTF8Line() ?: continue
+                    processEvent(line)?.also { flow.emit(it) }
+                }
             }
-            delay(period)
         }
     }
 
