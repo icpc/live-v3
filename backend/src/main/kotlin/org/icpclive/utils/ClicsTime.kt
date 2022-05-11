@@ -105,4 +105,15 @@ object ClicsTime {
             return parseRelativeTime(decoder.decodeString())
         }
     }
+
+    object InstantSerializer : KSerializer<Instant> {
+        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Instant", PrimitiveKind.STRING)
+
+        override fun serialize(encoder: Encoder, value: Instant) = TODO()
+
+        override fun deserialize(decoder: Decoder): Instant {
+            return parseTime(decoder.decodeString())
+        }
+    }
+
 }

@@ -12,8 +12,9 @@ open class ClicsContestInfo(
     final override val teams: List<TeamInfo>,
     startTime: Instant,
     override var contestLength: Duration,
-    override var freezeTime: Duration
-) : ContestInfo(startTime, ContestStatus.BEFORE) {
+    override var freezeTime: Duration,
+    status: ContestStatus
+) : ContestInfo(startTime, status) {
     private val participantsByName = teams.groupBy { it.name }.mapValues { it.value.first() }
     override val problemsNumber: Int = problemsMap.size
     override val teamsNumber: Int = teams.size

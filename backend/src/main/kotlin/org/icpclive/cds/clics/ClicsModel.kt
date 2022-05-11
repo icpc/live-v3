@@ -1,10 +1,12 @@
 package org.icpclive.cds.clics
 
 import kotlinx.datetime.Instant
+import org.icpclive.api.ContestStatus
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.model.*
 import java.awt.Color
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.DurationUnit
 
 class ClicsModel {
@@ -17,6 +19,7 @@ class ClicsModel {
     var startTime = Instant.fromEpochMilliseconds(0)
     var contestLength = 5.hours
     var freezeTime = 4.hours
+    var status = ContestStatus.UNKNOWN
 
     val contestInfo: ClicsContestInfo
         get() = ClicsContestInfo(
@@ -24,10 +27,11 @@ class ClicsModel {
             teams = teams.values.toList(),
             startTime = startTime,
             contestLength = contestLength,
-            freezeTime = freezeTime
+            freezeTime = freezeTime,
+            status = status
         )
 
-    fun processContest(contest : Contest) {
+    fun processContest(contest: Contest) {
         contest.start_time?.let { startTime = it }
         contestLength = contest.duration
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
@@ -90,12 +94,21 @@ class ClicsModel {
         return run
     }
 
-    fun processJudgement(judgement: Judgement) : ClicsRunInfo {
+    fun processJudgement(judgement: Judgement): ClicsRunInfo {
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgement.submission_id}")
+        if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
         judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
         judgement.judgement_type_id?.let { run.result = judgementType(it) }
         return run
+    }
+
+    fun processState(state: State) {
+        status = when {
+            state.ended != null -> ContestStatus.OVER
+            state.started != null -> ContestStatus.RUNNING
+            else -> ContestStatus.BEFORE
+        }
     }
 
     private fun judgementType(typeId: String) = when (typeId) {

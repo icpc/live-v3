@@ -71,21 +71,70 @@ data class Judgement(
     val end_contest_time: Duration?,
 )
 
+@Serializable
+data class State(
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val ended: Instant?,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val frozen: Instant?,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val started: Instant?,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val unfrozen: Instant?,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val finalized: Instant?,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val end_of_updates: Instant?,
+)
 
-@Serializable sealed class Event { abstract val id: String }
-@Serializable sealed class UpdateContestEvent: Event()
-@Serializable sealed class UpdateRunEvent: Event()
-@Serializable sealed class IgnoredEvent: Event()
-@Serializable @SerialName("contests") class ContestEvent(override val id: String, val data: Contest): UpdateContestEvent()
-@Serializable @SerialName("problems") class ProblemEvent(override val id: String, val data: Problem): UpdateContestEvent()
-@Serializable @SerialName("teams") class TeamEvent(override val id: String, val data: Team): UpdateContestEvent()
-@Serializable @SerialName("organizations") class OrganizationEvent(override val id: String, val data: Organization): UpdateContestEvent()
-@Serializable @SerialName("submissions") class SubmissionEvent(override val id: String, val data: Submission): UpdateRunEvent()
-@Serializable @SerialName("judgements") class JudgementEvent(override val id: String, val data: Judgement): UpdateRunEvent()
-@Serializable @SerialName("commentary") class CommentaryEvent(override val id: String): IgnoredEvent()
-@Serializable @SerialName("runs") class RunsEvent(override val id: String): IgnoredEvent()
-@Serializable @SerialName("awards") class AwardsEvent(override val id: String): IgnoredEvent()
-@Serializable @SerialName("state") class StateEvent(override val id: String): IgnoredEvent()
-@Serializable @SerialName("judgement-types") class JudgementTypeEvent(override val id: String): IgnoredEvent()
-@Serializable @SerialName("languages") class LanguageEvent(override val id: String): IgnoredEvent()
-@Serializable @SerialName("groups") class GroupsEvent(override val id: String): IgnoredEvent()
+
+@Serializable
+sealed class Event {
+    abstract val id: String
+}
+
+@Serializable
+sealed class UpdateContestEvent : Event()
+@Serializable
+sealed class UpdateRunEvent : Event()
+@Serializable
+sealed class IgnoredEvent : Event()
+@Serializable
+@SerialName("contests")
+class ContestEvent(override val id: String, val data: Contest) : UpdateContestEvent()
+@Serializable
+@SerialName("problems")
+class ProblemEvent(override val id: String, val data: Problem) : UpdateContestEvent()
+@Serializable
+@SerialName("teams")
+class TeamEvent(override val id: String, val data: Team) : UpdateContestEvent()
+@Serializable
+@SerialName("organizations")
+class OrganizationEvent(override val id: String, val data: Organization) : UpdateContestEvent()
+@Serializable
+@SerialName("state")
+class StateEvent(override val id: String, val data: State) : UpdateContestEvent()
+@Serializable
+@SerialName("submissions")
+class SubmissionEvent(override val id: String, val data: Submission) : UpdateRunEvent()
+@Serializable
+@SerialName("judgements")
+class JudgementEvent(override val id: String, val data: Judgement) : UpdateRunEvent()
+@Serializable
+@SerialName("commentary")
+class CommentaryEvent(override val id: String) : IgnoredEvent()
+@Serializable
+@SerialName("runs")
+class RunsEvent(override val id: String) : IgnoredEvent()
+@Serializable
+@SerialName("awards")
+class AwardsEvent(override val id: String) : IgnoredEvent()
+@Serializable
+@SerialName("judgement-types")
+class JudgementTypeEvent(override val id: String) : IgnoredEvent()
+@Serializable
+@SerialName("languages")
+class LanguageEvent(override val id: String) : IgnoredEvent()
+@Serializable
+@SerialName("groups")
+class GroupsEvent(override val id: String) : IgnoredEvent()

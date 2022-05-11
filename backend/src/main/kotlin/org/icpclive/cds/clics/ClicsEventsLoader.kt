@@ -2,13 +2,14 @@ package org.icpclive.cds.clics
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.clics.api.*
 import org.icpclive.config.Config
@@ -62,6 +63,7 @@ class ClicsEventsLoader {
                                 is ProblemEvent -> model.processProblem(it.data)
                                 is OrganizationEvent -> model.processOrganization(it.data)
                                 is TeamEvent -> model.processTeam(it.data)
+                                is StateEvent -> model.processState(it.data)
                             }
                             contestInfoFlow.value = model.contestInfo.toApi()
                         }
@@ -77,18 +79,14 @@ class ClicsEventsLoader {
             }
 
             if (emulationSpeedProp != null) {
-                println("loading emulation...")
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                delay(2000)
-                println("emulation loaded")
+                val contestInfo = contestInfoFlow.first { it.status == ContestStatus.OVER }
                 val runs = model.submissions.values.map { it.toApi() }
-                launchEmulation(emulationStartTime, emulationSpeed, runs, model.contestInfo.toApi())
+                launchEmulation(emulationStartTime, emulationSpeed, runs, contestInfo)
             } else {
                 launchICPCServices(rawRunsFlow, contestInfoFlow)
             }
-//            delay(1000)
-//            model.problems.forEach { (id, pr) -> println(pr) }
         }
     }
 
