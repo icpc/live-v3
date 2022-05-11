@@ -34,8 +34,8 @@ abstract class ContestInfo(
     abstract fun getParticipant(name: String): TeamInfo?
     abstract fun getParticipant(id: Int): TeamInfo?
     abstract fun getParticipantByHashTag(hashTag: String): TeamInfo?
-    var contestLength = 5.hours
-    var freezeTime = 4.hours
+    open var contestLength = 5.hours
+    open var freezeTime = 4.hours
 
     companion object {
         val logger = getLogger(ContestInfo::class)

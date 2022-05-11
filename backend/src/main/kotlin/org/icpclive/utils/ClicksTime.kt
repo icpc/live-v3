@@ -2,6 +2,12 @@ package org.icpclive.utils
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toKotlinInstant
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
@@ -73,7 +79,30 @@ object ClicksTime {
             val second = secondStr.toDouble()
             (hour.hours + minute.minutes + second.seconds) * sign
         } else {
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("Invalid time format $csTime")
+        }
+    }
+
+    fun formatIso(duration: Duration) =
+        (if (duration.isPositive()) duration else -duration).toComponents { hours, minutes, seconds, nanoseconds ->
+            "%s%02d:%02d:%02d.%03d".format(
+                if (duration.isPositive()) "" else "-",
+                hours,
+                minutes,
+                seconds,
+                nanoseconds / 1000000
+            )
+        }
+
+    object DurationSerializer : KSerializer<Duration> {
+        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Duration", PrimitiveKind.STRING)
+
+        override fun serialize(encoder: Encoder, value: Duration) {
+            encoder.encodeString(formatIso(value))
+        }
+
+        override fun deserialize(decoder: Decoder): Duration {
+            return parseRelativeTime(decoder.decodeString())
         }
     }
 }
