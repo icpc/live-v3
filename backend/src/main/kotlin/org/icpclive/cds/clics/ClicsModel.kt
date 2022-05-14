@@ -21,7 +21,7 @@ class ClicsModel {
     var startTime = Instant.fromEpochMilliseconds(0)
     var contestLength = 5.hours
     var freezeTime = 4.hours
-    var status = ContestStatus.UNKNOWN
+    var status = ContestStatus.BEFORE
 
     val contestInfo: ClicsContestInfo
         get() = ClicsContestInfo(
