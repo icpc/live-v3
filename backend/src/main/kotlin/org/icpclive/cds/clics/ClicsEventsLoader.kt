@@ -71,6 +71,7 @@ class ClicsEventsLoader {
                             when (it) {
                                 is SubmissionEvent -> model.processSubmission(it.data)
                                 is JudgementEvent -> model.processJudgement(it.data)
+                                is RunsEvent -> model.processRun(it.data)
                             }.also { run -> rawRunsFlow.emit(run.toApi()) }
                         }
                         is IgnoredEvent -> {}

@@ -15,6 +15,7 @@ class ClicsModel {
     val teams = mutableMapOf<String, ClicsTeamInfo>()
     private val submissionCdsIdToInt = mutableMapOf<String, Int>()
     val submissions = mutableMapOf<String, ClicsRunInfo>()
+    private val judgements = mutableMapOf<String, Judgement>()
 
     var startTime = Instant.fromEpochMilliseconds(0)
     var contestLength = 5.hours
@@ -86,7 +87,7 @@ class ClicsModel {
             ?: throw IllegalStateException("Failed to load submission with team_id ${submission.team_id}")
         val run = ClicsRunInfo(
             id = id,
-            problemId = problem.id,
+            problem = problem,
             teamId = team.id,
             submissionTime = submission.contest_time
         )
@@ -97,9 +98,22 @@ class ClicsModel {
     fun processJudgement(judgement: Judgement): ClicsRunInfo {
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgement.submission_id}")
+        judgements[judgement.id] = judgement
         if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
         judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
         judgement.judgement_type_id?.let { run.result = judgementType(it) }
+        return run
+    }
+
+    fun processRun(casesRun: Run): ClicsRunInfo {
+        val judgement = judgements[casesRun.judgement_id]
+            ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}")
+        val run = submissions[judgement.submission_id]
+            ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}, submission_id ${judgement.submission_id}")
+        if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
+        run.lastUpdateTime = casesRun.contest_time.toLong(DurationUnit.MILLISECONDS)
+        run.passedCaseRun.add(casesRun.ordinal)
+        println(casesRun)
         return run
     }
 

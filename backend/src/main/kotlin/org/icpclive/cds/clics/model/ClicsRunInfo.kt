@@ -5,8 +5,15 @@ import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
 class ClicsRunInfo(
-    override val id: Int, override val problemId: Int, override val teamId: Int, private val submissionTime: Duration
+    override val id: Int,
+    private val problem: ClicsProblemInfo,
+    override val teamId: Int,
+    submissionTime: Duration
 ) : RunInfo {
+    override val problemId: Int = problem.id
+    override val time = submissionTime.toLong(DurationUnit.MILLISECONDS)
+    override var lastUpdateTime = time
+    val passedCaseRun = mutableSetOf<Int>()
     override var result = ""
     override val isJudged: Boolean
         get() = result != ""
@@ -14,7 +21,10 @@ class ClicsRunInfo(
         get() = "AC" != result && "CE" != result
     override val isAccepted: Boolean
         get() = result == "AC"
-    override val percentage = 0.0
-    override var lastUpdateTime = submissionTime.toLong(DurationUnit.MILLISECONDS)
-    override val time = lastUpdateTime
+    override val percentage: Double
+        get() = if (problem.testCount == null || problem.testCount == 0) {
+            0.0
+        } else {
+            minOf(1.0 * passedCaseRun.size / problem.testCount, 1.0)
+        }
 }

@@ -72,6 +72,16 @@ data class Judgement(
 )
 
 @Serializable
+data class Run(
+    val id: String,
+    val judgement_id: String,
+    val ordinal: Int,
+    val judgement_type_id: String,
+    @Serializable(with = ClicsTime.DurationSerializer::class)
+    val contest_time: Duration,
+)
+
+@Serializable
 data class State(
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val ended: Instant?,
@@ -121,11 +131,11 @@ class SubmissionEvent(override val id: String, val data: Submission) : UpdateRun
 @SerialName("judgements")
 class JudgementEvent(override val id: String, val data: Judgement) : UpdateRunEvent()
 @Serializable
+@SerialName("runs")
+class RunsEvent(override val id: String, val data: Run) : UpdateRunEvent()
+@Serializable
 @SerialName("commentary")
 class CommentaryEvent(override val id: String) : IgnoredEvent()
-@Serializable
-@SerialName("runs")
-class RunsEvent(override val id: String) : IgnoredEvent()
 @Serializable
 @SerialName("awards")
 class AwardsEvent(override val id: String) : IgnoredEvent()
