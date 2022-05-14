@@ -10,6 +10,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.DurationUnit
 
 class ClicsModel {
+    private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     val problems = mutableMapOf<String, ClicsProblemInfo>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
     val teams = mutableMapOf<String, ClicsTeamInfo>()
@@ -76,6 +77,15 @@ class ClicsModel {
         )
     }
 
+    fun processJudgementType(judgementType: JudgementType) {
+        println("Add judgementType $judgementType")
+        judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
+            id = judgementType.id,
+            isAccepted = judgementType.solved,
+            isAddingPenalty = judgementType.penalty,
+        )
+    }
+
     fun processSubmission(submission: Submission): ClicsRunInfo {
         val id = synchronized(submissionCdsIdToInt) {
             return@synchronized submissionCdsIdToInt.putIfAbsent(submission.id, submissionCdsIdToInt.size + 1)
@@ -101,7 +111,7 @@ class ClicsModel {
         judgements[judgement.id] = judgement
         if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
         judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
-        judgement.judgement_type_id?.let { run.result = judgementType(it) }
+        judgement.judgement_type_id?.let { run.judgementType = judgementTypes[it] }
         return run
     }
 
@@ -112,8 +122,11 @@ class ClicsModel {
             ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}, submission_id ${judgement.submission_id}")
         if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
         run.lastUpdateTime = casesRun.contest_time.toLong(DurationUnit.MILLISECONDS)
-        run.passedCaseRun.add(casesRun.ordinal)
-        println(casesRun)
+        val judgementType = judgementTypes[casesRun.judgement_type_id]
+        if (judgementType?.isAccepted == true) { // may be WA runs also need to add
+            run.passedCaseRun.add(casesRun.ordinal)
+        }
+        println("$casesRun with verdict $judgementType")
         return run
     }
 
@@ -123,13 +136,5 @@ class ClicsModel {
             state.started != null -> ContestStatus.RUNNING
             else -> ContestStatus.BEFORE
         }
-    }
-
-    private fun judgementType(typeId: String) = when (typeId) {
-        "RTE" -> "RE"
-        "MLE" -> "ML"
-        "OLE" -> "OL"
-        "TLE" -> "TL"
-        else -> typeId
     }
 }

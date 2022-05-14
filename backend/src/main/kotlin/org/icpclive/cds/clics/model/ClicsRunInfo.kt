@@ -14,13 +14,15 @@ class ClicsRunInfo(
     override val time = submissionTime.toLong(DurationUnit.MILLISECONDS)
     override var lastUpdateTime = time
     val passedCaseRun = mutableSetOf<Int>()
-    override var result = ""
+    var judgementType: ClicsJudgementTypeInfo? = null
+    override val result: String
+        get() = judgementType?.verdict ?: ""
     override val isJudged: Boolean
-        get() = result != ""
-    override val isAddingPenalty: Boolean
-        get() = "AC" != result && "CE" != result
+        get() = judgementType != null
     override val isAccepted: Boolean
-        get() = result == "AC"
+        get() = judgementType?.isAccepted ?: false
+    override val isAddingPenalty: Boolean
+        get() = judgementType?.isAddingPenalty ?: false
     override val percentage: Double
         get() = if (problem.testCount == null || problem.testCount == 0) {
             0.0

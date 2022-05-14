@@ -64,6 +64,7 @@ class ClicsEventsLoader {
                                 is OrganizationEvent -> model.processOrganization(it.data)
                                 is TeamEvent -> model.processTeam(it.data)
                                 is StateEvent -> model.processState(it.data)
+                                is JudgementTypeEvent -> model.processJudgementType(it.data)
                             }
                             contestInfoFlow.value = model.contestInfo.toApi()
                         }
