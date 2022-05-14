@@ -40,6 +40,7 @@ abstract class EventFeedLoaderService<T>(private val auth: ClientAuth?) {
                     processEvent(line)?.also { flow.emit(it) }
                 }
             }
+            println("Reconnect")
         }
     }
 

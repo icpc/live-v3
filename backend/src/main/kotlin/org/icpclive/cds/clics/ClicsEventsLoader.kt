@@ -1,5 +1,6 @@
 package org.icpclive.cds.clics
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -50,7 +51,7 @@ class ClicsEventsLoader {
                 onBufferOverflow = BufferOverflow.SUSPEND
             )
 
-            launch {
+            launch(Dispatchers.IO) {
                 eventsLoader.run(rawEventsFlow)
             }
 

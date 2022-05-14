@@ -16,6 +16,8 @@ class ClicsApiCentral(properties: Properties) {
 
     val auth = login?.let { login -> password?.let { password -> BasicAuth(login, password) } }
     val teamsUrl = apiRequestUrl("teams")
+    val problemsUrl = apiRequestUrl("problems")
+    val stateUrl = apiRequestUrl("state")
     val eventFeedUrl = apiRequestUrl("event-feed")
 
     private fun apiRequestUrl(method: String) = "$contestUrl/$method"

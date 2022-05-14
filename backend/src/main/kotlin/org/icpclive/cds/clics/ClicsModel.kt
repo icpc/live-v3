@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.model.*
+import org.icpclive.utils.getLogger
 import java.awt.Color
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
@@ -78,12 +79,12 @@ class ClicsModel {
     }
 
     fun processJudgementType(judgementType: JudgementType) {
-        println("Add judgementType $judgementType")
         judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
             id = judgementType.id,
             isAccepted = judgementType.solved,
             isAddingPenalty = judgementType.penalty,
         )
+        logger.info("Add judgementType $judgementType")
     }
 
     fun processSubmission(submission: Submission): ClicsRunInfo {
@@ -112,6 +113,7 @@ class ClicsModel {
         if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
         judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
         judgement.judgement_type_id?.let { run.judgementType = judgementTypes[it] }
+        logger.info("Process $judgement")
         return run
     }
 
@@ -126,7 +128,7 @@ class ClicsModel {
         if (judgementType?.isAccepted == true) { // may be WA runs also need to add
             run.passedCaseRun.add(casesRun.ordinal)
         }
-        println("$casesRun with verdict $judgementType")
+        logger.info("$casesRun with verdict $judgementType")
         return run
     }
 
@@ -136,5 +138,9 @@ class ClicsModel {
             state.started != null -> ContestStatus.RUNNING
             else -> ContestStatus.BEFORE
         }
+    }
+
+    companion object {
+        val logger = getLogger(ClicsModel::class)
     }
 }
