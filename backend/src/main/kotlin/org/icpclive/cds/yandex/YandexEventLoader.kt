@@ -2,7 +2,7 @@ package org.icpclive.cds.yandex
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.engine.apache.Apache
+import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.header
 import io.ktor.client.request.request
@@ -67,7 +67,7 @@ class YandexEventLoader  {
 
         // TODO: Java engine (requires Java 11 or higher)
         // TODO: use ktor everywhere instead of URL.openConnection
-        httpClient = HttpClient(Apache) {
+        httpClient = HttpClient(CIO) {
             defaultRequest {
                 url("$API_BASE/contests/$contestId/")
                 header("Authorization", "OAuth $apiKey")
@@ -75,7 +75,7 @@ class YandexEventLoader  {
 
             engine {
                 threadsCount = 2
-                connectTimeout = 40000
+                requestTimeout = 40000
             }
         }
 

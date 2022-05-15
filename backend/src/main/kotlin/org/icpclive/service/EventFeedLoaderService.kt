@@ -1,9 +1,9 @@
 package org.icpclive.service
 
 import io.ktor.client.*
-import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.utils.ClientAuth
@@ -33,9 +33,10 @@ abstract class EventFeedLoaderService<T>(private val auth: ClientAuth?) {
                     requestTimeoutMillis = Long.MAX_VALUE
                 }
             }.execute { httpResponse ->
-                val channel: ByteReadChannel = httpResponse.body()
+                val channel = httpResponse.bodyAsChannel()
                 while (!channel.isClosedForRead) {
                     val line = channel.readUTF8Line() ?: continue
+                    if (line.isEmpty()) continue
                     processEvent(line)?.also { flow.emit(it) }
                 }
             }
