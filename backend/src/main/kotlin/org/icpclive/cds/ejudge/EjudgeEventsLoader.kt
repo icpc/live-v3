@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.datetime.toKotlinInstant
+import kotlinx.datetime.toJavaInstant
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.MediaType
@@ -24,8 +24,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
-import java.time.*
-import java.time.format.DateTimeFormatter
+import java.time.Duration
 import java.util.*
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
@@ -50,8 +49,6 @@ class EjudgeEventsLoader {
                 )
                 launchICPCServices(rawRunsFlow, contestInfoFlow)
                 xmlLoaderFlow.collect {
-                    it.children().forEach {
-                    }
                     if (it.children().size != 0) {
                         parseContestInfo(it.children()[0]) { runBlocking { rawRunsFlow.emit(it) } }
                         contestInfoFlow.value = contestData.toApi()
@@ -109,15 +106,7 @@ class EjudgeEventsLoader {
                     val alias = participant.attr("id")
                     val groups = mutableSetOf<String>()
                     val medias = mutableMapOf<MediaType, String>()
-                    EjudgeTeamInfo(
-                        index,
-                        participantName,
-                        participantName,
-                        alias,
-                        groups,
-                        participantName,
-                        medias,
-                        problemsNumber)
+                    EjudgeTeamInfo(index, participantName, participantName, alias, groups, participantName, medias, problemsNumber)
                 }
             }
         }
@@ -126,27 +115,34 @@ class EjudgeEventsLoader {
         return emptyList()
     }
 
+    private fun parseEjudgeTime(time: String): kotlinx.datetime.Instant {
+        val formattedTime = time
+            .replace("/", "-")
+            .replace(" ", "T")
+        return guessDatetimeFormat(formattedTime)
+    }
+
     private fun parseContestInfo(element: Element, onRunChanges: (RunInfo) -> Unit) {
         val dur = element.attr("duration").toLong()
-        val startTime = LocalDateTime.parse(element.attr("start_time"), dateTimeFormat)
-        val endTime = startTime.plusSeconds(dur)
-        val currentTime = LocalDateTime.parse(element.attr("current_time"), dateTimeFormat)
+        val startTime = parseEjudgeTime(element.attr("start_time"))
+        val endTime = startTime.plus(dur.seconds)
+        val currentTime = parseEjudgeTime(element.attr("current_time"))
 
-        val status: ContestStatus = if (currentTime.isAfter(endTime) || currentTime.isEqual(endTime)) {
+        val status: ContestStatus = if (currentTime >= endTime) {
             ContestStatus.OVER
-        } else if (currentTime.isBefore(startTime)) {
+        } else if (currentTime < startTime) {
             ContestStatus.BEFORE
         } else {
             ContestStatus.RUNNING
         }
 
         if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
-            // TODO: remove this scum
-            contestData.startTime = Instant.ofEpochSecond(
-                startTime.toEpochSecond(ZoneOffset.from(OffsetDateTime.now().offset))).toKotlinInstant()
+            contestData.startTime = startTime
         }
         contestData.status = status
-        contestData.contestTime = Duration.between(startTime, currentTime).toKotlinDuration()
+        contestData.contestTime = Duration.between(
+            startTime.toJavaInstant(),
+            currentTime.toJavaInstant()).toKotlinDuration()
 
         element.children().forEach {
             if ("runs" == it.tagName()) {
@@ -218,7 +214,6 @@ class EjudgeEventsLoader {
     private var contestData: EjudgeContestInfo
     private var contestInfoFlow: MutableStateFlow<ContestInfo>
     private val properties: Properties = Config.loadProperties("events")
-    private val dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
     private val xmlLoader = object : RegularLoaderService<Document>(null) {
         override val url = properties.getProperty("url")
         override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
@@ -227,9 +222,6 @@ class EjudgeEventsLoader {
     init {
         val problemsInfo = parseProblemsInfo()
         val teamsInfo = parseTeamsInfo(problemsInfo.size)
-
-        problemsInfo.forEach { println(it.letter + " " + it.name + " " + it.color) }
-        teamsInfo.forEach { println(it.id.toString() + " " + it.contestSystemId + " " + it.name) }
 
         contestData = EjudgeContestInfo(problemsInfo, teamsInfo, kotlinx.datetime.Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
         contestData.contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
