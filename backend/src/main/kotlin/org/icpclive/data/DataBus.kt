@@ -2,6 +2,7 @@ package org.icpclive.data
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.OptimismLevel
@@ -21,6 +22,11 @@ object DataBus {
     private val scoreboardFlow = Array(OptimismLevel.values().size) { CompletableDeferred<Flow<Scoreboard>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
     val advancedPropertiesFlow = CompletableDeferred<StateFlow<AdvancedProperties>>()
+    val loggerFlow = MutableSharedFlow<String>(
+        replay = 100,
+        extraBufferCapacity = 0,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
         scoreboardFlow[level.ordinal].completeOrThrow(flow)

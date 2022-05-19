@@ -1,12 +1,18 @@
 package org.icpclive.utils
 
+import io.ktor.server.websocket.*
+import io.ktor.websocket.*
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.config.Config
 import org.slf4j.LoggerFactory
@@ -65,4 +71,26 @@ fun String.processCreds() : String {
         Config.creds[substring(prefix.length)] ?: throw IllegalStateException("Cred ${substring(prefix.length)} not found")
     else
         this
+}
+
+
+suspend fun DefaultWebSocketServerSession.sendFlow(flow: Flow<String>) {
+    val sender = async {
+        flow.collect {
+            val text = Frame.Text(it)
+            outgoing.send(text)
+        }
+    }
+    try {
+        for (ignored in incoming) {
+            ignored.let {}
+        }
+    } finally {
+        sender.cancel()
+    }
+}
+
+suspend inline fun <reified T> DefaultWebSocketServerSession.sendJsonFlow(flow: Flow<T>) {
+    val formatter = defaultJsonSettings()
+    sendFlow(flow.map { formatter.encodeToString(it) })
 }

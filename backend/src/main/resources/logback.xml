@@ -4,8 +4,11 @@
             <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+    <appender name="FLOW" class="org.icpclive.utils.FlowLogger">
+    </appender>
     <root level="info">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FLOW"/>
     </root>
     <logger name="org.eclipse.jetty" level=""/>
     <logger name="io.netty" level=""/>

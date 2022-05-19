@@ -6,9 +6,12 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
 import org.icpclive.api.*
 import org.icpclive.config.Config
 import org.icpclive.data.DataBus
+import org.icpclive.utils.sendFlow
+import org.icpclive.utils.sendJsonFlow
 import java.nio.file.Paths
 
 suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> Unit) = try {
@@ -53,5 +56,7 @@ fun Route.configureAdminApiRouting() {
         route("/tickerMessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }
         route("/users") { setupUserRouting() }
         get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().value) } }
+        webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
+        webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
     }
 }
