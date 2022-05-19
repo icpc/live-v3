@@ -24,7 +24,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
-import java.awt.Color
 import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -39,11 +38,6 @@ import kotlin.time.toKotlinDuration
 class EjudgeEventsLoader {
     suspend fun run() {
         coroutineScope {
-            val xmlLoader = object : RegularLoaderService<Document>(null) {
-                override val url = properties.getProperty("url")
-                override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
-            }
-
             val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
             if (emulationSpeedProp == null) {
                 val xmlLoaderFlow = MutableStateFlow(Document(""))
@@ -56,12 +50,10 @@ class EjudgeEventsLoader {
                 )
                 launchICPCServices(rawRunsFlow, contestInfoFlow)
                 xmlLoaderFlow.collect {
-//                    println(it.tagName())
                     it.children().forEach {
-//                        println(it.tagName())
                     }
                     if (it.children().size != 0) {
-                        parseAndUpdateStandings(it.children()[0]) { runBlocking { rawRunsFlow.emit(it) } }
+                        parseContestInfo(it.children()[0]) { runBlocking { rawRunsFlow.emit(it) } }
                         contestInfoFlow.value = contestData.toApi()
                         if (contestData.status == ContestStatus.RUNNING) {
                             logger.info("Updated for contest time = ${contestData.contestTime}")
@@ -71,7 +63,7 @@ class EjudgeEventsLoader {
             } else {
                 val allRuns = mutableListOf<RunInfo>()
                 val element = xmlLoader.loadOnce()
-                parseAndUpdateStandings(element.children()[0]) { allRuns.add(it) }
+                parseContestInfo(element.children()[0]) { allRuns.add(it) }
                 if (contestData.status != ContestStatus.OVER) {
                     throw IllegalStateException("Emulation mode require over contest")
                 }
@@ -84,50 +76,54 @@ class EjudgeEventsLoader {
         }
     }
 
-    private fun parseProblemsInfo(problemsFile: String?): List<ProblemInfo> {
-        val xml = Config.loadFile(problemsFile!!)
-        val doc = Jsoup.parse(xml, "", Parser.xmlParser())
-        val problems = doc.child(0)
-        return problems.children().map { element ->
-            ProblemInfo(
-                element.attr("alias"),
-                element.attr("name"),
-                if (element.attr("color").isEmpty()) Color.BLACK else Color.decode(element.attr("color"))
-            )
+    private fun parseProblemsInfo(): List<ProblemInfo> {
+        val doc: Document
+        runBlocking {
+            doc = xmlLoader.loadOnce()
         }
+
+        val config = doc.child(0)
+        config.children().forEach {
+            if ("problems" == it.tagName()) {
+                return it.children().map { element ->
+                    ProblemInfo(element.attr("short_name"), element.attr("short_name"))
+                }
+            }
+        }
+
+        logger.error("There is no <problems> tag in external XML log")
+        return emptyList()
     }
 
-    private fun parseTeamsInfo(teamsFile: String?, problemsNumber: Int): List<EjudgeTeamInfo> {
-        val xml = Config.loadFile(teamsFile!!)
-        val doc = Jsoup.parse(xml, "", Parser.xmlParser())
-        val participants = doc.child(0)
-        val teams = participants.children().withIndex().map { (index, participant) ->
-            val participantName = participant.attr("name")
-            val alias = participant.attr("id")
-            val hallId = participant.attr("hall_id").takeIf { it.isNotEmpty() } ?: alias
-            val shortName = participant.attr("shortname")
-                .split("(")[0]
-                .let { if (it.length >= 30) it.substring(0..27) + "..." else it }
-                .takeIf { it.isNotEmpty() } ?: participantName
-            val region = participant.attr("region").split(",")[0]
-            val hashTag = participant.attr("hashtag")
-            val groups = if (region.isEmpty()) emptySet() else mutableSetOf(region)
-            val medias = listOfNotNull(
-                participant.attr("screen").takeIf { it.isNotEmpty() }?.let { MediaType.SCREEN to it },
-                participant.attr("camera").takeIf { it.isNotEmpty() }?.let { MediaType.CAMERA to it },
-                participant.attr("record").takeIf { it.isNotEmpty() }?.let { MediaType.RECORD to it },
-            ).associate { it }
-            EjudgeTeamInfo(index, participantName, shortName, alias, groups, hashTag, medias, problemsNumber)
+    private fun parseTeamsInfo(problemsNumber: Int): List<EjudgeTeamInfo> {
+        val doc: Document
+        runBlocking {
+            doc = xmlLoader.loadOnce()
         }
-        return teams
-    }
 
-    private fun parseAndUpdateStandings(element: Element, onRunChanges: (RunInfo) -> Unit) {
-        if ("runlog" == element.tagName()) {
-            parseContestInfo(element, onRunChanges);
-        } else {
-            logger.error("Unexpected log format, expected \"runlog\" tag, but found: \"" + element.tagName() + "\"")
+        val config = doc.child(0)
+        config.children().forEach {
+            if ("users" == it.tagName()) {
+                return it.children().withIndex().map { (index, participant) ->
+                    val participantName = participant.attr("name")
+                    val alias = participant.attr("id")
+                    val groups = mutableSetOf<String>()
+                    val medias = mutableMapOf<MediaType, String>()
+                    EjudgeTeamInfo(
+                        index,
+                        participantName,
+                        participantName,
+                        alias,
+                        groups,
+                        participantName,
+                        medias,
+                        problemsNumber)
+                }
+            }
         }
+
+        logger.error("There is no <users> tag in external XML log")
+        return emptyList()
     }
 
     private fun parseContestInfo(element: Element, onRunChanges: (RunInfo) -> Unit) {
@@ -135,10 +131,6 @@ class EjudgeEventsLoader {
         val startTime = LocalDateTime.parse(element.attr("start_time"), dateTimeFormat)
         val endTime = startTime.plusSeconds(dur)
         val currentTime = LocalDateTime.parse(element.attr("current_time"), dateTimeFormat)
-
-//        println(startTime)
-//        println(endTime)
-//        println(currentTime)
 
         val status: ContestStatus = if (currentTime.isAfter(endTime) || currentTime.isEqual(endTime)) {
             ContestStatus.OVER
@@ -227,10 +219,18 @@ class EjudgeEventsLoader {
     private var contestInfoFlow: MutableStateFlow<ContestInfo>
     private val properties: Properties = Config.loadProperties("events")
     private val dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")
+    private val xmlLoader = object : RegularLoaderService<Document>(null) {
+        override val url = properties.getProperty("url")
+        override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
+    }
 
     init {
-        val problemsInfo = parseProblemsInfo(properties.getProperty("problems.url"))
-        val teamsInfo = parseTeamsInfo(properties.getProperty("teams.url"), problemsInfo.size)
+        val problemsInfo = parseProblemsInfo()
+        val teamsInfo = parseTeamsInfo(problemsInfo.size)
+
+        problemsInfo.forEach { println(it.letter + " " + it.name + " " + it.color) }
+        teamsInfo.forEach { println(it.id.toString() + " " + it.contestSystemId + " " + it.name) }
+
         contestData = EjudgeContestInfo(problemsInfo, teamsInfo, kotlinx.datetime.Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
         contestData.contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
         contestData.freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
