@@ -46,7 +46,7 @@ const ScoreboardRowContainer = styled.div`
   width: 100%;
   display: flex;
   overflow: hidden;
-  //box-sizing: border-box;
+  /* box-sizing: border-box; */
 `;
 
 const ScoreboardCell = styled(Cell)`
@@ -192,7 +192,7 @@ const ScoreboardRowWrap = styled.div.attrs((props) => ({
 }))`
   left: 0;
   right: 0;
-  height: ${props => props.rowHeight + 2}px; // FIXME lol
+  height: ${props => props.rowHeight + 2}px; /* FIXME lol */
   transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
   position: absolute;
 `;

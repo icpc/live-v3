@@ -1,0 +1,31 @@
+name: Publish release on tag
+
+on:
+  push:
+    paths:
+      - overlay/**
+  pull_request:
+    paths:
+      - overlay/**
+
+
+jobs:
+  lint:
+    name: Lint overlay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      - name: "Install overlay dependencies"
+        working-directory: "overlay"
+        run: npm ci
+      - name: "Lint overlay js"
+        working-directory: "overlay"
+        run: npm run lint:js
+      - name: "Lint overlay css"
+        working-directory: "overlay"
+        run: npm run lint:css

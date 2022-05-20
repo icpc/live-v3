@@ -45,6 +45,7 @@ const Title = styled.div`
 const Table = styled.div`
   height: 100%;
   display: grid;
+  /* stylelint-disable-next-line */
   grid-template-columns: auto 1fr;
 `;
 
