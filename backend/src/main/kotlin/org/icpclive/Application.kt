@@ -69,9 +69,6 @@ private fun Application.setupKtorPlugins() {
             }
         }
     }
-}
-
-private fun Route.setupCors() {
     install(CORS) {
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.ContentType)
@@ -108,7 +105,6 @@ fun Application.module() {
     val mediaPath = Config.configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())
     mediaPath.toFile().mkdirs()
     routing {
-        setupCors()
         static("/static") { resources("static") }
         static("/media") { files(mediaPath.toString()) }
         singlePageApplication {
