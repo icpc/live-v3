@@ -100,7 +100,7 @@ const TeamNameCellContainer = styled.div.attrs(({ scaleY }) => ({
 const TeamNameWrap = styled(Cell)`
   flex-grow: ${props => (props.canGrow ?? true) ? 1 : 0};
   flex-shrink: ${props => (props.canShrink ?? true) ? 1 : 0};
-  overflow-x: clip;
+  overflow-x: hidden;
   justify-content: start;
   padding-left: ${CELL_NAME_LEFT_PADDING};
   padding-right: ${CELL_NAME_RIGHT_PADDING};
