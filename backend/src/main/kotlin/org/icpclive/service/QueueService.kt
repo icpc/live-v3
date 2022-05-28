@@ -9,6 +9,7 @@ import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
@@ -54,6 +55,9 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
 
     suspend fun run() {
         val contestInfoFlow = DataBus.contestInfoUpdates.await()
+        contestInfoFlow.filterNot { it.status == ContestStatus.BEFORE }.first()
+        logger.info("Queue service is started")
+        val firstEventTime = contestInfoFlow.value.currentContestTime
         val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
         val runsFlowTrigger = runsFlow.map { Run(it) }
         val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
@@ -67,7 +71,7 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
                 }
                 is Run -> {
                     val run = event.run
-                    val currentTime = contestInfoFlow.value.currentContestTime
+                    val currentTime = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time.milliseconds
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
                     resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))

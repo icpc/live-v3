@@ -102,7 +102,6 @@ class ClicsEventsLoader {
                                 is JudgementTypeEvent -> model.processJudgementType(it.data)
                                 is PreloadFinishedEvent -> {
                                     preloadFinished = true
-                                    contestInfoFlow.value = model.contestInfo.toApi()
                                     for (run in model.submissions.values.sortedBy { it.id }) {
                                         rawRunsFlow.emit(run.toApi())
                                     }
@@ -110,6 +109,7 @@ class ClicsEventsLoader {
                             }
                             if (preloadFinished) {
                                 contestInfoFlow.value = model.contestInfo.toApi()
+                                println("HERE!!!! ${contestInfoFlow.value}")
                             }
                         }
                         is UpdateRunEvent -> {
