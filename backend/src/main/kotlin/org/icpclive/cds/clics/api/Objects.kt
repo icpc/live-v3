@@ -121,52 +121,54 @@ sealed class IgnoredEvent : Event()
 
 @Serializable
 @SerialName("contests")
-class ContestEvent(override val id: String, val data: Contest) : UpdateContestEvent()
+data class ContestEvent(override val id: String, val data: Contest) : UpdateContestEvent()
 
 @Serializable
 @SerialName("problems")
-class ProblemEvent(override val id: String, val data: Problem) : UpdateContestEvent()
+data class ProblemEvent(override val id: String, val data: Problem) : UpdateContestEvent()
 
 @Serializable
 @SerialName("teams")
-class TeamEvent(override val id: String, val data: Team) : UpdateContestEvent()
+data class TeamEvent(override val id: String, val data: Team) : UpdateContestEvent()
 
 @Serializable
 @SerialName("organizations")
-class OrganizationEvent(override val id: String, val data: Organization) : UpdateContestEvent()
+data class OrganizationEvent(override val id: String, val data: Organization) : UpdateContestEvent()
 
 @Serializable
 @SerialName("state")
-class StateEvent(override val id: String, val data: State) : UpdateContestEvent()
+data class StateEvent(override val id: String, val data: State) : UpdateContestEvent()
 
 @Serializable
 @SerialName("judgement-types")
-class JudgementTypeEvent(override val id: String, val data: JudgementType) : UpdateContestEvent()
+data class JudgementTypeEvent(override val id: String, val data: JudgementType) : UpdateContestEvent()
 
 @Serializable
 @SerialName("submissions")
-class SubmissionEvent(override val id: String, val data: Submission) : UpdateRunEvent()
+data class SubmissionEvent(override val id: String, val data: Submission) : UpdateRunEvent()
 
 @Serializable
 @SerialName("judgements")
-class JudgementEvent(override val id: String, val data: Judgement) : UpdateRunEvent()
+data class JudgementEvent(override val id: String, val data: Judgement) : UpdateRunEvent()
 
 @Serializable
 @SerialName("runs")
-class RunsEvent(override val id: String, val data: Run) : UpdateRunEvent()
+data class RunsEvent(override val id: String, val data: Run) : UpdateRunEvent()
 
 @Serializable
 @SerialName("commentary")
-class CommentaryEvent(override val id: String) : IgnoredEvent()
+data class CommentaryEvent(override val id: String) : IgnoredEvent()
 
 @Serializable
 @SerialName("awards")
-class AwardsEvent(override val id: String) : IgnoredEvent()
+data class AwardsEvent(override val id: String) : IgnoredEvent()
 
 @Serializable
 @SerialName("languages")
-class LanguageEvent(override val id: String) : IgnoredEvent()
+data class LanguageEvent(override val id: String) : IgnoredEvent()
 
 @Serializable
 @SerialName("groups")
-class GroupsEvent(override val id: String) : IgnoredEvent()
+data class GroupsEvent(override val id: String) : IgnoredEvent()
+
+data class PreloadFinishedEvent(override val id: String): UpdateContestEvent()

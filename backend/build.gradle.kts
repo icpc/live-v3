@@ -32,6 +32,7 @@ kotlin {
             languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             languageSettings.optIn("kotlin.RequiresOptIn")
+            languageSettings.optIn("kotlin.FlowPreview")
         }
     }
 }

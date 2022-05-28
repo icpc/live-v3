@@ -1,12 +1,8 @@
 package org.icpclive.cds.clics
 
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -19,6 +15,7 @@ import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
+import kotlin.time.Duration.Companion.seconds
 
 class ClicsEventsLoader {
     private val properties = Config.loadProperties("events")
@@ -56,7 +53,44 @@ class ClicsEventsLoader {
             }
 
             launch {
-                rawEventsFlow.collect {
+                fun priority(event: UpdateContestEvent) = when (event) {
+                    is ContestEvent -> 0
+                    is StateEvent -> 1
+                    is JudgementTypeEvent -> 2
+                    is OrganizationEvent -> 3
+                    is TeamEvent -> 4
+                    is ProblemEvent -> 5
+                    is PreloadFinishedEvent -> throw IllegalStateException()
+                }
+                fun priority(event: UpdateRunEvent) = when (event) {
+                    is SubmissionEvent -> 0
+                    is JudgementEvent -> 1
+                    is RunsEvent -> 2
+                }
+                fun Flow<Event>.sortedPrefix() = flow {
+                    val channel = produceIn(this@launch)
+                    val prefix = mutableListOf<Event>()
+                    prefix.add(channel.receive())
+                    while (true) {
+                        try {
+                            withTimeout(1.seconds) {
+                                prefix.add(channel.receive())
+                            }
+                        } catch (e: TimeoutCancellationException) {
+                            break
+                        }
+                    }
+                    val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
+                    val runEvents = prefix.filterIsInstance<UpdateRunEvent>()
+                    val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
+                    contestEvents.sortedBy { priority(it)  }.forEach { emit(it) }
+                    runEvents.sortedBy { priority(it) }.forEach { emit(it) }
+                    otherEvents.forEach { emit(it) }
+                    emit(PreloadFinishedEvent(""))
+                    emitAll(channel)
+                }
+                var preloadFinished = false;
+                rawEventsFlow.sortedPrefix().collect {
                     when (it) {
                         is UpdateContestEvent -> {
                             when (it) {
@@ -66,15 +100,28 @@ class ClicsEventsLoader {
                                 is TeamEvent -> model.processTeam(it.data)
                                 is StateEvent -> model.processState(it.data)
                                 is JudgementTypeEvent -> model.processJudgementType(it.data)
+                                is PreloadFinishedEvent -> {
+                                    preloadFinished = true
+                                    contestInfoFlow.value = model.contestInfo.toApi()
+                                    for (run in model.submissions.values.sortedBy { it.id }) {
+                                        rawRunsFlow.emit(run.toApi())
+                                    }
+                                }
                             }
-                            contestInfoFlow.value = model.contestInfo.toApi()
+                            if (preloadFinished) {
+                                contestInfoFlow.value = model.contestInfo.toApi()
+                            }
                         }
                         is UpdateRunEvent -> {
                             when (it) {
                                 is SubmissionEvent -> model.processSubmission(it.data)
                                 is JudgementEvent -> model.processJudgement(it.data)
                                 is RunsEvent -> model.processRun(it.data)
-                            }.also { run -> rawRunsFlow.emit(run.toApi()) }
+                            }.also { run ->
+                                if (preloadFinished) {
+                                    rawRunsFlow.emit(run.toApi())
+                                }
+                            }
                         }
                         is IgnoredEvent -> {}
                     }
