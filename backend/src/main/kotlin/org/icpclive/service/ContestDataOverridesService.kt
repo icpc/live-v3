@@ -1,6 +1,6 @@
 package org.icpclive.service
 
-import fileChangesFlow
+import org.icpclive.utils.fileChangesFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
