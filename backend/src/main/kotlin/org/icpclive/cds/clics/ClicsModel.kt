@@ -40,51 +40,81 @@ class ClicsModel {
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
     }
 
-    fun processProblem(problem: Problem) {
-        problems[problem.id] = ClicsProblemInfo(
-            id = problem.ordinal - 1, // todo: это не может работать
-            letter = problem.label,
-            name = problem.name,
-            color = problem.rgb?.let { Color.decode(it) } ?: Color.GRAY,
-            testCount = problem.test_data_count
-        )
+    fun parseColor(s: String) = when {
+        s.startsWith("0x") -> Color.decode(s)
+        s.startsWith("#") -> Color.decode("0x" + s.substring(1))
+        else -> Color.decode("0x$s")
     }
 
-    fun processOrganization(organization: Organization) {
-        organisations[organization.id] = ClicsOrganisationInfo(
-            id = organization.id,
-            name = organization.name,
-            formalName = organization.formal_name ?: organization.name,
-            logo = organization.logo.lastOrNull()?.href,
-            hashtag = organization.twitter_hashtag
-        )
+    fun processProblem(operation: Operation, problem: Problem) {
+        if (operation == Operation.DELETE) {
+            problems.remove(problem.id)
+        } else {
+            problems[problem.id] = ClicsProblemInfo(
+                id = problem.ordinal - 1, // todo: это не может работать
+                letter = problem.label,
+                name = problem.name,
+                color = problem.rgb?.let {
+                    try {
+                        parseColor(it)
+                    } catch (e: Exception) {
+                        logger.warn("Failed to parse color $it, ignoring it")
+                        null
+                    }
+                } ?: Color.GRAY,
+                testCount = problem.test_data_count
+            )
+        }
+    }
+
+    fun processOrganization(operation: Operation, organization: Organization) {
+        if (operation == Operation.DELETE) {
+            organisations.remove(organization.id)
+        } else {
+            organisations[organization.id] = ClicsOrganisationInfo(
+                id = organization.id,
+                name = organization.name,
+                formalName = organization.formal_name ?: organization.name,
+                logo = organization.logo.lastOrNull()?.href,
+                hashtag = organization.twitter_hashtag
+            )
+        }
         // todo: update team if something changed
     }
 
-    fun processTeam(team: Team) {
+    fun processTeam(operation: Operation, team: Team) {
         val id = team.id
-        val teamOrganization = team.organization_id?.let { organisations[it] }
-        teams[id] = ClicsTeamInfo(
-            id = id.hashCode(),
-            name = teamOrganization?.formalName ?: team.name,
-            shortName = teamOrganization?.name ?: team.name,
-            contestSystemId = id,
-            groups = emptySet(),
-            hashTag = teamOrganization?.hashtag,
-            photo = team.photo.firstOrNull()?.href,
-            video = team.video.firstOrNull()?.href,
-            screens = team.desktop.map { it.href },
-            cameras = team.webcam.map { it.href },
-        )
+        if (operation == Operation.DELETE) {
+            teams.remove(id)
+        } else {
+            val teamOrganization = team.organization_id?.let { organisations[it] }
+            teams[id] = ClicsTeamInfo(
+                id = id.hashCode(),
+                name = teamOrganization?.formalName ?: team.name,
+                shortName = teamOrganization?.name ?: team.name,
+                contestSystemId = id,
+                groups = emptySet(),
+                hashTag = teamOrganization?.hashtag,
+                photo = team.photo.firstOrNull()?.href,
+                video = team.video.firstOrNull()?.href,
+                screens = team.desktop.map { it.href },
+                cameras = team.webcam.map { it.href },
+            )
+        }
     }
 
-    fun processJudgementType(judgementType: JudgementType) {
-        judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
-            id = judgementType.id,
-            isAccepted = judgementType.solved,
-            isAddingPenalty = judgementType.penalty,
-        )
-        logger.info("Add judgementType $judgementType")
+    fun processJudgementType(operation: Operation, judgementType: JudgementType) {
+        if (operation == Operation.DELETE) {
+            judgementTypes.remove(judgementType.id)
+            logger.info("Remove judgementType $judgementType")
+        } else {
+            judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
+                id = judgementType.id,
+                isAccepted = judgementType.solved!!,
+                isAddingPenalty = judgementType.penalty,
+            )
+            logger.info("Add judgementType $judgementType")
+        }
     }
 
     fun processSubmission(submission: Submission): ClicsRunInfo {

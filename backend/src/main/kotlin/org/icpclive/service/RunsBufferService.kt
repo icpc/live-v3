@@ -25,6 +25,6 @@ class RunsBufferService(
     }
 
     companion object {
-        private val log = getLogger(YandexEventLoader::class)
+        private val log = getLogger(RunsBufferService::class)
     }
 }

@@ -86,7 +86,7 @@ class ClicsEventsLoader {
                     contestEvents.sortedBy { priority(it)  }.forEach { emit(it) }
                     runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                     otherEvents.forEach { emit(it) }
-                    emit(PreloadFinishedEvent(""))
+                    emit(PreloadFinishedEvent("", Operation.CREATE))
                     emitAll(channel)
                 }
                 var preloadFinished = false;
@@ -95,11 +95,11 @@ class ClicsEventsLoader {
                         is UpdateContestEvent -> {
                             when (it) {
                                 is ContestEvent -> model.processContest(it.data)
-                                is ProblemEvent -> model.processProblem(it.data)
-                                is OrganizationEvent -> model.processOrganization(it.data)
-                                is TeamEvent -> model.processTeam(it.data)
+                                is ProblemEvent -> model.processProblem(it.op, it.data)
+                                is OrganizationEvent -> model.processOrganization(it.op, it.data)
+                                is TeamEvent -> model.processTeam(it.op, it.data)
                                 is StateEvent -> model.processState(it.data)
-                                is JudgementTypeEvent -> model.processJudgementType(it.data)
+                                is JudgementTypeEvent -> model.processJudgementType(it.op, it.data)
                                 is PreloadFinishedEvent -> {
                                     preloadFinished = true
                                     for (run in model.submissions.values.sortedBy { it.id }) {
