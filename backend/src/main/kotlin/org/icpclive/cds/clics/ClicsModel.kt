@@ -143,7 +143,7 @@ class ClicsModel {
         if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
         judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
         judgement.judgement_type_id?.let { run.judgementType = judgementTypes[it] }
-        logger.info("Process $judgement")
+        logger.debug("Process $judgement")
         return run
     }
 
@@ -158,7 +158,7 @@ class ClicsModel {
         if (judgementType?.isAccepted == true) { // may be WA runs also need to add
             run.passedCaseRun.add(casesRun.ordinal)
         }
-        logger.info("$casesRun with verdict $judgementType")
+        logger.debug("$casesRun with verdict $judgementType")
         return run
     }
 

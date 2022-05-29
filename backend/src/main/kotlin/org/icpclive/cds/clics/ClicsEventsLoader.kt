@@ -109,7 +109,6 @@ class ClicsEventsLoader {
                             }
                             if (preloadFinished) {
                                 contestInfoFlow.value = model.contestInfo.toApi()
-                                println("HERE!!!! ${contestInfoFlow.value}")
                             }
                         }
                         is UpdateRunEvent -> {
