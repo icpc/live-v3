@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useRef } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import {
     CELL_NAME_FONT,
@@ -107,20 +107,20 @@ const TeamNameWrap = styled(Cell)`
 `;
 
 export const TeamNameCell = ({ teamName, ...props }) => {
-    const cellRef = useRef(null);
     const teamNameWidth = getTextWidth(teamName, CELL_NAME_FONT);
-    let scaleFactor = undefined;
-    if (cellRef.current !== null) {
-        const styles = getComputedStyle(cellRef.current);
-        const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
-        scaleFactor = Math.min(1, haveWidth / teamNameWidth);
-    }
-    return <TeamNameWrap ref={cellRef} {...props}>
-        {scaleFactor !== undefined &&
-            <TeamNameCellContainer scaleY={scaleFactor}>
-                {teamName}
-            </TeamNameCellContainer>
+    const updateScale = useCallback((cellRef) => {
+        if (cellRef !== null) {
+            const styles = getComputedStyle(cellRef);
+            const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
+            const scaleFactor = Math.min(1, haveWidth / teamNameWidth);
+            console.log(cellRef);
+            cellRef.children[0].style.transform = `scaleX(${scaleFactor})`; // dirty hack, don't @ me
         }
+    }, []);
+    return <TeamNameWrap ref={updateScale} {...props}>
+        <TeamNameCellContainer scaleY={0}>
+            {teamName}
+        </TeamNameCellContainer>
     </TeamNameWrap>;
 };
 
