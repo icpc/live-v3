@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
+import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { Cell } from "../../atoms/Cell";
 import { StarIcon } from "../../atoms/Star";
 import { TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
@@ -156,7 +156,6 @@ const ScoreboardColumn = ({ teamId }) => {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    console.log(scoreboardData);
     return <ScoreboardColumnWrapper>
         <ScoreboardTeamInfoRow>
             <TeamInfo teamId={teamId}/>
@@ -172,12 +171,11 @@ const ScoreboardColumn = ({ teamId }) => {
 };
 
 const TeamInfo = ({ teamId }) => {
-    // console.log(useSelector((state) => state.contestInfo.info?.teamsId[teamId]));
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     return <TeamInfoWrapper>
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medal}/>
-        <TeamNameCell teamName={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
+        <TextShrinkingCell text={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData?.totalScore}
         </ScoreboardStatCell>
@@ -221,7 +219,6 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
 };
 
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
-    // console.log(settings);
     const [isLoaded, setIsLoaded] = useState(settings.mediaType === undefined);
     // const medias = useSelector((state) => state.contestInfo.info?.teamsId[settings.teamId]);
 

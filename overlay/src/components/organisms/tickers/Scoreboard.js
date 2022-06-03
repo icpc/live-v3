@@ -31,7 +31,6 @@ export const Scoreboard = ({ tickerSettings, state }) => {
     useEffect(() => {
         if(state !== "entering") {
             const interval = setInterval(() => {
-                console.log(state);
                 if (state !== "exiting") {
                     setRow((row) => (row + 1) % nrows);
                 }

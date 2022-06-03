@@ -98,8 +98,8 @@ export const Statistics = () => {
         <StatisticsWrap>
             <Title>Statistics</Title>
             <Table>
-                {statistics?.map(({ success, wrong, pending }, index) =>
-                    <Fragment key={index}>
+                {tasks && statistics?.map(({ success, wrong, pending }, index) => {
+                    return <Fragment key={index}>
                         <StatisticsProblemCell probData={tasks[index]}/>
                         <SubmissionStats>
                             <StatEntry targetWidth={calculator(success)} color={VERDICT_OK}>
@@ -112,8 +112,8 @@ export const Statistics = () => {
                                 {wrong}
                             </StatEntry>
                         </SubmissionStats>
-                    </Fragment>
-                )}
+                    </Fragment>;
+                })}
             </Table>
         </StatisticsWrap>
     </AllDiv>;

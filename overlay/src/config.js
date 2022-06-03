@@ -1,7 +1,7 @@
 // Strings
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = process.env.REACT_APP_WEBSOCKET_PORT ?? window.location.port;
-export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname  + ":" + WS_PORT + "/api/overlay";
+export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay";
 
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
@@ -27,6 +27,11 @@ export const STATISTICS_CELL_MORPH_TIME = 200; //ms
 // Behaviour
 
 // Styles
+
+export const GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
+export const GLOBAL_DEFAULT_FONT_SIZE = "22pt"; // css-property
+export const GLOBAL_DEFAULT_FONT = GLOBAL_DEFAULT_FONT_SIZE + " " + GLOBAL_DEFAULT_FONT_FAMILY; // css property MUST HAVE FONT SIZE
+
 export const VERDICT_OK = "#1b8041";
 export const VERDICT_NOK = "#881f1b";
 export const VERDICT_UNKNOWN = "#a59e0c";
@@ -51,11 +56,11 @@ export const STATISTICS_OPACITY = 0.95;
 export const STATISTICS_BG_COLOR = "#000000";
 export const STATISTICS_TITLE_COLOR = "#FFFFFF";
 export const STATISTICS_STATS_VALUE_FONT_SIZE = "24pt";
-export const STATISTICS_STATS_VALUE_FONT_FAMILY = "Helvetica, serif";
+export const STATISTICS_STATS_VALUE_FONT_FAMILY = GLOBAL_DEFAULT_FONT_FAMILY;
 export const STATISTICS_STATS_VALUE_COLOR = "#FFFFFF";
 
 
-export const CELL_FONT_FAMILY = "Helvetica, serif";
+export const CELL_FONT_FAMILY = GLOBAL_DEFAULT_FONT_FAMILY;
 export const CELL_FONT_SIZE = "22pt";
 export const CELL_TEXT_COLOR = "#FFFFFF";
 export const CELL_BG_COLOR = "#000000";
@@ -69,7 +74,6 @@ export const CELL_QUEUE_TASK_WIDTH = "50px"; // css property
 
 export const CELL_NAME_LEFT_PADDING = "5px"; // css property
 export const CELL_NAME_RIGHT_PADDING = CELL_NAME_LEFT_PADDING; // css property
-export const CELL_NAME_FONT = CELL_FONT_SIZE + " " + CELL_FONT_FAMILY;
 
 export const TICKER_SMALL_SIZE = "10%"; // css property
 export const TICKER_SMALL_BACKGROUND = VERDICT_NOK;

@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useLayoutEffect } from "react";
 import styled from "styled-components";
 import {
-    CELL_NAME_FONT,
+    GLOBAL_DEFAULT_FONT,
     CELL_NAME_LEFT_PADDING,
     CELL_NAME_RIGHT_PADDING,
-    CELL_PROBLEM_LINE_WIDTH,
+    CELL_PROBLEM_LINE_WIDTH, GLOBAL_DEFAULT_FONT_FAMILY,
     MEDAL_COLORS,
     VERDICT_NOK,
     VERDICT_OK,
@@ -87,48 +87,48 @@ export const getTextWidth = (text, font) => {
 };
 
 
-const TeamNameCellContainer = styled.div.attrs(({ scaleY }) => ({
-    style: {
-        transform: `scaleX(${scaleY})`
-    }
-}))`
+const TextShrinkingContainer = styled.div`
   white-space: nowrap;
   transform-origin: left;
   text-align: left;
+  position: relative;
+  left: ${props => props.align === "center" ? "50%" : ""};
 `;
 
-const TeamNameWrap = styled(Cell)`
+const TextShrinkingWrap = styled(Cell)`
   flex-grow: ${props => (props.canGrow ?? true) ? 1 : 0};
   flex-shrink: ${props => (props.canShrink ?? true) ? 1 : 0};
   overflow-x: hidden;
   justify-content: start;
   padding-left: ${CELL_NAME_LEFT_PADDING};
   padding-right: ${CELL_NAME_RIGHT_PADDING};
+  
+  font: ${props => props.font};
 `;
 
-export const TeamNameCell = ({ teamName, ...props }) => {
-    const teamNameWidth = getTextWidth(teamName, CELL_NAME_FONT);
+export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align="left", ...props }) => {
+    const teamNameWidth = getTextWidth(text, font);
     const updateScale = useCallback((cellRef) => {
         if (cellRef !== null) {
             const styles = getComputedStyle(cellRef);
             const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
             const scaleFactor = Math.min(1, haveWidth / teamNameWidth);
-            console.log(cellRef);
-            cellRef.children[0].style.transform = `scaleX(${scaleFactor})`; // dirty hack, don't @ me
+            cellRef.children[0].style.transform = `scaleX(${scaleFactor})${align === "center" ? " translateX(-50%)" : ""}`; // dirty hack, don't @ me
         }
-    }, []);
-    return <TeamNameWrap ref={updateScale} {...props}>
-        <TeamNameCellContainer scaleY={0}>
-            {teamName}
-        </TeamNameCellContainer>
-    </TeamNameWrap>;
+    }, [align, font]);
+    return <TextShrinkingWrap ref={updateScale} font={font} {...props}>
+        <TextShrinkingContainer scaleY={0} align={align}>
+            {text}
+        </TextShrinkingContainer>
+    </TextShrinkingWrap>;
 };
 
-TeamNameCell.propTypes = {
+TextShrinkingCell.propTypes = {
     ...Cell.propTypes,
     canGrow: PropTypes.bool,
     canShrink: PropTypes.bool,
-    teamName: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    align: PropTypes.oneOf(["center", "left"])
 };
 
 export const RankCell = ({ rank, medal, ...props }) => {
