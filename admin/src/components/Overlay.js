@@ -23,7 +23,7 @@ export class Overlay extends Component {
             height={FULL_HEIGHT * this.state.scaleFactor}
             onResize={this.onResize}
             lockAspectRatio={true}
-            bounds={"parent"}
+            bounds={"body"}
         >
             <Paper sx={{
                 overflow: "hidden",
