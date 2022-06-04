@@ -1,8 +1,7 @@
 import { Paper } from "@mui/material";
 import React, { Component } from "react";
 import { OVERLAY_LOCATION } from "../config";
-import { Resizable } from "react-resizable";
-import "react-resizable/css/styles.css";
+import { Rnd } from "react-rnd";
 
 const FULL_WIDTH = 1920;
 const FULL_HEIGHT = 1080;
@@ -15,21 +14,18 @@ export class Overlay extends Component {
         };
         this.onResize = this.onResize.bind(this);
     }
-    onResize(event, { size }) {
-        this.setState({ ...this.state, scaleFactor: size.width / FULL_WIDTH });
+    onResize(e, direction, ref) {
+        this.setState({ ...this.state, scaleFactor: ref.offsetWidth / FULL_WIDTH });
     }
     render() {
-        return <Resizable
+        return <Rnd
             width={FULL_WIDTH * this.state.scaleFactor}
             height={FULL_HEIGHT * this.state.scaleFactor}
             onResize={this.onResize}
-            resizeHandles={["nw", "n", "w"]}
             lockAspectRatio={true}
+            bounds={"parent"}
         >
             <Paper sx={{
-                position: "fixed",
-                bottom: "10px",
-                right: "10px",
                 overflow: "hidden",
                 width: FULL_WIDTH * this.state.scaleFactor,
                 height: FULL_HEIGHT * this.state.scaleFactor
@@ -40,6 +36,6 @@ export class Overlay extends Component {
                     pointerEvents: "none"
                 }}/>
             </Paper>
-        </Resizable>;
+        </Rnd>;
     }
 }
