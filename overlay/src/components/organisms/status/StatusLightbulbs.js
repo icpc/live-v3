@@ -10,29 +10,35 @@ const colors = {
     [undefined]: "black"
 };
 
+const compactcolors = {
+    ...colors,
+    [WebsocketStatus.CONNECTED]: "rgba(0,0,0,0)"
+};
+
 const Lightbulb = styled.div`
-  width: 30px;
-  height: 30px;
+  width: ${props => props.compact ? "10px" : "30px"};
+  height: ${props => props.compact ? "10px" : "30px"};
   display: inline-block;
   border-radius: 30px;
   background-color: ${props => props.color};
+  vertical-align: top;
 `;
 
 const LightbulbWrap = styled.div`
-    
+    line-height: ${props => props.compact ? "10px" : "30px"};
 `;
 
 const StatusLightbulbsWrap = styled.div`
-    
+    display: ${props => props.compact ? "flex" : ""};
 `;
 
-export const StatusLightbulbs = () => {
+export const StatusLightbulbs = ({ compact = false }) => {
     const status = useSelector(state => state.status.websockets);
-    return <StatusLightbulbsWrap>
+    return <StatusLightbulbsWrap compact={compact}>
         {Object.entries(status).map(([key, value]) => {
-            return <LightbulbWrap key={key}>
-                {key}
-                <Lightbulb color={colors[value]}/>
+            return <LightbulbWrap key={key} compact={compact}>
+                {!compact ? key : null}
+                <Lightbulb color={(compact ? compactcolors : colors)[value]} compact={compact}/>
             </LightbulbWrap>;
         })
         }
