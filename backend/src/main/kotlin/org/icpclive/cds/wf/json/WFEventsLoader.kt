@@ -308,6 +308,7 @@ class WFEventsLoader(regionals: Boolean) {
     }
 
     var firstRun = true
+    @Suppress("UNUSED_PARAMETER")
     fun waitForEmulation(time: Duration) {
         if (emulation) {
             try {

@@ -14,8 +14,8 @@ java {
 
 plugins {
     application
-    kotlin("jvm") version "1.6.20"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.20"
+    kotlin("jvm") version "1.7.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.0"
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
@@ -28,14 +28,13 @@ application {
 kotlin {
     sourceSets {
         all {
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
             languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            languageSettings.optIn("kotlinx.coroutines.FlowPreview")
             languageSettings.optIn("kotlin.RequiresOptIn")
-            languageSettings.optIn("kotlin.FlowPreview")
         }
     }
 }
+
 
 val jsList = listOf("overlay", "admin")
 
@@ -43,6 +42,8 @@ tasks {
     named("run") {
         (this as JavaExec).args = listOf("-config=config/application.conf")
     }
+    named("jar") { dependsOn("buildJs") }
+    named("compileTestKotlin") { dependsOn("buildJs") }
     shadowJar {
         dependsOn("buildJs")
         manifest {
@@ -67,6 +68,12 @@ tasks {
         dependsOn("shadowJar")
         from(project.buildDir.resolve("libs").resolve("${rootProject.name}-${project.version}.jar"))
         destinationDir = rootProject.rootDir.resolve("artifacts")
+    }
+
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+        kotlinOptions {
+            kotlinOptions.allWarningsAsErrors = true
+        }
     }
 }
 

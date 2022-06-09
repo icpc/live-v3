@@ -35,9 +35,6 @@ open class WFContestInfo : ContestInfo {
         teamInfos[team.id] = team
     }
 
-    fun runExists(id: Int): Boolean {
-        return wfRuns[id] != null
-    }
 
     /*open fun addRun(run: WFRunInfo) {
 //		System.err.println("add runId: " + run.getId());
