@@ -119,7 +119,7 @@ class YandexEventLoader  {
             coroutineScope {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                log.info("It will take a long time, please wait patiently...")
+                log.info("Loading all contest submissions")
                 launchEmulation(
                     emulationStartTime, emulationSpeed,
                     allSubmissionsLoader.loadOnce()
