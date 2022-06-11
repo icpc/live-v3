@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Submissions(
+    val count: Long,
     val submissions: List<Submission>
 )
 
@@ -18,11 +19,6 @@ data class Submission(
     val verdict: String,
     val test: Long,
     val time: Long,
-    val memory: Long
-)
-
-// Use only with ignoreMissingKeys = true
-@Serializable
-data class SimplifiedFullRunReport(
+    val memory: Long,
     val timeFromStart: Long
 )
