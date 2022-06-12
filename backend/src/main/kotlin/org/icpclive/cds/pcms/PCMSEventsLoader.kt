@@ -9,13 +9,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.MediaType
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.config.Config
-import org.icpclive.service.EmulationService
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
@@ -26,6 +24,7 @@ import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
 import java.awt.Color
 import java.util.*
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -71,13 +70,11 @@ class PCMSEventsLoader {
                     extraBufferCapacity = Int.MAX_VALUE,
                     onBufferOverflow = BufferOverflow.SUSPEND
                 )
+                val contestInfoFlow = MutableStateFlow(contestData.toApi())
                 launchICPCServices(rawRunsFlow, contestInfoFlow)
                 xmlLoaderFlow.collect {
                     parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
                     contestInfoFlow.value = contestData.toApi()
-                    if (contestData.status == ContestStatus.RUNNING) {
-                        logger.info("Updated for contest time = ${contestData.contestTime}")
-                    }
                 }
             } else {
                 val runs = mutableListOf<RunInfo>()
@@ -109,57 +106,59 @@ class PCMSEventsLoader {
             contestData.startTime = Clock.System.now() - contestTime
         }
         contestData.status = status
-        contestData.contestTime = contestTime
         element.children().forEach { session: Element ->
             if ("session" == session.tagName()) {
-                parseTeamInfo(contestData, session, onRunChanges)
+                parseTeamInfo(session, contestTime, onRunChanges)
             }
+        }
+        if (status == ContestStatus.RUNNING) {
+            logger.info("Loaded contestInfo for time = $contestTime")
         }
     }
 
-    private fun parseTeamInfo(contestInfo: PCMSContestInfo, element: Element, onRunChanges: (RunInfo) -> Unit) {
+    private fun parseTeamInfo(element: Element, contestTime: Duration, onRunChanges: (RunInfo) -> Unit) {
         val alias = element.attr("alias")
-        contestInfo.getParticipant(alias)?.apply {
+        contestData.teams[alias]?.apply {
             for (i in element.children().indices) {
-                runs[i] = parseProblemRuns(contestInfo, element.child(i), i, id, onRunChanges)
+                runs[i] = parseProblemRuns(element.child(i), this, i, contestTime, onRunChanges)
             }
         }
     }
 
     private fun parseProblemRuns(
-        contestInfo: PCMSContestInfo,
         element: Element,
+        team: PCMSTeamInfo,
         problemId: Int,
-        teamId: Int,
+        contestTime: Duration,
         onRunChanges: (RunInfo) -> Unit
     ): List<RunInfo> {
-        if (contestInfo.status === ContestStatus.BEFORE) {
+        if (contestData.status === ContestStatus.BEFORE) {
             return emptyList()
         }
-        return element.children().mapIndexedNotNull { index, run ->
-            parseRunInfo(contestInfo, run, problemId, teamId, index, onRunChanges)
-        }
+        return element.children()
+            .filter { it.attr("time").toLong().milliseconds <= contestTime }
+            .mapIndexed { index, run ->
+                parseRunInfo(run, team, problemId, index, onRunChanges)
+            }
     }
 
     private fun parseRunInfo(
-        contestInfo: PCMSContestInfo,
         element: Element,
+        team: PCMSTeamInfo,
         problemId: Int,
-        teamId: Int,
         attemptId: Int,
         onRunChanges: (RunInfo) -> Unit
-    ): RunInfo? {
+    ): RunInfo {
         val time = element.attr("time").toLong().milliseconds
-        if (time > contestInfo.contestTime) return null
-        val isFrozen = time >= contestInfo.freezeTime
-        val oldRun = contestInfo.teams[teamId].runs[problemId].getOrNull(attemptId)
+        val isFrozen = time >= contestData.freezeTime
+        val oldRun = team.runs[problemId].getOrNull(attemptId)
         val percentage = when {
             isFrozen -> 0.0
             "undefined" == element.attr("outcome") -> 0.0
             else -> 1.0
         }
         val result = when {
-            !(percentage >= 1.0) -> ""
+            percentage < 1.0 -> ""
             "yes" == element.attr("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.attr("outcome"), "WA")
         }
@@ -170,7 +169,7 @@ class PCMSEventsLoader {
             isAddingPenalty = "AC" != result && "CE" != result,
             result = result,
             problemId = problemId,
-            teamId = teamId,
+            teamId = team.id,
             percentage = percentage,
             time = time,
             isFirstSolvedRun = false
@@ -182,7 +181,6 @@ class PCMSEventsLoader {
     }
 
     private var contestData: PCMSContestInfo
-    private var contestInfoFlow: MutableStateFlow<ContestInfo>
     private val properties: Properties = Config.loadProperties("events")
 
     init {
@@ -212,10 +210,14 @@ class PCMSEventsLoader {
                 problemInfo.size,
             )
         }
-        contestData = PCMSContestInfo(problemInfo, teams, Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN)
-        contestData.contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
-        contestData.freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
-        contestInfoFlow = MutableStateFlow(contestData.toApi())
+        contestData = PCMSContestInfo(
+            problems = problemInfo,
+            teams = teams.associateBy { it.contestSystemId },
+            startTime = Instant.fromEpochMilliseconds(0),
+            status = ContestStatus.UNKNOWN,
+            contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours,
+            freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
+        )
         loadProblemsInfo(properties.getProperty("problems.url"))
     }
 

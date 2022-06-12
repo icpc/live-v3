@@ -2,7 +2,7 @@ package org.icpclive.overlay
 
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
-import org.icpclive.cds.OptimismLevel
+import org.icpclive.api.OptimismLevel
 import org.icpclive.data.DataBus
 import org.icpclive.utils.sendJsonFlow
 

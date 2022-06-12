@@ -1,17 +1,14 @@
 package org.icpclive.cds.codeforces
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestStatus
-import org.icpclive.api.RunInfo
-import org.icpclive.cds.ContestInfo
+import org.icpclive.api.*
 import org.icpclive.cds.ProblemInfo
-import org.icpclive.cds.TeamInfo
 import org.icpclive.cds.codeforces.api.data.*
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.hours
 
 
 private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
@@ -34,49 +31,17 @@ private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
     CFSubmissionVerdict.WRONG_ANSWER to "WA",
 )
 
-
-/**
- * @author egor@egork.net
- */
-class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatus.UNKNOWN) {
-
-    override val problems = mutableListOf<ProblemInfo>()
-    override val teams: List<TeamInfo>
-        get() = participantsById.values.toList()
-    override val problemsNumber: Int
-        get() = problemsMap.size
-    override val teamsNumber: Int
-        get() = cfStandings?.rows?.size ?: 0
+class CFContestInfo {
+    private var contestLength: Duration = 5.hours
+    private var startTime: Instant = Instant.fromEpochMilliseconds(0)
+    private var status = ContestStatus.BEFORE
+    private val problems = mutableListOf<ProblemInfo>()
     private var cfStandings: CFStandings? = null
     private val problemsMap = mutableMapOf<String, ProblemInfo>()
     private val problemsIdMap = mutableMapOf<String, Int>()
     private val participantsByName = mutableMapOf<String, CFTeamInfo>()
     private val participantsById = mutableMapOf<Int, CFTeamInfo>()
     private var nextParticipantId = 1
-    override fun getParticipant(name: String): CFTeamInfo? {
-        return participantsByName[name]
-    }
-
-    override fun getParticipant(id: Int): CFTeamInfo? {
-        return participantsById[id]
-    }
-
-    override fun getParticipantByHashTag(hashTag: String): CFTeamInfo? {
-        return null
-    }
-
-    override val contestTime: Duration
-        get() {
-            if (cfStandings == null) {
-                return 0.seconds
-            }
-            return if (cfStandings!!.contest.relativeTimeSeconds == null) {
-                0.seconds
-            } else minOf(
-                Clock.System.now() - startTime,
-                cfStandings!!.contest.durationSeconds!!.seconds
-            )
-        }
 
     fun updateStandings(standings: CFStandings) {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
@@ -90,7 +55,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
         this.cfStandings = standings
         contestLength = standings.contest.durationSeconds!!.seconds
         val phase = standings.contest.phase
-        this.startTime = standings.contest.startTimeSeconds
+        startTime = standings.contest.startTimeSeconds
             ?.let { Instant.fromEpochSeconds(it) }
             ?: Instant.DISTANT_FUTURE
         status = when (phase) {
@@ -130,7 +95,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
                     isJudged = verdict != CFSubmissionVerdict.TESTING,
                     result = verdictToString[verdict]!!,
                     problemId = problemId,
-                    teamId = getParticipant(getName(it.author))!!.id,
+                    teamId = participantsByName[getName(it.author)]!!.id,
                     percentage = it.passedTestCount.toDouble() / problemTests,
                     time = it.relativeTimeSeconds.seconds,
                     isFirstSolvedRun = false
@@ -138,6 +103,14 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
             }.toList()
     }
 
+    fun toApi() = ContestInfo(
+        status,
+        startTime,
+        contestLength,
+        0.seconds,
+        problems.map { it.toApi() },
+        participantsById.values.map { it.toApi() }.sortedBy { it.id },
+    )
 
     companion object {
         fun getName(party: CFParty): String {

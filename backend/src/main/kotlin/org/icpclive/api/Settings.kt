@@ -4,7 +4,6 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.OptimismLevel
 
 interface ObjectSettings
 
@@ -19,6 +18,16 @@ data class PictureSettings(val url: String, val name: String) : ObjectSettings
 
 @Serializable
 class QueueSettings : ObjectSettings
+
+@Serializable
+enum class OptimismLevel {
+    @SerialName("normal")
+    NORMAL,
+    @SerialName("optimistic")
+    OPTIMISTIC,
+    @SerialName("pessimistic")
+    PESSIMISTIC;
+}
 
 @Serializable
 data class ScoreboardSettings(

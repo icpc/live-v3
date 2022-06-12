@@ -5,7 +5,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
-import org.icpclive.cds.OptimismLevel
+import org.icpclive.api.OptimismLevel
 import org.icpclive.utils.completeOrThrow
 
 /**

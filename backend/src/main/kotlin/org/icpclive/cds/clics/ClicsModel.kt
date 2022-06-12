@@ -7,8 +7,6 @@ import org.icpclive.cds.clics.model.*
 import org.icpclive.utils.getLogger
 import java.awt.Color
 import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.DurationUnit
 
 class ClicsModel {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
@@ -61,7 +59,7 @@ class ClicsModel {
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
     }
 
-    fun parseColor(s: String) = when {
+    private fun parseColor(s: String) : Color = when {
         s.startsWith("0x") -> Color.decode(s)
         s.startsWith("#") -> Color.decode("0x" + s.substring(1))
         else -> Color.decode("0x$s")
@@ -155,8 +153,7 @@ class ClicsModel {
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgement.submission_id}")
         judgements[judgement.id] = judgement
-        if (run.time >= freezeTime) return run // TODO: why we can know it?
-        judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
+        if (run.submissionTime >= freezeTime) return run // TODO: why we can know it?
         judgement.judgement_type_id?.let { run.judgementType = judgementTypes[it] }
         logger.debug("Process $judgement")
         return run
@@ -167,8 +164,7 @@ class ClicsModel {
             ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}")
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}, submission_id ${judgement.submission_id}")
-        if (run.time >= freezeTime) return run // TODO: why we can know it?
-        run.lastUpdateTime = casesRun.contest_time.toLong(DurationUnit.MILLISECONDS)
+        if (run.submissionTime >= freezeTime) return run // TODO: why we can know it?
         val judgementType = judgementTypes[casesRun.judgement_type_id]
         if (judgementType?.isAccepted == true) { // may be WA runs also need to add
             run.passedCaseRun.add(casesRun.ordinal)

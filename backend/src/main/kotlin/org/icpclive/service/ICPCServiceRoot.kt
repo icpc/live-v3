@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.OptimismLevel
+import org.icpclive.api.OptimismLevel
 import org.icpclive.data.DataBus
 
 

@@ -2,36 +2,22 @@ package org.icpclive.cds.yandex
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestStatus
-import org.icpclive.api.RunInfo
-import org.icpclive.cds.ContestInfo
+import org.icpclive.api.*
 import org.icpclive.cds.ProblemInfo
 import org.icpclive.cds.TeamInfo
-import org.icpclive.cds.yandex.api.ContestDescription
-import org.icpclive.cds.yandex.api.Participant
-import org.icpclive.cds.yandex.api.Problem
-import org.icpclive.cds.yandex.api.Submission
-import org.icpclive.cds.yandex.api.getResult
+import org.icpclive.cds.yandex.api.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 class YandexContestInfo(
-    startTime: Instant,
-    duration: Duration,
-    freezeTime: Duration,
-    override val problems: List<ProblemInfo>,
-    override val teams: List<TeamInfo>,
+    private val startTime: Instant,
+    private val duration: Duration,
+    private val freezeTime: Duration,
+    private val problems: List<ProblemInfo>,
+    private val teams: List<TeamInfo>,
     private val testCountByProblem: List<Int?>
-): ContestInfo(
-    startTime,
-    deduceStatus(startTime, duration)
 ) {
     private val teamIds: Set<Int> = teams.map(TeamInfo::id).toSet()
-
-    init {
-        contestLength = duration
-        this.freezeTime = freezeTime
-    }
 
     constructor(
             contestDescription: ContestDescription,
@@ -45,26 +31,6 @@ class YandexContestInfo(
             participants.map(Participant::toTeamInfo),
             problems.map(Problem::testCount)
     )
-
-    override val problemsNumber: Int
-        get() = problems.size
-
-    override val teamsNumber: Int
-        get() = teams.size
-
-    override val contestTime: Duration = Clock.System.now() - startTime
-
-    override fun getParticipant(name: String): TeamInfo? {
-        return teams.firstOrNull { it.name == name }
-    }
-
-    override fun getParticipant(id: Int): TeamInfo? {
-        return teams.firstOrNull { it.id == id }
-    }
-
-    override fun getParticipantByHashTag(hashTag: String): TeamInfo? {
-        return null
-    }
 
     fun submissionToRun(submission: Submission): RunInfo {
         val problemId = problems.indexOfFirst { it.letter == submission.problemAlias }
@@ -112,15 +78,27 @@ class YandexContestInfo(
     fun isTeamSubmission(submission: Submission): Boolean {
         return submission.authorId.toInt() in teamIds
     }
-}
 
-// There is no way to fetch YC server time, so here we go
-fun deduceStatus(startTime: Instant, duration: Duration): ContestStatus {
-    val now = Clock.System.now()
+    fun toApi() = ContestInfo(
+        status = deduceStatus(startTime, duration),
+        startTime = startTime,
+        contestLength = duration,
+        freezeTime = freezeTime,
+        problems = problems.map { it.toApi() },
+        teams = teams.map { it.toApi() }.sortedBy { it.id },
+    )
 
-    return when {
-        now < startTime -> ContestStatus.BEFORE
-        now < startTime + duration -> ContestStatus.RUNNING
-        else -> ContestStatus.OVER
+    companion object {
+        // There is no way to fetch YC server time, so here we go
+        fun deduceStatus(startTime: Instant, duration: Duration): ContestStatus {
+            val now = Clock.System.now()
+
+            return when {
+                now < startTime -> ContestStatus.BEFORE
+                now < startTime + duration -> ContestStatus.RUNNING
+                else -> ContestStatus.OVER
+            }
+        }
     }
 }
+
