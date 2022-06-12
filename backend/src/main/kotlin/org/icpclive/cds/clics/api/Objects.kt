@@ -53,11 +53,20 @@ data class Organization(
 data class Team(
     val id: String,
     val organization_id: String? = null,
+    val groupIds: List<String> = emptyList(),
     val name: String = "",
     val photo: List<Media> = emptyList(),
     val video: List<Media> = emptyList(),
     val desktop: List<Media> = emptyList(),
     val webcam: List<Media> = emptyList(),
+)
+
+@Serializable
+data class Group(
+    val id: String,
+    val icpcId: String? = null,
+    val name: String = "",
+    val type: String? = null,
 )
 
 @Serializable
@@ -155,6 +164,10 @@ data class StateEvent(override val id: String, override val op: Operation, val d
 data class JudgementTypeEvent(override val id: String, override val op: Operation, val data: JudgementType) : UpdateContestEvent()
 
 @Serializable
+@SerialName("groups")
+data class GroupsEvent(override val id: String, override val op: Operation, val data: Group) : UpdateContestEvent()
+
+@Serializable
 @SerialName("submissions")
 data class SubmissionEvent(override val id: String, override val op: Operation, val data: Submission) : UpdateRunEvent()
 
@@ -177,9 +190,5 @@ data class AwardsEvent(override val id: String, override val op: Operation) : Ig
 @Serializable
 @SerialName("languages")
 data class LanguageEvent(override val id: String, override val op: Operation) : IgnoredEvent()
-
-@Serializable
-@SerialName("groups")
-data class GroupsEvent(override val id: String, override val op: Operation) : IgnoredEvent()
 
 data class PreloadFinishedEvent(override val id: String, override val op: Operation): UpdateContestEvent()

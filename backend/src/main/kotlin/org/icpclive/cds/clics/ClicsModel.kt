@@ -1,7 +1,7 @@
 package org.icpclive.cds.clics
 
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestStatus
+import org.icpclive.api.*
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.model.*
 import org.icpclive.utils.getLogger
@@ -12,26 +12,47 @@ import kotlin.time.DurationUnit
 
 class ClicsModel {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
-    val problems = mutableMapOf<String, ClicsProblemInfo>()
+    private val problems = mutableMapOf<String, ClicsProblemInfo>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
-    val teams = mutableMapOf<String, ClicsTeamInfo>()
+    private val teams = mutableMapOf<String, Team>()
     private val submissionCdsIdToInt = mutableMapOf<String, Int>()
     val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
+    private val groups = mutableMapOf<String, Group>()
 
     var startTime = Instant.fromEpochMilliseconds(0)
     var contestLength = 5.hours
     var freezeTime = 4.hours
     var status = ContestStatus.BEFORE
 
-    val contestInfo: ClicsContestInfo
-        get() = ClicsContestInfo(
-            problemsMap = problems,
-            teams = teams.values.toList(),
-            startTime = startTime,
-            contestLength = contestLength,
-            freezeTime = freezeTime,
-            status = status
+    val Team.internalId get() = id.hashCode()
+
+    fun Team.toApi() : TeamInfo {
+        val teamOrganization = organization_id?.let { organisations[it] }
+        return TeamInfo(
+            id = internalId,
+            name = teamOrganization?.formalName ?: name,
+            shortName = teamOrganization?.name ?: name,
+            contestSystemId = id,
+            groups = groupIds.mapNotNull { groups[it]?.name },
+            hashTag = teamOrganization?.hashtag,
+            medias = buildMap {
+                photo.firstOrNull()?.let { put(MediaType.PHOTO, it.href) }
+                video.firstOrNull()?.let { put(MediaType.RECORD, it.href) }
+                webcam.firstOrNull()?.let { put(MediaType.CAMERA, it.href) }
+                desktop.firstOrNull()?.let { put(MediaType.SCREEN, it.href) }
+            }
+        )
+    }
+
+    val contestInfo: ContestInfo
+        get() = ContestInfo(
+            status = status,
+            startTimeUnixMs = startTime.toEpochMilliseconds(),
+            contestLengthMs = contestLength.inWholeMilliseconds,
+            freezeTimeMs = freezeTime.inWholeMilliseconds,
+            problems = problems.values.map { it.toApi() },
+            teams = teams.values.map { it.toApi() },
         )
 
     fun processContest(contest: Contest) {
@@ -87,19 +108,7 @@ class ClicsModel {
         if (operation == Operation.DELETE) {
             teams.remove(id)
         } else {
-            val teamOrganization = team.organization_id?.let { organisations[it] }
-            teams[id] = ClicsTeamInfo(
-                id = id.hashCode(),
-                name = teamOrganization?.formalName ?: team.name,
-                shortName = teamOrganization?.name ?: team.name,
-                contestSystemId = id,
-                groups = emptySet(),
-                hashTag = teamOrganization?.hashtag,
-                photo = team.photo.firstOrNull()?.href,
-                video = team.video.firstOrNull()?.href,
-                screens = team.desktop.map { it.href },
-                cameras = team.webcam.map { it.href },
-            )
+            teams[id] = team
         }
     }
 
@@ -117,11 +126,17 @@ class ClicsModel {
         }
     }
 
-    fun processSubmission(submission: Submission): ClicsRunInfo {
-        val id = synchronized(submissionCdsIdToInt) {
-            return@synchronized submissionCdsIdToInt.putIfAbsent(submission.id, submissionCdsIdToInt.size + 1)
-                ?: submissionCdsIdToInt[submission.id]!!
+    fun processGroup(operation: Operation, group: Group) {
+        val id = group.id
+        if (operation == Operation.DELETE) {
+            groups.remove(id)
+        } else {
+            groups[id] = group
         }
+    }
+
+    fun processSubmission(submission: Submission): ClicsRunInfo {
+        val id = submissionCdsIdToInt.getOrPut(submission.id) { submissionCdsIdToInt.size + 1 }
         val problem = problems[submission.problem_id]
             ?: throw IllegalStateException("Failed to load submission with problem_id ${submission.problem_id}")
         val team = teams[submission.team_id]
@@ -129,7 +144,7 @@ class ClicsModel {
         val run = ClicsRunInfo(
             id = id,
             problem = problem,
-            teamId = team.id,
+            teamId = team.internalId,
             submissionTime = submission.contest_time
         )
         submissions[submission.id] = run

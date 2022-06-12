@@ -85,7 +85,10 @@ enum class MediaType {
     SCREEN,
 
     @SerialName("record")
-    RECORD
+    RECORD,
+
+    @SerialName("photo")
+    PHOTO,
 }
 
 @Serializable

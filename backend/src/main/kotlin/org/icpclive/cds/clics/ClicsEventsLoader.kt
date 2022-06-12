@@ -42,7 +42,7 @@ class ClicsEventsLoader {
                 onBufferOverflow = BufferOverflow.SUSPEND
             )
 
-            val contestInfoFlow = MutableStateFlow(model.contestInfo.toApi())
+            val contestInfoFlow = MutableStateFlow(model.contestInfo)
             val rawRunsFlow = MutableSharedFlow<RunInfo>(
                 extraBufferCapacity = Int.MAX_VALUE,
                 onBufferOverflow = BufferOverflow.SUSPEND
@@ -58,8 +58,9 @@ class ClicsEventsLoader {
                     is StateEvent -> 1
                     is JudgementTypeEvent -> 2
                     is OrganizationEvent -> 3
-                    is TeamEvent -> 4
-                    is ProblemEvent -> 5
+                    is GroupsEvent -> 4
+                    is TeamEvent -> 5
+                    is ProblemEvent -> 6
                     is PreloadFinishedEvent -> throw IllegalStateException()
                 }
                 fun priority(event: UpdateRunEvent) = when (event) {
@@ -89,7 +90,7 @@ class ClicsEventsLoader {
                     emit(PreloadFinishedEvent("", Operation.CREATE))
                     emitAll(channel)
                 }
-                var preloadFinished = false;
+                var preloadFinished = false
                 rawEventsFlow.sortedPrefix().collect {
                     when (it) {
                         is UpdateContestEvent -> {
@@ -100,6 +101,7 @@ class ClicsEventsLoader {
                                 is TeamEvent -> model.processTeam(it.op, it.data)
                                 is StateEvent -> model.processState(it.data)
                                 is JudgementTypeEvent -> model.processJudgementType(it.op, it.data)
+                                is GroupsEvent -> model.processGroup(it.op, it.data)
                                 is PreloadFinishedEvent -> {
                                     preloadFinished = true
                                     for (run in model.submissions.values.sortedBy { it.id }) {
@@ -108,7 +110,7 @@ class ClicsEventsLoader {
                                 }
                             }
                             if (preloadFinished) {
-                                contestInfoFlow.value = model.contestInfo.toApi()
+                                contestInfoFlow.value = model.contestInfo
                             }
                         }
                         is UpdateRunEvent -> {
