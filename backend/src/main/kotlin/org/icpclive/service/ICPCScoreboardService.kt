@@ -64,8 +64,8 @@ abstract class ICPCScoreboardService(
             ).also {
                 if (it.isSolved) {
                     solved++
-                    penalty += (okRun!!.time / 1000 / 60).toInt() + it.wrongAttempts * 20
-                    lastAccepted = max(lastAccepted, okRun.time)
+                    penalty += okRun!!.time.inWholeMinutes.toInt() + it.wrongAttempts * 20
+                    lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
                 }
             }
         }

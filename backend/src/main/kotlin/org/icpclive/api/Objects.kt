@@ -2,10 +2,14 @@
 
 package org.icpclive.api
 
+import kotlinx.datetime.Clock
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.utils.DurationInMillisecondsSerializer
 import org.icpclive.utils.toHex
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration
+import kotlinx.datetime.Instant
+import org.icpclive.utils.UnixMillisecondsSerializer
 import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
 
 
@@ -17,7 +21,7 @@ interface TypeWithId {
 data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val settings: SettingsType, val id: Int?)
 
 @Serializable
-data class RunInfo(
+data class RunInfo constructor(
     val id: Int,
     val isAccepted: Boolean,
     val isJudged: Boolean,
@@ -26,7 +30,8 @@ data class RunInfo(
     val problemId: Int,
     val teamId: Int,
     val percentage: Double,
-    val time: Long,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val time: Duration,
     val isFirstSolvedRun: Boolean,
 )
 
@@ -46,19 +51,25 @@ enum class ContestStatus {
 @Serializable
 data class ContestInfo(
     val status: ContestStatus,
-    val startTimeUnixMs: Long,
-    val contestLengthMs: Long,
-    val freezeTimeMs: Long,
+    @SerialName("startTimeUnixMs")
+    @Serializable(with = UnixMillisecondsSerializer::class)
+    val startTime: Instant,
+    @SerialName("contestLengthMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val contestLength: Duration,
+    @SerialName("freezeTimeMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val freezeTime: Duration,
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
     val emulationSpeed: Double = 1.0,
 ) {
     val currentContestTime
         get() = when (status) {
-            ContestStatus.BEFORE, ContestStatus.UNKNOWN -> 0
-            ContestStatus.RUNNING -> ((System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed).toLong()
-            ContestStatus.OVER -> contestLengthMs
-        }.milliseconds
+            ContestStatus.BEFORE, ContestStatus.UNKNOWN -> Duration.ZERO
+            ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
+            ContestStatus.OVER -> contestLength
+        }
 }
 
 @Serializable
@@ -72,7 +83,9 @@ data class ICPCProblemResult(
     val pendingAttempts: Int,
     val isSolved: Boolean,
     val isFirstToSolve: Boolean,
-    val lastSubmitTimeMs: Long?,
+    @SerialName("lastSubmitTimeMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val lastSubmitTime: Duration?,
 ) : ProblemResult()
 
 

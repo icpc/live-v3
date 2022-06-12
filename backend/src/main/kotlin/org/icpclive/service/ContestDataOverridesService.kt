@@ -79,10 +79,9 @@ class ContestDataOverridesService(private val contestInfoInputFlow: StateFlow<Co
             val startTime = overrides.startTime
                 ?.let { catchToNull { guessDatetimeFormat(it) } }
                 ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
-                ?.toEpochMilliseconds()
-                ?: info.startTimeUnixMs
+                ?: info.startTime
             outputFlow.value = info.copy(
-                startTimeUnixMs = startTime,
+                startTime = startTime,
                 teams = teamInfos,
                 problems = problemInfos
             )

@@ -132,7 +132,7 @@ class CFContestInfo : ContestInfo(Instant.fromEpochMilliseconds(0), ContestStatu
                     problemId = problemId,
                     teamId = getParticipant(getName(it.author))!!.id,
                     percentage = it.passedTestCount.toDouble() / problemTests,
-                    time = it.relativeTimeSeconds * 1000,
+                    time = it.relativeTimeSeconds.seconds,
                     isFirstSolvedRun = false
                 )
             }.toList()

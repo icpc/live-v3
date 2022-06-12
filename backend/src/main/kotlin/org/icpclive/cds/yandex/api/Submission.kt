@@ -1,6 +1,8 @@
 package org.icpclive.cds.yandex.api
 
 import kotlinx.serialization.Serializable
+import org.icpclive.utils.DurationInMillisecondsSerializer
+import kotlin.time.Duration
 
 @Serializable
 data class Submissions(
@@ -20,5 +22,6 @@ data class Submission(
     val test: Long,
     val time: Long,
     val memory: Long,
-    val timeFromStart: Long
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val timeFromStart: Duration
 )

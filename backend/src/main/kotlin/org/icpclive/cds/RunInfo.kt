@@ -1,5 +1,7 @@
 package org.icpclive.cds
 
+import kotlin.time.Duration
+
 interface RunInfo {
     val id: Int
     val isAccepted: Boolean
@@ -9,7 +11,7 @@ interface RunInfo {
     val problemId: Int
     val teamId: Int
     val percentage: Double
-    val time: Long
+    val time: Duration
     val lastUpdateTime: Long
 
     fun toApi() = org.icpclive.api.RunInfo(

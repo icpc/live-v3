@@ -344,8 +344,8 @@ class WFEventsLoader(regionals: Boolean) {
         val teamInfo = contestInfo.teamById[je["team_id"].asString] as WFTeamInfo
         run.teamId = teamInfo.id
         run.team = teamInfo
-        run.time = parseRelativeTime(je["contest_time"].asString).inWholeMilliseconds
-        run.lastUpdateTime = run.time
+        run.time = parseRelativeTime(je["contest_time"].asString)
+        run.lastUpdateTime = run.time.inWholeMilliseconds
         contestInfo.addRun(run)
         contestInfo.runBySubmissionId[cdsId] = run
     }
@@ -370,7 +370,7 @@ class WFEventsLoader(regionals: Boolean) {
         val time =
             if (je["end_contest_time"].isJsonNull) 0.seconds else parseRelativeTime(je["end_contest_time"].asString)
         waitForEmulation(time)
-        if (runInfo.time.milliseconds <= contestInfo.freezeTime) {
+        if (runInfo.time <= contestInfo.freezeTime) {
             runInfo.result = verdict
             runInfo.isJudged = true
         } else {
@@ -387,7 +387,7 @@ class WFEventsLoader(regionals: Boolean) {
         val runInfo = contestInfo.runByJudgementId[je["judgement_id"].asString]
         val time = parseRelativeTime(je["contest_time"].asString)
         waitForEmulation(time)
-        if (runInfo == null || runInfo.time.milliseconds > contestInfo.freezeTime || update) {
+        if (runInfo == null || runInfo.time > contestInfo.freezeTime || update) {
             return
         }
         val testCaseInfo = WFTestCaseInfo()

@@ -172,7 +172,7 @@ class PCMSEventsLoader {
             problemId = problemId,
             teamId = teamId,
             percentage = percentage,
-            time = time.inWholeMilliseconds,
+            time = time,
             isFirstSolvedRun = false
         )
         if (run != oldRun) {

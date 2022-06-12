@@ -43,9 +43,9 @@ abstract class ContestInfo(
 
     fun toApi() = org.icpclive.api.ContestInfo(
         status,
-        startTime.toEpochMilliseconds(),
-        contestLength.inWholeMilliseconds,
-        freezeTime.inWholeMilliseconds,
+        startTime,
+        contestLength,
+        freezeTime,
         problems.map { it.toApi() },
         teams.map { it.toApi() }.sortedBy { it.id },
     )

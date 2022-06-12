@@ -11,8 +11,8 @@ class ClicsRunInfo(
     submissionTime: Duration
 ) : RunInfo {
     override val problemId: Int = problem.id
-    override val time = submissionTime.toLong(DurationUnit.MILLISECONDS)
-    override var lastUpdateTime = time
+    override val time = submissionTime
+    override var lastUpdateTime = time.inWholeMilliseconds
     val passedCaseRun = mutableSetOf<Int>()
     var judgementType: ClicsJudgementTypeInfo? = null
     override val result: String

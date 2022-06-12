@@ -2,6 +2,7 @@ package org.icpclive.cds.wf
 
 import org.icpclive.cds.RunInfo
 import org.icpclive.cds.TeamInfo
+import kotlin.time.Duration
 import kotlin.math.max
 
 /**
@@ -15,7 +16,7 @@ class WFRunInfo : RunInfo {
     override var problemId = 0
     var passedTestsNumber = 0
     var totalTestsNumber = 0
-    override var time: Long = 0
+    override var time = Duration.ZERO
     override var lastUpdateTime: Long = 0
         set(value) {
             field = Math.max(field, value) // ?????

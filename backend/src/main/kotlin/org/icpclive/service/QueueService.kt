@@ -2,14 +2,12 @@ package org.icpclive.service
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.future.asCompletableFuture
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
@@ -53,6 +51,7 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
     private val RunInfo.timeInQueue
         get() = if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
+
     suspend fun run() {
         val contestInfoFlow = DataBus.contestInfoUpdates.await()
         contestInfoFlow.filterNot { it.status == ContestStatus.BEFORE }.first()
@@ -71,11 +70,13 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
                 }
                 is Run -> {
                     val run = event.run
-                    val currentTime = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time.milliseconds
+                    val currentTime = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
-                    resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
-                    runs[run.id] = run
+                    if (run.id in runs || contestInfoFlow.value.currentContestTime <= currentTime + run.timeInQueue) {
+                        resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
+                        runs[run.id] = run
+                    }
                 }
                 is Subscribe -> {
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))

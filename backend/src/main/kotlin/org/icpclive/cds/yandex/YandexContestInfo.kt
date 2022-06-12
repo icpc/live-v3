@@ -73,7 +73,7 @@ class YandexContestInfo(
         }
         val testCount = testCountByProblem[problemId]
 
-        if (submission.timeFromStart >= freezeTime.inWholeMilliseconds) {
+        if (submission.timeFromStart >= freezeTime) {
             return RunInfo(
                 id = submission.id.toInt(),
                 isAccepted = false,

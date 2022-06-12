@@ -48,9 +48,9 @@ class ClicsModel {
     val contestInfo: ContestInfo
         get() = ContestInfo(
             status = status,
-            startTimeUnixMs = startTime.toEpochMilliseconds(),
-            contestLengthMs = contestLength.inWholeMilliseconds,
-            freezeTimeMs = freezeTime.inWholeMilliseconds,
+            startTime = startTime,
+            contestLength = contestLength,
+            freezeTime = freezeTime,
             problems = problems.values.map { it.toApi() },
             teams = teams.values.map { it.toApi() },
         )
@@ -155,7 +155,7 @@ class ClicsModel {
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgement.submission_id}")
         judgements[judgement.id] = judgement
-        if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
+        if (run.time >= freezeTime) return run // TODO: why we can know it?
         judgement.end_contest_time?.let { run.lastUpdateTime = it.toLong(DurationUnit.MILLISECONDS) }
         judgement.judgement_type_id?.let { run.judgementType = judgementTypes[it] }
         logger.debug("Process $judgement")
@@ -167,7 +167,7 @@ class ClicsModel {
             ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}")
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}, submission_id ${judgement.submission_id}")
-        if (run.time.milliseconds >= freezeTime) return run // TODO: why we can know it?
+        if (run.time >= freezeTime) return run // TODO: why we can know it?
         run.lastUpdateTime = casesRun.contest_time.toLong(DurationUnit.MILLISECONDS)
         val judgementType = judgementTypes[casesRun.judgement_type_id]
         if (judgementType?.isAccepted == true) { // may be WA runs also need to add
