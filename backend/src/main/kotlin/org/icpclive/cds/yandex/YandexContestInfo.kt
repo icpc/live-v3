@@ -66,14 +66,14 @@ class YandexContestInfo(
         return null
     }
 
-    fun submissionToRun(submission: Submission, time: Long): RunInfo {
+    fun submissionToRun(submission: Submission): RunInfo {
         val problemId = problems.indexOfFirst { it.letter == submission.problemAlias }
         if (problemId == -1) {
             throw IllegalStateException("Problem not found: ${submission.problemAlias}")
         }
         val testCount = testCountByProblem[problemId]
 
-        if (time >= freezeTime.inWholeMilliseconds) {
+        if (submission.timeFromStart >= freezeTime.inWholeMilliseconds) {
             return RunInfo(
                 id = submission.id.toInt(),
                 isAccepted = false,
@@ -83,7 +83,7 @@ class YandexContestInfo(
                 problemId = problemId,
                 teamId = submission.authorId.toInt(),
                 percentage = 0.0,
-                time = time,
+                time = submission.timeFromStart,
                 isFirstSolvedRun = false
             )
         }
@@ -104,7 +104,7 @@ class YandexContestInfo(
                 submission.test >= testCount -> 100.0
                 else -> submission.test.toDouble() / testCount
             },
-            time = time,
+            time = submission.timeFromStart,
             isFirstSolvedRun = false
         )
     }

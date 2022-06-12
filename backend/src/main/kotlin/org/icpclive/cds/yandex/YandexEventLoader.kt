@@ -18,7 +18,6 @@ import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.config.Config
-import org.icpclive.data.DataBus
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
@@ -43,11 +42,10 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 class YandexEventLoader  {
-    val apiKey: String
-    val loginPrefix: String
-    val contestId: Long
-    val httpClient: HttpClient
-    val timeExtractingService: TimeExtractingService
+    private val apiKey: String
+    private val loginPrefix: String
+    private val contestId: Long
+    private val httpClient: HttpClient
 
     private val formatter = Json {
         ignoreUnknownKeys  = true
@@ -78,8 +76,6 @@ class YandexEventLoader  {
                 requestTimeout = 40000
             }
         }
-
-        timeExtractingService = TimeExtractingService(httpClient)
 
         val auth = OAuthAuth(apiKey)
 
@@ -123,12 +119,12 @@ class YandexEventLoader  {
             coroutineScope {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                log.info("It will take a long time, please wait patiently...")
+                log.info("Loading all contest submissions")
                 launchEmulation(
                     emulationStartTime, emulationSpeed,
-                    allSubmissionsLoader.loadOnce().filter(rawContestInfo::isTeamSubmission).map {
-                        rawContestInfo.submissionToRun(it, timeExtractingService.getTime(it.id))
-                    },
+                    allSubmissionsLoader.loadOnce()
+                            .filter(rawContestInfo::isTeamSubmission)
+                            .map(rawContestInfo::submissionToRun),
                     contestInfo
                 )
                 log.info("Loaded all submissions for emulation")
@@ -162,7 +158,7 @@ class YandexEventLoader  {
     }
 
     // TODO: try .stateIn
-    suspend fun reloadContestInfo(
+    private suspend fun reloadContestInfo(
             rawFlow: MutableStateFlow<YandexContestInfo>,
             flow: MutableStateFlow<ContestInfo>,
             period: Duration
@@ -183,7 +179,7 @@ class YandexEventLoader  {
         }
     }
 
-    suspend fun reloadAllRuns(
+    private suspend fun reloadAllRuns(
             rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
             runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
             period: Duration
@@ -191,9 +187,9 @@ class YandexEventLoader  {
         while (true) {
             try {
                 val rawContestInfo = rawContestInfoFlow.value
-                val submissions = allSubmissionsLoader.loadOnce().filter(rawContestInfo::isTeamSubmission).map {
-                    rawContestInfo.submissionToRun(it, timeExtractingService.getTime(it.id))
-                }
+                val submissions = allSubmissionsLoader.loadOnce()
+                        .filter(rawContestInfo::isTeamSubmission)
+                        .map(rawContestInfo::submissionToRun)
                 runsBufferFlow.emit(submissions)
             } catch (e: IOException) {
                 log.error("Failed to reload rejudges", e)
@@ -202,7 +198,7 @@ class YandexEventLoader  {
         }
     }
 
-    suspend fun fetchNewRunsOnly(
+    private suspend fun fetchNewRunsOnly(
             rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
             runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
             pendingRunIdFlow: MutableStateFlow<Int>,
@@ -216,9 +212,11 @@ class YandexEventLoader  {
                 while (true) {
                     val response = httpClient.request("submissions?locale=ru&page=$page&pageSize=100") {}
                     val pageSubmissions = formatter.decodeFromString<Submissions>(response.body()).submissions
-                    runs.addAll(pageSubmissions.filter(rawContestInfo::isTeamSubmission).map {
-                        rawContestInfo.submissionToRun(it, timeExtractingService.getTime(it.id))
-                    })
+                    runs.addAll(
+                            pageSubmissions
+                                    .filter(rawContestInfo::isTeamSubmission)
+                                    .map(rawContestInfo::submissionToRun)
+                    )
                     if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunIdFlow.value) {
                         break
                     }
