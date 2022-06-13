@@ -10,10 +10,6 @@ class ClicsApiCentral(properties: Properties) {
     private val login = properties.getProperty("login")?.processCreds()
     private val password = properties.getProperty("password")?.processCreds()
 
-    init { // may be login and password useless for event-feed
-        NetworkUtils.prepareNetwork(login, password)
-    }
-
     val auth = login?.let { login -> password?.let { password -> BasicAuth(login, password) } }
     val teamsUrl = apiRequestUrl("teams")
     val problemsUrl = apiRequestUrl("problems")
