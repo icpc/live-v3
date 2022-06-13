@@ -19,7 +19,7 @@ data class Problem(
     val testCount: Int?
 ) {
     // TODO: implement color (how? we don't store it)
-    fun toProblemInfo() = ProblemInfo(alias, name,null)
+    fun toProblemInfo() = ProblemInfo(alias, name, null)
 }
 
 @Serializable

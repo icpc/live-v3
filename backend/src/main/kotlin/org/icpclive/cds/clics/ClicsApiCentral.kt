@@ -1,7 +1,6 @@
 package org.icpclive.cds.clics
 
 import org.icpclive.utils.BasicAuth
-import org.icpclive.utils.NetworkUtils
 import org.icpclive.utils.processCreds
 import java.util.*
 

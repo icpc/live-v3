@@ -1,6 +1,5 @@
 package org.icpclive.service
 
-import org.icpclive.utils.fileChangesFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -20,7 +19,12 @@ class ContestDataOverridesService(private val contestInfoInputFlow: StateFlow<Co
         DataBus.contestInfoUpdates.completeOrThrow(it)
     }
 
-    private fun <T, O> mergeOverride(infos: List<T>, overrides: Map<String, O>?, id: T.() -> String, merge: (T, O) -> T) : Pair<List<T>, List<String>> {
+    private fun <T, O> mergeOverride(
+        infos: List<T>,
+        overrides: Map<String, O>?,
+        id: T.() -> String,
+        merge: (T, O) -> T
+    ): Pair<List<T>, List<String>> {
         return if (overrides == null)
             infos to emptyList()
         else {
@@ -55,7 +59,11 @@ class ContestDataOverridesService(private val contestInfoInputFlow: StateFlow<Co
         merge(contestInfoInputFlow, advancedPropsFlow).collect {
             val overrides = advancedPropsFlow.value
             val info = contestInfoInputFlow.value
-            val (teamInfos, unusedTeamOverrides) = mergeOverride(info.teams, overrides.teamOverrides, TeamInfo::contestSystemId) { team, override ->
+            val (teamInfos, unusedTeamOverrides) = mergeOverride(
+                info.teams,
+                overrides.teamOverrides,
+                TeamInfo::contestSystemId
+            ) { team, override ->
                 TeamInfo(
                     team.id,
                     override.name ?: team.name,
@@ -69,7 +77,11 @@ class ContestDataOverridesService(private val contestInfoInputFlow: StateFlow<Co
                         team.medias
                 )
             }
-            val (problemInfos, unusedProblemOverrides) = mergeOverride(info.problems, overrides.problemOverrides, ProblemInfo::letter) { problem, override ->
+            val (problemInfos, unusedProblemOverrides) = mergeOverride(
+                info.problems,
+                overrides.problemOverrides,
+                ProblemInfo::letter
+            ) { problem, override ->
                 ProblemInfo(
                     problem.letter,
                     override.name ?: problem.name,
@@ -90,6 +102,7 @@ class ContestDataOverridesService(private val contestInfoInputFlow: StateFlow<Co
             logger.info("Team and problem overrides are reloaded")
         }
     }
+
     companion object {
         val logger = getLogger(ContestDataOverridesService::class)
     }

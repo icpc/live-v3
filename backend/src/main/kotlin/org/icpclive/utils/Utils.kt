@@ -32,9 +32,9 @@ private fun guessDatetimeFormatLocal(time: String) =
 
 fun guessDatetimeFormat(time: String): Instant =
     catchToNull { Instant.fromEpochMilliseconds(time.toLong() * 1000L) }
-    ?: catchToNull { Instant.parse(time) }
-    ?: guessDatetimeFormatLocal(time)?.toInstant(TimeZone.currentSystemDefault())
-    ?: throw IllegalArgumentException("Failed to parse date: $time")
+        ?: catchToNull { Instant.parse(time) }
+        ?: guessDatetimeFormatLocal(time)?.toInstant(TimeZone.currentSystemDefault())
+        ?: throw IllegalArgumentException("Failed to parse date: $time")
 
 val Instant.humanReadable: String
     get() = Date(this.toEpochMilliseconds()).toString()
@@ -62,7 +62,7 @@ fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
     complete(value) || throw IllegalStateException("Double complete of CompletableDeferred")
 }
 
-fun String.processCreds() : String {
+fun String.processCreds(): String {
     val prefix = "\$creds."
     return if (startsWith(prefix))
         Config.creds[substring(prefix.length)] ?: throw IllegalStateException("Cred ${substring(prefix.length)} not found")

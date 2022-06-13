@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.merge
 import org.icpclive.api.*
-import org.icpclive.api.OptimismLevel
 import org.icpclive.config.loadMedalSettings
 import org.icpclive.data.DataBus
 import kotlin.math.max

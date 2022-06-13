@@ -18,16 +18,16 @@ class YandexContestInfo private constructor(
     private val teamIds: Set<Int> = teams.map(TeamInfo::id).toSet()
 
     constructor(
-            contestDescription: ContestDescription,
-            problems: List<Problem>,
-            participants: List<Participant>
+        contestDescription: ContestDescription,
+        problems: List<Problem>,
+        participants: List<Participant>
     ) : this(
-            Instant.parse(contestDescription.startTime),
-            contestDescription.duration.seconds,
-            (contestDescription.freezeTime ?: contestDescription.duration).seconds,
-            problems.map(Problem::toProblemInfo),
-            participants.map(Participant::toTeamInfo).sortedBy { it.id },
-            problems.map(Problem::testCount)
+        Instant.parse(contestDescription.startTime),
+        contestDescription.duration.seconds,
+        (contestDescription.freezeTime ?: contestDescription.duration).seconds,
+        problems.map(Problem::toProblemInfo),
+        participants.map(Participant::toTeamInfo).sortedBy { it.id },
+        problems.map(Problem::testCount)
     )
 
     fun submissionToRun(submission: Submission): RunInfo {

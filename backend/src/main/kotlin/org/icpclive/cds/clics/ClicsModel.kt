@@ -3,7 +3,9 @@ package org.icpclive.cds.clics
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.clics.api.*
-import org.icpclive.cds.clics.model.*
+import org.icpclive.cds.clics.model.ClicsJudgementTypeInfo
+import org.icpclive.cds.clics.model.ClicsOrganisationInfo
+import org.icpclive.cds.clics.model.ClicsRunInfo
 import org.icpclive.utils.getLogger
 import kotlin.time.Duration.Companion.hours
 
@@ -24,7 +26,7 @@ class ClicsModel {
 
     val Team.internalId get() = id.hashCode()
 
-    fun Team.toApi() : TeamInfo {
+    fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
             id = internalId,

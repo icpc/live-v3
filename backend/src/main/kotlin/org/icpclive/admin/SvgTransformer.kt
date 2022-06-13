@@ -9,7 +9,7 @@ class SvgTransformer(paths: Path, name: String, substitute: Map<String, String>)
 
     init {
         var text: String = Paths.get(paths.toString(), name).toFile().readText()
-        substitute.forEach{text = text.replace("{${it.key}}", it.value)}
+        substitute.forEach { text = text.replace("{${it.key}}", it.value) }
         content = text
     }
 

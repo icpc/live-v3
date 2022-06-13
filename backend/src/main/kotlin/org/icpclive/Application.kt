@@ -17,7 +17,9 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
-import org.icpclive.admin.*
+import org.icpclive.admin.configureAdminApiRouting
+import org.icpclive.admin.createFakeUser
+import org.icpclive.admin.validateAdminApiCredits
 import org.icpclive.cds.launchContestDataSource
 import org.icpclive.config.Config
 import org.icpclive.data.TickerManager
@@ -92,10 +94,10 @@ fun Application.module() {
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = Paths.get(configDir)
         Config.creds = try {
-             environment.config.config("credentials").let {
+            environment.config.config("credentials").let {
                 it.keys().associateWith { key -> it.property(key).getString() }
             }
-        } catch (e: ApplicationConfigurationException){
+        } catch (e: ApplicationConfigurationException) {
             emptyMap()
         } catch (e: com.typesafe.config.ConfigException) {
             emptyMap()

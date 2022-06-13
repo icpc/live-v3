@@ -10,8 +10,10 @@ import kotlin.time.Duration
 enum class Operation {
     @SerialName("create")
     CREATE,
+
     @SerialName("update")
     UPDATE,
+
     @SerialName("delete")
     DELETE
 }
@@ -191,4 +193,4 @@ data class AwardsEvent(override val id: String, override val op: Operation) : Ig
 @SerialName("languages")
 data class LanguageEvent(override val id: String, override val op: Operation) : IgnoredEvent()
 
-data class PreloadFinishedEvent(override val id: String, override val op: Operation): UpdateContestEvent()
+data class PreloadFinishedEvent(override val id: String, override val op: Operation) : UpdateContestEvent()

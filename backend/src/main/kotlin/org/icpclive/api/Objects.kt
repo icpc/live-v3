@@ -3,12 +3,15 @@
 package org.icpclive.api
 
 import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.time.Duration
-import kotlinx.datetime.Instant
-import org.icpclive.utils.*
+import org.icpclive.utils.ColorSerializer
+import org.icpclive.utils.DurationInMillisecondsSerializer
+import org.icpclive.utils.UnixMillisecondsSerializer
+import org.icpclive.utils.getLogger
 import java.awt.Color
+import kotlin.time.Duration
 
 
 interface TypeWithId {
@@ -36,8 +39,9 @@ data class RunInfo constructor(
 @Serializable
 data class ProblemInfo(val letter: String, val name: String, @Serializable(ColorSerializer::class) val color: Color) {
     constructor(letter: String, name: String, color: String?) : this(letter, name, parseColor(color) ?: Color.BLACK)
+
     companion object {
-        fun parseColor(color: String?) : Color? = try {
+        fun parseColor(color: String?): Color? = try {
             when {
                 color == null -> null
                 color.startsWith("0x") -> Color.decode(color)
@@ -48,6 +52,7 @@ data class ProblemInfo(val letter: String, val name: String, @Serializable(Color
             logger.warn("Failed to parse color $color")
             null
         }
+
         val logger = getLogger(ProblemInfo::class)
     }
 }

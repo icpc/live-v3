@@ -83,7 +83,8 @@ fun CoroutineScope.launchEmulation(
     startTime: Instant,
     speed: Double,
     runs: List<RunInfo>,
-    contestInfo: ContestInfo) {
+    contestInfo: ContestInfo
+) {
     EmulationService.logger.info("Running in emulation mode with speed x${speed} and startTime = ${startTime.humanReadable}")
     val rawRunsFlow = MutableSharedFlow<RunInfo>(
         extraBufferCapacity = Int.MAX_VALUE,

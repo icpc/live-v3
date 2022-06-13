@@ -44,7 +44,7 @@ object ColorSerializer : KSerializer<Color> {
 
     override fun deserialize(decoder: Decoder): Color {
         return decoder.decodeString().substring(1).toUInt(radix = 16).let {
-            Color(it.toInt(),  true)
+            Color(it.toInt(), true)
         }
     }
 }

@@ -5,9 +5,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
+import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
-import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.config.Config.loadProperties
 import org.icpclive.service.launchEmulation
@@ -20,7 +20,7 @@ interface ContestDataSource {
 
 fun CoroutineScope.launchContestDataSource() {
     val properties = loadProperties("events")
-    val loader : ContestDataSource = when (val standingsType = properties.getProperty("standings.type")) {
+    val loader: ContestDataSource = when (val standingsType = properties.getProperty("standings.type")) {
         "CLICS" -> ClicsDataSource()
         "PCMS" -> PCMSDataSource()
         "CF" -> CFDataSource()

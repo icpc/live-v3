@@ -61,11 +61,13 @@ class ClicsDataSource : ContestDataSource {
                 is ProblemEvent -> 6
                 is PreloadFinishedEvent -> throw IllegalStateException()
             }
+
             fun priority(event: UpdateRunEvent) = when (event) {
                 is SubmissionEvent -> 0
                 is JudgementEvent -> 1
                 is RunsEvent -> 2
             }
+
             fun Flow<Event>.sortedPrefix() = flow {
                 val channel = produceIn(this@launch)
                 val prefix = mutableListOf<Event>()
@@ -82,12 +84,13 @@ class ClicsDataSource : ContestDataSource {
                 val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
                 val runEvents = prefix.filterIsInstance<UpdateRunEvent>()
                 val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
-                contestEvents.sortedBy { priority(it)  }.forEach { emit(it) }
+                contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
                 emit(PreloadFinishedEvent("", Operation.CREATE))
                 emitAll(channel)
             }
+
             var preloadFinished = false
             rawEventsFlow.sortedPrefix().collect {
                 when (it) {

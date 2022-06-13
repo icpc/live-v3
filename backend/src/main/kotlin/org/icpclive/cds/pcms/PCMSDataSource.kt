@@ -14,7 +14,9 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.*
+import org.icpclive.utils.BasicAuth
+import org.icpclive.utils.getLogger
+import org.icpclive.utils.processCreds
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -39,7 +41,7 @@ class PCMSDataSource : ContestDataSource {
         }
     }
 
-    private fun getLoader() : RegularLoaderService<Document> {
+    private fun getLoader(): RegularLoaderService<Document> {
         val auth = run {
             val login = properties.getProperty("login")?.processCreds()
             val password = properties.getProperty("password")?.processCreds()
@@ -76,7 +78,7 @@ class PCMSDataSource : ContestDataSource {
         }
     }
 
-    override suspend fun loadOnce() : Pair<ContestInfo, List<RunInfo>> {
+    override suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>> {
         val xmlLoader = getLoader()
         val runs = mutableListOf<RunInfo>()
         parseAndUpdateStandings(xmlLoader.loadOnce()) { runs.add(it) }

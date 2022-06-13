@@ -1,11 +1,10 @@
 package org.icpclive.cds.yandex
 
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
+import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.defaultRequest
-import io.ktor.client.request.header
-import io.ktor.client.request.request
+import io.ktor.client.plugins.*
+import io.ktor.client.request.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
@@ -18,22 +17,17 @@ import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.yandex.YandexConstants.API_BASE
+import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
+import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
+import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
+import org.icpclive.cds.yandex.api.*
 import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
+import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.OAuthAuth
 import org.icpclive.utils.getLogger
-import org.icpclive.cds.yandex.YandexConstants.API_BASE
-import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
-import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
-import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
-import org.icpclive.cds.yandex.api.ContestDescription
-import org.icpclive.cds.yandex.api.Participant
-import org.icpclive.cds.yandex.api.Problem
-import org.icpclive.cds.yandex.api.Problems
-import org.icpclive.cds.yandex.api.Submission
-import org.icpclive.cds.yandex.api.Submissions
-import org.icpclive.service.RunsBufferService
 import org.icpclive.utils.processCreds
 import java.io.IOException
 import kotlin.time.Duration
@@ -46,7 +40,7 @@ class YandexDataSource : ContestDataSource {
     private val httpClient: HttpClient
 
     private val formatter = Json {
-        ignoreUnknownKeys  = true
+        ignoreUnknownKeys = true
     }
 
     private val contestDescriptionLoader: RegularLoaderService<ContestDescription>
@@ -154,16 +148,16 @@ class YandexDataSource : ContestDataSource {
 
     // TODO: try .stateIn
     private suspend fun reloadContestInfo(
-            rawFlow: MutableStateFlow<YandexContestInfo>,
-            flow: MutableStateFlow<ContestInfo>,
-            period: Duration
+        rawFlow: MutableStateFlow<YandexContestInfo>,
+        flow: MutableStateFlow<ContestInfo>,
+        period: Duration
     ) {
         while (true) {
             try {
                 val info = YandexContestInfo(
-                        contestDescriptionLoader.loadOnce(),
-                        problemLoader.loadOnce(),
-                        participantLoader.loadOnce()
+                    contestDescriptionLoader.loadOnce(),
+                    problemLoader.loadOnce(),
+                    participantLoader.loadOnce()
                 )
                 rawFlow.value = info
                 flow.value = info.toApi()
@@ -175,16 +169,16 @@ class YandexDataSource : ContestDataSource {
     }
 
     private suspend fun reloadAllRuns(
-            rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
-            runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
-            period: Duration
+        rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
+        runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
+        period: Duration
     ) {
         while (true) {
             try {
                 val rawContestInfo = rawContestInfoFlow.value
                 val submissions = allSubmissionsLoader.loadOnce()
-                        .filter(rawContestInfo::isTeamSubmission)
-                        .map(rawContestInfo::submissionToRun)
+                    .filter(rawContestInfo::isTeamSubmission)
+                    .map(rawContestInfo::submissionToRun)
                 runsBufferFlow.emit(submissions)
             } catch (e: IOException) {
                 log.error("Failed to reload rejudges", e)
@@ -194,10 +188,10 @@ class YandexDataSource : ContestDataSource {
     }
 
     private suspend fun fetchNewRunsOnly(
-            rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
-            runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
-            pendingRunIdFlow: MutableStateFlow<Int>,
-            period: Duration
+        rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
+        runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
+        pendingRunIdFlow: MutableStateFlow<Int>,
+        period: Duration
     ) {
         while (true) {
             try {
@@ -208,9 +202,9 @@ class YandexDataSource : ContestDataSource {
                     val response = httpClient.request("submissions?locale=ru&page=$page&pageSize=100") {}
                     val pageSubmissions = formatter.decodeFromString<Submissions>(response.body()).submissions
                     runs.addAll(
-                            pageSubmissions
-                                    .filter(rawContestInfo::isTeamSubmission)
-                                    .map(rawContestInfo::submissionToRun)
+                        pageSubmissions
+                            .filter(rawContestInfo::isTeamSubmission)
+                            .map(rawContestInfo::submissionToRun)
                     )
                     if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunIdFlow.value) {
                         break
@@ -218,7 +212,7 @@ class YandexDataSource : ContestDataSource {
                     page++
                 }
                 pendingRunIdFlow.value = runs.filter { !it.isJudged }.minOfOrNull { it.id }
-                        ?: runs.maxOfOrNull { it.id } ?: 0
+                    ?: runs.maxOfOrNull { it.id } ?: 0
                 runsBufferFlow.emit(runs)
             } catch (e: IOException) {
                 log.error("Failed to reload rejudges", e)

@@ -1,6 +1,7 @@
 package org.icpclive.cds.pcms
 
-import org.icpclive.api.*
+import org.icpclive.api.RunInfo
+import org.icpclive.api.TeamInfo
 
 class PCMSTeamInfo(
     val teamInfo: TeamInfo,
