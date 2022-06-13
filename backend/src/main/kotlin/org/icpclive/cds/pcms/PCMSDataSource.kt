@@ -10,9 +10,9 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
+import org.icpclive.cds.ContestDataSource
 import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
-import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.*
 import org.jsoup.Jsoup
@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class PCMSEventsLoader {
+class PCMSDataSource : ContestDataSource {
     private fun loadProblemsInfo(problemsFile: String?): List<ProblemInfo> {
         val xml = Config.loadFile(problemsFile!!)
         val doc = Jsoup.parse(xml, "", Parser.xmlParser())
@@ -39,51 +39,51 @@ class PCMSEventsLoader {
         }
     }
 
-
-    suspend fun run() {
-        coroutineScope {
-            val auth = run {
-                val login = properties.getProperty("login")?.processCreds()
-                val password = properties.getProperty("password")?.processCreds()
-                if (login != null) {
-                    BasicAuth(login, password!!)
-                } else {
-                    null
-                }
-            }
-            val xmlLoader = object : RegularLoaderService<Document>(auth) {
-                override val url = properties.getProperty("url")
-                override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
-            }
-
-            val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
-            if (emulationSpeedProp == null) {
-                val xmlLoaderFlow = MutableStateFlow(Document(""))
-                launch(Dispatchers.IO) {
-                    xmlLoader.run(xmlLoaderFlow, 5.seconds)
-                }
-                val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                    extraBufferCapacity = Int.MAX_VALUE,
-                    onBufferOverflow = BufferOverflow.SUSPEND
-                )
-                val contestInfoFlow = MutableStateFlow(contestData.toApi())
-                launchICPCServices(rawRunsFlow, contestInfoFlow)
-                xmlLoaderFlow.collect {
-                    parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
-                    contestInfoFlow.value = contestData.toApi()
-                }
+    private fun getLoader() : RegularLoaderService<Document> {
+        val auth = run {
+            val login = properties.getProperty("login")?.processCreds()
+            val password = properties.getProperty("password")?.processCreds()
+            if (login != null) {
+                BasicAuth(login, password!!)
             } else {
-                val runs = mutableListOf<RunInfo>()
-                parseAndUpdateStandings(xmlLoader.loadOnce()) { runs.add(it) }
-                if (contestData.status != ContestStatus.OVER) {
-                    throw IllegalStateException("Emulation mode require over contest")
-                }
-                val emulationSpeed = emulationSpeedProp.toDouble()
-                val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${emulationStartTime.humanReadable}")
-                launchEmulation(emulationStartTime, emulationSpeed, runs.toList(), contestData.toApi())
+                null
             }
         }
+        return object : RegularLoaderService<Document>(auth) {
+            override val url = properties.getProperty("url")
+            override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
+        }
+    }
+
+
+    override suspend fun run() {
+        coroutineScope {
+            val xmlLoader = getLoader()
+            val xmlLoaderFlow = MutableStateFlow(Document(""))
+            launch(Dispatchers.IO) {
+                xmlLoader.run(xmlLoaderFlow, 5.seconds)
+            }
+            val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                extraBufferCapacity = Int.MAX_VALUE,
+                onBufferOverflow = BufferOverflow.SUSPEND
+            )
+            val contestInfoFlow = MutableStateFlow(contestData.toApi())
+            launchICPCServices(rawRunsFlow, contestInfoFlow)
+            xmlLoaderFlow.collect {
+                parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
+                contestInfoFlow.value = contestData.toApi()
+            }
+        }
+    }
+
+    override suspend fun loadOnce() : Pair<ContestInfo, List<RunInfo>> {
+        val xmlLoader = getLoader()
+        val runs = mutableListOf<RunInfo>()
+        parseAndUpdateStandings(xmlLoader.loadOnce()) { runs.add(it) }
+        if (contestData.status != ContestStatus.OVER) {
+            throw IllegalStateException("Emulation mode require over contest")
+        }
+        return contestData.toApi() to runs.toList()
     }
 
     private fun parseAndUpdateStandings(element: Element, onRunChanges: (RunInfo) -> Unit) {
@@ -226,7 +226,7 @@ class PCMSEventsLoader {
     }
 
     companion object {
-        private val logger = getLogger(PCMSEventsLoader::class)
+        private val logger = getLogger(PCMSDataSource::class)
         private val outcomeMap = mapOf(
             "undefined" to "UD",
             "fail" to "FL",

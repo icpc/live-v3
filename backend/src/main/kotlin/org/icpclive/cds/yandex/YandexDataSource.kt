@@ -17,13 +17,12 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
+import org.icpclive.cds.ContestDataSource
 import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
-import org.icpclive.service.launchEmulation
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.OAuthAuth
 import org.icpclive.utils.getLogger
-import org.icpclive.utils.guessDatetimeFormat
 import org.icpclive.cds.yandex.YandexConstants.API_BASE
 import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
@@ -37,11 +36,10 @@ import org.icpclive.cds.yandex.api.Submissions
 import org.icpclive.service.RunsBufferService
 import org.icpclive.utils.processCreds
 import java.io.IOException
-import java.util.Properties
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class YandexEventLoader  {
+class YandexDataSource : ContestDataSource {
     private val apiKey: String
     private val loginPrefix: String
     private val contestId: Long
@@ -104,10 +102,7 @@ class YandexEventLoader  {
         }
     }
 
-    suspend fun run() {
-        val properties: Properties = Config.loadProperties("events")
-        val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
-
+    override suspend fun run() {
         val rawContestInfo = YandexContestInfo(
             contestDescriptionLoader.loadOnce(),
             problemLoader.loadOnce(),
@@ -115,46 +110,46 @@ class YandexEventLoader  {
         )
         val contestInfo = rawContestInfo.toApi()
 
-        if (emulationSpeedProp != null) {
-            coroutineScope {
-                val emulationSpeed = emulationSpeedProp.toDouble()
-                val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                log.info("Loading all contest submissions")
-                launchEmulation(
-                    emulationStartTime, emulationSpeed,
-                    allSubmissionsLoader.loadOnce()
-                            .filter(rawContestInfo::isTeamSubmission)
-                            .map(rawContestInfo::submissionToRun),
-                    contestInfo
-                )
-                log.info("Loaded all submissions for emulation")
-            }
-        } else {
-            val rawContestInfoFlow = MutableStateFlow(rawContestInfo)
-            val contestInfoFlow = MutableStateFlow(contestInfo)
+        val rawContestInfoFlow = MutableStateFlow(rawContestInfo)
+        val contestInfoFlow = MutableStateFlow(contestInfo)
 
-            val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
-                    extraBufferCapacity = 16,
-                    onBufferOverflow = BufferOverflow.DROP_OLDEST
-            )
-            val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                    extraBufferCapacity = Int.MAX_VALUE,
-                    onBufferOverflow = BufferOverflow.SUSPEND
-            )
-            val pendingRunIdFlow = MutableStateFlow(0)
+        val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
+            extraBufferCapacity = 16,
+            onBufferOverflow = BufferOverflow.DROP_OLDEST
+        )
+        val rawRunsFlow = MutableSharedFlow<RunInfo>(
+            extraBufferCapacity = Int.MAX_VALUE,
+            onBufferOverflow = BufferOverflow.SUSPEND
+        )
+        val pendingRunIdFlow = MutableStateFlow(0)
 
-            coroutineScope {
-                launchICPCServices(rawRunsFlow, contestInfoFlow)
-                launch(Dispatchers.IO) { reloadContestInfo(rawContestInfoFlow, contestInfoFlow, 30.seconds) }
-                launch(Dispatchers.IO) { fetchNewRunsOnly(rawContestInfoFlow, runsBufferFlow, pendingRunIdFlow, 1.seconds) }
-                launch(Dispatchers.IO) { reloadAllRuns(rawContestInfoFlow, runsBufferFlow, 120.seconds) }
-                launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
-            }
+        coroutineScope {
+            launchICPCServices(rawRunsFlow, contestInfoFlow)
+            launch(Dispatchers.IO) { reloadContestInfo(rawContestInfoFlow, contestInfoFlow, 30.seconds) }
+            launch(Dispatchers.IO) { fetchNewRunsOnly(rawContestInfoFlow, runsBufferFlow, pendingRunIdFlow, 1.seconds) }
+            launch(Dispatchers.IO) { reloadAllRuns(rawContestInfoFlow, runsBufferFlow, 120.seconds) }
+            launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
         }
-
     }
+
+    override suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>> {
+        val rawContestInfo = YandexContestInfo(
+            contestDescriptionLoader.loadOnce(),
+            problemLoader.loadOnce(),
+            participantLoader.loadOnce()
+        )
+        val contestInfo = rawContestInfo.toApi()
+
+        log.info("Loading all contest submissions")
+        val submissions = allSubmissionsLoader.loadOnce()
+            .filter(rawContestInfo::isTeamSubmission)
+            .map(rawContestInfo::submissionToRun)
+        log.info("Loaded all submissions for emulation")
+        return contestInfo to submissions
+    }
+
     companion object {
-        private val log = getLogger(YandexEventLoader::class)
+        private val log = getLogger(YandexDataSource::class)
     }
 
     // TODO: try .stateIn

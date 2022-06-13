@@ -18,7 +18,7 @@ import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
 import org.icpclive.admin.*
-import org.icpclive.cds.launchEventsLoader
+import org.icpclive.cds.launchContestDataSource
 import org.icpclive.config.Config
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
@@ -122,7 +122,7 @@ fun Application.module() {
             route("/overlay") { configureOverlayRouting() }
         }
     }
-    launchEventsLoader()
+    launchContestDataSource()
     launch { EventLoggerService().run() }
     // to trigger init
     TickerManager.let {}
