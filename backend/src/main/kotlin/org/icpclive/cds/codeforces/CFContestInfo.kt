@@ -2,10 +2,8 @@ package org.icpclive.cds.codeforces
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.ProblemInfo
 import org.icpclive.cds.codeforces.api.data.*
 import org.icpclive.cds.codeforces.api.results.CFStandings
-import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Duration.Companion.hours
@@ -46,7 +44,7 @@ class CFContestInfo {
     fun updateStandings(standings: CFStandings) {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
-                val problemInfo = ProblemInfo(problem.index, problem.name!!, Color.BLACK)
+                val problemInfo = ProblemInfo(problem.index, problem.name!!, null)
                 problemsMap[problem.index] = problemInfo
                 problemsIdMap[problem.index] = id
                 problems.add(problemInfo)
@@ -108,7 +106,7 @@ class CFContestInfo {
         startTime,
         contestLength,
         0.seconds,
-        problems.map { it.toApi() },
+        problems,
         participantsById.values.map { it.toApi() }.sortedBy { it.id },
     )
 

@@ -1,12 +1,10 @@
 package org.icpclive.cds.pcms
 
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestStatus
-import org.icpclive.api.toApi
-import org.icpclive.cds.ProblemInfo
+import org.icpclive.api.*
 import kotlin.time.Duration
 
-class PCMSContestInfo constructor(
+class PCMSContestInfo(
     val problems: List<ProblemInfo>,
     val teams: Map<String, PCMSTeamInfo>,
     var startTime: Instant,
@@ -14,12 +12,12 @@ class PCMSContestInfo constructor(
     val contestLength: Duration,
     val freezeTime: Duration
 ) {
-    fun toApi() = org.icpclive.api.ContestInfo(
+    fun toApi() = ContestInfo(
         status,
         startTime,
         contestLength,
         freezeTime,
-        problems.map { it.toApi() },
-        teams.values.map { it.toApi() }.sortedBy { it.id },
+        problems,
+        teams.values.map { it.teamInfo }.sortedBy { it.id },
     )
 }

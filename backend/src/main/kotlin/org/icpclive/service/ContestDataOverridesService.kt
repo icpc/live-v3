@@ -73,7 +73,7 @@ class ContestDataOverridesService(private val contestInfoInputFlow: StateFlow<Co
                 ProblemInfo(
                     problem.letter,
                     override.name ?: problem.name,
-                    override.color ?: problem.color
+                    ProblemInfo.parseColor(override.color) ?: problem.color
                 )
             }
             val startTime = overrides.startTime

@@ -1,7 +1,7 @@
 package org.icpclive.cds.yandex.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.yandex.YandexTeamInfo
+import org.icpclive.api.TeamInfo
 
 @Serializable
 data class Participant(
@@ -10,9 +10,13 @@ data class Participant(
     val login: String,
     val uid: String?
 ) {
-    fun toTeamInfo() = YandexTeamInfo(
-        id,
-        login,
-        name
+    fun toTeamInfo() = TeamInfo(
+        id = id,
+        name = name,
+        shortName = name.replaceAfterLast("(", ""),
+        contestSystemId = login,
+        groups = emptyList(),
+        hashTag = null,
+        medias = emptyMap()
     )
 }

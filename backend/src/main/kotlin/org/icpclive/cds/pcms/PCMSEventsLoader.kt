@@ -9,10 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestStatus
-import org.icpclive.api.MediaType
-import org.icpclive.api.RunInfo
-import org.icpclive.cds.ProblemInfo
+import org.icpclive.api.*
 import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchEmulation
@@ -22,7 +19,6 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
-import java.awt.Color
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -38,7 +34,7 @@ class PCMSEventsLoader {
             ProblemInfo(
                 element.attr("alias"),
                 element.attr("name"),
-                if (element.attr("color").isEmpty()) Color.BLACK else Color.decode(element.attr("color"))
+                element.attr("color").takeIf { it.isNotEmpty() }
             )
         }
     }
@@ -169,7 +165,7 @@ class PCMSEventsLoader {
             isAddingPenalty = "AC" != result && "CE" != result,
             result = result,
             problemId = problemId,
-            teamId = team.id,
+            teamId = team.teamInfo.id,
             percentage = percentage,
             time = time,
             isFirstSolvedRun = false
@@ -198,21 +194,29 @@ class PCMSEventsLoader {
                 .takeIf { it.isNotEmpty() } ?: participantName
             val region = participant.attr("region").split(",")[0]
             val hashTag = participant.attr("hashtag")
-            val groups = if (region.isEmpty()) emptySet() else mutableSetOf(region)
+            val groups = if (region.isEmpty()) emptyList() else mutableListOf(region)
             val medias = listOfNotNull(
                 participant.attr("screen").takeIf { it.isNotEmpty() }?.let { MediaType.SCREEN to it },
                 participant.attr("camera").takeIf { it.isNotEmpty() }?.let { MediaType.CAMERA to it },
                 participant.attr("record").takeIf { it.isNotEmpty() }?.let { MediaType.RECORD to it },
             ).associate { it }
             PCMSTeamInfo(
-                index, alias, hallId, participantName, shortName,
-                hashTag, groups, medias,
+                TeamInfo(
+                    id = index,
+                    name = participantName,
+                    shortName = shortName,
+                    hashTag = hashTag,
+                    groups = groups,
+                    medias = medias,
+                    contestSystemId = alias,
+                ),
+                hallId,
                 problemInfo.size,
             )
         }
         contestData = PCMSContestInfo(
             problems = problemInfo,
-            teams = teams.associateBy { it.contestSystemId },
+            teams = teams.associateBy { it.teamInfo.contestSystemId },
             startTime = Instant.fromEpochMilliseconds(0),
             status = ContestStatus.UNKNOWN,
             contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours,

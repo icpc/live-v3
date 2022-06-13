@@ -16,7 +16,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.config.Config
 import org.slf4j.LoggerFactory
-import java.awt.Color
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.time.Duration
@@ -58,8 +57,6 @@ fun defaultJsonSettings() = Json {
 }
 
 fun getLogger(clazz: KClass<*>) = LoggerFactory.getLogger(clazz.java)!!
-
-fun Color.toHex() = "#%02x%02x%02x%02x".format(red, green, blue, alpha)
 
 fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
     complete(value) || throw IllegalStateException("Double complete of CompletableDeferred")

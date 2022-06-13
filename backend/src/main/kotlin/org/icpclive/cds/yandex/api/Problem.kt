@@ -1,7 +1,7 @@
 package org.icpclive.cds.yandex.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.ProblemInfo
+import org.icpclive.api.ProblemInfo
 
 @Serializable
 data class Problems(
@@ -19,7 +19,7 @@ data class Problem(
     val testCount: Int?
 ) {
     // TODO: implement color (how? we don't store it)
-    fun toProblemInfo() = ProblemInfo(alias, name)
+    fun toProblemInfo() = ProblemInfo(alias, name,null)
 }
 
 @Serializable

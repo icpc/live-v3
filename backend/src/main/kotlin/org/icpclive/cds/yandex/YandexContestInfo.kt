@@ -3,13 +3,11 @@ package org.icpclive.cds.yandex
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.ProblemInfo
-import org.icpclive.cds.TeamInfo
 import org.icpclive.cds.yandex.api.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class YandexContestInfo(
+class YandexContestInfo private constructor(
     private val startTime: Instant,
     private val duration: Duration,
     private val freezeTime: Duration,
@@ -28,7 +26,7 @@ class YandexContestInfo(
             contestDescription.duration.seconds,
             (contestDescription.freezeTime ?: contestDescription.duration).seconds,
             problems.map(Problem::toProblemInfo),
-            participants.map(Participant::toTeamInfo),
+            participants.map(Participant::toTeamInfo).sortedBy { it.id },
             problems.map(Problem::testCount)
     )
 
@@ -84,8 +82,8 @@ class YandexContestInfo(
         startTime = startTime,
         contestLength = duration,
         freezeTime = freezeTime,
-        problems = problems.map { it.toApi() },
-        teams = teams.map { it.toApi() }.sortedBy { it.id },
+        problems = problems,
+        teams = teams,
     )
 
     companion object {

@@ -5,12 +5,10 @@ package org.icpclive.api
 import kotlinx.datetime.Clock
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.utils.DurationInMillisecondsSerializer
-import org.icpclive.utils.toHex
 import kotlin.time.Duration
 import kotlinx.datetime.Instant
-import org.icpclive.utils.UnixMillisecondsSerializer
-import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
+import org.icpclive.utils.*
+import java.awt.Color
 
 
 interface TypeWithId {
@@ -36,12 +34,23 @@ data class RunInfo constructor(
 )
 
 @Serializable
-data class ProblemInfo(val letter: String, val name: String, val color: String) {
-    constructor(info: CDSProblemsInfo) :
-            this(info.letter, info.name, info.color.toHex())
+data class ProblemInfo(val letter: String, val name: String, @Serializable(ColorSerializer::class) val color: Color) {
+    constructor(letter: String, name: String, color: String?) : this(letter, name, parseColor(color) ?: Color.BLACK)
+    companion object {
+        fun parseColor(color: String?) : Color? = try {
+            when {
+                color == null -> null
+                color.startsWith("0x") -> Color.decode(color)
+                color.startsWith("#") -> Color.decode("0x" + color.substring(1))
+                else -> Color.decode("0x$color")
+            }
+        } catch (e: Exception) {
+            logger.warn("Failed to parse color $color")
+            null
+        }
+        val logger = getLogger(ProblemInfo::class)
+    }
 }
-
-fun CDSProblemsInfo.toApi() = ProblemInfo(this)
 
 @Serializable
 enum class ContestStatus {

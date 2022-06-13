@@ -5,12 +5,11 @@ import org.icpclive.api.*
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.model.*
 import org.icpclive.utils.getLogger
-import java.awt.Color
 import kotlin.time.Duration.Companion.hours
 
 class ClicsModel {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
-    private val problems = mutableMapOf<String, ClicsProblemInfo>()
+    private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
     private val teams = mutableMapOf<String, Team>()
     private val submissionCdsIdToInt = mutableMapOf<String, Int>()
@@ -43,13 +42,19 @@ class ClicsModel {
         )
     }
 
+    fun Problem.toApi() = ProblemInfo(
+        letter = label,
+        name = name,
+        color = rgb
+    )
+
     val contestInfo: ContestInfo
         get() = ContestInfo(
             status = status,
             startTime = startTime,
             contestLength = contestLength,
             freezeTime = freezeTime,
-            problems = problems.values.map { it.toApi() },
+            problems = problems.values.sortedBy { it.ordinal }.map { it.toApi() },
             teams = teams.values.map { it.toApi() },
         )
 
@@ -59,30 +64,11 @@ class ClicsModel {
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
     }
 
-    private fun parseColor(s: String) : Color = when {
-        s.startsWith("0x") -> Color.decode(s)
-        s.startsWith("#") -> Color.decode("0x" + s.substring(1))
-        else -> Color.decode("0x$s")
-    }
-
     fun processProblem(operation: Operation, problem: Problem) {
         if (operation == Operation.DELETE) {
             problems.remove(problem.id)
         } else {
-            problems[problem.id] = ClicsProblemInfo(
-                id = problem.ordinal - 1, // todo: это не может работать
-                letter = problem.label,
-                name = problem.name,
-                color = problem.rgb?.let {
-                    try {
-                        parseColor(it)
-                    } catch (e: Exception) {
-                        logger.warn("Failed to parse color $it, ignoring it")
-                        null
-                    }
-                } ?: Color.GRAY,
-                testCount = problem.test_data_count
-            )
+            problems[problem.id] = problem
         }
     }
 

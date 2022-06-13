@@ -7,6 +7,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -31,5 +32,19 @@ object UnixMillisecondsSerializer : KSerializer<Instant> {
 
     override fun deserialize(decoder: Decoder): Instant {
         return Instant.fromEpochMilliseconds(decoder.decodeLong())
+    }
+}
+
+object ColorSerializer : KSerializer<Color> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Color", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: Color) {
+        encoder.encodeString("#%02x%02x%02x%02x".format(value.red, value.green, value.blue, value.alpha))
+    }
+
+    override fun deserialize(decoder: Decoder): Color {
+        return decoder.decodeString().substring(1).toUInt(radix = 16).let {
+            Color(it.toInt(),  true)
+        }
     }
 }
