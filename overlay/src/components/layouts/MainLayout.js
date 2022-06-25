@@ -15,6 +15,7 @@ import Ticker from "../organisms/widgets/Ticker";
 import Statistics from "../organisms/widgets/Statistics";
 import TeamView from "../organisms/widgets/TeamView";
 import Videos from "../organisms/widgets/Videos";
+import PVP from "../organisms/widgets/PVP";
 
 const fadeIn = keyframes`
   from {
