@@ -220,7 +220,7 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
 };
 
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
-    const [isLoaded, setIsLoaded] = useState(settings.mediaType === undefined);
+    const [isLoaded, setIsLoaded] = useState(settings?.mediaType === undefined);
     // const medias = useSelector((state) => state.contestInfo.info?.teamsId[settings.teamId]);
 
     return <TeamViewContainer

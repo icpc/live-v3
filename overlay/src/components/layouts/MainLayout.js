@@ -75,7 +75,8 @@ const WIDGETS = {
     VideoWidget: Videos,
     TickerWidget: Ticker,
     StatisticsWidget: Statistics,
-    TeamViewWidget: TeamView
+    TeamViewWidget: TeamView,
+    TeamPVPWidget: PVP
 };
 
 export const MainLayout = () => {

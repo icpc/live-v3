@@ -52,7 +52,7 @@ export class TeamTable extends React.Component {
     }
 
     isTeamShown(stat, id) {
-        return stat.shown && stat.settings.teamId !== id;
+        return stat.shown && stat.settings.teamId === id;
     }
 
     async updateData() {

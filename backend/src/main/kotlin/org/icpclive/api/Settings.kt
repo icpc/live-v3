@@ -23,8 +23,10 @@ class QueueSettings : ObjectSettings
 enum class OptimismLevel {
     @SerialName("normal")
     NORMAL,
+
     @SerialName("optimistic")
     OPTIMISTIC,
+
     @SerialName("pessimistic")
     PESSIMISTIC;
 }
@@ -48,7 +50,11 @@ class TickerSettings : ObjectSettings
 data class TeamViewSettings(val teamId: Int = 0, val mediaType: MediaType? = null) : ObjectSettings
 
 @Serializable
-data class TeamPVPSettings(val teamId: List<Int> = emptyList(), val mediaType: MediaType? = null) : ObjectSettings
+data class TeamPVPSettings(
+    val teamId: List<Int> = emptyList(), val mediaType: MediaType? = null,
+) : ObjectSettings {
+    val mediaTypes: List<MediaType> = listOf(MediaType.CAMERA, MediaType.SCREEN)
+}
 
 @Serializable
 sealed class TickerMessageSettings : ObjectSettings {

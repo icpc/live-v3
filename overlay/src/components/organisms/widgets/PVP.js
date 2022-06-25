@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { RankCell, TeamNameCell } from "../../atoms/ContestCells";
+import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { Cell } from "../../atoms/Cell";
 import { StarIcon } from "../../atoms/Star";
 import {
@@ -204,7 +204,7 @@ const TeamInfo = ({ teamId }) => {
     console.log(teamData);
     return <TeamInfoWrapper>
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
-        <TeamNameCell teamName={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
+        <TextShrinkingCell text={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData?.totalScore}
         </ScoreboardStatCell>
@@ -284,9 +284,8 @@ const PVPWrapper = styled.div`
 
 
 export const PVP = ({ widgetData: { settings }, transitionState }) => {
-    const first = /*useState(settings.first)*/ 37;
-    const second = /*useState(settings.second)*/ 48;
-    const media = /*useSelector(settings.mediaTypes)*/ ["camera", "camera"];
+    const teamIds = settings.teamId;
+    const media = settings?.mediaTypes;
     const [isLoaded, setIsLoaded] = useState(media === undefined);
     let scale = [100];
     for (let i = 1; i < media.length; i++) {
@@ -294,24 +293,23 @@ export const PVP = ({ widgetData: { settings }, transitionState }) => {
         scale[i - 1] *= 0.6;
     }
     scale.reverse();
-    console.log(scale);
     return <PVPWrapper>
         <PVPPerson
             show={isLoaded}
             scale={scale.join("% ") + "%"}
             animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
             animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}>
-            <TeamVideo teamId={first} type={media[0]} setIsLoaded={setIsLoaded} bottom={"80px"} top={"auto"} position={"100% bottom"}/>
-            <TeamVideo teamId={first} type={media[0]} setIsLoaded={setIsLoaded} position={"right bottom"}/>
-            <TeamVideo teamId={first} type={media[0]} setIsLoaded={setIsLoaded} top={"80px"} position={"100% top"}/>
-            <TeamVideo teamId={first} type={media[0]} setIsLoaded={setIsLoaded} position={"right top"}/>
+            <TeamVideo teamId={teamIds[0]} type={media[0]} setIsLoaded={setIsLoaded} bottom={"80px"} top={"auto"} position={"100% bottom"}/>
+            <TeamVideo teamId={teamIds[0]} type={media[1]} setIsLoaded={setIsLoaded} position={"right bottom"}/>
+            <TeamVideo teamId={teamIds[1]} type={media[0]} setIsLoaded={setIsLoaded} top={"80px"} position={"100% top"}/>
+            <TeamVideo teamId={teamIds[1]} type={media[1]} setIsLoaded={setIsLoaded} position={"right top"}/>
         </PVPPerson>
         <PVPInfo>
             <ScoreboardWrapper align={"end"}>
-                <ScoreboardRowAllTaskFirst teamId={first}/>
+                <ScoreboardRowAllTaskFirst teamId={teamIds[0]}/>
             </ScoreboardWrapper>
             <ScoreboardWrapper align={"start"}>
-                <ScoreboardRowAllTaskSecond teamId={second}/>
+                <ScoreboardRowAllTaskSecond teamId={teamIds[1]}/>
             </ScoreboardWrapper>
         </PVPInfo>
     </PVPWrapper>;
