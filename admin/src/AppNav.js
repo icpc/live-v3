@@ -8,6 +8,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import PreviewIcon from "@mui/icons-material/Preview";
 
 const pages = {
     "Controls": "controls",
@@ -15,6 +16,7 @@ const pages = {
     "Title": "title",
     "Picture": "picture",
     "TeamView": "teamview",
+    "TeamPVP": "teampvp",
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
     "Dashboard": "dashboard",
@@ -22,7 +24,7 @@ const pages = {
 };
 
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -80,6 +82,9 @@ const ResponsiveAppBar = () => {
                                 sx={{ my: 2, color: "white", display: "block" }}>
                                 {name}
                             </Button>)}
+                        <Button onClick={showOrHideOverlayPerview} sx={{ my: 2, color: "white", display: "block" }}>
+                            <PreviewIcon/>
+                        </Button>
                     </Box>
                 </Toolbar>
             </Container>

@@ -51,6 +51,10 @@ export class TeamTable extends React.Component {
             });
     }
 
+    isTeamShown(stat, id) {
+        return stat.shown && stat.settings.teamId !== id;
+    }
+
     async updateData() {
         const [stat, response] = await Promise.all([
             fetch(this.apiUrl())
@@ -61,7 +65,7 @@ export class TeamTable extends React.Component {
                 .catch(this.props.createErrorHandler("Failed to load list of teams"))
         ]);
         const result = response.map((elem) => {
-            elem.shown = (stat.shown && stat.settings.teamId === elem.id);
+            elem.shown = this.isTeamShown(stat, elem.id);
             elem.selected = false;
             return elem;
         });
@@ -73,7 +77,7 @@ export class TeamTable extends React.Component {
     }
 
     selectItem(id) {
-        if (id == this.state.selectedId) {
+        if (id === this.state.selectedId) {
             id = undefined;
         }
         const newDataElements = this.state.dataElements.map((elem) => ({
@@ -86,10 +90,6 @@ export class TeamTable extends React.Component {
     componentDidMount() {
         this.updateData();
     }
-
-    // getDefaultRowData() {
-    //     return this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
-    // }
 
     rowsFilter(elem) {
         if (this.state.searchFieldValue === "") {
@@ -177,7 +177,10 @@ export class TeamTable extends React.Component {
                             key={row.id}
                             createErrorHandler={this.props.createErrorHandler}
                             isImmutable={this.props.isImmutable}
-                            onClick={(id) => this.selectItem(id)}
+                            onClick={(id) => {
+                                console.log("id", id);
+                                this.selectItem(id);
+                            }}
                         />)}
                 </Box>
             </Grid>);

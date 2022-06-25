@@ -24,7 +24,7 @@ export class Overlay extends Component {
         this.setState(state =>({ ...state, offsetX: ref.lastX, offsetY: ref.lastY }));
     }
     render() {
-        return <Rnd
+        return this.props.isOverlayPreviewShown && (<Rnd
             position={{ x: this.state.offsetX, y: this.state.offsetY }}
             width={FULL_WIDTH * this.state.scaleFactor}
             height={FULL_HEIGHT * this.state.scaleFactor}
@@ -44,6 +44,6 @@ export class Overlay extends Component {
                     pointerEvents: "none"
                 }}/>
             </Paper>
-        </Rnd>;
+        </Rnd>);
     }
 }

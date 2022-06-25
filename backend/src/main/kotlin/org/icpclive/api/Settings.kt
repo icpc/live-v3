@@ -48,6 +48,9 @@ class TickerSettings : ObjectSettings
 data class TeamViewSettings(val teamId: Int = 0, val mediaType: MediaType? = null) : ObjectSettings
 
 @Serializable
+data class TeamPVPSettings(val teamId: List<Int> = emptyList(), val mediaType: MediaType? = null) : ObjectSettings
+
+@Serializable
 sealed class TickerMessageSettings : ObjectSettings {
     abstract val part: TickerPart
     abstract val periodMs: Long

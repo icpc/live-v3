@@ -43,6 +43,11 @@ fun Route.configureAdminApiRouting() {
                 DataBus.contestInfoUpdates.await().value.teams
             }
         }
+        route("/teamPVP") {
+            setupSimpleWidgetRouting(TeamPVPSettings(), ::TeamPVPWidget) {
+                DataBus.contestInfoUpdates.await().value.teams
+            }
+        }
 
         route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
         route("/title") {
