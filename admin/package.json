@@ -16,7 +16,7 @@
     "react-scripts": "5.0.0"
   },
   "scripts": {
-    "start": "REACT_APP_OVERLAY_LOCATION=http://localhost:3000 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
