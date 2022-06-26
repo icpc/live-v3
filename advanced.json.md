@@ -1,8 +1,8 @@
-#How to setup advanced.json
+# How to setup advanced.json
 
 Apart from ```events.properties``` file, each contest can adjust imported from contest management system using ```advanced.json``` file.
 
-##Change contestant name, hashtag, group, medias and other properties
+## Change contestant name, hashtag, group, medias and other properties
 
 You can adjust received participant information for each separate participant using ```advanced.json```. 
 ```
@@ -15,7 +15,7 @@ You can adjust received participant information for each separate participant us
 }
 ```
 
-#Set number of awards in the contest
+# Set number of awards in the contest
 ```
 {
   "medals": [
@@ -26,7 +26,7 @@ You can adjust received participant information for each separate participant us
 }
 ```
 
-#Change problem colors
+# Change problem colors
 ```
 {
  "problemOverrides": {
