@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import Ansi from "ansi-to-react";
 
 import "../App.css";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
@@ -47,7 +48,9 @@ function BackendLog() {
                 { messages.map((message, index) =>
                     <TableRow key={ index }>
                         <TableCell>
-                            { message }
+                            <Ansi>
+                                { message }
+                            </Ansi>
                         </TableCell>
                     </TableRow>
                 )}
