@@ -19,8 +19,7 @@ class LocationRectangle(
 
 @Serializable
 sealed class Widget(
-    @SerialName("widgetId") override val id: String,
-    val location: LocationRectangle
+    @SerialName("widgetId") override val id: String, val location: LocationRectangle
 ) : TypeWithId
 
 @Serializable
@@ -80,10 +79,27 @@ class TickerWidget(val settings: TickerSettings) : Widget(WIDGET_ID, location) {
 }
 
 @Serializable
-class TeamViewWidget(val settings: TeamViewSettings) : Widget(WIDGET_ID, location) {
+enum class TeamViewPosition {
+    TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+}
+
+@Serializable
+class TeamViewWidget(
+    val settings: TeamViewSettings, private val position: TeamViewPosition? = null
+) : Widget(getWidgetId(position), getLocation(position)) {
     companion object {
-        const val WIDGET_ID = "teamview"
-        val location = LocationRectangle(550, 40, 1350, 970)
+        val getWidgetId = { position: TeamViewPosition? ->
+            "teamview" + position?.name
+        }
+        val getLocation = { position: TeamViewPosition? ->
+            when (position) {
+                TeamViewPosition.TOP_LEFT -> LocationRectangle(30, 40, 915, 475)
+                TeamViewPosition.TOP_RIGHT -> LocationRectangle(975, 40, 915, 475)
+                TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(30, 535, 915, 475)
+                TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(975, 535, 915, 475)
+                else -> LocationRectangle(550, 40, 1350, 970)
+            }
+        }
     }
 }
 
@@ -92,13 +108,5 @@ class TeamPVPWidget(val settings: TeamPVPSettings) : Widget(WIDGET_ID, location)
     companion object {
         const val WIDGET_ID = "teampvp"
         val location = LocationRectangle(550, 40, 1350, 970)
-    }
-}
-
-@Serializable
-class SplitScreenWidget(val settings: SplitScreenSettings) : Widget(WIDGET_ID, location) {
-    companion object {
-        const val WIDGET_ID = "splitscreen"
-        val location = LocationRectangle(30, 40, 1860, 970)
     }
 }
