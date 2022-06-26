@@ -19,10 +19,12 @@ class LocationRectangle(
 
 @Serializable
 sealed class Widget(
-    @SerialName("widgetId") override val id: String, val location: LocationRectangle
+    @SerialName("widgetId") override val id: String,
+    val location: LocationRectangle
 ) : TypeWithId
 
 @Serializable
+@SerialName("AdvertisementWidget")
 class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "advertisement"
@@ -31,6 +33,7 @@ class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(gen
 }
 
 @Serializable
+@SerialName("PictureWidget")
 class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "picture"
@@ -39,6 +42,7 @@ class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_
 }
 
 @Serializable
+@SerialName("SvgWidget")
 class SvgWidget(val content: String) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "svg"
@@ -47,6 +51,7 @@ class SvgWidget(val content: String) : Widget(generateId(WIDGET_ID_PREFIX), loca
 }
 
 @Serializable
+@SerialName("QueueWidget")
 class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "queue"
@@ -55,6 +60,7 @@ class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
 }
 
 @Serializable
+@SerialName("ScoreboardWidget")
 class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "scoreboard"
@@ -63,6 +69,7 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, loc
 }
 
 @Serializable
+@SerialName("StatisticsWidget")
 class StatisticsWidget(val settings: StatisticsSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "statistics"
@@ -71,6 +78,7 @@ class StatisticsWidget(val settings: StatisticsSettings) : Widget(WIDGET_ID, loc
 }
 
 @Serializable
+@SerialName("TickerWidget")
 class TickerWidget(val settings: TickerSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "ticker"
@@ -84,6 +92,7 @@ enum class TeamViewPosition {
 }
 
 @Serializable
+@SerialName("TeamViewWidget")
 class TeamViewWidget(
     val settings: TeamViewSettings, private val position: TeamViewPosition? = null
 ) : Widget(getWidgetId(position), getLocation(position)) {
@@ -104,6 +113,7 @@ class TeamViewWidget(
 }
 
 @Serializable
+@SerialName("TeamPVPWidget")
 class TeamPVPWidget(val settings: TeamPVPSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "teampvp"
