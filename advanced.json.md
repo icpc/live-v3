@@ -49,3 +49,13 @@ You can adjust received participant information for each separate participant us
   }
 }
 ```
+
+# Set contest start time, if it is not available from the contest management system
+Please, do not use this option, if contest management system provides you with the scheduled contest start time. 
+Some systems don't (PCMS), so this option allows you to have countdown before the contest start
+
+```
+{
+  "startTime": "2022-04-13 10:10"
+}
+```
