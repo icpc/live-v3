@@ -2,4 +2,4 @@ test/**
 **/users.json
 **/media
 **/presets
-creds.conf
+creds.json
