@@ -1,0 +1,8 @@
+{
+  "startTime": "2022-04-13 10:10",
+  "medals": [
+    {"name": "gold", "count": 4},
+    {"name": "silver", "count": 4},
+    {"name": "bronze", "count": 4}
+  ]
+}

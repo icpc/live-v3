@@ -9,7 +9,7 @@ import org.icpclive.utils.sendJsonFlow
 
 fun Route.configureOverlayRouting() {
     webSocket("/mainScreen") { sendJsonFlow(DataBus.mainScreenFlow.await()) }
-    webSocket("/contestInfo") { sendJsonFlow(DataBus.contestInfoUpdates.await()) }
+    webSocket("/contestInfo") { sendJsonFlow(DataBus.contestInfoFlow.await()) }
     webSocket("/queue") { sendJsonFlow(DataBus.queueFlow.await()) }
     webSocket("/statistics") { sendJsonFlow(DataBus.statisticFlow.await()) }
     webSocket("/ticker") { sendJsonFlow(DataBus.tickerFlow.await()) }

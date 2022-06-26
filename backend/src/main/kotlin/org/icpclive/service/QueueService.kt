@@ -17,7 +17,7 @@ private class Run(val run: RunInfo) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
 
-class QueueService(private val runsFlow: Flow<RunInfo>) {
+class QueueService {
     private val runs = mutableMapOf<Int, RunInfo>()
     private val lastUpdateTime = mutableMapOf<Int, Duration>()
 
@@ -52,8 +52,7 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
         get() = if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
 
-    suspend fun run() {
-        val contestInfoFlow = DataBus.contestInfoUpdates.await()
+    suspend fun run(runsFlow: Flow<RunInfo>, contestInfoFlow: StateFlow<ContestInfo>) {
         contestInfoFlow.filterNot { it.status == ContestStatus.BEFORE }.first()
         logger.info("Queue service is started")
         val firstEventTime = contestInfoFlow.value.currentContestTime
