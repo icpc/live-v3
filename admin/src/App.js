@@ -12,6 +12,7 @@ import TeamView from "./components/TeamView";
 import TeamPVP from "./components/TeamPVP";
 import { SnackbarProvider } from "notistack";
 import ScoreboardSettings from "./components/ScoreboardSettings";
+import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                         <Route path="/scoreboard" element={<ScoreboardSettings/>}/>
                         <Route path="/ticker" element={<TickerMessage/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/log" element={<BackendLog/>}/>
                         {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>

@@ -20,6 +20,7 @@ const pages = {
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
     "Dashboard": "dashboard",
+    "Backend Log": "log",
     // "Advanced Properties": "AdvancedProperties",
 };
 
