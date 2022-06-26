@@ -8,6 +8,7 @@ import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.AdvancedProperties
 import org.icpclive.config.Config
 import org.icpclive.utils.fileChangesFlow
+import org.icpclive.utils.getLogger
 import kotlin.io.path.inputStream
 
 class AdvancedPropertiesService {
@@ -15,18 +16,21 @@ class AdvancedPropertiesService {
         withContext(Dispatchers.IO) {
             fileChangesFlow(Config.configDirectory.resolve("advanced.json"))
                 .mapNotNull { path ->
-                    ContestDataOverridesService.logger.info("Reloading $path")
+                    logger.info("Reloading $path")
                     try {
                         path.inputStream().use {
                             Json.decodeFromStream<AdvancedProperties>(it)
                         }
                     } catch (e: Exception) {
-                        ContestDataOverridesService.logger.error("Failed to reload $path", e)
+                        logger.error("Failed to reload $path", e)
                         null
                     }
                 }.collect {
                     advancedPropertiesFlow.value = it
                 }
         }
+    }
+    companion object {
+        val logger = getLogger(AdvancedPropertiesService::class)
     }
 }

@@ -2,7 +2,7 @@ package org.icpclive.service
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.merge
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import kotlin.math.max
@@ -28,17 +28,23 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
     abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
 
     suspend fun run(runsFlow: Flow<RunInfo>, contestInfoFlow: Flow<ContestInfo>, advancedPropertiesFlow: Flow<AdvancedProperties>) {
-        var lastRun: RunInfo? = null
-        combine(runsFlow, contestInfoFlow, advancedPropertiesFlow, ::Triple).collect { (run, info, advanced) ->
-            if (run !== lastRun) {
-                lastRun = run
-                val oldRun = runs[run.id]
-                runs[run.id] = run
-                if (oldRun?.isJudged == false && !run.isJudged) {
-                    return@collect
+        var info: ContestInfo? = null
+        var medals: MedalSettings? = null
+        merge(runsFlow, contestInfoFlow, advancedPropertiesFlow).collect { update ->
+            when (update) {
+                is RunInfo -> {
+                    val oldRun = runs[update.id]
+                    runs[update.id] = update
+                    if (oldRun?.isJudged == false && !update.isJudged) {
+                        return@collect
+                    }
                 }
+                is ContestInfo -> { info = update }
+                is AdvancedProperties -> { medals = update.medals }
             }
-            flow.value = getScoreboard(info, advanced.medals)
+            info?.let {
+                flow.value = getScoreboard(it, medals)
+            }
         }
     }
 

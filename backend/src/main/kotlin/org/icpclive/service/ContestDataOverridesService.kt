@@ -35,7 +35,7 @@ class ContestDataOverridesService(
         outputFlow: MutableStateFlow<ContestInfo>
     ) {
         coroutineScope {
-            combine(contestInfoInputFlow, advancedPropsFlow) { info, overrides ->
+            combine(contestInfoInputFlow, advancedPropsFlow, ::Pair).collect { (info, overrides) ->
                 val (teamInfos, unusedTeamOverrides) = mergeOverride(
                     info.teams,
                     overrides.teamOverrides,
@@ -77,7 +77,8 @@ class ContestDataOverridesService(
                     teams = teamInfos,
                     problems = problemInfos
                 )
-            }}
+            }
+        }
     }
 
     companion object {

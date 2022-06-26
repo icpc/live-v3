@@ -12,8 +12,9 @@ class StatisticsService {
         coroutineScope {
             combine(
                 scoreboardFlow,
-                contestInfoFlow.map { it.problems.size }.distinctUntilChanged()
-            ) { scoreboard, problemNumber ->
+                contestInfoFlow.map { it.problems.size }.distinctUntilChanged(),
+                ::Pair,
+            ).map { (scoreboard, problemNumber) ->
                 SolutionsStatistic(
                     List(problemNumber) { problem ->
                         val results =
