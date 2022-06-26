@@ -57,6 +57,9 @@ data class TeamPVPSettings(
 }
 
 @Serializable
+data class SplitScreenSettings(val teamViews: List<TeamViewSettings> = emptyList()) : ObjectSettings
+
+@Serializable
 sealed class TickerMessageSettings : ObjectSettings {
     abstract val part: TickerPart
     abstract val periodMs: Long
@@ -75,9 +78,7 @@ enum class TickerPart {
 @Serializable
 @SerialName("text")
 data class TextTickerSettings(
-    override val part: TickerPart,
-    override val periodMs: Long,
-    val text: String
+    override val part: TickerPart, override val periodMs: Long, val text: String
 ) : TickerMessageSettings() {
     override fun toMessage() = TextTickerMessage(this)
 }
@@ -91,10 +92,7 @@ data class ClockTickerSettings(override val part: TickerPart, override val perio
 @Serializable
 @SerialName("scoreboard")
 data class ScoreboardTickerSettings(
-    override val part: TickerPart,
-    override val periodMs: Long,
-    val from: Int,
-    val to: Int
+    override val part: TickerPart, override val periodMs: Long, val from: Int, val to: Int
 ) : TickerMessageSettings() {
     override fun toMessage() = ScoreboardTickerMessage(this)
 }

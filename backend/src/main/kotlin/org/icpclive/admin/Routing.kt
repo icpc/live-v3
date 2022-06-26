@@ -39,6 +39,7 @@ fun Route.configureAdminApiRouting() {
         route("/queue") { setupSimpleWidgetRouting(QueueSettings(), ::QueueWidget) }
         route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
         route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
+
         route("/teamView") {
             setupSimpleWidgetRouting(TeamViewSettings(), ::TeamViewWidget) {
                 DataBus.contestInfoFlow.await().first().teams
@@ -46,6 +47,11 @@ fun Route.configureAdminApiRouting() {
         }
         route("/teamPVP") {
             setupSimpleWidgetRouting(TeamPVPSettings(), ::TeamPVPWidget) {
+                DataBus.contestInfoFlow.await().first().teams
+            }
+        }
+        route("/splitScreen") {
+            setupSimpleWidgetRouting(SplitScreenSettings(), ::SplitScreenWidget) {
                 DataBus.contestInfoFlow.await().first().teams
             }
         }
