@@ -41,6 +41,7 @@ fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
 }
 
 fun defaultHttpClient(auth: ClientAuth?, block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {}) = HttpClient(CIO) {
+    install(HttpTimeout)
     if (auth != null) {
         setupAuth(auth)
     }
