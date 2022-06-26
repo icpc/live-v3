@@ -51,10 +51,8 @@ data class TeamViewSettings(val teamId: Int = 0, val mediaType: MediaType? = nul
 
 @Serializable
 data class TeamPVPSettings(
-    val teamId: List<Int> = emptyList(), val mediaType: MediaType? = null,
-) : ObjectSettings {
-    val mediaTypes: List<MediaType> = listOf(MediaType.CAMERA, MediaType.SCREEN)
-}
+    val teamId: List<Int> = emptyList(), val mediaType: List<MediaType> = emptyList()
+) : ObjectSettings
 
 @Serializable
 data class SplitScreenSettings(val teamViews: List<TeamViewSettings> = emptyList()) : ObjectSettings

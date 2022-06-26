@@ -6,10 +6,17 @@ import { TeamTable } from "./TeamTable";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
 
+
 class TeamPVPTable extends TeamTable {
     constructor(props) {
         super(props);
         this.state = { ...this.state, selectedIds: [] };
+    }
+
+    showButtonsSettings() {
+        return [
+            { text: "camera + screen", mediaType: ["camera", "screen"] }
+        ];
     }
 
     isTeamShown(stat, id) {
