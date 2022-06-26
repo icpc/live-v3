@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import Ansi from "ansi-to-react";
 
 import "../App.css";
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { BASE_URL_WS } from "../config";
 
 const apiUrl = () => {
@@ -43,19 +42,13 @@ function BackendLog() {
     }, [messages.length]);
 
     return (<div>
-        <Table size="small">
-            <TableBody>
-                { messages.map((message, index) =>
-                    <TableRow key={ index }>
-                        <TableCell>
-                            <Ansi>
-                                { message }
-                            </Ansi>
-                        </TableCell>
-                    </TableRow>
-                )}
-            </TableBody>
-        </Table>
+        { messages.map((message, index) =>
+            <p key = { index } >
+                <Ansi>
+                    { message }
+                </Ansi>
+            </p>
+        )}
     </div>
     );
 }
