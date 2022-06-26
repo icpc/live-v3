@@ -55,9 +55,6 @@ data class TeamPVPSettings(
 ) : ObjectSettings
 
 @Serializable
-data class SplitScreenSettings(val teamViews: List<TeamViewSettings> = emptyList()) : ObjectSettings
-
-@Serializable
 sealed class TickerMessageSettings : ObjectSettings {
     abstract val part: TickerPart
     abstract val periodMs: Long

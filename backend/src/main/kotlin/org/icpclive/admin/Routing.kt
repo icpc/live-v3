@@ -41,17 +41,21 @@ fun Route.configureAdminApiRouting() {
         route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
 
         route("/teamView") {
-            setupSimpleWidgetRouting(TeamViewSettings(), ::TeamViewWidget) {
+            setupSimpleWidgetRouting(TeamViewSettings(), { TeamViewWidget(it) }) {
                 DataBus.contestInfoFlow.await().first().teams
             }
         }
+
+        for (position in TeamViewPosition.values()) {
+            route("/splitscreen/${position.ordinal}") {
+                setupSimpleWidgetRouting(TeamViewSettings(), { TeamViewWidget(it, position) }) {
+                    DataBus.contestInfoFlow.await().first().teams
+                }
+            }
+        }
+
         route("/teamPVP") {
             setupSimpleWidgetRouting(TeamPVPSettings(), ::TeamPVPWidget) {
-                DataBus.contestInfoFlow.await().first().teams
-            }
-        }
-        route("/splitScreen") {
-            setupSimpleWidgetRouting(SplitScreenSettings(), ::SplitScreenWidget) {
                 DataBus.contestInfoFlow.await().first().teams
             }
         }
