@@ -21,7 +21,7 @@ object DataBus {
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
     val advancedPropertiesFlow = CompletableDeferred<Flow<AdvancedProperties>>()
     val loggerFlow = MutableSharedFlow<String>(
-        replay = 100,
+        replay = 500,
         extraBufferCapacity = 0,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
