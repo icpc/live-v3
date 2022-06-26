@@ -2,13 +2,80 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Grid, Box, Button, TextField } from "@mui/material";
 import { lightBlue, grey } from "@mui/material/colors";
-import { Team } from "./Team";
+import { Team, TEAM_FIELD_STRUCTURE } from "./Team";
 import { BASE_URL_BACKEND } from "../config";
 
 const gridButton = {
     margin: "4px"
 };
 
+const showButtonsSettings = [
+    { text: "camera", mediaType: "camera" },
+    { text: "screen", mediaType: "screen" },
+    { text: "record", mediaType: "record" },
+    { text: "info", mediaType: undefined },
+];
+
+export function ChooseMediaTypeAndShowPanel({ selectedMediaType, isSomethingSelected, isPossibleToHide, showTeamFunction, hideTeamFunction }) {
+    return (<Box>
+        {showButtonsSettings.map((elem) => (
+            <Button
+                disabled={!isSomethingSelected}
+                sx={{ ...gridButton,
+                    backgroundColor: (selectedMediaType === elem.mediaType ? "#1976d2" : "primary")
+                }}
+                variant={selectedMediaType === elem.mediaType ? "contained" : "outlined"}
+                key={elem.text}
+                onClick={() => {showTeamFunction(elem.mediaType);}}>{elem.text}</Button>
+        ))}
+        <Button
+            sx={gridButton}
+            disabled={!isPossibleToHide}
+            variant={!isPossibleToHide ? "outlined" : "contained"}
+            color="error"
+            onClick={() => hideTeamFunction()}>hide</Button>
+    </Box>);
+}
+ChooseMediaTypeAndShowPanel.propTypes = {
+    selectedMediaType: PropTypes.any,
+    isSomethingSelected: PropTypes.bool.isRequired,
+    isPossibleToHide: PropTypes.bool.isRequired,
+    showTeamFunction: PropTypes.func.isRequired,
+    hideTeamFunction: PropTypes.func.isRequired,
+};
+
+export function SelectTeamTable({ teams, RowComponent, onClickHandler, tStyle }) {
+    return (<Box sx={{
+        display: "grid",
+        width: { "md": "75%", "sm": "100%", "xs": "100%" },
+        gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(2, 6fr)", "xs": "repeat(1, 6fr)" },
+        gap: 0.25 }}>
+        {teams !== undefined && teams.map((row) =>
+            <RowComponent
+                tStyle={tStyle}
+                rowData={row}
+                key={row.id}
+                onClick={onClickHandler}
+            />)}
+    </Box>);
+}
+SelectTeamTable.propTypes = {
+    teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE),
+    onClickHandler: PropTypes.func.isRequired,
+    RowComponent: PropTypes.elementType,
+    tStyle: PropTypes.shape({
+        activeColor: PropTypes.string,
+        inactiveColor: PropTypes.string,
+    }),
+};
+SelectTeamTable.defaultProps = {
+    tStyle: {
+        selectedColor: grey.A200,
+        activeColor: lightBlue[100],
+        inactiveColor: "white",
+    },
+    RowComponent: Team,
+};
 
 export class TeamTable extends React.Component {
     constructor(props) {
@@ -24,14 +91,6 @@ export class TeamTable extends React.Component {
         this.hideTeam = this.hideTeam.bind(this);
         this.apiUrl = this.apiUrl.bind(this);
         this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
-    }
-
-    showButtonsSettings() {
-        return [
-            { text: "camera", mediaType: "camera" },
-            { text: "screen", mediaType: "screen" },
-            { text: "record", mediaType: "record" },
-            { text: "info", mediaType: undefined },];
     }
 
     apiUrl() {
@@ -58,24 +117,25 @@ export class TeamTable extends React.Component {
         return stat.shown && stat.settings.teamId === id;
     }
 
-    async updateData() {
-        const [stat, response] = await Promise.all([
+    updateData() {
+        Promise.all([
             fetch(this.apiUrl())
                 .then(res => res.json())
                 .catch(this.props.createErrorHandler("Failed to load list of teams")),
             fetch(this.apiUrl() + "/info")
                 .then(res => res.json())
                 .catch(this.props.createErrorHandler("Failed to load list of teams"))
-        ]);
-        const result = response.map((elem) => {
-            elem.shown = this.isTeamShown(stat, elem.id);
-            elem.selected = false;
-            return elem;
-        });
-        this.setState({ ...this.state,
-            dataElements: result,
-            shownMediaType: (stat.shown ? stat.settings.mediaType : null),
-            shownId: (stat.shown ? stat.settings.teamId : undefined)
+        ]).then(([stat, response]) => {
+            const teamsData = response.map((elem) => {
+                elem.shown = this.isTeamShown(stat, elem.id);
+                elem.selected = false;
+                return elem;
+            });
+            this.setState(state => ({ ...state,
+                dataElements: teamsData,
+                shownMediaType: (stat.shown ? stat.settings.mediaType : null),
+                shownId: (stat.shown ? stat.settings.teamId : undefined)
+            }));
         });
     }
 
@@ -118,7 +178,6 @@ export class TeamTable extends React.Component {
     }
 
     render() {
-        const RowComponent = this.props.rowComponent;
         return (
             <Grid sx={{
                 display: "flex",
@@ -134,24 +193,9 @@ export class TeamTable extends React.Component {
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "row" }}>
-                    <Box>
-                        {this.showButtonsSettings().map((elem) => (
-                            <Button
-                                disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
-                                sx={{ ...gridButton,
-                                    backgroundColor: (this.state.shownMediaType === elem.mediaType ? "#1976d2" : "primary")
-                                }}
-                                variant={this.state.shownMediaType === elem.mediaType ? "contained" : "outlined"}
-                                key={elem.text}
-                                onClick={() => {this.showTeam(elem.mediaType);}}>{elem.text}</Button>
-                        ))}
-                        <Button
-                            sx={gridButton}
-                            disabled={this.state.shownId === undefined}
-                            variant={this.state.shownId === undefined ? "outlined" : "contained"}
-                            color="error"
-                            onClick={() => {this.hideTeam();}}>hide</Button>
-                    </Box>
+                    <ChooseMediaTypeAndShowPanel isPossibleToHide={this.state.shownId !== undefined}
+                        isSomethingSelected={this.state.selectedId !== undefined}
+                        selectedMediaType={this.state.shownMediaType} showTeamFunction={this.showTeam} hideTeamFunction={this.hideTeam}/>
                     <TextField
                         onChange={this.handleSearchFieldChange}
                         value={this.state.searchFieldValue}
@@ -165,27 +209,8 @@ export class TeamTable extends React.Component {
                         }}
                     />
                 </Box>
-                <Box sx={{
-                    display: "grid",
-                    width: { "md": "75%", "sm": "100%", "xs": "100%" },
-                    gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(2, 6fr)", "xs": "repeat(1, 6fr)" },
-                    gap: 0.25 }}>
-                    {this.state.dataElements !== undefined &&
-                    this.state.dataElements.filter((r) => this.rowsFilter(r)).map((row) =>
-                        <RowComponent
-                            apiPostFunc={this.apiPost.bind(this)}
-                            updateTable={this.updateData}
-                            tStyle={this.props.tStyle}
-                            rowData={row}
-                            key={row.id}
-                            createErrorHandler={this.props.createErrorHandler}
-                            isImmutable={this.props.isImmutable}
-                            onClick={(id) => {
-                                console.log("id", id);
-                                this.selectItem(id);
-                            }}
-                        />)}
-                </Box>
+                <SelectTeamTable teams={this.state.dataElements.filter((r) => this.rowsFilter(r))}
+                    RowComponent={this.props.rowComponent} onClickHandler={(id) => this.selectItem(id)}/>
             </Grid>);
     }
 }
@@ -193,21 +218,12 @@ export class TeamTable extends React.Component {
 TeamTable.propTypes = {
     apiPath: PropTypes.string.isRequired,
     tableKeysHeaders: PropTypes.arrayOf(PropTypes.string),
-    tStyle: PropTypes.shape({
-        activeColor: PropTypes.string,
-        inactiveColor: PropTypes.string,
-    }),
     rowComponent: PropTypes.elementType,
     createErrorHandler: PropTypes.func,
     isImmutable: PropTypes.bool,
 };
 
 TeamTable.defaultProps = {
-    tStyle: {
-        selectedColor: grey.A200,
-        activeColor: lightBlue[100],
-        inactiveColor: "white",
-    },
     rowComponent: Team,
     createErrorHandler: () => () => {},
 };
