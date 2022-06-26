@@ -43,7 +43,7 @@ function BackendLog() {
     }, [messages.length]);
 
     return (<div>
-        <Table align={"center"}>
+        <Table size="small">
             <TableBody>
                 { messages.map((message, index) =>
                     <TableRow key={ index }>
