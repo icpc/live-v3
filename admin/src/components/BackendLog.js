@@ -24,7 +24,7 @@ function BackendLog() {
 
         ws.current.onmessage = (event) => {
             const data = event.data;
-            setMessages((_messages) => [..._messages, data]);
+            setMessages((_messages) => [data, ..._messages]);
         };
 
         return () => {
@@ -44,7 +44,7 @@ function BackendLog() {
     return (<div>
         <Table align={"center"}>
             <TableBody>
-                { messages.slice(-20).reverse().map((message, index) =>
+                { messages.map((message, index) =>
                     <TableRow key={ index }>
                         <TableCell>
                             { message }
