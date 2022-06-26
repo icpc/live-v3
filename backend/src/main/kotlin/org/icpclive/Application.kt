@@ -99,6 +99,7 @@ fun Application.module() {
         Config.creds = environment.config.propertyOrNull("live.credsFile")?.let {
             Json.decodeFromStream(File(it.getString()).inputStream())
         } ?: emptyMap()
+        Config.allowUnsecureConnections = environment.config.propertyOrNull("live.allowUnsecureConnections")?.getString() == "true"
     }
 
     val mediaPath = Config.configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())

@@ -2,7 +2,6 @@ package org.icpclive.cds.yandex
 
 import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +26,7 @@ import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.OAuthAuth
+import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.processCreds
 import java.io.IOException
@@ -55,16 +55,11 @@ class YandexDataSource : ContestDataSource {
         contestId = props.getProperty(CONTEST_ID_PROPERTY_NAME).toLong()
         loginPrefix = props.getProperty(LOGIN_PREFIX_PROPERTY_NAME)
 
-        // TODO: Java engine (requires Java 11 or higher)
-        // TODO: use ktor everywhere instead of URL.openConnection
-        httpClient = HttpClient(CIO) {
+        httpClient = defaultHttpClient(OAuthAuth(apiKey)) {
             defaultRequest {
                 url("$API_BASE/contests/$contestId/")
-                header("Authorization", "OAuth $apiKey")
             }
-
             engine {
-                threadsCount = 2
                 requestTimeout = 40000
             }
         }
