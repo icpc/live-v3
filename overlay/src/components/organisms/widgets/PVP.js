@@ -285,7 +285,7 @@ const PVPWrapper = styled.div`
 
 export const PVP = ({ widgetData: { settings }, transitionState }) => {
     const teamIds = settings.teamId;
-    const media = settings?.mediaTypes;
+    const media = settings.mediaType;
     const [isLoaded, setIsLoaded] = useState(media === undefined);
     let scale = [100];
     for (let i = 1; i < media.length; i++) {

@@ -9,11 +9,6 @@ const gridButton = {
     margin: "4px"
 };
 
-const showButtonsSettings = [
-    { text: "camera", mediaType: "camera" },
-    { text: "screen", mediaType: "screen" },
-    { text: "record", mediaType: "record" },
-    { text: "info", mediaType: undefined },];
 
 export class TeamTable extends React.Component {
     constructor(props) {
@@ -29,6 +24,14 @@ export class TeamTable extends React.Component {
         this.hideTeam = this.hideTeam.bind(this);
         this.apiUrl = this.apiUrl.bind(this);
         this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
+    }
+
+    showButtonsSettings() {
+        return [
+            { text: "camera", mediaType: "camera" },
+            { text: "screen", mediaType: "screen" },
+            { text: "record", mediaType: "record" },
+            { text: "info", mediaType: undefined },];
     }
 
     apiUrl() {
@@ -132,7 +135,7 @@ export class TeamTable extends React.Component {
                     alignItems: "center",
                     flexDirection: "row" }}>
                     <Box>
-                        {showButtonsSettings.map((elem) => (
+                        {this.showButtonsSettings().map((elem) => (
                             <Button
                                 disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
                                 sx={{ ...gridButton,
