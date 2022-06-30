@@ -46,5 +46,10 @@
 "392755": {"shortname":"Montana Tech: I Don't Know Yet","name":"Montana Tech: I Don't Know Yet"},
 "392756": {"shortname":"CSoM: Mines 7","name":"CSoM: Mines 7"},
 "392757": {"shortname":"CSoM: Mines 8","name":"CSoM: Mines 8"}
-  }                                                   
+  },
+  "medals": [
+    {"name": "gold", "count": 4},
+    {"name": "silver", "count": 4},
+    {"name": "bronze", "count": 4}
+  ]
 }

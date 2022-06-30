@@ -1,5 +1,7 @@
 package org.icpclive.utils
 
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.CompletableDeferred
@@ -16,7 +18,9 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.config.Config
 import org.slf4j.LoggerFactory
+import java.security.cert.X509Certificate
 import java.util.*
+import javax.net.ssl.X509TrustManager
 import kotlin.reflect.KClass
 import kotlin.time.Duration
 

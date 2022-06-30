@@ -9,11 +9,6 @@ const gridButton = {
     margin: "4px"
 };
 
-const showButtonsSettings = [
-    { text: "camera", mediaType: "camera" },
-    { text: "screen", mediaType: "screen" },
-    { text: "record", mediaType: "record" },
-    { text: "info", mediaType: undefined },];
 
 export class TeamTable extends React.Component {
     constructor(props) {
@@ -29,6 +24,14 @@ export class TeamTable extends React.Component {
         this.hideTeam = this.hideTeam.bind(this);
         this.apiUrl = this.apiUrl.bind(this);
         this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
+    }
+
+    showButtonsSettings() {
+        return [
+            { text: "camera", mediaType: "camera" },
+            { text: "screen", mediaType: "screen" },
+            { text: "record", mediaType: "record" },
+            { text: "info", mediaType: undefined },];
     }
 
     apiUrl() {
@@ -51,6 +54,10 @@ export class TeamTable extends React.Component {
             });
     }
 
+    isTeamShown(stat, id) {
+        return stat.shown && stat.settings.teamId === id;
+    }
+
     async updateData() {
         const [stat, response] = await Promise.all([
             fetch(this.apiUrl())
@@ -61,7 +68,7 @@ export class TeamTable extends React.Component {
                 .catch(this.props.createErrorHandler("Failed to load list of teams"))
         ]);
         const result = response.map((elem) => {
-            elem.shown = (stat.shown && stat.settings.teamId === elem.id);
+            elem.shown = this.isTeamShown(stat, elem.id);
             elem.selected = false;
             return elem;
         });
@@ -73,7 +80,7 @@ export class TeamTable extends React.Component {
     }
 
     selectItem(id) {
-        if (id == this.state.selectedId) {
+        if (id === this.state.selectedId) {
             id = undefined;
         }
         const newDataElements = this.state.dataElements.map((elem) => ({
@@ -86,10 +93,6 @@ export class TeamTable extends React.Component {
     componentDidMount() {
         this.updateData();
     }
-
-    // getDefaultRowData() {
-    //     return this.props.apiTableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
-    // }
 
     rowsFilter(elem) {
         if (this.state.searchFieldValue === "") {
@@ -132,7 +135,7 @@ export class TeamTable extends React.Component {
                     alignItems: "center",
                     flexDirection: "row" }}>
                     <Box>
-                        {showButtonsSettings.map((elem) => (
+                        {this.showButtonsSettings().map((elem) => (
                             <Button
                                 disabled={this.state.selectedId === undefined && this.state.shownId === undefined}
                                 sx={{ ...gridButton,
@@ -177,7 +180,10 @@ export class TeamTable extends React.Component {
                             key={row.id}
                             createErrorHandler={this.props.createErrorHandler}
                             isImmutable={this.props.isImmutable}
-                            onClick={(id) => this.selectItem(id)}
+                            onClick={(id) => {
+                                console.log("id", id);
+                                this.selectItem(id);
+                            }}
                         />)}
                 </Box>
             </Grid>);

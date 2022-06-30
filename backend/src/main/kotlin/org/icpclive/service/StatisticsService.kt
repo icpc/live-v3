@@ -1,18 +1,20 @@
 package org.icpclive.service
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
 
-class StatisticsService(
-    private val scoreboardFlow: Flow<Scoreboard>,
-    private val contestInfoFlow: Flow<ContestInfo>
-) {
-    suspend fun launch(scope: CoroutineScope) {
-        scoreboardFlow
-            .combine(contestInfoFlow.map { it.problems.size }.distinctUntilChanged()) { scoreboard, problemNumber ->
+class StatisticsService {
+    suspend fun run(scoreboardFlow: Flow<Scoreboard>, contestInfoFlow: Flow<ContestInfo>) {
+        coroutineScope {
+            combine(
+                scoreboardFlow,
+                contestInfoFlow.map { it.problems.size }.distinctUntilChanged(),
+                ::Pair,
+            ).map { (scoreboard, problemNumber) ->
                 SolutionsStatistic(
                     List(problemNumber) { problem ->
                         val results =
@@ -24,7 +26,8 @@ class StatisticsService(
                         )
                     }
                 )
-            }.stateIn(scope)
-            .also { DataBus.statisticFlow.completeOrThrow(it) }
+            }.stateIn(this)
+                .also { DataBus.statisticFlow.completeOrThrow(it) }
+        }
     }
 }

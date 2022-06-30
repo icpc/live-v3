@@ -30,4 +30,5 @@ object Config {
         else
             null
 
+    var allowUnsecureConnections: Boolean = false
 }

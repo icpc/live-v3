@@ -1,8 +1,15 @@
 {
   "startTime": null,
   "teamOverrides": {
-"486861": {"shortname": "ITMO test override","hashTag": "#ItMo","groups": ["SPb ITMO", "SPb"],"medias": {"camera": "localhost:12345/specialitmovideo","screen": null}},
-"486860": {"groups": ["SPb HSE", "SPb"]},
+"486861": {"shortname": "ITMO test override","hashTag": "#ItMo","groups": ["SPb ITMO", "SPb"],
+  "medias": {
+    "camera": "https://media.istockphoto.com/videos/mans-hands-coding-on-laptop-close-up-man-using-portable-computers-man-video-id1193698730",
+    "screen": "https://cdn.videvo.net/videvo_files/video/free/2016-12/large_watermarked/Code_flythough_loop_01_Videvo_preview.mp4"}},
+"486860": {"groups": ["SPb HSE", "SPb"],
+  "medias": {
+    "screen": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4",
+    "camera": "https://cdn.videvo.net/videvo_files/video/free/2016-12/large_watermarked/Typing_dark_04_Videvo_preview.mp4"
+}},
 "486862": {"groups": ["HSE", "Moscow"]},
 "486863": {"groups": ["HSE", "Moscow"]},
 "486864": {"groups": ["Moscow IPT", "Moscow"]},
@@ -57,5 +64,10 @@
     "I": {
       "color": "#faeedd"
     }
-  }
+  },
+  "medals": [
+    {"name": "gold", "count": 4},
+    {"name": "silver", "count": 4},
+    {"name": "bronze", "count": 4}
+  ]
 }

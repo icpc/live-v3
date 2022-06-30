@@ -7,6 +7,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import kotlinx.coroutines.flow.first
 import org.icpclive.api.*
 import org.icpclive.config.Config
 import org.icpclive.data.DataBus
@@ -38,9 +39,24 @@ fun Route.configureAdminApiRouting() {
         route("/queue") { setupSimpleWidgetRouting(QueueSettings(), ::QueueWidget) }
         route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
         route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
+
         route("/teamView") {
-            setupSimpleWidgetRouting(TeamViewSettings(), ::TeamViewWidget) {
-                DataBus.contestInfoUpdates.await().value.teams
+            setupSimpleWidgetRouting(TeamViewSettings(), { TeamViewWidget(it) }) {
+                DataBus.contestInfoFlow.await().first().teams
+            }
+        }
+
+        for (position in TeamViewPosition.values()) {
+            route("/splitscreen/${position.ordinal}") {
+                setupSimpleWidgetRouting(TeamViewSettings(), { TeamViewWidget(it, position) }) {
+                    DataBus.contestInfoFlow.await().first().teams
+                }
+            }
+        }
+
+        route("/teamPVP") {
+            setupSimpleWidgetRouting(TeamPVPSettings(), ::TeamPVPWidget) {
+                DataBus.contestInfoFlow.await().first().teams
             }
         }
 
@@ -55,7 +71,7 @@ fun Route.configureAdminApiRouting() {
         route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/tickerMessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }
         route("/users") { setupUserRouting() }
-        get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().value) } }
+        get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
     }

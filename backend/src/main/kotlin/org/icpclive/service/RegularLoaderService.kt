@@ -1,25 +1,17 @@
 package org.icpclive.service
 
-import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.icpclive.utils.ClientAuth
+import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
-import org.icpclive.utils.setupAuth
 import java.io.IOException
 import kotlin.time.Duration
 
 abstract class RegularLoaderService<T>(auth: ClientAuth?) {
-    private val httpClient = HttpClient {
-        if (auth != null) {
-            setupAuth(auth)
-        }
-        engine {
-            threadsCount = 2
-        }
-    }
+    private val httpClient = defaultHttpClient(auth)
 
     abstract val url: String
     abstract fun processLoaded(data: String): T

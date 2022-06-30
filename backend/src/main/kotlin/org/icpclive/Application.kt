@@ -17,6 +17,8 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.admin.createFakeUser
 import org.icpclive.admin.validateAdminApiCredits
@@ -28,6 +30,7 @@ import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
+import java.io.File
 import java.nio.file.Paths
 import java.time.Duration
 import kotlin.io.path.exists
@@ -93,15 +96,10 @@ fun Application.module() {
         if (!configPath.exists()) throw IllegalStateException("Config directory $configPath does not exist")
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = Paths.get(configDir)
-        Config.creds = try {
-            environment.config.config("credentials").let {
-                it.keys().associateWith { key -> it.property(key).getString() }
-            }
-        } catch (e: ApplicationConfigurationException) {
-            emptyMap()
-        } catch (e: com.typesafe.config.ConfigException) {
-            emptyMap()
-        }
+        Config.creds = environment.config.propertyOrNull("live.credsFile")?.let {
+            Json.decodeFromStream(File(it.getString()).inputStream())
+        } ?: emptyMap()
+        Config.allowUnsecureConnections = environment.config.propertyOrNull("live.allowUnsecureConnections")?.getString() == "true"
     }
 
     val mediaPath = Config.configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())

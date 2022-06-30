@@ -23,8 +23,10 @@ class QueueSettings : ObjectSettings
 enum class OptimismLevel {
     @SerialName("normal")
     NORMAL,
+
     @SerialName("optimistic")
     OPTIMISTIC,
+
     @SerialName("pessimistic")
     PESSIMISTIC;
 }
@@ -48,6 +50,11 @@ class TickerSettings : ObjectSettings
 data class TeamViewSettings(val teamId: Int = 0, val mediaType: MediaType? = null) : ObjectSettings
 
 @Serializable
+data class TeamPVPSettings(
+    val teamId: List<Int> = emptyList(), val mediaType: List<MediaType> = emptyList()
+) : ObjectSettings
+
+@Serializable
 sealed class TickerMessageSettings : ObjectSettings {
     abstract val part: TickerPart
     abstract val periodMs: Long
@@ -66,9 +73,7 @@ enum class TickerPart {
 @Serializable
 @SerialName("text")
 data class TextTickerSettings(
-    override val part: TickerPart,
-    override val periodMs: Long,
-    val text: String
+    override val part: TickerPart, override val periodMs: Long, val text: String
 ) : TickerMessageSettings() {
     override fun toMessage() = TextTickerMessage(this)
 }
@@ -82,10 +87,7 @@ data class ClockTickerSettings(override val part: TickerPart, override val perio
 @Serializable
 @SerialName("scoreboard")
 data class ScoreboardTickerSettings(
-    override val part: TickerPart,
-    override val periodMs: Long,
-    val from: Int,
-    val to: Int
+    override val part: TickerPart, override val periodMs: Long, val from: Int, val to: Int
 ) : TickerMessageSettings() {
     override fun toMessage() = ScoreboardTickerMessage(this)
 }

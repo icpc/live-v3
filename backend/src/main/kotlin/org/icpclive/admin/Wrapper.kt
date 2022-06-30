@@ -33,8 +33,12 @@ class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
 
     suspend fun show() {
         mutex.withLock {
-            if (widgetId != null)
-                return
+            if (widgetId != null) {
+                widgetId?.let {
+                    manager.remove(it)
+                }
+                widgetId = null
+            }
             val widget = createWidget(settings)
             manager.add(widget)
             widgetId = widget.id
@@ -43,8 +47,12 @@ class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
 
     suspend fun show(newSettings: SettingsType) {
         mutex.withLock {
-            if (widgetId != null)
-                return
+            if (widgetId != null) {
+                widgetId?.let {
+                    manager.remove(it)
+                }
+                widgetId = null
+            }
             settings = newSettings
             val widget = createWidget(settings)
             manager.add(widget)

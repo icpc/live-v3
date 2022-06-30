@@ -7,21 +7,29 @@ const FULL_WIDTH = 1920;
 const FULL_HEIGHT = 1080;
 
 export class Overlay extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             scaleFactor: 0.3,
+            offsetX: 0,
+            offsetY: 0
         };
         this.onResize = this.onResize.bind(this);
+        this.onDrag = this.onDrag.bind(this);
     }
     onResize(e, direction, ref) {
-        this.setState({ ...this.state, scaleFactor: ref.offsetWidth / FULL_WIDTH });
+        this.setState(state =>({ ...state, scaleFactor: ref.offsetWidth / FULL_WIDTH }));
+    }
+    onDrag(e, ref) {
+        this.setState(state =>({ ...state, offsetX: ref.lastX, offsetY: ref.lastY }));
     }
     render() {
-        return <Rnd
+        return this.props.isOverlayPreviewShown && (<Rnd
+            position={{ x: this.state.offsetX, y: this.state.offsetY }}
             width={FULL_WIDTH * this.state.scaleFactor}
             height={FULL_HEIGHT * this.state.scaleFactor}
             onResize={this.onResize}
+            onDrag={this.onDrag}
             lockAspectRatio={true}
             bounds={"body"}
         >
@@ -36,6 +44,6 @@ export class Overlay extends Component {
                     pointerEvents: "none"
                 }}/>
             </Paper>
-        </Rnd>;
+        </Rnd>);
     }
 }

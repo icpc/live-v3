@@ -6,11 +6,14 @@ import { TeamTable } from "./TeamTable";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
 
+class TeamViewTable extends TeamTable {
+}
+
 function TeamView() {
     const { enqueueSnackbar,  } = useSnackbar();
     return (
         <Container maxWidth="100%" sx={{ pt: 2 }} className="TeamTable">
-            <TeamTable
+            <TeamViewTable
                 apiPath="/teamView"
                 createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </Container>

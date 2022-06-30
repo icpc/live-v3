@@ -7,19 +7,12 @@ import io.ktor.client.statement.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.utils.ClientAuth
+import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.setupAuth
 
 abstract class EventFeedLoaderService<T>(private val auth: ClientAuth?) {
-    private val httpClient = HttpClient {
-        install(HttpTimeout)
-        if (auth != null) {
-            setupAuth(auth)
-        }
-        engine {
-            threadsCount = 2
-        }
-    }
+    private val httpClient = defaultHttpClient(auth)
 
     abstract val url: String
     abstract fun processEvent(data: String): T?
