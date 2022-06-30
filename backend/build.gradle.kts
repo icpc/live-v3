@@ -14,8 +14,8 @@ java {
 
 plugins {
     application
-    kotlin("jvm") version "1.6.20"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.20"
+    kotlin("jvm") version "1.7.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.7.0"
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
@@ -28,13 +28,13 @@ application {
 kotlin {
     sourceSets {
         all {
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
             languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            languageSettings.optIn("kotlinx.coroutines.FlowPreview")
             languageSettings.optIn("kotlin.RequiresOptIn")
         }
     }
 }
+
 
 val jsList = listOf("overlay", "admin")
 
@@ -42,6 +42,8 @@ tasks {
     named("run") {
         (this as JavaExec).args = listOf("-config=config/application.conf")
     }
+    named("jar") { dependsOn("buildJs") }
+    named("compileTestKotlin") { dependsOn("buildJs") }
     shadowJar {
         dependsOn("buildJs")
         manifest {
@@ -67,6 +69,12 @@ tasks {
         from(project.buildDir.resolve("libs").resolve("${rootProject.name}-${project.version}.jar"))
         destinationDir = rootProject.rootDir.resolve("artifacts")
     }
+
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
+        kotlinOptions {
+            kotlinOptions.allWarningsAsErrors = true
+        }
+    }
 }
 
 repositories {
@@ -87,7 +95,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$ktor_version")
     implementation("io.ktor:ktor-server-status-pages:$ktor_version")
     implementation("io.ktor:ktor-server-websockets:$ktor_version")
-    implementation("io.ktor:ktor-client-apache:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
     implementation("io.ktor:ktor-client-auth:$ktor_version")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version")

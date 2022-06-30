@@ -2,7 +2,6 @@ package org.icpclive.service
 
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.future.asCompletableFuture
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
@@ -52,8 +51,12 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
     private val RunInfo.timeInQueue
         get() = if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
 
+
     suspend fun run() {
         val contestInfoFlow = DataBus.contestInfoUpdates.await()
+        contestInfoFlow.filterNot { it.status == ContestStatus.BEFORE }.first()
+        logger.info("Queue service is started")
+        val firstEventTime = contestInfoFlow.value.currentContestTime
         val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
         val runsFlowTrigger = runsFlow.map { Run(it) }
         val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
@@ -67,11 +70,13 @@ class QueueService(private val runsFlow: Flow<RunInfo>) {
                 }
                 is Run -> {
                     val run = event.run
-                    val currentTime = contestInfoFlow.value.currentContestTime
+                    val currentTime = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
-                    resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
-                    runs[run.id] = run
+                    if (run.id in runs || contestInfoFlow.value.currentContestTime <= currentTime + run.timeInQueue) {
+                        resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
+                        runs[run.id] = run
+                    }
                 }
                 is Subscribe -> {
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))

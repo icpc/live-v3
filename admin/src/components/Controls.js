@@ -8,18 +8,18 @@ import { useSnackbar } from "notistack";
 import { BASE_URL_BACKEND } from "../config";
 
 const controlElements = [
-    { text: "Scoreboard", path: "/scoreboard" },
-    { text: "Queue", path: "/queue" },
-    { text: "Statistics", path: "/statistics" },
-    { text: "Ticker", path: "/ticker" }];
+    { text: "Scoreboard", id: "scoreboard" },
+    { text: "Queue", id: "queue" },
+    { text: "Statistics", id: "statistics" },
+    { text: "Ticker", id: "ticker" }];
 
 class ControlsTable extends PresetsTable {
     updateData() {
         Promise.all(
             controlElements.map(element =>
-                fetch(BASE_URL_BACKEND + element.path)
+                fetch(BASE_URL_BACKEND + "/" + element.id)
                     .then(r => r.json())
-                    .then(r => ({ id: element.path, settings: { text: element.text }, shown: r.shown }))
+                    .then(r => ({ id: element.id, settings: { text: element.text }, shown: r.shown }))
             ))
             .then(elements => this.setState(state => ({
                 ...state,

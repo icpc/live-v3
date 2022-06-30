@@ -1,22 +1,18 @@
 package org.icpclive.cds.codeforces
 
-import org.icpclive.api.MediaType
-import org.icpclive.cds.TeamInfo
 import org.icpclive.cds.codeforces.api.data.CFRankListRow
 
-/**
- * @author egor@egork.net
- */
-class CFTeamInfo(private val row: CFRankListRow) : TeamInfo {
-    override var id = 0
+class CFTeamInfo(private val row: CFRankListRow) {
+    var id = 0
 
-    override val name: String
-        get() = row.party.teamName ?: row.party.members[0].let { it.name ?: it.handle }
-    override val shortName: String
-        get() = name
-    override val contestSystemId: String
-        get() = row.party.teamName ?: row.party.members[0].handle
-    override val groups = emptySet<String>()
-    override val hashTag: String? = null
-    override val medias = emptyMap<MediaType, String>()
+    fun toApi() = org.icpclive.api.TeamInfo(
+        id = id,
+        name = row.party.teamName ?: row.party.members[0].let { it.name ?: it.handle },
+        shortName = row.party.teamName ?: row.party.members[0].let { it.name ?: it.handle },
+        contestSystemId = row.party.teamName ?: row.party.members[0].handle,
+        groups = emptyList(),
+        hashTag = null,
+        medias = emptyMap()
+    )
+
 }

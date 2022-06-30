@@ -1,13 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TableCell, TableRow, TextField } from "@mui/material";
+import { TableCell, TableRow } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { grey } from "@mui/material/colors";
 import ShowPresetButton from "./ShowPresetButton";
+import { PresetsTableCell } from "./PresetsTableCell";
+
+export const onChangeSettingCellValue = (obj, rowKey) => ((v) => obj.setState((state) => {
+    state.editValue.settings[rowKey] = v;
+    return state;
+}));
 
 const getSettings = (row) => {
     return row.settings;
@@ -31,7 +36,7 @@ export class PresetsTableRow extends React.Component {
             this.setState(state => ({ ...state, editValue: state.value }));
         } else {
             this.props.apiPostFunc("/" + this.props.rowData.id, getSettings(this.state.editValue))
-                .then(() => this.setState(state => ({ ...state, editValue: undefined })))
+                .then(() => this.setState(state => ({ ...state, value: state.editValue, editValue: undefined })))
                 .then(this.props.updateTable)
                 .catch(this.props.createErrorHandler("Failed to edit preset"));
         }
@@ -65,39 +70,22 @@ export class PresetsTableRow extends React.Component {
                 />
             </TableCell>
             {this.props.apiTableKeys.map((rowKey) => (
-                <TableCell
-                    component="th"
-                    scope="row"
-                    key={rowKey}
-                    sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
-                    {this.state.editValue === undefined ? getSettings(this.state.value)[rowKey] : (
-                        <Box onSubmit={this.onSubmitEdit} component="form" type="submit">
-                            <TextField
-                                autoFocus
-                                hiddenLabel
-                                defaultValue={getSettings(this.state.value)[rowKey]}
-                                id="filled-hidden-label-small"
-                                type="text"
-                                size="small"
-                                sx={{ width: 1 }}
-                                onChange={(e) => {
-                                    getSettings(this.state.editValue)[rowKey] = e.target.value;
-                                }}
-                            />
-                        </Box>)
-                    }
-                </TableCell>
+                <PresetsTableCell isActive={this.props.rowData.shown} key={rowKey} rowKey={rowKey}
+                    onSubmitAction={this.onSubmitEdit}
+                    value={this.state.value.settings[rowKey]}
+                    editValue={this.state.editValue?.settings[rowKey]}
+                    onChangeValue={onChangeSettingCellValue(this, rowKey)}/>
             ))}
             {this.props.isImmutable !== true &&
-            <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
-                <Box>
-                    <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
-                        onClick={this.onClickEdit}>
-                        {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
-                    </IconButton>
-                    <IconButton color="error" onClick={this.onClickDelete}><DeleteIcon/></IconButton>
-                </Box>
-            </TableCell>}
+                <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
+                    <Box>
+                        <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
+                            onClick={this.onClickEdit}>
+                            {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
+                        </IconButton>
+                        <IconButton color="error" onClick={this.onClickDelete}><DeleteIcon/></IconButton>
+                    </Box>
+                </TableCell>}
         </TableRow>);
     }
 }

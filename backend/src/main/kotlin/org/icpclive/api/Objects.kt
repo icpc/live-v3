@@ -2,11 +2,16 @@
 
 package org.icpclive.api
 
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.utils.toHex
-import kotlin.time.Duration.Companion.milliseconds
-import org.icpclive.cds.ProblemInfo as CDSProblemsInfo
+import org.icpclive.utils.ColorSerializer
+import org.icpclive.utils.DurationInMillisecondsSerializer
+import org.icpclive.utils.UnixMillisecondsSerializer
+import org.icpclive.utils.getLogger
+import java.awt.Color
+import kotlin.time.Duration
 
 
 interface TypeWithId {
@@ -17,7 +22,7 @@ interface TypeWithId {
 data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val settings: SettingsType, val id: Int?)
 
 @Serializable
-data class RunInfo(
+data class RunInfo constructor(
     val id: Int,
     val isAccepted: Boolean,
     val isJudged: Boolean,
@@ -26,17 +31,31 @@ data class RunInfo(
     val problemId: Int,
     val teamId: Int,
     val percentage: Double,
-    val time: Long,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val time: Duration,
     val isFirstSolvedRun: Boolean,
 )
 
 @Serializable
-data class ProblemInfo(val letter: String, val name: String, val color: String) {
-    constructor(info: CDSProblemsInfo) :
-            this(info.letter, info.name, info.color.toHex())
-}
+data class ProblemInfo(val letter: String, val name: String, @Serializable(ColorSerializer::class) val color: Color) {
+    constructor(letter: String, name: String, color: String?) : this(letter, name, parseColor(color) ?: Color.BLACK)
 
-fun CDSProblemsInfo.toApi() = ProblemInfo(this)
+    companion object {
+        fun parseColor(color: String?): Color? = try {
+            when {
+                color == null -> null
+                color.startsWith("0x") -> Color.decode(color)
+                color.startsWith("#") -> Color.decode("0x" + color.substring(1))
+                else -> Color.decode("0x$color")
+            }
+        } catch (e: Exception) {
+            logger.warn("Failed to parse color $color")
+            null
+        }
+
+        val logger = getLogger(ProblemInfo::class)
+    }
+}
 
 @Serializable
 enum class ContestStatus {
@@ -46,19 +65,25 @@ enum class ContestStatus {
 @Serializable
 data class ContestInfo(
     val status: ContestStatus,
-    val startTimeUnixMs: Long,
-    val contestLengthMs: Long,
-    val freezeTimeMs: Long,
+    @SerialName("startTimeUnixMs")
+    @Serializable(with = UnixMillisecondsSerializer::class)
+    val startTime: Instant,
+    @SerialName("contestLengthMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val contestLength: Duration,
+    @SerialName("freezeTimeMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val freezeTime: Duration,
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
     val emulationSpeed: Double = 1.0,
 ) {
     val currentContestTime
         get() = when (status) {
-            ContestStatus.BEFORE, ContestStatus.UNKNOWN -> 0
-            ContestStatus.RUNNING -> ((System.currentTimeMillis() - startTimeUnixMs) * emulationSpeed).toLong()
-            ContestStatus.OVER -> contestLengthMs
-        }.milliseconds
+            ContestStatus.BEFORE, ContestStatus.UNKNOWN -> Duration.ZERO
+            ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
+            ContestStatus.OVER -> contestLength
+        }
 }
 
 @Serializable
@@ -72,7 +97,9 @@ data class ICPCProblemResult(
     val pendingAttempts: Int,
     val isSolved: Boolean,
     val isFirstToSolve: Boolean,
-    val lastSubmitTimeMs: Long?,
+    @SerialName("lastSubmitTimeMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val lastSubmitTime: Duration?,
 ) : ProblemResult()
 
 
@@ -85,15 +112,18 @@ enum class MediaType {
     SCREEN,
 
     @SerialName("record")
-    RECORD
+    RECORD,
+
+    @SerialName("photo")
+    PHOTO,
 }
 
 @Serializable
 data class TeamInfo(
     val id: Int,
     val name: String,
-    val shortName: String?,
-    val contestSystemId: String?,
+    val shortName: String,
+    val contestSystemId: String,
     val groups: List<String>,
     val hashTag: String?,
     val medias: Map<MediaType, String>
@@ -132,7 +162,15 @@ data class TeamInfoOverride(
 )
 
 @Serializable
+data class ProblemInfoOverride(
+    val name: String? = null,
+    val color: String? = null,
+)
+
+
+@Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
-    val teamOverrides: Map<String, TeamInfoOverride?>? = null
+    val teamOverrides: Map<String, TeamInfoOverride>? = null,
+    val problemOverrides: Map<String, ProblemInfoOverride>? = null
 )

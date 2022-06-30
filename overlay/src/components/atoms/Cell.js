@@ -10,10 +10,8 @@ export const Cell = styled.div`
   justify-content: center;
   flex-shrink: ${props => (props.canShrink ?? false) ? 1 : 0};
   flex-grow: ${props => (props.canGrow ?? false) ? 1 : 0};
-  flex: ${props => props.flex};
   flex-basis: ${props => props.basis};
-
-  //text-align: center;
+  
   font-family: ${CELL_FONT_FAMILY};
   font-size: ${CELL_FONT_SIZE};
   

@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import AppNav from "./AppNav";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Overlay } from "./components/Overlay";
 import TickerMessage from "./components/TickerMessage";
 import Controls from "./components/Controls";
 import Advertisement from "./components/Advertisement";
@@ -30,6 +31,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard/>}/>
                         {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}
                     </Routes>
+                    <Overlay/>
                 </div>
             </SnackbarProvider>
         </BrowserRouter>

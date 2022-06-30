@@ -1,41 +1,51 @@
 package org.icpclive.cds.ejudge
 
 import kotlinx.datetime.Instant
+import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
-import org.icpclive.cds.ContestInfo
-import org.icpclive.cds.ProblemInfo
-import org.icpclive.cds.TeamInfo
-import kotlin.time.seconds
+import org.icpclive.api.ProblemInfo
+import kotlin.time.Duration
 
 /**
  * @author Mike Perveev
  */
 class EjudgeContestInfo(
-    override val problems: List<ProblemInfo>,
-    override val teams: List<EjudgeTeamInfo>,
-    startTime: Instant,
-    status: ContestStatus
-) : ContestInfo(startTime, status) {
-    override val problemsNumber: Int
+    val problems: List<ProblemInfo>,
+    val teams: Map<String, EjudgeTeamInfo>,
+    var startTime: Instant,
+    var status: ContestStatus,
+    val contestLength: Duration,
+    val freezeTime: Duration
+) {
+    val problemsNumber: Int
         get() = problems.size
-    override val teamsNumber: Int
+    val teamsNumber: Int
         get() = teams.size
+    var contestTime: Duration = Duration.ZERO
 
-    override var contestTime = 0.seconds
+    fun toApi() = ContestInfo(
+        status,
+        startTime,
+        contestLength,
+        freezeTime,
+        problems,
+        teams.values.map { it.teamInfo }.sortedBy { it.id },
+    )
 
-    override fun getParticipant(name: String): EjudgeTeamInfo? {
-        return teams.firstOrNull { it.name == name }
-    }
-
-    override fun getParticipant(id: Int): EjudgeTeamInfo? {
-        return teams.firstOrNull { it.id == id }
-    }
-
-    override fun getParticipantByHashTag(hashTag: String): EjudgeTeamInfo? {
-        return teams.firstOrNull { it.hashTag == hashTag }
-    }
-
-    public fun getParticipantByContestSystemId(contestSystemId: Int): EjudgeTeamInfo? {
-        return teams.firstOrNull { it.contestSystemId == contestSystemId.toString() }
+//    fun getParticipant(name: String): EjudgeTeamInfo? {
+//        return teams.getOrDefault(name, null)
+//    }
+//
+//    fun getParticipant(id: Int): EjudgeTeamInfo? {
+//        return teams.
+//        return teams.firstOrNull { it.id == id }
+//    }
+//
+//    fun getParticipantByHashTag(hashTag: String): EjudgeTeamInfo? {
+//        return teams.firstOrNull { it.hashTag == hashTag }
+//    }
+//
+    fun getParticipantByContestSystemId(contestSystemId: Int): EjudgeTeamInfo? {
+        return teams[contestSystemId.toString()]
     }
 }

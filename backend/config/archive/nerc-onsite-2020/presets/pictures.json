@@ -1,10 +1,14 @@
 [
-  {
-    "url": "https://icpc.gov.ng/wp-content/uploads/2021/04/icpc-logo.png",
-    "name": "ICPC Logo"
-  },
-  {
-    "url": "/media/live.jpeg",
-    "name": "ICPC Live logo"
-  }
+    {
+        "url": "https://icpc.gov.ng/wp-content/uploads/2021/04/icpc-logo.png",
+        "name": "ICPC Logo"
+    },
+    {
+        "url": "/media/live.jpeg",
+        "name": "ICPC Live logo"
+    },
+    {
+        "url": "/media/animation.svg",
+        "name": "Animation"
+    }
 ]

@@ -28,14 +28,14 @@ class EmulationService(
     private val runsFlow: MutableSharedFlow<RunInfo>
 ) {
     val contestInfo = contestInfoFlow.value.copy(
-        startTimeUnixMs = startTime.toEpochMilliseconds(),
+        startTime = startTime,
         emulationSpeed = emulationSpeed
     )
     private val events = buildList {
-        add(Event(0.seconds) {
+        add(Event(Duration.ZERO) {
             contestInfoFlow.value = contestInfo.copy(status = ContestStatus.RUNNING)
         })
-        add(Event(contestInfo.contestLengthMs.milliseconds) {
+        add(Event(contestInfo.contestLength) {
             contestInfoFlow.value = contestInfo.copy(status = ContestStatus.OVER)
         })
         for (run in runs) {
@@ -50,12 +50,12 @@ class EmulationService(
                         isAddingPenalty = false,
                         result = "",
                     )
-                    add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(submittedRun) })
+                    add(Event(run.time + timeShift.milliseconds) { runsFlow.emit(submittedRun) })
                     percentage += Random.nextDouble(1.0)
                     timeShift += Random.nextInt(20000)
                 } while (percentage < 1.0)
             }
-            add(Event((run.time + timeShift).milliseconds) { runsFlow.emit(run) })
+            add(Event(run.time + timeShift.milliseconds) { runsFlow.emit(run) })
         }
     }.sortedBy { it.time }
 
@@ -83,7 +83,8 @@ fun CoroutineScope.launchEmulation(
     startTime: Instant,
     speed: Double,
     runs: List<RunInfo>,
-    contestInfo: ContestInfo) {
+    contestInfo: ContestInfo
+) {
     EmulationService.logger.info("Running in emulation mode with speed x${speed} and startTime = ${startTime.humanReadable}")
     val rawRunsFlow = MutableSharedFlow<RunInfo>(
         extraBufferCapacity = Int.MAX_VALUE,

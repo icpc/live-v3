@@ -19,7 +19,7 @@ import {
     VERDICT_UNKNOWN
 } from "../../../config";
 import { Cell } from "../../atoms/Cell";
-import { ProblemCell, RankCell, TeamNameCell } from "../../atoms/ContestCells";
+import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 
 
@@ -46,7 +46,7 @@ const ScoreboardRowContainer = styled.div`
   width: 100%;
   display: flex;
   overflow: hidden;
-  //box-sizing: border-box;
+  /* box-sizing: border-box; */
 `;
 
 const ScoreboardCell = styled(Cell)`
@@ -146,7 +146,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
         <RankCell rank={scoreboardData.rank} medal={scoreboardData.medalType} width={rankWidth ?? SCOREBOARD_RANK_WIDTH}/>
-        <TeamNameCell teamName={teamData.shortName} width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)} canGrow={nameGrows ?? false} canShrink={nameGrows?? false}/>
+        <TextShrinkingCell text={teamData.shortName} width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)} canGrow={nameGrows ?? false} canShrink={nameGrows?? false}/>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData.totalScore}
         </ScoreboardStatCell>
@@ -169,7 +169,6 @@ const ScoreboardHeader = ({ problems, rowHeight, name }) => {
     if (name === "optimistic") {
         color = SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR;
     }
-    console.log(color);
     return <ScoreboardHeaderWrap rowHeight={rowHeight}>
         <ScoreboardHeaderTitle color={color}>{nameTable[name]} STANDINGS</ScoreboardHeaderTitle>
         <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
@@ -192,7 +191,7 @@ const ScoreboardRowWrap = styled.div.attrs((props) => ({
 }))`
   left: 0;
   right: 0;
-  height: ${props => props.rowHeight + 2}px; // FIXME lol
+  height: ${props => props.rowHeight + 2}px; /* FIXME lol */
   transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
   position: absolute;
 `;

@@ -37,24 +37,16 @@ class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(gen
 class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "picture"
-        val location = LocationRectangle(590, 50, 1300, 960)
+        val location = LocationRectangle(550, 40, 1350, 970)
     }
 }
 
 @Serializable
 @SerialName("SvgWidget")
-class SvgWidget(val content: String, private val position: Position) :
-    Widget(generateId(WIDGET_ID_PREFIX), getLocation(position)) {
+class SvgWidget(val content: String) : Widget(generateId(WIDGET_ID_PREFIX), location) {
     companion object {
         const val WIDGET_ID_PREFIX = "svg"
-        val getLocation = { position: Position ->
-            when (position) {
-                Position.CENTER -> LocationRectangle(760, 510, 400, 500)
-                Position.LEFT -> LocationRectangle(0, 510, 400, 500)
-                Position.RIGHT -> LocationRectangle(1520, 510, 400, 500)
-                Position.FULL -> LocationRectangle(0, 0, 1920, 1080)
-            }
-        }
+        val location = LocationRectangle(0, 0, 1920, 1080)
     }
 }
 

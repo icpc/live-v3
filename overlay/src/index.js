@@ -32,8 +32,7 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     -ms-overflow-style: none;
-    //noinspection CssUnknownProperty
-    scrollbar-width: none
+    scrollbar-width: none;
   }
 
   *::-webkit-scrollbar {

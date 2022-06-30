@@ -4,11 +4,12 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.config.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.cors.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
@@ -16,8 +17,10 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
-import org.icpclive.admin.*
-import org.icpclive.cds.launchEventsLoader
+import org.icpclive.admin.configureAdminApiRouting
+import org.icpclive.admin.createFakeUser
+import org.icpclive.admin.validateAdminApiCredits
+import org.icpclive.cds.launchContestDataSource
 import org.icpclive.config.Config
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
@@ -34,14 +37,6 @@ fun main(args: Array<String>): Unit =
 
 private fun Application.setupKtorPlugins() {
     install(DefaultHeaders)
-    install(CORS) {
-        allowHeader(HttpHeaders.ContentType)
-        allowHeader(HttpHeaders.Authorization)
-        allowHeader("*")
-        allowMethod(HttpMethod.Delete)
-        allowSameOrigin = true
-        anyHost()
-    }
     install(CallLogging) {
         level = Level.INFO
         filter { call -> call.request.path().startsWith("/") }
@@ -76,6 +71,14 @@ private fun Application.setupKtorPlugins() {
             }
         }
     }
+    install(CORS) {
+        allowHeader(HttpHeaders.Authorization)
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader("*")
+        allowMethod(HttpMethod.Delete)
+        allowSameOrigin = true
+        anyHost()
+    }
 }
 
 @Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
@@ -90,8 +93,14 @@ fun Application.module() {
         if (!configPath.exists()) throw IllegalStateException("Config directory $configPath does not exist")
         environment.log.info("Using config directory $configPath")
         Config.configDirectory = Paths.get(configDir)
-        Config.creds = environment.config.config("credentials").let {
-            it.keys().associateWith { key -> it.property(key).getString() }
+        Config.creds = try {
+            environment.config.config("credentials").let {
+                it.keys().associateWith { key -> it.property(key).getString() }
+            }
+        } catch (e: ApplicationConfigurationException) {
+            emptyMap()
+        } catch (e: com.typesafe.config.ConfigException) {
+            emptyMap()
         }
     }
 
@@ -115,7 +124,7 @@ fun Application.module() {
             route("/overlay") { configureOverlayRouting() }
         }
     }
-    launchEventsLoader()
+    launchContestDataSource()
     launch { EventLoggerService().run() }
     // to trigger init
     TickerManager.let {}

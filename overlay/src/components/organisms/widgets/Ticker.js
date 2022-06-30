@@ -48,7 +48,7 @@ const TickerRowContainer = styled.div`
   width: 100%;
   animation: ${props => props.animation} ease-in-out ${TICKER_SCROLL_TRANSITION_TIME}ms;
   animation-fill-mode: forwards;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,15 +95,14 @@ export const SingleTicker = ({ part, color }) => {
                 <Transition key={curMessage?.id} timeout={TICKER_SCROLL_TRANSITION_TIME}>
                     {(state) => {
                         const TickerComponent = widgetTypes[curMessage.type] ?? DefaultTicker;
-                        if(TickerComponent === undefined) {
+                        if (TickerComponent === undefined) {
                             dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
                         }
                         const sanitizedState = isFirst && state === "entering" ? "entered" : state; // ignore first entering render
                         return state !== "exited" && <TickerRow state={sanitizedState}>
                             <TickerComponent tickerSettings={curMessage.settings} state={sanitizedState} part={part}/>
                         </TickerRow>;
-                    }
-                    }
+                    }}
                 </Transition>
             }
         </TransitionGroup>

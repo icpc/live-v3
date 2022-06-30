@@ -3,7 +3,7 @@ name: Feature Request
 about: Use this template to ask for features
 title: "feat: [FEATURE_DESCRIPTION]"
 labels: enhancement, tracking issue, needs triage
-assignees: irdkwmnsb
+assignees: lperovskaya
 ---
 <!--- Provide a general summary of the issue in the Title above -->
 ## Feature description
