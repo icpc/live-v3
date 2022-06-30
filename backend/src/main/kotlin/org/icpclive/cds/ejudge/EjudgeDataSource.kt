@@ -187,7 +187,7 @@ class EjudgeDataSource : ContestDataSource {
         }
 
         val teamSystemId = element.attr("user_id").toInt()
-        val teamId = contestInfo.getParticipantByContestSystemId(teamSystemId)!!.teamInfo.id
+        val teamId = contestInfo.teams[teamSystemId.toString()]!!.teamInfo.id
         val runId = element.attr("run_id").toInt()
 
         // Ejudge has 1-indexed problem numeration

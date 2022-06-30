@@ -31,21 +31,4 @@ class EjudgeContestInfo(
         problems,
         teams.values.map { it.teamInfo }.sortedBy { it.id },
     )
-
-//    fun getParticipant(name: String): EjudgeTeamInfo? {
-//        return teams.getOrDefault(name, null)
-//    }
-//
-//    fun getParticipant(id: Int): EjudgeTeamInfo? {
-//        return teams.
-//        return teams.firstOrNull { it.id == id }
-//    }
-//
-//    fun getParticipantByHashTag(hashTag: String): EjudgeTeamInfo? {
-//        return teams.firstOrNull { it.hashTag == hashTag }
-//    }
-//
-    fun getParticipantByContestSystemId(contestSystemId: Int): EjudgeTeamInfo? {
-        return teams[contestSystemId.toString()]
-    }
 }
