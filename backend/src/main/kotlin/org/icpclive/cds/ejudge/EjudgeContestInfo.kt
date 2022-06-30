@@ -17,10 +17,6 @@ class EjudgeContestInfo(
     val contestLength: Duration,
     val freezeTime: Duration
 ) {
-    val problemsNumber: Int
-        get() = problems.size
-    val teamsNumber: Int
-        get() = teams.size
     var contestTime: Duration = Duration.ZERO
 
     fun toApi() = ContestInfo(
