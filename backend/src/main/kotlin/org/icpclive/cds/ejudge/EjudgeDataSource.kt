@@ -62,11 +62,6 @@ class EjudgeDataSource : ContestDataSource {
     }
 
     private fun parseProblemsInfo(doc: Document): List<ProblemInfo> {
-//        val doc: Document
-//        runBlocking {
-//            doc = xmlLoader.loadOnce()
-//        }
-
         val config = doc.child(0)
         config.children().forEach {
             if ("problems" == it.tagName()) {
@@ -85,11 +80,6 @@ class EjudgeDataSource : ContestDataSource {
     }
 
     private fun parseTeamsInfo(doc: Document, problemsNumber: Int): List<EjudgeTeamInfo> {
-//        val doc: Document
-//        runBlocking {
-//            doc = xmlLoader.loadOnce()
-//        }
-
         val config = doc.child(0)
         config.children().forEach {
             if ("users" == it.tagName()) {
