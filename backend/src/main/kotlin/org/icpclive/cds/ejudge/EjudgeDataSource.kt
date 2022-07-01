@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
-import kotlinx.datetime.toJavaInstant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.config.Config
@@ -20,14 +19,9 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.parser.Parser
-import java.time.Duration
 import java.util.*
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
-import kotlin.time.toKotlinDuration
 
 /**
  * @author Mike Perveev
@@ -67,11 +61,11 @@ class EjudgeDataSource : ContestDataSource {
         return contestData.toApi() to allRuns
     }
 
-    private fun parseProblemsInfo(): List<ProblemInfo> {
-        val doc: Document
-        runBlocking {
-            doc = xmlLoader.loadOnce()
-        }
+    private fun parseProblemsInfo(doc: Document): List<ProblemInfo> {
+//        val doc: Document
+//        runBlocking {
+//            doc = xmlLoader.loadOnce()
+//        }
 
         val config = doc.child(0)
         config.children().forEach {
@@ -90,11 +84,11 @@ class EjudgeDataSource : ContestDataSource {
         return emptyList()
     }
 
-    private fun parseTeamsInfo(problemsNumber: Int): List<EjudgeTeamInfo> {
-        val doc: Document
-        runBlocking {
-            doc = xmlLoader.loadOnce()
-        }
+    private fun parseTeamsInfo(doc: Document, problemsNumber: Int): List<EjudgeTeamInfo> {
+//        val doc: Document
+//        runBlocking {
+//            doc = xmlLoader.loadOnce()
+//        }
 
         val config = doc.child(0)
         config.children().forEach {
@@ -124,6 +118,13 @@ class EjudgeDataSource : ContestDataSource {
         return emptyList()
     }
 
+    private fun parseContestTime(doc: Document): Pair<Duration, Duration> {
+        val config = doc.child(0)
+        val duration = config.attr("duration")
+        val fogTime = config.attr("fog_time")
+        return Pair(duration.toLong().seconds, (duration.toLong() - fogTime.toLong()).seconds)
+    }
+
     private fun parseEjudgeTime(time: String): Instant {
         val formattedTime = time
             .replace("/", "-")
@@ -149,10 +150,7 @@ class EjudgeDataSource : ContestDataSource {
             contestData.startTime = startTime
         }
         contestData.status = status
-        contestData.contestTime = Duration.between(
-            startTime.toJavaInstant(),
-            currentTime.toJavaInstant()
-        ).toKotlinDuration()
+        contestData.contestTime = currentTime - startTime
 
         element.children().forEach {
             if ("runs" == it.tagName()) {
@@ -179,7 +177,7 @@ class EjudgeDataSource : ContestDataSource {
         element: Element,
         onRunChanges: (RunInfo) -> Unit
     ) {
-        val time = (element.attr("time").toLong() * 1000).milliseconds
+        val time = element.attr("time").toLong().seconds
         if (time > contestInfo.contestTime) {
             return
         }
@@ -211,7 +209,7 @@ class EjudgeDataSource : ContestDataSource {
             problemId = problemId,
             teamId = teamId,
             percentage = percentage,
-            time = time.inWholeMilliseconds.toDuration(DurationUnit.MILLISECONDS),
+            time = time,
             isFirstSolvedRun = false
         )
 
@@ -230,16 +228,22 @@ class EjudgeDataSource : ContestDataSource {
     }
 
     init {
-        val problemsInfo = parseProblemsInfo()
-        val teamsInfo = parseTeamsInfo(problemsInfo.size)
+        val doc: Document
+        runBlocking {
+            doc = xmlLoader.loadOnce()
+        }
+
+        val problemsInfo = parseProblemsInfo(doc)
+        val teamsInfo = parseTeamsInfo(doc, problemsInfo.size)
+        val timeInfo = parseContestTime(doc)
 
         contestData = EjudgeContestInfo(
             problemsInfo,
             teamsInfo.associateBy { it.teamInfo.contestSystemId },
             Instant.fromEpochMilliseconds(0),
             ContestStatus.UNKNOWN,
-            properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours,
-            properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
+            timeInfo.first,
+            timeInfo.second
         )
         contestInfoFlow = MutableStateFlow(contestData.toApi())
     }
@@ -272,7 +276,6 @@ class EjudgeDataSource : ContestDataSource {
             "CD" to "",
             "CG" to "",
             "AV" to "",
-            "RJ" to "",
             "EM" to "",
             "VS" to "",
             "VT" to "",
