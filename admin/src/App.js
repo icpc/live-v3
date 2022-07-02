@@ -11,7 +11,7 @@ import Picture from "./components/Picture";
 import TeamView from "./components/TeamView";
 import TeamPVP from "./components/TeamPVP";
 import { SnackbarProvider } from "notistack";
-import ScoreboardSettings from "./components/ScoreboardSettings";
+import ScoreboardSettings from "./components/ScoreboardSettingsTable";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 
