@@ -38,7 +38,7 @@ data class ScoreboardSettings(
     val startFromPage: Int = 1,
     val optimismLevel: OptimismLevel = OptimismLevel.NORMAL,
     val teamsOnPage: Int = 23,
-    val region: String = "All"
+    val region: String = "all"
 ) : ObjectSettings
 
 @Serializable
