@@ -52,8 +52,10 @@ function ScoreboardSettings() {
     const { enqueueSnackbar, } = useSnackbar();
     const createErrorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
 
-    const [sRegions] = useState(
-        ["all"]
+    const defaultRegions = ["all"];
+
+    const [sRegions, setSRegions] = useState(
+        defaultRegions
     );
     const [sShown, setSShown] = useState(false);
     const [sSettings, setSSettings] = useState({
@@ -81,6 +83,13 @@ function ScoreboardSettings() {
                     setSSettings(result.settings);
                 })
             .catch(createErrorHandler("Failed to load list of presets"));
+        fetch(apiUrl + "/info")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setSRegions([...defaultRegions, ...result]);
+                })
+            .catch(createErrorHandler("Failed to load info"));
     };
 
     useEffect(() => {
@@ -99,7 +108,6 @@ function ScoreboardSettings() {
             .catch(createErrorHandler("Failed to show scoreboard"));
     };
 
-    console.log(sSettings);
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="ScoreboardSettings">
             <Table sx={{ m: 2 }}>
