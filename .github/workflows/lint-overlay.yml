@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: 'overlay/package-lock.json'
       - name: "Install overlay dependencies"
         working-directory: "overlay"
-        run: npm i
+        run: npm ci
       - name: "Lint overlay js"
         working-directory: "overlay"
         run: npm run lint:js
