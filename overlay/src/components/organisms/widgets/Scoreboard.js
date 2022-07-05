@@ -221,10 +221,13 @@ PositionedScoreboardRow.propTypes = {
     children: PropTypes.node
 };
 
+const extractScoreboardRows = (data, selectedRegion) => data.rows
+    .filter(t => selectedRegion === "all" || (t?.teamGroups ?? []).includes(selectedRegion));
+
 export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const optimismLevel = settings.optimismLevel;
     const teamsOnPage = settings.teamsOnPage;
-    let rows = useSelector((state) => state.scoreboard[optimismLevel].rows);
+    let rows = useSelector((state) => extractScoreboardRows(state.scoreboard[optimismLevel], settings.region));
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const startPageRow = (settings.startFromPage - 1) * teamsOnPage;
     const [row, setRow] = useState(startPageRow);

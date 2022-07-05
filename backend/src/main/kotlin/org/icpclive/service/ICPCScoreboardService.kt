@@ -48,7 +48,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         }
     }
 
-    private fun getScoreboardRow(problemsCount: Int, teamId: Int, runs: List<RunInfo>): ScoreboardRow {
+    private fun getScoreboardRow(problemsCount: Int, teamId: Int, runs: List<RunInfo>, teamGroups: List<String>): ScoreboardRow {
         var solved = 0
         var penalty = 0
         var lastAccepted = 0L
@@ -86,9 +86,9 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             penalty,
             lastAccepted,
             null,
-            problemResults
+            problemResults,
+            teamGroups,
         )
-
     }
 
     private fun getScoreboard(info: ContestInfo, medalsSettings: MedalSettings?): Scoreboard {
@@ -103,7 +103,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         )
 
         val rows = teamsInfo.values
-            .map { getScoreboardRow(info.problems.size, it.id, runs[it.id] ?: emptyList()) }
+            .map { getScoreboardRow(info.problems.size, it.id, runs[it.id] ?: emptyList(), it.groups) }
             .sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
             .toMutableList()
         if (rows.isNotEmpty()) {
