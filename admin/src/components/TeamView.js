@@ -12,7 +12,7 @@ class TeamViewTable extends TeamTable {
 function TeamView() {
     const { enqueueSnackbar,  } = useSnackbar();
     return (
-        <Container maxWidth="100%" sx={{ pt: 2 }} className="TeamTable">
+        <Container maxWidth="100%" sx={{ pt: 2 }}>
             <TeamViewTable
                 apiPath="/teamView"
                 createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>

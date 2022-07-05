@@ -10,20 +10,25 @@ import { BASE_URL_BACKEND } from "../config";
 import { createApiGet, createApiPost } from "../utils";
 
 
-function SplitScreenInstance({ instanceId, selectedId, shownTeam, showTeamFunction }) {
+function SplitScreenInstance({ instanceId, selectedId, shownTeam, showFunction, hideFunction, shownMediaType }) {
     return (<Box>
-        <Box>Instance {instanceId}</Box>
+        <Box><b>Instance {instanceId}</b> <Switch checked={false}/> automatically</Box>
         <Box>Shown team: {shownTeam}</Box>
-        <Box>Automatically <Switch checked={false}/></Box>
-        <ChooseMediaTypeAndShowPanel isSomethingSelected={selectedId !== undefined}
-            isPossibleToHide={false} showTeamFunction={showTeamFunction} hideTeamFunction={() => []}/>
+        <Box>Media type: {shownMediaType}</Box>
+        <Box sx={{ pt: 1 }}>
+            <ChooseMediaTypeAndShowPanel isSomethingSelected={selectedId !== undefined}
+                isPossibleToHide={shownTeam !== undefined} showTeamFunction={showFunction} hideTeamFunction={hideFunction}/>
+        </Box>
     </Box>);
 }
+
 SplitScreenInstance.propTypes = {
     instanceId: PropTypes.any.isRequired,
     selectedId: PropTypes.any,
     shownTeam: PropTypes.string,
-    showTeamFunction: PropTypes.func.isRequired,
+    shownMediaType: PropTypes.any,
+    showFunction: PropTypes.func.isRequired,
+    hideFunction: PropTypes.func.isRequired,
 };
 
 function SplitScreenGrid({ apiPath, createErrorHandler }) {
@@ -33,24 +38,24 @@ function SplitScreenGrid({ apiPath, createErrorHandler }) {
     const [state, setState] = useState({
         dataElements: [],
         selectedId: undefined,
+        instances: [],
     });
 
     const updateData = () => {
         Promise.all([
-            apiGet("/").catch(createErrorHandler("Failed to load list of teams")),
-            apiGet("/info").catch(createErrorHandler("Failed to load list of teams")),
-        ]).then(([stat, response]) => {
-            let showedTeams = Object.values(stat.settings.teamViews).map(v => v.teamId);
-            console.log(showedTeams);
-            const teamsData = response.map((elem) => {
-                // console.log(elem, stat.settings.teamViews.some(({ teamId }) => teamId === elem.id));
+            Promise.all([0, 1, 2, 3].map(i => apiGet("/" + i).catch(createErrorHandler("Failed to load list of teams")))),
+            apiGet("/0/info").catch(createErrorHandler("Failed to load list of teams")),
+        ]).then(([inst, teams]) => {
+            const showedTeams = inst.filter(i => i?.shown).map(i => i?.settings?.teamId);
+            const teamsData = teams.map((elem) => {
                 elem.shown = showedTeams.includes(elem.id);
                 elem.selected = elem.id === state.selectedId;
                 return elem;
             });
-            setState(s => ({ ...s,
+            setState(s => ({
+                ...s,
                 dataElements: teamsData,
-                shownElements: (stat.shown ? stat.settings?.teamViews : {}),
+                instances: inst,
             }));
         });
     };
@@ -60,51 +65,57 @@ function SplitScreenGrid({ apiPath, createErrorHandler }) {
         if (id === state.selectedId) {
             id = undefined;
         }
-        setState(s => ({ ...s,
+        setState(s => ({
+            ...s,
             dataElements: s.dataElements.map((elem) => ({
                 ...elem,
                 selected: (id === elem.id)
             })),
-            selectedId: id }));
+            selectedId: id
+        }));
     };
 
     const showOnInstance = (instanceId) => (mediaType = undefined) => {
-        const newSetting = { teamViews: state.shownElements };
-        newSetting.teamViews[instanceId] = { teamId: state.selectedId, mediaType: mediaType };
-        console.log(newSetting);
-        apiPost("/show_with_settings", newSetting).then(console.log);
-        // await this.apiPost("/show_with_settings", { teamId: this.state.selectedId, mediaType });
-        // await this.updateData();
-        // this.setState({ ...this.state, selectedId: undefined });
+        apiPost("/" + instanceId + "/show_with_settings", { teamId: state.selectedId, mediaType: mediaType })
+            .then(setState(s => ({ ...s, selectedId: undefined })))
+            .then(updateData);
     };
 
-    return (
-        <Box>
-            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                {([0, 1, 2, 3]).map(id =>
-                    <Grid item xs={6} key={id}>
-                        <SplitScreenInstance instanceId={id + 1} selectedId={state.selectedId}
-                            shownTeam={Array.isArray(state.shownElements) ?
-                                state.dataElements.find(t => t.id === state.shownElements[id]?.teamId)?.name : undefined }
-                            showTeamFunction={showOnInstance(id)}
-                        />
-                    </Grid>
-                )}
-            </Grid>
-            <SelectTeamTable teams={state.dataElements} onClickHandler={selectTeam}/>
-        </Box>
-    );
+    const hideOnInstance = (instanceId) => () => {
+        apiPost("/" + instanceId + "/hide").then(updateData);
+    };
+    return (<Grid sx={{
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column" }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ width: { "md": "75%", "sm": "100%", "xs": "100%" } }}>
+            {([0, 1, 2, 3]).map(id =>
+                <Grid item md={6} sm={12} key={id}>
+                    <SplitScreenInstance instanceId={id + 1} selectedId={state.selectedId} shownMediaType={state.instances[id]?.shown ?
+                        state.instances[id]?.settings?.mediaType : undefined}
+                    shownTeam={state.instances[id]?.shown ?
+                        state.dataElements.find(t => t.id === state.instances[id]?.settings?.teamId)?.name : undefined}
+                    showFunction={showOnInstance(id)} hideFunction={hideOnInstance(id)}
+                    />
+                </Grid>
+            )}
+        </Grid>
+        <SelectTeamTable teams={state.dataElements} onClickHandler={selectTeam}/>
+    </Grid>);
 }
+
 SplitScreenGrid.propTypes = {
     apiPath: PropTypes.string.isRequired,
     createErrorHandler: PropTypes.func.isRequired,
 };
 
 function SplitScreen() {
-    const { enqueueSnackbar,  } = useSnackbar();
+    const { enqueueSnackbar, } = useSnackbar();
     return (
-        <Container maxWidth="100%" sx={{ pt: 2 }} className="TeamTable">
-            <SplitScreenGrid apiPath={"/splitScreen"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+        <Container maxWidth="100%" sx={{ pt: 2 }}>
+            <SplitScreenGrid apiPath={"/splitscreen"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </Container>
     );
 }
