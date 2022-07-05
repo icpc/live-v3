@@ -18,6 +18,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+      - run: |
+          ls
+        working-directory: "overlay"
       - name: "Install overlay dependencies"
         working-directory: "overlay"
         run: npm ci
