@@ -21,7 +21,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'overlay/package-lock.json'
       - name: "Update npm"
-        run: npm install -g npm@latest
+        run: |
+          npm install -g npm@latest
+          npm --version
       - name: "Install overlay dependencies"
         working-directory: "overlay"
         run: npm ci
