@@ -8,14 +8,14 @@ import Controls from "./Controls";
 import Advertisement from "./Advertisement";
 import Title from "./Title";
 import Picture from "./Picture";
-import ScoreboardSettings from "./ScoreboardSettings";
+import ScoreboardManager from "./ScoreboardManager";
 
 const elements = {
     "Controls": <Controls/>,
     "Advertisement": <Advertisement/>,
     "Title": <Title/>,
     "Picture": <Picture/>,
-    "Scoreboard": <ScoreboardSettings/>,
+    "Scoreboard": <ScoreboardManager/>,
     "Ticker": <TickerMessage/>,
     // "TeamView": <TeamView/>,
     // "Advanced Properties": <AdvancedProperties/>,
