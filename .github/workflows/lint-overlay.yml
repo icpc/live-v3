@@ -18,13 +18,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-          check-latest: true
-      - run: |
-          ls
-        working-directory: "overlay"
+          cache: 'npm'
+          cache-dependency-path: 'overlay/package-lock.json'
       - name: "Install overlay dependencies"
         working-directory: "overlay"
-        run: npm ci
+        run: npm i
       - name: "Lint overlay js"
         working-directory: "overlay"
         run: npm run lint:js
