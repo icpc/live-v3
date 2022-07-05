@@ -35,10 +35,14 @@ fun Route.configureAdminApiRouting() {
     mediaDirectory.toFile().mkdirs()
     fun path(name: String) = Paths.get(presetsDirectory.toString(), "$name.json")
     authenticate("admin-api-auth") {
-        route("/scoreboard") { setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) }
         route("/queue") { setupSimpleWidgetRouting(QueueSettings(), ::QueueWidget) }
         route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
         route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
+        route("/scoreboard") {
+            setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) {
+                DataBus.contestInfoFlow.await().first().teams.flatMap { it.groups }.distinct().sorted()
+            }
+        }
 
         route("/teamView") {
             setupSimpleWidgetRouting(TeamViewSettings(), { TeamViewWidget(it) }) {
@@ -74,5 +78,6 @@ fun Route.configureAdminApiRouting() {
         get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
+        webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
     }
 }

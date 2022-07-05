@@ -3,6 +3,7 @@ import Ansi from "ansi-to-react";
 
 import "../App.css";
 import { BASE_URL_WS } from "../config";
+import { Box, Grid } from "@mui/material";
 
 const apiUrl = () => {
     return BASE_URL_WS + "/backendLog";
@@ -10,26 +11,17 @@ const apiUrl = () => {
 
 function BackendLog() {
     const [messages, setMessages] = useState([]);
-    const [isConnectionOpen, setConnectionOpen] = useState(false);
-
-    const ws = useRef();
+    const ws = useRef(null);
 
     useEffect(() => {
         ws.current = new WebSocket(apiUrl());
 
-        ws.current.onopen = () => {
-            console.log("Connection opened");
-            setConnectionOpen(true);
-        };
-
         ws.current.onmessage = (event) => {
-            const data = event.data;
-            setMessages((_messages) => [data, ..._messages]);
+            setMessages((_messages) => [event.data, ..._messages]);
         };
 
         return () => {
-            console.log("Cleaning up...");
-            ws.current.close();
+            ws.current?.close();
         };
     }, []);
 
@@ -41,15 +33,22 @@ function BackendLog() {
         }
     }, [messages.length]);
 
-    return (<div>
-        { messages.map((message, index) =>
-            <p key = { index } >
-                <Ansi>
-                    { message }
-                </Ansi>
-            </p>
-        )}
-    </div>
+    return (<Grid sx={{
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column" }}>
+        <Box sx={{ width: { "md": "75%", "sm": "100%", "xs": "100%" } }}>
+            { messages.map((message, index) =>
+                <p key = { index } >
+                    <Ansi>
+                        { message }
+                    </Ansi>
+                </p>
+            )}
+        </Box>
+    </Grid>
     );
 }
 

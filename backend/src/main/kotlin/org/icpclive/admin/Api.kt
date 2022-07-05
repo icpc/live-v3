@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.SerializationException
 import org.icpclive.api.*
+import org.icpclive.data.DataBus
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
 import java.nio.file.Path
@@ -30,21 +31,25 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
         call.adminApiAction {
             widgetWrapper.set(call.safeReceive())
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     post("/show") {
         call.adminApiAction {
             widgetWrapper.show()
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     post("/show_with_settings") {
         call.adminApiAction {
             widgetWrapper.show(call.safeReceive())
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     post("/hide") {
         call.adminApiAction {
             widgetWrapper.hide()
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     if (getInfo != null) {
         get("/info") {
@@ -69,31 +74,37 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
         call.adminApiAction {
             presets.append(call.safeReceive())
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     post("/reload") {
         call.adminApiAction {
             presets.reload()
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     post("/{id}") {
         call.adminApiAction {
             presets.edit(call.id(), call.safeReceive())
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     delete("/{id}") {
         call.adminApiAction {
             presets.delete(call.id())
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     post("/{id}/show") {
         call.adminApiAction {
             presets.show(call.id())
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
     post("/{id}/hide") {
         call.adminApiAction {
             presets.hide(call.id())
         }
+        DataBus.adminActionsFlow.emit(call.request.uri)
     }
 }
 

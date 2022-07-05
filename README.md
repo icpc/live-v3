@@ -11,7 +11,7 @@ Welcome to the ICPC Live Source Code Repository.
   * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/backend/config/archive/vkoshp-junior-2022)
   * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/backend/config/archive/yandex-example/)
   * [How to fine tune imported data](https://github.com/icpc/live-v3/blob/main/advanced.json.md)
-* Run `java -jar /path/to/jar/file -port=8080 -P:live.configDirectory=/path/to/config/directory`
+* Run `java -jar /path/to/jar/file -port=8080 -P:live.configDirectory=/path/to/config/directory -P:live.credsFile=creds.json`
   * Port 8080 is default, if you are okay with it option can be omitted
 * Add source to OBS
   * +Source

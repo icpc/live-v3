@@ -2,6 +2,7 @@ import { Paper } from "@mui/material";
 import React, { Component } from "react";
 import { OVERLAY_LOCATION } from "../config";
 import { Rnd } from "react-rnd";
+import PropTypes from "prop-types";
 
 const FULL_WIDTH = 1920;
 const FULL_HEIGHT = 1080;
@@ -47,3 +48,6 @@ export class Overlay extends Component {
         </Rnd>);
     }
 }
+Overlay.propTypes = {
+    isOverlayPreviewShown: PropTypes.bool.isRequired,
+};

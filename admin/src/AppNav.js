@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import PreviewIcon from "@mui/icons-material/Preview";
+import PropTypes from "prop-types";
 
 const pages = {
     "Controls": "controls",
@@ -17,6 +18,7 @@ const pages = {
     "Picture": "picture",
     "TeamView": "teamview",
     "TeamPVP": "teampvp",
+    "SplitScreen": "splitscreen",
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
     "Dashboard": "dashboard",
@@ -92,4 +94,9 @@ const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
         </AppBar>
     );
 };
+ResponsiveAppBar.propTypes = {
+    showOrHideOverlayPerview: PropTypes.func.isRequired,
+};
+
+
 export default ResponsiveAppBar;

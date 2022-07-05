@@ -141,6 +141,7 @@ data class ScoreboardRow(
     val lastAccepted: Long,
     val medalType: String?,
     val problemResults: List<ProblemResult>,
+    val teamGroups: List<String>,
 )
 
 @Serializable

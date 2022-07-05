@@ -10,8 +10,9 @@ import Title from "./components/Title";
 import Picture from "./components/Picture";
 import TeamView from "./components/TeamView";
 import TeamPVP from "./components/TeamPVP";
+import SplitScreen from "./components/SplitScreen";
 import { SnackbarProvider } from "notistack";
-import ScoreboardSettings from "./components/ScoreboardSettings";
+import ScoreboardManager from "./components/ScoreboardManager";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 
@@ -30,7 +31,8 @@ function App() {
                         <Route path="/picture" element={<Picture/>}/>
                         <Route path="/teamview" element={<TeamView/>}/>
                         <Route path="/teampvp" element={<TeamPVP/>}/>
-                        <Route path="/scoreboard" element={<ScoreboardSettings/>}/>
+                        <Route path="/splitscreen" element={<SplitScreen/>}/>
+                        <Route path="/scoreboard" element={<ScoreboardManager/>}/>
                         <Route path="/ticker" element={<TickerMessage/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>
                         <Route path="/log" element={<BackendLog/>}/>

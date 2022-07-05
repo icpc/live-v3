@@ -4,9 +4,15 @@ import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import { grey } from "@mui/material/colors";
 
-const getSettings = (row) => {
-    return row;
-};
+export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    shown: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    medias: PropTypes.shape({
+        screen: PropTypes.string,
+    }).isRequired,
+});
 
 export class Team extends React.Component {
     constructor(props) {
@@ -35,8 +41,8 @@ export class Team extends React.Component {
                 <Box key="name" sx={{ display: "flex",
                     flexDirection: "row",
                     margin: "4px" }}>
-                    {getSettings(this.props.rowData).name}
-                    {getSettings(this.props.rowData).medias.screen}
+                    {this.props.rowData.name}{" "}
+                    {/*{this.props.rowData.medias.screen}*/}
                 </Box>
             </Box>
         </Grid>);
@@ -44,18 +50,12 @@ export class Team extends React.Component {
 }
 
 Team.propTypes = {
-    apiPostFunc: PropTypes.func.isRequired,
-    updateTable: PropTypes.func.isRequired,
     tStyle: PropTypes.shape({
         activeColor: PropTypes.string,
         inactiveColor: PropTypes.string,
         selectedColor: PropTypes.string,
     }).isRequired,
-    rowData: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        shown: PropTypes.bool.isRequired,
-        selected: PropTypes.bool.isRequired,
-    }),
+    rowData: TEAM_FIELD_STRUCTURE,
     createErrorHandler: PropTypes.func,
     isImmutable: PropTypes.bool,
     onClick: PropTypes.func.isRequired
