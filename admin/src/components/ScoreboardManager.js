@@ -119,11 +119,9 @@ ScoreboardOptLevelCells.propTypes = {
 };
 
 function ScoreboardGroupSetting({ settings, setSettings, groupsList }) {
-    console.log(settings.group === "all", settings.group !== "all");
     const [isGroupsExpand, setIsGroupsExpand] = useState(false);
     useEffect(() => setIsGroupsExpand(s => s || settings.group !== "all"), [settings.group]);
 
-    console.log(isGroupsExpand);
     return (<Table sx={{ m: 2 }} size="small">
         <TableHead>
             <TableRow>

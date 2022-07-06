@@ -79,5 +79,6 @@ fun Route.configureAdminApiRouting() {
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
+        webSocket("/analyticsEvents") { sendJsonFlow(DataBus.analyticsEventFlow.await()) }
     }
 }

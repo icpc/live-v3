@@ -2,20 +2,18 @@ package org.icpclive.service
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.icpclive.api.AdvancedProperties
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.OptimismLevel
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
 
 
-fun CoroutineScope.launchICPCServices(rawRuns: Flow<RunInfo>, rawInfoFlow: StateFlow<ContestInfo>) {
+fun CoroutineScope.launchICPCServices(
+    rawRuns: Flow<RunInfo>,
+    rawInfoFlow: StateFlow<ContestInfo>,
+    analyticsEventFlow: SharedFlow<AnalyticsEvents> = MutableSharedFlow()
+) {
     val runsFlow = MutableSharedFlow<RunInfo>(
         extraBufferCapacity = Int.MAX_VALUE,
         onBufferOverflow = BufferOverflow.SUSPEND
@@ -32,4 +30,5 @@ fun CoroutineScope.launchICPCServices(rawRuns: Flow<RunInfo>, rawInfoFlow: State
     launch { ICPCPessimisticScoreboardService().run(runsFlow, infoFlow, advancedPropertiesFlow) }
     launch { FirstToSolveService().run(rawRuns, runsFlow) }
     launch { StatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL), infoFlow) }
+    launch { DataBus.analyticsEventFlow.complete(analyticsEventFlow) }
 }

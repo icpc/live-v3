@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromJsonElement
-import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
@@ -106,10 +106,10 @@ class CFDataSource : ContestDataSource {
         }
     }
 
-    override suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>> {
+    override suspend fun loadOnce(): ContestParseResult {
         contestInfo.updateStandings(standingsLoader.loadOnce())
         val runs = contestInfo.parseSubmissions(statusLoader.loadOnce().list)
-        return contestInfo.toApi() to runs
+        return ContestParseResult(contestInfo.toApi(), runs)
     }
 
     companion object {

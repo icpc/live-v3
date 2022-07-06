@@ -3,6 +3,7 @@ package org.icpclive.cds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import org.icpclive.api.AnalyticsEvents
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.clics.ClicsDataSource
@@ -16,8 +17,14 @@ import org.icpclive.utils.guessDatetimeFormat
 
 interface ContestDataSource {
     suspend fun run()
-    suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>>
+    suspend fun loadOnce(): ContestParseResult
 }
+
+data class ContestParseResult(
+    val contestInfo: ContestInfo,
+    val runs: List<RunInfo>,
+    val analyticsEvents: List<AnalyticsEvents> = emptyList()
+)
 
 fun CoroutineScope.launchContestDataSource() {
     val properties = loadProperties("events")
@@ -36,11 +43,12 @@ fun CoroutineScope.launchContestDataSource() {
             coroutineScope {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                val (contestInfo, submissions) = loader.loadOnce()
+                val (contestInfo, submissions, analyticsEvents) = loader.loadOnce()
                 launchEmulation(
                     emulationStartTime, emulationSpeed,
                     submissions,
-                    contestInfo
+                    contestInfo,
+                    analyticsEvents
                 )
             }
         } else {

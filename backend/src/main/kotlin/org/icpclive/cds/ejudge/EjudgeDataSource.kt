@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.ContestParseResult
 import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
@@ -51,14 +52,14 @@ class EjudgeDataSource : ContestDataSource {
         }
     }
 
-    override suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>> {
+    override suspend fun loadOnce(): ContestParseResult {
         val allRuns = mutableListOf<RunInfo>()
         val element = xmlLoader.loadOnce()
         parseContestInfo(element.children()[0]) { allRuns.add(it) }
         if (contestData.status != ContestStatus.OVER) {
             throw IllegalStateException("Emulation mode require over contest")
         }
-        return contestData.toApi() to allRuns
+        return ContestParseResult(contestData.toApi(), allRuns)
     }
 
     private fun parseProblemsInfo(doc: Document): List<ProblemInfo> {

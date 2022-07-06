@@ -125,6 +125,15 @@ data class State(
     val end_of_updates: Instant?,
 )
 
+@Serializable
+data class Commentary(
+    val id: String,
+    @Serializable(with = ClicsTime.DurationSerializer::class)
+    val contest_time: Duration,
+    val message: String,
+    val team_ids: List<String>?,
+    val problem_ids: List<String>?,
+)
 
 @Serializable
 sealed class Event {
@@ -155,7 +164,8 @@ data class TeamEvent(override val id: String, override val op: Operation, val da
 
 @Serializable
 @SerialName("organizations")
-data class OrganizationEvent(override val id: String, override val op: Operation, val data: Organization) : UpdateContestEvent()
+data class OrganizationEvent(override val id: String, override val op: Operation, val data: Organization) :
+    UpdateContestEvent()
 
 @Serializable
 @SerialName("state")
@@ -163,7 +173,8 @@ data class StateEvent(override val id: String, override val op: Operation, val d
 
 @Serializable
 @SerialName("judgement-types")
-data class JudgementTypeEvent(override val id: String, override val op: Operation, val data: JudgementType) : UpdateContestEvent()
+data class JudgementTypeEvent(override val id: String, override val op: Operation, val data: JudgementType) :
+    UpdateContestEvent()
 
 @Serializable
 @SerialName("groups")
@@ -183,7 +194,7 @@ data class RunsEvent(override val id: String, override val op: Operation, val da
 
 @Serializable
 @SerialName("commentary")
-data class CommentaryEvent(override val id: String, override val op: Operation) : IgnoredEvent()
+data class CommentaryEvent(override val id: String, override val op: Operation, val data: Commentary): Event()
 
 @Serializable
 @SerialName("awards")

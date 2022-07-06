@@ -8,9 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.ContestStatus
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.humanReadable
 import kotlin.random.Random
@@ -24,8 +22,10 @@ class EmulationService(
     private val startTime: Instant,
     private val emulationSpeed: Double,
     private val runs: List<RunInfo>,
+    private val analyticsEvents: List<AnalyticsEvents>,
     private val contestInfoFlow: MutableStateFlow<ContestInfo>,
-    private val runsFlow: MutableSharedFlow<RunInfo>
+    private val runsFlow: MutableSharedFlow<RunInfo>,
+    private val analyticsEventsFlow: MutableSharedFlow<AnalyticsEvents>
 ) {
     val contestInfo = contestInfoFlow.value.copy(
         startTime = startTime,
@@ -57,6 +57,7 @@ class EmulationService(
             }
             add(Event(run.time + timeShift.milliseconds) { runsFlow.emit(run) })
         }
+        addAll(analyticsEvents.map { Event(it.time) { analyticsEventsFlow.emit(it) } })
     }.sortedBy { it.time }
 
     suspend fun run() {
@@ -83,7 +84,8 @@ fun CoroutineScope.launchEmulation(
     startTime: Instant,
     speed: Double,
     runs: List<RunInfo>,
-    contestInfo: ContestInfo
+    contestInfo: ContestInfo,
+    analyticsEvents: List<AnalyticsEvents> = emptyList()
 ) {
     EmulationService.logger.info("Running in emulation mode with speed x${speed} and startTime = ${startTime.humanReadable}")
     val rawRunsFlow = MutableSharedFlow<RunInfo>(
@@ -91,14 +93,21 @@ fun CoroutineScope.launchEmulation(
         onBufferOverflow = BufferOverflow.SUSPEND
     )
     val contestInfoFlow = MutableStateFlow(contestInfo)
+    val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvents>(
+        replay = 100,
+        extraBufferCapacity = Int.MAX_VALUE,
+        onBufferOverflow = BufferOverflow.SUSPEND
+    )
     launch {
         EmulationService(
             startTime,
             speed,
             runs,
+            analyticsEvents,
             contestInfoFlow,
-            rawRunsFlow
+            rawRunsFlow,
+            analyticsEventsFlow
         ).run()
     }
-    launchICPCServices(rawRunsFlow, contestInfoFlow)
+    launchICPCServices(rawRunsFlow, contestInfoFlow, analyticsEventsFlow)
 }
