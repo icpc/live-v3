@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import Container from "@mui/material/Container";
 import { errorHandlerWithSnackbar } from "../errors";
 import Box from "@mui/material/Box";
-import { SelectTeamTable, ChooseMediaTypeAndShowPanel } from "./TeamTable";
+import { SelectTeamTable, TeamViewSettingsPanel } from "./TeamTable";
 import PropTypes from "prop-types";
 import { BASE_URL_BACKEND } from "../config";
 import { createApiGet, createApiPost } from "../utils";
@@ -16,8 +16,8 @@ function SplitScreenInstance({ instanceId, selectedId, shownTeam, showFunction, 
         <Box>Shown team: {shownTeam}</Box>
         <Box>Media type: {shownMediaType}</Box>
         <Box sx={{ pt: 1 }}>
-            <ChooseMediaTypeAndShowPanel isSomethingSelected={selectedId !== undefined}
-                isPossibleToHide={shownTeam !== undefined} showTeamFunction={showFunction} hideTeamFunction={hideFunction}/>
+            <TeamViewSettingsPanel isSomethingSelected={selectedId !== undefined}
+                isPossibleToHide={shownTeam !== undefined} onShowTeam={showFunction} onHideTeam={hideFunction}/>
         </Box>
     </Box>);
 }

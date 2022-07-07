@@ -48,7 +48,12 @@ class StatisticsSettings : ObjectSettings
 class TickerSettings : ObjectSettings
 
 @Serializable
-data class TeamViewSettings(val teamId: Int = 0, val mediaType: MediaType? = null) : ObjectSettings
+data class TeamViewSettings(
+    val teamId: Int = 0,
+    val mediaType: MediaType? = null,
+    val showTaskStatus: Boolean = true,
+    val showAchievement: Boolean = false,
+) : ObjectSettings
 
 @Serializable
 data class TeamPVPSettings(

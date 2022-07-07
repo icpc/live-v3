@@ -116,6 +116,9 @@ enum class MediaType {
 
     @SerialName("photo")
     PHOTO,
+
+    @SerialName("ACHIEVEMENT")
+    ACHIEVEMENT,
 }
 
 @Serializable

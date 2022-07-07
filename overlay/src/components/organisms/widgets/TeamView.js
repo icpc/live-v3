@@ -221,8 +221,6 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
 
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
     const [isLoaded, setIsLoaded] = useState(settings?.mediaType === undefined);
-    // const medias = useSelector((state) => state.contestInfo.info?.teamsId[settings.teamId]);
-
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
@@ -231,7 +229,7 @@ export const TeamView = ({ widgetData: { settings }, transitionState }) => {
         {settings.mediaType !== undefined &&
             <TeamVideo teamId={settings.teamId} type={settings.mediaType} setIsLoaded={setIsLoaded}/>
         }
-        <ScoreboardColumn teamId={settings.teamId}/>
+        {settings.showTaskStatus !== false && <ScoreboardColumn teamId={settings.teamId}/>}
     </TeamViewContainer>;
 };
 TeamView.ignoreAnimation = true;

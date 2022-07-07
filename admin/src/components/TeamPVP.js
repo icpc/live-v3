@@ -13,14 +13,20 @@ class TeamPVPTable extends TeamTable {
         this.state = { ...this.state, selectedIds: [] };
     }
 
-    showButtonsSettings() {
-        return [
-            { text: "camera + screen", mediaType: ["camera", "screen"] }
-        ];
+    suppoertedMediaTypes() {
+        return [{ text: "camera + screen", mediaType: ["camera", "screen"] }];
     }
 
     isTeamShown(stat, id) {
         return stat.shown && stat.settings.teamId !== undefined && stat.settings.teamId.includes(id);
+    }
+
+    updateStateByStatus(status, teamsData) {
+        this.setState(state => ({ ...state,
+            dataElements: teamsData,
+            shownMediaType: (status.shown ? status.settings.mediaType : null),
+            shownId: (status.shown ? status.settings.teamId : undefined),
+        }));
     }
 
     selectItem(id) {
