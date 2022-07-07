@@ -34,38 +34,38 @@ class Wrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
     suspend fun show() {
         mutex.withLock {
             if (widgetId != null) {
-                widgetId?.let {
-                    manager.remove(it)
-                }
-                widgetId = null
+                removeWidget()
             }
-            val widget = createWidget(settings)
-            manager.add(widget)
-            widgetId = widget.id
+            createWidgetAndShow()
         }
     }
 
     suspend fun show(newSettings: SettingsType) {
         mutex.withLock {
             if (widgetId != null) {
-                widgetId?.let {
-                    manager.remove(it)
-                }
-                widgetId = null
+                removeWidget()
             }
             settings = newSettings
-            val widget = createWidget(settings)
-            manager.add(widget)
-            widgetId = widget.id
+            createWidgetAndShow()
         }
     }
 
     suspend fun hide() {
         mutex.withLock {
-            widgetId?.let {
-                manager.remove(it)
-            }
-            widgetId = null
+            removeWidget()
         }
+    }
+
+    private suspend fun createWidgetAndShow() {
+        val widget = createWidget(settings)
+        manager.add(widget)
+        widgetId = widget.id
+    }
+
+    private suspend fun removeWidget() {
+        widgetId?.let {
+            manager.remove(it)
+        }
+        widgetId = null
     }
 }
