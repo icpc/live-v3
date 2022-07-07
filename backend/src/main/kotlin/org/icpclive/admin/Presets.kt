@@ -1,7 +1,7 @@
 package org.icpclive.admin
 
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -19,6 +19,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 private val jsonPrettyEncoder = Json { prettyPrint = true }
+private const val DEFAULT_TTL = 3000L
 
 class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
     private val path: Path,
@@ -35,11 +36,14 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
         return innerData.map { it.getStatus() }
     }
 
-    suspend fun append(settings: SettingsType) {
+    suspend fun append(settings: SettingsType): Int {
+        var id: Int
         mutex.withLock {
-            innerData = innerData.plus(Wrapper(createItem, settings, manager, ++currentID))
+            id = ++currentID
+            innerData = innerData.plus(Wrapper(createItem, settings, manager, id))
         }
         save()
+        return id
     }
 
     suspend fun edit(id: Int, content: SettingsType) {
@@ -72,6 +76,17 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
                 preset.show()
                 break
             }
+        }
+    }
+
+    //TODO: rework
+    @OptIn(DelicateCoroutinesApi::class)
+    suspend fun showWithTTL(settings: SettingsType, ttl: Long?) {
+        val id = append(settings)
+        show(id)
+        GlobalScope.launch {
+            delay(ttl ?: DEFAULT_TTL)
+            delete(id)
         }
     }
 
