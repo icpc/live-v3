@@ -93,7 +93,7 @@ data class ClockTickerSettings(override val part: TickerPart, override val perio
 @Serializable
 @SerialName("scoreboard")
 data class ScoreboardTickerSettings(
-    override val part: TickerPart, override val periodMs: Long, val from: Int, val to: Int
+    override val part: TickerPart, override val periodMs: Long, val from: Int, val to: Int, val rows: Int, val cols: Int
 ) : TickerMessageSettings() {
     override fun toMessage() = ScoreboardTickerMessage(this)
 }

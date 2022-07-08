@@ -22,7 +22,7 @@ const addPresetButtons = [
         part: "long",
         type: "scoreboard",
         component: ScoreboardIcon,
-        settings: { periodMs: 30000, from: 1, to: 12 },
+        settings: { periodMs: 30000, from: 1, to: 12, rows: 1, cols: 4 },
     }, {
         type: "text",
         component: TextIcon,
@@ -39,8 +39,11 @@ class TickerTable extends PresetsTable {
         return (<ButtonGroup>
             {addPresetButtons.filter(p => p.part === undefined || p.part === this.props.partType).map(p =>
                 <IconButton color="primary" size="large" key={p.type}
-                    onClick={() => {this.doAddPreset({ ...p.settings, type: p.type, part: this.props.partType });}}>
-                    <AddIcon/><p.component/>
+                    onClick={() => {
+                        this.doAddPreset({ ...p.settings, type: p.type, part: this.props.partType });
+                    }}>
+                    <AddIcon/>
+                    <p.component/>
                 </IconButton>)}
         </ButtonGroup>);
     }
