@@ -37,7 +37,7 @@ const rowTheme = createTheme({
             },
             variants: [{
                 props: {
-                    variant: "icon"
+                    type: "icon"
                 },
                 style: {
                     fontSize: "0px"
@@ -58,7 +58,7 @@ function EventsTable({ events, selectedRowId, onRowClick }) {
                     {data.map((event, rowId) =>
                         <TableRow key={rowId} sx={{ backgroundColor: event._rowBackground, cursor: "pointer" }}
                             onClick={() => onRowClick(event.id)}>
-                            <TableCell variant="icon">{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
+                            <TableCell type="icon">{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
                             <TableCell>{event.type === "commentary" ? event.message : ""}</TableCell>
                             <TableCell>{timeMsToDuration(event.timeMs)}</TableCell>
                         </TableRow>)}
