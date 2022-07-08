@@ -14,10 +14,10 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 import PropTypes from "prop-types";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BASE_URL_WS } from "../config";
 import { PresetWidgetService } from "../services/presetWidget";
-import { activeRowColor, selectedRowColor } from "../styles";
+import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../styles";
 import { timeMsToDuration } from "../utils";
 
 const apiUrl = () => {
@@ -47,9 +47,18 @@ const rowTheme = createTheme({
     },
 });
 
+const isActive = (e) => {
+    return e._advertisementId !== undefined || e._tickerMsgId !== undefined;
+};
+
 function EventsTable({ events, selectedRowId, onRowClick }) {
-    const rowBackground = e => e.id === selectedRowId ? selectedRowColor :
-        (e._advertisementId !== undefined || e._tickerMsgId !== undefined ? activeRowColor : undefined);
+    const rowBackground = useCallback((e) => {
+        if (e.id === selectedRowId) {
+            return isActive(e) ? selectedAndActiveRowColor : selectedRowColor;
+        } else {
+            return isActive(e) ? activeRowColor : undefined;
+        }
+    }, [selectedRowId]);
     const data = events.map(e => ({ ...e, _rowBackground: rowBackground(e) }));
     return (
         <ThemeProvider theme={rowTheme}>
@@ -85,8 +94,8 @@ function Analytics() {
     const selectedEvent = events.find(e => e.id === selectedEventId);
     const deselectEvent = () => setSelectedEventId(undefined);
 
-    const advertisementService = new PresetWidgetService("/advertisement", console.log);
-    const tickerService = new PresetWidgetService("/tickerMessage", console.log);
+    const advertisementService = useMemo(() => new PresetWidgetService("/advertisement", console.log), []);
+    const tickerService = useMemo(() => new PresetWidgetService("/tickerMessage", console.log), []);
     useEffect(() => {
         ws.current = new WebSocket(apiUrl());
 
