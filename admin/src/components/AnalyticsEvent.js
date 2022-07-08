@@ -107,8 +107,7 @@ function Analytics() {
             .then(ps => ps.findLast(p => _.isEqual(p.settings, presetSettings))?.id)
             .then(presetId => advertisementService.showPreset(presetId).then(() => presetId))
             .then((presetId) => selectedEvent._advertisementId = presetId)
-        // .then(deselectEvent); // don't
-        ;
+            .then(deselectEvent);
     }
 
     function hideAdvertisement() {
@@ -124,8 +123,7 @@ function Analytics() {
             .then(ps => ps.findLast(p => _.isEqual(p.settings, presetSettings))?.id)
             .then(presetId => tickerService.showPreset(presetId).then(() => presetId))
             .then((presetId) => selectedEvent._tickerMsgId = presetId)
-        // .then(deselectEvent); // don't
-        ;
+            .then(deselectEvent);
     }
 
     function hideTickerMessage() {
