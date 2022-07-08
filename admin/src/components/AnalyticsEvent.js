@@ -1,34 +1,72 @@
-import React, { useEffect, useState, useRef } from "react";
-import { BASE_URL_WS } from "../config";
-import { Box, Button, ButtonGroup, Grid, Table, TableBody, TableCell, TableRow } from "@mui/material";
-import CommentIcon from "@mui/icons-material/Comment";
-import { timeMsToDuration } from "../utils";
-import PropTypes from "prop-types";
-import { PresetWidgetService } from "../services/presetWidget";
-import _ from "lodash";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CommentIcon from "@mui/icons-material/Comment";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    createTheme,
+    Grid,
+    Table,
+    TableBody,
+    TableCell,
+    TableRow,
+    ThemeProvider
+} from "@mui/material";
+import _ from "lodash";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
+import { BASE_URL_WS } from "../config";
+import { PresetWidgetService } from "../services/presetWidget";
 import { activeRowColor, selectedRowColor } from "../styles";
+import { timeMsToDuration } from "../utils";
 
 const apiUrl = () => {
     return BASE_URL_WS + "/analyticsEvents";
 };
 
+const rowTheme = createTheme({
+    components: {
+        MuiTableCell: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    // Some CSS
+                    lineHeight: "100%",
+                    padding: "2px 6px"
+                },
+            },
+            variants: [{
+                props: {
+                    variant: "icon"
+                },
+                style: {
+                    fontSize: "0px"
+                }
+            }]
+        },
+    },
+});
+
 function EventsTable({ events, selectedRowId, onRowClick }) {
     const rowBackground = e => e.id === selectedRowId ? selectedRowColor :
         (e._advertisementId !== undefined || e._tickerMsgId !== undefined ? activeRowColor : undefined);
     const data = events.map(e => ({ ...e, _rowBackground: rowBackground(e) }));
-    return (<Table sx={{ m: 2 }} size="small">
-        <TableBody>
-            {data.map((event, rowId) =>
-                <TableRow key={rowId} sx={{ backgroundColor: event._rowBackground, cursor: "pointer" }}
-                    onClick={() => onRowClick(event.id)}>
-                    <TableCell>{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
-                    <TableCell>{event.type === "commentary" ? event.message : ""}</TableCell>
-                    <TableCell>{timeMsToDuration(event.timeMs)}</TableCell>
-                </TableRow>)}
-        </TableBody>
-    </Table>);
+    return (
+        <ThemeProvider theme={rowTheme}>
+            <Table sx={{ m: 2 }} size="small">
+                <TableBody>
+                    {data.map((event, rowId) =>
+                        <TableRow key={rowId} sx={{ backgroundColor: event._rowBackground, cursor: "pointer" }}
+                            onClick={() => onRowClick(event.id)}>
+                            <TableCell variant="icon">{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
+                            <TableCell>{event.type === "commentary" ? event.message : ""}</TableCell>
+                            <TableCell>{timeMsToDuration(event.timeMs)}</TableCell>
+                        </TableRow>)}
+                </TableBody>
+            </Table>
+        </ThemeProvider>);
 }
+
 EventsTable.propTypes = {
     events: PropTypes.arrayOf(
         PropTypes.shape({
@@ -71,11 +109,13 @@ function Analytics() {
             .then((presetId) => selectedEvent._advertisementId = presetId)
             .then(deselectEvent);
     }
+
     function hideAdvertisement() {
         advertisementService.deletePreset(selectedEvent._advertisementId)
             .then(() => selectedEvent._advertisementId = undefined)
             .then(deselectEvent);
     }
+
     function createAndShowTickerMessage() {
         const presetSettings = { text: selectedEvent.message, periodMs: 30000, type: "text", part: "long" };
         tickerService.createPreset(presetSettings)
@@ -85,6 +125,7 @@ function Analytics() {
             .then((presetId) => selectedEvent._tickerMsgId = presetId)
             .then(deselectEvent);
     }
+
     function hideTickerMessage() {
         tickerService.deletePreset(selectedEvent._tickerMsgId)
             .then(() => selectedEvent._tickerMsgId = undefined)
@@ -115,14 +156,16 @@ function Analytics() {
                     <Button color="primary" variant={"outlined"} startIcon={<ArrowForwardIcon/>}
                         disabled={selectedEvent?._advertisementId !== undefined}
                         onClick={createAndShowAdvertisement}>advertisement</Button>
-                    <Button color="error" disabled={selectedEvent?._advertisementId === undefined} onClick={hideAdvertisement}>Hide</Button>
+                    <Button color="error" disabled={selectedEvent?._advertisementId === undefined}
+                        onClick={hideAdvertisement}>Hide</Button>
                 </ButtonGroup>
 
                 <ButtonGroup disabled={selectedEvent?.message === undefined}>
                     <Button color="primary" variant={"outlined"} startIcon={<ArrowForwardIcon/>}
                         disabled={selectedEvent?._tickerMsgId !== undefined}
                         onClick={createAndShowTickerMessage}>ticker</Button>
-                    <Button color="error" disabled={selectedEvent?._tickerMsgId === undefined} onClick={hideTickerMessage}>Hide</Button>
+                    <Button color="error" disabled={selectedEvent?._tickerMsgId === undefined}
+                        onClick={hideTickerMessage}>Hide</Button>
                 </ButtonGroup>
 
                 {/*<Button color="primary" variant={"outlined"}*/}
@@ -144,7 +187,8 @@ function Analytics() {
                 {/*Team: <TeamViewSettingsPanel isSomethingSelected={selectedEventTeam !== undefined} showTeamFunction={() => {}}*/}
                 {/*    hideTeamFunction={() => {}} isPossibleToHide={false}/>*/}
             </Box>
-            <EventsTable events={events} selectedRowId={selectedEventId} onRowClick={(id) => setSelectedEventId(prevId => id === prevId ? undefined : id)}/>
+            <EventsTable events={events} selectedRowId={selectedEventId}
+                onRowClick={(id) => setSelectedEventId(prevId => id === prevId ? undefined : id)}/>
         </Box>
     </Grid>
     );
