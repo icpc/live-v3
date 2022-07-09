@@ -17,21 +17,20 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
-import org.icpclive.config.Config.loadProperties
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.processCreds
 import java.io.IOException
+import java.util.Properties
 import kotlin.time.Duration.Companion.seconds
 
-class CFDataSource : ContestDataSource {
+class CFDataSource(val properties : Properties) : ContestDataSource {
     private val contestInfo = CFContestInfo()
     private val central: CFApiCentral
 
     init {
-        val properties = loadProperties("events")
         central = CFApiCentral(properties.getProperty("contest_id").toInt())
         if (properties.containsKey(CF_API_KEY_PROPERTY_NAME) && properties.containsKey(CF_API_SECRET_PROPERTY_NAME)) {
             central.setApiKeyAndSecret(

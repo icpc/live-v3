@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
 import org.icpclive.api.AdminUser
-import org.icpclive.config.Config
+import org.icpclive.Config
 import java.security.MessageDigest
 
 private val usersMutex = Mutex()

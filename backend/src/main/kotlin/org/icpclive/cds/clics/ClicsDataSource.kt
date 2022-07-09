@@ -10,16 +10,14 @@ import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.clics.api.*
-import org.icpclive.config.Config
 import org.icpclive.service.EventFeedLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
+import java.util.Properties
 import kotlin.time.Duration.Companion.seconds
 
-class ClicsDataSource : ContestDataSource {
-    private val properties = Config.loadProperties("events")
+class ClicsDataSource(properties: Properties) : ContestDataSource {
     private val central = ClicsApiCentral(properties)
-    private val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
 
     private val model = ClicsModel()
     private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }

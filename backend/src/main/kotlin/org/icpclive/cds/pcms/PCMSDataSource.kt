@@ -11,7 +11,6 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.BasicAuth

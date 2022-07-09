@@ -6,7 +6,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.AdvancedProperties
-import org.icpclive.config.Config
+import org.icpclive.Config
 import org.icpclive.utils.fileChangesFlow
 import org.icpclive.utils.getLogger
 import kotlin.io.path.inputStream
