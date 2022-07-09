@@ -23,7 +23,7 @@ fun CoroutineScope.launchContestDataSource() {
     val properties = loadProperties("events")
     val loader: ContestDataSource = when (val standingsType = properties.getProperty("standings.type")) {
         "CLICS" -> ClicsDataSource()
-        "PCMS" -> PCMSDataSource()
+        "PCMS" -> PCMSDataSource(properties)
         "CF" -> CFDataSource()
         "YANDEX" -> YandexDataSource()
         "EJUDGE" -> EjudgeDataSource()
