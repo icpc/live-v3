@@ -3,6 +3,7 @@ package org.icpclive.cds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import org.icpclive.Config
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.clics.ClicsDataSource
@@ -10,7 +11,6 @@ import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.yandex.YandexDataSource
-import org.icpclive.Config
 import org.icpclive.service.launchEmulation
 import org.icpclive.utils.guessDatetimeFormat
 import java.io.FileInputStream

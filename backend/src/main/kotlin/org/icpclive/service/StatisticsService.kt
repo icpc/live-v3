@@ -1,6 +1,5 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*

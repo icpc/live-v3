@@ -1,6 +1,5 @@
 package org.icpclive.service
 
-import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -9,7 +8,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.utils.ClientAuth
 import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
-import org.icpclive.utils.setupAuth
 
 abstract class EventFeedLoaderService<T>(private val auth: ClientAuth?) {
     private val httpClient = defaultHttpClient(auth)

@@ -29,7 +29,7 @@ import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.processCreds
 import java.io.IOException
-import java.util.Properties
+import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

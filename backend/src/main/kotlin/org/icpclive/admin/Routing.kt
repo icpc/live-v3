@@ -8,8 +8,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.first
-import org.icpclive.api.*
 import org.icpclive.Config
+import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.sendFlow
 import org.icpclive.utils.sendJsonFlow

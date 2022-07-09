@@ -52,14 +52,15 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
     val contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
     val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
 
-    private val contestInfo get() = ContestInfo(
-        status,
-        startTime,
-        contestLength,
-        freezeTime,
-        problems,
-        teams.values.sortedBy { it.id },
-    )
+    private val contestInfo
+        get() = ContestInfo(
+            status,
+            startTime,
+            contestLength,
+            freezeTime,
+            problems,
+            teams.values.sortedBy { it.id },
+        )
 
 
     override suspend fun run() {
@@ -111,7 +112,7 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             .children()
             .single { it.tagName() == "challenge" }
             .children()
-            .filter { it:Element -> it.tagName() == "problem" }
+            .filter { it: Element -> it.tagName() == "problem" }
             .map {
                 ProblemInfo(
                     it.attr("alias"),

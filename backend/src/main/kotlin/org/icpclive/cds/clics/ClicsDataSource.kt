@@ -13,7 +13,7 @@ import org.icpclive.cds.clics.api.*
 import org.icpclive.service.EventFeedLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
-import java.util.Properties
+import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 class ClicsDataSource(properties: Properties) : ContestDataSource {

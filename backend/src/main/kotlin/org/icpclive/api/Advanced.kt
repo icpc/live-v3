@@ -19,6 +19,7 @@ data class ProblemInfoOverride(
 
 @Serializable
 data class MedalType(val name: String, val count: Int)
+
 @Serializable
 @JvmInline
 value class MedalSettings(val medals: List<MedalType>)
