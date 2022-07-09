@@ -134,6 +134,7 @@ class PCMSDataSource : ContestDataSource {
             return emptyList()
         }
         return element.children()
+            .toList()
             .filter { it.attr("time").toLong().milliseconds <= contestTime }
             .mapIndexed { index, run ->
                 parseRunInfo(run, team, problemId, index, onRunChanges)
