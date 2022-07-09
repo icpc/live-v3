@@ -32,4 +32,8 @@ export class PresetWidgetService {
     hidePreset(presetId) {
         return this.apiPost("/" + presetId + "/hide").catch(() => this.errorHandler("Failed to hide preset"));
     }
+
+    createAndShowWithTtl(presetSettings, ttlMs) {
+        return this.apiPost("/create_and_show_with_ttl?ttl=" + ttlMs, presetSettings).catch(() => this.errorHandler("Failed to add preset"));
+    }
 }

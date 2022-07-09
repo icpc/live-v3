@@ -12,7 +12,7 @@ import org.icpclive.utils.completeOrThrow
 fun CoroutineScope.launchICPCServices(
     rawRuns: Flow<RunInfo>,
     rawInfoFlow: StateFlow<ContestInfo>,
-    analyticsEventFlow: SharedFlow<AnalyticsEvents> = MutableSharedFlow()
+    rawAnalyticsEventFlow: SharedFlow<AnalyticsEvent> = MutableSharedFlow()
 ) {
     val runsFlow = MutableSharedFlow<RunInfo>(
         extraBufferCapacity = Int.MAX_VALUE,
@@ -30,5 +30,5 @@ fun CoroutineScope.launchICPCServices(
     launch { ICPCPessimisticScoreboardService().run(runsFlow, infoFlow, advancedPropertiesFlow) }
     launch { FirstToSolveService().run(rawRuns, runsFlow) }
     launch { StatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL), infoFlow) }
-    launch { DataBus.analyticsEventFlow.complete(analyticsEventFlow) }
+    launch { AnalyticsEventsService().run(rawAnalyticsEventFlow) }
 }

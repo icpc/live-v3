@@ -1,5 +1,7 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CommentIcon from "@mui/icons-material/Comment";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { BASE_URL_WS } from "../config";
 import {
     Box,
     Button,
@@ -10,12 +12,10 @@ import {
     TableBody,
     TableCell,
     TableRow,
+    TextField,
     ThemeProvider
 } from "@mui/material";
-import _ from "lodash";
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { BASE_URL_WS } from "../config";
 import { PresetWidgetService } from "../services/presetWidget";
 import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../styles";
 import { timeMsToDuration } from "../utils";
@@ -75,7 +75,6 @@ function EventsTable({ events, selectedRowId, onRowClick }) {
             </Table>
         </ThemeProvider>);
 }
-
 EventsTable.propTypes = {
     events: PropTypes.arrayOf(
         PropTypes.shape({
@@ -96,12 +95,15 @@ function Analytics() {
 
     const advertisementService = useMemo(() => new PresetWidgetService("/advertisement", console.log), []);
     const tickerService = useMemo(() => new PresetWidgetService("/tickerMessage", console.log), []);
+    const [advertisementTtl, setAdvertisementTtl] = useState(30);
+    const [tickerMsgTtl, setTickerMsgTtl] = useState(120);
+
     useEffect(() => {
         ws.current = new WebSocket(apiUrl());
 
         ws.current.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            setEvents((_messages) => [data, ..._messages]);
+            setEvents((_events) => [ data, ..._events ]);
         };
 
         return () => {
@@ -111,34 +113,50 @@ function Analytics() {
 
     function createAndShowAdvertisement() {
         const presetSettings = { text: selectedEvent.message };
-        advertisementService.createPreset(presetSettings)
-            .then(() => advertisementService.loadPresets())
-            .then(ps => ps.findLast(p => _.isEqual(p.settings, presetSettings))?.id)
-            .then(presetId => advertisementService.showPreset(presetId).then(() => presetId))
-            .then((presetId) => selectedEvent._advertisementId = presetId)
-            .then(deselectEvent);
+        advertisementService.createAndShowWithTtl(presetSettings, advertisementTtl * 1000)
+            .then(r => {
+                selectedEvent._advertisementId = r.response;
+                selectedEvent._advertisementHideTimer = setTimeout(() => {
+                    selectedEvent._advertisementId = undefined;
+                    setEvents(es => [ ...es ]);
+                }, advertisementTtl * 1000);
+                deselectEvent();
+            });
     }
 
     function hideAdvertisement() {
         advertisementService.deletePreset(selectedEvent._advertisementId)
-            .then(() => selectedEvent._advertisementId = undefined)
-            .then(deselectEvent);
+            .then(() => {
+                selectedEvent._advertisementId = undefined;
+                if (selectedEvent._advertisementHideTimer !== undefined) {
+                    clearTimeout(selectedEvent._advertisementHideTimer);
+                }
+                deselectEvent();
+            });
     }
 
     function createAndShowTickerMessage() {
         const presetSettings = { text: selectedEvent.message, periodMs: 30000, type: "text", part: "long" };
-        tickerService.createPreset(presetSettings)
-            .then(() => tickerService.loadPresets())
-            .then(ps => ps.findLast(p => _.isEqual(p.settings, presetSettings))?.id)
-            .then(presetId => tickerService.showPreset(presetId).then(() => presetId))
-            .then((presetId) => selectedEvent._tickerMsgId = presetId)
-            .then(deselectEvent);
+        tickerService.createAndShowWithTtl(presetSettings, tickerMsgTtl * 1000)
+            .then(r => {
+                selectedEvent._tickerMsgId = r.response;
+                selectedEvent._tickerMsgHideTimer = setTimeout(() => {
+                    selectedEvent._tickerMsgId = undefined;
+                    setEvents(es => [ ...es ]);
+                }, tickerMsgTtl * 1000);
+                deselectEvent();
+            });
     }
 
     function hideTickerMessage() {
         tickerService.deletePreset(selectedEvent._tickerMsgId)
-            .then(() => selectedEvent._tickerMsgId = undefined)
-            .then(deselectEvent);
+            .then(() => {
+                selectedEvent._tickerMsgId = undefined;
+                if (selectedEvent._tickerMsgHideTimer !== undefined) {
+                    clearTimeout(selectedEvent._tickerMsgHideTimer);
+                }
+                deselectEvent();
+            });
     }
 
 
@@ -161,10 +179,19 @@ function Analytics() {
     }}>
         <Box sx={{ width: { "md": "75%", "sm": "100%", "xs": "100%" } }}>
             <Box sx={{ pt: 2 }}>
-                <ButtonGroup disabled={selectedEvent?.message === undefined}>
+                <ButtonGroup disabled={selectedEvent?.message === undefined} sx={{ px: 2 }}>
                     <Button color="primary" variant={"outlined"} startIcon={<ArrowForwardIcon/>}
                         disabled={selectedEvent?._advertisementId !== undefined}
                         onClick={createAndShowAdvertisement}>advertisement</Button>
+                    <TextField
+                        sx={{ width: "84px" }}
+                        onChange={e => setAdvertisementTtl(e.target.value)}
+                        value={advertisementTtl}
+                        size="small"
+                        label="TTL"
+                        variant="outlined"
+                        InputProps={{ style: { height: "36.5px" } }}
+                    />
                     <Button color="error" disabled={selectedEvent?._advertisementId === undefined}
                         onClick={hideAdvertisement}>Hide</Button>
                 </ButtonGroup>
@@ -173,6 +200,15 @@ function Analytics() {
                     <Button color="primary" variant={"outlined"} startIcon={<ArrowForwardIcon/>}
                         disabled={selectedEvent?._tickerMsgId !== undefined}
                         onClick={createAndShowTickerMessage}>ticker</Button>
+                    <TextField
+                        sx={{ width: "84px" }}
+                        onChange={e => setTickerMsgTtl(e.target.value)}
+                        value={tickerMsgTtl}
+                        size="small"
+                        label="TTL"
+                        variant="outlined"
+                        InputProps={{ style: { height: "36.5px" } }}
+                    />
                     <Button color="error" disabled={selectedEvent?._tickerMsgId === undefined}
                         onClick={hideTickerMessage}>Hide</Button>
                 </ButtonGroup>

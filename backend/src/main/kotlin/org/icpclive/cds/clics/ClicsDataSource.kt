@@ -45,7 +45,7 @@ class ClicsDataSource : ContestDataSource {
             extraBufferCapacity = Int.MAX_VALUE,
             onBufferOverflow = BufferOverflow.SUSPEND
         )
-        val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvents>(
+        val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvent>(
             replay = 100,
             extraBufferCapacity = Int.MAX_VALUE,
             onBufferOverflow = BufferOverflow.SUSPEND
@@ -132,7 +132,7 @@ class ClicsDataSource : ContestDataSource {
                     }
                     is CommentaryEvent -> {
                         analyticsEventsFlow.emit(
-                            AnalyticsCommentaryEvents(
+                            AnalyticsCommentaryEvent(
                                 it.data.id,
                                 it.data.message,
                                 it.data.contest_time,
@@ -159,9 +159,9 @@ class ClicsDataSource : ContestDataSource {
         val (_, contestInfoFlow, analyticsEventFlow) = launchLoader()
         val analyticsEvents = merge(contestInfoFlow, analyticsEventFlow)
             .takeWhile { it !is ContestInfo || it.status != ContestStatus.OVER }
-            .fold(mutableListOf<AnalyticsEvents>()) { ac, it ->
+            .fold(mutableListOf<AnalyticsEvent>()) { ac, it ->
                 when (it) {
-                    is AnalyticsEvents -> {
+                    is AnalyticsEvent -> {
                         ac += it
                         ac
                     }

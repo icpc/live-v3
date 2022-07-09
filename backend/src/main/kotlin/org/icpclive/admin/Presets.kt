@@ -1,7 +1,11 @@
 package org.icpclive.admin
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.sync.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -81,13 +85,14 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
 
     //TODO: rework
     @OptIn(DelicateCoroutinesApi::class)
-    suspend fun showWithTTL(settings: SettingsType, ttl: Long?) {
+    suspend fun createAndShowWithTtl(settings: SettingsType, ttl: Long?): Int {
         val id = append(settings)
         show(id)
         GlobalScope.launch {
             delay(ttl ?: DEFAULT_TTL)
             delete(id)
         }
+        return id
     }
 
     suspend fun hide(id: Int) {

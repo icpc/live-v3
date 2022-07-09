@@ -20,7 +20,7 @@ object DataBus {
     private val scoreboardFlow = Array(OptimismLevel.values().size) { CompletableDeferred<Flow<Scoreboard>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
     val advancedPropertiesFlow = CompletableDeferred<Flow<AdvancedProperties>>()
-    val analyticsEventFlow = CompletableDeferred<SharedFlow<AnalyticsEvents>>()
+    val analyticsEventFlow = CompletableDeferred<Flow<AnalyticsEvent>>()
     val loggerFlow = MutableSharedFlow<String>(
         replay = 500,
         extraBufferCapacity = 0,
