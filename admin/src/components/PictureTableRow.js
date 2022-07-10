@@ -11,9 +11,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
 import ShowPresetButton from "./ShowPresetButton";
-import { PresetsTableRow } from "./PresetsTableRow";
+import { PresetsTableRowOld } from "./PresetsTableRowOld";
 
-export class PictureTableRow extends PresetsTableRow {
+export class PictureTableRow extends PresetsTableRowOld {
     render() {
         return (<TableRow key={this.state.value["id"]}>
             <TableCell component="th" scope="row" key="Picture card" sx={{ p: 1, border: 0 }}>

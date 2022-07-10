@@ -5,7 +5,7 @@ import { lightBlue } from "@mui/material/colors";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import { BASE_URL_BACKEND } from "../config";
-import { PresetsTableRow } from "./PresetsTableRow";
+import { PresetsTableRowOld } from "./PresetsTableRowOld";
 
 export class PresetsTable extends React.Component {
     constructor(props) {
@@ -122,6 +122,6 @@ PresetsTable.defaultProps = {
         activeColor: lightBlue[100],
         inactiveColor: "white",
     },
-    rowComponent: PresetsTableRow,
+    rowComponent: PresetsTableRowOld,
     createErrorHandler: () => () => {},
 };

@@ -1,25 +1,23 @@
 import React from "react";
 import Container from "@mui/material/Container";
 
-import "../App.css";
-import { PresetsTable } from "./PresetsTable";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
+import { PresetsManager } from "./PresetsManager";
 
-class AdvertisementTable extends PresetsTable {
+class AdvertisementManager extends PresetsManager {
 }
-
-AdvertisementTable.defaultProps = {
-    ...PresetsTable.defaultProps,
+AdvertisementManager.defaultProps = {
+    ...PresetsManager.defaultProps,
     apiPath: "/advertisement",
-    apiTableKeys: ["text"],
+    tableKeys: ["text"],
 };
 
 function Advertisement() {
     const { enqueueSnackbar,  } = useSnackbar();
     return (
-        <Container maxWidth="md" sx={{ pt: 2 }} className="Advertisement">
-            <AdvertisementTable createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+        <Container maxWidth="md" sx={{ pt: 2 }}>
+            <AdvertisementManager createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </Container>
     );
 }

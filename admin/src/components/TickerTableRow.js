@@ -10,9 +10,9 @@ import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
 import { grey } from "@mui/material/colors";
 import ShowPresetButton from "./ShowPresetButton";
-import { PresetsTableRow } from "./PresetsTableRow";
+import { PresetsTableRowOld } from "./PresetsTableRowOld";
 
-export class TickerTableRow extends PresetsTableRow {
+export class TickerTableRow extends PresetsTableRowOld {
     render() {
         return (<TableRow key={this.state.value.id}
             sx={{ backgroundColor: (this.props.rowData.shown ? this.props.tStyle.activeColor : this.props.tStyle.inactiveColor) }}>

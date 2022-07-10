@@ -5,7 +5,7 @@ import "../App.css";
 import { PresetsTable } from "./PresetsTable";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
-import { onChangeSettingCellValue, PresetsTableRow } from "./PresetsTableRow";
+import { onChangeSettingCellValue, PresetsTableRowOld } from "./PresetsTableRowOld";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import ShowPresetButton from "./ShowPresetButton";
 import Box from "@mui/material/Box";
@@ -54,7 +54,7 @@ paramsDataEditor.propTypes = {
     onSubmitAction: PropTypes.func.isRequired,
 };
 
-export class TitleTableRow extends PresetsTableRow {
+export class TitleTableRow extends PresetsTableRowOld {
     render() {
         let valueSettings = this.state.value.settings;
         let editValueSettings = this.state.editValue?.settings;
