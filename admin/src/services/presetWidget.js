@@ -10,30 +10,30 @@ export class PresetWidgetService {
     }
 
     loadPresets() {
-        return this.apiGet("").catch(() => this.errorHandler("Failed to load list of presets"));
+        return this.apiGet("").catch((e) => this.errorHandler("Failed to load list of presets")(e));
     }
 
     createPreset(presetSettings) {
-        return this.apiPost("", presetSettings).catch(() => this.errorHandler("Failed to add preset"));
+        return this.apiPost("", presetSettings).catch((e) => this.errorHandler("Failed to add preset")(e));
     }
 
     editPreset(presetId, presetSettings) {
-        return this.apiPost("/" + presetId, presetSettings).catch(() => this.errorHandler("Failed to edit preset"));
+        return this.apiPost("/" + presetId, presetSettings).catch((e) => this.errorHandler("Failed to edit preset")(e));
     }
 
     deletePreset(presetId) {
-        return this.apiPost("/" + presetId, {}, "DELETE").catch(() => this.errorHandler("Failed to delete preset"));
+        return this.apiPost("/" + presetId, {}, "DELETE").catch((e) => this.errorHandler("Failed to delete preset")(e));
     }
 
     showPreset(presetId) {
-        return this.apiPost("/" + presetId + "/show").catch(() => this.errorHandler("Failed to show preset"));
+        return this.apiPost("/" + presetId + "/show").catch((e) => this.errorHandler("Failed to show preset")(e));
     }
 
     hidePreset(presetId) {
-        return this.apiPost("/" + presetId + "/hide").catch(() => this.errorHandler("Failed to hide preset"));
+        return this.apiPost("/" + presetId + "/hide").catch((e) => this.errorHandler("Failed to hide preset")(e));
     }
 
     createAndShowWithTtl(presetSettings, ttlMs) {
-        return this.apiPost("/create_and_show_with_ttl?ttl=" + ttlMs, presetSettings).catch(() => this.errorHandler("Failed to add preset"));
+        return this.apiPost("/create_and_show_with_ttl?ttl=" + ttlMs, presetSettings).catch((e) => this.errorHandler("Failed to add preset")(e));
     }
 }
