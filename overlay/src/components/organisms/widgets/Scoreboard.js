@@ -108,7 +108,7 @@ const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
   height: ${props => props.rowHeight}px;
 `;
 
-const ScoreboardHeaderTitle = styled(ScoreboardCell).attrs( ({ color }) => ({
+const ScoreboardHeaderTitle = styled(ScoreboardCell).attrs(({ color }) => ({
     style: {
         background: color
     }
@@ -145,15 +145,23 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
     const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
-        <RankCell rank={scoreboardData.rank} medal={scoreboardData.medalType} width={rankWidth ?? SCOREBOARD_RANK_WIDTH}/>
-        <TextShrinkingCell text={teamData.shortName} width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)} canGrow={nameGrows ?? false} canShrink={nameGrows?? false}/>
+        <RankCell rank={scoreboardData?.rank} medal={scoreboardData?.medalType}
+            width={rankWidth ?? SCOREBOARD_RANK_WIDTH}/>
+        <TextShrinkingCell text={teamData?.shortName}
+            width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)}
+            canGrow={nameGrows ?? false} canShrink={nameGrows ?? false}/>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData.totalScore}
+            {scoreboardData?.totalScore}
         </ScoreboardStatCell>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData.penalty}
+            {scoreboardData?.penalty}
         </ScoreboardStatCell>
-        {!hideTasks && scoreboardData.problemResults.map(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve }, i) =>
+        {!hideTasks && scoreboardData?.problemResults.map(({
+            wrongAttempts,
+            pendingAttempts,
+            isSolved,
+            isFirstToSolve
+        }, i) =>
             <ScoreboardTaskCell key={i} status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
                 attempts={wrongAttempts + pendingAttempts}/>
         )}
@@ -239,7 +247,7 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
             setRow((offset) => {
                 let newStart = offset + teamsOnPage;
                 if (newStart >= Math.min(rows.length, ((settings.numPages || Infinity) + startPageRow) * teamsOnPage)) {
-                    if(settings.isInfinite) {
+                    if (settings.isInfinite) {
                         return startPageRow;
                     } else {
                         return offset;

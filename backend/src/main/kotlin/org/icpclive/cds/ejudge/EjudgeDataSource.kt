@@ -11,7 +11,6 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
-import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
@@ -27,7 +26,7 @@ import kotlin.time.Duration.Companion.seconds
 /**
  * @author Mike Perveev
  */
-class EjudgeDataSource : ContestDataSource {
+class EjudgeDataSource(val properties: Properties) : ContestDataSource {
     override suspend fun run() {
         coroutineScope {
             val xmlLoaderFlow = MutableStateFlow(Document(""))
@@ -212,7 +211,6 @@ class EjudgeDataSource : ContestDataSource {
 
     private var contestData: EjudgeContestInfo
     private var contestInfoFlow: MutableStateFlow<ContestInfo>
-    private val properties: Properties = Config.loadProperties("events")
     private val xmlLoader = object : RegularLoaderService<Document>(null) {
         override val url = properties.getProperty("url")
         override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())

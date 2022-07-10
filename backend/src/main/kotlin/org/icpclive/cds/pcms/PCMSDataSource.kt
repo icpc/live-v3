@@ -12,7 +12,6 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
-import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.BasicAuth
@@ -28,20 +27,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class PCMSDataSource : ContestDataSource {
-    private fun loadProblemsInfo(problemsFile: String?): List<ProblemInfo> {
-        val xml = Config.loadFile(problemsFile!!)
-        val doc = Jsoup.parse(xml, "", Parser.xmlParser())
-        val problems = doc.child(0)
-        return problems.children().map { element ->
-            ProblemInfo(
-                element.attr("alias"),
-                element.attr("name"),
-                element.attr("color").takeIf { it.isNotEmpty() }
-            )
-        }
-    }
-
+class PCMSDataSource(val properties: Properties) : ContestDataSource {
     private fun getLoader(): RegularLoaderService<Document> {
         val auth = run {
             val login = properties.getProperty("login")?.processCreds()
@@ -58,6 +44,25 @@ class PCMSDataSource : ContestDataSource {
         }
     }
 
+    private var lastRunId = 0
+    val runs = mutableMapOf<String, RunInfo>()
+    var problems = emptyList<ProblemInfo>();
+    val teams = mutableMapOf<String, TeamInfo>()
+    var startTime = Instant.fromEpochMilliseconds(0)
+    var status = ContestStatus.UNKNOWN
+    val contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
+    val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
+
+    private val contestInfo
+        get() = ContestInfo(
+            status,
+            startTime,
+            contestLength,
+            freezeTime,
+            problems,
+            teams.values.sortedBy { it.id },
+        )
+
 
     override suspend fun run() {
         coroutineScope {
@@ -70,11 +75,11 @@ class PCMSDataSource : ContestDataSource {
                 extraBufferCapacity = Int.MAX_VALUE,
                 onBufferOverflow = BufferOverflow.SUSPEND
             )
-            val contestInfoFlow = MutableStateFlow(contestData.toApi())
+            val contestInfoFlow = MutableStateFlow(contestInfo)
             launchICPCServices(rawRunsFlow, contestInfoFlow)
             xmlLoaderFlow.collect {
                 parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
-                contestInfoFlow.value = contestData.toApi()
+                contestInfoFlow.value = contestInfo
             }
         }
     }
@@ -83,10 +88,10 @@ class PCMSDataSource : ContestDataSource {
         val xmlLoader = getLoader()
         val runs = mutableListOf<RunInfo>()
         parseAndUpdateStandings(xmlLoader.loadOnce()) { runs.add(it) }
-        if (contestData.status != ContestStatus.OVER) {
+        if (status != ContestStatus.OVER) {
             throw IllegalStateException("Emulation mode require over contest")
         }
-        return ContestParseResult(contestData.toApi(), runs.toList())
+        return ContestParseResult(contestInfo, runs.toList())
     }
 
     private fun parseAndUpdateStandings(element: Element, onRunChanges: (RunInfo) -> Unit) {
@@ -97,60 +102,87 @@ class PCMSDataSource : ContestDataSource {
         }
     }
 
-    private var lastRunId = 0
     private fun parseContestInfo(element: Element, onRunChanges: (RunInfo) -> Unit) {
         val status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
         val contestTime = element.attr("time").toLong().milliseconds
-        if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
-            contestData.startTime = Clock.System.now() - contestTime
+        if (status == ContestStatus.RUNNING && this.status !== ContestStatus.RUNNING) {
+            startTime = Clock.System.now() - contestTime
         }
-        contestData.status = status
-        element.children().forEach { session: Element ->
-            if ("session" == session.tagName()) {
-                parseTeamInfo(session, contestTime, onRunChanges)
+        this.status = status
+        problems = element
+            .children()
+            .single { it.tagName() == "challenge" }
+            .children()
+            .filter { it: Element -> it.tagName() == "problem" }
+            .map {
+                ProblemInfo(
+                    it.attr("alias"),
+                    it.attr("name"),
+                    it.attr("color").takeIf { it.isNotEmpty() }
+                )
             }
-        }
+        element
+            .children()
+            .asSequence()
+            .filter { it.tagName() == "session" }
+            .forEach { parseTeamInfo(it, contestTime, onRunChanges) }
         if (status == ContestStatus.RUNNING) {
             logger.info("Loaded contestInfo for time = $contestTime")
         }
     }
 
     private fun parseTeamInfo(element: Element, contestTime: Duration, onRunChanges: (RunInfo) -> Unit) {
-        val alias = element.attr("alias")
-        contestData.teams[alias]?.apply {
-            for (i in element.children().indices) {
-                runs[i] = parseProblemRuns(element.child(i), this, i, contestTime, onRunChanges)
-            }
+        fun String.attr() = element.attr(this).takeIf { it.isNotEmpty() }
+        val alias = "alias".attr()!!
+        val teamId = teams[alias]?.id ?: teams.size
+        val team = TeamInfo(
+            id = teamId,
+            name = "party".attr()!!,
+            shortName = "shortname".attr() ?: "party".attr()!!,
+            hashTag = "hashtag".attr(),
+            groups = "region".attr()?.split(",") ?: emptyList(),
+            medias = listOfNotNull(
+                "screen".attr()?.let { MediaType.SCREEN to it },
+                "camera".attr()?.let { MediaType.CAMERA to it },
+                "record".attr()?.let { MediaType.RECORD to it },
+            ).associate { it },
+            contestSystemId = alias,
+        )
+        teams[team.contestSystemId] = team
+        for (problem in element.children()) {
+            if (problem.tagName() != "problem") continue
+            val index = problems.indexOfFirst { it.letter == problem.attr("alias") }
+            require(index != -1)
+            parseProblemRuns(problem, team.id, index, contestTime, onRunChanges)
         }
     }
 
     private fun parseProblemRuns(
         element: Element,
-        team: PCMSTeamInfo,
+        teamId: Int,
         problemId: Int,
         contestTime: Duration,
         onRunChanges: (RunInfo) -> Unit
     ): List<RunInfo> {
-        if (contestData.status === ContestStatus.BEFORE) {
+        if (status === ContestStatus.BEFORE) {
             return emptyList()
         }
         return element.children()
+            .asSequence()
             .filter { it.attr("time").toLong().milliseconds <= contestTime }
-            .mapIndexed { index, run ->
-                parseRunInfo(run, team, problemId, index, onRunChanges)
-            }
+            .map { parseRunInfo(it, teamId, problemId, onRunChanges) }
+            .toList()
     }
 
     private fun parseRunInfo(
         element: Element,
-        team: PCMSTeamInfo,
+        teamId: Int,
         problemId: Int,
-        attemptId: Int,
         onRunChanges: (RunInfo) -> Unit
     ): RunInfo {
         val time = element.attr("time").toLong().milliseconds
-        val isFrozen = time >= contestData.freezeTime
-        val oldRun = team.runs[problemId].getOrNull(attemptId)
+        val isFrozen = time >= freezeTime
+        val oldRun = runs[element.attr("run-id")]
         val percentage = when {
             isFrozen -> 0.0
             "undefined" == element.attr("outcome") -> 0.0
@@ -168,7 +200,7 @@ class PCMSDataSource : ContestDataSource {
             isAddingPenalty = "AC" != result && "CE" != result,
             result = result,
             problemId = problemId,
-            teamId = team.teamInfo.id,
+            teamId = teamId,
             percentage = percentage,
             time = time,
             isFirstSolvedRun = false
@@ -177,55 +209,6 @@ class PCMSDataSource : ContestDataSource {
             onRunChanges(run)
         }
         return run
-    }
-
-    private var contestData: PCMSContestInfo
-    private val properties: Properties = Config.loadProperties("events")
-
-    init {
-        val problemInfo = loadProblemsInfo(properties.getProperty("problems.url"))
-        val xml = Config.loadFile(properties.getProperty("teams.url"))
-        val doc = Jsoup.parse(xml, "", Parser.xmlParser())
-        val participants = doc.child(0)
-        val teams = participants.children().withIndex().map { (index, participant) ->
-            val participantName = participant.attr("name")
-            val alias = participant.attr("id")
-            val hallId = participant.attr("hall_id").takeIf { it.isNotEmpty() } ?: alias
-            val shortName = participant.attr("shortname")
-                .split("(")[0]
-                .let { if (it.length >= 30) it.substring(0..27) + "..." else it }
-                .takeIf { it.isNotEmpty() } ?: participantName
-            val region = participant.attr("region").split(",")[0]
-            val hashTag = participant.attr("hashtag")
-            val groups = if (region.isEmpty()) emptyList() else mutableListOf(region)
-            val medias = listOfNotNull(
-                participant.attr("screen").takeIf { it.isNotEmpty() }?.let { MediaType.SCREEN to it },
-                participant.attr("camera").takeIf { it.isNotEmpty() }?.let { MediaType.CAMERA to it },
-                participant.attr("record").takeIf { it.isNotEmpty() }?.let { MediaType.RECORD to it },
-            ).associate { it }
-            PCMSTeamInfo(
-                TeamInfo(
-                    id = index,
-                    name = participantName,
-                    shortName = shortName,
-                    hashTag = hashTag,
-                    groups = groups,
-                    medias = medias,
-                    contestSystemId = alias,
-                ),
-                hallId,
-                problemInfo.size,
-            )
-        }
-        contestData = PCMSContestInfo(
-            problems = problemInfo,
-            teams = teams.associateBy { it.teamInfo.contestSystemId },
-            startTime = Instant.fromEpochMilliseconds(0),
-            status = ContestStatus.UNKNOWN,
-            contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours,
-            freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
-        )
-        loadProblemsInfo(properties.getProperty("problems.url"))
     }
 
     companion object {

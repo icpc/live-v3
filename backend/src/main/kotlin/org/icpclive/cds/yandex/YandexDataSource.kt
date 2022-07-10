@@ -22,7 +22,6 @@ import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
 import org.icpclive.cds.yandex.api.*
-import org.icpclive.config.Config
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
@@ -31,10 +30,11 @@ import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.processCreds
 import java.io.IOException
+import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class YandexDataSource : ContestDataSource {
+class YandexDataSource(props: Properties) : ContestDataSource {
     private val apiKey: String
     private val loginPrefix: String
     private val contestId: Long
@@ -51,7 +51,6 @@ class YandexDataSource : ContestDataSource {
 
 
     init {
-        val props = Config.loadProperties("events")
         apiKey = props.getProperty(TOKEN_PROPERTY_NAME).processCreds()
         contestId = props.getProperty(CONTEST_ID_PROPERTY_NAME).toLong()
         loginPrefix = props.getProperty(LOGIN_PREFIX_PROPERTY_NAME)

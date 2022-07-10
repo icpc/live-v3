@@ -6,7 +6,7 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
-import org.icpclive.config.Config
+import org.icpclive.Config
 import java.security.cert.X509Certificate
 import java.util.*
 import javax.net.ssl.X509TrustManager

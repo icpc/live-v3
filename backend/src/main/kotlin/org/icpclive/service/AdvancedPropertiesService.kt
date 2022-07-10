@@ -1,12 +1,13 @@
 package org.icpclive.service
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.icpclive.Config
 import org.icpclive.api.AdvancedProperties
-import org.icpclive.config.Config
 import org.icpclive.utils.fileChangesFlow
 import org.icpclive.utils.getLogger
 import kotlin.io.path.inputStream
@@ -30,6 +31,7 @@ class AdvancedPropertiesService {
                 }
         }
     }
+
     companion object {
         val logger = getLogger(AdvancedPropertiesService::class)
     }

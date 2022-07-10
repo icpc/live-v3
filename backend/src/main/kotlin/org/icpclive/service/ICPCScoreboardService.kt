@@ -27,7 +27,11 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
     abstract fun isPending(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
 
-    suspend fun run(runsFlow: Flow<RunInfo>, contestInfoFlow: Flow<ContestInfo>, advancedPropertiesFlow: Flow<AdvancedProperties>) {
+    suspend fun run(
+        runsFlow: Flow<RunInfo>,
+        contestInfoFlow: Flow<ContestInfo>,
+        advancedPropertiesFlow: Flow<AdvancedProperties>
+    ) {
         var info: ContestInfo? = null
         var medals: MedalSettings? = null
         merge(runsFlow, contestInfoFlow, advancedPropertiesFlow).collect { update ->
@@ -39,8 +43,12 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                         return@collect
                     }
                 }
-                is ContestInfo -> { info = update }
-                is AdvancedProperties -> { medals = update.medals }
+                is ContestInfo -> {
+                    info = update
+                }
+                is AdvancedProperties -> {
+                    medals = update.medals
+                }
             }
             info?.let {
                 flow.value = getScoreboard(it, medals)
@@ -48,7 +56,12 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         }
     }
 
-    private fun getScoreboardRow(problemsCount: Int, teamId: Int, runs: List<RunInfo>, teamGroups: List<String>): ScoreboardRow {
+    private fun getScoreboardRow(
+        problemsCount: Int,
+        teamId: Int,
+        runs: List<RunInfo>,
+        teamGroups: List<String>
+    ): ScoreboardRow {
         var solved = 0
         var penalty = 0
         var lastAccepted = 0L

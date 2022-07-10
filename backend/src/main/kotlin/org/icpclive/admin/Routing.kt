@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import org.icpclive.Config
 import org.icpclive.api.*
-import org.icpclive.config.Config
 import org.icpclive.data.DataBus
 import org.icpclive.utils.sendFlow
 import org.icpclive.utils.sendJsonFlow

@@ -11,14 +11,13 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.api.Event
-import org.icpclive.config.Config
 import org.icpclive.service.EventFeedLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
+import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
-class ClicsDataSource : ContestDataSource {
-    private val properties = Config.loadProperties("events")
+class ClicsDataSource(properties: Properties) : ContestDataSource {
     private val central = ClicsApiCentral(properties)
 
     private val model = ClicsModel()

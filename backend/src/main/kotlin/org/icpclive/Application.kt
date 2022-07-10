@@ -4,7 +4,6 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
-import io.ktor.server.config.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
@@ -23,7 +22,6 @@ import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.admin.createFakeUser
 import org.icpclive.admin.validateAdminApiCredits
 import org.icpclive.cds.launchContestDataSource
-import org.icpclive.config.Config
 import org.icpclive.data.TickerManager
 import org.icpclive.data.WidgetManager
 import org.icpclive.overlay.configureOverlayRouting
