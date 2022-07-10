@@ -169,7 +169,7 @@ data class AnalyticsCommentaryEvent(
     @SerialName("timeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     override val time: Duration,
-    val team: String?
+    val teams: List<String>
 ) : AnalyticsEvent()
 
 @Serializable

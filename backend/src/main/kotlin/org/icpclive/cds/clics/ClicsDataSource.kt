@@ -135,7 +135,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                                 it.data.id,
                                 it.data.message,
                                 it.data.contest_time,
-                                it.data.team_ids?.firstOrNull()
+                                it.data.team_ids ?: emptyList()
                             )
                         )
                         logger.info(it.data.toString())

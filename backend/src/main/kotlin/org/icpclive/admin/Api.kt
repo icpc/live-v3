@@ -72,7 +72,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post {
         call.adminApiAction {
-            return@adminApiAction presets.append(call.safeReceive())
+            presets.append(call.safeReceive())
         }
         DataBus.adminActionsFlow.emit(call.request.uri)
     }
@@ -84,7 +84,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post("/create_and_show_with_ttl") {
         call.adminApiAction {
-            return@adminApiAction presets.createAndShowWithTtl(
+            presets.createAndShowWithTtl(
                 call.safeReceive<SettingsType>(),
                 call.request.queryParameters["ttl"]?.toLong()
             )
