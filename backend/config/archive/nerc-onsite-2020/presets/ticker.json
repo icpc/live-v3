@@ -20,19 +20,66 @@
         "type": "text",
         "part": "long",
         "periodMs": 10000,
-        "text": "Ticker message 2"
-    },
-    {
-        "type": "scoreboard",
-        "part": "long",
-        "periodMs": 30000,
-        "from": 1,
-        "to": 12
+        "text": "Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 Ticker message 2 "
     },
     {
         "type": "text",
         "part": "short",
         "periodMs": 10000,
         "text": "KEK"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 2000,
+        "text": "KEKEKEKEKEEK"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 2000,
+        "text": "longtextlongtextlongtextlongtext"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 3000,
+        "text": "BSUIR OPEN"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 2000,
+        "from": 1,
+        "to": 12,
+        "rows": 2,
+        "cols": 4
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 4000,
+        "from": 1,
+        "to": 24,
+        "rows": 2,
+        "cols": 4
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 3000,
+        "from": 1,
+        "to": 12,
+        "rows": 1,
+        "cols": 3
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 3000,
+        "from": 1,
+        "to": 12,
+        "rows": 1,
+        "cols": 4
     }
 ]

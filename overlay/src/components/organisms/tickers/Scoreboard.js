@@ -15,8 +15,8 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
     { style: { top } }
 ))`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(${props => props.nrows}, 100%);
+  grid-template-columns: repeat(${props => props.cols}, 1fr);
+  grid-template-rows: repeat(${props => props.screens * props.rows}, ${props => 100 / props.rows}%);
   height: 100%;
   width: 100%;
   position: absolute;
@@ -24,22 +24,38 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
 `;
 
 export const Scoreboard = ({ tickerSettings, state }) => {
-    const { from, to, periodMs } = tickerSettings;
-    const [row, setRow] = useState(0);
-    const rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
-    const nrows = Math.ceil(rows.length / 4);
+    const { from, to, rows, cols, periodMs } = tickerSettings;
+    const [firstRow, setFirstRow] = useState(0);
+    const oneRowHeight = 100 / rows;
+    const entries = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from - 1, to));
+    const screens = Math.ceil(entries.length / (rows * cols));
+    const totalRows = Math.ceil(entries.length / cols);
     useEffect(() => {
-        if(state !== "entering") {
+        if (state !== "entering") {
             const interval = setInterval(() => {
                 if (state !== "exiting") {
-                    setRow((row) => (row + 1) % nrows);
+                    setFirstRow((firstRow) => {
+                        const newFirst = firstRow + rows;
+                        const remRows = totalRows - newFirst * rows;
+                        console.log(firstRow, newFirst, remRows);
+                        if(remRows < rows) {
+                            console.log("1");
+                            return totalRows - rows;
+                        } else if(remRows === rows) {
+                            console.log("2");
+                            return 0;
+                        } else {
+                            console.log("3");
+                            return newFirst;
+                        }
+                    });
                 }
-            }, (periodMs - TICKER_SCROLL_TRANSITION_TIME) / nrows / TICKER_SCOREBOARD_REPEATS + 1);
+            }, (periodMs - TICKER_SCROLL_TRANSITION_TIME) / screens / TICKER_SCOREBOARD_REPEATS);
             return () => clearInterval(interval);
         }
-    }, [nrows, periodMs, state]);
-    return <ScoreboardWrap nrows={nrows} top={-row * 100 + "%"}>
-        {rows.map((row) => <ScoreboardRow
+    }, [screens, periodMs, state, entries, oneRowHeight]);
+    return <ScoreboardWrap screens={screens} top={-firstRow * oneRowHeight + "%"} cols={cols} rows={rows}>
+        {entries.map((row) => <ScoreboardRow
             key={row.teamId}
             teamId={row.teamId}
             hideTasks={true}

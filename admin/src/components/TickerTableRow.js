@@ -38,17 +38,27 @@ export class TickerTableRow extends PresetsTableRow {
                 )}
                 {this.state.value.settings.type === "scoreboard" &&
                 (this.state.editValue === undefined ?
-                    "From " + this.state.value.settings.from + " to " + this.state.value.settings.to
+                    `From ${this.state.value.settings.from} to ${this.state.value.settings.to} ${this.state.value.settings.rows}x${this.state.value.settings.cols}`
                     : (<Box onSubmit={this.onSubmitEdit} component="form" type="submit" sx={{ display: "flex", flexDirection: "row" }}>
                         <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.from}
-                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
+                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.25 }}
                             onChange={(e) => {
                                 this.state.editValue.settings.from = e.target.value;
                             }}/>
                         <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.to}
-                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
+                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.25 }}
                             onChange={(e) => {
                                 this.state.editValue.settings.to = e.target.value;
+                            }}/>
+                        <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.rows}
+                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.25 }}
+                            onChange={(e) => {
+                                this.state.editValue.settings.rows = e.target.value;
+                            }}/>
+                        <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.cols}
+                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.25 }}
+                            onChange={(e) => {
+                                this.state.editValue.settings.cols = e.target.value;
                             }}/>
                     </Box>)
                 )}
