@@ -134,6 +134,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                             AnalyticsCommentaryEvent(
                                 it.data.id,
                                 it.data.message,
+                                it.data.time,
                                 it.data.contest_time,
                                 it.data.team_ids ?: emptyList()
                             )

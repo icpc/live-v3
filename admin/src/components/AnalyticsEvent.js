@@ -13,12 +13,13 @@ import {
     TableCell,
     TableRow,
     TextField,
-    ThemeProvider
+    ThemeProvider,
+    Tooltip,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { PresetWidgetService } from "../services/presetWidget";
 import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../styles";
-import { timeMsToDuration } from "../utils";
+import { timeMsToDuration, unixTimeMsToLocalTime } from "../utils";
 
 const apiUrl = () => {
     return BASE_URL_WS + "/analyticsEvents";
@@ -68,7 +69,9 @@ function EventsTable({ events, selectedRowId, onRowClick }) {
                             onClick={() => onRowClick(event)}>
                             <TableCell type="icon">{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
                             <TableCell>{event.type === "commentary" ? event.message : ""}</TableCell>
-                            <TableCell>{timeMsToDuration(event.timeMs)}</TableCell>
+                            <TableCell><Tooltip title={unixTimeMsToLocalTime(event.timeUnixMs)}>
+                                <span>{timeMsToDuration(event.relativeTimeMs)}</span>
+                            </Tooltip></TableCell>
                         </TableRow>)}
                 </TableBody>
             </Table>
@@ -79,6 +82,8 @@ EventsTable.propTypes = {
         PropTypes.shape({
             id: PropTypes.any.isRequired,
             type: PropTypes.string.isRequired,
+            relativeTimeMs: PropTypes.number.isRequired,
+            timeUnixMs: PropTypes.number.isRequired,
         }).isRequired).isRequired,
     selectedRowId: PropTypes.any,
     onRowClick: PropTypes.func.isRequired,

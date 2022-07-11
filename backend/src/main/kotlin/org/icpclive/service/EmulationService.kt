@@ -60,7 +60,7 @@ class EmulationService(
             }
             add(Event(run.time + timeShift.milliseconds) { runsFlow.emit(run) })
         }
-        addAll(analyticsEvents.map { Event(it.time) { analyticsEventsFlow.emit(it) } })
+        addAll(analyticsEvents.map { Event(it.relativeTime) { analyticsEventsFlow.emit(it) } })
     }.sortedBy { it.time }
 
     suspend fun run() {

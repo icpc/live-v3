@@ -128,6 +128,8 @@ data class State(
 @Serializable
 data class Commentary(
     val id: String,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val time: Instant,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val contest_time: Duration,
     val message: String,

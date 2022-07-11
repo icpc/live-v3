@@ -1,5 +1,4 @@
-import { DateTime, Settings } from "luxon";
-Settings.defaultZone = "utc";
+import { DateTime } from "luxon";
 
 export const createApiPost = (apiUrl) =>
     function (path, body = {}, method = "POST") {
@@ -27,4 +26,5 @@ export const createApiGet = (apiUrl) =>
             .then(response => response.json());
     };
 
-export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs).toFormat("H:mm:ss");
+export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
+export const unixTimeMsToLocalTime = (timeMs) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");
