@@ -72,8 +72,7 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     }
     post {
         call.adminApiAction {
-            val presetID = presets.append(call.safeReceive())
-            call.respond(presetID)
+            presets.append(call.safeReceive())
         }
         DataBus.adminActionsFlow.emit(call.request.uri)
     }
@@ -83,9 +82,12 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
         }
         DataBus.adminActionsFlow.emit(call.request.uri)
     }
-    post("/show_with_ttl") {
+    post("/create_and_show_with_ttl") {
         call.adminApiAction {
-            presets.showWithTTL(call.safeReceive(), call.request.queryParameters["ttl"]?.toLong())
+            presets.createAndShowWithTtl(
+                call.safeReceive<SettingsType>(),
+                call.request.queryParameters["ttl"]?.toLong()
+            )
         }
         DataBus.adminActionsFlow.emit(call.request.uri)
     }

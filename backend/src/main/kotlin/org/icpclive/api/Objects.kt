@@ -154,4 +154,27 @@ data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pendi
 data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
 
 @Serializable
+sealed class AnalyticsEvent {
+    abstract val id: String
+    abstract val time: Instant
+    abstract val relativeTime: Duration
+}
+
+typealias AnalyticsEvents = List<AnalyticsEvent>
+
+@Serializable
+@SerialName("commentary")
+data class AnalyticsCommentaryEvent(
+    override val id: String,
+    val message: String,
+    @SerialName("timeUnixMs")
+    @Serializable(with = UnixMillisecondsSerializer::class)
+    override val time: Instant,
+    @SerialName("relativeTimeMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    override val relativeTime: Duration,
+    val teams: List<String>
+) : AnalyticsEvent()
+
+@Serializable
 data class AdminUser(val login: String, val confirmed: Boolean)

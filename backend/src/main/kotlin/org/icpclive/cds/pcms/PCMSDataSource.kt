@@ -11,6 +11,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.ContestParseResult
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.BasicAuth
@@ -83,14 +84,14 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
         }
     }
 
-    override suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>> {
+    override suspend fun loadOnce(): ContestParseResult {
         val xmlLoader = getLoader()
         val runs = mutableListOf<RunInfo>()
         parseAndUpdateStandings(xmlLoader.loadOnce()) { runs.add(it) }
         if (status != ContestStatus.OVER) {
             throw IllegalStateException("Emulation mode require over contest")
         }
-        return contestInfo to runs.toList()
+        return ContestParseResult(contestInfo, runs.toList())
     }
 
     private fun parseAndUpdateStandings(element: Element, onRunChanges: (RunInfo) -> Unit) {

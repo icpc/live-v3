@@ -8,6 +8,9 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.first
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
 import org.icpclive.Config
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
@@ -15,16 +18,28 @@ import org.icpclive.utils.sendFlow
 import org.icpclive.utils.sendJsonFlow
 import java.nio.file.Paths
 
-suspend inline fun ApplicationCall.adminApiAction(block: ApplicationCall.() -> Unit) = try {
+@Serializable
+class AdminActionResponse<T>(
+    val status: String,
+    val response: T? = null
+)
+
+suspend inline fun <reified T> ApplicationCall.adminApiAction(block: ApplicationCall.() -> T) = try {
     val user = principal<User>()!!
     if (!user.confirmed) throw AdminActionApiException("Your account is not confirmed yet")
     application.log.info("Changing request ${request.path()} is done by ${user.name}")
-    block()
-    respond(mapOf("status" to "ok"))
+    val result = block()
+    respondText(contentType = ContentType.Application.Json) {
+        Json.encodeToString(
+            AdminActionResponse.serializer(serializer()), when (result) {
+                is Unit -> AdminActionResponse("ok")
+                else -> AdminActionResponse("ok", result)
+            }
+        )
+    }
 } catch (e: AdminActionApiException) {
     respond(HttpStatusCode.BadRequest, mapOf("status" to "error", "message" to e.message))
 }
-
 
 fun Route.configureAdminApiRouting() {
     val presetsDirectory =
@@ -79,5 +94,6 @@ fun Route.configureAdminApiRouting() {
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
+        webSocket("/analyticsEvents") { sendJsonFlow(DataBus.analyticsEventFlow.await()) }
     }
 }

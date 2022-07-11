@@ -23,6 +23,7 @@ const pages = {
     "Ticker": "ticker",
     "Dashboard": "dashboard",
     "Backend Log": "log",
+    "Analytics": "analytics",
     // "Advanced Properties": "AdvancedProperties",
 };
 

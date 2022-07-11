@@ -16,6 +16,7 @@ import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.yandex.YandexConstants.API_BASE
 import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
@@ -120,7 +121,7 @@ class YandexDataSource(props: Properties) : ContestDataSource {
         }
     }
 
-    override suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>> {
+    override suspend fun loadOnce(): ContestParseResult {
         val rawContestInfo = YandexContestInfo(
             contestDescriptionLoader.loadOnce(),
             problemLoader.loadOnce(),
@@ -133,7 +134,7 @@ class YandexDataSource(props: Properties) : ContestDataSource {
             .filter(rawContestInfo::isTeamSubmission)
             .map(rawContestInfo::submissionToRun)
         log.info("Loaded all submissions for emulation")
-        return contestInfo to submissions
+        return ContestParseResult(contestInfo, submissions)
     }
 
     companion object {

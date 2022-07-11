@@ -4,6 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.icpclive.Config
+import org.icpclive.api.AnalyticsEvent
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.clics.ClicsDataSource
@@ -20,8 +21,14 @@ import java.util.*
 
 interface ContestDataSource {
     suspend fun run()
-    suspend fun loadOnce(): Pair<ContestInfo, List<RunInfo>>
+    suspend fun loadOnce(): ContestParseResult
 }
+
+data class ContestParseResult(
+    val contestInfo: ContestInfo,
+    val runs: List<RunInfo>,
+    val analyticsEvents: List<AnalyticsEvent> = emptyList()
+)
 
 fun CoroutineScope.launchContestDataSource() {
     val path = Config.configDirectory.resolve("events.properties")
@@ -44,11 +51,12 @@ fun CoroutineScope.launchContestDataSource() {
             coroutineScope {
                 val emulationSpeed = emulationSpeedProp.toDouble()
                 val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-                val (contestInfo, submissions) = loader.loadOnce()
+                val (contestInfo, submissions, analyticsEvents) = loader.loadOnce()
                 launchEmulation(
                     emulationStartTime, emulationSpeed,
                     submissions,
-                    contestInfo
+                    contestInfo,
+                    analyticsEvents
                 )
             }
         } else {

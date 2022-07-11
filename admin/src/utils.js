@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 export const createApiPost = (apiUrl) =>
     function (path, body = {}, method = "POST") {
         const requestOptions = {
@@ -23,3 +25,6 @@ export const createApiGet = (apiUrl) =>
         return fetch(apiUrl + path, requestOptions)
             .then(response => response.json());
     };
+
+export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
+export const unixTimeMsToLocalTime = (timeMs) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");

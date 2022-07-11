@@ -85,13 +85,14 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
 
     //TODO: rework
     @OptIn(DelicateCoroutinesApi::class)
-    suspend fun showWithTTL(settings: SettingsType, ttl: Long?) {
+    suspend fun createAndShowWithTtl(settings: SettingsType, ttl: Long?): Int {
         val id = append(settings)
         show(id)
         GlobalScope.launch {
             delay(ttl ?: DEFAULT_TTL)
             delete(id)
         }
+        return id
     }
 
     suspend fun hide(id: Int) {

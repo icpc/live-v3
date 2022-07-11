@@ -6,10 +6,11 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.icpclive.api.ContestStatus
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.clics.api.*
+import org.icpclive.cds.clics.api.Event
 import org.icpclive.service.EventFeedLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
@@ -40,6 +41,11 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
 
         val contestInfoFlow = MutableStateFlow(model.contestInfo)
         val rawRunsFlow = MutableSharedFlow<RunInfo>(
+            extraBufferCapacity = Int.MAX_VALUE,
+            onBufferOverflow = BufferOverflow.SUSPEND
+        )
+        val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvent>(
+            replay = 100,
             extraBufferCapacity = Int.MAX_VALUE,
             onBufferOverflow = BufferOverflow.SUSPEND
         )
@@ -123,26 +129,49 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                             }
                         }
                     }
+                    is CommentaryEvent -> {
+                        analyticsEventsFlow.emit(
+                            AnalyticsCommentaryEvent(
+                                it.data.id,
+                                it.data.message,
+                                it.data.time,
+                                it.data.contest_time,
+                                it.data.team_ids ?: emptyList()
+                            )
+                        )
+                        logger.info(it.data.toString())
+                    }
                     is IgnoredEvent -> {}
                 }
             }
         }
-        rawRunsFlow to contestInfoFlow
+        Triple(rawRunsFlow, contestInfoFlow, analyticsEventsFlow)
     }
 
     override suspend fun run() {
         coroutineScope {
-            val (rawRunsFlow, contestInfoFlow) = launchLoader()
-            launchICPCServices(rawRunsFlow, contestInfoFlow)
+            val (rawRunsFlow, contestInfoFlow, analyticsEventFlow) = launchLoader()
+            launchICPCServices(rawRunsFlow, contestInfoFlow, analyticsEventFlow)
         }
     }
 
     override suspend fun loadOnce() = coroutineScope {
-        val (_, contestInfoFlow) = launchLoader()
+        val (_, contestInfoFlow, analyticsEventFlow) = launchLoader()
+        val analyticsEvents = merge(contestInfoFlow, analyticsEventFlow)
+            .takeWhile { it !is ContestInfo || it.status != ContestStatus.OVER }
+            .fold(mutableListOf<AnalyticsEvent>()) { ac, it ->
+                when (it) {
+                    is AnalyticsEvent -> {
+                        ac += it
+                        ac
+                    }
+                    else -> ac
+                }
+            }
         val contestInfo = contestInfoFlow.first { it.status == ContestStatus.OVER }
         coroutineContext.cancelChildren()
         val runs = model.submissions.values.map { it.toApi() }
-        contestInfo to runs
+        ContestParseResult(contestInfo, runs, analyticsEvents)
     }
 
     companion object {

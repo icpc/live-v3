@@ -15,6 +15,7 @@ import { SnackbarProvider } from "notistack";
 import ScoreboardManager from "./components/ScoreboardManager";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
+import Analytics from "./components/AnalyticsEvent";
 
 function App() {
     const [isOverlayPreviewShown, setIsOverlayPreviewShown] = useState(false);
@@ -36,6 +37,7 @@ function App() {
                         <Route path="/ticker" element={<TickerMessage/>}/>
                         <Route path="/dashboard" element={<Dashboard/>}/>
                         <Route path="/log" element={<BackendLog/>}/>
+                        <Route path="/analytics" element={<Analytics/>}/>
                         {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
