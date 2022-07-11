@@ -59,14 +59,13 @@ function EventsTable({ events, selectedRowId, onRowClick }) {
             return isActive(e) ? activeRowColor : undefined;
         }
     }, [selectedRowId]);
-    const data = events.map(e => ({ ...e, _rowBackground: rowBackground(e) }));
     return (
         <ThemeProvider theme={rowTheme}>
             <Table sx={{ m: 2 }} size="small">
                 <TableBody>
-                    {data.map((event, rowId) =>
-                        <TableRow key={rowId} sx={{ backgroundColor: event._rowBackground, cursor: "pointer" }}
-                            onClick={() => onRowClick(event.id)}>
+                    {events.map((event, rowId) =>
+                        <TableRow key={rowId} sx={{ backgroundColor: rowBackground(event), cursor: "pointer" }}
+                            onClick={() => onRowClick(event)}>
                             <TableCell type="icon">{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
                             <TableCell>{event.type === "commentary" ? event.message : ""}</TableCell>
                             <TableCell>{timeMsToDuration(event.timeMs)}</TableCell>
@@ -85,13 +84,24 @@ EventsTable.propTypes = {
     onRowClick: PropTypes.func.isRequired,
 };
 
+export function useDebounceList(delay) {
+    const [addCache, setAddCache] = useState([]);
+    const [debouncedValue, setDebouncedValue] = useState([]);
+    const add = (value) => setAddCache(cache => [ value, ...cache ]);
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedValue(value => [ ...addCache, ...value ]), delay);
+        return () => clearTimeout(handler);
+    }, [addCache]);
+    return [debouncedValue, setDebouncedValue, add];
+}
+
 function Analytics() {
-    const [events, setEvents] = useState([]);
-    const [selectedEventId, setSelectedEventId] = useState();
+    const [events, setEvents, addEvent] = useDebounceList(100);
+
+    const [selectedEvent, setSelectedEvent] = useState();
     const ws = useRef(null);
 
-    const selectedEvent = events.find(e => e.id === selectedEventId);
-    const deselectEvent = () => setSelectedEventId(undefined);
+    const updateEventById = (id, modifier) => setEvents(events => events.map(e => e.id === id ? modifier(e) : e));
 
     const advertisementService = useMemo(() => new PresetWidgetService("/advertisement", console.log), []);
     const tickerService = useMemo(() => new PresetWidgetService("/tickerMessage", console.log), []);
@@ -102,8 +112,7 @@ function Analytics() {
         ws.current = new WebSocket(apiUrl());
 
         ws.current.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            setEvents((_events) => [ data, ..._events ]);
+            addEvent(JSON.parse(event.data));
         };
 
         return () => {
@@ -114,58 +123,49 @@ function Analytics() {
     function createAndShowAdvertisement() {
         const presetSettings = { text: selectedEvent.message };
         advertisementService.createAndShowWithTtl(presetSettings, advertisementTtl * 1000)
-            .then(r => {
-                selectedEvent._advertisementId = r.response;
-                selectedEvent._advertisementHideTimer = setTimeout(() => {
-                    selectedEvent._advertisementId = undefined;
-                    setEvents(es => [ ...es ]);
+            .then(r => updateEventById(selectedEvent.id, e => {
+                e._advertisementId = r.response;
+                r._advertisementHideTimer = setTimeout(() => {
+                    updateEventById(e.id, e => { e._advertisementId = undefined; return e; });
                 }, advertisementTtl * 1000);
-                deselectEvent();
-            });
+                return e;
+            }));
     }
 
     function hideAdvertisement() {
         advertisementService.deletePreset(selectedEvent._advertisementId)
-            .then(() => {
-                selectedEvent._advertisementId = undefined;
-                if (selectedEvent._advertisementHideTimer !== undefined) {
-                    clearTimeout(selectedEvent._advertisementHideTimer);
+            .then(() => updateEventById(selectedEvent.id, e => {
+                e._advertisementId = undefined;
+                if (e._advertisementHideTimer !== undefined) {
+                    clearTimeout(e._advertisementHideTimer);
                 }
-                deselectEvent();
-            });
+                return e;
+            }));
     }
 
     function createAndShowTickerMessage() {
         const presetSettings = { text: selectedEvent.message, periodMs: 30000, type: "text", part: "long" };
         tickerService.createAndShowWithTtl(presetSettings, tickerMsgTtl * 1000)
-            .then(r => {
-                selectedEvent._tickerMsgId = r.response;
-                selectedEvent._tickerMsgHideTimer = setTimeout(() => {
-                    selectedEvent._tickerMsgId = undefined;
-                    setEvents(es => [ ...es ]);
+            .then(r => updateEventById(selectedEvent.id, e => {
+                e._tickerMsgId = r.response;
+                e._tickerMsgHideTimer = setTimeout(() => {
+                    updateEventById(e.id, e => { e._tickerMsgId = undefined; return e; });
                 }, tickerMsgTtl * 1000);
-                deselectEvent();
-            });
+                return e;
+            }));
     }
 
     function hideTickerMessage() {
         tickerService.deletePreset(selectedEvent._tickerMsgId)
-            .then(() => {
-                selectedEvent._tickerMsgId = undefined;
-                if (selectedEvent._tickerMsgHideTimer !== undefined) {
-                    clearTimeout(selectedEvent._tickerMsgHideTimer);
+            .then(() => updateEventById(selectedEvent.id, e => {
+                e._tickerMsgId = undefined;
+                if (e._tickerMsgHideTimer !== undefined) {
+                    clearTimeout(e._tickerMsgHideTimer);
                 }
-                deselectEvent();
-            });
+                return e;
+            }));
     }
 
-
-    const scrollTarget = useRef(null);
-    React.useEffect(() => {
-        if (scrollTarget.current) {
-            scrollTarget.current.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [events.length]);
 
     // const selectedEventMessage = selectedEvent?.type === "commentary" ? selectedEvent?.message : undefined;
     // const selectedEventTeam = selectedEvent?.type === "commentary" ? selectedEvent?.team : undefined;
@@ -232,8 +232,8 @@ function Analytics() {
                 {/*Team: <TeamViewSettingsPanel isSomethingSelected={selectedEventTeam !== undefined} showTeamFunction={() => {}}*/}
                 {/*    hideTeamFunction={() => {}} isPossibleToHide={false}/>*/}
             </Box>
-            <EventsTable events={events} selectedRowId={selectedEventId}
-                onRowClick={(id) => setSelectedEventId(prevId => id === prevId ? undefined : id)}/>
+            <EventsTable events={events} selectedRowId={selectedEvent?.id}
+                onRowClick={(event) => setSelectedEvent(prevEvent => event.id === prevEvent?.id ? undefined : event)}/>
         </Box>
     </Grid>
     );
