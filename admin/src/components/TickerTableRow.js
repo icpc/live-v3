@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -8,72 +8,84 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
-import { grey } from "@mui/material/colors";
 import ShowPresetButton from "./ShowPresetButton";
-import { PresetsTableRowOld } from "./PresetsTableRowOld";
+import { activeRowColor } from "../styles";
+import PropTypes from "prop-types";
+import { onChangeFieldEventHandler } from "./PresetsTableRow";
 
-export class TickerTableRow extends PresetsTableRowOld {
-    render() {
-        return (<TableRow key={this.state.value.id}
-            sx={{ backgroundColor: (this.props.rowData.shown ? this.props.tStyle.activeColor : this.props.tStyle.inactiveColor) }}>
-            <TableCell component="th" scope="row" align={"left"}>
-                <ShowPresetButton onClick={this.onClickShow} active={this.props.rowData.shown}/>
+export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
+    const [editData, setEditData] = useState();
+
+    const onClickEdit = () => {
+        if (editData === undefined) {
+            setEditData(() => data);
+        } else {
+            onEdit(editData).then(() => setEditData(undefined));
+        }
+    };
+    const onSubmitEdit = (e) => {
+        e.preventDefault();
+        onClickEdit();
+    };
+
+    return (
+        <TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
+            <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
+                <ShowPresetButton onClick={onShow} active={data.shown}/>
             </TableCell>
             <TableCell component="th" scope="row">
-                {this.state.value.settings.type === "clock" && <ClockIcon/>}
-                {this.state.value.settings.type === "scoreboard" && <ScoreboardIcon/>}
-                {this.state.value.settings.type === "text" && <TextIcon/>}
+                {data.settings.type === "clock" && <ClockIcon/>}
+                {data.settings.type === "scoreboard" && <ScoreboardIcon/>}
+                {data.settings.type === "text" && <TextIcon/>}
             </TableCell>
-            <TableCell component="th" scope="row" sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
-                {this.state.value.settings.type === "text" &&
-                (this.state.editValue === undefined ? this.state.value.settings.text : (
-                    <Box onSubmit={this.onSubmitEdit} component="form" type="submit">
-                        <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.text}
-                            id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
-                            onChange={(e) => {
-                                this.state.editValue.settings.text = e.target.value;
-                            }}
-                        />
-                    </Box>)
-                )}
-                {this.state.value.settings.type === "scoreboard" &&
-                (this.state.editValue === undefined ?
-                    "From " + this.state.value.settings.from + " to " + this.state.value.settings.to
-                    : (<Box onSubmit={this.onSubmitEdit} component="form" type="submit" sx={{ display: "flex", flexDirection: "row" }}>
-                        <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.from}
-                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
-                            onChange={(e) => {
-                                this.state.editValue.settings.from = e.target.value;
-                            }}/>
-                        <TextField autoFocus hiddenLabel fullWidth defaultValue={this.state.value.settings.to}
-                            id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
-                            onChange={(e) => {
-                                this.state.editValue.settings.to = e.target.value;
-                            }}/>
-                    </Box>)
-                )}
+            <TableCell component="th" scope="row">
+                {data.settings.type === "text" &&
+                    (editData === undefined ? data.settings.text : (
+                        <Box onSubmit={onSubmitEdit} component="form" type="submit">
+                            <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.text}
+                                id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
+                                onChange={onChangeFieldEventHandler(setEditData, "text")}/>
+                        </Box>)
+                    )}
+                {data.settings.type === "scoreboard" &&
+                    (editData === undefined ?
+                        "From " + data.settings.from + " to " + data.settings.to :
+                        (<Box onSubmit={onSubmitEdit} component="form" type="submit" sx={{ display: "flex", flexDirection: "row" }}>
+                            <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.from}
+                                id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
+                                onChange={onChangeFieldEventHandler(setEditData, "from")}/>
+                            <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.to}
+                                id="filled-hidden-label-small" type="number" size="small" sx={{ width: 0.49 }}
+                                onChange={onChangeFieldEventHandler(setEditData, "to")}/>
+                        </Box>)
+                    )}
             </TableCell>
-            <TableCell component="th" scope="row" sx={{ color: (this.state.active ? grey[900] : grey[700]) }}>
-                {this.state.editValue === undefined ? this.state.value.settings.periodMs : (
-                    <Box onSubmit={this.onSubmitEdit} component="form" type="submit">
-                        <TextField autoFocus hiddenLabel defaultValue={this.state.value.settings.periodMs}
+            <TableCell component="th" scope="row">
+                {editData === undefined ? data.settings.periodMs : (
+                    <Box onSubmit={onSubmitEdit} component="form" type="submit">
+                        <TextField autoFocus hiddenLabel defaultValue={data.settings.periodMs}
                             id="filled-hidden-label-small" type="number" size="small"
-                            onChange={(e) => {
-                                this.state.editValue.settings.periodMs = e.target.value;
-                            }}
-                        />
+                            onChange={onChangeFieldEventHandler(setEditData, "periodMs")}/>
                     </Box>)
                 }
             </TableCell>
-            <TableCell component="th" scope="row" align={"right"}>
+            <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
                 <Box>
-                    <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
-                        onClick={this.onClickEdit}>
-                        {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
+                    <IconButton color={editData === undefined ? "inherit" : "primary"} onClick={() => { onClickEdit(); }}>
+                        {editData === undefined ? <EditIcon/> : <SaveIcon/>}
                     </IconButton>
-                    <IconButton color="error" onClick={this.onClickDelete}><DeleteIcon/></IconButton>
+                    <IconButton color="error" onClick={onDelete}><DeleteIcon/></IconButton>
                 </Box>
             </TableCell>
         </TableRow>);
-    }
 }
+TickerTableRow.propTypes = {
+    data: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        shown: PropTypes.bool.isRequired,
+        settings: PropTypes.object.isRequired,
+    }),
+    onShow: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+};

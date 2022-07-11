@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 
 import "../App.css";
-import { PresetsTable } from "./PresetsTable";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
-import { onChangeSettingCellValue, PresetsTableRowOld } from "./PresetsTableRowOld";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import ShowPresetButton from "./ShowPresetButton";
 import Box from "@mui/material/Box";
@@ -15,6 +13,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { PresetsTableCell } from "./PresetsTableCell";
 import PropTypes from "prop-types";
+import { activeRowColor } from "../styles";
+import { onChangeFieldHandler } from "./PresetsTableRow";
+import { PresetsManager } from "./PresetsManager";
 
 const parseJSONOrDefault = (text, defult) => {
     try {
@@ -31,7 +32,7 @@ ParamsLine.propTypes = {
     pValue: PropTypes.any.isRequired,
 };
 
-const paramsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => (
+const ParamsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => (
     <Box onSubmit={onSubmitAction} component="form" type="submit">
         <TextField
             autoFocus
@@ -48,55 +49,71 @@ const paramsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => (
         />
     </Box>);
 
-paramsDataEditor.propTypes = {
+ParamsDataEditor.propTypes = {
     value: PropTypes.any.isRequired,
     onChangeHandler: PropTypes.func.isRequired,
     onSubmitAction: PropTypes.func.isRequired,
 };
 
-export class TitleTableRow extends PresetsTableRowOld {
-    render() {
-        let valueSettings = this.state.value.settings;
-        let editValueSettings = this.state.editValue?.settings;
-        return (<TableRow
-            key={this.state.value.id}
-            sx={{ backgroundColor: (this.props.rowData.shown ? this.props.tStyle.activeColor : this.props.tStyle.inactiveColor) }}>
-            <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
-                <ShowPresetButton onClick={this.onClickShow} active={this.props.rowData.shown}/>
-            </TableCell>
-            <PresetsTableCell value={valueSettings.preset} editValue={editValueSettings?.preset} isActive={this.props.rowData.shown}
-                onChangeValue={onChangeSettingCellValue(this, "preset")} onSubmitAction={this.onSubmitEdit}
-            />
-            <PresetsTableCell value={valueSettings.data} editValue={editValueSettings?.data}
-                isActive={this.props.rowData.shown} ValueEditor={paramsDataEditor}
-                onChangeValue={onChangeSettingCellValue(this, "data")} onSubmitAction={this.onSubmitEdit}
-                ValuePrinter={(v) => Object.entries(v).map(e => <ParamsLine key={e[0]} pKey={e[0]} pValue={e[1]}/>)}
-            />
-            {this.props.isImmutable !== true &&
-                <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
-                    <Box>
-                        <IconButton color={this.state.editValue === undefined ? "inherit" : "primary"}
-                            onClick={this.onClickEdit}>
-                            {this.state.editValue === undefined ? <EditIcon/> : <SaveIcon/>}
-                        </IconButton>
-                        <IconButton color="error" onClick={this.onClickDelete}><DeleteIcon/></IconButton>
-                    </Box>
-                </TableCell>}
-        </TableRow>);
-    }
-}
+function TitleTableRow({ data, onShow, onEdit, onDelete }) {
+    const [editData, setEditData] = useState();
 
-class TitleTable extends PresetsTable {
+    const onClickEdit = () => {
+        if (editData === undefined) {
+            setEditData(() => data);
+        } else {
+            onEdit(editData).then(() => setEditData(undefined));
+        }
+    };
+    const onSubmitEdit = (e) => {
+        e.preventDefault();
+        onClickEdit();
+    };
+
+    return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
+        <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
+            <ShowPresetButton onClick={onShow} active={data.shown}/>
+        </TableCell>
+        <PresetsTableCell value={data.settings.preset} editValue={editData?.settings?.preset} isActive={data.shown}
+            onChangeValue={onChangeFieldHandler(setEditData, "preset")} onSubmitAction={onSubmitEdit}/>
+        <PresetsTableCell value={data.settings.data} editValue={editData?.settings?.data}
+            isActive={data.shown} ValueEditor={ParamsDataEditor}
+            onChangeValue={onChangeFieldHandler(setEditData, "data")} onSubmitAction={onSubmitEdit}
+            ValuePrinter={(v) => Object.entries(v).map(e => <ParamsLine key={e[0]} pKey={e[0]} pValue={e[1]}/>)}
+        />
+        <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
+            <Box>
+                <IconButton color={editData === undefined ? "inherit" : "primary"} onClick={onClickEdit}>
+                    {editData === undefined ? <EditIcon/> : <SaveIcon/>}
+                </IconButton>
+                <IconButton color="error" onClick={onDelete}><DeleteIcon/></IconButton>
+            </Box>
+        </TableCell>
+    </TableRow>);
+}
+TitleTableRow.propTypes = {
+    data: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        shown: PropTypes.bool.isRequired,
+        settings: PropTypes.object.isRequired,
+    }),
+    tableKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onShow: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    isImmutable: PropTypes.bool,
+};
+
+class TitleManager extends PresetsManager {
     getDefaultRowData() {
         return { ...super.getDefaultRowData(), "data": {} };
     }
 }
-
-TitleTable.defaultProps = {
-    ...PresetsTable.defaultProps,
+TitleManager.defaultProps = {
+    ...PresetsManager.defaultProps,
     rowComponent: TitleTableRow,
     apiPath: "/title",
-    apiTableKeys: ["preset", "data"],
+    tableKeys: ["preset", "data"],
     tableKeysHeaders: ["Preset", "Data"]
 };
 
@@ -104,7 +121,7 @@ function Title() {
     const { enqueueSnackbar, } = useSnackbar();
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="Title">
-            <TitleTable createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <TitleManager createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </Container>
     );
 }

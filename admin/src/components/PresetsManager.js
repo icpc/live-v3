@@ -20,18 +20,17 @@ export class PresetsManager extends React.Component {
             });
         };
         this.onCreate = (rowData = this.getDefaultRowData()) => {
-            console.log(rowData ?? "dwe");
-
-            this.service.createPreset(rowData).then(() => this.loadData());
+            return this.service.createPreset(rowData).then(() => this.loadData());
         };
         this.onEdit = (data) => {
-            this.service.editPreset(data.id, data.settings).then(() => this.loadData());
+            console.log(data);
+            return this.service.editPreset(data.id, data.settings).then(() => this.loadData());
         };
         this.onDelete = (id) => {
-            this.service.deletePreset(id).then(() => this.loadData());
+            return this.service.deletePreset(id).then(() => this.loadData());
         };
-        this.onShow = (data) => {
-            (data.shown ? this.service.hidePreset : this.service.showPreset)(data.id).then(() => this.loadData());
+        this.onShow = ({ shown, id }) => {
+            return (shown ? this.service.hidePreset(id) : this.service.showPreset(id)).then(() => this.loadData());
         };
     }
 

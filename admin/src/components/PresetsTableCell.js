@@ -1,5 +1,4 @@
 import { TableCell, TextField } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import React from "react";
 import PropTypes from "prop-types";
@@ -22,7 +21,6 @@ const defaultValueEditor = ({ onSubmitAction, value, onChangeHandler }) => (
     </Box>);
 
 export const PresetsTableCell = ({
-    isActive,
     value,
     onChangeValue,
     editValue,
@@ -30,10 +28,7 @@ export const PresetsTableCell = ({
     ValuePrinter = defaultValuePrinter,
     ValueEditor = defaultValueEditor
 }) => {
-    return (<TableCell
-        component="th"
-        scope="row"
-        sx={{ color: (isActive ? grey[900] : grey[700]) }}>
+    return (<TableCell component="th" scope="row">
         {editValue === undefined ? ValuePrinter(value) : <ValueEditor onSubmitAction={onSubmitAction} value={value} onChangeHandler={onChangeValue}/>}
     </TableCell>);
 };
