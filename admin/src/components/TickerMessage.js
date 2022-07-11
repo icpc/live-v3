@@ -2,7 +2,6 @@ import React from "react";
 import Container from "@mui/material/Container";
 
 import "../App.css";
-import { PresetsTable } from "./PresetsTable";
 import PropTypes from "prop-types";
 import { IconButton, ButtonGroup, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
@@ -12,6 +11,7 @@ import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
 import { TickerTableRow } from "./TickerTableRow";
+import { PresetsManager } from "./PresetsManager";
 
 const addPresetButtons = [
     {
@@ -30,7 +30,7 @@ const addPresetButtons = [
     },
 ];
 
-class TickerTable extends PresetsTable {
+class TickerManager extends PresetsManager {
     rowsFilter(row) {
         return super.rowsFilter(row) && row.settings.part === this.props.partType;
     }
@@ -39,23 +39,22 @@ class TickerTable extends PresetsTable {
         return (<ButtonGroup>
             {addPresetButtons.filter(p => p.part === undefined || p.part === this.props.partType).map(p =>
                 <IconButton color="primary" size="large" key={p.type}
-                    onClick={() => {this.doAddPreset({ ...p.settings, type: p.type, part: this.props.partType });}}>
+                    onClick={() => {this.onCreate({ ...p.settings, type: p.type, part: this.props.partType });}}>
                     <AddIcon/><p.component/>
                 </IconButton>)}
         </ButtonGroup>);
     }
 }
-
-TickerTable.defaultProps = {
-    ...PresetsTable.defaultProps,
+TickerManager.propTypes = {
+    ...TickerManager.propTypes,
+    partType: PropTypes.string.isRequired,
+};
+TickerManager.defaultProps = {
+    ...PresetsManager.defaultProps,
     apiPath: "/tickerMessage",
-    apiTableKeys: ["type", "text", "periodMs"],
+    tableKeys: ["type", "text", "periodMs"],
     tableKeysHeaders: ["Type", "Text", "Period (ms)"],
     rowComponent: TickerTableRow,
-};
-
-TickerTable.propTypes = {
-    partType: PropTypes.string.isRequired,
 };
 
 function TickerMessage() {
@@ -63,9 +62,9 @@ function TickerMessage() {
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
             <Typography variant="h5" gutterBottom>Short</Typography>
-            <TickerTable partType={"short"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <TickerManager partType={"short"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
             <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>Long</Typography>
-            <TickerTable partType={"long"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <TickerManager partType={"long"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </Container>
     );
 }

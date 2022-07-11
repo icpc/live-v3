@@ -20,6 +20,11 @@ export const onChangeFieldHandler = (stateChanger, rowKey) => ((v) => stateChang
     return editData;
 }));
 
+export const onChangeFieldEventHandler = (stateChanger, rowKey) => ((e) => stateChanger((editData) => {
+    editData.settings[rowKey] = e.target.value;
+    return editData;
+}));
+
 const getSettings = (row) => {
     return row.settings;
 };
