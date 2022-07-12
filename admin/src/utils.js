@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { useEffect, useState } from "react";
 
 export const createApiPost = (apiUrl) =>
     function (path, body = {}, method = "POST") {
@@ -28,3 +29,19 @@ export const createApiGet = (apiUrl) =>
 
 export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
 export const unixTimeMsToLocalTime = (timeMs) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");
+
+export const useDebounceList = (delay) => {
+    const [addCache, setAddCache] = useState([]);
+    const [debouncedValue, setDebouncedValue] = useState([]);
+    const add = (value) => setAddCache(cache => [ value, ...cache ]);
+    const pushCache = () => {
+        const currentCache = addCache;
+        setAddCache([]);
+        setDebouncedValue(value => [ ...currentCache, ...value ]);
+    };
+    useEffect(() => {
+        const handler = setTimeout(pushCache, delay);
+        return () => clearTimeout(handler);
+    }, [addCache]);
+    return [debouncedValue, setDebouncedValue, add];
+};

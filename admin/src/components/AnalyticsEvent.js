@@ -19,7 +19,7 @@ import {
 import PropTypes from "prop-types";
 import { PresetWidgetService } from "../services/presetWidget";
 import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../styles";
-import { timeMsToDuration, unixTimeMsToLocalTime } from "../utils";
+import { timeMsToDuration, unixTimeMsToLocalTime, useDebounceList } from "../utils";
 
 const apiUrl = () => {
     return BASE_URL_WS + "/analyticsEvents";
@@ -88,17 +88,6 @@ EventsTable.propTypes = {
     selectedRowId: PropTypes.any,
     onRowClick: PropTypes.func.isRequired,
 };
-
-export function useDebounceList(delay) {
-    const [addCache, setAddCache] = useState([]);
-    const [debouncedValue, setDebouncedValue] = useState([]);
-    const add = (value) => setAddCache(cache => [ value, ...cache ]);
-    useEffect(() => {
-        const handler = setTimeout(() => setDebouncedValue(value => [ ...addCache, ...value ]), delay);
-        return () => clearTimeout(handler);
-    }, [addCache]);
-    return [debouncedValue, setDebouncedValue, add];
-}
 
 function Analytics() {
     const [events, setEvents, addEvent] = useDebounceList(100);
