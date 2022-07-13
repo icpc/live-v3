@@ -25,9 +25,9 @@ fun CoroutineScope.launchICPCServices(
     launch { AdvancedPropertiesService().run(advancedPropertiesFlow) }
     launch { ContestDataOverridesService().run(rawInfoFlow, advancedPropertiesFlow, infoFlow) }
     launch { QueueService().run(runsFlow, infoFlow) }
-    launch { ICPCNormalScoreboardService().run(runsFlow, infoFlow, advancedPropertiesFlow) }
-    launch { ICPCOptimisticScoreboardService().run(runsFlow, infoFlow, advancedPropertiesFlow) }
-    launch { ICPCPessimisticScoreboardService().run(runsFlow, infoFlow, advancedPropertiesFlow) }
+    launch { ICPCNormalScoreboardService().run(runsFlow, infoFlow) }
+    launch { ICPCOptimisticScoreboardService().run(runsFlow, infoFlow) }
+    launch { ICPCPessimisticScoreboardService().run(runsFlow, infoFlow) }
     launch { FirstToSolveService().run(rawRuns, runsFlow) }
     launch { StatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL), infoFlow) }
     launch { AnalyticsEventsService().run(rawAnalyticsEventFlow) }

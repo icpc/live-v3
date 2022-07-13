@@ -65,9 +65,12 @@
       "color": "#faeedd"
     }
   },
-  "medals": [
-    {"name": "gold", "count": 4},
-    {"name": "silver", "count": 4},
-    {"name": "bronze", "count": 4}
-  ]
+  "scoreboardOverrides": {
+    "medals": [
+      {"name": "gold", "count": 4},
+      {"name": "silver", "count": 4},
+      {"name": "bronze", "count": 4}
+    ],
+    "penaltyPerWrongAttempt": 20
+  }
 }

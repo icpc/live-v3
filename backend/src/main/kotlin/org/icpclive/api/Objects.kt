@@ -63,6 +63,9 @@ enum class ContestStatus {
 }
 
 @Serializable
+data class MedalType(val name: String, val count: Int)
+
+@Serializable
 data class ContestInfo(
     val status: ContestStatus,
     @SerialName("startTimeUnixMs")
@@ -77,6 +80,8 @@ data class ContestInfo(
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
     val emulationSpeed: Double = 1.0,
+    val medals: List<MedalType> = emptyList(),
+    val penaltyPerWrongAttempt: Int = 20
 ) {
     val currentContestTime
         get() = when (status) {
