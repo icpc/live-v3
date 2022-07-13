@@ -2,8 +2,10 @@ package org.icpclive.service
 
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import org.icpclive.utils.ClientAuth
 import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
@@ -21,16 +23,16 @@ abstract class RegularLoaderService<T>(auth: ClientAuth?) {
         return processLoaded(content)
     }
 
-    suspend fun run(flow: MutableStateFlow<in T>, period: Duration) {
+    suspend fun run(period: Duration) = flow {
         while (true) {
             try {
-                flow.value = loadOnce()
+                emit(loadOnce())
             } catch (e: IOException) {
                 logger.error("Failed to load $url", e)
             }
             delay(period)
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     companion object {
         val logger = getLogger(RegularLoaderService::class)
