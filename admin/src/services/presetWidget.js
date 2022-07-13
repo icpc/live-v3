@@ -1,12 +1,18 @@
 import { createApiGet, createApiPost } from "../utils";
-import { BASE_URL_BACKEND } from "../config";
+import { ADMIN_ACTIONS_WS_URL, BASE_URL_BACKEND } from "../config";
 
 export class PresetWidgetService {
     constructor(apiPath, errorHandler) {
         this.apiUrl = BASE_URL_BACKEND + apiPath;
         this.apiGet = createApiGet(this.apiUrl);
         this.apiPost = createApiPost(this.apiUrl);
-        this.errorHandler = errorHandler ?? (() => {});
+        this.ws = new WebSocket(ADMIN_ACTIONS_WS_URL);
+        this.ws.onmessage = ({ data }) => data.startsWith("/api/admin" + apiPath) ? this.reloadDataHandler?.() : undefined;
+        this.errorHandler = errorHandler ?? ((cause) => (e) => console.log(cause + ": " + e));
+    }
+
+    setReloadDataHandler(handler) {
+        this.reloadDataHandler = handler;
     }
 
     loadPresets() {

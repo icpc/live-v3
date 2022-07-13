@@ -1,5 +1,5 @@
 import { createApiGet, createApiPost } from "../utils";
-import { BASE_URL_BACKEND } from "../config";
+import { ADMIN_ACTIONS_WS_URL, BASE_URL_BACKEND } from "../config";
 
 const controlElements = [
     { text: "Scoreboard", id: "scoreboard" },
@@ -8,11 +8,18 @@ const controlElements = [
     { text: "Ticker", id: "ticker" }];
 
 export class ControlsService {
-    constructor(apiPath, errorHandler) {
-        this.apiUrl = BASE_URL_BACKEND + apiPath;
+    constructor(errorHandler) {
+        this.apiUrl = BASE_URL_BACKEND;
         this.apiGet = createApiGet(this.apiUrl);
         this.apiPost = createApiPost(this.apiUrl);
         this.errorHandler = errorHandler ?? (() => {});
+        this.ws = new WebSocket(ADMIN_ACTIONS_WS_URL);
+        this.ws.onmessage = ({ data }) =>
+            controlElements.some(({ id }) => data.startsWith("/api/admin/" + id)) ? this.reloadDataHandler?.() : undefined;
+    }
+
+    setReloadDataHandler(handler) {
+        this.reloadDataHandler = handler;
     }
 
     loadOne(element) {
@@ -23,13 +30,6 @@ export class ControlsService {
         return Promise.all(
             controlElements.map(({ id, text }) =>
                 this.loadOne(id).then(r => ({ id: id, settings: { text: text }, shown: r.shown }))));
-        // .then(elements => this.setState(state => ({
-        //     ...state,
-        //     dataElements: elements,
-        // })));
-        //                fetch(BASE_URL_BACKEND + "/" + element.id)
-        //                     .then(r => r.json())
-        //                     .then(r => ({ id: element.id, settings: { text: element.text }, shown: r.shown }))
     }
 
     showPreset(presetId) {
