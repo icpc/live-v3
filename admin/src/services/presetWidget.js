@@ -2,8 +2,8 @@ import { AbstractWidgetService } from "./abstractWidget";
 import { useMemo } from "react";
 
 export class PresetWidgetService extends AbstractWidgetService {
-    constructor(apiPath, errorHandler) {
-        super(apiPath, errorHandler);
+    constructor(apiPath, errorHandler, listenWS = true) {
+        super(apiPath, errorHandler, listenWS);
     }
 
     isMessageRequireReload(data) {
@@ -31,6 +31,6 @@ export class PresetWidgetService extends AbstractWidgetService {
     }
 }
 
-export const usePresetWidgetService = (apiPath, errorHandler) => useMemo(
-    () => new PresetWidgetService(apiPath, errorHandler),
+export const usePresetWidgetService = (apiPath, errorHandler, listenWS) => useMemo(
+    () => new PresetWidgetService(apiPath, errorHandler, listenWS),
     []);

@@ -92,6 +92,14 @@ fun Route.configureAdminApiRouting() {
                     SvgTransformer(mediaDirectory, titleSettings.preset, titleSettings.data).toBase64()
                 )
             }
+            get("/templates") {
+                run {
+                    val mediaDirectoryFile = mediaDirectory.toFile()
+                    call.respond(mediaDirectoryFile.walkTopDown()
+                        .filter { it.isFile && it.name.endsWith(".svg") }
+                        .map { it.relativeTo(mediaDirectoryFile).path }.toList())
+                }
+            }
         }
         route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/tickerMessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }

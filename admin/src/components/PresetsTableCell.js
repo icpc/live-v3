@@ -3,6 +3,12 @@ import Box from "@mui/material/Box";
 import React from "react";
 import PropTypes from "prop-types";
 
+export const ValueEditorPropTypes = {
+    value: PropTypes.any.isRequired,
+    onChangeHandler: PropTypes.func.isRequired,
+    onSubmitAction: PropTypes.func.isRequired,
+};
+
 const defaultValuePrinter = (v) => v;
 const defaultValueEditor = ({ onSubmitAction, value, onChangeHandler }) => (
     <Box onSubmit={onSubmitAction} component="form" type="submit">
