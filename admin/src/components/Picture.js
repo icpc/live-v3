@@ -1,26 +1,19 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Container from "@mui/material/Container";
-
-import "../App.css";
 import { PictureTableRow } from "./PictureTableRow";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
 import { PresetsManager } from "./PresetsManager";
+import { PresetWidgetService } from "../services/presetWidget";
 
-
-export class PictureManager extends PresetsManager {}
-PictureManager.defaultProps = {
-    ...PresetsManager.defaultProps,
-    apiPath: "/picture",
-    tableKeys: ["name", "url"],
-    rowComponent: PictureTableRow,
-};
 
 function Picture() {
-    const { enqueueSnackbar,  } = useSnackbar();
+    const { enqueueSnackbar, } = useSnackbar();
+    const service = useMemo(() =>
+        new PresetWidgetService("/picture", errorHandlerWithSnackbar(enqueueSnackbar)), []);
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="Pictures">
-            <PictureManager createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <PresetsManager service={service} tableKeys={["name", "url"]} RowComponent={PictureTableRow}/>
         </Container>
     );
 }

@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Container from "@mui/material/Container";
-
-import "../App.css";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
 import { TableCell, TableRow, TextField } from "@mui/material";
@@ -16,6 +14,7 @@ import PropTypes from "prop-types";
 import { activeRowColor } from "../styles";
 import { onChangeFieldHandler } from "./PresetsTableRow";
 import { PresetsManager } from "./PresetsManager";
+import { PresetWidgetService } from "../services/presetWidget";
 
 const parseJSONOrDefault = (text, defult) => {
     try {
@@ -104,24 +103,18 @@ TitleTableRow.propTypes = {
     isImmutable: PropTypes.bool,
 };
 
-class TitleManager extends PresetsManager {
-    getDefaultRowData() {
-        return { ...super.getDefaultRowData(), "data": {} };
-    }
-}
-TitleManager.defaultProps = {
-    ...PresetsManager.defaultProps,
-    rowComponent: TitleTableRow,
-    apiPath: "/title",
-    tableKeys: ["preset", "data"],
-    tableKeysHeaders: ["Preset", "Data"]
-};
-
 function Title() {
     const { enqueueSnackbar, } = useSnackbar();
+    const service = useMemo(() =>
+        new PresetWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar)), []);
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="Title">
-            <TitleManager createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <PresetsManager
+                service={service}
+                tableKeys={["preset", "data"]}
+                tableKeysHeaders={["Preset", "Data"]}
+                RowComponent={TitleTableRow}
+            />
         </Container>
     );
 }

@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Container from "@mui/material/Container";
-
-import "../App.css";
 import PropTypes from "prop-types";
 import { IconButton, ButtonGroup, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
@@ -11,6 +9,7 @@ import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
 import { TickerTableRow } from "./TickerTableRow";
+import { PresetWidgetService } from "../services/presetWidget";
 import { PresetsManager } from "./PresetsManager";
 
 const addPresetButtons = [
@@ -30,41 +29,40 @@ const addPresetButtons = [
     },
 ];
 
-class TickerManager extends PresetsManager {
-    rowsFilter(row) {
-        return super.rowsFilter(row) && row.settings.part === this.props.partType;
-    }
-
-    renderAddButton() {
+const makeAddButtons = (part) => {
+    function AddButtons({ onCreate }) {
         return (<ButtonGroup>
-            {addPresetButtons.filter(p => p.part === undefined || p.part === this.props.partType).map(p =>
+            {addPresetButtons.filter(p => p.part === undefined || p.part === part).map(p =>
                 <IconButton color="primary" size="large" key={p.type}
-                    onClick={() => {this.onCreate({ ...p.settings, type: p.type, part: this.props.partType });}}>
+                    onClick={() => {onCreate({ ...p.settings, type: p.type, part: part });}}>
                     <AddIcon/><p.component/>
                 </IconButton>)}
         </ButtonGroup>);
     }
-}
-TickerManager.propTypes = {
-    ...TickerManager.propTypes,
-    partType: PropTypes.string.isRequired,
-};
-TickerManager.defaultProps = {
-    ...PresetsManager.defaultProps,
-    apiPath: "/tickerMessage",
-    tableKeys: ["type", "text", "periodMs"],
-    tableKeysHeaders: ["Type", "Text", "Period (ms)"],
-    rowComponent: TickerTableRow,
+    AddButtons.propTypes = { onCreate: PropTypes.func.isRequired };
+    return AddButtons;
 };
 
 function TickerMessage() {
     const { enqueueSnackbar, } = useSnackbar();
+    const service = useMemo(() =>
+        new PresetWidgetService("/tickerMessage", errorHandlerWithSnackbar(enqueueSnackbar)), []);
+
+    const renderPart = (part) => (<PresetsManager
+        service={service}
+        tableKeys={["type", "text", "periodMs"]}
+        tableKeysHeaders={["Type", "Text", "Period (ms)"]}
+        RowComponent={TickerTableRow}
+        rowsFilter={row => row.settings.part === part}
+        AddButtons={makeAddButtons(part)}
+    />);
+
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
             <Typography variant="h5" gutterBottom>Short</Typography>
-            <TickerManager partType={"short"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            {renderPart("short")}
             <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>Long</Typography>
-            <TickerManager partType={"long"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            {renderPart("long")}
         </Container>
     );
 }

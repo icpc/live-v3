@@ -1,23 +1,17 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Container from "@mui/material/Container";
-
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
 import { PresetsManager } from "./PresetsManager";
-
-class AdvertisementManager extends PresetsManager {
-}
-AdvertisementManager.defaultProps = {
-    ...PresetsManager.defaultProps,
-    apiPath: "/advertisement",
-    tableKeys: ["text"],
-};
+import { PresetWidgetService } from "../services/presetWidget";
 
 function Advertisement() {
     const { enqueueSnackbar,  } = useSnackbar();
+    const service = useMemo(() =>
+        new PresetWidgetService("/advertisement", errorHandlerWithSnackbar(enqueueSnackbar)), []);
     return (
         <Container maxWidth="md" sx={{ pt: 2 }}>
-            <AdvertisementManager createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <PresetsManager service={service} tableKeys={["text"]}/>
         </Container>
     );
 }
