@@ -1,14 +1,13 @@
 package org.icpclive.admin
 
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.util.*
 
 class SvgTransformer(paths: Path, name: String, substitute: Map<String, String>) {
     private val content: String
 
     init {
-        var text: String = Paths.get(paths.toString(), name).toFile().readText()
+        var text: String = paths.resolve(name).toFile().readText()
         substitute.forEach { text = text.replace("{${it.key}}", it.value) }
         content = text
     }

@@ -8,8 +8,8 @@ const controlElements = [
     { text: "Ticker", id: "ticker" }];
 
 export class ControlsWidgetService extends AbstractWidgetService {
-    constructor(errorHandler) {
-        super("", errorHandler);
+    constructor(errorHandler, listenWS = true) {
+        super("", errorHandler, listenWS);
     }
 
     isMessageRequireReload(data) {
@@ -27,6 +27,6 @@ export class ControlsWidgetService extends AbstractWidgetService {
     }
 }
 
-export const useControlsWidgetService = (errorHandler) => useMemo(
-    () => new ControlsWidgetService(errorHandler),
+export const useControlsWidgetService = (errorHandler, listenWS) => useMemo(
+    () => new ControlsWidgetService(errorHandler, listenWS),
     []);
