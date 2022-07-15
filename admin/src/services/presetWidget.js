@@ -1,21 +1,16 @@
-import { createApiGet, createApiPost } from "../utils";
-import { ADMIN_ACTIONS_WS_URL, BASE_URL_BACKEND } from "../config";
+import { AbstractWidgetService } from "./abstractWidget";
 
-export class PresetWidgetService {
+export class PresetWidgetService extends AbstractWidgetService {
     constructor(apiPath, errorHandler) {
-        this.apiUrl = BASE_URL_BACKEND + apiPath;
-        this.apiGet = createApiGet(this.apiUrl);
-        this.apiPost = createApiPost(this.apiUrl);
-        this.ws = new WebSocket(ADMIN_ACTIONS_WS_URL);
-        this.ws.onmessage = ({ data }) => data.startsWith("/api/admin" + apiPath) ? this.reloadDataHandler?.() : undefined;
-        this.errorHandler = errorHandler ?? ((cause) => (e) => console.log(cause + ": " + e));
+        super(apiPath, errorHandler);
     }
 
-    setReloadDataHandler(handler) {
-        this.reloadDataHandler = handler;
+    isMessageRequireReload(data) {
+        return data.startsWith("/api/admin" + this.apiPath);
     }
 
     loadPresets() {
+        console.log("hello", this.apiPath, this.apiUrl);
         return this.apiGet("").catch((e) => this.errorHandler("Failed to load list of presets")(e));
     }
 
