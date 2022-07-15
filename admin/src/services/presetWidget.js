@@ -10,28 +10,19 @@ export class PresetWidgetService extends AbstractWidgetService {
     }
 
     loadPresets() {
-        console.log("hello", this.apiPath, this.apiUrl);
-        return this.apiGet("").catch((e) => this.errorHandler("Failed to load list of presets")(e));
+        return this.apiGet("").catch(this.errorHandler("Failed to load list of presets"));
     }
 
     createPreset(presetSettings) {
-        return this.apiPost("", presetSettings).catch((e) => this.errorHandler("Failed to add preset")(e));
+        return this.apiPost("", presetSettings).catch(this.errorHandler("Failed to add preset"));
     }
 
     editPreset(presetId, presetSettings) {
-        return this.apiPost("/" + presetId, presetSettings).catch((e) => this.errorHandler("Failed to edit preset")(e));
+        return this.apiPost("/" + presetId, presetSettings).catch(this.errorHandler("Failed to edit preset"));
     }
 
     deletePreset(presetId) {
-        return this.apiPost("/" + presetId, {}, "DELETE").catch((e) => this.errorHandler("Failed to delete preset")(e));
-    }
-
-    showPreset(presetId) {
-        return this.apiPost("/" + presetId + "/show").catch((e) => this.errorHandler("Failed to show preset")(e));
-    }
-
-    hidePreset(presetId) {
-        return this.apiPost("/" + presetId + "/hide").catch((e) => this.errorHandler("Failed to hide preset")(e));
+        return this.apiPost("/" + presetId, {}, "DELETE").catch(this.errorHandler("Failed to delete preset"));
     }
 
     createAndShowWithTtl(presetSettings, ttlMs) {
