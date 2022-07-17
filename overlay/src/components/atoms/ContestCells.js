@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useLayoutEffect } from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import {
-    GLOBAL_DEFAULT_FONT,
     CELL_NAME_LEFT_PADDING,
     CELL_NAME_RIGHT_PADDING,
-    CELL_PROBLEM_LINE_WIDTH, GLOBAL_DEFAULT_FONT_FAMILY,
+    CELL_PROBLEM_LINE_WIDTH,
+    GLOBAL_DEFAULT_FONT,
     MEDAL_COLORS,
     VERDICT_NOK,
     VERDICT_OK,
@@ -44,7 +44,10 @@ const VerdictCellWrap = styled(Cell)`
   position: relative;
 `;
 
-export const VerdictCell = ({ verdict: { isAccepted, isJudged, result, percentage, isFirstToSolve, isFirstSolvedRun }, ...props }) => {
+export const VerdictCell = ({
+    verdict: { isAccepted, isJudged, result, percentage, isFirstToSolve, isFirstSolvedRun },
+    ...props
+}) => {
     return <VerdictCellWrap
         background=
             {isJudged ?
@@ -102,11 +105,11 @@ const TextShrinkingWrap = styled(Cell)`
   justify-content: start;
   padding-left: ${CELL_NAME_LEFT_PADDING};
   padding-right: ${CELL_NAME_RIGHT_PADDING};
-  
+
   font: ${props => props.font};
 `;
 
-export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align="left", ...props }) => {
+export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "left", ...props }) => {
     const teamNameWidth = getTextWidth(text, font);
     const updateScale = useCallback((cellRef) => {
         if (cellRef !== null) {

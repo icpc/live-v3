@@ -1,35 +1,35 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { SCOREBOARD_TYPES } from "../../../consts";
-import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
-import { Cell } from "../../atoms/Cell";
-import { StarIcon } from "../../atoms/Star";
+import styled, { keyframes } from "styled-components";
 import {
+    PVP_APPEAR_TIME,
     PVP_OPACITY,
     STATISTICS_BG_COLOR,
-    PVP_APPEAR_TIME,
     VERDICT_NOK,
     VERDICT_OK,
     VERDICT_UNKNOWN
 } from "../../../config";
+import { SCOREBOARD_TYPES } from "../../../consts";
 import { pushLog } from "../../../redux/debug";
+import { Cell } from "../../atoms/Cell";
+import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { StarIcon } from "../../atoms/Star";
 
 const slideIn = keyframes`
   from {
     opacity: 0.1;
   }
   to {
-     opacity: 1;
+    opacity: 1;
   }
 `;
 
 const slideOut = keyframes`
   from {
-     opacity: 1;
+    opacity: 1;
   }
   to {
-      opacity: 0.1;
+    opacity: 0.1;
   }
 `;
 
@@ -50,7 +50,7 @@ const ScoreboardStatCell = styled(ScoreboardCell)`
 `;
 
 const PVPPerson = styled.div.attrs(({ scale }) => ({ style: { gridTemplateColumns: scale } }))`
-  
+
   width: 100%;
   height: 100%;
   display: ${props => props.show ? "grid" : "none"};
@@ -69,12 +69,12 @@ const TeamInfoWrapper = styled.div`
 `;
 
 const ScoreboardTaskCellWrap = styled(ScoreboardCell)`
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 100%;
-    height: 100%;
-    padding: 5px;
-    min-width: 40px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 100%;
+  height: 100%;
+  padding: 5px;
+  min-width: 40px;
 `;
 
 const TeamTaskStatus = Object.freeze({
@@ -117,42 +117,42 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
 }
 
 const ScoreboardRowAllWrapper = styled.div`
-    display: grid;
-    justify-content: start;
-    grid-template-rows: 41.5px 41.5px;
-    position: relative;
+  display: grid;
+  justify-content: start;
+  grid-template-rows: 41.5px 41.5px;
+  position: relative;
 `;
 
 const TaskRowWrapperFirst = styled.div`
-    grid-row: 2 / 3;
-    display: grid;
-    justify-content: start;
-    grid-template-rows: 1fr;
+  grid-row: 2 / 3;
+  display: grid;
+  justify-content: start;
+  grid-template-rows: 1fr;
 
-    grid-auto-flow: column;
-    position: relative;
+  grid-auto-flow: column;
+  position: relative;
 `;
 
 const ScoreboardTeamInfoRowFirst = styled.div`
-    grid-row: 1 / 2;
+  grid-row: 1 / 2;
 `;
 
 const TaskRowWrapperSecond = styled.div`
-    grid-row: 1 / 2;
-    display: grid;
-    justify-content: start;
-    grid-template-rows: 1fr;
+  grid-row: 1 / 2;
+  display: grid;
+  justify-content: start;
+  grid-template-rows: 1fr;
 
-    grid-auto-flow: column;
-    position: relative;
+  grid-auto-flow: column;
+  position: relative;
 `;
 
 const ScoreboardTeamInfoRowSecond = styled.div`
-    grid-row: 2 / 3;
+  grid-row: 2 / 3;
 `;
 const TaskRow = styled.div`
-    display: flex;
-    flex-direction: column;    
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScoreboardRowAllTaskFirst = ({ teamId }) => {
@@ -167,9 +167,16 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
             <TeamInfo teamId={teamId}/>
         </ScoreboardTeamInfoRowFirst>
         <TaskRowWrapperFirst>
-            {scoreboardData?.problemResults.flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs, index }, i) =>
+            {scoreboardData?.problemResults.flatMap(({
+                wrongAttempts,
+                pendingAttempts,
+                isSolved,
+                isFirstToSolve,
+                index
+            }, i) =>
                 <TaskRow key={i}>
-                    <StatisticsProblemCellWithColor probData={tasks[index]} status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}/>
+                    <StatisticsProblemCellWithColor probData={tasks[index]}
+                        status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}/>
                 </TaskRow>
             )}
         </TaskRowWrapperFirst>
@@ -185,9 +192,17 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     return <ScoreboardRowAllWrapper>
         <TaskRowWrapperSecond>
-            {scoreboardData?.problemResults.flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs, index }, i) =>
+            {scoreboardData?.problemResults.flatMap(({
+                wrongAttempts,
+                pendingAttempts,
+                isSolved,
+                isFirstToSolve,
+                index
+            }, i) =>
                 <TaskRow key={i}>
-                    <StatisticsProblemCellWithColor probData={tasks[index]} status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)} attempts={wrongAttempts + pendingAttempts}/>
+                    <StatisticsProblemCellWithColor probData={tasks[index]}
+                        status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
+                        attempts={wrongAttempts + pendingAttempts}/>
                 </TaskRow>
             )}
         </TaskRowWrapperSecond>
@@ -215,7 +230,7 @@ const TeamInfo = ({ teamId }) => {
     </TeamInfoWrapper>;
 };
 
-const TeamVideoWrapper =styled.video.attrs(({ position }) => ({ style: { objectPosition: position } }))`
+const TeamVideoWrapper = styled.video.attrs(({ position }) => ({ style: { objectPosition: position } }))`
   object-fit: contain;
   width: 100%;
   height: 100%;
@@ -237,9 +252,9 @@ const TeamVideo = ({ teamId, type, setIsLoaded, position, bottom, top }) => {
     const dispatch = useDispatch();
     console.log(bottom);
     const medias = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    if(!medias)
+    if (!medias)
         return null;
-    return<TeamVideoAnimationWrapper>
+    return <TeamVideoAnimationWrapper>
         <TeamVideoContainer bottom={bottom} top={top}>
             <TeamVideoWrapper
                 position={position}
@@ -252,7 +267,7 @@ const TeamVideo = ({ teamId, type, setIsLoaded, position, bottom, top }) => {
     </TeamVideoAnimationWrapper>;
 };
 
-const ScoreboardWrapper = styled.div.attrs( ({ align }) => ({ style: { justifyContent: align } }) )`
+const ScoreboardWrapper = styled.div.attrs(({ align }) => ({ style: { justifyContent: align } }))`
   width: 100%;
   height: 100%;
   display: flex;
@@ -273,14 +288,13 @@ const PVPInfo = styled.div`
   grid-template-rows: 50% 50%;
   grid-auto-flow: column;
   justify-items: start;
-` ;
+`;
 
 const PVPWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
-` ;
-
+`;
 
 
 export const PVP = ({ widgetData: { settings }, transitionState }) => {
@@ -299,9 +313,11 @@ export const PVP = ({ widgetData: { settings }, transitionState }) => {
             scale={scale.join("% ") + "%"}
             animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
             animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}>
-            <TeamVideo teamId={teamIds[0]} type={media[0]} setIsLoaded={setIsLoaded} bottom={"80px"} top={"auto"} position={"100% bottom"}/>
+            <TeamVideo teamId={teamIds[0]} type={media[0]} setIsLoaded={setIsLoaded} bottom={"80px"} top={"auto"}
+                position={"100% bottom"}/>
             <TeamVideo teamId={teamIds[0]} type={media[1]} setIsLoaded={setIsLoaded} position={"right bottom"}/>
-            <TeamVideo teamId={teamIds[1]} type={media[0]} setIsLoaded={setIsLoaded} top={"80px"} position={"100% top"}/>
+            <TeamVideo teamId={teamIds[1]} type={media[0]} setIsLoaded={setIsLoaded} top={"80px"}
+                position={"100% top"}/>
             <TeamVideo teamId={teamIds[1]} type={media[1]} setIsLoaded={setIsLoaded} position={"right top"}/>
         </PVPPerson>
         <PVPInfo>
