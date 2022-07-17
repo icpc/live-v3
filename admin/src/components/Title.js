@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { activeRowColor } from "../styles";
 import { onChangeFieldHandler } from "./PresetsTableRow";
 import { PresetsManager } from "./PresetsManager";
-import { PresetWidgetService } from "../services/presetWidget";
+import { usePresetWidgetService } from "../services/presetWidget";
 
 const parseJSONOrDefault = (text, defult) => {
     try {
@@ -105,8 +105,7 @@ TitleTableRow.propTypes = {
 
 function Title() {
     const { enqueueSnackbar, } = useSnackbar();
-    const service = useMemo(() =>
-        new PresetWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar)), []);
+    const service = usePresetWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="Title">
             <PresetsManager

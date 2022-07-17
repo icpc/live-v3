@@ -7,7 +7,7 @@ import { PresetsTableRow } from "./PresetsTableRow";
 import { AbstractWidgetService } from "../services/abstractWidget";
 
 export function DefaultAddPresetButton({ onCreate }) {
-    return (<IconButton color="primary" size="large" onClick={onCreate}><AddIcon/></IconButton>);
+    return (<IconButton color="primary" size="large" onClick={() => onCreate()}><AddIcon/></IconButton>);
 }
 DefaultAddPresetButton.propTypes = { onCreate: PropTypes.func.isRequired };
 
@@ -48,7 +48,7 @@ export function PresetsManager({ service, RowComponent, defaultRowData, tableKey
                         />)}
             </TableBody>
         </Table>
-        {isImmutable !== true && <AddButtons onCreate={() => onCreate()}/>}
+        {isImmutable !== true && <AddButtons onCreate={onCreate}/>}
     </div>);
 }
 

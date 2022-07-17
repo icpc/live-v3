@@ -1,4 +1,5 @@
 import { AbstractWidgetService } from "./abstractWidget";
+import { useMemo } from "react";
 
 const controlElements = [
     { text: "Scoreboard", id: "scoreboard" },
@@ -25,3 +26,7 @@ export class ControlsWidgetService extends AbstractWidgetService {
                 this.loadOne(id).then(r => ({ id: id, settings: { text: text }, shown: r.shown }))));
     }
 }
+
+export const useControlsWidgetService = (errorHandler) => useMemo(
+    () => new ControlsWidgetService(errorHandler),
+    []);
