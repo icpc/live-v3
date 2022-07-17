@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<parties
+id = "neerc.2021.main"
+xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+    <party id ="642163" delay = "0" shortname = "Novosibirsk SU: Winnie the Pooh" region = "1" name = "Novosibirsk SU: Winnie the Pooh (Mokrousov, Plyusnin, Lylova)" screen = "http://10.25.3.117:8062/screen.ogg" camera = "http://10.200.49.2:862/camera.ogg"/>
+    <party id ="661436" delay = "0" shortname = "Tomsk PU: 1" region = "1" name = "Tomsk PU: 1 (Bakulin, Kuzlyaev, Savchenko)" screen = "http://10.25.3.117:8084/screen.ogg" camera = "http://10.200.9.2:884/camera.ogg"/>
+    <party id ="661437" delay = "0" shortname = "SibSUTI: 1 Neutral" region = "1" name = "SibSUTI: 1 Neutral (Boyarkin, Kashkarev, Yun)" screen = "http://10.25.3.117:8089/screen.ogg" camera = "http://10.200.48.2:889/camera.ogg"/>
+    <party id ="661438" delay = "0" shortname = "OmSU: 3" region = "1" name = "OmSU: 3 (Alexandrov, Mingazov, Lazarev)" screen = "http://10.25.3.117:8053/screen.ogg" camera = "http://10.200.12.2:853/camera.ogg"/>
+    <party id ="661439" delay = "0" shortname = "Novosibirsk SU: Ia-Ia" region = "1" name = "Novosibirsk SU: Ia-Ia (Maksakovsky, Vlasov, Lozhnikov)" screen = "http://10.25.3.117:8106/screen.ogg" camera = "http://10.200.98.2:8106/camera.ogg"/>
+    <party id ="661440" delay = "0" shortname = "Altai STU: 2" region = "1" name = "Altai STU: 2 (Krasnikov, Pesnyak, Shintyapin)" screen = "http://10.25.3.117:8080/screen.ogg" camera = "http://10.200.43.2:880/camera.ogg"/>
+    <party id ="661441" delay = "0" shortname = "SibSUTI: 2 Fullstack_Pascal+HTML" region = "1" name = "SibSUTI: 2 (Trusov, Luparev, Podkovyrov)" screen = "http://10.25.3.117:8052/screen.ogg" camera = "http://10.200.46.2:852/camera.ogg"/>
+    <party id ="661442" delay = "0" shortname = "NSTU: 5" region = "1" name = "NSTU: 5 (Pavlov, Dyachkova, Skrynnik)" screen = "http://10.25.3.117:8026/screen.ogg" camera = "http://10.200.85.2:826/camera.ogg"/>
+    <party id ="661443" delay = "0" shortname = "Altai STU: 1" region = "1" name = "Altai STU: 1 (Shushakov, Bachishche, Stoiko)" screen = "http://10.25.3.117:8078/screen.ogg" camera = "http://10.200.104.2:878/camera.ogg"/>
+    <party id ="661444" delay = "0" shortname = "Novosibirsk SU: Piglet" region = "1" name = "Novosibirsk SU: Piglet (Bukhner, Tolkacheva, Kulakov)" screen = "http://10.25.3.117:8101/screen.ogg" camera = "http://10.200.10.2:8101/camera.ogg"/>
+    <party id ="661445" delay = "0" shortname = "Novosibirsk SU: Wrong Bees" region = "1" name = "Novosibirsk SU: Wrong Bees (Kholiavko, Kutalev, Kudinov)" screen = "http://10.25.3.117:8074/screen.ogg" camera = "http://10.200.38.2:874/camera.ogg"/>
+    <party id ="661446" delay = "0" shortname = "Novosibirsk SU: Honey Pot" region = "1" name = "Novosibirsk SU: Honey Pot (Konev, Polukhin, Avtsinova)" screen = "http://10.25.3.117:8034/screen.ogg" camera = "http://10.200.100.2:834/camera.ogg"/>
+    <party id ="661447" delay = "0" shortname = "SibSUTI: 10" region = "1" name = "SibSUTI: 10 (Kravchenko, Kovalchuk, Kadyrbayev)" screen = "http://10.25.3.117:8037/screen.ogg" camera = "http://10.200.94.2:837/camera.ogg"/>
+    <party id ="661448" delay = "0" shortname = "SibSUTI: 9 Brawl Stars" region = "1" name = "SibSUTI: 9 Brawl Stars (Zakhoda, Kononikhin, Morozov)" screen = "http://10.25.3.117:8069/screen.ogg" camera = "http://10.200.58.2:869/camera.ogg"/>
+    <party id ="661449" delay = "0" shortname = "SibSUTI: 8 Experiment 626" region = "1" name = "SibSUTI: 8 Experiment 626 (Dubrovin, Belousova, Koroleva)" screen = "http://10.25.3.117:8064/screen.ogg" camera = "http://10.200.99.2:864/camera.ogg"/>
+    <party id ="661450" delay = "0" shortname = "SSTU: 3" region = "1" name = "SSTU: 3 (Nikiforova, Malyugin, Petrov)" screen = "http://10.25.3.117:8020/screen.ogg" camera = "http://10.200.86.2:820/camera.ogg"/>
+    <party id ="661451" delay = "0" shortname = "NSTU: 1" region = "1" name = "NSTU: 1 (Simonov, Sharapov, Izgagin)" screen = "http://10.25.3.117:8060/screen.ogg" camera = "http://10.200.111.2:860/camera.ogg"/>
+    <party id ="661452" delay = "0" shortname = "NSTU: 2" region = "1" name = "NSTU: 2 (Anufriev, Khvorostina, Grebenkin)" screen = "http://10.25.3.117:8049/screen.ogg" camera = "http://10.200.88.2:849/camera.ogg"/>
+    <party id ="661453" delay = "0" shortname = "OmSU: 1" region = "1" name = "OmSU: 1 (Manuilov, Gusev, Kramskoy)" screen = "http://10.25.3.117:8009/screen.ogg" camera = "http://10.200.109.2:89/camera.ogg"/>
+    <party id ="661454" delay = "0" shortname = "OmSU: 2" region = "1" name = "OmSU: 2 (Konyshev, Shnaider, Silaev)" screen = "http://10.25.3.117:8048/screen.ogg" camera = "http://10.200.107.2:848/camera.ogg"/>
+    <party id ="661455" delay = "0" shortname = "NSTU: 4" region = "1" name = "NSTU: 4 (Pey Lun, Mezhevoy, Kovalev)" screen = "http://10.25.3.117:8012/screen.ogg" camera = "http://10.200.67.2:812/camera.ogg"/>
+    <party id ="661456" delay = "0" shortname = "Tomsk PU: 2" region = "1" name = "Tomsk PU: 2 (Tsyrenova, Panchenko, Terentev)" screen = "http://10.25.3.117:8098/screen.ogg" camera = "http://10.200.33.2:898/camera.ogg"/>
+    <party id ="661457" delay = "0" shortname = "Tomsk PU: 3" region = "1" name = "Tomsk PU: 3 (Bukhalov, Позолотин, Матлахов)" screen = "http://10.25.3.117:8043/screen.ogg" camera = "http://10.200.47.2:843/camera.ogg"/>
+    <party id ="661458" delay = "0" shortname = "SSTU: 2" region = "1" name = "SSTU: 2 (Rudakov, Pletenkin, Sanarov)" screen = "http://10.25.3.117:8046/screen.ogg" camera = "http://10.200.103.2:846/camera.ogg"/>
+    <party id ="663462" delay = "0" shortname = "AUCA: 1" region = "1" name = "AUCA: 1 (Davletov, Aidarov, Zhusubaliev)" screen = "http://10.25.3.117:8085/screen.ogg" camera = "http://10.200.35.2:885/camera.ogg"/>
+    <party id ="663463" delay = "0" shortname = "KRSU: We_Love_Coffee" region = "1" name = "KRSU: We_Love_Coffee (Bakirov, Kasymov, Sabyrov)" screen = "http://10.25.3.117:8104/screen.ogg" camera = "http://10.200.93.2:8104/camera.ogg"/>
+    <party id ="663464" delay = "0" shortname = "IAU: nothing to code" region = "1" name = "IAU: nothing to code (Chekirbaev, Abdirasulov, tynychbekov)" screen = "http://10.25.3.117:8010/screen.ogg" camera = "http://10.200.91.2:810/camera.ogg"/>
+    <party id ="663465" delay = "0" shortname = "KGiAI: one_more_time" region = "1" name = "KGiAI: one_more_time (Duyshenaliev, Alymbekov, Nurlanbek uulu)" screen = "http://10.25.3.117:8038/screen.ogg" camera = "http://10.200.77.2:838/camera.ogg"/>
+    <party id ="663466" delay = "0" shortname = "KRSU: 5" region = "1" name = "KRSU: 5 (Vinogradov, Lukmanov, Vasilenko)" screen = "http://10.25.3.117:8100/screen.ogg" camera = "http://10.200.102.2:8100/camera.ogg"/>
+    <party id ="663467" delay = "0" shortname = "UCA: Team1" region = "1" name = "UCA: Team1 (Dzhunusov, Toktorov, Tursunbaev)" screen = "http://10.25.3.117:8094/screen.ogg" camera = "http://10.200.70.2:894/camera.ogg"/>
+    <party id ="663468" delay = "0" shortname = "OshTU: 2" region = "1" name = "OshTU: 2 (Mamadaliev, Urmatbekova, Abdisatarov)" screen = "http://10.25.3.117:8058/screen.ogg" camera = "http://10.200.95.2:858/camera.ogg"/>
+    <party id ="663469" delay = "0" shortname = "AUCA: MedSons" region = "1" name = "AUCA: MedSons (Ulukbek uulu, Yrysov, Nurlan)" screen = "http://10.25.3.117:8099/screen.ogg" camera = "http://10.200.90.2:899/camera.ogg"/>
+    <party id ="663470" delay = "0" shortname = "Kyrgyz-Turkey Manas U: 7" region = "1" name = "Kyrgyz-Turkey Manas U: 7 (Кенжегулов, Жакшылыков, Алибеков)" screen = "http://10.25.3.117:8086/screen.ogg" camera = "http://10.200.79.2:886/camera.ogg"/>
+    <party id ="663471" delay = "0" shortname = "Kyrgyz-Turkey Manas U: 1" region = "1" name = "Kyrgyz-Turkey Manas U: 1 (Bubakanov, Ormonbaev, Urmatbek uulu)" screen = "http://10.25.3.117:8111/screen.ogg" camera = "http://10.200.24.2:8111/camera.ogg"/>
+    <party id ="663472" delay = "0" shortname = "Kyrgyz-Turkey Manas U: 5" region = "1" name = "Kyrgyz-Turkey Manas U: 5 (Ulanbek uulu, Beishenbek uulu, Mamatazimov)" screen = "http://10.25.3.117:8088/screen.ogg" camera = "http://10.200.36.2:888/camera.ogg"/>
+    <party id ="663473" delay = "0" shortname = "KRSU: blastMaker" region = "1" name = "KRSU: blastMaker (Abdizhamilov, Damirov, Sydykov)" screen = "http://10.25.3.117:8109/screen.ogg" camera = "http://10.200.18.2:8109/camera.ogg"/>
+    <party id ="663474" delay = "0" shortname = "Kyrgyz-Turkey Manas U: 4" region = "1" name = "Kyrgyz-Turkey Manas U: 4 (Tashiev, Saliuulu, dastan)" screen = "http://10.25.3.117:8107/screen.ogg" camera = "http://10.200.71.2:8107/camera.ogg"/>
+    <party id ="663475" delay = "0" shortname = "AUCA: Dungeon masters" region = "1" name = "AUCA: Dungeon masters (Oktonov, Sharipov, Abdulloev)" screen = "http://10.25.3.117:8067/screen.ogg" camera = "http://10.200.27.2:867/camera.ogg"/>
+    <party id ="663476" delay = "0" shortname = "AUCA: dishmans" region = "1" name = "AUCA: dishmans (Sultanaliev, Tokbaev, Akmatov)" screen = "http://10.25.3.117:8033/screen.ogg" camera = "http://10.200.75.2:833/camera.ogg"/>
+    <party id ="667602" delay = "0" shortname = "HSE: Undertrained+Overpressured" region = "1" name = "HSE: Undertrained+Overpressured (Gorokhovskii, Safonov, Fedoseev)" screen = "http://10.25.3.117:8062/screen.ogg" camera = "http://10.200.76.2:847/camera.ogg"/>
+    <party id ="667603" delay = "0" shortname = "MIPT: Log-rank conjecture" region = "1" name = "MIPT: Log-rank conjecture (Shekhovtsov, Sadovnichiy, Efremov)" screen = "http://10.25.3.117:8084/screen.ogg" camera = "http://10.200.115.2:8103/camera.ogg"/>
+    <party id ="667604" delay = "0" shortname = "HSE: Yandex PTU" region = "1" name = "HSE: Yandex PTU (Frolov, Romanov, Gribov)" screen = "http://10.25.3.117:8089/screen.ogg" camera = "http://10.200.19.2:835/camera.ogg"/>
+    <party id ="667605" delay = "0" shortname = "MIPT: The Phoenix" region = "1" name = "MIPT: The Phoenix (Tretiakov, Shpakovskiy, Grigoryev)" screen = "http://10.25.3.117:8053/screen.ogg" camera = "http://10.200.92.2:893/camera.ogg"/>
+    <party id ="667606" delay = "0" shortname = "MIPT: LinkCat" region = "1" name = "MIPT: LinkCat (Zgursky, Surkov, Gaponov)" screen = "http://10.25.3.117:8091/screen.ogg" camera = "http://10.200.17.2:891/camera.ogg"/>
+    <party id ="667607" delay = "0" shortname = "HSE: Dirizhabl’" region = "1" name = "HSE: Dirizhabl’ (Akulov, Arzhantsev, Pogodin)" screen = "http://10.25.3.117:8077/screen.ogg" camera = "http://10.200.22.2:877/camera.ogg"/>
+    <party id ="667608" delay = "0" shortname = "HSE: Mystery Machine" region = "1" name = "HSE: Mystery Machine (Chernikov, GUSEV, Korolev)" screen = "http://10.25.3.117:8052/screen.ogg" camera = "http://10.200.4.2:8102/camera.ogg"/>
+    <party id ="667609" delay = "0" shortname = "Moscow SU: NoNames" region = "1" name = "Moscow SU: NoNames (Kashina, Kalendarov, Koshelev)" screen = "http://10.25.3.117:8026/screen.ogg" camera = "http://10.200.81.2:870/camera.ogg"/>
+    <party id ="667610" delay = "0" shortname = "MAI: 1" region = "1" name = "MAI: 1 (Mikhaylov, Tsaplin, Khalin)" screen = "http://10.25.3.117:8025/screen.ogg" camera = "http://10.200.29.2:825/camera.ogg"/>
+    <party id ="667611" delay = "0" shortname = "Moscow SU: Johnnie Jack and Jim" region = "1" name = "Moscow SU: Johnnie Jack and Jim (Gorbunov, Ozhiganov, Merkulov)" screen = "http://10.25.3.117:8007/screen.ogg" camera = "http://10.200.112.2:87/camera.ogg"/>
+    <party id ="667612" delay = "0" shortname = "MIPT: Never Trained" region = "1" name = "MIPT: Never Trained (Sokolov, Protasov, Aliev)" screen = "http://10.25.3.117:8095/screen.ogg" camera = "http://10.200.96.2:895/camera.ogg"/>
+    <party id ="667613" delay = "0" shortname = "MIPT: Flying Penguins" region = "1" name = "MIPT: Flying Penguins (Lakhtin, Adzhima, Zhavoronkov)" screen = "http://10.25.3.117:8090/screen.ogg" camera = "http://10.200.13.2:890/camera.ogg"/>
+    <party id ="667614" delay = "0" shortname = "MIPT: Wake up" region = "1" name = "MIPT: Wake up (Anikin, Danilin, Kostanyan)" screen = "http://10.25.3.117:8079/screen.ogg" camera = "http://10.200.44.2:879/camera.ogg"/>
+    <party id ="667615" delay = "0" shortname = "Moscow SU: bebop" region = "1" name = "Moscow SU: bebop (Bezenov, Gordeev, Mazitov)" screen = "http://10.25.3.117:8024/screen.ogg" camera = "http://10.200.66.2:824/camera.ogg"/>
+    <party id ="667616" delay = "0" shortname = "Moscow SU: MAN" region = "1" name = "Moscow SU: MAN (Chernyshev, Nakhodnov, Medentsov)" screen = "http://10.25.3.117:8036/screen.ogg" camera = "http://10.200.11.2:836/camera.ogg"/>
+    <party id ="667617" delay = "0" shortname = "MAI: 5" region = "1" name = "MAI: 5 (Plyushkin, Lyashun, Korotkevich)" screen = "http://10.25.3.117:8068/screen.ogg" camera = "http://10.200.16.2:868/camera.ogg"/>
+    <party id ="667618" delay = "0" shortname = "MPSU: Matemasters" region = "1" name = "MPSU: Matemasters (Tishkov, Kniazevsky, Prokoptsev)" screen = "http://10.25.3.117:8018/screen.ogg" camera = "http://10.200.54.2:818/camera.ogg"/>
+    <party id ="667619" delay = "0" shortname = "MEPhI: Sweet Potato" region = "1" name = "MEPhI: Sweet Potato (Anzin, Ivanenko, Andryushin)" screen = "http://10.25.3.117:8071/screen.ogg" camera = "http://10.200.8.2:871/camera.ogg"/>
+    <party id ="667620" delay = "0" shortname = "MISiS: Palm_Hop_Selec" region = "1" name = "MISiS: Palm_Hop_Selec (Kolodin, Tagiltsev, Piskevich)" screen = "http://10.25.3.117:8027/screen.ogg" camera = "http://10.200.114.2:827/camera.ogg"/>
+    <party id ="667621" delay = "0" shortname = "MAI: 2" region = "1" name = "MAI: 2 (Iniutin, Belousov, Artemiev)" screen = "http://10.25.3.117:8075/screen.ogg" camera = "http://10.200.73.2:875/camera.ogg"/>
+    <party id ="667622" delay = "0" shortname = "MISiS: ICPC is overrated" region = "1" name = "MISiS: ICPC is overrated (Boltikov, Mayorov, Fadeev)" screen = "http://10.25.3.117:8076/screen.ogg" camera = "http://10.200.28.2:876/camera.ogg"/>
+    <party id ="667623" delay = "0" shortname = "MIREA: Team 1" region = "1" name = "MIREA: Team 1 (Kiriakov, Petrov, Ignatiev)" screen = "http://10.25.3.117:8115/screen.ogg" camera = "http://10.200.21.2:8115/camera.ogg"/>
+    <party id ="667624" delay = "0" shortname = "MISiS: Solving meth problems" region = "1" name = "MISiS: Solving meth problems (Akmanov, stryuchkov, Volkov)" screen = "http://10.25.3.117:8019/screen.ogg" camera = "http://10.200.51.2:819/camera.ogg"/>
+    <party id ="667625" delay = "0" shortname = "BMSTU: 30 seconds to parse" region = "1" name = "BMSTU: 30 seconds to parse (Zhuk, Egorov, Belousov)" screen = "http://10.25.3.117:8092/screen.ogg" camera = "http://10.200.97.2:892/camera.ogg"/>
+    <party id ="667626" delay = "0" shortname = "MISiS: Flip phone, telefon" region = "1" name = "MISiS: Flip phone, telefon (Fedorov, Levshin, Bikmetov)" screen = "http://10.25.3.117:8017/screen.ogg" camera = "http://10.200.56.2:817/camera.ogg"/>
+    <party id ="667627" delay = "0" shortname = "MIET: NUM" region = "1" name = "MIET: NUM (Levichev, Slesarev, Zadorozhnyi)" screen = "http://10.25.3.117:8022/screen.ogg" camera = "http://10.200.59.2:822/camera.ogg"/>
+    <party id ="667628" delay = "0" shortname = "BNTU: 4294967297" region = "1" name = "BNTU: 4294967297 (Kim, Lukyanov, Hrechykha)" screen = "http://10.25.3.117:8004/screen.ogg" camera = "http://10.200.87.2:84/camera.ogg"/>
+    <party id ="667629" delay = "0" shortname = "BelarusianSU: 2" region = "1" name = "BelarusianSU: 2 (Tsitsianok, Natalevich, Kernazhytski)" screen = "http://10.25.3.117:8081/screen.ogg" camera = "http://10.200.57.2:881/camera.ogg"/>
+    <party id ="667630" delay = "0" shortname = "BelarusianSU: 1" region = "1" name = "BelarusianSU: 1 (Melnichenka, Paliukhovich, Klimasheuski)" screen = "http://10.25.3.117:8029/screen.ogg" camera = "http://10.200.6.2:829/camera.ogg"/>
+    <party id ="667631" delay = "0" shortname = "BelarusianSU: 6" region = "1" name = "BelarusianSU: 6 (Kastsiany, Kharasau, Koshchanka)" screen = "http://10.25.3.117:8112/screen.ogg" camera = "http://10.200.63.2:8112/camera.ogg"/>
+    <party id ="667632" delay = "0" shortname = "BSUIR: 5 The last one" region = "1" name = "BSUIR: 5 The last one (Kliabanau, Piskun, Kryvasheyeu)" screen = "http://10.25.3.117:8096/screen.ogg" camera = "http://10.200.31.2:896/camera.ogg"/>
+    <party id ="667633" delay = "0" shortname = "BSUIR: 9 si4uem s kaifom" region = "1" name = "BSUIR: 9 si4uem s kaifom (Malets, Yermakou, Makeyenka)" screen = "http://10.25.3.117:8013/screen.ogg" camera = "http://10.200.105.2:813/camera.ogg"/>
+    <party id ="667634" delay = "0" shortname = "BelarusianSU: 7 OSUTeam" region = "1" name = "BelarusianSU: 7 OSUTeam (Ulyanau, Barysau, Shishkou)" screen = "http://10.25.3.117:8044/screen.ogg" camera = "http://10.200.65.2:844/camera.ogg"/>
+    <party id ="667635" delay = "0" shortname = "GrSU: 1" region = "1" name = "GrSU: 1 (Ihnatsenka, Laktsevich, Sarosek)" screen = "http://10.25.3.117:8066/screen.ogg" camera = "http://10.200.108.2:866/camera.ogg"/>
+    <party id ="667636" delay = "0" shortname = "BSUIR: 7 ugoschaet golubcami" region = "1" name = "BSUIR: 7 ugoschaet golubcami (Lapytsko, Kadushko, HRYSHAYEU)" screen = "http://10.25.3.117:8011/screen.ogg" camera = "http://10.200.15.2:811/camera.ogg"/>
+    <party id ="667637" delay = "0" shortname = "GSU: -2" region = "1" name = "GSU: -2 (Liburkin, Khamkou, Korotkevich)" screen = "http://10.25.3.117:8016/screen.ogg" camera = "http://10.200.72.2:816/camera.ogg"/>
+    <party id ="667638" delay = "0" shortname = "GSU: -1" region = "1" name = "GSU: -1 (Sviridkov, Novikau, Hramyka)" screen = "http://10.25.3.117:8054/screen.ogg" camera = "http://10.200.1.2:854/camera.ogg"/>
+    <party id ="667639" delay = "0" shortname = "BrSU: 1 AP Team" region = "1" name = "BrSU: 1 AP Team (Slaneuski, Garajayew, Kovalevich)" screen = "http://10.25.3.117:8008/screen.ogg" camera = "http://10.200.55.2:88/camera.ogg"/>
+    <party id ="667640" delay = "0" shortname = "BNTU: FITRx3" region = "1" name = "BNTU: FITRx3 (Maliavanny, Zaitsau, Kikhtsenka)" screen = "http://10.25.3.117:8114/screen.ogg" camera = "http://10.200.23.2:8114/camera.ogg"/>
+    <party id ="667641" delay = "0" shortname = "GrSU: 2" region = "1" name = "GrSU: 2 (Khombak, Karaneuskij, Zdanchuk)" screen = "http://10.25.3.117:8073/screen.ogg" camera = "http://10.200.40.2:873/camera.ogg"/>
+    <party id ="667642" delay = "0" shortname = "BelSUT: _1" region = "1" name = "BelSUT: _1 (Daroshchanka, Nesterovich, Darashenka)" screen = "http://10.25.3.117:8028/screen.ogg" camera = "http://10.200.30.2:828/camera.ogg"/>
+    <party id ="667643" delay = "0" shortname = "BelSTU: 1" region = "1" name = "BelSTU: 1 (Skaradumau, Tsikhanovich, Roman)" screen = "http://10.25.3.117:8021/screen.ogg" camera = "http://10.200.110.2:821/camera.ogg"/>
+    <party id ="667644" delay = "0" shortname = "GSTU: Si vis pacem, para bellum" region = "1" name = "GSTU: Si vis pacem, para bellum (Lyutikov, Tratsevskiy, Ivanov)" screen = "http://10.25.3.117:8051/screen.ogg" camera = "http://10.200.39.2:851/camera.ogg"/>
+    <party id ="667645" delay = "0" shortname = "SPb ITMO: pengzoo" region = "1" name = "SPb ITMO: pengzoo (Perveev, Golikov, Iakovlev)" screen = "http://10.25.3.117:8010/screen.ogg" camera = "http://10.200.2.2:897/camera.ogg"/>
+    <party id ="667646" delay = "0" shortname = "SPb HSE: Lemon Tree" region = "1" name = "SPb HSE: Lemon Tree (Surkov, Alferov, Makhnev)" screen = "http://10.25.3.117:8038/screen.ogg" camera = "http://10.200.32.2:856/camera.ogg"/>
+    <party id ="667647" delay = "0" shortname = "SPb SU: dataVase" region = "1" name = "SPb SU: dataVase (Gladchenko, Musina, Budnikov)" screen = "http://10.25.3.117:8059/screen.ogg" camera = "http://10.200.41.2:859/camera.ogg"/>
+    <party id ="667648" delay = "0" shortname = "SPb SU: Team Chill It" region = "1" name = "SPb SU: Team Chill It (Khargelia, Pavlenko, Volkov)" screen = "http://10.25.3.117:8087/screen.ogg" camera = "http://10.200.82.2:887/camera.ogg"/>
+    <party id ="667649" delay = "0" shortname = "SPb SU: ?5" region = "1" name = "SPb SU: ?5 (Petrov, Belichenko, Gaevoi)" screen = "http://10.25.3.117:8058/screen.ogg" camera = "http://10.200.42.2:83/camera.ogg"/>
+    <party id ="667650" delay = "0" shortname = "SPb SU: MCS: Andrew Sergeevich" region = "1" name = "MCS: Andrew Sergeevich (Gorbachev, Ivanov, Grigoryev)" screen = "http://10.25.3.117:8057/screen.ogg" camera = "http://10.200.50.2:857/camera.ogg"/>
+    <party id ="667651" delay = "0" shortname = "SPb SU: jazz" region = "1" name = "SPb SU: jazz (Fedorkina, Olemskaya, Pospelov)" screen = "http://10.25.3.117:8006/screen.ogg" camera = "http://10.200.45.2:86/camera.ogg"/>
+    <party id ="667652" delay = "0" shortname = "SPb ITMO: Cataleptodius" region = "1" name = "SPb ITMO: Cataleptodius (Oreshin, Hakimov, Ibraev)" screen = "http://10.25.3.117:8063/screen.ogg" camera = "http://10.200.5.2:863/camera.ogg"/>
+    <party id ="667653" delay = "0" shortname = "SPb ITMO: Unexpected Value" region = "1" name = "SPb ITMO: Unexpected Value (Kuzin, Tran, Stepanov)" screen = "http://10.25.3.117:8031/screen.ogg" camera = "http://10.200.61.2:831/camera.ogg"/>
+    <party id ="667654" delay = "0" shortname = "SPb ITMO: hw" region = "1" name = "SPb ITMO: hw (Pleshakov, Teplyakov, Filipchyk)" screen = "http://10.25.3.117:8105/screen.ogg" camera = "http://10.200.83.2:8105/camera.ogg"/>
+    <party id ="667655" delay = "0" shortname = "SPb ITMO: TaskAcceptedException" region = "1" name = "SPb ITMO: TaskAcceptedException (Hruntov, Damasevich, Yatsuk)" screen = "http://10.25.3.117:8065/screen.ogg" camera = "http://10.200.14.2:865/camera.ogg"/>
+    <party id ="667656" delay = "0" shortname = "SPb HSE: HS of Abbreviations" region = "1" name = "SPb HSE: HS of Abbreviations (Zakharenko, Vasilevskij, Ipatov)" screen = "http://10.25.3.117:8108/screen.ogg" camera = "http://10.200.113.2:8108/camera.ogg"/>
+    <party id ="667657" delay = "0" shortname = "SPb HSE: Just4Keks" region = "1" name = "SPb HSE: Just4Keks (Yepifanov, Mosin, Bukov)" screen = "http://10.25.3.117:8015/screen.ogg" camera = "http://10.203.3.2:815/camera.ogg"/>
+    <party id ="667658" delay = "0" shortname = "Petrozavodsk SU: pgt Shya" region = "1" name = "Petrozavodsk SU: pgt Shya (Krishtal, Masaeva, Koshkarev)" screen = "http://10.25.3.117:8072/screen.ogg" camera = "http://10.203.8.2:872/camera.ogg"/>
+    <party id ="667659" delay = "0" shortname = "Budenny MTA: Peacemakers" region = "1" name = "Budenny MTA: Peacemakers (Sotin, Sundukov, Kurenckov)" screen = "http://10.25.3.117:8001/screen.ogg" camera = "http://10.203.10.2:81/camera.ogg"/>
+    <party id ="667660" delay = "0" shortname = "Petrozavodsk SU: Bukva yu" region = "1" name = "Petrozavodsk SU: Bukva yu (Alshanin, Potapova, Ermakov)" screen = "http://10.25.3.117:8055/screen.ogg" camera = "http://10.203.12.2:855/camera.ogg"/>
+    <party id ="667661" delay = "0" shortname = "Polytech: Ab absurdo 4" region = "1" name = "Polytech: Ab absurdo 4 (Sukhanov, Kurnosov, Smolskij)" screen = "http://10.25.3.117:8023/screen.ogg" camera = "http://10.203.11.2:823/camera.ogg"/>
+    <party id ="667662" delay = "0" shortname = "Petrozavodsk SU: adamant" region = "1" name = "Petrozavodsk SU: adamant (Lezova, Anisimov, Sobianina)" screen = "http://10.25.3.117:8040/screen.ogg" camera = "http://10.203.2.2:840/camera.ogg"/>
+    <party id ="667663" delay = "0" shortname = "SUAI: MegaSmetanka" region = "1" name = "SUAI: MegaSmetanka (Fesenko, Zhukov, Kurilov)" screen = "http://10.25.3.117:8030/screen.ogg" camera = "http://10.203.9.2:830/camera.ogg"/>
+    <party id ="667664" delay = "0" shortname = "SUAI: 1703" region = "1" name = "SUAI: 1703 (Alekseev, Zaripov, Nikiforov)" screen = "http://10.25.3.117:8110/screen.ogg" camera = "http://10.203.7.2:8110/camera.ogg"/>
+    <party id ="667665" delay = "0" shortname = "CFUV: Vernadsky" region = "1" name = "CFUV: Vernadsky (Mikerin, Memetova, Novikov)" screen = "http://10.25.3.117:8039/screen.ogg" camera = "http://10.203.1.2:839/camera.ogg"/>
+    <party id ="667666" delay = "0" shortname = "CFUV: Endeavor" region = "1" name = "CFUV: Endeavor (Tsyganov, Pozigun, Goncharov)" screen = "http://10.25.3.117:8002/screen.ogg" camera = "http://10.203.5.2:82/camera.ogg"/>
+    <party id ="667667" delay = "0" shortname = "CFUV: pod3.14vasniki" region = "1" name = "CFUV: pod3.14vasniki (Ridchenko, Gurjiy, Korolev)" screen = "http://10.25.3.117:8032/screen.ogg" camera = "http://10.203.6.2:832/camera.ogg"/>
+    <party id ="667668" delay = "0" shortname = "CFUV: Team_Pepega" region = "1" name = "CFUV: Team_Pepega (Markov, Petrukovich, Polonskiy)" screen = "http://10.25.3.117:8041/screen.ogg" camera = "http://10.203.13.2:841/camera.ogg"/>
+    <party id ="667669" delay = "0" shortname = "YarSU: 1 Yess we can" region = "1" name = "YarSU: 1 Yess we can (Klimov, Voronin, Medvedev)" screen = "http://10.25.3.117:8082/screen.ogg" camera = "http://10.203.4.2:882/camera.ogg"/>
+    <party id ="667670" delay = "0" shortname = "NArFU: 2" region = "1" name = "NArFU: 2 (Lodygin, Grishin, Diachkov)" screen = "http://10.25.3.117:8042/screen.ogg" camera = "http://:842/camera.ogg"/>
+    <party id ="667671" delay = "0" shortname = "AFSO: 7" region = "1" name = "AFSO: 7 (Vershinin, Semenov, Pukhovikov)" screen = "http://10.25.3.117:8050/screen.ogg" camera = "http://:850/camera.ogg"/>
+    <party id ="667672" delay = "0" shortname = "YarSU: 20 LigaDravena" region = "1" name = "YarSU: 20 LigaDravena (Krasnoshchekov, Sokolov, Genneke)" screen = "http://10.25.3.117:8045/screen.ogg" camera = "http://:845/camera.ogg"/>
+    <party id ="667673" delay = "0" shortname = "YarSU: 2 chill_owls" region = "1" name = "YarSU: 2 chill_owls (Moskvin, Gibadulin, Smirnov)" screen = "http://10.25.3.117:8005/screen.ogg" camera = "http://:85/camera.ogg"/>
+    <party id ="667674" delay = "0" shortname = "RSATU: 4" region = "1" name = "RSATU: 4 (Rastorguev, Rastorgueva, Крылов)" screen = "http://10.25.3.117:8061/screen.ogg" camera = "http://:861/camera.ogg"/>
+    <party id ="667675" delay = "0" shortname = "TverSU: 3 Guerilla Gorillas" region = "1" name = "TverSU: 3 Guerilla Gorillas (Grigorev, Lutsai, Fomin)" screen = "http://:8083/screen.ogg" camera = "http://:883/camera.ogg"/>
+    <party id ="667676" delay = "0" shortname = "BSTU: 1 winx_v3.0" region = "1" name = "BSTU: 1 winx_v3.0 (Sopolaev, Dudlin, Kapralova)" screen = "http://:8014/screen.ogg" camera = "http://:814/camera.ogg"/>
+    <party id ="667677" delay = "0" shortname = "Ural FU: The Last Dance" region = "1" name = "Ural FU: The Last Dance (Zuev, Trifochkin, Kogut)" screen = "http://:8113/screen.ogg" camera = "http://:8113/camera.ogg"/>
+    <party id ="667678" delay = "0" shortname = "Ural FU: ReFresh" region = "1" name = "Ural FU: ReFresh (Sychev, Bazeev, Bykov)" screen = "http://:8/screen.ogg" camera = "http://:8/camera.ogg"/>
+    <party id ="667679" delay = "0" shortname = "Ural FU: CheezeKEK" region = "1" name = "Ural FU: CheezeKEK (Chizhov, Reshke, Tsepov)" screen = "http://:8/screen.ogg" camera = "http://:8/camera.ogg"/>
+    <party id ="667680" delay = "0" shortname = "Perm SU: Cats" region = "1" name = "Perm SU: Cats (Subbotin, Sidorenko, Yourchatov)"/>
+    <party id ="667681" delay = "0" shortname = "Ural FU: Raketa & 3 Deda" region = "1" name = "Ural FU: Raketa & 3 Deda (Nikolaev, Barinov, Moskovchenko)"/>
+    <party id ="667682" delay = "0" shortname = "Ural FU: Cucumber Juice 73" region = "1" name = "Ural FU: Cucumber Juice 73 (Rychkov, Nigmatullin, Khramov)"/>
+    <party id ="667683" delay = "0" shortname = "Perm SU: corgi_never_sleep" region = "1" name = "Perm SU: corgi_never_sleep (Chelpanov, Ponkin, Shestakov)"/>
+    <party id ="667684" delay = "0" shortname = "Ufa SATU: God's Choice" region = "1" name = "Ufa SATU: God's Choice (Taratorin, Zinov, Shepshelevich)"/>
+    <party id ="667685" delay = "0" shortname = "Izhevsk STU: CyTheFu" region = "1" name = "Izhevsk STU: CyTheFu (Kryazhevskikh, Drokin, Kuznetsov)"/>
+    <party id ="667686" delay = "0" shortname = "Perm SU: Plusbl" region = "1" name = "Perm SU: Plusbl (Morozov, Cheremnykh, Khalikshin)"/>
+    <party id ="667687" delay = "0" shortname = "Izhevsk STU: ZEDbl" region = "1" name = "Izhevsk STU: ZEDbl (Postnikov, Ivshin, Kulikov)"/>
+    <party id ="667688" delay = "0" shortname = "Tyumen SU: import.math" region = "1" name = "Tyumen SU: import.math (Saprykin, Yakubov, Tashbulatov)"/>
+    <party id ="667689" delay = "0" shortname = "Surgut SU: DieHard" region = "1" name = "Surgut SU: DieHard (Ruzin, Poddubny, Lepinskikh)"/>
+    <party id ="667690" delay = "0" shortname = "Tyumen SU: Permutation Of Lenovo" region = "1" name = "Tyumen SU: Permutation Of Lenovo (Leonov, Chikireva, Sekisova)"/>
+    <party id ="667691" delay = "0" shortname = "Perm HSE: pitonishe" region = "1" name = "Perm HSE: pitonishe (Cherepanov, Kurlin, Krokhina)"/>
+    <party id ="667692" delay = "0" shortname = "Orenburg SU: feel_good" region = "1" name = "Orenburg SU: feel_good (Belyy, Kurynov, Sagitov)"/>
+    <party id ="667693" delay = "0" shortname = "Izhevsk STU: People++" region = "1" name = "Izhevsk STU: People++ (Bugakov, Lykov, Kismatov)"/>
+    <party id ="667694" delay = "0" shortname = "Orenburg SU: How much I love BTS" region = "1" name = "Orenburg SU: How much I love BTS (Shumkin, Romasenko, Dmitrenko)"/>
+    <party id ="667695" delay = "0" shortname = "South Ural SU: Masters of Crosses" region = "1" name = "South Ural SU: Masters of Crosses (Bikmeev, Kormilin, Kulikova)"/>
+    <party id ="667696" delay = "0" shortname = "South Ural SU: UZI" region = "1" name = "South Ural SU: UZI (Ushakov, Ivlev, Zvonarev)"/>
+    <party id ="667697" delay = "0" shortname = "South Ural SU: 0 div 0" region = "1" name = "South Ural SU: 0 div 0 (Ilinykh, Kirillov, Sarapultsev)"/>
+    <party id ="667698" delay = "0" shortname = "Innopolis: U Q" region = "1" name = "Innopolis: U Q (Hokimiyon, Khujaev, Hakimiyon)"/>
+    <party id ="667699" delay = "0" shortname = "Penza SU: I" region = "1" name = "Penza SU: I (Grishin, Denisov, Dunaev)"/>
+    <party id ="667700" delay = "0" shortname = "UNN: Lera Retired" region = "1" name = "UNN: Lera Retired (Emelin, Upirvitskiy, Khlyustov)"/>
+    <party id ="667701" delay = "0" shortname = "UNN: Presskachat" region = "1" name = "UNN: Presskachat (Sukharev, Burdukov, Kulandin)"/>
+    <party id ="667702" delay = "0" shortname = "Innopolis: U I" region = "1" name = "Innopolis: U I (Madaminov, Ismaeel, Kochekov)"/>
+    <party id ="667703" delay = "0" shortname = "Kazan FU: A" region = "1" name = "Kazan FU: A (Bikmullin, Fazylov, Sudakov)"/>
+    <party id ="667704" delay = "0" shortname = "SFedU: E" region = "1" name = "SFedU: E (Kulakov, Bezuglov, Ocheretov)"/>
+    <party id ="667705" delay = "0" shortname = "Saratov SU: Innopolis U 0" region = "1" name = "Saratov SU: Innopolis U O (Batyrgariyev, Kolomin, Rudakov)"/>
+    <party id ="667706" delay = "0" shortname = "Volgograd STU" region = "1" name = "Volgograd STU (Mangushev, Oleynikov, Chupinin)"/>
+    <party id ="667707" delay = "0" shortname = "Kazan FU: V" region = "1" name = "Kazan FU: V (Remidovskij, Mokut, Saifutdinov)"/>
+    <party id ="667708" delay = "0" shortname = "Saratov SU: H" region = "1" name = "Saratov SU: H (Sinkevich, Dunayev, Stepanova)"/>
+    <party id ="667709" delay = "0" shortname = "NRU HSE: NN 1" region = "1" name = "NRU HSE: NN 1 (Doroshenko, Zarkov, Kuznetsov)"/>
+    <party id ="667710" delay = "0" shortname = "NRU HSE: NN Brawl Stars" region = "1" name = "NRU HSE: NN Brawl Stars (Zhelezin, Martirosyan, Yakhtin)"/>
+    <party id ="667711" delay = "0" shortname = "MordSU: D" region = "1" name = "MordSU: D (Osipov, Nikishkin, Saygin)"/>
+    <party id ="667712" delay = "0" shortname = "VoronezhSU: H" region = "1" name = "VoronezhSU: H (Novotochinov, Kolesov, Pashchenkov)"/>
+    <party id ="667713" delay = "0" shortname = "SFedU: C" region = "1" name = "SFedU: C (Grafin, Lyz, Ivanov)"/>
+    <party id ="667714" delay = "0" shortname = "USTU: J" region = "1" name = "USTU: J (Poluvesov, Krutov, Duvanov)"/>
+    <party id ="667715" delay = "0" shortname = "VoronezhSU: B" region = "1" name = "VoronezhSU: B (Paukov, Berezhnov, Shishko)"/>
+    <party id ="667716" delay = "0" shortname = "Saratov SU: P" region = "1" name = "Saratov SU: P (Volkova, Grishchenko, Moskvitin)"/>
+    <party id ="667717" delay = "0" shortname = "MordSU: E" region = "1" name = "MordSU: E (Taynov, Kuryaev, Nikashkin)"/>
+    <party id ="667718" delay = "0" shortname = "Kazan FU: G" region = "1" name = "Kazan FU: G (Skvortsov, Kashbiev, Khaziev)"/>
+    <party id ="667719" delay = "0" shortname = "Saratov SU: J" region = "1" name = "Saratov SU: J (Lankin, Kilenkov, Nazaryants)"/>
+    <party id ="667720" delay = "0" shortname = "ASU: B" region = "1" name = "ASU: B (Neopryatnaya, Kuznetsov, Verdenko)"/>
+    <party id ="667769" delay = "0" shortname = "MSU Tashkent: 1 Awesome Team" region = "1" name = "MSU Tashkent: 1 Awesome Team (Toshpulatov, Dostavalov, Ashirmatov)"/>
+    <party id ="667770" delay = "0" shortname = "TUIT: pfff" region = "1" name = "TUIT: pfff (Abdimanabov, Ganiev, Urinboyev)"/>
+    <party id ="667771" delay = "0" shortname = "RusTjkSlav: Head_Shot" region = "1" name = "RusTjkSlav: Head_Shot (Safarov, Abdurashidov, Mirzoavliyoev)"/>
+    <party id ="667772" delay = "0" shortname = "MGUD: 7" region = "1" name = "MGUD: 7 (Sherzod, Ulugbek, Yoqub)"/>
+    <party id ="667773" delay = "0" shortname = "MGUD: 2" region = "1" name = "MGUD: 2 (Sunat, Jamoliddin, Husniddinkhuja)"/>
+    <party id ="667774" delay = "0" shortname = "MGUD: 1" region = "1" name = "MGUD: 1 (Asridin, Alimuhammad, Behzod)"/>
+    <party id ="667775" delay = "0" shortname = "MSU Tashkent: 2" region = "1" name = "MSU Tashkent: 2 (Babaev, Askarkhujaev, Sobirov)"/>
+    <party id ="667776" delay = "0" shortname = "SamTUIT: SLD Group" region = "1" name = "SamTUIT: SLD Group (Narzullayev, Narzullayev, Narzullayev)"/>
+    <party id ="667777" delay = "0" shortname = "TUIT: Lorem Ipsum" region = "1" name = "TUIT: Lorem Ipsum (Umarov, Khodjaev, Parpiyev)"/>
+    <party id ="667778" delay = "0" shortname = "RusTjkSlav: NERU" region = "1" name = "RusTjkSlav: NERU (Nazarov, Orash, Robiya)"/>
+    <party id ="667779" delay = "0" shortname = "SamTUIT: oVerfitting" region = "1" name = "SamTUIT: oVerfitting (Makhmadiyorov, Nurliev, Yusufov)"/>
+    <party id ="667780" delay = "0" shortname = "TUIT: Falcon" region = "1" name = "TUIT: Falcon (Akbarov, Ibragimov, Xoldorov)"/>
+    <party id ="667781" delay = "0" shortname = "SamTUIT: RUNTIME tERROR" region = "1" name = "SamTUIT: RUNTIME tERROR (Abdullayev, Baxriddinov, Murodullayev)"/>
+    <party id ="667782" delay = "0" shortname = "MSU Tashkent: 4 Silent Birds" region = "1" name = "MSU Tashkent: 4 Silent Birds (Turdimurodov, Dolenko, Ashrapov)"/>
+    <party id ="667783" delay = "0" shortname = "TUIT: Algo_experts" region = "1" name = "TUIT: Algo_experts (Yursunjonov, Qayumjonov, Jalolov)"/>
+    <party id ="667784" delay = "0" shortname = "TUIT Urgench Branch: 1" region = "1" name = "TUIT Urgench Branch: 1 (Sayfullaev, Bekturdiev, Kamuljonov)"/>
+    <party id ="667785" delay = "0" shortname = "RusTjkSlav: Silk Way" region = "1" name = "RusTjkSlav: Silk Way (Sherzod, Daler, Fariz)"/>
+    <party id ="667786" delay = "0" shortname = "NUUz: geeksforgeeks" region = "1" name = "NUUz: geeksforgeeks (Jumayev, Akramov, Gofurboyev)"/>
+    <party id ="667787" delay = "0" shortname = "RusTjkSlav: Shakarob" region = "1" name = "RusTjkSlav: Shakarob (Buzurgmehr, Khursand, Muhammadsharif)"/>
+    <party id ="667788" delay = "0" shortname = "TUIT Urgench Branch: 2" region = "1" name = "TUIT Urgench Branch: 2 (Maqsudov, Razzoqberdiyev, Shavkatov)"/>
+    <party id ="667789" delay = "0" shortname = "JBNUU: M" region = "1" name = "JBNUU: M (Jumanov, Adashboyev, Shirinboyev)"/>
+    <party id ="667790" delay = "0" shortname = "NUUz: NUU_10" region = "1" name = "NUUz: NUU_10 (Raxmonov, Xoshimjanov, Yusupov)"/>
+    <party id ="667791" delay = "0" shortname = "Namangan SU: 1" region = "1" name = "Namangan SU: 1 (Umarov, Karimov, Tursunov)"/>
+    <party id ="667792" delay = "0" shortname = "SamSU: LifePC Group" region = "1" name = "SamSU: LifePC Group (Salimova, Primov, Esanov)"/>
+    <party id ="667793" delay = "0" shortname = "MIICTS: _1" region = "1" name = "MIICTS: _1 (Sindarov, Fayzullayev, Norbekov)"/>
+    <party id ="667794" delay = "0" shortname = "SamTUIT: thephaza" region = "1" name = "SamTUIT: thephaza (Abduxalil-zoda, Shakarboyev, Fozilov)"/>
+    <party id ="667795" delay = "0" shortname = "JBNUU: Progress" region = "1" name = "JBNUU: Progress (Karimov, Ayxanov, Abduganiyev)"/>
+    <party id ="667796" delay = "0" shortname = "MGUD: 9" region = "1" name = "MGUD: 9 (Imomali, Khushdil, Muhammad)"/>
+    <party id ="667797" delay = "0" shortname = "SamSU: Dream Team" region = "1" name = "SamSU: Dream Team (Saidqulov, Obloqulov, Sindorov)"/>
+    <party id ="667798" delay = "0" shortname = "IIAU: Revengers" region = "1" name = "IIAU: Revengers (Habibov, Vahobov, Muhsinov)"/>
+    <party id ="667799" delay = "0" shortname = "AndMII: Heaven" region = "1" name = "AndMII: Heaven (Mannobov, Turg'unboyev, Mamurov)"/>
+    <party id ="667800" delay = "0" shortname = "IITU: SuperNoVa" region = "1" name = "IITU: SuperNoVa (Kuanyshbay, Altynbekov, Shormankhan)"/>
+    <party id ="667801" delay = "0" shortname = "NU: 1" region = "1" name = "NU: 1 (Aldazharov, Batyrkhan, Omarov)"/>
+    <party id ="667802" delay = "0" shortname = "KBTU: Don't panic" region = "1" name = "KBTU: Don't panic (Safargaliyev, Aimagambetov, Kaisar)"/>
+    <party id ="667803" delay = "0" shortname = "AITU: 1" region = "1" name = "AITU: 1 (Kamzabek, Muratov, Kyzyrkanov)"/>
+    <party id ="667804" delay = "0" shortname = "IITU: set" region = "1" name = "IITU: set (Botakanov, Ibraim, Niyazbekov)"/>
+    <party id ="667805" delay = "0" shortname = "AITU: 2" region = "1" name = "AITU: 2 (Ybraiakhyn, Abilgaziyev, Maulen)"/>
+    <party id ="667806" delay = "0" shortname = "AITU: 4" region = "1" name = "AITU: 4 (Khodzhabekov, Mazhiken, Khabdtashit)"/>
+    <party id ="667807" delay = "0" shortname = "KBTU: Sᴬᵁ Bᴼᴸᵂᴵ" region = "1" name = "KBTU: Sᴬᵁ Bᴼᴸᵂᴵ (Altybay, Khibadullin, Madibek)"/>
+    <party id ="667808" delay = "0" shortname = "NU: 5" region = "1" name = "NU: 5 (Shinbay, Armandiyev, Ibrayev)"/>
+    <party id ="667809" delay = "0" shortname = "NU: 2" region = "1" name = "NU: 2 (Yussupov, Kozhakhmet, Saparbek)"/>
+    <party id ="667810" delay = "0" shortname = "IITU: ur mamaso" region = "1" name = "IITU: ur mamaso (Soldatbay, Mazylo, Manashov)"/>
+    <party id ="667811" delay = "0" shortname = "SDU: 1" region = "1" name = "SDU: 1 (Kozhakov, Kenes, Maskeugaliyev)"/>
+    <party id ="667812" delay = "0" shortname = "KazNU: 1" region = "1" name = "KazNU: 1 (Asuov, Mambetniyazov, Sattarkulov)"/>
+    <party id ="667813" delay = "0" shortname = "SDU: 2 Abudyn' DastanKhany" region = "1" name = "SDU: 2 Abudyn' DastanKhany (Akhmetkerey, Said Manap, Nurgaliyev)"/>
+    <party id ="667814" delay = "0" shortname = "NU: 3" region = "1" name = "NU: 3 (Gallam, Turysbek, Bauyrzhanuly)"/>
+    <party id ="667815" delay = "0" shortname = "IITU: AbDiAl" region = "1" name = "IITU: AbDiAl (Rakymberdi, Srazhov, Kambar)"/>
+    <party id ="667816" delay = "0" shortname = "KBTU: Kazakh Mafia" region = "1" name = "KBTU: Kazakh Mafia (Nurtayev, Dauletov, Myeiram)"/>
+    <party id ="667817" delay = "0" shortname = "KBTU: N^3" region = "1" name = "KBTU: N^3 (Zhumashev, Kodirkulov, Yerkenov)"/>
+    <party id ="667818" delay = "0" shortname = "AITU: 5" region = "1" name = "AITU: 5 (Kemelkhan, Seitbayev, Issaliyev)"/>
+    <party id ="667819" delay = "0" shortname = "KazNTU: SU1" region = "1" name = "KazNTU: SU1 (Nuali, Turganbayev, Makhsumov)"/>
+    <party id ="667820" delay = "0" shortname = "KazNU: 2" region = "1" name = "KazNU: 2 (Muratbekov, Tileubek, Zhylkybayev)"/>
+    <party id ="667821" delay = "0" shortname = "KazNU: 3" region = "1" name = "KazNU: 3 (Zhumagaliev, Zhanseit, Yergesh)"/>
+    <party id ="667822" delay = "0" shortname = "KazNTU: SU2" region = "1" name = "KazNTU: SU2 (Uyabayeva, Sagyndykova, Makhmut)"/>
+    <party id ="667823" delay = "0" shortname = "SDU: balmuzdaqtar" region = "1" name = "SDU: balmuzdaqtar (Baigarayev, Dauletbayev, Zhanedilov)"/>
+    <party id ="667824" delay = "0" shortname = "KazNU: 4" region = "1" name = "KazNU: 4 (Zhaksylyk, Kyrykbay, Tulepbergen)"/>
+    <party id ="667825" delay = "0" shortname = "AIPET: _1" region = "1" name = "AIPET: _1 (Myassyugin, Assaubayev, Bakdaulet)"/>
+    <party id ="667826" delay = "0" shortname = "KTU: 1" region = "1" name = "KTU: 1 (Kaliev, Gorbunov, Dipner)"/>
+    <party id ="667827" delay = "0" shortname = "Far Eastern FU: CODE work" region = "1" name = "Far Eastern FU: CODE work (Lancov, LEPEKHA, Sarantcev)"/>
+    <party id ="667828" delay = "0" shortname = "Far Eastern FU: Time Limit" region = "1" name = "Far Eastern FU: Time Limit (Andrey, Kalinin, Mikhalev)"/>
+    <party id ="667829" delay = "0" shortname = "Far Eastern FU: Garbies" region = "1" name = "Far Eastern FU: Garbies (Bortsov, Timofeev, Dolmatov)"/>
+    <party id ="667830" delay = "0" shortname = "Far Eastern FU: FlexBoiz" region = "1" name = "Far Eastern FU: FlexBoiz (Baydin, Cheshko, Mikhaylenko)"/>
+    <party id ="667831" delay = "0" shortname = "Far Eastern STU: DevOchka" region = "1" name = "Far Eastern STU: DevOchka (Kochetkova, Kravets, Lysenko)"/>
+    <party id ="667832" delay = "0" shortname = "Far Eastern STU: myTEAmmm" region = "1" name = "Far Eastern STU: myTEAmmm (Kolesnikov, Zhdankina, Ponomarenko)"/>
+    <party id ="667833" delay = "0" shortname = "Far Eastern STU: kekadev" region = "1" name = "Far Eastern STU: kekadev (Karataev, Nikanorov, Bazheko)"/>
+    <party id ="667834" delay = "0" shortname = "VSUES: Videokrolik" region = "1" name = "VSUES: Videokrolik (Sokolov, Iakovenko, Kulkov)"/>
+    <party id ="667835" delay = "0" shortname = "VSUES: 8" region = "1" name = "VSUES: 8 (Yaroslavtsev, Nikolaev, Tsoy)"/>
+    <party id ="667836" delay = "0" shortname = "Irkutsk U: 4 whoami" region = "1" name = "Irkutsk U: 4 whoami (Muratov, Demakov, Grachev)"/>
+    <party id ="667837" delay = "0" shortname = "INRTU: 3 PolyTech" region = "1" name = "INRTU: 3 PolyTech (Kozhevnikov, Lukash, Boturkhonov)"/>
+    <party id ="667838" delay = "0" shortname = "Irkutsk U: 5 take it easy" region = "1" name = "Irkutsk U: 5 take it easy (Taglasov, Fedorov, Davydov)"/>
+    <party id ="667839" delay = "0" shortname = "Irkutsk U: 2 322" region = "1" name = "Irkutsk U: 2 322 (Kravchenko, Bonoev, Mitrofanov)"/>
+    <party id ="667840" delay = "0" shortname = "esstu: 5 Wolf Auf" region = "1" name = "esstu: 5 Wolf Auf (Suvorov, Grigoriev, Kokovikhin)"/>
+    <party id ="667841" delay = "0" shortname = "BSU: 4 nonremmitalSpiders" region = "1" name = "BSU: 4 nonremmitalSpiders (Orlov, Zhigzhitzhapov, Dashitsyrenov)"/>
+    <party id ="667842" delay = "0" shortname = "IMCS SFU: 1 KlopiTarakani" region = "1" name = "IMCS SFU: 1 KlopiTarakani (Nosov, Solodnikov, Strekalovskiy)"/>
+    <party id ="667843" delay = "0" shortname = "Khakas TI of SFU: 4 ZXCoders" region = "1" name = "Khakas TI of SFU: 4 ZXCoders (Mikhailov, Kirillov, Kafanov)"/>
+    <party id ="667844" delay = "0" shortname = "BSU: 3 soldaP" region = "1" name = "BSU: 3 soldaP (Turusov, Munkoev, Baldanov)"/>
+    <party id ="667845" delay = "0" shortname = "ISRU: 2 molodie lisyata" region = "1" name = "ISRU: 2 molodie lisyata (Vedernikov, Novoselov, Kupriyanov)"/>
+    <party id ="667846" delay = "0" shortname = "Zabaikal SU: 1" region = "1" name = "Zabaikal SU: 1 (Chumilin, Melumyan, Voloshinskiy)"/>
+    <party id ="667847" delay = "0" shortname = "BSU: 1 TNT" region = "1" name = "BSU: 1 TNT (Gorbacheva, Panteleev, Smolyov)"/>
+    <party id ="667848" delay = "0" shortname = "ISRU: 1 Brainstorm" region = "1" name = "ISRU: 1 Brainstorm (Bakhtin, Gordeev, Belyaev)"/>
+    <party id ="667849" delay = "0" shortname = "INRTU: 2Team" region = "1" name = "INRTU: 2Team (Levin, Alkhimov, Zhilenkov)"/>
+    <party id ="667850" delay = "0" shortname = "Tuvan SU: 1 Achiles Turtles" region = "1" name = "Tuvan SU: 1 Achiles Turtles (SarygXaa, Kuder, Olziibat)"/>
+    <party id ="667851" delay = "0" shortname = "ESSUTM: 1 ElderlyCoders" region = "1" name = "ESSUTM: 1 ElderlyCoders (Pisarenko, Ochir, Drujinin)"/>
+    <party id ="667852" delay = "0" shortname = "ISIT SFU: 2 Systema auto pobedi" region = "1" name = "ISIT SFU: 2 Systema auto pobedi (Alekseev, Ishakov, Erakhtin)"/>
+    <party id ="667853" delay = "0" shortname = "Tuvan SU: 2 Akatsuki" region = "1" name = "Tuvan SU: 2 Akatsuki (Khomushku, Baykalov, Khertek)"/>
+    <party id ="667854" delay = "0" shortname = "ISIT SFU: 4 Super Cookies" region = "1" name = "ISIT SFU: 4 Super Cookies (Saprykina, Titovets, Lukyantsev)"/>
+    <party id ="667855" delay = "0" shortname = "Zabaikal SU: 2" region = "1" name = "Zabaikal SU: 2 (Strukov, Liagotsy, Ramensky)"/>
+    <party id ="667856" delay = "0" shortname = "BSU: 2 SYAS" region = "1" name = "BSU: 2 SYAS (Oshorov, Beloborodov, Dmitry)"/>
+    <party id ="667857" delay = "0" shortname = "Khakas TI of SFU: 1 Real Tigers" region = "1" name = "Khakas TI of SFU: 1 Real Tigers (Bakhtaraev, Draganov, Boev)"/>
+    <party id ="667872" delay = "0" shortname = "SamSU: _ITEG_1" region = "1" name = "SamSU: _ITEG_1 (Allayorov, Aslbek, Abduvahobov)"/>
+    <party id ="667898" delay = "0" shortname = "BelarusianSU: 5" region = "1" name = "BelarusianSU: 5 (Adamenka, Ilya, Tiliguzov)"/>
+    <party id ="667899" delay = "0" shortname = "BSUIR: 2 Brute Force - Best Force" region = "1" name = "BSUIR: 2 Brute Force - Best Force (Volkovskiy, Berazhny, Farisey)"/>
+    <party id ="667938" delay = "0" shortname = "NU: 4" region = "1" name = "NU: 4 (Suiirkhanov, Kontorbayeva, Ussoltsev)"/>
+    <party id ="668532" delay = "0" shortname = "YarSU: 12 HuRMa" region = "1" name = "YarSU: 12 HuRMa (Tatanova, Krotov, Grigoryev)"/>
+    <party id ="668533" delay = "0" shortname = "VyatkaGU: 9" region = "1" name = "VyatkaGU: 9 (Tropin, Chuvyzgalov, Algina)"/>
+    <party id ="668534" delay = "0" shortname = "OrelSU: 1" region = "1" name = "OrelSU: 1 (Yakovlev, Kashirin, Nikulin)"/>
+    <party id ="668536" delay = "0" shortname = "MSU Tashkent: 3 Froggg" region = "1" name = "MSU Tashkent: 3 Froggg (Abelkharisov, Akhmedov, Shabanov)"/>
+    <party id ="668594" delay = "0" shortname = "VoronezhSU: F" region = "1" name = "VoronezhSU: F (Plotnikova, Kosobutskaya, Danilov)"/>
+    <party id ="668693" delay = "0" shortname = "BelarusianSU: 3 Mogilev Eagles" region = "1" name = "BelarusianSU: 3 Mogilev Eagles (Kondibor, Kernazhytski, Dzenhaliou)"/>
+    <party id ="668694" delay = "0" shortname = "HSE: Sovetskiy Soyuz" region = "1" name = "HSE: Sovetskiy Soyuz (Zimanov, Zimanov, Pankevich)"/>
+    <party id ="669271" delay = "0" shortname = "Yerevan SU: 2813" region = "1" name = "Yerevan SU: 2813 (Altunyan, Muradyan, Hambardzumyan)"/>
+    <party id ="669272" delay = "0" shortname = "Yerevan SU: 1" region = "1" name = "Yerevan SU: 1 (Andreasyan, Mikaelyan, Abelyan)"/>
+    <party id ="669273" delay = "0" shortname = "Yerevan SU: bit.ly/2YlU2Si" region = "1" name = "Yerevan SU: bit.ly/2YlU2Si (Kocharyan, Margaryan, Galstyan)"/>
+    <party id ="669274" delay = "0" shortname = "Yerevan SU: SSD" region = "1" name = "Yerevan SU: SSD (Gomktsyan, Hakobyan, Mkrtumyan)"/>
+    <party id ="669275" delay = "0" shortname = "RAU: 2" region = "1" name = "RAU: 2 (Tsaturyan, Khroyan, Fahradyan)"/>
+    <party id ="669276" delay = "0" shortname = "RAU: 1" region = "1" name = "RAU: 1 (Petrosian, Drambyan, Ayanyan)"/>
+    <party id ="669277" delay = "0" shortname = "NPUA: polytex" region = "1" name = "NPUA: polytex (Harutyunyan, Bagdasaryan, Vardanyan)"/>
+    <party id ="669278" delay = "0" shortname = "RAU: 3" region = "1" name = "RAU: 3 (Khachatryan, Petikyan, Hayrapetyan)"/>
+    <party id ="669279" delay = "0" shortname = "AUA: 1" region = "1" name = "AUA: 1 (Vardanyan, Atanyan, Karapetyan)"/>
+    <party id ="669280" delay = "0" shortname = "Goris SU: We and Our Mountains" region = "1" name = "Goris SU: We and Our Mountains (Harutyunyan, Martirosyan, Arakelyan)"/>
+    <party id ="669281" delay = "0" shortname = "EUA: Mercury1" region = "1" name = "EUA: Mercury1 (Ali Ebrahimpour, Hovhannisyan, Katebi)"/>
+    <party id ="669282" delay = "0" shortname = "APSU: ASPU" region = "1" name = "APSU: ASPU (Yesayan, Hovnikyan, Poghosyan)"/>
+    <party id ="669283" delay = "0" shortname = "NUACA" region = "1" name = "NUACA (Artemyan, Shahverdyan, Dashyan)"/>
+    <party id ="670017" delay = "0" shortname = "KBTU: Permission denied" region = "1" name = "KBTU: Permission denied (Zhumash, Bazarbekov, Issenbayev)"/>
+    <party id ="670045" delay = "0" shortname = "YarSU: 18 Dead_Inside_Team" region = "1" name = "YarSU: 18 Dead_Inside_Team (Feklistov, Gladkov, Katkov)"/>
+    <party id ="670108" delay = "0" shortname = "NEFU" region = "1" name = "NEFU (Verkhovtsev, Danilov, Pirozhkov)"/>
+</parties>
