@@ -1,9 +1,7 @@
-name: Publish release on tag
+name: Make a test release
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
 
 
 jobs:
@@ -30,14 +28,4 @@ jobs:
         with:
           name: artifacts
           path: artifacts
-
-      - name: Create release
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          automatic_release_tag: "${{ github.event.inputs.tagname }}"
-          draft: true
-          files: |
-            artifacts/*.jar
 

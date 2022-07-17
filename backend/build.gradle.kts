@@ -58,7 +58,7 @@ tasks {
     for (js in jsList) {
         val dir = rootProject.rootDir.resolve(js)
         register<Copy>("copyJs${js.capitalize()}") {
-            dependsOn(":$js:npm_run_build")
+            dependsOn(":npm_run_build${js.capitalize()}")
             from(dir.resolve("build"))
             destinationDir = project.buildDir.resolve("resources").resolve("main").resolve(js)
         }
