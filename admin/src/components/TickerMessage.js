@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Container from "@mui/material/Container";
 import PropTypes from "prop-types";
 import { IconButton, ButtonGroup, Typography } from "@mui/material";
@@ -9,8 +9,9 @@ import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
 import { TickerTableRow } from "./TickerTableRow";
-import { PresetWidgetService } from "../services/presetWidget";
+import { usePresetWidgetService } from "../services/presetWidget";
 import { PresetsManager } from "./PresetsManager";
+import { AbstractWidgetService } from "../services/abstractWidget";
 
 const addPresetButtons = [
     {
@@ -34,7 +35,7 @@ const makeAddButtons = (part) => {
         return (<ButtonGroup>
             {addPresetButtons.filter(p => p.part === undefined || p.part === part).map(p =>
                 <IconButton color="primary" size="large" key={p.type}
-                    onClick={() => {onCreate({ ...p.settings, type: p.type, part: part });}}>
+                    onClick={() => onCreate({ ...p.settings, type: p.type, part: part })}>
                     <AddIcon/><p.component/>
                 </IconButton>)}
         </ButtonGroup>);
@@ -43,12 +44,8 @@ const makeAddButtons = (part) => {
     return AddButtons;
 };
 
-function TickerMessage() {
-    const { enqueueSnackbar, } = useSnackbar();
-    const service = useMemo(() =>
-        new PresetWidgetService("/tickerMessage", errorHandlerWithSnackbar(enqueueSnackbar)), []);
-
-    const renderPart = (part) => (<PresetsManager
+const TickerPart = ({ service, part }) =>
+    (<PresetsManager
         service={service}
         tableKeys={["type", "text", "periodMs"]}
         tableKeysHeaders={["Type", "Text", "Period (ms)"]}
@@ -56,13 +53,21 @@ function TickerMessage() {
         rowsFilter={row => row.settings.part === part}
         AddButtons={makeAddButtons(part)}
     />);
+TickerPart.propTypes = {
+    service: PropTypes.instanceOf(AbstractWidgetService).isRequired,
+    part: PropTypes.string.isRequired,
+};
+
+function TickerMessage() {
+    const { enqueueSnackbar, } = useSnackbar();
+    const service = usePresetWidgetService("/tickerMessage", errorHandlerWithSnackbar(enqueueSnackbar));
 
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
             <Typography variant="h5" gutterBottom>Short</Typography>
-            {renderPart("short")}
+            <TickerPart service={service} part={"short"}/>
             <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>Long</Typography>
-            {renderPart("long")}
+            <TickerPart service={service} part={"long"}/>
         </Container>
     );
 }

@@ -1,4 +1,5 @@
 import { AbstractWidgetService } from "./abstractWidget";
+import { useMemo } from "react";
 
 export class PresetWidgetService extends AbstractWidgetService {
     constructor(apiPath, errorHandler) {
@@ -29,3 +30,7 @@ export class PresetWidgetService extends AbstractWidgetService {
         return this.apiPost("/create_and_show_with_ttl?ttl=" + ttlMs, presetSettings).catch((e) => this.errorHandler("Failed to add preset")(e));
     }
 }
+
+export const usePresetWidgetService = (apiPath, errorHandler) => useMemo(
+    () => new PresetWidgetService(apiPath, errorHandler),
+    []);
