@@ -23,7 +23,13 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
     private val model = ClicsModel()
     private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
 
-    fun CoroutineScope.launchLoader() = run {
+    val Event.isFinalEvent get() = this is StateEvent && data.end_of_updates != null
+
+    fun CoroutineScope.launchLoader(
+        onRun: suspend (RunInfo) -> Unit,
+        onContestInfo: suspend (ContestInfo) -> Unit,
+        onComment: suspend (AnalyticsCommentaryEvent) -> Unit
+    ) {
         val eventsLoader = object : EventFeedLoaderService<Event>(central.auth) {
             val idsSet = mutableSetOf<String>()
             override val url = central.eventFeedUrl
@@ -33,25 +39,6 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 logger.error("Failed to deserialize: $data")
                 null
             }
-        }
-        val rawEventsFlow = MutableSharedFlow<Event>(
-            extraBufferCapacity = Int.MAX_VALUE,
-            onBufferOverflow = BufferOverflow.SUSPEND
-        )
-
-        val contestInfoFlow = MutableStateFlow(model.contestInfo)
-        val rawRunsFlow = MutableSharedFlow<RunInfo>(
-            extraBufferCapacity = Int.MAX_VALUE,
-            onBufferOverflow = BufferOverflow.SUSPEND
-        )
-        val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvent>(
-            replay = 100,
-            extraBufferCapacity = Int.MAX_VALUE,
-            onBufferOverflow = BufferOverflow.SUSPEND
-        )
-
-        launch(Dispatchers.IO) {
-            eventsLoader.run(rawEventsFlow)
         }
 
         launch {
@@ -92,11 +79,17 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
                 emit(PreloadFinishedEvent("", Operation.CREATE))
-                emitAll(channel)
+                if (contestEvents.none { it.isFinalEvent }) {
+                    for (event in channel) {
+                        emit(event)
+                        if (event.isFinalEvent) break
+                    }
+                }
+                channel.cancel()
             }
 
             var preloadFinished = false
-            rawEventsFlow.sortedPrefix().collect {
+            eventsLoader.run().sortedPrefix().collect {
                 when (it) {
                     is UpdateContestEvent -> {
                         when (it) {
@@ -110,12 +103,12 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                             is PreloadFinishedEvent -> {
                                 preloadFinished = true
                                 for (run in model.submissions.values.sortedBy { it.id }) {
-                                    rawRunsFlow.emit(run.toApi())
+                                    onRun(run.toApi())
                                 }
                             }
                         }
                         if (preloadFinished) {
-                            contestInfoFlow.value = model.contestInfo
+                            onContestInfo(model.contestInfo)
                         }
                     }
                     is UpdateRunEvent -> {
@@ -125,12 +118,12 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                             is RunsEvent -> model.processRun(it.data)
                         }.also { run ->
                             if (preloadFinished) {
-                                rawRunsFlow.emit(run.toApi())
+                                onRun(run.toApi())
                             }
                         }
                     }
                     is CommentaryEvent -> {
-                        analyticsEventsFlow.emit(
+                        onComment(
                             AnalyticsCommentaryEvent(
                                 it.data.id,
                                 it.data.message,
@@ -145,33 +138,41 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 }
             }
         }
-        Triple(rawRunsFlow, contestInfoFlow, analyticsEventsFlow)
     }
 
     override suspend fun run() {
         coroutineScope {
-            val (rawRunsFlow, contestInfoFlow, analyticsEventFlow) = launchLoader()
-            launchICPCServices(rawRunsFlow, contestInfoFlow, analyticsEventFlow)
+            val contestInfoFlow = MutableStateFlow(model.contestInfo)
+            val rawRunsFlow = MutableSharedFlow<RunInfo>(
+                extraBufferCapacity = Int.MAX_VALUE,
+                onBufferOverflow = BufferOverflow.SUSPEND
+            )
+            val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvent>(
+                replay = 100,
+                extraBufferCapacity = Int.MAX_VALUE,
+                onBufferOverflow = BufferOverflow.SUSPEND
+            )
+            launchLoader(
+                onRun = { rawRunsFlow.emit(it) },
+                onContestInfo = { contestInfoFlow.value = it },
+                onComment =  { analyticsEventsFlow.emit(it) }
+            )
+            launchICPCServices(rawRunsFlow, contestInfoFlow, analyticsEventsFlow)
         }
     }
 
-    override suspend fun loadOnce() = coroutineScope {
-        val (_, contestInfoFlow, analyticsEventFlow) = launchLoader()
-        val analyticsEvents = merge(contestInfoFlow, analyticsEventFlow)
-            .takeWhile { it !is ContestInfo || it.status != ContestStatus.OVER }
-            .fold(mutableListOf<AnalyticsEvent>()) { ac, it ->
-                when (it) {
-                    is AnalyticsEvent -> {
-                        ac += it
-                        ac
-                    }
-                    else -> ac
-                }
-            }
-        val contestInfo = contestInfoFlow.first { it.status == ContestStatus.OVER }
-        coroutineContext.cancelChildren()
+    override suspend fun loadOnce() : ContestParseResult {
+        val analyticsEvents = mutableListOf<AnalyticsEvent>()
+        coroutineScope {
+            launchLoader(
+                onRun = {},
+                onContestInfo = {},
+                onComment = { analyticsEvents.add(it) }
+            )
+        }
+        logger.info("Loaded data from CLICS")
         val runs = model.submissions.values.map { it.toApi() }
-        ContestParseResult(contestInfo, runs, analyticsEvents)
+        return ContestParseResult(model.contestInfo, runs, analyticsEvents)
     }
 
     companion object {

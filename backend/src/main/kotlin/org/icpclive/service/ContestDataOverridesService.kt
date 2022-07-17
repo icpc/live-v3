@@ -74,13 +74,17 @@ class ContestDataOverridesService(
                     ?.let { catchToNull { guessDatetimeFormat(it) } }
                     ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
                     ?: info.startTime
+                val medals = overrides.scoreboardOverrides?.medals ?: info.medals
+                val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
                 if (unusedTeamOverrides.isNotEmpty()) logger.warn("No team for override: $unusedTeamOverrides")
                 if (unusedProblemOverrides.isNotEmpty()) logger.warn("No problem for override: $unusedProblemOverrides")
                 logger.info("Team and problem overrides are reloaded")
                 outputFlow.value = info.copy(
                     startTime = startTime,
                     teams = teamInfos,
-                    problems = problemInfos
+                    problems = problemInfos,
+                    medals = medals,
+                    penaltyPerWrongAttempt = penaltyPerWrongAttempt
                 )
             }
         }

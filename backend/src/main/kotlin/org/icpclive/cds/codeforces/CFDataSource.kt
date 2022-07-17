@@ -1,12 +1,8 @@
 package org.icpclive.cds.codeforces
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -72,9 +68,6 @@ class CFDataSource(properties: Properties) : ContestDataSource {
         val contestInfoFlow = MutableStateFlow(contestInfo.toApi())
 
         coroutineScope {
-            val standingsFlow = MutableStateFlow<CFStandings?>(null)
-            val statusFlow = MutableStateFlow(CFSubmissionList(emptyList()))
-            launch(Dispatchers.IO) { standingsLoader.run(standingsFlow, 5.seconds) }
             val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
                 extraBufferCapacity = 16,
                 onBufferOverflow = BufferOverflow.DROP_OLDEST
@@ -85,10 +78,9 @@ class CFDataSource(properties: Properties) : ContestDataSource {
             )
             launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
             launchICPCServices(rawRunsFlow, contestInfoFlow)
-            launch(Dispatchers.IO) { statusLoader.run(statusFlow, 5.seconds) }
 
 
-            merge(standingsFlow.filterNotNull(), statusFlow).collect {
+            merge(standingsLoader.run(5.seconds), statusLoader.run(5.seconds)).collect {
                 when (it) {
                     is CFStandings -> {
                         contestInfo.updateStandings(it)

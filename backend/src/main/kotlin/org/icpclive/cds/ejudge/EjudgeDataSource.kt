@@ -1,11 +1,9 @@
 package org.icpclive.cds.ejudge
 
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
@@ -23,23 +21,16 @@ import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-/**
- * @author Mike Perveev
- */
 class EjudgeDataSource(val properties: Properties) : ContestDataSource {
     override suspend fun run() {
         coroutineScope {
-            val xmlLoaderFlow = MutableStateFlow(Document(""))
-            launch(Dispatchers.IO) {
-                xmlLoader.run(xmlLoaderFlow, 5.seconds)
-            }
             val rawRunsFlow = MutableSharedFlow<RunInfo>(
                 extraBufferCapacity = Int.MAX_VALUE,
                 onBufferOverflow = BufferOverflow.SUSPEND
             )
             val contestInfoFlow = MutableStateFlow(contestData.toApi())
             launchICPCServices(rawRunsFlow, contestInfoFlow)
-            xmlLoaderFlow.collect {
+            xmlLoader.run(5.seconds).collect {
                 if (it.children().size != 0) {
                     parseContestInfo(it.children()[0]) { runBlocking { rawRunsFlow.emit(it) } }
                     contestInfoFlow.value = contestData.toApi()

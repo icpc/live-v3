@@ -23,6 +23,7 @@ class ClicsModel {
     var contestLength = 5.hours
     var freezeTime = 4.hours
     var status = ContestStatus.BEFORE
+    var penaltyPerWrongAttempt = 20
 
     val Team.internalId get() = id.hashCode()
 
@@ -58,12 +59,14 @@ class ClicsModel {
             freezeTime = freezeTime,
             problems = problems.values.sortedBy { it.ordinal }.map { it.toApi() },
             teams = teams.values.map { it.toApi() },
+            penaltyPerWrongAttempt = penaltyPerWrongAttempt
         )
 
     fun processContest(contest: Contest) {
         contest.start_time?.let { startTime = it }
         contestLength = contest.duration
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
+        penaltyPerWrongAttempt = contest.penalty_time ?: 20
     }
 
     fun processProblem(operation: Operation, problem: Problem) {

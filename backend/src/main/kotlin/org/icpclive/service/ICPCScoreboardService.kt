@@ -7,9 +7,9 @@ import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import kotlin.math.max
 
-private fun MedalSettings.medalColorByRank(rank_: Int): String? {
+private fun List<MedalType>.medalColorByRank(rank_: Int): String? {
     var rank = rank_
-    for ((color, count) in medals) {
+    for ((color, count) in this) {
         if (rank <= count) return color
         rank -= count
     }
@@ -30,11 +30,9 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
     suspend fun run(
         runsFlow: Flow<RunInfo>,
         contestInfoFlow: Flow<ContestInfo>,
-        advancedPropertiesFlow: Flow<AdvancedProperties>
     ) {
         var info: ContestInfo? = null
-        var medals: MedalSettings? = null
-        merge(runsFlow, contestInfoFlow, advancedPropertiesFlow).collect { update ->
+        merge(runsFlow, contestInfoFlow).collect { update ->
             when (update) {
                 is RunInfo -> {
                     val oldRun = runs[update.id]
@@ -46,18 +44,14 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                 is ContestInfo -> {
                     info = update
                 }
-                is AdvancedProperties -> {
-                    medals = update.medals
-                }
             }
             info?.let {
-                flow.value = getScoreboard(it, medals)
+                flow.value = getScoreboard(it)
             }
         }
     }
 
-    private fun getScoreboardRow(
-        problemsCount: Int,
+    private fun ContestInfo.getScoreboardRow(
         teamId: Int,
         runs: List<RunInfo>,
         teamGroups: List<String>
@@ -66,7 +60,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         var penalty = 0
         var lastAccepted = 0L
         val runsByProblem = runs.groupBy { it.problemId }
-        val problemResults = List(problemsCount) { problemId ->
+        val problemResults = List(problems.size) { problemId ->
             val problemRuns = runsByProblem.getOrElse(problemId) { emptyList() }
             val (runsBeforeFirstOk, okRun) = run {
                 val okRunIndex = problemRuns
@@ -87,7 +81,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             ).also {
                 if (it.isSolved) {
                     solved++
-                    penalty += okRun!!.time.inWholeMinutes.toInt() + it.wrongAttempts * 20
+                    penalty += okRun!!.time.inWholeMinutes.toInt() + it.wrongAttempts * penaltyPerWrongAttempt
                     lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
                 }
             }
@@ -104,7 +98,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         )
     }
 
-    private fun getScoreboard(info: ContestInfo, medalsSettings: MedalSettings?): Scoreboard {
+    private fun getScoreboard(info: ContestInfo): Scoreboard {
         val runs = runs.values
             .sortedWith(compareBy({ it.time }, { it.id }))
             .groupBy { it.teamId }
@@ -116,7 +110,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         )
 
         val rows = teamsInfo.values
-            .map { getScoreboardRow(info.problems.size, it.id, runs[it.id] ?: emptyList(), it.groups) }
+            .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups) }
             .sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
             .toMutableList()
         if (rows.isNotEmpty()) {
@@ -125,7 +119,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                 if (i != 0 && comparator.compare(rows[i - 1], rows[i]) < 0) {
                     rank++
                 }
-                val medal = medalsSettings?.medalColorByRank(rank).takeIf { rows[i].totalScore > 0 }
+                val medal = info.medals.medalColorByRank(rank)?.takeIf { rows[i].totalScore > 0 }
                 rows[i] = rows[i].copy(rank = rank, medalType = medal)
             }
         }

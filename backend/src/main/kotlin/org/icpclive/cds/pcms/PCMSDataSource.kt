@@ -67,17 +67,13 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
     override suspend fun run() {
         coroutineScope {
             val xmlLoader = getLoader()
-            val xmlLoaderFlow = MutableStateFlow(Document(""))
-            launch(Dispatchers.IO) {
-                xmlLoader.run(xmlLoaderFlow, 5.seconds)
-            }
             val rawRunsFlow = MutableSharedFlow<RunInfo>(
                 extraBufferCapacity = Int.MAX_VALUE,
                 onBufferOverflow = BufferOverflow.SUSPEND
             )
             val contestInfoFlow = MutableStateFlow(contestInfo)
             launchICPCServices(rawRunsFlow, contestInfoFlow)
-            xmlLoaderFlow.collect {
+            xmlLoader.run(5.seconds).collect {
                 parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
                 contestInfoFlow.value = contestInfo
             }

@@ -18,16 +18,12 @@ data class ProblemInfoOverride(
 )
 
 @Serializable
-data class MedalType(val name: String, val count: Int)
-
-@Serializable
-@JvmInline
-value class MedalSettings(val medals: List<MedalType>)
+class RankingSettings(val medals: List<MedalType>? = null, val penaltyPerWrongAttempt: Int? = null)
 
 @Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
-    val medals: MedalSettings? = null
+    val scoreboardOverrides: RankingSettings? = null
 )
