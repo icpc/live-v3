@@ -88,7 +88,7 @@ fun Route.configureAdminApiRouting() {
         route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
         route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/title") {
-            setupPresetTitleRouting(path("title")) { titleSettings: TitleSettings ->
+            setupPresetWidgetRouting(path("title")) { titleSettings: TitleSettings ->
                 SvgWidget(
                     SvgTransformer(mediaDirectory, titleSettings.preset, titleSettings.data).toBase64()
                 )
