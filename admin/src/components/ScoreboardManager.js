@@ -195,7 +195,7 @@ function ScoreboardManager() {
                     }
                 })
             .catch(createErrorHandler("Failed to load list of presets"));
-        apiGet("/info")
+        apiGet("/regions")
             .then((result) => setGroupsList(result))
             .catch(createErrorHandler("Failed to load info"));
     };

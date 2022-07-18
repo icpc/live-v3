@@ -55,15 +55,15 @@ fun Route.configureAdminApiRouting() {
         route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
         route("/scoreboard") {
             setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget)
-            get("/info") {
-                call.respond(DataBus.contestInfoFlow.await().first().teams.flatMap { it.groups }.distinct().sorted())
+            get("/regions") {
+                call.respond(getRegions())
             }
         }
 
         route("/teamView") {
             setupSimpleWidgetRouting(TeamViewSettings()) { TeamViewWidget(it) }
-            get("/info") {
-                call.respond(DataBus.contestInfoFlow.await().first().teams)
+            get("/teams") {
+                call.respond(getTeams())
             }
         }
 
@@ -73,15 +73,15 @@ fun Route.configureAdminApiRouting() {
                     setupSimpleWidgetRouting(TeamViewSettings()) { TeamViewWidget(it, position) }
                 }
             }
-            get("/info") {
-                call.respond(DataBus.contestInfoFlow.await().first().teams)
+            get("/teams") {
+                call.respond(getTeams())
             }
         }
 
         route("/teamPVP") {
             setupSimpleWidgetRouting(TeamPVPSettings(), ::TeamPVPWidget)
-            get ("/info") {
-                call.respond(DataBus.contestInfoFlow.await().first().teams)
+            get ("/teams") {
+                call.respond(getTeams())
             }
         }
 

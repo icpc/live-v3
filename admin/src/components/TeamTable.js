@@ -159,7 +159,7 @@ export class TeamTable extends React.Component {
             fetch(this.apiUrl())
                 .then(res => res.json())
                 .catch(this.props.createErrorHandler("Failed to load list of teams")),
-            fetch(this.apiUrl() + "/info")
+            fetch(this.apiUrl() + "/teams")
                 .then(res => res.json())
                 .catch(this.props.createErrorHandler("Failed to load list of teams"))
         ]).then(([status, response]) => {

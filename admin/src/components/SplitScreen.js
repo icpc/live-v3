@@ -44,7 +44,7 @@ function SplitScreenGrid({ apiPath, createErrorHandler }) {
     const updateData = () => {
         Promise.all([
             Promise.all([0, 1, 2, 3].map(i => apiGet("/" + i).catch(createErrorHandler("Failed to load list of teams")))),
-            apiGet("/info").catch(createErrorHandler("Failed to load list of teams")),
+            apiGet("/teams").catch(createErrorHandler("Failed to load list of teams")),
         ]).then(([inst, teams]) => {
             const showedTeams = inst.filter(i => i?.shown).map(i => i?.settings?.teamId);
             const teamsData = teams.map((elem) => {
