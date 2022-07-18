@@ -18,8 +18,7 @@ private suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
 }
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
-    widgetWrapper: Wrapper<SettingsType, WidgetType>,
-    noinline getInfo: (suspend () -> Any)?
+    widgetWrapper: Wrapper<SettingsType, WidgetType>
 ) {
     get {
         // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
@@ -50,11 +49,6 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
             widgetWrapper.hide()
         }
         DataBus.adminActionsFlow.emit(call.request.uri)
-    }
-    if (getInfo != null) {
-        get("/info") {
-            call.respond(getInfo())
-        }
     }
 }
 
@@ -119,9 +113,8 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupSimpleWidgetRouting(
     initialSettings: SettingsType,
-    noinline createWidget: (SettingsType) -> WidgetType,
-    noinline getInfo: (suspend () -> Any)? = null
-) = setupSimpleWidgetRouting(Wrapper(createWidget, initialSettings, WidgetManager), getInfo)
+    noinline createWidget: (SettingsType) -> WidgetType
+) = setupSimpleWidgetRouting(Wrapper(createWidget, initialSettings, WidgetManager))
 
 internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType : Widget> Route.setupPresetWidgetRouting(
     presetPath: Path,

@@ -54,28 +54,34 @@ fun Route.configureAdminApiRouting() {
         route("/statistics") { setupSimpleWidgetRouting(StatisticsSettings(), ::StatisticsWidget) }
         route("/ticker") { setupSimpleWidgetRouting(TickerSettings(), ::TickerWidget) }
         route("/scoreboard") {
-            setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget) {
-                DataBus.contestInfoFlow.await().first().teams.flatMap { it.groups }.distinct().sorted()
+            setupSimpleWidgetRouting(ScoreboardSettings(), ::ScoreboardWidget)
+            get("/info") {
+                call.respond(DataBus.contestInfoFlow.await().first().teams.flatMap { it.groups }.distinct().sorted())
             }
         }
 
         route("/teamView") {
-            setupSimpleWidgetRouting(TeamViewSettings(), { TeamViewWidget(it) }) {
-                DataBus.contestInfoFlow.await().first().teams
+            setupSimpleWidgetRouting(TeamViewSettings()) { TeamViewWidget(it) }
+            get("/info") {
+                call.respond(DataBus.contestInfoFlow.await().first().teams)
             }
         }
 
-        for (position in TeamViewPosition.values()) {
-            route("/splitscreen/${position.ordinal}") {
-                setupSimpleWidgetRouting(TeamViewSettings(), { TeamViewWidget(it, position) }) {
-                    DataBus.contestInfoFlow.await().first().teams
+        route("/splitscreen") {
+            for (position in TeamViewPosition.values()) {
+                route("${position.ordinal}") {
+                    setupSimpleWidgetRouting(TeamViewSettings()) { TeamViewWidget(it, position) }
                 }
+            }
+            get("/info") {
+                call.respond(DataBus.contestInfoFlow.await().first().teams)
             }
         }
 
         route("/teamPVP") {
-            setupSimpleWidgetRouting(TeamPVPSettings(), ::TeamPVPWidget) {
-                DataBus.contestInfoFlow.await().first().teams
+            setupSimpleWidgetRouting(TeamPVPSettings(), ::TeamPVPWidget)
+            get ("/info") {
+                call.respond(DataBus.contestInfoFlow.await().first().teams)
             }
         }
 
