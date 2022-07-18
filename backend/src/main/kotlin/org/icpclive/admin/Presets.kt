@@ -40,15 +40,8 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
         return innerData.map { it.getStatus() }
     }
 
-    suspend fun getWidget(id: Int): ItemType? {
-        mutex.withLock {
-            for (preset in innerData) {
-                if (preset.id != id)
-                    continue
-                return preset.getWidget()
-            }
-            return null
-        }
+    suspend fun getWidget(id: Int) = mutex.withLock {
+        findById(id).getWidget()
     }
 
     suspend fun append(settings: SettingsType): Int {
@@ -63,34 +56,22 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
 
     suspend fun edit(id: Int, content: SettingsType) {
         mutex.withLock {
-            for (preset in innerData) {
-                if (preset.id == id)
-                    preset.set(content)
-            }
+            findById(id).set(content)
         }
         save()
     }
 
     suspend fun delete(id: Int) {
         mutex.withLock {
-            for (preset in innerData) {
-                if (preset.id != id)
-                    continue
-                preset.hide()
-            }
-            innerData = innerData.filterNot { it.id == id }
+            findById(id).hide()
+            innerData.minus(findById(id))
         }
         save()
     }
 
     suspend fun show(id: Int) {
         mutex.withLock {
-            for (preset in innerData) {
-                if (preset.id != id)
-                    continue
-                preset.show()
-                break
-            }
+            findById(id).show()
         }
     }
 
@@ -108,11 +89,7 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
 
     suspend fun hide(id: Int) {
         mutex.withLock {
-            for (preset in innerData) {
-                if (preset.id != id)
-                    continue
-                preset.hide()
-            }
+            findById(id).hide()
         }
     }
 
@@ -124,6 +101,8 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
             innerData = load()
         }
     }
+
+    private fun findById(id: Int) = innerData.find { it.id == id } ?: throw AdminActionApiException("No such id")
 
     private fun load() = try {
         FileInputStream(path.toFile()).use {
