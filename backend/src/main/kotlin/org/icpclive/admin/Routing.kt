@@ -86,8 +86,9 @@ fun Route.configureAdminApiRouting() {
         }
 
         route("/advertisement") { setupPresetWidgetRouting(path("advertisements"), ::AdvertisementWidget) }
+        route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/title") {
-            setupPresetWidgetRouting(path("title")) { titleSettings: TitleSettings ->
+            setupPresetTitleRouting(path("title")) { titleSettings: TitleSettings ->
                 SvgWidget(
                     SvgTransformer(mediaDirectory, titleSettings.preset, titleSettings.data).toBase64()
                 )
@@ -97,11 +98,11 @@ fun Route.configureAdminApiRouting() {
                     val mediaDirectoryFile = mediaDirectory.toFile()
                     call.respond(mediaDirectoryFile.walkTopDown()
                         .filter { it.isFile && it.name.endsWith(".svg") }
-                        .map { it.relativeTo(mediaDirectoryFile).path }.toList())
+                        .map { it.relativeTo(mediaDirectoryFile).path }.toList()
+                    )
                 }
             }
         }
-        route("/picture") { setupPresetWidgetRouting(path("pictures"), ::PictureWidget) }
         route("/tickerMessage") { setupPresetTickerRouting(path("ticker"), TickerMessageSettings::toMessage) }
         route("/users") { setupUserRouting() }
         get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }

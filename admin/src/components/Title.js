@@ -1,35 +1,46 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
-import { Autocomplete, Table, TableBody, TableCell, TableRow, TextField } from "@mui/material";
+import { Autocomplete, TableCell, TableRow, TextField, Dialog, DialogTitle, DialogContent, DialogActions, Button, Card } from "@mui/material";
 import ShowPresetButton from "./ShowPresetButton";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
+import PreviewIcon from "@mui/icons-material/Preview";
 import { PresetsTableCell, ValueEditorPropTypes } from "./PresetsTableCell";
 import PropTypes from "prop-types";
 import { activeRowColor } from "../styles";
 import { onChangeFieldHandler } from "./PresetsTableRow";
 import { PresetsManager } from "./PresetsManager";
 import { usePresetWidgetService } from "../services/presetWidget";
-import { TitleWidgetService } from "../services/titleWidget";
+import { useTitleWidgetService } from "../services/titleWidget";
 
-const parseJSONOrDefault = (text, defult) => {
-    try {
-        return JSON.parse(text);
-    } catch (e) {
-        return defult;
-    }
+const PreviewSVGDialog = ({ open, handleClose, id }) => {
+    const service = useTitleWidgetService("/title", undefined, false);
+    const [content, setContent] = useState(undefined);
+    useEffect(() => service.getPreview(id).then(c =>  setContent(c)), []);
+    return (
+        <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
+            <DialogTitle>Preset preview</DialogTitle>
+            <DialogContent>
+                <Card sx={{ borderRadius: 0, width: "sm" }}>
+                    <object type="image/svg+xml" data={content} style={{ width: "100%" }}/>
+                </Card>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleClose} autoFocus>OK</Button>
+            </DialogActions>
+        </Dialog>
+    );
 };
 
 const PresetEditor = ({ value, onSubmitAction, onChangeHandler }) => {
     const [templates, setTemplates] = useState([]);
 
-    const service = useMemo(() => new TitleWidgetService("/title", undefined, false), []);
+    const service = useTitleWidgetService("/title", undefined, false);
     useEffect(() => service.getTemplates().then(ts => setTemplates(ts)), []);
 
     return (<Box onSubmit={onSubmitAction} component="form" type="submit">
@@ -46,34 +57,17 @@ const PresetEditor = ({ value, onSubmitAction, onChangeHandler }) => {
 };
 PresetEditor.propTypes = ValueEditorPropTypes;
 
-const ParamsLine = ({ pKey, pValue }) => (<Box sx={{}}><b>{pKey}</b>: {JSON.stringify(pValue)}</Box>);
+const ParamsLine = ({ pKey, pValue }) => (<Box sx={{}}><b>{pKey}</b>: {pValue}</Box>);
 ParamsLine.propTypes = {
     pKey: PropTypes.string.isRequired,
     pValue: PropTypes.any.isRequired,
 };
 
-const JSONParamsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => (
-    <Box onSubmit={onSubmitAction} component="form" type="submit">
-        <TextField
-            autoFocus
-            multiline
-            hiddenLabel
-            defaultValue={JSON.stringify(value, null, " ")}
-            id="filled-hidden-label-small"
-            type="text"
-            size="small"
-            sx={{ width: 1 }}
-            onChange={(e) => {
-                onChangeHandler(parseJSONOrDefault(e.target.value, value));
-            }}
-        />
-    </Box>);
-
-JSONParamsDataEditor.propTypes = {
-    value: PropTypes.any.isRequired,
-    onChangeHandler: PropTypes.func.isRequired,
-    onSubmitAction: PropTypes.func.isRequired,
-};
+const parseParamsData = input =>
+    input.split("\n")
+        .map(line => line.split(/:\W?/, 2))
+        .filter(r => r.length >= 2)
+        .reduce((ac, [ k, v ]) => { ac[k] = v; return ac; }, {});
 
 const YamlParamsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => (
     <Box onSubmit={onSubmitAction} component="form" type="submit">
@@ -86,53 +80,15 @@ const YamlParamsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => (
             type="text"
             size="small"
             sx={{ width: 1 }}
-            onChange={(e) => {
-                onChangeHandler(parseJSONOrDefault(e.target.value, value));
-            }}
+            onChange={(e) => onChangeHandler(parseParamsData(e.target.value))}
         />
     </Box>);
 
-YamlParamsDataEditor.propTypes = {
-    value: PropTypes.any.isRequired,
-    onChangeHandler: PropTypes.func.isRequired,
-    onSubmitAction: PropTypes.func.isRequired,
-};
-
-const ParamsDataEditorRow = ({ value, onChange, sx }) => (<TextField
-    autoFocus
-    hiddenLabel
-    sx={sx}
-    defaultValue={value}
-    type="text"
-    size="small"
-    onChange={(e) => onChange(e.target.value)}
-/>);
-
-const ParamsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => {
-    const [data, setData] = useState(Object.entries(value).map(([ k, v ], id) => ({ id: id, k: k, v: v })));
-    const onChange = (d) => onChangeHandler(d.filter(row => row.v !== "").reduce((ac, { k, v }) => { ac[k] = v; return ac; }, {}));
-    const changeKey = (id, newK) => setData(d => { d[id].k = newK; onChange(d); return d; });
-    const changeValue = (id, newV) => setData(d => { d[id].v = newV; onChange(d); return d; });
-    const addParam = () => setData(d => ([ ...d, { id: d.length, k: "", v: "" }]));
-    return (<Box onSubmit={onSubmitAction} component="form" type="submit">
-        <Table>
-            <TableBody>
-                {data.map(({ id, k, v }) =>
-                    <TableRow key={id} sx={{ "& td, & th": { border: 0, py: 0.25, px: 0.5 } }}>
-                        <TableCell>
-                            <ParamsDataEditorRow value={k} onChange={newKey => changeKey(id, newKey)} sx={{ width: 0.4 }}/>
-                            <ParamsDataEditorRow value={v} onChange={newValue => changeValue(id, newValue)} sx={{ width: 0.6 }}/>
-                        </TableCell>
-                    </TableRow>)}
-            </TableBody>
-        </Table>
-        <IconButton color="primary" size="large" onClick={addParam}><AddIcon/></IconButton>
-    </Box>);
-};
-ParamsDataEditor.propTypes = ValueEditorPropTypes;
+YamlParamsDataEditor.propTypes = ValueEditorPropTypes;
 
 function TitleTableRow({ data, onShow, onEdit, onDelete }) {
     const [editData, setEditData] = useState();
+    const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
 
     const onClickEdit = () => {
         if (editData === undefined) {
@@ -161,6 +117,12 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
         />
         <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
             <Box>
+                <PreviewSVGDialog
+                    open={previewDialogOpen}
+                    handleClose={() => setPreviewDialogOpen(false)}
+                    id={data.id}
+                />
+                {editData === undefined && <IconButton onClick={() => setPreviewDialogOpen(true)}><PreviewIcon/></IconButton>}
                 <IconButton color={editData === undefined ? "inherit" : "primary"} onClick={onClickEdit}>
                     {editData === undefined ? <EditIcon/> : <SaveIcon/>}
                 </IconButton>
