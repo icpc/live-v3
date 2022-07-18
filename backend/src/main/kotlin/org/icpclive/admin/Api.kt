@@ -132,20 +132,6 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
     noinline createWidget: (SettingsType) -> WidgetType
 ) = setupPresetRouting(Presets(presetPath, WidgetManager, createWidget))
 
-internal fun Route.setupPresetTitleRouting(
-    presetPath: Path,
-    createMessage: (TitleSettings) -> SvgWidget,
-) {
-    val presetsManager = Presets(presetPath, WidgetManager, createMessage)
-    setupPresetRouting(presetsManager)
-    get("/{id}/preview") {
-        call.adminApiAction {
-            val id = call.id()
-            createMessage(presetsManager.get(id).settings).content
-        }
-    }
-}
-
 internal fun Route.setupPresetTickerRouting(
     presetPath: Path,
     createMessage: (TickerMessageSettings) -> TickerMessage,

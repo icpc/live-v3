@@ -29,6 +29,12 @@ export class PresetWidgetService extends AbstractWidgetService {
     createAndShowWithTtl(presetSettings, ttlMs) {
         return this.apiPost("/create_and_show_with_ttl?ttl=" + ttlMs, presetSettings).catch((e) => this.errorHandler("Failed to add preset")(e));
     }
+
+    getPreview(id) {
+        return this.apiPost("/" + id + "/preview", undefined, "GET")
+            .then(r => r.response)
+            .catch(this.errorHandler("Failed to load preset preview"));
+    }
 }
 
 export const usePresetWidgetService = (apiPath, errorHandler, listenWS) => useMemo(
