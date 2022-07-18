@@ -1,7 +1,6 @@
 package org.icpclive.service
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +13,7 @@ import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.humanReadable
+import org.icpclive.utils.reliableSharedFlow
 import kotlin.random.Random
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -91,16 +91,9 @@ fun CoroutineScope.launchEmulation(
     analyticsEvents: List<AnalyticsEvent> = emptyList()
 ) {
     EmulationService.logger.info("Running in emulation mode with speed x${speed} and startTime = ${startTime.humanReadable}")
-    val rawRunsFlow = MutableSharedFlow<RunInfo>(
-        extraBufferCapacity = Int.MAX_VALUE,
-        onBufferOverflow = BufferOverflow.SUSPEND
-    )
+    val rawRunsFlow = reliableSharedFlow<RunInfo>()
     val contestInfoFlow = MutableStateFlow(contestInfo)
-    val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvent>(
-        replay = 100,
-        extraBufferCapacity = Int.MAX_VALUE,
-        onBufferOverflow = BufferOverflow.SUSPEND
-    )
+    val analyticsEventsFlow = reliableSharedFlow<AnalyticsEvent>()
     launch {
         EmulationService(
             startTime,

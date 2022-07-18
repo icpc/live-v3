@@ -4,13 +4,11 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.api.AnalyticsEvent
-import org.icpclive.api.AnalyticsEvents
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
 
 class AnalyticsEventsService {
-//    private val events = mutableListOf<AnalyticsEvent>()
     private val updatesFlow = MutableSharedFlow<AnalyticsEvent>(
         extraBufferCapacity = 50000,
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
@@ -19,7 +17,6 @@ class AnalyticsEventsService {
 
     suspend fun run(rawEvents: Flow<AnalyticsEvent>) {
         rawEvents.collect {
-//            events.add(it)
             updatesFlow.emit(it)
         }
     }

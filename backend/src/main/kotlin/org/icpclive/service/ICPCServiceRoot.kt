@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
+import org.icpclive.utils.reliableSharedFlow
 
 
 fun CoroutineScope.launchICPCServices(
@@ -14,10 +15,7 @@ fun CoroutineScope.launchICPCServices(
     rawInfoFlow: StateFlow<ContestInfo>,
     rawAnalyticsEventFlow: SharedFlow<AnalyticsEvent> = MutableSharedFlow()
 ) {
-    val runsFlow = MutableSharedFlow<RunInfo>(
-        extraBufferCapacity = Int.MAX_VALUE,
-        onBufferOverflow = BufferOverflow.SUSPEND
-    )
+    val runsFlow = reliableSharedFlow<RunInfo>()
     val advancedPropertiesFlow = MutableStateFlow(AdvancedProperties())
     val infoFlow = MutableStateFlow(rawInfoFlow.value)
     DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)

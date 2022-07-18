@@ -4,6 +4,7 @@ import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
@@ -88,4 +89,16 @@ suspend fun DefaultWebSocketServerSession.sendFlow(flow: Flow<String>) {
 suspend inline fun <reified T> DefaultWebSocketServerSession.sendJsonFlow(flow: Flow<T>) {
     val formatter = defaultJsonSettings()
     sendFlow(flow.map { formatter.encodeToString(it) })
+}
+
+/**
+ * Delivers all events to all current and future subscribers
+ */
+fun <T> reliableSharedFlow() = MutableSharedFlow<T>(
+    replay = Int.MAX_VALUE,
+    onBufferOverflow = BufferOverflow.SUSPEND,
+)
+
+suspend fun <T> MutableSharedFlow<T>.awaitSubscribers(count: Int = 1) {
+    subscriptionCount.dropWhile { it < count }.first()
 }

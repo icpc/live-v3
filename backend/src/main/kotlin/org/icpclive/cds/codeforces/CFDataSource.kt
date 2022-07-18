@@ -1,6 +1,5 @@
 package org.icpclive.cds.codeforces
 
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,6 +17,7 @@ import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.processCreds
+import org.icpclive.utils.reliableSharedFlow
 import java.io.IOException
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
@@ -68,14 +68,8 @@ class CFDataSource(properties: Properties) : ContestDataSource {
         val contestInfoFlow = MutableStateFlow(contestInfo.toApi())
 
         coroutineScope {
-            val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
-                extraBufferCapacity = 16,
-                onBufferOverflow = BufferOverflow.DROP_OLDEST
-            )
-            val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                extraBufferCapacity = Int.MAX_VALUE,
-                onBufferOverflow = BufferOverflow.SUSPEND
-            )
+            val runsBufferFlow = MutableStateFlow<List<RunInfo>>(emptyList())
+            val rawRunsFlow = reliableSharedFlow<RunInfo>()
             launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
             launchICPCServices(rawRunsFlow, contestInfoFlow)
 
@@ -89,7 +83,7 @@ class CFDataSource(properties: Properties) : ContestDataSource {
                     is CFSubmissionList -> {
                         val submissions = contestInfo.parseSubmissions(it.list)
                         log.info("Loaded ${submissions.size} runs")
-                        runsBufferFlow.emit(submissions)
+                        runsBufferFlow.value = submissions
                     }
                 }
             }

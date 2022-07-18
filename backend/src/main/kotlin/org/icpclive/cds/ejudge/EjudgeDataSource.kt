@@ -13,6 +13,7 @@ import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
+import org.icpclive.utils.reliableSharedFlow
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -24,10 +25,7 @@ import kotlin.time.Duration.Companion.seconds
 class EjudgeDataSource(val properties: Properties) : ContestDataSource {
     override suspend fun run() {
         coroutineScope {
-            val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                extraBufferCapacity = Int.MAX_VALUE,
-                onBufferOverflow = BufferOverflow.SUSPEND
-            )
+            val rawRunsFlow = reliableSharedFlow<RunInfo>()
             val contestInfoFlow = MutableStateFlow(contestData.toApi())
             launchICPCServices(rawRunsFlow, contestInfoFlow)
             xmlLoader.run(5.seconds).collect {

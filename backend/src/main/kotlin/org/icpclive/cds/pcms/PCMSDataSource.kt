@@ -17,6 +17,7 @@ import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.BasicAuth
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.processCreds
+import org.icpclive.utils.reliableSharedFlow
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -67,10 +68,7 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
     override suspend fun run() {
         coroutineScope {
             val xmlLoader = getLoader()
-            val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                extraBufferCapacity = Int.MAX_VALUE,
-                onBufferOverflow = BufferOverflow.SUSPEND
-            )
+            val rawRunsFlow = reliableSharedFlow<RunInfo>()
             val contestInfoFlow = MutableStateFlow(contestInfo)
             launchICPCServices(rawRunsFlow, contestInfoFlow)
             xmlLoader.run(5.seconds).collect {

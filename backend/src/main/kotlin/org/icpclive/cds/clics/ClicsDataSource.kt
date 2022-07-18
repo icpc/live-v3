@@ -14,6 +14,7 @@ import org.icpclive.cds.clics.api.Event
 import org.icpclive.service.EventFeedLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
+import org.icpclive.utils.reliableSharedFlow
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -143,15 +144,8 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
     override suspend fun run() {
         coroutineScope {
             val contestInfoFlow = MutableStateFlow(model.contestInfo)
-            val rawRunsFlow = MutableSharedFlow<RunInfo>(
-                extraBufferCapacity = Int.MAX_VALUE,
-                onBufferOverflow = BufferOverflow.SUSPEND
-            )
-            val analyticsEventsFlow = MutableSharedFlow<AnalyticsEvent>(
-                replay = 100,
-                extraBufferCapacity = Int.MAX_VALUE,
-                onBufferOverflow = BufferOverflow.SUSPEND
-            )
+            val rawRunsFlow = reliableSharedFlow<RunInfo>()
+            val analyticsEventsFlow = reliableSharedFlow<AnalyticsEvent>()
             launchLoader(
                 onRun = { rawRunsFlow.emit(it) },
                 onContestInfo = { contestInfoFlow.value = it },

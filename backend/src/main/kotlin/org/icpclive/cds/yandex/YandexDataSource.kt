@@ -25,10 +25,7 @@ import org.icpclive.cds.yandex.api.*
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.OAuthAuth
-import org.icpclive.utils.defaultHttpClient
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.processCreds
+import org.icpclive.utils.*
 import java.io.IOException
 import java.util.*
 import kotlin.time.Duration
@@ -104,19 +101,21 @@ class YandexDataSource(props: Properties) : ContestDataSource {
 
         val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
             extraBufferCapacity = 16,
-            onBufferOverflow = BufferOverflow.DROP_OLDEST
-        )
-        val rawRunsFlow = MutableSharedFlow<RunInfo>(
-            extraBufferCapacity = Int.MAX_VALUE,
             onBufferOverflow = BufferOverflow.SUSPEND
         )
-        val pendingRunIdFlow = MutableStateFlow(0)
+        val rawRunsFlow = reliableSharedFlow<RunInfo>()
 
         coroutineScope {
             launchICPCServices(rawRunsFlow, contestInfoFlow)
             launch(Dispatchers.IO) { reloadContestInfo(rawContestInfoFlow, contestInfoFlow, 30.seconds) }
-            launch(Dispatchers.IO) { fetchNewRunsOnly(rawContestInfoFlow, runsBufferFlow, pendingRunIdFlow, 1.seconds) }
-            launch(Dispatchers.IO) { reloadAllRuns(rawContestInfoFlow, runsBufferFlow, 120.seconds) }
+            launch(Dispatchers.IO) {
+                runsBufferFlow.awaitSubscribers()
+                fetchNewRunsOnly(rawContestInfoFlow, runsBufferFlow, 1.seconds)
+            }
+            launch(Dispatchers.IO) {
+                runsBufferFlow.awaitSubscribers()
+                reloadAllRuns(rawContestInfoFlow, runsBufferFlow, 120.seconds)
+            }
             launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
         }
     }
@@ -185,9 +184,9 @@ class YandexDataSource(props: Properties) : ContestDataSource {
     private suspend fun fetchNewRunsOnly(
         rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
         runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
-        pendingRunIdFlow: MutableStateFlow<Int>,
         period: Duration
     ) {
+        var pendingRunId = 0
         while (true) {
             try {
                 val rawContestInfo = rawContestInfoFlow.value
@@ -201,13 +200,12 @@ class YandexDataSource(props: Properties) : ContestDataSource {
                             .filter(rawContestInfo::isTeamSubmission)
                             .map(rawContestInfo::submissionToRun)
                     )
-                    if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunIdFlow.value) {
+                    if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunId) {
                         break
                     }
                     page++
                 }
-                pendingRunIdFlow.value = runs.filter { !it.isJudged }.minOfOrNull { it.id }
-                    ?: runs.maxOfOrNull { it.id } ?: 0
+                pendingRunId = runs.filter { !it.isJudged }.minOfOrNull { it.id } ?: runs.maxOfOrNull { it.id } ?: 0
                 runsBufferFlow.emit(runs)
             } catch (e: IOException) {
                 log.error("Failed to reload rejudges", e)

@@ -26,7 +26,11 @@ object DataBus {
         extraBufferCapacity = 0,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-    val adminActionsFlow = MutableSharedFlow<String>()
+    val adminActionsFlow = MutableSharedFlow<String>(
+        replay = 500,
+        extraBufferCapacity = 0,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
         scoreboardFlow[level.ordinal].completeOrThrow(flow)
