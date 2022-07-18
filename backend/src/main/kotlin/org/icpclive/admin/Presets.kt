@@ -40,6 +40,17 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
         return innerData.map { it.getStatus() }
     }
 
+    suspend fun getWidget(id: Int): ItemType? {
+        mutex.withLock {
+            for (preset in innerData) {
+                if (preset.id != id)
+                    continue
+                return preset.getWidget()
+            }
+            return null
+        }
+    }
+
     suspend fun append(settings: SettingsType): Int {
         var id: Int
         mutex.withLock {
