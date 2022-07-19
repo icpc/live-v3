@@ -1,6 +1,5 @@
 package org.icpclive.admin
 
-import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -117,13 +116,8 @@ internal inline fun <reified SettingsType : ObjectSettings, reified WidgetType :
         DataBus.adminActionsFlow.emit(call.request.uri)
     }
     get("/{id}/preview") {
-        // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
-        run {
-            val content = presets.getWidget(call.id())
-            if (content != null)
-                call.respond(content)
-            else
-                call.respond(HttpStatusCode.BadRequest)
+        call.adminApiAction {
+            call.respond(presets.getWidget(call.id()))
         }
     }
 }
