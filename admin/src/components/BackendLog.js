@@ -1,37 +1,18 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import Ansi from "ansi-to-react";
-
-import "../App.css";
 import { BASE_URL_WS } from "../config";
 import { Box, Grid } from "@mui/material";
+import { useDebounceList, useWebsocket } from "../utils";
 
 const apiUrl = () => {
     return BASE_URL_WS + "/backendLog";
 };
 
 function BackendLog() {
-    const [messages, setMessages] = useState([]);
-    const ws = useRef(null);
-
-    useEffect(() => {
-        ws.current = new WebSocket(apiUrl());
-
-        ws.current.onmessage = (event) => {
-            setMessages((_messages) => [event.data, ..._messages]);
-        };
-
-        return () => {
-            ws.current?.close();
-        };
-    }, []);
-
-    const scrollTarget = useRef(null);
-
-    React.useEffect(() => {
-        if (scrollTarget.current) {
-            scrollTarget.current.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [messages.length]);
+    const [messages, , addMessages] = useDebounceList(100);
+    useWebsocket(apiUrl(), event => {
+        addMessages(event.data);
+    });
 
     return (<Grid sx={{
         display: "flex",

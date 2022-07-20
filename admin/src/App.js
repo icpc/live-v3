@@ -16,14 +16,19 @@ import ScoreboardManager from "./components/ScoreboardManager";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 import Analytics from "./components/AnalyticsEvent";
+import { localStorageGet, localStorageSet } from "./utils";
 
 function App() {
-    const [isOverlayPreviewShown, setIsOverlayPreviewShown] = useState(false);
+    const [isOverlayPreviewShown, setIsOverlayPreviewShown] = useState(localStorageGet("OverlayPreviewShown"));
+    const saveIsOverlayPreviewShown = v => {
+        localStorageSet("OverlayPreviewShown", v);
+        setIsOverlayPreviewShown(v);
+    };
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL ?? ""}>
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
-                    <AppNav showOrHideOverlayPerview={() => setIsOverlayPreviewShown(state => !state)}/>
+                    <AppNav showOrHideOverlayPerview={() => saveIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
                     <Routes>
                         <Route path="/" element={<Controls/>}/>
                         <Route path="/controls" element={<Controls/>}/>

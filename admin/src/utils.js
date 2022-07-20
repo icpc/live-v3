@@ -1,5 +1,9 @@
 import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { WEBSOCKET_RECONNECT_TIME } from "./config";
+
+export const localStorageGet = key => JSON.parse(localStorage.getItem(key) ?? "null");
+export const localStorageSet = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
 export const createApiPost = (apiUrl) =>
     function (path, body = {}, method = "POST") {
@@ -29,6 +33,31 @@ export const createApiGet = (apiUrl) =>
 
 export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
 export const unixTimeMsToLocalTime = (timeMs) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");
+
+export const useWebsocket = (wsUrl, handleMessage) => {
+    const [isConnected, setIsConnected] = useState(false);
+    const ws = useRef(null);
+    const openSocket = useMemo(() => () => {
+        ws.current = new WebSocket(wsUrl);
+        ws.current.onopen = () => {
+            setIsConnected(true);
+            console.info(`Connected to WS ${wsUrl}`);
+        };
+        ws.current.onclose = () => {
+            setIsConnected(false);
+            console.warn(`Disconnected from WS ${wsUrl}`);
+            setTimeout(openSocket, WEBSOCKET_RECONNECT_TIME);
+        };
+        ws.current.onmessage = handleMessage;
+    }, [wsUrl, handleMessage]);
+    useEffect(() => {
+        openSocket();
+        return () => {
+            ws.current?.close();
+        };
+    }, []);
+    return isConnected;
+};
 
 export const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
