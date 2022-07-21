@@ -16,18 +16,19 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import { PresetsTableCell, ValueEditorPropTypes } from "./PresetsTableCell";
 import PropTypes from "prop-types";
 import { activeRowColor } from "../styles";
-import { onChangeFieldHandler } from "./PresetsTableRow";
+import { usePresetTableRowDataState } from "./PresetsTableRow";
 import { PresetsManager } from "./PresetsManager";
 import { usePresetWidgetService } from "../services/presetWidget";
 import { useTitleWidgetService } from "../services/titleWidget";
+import { useDebounce } from "../utils";
 
-const PreviewSVGDialog = ({ open, handleClose, id }) => {
+const PreviewSVGDialog = (props) => {
     const { enqueueSnackbar } = useSnackbar();
     const service = useTitleWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar), false);
-    const [content, setContent] = useState(undefined);
-    useEffect(() => open && service.getPreview(id).then(r => setContent(r.content)), [open, id]);
+    const [content, setContent] = useState();
+    useEffect(() => open && service.getPreview(props.id).then(r => setContent(r.content)), [open, props.id]);
     return (
-        <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
+        <Dialog fullWidth maxWidth="md" { ...props }>
             <DialogTitle>Title preview</DialogTitle>
             <DialogContent>
                 <Card sx={{ borderRadius: 0 }}>
@@ -37,96 +38,94 @@ const PreviewSVGDialog = ({ open, handleClose, id }) => {
                 </Card>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} autoFocus>OK</Button>
+                <Button onClick={props.onClose} autoFocus>OK</Button>
             </DialogActions>
         </Dialog>
     );
 };
 PreviewSVGDialog.propTypes = {
     open: PropTypes.bool.isRequired,
-    handleClose: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
 };
 
-const TemplateEditor = ({ value, onSubmitAction, onChangeHandler }) => {
+const TemplateEditor = ({ value, onSubmit, onChange }) => {
     const [templates, setTemplates] = useState([]);
 
     const service = useTitleWidgetService("/title", undefined, false);
     useEffect(() => service.getTemplates().then(ts => setTemplates(ts)), []);
 
-    return (<Box onSubmit={onSubmitAction} component="form" type="submit">
+    return (<Box onSubmit={onSubmit} component="form" type="submit">
         <Autocomplete
             disablePortal
             freeSolo
             sx={{ width: 1 }}
             size="small"
             value={value}
-            onChange={(_, value) => onChangeHandler(value) }
+            onChange={(_, value) => onChange(value) }
             options={templates}
             renderInput={(params) => <TextField {...params} label="SVG preset"/>}/>
     </Box>);
 };
 TemplateEditor.propTypes = ValueEditorPropTypes;
 
-const ParamsLine = ({ pKey, pValue }) => (<Box sx={{}}><b>{pKey}</b>: {pValue}</Box>);
+const ParamsLine = ({ pKey, pValue }) =>
+    (<Box><b>{pKey}</b>: {pValue}</Box>);
 ParamsLine.propTypes = { pKey: PropTypes.string.isRequired, pValue: PropTypes.any.isRequired };
+
+const paramsDataToString = (value) =>
+    Object.entries(value).map(([k, v]) => k + ": " + v).join("\n");
 
 const parseParamsData = input =>
     input.split("\n")
         .map(line => line.split(/:\W?/, 2))
         .filter(r => r.length >= 2)
-        .reduce((ac, [ k, v ]) => { ac[k] = v; return ac; }, {});
+        .reduce((ac, [ k, v ]) => ({ ...ac, [k]: v }), {});
 
-const ParamsDataEditor = ({ onSubmitAction, value, onChangeHandler }) => (
-    <Box onSubmit={onSubmitAction} component="form" type="submit">
-        <TextField
-            autoFocus
-            multiline
-            hiddenLabel
-            defaultValue={Object.entries(value).map(([ k, v ]) => k + ": " + v).join("\n")}
-            id="filled-hidden-label-small"
-            type="text"
-            size="small"
-            sx={{ width: 1 }}
-            onChange={(e) => onChangeHandler(parseParamsData(e.target.value))}
-        />
-    </Box>);
+const ParamsDataEditor = ({ onSubmit, value, onChange }) => {
+    const [inputValue, setInputValue] = useState(paramsDataToString(value));
+    const debouncedInputValue = useDebounce(inputValue, 250);
+    useEffect(() => onChange(parseParamsData(debouncedInputValue)),
+        [debouncedInputValue]);
+    return (
+        <Box onSubmit={onSubmit} component="form" type="submit">
+            <TextField
+                autoFocus
+                multiline
+                hiddenLabel
+                defaultValue={paramsDataToString(value)}
+                id="filled-hidden-label-small"
+                type="text"
+                size="small"
+                sx={{ width: 1 }}
+                onChange={(e) => setInputValue(e.target.value)}
+            />
+        </Box>);
+};
 ParamsDataEditor.propTypes = ValueEditorPropTypes;
 
 function TitleTableRow({ data, onShow, onEdit, onDelete }) {
-    const [editData, setEditData] = useState();
+    const [editData, onClickEdit, onSubmitEdit, onChangeField] = usePresetTableRowDataState(data, onEdit);
     const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
-
-    const onClickEdit = () => {
-        if (editData === undefined) {
-            setEditData(() => data);
-        } else {
-            onEdit(editData).then(() => setEditData(undefined));
-        }
-    };
-    const onSubmitEdit = (e) => {
-        e.preventDefault();
-        onClickEdit();
-    };
 
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
             <ShowPresetButton onClick={onShow} active={data.shown}/>
         </TableCell>
         <PresetsTableCell value={data.settings.preset} editValue={editData?.settings?.preset} isActive={data.shown}
-            onChangeValue={onChangeFieldHandler(setEditData, "preset")} onSubmitAction={onSubmitEdit}
-            ValueEditor={TemplateEditor}
+            onChange={onChangeField("preset")} onSubmit={onSubmitEdit}
+            valueEditor={TemplateEditor}
         />
         <PresetsTableCell value={data.settings.data} editValue={editData?.settings?.data}
-            isActive={data.shown} ValueEditor={ParamsDataEditor}
-            onChangeValue={onChangeFieldHandler(setEditData, "data")} onSubmitAction={onSubmitEdit}
-            ValuePrinter={(v) => Object.entries(v).map(e => <ParamsLine key={e[0]} pKey={e[0]} pValue={e[1]}/>)}
+            isActive={data.shown} valueEditor={ParamsDataEditor}
+            onChange={onChangeField( "data")} onSubmit={onSubmitEdit}
+            valuePrinter={(v) => Object.entries(v).map(e => <ParamsLine key={e[0]} pKey={e[0]} pValue={e[1]}/>)}
         />
         <TableCell component="th" scope="row" align={"right"} key="__manage_row__">
             <Box>
                 <PreviewSVGDialog
                     open={previewDialogOpen}
-                    handleClose={() => setPreviewDialogOpen(false)}
+                    onClose={() => setPreviewDialogOpen(false)}
                     id={data.id}
                 />
                 {editData === undefined && <IconButton onClick={() => setPreviewDialogOpen(true)}><PreviewIcon/></IconButton>}

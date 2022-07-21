@@ -21,7 +21,10 @@ export function PresetsManager({ service, RowComponent, defaultRowData, tableKey
     const onShow = ({ shown, id }) => (shown ? service.hidePreset(id) : service.showPreset(id));
 
     useEffect(loadData, []);
-    useEffect(() => service.setReloadDataHandler(loadData), []);
+    useEffect(() => {
+        service.addReloadDataHandler(loadData);
+        return () => service.deleteReloadDataHandler(loadData);
+    }, []);
 
     return (<div>
         <Table align={"center"}>

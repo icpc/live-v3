@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 
 export const ValueEditorPropTypes = {
     value: PropTypes.any.isRequired,
-    onChangeHandler: PropTypes.func.isRequired,
-    onSubmitAction: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
 };
 
 const defaultValuePrinter = (v) => v;
-const defaultValueEditor = ({ onSubmitAction, value, onChangeHandler }) => (
-    <Box onSubmit={onSubmitAction} component="form" type="submit">
+const defaultValueEditor = ({ onSubmit, value, onChange }) => (
+    <Box onSubmit={onSubmit} component="form" type="submit">
         <TextField
             autoFocus
             hiddenLabel
@@ -20,31 +20,29 @@ const defaultValueEditor = ({ onSubmitAction, value, onChangeHandler }) => (
             type="text"
             size="small"
             sx={{ width: 1 }}
-            onChange={(e) => {
-                onChangeHandler(e.target.value);
-            }}
+            onChange={(e) => onChange(e.target.value)}
         />
     </Box>);
 
 export const PresetsTableCell = ({
     value,
-    onChangeValue,
+    onChange,
     editValue,
-    onSubmitAction,
-    ValuePrinter = defaultValuePrinter,
-    ValueEditor = defaultValueEditor
+    onSubmit,
+    valuePrinter = defaultValuePrinter,
+    valueEditor : ValueEditor = defaultValueEditor
 }) => {
     return (<TableCell component="th" scope="row">
-        {editValue === undefined ? ValuePrinter(value) : <ValueEditor onSubmitAction={onSubmitAction} value={value} onChangeHandler={onChangeValue}/>}
+        {editValue === undefined ? valuePrinter(value) : <ValueEditor onSubmit={onSubmit} value={value} onChange={onChange}/>}
     </TableCell>);
 };
 
 PresetsTableCell.propTypes = {
     isActive: PropTypes.bool.isRequired,
     value: PropTypes.any.isRequired,
-    onChangeValue: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
     editValue: PropTypes.any,
-    onSubmitAction: PropTypes.func.isRequired,
-    ValuePrinter: PropTypes.elementType,
-    ValueEditor: PropTypes.elementType,
+    onSubmit: PropTypes.func.isRequired,
+    valuePrinter: PropTypes.elementType,
+    valueEditor: PropTypes.elementType,
 };

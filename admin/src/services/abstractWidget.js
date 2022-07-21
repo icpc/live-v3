@@ -12,11 +12,15 @@ export class AbstractWidgetService {
             this.ws = new WebSocket(ADMIN_ACTIONS_WS_URL);
             this.ws.onmessage = ({ data }) => this.isMessageRequireReload(data) && this.reloadDataHandlers.forEach(h => h(data));
         }
-        this.reloadDataHandlers = [];
+        this.reloadDataHandlers = new Set();
     }
 
-    setReloadDataHandler(handler) {
-        this.reloadDataHandlers.push(handler);
+    addReloadDataHandler(handler) {
+        this.reloadDataHandlers.add(handler);
+    }
+
+    deleteReloadDataHandler(handler) {
+        this.reloadDataHandlers.delete(handler);
     }
 
     isMessageRequireReload(/* data */) {}
