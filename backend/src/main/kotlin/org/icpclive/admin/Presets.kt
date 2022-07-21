@@ -63,8 +63,9 @@ class PresetsManager<SettingsType : ObjectSettings, ItemType : TypeWithId>(
 
     suspend fun delete(id: Int) {
         mutex.withLock {
-            findById(id).hide()
-            innerData.minus(findById(id))
+            val preset = findById(id);
+            preset.hide()
+            innerData = innerData.minus(preset)
         }
         save()
     }

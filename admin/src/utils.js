@@ -30,6 +30,17 @@ export const createApiGet = (apiUrl) =>
 export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
 export const unixTimeMsToLocalTime = (timeMs) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");
 
+export const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedValue(value), delay);
+        return () => clearTimeout(handler);
+    },
+    [value, delay]
+    );
+    return debouncedValue;
+};
+
 export const useDebounceList = (delay) => {
     const [addCache, setAddCache] = useState([]);
     const [debouncedValue, setDebouncedValue] = useState([]);
