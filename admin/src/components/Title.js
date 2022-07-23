@@ -22,11 +22,11 @@ import { usePresetWidgetService } from "../services/presetWidget";
 import { useTitleWidgetService } from "../services/titleWidget";
 import { useDebounce } from "../utils";
 
-const PreviewSVGDialog = (props) => {
+const PreviewSVGDialog = ({ id, ...props }) => {
     const { enqueueSnackbar } = useSnackbar();
     const service = useTitleWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar), false);
     const [content, setContent] = useState();
-    useEffect(() => open && service.getPreview(props.id).then(r => setContent(r.content)), [open, props.id]);
+    useEffect(() => open && service.getPreview(id).then(r => setContent(r.content)), [open, id]);
     return (
         <Dialog fullWidth maxWidth="md" { ...props }>
             <DialogTitle>Title preview</DialogTitle>
