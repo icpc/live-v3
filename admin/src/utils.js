@@ -4,6 +4,14 @@ import { WEBSOCKET_RECONNECT_TIME } from "./config";
 
 export const localStorageGet = key => JSON.parse(localStorage.getItem(key) ?? "null");
 export const localStorageSet = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+export const useLocalStorageState = (key, defaultValue) => {
+    const [state, setState] = useState(localStorageGet(key) ?? defaultValue);
+    const saveState = v => {
+        localStorageSet(key, v);
+        setState(v);
+    };
+    return [state, saveState];
+};
 
 export const createApiPost = (apiUrl) =>
     function (path, body = {}, method = "POST") {
@@ -52,10 +60,8 @@ export const useWebsocket = (wsUrl, handleMessage) => {
     }, [wsUrl, handleMessage]);
     useEffect(() => {
         openSocket();
-        return () => {
-            ws.current?.close();
-        };
-    }, []);
+        return () => ws.current?.close();
+    }, [wsUrl, handleMessage]);
     return isConnected;
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import AppNav from "./AppNav";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,19 +16,15 @@ import ScoreboardManager from "./components/ScoreboardManager";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 import Analytics from "./components/AnalyticsEvent";
-import { localStorageGet, localStorageSet } from "./utils";
+import { useLocalStorageState } from "./utils";
 
 function App() {
-    const [isOverlayPreviewShown, setIsOverlayPreviewShown] = useState(localStorageGet("OverlayPreviewShown"));
-    const saveIsOverlayPreviewShown = v => {
-        localStorageSet("OverlayPreviewShown", v);
-        setIsOverlayPreviewShown(v);
-    };
+    const [isOverlayPreviewShown, setIsOverlayPreviewShown] = useLocalStorageState("OverlayPreviewShown", false);
     return (
         <BrowserRouter basename={process.env.PUBLIC_URL ?? ""}>
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
-                    <AppNav showOrHideOverlayPerview={() => saveIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
+                    <AppNav showOrHideOverlayPerview={() => setIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
                     <Routes>
                         <Route path="/" element={<Controls/>}/>
                         <Route path="/controls" element={<Controls/>}/>
