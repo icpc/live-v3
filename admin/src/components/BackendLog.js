@@ -1,18 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Ansi from "ansi-to-react";
 import { BASE_URL_WS } from "../config";
 import { Box, Grid } from "@mui/material";
 import { useDebounceList, useWebsocket } from "../utils";
 
-const apiUrl = () => {
-    return BASE_URL_WS + "/backendLog";
-};
-
 function BackendLog() {
     const [messages, , addMessages] = useDebounceList(100);
-    useWebsocket(apiUrl(), event => {
-        addMessages(event.data);
-    });
+    const handleWSMessage = useCallback(event => addMessages(event.data),
+        []);
+    useWebsocket(BASE_URL_WS + "/backendLog", handleWSMessage);
 
     return (<Grid sx={{
         display: "flex",

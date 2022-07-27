@@ -1,25 +1,21 @@
 import { Paper } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { OVERLAY_LOCATION } from "../config";
 import { Rnd } from "react-rnd";
 import PropTypes from "prop-types";
-import { localStorageGet, localStorageSet } from "../utils";
+import { useLocalStorageState } from "../utils";
 
 const FULL_WIDTH = 1920;
 const FULL_HEIGHT = 1080;
 
 export function Overlay(props) {
-    const [state, setState] = useState(localStorageGet("OverlayPreviewPosition") ?? {
+    const [state, setState] = useLocalStorageState("OverlayPreviewPosition", {
         scaleFactor: 0.3,
         offsetX: 0,
         offsetY: 0
     });
-    const saveState = (state) => {
-        localStorageSet("OverlayPreviewPosition", state);
-        setState(state);
-    };
-    const onResize = (e, direction, ref)  => saveState({ ...state, scaleFactor: ref.offsetWidth / FULL_WIDTH });
-    const onDrag = (e, ref) => saveState({ ...state, offsetX: ref.lastX, offsetY: ref.lastY });
+    const onResize = (e, direction, ref)  => setState({ ...state, scaleFactor: ref.offsetWidth / FULL_WIDTH });
+    const onDrag = (e, ref) => setState({ ...state, offsetX: ref.lastX, offsetY: ref.lastY });
 
     return props.isOverlayPreviewShown && (<Rnd
         position={{ x: state.offsetX, y: state.offsetY }}

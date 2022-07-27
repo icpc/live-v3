@@ -1,6 +1,6 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CommentIcon from "@mui/icons-material/Comment";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { BASE_URL_WS } from "../config";
 import {
     Box,
@@ -19,11 +19,7 @@ import {
 import PropTypes from "prop-types";
 import { PresetWidgetService } from "../services/presetWidget";
 import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../styles";
-import { timeMsToDuration, unixTimeMsToLocalTime, useDebounceList } from "../utils";
-
-const apiUrl = () => {
-    return BASE_URL_WS + "/analyticsEvents";
-};
+import { timeMsToDuration, unixTimeMsToLocalTime, useDebounceList, useWebsocket } from "../utils";
 
 const rowTheme = createTheme({
     components: {
@@ -91,9 +87,11 @@ EventsTable.propTypes = {
 
 function Analytics() {
     const [events, setEvents, addEvent] = useDebounceList(100);
+    const handleWSMessage = useCallback(event => addEvent(JSON.parse(event.data)),
+        []);
+    useWebsocket(BASE_URL_WS + "/analyticsEvents", handleWSMessage);
 
     const [selectedEvent, setSelectedEvent] = useState();
-    const ws = useRef(null);
 
     const updateEventById = (id, modifier) => setEvents(events => events.map(e => e.id === id ? modifier(e) : e));
 
@@ -101,18 +99,6 @@ function Analytics() {
     const tickerService = useMemo(() => new PresetWidgetService("/tickerMessage", console.log), []);
     const [advertisementTtl, setAdvertisementTtl] = useState(30);
     const [tickerMsgTtl, setTickerMsgTtl] = useState(120);
-
-    useEffect(() => {
-        ws.current = new WebSocket(apiUrl());
-
-        ws.current.onmessage = (event) => {
-            addEvent(JSON.parse(event.data));
-        };
-
-        return () => {
-            ws.current?.close();
-        };
-    }, []);
 
     function createAndShowAdvertisement() {
         const presetSettings = { text: selectedEvent.message };
