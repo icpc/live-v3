@@ -31,8 +31,7 @@ export class PresetWidgetService extends AbstractWidgetService {
     }
 
     getPreview(id) {
-        return this.apiPost("/" + id + "/preview", undefined, "GET")
-            .then(r => r.response)
+        return this.apiGet("/" + id + "/preview")
             .catch(this.errorHandler("Failed to load preset preview"));
     }
 }

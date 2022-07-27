@@ -26,7 +26,7 @@ const PreviewSVGDialog = ({ id, ...props }) => {
     const { enqueueSnackbar } = useSnackbar();
     const service = useTitleWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar), false);
     const [content, setContent] = useState();
-    useEffect(() => open && service.getPreview(id).then(r => setContent(r.content)), [open, id]);
+    useEffect(() => props.open && service.getPreview(id).then(r => setContent(r.content)), [props.open, id]);
     return (
         <Dialog fullWidth maxWidth="md" { ...props }>
             <DialogTitle>Title preview</DialogTitle>
