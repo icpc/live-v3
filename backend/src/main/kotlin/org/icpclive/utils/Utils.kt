@@ -7,10 +7,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.Config
@@ -30,10 +28,11 @@ private fun guessDatetimeFormatLocal(time: String) =
 
 
 fun guessDatetimeFormat(time: String): Instant =
-    catchToNull { Instant.fromEpochMilliseconds(time.toLong() * 1000L) }
-        ?: catchToNull { Instant.parse(time) }
-        ?: guessDatetimeFormatLocal(time)?.toInstant(TimeZone.currentSystemDefault())
-        ?: throw IllegalArgumentException("Failed to parse date: $time")
+    if (time == "now") Clock.System.now() else
+        catchToNull { Instant.fromEpochMilliseconds(time.toLong() * 1000L) }
+            ?: catchToNull { Instant.parse(time) }
+            ?: guessDatetimeFormatLocal(time)?.toInstant(TimeZone.currentSystemDefault())
+            ?: throw IllegalArgumentException("Failed to parse date: $time")
 
 val Instant.humanReadable: String
     get() = Date(this.toEpochMilliseconds()).toString()
