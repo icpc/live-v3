@@ -19,7 +19,11 @@ interface TypeWithId {
 }
 
 @Serializable
-data class ObjectStatus<SettingsType : ObjectSettings>(val shown: Boolean, val settings: SettingsType, val id: Int?)
+data class ObjectStatus<SettingsType : ObjectSettings>(
+    val shown: Boolean,
+    val settings: SettingsType,
+    val id: Int? = null
+)
 
 @Serializable
 data class RunInfo constructor(

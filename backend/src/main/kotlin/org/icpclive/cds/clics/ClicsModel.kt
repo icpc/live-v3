@@ -34,7 +34,7 @@ class ClicsModel {
             name = teamOrganization?.formalName ?: name,
             shortName = teamOrganization?.name ?: name,
             contestSystemId = id,
-            groups = groupIds.mapNotNull { groups[it]?.name },
+            groups = group_ids.mapNotNull { groups[it]?.name },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
                 photo.firstOrNull()?.let { put(MediaType.PHOTO, it.href) }
@@ -121,6 +121,7 @@ class ClicsModel {
             groups.remove(id)
         } else {
             groups[id] = group
+            logger.info("Add group $group")
         }
     }
 

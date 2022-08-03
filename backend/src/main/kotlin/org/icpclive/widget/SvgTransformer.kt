@@ -1,4 +1,4 @@
-package org.icpclive.admin
+package org.icpclive.widget
 
 import java.nio.file.Path
 import java.util.*

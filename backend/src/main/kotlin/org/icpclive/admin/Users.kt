@@ -69,7 +69,7 @@ fun Route.setupUserRouting() {
     post("/{username}/confirm") {
         call.adminApiAction {
             usersMutex.withLock {
-                val user = users[call.parameters["username"]] ?: throw AdminActionApiException("No such user")
+                val user = users[call.parameters["username"]] ?: throw ApiActionException("No such user")
                 users[user.name] = user.copy(confirmed = true)
                 saveUsers()
             }
