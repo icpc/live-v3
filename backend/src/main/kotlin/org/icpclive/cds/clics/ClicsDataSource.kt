@@ -137,7 +137,6 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                                 it.data.team_ids ?: emptyList()
                             )
                         )
-                        logger.info(it.data.toString())
                     }
                     is IgnoredEvent -> {}
                 }
