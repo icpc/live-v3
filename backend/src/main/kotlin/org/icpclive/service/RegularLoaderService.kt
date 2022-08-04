@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.flowOn
 import org.icpclive.utils.ClientAuth
 import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
+import org.icpclive.utils.isHttpUrl
 import java.io.IOException
+import java.nio.file.Paths
 import kotlin.time.Duration
 
 abstract class RegularLoaderService<T>(auth: ClientAuth?) {
@@ -19,7 +21,11 @@ abstract class RegularLoaderService<T>(auth: ClientAuth?) {
     abstract fun processLoaded(data: String): T
 
     suspend fun loadOnce(): T {
-        val content = httpClient.request(url).bodyAsText()
+        val content = if (!isHttpUrl(url)) {
+            Paths.get(url).toFile().readText()
+        } else {
+            httpClient.request(url).bodyAsText()
+        }
         return processLoaded(content)
     }
 

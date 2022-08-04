@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.flowOn
 import org.icpclive.utils.ClientAuth
 import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
+import org.icpclive.utils.isHttpUrl
+import java.nio.file.Paths
+import kotlin.time.Duration.Companion.seconds
 
 abstract class EventFeedLoaderService<T>(auth: ClientAuth?) {
     private val httpClient = defaultHttpClient(auth)
@@ -19,6 +22,14 @@ abstract class EventFeedLoaderService<T>(auth: ClientAuth?) {
 
 
     suspend fun run() = flow {
+        if (!isHttpUrl(url)) {
+            Paths.get(url).toFile().useLines { lines ->
+                lines.forEach { processEvent(it)?.also { emit(it) } }
+            }
+            kotlinx.coroutines.delay(2.seconds)
+            return@flow
+        }
+
         while (true) {
             httpClient.prepareGet(url) {
                 timeout {
@@ -33,7 +44,7 @@ abstract class EventFeedLoaderService<T>(auth: ClientAuth?) {
                     processEvent(line)?.also { emit(it) }
                 }
             }
-            println("Reconnect")
+            logger.warn("Reconnect")
         }
     }.flowOn(Dispatchers.IO)
 
