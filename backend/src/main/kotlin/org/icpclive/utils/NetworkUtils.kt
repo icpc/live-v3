@@ -59,3 +59,6 @@ fun defaultHttpClient(auth: ClientAuth?, block: HttpClientConfig<CIOEngineConfig
     }
     block()
 }
+
+
+fun isHttpUrl(text: String) = text.startsWith("http://") || text.startsWith("https://")
