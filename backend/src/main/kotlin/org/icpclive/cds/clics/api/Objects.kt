@@ -56,7 +56,7 @@ data class Organization(
 data class Team(
     val id: String,
     val organization_id: String? = null,
-    val group_ids: List<String> = emptyList(),
+    val groupIds: List<String> = emptyList(),
     val name: String = "",
     val photo: List<Media> = emptyList(),
     val video: List<Media> = emptyList(),
