@@ -12,7 +12,6 @@ import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.isHttpUrl
 import java.nio.file.Paths
-import kotlin.time.Duration.Companion.seconds
 
 abstract class EventFeedLoaderService<T>(auth: ClientAuth?) {
     private val httpClient = defaultHttpClient(auth)
@@ -26,7 +25,6 @@ abstract class EventFeedLoaderService<T>(auth: ClientAuth?) {
             Paths.get(url).toFile().useLines { lines ->
                 lines.forEach { processEvent(it)?.also { emit(it) } }
             }
-            kotlinx.coroutines.delay(2.seconds)
             return@flow
         }
 
