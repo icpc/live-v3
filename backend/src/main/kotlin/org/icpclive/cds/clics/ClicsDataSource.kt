@@ -1,16 +1,21 @@
 package org.icpclive.cds.clics
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.channels.ClosedReceiveChannelException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.produceIn
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.icpclive.api.*
+import org.icpclive.api.AnalyticsCommentaryEvent
+import org.icpclive.api.AnalyticsEvent
+import org.icpclive.api.ContestInfo
+import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.clics.api.*
-import org.icpclive.cds.clics.api.Event
 import org.icpclive.service.EventFeedLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
@@ -69,8 +74,11 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                         withTimeout(1.seconds) {
                             prefix.add(channel.receive())
                         }
-                    } catch (e: TimeoutCancellationException) {
-                        break
+                    } catch (e: RuntimeException) {
+                        when (e) {
+                            is TimeoutCancellationException, is ClosedReceiveChannelException -> break
+                            else -> throw e
+                        }
                     }
                 }
                 val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
@@ -149,13 +157,13 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
             launchLoader(
                 onRun = { rawRunsFlow.emit(it) },
                 onContestInfo = { contestInfoFlow.value = it },
-                onComment =  { analyticsEventsFlow.emit(it) }
+                onComment = { analyticsEventsFlow.emit(it) }
             )
             launchICPCServices(rawRunsFlow, contestInfoFlow, analyticsEventsFlow)
         }
     }
 
-    override suspend fun loadOnce() : ContestParseResult {
+    override suspend fun loadOnce(): ContestParseResult {
         val analyticsEvents = mutableListOf<AnalyticsEvent>()
         coroutineScope {
             launchLoader(
