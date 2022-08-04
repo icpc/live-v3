@@ -1,7 +1,6 @@
 package org.icpclive.cds.clics
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flow
@@ -72,13 +71,10 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 while (true) {
                     try {
                         withTimeout(1.seconds) {
-                            prefix.add(channel.receive())
-                        }
-                    } catch (e: RuntimeException) {
-                        when (e) {
-                            is TimeoutCancellationException, is ClosedReceiveChannelException -> break
-                            else -> throw e
-                        }
+                            channel.receiveCatching().getOrNull()
+                        }?.let { prefix.add(it) } ?: break
+                    } catch (e: TimeoutCancellationException) {
+                        break
                     }
                 }
                 val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
