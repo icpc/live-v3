@@ -103,16 +103,16 @@ class ClicsModel {
 
     fun processJudgementType(operation: Operation, judgementType: JudgementType) {
         if (operation == Operation.DELETE) {
-            logger.info("Remove judgementType $judgementType")
             judgementTypes.remove(judgementType.id)
+            logger.info("Remove judgementType $judgementType")
         } else {
             judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
                 id = judgementType.id,
                 isAccepted = judgementType.solved!!,
                 isAddingPenalty = judgementType.penalty,
             )
+            logger.info("Add judgementType $judgementType")
         }
-        logger.info("Add judgementType $judgementType")
     }
 
     fun processGroup(operation: Operation, group: Group) {
