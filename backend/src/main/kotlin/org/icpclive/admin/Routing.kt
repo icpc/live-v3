@@ -6,7 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.first
-import org.icpclive.Config
+import org.icpclive.config
 import org.icpclive.data.DataBus
 import org.icpclive.data.WidgetControllers
 import org.icpclive.utils.sendFlow
@@ -50,7 +50,7 @@ fun Route.configureAdminApiRouting() {
             setupController(WidgetControllers.title)
             get("/templates") {
                 run {
-                    val mediaDirectoryFile = Config.mediaDirectory.toFile()
+                    val mediaDirectoryFile = config.mediaDirectory.toFile()
                     call.respond(mediaDirectoryFile.walkTopDown()
                         .filter { it.isFile && it.name.endsWith(".svg") }
                         .map { it.relativeTo(mediaDirectoryFile).path }.toList()

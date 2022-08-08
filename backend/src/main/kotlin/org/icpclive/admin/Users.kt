@@ -11,8 +11,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
-import org.icpclive.Config
 import org.icpclive.api.AdminUser
+import org.icpclive.config
 import java.security.MessageDigest
 
 private val usersMutex = Mutex()
@@ -30,14 +30,14 @@ private fun String.digest() = MessageDigest.getInstance("SHA-256").run {
 private val prettyPrinter = Json { prettyPrint = true }
 
 private fun saveUsers() {
-    Config.configDirectory.resolve("users.json").toFile().outputStream().use {
+    config.configDirectory.resolve("users.json").toFile().outputStream().use {
         prettyPrinter.encodeToStream(users.values.toList(), it)
     }
 }
 
 private fun loadUsers() {
     users.clear()
-    Config.configDirectory.resolve("users.json").toFile().takeIf { it.exists() }?.inputStream()?.use {
+    config.configDirectory.resolve("users.json").toFile().takeIf { it.exists() }?.inputStream()?.use {
         Json.decodeFromStream<List<User>>(it).forEach { user -> users[user.name] = user }
     }
 }

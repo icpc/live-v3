@@ -30,6 +30,7 @@ class PresetWrapper<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithI
     manager: Manager<OverlayWidgetType>,
     val id: Int,
 ) : WidgetWrapper<SettingsType, OverlayWidgetType>(settings, manager, widgetConstructor) {
+    // TODO: refactor
     override suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
         return ObjectStatus(overlayWidgetId != null, settings, id)
     }
@@ -51,8 +52,8 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
         innerData.map { it.getStatus() }
     }
 
-    suspend fun getWidget(id: Int) = mutex.withLock {
-        findById(id).getWidget()
+    suspend fun createWidget(id: Int) = mutex.withLock {
+        findById(id).createWidget()
     }
 
     suspend fun append(settings: SettingsType): Int = mutex.withLock {

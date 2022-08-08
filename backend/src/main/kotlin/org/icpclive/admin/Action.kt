@@ -46,10 +46,8 @@ suspend inline fun <reified T> ApplicationCall.adminApiAction(block: Application
     adminApiAction(serializer(), block)
 
 
-suspend inline fun <T> ApplicationCall.safeReceive(serializer: KSerializer<T>): T = try {
-    Json.decodeFromString(serializer, receiveText())
+suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
+    receive()
 } catch (e: SerializationException) {
     throw ApiActionException("Failed to deserialize data")
 }
-
-suspend inline fun <reified T> ApplicationCall.safeReceive(): T = safeReceive(serializer())

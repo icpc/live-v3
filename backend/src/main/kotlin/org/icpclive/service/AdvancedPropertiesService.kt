@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.Config
+import org.icpclive.config
 import org.icpclive.api.AdvancedProperties
 import org.icpclive.utils.fileChangesFlow
 import org.icpclive.utils.getLogger
@@ -15,7 +15,7 @@ import kotlin.io.path.inputStream
 class AdvancedPropertiesService {
     suspend fun run(advancedPropertiesFlow: MutableStateFlow<AdvancedProperties>) {
         withContext(Dispatchers.IO) {
-            fileChangesFlow(Config.configDirectory.resolve("advanced.json"))
+            fileChangesFlow(config.configDirectory.resolve("advanced.json"))
                 .mapNotNull { path ->
                     logger.info("Reloading $path")
                     try {

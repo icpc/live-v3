@@ -83,12 +83,12 @@ fun Application.module() {
     setupKtorPlugins()
     environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     run {
-        Config.initialize(environment)
+        config = Config(environment)
     }
 
     routing {
         static("/static") { resources("static") }
-        static("/media") { files(Config.mediaDirectory.toString()) }
+        static("/media") { files(config.mediaDirectory.toString()) }
         singlePageApplication {
             useResources = true
             applicationRoute = "admin"

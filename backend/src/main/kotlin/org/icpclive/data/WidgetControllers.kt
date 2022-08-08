@@ -1,6 +1,6 @@
 package org.icpclive.data
 
-import org.icpclive.Config
+import org.icpclive.config
 import org.icpclive.api.*
 import org.icpclive.widget.PresetsController
 import org.icpclive.widget.SimpleController
@@ -21,13 +21,13 @@ object WidgetControllers {
         }
     }
 
-    private fun presetsPath(name: String) = Config.presetsDirectory.resolve("$name.json")
+    private fun presetsPath(name: String) = config.presetsDirectory.resolve("$name.json")
 
     val advertisement = PresetsController(presetsPath("advertisements"), WidgetManager, ::AdvertisementWidget)
     val picture = PresetsController(presetsPath("pictures"), WidgetManager, ::PictureWidget)
     val title = PresetsController(presetsPath("title"), WidgetManager) { titleSettings: TitleSettings ->
         SvgWidget(
-            SvgTransformer(Config.mediaDirectory, titleSettings.preset, titleSettings.data).toBase64()
+            SvgTransformer(config.mediaDirectory, titleSettings.preset, titleSettings.data).toBase64()
         )
     }
     val tickerMessage = PresetsController(presetsPath("ticker"), TickerManager, TickerMessageSettings::toMessage)

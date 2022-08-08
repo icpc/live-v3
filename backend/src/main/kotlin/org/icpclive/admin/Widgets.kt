@@ -40,7 +40,7 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     get("/preview") {
         // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
         run {
-            call.respond(controller.getWidget())
+            call.respond(controller.createWidget())
         }
     }
 }
@@ -95,7 +95,7 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
     get("/{id}/preview") {
         call.adminApiAction {
-            call.respond(controller.getWidget(call.id()))
+            call.respond(controller.createWidget(call.id()))
         }
     }
 }

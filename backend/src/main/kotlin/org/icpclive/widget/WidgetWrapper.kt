@@ -19,7 +19,7 @@ open class WidgetWrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
         return ObjectStatus(overlayWidgetId != null, settings)
     }
 
-    suspend fun getWidget() = mutex.withLock {
+    suspend fun createWidget() = mutex.withLock {
         widgetConstructor(settings)
     }
 

@@ -8,14 +8,14 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.io.path.exists
 
-object Config {
-    lateinit var configDirectory: Path
-    lateinit var presetsDirectory: Path
-    lateinit var mediaDirectory: Path
-    lateinit var creds: Map<String, String>
-    var allowUnsecureConnections: Boolean = false
+class Config(environment: ApplicationEnvironment) {
+    val configDirectory: Path
+    val presetsDirectory: Path
+    val mediaDirectory: Path
+    val creds: Map<String, String>
+    val allowUnsecureConnections: Boolean
 
-    fun initialize(environment: ApplicationEnvironment) {
+    init {
         val configDir = environment.config.propertyOrNull("live.configDirectory")
             ?.getString()
             ?: throw IllegalStateException("Config directory should be set")
@@ -34,6 +34,9 @@ object Config {
         creds = environment.config.propertyOrNull("live.credsFile")?.let {
             Json.decodeFromStream(File(it.getString()).inputStream())
         } ?: emptyMap()
-        allowUnsecureConnections = environment.config.propertyOrNull("live.allowUnsecureConnections")?.getString() == "true"
+        allowUnsecureConnections =
+            environment.config.propertyOrNull("live.allowUnsecureConnections")?.getString() == "true"
     }
 }
+
+lateinit var config: Config
