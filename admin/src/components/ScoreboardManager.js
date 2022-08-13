@@ -216,7 +216,7 @@ function ScoreboardManager() {
     };
 
     return (
-        <Container maxWidth="md" sx={{ pt: 2 }} className="ScoreboardSettings">
+        <Container maxWidth="md" sx={{ display: "flex", width: "75%", flexDirection: "column", pt: 2 }} className="ScoreboardSettings">
             <ScoreboardSettings isShown={isShown} onClickShow={onClickShow} onClickHide={onClickHide}
                 settings={settings} setSettings={setSettings}/>
             <ScoreboardGroupSetting groupsList={groupsList} settings={settings} setSettings={setSettings}/>

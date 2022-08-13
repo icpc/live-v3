@@ -9,6 +9,7 @@ import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
 import { TickerTableRow } from "./TickerTableRow";
+import Dashboard from "./Dashboard";
 import { usePresetWidgetService } from "../services/presetWidget";
 import { PresetsManager } from "./PresetsManager";
 import { AbstractWidgetService } from "../services/abstractWidget";
@@ -62,13 +63,21 @@ function TickerMessage() {
     const { enqueueSnackbar, } = useSnackbar();
     const service = usePresetWidgetService("/tickerMessage", errorHandlerWithSnackbar(enqueueSnackbar));
 
-    return (
+    const elements = {
+        "Short":
         <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
-            <Typography variant="h5" gutterBottom>Short</Typography>
+            {/* <Typography variant="h5" gutterBottom>Short</Typography> */}
             <TickerPart service={service} part={"short"}/>
-            <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>Long</Typography>
+        </Container>,
+        "Long":
+        <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
+            {/* <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>Long</Typography> */}
             <TickerPart service={service} part={"long"}/>
         </Container>
+    };
+
+    return (
+        <Dashboard elements={elements} layout="oneColumn" maxWidth="md"/>
     );
 }
 

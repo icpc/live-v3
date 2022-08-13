@@ -3,38 +3,31 @@ import React from "react";
 import "../App.css";
 import { Paper, Container, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import TickerMessage from "./TickerMessage";
-import Controls from "./Controls";
-import Advertisement from "./Advertisement";
-import Title from "./Title";
-import Picture from "./Picture";
-import ScoreboardManager from "./ScoreboardManager";
 
-const elements = {
-    "Controls": <Controls/>,
-    "Advertisement": <Advertisement/>,
-    "Title": <Title/>,
-    "Picture": <Picture/>,
-    "Scoreboard": <ScoreboardManager/>,
-    "Ticker": <TickerMessage/>,
-    // "TeamView": <TeamView/>,
-    // "Advanced Properties": <AdvancedProperties/>,
-};
+function Dashboard(props) {
+    const defaultLayout = "twoColumns";
+    const defaultMaxWidth = "xl";
 
-function Dashboard() {
+    const gridLayouts = {
+        "oneColumn": { "md": "repeat(1, 4fr)", "sm": "repeat(1, 4fr)" },
+        "twoColumns": { "md": "repeat(2, 4fr)", "sm": "repeat(1, 4fr)" }
+    };
+
     return (
-        <Container maxWidth="xl" sx={{
-            pt: 6,
-            display: "grid",
-            width: "100%",
-            gridTemplateColumns: { "md": "repeat(2, 4fr)", "sm": "repeat(1, 4fr)" },
-            gap: 0.25 }}>
-            {Object.entries(elements).map(([name, element]) => (
+        <Container maxWidth={props.maxWidth !== undefined ? props.maxWidth : defaultMaxWidth}
+            sx={{
+                pt: 6,
+                display: "grid",
+                gridTemplateColumns: (gridLayouts[props.layout] !== undefined ? gridLayouts[props.layout] : gridLayouts[defaultLayout]),
+                gap: 0.25 }}>
+            {Object.entries(props.elements).map(([name, element]) => (
                 <Paper
                     elevation={1}
                     key={name}
+                    maxWidth="md"
                     sx={{
                         display: "flex",
+                        width: "96%",
                         flexDirection: "column",
                         alignItems: "center",
                         margin: 1,

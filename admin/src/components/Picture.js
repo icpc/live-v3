@@ -11,7 +11,7 @@ function Picture() {
     const { enqueueSnackbar, } = useSnackbar();
     const service = usePresetWidgetService("/picture", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
-        <Container maxWidth="md" sx={{ pt: 2 }} className="Pictures">
+        <Container sx={{ pt: 2 }} className="Pictures">
             <PresetsManager service={service} tableKeys={["name", "url"]} RowComponent={PictureTableRow}/>
         </Container>
     );

@@ -18,6 +18,22 @@ import Dashboard from "./components/Dashboard";
 import Analytics from "./components/AnalyticsEvent";
 import { useLocalStorageState } from "./utils";
 
+const dashboard_elements = {
+    "Controls": <Controls/>,
+    "Advertisement": <Advertisement/>,
+    "Title": <Title/>,
+    "Picture": <Picture/>,
+    "Scoreboard": <ScoreboardManager/>,
+    "Ticker": <TickerMessage/>,
+};
+
+const title_elements = {
+    "Advertisement": <Advertisement/>,
+    "Title": <Title/>,
+    "Picture": <Picture/>,
+};
+
+
 function App() {
     const [isOverlayPreviewShown, setIsOverlayPreviewShown] = useLocalStorageState("OverlayPreviewShown", false);
     return (
@@ -28,15 +44,16 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Controls/>}/>
                         <Route path="/controls" element={<Controls/>}/>
-                        <Route path="/advertisement" element={<Advertisement/>}/>
-                        <Route path="/title" element={<Title/>}/>
-                        <Route path="/picture" element={<Picture/>}/>
+                        {/* <Route path="/advertisement" element={<Advertisement/>}/> */}
+                        {/* <Route path="/title" element={<Title/>}/> */}
+                        <Route path="/titles" element={<Dashboard elements={title_elements} layout="oneColumn" maxWidth="md"/>}/>
+                        {/* <Route path="/picture" element={<Picture/>}/> */}
                         <Route path="/teamview" element={<TeamView/>}/>
                         <Route path="/teampvp" element={<TeamPVP/>}/>
                         <Route path="/splitscreen" element={<SplitScreen/>}/>
                         <Route path="/scoreboard" element={<ScoreboardManager/>}/>
                         <Route path="/ticker" element={<TickerMessage/>}/>
-                        <Route path="/dashboard" element={<Dashboard/>}/>
+                        <Route path="/dashboard" element={<Dashboard elements={dashboard_elements}/>}/>
                         <Route path="/log" element={<BackendLog/>}/>
                         <Route path="/analytics" element={<Analytics/>}/>
                         {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}

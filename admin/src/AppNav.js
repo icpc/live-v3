@@ -13,9 +13,10 @@ import PropTypes from "prop-types";
 
 const pages = {
     "Controls": "controls",
-    "Advertisement": "advertisement",
-    "Title": "title",
-    "Picture": "picture",
+    // "Advertisement": "advertisement",
+    "Titles": "titles",
+    // "Title": "title",
+    // "Picture": "picture",
     "TeamView": "teamview",
     "TeamPVP": "teampvp",
     "SplitScreen": "splitscreen",
