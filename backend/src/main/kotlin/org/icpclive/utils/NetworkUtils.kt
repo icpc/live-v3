@@ -6,7 +6,7 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
-import org.icpclive.Config
+import org.icpclive.config
 import java.security.cert.X509Certificate
 import java.util.*
 import javax.net.ssl.X509TrustManager
@@ -48,7 +48,7 @@ fun defaultHttpClient(auth: ClientAuth?, block: HttpClientConfig<CIOEngineConfig
     engine {
         threadsCount = 2
         https {
-            if (Config.allowUnsecureConnections) {
+            if (config.allowUnsecureConnections) {
                 trustManager = object : X509TrustManager {
                     override fun getAcceptedIssuers() = null
                     override fun checkClientTrusted(certs: Array<X509Certificate>, authType: String?) {}

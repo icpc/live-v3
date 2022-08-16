@@ -16,8 +16,6 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.admin.createFakeUser
 import org.icpclive.admin.validateAdminApiCredits
@@ -28,10 +26,8 @@ import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
-import java.io.File
 import java.nio.file.Paths
 import java.time.Duration
-import kotlin.io.path.exists
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
@@ -87,24 +83,12 @@ fun Application.module() {
     setupKtorPlugins()
     environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     run {
-        val configDir = environment.config.propertyOrNull("live.configDirectory")
-            ?.getString()
-            ?: throw IllegalStateException("Config directory should be set")
-        val configPath = Paths.get(configDir).toAbsolutePath()
-        if (!configPath.exists()) throw IllegalStateException("Config directory $configPath does not exist")
-        environment.log.info("Using config directory $configPath")
-        Config.configDirectory = Paths.get(configDir)
-        Config.creds = environment.config.propertyOrNull("live.credsFile")?.let {
-            Json.decodeFromStream(File(it.getString()).inputStream())
-        } ?: emptyMap()
-        Config.allowUnsecureConnections = environment.config.propertyOrNull("live.allowUnsecureConnections")?.getString() == "true"
+        config = Config(environment)
     }
 
-    val mediaPath = Config.configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())
-    mediaPath.toFile().mkdirs()
     routing {
         static("/static") { resources("static") }
-        static("/media") { files(mediaPath.toString()) }
+        static("/media") { files(config.mediaDirectory.toString()) }
         singlePageApplication {
             useResources = true
             applicationRoute = "admin"

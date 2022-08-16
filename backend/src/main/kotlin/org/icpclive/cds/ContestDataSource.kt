@@ -3,7 +3,6 @@ package org.icpclive.cds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.icpclive.Config
 import org.icpclive.api.AnalyticsEvent
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
@@ -12,6 +11,7 @@ import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.yandex.YandexDataSource
+import org.icpclive.config
 import org.icpclive.service.launchEmulation
 import org.icpclive.utils.guessDatetimeFormat
 import java.io.FileInputStream
@@ -31,8 +31,8 @@ data class ContestParseResult(
 )
 
 fun CoroutineScope.launchContestDataSource() {
-    val path = Config.configDirectory.resolve("events.properties")
-    if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in ${Config.configDirectory}")
+    val path = config.configDirectory.resolve("events.properties")
+    if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in ${config.configDirectory}")
     val properties = Properties()
     FileInputStream(path.toString()).use { properties.load(it) }
 

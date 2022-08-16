@@ -11,7 +11,7 @@ import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.Config
+import org.icpclive.config
 import org.slf4j.LoggerFactory
 import java.util.*
 import kotlin.reflect.KClass
@@ -63,7 +63,7 @@ fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
 fun String.processCreds(): String {
     val prefix = "\$creds."
     return if (startsWith(prefix))
-        Config.creds[substring(prefix.length)] ?: throw IllegalStateException("Cred ${substring(prefix.length)} not found")
+        config.creds[substring(prefix.length)] ?: throw IllegalStateException("Cred ${substring(prefix.length)} not found")
     else
         this
 }
