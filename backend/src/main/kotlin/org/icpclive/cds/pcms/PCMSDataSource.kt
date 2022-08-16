@@ -1,11 +1,7 @@
 package org.icpclive.cds.pcms
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -14,7 +10,7 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.BasicAuth
+import org.icpclive.utils.ClientAuth
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.processCreds
 import org.icpclive.utils.reliableSharedFlow
@@ -34,7 +30,7 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             val login = properties.getProperty("login")?.processCreds()
             val password = properties.getProperty("password")?.processCreds()
             if (login != null) {
-                BasicAuth(login, password!!)
+                ClientAuth.Basic(login, password!!)
             } else {
                 null
             }
@@ -47,7 +43,7 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
 
     private var lastRunId = 0
     val runs = mutableMapOf<String, RunInfo>()
-    var problems = emptyList<ProblemInfo>();
+    var problems = emptyList<ProblemInfo>()
     val teams = mutableMapOf<String, TeamInfo>()
     var startTime = Instant.fromEpochMilliseconds(0)
     var status = ContestStatus.UNKNOWN

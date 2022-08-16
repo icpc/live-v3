@@ -7,19 +7,18 @@ import org.icpclive.widget.SimpleController
 import org.icpclive.widget.SvgTransformer
 
 object WidgetControllers {
+    private val WidgetManager = WidgetManager()
+    private val TickerManager = TickerManager()
     val queue = SimpleController(QueueSettings(), WidgetManager, ::QueueWidget)
     val statistics = SimpleController(StatisticsSettings(), WidgetManager, ::StatisticsWidget)
     val ticker = SimpleController(TickerSettings(), WidgetManager, ::TickerWidget)
     val scoreboard = SimpleController(ScoreboardSettings(), WidgetManager, ::ScoreboardWidget)
     val teamView = SimpleController(TeamViewSettings(), WidgetManager, ::TeamViewWidget)
     val teamPVP = SimpleController(TeamPVPSettings(), WidgetManager, ::TeamPVPWidget)
-    val splitScreen = buildMap {
-        for (position in TeamViewPosition.values()) {
-            put(
-                "${position.ordinal}",
-                SimpleController(TeamViewSettings(), WidgetManager) { TeamViewWidget(it, position) })
-        }
-    }
+    val splitScreen = TeamViewPosition.values().associateBy(
+        { it.ordinal.toString() },
+        { position -> SimpleController(TeamViewSettings(), WidgetManager) { TeamViewWidget(it, position) } }
+    )
 
     private fun presetsPath(name: String) = config.presetsDirectory.resolve("$name.json")
 

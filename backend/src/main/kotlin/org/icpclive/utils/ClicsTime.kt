@@ -95,7 +95,7 @@ object ClicsTime {
         }
 
     object DurationSerializer : KSerializer<Duration> {
-        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Duration", PrimitiveKind.STRING)
+        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ClicsDuration", PrimitiveKind.STRING)
 
         override fun serialize(encoder: Encoder, value: Duration) {
             encoder.encodeString(formatIso(value))
@@ -107,7 +107,7 @@ object ClicsTime {
     }
 
     object InstantSerializer : KSerializer<Instant> {
-        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Instant", PrimitiveKind.STRING)
+        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ClicsInstant", PrimitiveKind.STRING)
 
         override fun serialize(encoder: Encoder, value: Instant) = TODO()
 

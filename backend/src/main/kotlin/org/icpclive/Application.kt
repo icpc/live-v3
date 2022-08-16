@@ -20,13 +20,10 @@ import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.admin.createFakeUser
 import org.icpclive.admin.validateAdminApiCredits
 import org.icpclive.cds.launchContestDataSource
-import org.icpclive.data.TickerManager
-import org.icpclive.data.WidgetManager
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
-import java.nio.file.Paths
 import java.time.Duration
 
 fun main(args: Array<String>): Unit =
@@ -54,7 +51,7 @@ private fun Application.setupKtorPlugins() {
         masking = false
     }
     install(Authentication) {
-        if (this@setupKtorPlugins.environment.config.propertyOrNull("auth.disabled")?.getString() == "true") {
+        if (config.authDisabled) {
             val config = object : AuthenticationProvider.Config("admin-api-auth") {}
             register(object : AuthenticationProvider(config) {
                 override suspend fun onAuthenticate(context: AuthenticationContext) {
@@ -78,13 +75,10 @@ private fun Application.setupKtorPlugins() {
     }
 }
 
-@Suppress("unused") // application.conf references the main function. This annotation prevents the IDE from marking it as unused.
+@Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
+    config = Config(environment)
     setupKtorPlugins()
-    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
-    run {
-        config = Config(environment)
-    }
 
     routing {
         static("/static") { resources("static") }
@@ -106,7 +100,4 @@ fun Application.module() {
     }
     launchContestDataSource()
     launch { EventLoggerService().run() }
-    // to trigger init
-    TickerManager.let {}
-    WidgetManager.let {}
 }

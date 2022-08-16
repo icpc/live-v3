@@ -52,7 +52,8 @@ class YandexDataSource(props: Properties) : ContestDataSource {
         contestId = props.getProperty(CONTEST_ID_PROPERTY_NAME).toLong()
         loginPrefix = props.getProperty(LOGIN_PREFIX_PROPERTY_NAME)
 
-        httpClient = defaultHttpClient(OAuthAuth(apiKey)) {
+        val auth = ClientAuth.OAuth(apiKey)
+        httpClient = defaultHttpClient(auth) {
             defaultRequest {
                 url("$API_BASE/contests/$contestId/")
             }
@@ -61,7 +62,6 @@ class YandexDataSource(props: Properties) : ContestDataSource {
             }
         }
 
-        val auth = OAuthAuth(apiKey)
 
         contestDescriptionLoader = object : RegularLoaderService<ContestDescription>(auth) {
             override val url = "$API_BASE/contests/$contestId"

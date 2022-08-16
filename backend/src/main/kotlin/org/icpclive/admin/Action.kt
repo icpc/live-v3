@@ -18,7 +18,7 @@ class ApiActionException(message: String) : Exception(message)
 @Suppress("unused")
 class ActionResponse<T>(
     val status: String,
-    val response: T? = null
+    val response: T?
 )
 
 suspend inline fun <T> ApplicationCall.adminApiAction(
@@ -31,10 +31,8 @@ suspend inline fun <T> ApplicationCall.adminApiAction(
     val result = block()
     respondText(contentType = ContentType.Application.Json) {
         Json.encodeToString(
-            ActionResponse.serializer(responseSerializer), when (result) {
-                is Unit -> ActionResponse("ok")
-                else -> ActionResponse("ok", result)
-            }
+            ActionResponse.serializer(responseSerializer),
+            ActionResponse("ok", result.takeUnless { it is Unit })
         )
     }
     DataBus.adminActionsFlow.emit(request.uri)

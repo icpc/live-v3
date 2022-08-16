@@ -1,6 +1,7 @@
 package org.icpclive
 
 import io.ktor.server.application.*
+import io.ktor.server.config.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.File
@@ -9,34 +10,28 @@ import java.nio.file.Paths
 import kotlin.io.path.exists
 
 class Config(environment: ApplicationEnvironment) {
-    val configDirectory: Path
-    val presetsDirectory: Path
-    val mediaDirectory: Path
-    val creds: Map<String, String>
-    val allowUnsecureConnections: Boolean
+    private fun ApplicationConfig.stringOrNull(name: String) = propertyOrNull(name)?.getString()
+    private fun ApplicationConfig.string(name: String) = property(name).getString()
+    private fun ApplicationConfig.bool(name: String) = stringOrNull(name) == "true"
 
-    init {
-        val configDir = environment.config.propertyOrNull("live.configDirectory")
-            ?.getString()
-            ?: throw IllegalStateException("Config directory should be set")
+    val configDirectory: Path = environment.config.stringOrNull("live.configDirectory")
+        ?.let { Paths.get(it).toAbsolutePath() }
+        ?.also {
+            if (!it.exists()) throw IllegalStateException("Config directory $it does not exist")
+            environment.log.info("Using config directory $it")
+            environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
+        } ?: throw IllegalStateException("Config directory should be set")
 
-        val configPath = Paths.get(configDir).toAbsolutePath()
-        if (!configPath.exists()) throw IllegalStateException("Config directory $configPath does not exist")
-        environment.log.info("Using config directory $configPath")
+    private fun ApplicationConfig.directory(name: String) = configDirectory.resolve(string(name)).also { it.toFile().mkdirs() }
 
-        configDirectory = Paths.get(configDir)
-        presetsDirectory = configDirectory.resolve(environment.config.property("live.presetsDirectory").getString())
-        mediaDirectory = configDirectory.resolve(environment.config.property("live.mediaDirectory").getString())
+    val presetsDirectory: Path = environment.config.directory("live.presetsDirectory")
+    val mediaDirectory: Path = environment.config.directory("live.mediaDirectory")
+    val creds: Map<String, String> = environment.config.stringOrNull("live.credsFile")?.let {
+        Json.decodeFromStream(File(it).inputStream())
+    } ?: emptyMap()
+    val allowUnsecureConnections = environment.config.bool("live.allowUnsecureConnections")
+    val authDisabled = environment.config.bool("auth.disabled")
 
-        presetsDirectory.toFile().mkdirs()
-        mediaDirectory.toFile().mkdirs()
-
-        creds = environment.config.propertyOrNull("live.credsFile")?.let {
-            Json.decodeFromStream(File(it.getString()).inputStream())
-        } ?: emptyMap()
-        allowUnsecureConnections =
-            environment.config.propertyOrNull("live.allowUnsecureConnections")?.getString() == "true"
-    }
 }
 
 lateinit var config: Config

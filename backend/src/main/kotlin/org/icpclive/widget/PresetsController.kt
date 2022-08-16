@@ -107,7 +107,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     private fun findById(id: Int) = innerData.find { it.id == id } ?: throw ApiActionException("No such id")
 
     private fun load() = try {
-        FileInputStream(presetsPath.toFile()).use {
+        presetsPath.toFile().inputStream().use {
             Json.decodeFromStream(fileSerializer, it).map { content ->
                 PresetWrapper(widgetConstructor, content, widgetManager, currentID.incrementAndGet())
             }
@@ -118,7 +118,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
 
     private suspend fun save(): Unit = withContext(Dispatchers.IO) {
         val tempFile = Files.createTempFile(presetsPath.parent, null, null)
-        FileOutputStream(tempFile.toFile()).use { file ->
+        tempFile.toFile().outputStream().use { file ->
             jsonPrettyEncoder.encodeToStream(
                 fileSerializer,
                 innerData.map { it.getSettings() },

@@ -12,27 +12,22 @@ import java.util.*
 import javax.net.ssl.X509TrustManager
 
 sealed class ClientAuth {
-    abstract val header: String
-}
 
-class BasicAuth(val login: String, val password: String) : ClientAuth() {
-    override val header = "Basic " + Base64.getEncoder().encodeToString("$login:$password".toByteArray())
-}
+    class Basic(val login: String, val password: String) : ClientAuth()
 
-class OAuthAuth(val token: String) : ClientAuth() {
-    override val header = "OAuth $token"
+    class OAuth(val token: String) : ClientAuth()
 }
 
 fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
     when (auth) {
-        is BasicAuth -> {
+        is ClientAuth.Basic -> {
             install(Auth) {
                 basic {
                     credentials { BasicAuthCredentials(auth.login, auth.password) }
                 }
             }
         }
-        is OAuthAuth -> {
+        is ClientAuth.OAuth -> {
             defaultRequest {
                 header("Authorization", "OAuth ${auth.token}")
             }

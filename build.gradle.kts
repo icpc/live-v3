@@ -11,10 +11,10 @@ node {
 }
 
 tasks {
-    named("npm_run_buildOverlay") {
-        (this as NpmTask).environment.set(mapOf("PUBLIC_URL" to "/overlay"))
+    named<NpmTask>("npm_run_buildOverlay") {
+        environment.set(mapOf("PUBLIC_URL" to "/overlay"))
     }
-    named("npm_run_buildAdmin") {
-        (this as NpmTask).environment.set(mapOf("PUBLIC_URL" to "/admin"))
+    named<NpmTask>("npm_run_buildAdmin") {
+        environment.set(mapOf("PUBLIC_URL" to "/admin"))
     }
 }

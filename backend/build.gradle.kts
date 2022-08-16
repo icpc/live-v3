@@ -12,14 +12,14 @@ java {
 }
 
 plugins {
-    application
     kotlin("jvm") version "1.7.10"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.7.10"
-    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("io.ktor.plugin") version "2.1.0"
 }
 
 group = "org.icpclive"
 version = rootProject.findProperty("version")!!
+val jarName = "${rootProject.name}-${project.version}.jar"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 }
@@ -35,21 +35,20 @@ kotlin {
 }
 
 
+ktor {
+    fatJar {
+        archiveFileName.set(jarName)
+    }
+}
+
 val jsList = listOf("overlay", "admin")
 
 tasks {
-    named("run") {
-        (this as JavaExec).args = listOf("-config=config/application.conf")
+    named<JavaExec>("run") {
+        this.args = listOf("-config=config/application.conf")
     }
-    named("jar") { dependsOn("buildJs") }
-    named("compileTestKotlin") { dependsOn("buildJs") }
-    shadowJar {
-        dependsOn("buildJs")
-        manifest {
-            attributes("Main-Class" to "io.ktor.server.netty.EngineMain")
-        }
-        archiveFileName.set("${rootProject.name}-${project.version}.jar")
-    }
+    shadowJar { dependsOn("buildJs") }
+    compileTestKotlin { dependsOn("buildJs") }
     task("buildJs") {
         for (js in jsList) {
             dependsOn("copyJs${js.capitalize()}")
@@ -64,8 +63,8 @@ tasks {
         }
     }
     task<Copy>("release") {
-        dependsOn("shadowJar")
-        from(project.buildDir.resolve("libs").resolve("${rootProject.name}-${project.version}.jar"))
+        dependsOn("buildFatJar")
+        from(project.buildDir.resolve("libs").resolve(jarName))
         destinationDir = rootProject.rootDir.resolve("artifacts")
     }
 
