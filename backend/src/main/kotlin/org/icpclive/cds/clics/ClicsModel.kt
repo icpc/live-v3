@@ -34,7 +34,7 @@ class ClicsModel {
             name = teamOrganization?.formalName ?: name,
             shortName = teamOrganization?.name ?: name,
             contestSystemId = id,
-            groups = groupIds.mapNotNull { groups[it]?.name },
+            groups = group_ids.mapNotNull { groups[it]?.name },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
                 photo.firstOrNull()?.let { put(MediaType.PHOTO, it.href) }
@@ -104,14 +104,12 @@ class ClicsModel {
     fun processJudgementType(operation: Operation, judgementType: JudgementType) {
         if (operation == Operation.DELETE) {
             judgementTypes.remove(judgementType.id)
-            logger.info("Remove judgementType $judgementType")
         } else {
             judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
                 id = judgementType.id,
                 isAccepted = judgementType.solved!!,
                 isAddingPenalty = judgementType.penalty,
             )
-            logger.info("Add judgementType $judgementType")
         }
     }
 
