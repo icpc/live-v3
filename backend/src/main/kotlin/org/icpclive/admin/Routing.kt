@@ -59,12 +59,12 @@ fun Route.configureAdminApiRouting() {
             }
         }
         route("/tickerMessage") { setupController(WidgetControllers.tickerMessage) }
+        route("/analytics") { setupAnalytics() }
 
         route("/users") { setupUserRouting() }
         get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
-        webSocket("/analyticsEvents") { sendJsonFlow(DataBus.analyticsEventFlow.await()) }
     }
 }
