@@ -1,14 +1,29 @@
 package org.icpclive.service
 
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.data.WidgetControllers
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
+import org.icpclive.widget.PresetsController
+import kotlin.time.Duration.Companion.milliseconds
+
+sealed class AnalyticsAction(val messageId: String) {
+    class CreateAdvertisement(messageId: String, val ttlMs: Long?) : AnalyticsAction(messageId)
+    class DeleteAdvertisement(messageId: String) : AnalyticsAction(messageId)
+    class CreateTickerMessage(messageId: String, val ttlMs: Long?) : AnalyticsAction(messageId)
+    class DeleteTickerMessage(messageId: String) : AnalyticsAction(messageId)
+}
+
 
 class AnalyticsService {
+    @OptIn(DelicateCoroutinesApi::class)
+    private val scheduledTasksScope: CoroutineScope = GlobalScope
+    private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private val messages = mutableMapOf<String, AnalyticsMessage>()
 
     private val resultFlow = MutableSharedFlow<AnalyticsEvent>(
@@ -17,6 +32,17 @@ class AnalyticsService {
     )
 
     private val subscriberFlow = MutableStateFlow(0)
+
+    private suspend fun <S : ObjectSettings, T : TypeWithId> AnalyticsCompanionPreset.hide(controller: PresetsController<S, T>) {
+        controller.hide(this.presetId)
+    }
+
+    private fun scheduleAction(timeMs: Long, action: AnalyticsAction) {
+        scheduledTasksScope.launch {
+            delay(timeMs)
+            internalActions.emit(action)
+        }
+    }
 
     private suspend fun Action.process(): AnalyticsMessage? {
         val message = messages[action.messageId]
@@ -29,36 +55,37 @@ class AnalyticsService {
             return null
         }
         when (action) {
-            is ShowAnalyticsAdvertisement -> {
-                if (message.advertisementId != null) {
-                    message.advertisementId?.let { WidgetControllers.advertisement.delete(it) }
-                }
-                message.advertisementId = WidgetControllers.advertisement.createAndShowWithTtl(
-                    AdvertisementSettings(message.message),
-                    action.ttlMs
+            is AnalyticsAction.CreateAdvertisement -> {
+                message.advertisement?.hide(WidgetControllers.advertisement)
+                val presetId = WidgetControllers.advertisement.append(AdvertisementSettings(message.message))
+                WidgetControllers.advertisement.show(presetId)
+                message.advertisement =
+                    AnalyticsCompanionPreset(presetId, action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
+            }
+            is AnalyticsAction.DeleteAdvertisement -> {
+                message.advertisement?.hide(WidgetControllers.advertisement)
+                message.advertisement = null
+            }
+            is AnalyticsAction.CreateTickerMessage -> {
+                message.tickerMessage?.hide(WidgetControllers.tickerMessage)
+                val presetId = WidgetControllers.tickerMessage.append(
+                    TextTickerSettings(TickerPart.LONG, 30000, message.message)
                 )
+                WidgetControllers.tickerMessage.show(presetId)
+                AnalyticsCompanionPreset(presetId, action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteTickerMessage(action.messageId)) }
             }
-            is HideAnalyticsAdvertisement -> {
-                message.advertisementId?.let { WidgetControllers.advertisement.delete(it) }
-            }
-            is ShowAnalyticsTickerMessage -> {
-                if (message.tickerMessageId != null) {
-                    message.tickerMessageId?.let { WidgetControllers.tickerMessage.delete(it) }
-                }
-                message.tickerMessageId = WidgetControllers.tickerMessage.createAndShowWithTtl(
-                    TextTickerSettings(TickerPart.LONG, 30000, message.message),
-                    action.ttlMs
-                )
-            }
-            is HideAnalyticsTickerMessage -> {
-                message.tickerMessageId?.let { WidgetControllers.tickerMessage.delete(it) }
+            is AnalyticsAction.DeleteTickerMessage -> {
+                message.tickerMessage?.hide(WidgetControllers.tickerMessage)
+                message.tickerMessage = null
             }
         }
         return message
     }
 
     suspend fun run(rawEvents: Flow<AnalyticsMessage>) {
-        val actionFlow = DataBus.analyticsActionsFlow.await().map(::Action)
+        val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
         logger.info("Analytics service is started")
         merge(rawEvents.map(::Message), subscriberFlow.map { Subscribe }, actionFlow).collect { event ->
             when (event) {
@@ -98,11 +125,6 @@ class AnalyticsService {
         private class Message(val message: AnalyticsMessage) : AnalyticsProcessTrigger()
         private class Action(val action: AnalyticsAction) : AnalyticsProcessTrigger()
         private object Subscribe : AnalyticsProcessTrigger()
-
-        sealed class AnalyticsAction(val messageId: String)
-        class ShowAnalyticsAdvertisement(messageId: String, val ttlMs: Long?) : AnalyticsAction(messageId)
-        class HideAnalyticsAdvertisement(messageId: String) : AnalyticsAction(messageId)
-        class ShowAnalyticsTickerMessage(messageId: String, val ttlMs: Long?) : AnalyticsAction(messageId)
-        class HideAnalyticsTickerMessage(messageId: String) : AnalyticsAction(messageId)
     }
 }
+

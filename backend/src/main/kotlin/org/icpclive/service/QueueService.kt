@@ -78,6 +78,7 @@ class QueueService {
                     }
                 }
                 is Subscribe -> {
+
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
                 }
             }

@@ -163,12 +163,18 @@ data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pendi
 data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
 
 @Serializable
+class AnalyticsCompanionPreset(
+    val presetId: Int,
+    val expirationTime: Instant?,
+)
+
+@Serializable
 sealed class AnalyticsMessage {
     abstract val id: String
     abstract val time: Instant
     abstract val relativeTime: Duration
-    var advertisementId: Int? = null
-    var tickerMessageId: Int? = null
+    var advertisement: AnalyticsCompanionPreset? = null
+    var tickerMessage: AnalyticsCompanionPreset? = null
 }
 
 @Serializable
