@@ -1,7 +1,6 @@
 package org.icpclive.service
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.icpclive.api.*
@@ -13,7 +12,7 @@ import org.icpclive.utils.reliableSharedFlow
 fun CoroutineScope.launchICPCServices(
     rawRuns: Flow<RunInfo>,
     rawInfoFlow: StateFlow<ContestInfo>,
-    rawAnalyticsEventFlow: SharedFlow<AnalyticsEvent> = MutableSharedFlow()
+    rawAnalyticsMessageFlow: SharedFlow<AnalyticsMessage> = MutableSharedFlow()
 ) {
     val runsFlow = reliableSharedFlow<RunInfo>()
     val advancedPropertiesFlow = MutableStateFlow(AdvancedProperties())
@@ -28,5 +27,5 @@ fun CoroutineScope.launchICPCServices(
     launch { ICPCPessimisticScoreboardService().run(runsFlow, infoFlow) }
     launch { FirstToSolveService().run(rawRuns, runsFlow) }
     launch { StatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL), infoFlow) }
-    launch { AnalyticsEventsService().run(rawAnalyticsEventFlow) }
+    launch { AnalyticsService().run(rawAnalyticsMessageFlow) }
 }

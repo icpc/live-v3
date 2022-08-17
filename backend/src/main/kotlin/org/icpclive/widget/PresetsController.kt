@@ -69,7 +69,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     }
 
     suspend fun delete(id: Int) = mutex.withLock {
-        val preset = findById(id)
+        val preset = findByIdOrNull(id) ?: return@withLock
         preset.hide()
         innerData = innerData.minus(preset)
         save()
@@ -104,7 +104,8 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
         innerData = load()
     }
 
-    private fun findById(id: Int) = innerData.find { it.id == id } ?: throw ApiActionException("No such id")
+    private fun findByIdOrNull(id: Int) = innerData.find { it.id == id }
+    private fun findById(id: Int) = findByIdOrNull(id) ?: throw ApiActionException("No such id")
 
     private fun load() = try {
         FileInputStream(presetsPath.toFile()).use {

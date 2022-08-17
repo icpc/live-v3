@@ -163,13 +163,13 @@ data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pendi
 data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
 
 @Serializable
-sealed class AnalyticsEvent {
+sealed class AnalyticsMessage {
     abstract val id: String
     abstract val time: Instant
     abstract val relativeTime: Duration
+    var advertisementId: Int? = null
+    var tickerMessageId: Int? = null
 }
-
-typealias AnalyticsEvents = List<AnalyticsEvent>
 
 @Serializable
 @SerialName("commentary")
@@ -183,7 +183,7 @@ data class AnalyticsCommentaryEvent(
     @Serializable(with = DurationInMillisecondsSerializer::class)
     override val relativeTime: Duration,
     val teams: List<String>
-) : AnalyticsEvent()
+) : AnalyticsMessage()
 
 @Serializable
 data class AdminUser(val login: String, val confirmed: Boolean)

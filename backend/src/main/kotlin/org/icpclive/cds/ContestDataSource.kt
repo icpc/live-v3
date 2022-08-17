@@ -3,7 +3,7 @@ package org.icpclive.cds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.icpclive.api.AnalyticsEvent
+import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.clics.ClicsDataSource
@@ -27,7 +27,7 @@ interface ContestDataSource {
 data class ContestParseResult(
     val contestInfo: ContestInfo,
     val runs: List<RunInfo>,
-    val analyticsEvents: List<AnalyticsEvent> = emptyList()
+    val analyticsMessages: List<AnalyticsMessage> = emptyList()
 )
 
 fun CoroutineScope.launchContestDataSource() {

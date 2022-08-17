@@ -9,7 +9,7 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.icpclive.api.AnalyticsCommentaryEvent
-import org.icpclive.api.AnalyticsEvent
+import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
@@ -148,7 +148,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
         coroutineScope {
             val contestInfoFlow = MutableStateFlow(model.contestInfo)
             val rawRunsFlow = reliableSharedFlow<RunInfo>()
-            val analyticsEventsFlow = reliableSharedFlow<AnalyticsEvent>()
+            val analyticsEventsFlow = reliableSharedFlow<AnalyticsMessage>()
             launchLoader(
                 onRun = { rawRunsFlow.emit(it) },
                 onContestInfo = { contestInfoFlow.value = it },
@@ -159,17 +159,17 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
     }
 
     override suspend fun loadOnce(): ContestParseResult {
-        val analyticsEvents = mutableListOf<AnalyticsEvent>()
+        val analyticsMessages = mutableListOf<AnalyticsMessage>()
         coroutineScope {
             launchLoader(
                 onRun = {},
                 onContestInfo = {},
-                onComment = { analyticsEvents.add(it) }
+                onComment = { analyticsMessages.add(it) }
             )
         }
         logger.info("Loaded data from CLICS")
         val runs = model.submissions.values.map { it.toApi() }
-        return ContestParseResult(model.contestInfo, runs, analyticsEvents)
+        return ContestParseResult(model.contestInfo, runs, analyticsMessages)
     }
 
     companion object {

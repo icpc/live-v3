@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.AnalyticsEvent
+import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
@@ -25,10 +25,10 @@ class EmulationService(
     private val startTime: Instant,
     private val emulationSpeed: Double,
     private val runs: List<RunInfo>,
-    private val analyticsEvents: List<AnalyticsEvent>,
+    private val analyticsMessages: List<AnalyticsMessage>,
     private val contestInfoFlow: MutableStateFlow<ContestInfo>,
     private val runsFlow: MutableSharedFlow<RunInfo>,
-    private val analyticsEventsFlow: MutableSharedFlow<AnalyticsEvent>
+    private val analyticsEventsFlow: MutableSharedFlow<AnalyticsMessage>
 ) {
     val contestInfo = contestInfoFlow.value.copy(
         startTime = startTime,
@@ -60,7 +60,7 @@ class EmulationService(
             }
             add(Event(run.time + timeShift.milliseconds) { runsFlow.emit(run) })
         }
-        addAll(analyticsEvents.map { Event(it.relativeTime) { analyticsEventsFlow.emit(it) } })
+        addAll(analyticsMessages.map { Event(it.relativeTime) { analyticsEventsFlow.emit(it) } })
     }.sortedBy { it.time }
 
     suspend fun run() {
@@ -88,18 +88,18 @@ fun CoroutineScope.launchEmulation(
     speed: Double,
     runs: List<RunInfo>,
     contestInfo: ContestInfo,
-    analyticsEvents: List<AnalyticsEvent> = emptyList()
+    analyticsMessages: List<AnalyticsMessage> = emptyList()
 ) {
     EmulationService.logger.info("Running in emulation mode with speed x${speed} and startTime = ${startTime.humanReadable}")
     val rawRunsFlow = reliableSharedFlow<RunInfo>()
     val contestInfoFlow = MutableStateFlow(contestInfo)
-    val analyticsEventsFlow = reliableSharedFlow<AnalyticsEvent>()
+    val analyticsEventsFlow = reliableSharedFlow<AnalyticsMessage>()
     launch {
         EmulationService(
             startTime,
             speed,
             runs,
-            analyticsEvents,
+            analyticsMessages,
             contestInfoFlow,
             rawRunsFlow,
             analyticsEventsFlow
