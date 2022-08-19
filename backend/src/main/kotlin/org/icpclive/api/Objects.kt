@@ -38,6 +38,7 @@ data class RunInfo constructor(
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
     val isFirstSolvedRun: Boolean,
+    val isFeaturedRun: Boolean = false,
 )
 
 @Serializable
@@ -188,7 +189,8 @@ data class AnalyticsCommentaryEvent(
     @SerialName("relativeTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     override val relativeTime: Duration,
-    val teams: List<String>
+    val teamIds: List<Int>,
+    val runIds: List<Int>,
 ) : AnalyticsMessage()
 
 @Serializable

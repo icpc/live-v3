@@ -25,7 +25,7 @@ class ClicsModel {
     var status = ContestStatus.BEFORE
     var penaltyPerWrongAttempt = 20
 
-    val Team.internalId get() = id.hashCode()
+    val Team.internalId get() = externalTeamId(id)
 
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
@@ -169,6 +169,10 @@ class ClicsModel {
             else -> ContestStatus.BEFORE
         }
     }
+
+    fun externalTeamId(cdsId: String) = cdsId.hashCode()
+    fun externalSubmissionId(cdsId: String) =
+        submissionCdsIdToInt[cdsId] ?: throw IllegalArgumentException("Failed to get external id of submissions")
 
     companion object {
         val logger = getLogger(ClicsModel::class)

@@ -47,5 +47,10 @@ fun Route.setupAnalytics() {
             AnalyticsAction::CreateTickerMessage,
             AnalyticsAction::DeleteTickerMessage
         )
+        post("/featuredRun") {
+            call.adminApiAction {
+                actionsFlow.emit(AnalyticsAction.MakeRunFeatured(call.id()))
+            }
+        }
     }
 }
