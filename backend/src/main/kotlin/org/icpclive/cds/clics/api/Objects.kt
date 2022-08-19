@@ -136,6 +136,7 @@ data class Commentary(
     val message: String,
     val team_ids: List<String>?,
     val problem_ids: List<String>?,
+    val submission_ids: List<String>?,
 )
 
 @Serializable

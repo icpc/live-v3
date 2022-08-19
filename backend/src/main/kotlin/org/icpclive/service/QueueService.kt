@@ -14,11 +14,14 @@ import kotlin.time.Duration.Companion.seconds
 private sealed class QueueProcessTrigger
 private object Clean : QueueProcessTrigger()
 private class Run(val run: RunInfo) : QueueProcessTrigger()
+private class MakeFeatured(val runId: Int) : QueueProcessTrigger()
+private class MakeNotFeatured(val runId: Int) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
 
 class QueueService {
     private val runs = mutableMapOf<Int, RunInfo>()
+    private val removedRuns = mutableMapOf<Int, RunInfo>()
     private val lastUpdateTime = mutableMapOf<Int, Duration>()
 
     private val resultFlow = MutableSharedFlow<QueueEvent>(
@@ -43,14 +46,23 @@ class QueueService {
         })
     }
 
+    private suspend fun modifyRun(run: RunInfo) {
+        resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
+        runs[run.id] = run
+    }
+
     private suspend fun removeRun(run: RunInfo) {
         runs.remove(run.id)
+        removedRuns[run.id] = run
         resultFlow.emit(RemoveRunFromQueueEvent(run))
     }
 
     private val RunInfo.timeInQueue
-        get() = if (isFirstSolvedRun) FIRST_TO_SOLVE_WAIT_TIME else WAIT_TIME
-
+        get() = when {
+            isFeaturedRun -> FEATURED_WAIT_TIME
+            isFirstSolvedRun -> FIRST_TO_SOLVE_WAIT_TIME
+            else -> WAIT_TIME
+        }
 
     suspend fun run(runsFlow: Flow<RunInfo>, contestInfoFlow: StateFlow<ContestInfo>) {
         contestInfoFlow.filterNot { it.status == ContestStatus.BEFORE }.first()
@@ -59,8 +71,9 @@ class QueueService {
         val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
         val runsFlowTrigger = runsFlow.map { Run(it) }
         val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
+        val makeFeaturedFlowTrigger = DataBus.queueFeaturedRunsFlow.map { MakeFeatured(it) }
         // it's important to have all side effects after merge, as part before merge will be executed concurrently
-        merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger).collect { event ->
+        merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger, makeFeaturedFlowTrigger).collect { event ->
             when (event) {
                 is Clean -> {
                     val currentTime = contestInfoFlow.value.currentContestTime
@@ -69,22 +82,40 @@ class QueueService {
                 }
                 is Run -> {
                     val run = event.run
-                    val currentTime = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
+                    val currentTime =
+                        contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
                     if (run.id in runs || contestInfoFlow.value.currentContestTime <= currentTime + run.timeInQueue) {
-                        resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
-                        runs[run.id] = run
+                        modifyRun(run)
                     }
                 }
+                is MakeFeatured -> {
+                    val run = runs[event.runId] ?: removedRuns[event.runId]
+                    if (run == null) {
+                        logger.warn("There is no run with id ${event.runId} for make it featured")
+                        logger.info(runs.values.toString())
+                        return@collect
+                    }
+                    modifyRun(run.copy(isFeaturedRun = true))
+                    lastUpdateTime[run.id] =
+                        contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
+                }
+                is MakeNotFeatured -> {
+                    val run = runs[event.runId]
+                    if (run == null) {
+                        logger.warn("There is no run with id ${event.runId} for make it not featured")
+                        return@collect
+                    }
+                    modifyRun(run.copy(isFeaturedRun = false))
+                }
                 is Subscribe -> {
-
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
                 }
             }
             while (runs.size >= MAX_QUEUE_SIZE) {
                 runs.values.asSequence()
-                    .filterNot { it.isFirstSolvedRun }
+                    .filterNot { it.isFirstSolvedRun && it.isFeaturedRun }
                     .minByOrNull { it.id }
                     ?.run { removeRun(this) }
             }
@@ -96,6 +127,7 @@ class QueueService {
 
         private val WAIT_TIME = 1.minutes
         private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes
+        private val FEATURED_WAIT_TIME = 1.minutes
         private const val MAX_QUEUE_SIZE = 15
     }
 }

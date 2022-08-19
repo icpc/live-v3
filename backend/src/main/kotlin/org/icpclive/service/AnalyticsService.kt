@@ -17,6 +17,7 @@ sealed class AnalyticsAction(val messageId: String) {
     class DeleteAdvertisement(messageId: String) : AnalyticsAction(messageId)
     class CreateTickerMessage(messageId: String, val ttlMs: Long?) : AnalyticsAction(messageId)
     class DeleteTickerMessage(messageId: String) : AnalyticsAction(messageId)
+    class MakeRunFeatured(messageId: String) : AnalyticsAction(messageId)
 }
 
 
@@ -79,6 +80,13 @@ class AnalyticsService {
             is AnalyticsAction.DeleteTickerMessage -> {
                 message.tickerMessage?.hide(WidgetControllers.tickerMessage)
                 message.tickerMessage = null
+            }
+            is AnalyticsAction.MakeRunFeatured -> {
+                if (message.runIds.size != 1) {
+                    logger.warn("Can't make run featured caused by message ${message.id}")
+                    return null
+                }
+                DataBus.queueFeaturedRunsFlow.emit(message.runIds[0])
             }
         }
         return message
