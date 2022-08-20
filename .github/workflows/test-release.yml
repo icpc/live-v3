@@ -21,8 +21,9 @@ jobs:
           java-version: 17
           cache: 'gradle'
 
-      - name: Build with Gradle
-        run: ./gradlew release --no-daemon
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: release --scan -Pnpm.download=false
 
       - uses: actions/upload-artifact@master
         with:

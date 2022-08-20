@@ -18,3 +18,8 @@ tasks {
         environment.set(mapOf("PUBLIC_URL" to "/admin"))
     }
 }
+
+extensions.findByName("buildScan")?.withGroovyBuilder {
+    setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")
+    setProperty("termsOfServiceAgree", "yes")
+}
