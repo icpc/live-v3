@@ -1,7 +1,7 @@
 import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
-    id("com.github.node-gradle.node") version "3.2.1"
+    id("com.github.node-gradle.node") version "3.4.0"
 }
 
 node {
