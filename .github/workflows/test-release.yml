@@ -19,11 +19,10 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
-          cache: 'gradle'
 
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: release --scan -Pnpm.download=false
+          arguments: release --scan -Pnpm.download=false -i
 
       - uses: actions/upload-artifact@master
         with:

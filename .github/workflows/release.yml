@@ -28,7 +28,7 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: release --scan -Pnpm.download=false -Pbuild_version=${{ env.version }}
+          arguments: release --scan -Pnpm.download=false -Pbuild_version=${{ env.version }} -i
 
       - uses: actions/upload-artifact@master
         with:
