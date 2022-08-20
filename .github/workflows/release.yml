@@ -11,6 +11,10 @@ jobs:
     name: Create artifacts from master
     runs-on: ubuntu-latest
     steps:
+      - name: Set VERSION variable from tag
+        run: |
+                  VERSION=${{ github.event.inputs.tag_name }}
+                  echo "version=${VERSION:1}" >> $GITHUB_ENV
       - uses: actions/checkout@master
       - uses: actions/setup-node@v3
         with:
@@ -25,7 +29,7 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: release --scan -Pnpm.download=false
+          arguments: release --scan -Pnpm.download=false -Pbuild_version=${{ env.version }}
 
       - uses: actions/upload-artifact@master
         with:

@@ -18,7 +18,7 @@ plugins {
 }
 
 group = "org.icpclive"
-version = rootProject.findProperty("version")!!
+version = rootProject.findProperty("build_version")!!
 val jarName = "${rootProject.name}-${project.version}.jar"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
