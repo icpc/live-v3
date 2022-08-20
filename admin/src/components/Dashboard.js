@@ -3,6 +3,7 @@ import React from "react";
 import "../App.css";
 import { Paper, Container, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import PropTypes from "prop-types";
 
 function Dashboard(props) {
     const defaultLayout = "twoColumns";
@@ -42,5 +43,11 @@ function Dashboard(props) {
         </Container>
     );
 }
+
+Dashboard.propTypes = {
+    maxWidth: PropTypes.string,
+    layout: PropTypes.oneOf(["oneColumn", "twoColumns"]),
+    elements: PropTypes.objectOf(PropTypes.element),
+};
 
 export default Dashboard;

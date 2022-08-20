@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import PropTypes from "prop-types";
-import { IconButton, ButtonGroup, Typography } from "@mui/material";
+import { IconButton, ButtonGroup } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
 import AddIcon from "@mui/icons-material/Add";

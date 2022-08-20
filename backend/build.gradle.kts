@@ -47,6 +47,7 @@ tasks {
     named<JavaExec>("run") {
         this.args = listOf("-config=config/application.conf")
     }
+    jar { dependsOn("buildJs") }
     shadowJar { dependsOn("buildJs") }
     compileTestKotlin { dependsOn("buildJs") }
     task("buildJs") {
