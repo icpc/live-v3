@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Set VERSION variable from tag
         run: |
-                  VERSION=${{ github.event.inputs.tag_name }}
+                  VERSION=${GITHUB_REF#refs/tags/}
                   echo "version=${VERSION:1}" >> $GITHUB_ENV
       - uses: actions/checkout@master
       - uses: actions/setup-node@v3
@@ -40,7 +40,7 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "${{ github.event.inputs.tagname }}"
+          automatic_release_tag: true
           draft: true
           files: |
             artifacts/*.jar
