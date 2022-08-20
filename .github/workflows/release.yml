@@ -4,6 +4,11 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Name of release
+        required: true
 
 
 jobs:
@@ -13,8 +18,13 @@ jobs:
     steps:
       - name: Set VERSION variable from tag
         run: |
-                  VERSION=${GITHUB_REF#refs/tags/}
-                  echo "version=${VERSION:1}" >> $GITHUB_ENV
+                  WORKFLOW_VERSION=${{ github.event.inputs.version }}
+                  GIT_VERSION=${GITHUB_REF#refs/tags/}
+                  if [ -z "${WORKFLOW_VERSION}" ] ; then 
+                      echo "version=${GIT_VERSION:1}" >> $GITHUB_ENV
+                  else 
+                      echo "version=${WORKFLOW_VERSION}" >> $GITHUB_ENV
+                  fi
       - uses: actions/checkout@master
       - uses: actions/setup-node@v3
         with:
@@ -40,7 +50,7 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "${{ github.event.inputs.tagname }}"
+          automatic_release_tag: "v${{ github.event.inputs.version }}"
           draft: true
           files: |
             artifacts/*.jar
