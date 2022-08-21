@@ -69,7 +69,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     }
 
     suspend fun delete(id: Int) = mutex.withLock {
-        val preset = findByIdOrNull(id) ?: return@withLock
+        val preset = findByIdOrNull(id) ?: return
         preset.hide()
         innerData = innerData.minus(preset)
         save()
