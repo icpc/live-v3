@@ -22,6 +22,7 @@ private object Subscribe : QueueProcessTrigger()
 class QueueService {
     private val runs = mutableMapOf<Int, RunInfo>()
     private val removedRuns = mutableMapOf<Int, RunInfo>()
+    private val featuredRuns = mutableSetOf<Int>()
     private val lastUpdateTime = mutableMapOf<Int, Duration>()
 
     private val resultFlow = MutableSharedFlow<QueueEvent>(
@@ -46,13 +47,16 @@ class QueueService {
         })
     }
 
-    private suspend fun modifyRun(run: RunInfo) {
+    private suspend fun modifyRun(rawRun: RunInfo) {
+        val isFeatured = rawRun.id in featuredRuns
+        val run = rawRun.takeIf { it.isFeaturedRun == isFeatured } ?: rawRun.copy(isFeaturedRun = isFeatured)
         resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
         runs[run.id] = run
     }
 
     private suspend fun removeRun(run: RunInfo) {
         runs.remove(run.id)
+        featuredRuns.remove(run.id)
         removedRuns[run.id] = run
         resultFlow.emit(RemoveRunFromQueueEvent(run))
     }
@@ -97,7 +101,8 @@ class QueueService {
                         logger.info(runs.values.toString())
                         return@collect
                     }
-                    modifyRun(run.copy(isFeaturedRun = true))
+                    featuredRuns += run.id
+                    modifyRun(run)
                     lastUpdateTime[run.id] =
                         contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                 }
@@ -107,7 +112,8 @@ class QueueService {
                         logger.warn("There is no run with id ${event.runId} for make it not featured")
                         return@collect
                     }
-                    modifyRun(run.copy(isFeaturedRun = false))
+                    featuredRuns += run.id
+                    modifyRun(run)
                 }
                 is Subscribe -> {
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
