@@ -11,6 +11,10 @@ node {
 }
 
 tasks {
+    npmInstall {
+        inputs.file("admin/package.json")
+        inputs.file("overlay/package.json")
+    }
     named<NpmTask>("npm_run_buildOverlay") {
         environment.set(mapOf("PUBLIC_URL" to "/overlay"))
     }
