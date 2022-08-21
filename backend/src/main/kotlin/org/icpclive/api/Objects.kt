@@ -176,8 +176,6 @@ sealed class AnalyticsMessage {
     abstract val id: String
     abstract val time: Instant
     abstract val relativeTime: Duration
-    var advertisement: AnalyticsCompanionPreset? = null
-    var tickerMessage: AnalyticsCompanionPreset? = null
 }
 
 @Serializable
@@ -193,6 +191,8 @@ data class AnalyticsCommentaryEvent(
     override val relativeTime: Duration,
     val teamIds: List<Int>,
     val runIds: List<Int>,
+    val advertisement: AnalyticsCompanionPreset? = null,
+    val tickerMessage: AnalyticsCompanionPreset? = null,
 ) : AnalyticsMessage()
 
 @Serializable

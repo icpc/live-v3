@@ -34,6 +34,11 @@ class AnalyticsService {
 
     private val subscriberFlow = MutableStateFlow(0)
 
+    private suspend fun modifyMessage(message: AnalyticsMessage) {
+        messages[message.id] = message
+        resultFlow.emit(ModifyAnalyticsMessageEvent(message))
+    }
+
     private suspend fun <S : ObjectSettings, T : TypeWithId> AnalyticsCompanionPreset.hide(controller: PresetsController<S, T>) {
         controller.hide(this.presetId)
     }
@@ -45,28 +50,34 @@ class AnalyticsService {
         }
     }
 
-    private suspend fun Action.process(): AnalyticsMessage? {
+    private suspend fun Action.process() {
         val message = messages[action.messageId]
         if (message == null) {
             logger.warn("Message with id ${action.messageId} not found")
-            return null
+            return
         }
         if (message !is AnalyticsCommentaryEvent) {
             logger.warn("Unsupported action for analytics message $message")
-            return null
+            return
         }
         when (action) {
             is AnalyticsAction.CreateAdvertisement -> {
                 message.advertisement?.hide(WidgetControllers.advertisement)
                 val presetId = WidgetControllers.advertisement.append(AdvertisementSettings(message.message))
                 WidgetControllers.advertisement.show(presetId)
-                message.advertisement =
-                    AnalyticsCompanionPreset(presetId, action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                modifyMessage(
+                    message.copy(
+                        advertisement = AnalyticsCompanionPreset(
+                            presetId,
+                            action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                    )
+                )
+
                 action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
             }
             is AnalyticsAction.DeleteAdvertisement -> {
                 message.advertisement?.hide(WidgetControllers.advertisement)
-                message.advertisement = null
+                modifyMessage(message.copy(advertisement = null))
             }
             is AnalyticsAction.CreateTickerMessage -> {
                 message.tickerMessage?.hide(WidgetControllers.tickerMessage)
@@ -74,22 +85,27 @@ class AnalyticsService {
                     TextTickerSettings(TickerPart.LONG, 30000, message.message)
                 )
                 WidgetControllers.tickerMessage.show(presetId)
-                AnalyticsCompanionPreset(presetId, action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                modifyMessage(
+                    message.copy(
+                        tickerMessage = AnalyticsCompanionPreset(
+                            presetId,
+                            action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                    )
+                )
                 action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteTickerMessage(action.messageId)) }
             }
             is AnalyticsAction.DeleteTickerMessage -> {
                 message.tickerMessage?.hide(WidgetControllers.tickerMessage)
-                message.tickerMessage = null
+                modifyMessage(message.copy(tickerMessage = null))
             }
             is AnalyticsAction.MakeRunFeatured -> {
                 if (message.runIds.size != 1) {
                     logger.warn("Can't make run featured caused by message ${message.id}")
-                    return null
+                    return
                 }
                 DataBus.queueFeaturedRunsFlow.emit(message.runIds[0])
             }
         }
-        return message
     }
 
     suspend fun run(rawEvents: Flow<AnalyticsMessage>) {
@@ -103,7 +119,7 @@ class AnalyticsService {
                     resultFlow.emit(AddAnalyticsMessageEvent(message))
                 }
                 is Action -> {
-                    event.process()?.let { resultFlow.emit(ModifyAnalyticsMessageEvent(it)) }
+                    event.process()
                 }
                 is Subscribe -> {
                     resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))
