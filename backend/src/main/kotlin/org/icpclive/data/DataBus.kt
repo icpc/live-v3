@@ -5,6 +5,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.service.AnalyticsAction
+import org.icpclive.service.MakeRunFeaturedRequest
 import org.icpclive.utils.completeOrThrow
 
 /**
@@ -17,10 +18,8 @@ object DataBus {
     val contestInfoFlow = CompletableDeferred<Flow<ContestInfo>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
-    val queueFeaturedRunsFlow = MutableSharedFlow<Int>( // flow of run ids that need to be braking news
-        extraBufferCapacity = 100,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    // flow of run ids that need to be braking news
+    val queueFeaturedRunsFlow = CompletableDeferred<FlowCollector<MakeRunFeaturedRequest>>()
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()
     private val scoreboardFlow = Array(OptimismLevel.values().size) { CompletableDeferred<Flow<Scoreboard>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
