@@ -4,7 +4,6 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
@@ -21,13 +20,9 @@ private class MakeFeatured(val request: MakeRunFeaturedRequest) : QueueProcessTr
 private class MakeNotFeatured(val runId: Int) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
-data class MakeRunFeaturedRequestResult(
-    val expirationTime: Instant,
-)
-
 class MakeRunFeaturedRequest(
     val runId: Int,
-    val result: CompletableDeferred<MakeRunFeaturedRequestResult> = CompletableDeferred()
+    val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred()
 )
 
 
@@ -116,7 +111,7 @@ class QueueService {
                     val run = runs[runId] ?: removedRuns[runId]
                     if (run == null) {
                         logger.warn("There is no run with id $runId for make it featured")
-                        logger.info(runs.values.toString())
+                        event.request.result.complete(null)
                         return@collect
                     }
                     featuredRuns += run.id
@@ -124,7 +119,7 @@ class QueueService {
                     val time = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                     lastUpdateTime[run.id] = time
                     event.request.result.complete(
-                        MakeRunFeaturedRequestResult(Clock.System.now() + FEATURED_WAIT_TIME)
+                        AnalyticsCompanionRun(Clock.System.now() + FEATURED_WAIT_TIME)
                     )
                 }
                 is MakeNotFeatured -> {
@@ -133,7 +128,7 @@ class QueueService {
                         logger.warn("There is no run with id ${event.runId} for make it not featured")
                         return@collect
                     }
-                    featuredRuns += run.id
+                    featuredRuns -= run.id
                     modifyRun(run)
                 }
                 is Subscribe -> {
@@ -142,7 +137,7 @@ class QueueService {
             }
             while (runs.size >= MAX_QUEUE_SIZE) {
                 runs.values.asSequence()
-                    .filterNot { it.isFirstSolvedRun && it.isFeaturedRun }
+                    .filterNot { it.isFirstSolvedRun || it.isFeaturedRun }
                     .minByOrNull { it.id }
                     ?.run { removeRun(this) }
             }

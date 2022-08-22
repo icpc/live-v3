@@ -72,7 +72,6 @@ class AnalyticsService {
                             action.ttlMs?.let { Clock.System.now() + it.milliseconds })
                     )
                 )
-
               action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
             }
             is AnalyticsAction.DeleteAdvertisement -> {
@@ -105,6 +104,8 @@ class AnalyticsService {
                 }
                 val request = MakeRunFeaturedRequest(message.runIds[0])
                 featuredRunsFlow.emit(request)
+                val companionRun = request.result.await() ?: return
+                modifyMessage(message.copy(featuredRun = companionRun))
             }
         }
     }

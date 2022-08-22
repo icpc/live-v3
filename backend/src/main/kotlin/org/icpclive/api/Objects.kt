@@ -170,6 +170,12 @@ data class AnalyticsCompanionPreset(
     @Serializable(with = UnixMillisecondsSerializer::class)
     val expirationTime: Instant?,
 )
+@Serializable
+data class AnalyticsCompanionRun(
+    @SerialName("expirationTimeMs")
+    @Serializable(with = UnixMillisecondsSerializer::class)
+    val expirationTime: Instant?,
+)
 
 @Serializable
 sealed class AnalyticsMessage {
@@ -193,6 +199,7 @@ data class AnalyticsCommentaryEvent(
     val runIds: List<Int>,
     val advertisement: AnalyticsCompanionPreset? = null,
     val tickerMessage: AnalyticsCompanionPreset? = null,
+    val featuredRun: AnalyticsCompanionRun? = null,
 ) : AnalyticsMessage()
 
 @Serializable
