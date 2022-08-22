@@ -164,7 +164,7 @@ data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pendi
 data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
 
 @Serializable
-class AnalyticsCompanionPreset(
+data class AnalyticsCompanionPreset(
     val presetId: Int,
     @SerialName("expirationTimeMs")
     @Serializable(with = UnixMillisecondsSerializer::class)

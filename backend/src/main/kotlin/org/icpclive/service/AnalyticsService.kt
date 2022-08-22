@@ -50,7 +50,7 @@ class AnalyticsService {
         }
     }
 
-    private suspend fun Action.process() {
+    private suspend fun Action.process(featuredRunsFlow: FlowCollector<MakeRunFeaturedRequest>) {
         val message = messages[action.messageId]
         if (message == null) {
             logger.warn("Message with id ${action.messageId} not found")
@@ -73,7 +73,7 @@ class AnalyticsService {
                     )
                 )
 
-                action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
+              action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
             }
             is AnalyticsAction.DeleteAdvertisement -> {
                 message.advertisement?.hide(WidgetControllers.advertisement)
@@ -103,12 +103,14 @@ class AnalyticsService {
                     logger.warn("Can't make run featured caused by message ${message.id}")
                     return
                 }
-                DataBus.queueFeaturedRunsFlow.emit(message.runIds[0])
+                val request = MakeRunFeaturedRequest(message.runIds[0])
+                featuredRunsFlow.emit(request)
             }
         }
     }
 
     suspend fun run(rawEvents: Flow<AnalyticsMessage>) {
+        val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
         val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
         logger.info("Analytics service is started")
         merge(rawEvents.map(::Message), subscriberFlow.map { Subscribe }, actionFlow).collect { event ->
@@ -119,7 +121,7 @@ class AnalyticsService {
                     resultFlow.emit(AddAnalyticsMessageEvent(message))
                 }
                 is Action -> {
-                    event.process()
+                    event.process(featuredRunFlow)
                 }
                 is Subscribe -> {
                     resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))

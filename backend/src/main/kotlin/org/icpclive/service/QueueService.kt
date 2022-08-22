@@ -1,7 +1,10 @@
 package org.icpclive.service
 
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
@@ -14,9 +17,18 @@ import kotlin.time.Duration.Companion.seconds
 private sealed class QueueProcessTrigger
 private object Clean : QueueProcessTrigger()
 private class Run(val run: RunInfo) : QueueProcessTrigger()
-private class MakeFeatured(val runId: Int) : QueueProcessTrigger()
+private class MakeFeatured(val request: MakeRunFeaturedRequest) : QueueProcessTrigger()
 private class MakeNotFeatured(val runId: Int) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
+
+data class MakeRunFeaturedRequestResult(
+    val expirationTime: Instant,
+)
+
+class MakeRunFeaturedRequest(
+    val runId: Int,
+    val result: CompletableDeferred<MakeRunFeaturedRequestResult> = CompletableDeferred()
+)
 
 
 class QueueService {
@@ -69,13 +81,18 @@ class QueueService {
         }
 
     suspend fun run(runsFlow: Flow<RunInfo>, contestInfoFlow: StateFlow<ContestInfo>) {
+        val featuredRunsFlow = MutableSharedFlow<MakeRunFeaturedRequest>(
+            extraBufferCapacity = 100,
+            onBufferOverflow = BufferOverflow.DROP_OLDEST
+        )
+        DataBus.queueFeaturedRunsFlow.completeOrThrow(featuredRunsFlow)
         contestInfoFlow.filterNot { it.status == ContestStatus.BEFORE }.first()
         logger.info("Queue service is started")
         val firstEventTime = contestInfoFlow.value.currentContestTime
         val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
         val runsFlowTrigger = runsFlow.map { Run(it) }
         val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
-        val makeFeaturedFlowTrigger = DataBus.queueFeaturedRunsFlow.map { MakeFeatured(it) }
+        val makeFeaturedFlowTrigger = featuredRunsFlow.map { MakeFeatured(it) }
         // it's important to have all side effects after merge, as part before merge will be executed concurrently
         merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger, makeFeaturedFlowTrigger).collect { event ->
             when (event) {
@@ -95,16 +112,20 @@ class QueueService {
                     }
                 }
                 is MakeFeatured -> {
-                    val run = runs[event.runId] ?: removedRuns[event.runId]
+                    val runId = event.request.runId
+                    val run = runs[runId] ?: removedRuns[runId]
                     if (run == null) {
-                        logger.warn("There is no run with id ${event.runId} for make it featured")
+                        logger.warn("There is no run with id $runId for make it featured")
                         logger.info(runs.values.toString())
                         return@collect
                     }
                     featuredRuns += run.id
                     modifyRun(run)
-                    lastUpdateTime[run.id] =
-                        contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
+                    val time = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
+                    lastUpdateTime[run.id] = time
+                    event.request.result.complete(
+                        MakeRunFeaturedRequestResult(Clock.System.now() + FEATURED_WAIT_TIME)
+                    )
                 }
                 is MakeNotFeatured -> {
                     val run = runs[event.runId]
