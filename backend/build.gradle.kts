@@ -19,7 +19,6 @@ plugins {
 
 group = "org.icpclive"
 version = rootProject.findProperty("build_version")!!
-val jarName = "${rootProject.name}-${project.version}.jar"
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 }
@@ -37,41 +36,43 @@ kotlin {
 
 ktor {
     fatJar {
-        archiveFileName.set(jarName)
+        archiveFileName.set("${rootProject.name}-${project.version}.jar")
     }
 }
-
-val jsList = listOf("overlay", "admin")
 
 tasks {
     named<JavaExec>("run") {
         this.args = listOf("-config=config/application.conf")
     }
-    jar { dependsOn("buildJs") }
-    shadowJar { dependsOn("buildJs") }
-    compileTestKotlin { dependsOn("buildJs") }
-    task("buildJs") {
-        for (js in jsList) {
-            dependsOn("copyJs${js.capitalize()}")
-        }
-    }
-    for (js in jsList) {
-        val dir = rootProject.rootDir.resolve(js)
-        register<Copy>("copyJs${js.capitalize()}") {
-            dependsOn(":npm_run_build${js.capitalize()}")
-            from(dir.resolve("build"))
-            destinationDir = project.buildDir.resolve("resources").resolve("main").resolve(js)
-        }
-    }
     task<Copy>("release") {
-        dependsOn("buildFatJar")
-        from(project.buildDir.resolve("libs").resolve(jarName))
+        from(shadowJar)
         destinationDir = rootProject.rootDir.resolve("artifacts")
     }
-
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
         kotlinOptions {
             kotlinOptions.allWarningsAsErrors = true
+        }
+    }
+}
+
+val jsBuildPath = project.buildDir.resolve("js")
+val copyJsAdmin by tasks.creating(Copy::class) {
+    from(rootProject.tasks["npm_run_buildAdmin"])
+    destinationDir = jsBuildPath.resolve("admin")
+}
+val copyJsOverlay by tasks.creating(Copy::class) {
+    from(rootProject.tasks["npm_run_buildOverlay"])
+    destinationDir = jsBuildPath.resolve("overlay")
+}
+val buildJs by tasks.creating {
+    dependsOn(copyJsAdmin, copyJsOverlay)
+    outputs.dir(jsBuildPath)
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs(buildJs.outputs)
         }
     }
 }

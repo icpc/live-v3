@@ -17,9 +17,17 @@ tasks {
     }
     named<NpmTask>("npm_run_buildOverlay") {
         environment.set(mapOf("PUBLIC_URL" to "/overlay"))
+        inputs.dir("overlay/src")
+        inputs.dir("overlay/public")
+        inputs.file("overlay/package.json")
+        outputs.dir("overlay/build")
     }
     named<NpmTask>("npm_run_buildAdmin") {
         environment.set(mapOf("PUBLIC_URL" to "/admin"))
+        inputs.dir("admin/src")
+        inputs.dir("admin/public")
+        inputs.file("admin/package.json")
+        outputs.dir("admin/build")
     }
 }
 
