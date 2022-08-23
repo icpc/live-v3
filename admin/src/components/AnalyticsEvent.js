@@ -1,7 +1,6 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CommentIcon from "@mui/icons-material/Comment";
 import React, { useCallback, useMemo, useState } from "react";
-import { BASE_URL_WS } from "../config";
 import {
     Box,
     Button,
@@ -17,9 +16,9 @@ import {
     Tooltip,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import { PresetWidgetService } from "../services/presetWidget";
 import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../styles";
 import { timeMsToDuration, unixTimeMsToLocalTime, useDebounceList, useWebsocket } from "../utils";
+import { useAnalyticsService } from "../services/analytics";
 
 const rowTheme = createTheme({
     components: {
@@ -45,10 +44,10 @@ const rowTheme = createTheme({
 });
 
 const isActive = (e) => {
-    return e._advertisementId !== undefined || e._tickerMsgId !== undefined;
+    return e.advertisement !== undefined || e.tickerMessage !== undefined;
 };
 
-function EventsTable({ events, selectedRowId, onRowClick }) {
+function MessagesTable({ messages, selectedRowId, onRowClick }) {
     const rowBackground = useCallback((e) => {
         if (e.id === selectedRowId) {
             return isActive(e) ? selectedAndActiveRowColor : selectedRowColor;
@@ -60,7 +59,7 @@ function EventsTable({ events, selectedRowId, onRowClick }) {
         <ThemeProvider theme={rowTheme}>
             <Table sx={{ m: 2 }} size="small">
                 <TableBody>
-                    {events.map((event, rowId) =>
+                    {messages.map((event, rowId) =>
                         <TableRow key={rowId} sx={{ backgroundColor: rowBackground(event), cursor: "pointer" }}
                             onClick={() => onRowClick(event)}>
                             <TableCell type="icon">{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
@@ -73,8 +72,9 @@ function EventsTable({ events, selectedRowId, onRowClick }) {
             </Table>
         </ThemeProvider>);
 }
-EventsTable.propTypes = {
-    events: PropTypes.arrayOf(
+
+MessagesTable.propTypes = {
+    messages: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.any.isRequired,
             type: PropTypes.string.isRequired,
@@ -86,66 +86,21 @@ EventsTable.propTypes = {
 };
 
 function Analytics() {
-    const [events, setEvents, addEvent] = useDebounceList(100);
-    const handleWSMessage = useCallback(event => addEvent(JSON.parse(event.data)),
-        []);
-    useWebsocket(BASE_URL_WS + "/analyticsEvents", handleWSMessage);
+    const {
+        messagesMap,
+        messagesList,
+        createAdvertisement,
+        deleteAdvertisement,
+        createTickerMessage,
+        deleteTickerMessage
+    } = useAnalyticsService();
 
-    const [selectedEvent, setSelectedEvent] = useState();
+    const [selectedEventId, setSelectedEventId] = useState();
+    const selectedEvent = useMemo(() => messagesMap[selectedEventId],
+        [messagesMap, selectedEventId]);
 
-    const updateEventById = (id, modifier) => setEvents(events => events.map(e => e.id === id ? modifier(e) : e));
-
-    const advertisementService = useMemo(() => new PresetWidgetService("/advertisement", console.log), []);
-    const tickerService = useMemo(() => new PresetWidgetService("/tickerMessage", console.log), []);
     const [advertisementTtl, setAdvertisementTtl] = useState(30);
     const [tickerMsgTtl, setTickerMsgTtl] = useState(120);
-
-    function createAndShowAdvertisement() {
-        const presetSettings = { text: selectedEvent.message };
-        advertisementService.createAndShowWithTtl(presetSettings, advertisementTtl * 1000)
-            .then(r => updateEventById(selectedEvent.id, e => {
-                e._advertisementId = r.response;
-                r._advertisementHideTimer = setTimeout(() => {
-                    updateEventById(e.id, e => { e._advertisementId = undefined; return e; });
-                }, advertisementTtl * 1000);
-                return e;
-            }));
-    }
-
-    function hideAdvertisement() {
-        advertisementService.deletePreset(selectedEvent._advertisementId)
-            .then(() => updateEventById(selectedEvent.id, e => {
-                e._advertisementId = undefined;
-                if (e._advertisementHideTimer !== undefined) {
-                    clearTimeout(e._advertisementHideTimer);
-                }
-                return e;
-            }));
-    }
-
-    function createAndShowTickerMessage() {
-        const presetSettings = { text: selectedEvent.message, periodMs: 30000, type: "text", part: "long" };
-        tickerService.createAndShowWithTtl(presetSettings, tickerMsgTtl * 1000)
-            .then(r => updateEventById(selectedEvent.id, e => {
-                e._tickerMsgId = r.response;
-                e._tickerMsgHideTimer = setTimeout(() => {
-                    updateEventById(e.id, e => { e._tickerMsgId = undefined; return e; });
-                }, tickerMsgTtl * 1000);
-                return e;
-            }));
-    }
-
-    function hideTickerMessage() {
-        tickerService.deletePreset(selectedEvent._tickerMsgId)
-            .then(() => updateEventById(selectedEvent.id, e => {
-                e._tickerMsgId = undefined;
-                if (e._tickerMsgHideTimer !== undefined) {
-                    clearTimeout(e._tickerMsgHideTimer);
-                }
-                return e;
-            }));
-    }
-
 
     // const selectedEventMessage = selectedEvent?.type === "commentary" ? selectedEvent?.message : undefined;
     // const selectedEventTeam = selectedEvent?.type === "commentary" ? selectedEvent?.team : undefined;
@@ -162,7 +117,7 @@ function Analytics() {
                 <ButtonGroup disabled={selectedEvent?.message === undefined} sx={{ px: 2 }}>
                     <Button color="primary" variant={"outlined"} startIcon={<ArrowForwardIcon/>}
                         disabled={selectedEvent?._advertisementId !== undefined}
-                        onClick={createAndShowAdvertisement}>advertisement</Button>
+                        onClick={() => createAdvertisement(selectedEvent?.id, advertisementTtl)}>advertisement</Button>
                     <TextField
                         sx={{ width: "84px" }}
                         onChange={e => setAdvertisementTtl(e.target.value)}
@@ -172,14 +127,14 @@ function Analytics() {
                         variant="outlined"
                         InputProps={{ style: { height: "36.5px" } }}
                     />
-                    <Button color="error" disabled={selectedEvent?._advertisementId === undefined}
-                        onClick={hideAdvertisement}>Hide</Button>
+                    <Button color="error" disabled={selectedEvent?.advertisement === undefined}
+                        onClick={() => deleteAdvertisement(selectedEvent?.id)}>Hide</Button>
                 </ButtonGroup>
 
                 <ButtonGroup disabled={selectedEvent?.message === undefined}>
                     <Button color="primary" variant={"outlined"} startIcon={<ArrowForwardIcon/>}
-                        disabled={selectedEvent?._tickerMsgId !== undefined}
-                        onClick={createAndShowTickerMessage}>ticker</Button>
+                        disabled={selectedEvent?.tickerMessage !== undefined}
+                        onClick={() => createTickerMessage(selectedEvent?.id, tickerMsgTtl)}>ticker</Button>
                     <TextField
                         sx={{ width: "84px" }}
                         onChange={e => setTickerMsgTtl(e.target.value)}
@@ -189,31 +144,15 @@ function Analytics() {
                         variant="outlined"
                         InputProps={{ style: { height: "36.5px" } }}
                     />
-                    <Button color="error" disabled={selectedEvent?._tickerMsgId === undefined}
-                        onClick={hideTickerMessage}>Hide</Button>
+                    <Button color="error" disabled={selectedEvent?.tickerMessage === undefined}
+                        onClick={() => deleteTickerMessage(selectedEvent?.id)}>Hide</Button>
                 </ButtonGroup>
-
-                {/*<Button color="primary" variant={"outlined"}*/}
-                {/*    onClick={() => {}}>To ticker</Button>*/}
-                {/*<Tooltip title="Show on ... s">*/}
-                {/*    <TextField*/}
-                {/*        hiddenLabel*/}
-                {/*        defaultValue={5*60}*/}
-                {/*        id="filled-hidden-label-small"*/}
-                {/*        type="text"*/}
-                {/*        size="small"*/}
-                {/*        sx={{ width: 100 }}*/}
-                {/*        disabled={selectedEventMessage === undefined}*/}
-                {/*        onChange={(e) => {e.target.value;}}*/}
-                {/*    />*/}
-                {/*</Tooltip>*/}
-
 
                 {/*Team: <TeamViewSettingsPanel isSomethingSelected={selectedEventTeam !== undefined} showTeamFunction={() => {}}*/}
                 {/*    hideTeamFunction={() => {}} isPossibleToHide={false}/>*/}
             </Box>
-            <EventsTable events={events} selectedRowId={selectedEvent?.id}
-                onRowClick={(event) => setSelectedEvent(prevEvent => event.id === prevEvent?.id ? undefined : event)}/>
+            <MessagesTable messages={messagesList} selectedRowId={selectedEvent?.id}
+                onRowClick={({ id }) => setSelectedEventId(prevMsgId => id === prevMsgId ? undefined : id)}/>
         </Box>
     </Grid>
     );
