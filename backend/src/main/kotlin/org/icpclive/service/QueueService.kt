@@ -16,15 +16,17 @@ import kotlin.time.Duration.Companion.seconds
 private sealed class QueueProcessTrigger
 private object Clean : QueueProcessTrigger()
 private class Run(val run: RunInfo) : QueueProcessTrigger()
-private class MakeFeatured(val request: MakeRunFeaturedRequest) : QueueProcessTrigger()
-private class MakeNotFeatured(val runId: Int) : QueueProcessTrigger()
+private class Featured(val request: FeaturedRunAction) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
-class MakeRunFeaturedRequest(
-    val runId: Int,
-    val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred()
-)
+sealed class FeaturedRunAction(val runId: Int) {
+    class MakeFeatured(
+        runId: Int,
+        val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred(),
+    ) : FeaturedRunAction(runId)
 
+    class MakeNotFeatured(runId: Int) : FeaturedRunAction(runId)
+}
 
 class QueueService {
     private val runs = mutableMapOf<Int, RunInfo>()
@@ -76,7 +78,7 @@ class QueueService {
         }
 
     suspend fun run(runsFlow: Flow<RunInfo>, contestInfoFlow: StateFlow<ContestInfo>) {
-        val featuredRunsFlow = MutableSharedFlow<MakeRunFeaturedRequest>(
+        val featuredRunsFlow = MutableSharedFlow<FeaturedRunAction>(
             extraBufferCapacity = 100,
             onBufferOverflow = BufferOverflow.DROP_OLDEST
         )
@@ -87,14 +89,15 @@ class QueueService {
         val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
         val runsFlowTrigger = runsFlow.map { Run(it) }
         val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
-        val makeFeaturedFlowTrigger = featuredRunsFlow.map { MakeFeatured(it) }
+        val featuredFlowTrigger = featuredRunsFlow.map { Featured(it) }
         // it's important to have all side effects after merge, as part before merge will be executed concurrently
-        merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger, makeFeaturedFlowTrigger).collect { event ->
+        merge(runsFlowTrigger, removerFlowTrigger, subscriberFlowTrigger, featuredFlowTrigger).collect { event ->
             when (event) {
                 is Clean -> {
                     val currentTime = contestInfoFlow.value.currentContestTime
                     runs.values
-                        .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }.forEach { removeRun(it) }
+                        .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }
+                        .forEach { removeRun(it) }
                 }
                 is Run -> {
                     val run = event.run
@@ -106,30 +109,28 @@ class QueueService {
                         modifyRun(run)
                     }
                 }
-                is MakeFeatured -> {
+                is Featured -> {
                     val runId = event.request.runId
                     val run = runs[runId] ?: removedRuns[runId]
                     if (run == null) {
                         logger.warn("There is no run with id $runId for make it featured")
-                        event.request.result.complete(null)
+                        if (event.request is FeaturedRunAction.MakeFeatured) {
+                            event.request.result.complete(null)
+                        }
                         return@collect
                     }
-                    featuredRuns += run.id
-                    modifyRun(run)
-                    val time = contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
-                    lastUpdateTime[run.id] = time
-                    event.request.result.complete(
-                        AnalyticsCompanionRun(Clock.System.now() + FEATURED_WAIT_TIME)
-                    )
-                }
-                is MakeNotFeatured -> {
-                    val run = runs[event.runId]
-                    if (run == null) {
-                        logger.warn("There is no run with id ${event.runId} for make it not featured")
-                        return@collect
+                    if (event.request is FeaturedRunAction.MakeFeatured) {
+                        featuredRuns += run.id
+                        modifyRun(run)
+                        lastUpdateTime[run.id] =
+                            contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
+                        event.request.result.complete(
+                            AnalyticsCompanionRun(Clock.System.now() + FEATURED_WAIT_TIME)
+                        )
+                    } else {
+                        featuredRuns -= run.id
+                        modifyRun(run)
                     }
-                    featuredRuns -= run.id
-                    modifyRun(run)
                 }
                 is Subscribe -> {
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))

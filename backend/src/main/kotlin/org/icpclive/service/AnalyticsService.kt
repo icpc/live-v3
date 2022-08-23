@@ -10,14 +10,15 @@ import org.icpclive.data.WidgetControllers
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
 import org.icpclive.widget.PresetsController
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration
 
 sealed class AnalyticsAction(val messageId: String) {
-    class CreateAdvertisement(messageId: String, val ttlMs: Long?) : AnalyticsAction(messageId)
+    class CreateAdvertisement(messageId: String, val ttl: Duration?) : AnalyticsAction(messageId)
     class DeleteAdvertisement(messageId: String) : AnalyticsAction(messageId)
-    class CreateTickerMessage(messageId: String, val ttlMs: Long?) : AnalyticsAction(messageId)
+    class CreateTickerMessage(messageId: String, val ttl: Duration?) : AnalyticsAction(messageId)
     class DeleteTickerMessage(messageId: String) : AnalyticsAction(messageId)
     class MakeRunFeatured(messageId: String) : AnalyticsAction(messageId)
+    class MakeRunNotFeatured(messageId: String) : AnalyticsAction(messageId)
 }
 
 
@@ -43,14 +44,14 @@ class AnalyticsService {
         controller.hide(this.presetId)
     }
 
-    private fun scheduleAction(timeMs: Long, action: AnalyticsAction) {
+    private fun scheduleAction(time: Duration, action: AnalyticsAction) {
         scheduledTasksScope.launch {
-            delay(timeMs)
+            delay(time)
             internalActions.emit(action)
         }
     }
 
-    private suspend fun Action.process(featuredRunsFlow: FlowCollector<MakeRunFeaturedRequest>) {
+    private suspend fun Action.process(featuredRunsFlow: FlowCollector<FeaturedRunAction>) {
         val message = messages[action.messageId]
         if (message == null) {
             logger.warn("Message with id ${action.messageId} not found")
@@ -69,10 +70,10 @@ class AnalyticsService {
                     message.copy(
                         advertisement = AnalyticsCompanionPreset(
                             presetId,
-                            action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                            action.ttl?.let { Clock.System.now() + it })
                     )
                 )
-              action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
+                action.ttl?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
             }
             is AnalyticsAction.DeleteAdvertisement -> {
                 message.advertisement?.hide(WidgetControllers.advertisement)
@@ -88,10 +89,10 @@ class AnalyticsService {
                     message.copy(
                         tickerMessage = AnalyticsCompanionPreset(
                             presetId,
-                            action.ttlMs?.let { Clock.System.now() + it.milliseconds })
+                            action.ttl?.let { Clock.System.now() + it })
                     )
                 )
-                action.ttlMs?.let { scheduleAction(it, AnalyticsAction.DeleteTickerMessage(action.messageId)) }
+                action.ttl?.let { scheduleAction(it, AnalyticsAction.DeleteTickerMessage(action.messageId)) }
             }
             is AnalyticsAction.DeleteTickerMessage -> {
                 message.tickerMessage?.hide(WidgetControllers.tickerMessage)
@@ -102,10 +103,17 @@ class AnalyticsService {
                     logger.warn("Can't make run featured caused by message ${message.id}")
                     return
                 }
-                val request = MakeRunFeaturedRequest(message.runIds[0])
+                val request = FeaturedRunAction.MakeFeatured(message.runIds[0])
                 featuredRunsFlow.emit(request)
                 val companionRun = request.result.await() ?: return
                 modifyMessage(message.copy(featuredRun = companionRun))
+            }
+            is AnalyticsAction.MakeRunNotFeatured -> {
+                if (message.runIds.size != 1) {
+                    logger.warn("Can't make run not featured caused by message ${message.id}")
+                    return
+                }
+                featuredRunsFlow.emit(FeaturedRunAction.MakeNotFeatured(message.runIds[0]))
             }
         }
     }

@@ -166,13 +166,13 @@ data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
 @Serializable
 data class AnalyticsCompanionPreset(
     val presetId: Int,
-    @SerialName("expirationTimeMs")
+    @SerialName("expirationTimeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)
     val expirationTime: Instant?,
 )
 @Serializable
 data class AnalyticsCompanionRun(
-    @SerialName("expirationTimeMs")
+    @SerialName("expirationTimeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)
     val expirationTime: Instant?,
 )

@@ -8,6 +8,8 @@ import org.icpclive.data.DataBus
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.sendJsonFlow
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 fun Route.setupAnalytics() {
     val actionsFlow = MutableSharedFlow<AnalyticsAction>(extraBufferCapacity = 10000)
@@ -18,13 +20,13 @@ fun Route.setupAnalytics() {
 
     fun Route.presetWidget(
         name: String,
-        showAction: (id: String, ttlMs: Long?) -> AnalyticsAction,
+        showAction: (id: String, ttlMs: Duration?) -> AnalyticsAction,
         hideAction: (id: String) -> AnalyticsAction
     ) {
         route("/$name") {
             post {
                 call.adminApiAction {
-                    actionsFlow.emit(showAction(call.id(), call.request.queryParameters["ttl"]?.toLong()))
+                    actionsFlow.emit(showAction(call.id(), call.request.queryParameters["ttl"]?.toLong()?.milliseconds))
                 }
             }
             delete {
@@ -52,5 +54,11 @@ fun Route.setupAnalytics() {
                 actionsFlow.emit(AnalyticsAction.MakeRunFeatured(call.id()))
             }
         }
+        delete("/featuredRun") {
+            call.adminApiAction {
+                actionsFlow.emit(AnalyticsAction.MakeRunNotFeatured(call.id()))
+            }
+        }
+
     }
 }
