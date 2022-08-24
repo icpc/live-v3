@@ -39,14 +39,10 @@ export const useAnalyticsService = () => {
     const deleteTickerMessage = (messageId) =>
         apiPost("/" + messageId + "/tickerMessage", undefined, "DELETE");
 
-    // advertisementService.createAndShowWithTtl(presetSettings, advertisementTtl * 1000)
-    //     .then(r => updateEventById(selectedEvent.id, e => {
-    //         e._advertisementId = r.response;
-    //         r._advertisementHideTimer = setTimeout(() => {
-    //             updateEventById(e.id, e => { e._advertisementId = undefined; return e; });
-    //         }, advertisementTtl * 1000);
-    //         return e;
-    //     }));
+    const makeFeaturedRun = (messageId, mediaType) =>
+        apiPost("/" + messageId + "/featuredRun", mediaType, "POST");
+    const makeNotFeaturedRun = (messageId) =>
+        apiPost("/" + messageId + "/featuredRun", undefined, "DELETE");
 
     return {
         messagesMap: messages,
@@ -54,6 +50,8 @@ export const useAnalyticsService = () => {
         createAdvertisement,
         deleteAdvertisement,
         createTickerMessage,
-        deleteTickerMessage
+        deleteTickerMessage,
+        makeFeaturedRun,
+        makeNotFeaturedRun,
     };
 };

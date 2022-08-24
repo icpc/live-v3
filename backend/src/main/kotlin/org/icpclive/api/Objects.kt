@@ -38,7 +38,7 @@ data class RunInfo constructor(
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
     val isFirstSolvedRun: Boolean,
-    val isFeaturedRun: Boolean = false,
+    val featuredRunMedia: MediaType? = null,
 )
 
 @Serializable
@@ -127,7 +127,10 @@ enum class MediaType {
     @SerialName("photo")
     PHOTO,
 
-    @SerialName("ACHIEVEMENT")
+    @SerialName("reactionVideo")
+    REACTION_VIDEO,
+
+    @SerialName("achievement")
     ACHIEVEMENT,
 }
 
@@ -170,11 +173,13 @@ data class AnalyticsCompanionPreset(
     @Serializable(with = UnixMillisecondsSerializer::class)
     val expirationTime: Instant?,
 )
+
 @Serializable
 data class AnalyticsCompanionRun(
     @SerialName("expirationTimeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)
     val expirationTime: Instant?,
+    val mediaType: MediaType,
 )
 
 @Serializable
