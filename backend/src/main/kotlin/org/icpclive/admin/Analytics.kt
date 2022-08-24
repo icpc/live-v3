@@ -51,7 +51,7 @@ fun Route.setupAnalytics() {
         )
         post("/featuredRun") {
             call.adminApiAction {
-                actionsFlow.emit(AnalyticsAction.MakeRunFeatured(call.id()))
+                actionsFlow.emit(AnalyticsAction.MakeRunFeatured(call.id(), call.safeReceive()))
             }
         }
         delete("/featuredRun") {

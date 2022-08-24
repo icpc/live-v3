@@ -17,7 +17,7 @@ sealed class AnalyticsAction(val messageId: String) {
     class DeleteAdvertisement(messageId: String) : AnalyticsAction(messageId)
     class CreateTickerMessage(messageId: String, val ttl: Duration?) : AnalyticsAction(messageId)
     class DeleteTickerMessage(messageId: String) : AnalyticsAction(messageId)
-    class MakeRunFeatured(messageId: String) : AnalyticsAction(messageId)
+    class MakeRunFeatured(messageId: String, val mediaType: MediaType) : AnalyticsAction(messageId)
     class MakeRunNotFeatured(messageId: String) : AnalyticsAction(messageId)
 }
 
@@ -103,7 +103,7 @@ class AnalyticsService {
                     logger.warn("Can't make run featured caused by message ${message.id}")
                     return
                 }
-                val request = FeaturedRunAction.MakeFeatured(message.runIds[0])
+                val request = FeaturedRunAction.MakeFeatured(message.runIds[0], action.mediaType)
                 featuredRunsFlow.emit(request)
                 val companionRun = request.result.await() ?: return
                 modifyMessage(message.copy(featuredRun = companionRun))
@@ -114,6 +114,7 @@ class AnalyticsService {
                     return
                 }
                 featuredRunsFlow.emit(FeaturedRunAction.MakeNotFeatured(message.runIds[0]))
+                modifyMessage(message.copy(featuredRun = null))
             }
         }
     }

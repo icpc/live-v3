@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Box, Button, TextField, Tooltip } from "@mui/material";
+import { Grid, Box, Button, TextField, Tooltip, ButtonGroup } from "@mui/material";
 import { lightBlue, grey } from "@mui/material/colors";
 import { Team, TEAM_FIELD_STRUCTURE } from "./Team";
 import { BASE_URL_BACKEND } from "../config";
@@ -34,7 +34,7 @@ CompactSwitchIconButton.propTypes = {
 
 export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, isSomethingSelected, isPossibleToHide,
     onShowTeam, onHideTeam, isTaskStatusShown, setIsTaskStatusShown, isTeamAchievementShown, setIsTeamAchievementShown }) {
-    return (<>
+    return (<ButtonGroup>
         {mediaTypes.map((elem) => (
             <Button
                 disabled={!isSomethingSelected}
@@ -57,7 +57,7 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, isSomethi
             variant={!isPossibleToHide ? "outlined" : "contained"}
             color="error"
             onClick={() => onHideTeam()}>hide</Button>
-    </>);
+    </ButtonGroup>);
 }
 TeamViewSettingsPanel.propTypes = {
     mediaTypes: PropTypes.arrayOf(PropTypes.shape({ "text":PropTypes.string.isRequired, "mediaType":PropTypes.any })).isRequired,

@@ -15,7 +15,7 @@ import { SnackbarProvider } from "notistack";
 import ScoreboardManager from "./components/ScoreboardManager";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
-import Analytics from "./components/AnalyticsEvent";
+import Analytics from "./components/Analytics";
 import { useLocalStorageState } from "./utils";
 
 const dashboard_elements = {

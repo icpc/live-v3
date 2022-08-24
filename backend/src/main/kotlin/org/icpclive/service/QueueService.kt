@@ -22,8 +22,10 @@ private object Subscribe : QueueProcessTrigger()
 sealed class FeaturedRunAction(val runId: Int) {
     class MakeFeatured(
         runId: Int,
-        val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred(),
-    ) : FeaturedRunAction(runId)
+        val mediaType: MediaType,
+    ) : FeaturedRunAction(runId) {
+        val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred()
+    }
 
     class MakeNotFeatured(runId: Int) : FeaturedRunAction(runId)
 }
@@ -31,7 +33,7 @@ sealed class FeaturedRunAction(val runId: Int) {
 class QueueService {
     private val runs = mutableMapOf<Int, RunInfo>()
     private val removedRuns = mutableMapOf<Int, RunInfo>()
-    private val featuredRuns = mutableSetOf<Int>()
+    private var featuredRun: FeaturedRunInfo? = null
     private val lastUpdateTime = mutableMapOf<Int, Duration>()
 
     private val resultFlow = MutableSharedFlow<QueueEvent>(
@@ -56,23 +58,32 @@ class QueueService {
         })
     }
 
-    private suspend fun modifyRun(rawRun: RunInfo) {
-        val isFeatured = rawRun.id in featuredRuns
-        val run = rawRun.takeIf { it.isFeaturedRun == isFeatured } ?: rawRun.copy(isFeaturedRun = isFeatured)
-        resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
+    private suspend fun modifyRun(rawRun: RunInfo, sendToOverlay: Boolean = true) {
+        val featuredMediaType = featuredRun?.takeIf { it.runId == rawRun.id }?.mediaType
+        val run = rawRun.takeIf { it.featuredRunMedia == featuredMediaType }
+            ?: rawRun.copy(featuredRunMedia = featuredMediaType)
+        if (sendToOverlay) {
+            resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
+        }
         runs[run.id] = run
+    }
+
+    private suspend fun FeaturedRunInfo.makeNotFeatured() {
+        val run = runs[runId] ?: removedRuns[runId] ?: return
+        featuredRun = null
+        modifyRun(run.copy(featuredRunMedia = null), runId in runs)
     }
 
     private suspend fun removeRun(run: RunInfo) {
         runs.remove(run.id)
-        featuredRuns.remove(run.id)
+        featuredRun?.takeIf { it.runId == run.id }?.makeNotFeatured()
         removedRuns[run.id] = run
         resultFlow.emit(RemoveRunFromQueueEvent(run))
     }
 
     private val RunInfo.timeInQueue
         get() = when {
-            isFeaturedRun -> FEATURED_WAIT_TIME
+            featuredRunMedia != null -> FEATURED_WAIT_TIME
             isFirstSolvedRun -> FIRST_TO_SOLVE_WAIT_TIME
             else -> WAIT_TIME
         }
@@ -101,6 +112,7 @@ class QueueService {
                 }
                 is Run -> {
                     val run = event.run
+                    removedRuns[run.id] = run
                     val currentTime =
                         contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                     logger.debug("Receive run $run")
@@ -120,16 +132,19 @@ class QueueService {
                         return@collect
                     }
                     if (event.request is FeaturedRunAction.MakeFeatured) {
-                        featuredRuns += run.id
+                        featuredRun?.makeNotFeatured()
+                        featuredRun = FeaturedRunInfo(run.id, event.request.mediaType)
                         modifyRun(run)
                         lastUpdateTime[run.id] =
                             contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                         event.request.result.complete(
-                            AnalyticsCompanionRun(Clock.System.now() + FEATURED_WAIT_TIME)
+                            AnalyticsCompanionRun(Clock.System.now() + FEATURED_WAIT_TIME, event.request.mediaType)
                         )
                     } else {
-                        featuredRuns -= run.id
-                        modifyRun(run)
+                        if (featuredRun?.runId == run.id) {
+                            featuredRun = null
+                            modifyRun(run, runId in runs)
+                        }
                     }
                 }
                 is Subscribe -> {
@@ -138,7 +153,7 @@ class QueueService {
             }
             while (runs.size >= MAX_QUEUE_SIZE) {
                 runs.values.asSequence()
-                    .filterNot { it.isFirstSolvedRun || it.isFeaturedRun }
+                    .filterNot { it.isFirstSolvedRun || it.featuredRunMedia != null }
                     .minByOrNull { it.id }
                     ?.run { removeRun(this) }
             }
@@ -147,6 +162,8 @@ class QueueService {
 
     companion object {
         val logger = getLogger(QueueService::class)
+
+        private data class FeaturedRunInfo(val runId: Int, val mediaType: MediaType)
 
         private val WAIT_TIME = 1.minutes
         private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes

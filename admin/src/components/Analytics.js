@@ -17,8 +17,9 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../styles";
-import { timeMsToDuration, unixTimeMsToLocalTime, useDebounceList, useWebsocket } from "../utils";
+import { timeMsToDuration, unixTimeMsToLocalTime } from "../utils";
 import { useAnalyticsService } from "../services/analytics";
+import { TeamViewSettingsPanel } from "./TeamTable";
 
 const rowTheme = createTheme({
     components: {
@@ -43,8 +44,16 @@ const rowTheme = createTheme({
     },
 });
 
+const featuredRunMediaTypes = [
+    { text: "reaction", mediaType: "reactionVideo" },
+    { text: "camera", mediaType: "camera" },
+    { text: "screen", mediaType: "screen" },
+    { text: "record", mediaType: "record" },
+    { text: "photo", mediaType: "photo" },
+];
+
 const isActive = (e) => {
-    return e.advertisement !== undefined || e.tickerMessage !== undefined;
+    return e.advertisement !== undefined || e.tickerMessage !== undefined || e.featuredRun !== undefined;
 };
 
 function MessagesTable({ messages, selectedRowId, onRowClick }) {
@@ -92,7 +101,9 @@ function Analytics() {
         createAdvertisement,
         deleteAdvertisement,
         createTickerMessage,
-        deleteTickerMessage
+        deleteTickerMessage,
+        makeFeaturedRun,
+        makeNotFeaturedRun,
     } = useAnalyticsService();
 
     const [selectedEventId, setSelectedEventId] = useState();
@@ -103,7 +114,7 @@ function Analytics() {
     const [tickerMsgTtl, setTickerMsgTtl] = useState(120);
 
     // const selectedEventMessage = selectedEvent?.type === "commentary" ? selectedEvent?.message : undefined;
-    // const selectedEventTeam = selectedEvent?.type === "commentary" ? selectedEvent?.team : undefined;
+    const selectedEventRun = selectedEvent?.runIds?.length === 1 ? selectedEvent?.runIds[0] : undefined;
 
     return (<Grid sx={{
         display: "flex",
@@ -147,9 +158,15 @@ function Analytics() {
                     <Button color="error" disabled={selectedEvent?.tickerMessage === undefined}
                         onClick={() => deleteTickerMessage(selectedEvent?.id)}>Hide</Button>
                 </ButtonGroup>
-
-                {/*Team: <TeamViewSettingsPanel isSomethingSelected={selectedEventTeam !== undefined} showTeamFunction={() => {}}*/}
-                {/*    hideTeamFunction={() => {}} isPossibleToHide={false}/>*/}
+            </Box>
+            <Box sx={{ pl: 2, mt: 1 }}>
+                    Featured run: <TeamViewSettingsPanel
+                    isSomethingSelected={selectedEventRun !== undefined}
+                    onShowTeam={(mediaType) => makeFeaturedRun(selectedEventId, mediaType)}
+                    onHideTeam={() => makeNotFeaturedRun(selectedEventId)}
+                    isPossibleToHide={selectedEvent?.featuredRun !== undefined}
+                    mediaTypes={featuredRunMediaTypes}
+                />
             </Box>
             <MessagesTable messages={messagesList} selectedRowId={selectedEvent?.id}
                 onRowClick={({ id }) => setSelectedEventId(prevMsgId => id === prevMsgId ? undefined : id)}/>
