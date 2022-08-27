@@ -12,7 +12,6 @@
     </root>
     <logger name="org.eclipse.jetty" level=""/>
     <logger name="io.netty" level=""/>
-    <logger name="org.icpclive.service.EventLoggerService" level=""/>
     <logger name="org.icpclive.service.QueueService" level=""/>
     <logger name="org.icpclive.service.EmulationService" level=""/>
 </configuration>

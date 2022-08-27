@@ -21,7 +21,6 @@ import org.icpclive.admin.createFakeUser
 import org.icpclive.admin.validateAdminApiCredits
 import org.icpclive.cds.launchContestDataSource
 import org.icpclive.overlay.configureOverlayRouting
-import org.icpclive.service.EventLoggerService
 import org.icpclive.utils.defaultJsonSettings
 import org.slf4j.event.Level
 import java.time.Duration
@@ -99,5 +98,4 @@ fun Application.module() {
         }
     }
     launchContestDataSource()
-    launch { EventLoggerService().run() }
 }
