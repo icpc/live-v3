@@ -20,7 +20,7 @@ fun CoroutineScope.launchICPCServices(
     DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
     DataBus.contestInfoFlow.completeOrThrow(infoFlow)
     launch { AdvancedPropertiesService().run(advancedPropertiesFlow) }
-    launch { ContestDataOverridesService().run(rawInfoFlow, advancedPropertiesFlow, infoFlow) }
+    launch { ContestDataPostprocessingService().run(rawInfoFlow, advancedPropertiesFlow, rawRuns, infoFlow) }
     launch { QueueService().run(runsFlow, infoFlow) }
     launch { ICPCNormalScoreboardService().run(runsFlow, infoFlow) }
     launch { ICPCOptimisticScoreboardService().run(runsFlow, infoFlow) }

@@ -18,7 +18,11 @@ data class ProblemInfoOverride(
 )
 
 @Serializable
-class RankingSettings(val medals: List<MedalType>? = null, val penaltyPerWrongAttempt: Int? = null)
+class RankingSettings(
+    val medals: List<MedalType>? = null,
+    val penaltyPerWrongAttempt: Int? = null,
+    val showTeamsWithoutSubmissions: Boolean? = null
+)
 
 @Serializable
 data class AdvancedProperties(

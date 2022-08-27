@@ -31,7 +31,8 @@ You can adjust received participant information for each separate participant us
       {"name": "silver", "count": 4},
       {"name": "bronze", "count": 4}
     ],
-    "penaltyPerWrongAttempt": 20
+    "penaltyPerWrongAttempt": 20,
+    "showTeamsWithoutSubmissions": true
   }
 }
 ```

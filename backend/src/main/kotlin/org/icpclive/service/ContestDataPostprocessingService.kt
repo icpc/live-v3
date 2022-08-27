@@ -1,20 +1,17 @@
 package org.icpclive.service
 
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import org.icpclive.api.AdvancedProperties
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.ProblemInfo
-import org.icpclive.api.TeamInfo
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import org.icpclive.api.*
 import org.icpclive.utils.catchToNull
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
 import org.icpclive.utils.humanReadable
 
-class ContestDataOverridesService(
-) {
+class ContestDataPostprocessingService {
     private fun <T, O> mergeOverride(
         infos: List<T>,
         overrides: Map<String, O>?,
@@ -37,10 +34,24 @@ class ContestDataOverridesService(
     suspend fun run(
         contestInfoInputFlow: Flow<ContestInfo>,
         advancedPropsFlow: Flow<AdvancedProperties>,
+        rawRunsFlow: Flow<RunInfo>,
         outputFlow: MutableStateFlow<ContestInfo>
     ) {
         coroutineScope {
-            combine(contestInfoInputFlow, advancedPropsFlow, ::Pair).collect { (info, overrides) ->
+            val mutex = Mutex()
+            val submittedTeams = mutableSetOf<Int>()
+            val teamsCountFlow = MutableStateFlow(0)
+            launch {
+                rawRunsFlow.map { it.teamId }.collect {
+                    if (!submittedTeams.contains(it)) {
+                        mutex.withLock {
+                            submittedTeams.add(it)
+                            teamsCountFlow.value = submittedTeams.size
+                        }
+                    }
+                }
+            }
+            combine(contestInfoInputFlow, advancedPropsFlow, teamsCountFlow, ::Triple).collect { (info, overrides, _) ->
                 val (teamInfos, unusedTeamOverrides) = mergeOverride(
                     info.teams,
                     overrides.teamOverrides,
@@ -78,10 +89,19 @@ class ContestDataOverridesService(
                 val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
                 if (unusedTeamOverrides.isNotEmpty()) logger.warn("No team for override: $unusedTeamOverrides")
                 if (unusedProblemOverrides.isNotEmpty()) logger.warn("No problem for override: $unusedProblemOverrides")
+
+                val teamInfosFiltered = if (overrides.scoreboardOverrides?.showTeamsWithoutSubmissions != false) {
+                    teamInfos
+                } else {
+                    mutex.withLock {
+                        teamInfos.filter { it.id in submittedTeams }
+                    }
+                }
+
                 logger.info("Team and problem overrides are reloaded")
                 outputFlow.value = info.copy(
                     startTime = startTime,
-                    teams = teamInfos,
+                    teams = teamInfosFiltered,
                     problems = problemInfos,
                     medals = medals,
                     penaltyPerWrongAttempt = penaltyPerWrongAttempt
@@ -91,6 +111,6 @@ class ContestDataOverridesService(
     }
 
     companion object {
-        val logger = getLogger(ContestDataOverridesService::class)
+        val logger = getLogger(ContestDataPostprocessingService::class)
     }
 }
