@@ -78,7 +78,9 @@ class ContestDataPostprocessingService {
                     ProblemInfo(
                         problem.letter,
                         override.name ?: problem.name,
-                        ProblemInfo.parseColor(override.color) ?: problem.color
+                        ProblemInfo.parseColor(override.color) ?: problem.color,
+                        problem.id,
+                        problem.ordinal
                     )
                 }
                 val startTime = overrides.startTime
@@ -102,7 +104,7 @@ class ContestDataPostprocessingService {
                 outputFlow.value = info.copy(
                     startTime = startTime,
                     teams = teamInfosFiltered,
-                    problems = problemInfos,
+                    problems = problemInfos.sortedBy { it.ordinal },
                     medals = medals,
                     penaltyPerWrongAttempt = penaltyPerWrongAttempt
                 )

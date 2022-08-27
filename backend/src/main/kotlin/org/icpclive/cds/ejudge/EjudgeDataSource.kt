@@ -52,13 +52,15 @@ class EjudgeDataSource(val properties: Properties) : ContestDataSource {
 
     private fun parseProblemsInfo(doc: Document): List<ProblemInfo> {
         val config = doc.child(0)
-        config.children().forEach {
+        config.children().forEachIndexed { index, it ->
             if ("problems" == it.tagName()) {
                 return it.children().map { element ->
                     ProblemInfo(
                         element.attr("short_name"),
                         element.attr("short_name"),
-                        null
+                        null,
+                        index,
+                        index,
                     )
                 }
             }

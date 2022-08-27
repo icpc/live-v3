@@ -104,11 +104,13 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             .single { it.tagName() == "challenge" }
             .children()
             .filter { it: Element -> it.tagName() == "problem" }
-            .map {
+            .mapIndexed { index, it ->
                 ProblemInfo(
                     it.attr("alias"),
                     it.attr("name"),
-                    it.attr("color").takeIf { it.isNotEmpty() }
+                    it.attr("color").takeIf { it.isNotEmpty() },
+                    index,
+                    index
                 )
             }
         element

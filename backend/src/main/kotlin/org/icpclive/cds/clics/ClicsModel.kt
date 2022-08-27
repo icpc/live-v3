@@ -16,6 +16,7 @@ class ClicsModel {
     private val teams = mutableMapOf<String, Team>()
     private val submissionCdsIdToId = mutableMapOf<String, Int>()
     private val teamCdsIdToId = mutableMapOf<String, Int>()
+    private val problemCdsIdToId = mutableMapOf<String, Int>()
     val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
@@ -47,7 +48,9 @@ class ClicsModel {
     fun Problem.toApi() = ProblemInfo(
         letter = label,
         name = name,
-        color = rgb
+        color = rgb,
+        id = liveProblemId(id),
+        ordinal = ordinal
     )
 
     val contestInfo: ContestInfo
@@ -56,7 +59,7 @@ class ClicsModel {
             startTime = startTime,
             contestLength = contestLength,
             freezeTime = freezeTime,
-            problems = problems.values.sortedBy { it.ordinal }.map { it.toApi() },
+            problems = problems.values.map { it.toApi() },
             teams = teams.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt
         )
@@ -130,6 +133,7 @@ class ClicsModel {
         val run = ClicsRunInfo(
             id = id,
             problem = problem,
+            liveProblemId = liveProblemId(problem.id),
             teamId = liveTeamId(team.id),
             submissionTime = submission.contest_time
         )
@@ -169,6 +173,7 @@ class ClicsModel {
         }
     }
 
+    fun liveProblemId(cdsId: String) = problemCdsIdToId.getOrPut(cdsId) { problemCdsIdToId.size + 1 }
     fun liveTeamId(cdsId: String) = teamCdsIdToId.getOrPut(cdsId) { teamCdsIdToId.size + 1 }
     fun liveSubmissionId(cdsId: String) = submissionCdsIdToId.getOrPut(cdsId) { submissionCdsIdToId.size + 1 }
 

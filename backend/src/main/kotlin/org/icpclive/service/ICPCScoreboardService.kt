@@ -54,14 +54,15 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
     private fun ContestInfo.getScoreboardRow(
         teamId: Int,
         runs: List<RunInfo>,
-        teamGroups: List<String>
+        teamGroups: List<String>,
+        problems: List<ProblemInfo>
     ): ScoreboardRow {
         var solved = 0
         var penalty = 0
         var lastAccepted = 0L
         val runsByProblem = runs.groupBy { it.problemId }
-        val problemResults = List(problems.size) { problemId ->
-            val problemRuns = runsByProblem.getOrElse(problemId) { emptyList() }
+        val problemResults = problems.map { problem ->
+            val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
             val (runsBeforeFirstOk, okRun) = run {
                 val okRunIndex = problemRuns
                     .withIndex()
@@ -110,7 +111,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         )
 
         val rows = teamsInfo.values
-            .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups) }
+            .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.problems) }
             .sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
             .toMutableList()
         if (rows.isNotEmpty()) {

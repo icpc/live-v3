@@ -30,6 +30,7 @@ export function contestInfoReducer(state = initialState, action) {
             info: {
                 ...action.payload.info,
                 teamsId: _.keyBy(action.payload.info.teams, "id"),
+                problemsId: _.keyBy(action.payload.info.problems, "id")
             }
         };
     default:

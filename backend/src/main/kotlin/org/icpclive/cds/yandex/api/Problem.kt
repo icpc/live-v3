@@ -18,8 +18,6 @@ data class Problem(
     val statements: List<Statement>,
     val testCount: Int?
 ) {
-    // TODO: implement color (how? we don't store it)
-    fun toProblemInfo() = ProblemInfo(alias, name, null)
 }
 
 @Serializable
