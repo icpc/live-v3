@@ -14,17 +14,21 @@ class StatisticsService {
                 contestInfoFlow.map { it.problems.size }.distinctUntilChanged(),
                 ::Pair,
             ).map { (scoreboard, problemNumber) ->
-                SolutionsStatistic(
-                    List(problemNumber) { problem ->
-                        val results =
-                            scoreboard.rows.asSequence().map { it.problemResults[problem] as ICPCProblemResult }
-                        ProblemSolutionsStatistic(
-                            results.count { it.isSolved },
-                            results.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
-                            results.count { !it.isSolved && it.pendingAttempts > 0 },
-                        )
-                    }
-                )
+                if (scoreboard.rows.isEmpty()) {
+                    SolutionsStatistic(List(problemNumber) { ProblemSolutionsStatistic(0, 0, 0) })
+                } else {
+                    SolutionsStatistic(
+                        List(scoreboard.rows[0].problemResults.size) { problem ->
+                            val results =
+                                scoreboard.rows.asSequence().map { it.problemResults[problem] as ICPCProblemResult }
+                            ProblemSolutionsStatistic(
+                                results.count { it.isSolved },
+                                results.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
+                                results.count { !it.isSolved && it.pendingAttempts > 0 },
+                            )
+                        }
+                    )
+                }
             }.stateIn(this)
                 .also { DataBus.statisticFlow.completeOrThrow(it) }
         }

@@ -6,6 +6,7 @@ import kotlin.time.Duration
 class ClicsRunInfo(
     val id: Int,
     val problem: Problem,
+    val liveProblemId: Int,
     val teamId: Int,
     val submissionTime: Duration
 ) {
@@ -18,7 +19,7 @@ class ClicsRunInfo(
         isJudged = judgementType != null,
         isAddingPenalty = judgementType?.isAddingPenalty ?: false,
         result = judgementType?.verdict ?: "",
-        problemId = problem.ordinal - 1,
+        problemId = liveProblemId,
         teamId = teamId,
         percentage = when (problem.test_data_count) {
             null, 0 -> if (judgementType != null) 1.0 else 0.0

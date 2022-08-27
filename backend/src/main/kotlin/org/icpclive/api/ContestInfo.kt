@@ -15,8 +15,16 @@ import kotlin.time.Duration
 data class MedalType(val name: String, val count: Int)
 
 @Serializable
-data class ProblemInfo(val letter: String, val name: String, @Serializable(ColorSerializer::class) val color: Color) {
-    constructor(letter: String, name: String, color: String?) : this(letter, name, parseColor(color) ?: Color.BLACK)
+data class ProblemInfo(
+    val letter: String,
+    val name: String,
+    @Serializable(ColorSerializer::class) val color: Color,
+    val id: Int,
+    val ordinal:Int
+) {
+    constructor(letter: String, name: String, color: String?, id:Int, ordinal: Int) :
+            this(letter, name, parseColor(color) ?: Color.BLACK, id, ordinal)
+
 
     companion object {
         fun parseColor(color: String?): Color? = try {
