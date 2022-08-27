@@ -37,7 +37,7 @@ data class RunInfo constructor(
     val percentage: Double,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
-    val isFirstSolvedRun: Boolean,
+    val isFirstSolvedRun: Boolean = false,
     val featuredRunMedia: MediaType? = null,
 )
 

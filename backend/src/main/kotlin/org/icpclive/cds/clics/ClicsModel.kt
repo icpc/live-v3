@@ -14,7 +14,8 @@ class ClicsModel {
     private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
     private val teams = mutableMapOf<String, Team>()
-    private val submissionCdsIdToInt = mutableMapOf<String, Int>()
+    private val submissionCdsIdToId = mutableMapOf<String, Int>()
+    private val teamCdsIdToId = mutableMapOf<String, Int>()
     val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
@@ -25,12 +26,10 @@ class ClicsModel {
     var status = ContestStatus.BEFORE
     var penaltyPerWrongAttempt = 20
 
-    val Team.internalId get() = externalTeamId(id)
-
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
-            id = internalId,
+            id = liveTeamId(id),
             name = teamOrganization?.formalName ?: name,
             shortName = teamOrganization?.name ?: name,
             contestSystemId = id,
@@ -123,7 +122,7 @@ class ClicsModel {
     }
 
     fun processSubmission(submission: Submission): ClicsRunInfo {
-        val id = submissionCdsIdToInt.getOrPut(submission.id) { submissionCdsIdToInt.size + 1 }
+        val id = liveSubmissionId(submission.id)
         val problem = problems[submission.problem_id]
             ?: throw IllegalStateException("Failed to load submission with problem_id ${submission.problem_id}")
         val team = teams[submission.team_id]
@@ -131,7 +130,7 @@ class ClicsModel {
         val run = ClicsRunInfo(
             id = id,
             problem = problem,
-            teamId = team.internalId,
+            teamId = liveTeamId(team.id),
             submissionTime = submission.contest_time
         )
         submissions[submission.id] = run
@@ -170,9 +169,8 @@ class ClicsModel {
         }
     }
 
-    fun externalTeamId(cdsId: String) = cdsId.hashCode()
-    fun externalSubmissionId(cdsId: String) =
-        submissionCdsIdToInt[cdsId] ?: throw IllegalArgumentException("Failed to get external id of submissions")
+    fun liveTeamId(cdsId: String) = teamCdsIdToId.getOrPut(cdsId) { teamCdsIdToId.size + 1 }
+    fun liveSubmissionId(cdsId: String) = submissionCdsIdToId.getOrPut(cdsId) { submissionCdsIdToId.size + 1 }
 
     companion object {
         val logger = getLogger(ClicsModel::class)

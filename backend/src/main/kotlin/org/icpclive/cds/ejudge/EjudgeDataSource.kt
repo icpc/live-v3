@@ -189,7 +189,6 @@ class EjudgeDataSource(val properties: Properties) : ContestDataSource {
             teamId = teamId,
             percentage = percentage,
             time = time,
-            isFirstSolvedRun = false
         )
 
         if (run != oldRun) {

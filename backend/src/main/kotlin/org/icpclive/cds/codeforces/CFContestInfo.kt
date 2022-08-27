@@ -99,7 +99,6 @@ class CFContestInfo {
                     teamId = participantsByName[getName(it.author)]!!.id,
                     percentage = it.passedTestCount.toDouble() / problemTests,
                     time = it.relativeTimeSeconds.seconds,
-                    isFirstSolvedRun = false
                 )
             }.toList()
     }

@@ -134,8 +134,8 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                                 it.data.message,
                                 it.data.time,
                                 it.data.contest_time,
-                                it.data.team_ids?.map { model.externalTeamId(it) } ?: emptyList(),
-                                it.data.submission_ids?.map { model.externalSubmissionId(it) } ?: emptyList(),
+                                it.data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
+                                it.data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
                             )
                         )
                     }

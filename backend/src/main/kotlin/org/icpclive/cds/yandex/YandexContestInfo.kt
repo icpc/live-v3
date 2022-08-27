@@ -48,7 +48,6 @@ class YandexContestInfo private constructor(
                 teamId = submission.authorId.toInt(),
                 percentage = 0.0,
                 time = submission.timeFromStart,
-                isFirstSolvedRun = false
             )
         }
 
@@ -69,7 +68,6 @@ class YandexContestInfo private constructor(
                 else -> submission.test.toDouble() / testCount
             },
             time = submission.timeFromStart,
-            isFirstSolvedRun = false
         )
     }
 
