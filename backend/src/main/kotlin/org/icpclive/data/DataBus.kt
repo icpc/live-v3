@@ -33,6 +33,7 @@ object DataBus {
         extraBufferCapacity = 0,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
+    val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
         scoreboardFlow[level.ordinal].completeOrThrow(flow)
