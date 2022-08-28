@@ -14,21 +14,20 @@ import org.icpclive.api.ObjectSettings
 import org.icpclive.api.ObjectStatus
 import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
-import java.io.FileInputStream
 import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.time.Duration
 
 private val jsonPrettyEncoder = Json { prettyPrint = true }
-private const val DEFAULT_TTL = 3000L
 
 class PresetWrapper<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithId>(
     widgetConstructor: (SettingsType) -> OverlayWidgetType,
     settings: SettingsType,
     manager: Manager<OverlayWidgetType>,
     val id: Int,
+    val onDelete: suspend (Int) -> Unit
 ) : WidgetWrapper<SettingsType, OverlayWidgetType>(settings, manager, widgetConstructor) {
     // TODO: refactor
     override suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
@@ -52,14 +51,22 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
         innerData.map { it.getStatus() }
     }
 
-    suspend fun createWidget(id: Int) = mutex.withLock {
+    suspend fun previewWidget(id: Int) = mutex.withLock {
         findById(id).createWidget()
     }
 
-    suspend fun append(settings: SettingsType): Int = mutex.withLock {
+    suspend fun createWidget(settings: SettingsType, ttl: Duration?, onDelete: suspend (Int) -> Unit = {}): Int = mutex.withLock {
         val id = currentID.incrementAndGet()
-        innerData = innerData.plus(PresetWrapper(widgetConstructor, settings, widgetManager, id))
+        val wrapper = PresetWrapper(widgetConstructor, settings, widgetManager, id, onDelete)
+        innerData = innerData.plus(wrapper)
         save()
+        if (ttl != null) {
+            wrapper.scope.launch {
+                delay(ttl)
+                delete(id)
+                // NOTHING can be done here, as coroutine is canceled by delete
+            }
+        }
         id
     }
 
@@ -68,33 +75,27 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
         save()
     }
 
-    suspend fun delete(id: Int) = mutex.withLock {
-        val preset = findByIdOrNull(id) ?: return
-        preset.hide()
-        innerData = innerData.minus(preset)
-        save()
+    suspend fun delete(id: Int) {
+        val wrapper = mutex.withLock {
+            findByIdOrNull(id)?.apply {
+                onDelete(id)
+                hide()
+                innerData = innerData.minus(this)
+                save()
+            }
+        }
+        wrapper?.scope?.cancel()
     }
 
     suspend fun show(id: Int) = mutex.withLock {
         findById(id).show()
     }
 
-    //TODO: rework
-    @OptIn(DelicateCoroutinesApi::class)
-    suspend fun createAndShowWithTtl(settings: SettingsType, ttl: Long?): Int {
-        val id = append(settings)
-        show(id)
-        GlobalScope.launch {
-            delay(ttl ?: DEFAULT_TTL)
-            if (innerData.any { it.id == id }) {
-                delete(id)
-            }
-        }
-        return id
-    }
-
     suspend fun hide(id: Int) = mutex.withLock {
         findById(id).hide()
+    }
+    suspend fun hideIfExists(id: Int) = mutex.withLock {
+        findByIdOrNull(id)?.hide()
     }
 
     suspend fun reload() = mutex.withLock {
@@ -110,7 +111,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     private fun load() = try {
         presetsPath.toFile().inputStream().use {
             Json.decodeFromStream(fileSerializer, it).map { content ->
-                PresetWrapper(widgetConstructor, content, widgetManager, currentID.incrementAndGet())
+                PresetWrapper(widgetConstructor, content, widgetManager, currentID.incrementAndGet(), {})
             }
         }
     } catch (e: FileNotFoundException) {

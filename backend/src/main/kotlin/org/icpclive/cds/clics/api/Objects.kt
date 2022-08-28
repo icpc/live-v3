@@ -208,4 +208,9 @@ data class AwardsEvent(override val id: String, override val op: Operation) : Ig
 @SerialName("languages")
 data class LanguageEvent(override val id: String, override val op: Operation) : IgnoredEvent()
 
+@Serializable
+@SerialName("clarifications")
+data class ClarificationEvent(override val id: String, override val op: Operation) : IgnoredEvent()
+
+
 data class PreloadFinishedEvent(override val id: String, override val op: Operation) : UpdateContestEvent()

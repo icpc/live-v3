@@ -7,6 +7,7 @@ import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
 import org.icpclive.widget.PresetsController
 import org.icpclive.widget.SimpleController
+import kotlin.time.Duration.Companion.milliseconds
 
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(
     controller: SimpleController<SettingsType, OverlayWidgetType>
@@ -59,7 +60,7 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
     post {
         call.adminApiAction {
-            controller.append(call.safeReceive())
+            controller.createWidget(call.safeReceive(), null)
         }
     }
     post("/reload") {
@@ -67,10 +68,13 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
     post("/create_and_show_with_ttl") {
         call.adminApiAction {
-            controller.createAndShowWithTtl(
+            val ttl = call.request.queryParameters["ttl"]?.toLongOrNull() ?: throw ApiActionException("ttl should be set")
+            controller.createWidget(
                 call.safeReceive(),
-                call.request.queryParameters["ttl"]?.toLong()
-            )
+                ttl.milliseconds
+            ).apply {
+                controller.show(this)
+            }
         }
     }
     post("/{id}") {
@@ -95,7 +99,7 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
     get("/{id}/preview") {
         call.adminApiAction {
-            call.respond(controller.createWidget(call.id()))
+            call.respond(controller.previewWidget(call.id()))
         }
     }
 }

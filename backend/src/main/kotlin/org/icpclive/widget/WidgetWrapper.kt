@@ -1,5 +1,6 @@
 package org.icpclive.widget
 
+import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.ObjectSettings
@@ -14,6 +15,7 @@ open class WidgetWrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
 ) {
     protected val mutex = Mutex()
     protected var overlayWidgetId: String? = null
+    var scope = CoroutineScope(Dispatchers.Default)
 
     open suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
         return ObjectStatus(overlayWidgetId != null, settings)

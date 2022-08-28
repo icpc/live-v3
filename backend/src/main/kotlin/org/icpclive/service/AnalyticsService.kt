@@ -1,6 +1,5 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
@@ -12,19 +11,18 @@ import org.icpclive.utils.getLogger
 import org.icpclive.widget.PresetsController
 import kotlin.time.Duration
 
-sealed class AnalyticsAction(val messageId: String) {
-    class CreateAdvertisement(messageId: String, val ttl: Duration?) : AnalyticsAction(messageId)
-    class DeleteAdvertisement(messageId: String) : AnalyticsAction(messageId)
-    class CreateTickerMessage(messageId: String, val ttl: Duration?) : AnalyticsAction(messageId)
-    class DeleteTickerMessage(messageId: String) : AnalyticsAction(messageId)
-    class MakeRunFeatured(messageId: String, val mediaType: MediaType) : AnalyticsAction(messageId)
-    class MakeRunNotFeatured(messageId: String) : AnalyticsAction(messageId)
+sealed class AnalyticsAction {
+    abstract val messageId: String
+    data class CreateAdvertisement(override val messageId: String, val ttl: Duration?) : AnalyticsAction()
+    data class DeleteAdvertisement(override val messageId: String, val expectedId: Int? = null) : AnalyticsAction()
+    data class CreateTickerMessage(override val messageId: String, val ttl: Duration?) : AnalyticsAction()
+    data class DeleteTickerMessage(override val messageId: String, val expectedId: Int? = null) : AnalyticsAction()
+    data class MakeRunFeatured(override val messageId: String, val mediaType: MediaType) : AnalyticsAction()
+    data class MakeRunNotFeatured(override val messageId: String) : AnalyticsAction()
 }
 
 
 class AnalyticsService {
-    @OptIn(DelicateCoroutinesApi::class)
-    private val scheduledTasksScope: CoroutineScope = GlobalScope
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private val messages = mutableMapOf<String, AnalyticsMessage>()
 
@@ -41,15 +39,9 @@ class AnalyticsService {
     }
 
     private suspend fun <S : ObjectSettings, T : TypeWithId> AnalyticsCompanionPreset.hide(controller: PresetsController<S, T>) {
-        controller.hide(this.presetId)
+        controller.hideIfExists(this.presetId)
     }
 
-    private fun scheduleAction(time: Duration, action: AnalyticsAction) {
-        scheduledTasksScope.launch {
-            delay(time)
-            internalActions.emit(action)
-        }
-    }
 
     private suspend fun Action.process(featuredRunsFlow: FlowCollector<FeaturedRunAction>) {
         val message = messages[action.messageId]
@@ -64,40 +56,54 @@ class AnalyticsService {
         when (action) {
             is AnalyticsAction.CreateAdvertisement -> {
                 message.advertisement?.hide(WidgetControllers.advertisement)
-                val presetId = WidgetControllers.advertisement.append(AdvertisementSettings(message.message))
+                val presetId = WidgetControllers.advertisement.createWidget(
+                    AdvertisementSettings(message.message),
+                    action.ttl,
+                    onDelete = { internalActions.emit(AnalyticsAction.DeleteAdvertisement(action.messageId, it)) }
+                )
                 WidgetControllers.advertisement.show(presetId)
                 modifyMessage(
                     message.copy(
                         advertisement = AnalyticsCompanionPreset(
                             presetId,
-                            action.ttl?.let { Clock.System.now() + it })
+                            action.ttl?.let { Clock.System.now() + it }
+                        )
                     )
                 )
-                action.ttl?.let { scheduleAction(it, AnalyticsAction.DeleteAdvertisement(action.messageId)) }
             }
+
             is AnalyticsAction.DeleteAdvertisement -> {
-                message.advertisement?.hide(WidgetControllers.advertisement)
-                modifyMessage(message.copy(advertisement = null))
+                if (action.expectedId == null || message.advertisement?.presetId == action.expectedId) {
+                    message.advertisement?.hide(WidgetControllers.advertisement)
+                    modifyMessage(message.copy(advertisement = null))
+                }
             }
+
             is AnalyticsAction.CreateTickerMessage -> {
                 message.tickerMessage?.hide(WidgetControllers.tickerMessage)
-                val presetId = WidgetControllers.tickerMessage.append(
-                    TextTickerSettings(TickerPart.LONG, 30000, message.message)
+                val presetId = WidgetControllers.tickerMessage.createWidget(
+                    TextTickerSettings(TickerPart.LONG, 30000, message.message),
+                    action.ttl,
+                    onDelete = { internalActions.emit(AnalyticsAction.DeleteTickerMessage(action.messageId, it)) }
                 )
                 WidgetControllers.tickerMessage.show(presetId)
                 modifyMessage(
                     message.copy(
                         tickerMessage = AnalyticsCompanionPreset(
                             presetId,
-                            action.ttl?.let { Clock.System.now() + it })
+                            action.ttl?.let { Clock.System.now() + it }
+                        )
                     )
                 )
-                action.ttl?.let { scheduleAction(it, AnalyticsAction.DeleteTickerMessage(action.messageId)) }
             }
+
             is AnalyticsAction.DeleteTickerMessage -> {
-                message.tickerMessage?.hide(WidgetControllers.tickerMessage)
-                modifyMessage(message.copy(tickerMessage = null))
+                if (action.expectedId == null || message.tickerMessage?.presetId == action.expectedId) {
+                    message.tickerMessage?.hide(WidgetControllers.tickerMessage)
+                    modifyMessage(message.copy(tickerMessage = null))
+                }
             }
+
             is AnalyticsAction.MakeRunFeatured -> {
                 if (message.runIds.size != 1) {
                     logger.warn("Can't make run featured caused by message ${message.id}")
@@ -108,6 +114,7 @@ class AnalyticsService {
                 val companionRun = request.result.await() ?: return
                 modifyMessage(message.copy(featuredRun = companionRun))
             }
+
             is AnalyticsAction.MakeRunNotFeatured -> {
                 if (message.runIds.size != 1) {
                     logger.warn("Can't make run not featured caused by message ${message.id}")
@@ -123,21 +130,24 @@ class AnalyticsService {
         val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
         val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
         logger.info("Analytics service is started")
-        merge(rawEvents.map(::Message), subscriberFlow.map { Subscribe }, actionFlow).collect { event ->
-            when (event) {
-                is Message -> {
-                    val message = event.message
-                    messages[message.id] = message
-                    resultFlow.emit(AddAnalyticsMessageEvent(message))
-                }
-                is Action -> {
-                    event.process(featuredRunFlow)
-                }
-                is Subscribe -> {
-                    resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))
+        merge(rawEvents.map(::Message), subscriberFlow.map { Subscribe }, actionFlow)
+            .collect { event ->
+                when (event) {
+                    is Message -> {
+                        val message = event.message
+                        messages[message.id] = message
+                        resultFlow.emit(AddAnalyticsMessageEvent(message))
+                    }
+
+                    is Action -> {
+                        event.process(featuredRunFlow)
+                    }
+
+                    is Subscribe -> {
+                        resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))
+                    }
                 }
             }
-        }
     }
 
     init {
@@ -158,8 +168,8 @@ class AnalyticsService {
         val logger = getLogger(AnalyticsMessage::class)
 
         private sealed class AnalyticsProcessTrigger
-        private class Message(val message: AnalyticsMessage) : AnalyticsProcessTrigger()
-        private class Action(val action: AnalyticsAction) : AnalyticsProcessTrigger()
+        private data class Message(val message: AnalyticsMessage) : AnalyticsProcessTrigger()
+        private data class Action(val action: AnalyticsAction) : AnalyticsProcessTrigger()
         private object Subscribe : AnalyticsProcessTrigger()
     }
 }

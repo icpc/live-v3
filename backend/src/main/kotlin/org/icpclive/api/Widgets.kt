@@ -97,17 +97,13 @@ class TeamViewWidget(
     val settings: TeamViewSettings, private val position: TeamViewPosition? = null
 ) : Widget(getWidgetId(position), getLocation(position)) {
     companion object {
-        val getWidgetId = { position: TeamViewPosition? ->
-            "teamview" + position?.name
-        }
-        val getLocation = { position: TeamViewPosition? ->
-            when (position) {
-                TeamViewPosition.TOP_LEFT -> LocationRectangle(30, 40, 915, 475)
-                TeamViewPosition.TOP_RIGHT -> LocationRectangle(975, 40, 915, 475)
-                TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(30, 535, 915, 475)
-                TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(975, 535, 915, 475)
-                else -> LocationRectangle(550, 40, 1350, 970)
-            }
+        fun getWidgetId(position: TeamViewPosition?) = "teamview" + position?.name
+        fun getLocation(position: TeamViewPosition?) = when (position) {
+            TeamViewPosition.TOP_LEFT -> LocationRectangle(30, 40, 915, 475)
+            TeamViewPosition.TOP_RIGHT -> LocationRectangle(975, 40, 915, 475)
+            TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(30, 535, 915, 475)
+            TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(975, 535, 915, 475)
+            null -> LocationRectangle(550, 40, 1350, 970)
         }
     }
 }
