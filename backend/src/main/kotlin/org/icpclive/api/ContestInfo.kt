@@ -95,6 +95,9 @@ data class ContestInfo(
     val freezeTime: Duration,
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
+    @SerialName("holdBeforeStartTimeMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val holdBeforeStartTime: Duration? = null,
     val emulationSpeed: Double = 1.0,
     val medals: List<MedalType> = emptyList(),
     val penaltyPerWrongAttempt: Int = 20

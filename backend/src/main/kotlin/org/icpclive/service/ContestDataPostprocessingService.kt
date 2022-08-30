@@ -10,6 +10,7 @@ import org.icpclive.utils.catchToNull
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.guessDatetimeFormat
 import org.icpclive.utils.humanReadable
+import kotlin.time.Duration.Companion.seconds
 
 class ContestDataPostprocessingService {
     private fun <T, O> mergeOverride(
@@ -87,6 +88,10 @@ class ContestDataPostprocessingService {
                     ?.let { catchToNull { guessDatetimeFormat(it) } }
                     ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
                     ?: info.startTime
+                val holdTimeSeconds = if (overrides.holdTimeSeconds == "null")
+                    null
+                else
+                    overrides.holdTimeSeconds?.toIntOrNull()?.seconds ?: info.holdBeforeStartTime
                 val medals = overrides.scoreboardOverrides?.medals ?: info.medals
                 val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
                 if (unusedTeamOverrides.isNotEmpty()) logger.warn("No team for override: $unusedTeamOverrides")
@@ -103,6 +108,7 @@ class ContestDataPostprocessingService {
                 logger.info("Team and problem overrides are reloaded")
                 outputFlow.value = info.copy(
                     startTime = startTime,
+                    holdBeforeStartTime = holdTimeSeconds,
                     teams = teamInfosFiltered,
                     problems = problemInfos.sortedBy { it.ordinal },
                     medals = medals,

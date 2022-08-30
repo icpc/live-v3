@@ -7,6 +7,7 @@ import org.icpclive.cds.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.clics.model.ClicsOrganisationInfo
 import org.icpclive.cds.clics.model.ClicsRunInfo
 import org.icpclive.utils.getLogger
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 class ClicsModel {
@@ -26,6 +27,7 @@ class ClicsModel {
     var freezeTime = 4.hours
     var status = ContestStatus.BEFORE
     var penaltyPerWrongAttempt = 20
+    var holdBeforeStartTime: Duration? = null
 
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
@@ -61,13 +63,17 @@ class ClicsModel {
             freezeTime = freezeTime,
             problems = problems.values.map { it.toApi() },
             teams = teams.values.map { it.toApi() },
-            penaltyPerWrongAttempt = penaltyPerWrongAttempt
+            penaltyPerWrongAttempt = penaltyPerWrongAttempt,
+            holdBeforeStartTime = holdBeforeStartTime
         )
 
     fun processContest(contest: Contest) {
         contest.start_time?.let { startTime = it }
         contestLength = contest.duration
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
+        contest.countdown_pause_time?.let {
+            holdBeforeStartTime = it
+        }
         penaltyPerWrongAttempt = contest.penalty_time ?: 20
     }
 

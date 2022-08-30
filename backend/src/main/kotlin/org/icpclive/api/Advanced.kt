@@ -27,6 +27,7 @@ class RankingSettings(
 @Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
+    val holdTimeSeconds: String? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
     val scoreboardOverrides: RankingSettings? = null

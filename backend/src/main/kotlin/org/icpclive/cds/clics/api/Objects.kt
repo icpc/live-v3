@@ -25,6 +25,8 @@ data class Contest(
     val duration: Duration,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val scoreboard_freeze_duration: Duration?,
+    @Serializable(with = ClicsTime.DurationSerializer::class)
+    val countdown_pause_time: Duration? = null,
     val penalty_time: Int? = null
 )
 
