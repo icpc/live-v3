@@ -96,6 +96,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             null,
             problemResults,
             teamGroups,
+            emptyList()
         )
     }
 
@@ -110,6 +111,8 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             { it.lastAccepted }
         )
 
+        val allGroups = teamsInfo.values.flatMap { it.groups }.toMutableSet()
+
         val rows = teamsInfo.values
             .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.problems) }
             .sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
@@ -121,7 +124,14 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                     rank++
                 }
                 val medal = info.medals.medalColorByRank(rank)?.takeIf { rows[i].totalScore > 0 }
-                rows[i] = rows[i].copy(rank = rank, medalType = medal)
+                val championInGroups = if (rows[i].totalScore > 0)
+                    teamsInfo[rows[i].teamId]!!.groups.filter { it in allGroups }
+                else
+                    emptyList()
+                for (group in championInGroups) {
+                    allGroups -= group
+                }
+                rows[i] = rows[i].copy(rank = rank, medalType = medal, championInGroups = championInGroups)
             }
         }
         return Scoreboard(rows)

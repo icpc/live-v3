@@ -18,6 +18,7 @@ data class ScoreboardRow(
     val medalType: String?,
     val problemResults: List<ProblemResult>,
     val teamGroups: List<String>,
+    val championInGroups: List<String>
 )
 
 //TODO: custom string, problem with score, maybe something else
