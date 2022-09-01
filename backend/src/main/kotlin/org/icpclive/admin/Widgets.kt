@@ -7,10 +7,11 @@ import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
 import org.icpclive.widget.PresetsController
 import org.icpclive.widget.SimpleController
+import org.icpclive.widget.SingleWidgetController
 import kotlin.time.Duration.Companion.milliseconds
 
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(
-    controller: SimpleController<SettingsType, OverlayWidgetType>
+    controller: SingleWidgetController<SettingsType, OverlayWidgetType>
 ) {
     get {
         // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
@@ -38,10 +39,12 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
             controller.hide()
         }
     }
-    get("/preview") {
-        // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
-        run {
-            call.respond(controller.createWidget())
+    if (controller is SimpleController<*, *>) {
+        get("/preview") {
+            // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
+            run {
+                call.respond(controller.createWidget())
+            }
         }
     }
 }

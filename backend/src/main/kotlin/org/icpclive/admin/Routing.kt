@@ -29,10 +29,8 @@ fun Route.configureAdminApiRouting() {
                 call.respond(getTeams())
             }
         }
-        route("/splitscreen") {
-            WidgetControllers.splitScreen.forEach {
-                route(it.key) { setupController(it.value) }
-            }
+        route("/splitScreen") {
+            setupController(WidgetControllers.splitScreen)
             get("/teams") {
                 call.respond(getTeams())
             }
