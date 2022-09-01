@@ -15,6 +15,9 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.admin.createFakeUser
 import org.icpclive.admin.validateAdminApiCredits
@@ -22,6 +25,7 @@ import org.icpclive.cds.launchContestDataSource
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.social.launchSocialServices
 import org.icpclive.utils.defaultJsonSettings
+import org.icpclive.utils.getLogger
 import org.slf4j.event.Level
 import java.time.Duration
 
@@ -97,6 +101,11 @@ fun Application.module() {
             route("/overlay") { configureOverlayRouting() }
         }
     }
-    launchContestDataSource()
-    launchSocialServices()
+    val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        getLogger(Application::class).error("Uncaught exception in coroutine context $coroutineContext", throwable)
+    }
+    launch(handler) {
+        launchContestDataSource()
+        launchSocialServices()
+    }
 }
