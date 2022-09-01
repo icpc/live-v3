@@ -11,13 +11,10 @@ import kotlin.random.Random
 /**
  * @author egor@egork.net
  */
-class CFApiCentral(private val contestId: Int) {
-    private var apiKey: String? = null
-    private var apiSecret: String? = null
-    fun setApiKeyAndSecret(apiKey: String?, apiSecret: String?) {
-        this.apiKey = apiKey
-        this.apiSecret = apiSecret
-    }
+class CFApiCentral(
+    private val contestId: Int,
+    private val apiKey: String,
+    private val apiSecret: String,) {
 
     val standingsUrl: String
         get() = apiRequestUrl("contest.standings", mapOf("contestId" to contestId.toString()))

@@ -48,7 +48,7 @@ class YandexDataSource(props: Properties) : ContestDataSource {
 
 
     init {
-        apiKey = props.getProperty(TOKEN_PROPERTY_NAME).processCreds()
+        apiKey = props.getCredentials(TOKEN_PROPERTY_NAME) ?: throw IllegalStateException("YC api key is not defined")
         contestId = props.getProperty(CONTEST_ID_PROPERTY_NAME).toLong()
         loginPrefix = props.getProperty(LOGIN_PREFIX_PROPERTY_NAME)
 

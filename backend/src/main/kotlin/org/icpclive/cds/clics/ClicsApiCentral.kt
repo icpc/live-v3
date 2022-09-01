@@ -1,13 +1,12 @@
 package org.icpclive.cds.clics
 
-import org.icpclive.utils.ClientAuth
-import org.icpclive.utils.processCreds
+import org.icpclive.utils.*
 import java.util.*
 
 class ClicsApiCentral(properties: Properties) {
     private val contestUrl = properties.getProperty("url")
-    private val login = properties.getProperty("login")?.processCreds()
-    private val password = properties.getProperty("password")?.processCreds()
+    private val login = properties.getCredentials("login")
+    private val password = properties.getCredentials("password")
 
     val auth = login?.let { login -> password?.let { password -> ClientAuth.Basic(login, password) } }
     val eventFeedUrl = apiRequestUrl("event-feed")

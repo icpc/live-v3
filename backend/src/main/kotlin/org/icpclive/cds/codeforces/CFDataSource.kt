@@ -15,25 +15,20 @@ import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.RunsBufferService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.processCreds
-import org.icpclive.utils.reliableSharedFlow
+import org.icpclive.utils.*
 import java.io.IOException
+import java.lang.IllegalStateException
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 class CFDataSource(properties: Properties) : ContestDataSource {
     private val contestInfo = CFContestInfo()
-    private val central = CFApiCentral(properties.getProperty("contest_id").toInt())
+    private val central = CFApiCentral(
+        properties.getProperty("contest_id").toInt(),
+        properties.getCredentials(CF_API_KEY_PROPERTY_NAME) ?: throw IllegalStateException("No Codeforces api key defined"),
+        properties.getCredentials(CF_API_SECRET_PROPERTY_NAME) ?: throw IllegalStateException("No Codeforces api secret defined")
+    )
 
-    init {
-        if (properties.containsKey(CF_API_KEY_PROPERTY_NAME) && properties.containsKey(CF_API_SECRET_PROPERTY_NAME)) {
-            central.setApiKeyAndSecret(
-                properties.getProperty(CF_API_KEY_PROPERTY_NAME).processCreds(),
-                properties.getProperty(CF_API_SECRET_PROPERTY_NAME).processCreds()
-            )
-        }
-    }
 
     private val standingsLoader = object : RegularLoaderService<CFStandings>(null) {
         override val url

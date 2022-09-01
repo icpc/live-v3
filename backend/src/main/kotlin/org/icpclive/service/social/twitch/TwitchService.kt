@@ -14,6 +14,7 @@ class TwitchService(
     val password: String
 ) {
     suspend fun run(flow: MutableSharedFlow<SocialEvent>) {
+        logger.info("Starting Twitch service for channels $channels")
         while (true) {
             try {
                 Client(channels, account, password).run {author, message ->

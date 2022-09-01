@@ -60,14 +60,16 @@ fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
     complete(value) || throw IllegalStateException("Double complete of CompletableDeferred")
 }
 
-fun String.processCreds(): String {
+fun Properties.getCredentials(key: String) = getProperty(key)?.let {
     val prefix = "\$creds."
-    return if (startsWith(prefix))
-        config.creds[substring(prefix.length)]
-            ?: throw IllegalStateException("Cred ${substring(prefix.length)} not found")
-    else
-        this
-}
+    if (it.startsWith(prefix)) {
+        val name = it.substring(prefix.length)
+        config.creds[name]
+            ?: throw IllegalStateException("Credential ${name} not found")
+    } else {
+        it
+    }
+}?.takeIf { it.isNotEmpty() }
 
 
 suspend fun DefaultWebSocketServerSession.sendFlow(flow: Flow<String>) {

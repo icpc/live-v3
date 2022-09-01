@@ -10,10 +10,7 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.service.RegularLoaderService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.ClientAuth
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.processCreds
-import org.icpclive.utils.reliableSharedFlow
+import org.icpclive.utils.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -27,8 +24,8 @@ import kotlin.time.Duration.Companion.seconds
 class PCMSDataSource(val properties: Properties) : ContestDataSource {
     private fun getLoader(): RegularLoaderService<Document> {
         val auth = run {
-            val login = properties.getProperty("login")?.processCreds()
-            val password = properties.getProperty("password")?.processCreds()
+            val login = properties.getCredentials("login")
+            val password = properties.getCredentials("password")
             if (login != null) {
                 ClientAuth.Basic(login, password!!)
             } else {
