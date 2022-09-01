@@ -61,6 +61,12 @@ data class TeamPVPSettings(
 ) : ObjectSettings
 
 @Serializable
+data class SplitScreenSettings(
+    val autoMode: Boolean,
+    val instances: Map<TeamViewPosition, TeamViewSettings>,
+): ObjectSettings
+
+@Serializable
 data class TeamLocatorSettings(
     val x: Int = 1920 / 2,
     val y: Int = 1080 / 2,

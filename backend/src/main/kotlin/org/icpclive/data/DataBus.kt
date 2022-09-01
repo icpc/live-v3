@@ -2,7 +2,9 @@ package org.icpclive.data
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.api.*
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
@@ -33,6 +35,7 @@ object DataBus {
         extraBufferCapacity = 0,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
+    val autoSplitScreenTeams = CompletableDeferred<Flow<KeyTeam>>()
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
