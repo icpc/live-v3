@@ -31,7 +31,7 @@ fun CoroutineScope.launchICPCServices(
     launch { AnalyticsService().run(rawAnalyticsMessageFlow) }
     launch {
         val accentService = TeamSpotlightService(this)
-        DataBus.autoSplitScreenTeams.completeOrThrow(accentService.getFlow(5.seconds))
-        accentService.run(infoFlow, runsFlow)
+        DataBus.autoSplitScreenTeams.completeOrThrow(accentService.getFlow(10.seconds, TeamSpotlightFlowSettings()))
+        accentService.run(infoFlow, runsFlow, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
     }
 }

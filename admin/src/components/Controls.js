@@ -11,7 +11,7 @@ function Controls() {
     const service = useControlsWidgetService(errorHandlerWithSnackbar(enqueueSnackbar));
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="Controls">
-            <PresetsManager service={service} tableKeys={["text"]}/>
+            <PresetsManager service={service} tableKeys={["text"]} isImmutable={true}/>
         </Container>
     );
 }

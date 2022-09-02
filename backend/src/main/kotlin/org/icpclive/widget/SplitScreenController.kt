@@ -9,6 +9,7 @@ import org.icpclive.data.Manager
 class SplitScreenController(val manager: Manager<TeamViewWidget>) :
     AbstractWidgetWrapper<SplitScreenSettings, TeamViewWidget>(SplitScreenSettings(true, emptyMap())),
     SingleWidgetController<SplitScreenSettings, TeamViewWidget> {
+    private var isShown = false
     private val overlayWidgetIds = mutableMapOf<TeamViewPosition, String>()
     private var autoModeJob: Job? = null
 
@@ -22,13 +23,17 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
     }
 
     override suspend fun createWidgetAndShow() {
+        isShown = true
         if (settings.autoMode) {
             autoModeJob = scope.launch {
                 val positions = TeamViewPosition.values()
                 var nextInstanceNumber = 0
                 DataBus.autoSplitScreenTeams.await().collect {
                     val position = positions[nextInstanceNumber++ % positions.size]
-                    createWidgetInstanceAndShow(TeamViewSettings(it.teamId, null), position)
+                    createWidgetInstanceAndShow(TeamViewSettings(it.teamId, when (it.cause) {
+                        is RunCause -> MediaType.CAMERA
+                        is ScoreSumCause -> MediaType.SCREEN
+                    }), position)
                 }
             }
             return
@@ -42,8 +47,9 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
         autoModeJob?.cancel()
         overlayWidgetIds.values.forEach { manager.remove(it) }
         overlayWidgetIds.clear()
+        isShown = false
     }
 
-    override suspend fun getStatus() = ObjectStatus(true, settings)
+    override suspend fun getStatus() = ObjectStatus(isShown, settings)
 }
 
