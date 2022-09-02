@@ -51,10 +51,11 @@ class TeamSpotlightServiceTest {
     private fun simpleServiceTest(block: SimpleTestContext.() -> Unit) {
         val infoFlow = MutableStateFlow(simpleContestInfo)
         val runFlow = MutableSharedFlow<RunInfo>()
+        val scoreboardFlow = MutableStateFlow(Scoreboard(emptyList()))
         runBlocking {
             val serviceScope = CoroutineScope(newSingleThreadContext("TeamAccentService"))
             val service = TeamSpotlightService(serviceScope)
-            serviceScope.launch { service.run(infoFlow, runFlow) }
+            serviceScope.launch { service.run(infoFlow, runFlow,scoreboardFlow) }
             block(SimpleTestContext(infoFlow, runFlow, service, serviceScope, this))
         }
     }
