@@ -7,7 +7,6 @@ import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.reliableSharedFlow
-import kotlin.time.Duration.Companion.seconds
 
 
 fun CoroutineScope.launchICPCServices(
@@ -31,7 +30,7 @@ fun CoroutineScope.launchICPCServices(
     launch { AnalyticsService().run(rawAnalyticsMessageFlow) }
     launch {
         val accentService = TeamSpotlightService(this)
-        DataBus.autoSplitScreenTeams.completeOrThrow(accentService.getFlow(10.seconds, TeamSpotlightFlowSettings()))
+        DataBus.autoSplitScreenTeams.completeOrThrow(accentService.getFlow(TeamSpotlightFlowSettings()))
         accentService.run(infoFlow, runsFlow, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
     }
 }
