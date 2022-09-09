@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { SCOREBOARD_TYPES } from "../../../consts";
@@ -199,6 +199,45 @@ const TeamVideoWrapper =styled.video`
     top: 0;
 `;
 
+
+const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
+    const dispatch = useDispatch();
+    const videoRef = useRef();
+    const rtcRef = useRef();
+    useEffect(() => {
+        dispatch(pushLog(`Webrtc content from ${url}`));
+        rtcRef.current = new RTCPeerConnection();
+        rtcRef.current.ontrack = function(event) {
+            if (event.track.kind !== "video") {
+                return;
+            }
+            videoRef.current.srcObject = event.streams[0];
+        };
+        rtcRef.current.addTransceiver("video");
+        rtcRef.current.addTransceiver("audio");
+        rtcRef.current.createOffer()
+            .then(offer => {
+                rtcRef.current.setLocalDescription(offer);
+                return fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(offer),
+                });
+            })
+            .then(res => res.json())
+            .then(res => rtcRef.current.setRemoteDescription(res))
+            .catch(e => dispatch(pushLog("ERROR featching  webrtc peer connection info: " + e)));
+
+        return () => rtcRef.current?.close();
+    }, [url]);
+    return (<TeamVideoWrapper
+        ref={videoRef}
+        onCanPlay={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+        autoPlay
+        muted/>);
+};
+
 const TeamVideoAnimationWrapper = styled.div`
   position: absolute;
   width: 100%;
@@ -208,24 +247,36 @@ const TeamVideoAnimationWrapper = styled.div`
   align-items: center;
 `;
 
+const mediaTypeByUrl = (url) => {
+    if (url.startsWith("webrtc://")) {
+        return "webrtc";
+    }
+    if (url.endsWith(".svg") || url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".gif")) {
+        return "img";
+    }
+    return "video";
+};
+
 const TeamVideo = ({ teamId, type, setIsLoaded }) => {
     const dispatch = useDispatch();
-
-    const medias = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    if(!medias)
+    const team = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
+    if(!team || !team.medias || !team.medias[type])
         return null;
+    const mediaUrl = team.medias[type];
+    const mediaUrlType = mediaTypeByUrl(mediaUrl);
+    console.log(`TeamVideo ${mediaUrl} ${mediaUrlType}`);
     return <TeamVideoAnimationWrapper>
-        {!medias.medias[type]?.endsWith(".svg") &&
-        <TeamVideoWrapper
-            src={medias.medias[type]}
+        {mediaUrlType === "img" && <TeamImageWrapper
+            src={mediaUrl} onLoad={() => setIsLoaded(true)}/>}
+        {mediaUrlType === "video" && <TeamVideoWrapper
+            src={mediaUrl}
             onCanPlay={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
             autoPlay
             muted/>}
-        {medias.medias[type]?.endsWith(".svg") &&
-        <TeamImageWrapper
-            src={medias.medias[type]} onLoad={() => {console.log("dsfds"); setIsLoaded(true);}}/>}
-
+        {mediaUrlType === "webrtc" && <TeamWebRTCVideoWrapper
+            url={mediaUrl.split("webrtc://", 2)[1]}
+            setIsLoaded={setIsLoaded}/>}
     </TeamVideoAnimationWrapper>;
 };
 
