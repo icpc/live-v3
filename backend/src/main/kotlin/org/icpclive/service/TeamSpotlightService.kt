@@ -1,21 +1,16 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
-import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-
-private sealed class ServiceAction
-private class TriggerAction(val contestTime: Duration) : ServiceAction()
-private class AddScoreAction(val teamId: Int, val accent: TeamAccent) : ServiceAction()
 
 sealed class TeamAccent
 class TeamRunAccent(val run: RunInfo) : TeamAccent()
@@ -66,44 +61,26 @@ class TeamState(val teamId: Int, private val flowSettings: TeamSpotlightFlowSett
     }
 }
 
-class TeamSpotlightService(val scope: CoroutineScope) {
-    private val actionsFlow = MutableSharedFlow<ServiceAction>(extraBufferCapacity = 10000)
-    private val scoreboardFlow = CompletableDeferred<Flow<Scoreboard>>()
+class TeamSpotlightService(
+    val scope: CoroutineScope,
+    val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings()
+) {
+    private val mutex = Mutex()
+    private val queue = mutableSetOf<TeamState>()
+    private suspend fun getTeamInQueue(teamId: Int) = mutex.withLock {
+        queue.find { it.teamId == teamId } ?: TeamState(teamId, settings).also { queue += it }
+    }
 
-    fun getFlow(settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings()): Flow<KeyTeam> {
-        val queue = mutableSetOf<TeamState>()
-        fun getTeamInQueue(teamId: Int) =
-            queue.find { it.teamId == teamId } ?: TeamState(teamId, settings).also { queue += it }
-
-        scope.launch {
-            val scoreboardFlow = scoreboardFlow.await()
-            var previousScoreboardPushTime = Duration.ZERO
-            actionsFlow.collect { action ->
-                when (action) {
-                    is TriggerAction -> {
-                        // Should we have different scoreboardPushInterval interval,
-                        // or we can have PushScoreboardAction without universal Trigger?
-                        if (action.contestTime - previousScoreboardPushTime > settings.scoreboardPushInterval) {
-                            scoreboardFlow.first().rows.filter { it.rank <= settings.scoreboardLowestRank }.forEach {
-                                getTeamInQueue(it.teamId).addAccent(TeamScoreboardPlace(it.rank))
-                            }
-                            previousScoreboardPushTime = action.contestTime
-                        }
-                    }
-                    is AddScoreAction -> {
-                        getTeamInQueue(action.teamId).addAccent(action.accent)
-                    }
-                }
-            }
-        }
+    fun getFlow(): Flow<KeyTeam> {
         return flow {
             while (true) {
-                val element = queue.minOrNull()
+                val element = mutex.withLock {
+                    queue.minOrNull()?.also { queue.remove(it) }
+                }
                 if (element == null) {
                     delay(1.seconds)
                     continue
                 }
-                queue.remove(element)
                 emit(KeyTeam(element.teamId, element.caused))
             }
         }
@@ -115,10 +92,9 @@ class TeamSpotlightService(val scope: CoroutineScope) {
         scoreboard: Flow<Scoreboard>,
         // analyticsMessage: Flow<AnalyticsMessage>
     ) {
-        scoreboardFlow.completeOrThrow(scoreboard)
         val runIds = mutableSetOf<Int>()
         var contestInfo = info.value
-        actionsFlow.emit(TriggerAction(contestInfo.currentContestTime))
+        var previousScoreboardPushTime = Duration.ZERO
         merge(
             tickerFlow(15.seconds).map { Trigger },
             info,
@@ -132,12 +108,17 @@ class TeamSpotlightService(val scope: CoroutineScope) {
                     if (update.time + 60.seconds > contestInfo.currentContestTime) {
                         if (update.isJudged || update.id !in runIds) {
                             runIds += update.id
-                            actionsFlow.emit(AddScoreAction(update.teamId, TeamRunAccent(update)))
+                            getTeamInQueue(update.teamId).addAccent(TeamRunAccent(update))
                         }
                     }
                 }
                 is Trigger -> {
-                    actionsFlow.emit(TriggerAction(contestInfo.currentContestTime))
+                    if (contestInfo.currentContestTime - previousScoreboardPushTime > settings.scoreboardPushInterval) {
+                        scoreboard.first().rows.filter { it.rank <= settings.scoreboardLowestRank }.forEach {
+                            getTeamInQueue(it.teamId).addAccent(TeamScoreboardPlace(it.rank))
+                        }
+                        previousScoreboardPushTime = contestInfo.currentContestTime
+                    }
                 }
             }
         }
@@ -145,7 +126,6 @@ class TeamSpotlightService(val scope: CoroutineScope) {
 
     companion object {
         private object Trigger
-
         val logger = getLogger(TeamSpotlightService::class)
     }
 }
