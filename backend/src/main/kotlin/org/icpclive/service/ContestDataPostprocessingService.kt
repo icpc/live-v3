@@ -1,7 +1,10 @@
 package org.icpclive.service
 
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -17,6 +20,7 @@ class ContestDataPostprocessingService {
         infos: List<T>,
         overrides: Map<String, O>?,
         id: T.() -> String,
+        getTemplate: ((String) -> O?) = { null },
         merge: (T, O) -> T
     ): Pair<List<T>, List<String>> {
         return if (overrides == null)
@@ -24,7 +28,7 @@ class ContestDataPostprocessingService {
         else {
             val done = mutableSetOf<String>()
             infos.map { info ->
-                overrides[info.id()]?.let {
+                (overrides[info.id()] ?: getTemplate(info.id()))?.let {
                     done.add(info.id())
                     merge(info, it)
                 } ?: info
@@ -56,7 +60,12 @@ class ContestDataPostprocessingService {
                 val (teamInfos, unusedTeamOverrides) = mergeOverride(
                     info.teams,
                     overrides.teamOverrides,
-                    TeamInfo::contestSystemId
+                    TeamInfo::contestSystemId,
+                    { id ->
+                        overrides.teamOverrideTemplate?.let { override ->
+                            override.copy(medias = override.medias?.mapValues { it.value?.replace("{teamId}", id) })
+                        }
+                    }
                 ) { team, override ->
                     TeamInfo(
                         team.id,
@@ -93,7 +102,8 @@ class ContestDataPostprocessingService {
                 else
                     overrides.holdTimeSeconds?.toIntOrNull()?.seconds ?: info.holdBeforeStartTime
                 val medals = overrides.scoreboardOverrides?.medals ?: info.medals
-                val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
+                val penaltyPerWrongAttempt =
+                    overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
                 if (unusedTeamOverrides.isNotEmpty()) logger.warn("No team for override: $unusedTeamOverrides")
                 if (unusedProblemOverrides.isNotEmpty()) logger.warn("No problem for override: $unusedProblemOverrides")
 

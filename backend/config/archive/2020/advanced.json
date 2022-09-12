@@ -1,5 +1,12 @@
 {
   "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": false
-  }
+    "showTeamsWithoutSubmissions": true
+  },
+  "teamOverrideTemplate": {
+    "medias": {
+      "screen": "http://localhost:8080/media/screen{teamId}.svg",
+      "camera": "http://localhost:8080/media/camera{teamId}.svg"
+    }
+  },
+  "teamOverrides": {}
 }

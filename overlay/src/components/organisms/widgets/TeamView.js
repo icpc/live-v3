@@ -187,6 +187,12 @@ const TeamInfo = ({ teamId }) => {
     </TeamInfoWrapper>;
 };
 
+const TeamImageWrapper =styled.img`
+    position: absolute;
+    width: 100%;
+    top: 0;
+`;
+
 const TeamVideoWrapper =styled.video`
     position: absolute;
     width: 100%;
@@ -209,12 +215,16 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
     if(!medias)
         return null;
     return <TeamVideoAnimationWrapper>
+        {!medias.medias[type]?.endsWith(".svg") &&
         <TeamVideoWrapper
             src={medias.medias[type]}
             onCanPlay={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
             autoPlay
-            muted/>
+            muted/>}
+        {medias.medias[type]?.endsWith(".svg") &&
+        <TeamImageWrapper
+            src={medias.medias[type]} onLoad={() => {console.log("dsfds"); setIsLoaded(true);}}/>}
 
     </TeamVideoAnimationWrapper>;
 };
