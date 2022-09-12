@@ -21,7 +21,7 @@ open class WidgetWrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
         widgetConstructor(settings)
     }
 
-    override suspend fun createWidgetAndShow() {
+    override suspend fun createWidgetAndShow(settings: SettingsType) {
         val widget = widgetConstructor(settings)
         manager.add(widget)
         overlayWidgetId = widget.id

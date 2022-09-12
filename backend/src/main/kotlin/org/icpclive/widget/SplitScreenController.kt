@@ -15,16 +15,16 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
     private val overlayWidgetIds = mutableMapOf<TeamViewPosition, String>()
     private var autoModeJob: Job? = null
 
-    private fun widgetConstructor(settings: TeamViewSettings, position: TeamViewPosition) =
+    private fun widgetConstructor(settings: TeamViewInstanceSettings, position: TeamViewPosition) =
         TeamViewWidget(settings, position)
 
-    private suspend fun createWidgetInstanceAndShow(settings: TeamViewSettings, position: TeamViewPosition) {
+    private suspend fun createWidgetInstanceAndShow(settings: TeamViewInstanceSettings, position: TeamViewPosition) {
         val widget = widgetConstructor(settings, position)
         manager.add(widget)
         overlayWidgetIds[position] = widget.id
     }
 
-    override suspend fun createWidgetAndShow() {
+    override suspend fun createWidgetAndShow(settings: SplitScreenSettings) {
         isShown = true
         if (settings.autoMode) {
             autoModeJob = scope.launch {
@@ -32,17 +32,17 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
                 val currentTeams = MutableList(positions.size) { 0 }
                 var setupInstanceNumber = 0
                 var nextInstanceNumber = 0
-                DataBus.autoSplitScreenTeams.await().collect {
+                DataBus.teamSpotlightFlow.await().collect {
                     if (it.teamId in currentTeams) return@collect
                     currentTeams[nextInstanceNumber % positions.size] = it.teamId
                     val position = positions[nextInstanceNumber++ % positions.size]
-                    val settings = TeamViewSettings(
+                    val instanceSetting = TeamViewInstanceSettings(
                         it.teamId, when (it.cause) {
                             is RunCause -> MediaType.CAMERA
                             is ScoreSumCause -> MediaType.SCREEN
                         }
                     )
-                    createWidgetInstanceAndShow(settings, position)
+                    createWidgetInstanceAndShow(instanceSetting, position)
                     if (setupInstanceNumber < 4) {
                         setupInstanceNumber++
                     } else {

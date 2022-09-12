@@ -94,15 +94,15 @@ enum class TeamViewPosition {
 @Serializable
 @SerialName("TeamViewWidget")
 class TeamViewWidget(
-    val settings: TeamViewSettings, private val position: TeamViewPosition? = null
+    val settings: TeamViewInstanceSettings, private val position: TeamViewPosition? = null
 ) : Widget(getWidgetId(position), getLocation(position)) {
     companion object {
         fun getWidgetId(position: TeamViewPosition?) = "teamview" + position?.name
         fun getLocation(position: TeamViewPosition?) = when (position) {
-            TeamViewPosition.TOP_LEFT -> LocationRectangle(30, 40, 915, 475)
-            TeamViewPosition.TOP_RIGHT -> LocationRectangle(975, 40, 915, 475)
-            TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(30, 535, 915, 475)
-            TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(975, 535, 915, 475)
+            TeamViewPosition.TOP_LEFT -> LocationRectangle(550, 40, 672, 378)
+            TeamViewPosition.TOP_RIGHT -> LocationRectangle(550 + 672, 40, 672, 378)
+            TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(550, 40 + 378, 672, 378)
+            TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(550 + 672, 40 + 378, 672, 378)
             null -> LocationRectangle(550, 40, 1350, 970)
         }
     }
