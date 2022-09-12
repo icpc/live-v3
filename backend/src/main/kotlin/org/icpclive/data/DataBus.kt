@@ -17,6 +17,7 @@ object DataBus {
     val contestInfoFlow = CompletableDeferred<Flow<ContestInfo>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
+
     // flow of run ids that need to be braking news
     val queueFeaturedRunsFlow = CompletableDeferred<FlowCollector<FeaturedRunAction>>()
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()
@@ -35,7 +36,7 @@ object DataBus {
         extraBufferCapacity = 0,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-    val autoSplitScreenTeams = CompletableDeferred<Flow<KeyTeam>>()
+    val teamSpotlightFlow = CompletableDeferred<Flow<KeyTeam>>()
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {

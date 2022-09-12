@@ -2,10 +2,7 @@ package org.icpclive.data
 
 import org.icpclive.api.*
 import org.icpclive.config
-import org.icpclive.widget.PresetsController
-import org.icpclive.widget.SimpleController
-import org.icpclive.widget.SplitScreenController
-import org.icpclive.widget.SvgTransformer
+import org.icpclive.widget.*
 
 object WidgetControllers {
     private val WidgetManager = WidgetManager()
@@ -14,7 +11,7 @@ object WidgetControllers {
     val statistics = SimpleController(StatisticsSettings(), WidgetManager, ::StatisticsWidget)
     val ticker = SimpleController(TickerSettings(), WidgetManager, ::TickerWidget)
     val scoreboard = SimpleController(ScoreboardSettings(), WidgetManager, ::ScoreboardWidget)
-    val teamView = SimpleController(TeamViewSettings(), WidgetManager, ::TeamViewWidget)
+    val teamView = TeamViewController(WidgetManager)
     val teamPVP = SimpleController(TeamPVPSettings(), WidgetManager, ::TeamPVPWidget)
     val splitScreen = SplitScreenController(WidgetManager)
     val locator = SimpleController(TeamLocatorSettings(), WidgetManager, ::TeamLocatorWidget)

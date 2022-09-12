@@ -26,20 +26,20 @@ abstract class AbstractWidgetWrapper<SettingsType : ObjectSettings, DataType : T
     suspend fun show() {
         mutex.withLock {
             removeWidget()
-            createWidgetAndShow()
+            createWidgetAndShow(settings)
         }
     }
 
     suspend fun show(newSettings: SettingsType) = mutex.withLock {
         removeWidget()
         settings = newSettings
-        createWidgetAndShow()
+        createWidgetAndShow(settings)
     }
 
     suspend fun hide() = mutex.withLock {
         removeWidget()
     }
 
-    protected abstract suspend fun createWidgetAndShow()
+    protected abstract suspend fun createWidgetAndShow(settings: SettingsType)
     protected abstract suspend fun removeWidget()
 }
