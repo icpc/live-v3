@@ -49,16 +49,11 @@ class TickerSettings : ObjectSettings
 
 @Serializable
 data class TeamViewSettings(
-    val instance: TeamViewInstanceSettings? = null,
-    val autoMode: Boolean = true,
-) : ObjectSettings
-
-@Serializable
-data class TeamViewInstanceSettings(
-    val teamId: Int = 0,
+    val teamId: Int? = null,
     val mediaType: MediaType? = null,
     val showTaskStatus: Boolean = true,
     val showAchievement: Boolean = false,
+    val position: TeamViewPosition = TeamViewPosition.SINGLE_TOP_RIGHT,
 ) : ObjectSettings
 
 @Serializable
@@ -69,7 +64,7 @@ data class TeamPVPSettings(
 @Serializable
 data class SplitScreenSettings(
     val autoMode: Boolean,
-    val instances: Map<TeamViewPosition, TeamViewInstanceSettings>,
+    val instances: Map<TeamViewPosition, TeamViewSettings>,
 ): ObjectSettings
 
 @Serializable

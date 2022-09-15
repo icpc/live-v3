@@ -19,7 +19,7 @@ const pages = {
     // "Picture": "picture",
     "TeamView": "teamview",
     "TeamPVP": "teampvp",
-    // "SplitScreen": "splitscreen",
+    "SplitScreen": "splitscreen",
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
     "Dashboard": "dashboard",

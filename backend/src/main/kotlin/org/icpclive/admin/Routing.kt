@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.first
+import org.icpclive.api.TeamViewPosition
 import org.icpclive.config
 import org.icpclive.data.DataBus
 import org.icpclive.data.WidgetControllers
@@ -24,19 +25,28 @@ fun Route.configureAdminApiRouting() {
             }
         }
         route("/teamView") {
-            setupController(WidgetControllers.teamView)
+            setupController(WidgetControllers.teamView(TeamViewPosition.SINGLE_TOP_RIGHT))
             get("/teams") {
                 call.respond(getTeams())
             }
         }
+        fun Route.setupTeamView( position: TeamViewPosition) {
+            route("/${position.name}") {
+                setupController(WidgetControllers.teamView(position))
+            }
+        }
         route("/splitScreen") {
-            setupController(WidgetControllers.splitScreen)
+            setupTeamView(TeamViewPosition.TOP_LEFT)
+            setupTeamView(TeamViewPosition.TOP_RIGHT)
+            setupTeamView(TeamViewPosition.BOTTOM_LEFT)
+            setupTeamView(TeamViewPosition.BOTTOM_RIGHT)
             get("/teams") {
                 call.respond(getTeams())
             }
         }
         route("/teamPVP") {
-            setupController(WidgetControllers.teamPVP)
+            setupTeamView(TeamViewPosition.PVP_TOP)
+            setupTeamView(TeamViewPosition.PVP_BOTTOM)
             get("/teams") {
                 call.respond(getTeams())
             }

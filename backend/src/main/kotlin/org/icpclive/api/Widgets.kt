@@ -88,22 +88,24 @@ class TickerWidget(val settings: TickerSettings) : Widget(WIDGET_ID, location) {
 
 @Serializable
 enum class TeamViewPosition {
-    TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+    SINGLE_TOP_RIGHT, PVP_TOP, PVP_BOTTOM, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
 }
 
 @Serializable
 @SerialName("TeamViewWidget")
 class TeamViewWidget(
-    val settings: TeamViewInstanceSettings, private val position: TeamViewPosition? = null
-) : Widget(getWidgetId(position), getLocation(position)) {
+    val settings: TeamViewSettings
+) : Widget(getWidgetId(settings.position), getLocation(settings.position)) {
     companion object {
-        fun getWidgetId(position: TeamViewPosition?) = "teamview" + position?.name
-        fun getLocation(position: TeamViewPosition?) = when (position) {
+        fun getWidgetId(position: TeamViewPosition) = "teamview" + position.name
+        fun getLocation(position: TeamViewPosition) = when (position) {
+            TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(550, 40, 1350, 970)
+            TeamViewPosition.PVP_TOP -> LocationRectangle(550, 40, 1350, 970 / 2)
+            TeamViewPosition.PVP_BOTTOM -> LocationRectangle(550, 40 + 970 / 2, 1350, 970 / 2)
             TeamViewPosition.TOP_LEFT -> LocationRectangle(550, 40, 672, 378)
             TeamViewPosition.TOP_RIGHT -> LocationRectangle(550 + 672, 40, 672, 378)
             TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(550, 40 + 378, 672, 378)
             TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(550 + 672, 40 + 378, 672, 378)
-            null -> LocationRectangle(550, 40, 1350, 970)
         }
     }
 }
