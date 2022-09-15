@@ -15,10 +15,10 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
     private val overlayWidgetIds = mutableMapOf<TeamViewPosition, String>()
     private var autoModeJob: Job? = null
 
-    private fun widgetConstructor(settings: TeamViewInstanceSettings, position: TeamViewPosition) =
+    private fun widgetConstructor(settings: TeamViewSettings, position: TeamViewPosition) =
         TeamViewWidget(settings, position)
 
-    private suspend fun createWidgetInstanceAndShow(settings: TeamViewInstanceSettings, position: TeamViewPosition) {
+    private suspend fun createWidgetInstanceAndShow(settings: TeamViewSettings, position: TeamViewPosition) {
         val widget = widgetConstructor(settings, position)
         manager.add(widget)
         overlayWidgetIds[position] = widget.id
@@ -36,7 +36,7 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
                     if (it.teamId in currentTeams) return@collect
                     currentTeams[nextInstanceNumber % positions.size] = it.teamId
                     val position = positions[nextInstanceNumber++ % positions.size]
-                    val instanceSetting = TeamViewInstanceSettings(
+                    val instanceSetting = TeamViewSettings(
                         it.teamId, when (it.cause) {
                             is RunCause -> MediaType.CAMERA
                             is ScoreSumCause -> MediaType.SCREEN

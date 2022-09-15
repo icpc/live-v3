@@ -11,7 +11,9 @@ object WidgetControllers {
     val statistics = SimpleController(StatisticsSettings(), WidgetManager, ::StatisticsWidget)
     val ticker = SimpleController(TickerSettings(), WidgetManager, ::TickerWidget)
     val scoreboard = SimpleController(ScoreboardSettings(), WidgetManager, ::ScoreboardWidget)
-    val teamView = TeamViewController(WidgetManager)
+    private val teamViews = TeamViewPosition.values().asList().associateWith { TeamViewController(WidgetManager, it) }
+    fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
+
     val teamPVP = SimpleController(TeamPVPSettings(), WidgetManager, ::TeamPVPWidget)
     val splitScreen = SplitScreenController(WidgetManager)
     val locator = SimpleController(TeamLocatorSettings(), WidgetManager, ::TeamLocatorWidget)

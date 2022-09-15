@@ -31,6 +31,7 @@ SplitScreenInstance.propTypes = {
     hideFunction: PropTypes.func.isRequired,
 };
 
+const instances = ["TOP_LEFT", "TOP_RIGHT", "BOTTOM_LEFT", "BOTTOM_RIGHT"];
 function SplitScreenGrid({ apiPath, createErrorHandler }) {
     const apiGet = createApiGet(BASE_URL_BACKEND + apiPath);
     const apiPost = createApiPost(BASE_URL_BACKEND + apiPath);
@@ -43,7 +44,7 @@ function SplitScreenGrid({ apiPath, createErrorHandler }) {
 
     const updateData = () => {
         Promise.all([
-            Promise.all([0, 1, 2, 3].map(i => apiGet("/" + i).catch(createErrorHandler("Failed to load list of teams")))),
+            Promise.all(instances.map(i => apiGet("/" + i).catch(createErrorHandler("Failed to load list of teams")))),
             apiGet("/teams").catch(createErrorHandler("Failed to load list of teams")),
         ]).then(([inst, teams]) => {
             const showedTeams = inst.filter(i => i?.shown).map(i => i?.settings?.teamId);
@@ -91,9 +92,9 @@ function SplitScreenGrid({ apiPath, createErrorHandler }) {
         alignItems: "center",
         flexDirection: "column" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ width: { "md": "75%", "sm": "100%", "xs": "100%" } }}>
-            {([0, 1, 2, 3]).map(id =>
+            {(instances).map(id =>
                 <Grid item md={6} sm={12} key={id}>
-                    <SplitScreenInstance instanceId={id + 1} selectedId={state.selectedId} shownMediaType={state.instances[id]?.shown ?
+                    <SplitScreenInstance instanceId={id} selectedId={state.selectedId} shownMediaType={state.instances[id]?.shown ?
                         state.instances[id]?.settings?.mediaType : undefined}
                     shownTeam={state.instances[id]?.shown ?
                         state.dataElements.find(t => t.id === state.instances[id]?.settings?.teamId)?.name : undefined}
@@ -115,7 +116,7 @@ function SplitScreen() {
     const { enqueueSnackbar, } = useSnackbar();
     return (
         <Container maxWidth="100%" sx={{ pt: 2 }}>
-            <SplitScreenGrid apiPath={"/splitscreen"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <SplitScreenGrid apiPath={"/splitScreen"} createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
         </Container>
     );
 }

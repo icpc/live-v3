@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Box, Button, TextField, Tooltip, ButtonGroup } from "@mui/material";
+import { Grid, Box, Button, TextField, Tooltip, ButtonGroup, Switch } from "@mui/material";
 import { lightBlue, grey } from "@mui/material/colors";
 import { Team, TEAM_FIELD_STRUCTURE } from "./Team";
 import { BASE_URL_BACKEND } from "../config";
@@ -117,6 +117,7 @@ export class TeamTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            inAutoMode: false,
             dataElements: [],
             loaded: false,
             searchFieldValue: "",
@@ -200,7 +201,7 @@ export class TeamTable extends React.Component {
 
     showTeam(mediaType = undefined) {
         this.apiPost("/show_with_settings", {
-            teamId: this.state.selectedId,
+            teamId: this.state.inAutoMode ? null : this.state.selectedId,
             mediaType: mediaType,
             showTaskStatus: this.state.isTaskStatusShown,
             showAchievement: this.state.isAchievementShown,
@@ -229,10 +230,11 @@ export class TeamTable extends React.Component {
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "row" }}>
+                    Auto mode: <Switch onChange={(_, chacked) => this.setState(s => ({ ...s, inAutoMode: chacked }))}/>
                     <TeamViewSettingsPanel
                         mediaTypes={this.suppoertedMediaTypes()}
                         isPossibleToHide={this.state.shownId !== undefined}
-                        isSomethingSelected={this.state.selectedId !== undefined}
+                        isSomethingSelected={this.state.selectedId !== undefined || this.state.inAutoMode}
                         selectedMediaType={this.state.shownMediaType} onShowTeam={this.showTeam} onHideTeam={this.hideTeam}
                         isTaskStatusShown={this.state.isTaskStatusShown}
                         setIsTaskStatusShown={() => this.setState(s => ({ ...s, isTaskStatusShown: !s.isTaskStatusShown }))}
