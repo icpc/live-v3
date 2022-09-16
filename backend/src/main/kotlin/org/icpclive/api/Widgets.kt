@@ -122,6 +122,6 @@ class TeamPVPWidget(val settings: TeamPVPSettings) : Widget(WIDGET_ID, location)
 class TeamLocatorWidget(val settings: TeamLocatorSettings) : Widget(WIDGET_ID, location) {
     companion object {
         const val WIDGET_ID = "teamLocator"
-        val location = LocationRectangle(30, 40, 515, 970)
+        val location = LocationRectangle(0, 0, 1920, 1080)
     }
 }
