@@ -14,11 +14,12 @@ class TeamViewController(val manager: Manager<TeamViewWidget>, val position: Tea
     WidgetWrapper<TeamViewSettings, TeamViewWidget>(
         TeamViewSettings(),
         manager,
-        { settings -> TeamViewWidget(settings, position) }),
+        { settings -> TeamViewWidget(settings) }),
     SingleWidgetController<TeamViewSettings, TeamViewWidget> {
     private var autoModeJob: Job? = null
 
     override suspend fun createWidgetAndShow(settings: TeamViewSettings) {
+        println("Show with settings $settings")
         if (settings.teamId == null) {
             autoModeJob = scope.launch {
                 DataBus.teamSpotlightFlow.await().collect {
@@ -30,5 +31,10 @@ class TeamViewController(val manager: Manager<TeamViewWidget>, val position: Tea
         } else {
             super.createWidgetAndShow(settings.copy(position = position))
         }
+    }
+
+    override suspend fun removeWidget() {
+        autoModeJob?.cancel()
+        super.removeWidget()
     }
 }
