@@ -19,6 +19,7 @@ object WidgetControllers {
         { it.ordinal.toString() },
         { position -> SimpleController(TeamViewSettings(), WidgetManager) { TeamViewWidget(it, position) } }
     )
+    val locator = SimpleController(TeamLocatorSettings(), WidgetManager, ::TeamLocatorWidget)
 
     private fun presetsPath(name: String) = config.presetsDirectory.resolve("$name.json")
 

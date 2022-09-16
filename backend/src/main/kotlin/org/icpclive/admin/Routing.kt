@@ -43,6 +43,8 @@ fun Route.configureAdminApiRouting() {
                 call.respond(getTeams())
             }
         }
+        route("/teamLocator") { setupController(WidgetControllers.locator) }
+
 
         route("/advertisement") { setupController(WidgetControllers.advertisement) }
         route("/picture") { setupController(WidgetControllers.picture) }

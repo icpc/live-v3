@@ -116,3 +116,12 @@ class TeamPVPWidget(val settings: TeamPVPSettings) : Widget(WIDGET_ID, location)
         val location = LocationRectangle(550, 40, 1350, 970)
     }
 }
+
+@Serializable
+@SerialName("TeamLocator")
+class TeamLocatorWidget(val settings: TeamLocatorSettings) : Widget(WIDGET_ID, location) {
+    companion object {
+        const val WIDGET_ID = "teamLocator"
+        val location = LocationRectangle(30, 40, 515, 970)
+    }
+}

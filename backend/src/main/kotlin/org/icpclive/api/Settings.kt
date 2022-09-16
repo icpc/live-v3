@@ -61,6 +61,13 @@ data class TeamPVPSettings(
 ) : ObjectSettings
 
 @Serializable
+data class TeamLocatorSettings(
+    val x: Int = 1920 / 2,
+    val y: Int = 1080 / 2,
+    val radius: Int = 50,
+) : ObjectSettings
+
+@Serializable
 sealed class TickerMessageSettings : ObjectSettings {
     abstract val part: TickerPart
     abstract val periodMs: Long
