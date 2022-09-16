@@ -2,20 +2,20 @@ import React from "react";
 import Container from "@mui/material/Container";
 
 import "../App.css";
-import { TeamTable } from "./TeamTable";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
-
-class TeamViewTable extends TeamTable {
-}
+import { TeamViewManager } from "./TeamViewManager";
+import { useTeamViewService } from "../services/teamViewWidget";
 
 function TeamView() {
     const { enqueueSnackbar,  } = useSnackbar();
+    const service = useTeamViewService("singe", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
         <Container maxWidth="100%" sx={{ pt: 2 }}>
-            <TeamViewTable
-                apiPath="/teamView"
-                createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>
+            <TeamViewManager variant={"single"} service={service}/>
+            {/*<TeamViewTable*/}
+            {/*    apiPath="/teamView"*/}
+            {/*    createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>*/}
         </Container>
     );
 }

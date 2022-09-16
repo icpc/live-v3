@@ -33,11 +33,19 @@ export class AbstractWidgetService {
 
     deletePreset(/* presetId */) {}
 
+    presetSubPath(presetId) {
+        return "/" + presetId;
+    }
+
     showPreset(presetId) {
-        return this.apiPost("/" + presetId + "/show").catch(this.errorHandler("Failed to show preset"));
+        return this.apiPost(this.presetSubPath(presetId) + "/show").catch(this.errorHandler("Failed to show preset"));
+    }
+
+    showPresetWithSettings(presetId, settings) {
+        return this.apiPost(this.presetSubPath(presetId) + "/show_with_settings", settings).catch(this.errorHandler("Failed to show preset"));
     }
 
     hidePreset(presetId) {
-        return this.apiPost("/" + presetId + "/hide").catch(this.errorHandler("Failed to hide preset"));
+        return this.apiPost(this.presetSubPath(presetId) + "/hide").catch(this.errorHandler("Failed to hide preset"));
     }
 }
