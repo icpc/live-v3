@@ -16,7 +16,7 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
     private var autoModeJob: Job? = null
 
     private fun widgetConstructor(settings: TeamViewSettings, position: TeamViewPosition) =
-        TeamViewWidget(settings, position)
+        TeamViewWidget(settings.copy(position=position))
 
     private suspend fun createWidgetInstanceAndShow(settings: TeamViewSettings, position: TeamViewPosition) {
         val widget = widgetConstructor(settings, position)
