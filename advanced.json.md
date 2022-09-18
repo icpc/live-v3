@@ -22,6 +22,15 @@ You can adjust received participant information for each separate participant us
 }
 ```
 
+Also, you can create a template rule for medias, and it would be applied to all teams.
+
+```
+  "teamMediaTemplate": {
+    "screen": "http://localhost:8080/media/screen{teamId}.svg",
+    "camera": "http://localhost:8080/media/camera{teamId}.svg"
+  },
+```
+
 # Customize ranking rules
 ```
 {

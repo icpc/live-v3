@@ -23,16 +23,12 @@ class ContestDataPostprocessingService {
         getTemplate: ((String) -> O?) = { null },
         merge: (T, O) -> T
     ): Pair<List<T>, List<String>> {
-        return if (overrides == null)
+        return if (overrides == null) {
             infos to emptyList()
-        else {
-            val done = mutableSetOf<String>()
-            infos.map { info ->
-                (overrides[info.id()] ?: getTemplate(info.id()))?.let {
-                    done.add(info.id())
-                    merge(info, it)
-                } ?: info
-            } to overrides.keys.filter { it !in done }
+        } else {
+            val idsSet = infos.map { it.id() }.toSet()
+            fun mergeIfNotNull(a: T, b: O?) = if (b == null) a else merge(a, b)
+            infos.map { mergeIfNotNull(mergeIfNotNull(it, getTemplate(it.id())), overrides[it.id()]) } to overrides.keys.filter { it !in idsSet }
         }
     }
 
@@ -62,9 +58,9 @@ class ContestDataPostprocessingService {
                     overrides.teamOverrides,
                     TeamInfo::contestSystemId,
                     { id ->
-                        overrides.teamOverrideTemplate?.let { override ->
-                            override.copy(medias = override.medias?.mapValues { it.value?.replace("{teamId}", id) })
-                        }
+                        TeamInfoOverride(
+                            medias = overrides.teamMediaTemplate?.mapValues { it.value?.replace("{teamId}", id) }
+                        )
                     }
                 ) { team, override ->
                     TeamInfo(
@@ -123,7 +119,7 @@ class ContestDataPostprocessingService {
                     problems = problemInfos.sortedBy { it.ordinal },
                     medals = medals,
                     penaltyPerWrongAttempt = penaltyPerWrongAttempt
-                )
+                ).also { println(it) }
             }
         }
     }
