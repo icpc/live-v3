@@ -27,11 +27,16 @@ class PresetWrapper<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithI
     settings: SettingsType,
     manager: Manager<OverlayWidgetType>,
     val id: Int,
-    val onDelete: suspend (Int) -> Unit
+    private val onDeleteCallback: suspend (Int) -> Unit
 ) : WidgetWrapper<SettingsType, OverlayWidgetType>(settings, manager, widgetConstructor) {
     // TODO: refactor
     override suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
         return ObjectStatus(overlayWidgetId != null, settings, id)
+    }
+
+    override suspend fun onDelete() {
+        onDeleteCallback(id)
+        super.onDelete()
     }
 }
 
@@ -61,7 +66,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
         innerData = innerData.plus(wrapper)
         save()
         if (ttl != null) {
-            wrapper.scope.launch {
+            wrapper.launchWhileWidgetExists {
                 delay(ttl)
                 delete(id)
                 // NOTHING can be done here, as coroutine is canceled by delete
@@ -76,15 +81,14 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     }
 
     suspend fun delete(id: Int) {
-        val wrapper = mutex.withLock {
+        mutex.withLock {
             findByIdOrNull(id)?.apply {
-                onDelete(id)
                 hide()
+                onDelete()
                 innerData = innerData.minus(this)
                 save()
             }
         }
-        wrapper?.scope?.cancel()
     }
 
     suspend fun show(id: Int) = mutex.withLock {
@@ -101,6 +105,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     suspend fun reload() = mutex.withLock {
         for (preset in innerData) {
             preset.hide()
+            preset.onDelete()
         }
         innerData = load()
     }

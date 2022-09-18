@@ -10,7 +10,7 @@ open class WidgetWrapper<SettingsType : ObjectSettings, DataType : TypeWithId>(
     settings: SettingsType,
     private val manager: Manager<DataType>,
     protected val widgetConstructor: (SettingsType) -> DataType,
-): AbstractWidgetWrapper<SettingsType, DataType>(settings), SingleWidgetController<SettingsType, DataType> {
+): AbstractWidgetWrapper<SettingsType, DataType>(settings) {
     protected var overlayWidgetId: String? = null
 
     override suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
