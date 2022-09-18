@@ -99,7 +99,6 @@ dependencies {
     implementation("io.ktor:ktor-client-websockets:$ktor_version")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version")
-    implementation("org.jsoup:jsoup:$jsoup_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
 }

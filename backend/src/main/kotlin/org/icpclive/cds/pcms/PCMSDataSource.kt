@@ -2,19 +2,18 @@ package org.icpclive.cds.pcms
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.service.RegularLoaderService
+import org.icpclive.service.RunsBufferService
+import org.icpclive.service.XmlLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.*
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
-import org.jsoup.parser.Parser
+import org.w3c.dom.*
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -26,106 +25,88 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
         val auth = run {
             val login = properties.getCredentials("login")
             val password = properties.getCredentials("password")
-            if (login != null) {
-                ClientAuth.Basic(login, password!!)
-            } else {
-                null
-            }
+            login?.let { ClientAuth.Basic(login, password!!) }
         }
-        return object : RegularLoaderService<Document>(auth) {
+        return object : XmlLoaderService(auth) {
             override val url = properties.getProperty("url")
-            override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
         }
     }
 
-    private var lastRunId = 0
-    val runs = mutableMapOf<String, RunInfo>()
-    var problems = emptyList<ProblemInfo>()
-    val teams = mutableMapOf<String, TeamInfo>()
+    val runIds = mutableMapOf<String, Int>()
+    val teamIds = mutableMapOf<String, Int>()
     var startTime = Instant.fromEpochMilliseconds(0)
-    var status = ContestStatus.UNKNOWN
-    val contestLength = properties.getProperty("contest.length")?.toInt()?.milliseconds ?: 5.hours
-    val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
 
-    private val contestInfo
-        get() = ContestInfo(
-            status,
-            startTime,
-            contestLength,
-            freezeTime,
-            problems,
-            teams.values.sortedBy { it.id },
-        )
+    val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
 
 
     override suspend fun run() {
         coroutineScope {
             val xmlLoader = getLoader()
+            val runsBufferFlow = MutableStateFlow<List<RunInfo>>(emptyList())
             val rawRunsFlow = reliableSharedFlow<RunInfo>()
-            val contestInfoFlow = MutableStateFlow(contestInfo)
+            launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
+            val contestInfoFlow = MutableStateFlow(ContestInfo.unknown())
             launchICPCServices(rawRunsFlow, contestInfoFlow)
             xmlLoader.run(5.seconds).collect {
-                parseAndUpdateStandings(it) { runBlocking { rawRunsFlow.emit(it) } }
-                contestInfoFlow.value = contestInfo
+                val (info, runs) = parseAndUpdateStandings(it.documentElement)
+                contestInfoFlow.value = info
+                runsBufferFlow.value = runs
             }
         }
     }
 
-    override suspend fun loadOnce(): ContestParseResult {
-        val xmlLoader = getLoader()
-        val runs = mutableListOf<RunInfo>()
-        parseAndUpdateStandings(xmlLoader.loadOnce()) { runs.add(it) }
-        if (status != ContestStatus.OVER) {
-            throw IllegalStateException("Emulation mode require over contest")
-        }
-        return ContestParseResult(contestInfo, runs.toList())
-    }
-
-    private fun parseAndUpdateStandings(element: Element, onRunChanges: (RunInfo) -> Unit) {
-        if ("contest" == element.tagName()) {
-            parseContestInfo(element, onRunChanges)
-        } else {
-            element.children().forEach { parseAndUpdateStandings(it, onRunChanges) }
+    override suspend fun loadOnce() = parseAndUpdateStandings(getLoader().loadOnce().documentElement).also {
+        require(it.contestInfo.status == ContestStatus.OVER) {
+            "Emulation mode require over contest"
         }
     }
 
-    private fun parseContestInfo(element: Element, onRunChanges: (RunInfo) -> Unit) {
-        val status = ContestStatus.valueOf(element.attr("status").uppercase(Locale.getDefault()))
-        val contestTime = element.attr("time").toLong().milliseconds
-        if (status == ContestStatus.RUNNING && this.status !== ContestStatus.RUNNING) {
+    private fun parseAndUpdateStandings(element: Element) = parseContestInfo(element.child("contest"))
+
+    private fun parseContestInfo(element: Element) : ContestParseResult {
+        val status = ContestStatus.valueOf(element.getAttribute("status").uppercase(Locale.getDefault()))
+        val contestTime = element.getAttribute("time").toLong().milliseconds
+        val contestLength = element.getAttribute("length").toInt().milliseconds
+        if (status == ContestStatus.RUNNING && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
-        this.status = status
-        problems = element
-            .children()
-            .single { it.tagName() == "challenge" }
-            .children()
-            .filter { it: Element -> it.tagName() == "problem" }
+        val problems = element
+            .child("challenge")
+            .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
-                    it.attr("alias"),
-                    it.attr("name"),
-                    it.attr("color").takeIf { it.isNotEmpty() },
+                    it.getAttribute("alias"),
+                    it.getAttribute("name"),
+                    it.getAttribute("color").takeIf { it.isNotEmpty() },
                     index,
                     index
                 )
-            }
-        element
-            .children()
-            .asSequence()
-            .filter { it.tagName() == "session" }
-            .forEach { parseTeamInfo(it, contestTime, onRunChanges) }
+            }.toList()
+        val teamsAndRuns = element
+            .children("session")
+            .map { parseTeamInfo(it, problems, contestTime) }
+            .toList()
         if (status == ContestStatus.RUNNING) {
             logger.info("Loaded contestInfo for time = $contestTime")
         }
+        return ContestParseResult(
+            ContestInfo(
+                status,
+                startTime,
+                contestLength,
+                freezeTime,
+                problems,
+                teamsAndRuns.map { it.first }.sortedBy { it.id },
+            ),
+            teamsAndRuns.flatMap { it.second }
+        )
     }
 
-    private fun parseTeamInfo(element: Element, contestTime: Duration, onRunChanges: (RunInfo) -> Unit) {
-        fun String.attr() = element.attr(this).takeIf { it.isNotEmpty() }
+    private fun parseTeamInfo(element: Element, problems:List<ProblemInfo>, contestTime: Duration) : Pair<TeamInfo, List<RunInfo>> {
+        fun String.attr() = element.getAttribute(this).takeIf { it.isNotEmpty() }
         val alias = "alias".attr()!!
-        val teamId = teams[alias]?.id ?: teams.size
         val team = TeamInfo(
-            id = teamId,
+            id = teamIds.getOrPut(alias) { teamIds.size },
             name = "party".attr()!!,
             shortName = "shortname".attr() ?: "party".attr()!!,
             hashTag = "hashtag".attr(),
@@ -137,13 +118,16 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             ).associate { it },
             contestSystemId = alias,
         )
-        teams[team.contestSystemId] = team
-        for (problem in element.children()) {
-            if (problem.tagName() != "problem") continue
-            val index = problems.indexOfFirst { it.letter == problem.attr("alias") }
-            require(index != -1)
-            parseProblemRuns(problem, team.id, index, contestTime, onRunChanges)
-        }
+        val runs =
+            element.children("problem").flatMap { problem ->
+                parseProblemRuns(
+                    problem,
+                    team.id,
+                    problems.single { it.letter == problem.getAttribute("alias") }.id,
+                    contestTime
+                )
+            }.toList()
+        return team to runs
     }
 
     private fun parseProblemRuns(
@@ -151,39 +135,32 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
         teamId: Int,
         problemId: Int,
         contestTime: Duration,
-        onRunChanges: (RunInfo) -> Unit
-    ): List<RunInfo> {
-        if (status === ContestStatus.BEFORE) {
-            return emptyList()
-        }
+    ): Sequence<RunInfo> {
         return element.children()
-            .asSequence()
-            .filter { it.attr("time").toLong().milliseconds <= contestTime }
-            .map { parseRunInfo(it, teamId, problemId, onRunChanges) }
-            .toList()
+            .filter { it.getAttribute("time").toLong().milliseconds <= contestTime }
+            .map { parseRunInfo(it, teamId, problemId) }
     }
 
     private fun parseRunInfo(
         element: Element,
         teamId: Int,
         problemId: Int,
-        onRunChanges: (RunInfo) -> Unit
     ): RunInfo {
-        val time = element.attr("time").toLong().milliseconds
+        val time = element.getAttribute("time").toLong().milliseconds
         val isFrozen = time >= freezeTime
-        val oldRun = runs[element.attr("run-id")]
+        val id = runIds.getOrPut(element.getAttribute("run-id")) { runIds.size }
         val percentage = when {
             isFrozen -> 0.0
-            "undefined" == element.attr("outcome") -> 0.0
+            "undefined" == element.getAttribute("outcome") -> 0.0
             else -> 1.0
         }
         val result = when {
             percentage < 1.0 -> ""
-            "yes" == element.attr("accepted") -> "AC"
-            else -> outcomeMap.getOrDefault(element.attr("outcome"), "WA")
+            "yes" == element.getAttribute("accepted") -> "AC"
+            else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
         }
-        val run = RunInfo(
-            id = oldRun?.id ?: lastRunId++,
+        return RunInfo(
+            id = id,
             isAccepted = "AC" == result,
             isJudged = percentage >= 1.0,
             isAddingPenalty = "AC" != result && "CE" != result,
@@ -193,10 +170,6 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             percentage = percentage,
             time = time,
         )
-        if (run != oldRun) {
-            onRunChanges(run)
-        }
-        return run
     }
 
     companion object {

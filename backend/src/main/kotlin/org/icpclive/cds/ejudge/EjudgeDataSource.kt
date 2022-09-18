@@ -1,110 +1,73 @@
 package org.icpclive.cds.ejudge
 
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
-import org.icpclive.service.RegularLoaderService
+import org.icpclive.service.RunsBufferService
+import org.icpclive.service.XmlLoaderService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.guessDatetimeFormat
-import org.icpclive.utils.reliableSharedFlow
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
-import org.jsoup.parser.Parser
+import org.icpclive.utils.*
+import org.w3c.dom.Element
 import java.util.*
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
 class EjudgeDataSource(val properties: Properties) : ContestDataSource {
     override suspend fun run() {
         coroutineScope {
+            val runsBufferFlow = MutableStateFlow<List<RunInfo>>(emptyList())
             val rawRunsFlow = reliableSharedFlow<RunInfo>()
-            val contestInfoFlow = MutableStateFlow(contestData.toApi())
+            launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
+            val contestInfoFlow = MutableStateFlow(ContestInfo.unknown())
             launchICPCServices(rawRunsFlow, contestInfoFlow)
-            xmlLoader.run(5.seconds).collect {
-                if (it.children().size != 0) {
-                    parseContestInfo(it.children()[0]) { runBlocking { rawRunsFlow.emit(it) } }
-                    contestInfoFlow.value = contestData.toApi()
-                    if (contestData.status == ContestStatus.RUNNING) {
-                        logger.info("Updated for contest time = ${contestData.contestTime}")
-                    }
-                }
+            xmlLoader.run(5.seconds).collect { doc ->
+                val (info, runs) = parseContestInfo(doc.documentElement)
+                runsBufferFlow.value = runs
+                contestInfoFlow.value = info
             }
         }
     }
 
     override suspend fun loadOnce(): ContestParseResult {
-        val allRuns = mutableListOf<RunInfo>()
         val element = xmlLoader.loadOnce()
-        parseContestInfo(element.children()[0]) { allRuns.add(it) }
-        if (contestData.status != ContestStatus.OVER) {
-            throw IllegalStateException("Emulation mode require over contest")
-        }
-        return ContestParseResult(contestData.toApi(), allRuns)
-    }
-
-    private fun parseProblemsInfo(doc: Document): List<ProblemInfo> {
-        val config = doc.child(0)
-        config.children().forEachIndexed { index, it ->
-            if ("problems" == it.tagName()) {
-                return it.children().map { element ->
-                    ProblemInfo(
-                        element.attr("short_name"),
-                        element.attr("short_name"),
-                        null,
-                        index,
-                        index,
-                    )
-                }
+        return parseContestInfo(element.documentElement).also {
+            require(it.contestInfo.status == ContestStatus.OVER) {
+                "Emulation mode require over contest"
             }
         }
-
-        logger.error("There is no <problems> tag in external XML log")
-        return emptyList()
     }
 
-    private fun parseTeamsInfo(doc: Document, problemsNumber: Int): List<EjudgeTeamInfo> {
-        val config = doc.child(0)
-        config.children().forEach {
-            if ("users" == it.tagName()) {
-                return it.children().withIndex().map { (index, participant) ->
-                    val participantName = participant.attr("name")
-                    val alias = participant.attr("id")
-                    val groups = listOf<String>()
-                    val medias = mutableMapOf<MediaType, String>()
-                    EjudgeTeamInfo(
-                        TeamInfo(
-                            index,
-                            participantName,
-                            participantName,
-                            alias,
-                            groups,
-                            participantName,
-                            medias
-                        ),
-                        problemsNumber
-                    )
-                }
-            }
-        }
+    private fun parseProblemsInfo(doc: Element) = doc
+        .child("problems")
+        .children().mapIndexed { index, element ->
+            ProblemInfo(
+                element.getAttribute("short_name"),
+                element.getAttribute("short_name"),
+                null,
+                element.getAttribute("id").toInt(),
+                index,
+            )
+        }.toList()
 
-        logger.error("There is no <users> tag in external XML log")
-        return emptyList()
-    }
-
-    private fun parseContestTime(doc: Document): Pair<Duration, Duration> {
-        val config = doc.child(0)
-        val duration = config.attr("duration")
-        val fogTime = config.attr("fog_time")
-        return Pair(duration.toLong().seconds, (duration.toLong() - fogTime.toLong()).seconds)
-    }
+    private fun parseTeamsInfo(doc: Element) = doc
+        .child("users")
+        .children().mapIndexed { index, participant ->
+            val participantName = participant.getAttribute("name")
+            TeamInfo(
+                id = index,
+                name = participantName,
+                shortName = participantName,
+                contestSystemId = participant.getAttribute("id"),
+                groups = listOf(),
+                hashTag = null,
+                medias = emptyMap()
+            )
+        }.toList()
 
     private fun parseEjudgeTime(time: String): Instant {
         val formattedTime = time
@@ -113,67 +76,54 @@ class EjudgeDataSource(val properties: Properties) : ContestDataSource {
         return guessDatetimeFormat(formattedTime)
     }
 
-    private fun parseContestInfo(element: Element, onRunChanges: (RunInfo) -> Unit) {
-        val dur = element.attr("duration").toLong()
-        val startTime = parseEjudgeTime(element.attr("start_time"))
-        val endTime = startTime.plus(dur.seconds)
-        val currentTime = parseEjudgeTime(element.attr("current_time"))
+    private fun parseContestInfo(element: Element) : ContestParseResult {
+        val contestLength = element.getAttribute("duration").toLong().seconds
+        val startTime = parseEjudgeTime(element.getAttribute("start_time"))
+        val currentTime = parseEjudgeTime(element.getAttribute("current_time"))
 
-        val status: ContestStatus = if (currentTime >= endTime) {
-            ContestStatus.OVER
-        } else if (currentTime < startTime) {
-            ContestStatus.BEFORE
-        } else {
-            ContestStatus.RUNNING
+        val status = when {
+            currentTime >= startTime + contestLength -> ContestStatus.OVER
+            currentTime < startTime -> ContestStatus.BEFORE
+            else -> ContestStatus.RUNNING
         }
 
-        if (status == ContestStatus.RUNNING && contestData.status !== ContestStatus.RUNNING) {
-            contestData.startTime = startTime
-        }
-        contestData.status = status
-        contestData.contestTime = currentTime - startTime
+        val freezeTime = contestLength - element.getAttribute("fog_time").toLong().seconds
+        val teams = parseTeamsInfo(element)
+        val teamIdMapping = teams.associateBy({ it.contestSystemId }, { it.id })
 
-        element.children().forEach {
-            if ("runs" == it.tagName()) {
-                parseRuns(contestData, it, onRunChanges)
-            }
-        }
-    }
-
-    private fun parseRuns(
-        contestInfo: EjudgeContestInfo,
-        element: Element,
-        onRunChanges: (RunInfo) -> Unit
-    ) {
-        if (contestInfo.status == ContestStatus.BEFORE) {
-            return
-        }
-        element.children().forEach { run ->
-            parseRunInfo(contestInfo, run, onRunChanges)
-        }
+        return ContestParseResult(
+            contestInfo = ContestInfo(
+                status = status,
+                startTime = startTime,
+                contestLength = contestLength,
+                freezeTime = freezeTime,
+                problems = parseProblemsInfo(element),
+                teams = teams
+            ),
+            runs = element.child("runs").children().mapNotNull { run ->
+                parseRunInfo(run, currentTime - startTime, freezeTime, teamIdMapping)
+            }.toList()
+        )
     }
 
     private fun parseRunInfo(
-        contestInfo: EjudgeContestInfo,
         element: Element,
-        onRunChanges: (RunInfo) -> Unit
-    ) {
-        val time = element.attr("time").toLong().seconds
-        if (time > contestInfo.contestTime) {
-            return
+        currentTime: Duration,
+        freezeTime: Duration,
+        teamIdMapping: Map<String, Int>
+    ) : RunInfo? {
+        val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
+        if (time > currentTime) {
+            return null
         }
 
-        val teamSystemId = element.attr("user_id").toInt()
-        val teamId = contestInfo.teams[teamSystemId.toString()]!!.teamInfo.id
-        val runId = element.attr("run_id").toInt()
+        val teamId = teamIdMapping[element.getAttribute("user_id")]!!
+        val runId = element.getAttribute("run_id").toInt()
 
-        // Ejudge has 1-indexed problem numeration
-        val problemId = element.attr("prob_id").toInt() - 1
-        val isFrozen = time >= contestInfo.freezeTime
-        val oldRun = contestInfo.teams[teamSystemId.toString()]!!.runs[problemId].getOrDefault(runId, null)
+        val isFrozen = time >= freezeTime
         val result = when {
             isFrozen -> ""
-            else -> statusMap.getOrDefault(element.attr("status"), "WA")
+            else -> statusMap.getOrDefault(element.getAttribute("status"), "WA")
         }
         val percentage = when {
             isFrozen -> 0.0
@@ -181,54 +131,24 @@ class EjudgeDataSource(val properties: Properties) : ContestDataSource {
             else -> 1.0
         }
 
-        val run = RunInfo(
-            id = oldRun?.id ?: element.attr("run_id").toInt(),
+        return RunInfo(
+            id = runId,
             isAccepted = "AC" == result,
             isJudged = "" != result,
             isAddingPenalty = "AC" != result && "CE" != result,
             result = result,
-            problemId = problemId,
+            problemId = element.getAttribute("prob_id").toInt(),
             teamId = teamId,
             percentage = percentage,
             time = time,
         )
-
-        if (run != oldRun) {
-            onRunChanges(run)
-        }
-        contestInfo.teams[teamSystemId.toString()]!!.runs[problemId][runId] = run
     }
 
-    private var contestData: EjudgeContestInfo
-    private var contestInfoFlow: MutableStateFlow<ContestInfo>
-    private val xmlLoader = object : RegularLoaderService<Document>(null) {
+    private val xmlLoader = object : XmlLoaderService(null) {
         override val url = properties.getProperty("url")
-        override fun processLoaded(data: String) = Jsoup.parse(data, "", Parser.xmlParser())
-    }
-
-    init {
-        val doc: Document
-        runBlocking {
-            doc = xmlLoader.loadOnce()
-        }
-
-        val problemsInfo = parseProblemsInfo(doc)
-        val teamsInfo = parseTeamsInfo(doc, problemsInfo.size)
-        val timeInfo = parseContestTime(doc)
-
-        contestData = EjudgeContestInfo(
-            problemsInfo,
-            teamsInfo.associateBy { it.teamInfo.contestSystemId },
-            Instant.fromEpochMilliseconds(0),
-            ContestStatus.UNKNOWN,
-            timeInfo.first,
-            timeInfo.second
-        )
-        contestInfoFlow = MutableStateFlow(contestData.toApi())
     }
 
     companion object {
-        private val logger = getLogger(EjudgeDataSource::class)
         private val statusMap = mapOf(
             "OK" to "AC",
             "CE" to "CE",

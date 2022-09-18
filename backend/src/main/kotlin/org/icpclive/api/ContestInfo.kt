@@ -108,4 +108,15 @@ data class ContestInfo(
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER -> contestLength
         }
+
+    companion object {
+        fun unknown() = ContestInfo(
+            ContestStatus.UNKNOWN,
+            Instant.fromEpochMilliseconds(0),
+            Duration.ZERO,
+            Duration.ZERO,
+            emptyList(),
+            emptyList()
+        )
+    }
 }

@@ -10,8 +10,11 @@ import org.icpclive.utils.ClientAuth
 import org.icpclive.utils.defaultHttpClient
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.isHttpUrl
+import org.w3c.dom.Document
 import java.io.IOException
 import java.nio.file.Paths
+import javax.xml.parsers.DocumentBuilder
+import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.time.Duration
 
 abstract class RegularLoaderService<T>(auth: ClientAuth?) {
@@ -43,4 +46,9 @@ abstract class RegularLoaderService<T>(auth: ClientAuth?) {
     companion object {
         val logger = getLogger(RegularLoaderService::class)
     }
+}
+
+abstract class XmlLoaderService(auth: ClientAuth?) : RegularLoaderService<Document>(auth) {
+    private val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+    override fun processLoaded(data: String): Document = builder.parse(data.byteInputStream())
 }

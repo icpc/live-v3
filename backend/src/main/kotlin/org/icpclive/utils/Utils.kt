@@ -13,6 +13,9 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.config
 import org.slf4j.LoggerFactory
+import org.w3c.dom.Element
+import org.w3c.dom.Node
+import org.w3c.dom.NodeList
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.time.Duration
@@ -104,3 +107,15 @@ fun <T> reliableSharedFlow() = MutableSharedFlow<T>(
 suspend fun <T> MutableSharedFlow<T>.awaitSubscribers(count: Int = 1) {
     subscriptionCount.dropWhile { it < count }.first()
 }
+
+fun Element.children() = childNodes.toSequence()
+fun Element.children(tag: String) = getElementsByTagName(tag).toSequence()
+fun Element.child(tag: String) = getElementsByTagName(tag).toSequence().singleOrNull()
+    ?: throw IllegalArgumentException("No child node named $tag")
+
+fun NodeList.toSequence() =
+    (0 until length)
+    .asSequence()
+    .map { item(it) }
+    .filter { it.nodeType == Node.ELEMENT_NODE }
+    .filterIsInstance<Element>()
