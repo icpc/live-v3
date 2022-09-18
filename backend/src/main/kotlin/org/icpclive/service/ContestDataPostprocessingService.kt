@@ -119,7 +119,7 @@ class ContestDataPostprocessingService {
                     problems = problemInfos.sortedBy { it.ordinal },
                     medals = medals,
                     penaltyPerWrongAttempt = penaltyPerWrongAttempt
-                ).also { println(it) }
+                )
             }
         }
     }
