@@ -149,3 +149,6 @@ data class Language(val id: String)
 
 @Serializable
 data class Award(val id: String)
+
+@Serializable
+data class Account(val id: String)

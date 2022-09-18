@@ -1,10 +1,7 @@
 package org.icpclive.cds.clics
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.produceIn
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -94,7 +91,6 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
-                emit(PreloadFinishedEvent(""))
                 if (contestEvents.none { it.isFinalEvent }) {
                     for (event in channel) {
                         emit(event)
@@ -106,54 +102,62 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
 
             var preloadFinished = false
             eventsLoader.run().sortedPrefix().collect {
-                when (it) {
-                    is UpdateContestEvent -> {
-                        when (it) {
-                            is ContestEvent -> model.processContest(it.data!!)
-                            is ProblemEvent -> model.processProblem(it.id, it.data)
-                            is OrganizationEvent -> model.processOrganization(it.id, it.data)
-                            is TeamEvent -> model.processTeam(it.id, it.data)
-                            is StateEvent -> model.processState(it.data!!)
-                            is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
-                            is GroupsEvent -> model.processGroup(it.id, it.data)
-                            is PreloadFinishedEvent -> {
-                                preloadFinished = true
-                                for (run in model.submissions.values.sortedBy { it.id }) {
+                try {
+                    when (it) {
+                        is UpdateContestEvent -> {
+                            when (it) {
+                                is ContestEvent -> model.processContest(it.data!!)
+                                is ProblemEvent -> model.processProblem(it.id, it.data)
+                                is OrganizationEvent -> model.processOrganization(it.id, it.data)
+                                is TeamEvent -> model.processTeam(it.id, it.data)
+                                is StateEvent -> model.processState(it.data!!)
+                                is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
+                                is GroupsEvent -> model.processGroup(it.id, it.data)
+                                is PreloadFinishedEvent -> {
+                                    preloadFinished = true
+                                    for (run in model.submissions.values.sortedBy { it.id }) {
+                                        onRun(run.toApi())
+                                    }
+                                }
+                            }
+                            if (preloadFinished) {
+                                onContestInfo(model.contestInfo)
+                            }
+                        }
+
+                        is UpdateRunEvent -> {
+                            when (it) {
+                                is SubmissionEvent -> model.processSubmission(it.data!!)
+                                is JudgementEvent -> model.processJudgement(it.data!!)
+                                is RunsEvent -> model.processRun(it.data!!)
+                            }.also { run ->
+                                if (preloadFinished) {
                                     onRun(run.toApi())
                                 }
                             }
                         }
-                        if (preloadFinished) {
-                            onContestInfo(model.contestInfo)
-                        }
-                    }
-                    is UpdateRunEvent -> {
-                        when (it) {
-                            is SubmissionEvent -> model.processSubmission(it.data!!)
-                            is JudgementEvent -> model.processJudgement(it.data!!)
-                            is RunsEvent -> model.processRun(it.data!!)
-                        }.also { run ->
-                            if (preloadFinished) {
-                                onRun(run.toApi())
+
+                        is CommentaryEvent -> {
+                            val data = it.data
+                            if (data != null) {
+                                onComment(
+                                    AnalyticsCommentaryEvent(
+                                        data.id,
+                                        data.message,
+                                        data.time,
+                                        data.contest_time,
+                                        data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
+                                        data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
+                                    )
+                                )
                             }
                         }
+
+                        is IgnoredEvent -> {}
                     }
-                    is CommentaryEvent -> {
-                        val data = it.data
-                        if (data != null) {
-                            onComment(
-                                AnalyticsCommentaryEvent(
-                                    data.id,
-                                    data.message,
-                                    data.time,
-                                    data.contest_time,
-                                    data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
-                                    data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
-                                )
-                            )
-                        }
-                    }
-                    is IgnoredEvent -> {}
+                } catch (e: Exception) {
+                    logger.error("Failed to process event $it", e)
+                    throw e
                 }
             }
         }

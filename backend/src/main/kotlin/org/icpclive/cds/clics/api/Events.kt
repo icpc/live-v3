@@ -70,15 +70,19 @@ sealed class Event {
 
     @Serializable
     @SerialName("awards")
-    data class AwardsEvent(val id: String, override val token: String, val award: Award?) : IgnoredEvent()
+    data class AwardsEvent(val id: String, override val token: String, val data: Award?) : IgnoredEvent()
 
     @Serializable
     @SerialName("languages")
-    data class LanguageEvent(val id: String, override val token: String, val language: Language?) : IgnoredEvent()
+    data class LanguageEvent(val id: String, override val token: String, val data: Language?) : IgnoredEvent()
 
     @Serializable
     @SerialName("clarifications")
-    data class ClarificationEvent(val id: String, override val token: String, val clarification: Clarification?) : IgnoredEvent()
+    data class ClarificationEvent(val id: String, override val token: String, val data: Clarification?) : IgnoredEvent()
+
+    @Serializable
+    @SerialName("accounts")
+    data class AccountEvent(val id: String, override val token: String, val data: Account?) : IgnoredEvent()
 
 
     data class PreloadFinishedEvent(override val token: String) : UpdateContestEvent()

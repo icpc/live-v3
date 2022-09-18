@@ -24,6 +24,7 @@ fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
             install(Auth) {
                 basic {
                     credentials { BasicAuthCredentials(auth.login, auth.password) }
+                    sendWithoutRequest { true }
                 }
             }
         }
