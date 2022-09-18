@@ -15,20 +15,28 @@ import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.clics.api.*
+import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.service.EventFeedLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.reliableSharedFlow
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
+import org.icpclive.cds.clics.api.v1.Event as EventV1
+
+enum class FeedVersion {
+    V2020_03,
+    V2022_07
+}
 
 class ClicsDataSource(properties: Properties) : ContestDataSource {
     private val central = ClicsApiCentral(properties)
+    val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("feed_version", "2022_07"))
 
     private val model = ClicsModel()
     private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
 
-    val Event.isFinalEvent get() = this is StateEvent && data.end_of_updates != null
+    val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
 
     fun CoroutineScope.launchLoader(
         onRun: suspend (RunInfo) -> Unit,
@@ -39,9 +47,12 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
             val idsSet = mutableSetOf<String>()
             override val url = central.eventFeedUrl
             override fun processEvent(data: String) = try {
-                jsonDecoder.decodeFromString<Event>(data).takeIf { idsSet.add(it.id) }
+                when (feedVersion) {
+                    FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
+                    FeedVersion.V2022_07 -> jsonDecoder.decodeFromString(data)
+                }.takeIf { idsSet.add(it.token) }
             } catch (e: SerializationException) {
-                logger.error("Failed to deserialize: $data")
+                logger.error("Failed to deserialize: $data", e)
                 null
             }
         }
@@ -83,7 +94,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
-                emit(PreloadFinishedEvent("", Operation.CREATE))
+                emit(PreloadFinishedEvent(""))
                 if (contestEvents.none { it.isFinalEvent }) {
                     for (event in channel) {
                         emit(event)
@@ -98,13 +109,13 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 when (it) {
                     is UpdateContestEvent -> {
                         when (it) {
-                            is ContestEvent -> model.processContest(it.data)
-                            is ProblemEvent -> model.processProblem(it.op, it.data)
-                            is OrganizationEvent -> model.processOrganization(it.op, it.data)
-                            is TeamEvent -> model.processTeam(it.op, it.data)
-                            is StateEvent -> model.processState(it.data)
-                            is JudgementTypeEvent -> model.processJudgementType(it.op, it.data)
-                            is GroupsEvent -> model.processGroup(it.op, it.data)
+                            is ContestEvent -> model.processContest(it.data!!)
+                            is ProblemEvent -> model.processProblem(it.id, it.data)
+                            is OrganizationEvent -> model.processOrganization(it.id, it.data)
+                            is TeamEvent -> model.processTeam(it.id, it.data)
+                            is StateEvent -> model.processState(it.data!!)
+                            is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
+                            is GroupsEvent -> model.processGroup(it.id, it.data)
                             is PreloadFinishedEvent -> {
                                 preloadFinished = true
                                 for (run in model.submissions.values.sortedBy { it.id }) {
@@ -118,9 +129,9 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                     }
                     is UpdateRunEvent -> {
                         when (it) {
-                            is SubmissionEvent -> model.processSubmission(it.data)
-                            is JudgementEvent -> model.processJudgement(it.data)
-                            is RunsEvent -> model.processRun(it.data)
+                            is SubmissionEvent -> model.processSubmission(it.data!!)
+                            is JudgementEvent -> model.processJudgement(it.data!!)
+                            is RunsEvent -> model.processRun(it.data!!)
                         }.also { run ->
                             if (preloadFinished) {
                                 onRun(run.toApi())
@@ -128,16 +139,19 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                         }
                     }
                     is CommentaryEvent -> {
-                        onComment(
-                            AnalyticsCommentaryEvent(
-                                it.data.id,
-                                it.data.message,
-                                it.data.time,
-                                it.data.contest_time,
-                                it.data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
-                                it.data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
+                        val data = it.data
+                        if (data != null) {
+                            onComment(
+                                AnalyticsCommentaryEvent(
+                                    data.id,
+                                    data.message,
+                                    data.time,
+                                    data.contest_time,
+                                    data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
+                                    data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
+                                )
                             )
-                        )
+                        }
                     }
                     is IgnoredEvent -> {}
                 }

@@ -77,18 +77,20 @@ class ClicsModel {
         penaltyPerWrongAttempt = contest.penalty_time ?: 20
     }
 
-    fun processProblem(operation: Operation, problem: Problem) {
-        if (operation == Operation.DELETE) {
-            problems.remove(problem.id)
+    fun processProblem(id:String, problem: Problem?) {
+        if (problem == null) {
+            problems.remove(id)
         } else {
+            require(id == problem.id)
             problems[problem.id] = problem
         }
     }
 
-    fun processOrganization(operation: Operation, organization: Organization) {
-        if (operation == Operation.DELETE) {
-            organisations.remove(organization.id)
+    fun processOrganization(id: String, organization: Organization?) {
+        if (organization == null) {
+            organisations.remove(id)
         } else {
+            require(id == organization.id)
             organisations[organization.id] = ClicsOrganisationInfo(
                 id = organization.id,
                 name = organization.name,
@@ -97,22 +99,22 @@ class ClicsModel {
                 hashtag = organization.twitter_hashtag
             )
         }
-        // todo: update team if something changed
     }
 
-    fun processTeam(operation: Operation, team: Team) {
-        val id = team.id
-        if (operation == Operation.DELETE) {
+    fun processTeam(id: String, team: Team?) {
+        if (team == null) {
             teams.remove(id)
         } else {
+            require(id == team.id)
             teams[id] = team
         }
     }
 
-    fun processJudgementType(operation: Operation, judgementType: JudgementType) {
-        if (operation == Operation.DELETE) {
-            judgementTypes.remove(judgementType.id)
+    fun processJudgementType(id: String, judgementType: JudgementType?) {
+        if (judgementType == null) {
+            judgementTypes.remove(id)
         } else {
+            require(id == judgementType.id)
             judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
                 id = judgementType.id,
                 isAccepted = judgementType.solved!!,
@@ -121,11 +123,11 @@ class ClicsModel {
         }
     }
 
-    fun processGroup(operation: Operation, group: Group) {
-        val id = group.id
-        if (operation == Operation.DELETE) {
+    fun processGroup(id: String, group: Group?) {
+        if (group == null) {
             groups.remove(id)
         } else {
+            require(id == group.id)
             groups[id] = group
         }
     }
