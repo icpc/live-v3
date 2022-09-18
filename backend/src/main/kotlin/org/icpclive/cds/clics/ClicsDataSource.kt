@@ -91,6 +91,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
+                emit(PreloadFinishedEvent(""))
                 if (contestEvents.none { it.isFinalEvent }) {
                     for (event in channel) {
                         emit(event)
