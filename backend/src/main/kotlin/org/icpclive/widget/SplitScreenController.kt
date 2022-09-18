@@ -9,11 +9,9 @@ import org.icpclive.data.Manager
 import kotlin.time.Duration.Companion.seconds
 
 class SplitScreenController(val manager: Manager<TeamViewWidget>) :
-    AbstractWidgetWrapper<SplitScreenSettings, TeamViewWidget>(SplitScreenSettings(true, emptyMap())),
-    SingleWidgetController<SplitScreenSettings, TeamViewWidget> {
+    AbstractWidgetWrapper<SplitScreenSettings, TeamViewWidget>(SplitScreenSettings(true, emptyMap())) {
     private var isShown = false
     private val overlayWidgetIds = mutableMapOf<TeamViewPosition, String>()
-    private var autoModeJob: Job? = null
 
     private fun widgetConstructor(settings: TeamViewSettings, position: TeamViewPosition) =
         TeamViewWidget(settings.copy(position=position))
@@ -27,7 +25,7 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
     override suspend fun createWidgetAndShow(settings: SplitScreenSettings) {
         isShown = true
         if (settings.autoMode) {
-            autoModeJob = scope.launch {
+            launchWhileWidgetExists {
                 val positions = TeamViewPosition.values()
                 val currentTeams = MutableList(positions.size) { 0 }
                 var setupInstanceNumber = 0
@@ -58,7 +56,6 @@ class SplitScreenController(val manager: Manager<TeamViewWidget>) :
     }
 
     override suspend fun removeWidget() {
-        autoModeJob?.cancel()
         overlayWidgetIds.values.forEach { manager.remove(it) }
         overlayWidgetIds.clear()
         isShown = false
