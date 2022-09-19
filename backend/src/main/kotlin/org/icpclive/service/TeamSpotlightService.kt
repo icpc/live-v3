@@ -8,7 +8,6 @@ import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
 import org.icpclive.utils.getLogger
 import org.icpclive.utils.tickerFlow
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -40,15 +39,14 @@ private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = 
 }
 
 class TeamState(val teamId: Int, private val flowSettings: TeamSpotlightFlowSettings) : Comparable<TeamState> {
-    val score
-        get() = internalScore
-    private var internalScore = 0.0
+    var score = 0.0
+        private set
     private var causedRun: RunInfo? = null
     val caused: KeyTeamCause
         get() = causedRun?.let { RunCause(it.id) } ?: ScoreSumCause
 
     fun addAccent(accent: TeamAccent) {
-        internalScore += accent.getScoreDelta(flowSettings)
+        score += accent.getScoreDelta(flowSettings)
         if (accent is TeamRunAccent) {
             causedRun = causedRun?.coerceAtMost(accent.run) ?: accent.run
         }
@@ -57,7 +55,7 @@ class TeamState(val teamId: Int, private val flowSettings: TeamSpotlightFlowSett
     override fun compareTo(other: TeamState): Int = when {
         other.score > score -> 1
         other.score < score -> -1
-        else -> (teamId - other.teamId)
+        else -> teamId.compareTo(other.teamId)
     }
 }
 
@@ -67,9 +65,8 @@ class TeamSpotlightService(
 ) {
     private val mutex = Mutex()
     private val queue = mutableSetOf<TeamState>()
-    private suspend fun getTeamInQueue(teamId: Int) = mutex.withLock {
+    private fun getTeamInQueue(teamId: Int) =
         queue.find { it.teamId == teamId } ?: TeamState(teamId, settings).also { queue += it }
-    }
 
     fun getFlow(): Flow<KeyTeam> {
         return flow {
@@ -87,37 +84,32 @@ class TeamSpotlightService(
     }
 
     suspend fun run(
-        info: MutableStateFlow<ContestInfo>,
+        info: StateFlow<ContestInfo>,
         runs: Flow<RunInfo>,
         scoreboard: Flow<Scoreboard>,
         // analyticsMessage: Flow<AnalyticsMessage>
     ) {
         val runIds = mutableSetOf<Int>()
-        var contestInfo = info.value
-        var previousScoreboardPushTime = Duration.ZERO
         merge(
-            tickerFlow(15.seconds).map { Trigger },
-            info,
+            tickerFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
             runs
         ).collect { update ->
             when (update) {
-                is ContestInfo -> {
-                    contestInfo = update
-                }
                 is RunInfo -> {
-                    if (update.time + 60.seconds > contestInfo.currentContestTime) {
+                    if (update.time + 60.seconds > info.value.currentContestTime) {
                         if (update.isJudged || update.id !in runIds) {
                             runIds += update.id
-                            getTeamInQueue(update.teamId).addAccent(TeamRunAccent(update))
+                            mutex.withLock {
+                                getTeamInQueue(update.teamId).addAccent(TeamRunAccent(update))
+                            }
                         }
                     }
                 }
-                is Trigger -> {
-                    if (contestInfo.currentContestTime - previousScoreboardPushTime > settings.scoreboardPushInterval) {
-                        scoreboard.first().rows.filter { it.rank <= settings.scoreboardLowestRank }.forEach {
+                is ScoreboardPushTrigger -> {
+                    scoreboard.first().rows.filter { it.rank <= settings.scoreboardLowestRank }.forEach {
+                        mutex.withLock {
                             getTeamInQueue(it.teamId).addAccent(TeamScoreboardPlace(it.rank))
                         }
-                        previousScoreboardPushTime = contestInfo.currentContestTime
                     }
                 }
             }
@@ -125,7 +117,8 @@ class TeamSpotlightService(
     }
 
     companion object {
-        private object Trigger
+        private object ScoreboardPushTrigger
+
         val logger = getLogger(TeamSpotlightService::class)
     }
 }
