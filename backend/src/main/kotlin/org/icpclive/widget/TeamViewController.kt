@@ -1,8 +1,6 @@
 package org.icpclive.widget
 
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.icpclive.api.TeamViewPosition
 import org.icpclive.api.TeamViewSettings
 import org.icpclive.api.TeamViewWidget
@@ -17,7 +15,6 @@ class TeamViewController(val manager: Manager<TeamViewWidget>, val position: Tea
         { settings -> TeamViewWidget(settings) }),
     SingleWidgetController<TeamViewSettings, TeamViewWidget> {
     override suspend fun createWidgetAndShow(settings: TeamViewSettings) {
-        println("Show with settings $settings")
         if (settings.teamId == null) {
             launchWhileWidgetShown {
                 DataBus.teamSpotlightFlow.await().collect {
