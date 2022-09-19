@@ -2,7 +2,10 @@ package org.icpclive.data
 
 import org.icpclive.api.*
 import org.icpclive.config
-import org.icpclive.widget.*
+import org.icpclive.widget.PresetsController
+import org.icpclive.widget.SimpleController
+import org.icpclive.widget.SvgTransformer
+import org.icpclive.widget.TeamViewController
 
 object WidgetControllers {
     private val WidgetManager = WidgetManager()
@@ -14,8 +17,6 @@ object WidgetControllers {
     private val teamViews = TeamViewPosition.values().asList().associateWith { TeamViewController(WidgetManager, it) }
     fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
 
-    val teamPVP = SimpleController(TeamPVPSettings(), WidgetManager, ::TeamPVPWidget)
-    val splitScreen = SplitScreenController(WidgetManager)
     val locator = SimpleController(TeamLocatorSettings(), WidgetManager, ::TeamLocatorWidget)
 
     private fun presetsPath(name: String) = config.presetsDirectory.resolve("$name.json")
