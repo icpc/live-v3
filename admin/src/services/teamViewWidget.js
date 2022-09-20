@@ -38,6 +38,18 @@ export class TeamViewService extends AbstractWidgetService {
             .then(els => els.reduce((s, el) => ({ ...s, [el[0]]: el[1] }), {}));
     }
 
+    editPreset(element, settings) {
+        return this.apiPost(this.presetSubPath(element), settings).catch(this.errorHandler("Failed to edit element"));
+    }
+
+    showAll() {
+        this.showPreset(null);
+    }
+
+    hideAll() {
+        this.hidePreset(null);
+    }
+
     teams() {
         return this.apiGet("/teams").catch(this.errorHandler("Failed to load team list"));
     }

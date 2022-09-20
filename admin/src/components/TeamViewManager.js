@@ -1,8 +1,9 @@
-import { Box, Grid, Switch, TextField } from "@mui/material";
+import { Box, Button, ButtonGroup, Grid, Switch, TextField, Tooltip } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { SelectTeamTable, TeamViewSettingsPanel } from "./TeamTable";
 import PropTypes from "prop-types";
 import { TeamViewService } from "../services/teamViewWidget";
+
 
 export const TeamViewInstanceManager = ({
     instanceId,
@@ -15,14 +16,16 @@ export const TeamViewInstanceManager = ({
     mediaTypes,
 }) =>
 {
-    const [isAutoMode, setIsAutoMode] = useState(false);
+    const [isAutoMode, setIsAutoMode] = useState(status.settings.teamId === undefined);
     const shownTeam = useMemo(
         () => teams.find(t => t.id === status.settings.teamId),
         [teams, status]);
     return (<Box>
         {instanceId && <Box><b>Instance {instanceId}</b></Box>}
-        <Box>Automatically: <Switch onChange={(_, newValue) => setIsAutoMode(newValue)}/></Box>
-        <Box>Shown team: {status.shown ? (shownTeam?.name ?? "Auto") : ""}</Box>
+        <Box>Automatically:
+            <Switch onChange={(_, newValue) => setIsAutoMode(newValue)} checked={isAutoMode}/>
+        </Box>
+        <Box>Shown team: {shownTeam?.name ?? "Auto"}</Box>
         <Box>Media type: {shownMediaType}</Box>
         <Box sx={{ pt: 1 }}>
             <TeamViewSettingsPanel
@@ -54,7 +57,7 @@ TeamViewInstanceManager.propTypes = {
     mediaTypes: TeamViewSettingsPanel.propTypes.mediaTypes,
 };
 
-export const TeamViewManager = ({ variant, service, mediaTypes }) => {
+export const TeamViewManager = ({ service, mediaTypes }) => {
     const [teams, setTeams] = useState([]);
     useEffect(() => service.teams().then(setTeams),
         [service]);
@@ -83,10 +86,15 @@ export const TeamViewManager = ({ variant, service, mediaTypes }) => {
         teamsWithStatus.filter(t => (searchValue === "" || t.name.toLowerCase().includes(searchValue))),
     [teamsWithStatus, searchValue]);
 
+    const [isMultipleMode, setIsMultipleMode] = useState(false);
     const selectTeam = (teamId) => setSelectedTeamId(teamId);
 
     const onShowInstance = (instanceId) => (settings) => {
-        service.showPresetWithSettings(instanceId, settings);
+        if (isMultipleMode) {
+            service.editPreset(instanceId, settings);
+        } else {
+            service.showPresetWithSettings(instanceId, settings);
+        }
     };
 
     const onHideInstance = (instanceId) => () => {
@@ -110,13 +118,23 @@ export const TeamViewManager = ({ variant, service, mediaTypes }) => {
             )}
         </Grid>
         <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ py: 1 }}>
-            {/*{variant !== "single" && <TeamViewSettingsPanel*/}
-            {/*    mediaTypes={mediaTypes}*/}
-            {/*    canShow={true}*/}
-            {/*    canHide={true}*/}
-            {/*    onShowTeam={(mediaType) => onShow({ mediaType: mediaType, teamId: undefined })}*/}
-            {/*    onHideTeam={() => {}}/>}*/}
-            <Box/>
+            <Tooltip
+                title="When enabled any modifications to the team instances will be applied after you press Show all">
+                <Box>
+                    Multiple mode <Switch sx={{ mr: 2 }} onChange={(_, newV) => setIsMultipleMode(newV)}/>
+                    <ButtonGroup>
+                        <Button
+                            sx={{ my: "2px" }}
+                            variant={"contained"}
+                            onClick={() => service.showAll()}>Show all</Button>
+                        <Button
+                            sx={{ my: "2px" }}
+                            variant={"contained"}
+                            color="error"
+                            onClick={() => service.hideAll()}>Hide all</Button>
+                    </ButtonGroup>
+                </Box>
+            </Tooltip>
             <Box><TextField
                 onChange={(e) => setSearchValue(e.target.value.toLowerCase())}
                 defaultValue={""}
@@ -133,7 +151,6 @@ export const TeamViewManager = ({ variant, service, mediaTypes }) => {
     </Grid>);
 };
 TeamViewManager.propTypes = {
-    variant: PropTypes.oneOf(["single", "pvp", "splitScreen"]).isRequired,
     service: PropTypes.instanceOf(TeamViewService).isRequired,
     mediaTypes: PropTypes.arrayOf(PropTypes.string.isRequired),
 };

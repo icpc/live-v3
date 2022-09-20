@@ -11,11 +11,8 @@ function TeamView() {
     const { enqueueSnackbar,  } = useSnackbar();
     const service = useTeamViewService("singe", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
-        <Container maxWidth="100%" sx={{ pt: 2 }}>
-            <TeamViewManager variant={"single"} service={service}/>
-            {/*<TeamViewTable*/}
-            {/*    apiPath="/teamView"*/}
-            {/*    createErrorHandler={errorHandlerWithSnackbar(enqueueSnackbar)}/>*/}
+        <Container sx={{ pt: 2 }}>
+            <TeamViewManager service={service}/>
         </Container>
     );
 }

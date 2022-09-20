@@ -11,7 +11,7 @@ function SplitScreen() {
     const service = useTeamViewService("splitScreen", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
         <Container sx={{ pt: 2, width: 1 }}>
-            <TeamViewManager variant="splitScreen" service={service}/>
+            <TeamViewManager service={service}/>
         </Container>
     );
 }

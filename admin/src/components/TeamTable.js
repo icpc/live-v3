@@ -60,7 +60,7 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, 
     </ButtonGroup>);
 }
 TeamViewSettingsPanel.propTypes = {
-    mediaTypes: PropTypes.arrayOf(PropTypes.shape({ "text":PropTypes.string.isRequired, "mediaType":PropTypes.any })).isRequired,
+    mediaTypes: PropTypes.arrayOf(PropTypes.shape({ "text":PropTypes.string.isRequired, "mediaType":PropTypes.any })),
     selectedMediaType: PropTypes.any,
     isSomethingSelected: PropTypes.bool,
     canShow: PropTypes.bool, // todo: make req

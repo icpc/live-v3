@@ -10,8 +10,8 @@ function TeamPVP() {
     const { enqueueSnackbar,  } = useSnackbar();
     const service = useTeamViewService("pvp", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
-        <Container maxWidth="100%" sx={{ pt: 2 }}>
-            <TeamViewManager variant="pvp" service={service}/>
+        <Container sx={{ pt: 2 }}>
+            <TeamViewManager service={service}/>
         </Container>
     );
 }
