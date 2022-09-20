@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 
 interface ObjectSettings
 
+object UnitSettings : ObjectSettings
+
 @Serializable
 data class AdvertisementSettings(val text: String) : ObjectSettings
 

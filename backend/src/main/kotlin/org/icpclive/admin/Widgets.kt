@@ -4,7 +4,9 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.icpclive.api.ObjectSettings
+import org.icpclive.api.ObjectStatus
 import org.icpclive.api.TypeWithId
+import org.icpclive.api.UnitSettings
 import org.icpclive.widget.PresetsController
 import org.icpclive.widget.SimpleController
 import org.icpclive.widget.SingleWidgetController
@@ -49,6 +51,27 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
 }
 
+inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(
+    controllers: List<SimpleController<SettingsType, OverlayWidgetType>>
+) {
+    get {
+        // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
+        run {
+            call.respond(ObjectStatus(controllers.any { it.getStatus().shown }, UnitSettings))
+        }
+    }
+    post("/show") {
+        call.adminApiAction {
+            controllers.forEach { it.show() }
+        }
+    }
+    post("/hide") {
+        call.adminApiAction {
+            controllers.forEach { it.hide() }
+        }
+    }
+}
+
 fun ApplicationCall.id() =
     parameters["id"]?.toIntOrNull() ?: throw ApiActionException("Error load preset by id")
 
@@ -71,7 +94,8 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
     post("/create_and_show_with_ttl") {
         call.adminApiAction {
-            val ttl = call.request.queryParameters["ttl"]?.toLongOrNull() ?: throw ApiActionException("ttl should be set")
+            val ttl =
+                call.request.queryParameters["ttl"]?.toLongOrNull() ?: throw ApiActionException("ttl should be set")
             controller.createWidget(
                 call.safeReceive(),
                 ttl.milliseconds
