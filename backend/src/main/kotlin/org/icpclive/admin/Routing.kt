@@ -30,26 +30,25 @@ fun Route.configureAdminApiRouting() {
                 call.respond(getTeams())
             }
         }
-        fun Route.setupTeamView( position: TeamViewPosition) {
-            route("/${position.name}") {
-                setupController(WidgetControllers.teamView(position))
+        fun Route.setupTeamViews(positions: List<TeamViewPosition>) {
+            setupController(positions.map { WidgetControllers.teamView(it) })
+            positions.forEach { position ->
+                route("/${position.name}") { setupController(WidgetControllers.teamView(position)) }
             }
+            get("/teams") { call.respond(getTeams()) }
         }
         route("/splitScreen") {
-            setupTeamView(TeamViewPosition.TOP_LEFT)
-            setupTeamView(TeamViewPosition.TOP_RIGHT)
-            setupTeamView(TeamViewPosition.BOTTOM_LEFT)
-            setupTeamView(TeamViewPosition.BOTTOM_RIGHT)
-            get("/teams") {
-                call.respond(getTeams())
-            }
+            setupTeamViews(
+                listOf(
+                    TeamViewPosition.TOP_LEFT,
+                    TeamViewPosition.TOP_RIGHT,
+                    TeamViewPosition.BOTTOM_LEFT,
+                    TeamViewPosition.BOTTOM_RIGHT
+                )
+            )
         }
         route("/teamPVP") {
-            setupTeamView(TeamViewPosition.PVP_TOP)
-            setupTeamView(TeamViewPosition.PVP_BOTTOM)
-            get("/teams") {
-                call.respond(getTeams())
-            }
+            setupTeamViews(listOf(TeamViewPosition.PVP_TOP, TeamViewPosition.PVP_BOTTOM))
         }
         route("/teamLocator") { setupController(WidgetControllers.locator) }
 
