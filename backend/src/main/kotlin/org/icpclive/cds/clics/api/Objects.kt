@@ -151,4 +151,26 @@ data class Language(val id: String)
 data class Award(val id: String)
 
 @Serializable
-data class Account(val id: String)
+data class Account(
+    val id: String,
+    val username: String,
+    val password: String?,
+    val type: TYPE?,
+    val ip: String?,
+    val team_id: String?,
+    val person_id: String?
+) {
+    @Serializable
+    enum class TYPE {
+        @SerialName("team")
+        TEAM,
+        @SerialName("judge")
+        JUDGE,
+        @SerialName("admin")
+        ADMIN,
+        @SerialName("analyst")
+        ANALYST,
+        @SerialName("staff")
+        STAFF
+    }
+}

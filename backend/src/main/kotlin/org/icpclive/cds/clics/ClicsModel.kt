@@ -21,6 +21,8 @@ class ClicsModel {
     val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
+    private val accounts = mutableMapOf<String, Account>()
+    private val specialTeams = mutableSetOf<String>()
 
     var startTime = Instant.fromEpochMilliseconds(0)
     var contestLength = 5.hours
@@ -129,6 +131,16 @@ class ClicsModel {
         } else {
             require(id == group.id)
             groups[id] = group
+        }
+    }
+
+    fun processAccount(id: String, account: Account?) {
+        accounts[id]?.let { if (it.type != Account.TYPE.TEAM && it.team_id != null) specialTeams.remove(it.team_id) }
+        if (account == null) {
+            accounts.remove(id)
+        } else {
+            accounts[id] = account
+            if (account.type != Account.TYPE.TEAM && account.team_id != null) specialTeams.add(account.team_id)
         }
     }
 

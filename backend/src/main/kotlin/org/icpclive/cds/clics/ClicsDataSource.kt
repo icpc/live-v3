@@ -19,7 +19,6 @@ import org.icpclive.utils.getLogger
 import org.icpclive.utils.reliableSharedFlow
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
-import org.icpclive.cds.clics.api.v1.Event as EventV1
 
 enum class FeedVersion {
     V2020_03,
@@ -61,8 +60,9 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 is JudgementTypeEvent -> 2
                 is OrganizationEvent -> 3
                 is GroupsEvent -> 4
-                is TeamEvent -> 5
-                is ProblemEvent -> 6
+                is AccountEvent -> 5
+                is TeamEvent -> 6
+                is ProblemEvent -> 7
                 is PreloadFinishedEvent -> throw IllegalStateException()
             }
 
@@ -114,6 +114,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                                 is StateEvent -> model.processState(it.data!!)
                                 is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
                                 is GroupsEvent -> model.processGroup(it.id, it.data)
+                                is AccountEvent -> model.processAccount(it.id, it.data)
                                 is PreloadFinishedEvent -> {
                                     preloadFinished = true
                                     for (run in model.submissions.values.sortedBy { it.id }) {

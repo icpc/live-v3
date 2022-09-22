@@ -82,7 +82,7 @@ sealed class Event {
 
     @Serializable
     @SerialName("accounts")
-    data class AccountEvent(val id: String, override val token: String, val data: Account?) : IgnoredEvent()
+    data class AccountEvent(val id: String, override val token: String, val data: Account?) : UpdateContestEvent()
 
 
     data class PreloadFinishedEvent(override val token: String) : UpdateContestEvent()
