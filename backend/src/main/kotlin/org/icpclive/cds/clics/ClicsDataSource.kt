@@ -29,7 +29,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
     private val central = ClicsApiCentral(properties)
     val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("feed_version", "2022_07"))
 
-    private val model = ClicsModel()
+    private val model = ClicsModel(properties.getProperty("use_team_names", "true") == "true")
     private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null

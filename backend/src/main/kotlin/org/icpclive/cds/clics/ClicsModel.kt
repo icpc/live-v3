@@ -10,7 +10,9 @@ import org.icpclive.utils.getLogger
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
-class ClicsModel {
+class ClicsModel(
+    val addTeamNames: Boolean,
+) {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
@@ -34,12 +36,18 @@ class ClicsModel {
 
     fun getAllRuns() = submissions.values.map { it.toApi() }
 
+    fun teamName(org: String?, name: String) = when {
+        org == null -> name
+        addTeamNames -> "$org: $name"
+        else -> org
+    }
+
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
             id = liveTeamId(id),
-            name = teamOrganization?.formalName ?: name,
-            shortName = teamOrganization?.name ?: name,
+            name = teamName(teamOrganization?.formalName, name),
+            shortName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
             isHidden = specialTeams.contains(id),
             groups = group_ids.mapNotNull { groups[it]?.name },
