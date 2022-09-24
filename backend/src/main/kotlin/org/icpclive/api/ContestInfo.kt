@@ -78,7 +78,8 @@ data class TeamInfo(
     val contestSystemId: String,
     val groups: List<String>,
     val hashTag: String?,
-    val medias: Map<MediaType, String>
+    val medias: Map<MediaType, String>,
+    val isHidden: Boolean = false,
 )
 
 @Serializable

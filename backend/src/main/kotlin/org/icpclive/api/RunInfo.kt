@@ -18,4 +18,5 @@ data class RunInfo constructor(
     val time: Duration,
     val isFirstSolvedRun: Boolean = false,
     val featuredRunMedia: MediaType? = null,
+    val isHidden: Boolean = false,
 )

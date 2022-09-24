@@ -8,11 +8,11 @@ import java.util.*
 
 class FirstToSolveService {
     private val firstSolve = mutableMapOf<Int, RunInfo>()
-    private val runComparator = compareBy<RunInfo>({ it.time }, { it.id })
+    private val runComparator = compareBy<RunInfo>({it.isHidden}, { it.time }, { it.id })
     private val solved = mutableMapOf<Int, TreeSet<RunInfo>>()
     private val solvedById = mutableMapOf<Int, RunInfo>()
 
-    fun getSolved(problemId: Int) = solved.getOrPut(problemId) { TreeSet(runComparator) }
+    private fun getSolved(problemId: Int) = solved.getOrPut(problemId) { TreeSet(runComparator) }
 
     private suspend fun replace(old: RunInfo, new: RunInfo, runsFlow: MutableSharedFlow<RunInfo>) {
         require(old.id == new.id)
@@ -49,7 +49,7 @@ class FirstToSolveService {
     }
 
     private suspend fun recalculateFTS(problemId: Int, runsFlow: MutableSharedFlow<RunInfo>) {
-        val result = if (getSolved(problemId).isEmpty()) null else getSolved(problemId).first()
+        val result = if (getSolved(problemId).isEmpty()) null else getSolved(problemId).first().takeIf { !it.isHidden }
         if (firstSolve[problemId] == result) return
         firstSolve[problemId].takeIf { it?.id != result?.id }?.run {
             val newVersion = copy(isFirstSolvedRun = false)

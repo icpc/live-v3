@@ -92,7 +92,7 @@ class TeamSpotlightService(
         val runIds = mutableSetOf<Int>()
         merge(
             tickerFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
-            runs
+            runs.filter { !it.isHidden }
         ).collect { update ->
             when (update) {
                 is RunInfo -> {

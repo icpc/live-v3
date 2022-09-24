@@ -8,7 +8,8 @@ class ClicsRunInfo(
     val problem: Problem,
     val liveProblemId: Int,
     val teamId: Int,
-    val submissionTime: Duration
+    val submissionTime: Duration,
+    var isHidden: Boolean
 ) {
     val passedCaseRun = mutableSetOf<Int>()
     var judgementType: ClicsJudgementTypeInfo? = null
@@ -27,5 +28,6 @@ class ClicsRunInfo(
         },
         time = submissionTime,
         isFirstSolvedRun = false,
+        isHidden = isHidden,
     )
 }

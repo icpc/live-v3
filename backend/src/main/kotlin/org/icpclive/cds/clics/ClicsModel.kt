@@ -18,11 +18,12 @@ class ClicsModel {
     private val submissionCdsIdToId = mutableMapOf<String, Int>()
     private val teamCdsIdToId = mutableMapOf<String, Int>()
     private val problemCdsIdToId = mutableMapOf<String, Int>()
-    val submissions = mutableMapOf<String, ClicsRunInfo>()
+    private val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
     private val accounts = mutableMapOf<String, Account>()
     private val specialTeams = mutableSetOf<String>()
+    private val teamSubmissions = mutableMapOf<Int, MutableSet<String>>()
 
     var startTime = Instant.fromEpochMilliseconds(0)
     var contestLength = 5.hours
@@ -31,6 +32,8 @@ class ClicsModel {
     var penaltyPerWrongAttempt = 20
     var holdBeforeStartTime: Duration? = null
 
+    fun getAllRuns() = submissions.values.map { it.toApi() }
+
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
@@ -38,6 +41,7 @@ class ClicsModel {
             name = teamOrganization?.formalName ?: name,
             shortName = teamOrganization?.name ?: name,
             contestSystemId = id,
+            isHidden = specialTeams.contains(id),
             groups = group_ids.mapNotNull { groups[it]?.name },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
@@ -69,7 +73,7 @@ class ClicsModel {
             holdBeforeStartTime = holdBeforeStartTime
         )
 
-    fun processContest(contest: Contest) {
+    fun processContest(contest: Contest) : List<RunInfo> {
         contest.start_time?.let { startTime = it }
         contestLength = contest.duration
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
@@ -77,18 +81,20 @@ class ClicsModel {
             holdBeforeStartTime = it
         }
         penaltyPerWrongAttempt = contest.penalty_time ?: 20
+        return emptyList()
     }
 
-    fun processProblem(id:String, problem: Problem?) {
+    fun processProblem(id:String, problem: Problem?) : List<RunInfo> {
         if (problem == null) {
             problems.remove(id)
         } else {
             require(id == problem.id)
             problems[problem.id] = problem
         }
+        return emptyList();
     }
 
-    fun processOrganization(id: String, organization: Organization?) {
+    fun processOrganization(id: String, organization: Organization?) : List<RunInfo> {
         if (organization == null) {
             organisations.remove(id)
         } else {
@@ -101,18 +107,20 @@ class ClicsModel {
                 hashtag = organization.twitter_hashtag
             )
         }
+        return emptyList()
     }
 
-    fun processTeam(id: String, team: Team?) {
+    fun processTeam(id: String, team: Team?) : List<RunInfo> {
         if (team == null) {
             teams.remove(id)
         } else {
             require(id == team.id)
             teams[id] = team
         }
+        return emptyList()
     }
 
-    fun processJudgementType(id: String, judgementType: JudgementType?) {
+    fun processJudgementType(id: String, judgementType: JudgementType?) : List<RunInfo> {
         if (judgementType == null) {
             judgementTypes.remove(id)
         } else {
@@ -123,25 +131,43 @@ class ClicsModel {
                 isAddingPenalty = judgementType.penalty,
             )
         }
+        return emptyList()
     }
 
-    fun processGroup(id: String, group: Group?) {
+    fun processGroup(id: String, group: Group?) : List<RunInfo> {
         if (group == null) {
             groups.remove(id)
         } else {
             require(id == group.id)
             groups[id] = group
         }
+        return emptyList()
     }
 
-    fun processAccount(id: String, account: Account?) {
-        accounts[id]?.let { if (it.type != Account.TYPE.TEAM && it.team_id != null) specialTeams.remove(it.team_id) }
-        if (account == null) {
+    private fun setTeamType(teamId: String, type: Account.TYPE) : List<RunInfo> {
+        val wasSpecial = teamId in specialTeams
+        val isSpecial =  type != Account.TYPE.TEAM
+        if (wasSpecial == isSpecial) return emptyList()
+        if (isSpecial) {
+            specialTeams.add(teamId)
+        } else {
+            specialTeams.remove(teamId)
+        }
+        return teamSubmissions[teamCdsIdToId[teamId]]
+            ?.mapNotNull { submissions[it]?.apply { isHidden = isSpecial } }
+            ?.map { it.toApi() }
+            ?: emptyList()
+    }
+
+    fun processAccount(id: String, account: Account?) : List<RunInfo> {
+        return if (account == null) {
+            val old = accounts[id]
             accounts.remove(id)
+            old?.team_id?.let { setTeamType(it, Account.TYPE.TEAM) }
         } else {
             accounts[id] = account
-            if (account.type != Account.TYPE.TEAM && account.team_id != null) specialTeams.add(account.team_id)
-        }
+            account.team_id?.let { setTeamType(account.team_id, account.type ?: Account.TYPE.TEAM) }
+        } ?: emptyList()
     }
 
     fun processSubmission(submission: Submission): ClicsRunInfo {
@@ -155,9 +181,12 @@ class ClicsModel {
             problem = problem,
             liveProblemId = liveProblemId(problem.id),
             teamId = liveTeamId(team.id),
-            submissionTime = submission.contest_time
+            submissionTime = submission.contest_time,
+            isHidden = team.id in specialTeams,
         )
+        submissions[submission.id]?.let { teamSubmissions[it.teamId]?.remove(submission.id) }
         submissions[submission.id] = run
+        teamSubmissions.getOrPut(run.teamId) { mutableSetOf() }.add(submission.id)
         return run
     }
 
@@ -185,12 +214,13 @@ class ClicsModel {
         return run
     }
 
-    fun processState(state: State) {
+    fun processState(state: State) : List<RunInfo> {
         status = when {
             state.ended != null -> ContestStatus.OVER
             state.started != null -> ContestStatus.RUNNING
             else -> ContestStatus.BEFORE
         }
+        return emptyList()
     }
 
     fun liveProblemId(cdsId: String) = problemCdsIdToId.getOrPut(cdsId) { problemCdsIdToId.size + 1 }

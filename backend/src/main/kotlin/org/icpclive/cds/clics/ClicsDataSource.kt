@@ -73,32 +73,37 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
             }
 
             fun Flow<Event>.sortedPrefix() = flow {
-                val channel = produceIn(this@launch)
-                val prefix = mutableListOf<Event>()
-                prefix.add(channel.receive())
-                while (true) {
-                    try {
-                        withTimeout(1.seconds) {
-                            channel.receiveCatching().getOrNull()
-                        }?.let { prefix.add(it) } ?: break
-                    } catch (e: TimeoutCancellationException) {
-                        break
+                try {
+                    val channel = produceIn(this@launch)
+                    val prefix = mutableListOf<Event>()
+                    prefix.add(channel.receive())
+                    while (true) {
+                        try {
+                            withTimeout(1.seconds) {
+                                channel.receiveCatching().getOrNull()
+                            }?.let { prefix.add(it) } ?: break
+                        } catch (e: TimeoutCancellationException) {
+                            break
+                        }
                     }
-                }
-                val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
-                val runEvents = prefix.filterIsInstance<UpdateRunEvent>()
-                val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
-                contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
-                runEvents.sortedBy { priority(it) }.forEach { emit(it) }
-                otherEvents.forEach { emit(it) }
-                emit(PreloadFinishedEvent(""))
-                if (contestEvents.none { it.isFinalEvent }) {
-                    for (event in channel) {
-                        emit(event)
-                        if (event.isFinalEvent) break
+                    val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
+                    val runEvents = prefix.filterIsInstance<UpdateRunEvent>()
+                    val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
+                    contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
+                    runEvents.sortedBy { priority(it) }.forEach { emit(it) }
+                    otherEvents.forEach { emit(it) }
+                    emit(PreloadFinishedEvent(""))
+                    if (contestEvents.none { it.isFinalEvent }) {
+                        for (event in channel) {
+                            emit(event)
+                            if (event.isFinalEvent) break
+                        }
                     }
+                    channel.cancel()
+                } catch (e: Exception) {
+                    logger.error("Exception caught in SortedPrefix", e)
+                    throw e
                 }
-                channel.cancel()
             }
 
             var preloadFinished = false
@@ -106,7 +111,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                 try {
                     when (it) {
                         is UpdateContestEvent -> {
-                            when (it) {
+                            val changedRuns = when (it) {
                                 is ContestEvent -> model.processContest(it.data!!)
                                 is ProblemEvent -> model.processProblem(it.id, it.data)
                                 is OrganizationEvent -> model.processOrganization(it.id, it.data)
@@ -117,13 +122,14 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
                                 is AccountEvent -> model.processAccount(it.id, it.data)
                                 is PreloadFinishedEvent -> {
                                     preloadFinished = true
-                                    for (run in model.submissions.values.sortedBy { it.id }) {
-                                        onRun(run.toApi())
-                                    }
+                                    model.getAllRuns()
                                 }
                             }
                             if (preloadFinished) {
                                 onContestInfo(model.contestInfo)
+                                for (run in changedRuns) {
+                                    onRun(run)
+                                }
                             }
                         }
 
@@ -189,7 +195,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
             )
         }
         logger.info("Loaded data from CLICS")
-        val runs = model.submissions.values.map { it.toApi() }
+        val runs = model.getAllRuns()
         return ContestParseResult(model.contestInfo, runs, analyticsMessages)
     }
 

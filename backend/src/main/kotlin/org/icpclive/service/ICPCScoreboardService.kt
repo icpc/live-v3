@@ -104,7 +104,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         val runs = runs.values
             .sortedWith(compareBy({ it.time }, { it.id }))
             .groupBy { it.teamId }
-        val teamsInfo = info.teams.associateBy { it.id }
+        val teamsInfo = info.teams.filterNot { it.isHidden }.associateBy { it.id }
         val comparator = compareBy<ScoreboardRow>(
             { -it.totalScore },
             { it.penalty },

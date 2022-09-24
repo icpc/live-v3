@@ -117,8 +117,14 @@ class QueueService {
                         contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
-                    if (run.id in runs || contestInfoFlow.value.currentContestTime <= currentTime + run.timeInQueue) {
-                        modifyRun(run)
+                    if (run.isHidden) {
+                        if (run.id in runs) {
+                            removeRun(run)
+                        }
+                    } else {
+                        if (run.id in runs || contestInfoFlow.value.currentContestTime <= currentTime + run.timeInQueue) {
+                            modifyRun(run)
+                        }
                     }
                 }
                 is Featured -> {
