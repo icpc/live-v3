@@ -31,7 +31,6 @@ class Config(environment: ApplicationEnvironment) {
     } ?: emptyMap()
     val allowUnsecureConnections = environment.config.bool("live.allowUnsecureConnections")
     val authDisabled = environment.config.bool("auth.disabled")
-
 }
 
 lateinit var config: Config

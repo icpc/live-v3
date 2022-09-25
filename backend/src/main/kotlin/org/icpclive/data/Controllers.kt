@@ -1,11 +1,12 @@
 package org.icpclive.data
 
+import org.icpclive.admin.createUsersController
 import org.icpclive.api.*
 import org.icpclive.config
 import org.icpclive.utils.Svg
 import org.icpclive.controllers.*
 
-object WidgetControllers {
+object Controllers {
     private val WidgetManager = WidgetManager()
     private val TickerManager = TickerManager()
     val queue = SingleWidgetController(QueueSettings(), WidgetManager, ::QueueWidget)
@@ -27,4 +28,5 @@ object WidgetControllers {
         )
     }
     val tickerMessage = PresetsController(presetsPath("ticker"), TickerManager, TickerMessageSettings::toMessage)
+    val userController = config.createUsersController()
 }

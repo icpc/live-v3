@@ -11,75 +11,106 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.json.encodeToStream
+import org.icpclive.Config
 import org.icpclive.api.AdminUser
-import org.icpclive.config
+import java.io.File
 import java.security.MessageDigest
 
-private val usersMutex = Mutex()
 
 @Serializable
 data class User(val name: String, val pass: String, val confirmed: Boolean) : Principal
 
-private val users = mutableMapOf<String, User>()
-private fun String.digest() = MessageDigest.getInstance("SHA-256").run {
-    update("icpclive".toByteArray())
-    update(this@digest.toByteArray())
-    digest()
+interface UsersController {
+    suspend fun validateAdminApiCredits(name: String, password: String): User?
+    suspend fun getAllUsers() : List<User>
+    suspend fun confirm(name: String)
+    suspend fun reload()
 }
 
-private val prettyPrinter = Json { prettyPrint = true }
+class FileBasedUsersController(val file: File) : UsersController {
+    private val mutex = Mutex()
+    private val users = mutableMapOf<String, User>()
+    private val prettyPrinter = Json { prettyPrint = true }
 
-private fun saveUsers() {
-    config.configDirectory.resolve("users.json").toFile().outputStream().use {
-        prettyPrinter.encodeToStream(users.values.toList(), it)
+    init {
+        loadUsers()
     }
-}
 
-private fun loadUsers() {
-    users.clear()
-    config.configDirectory.resolve("users.json").toFile().takeIf { it.exists() }?.inputStream()?.use {
-        Json.decodeFromStream<List<User>>(it).forEach { user -> users[user.name] = user }
-    }
-}
-
-val fakeUser by lazy { User("developer", "", true) }
-fun createFakeUser() = fakeUser
-
-suspend fun validateAdminApiCredits(name: String, password: String): User? {
-    val digest = password.digest()
-    val user = usersMutex.withLock {
-        users[name] ?: run {
-            val newUser = User(name, digest.encodeBase64(), users.isEmpty())
-            users[name] = newUser
-            saveUsers()
-            newUser
+    private fun saveUsers() {
+        file.outputStream().use {
+            prettyPrinter.encodeToStream(users.values.toList(), it)
         }
     }
-    return user.takeIf { MessageDigest.isEqual(digest, user.pass.decodeBase64Bytes()) }
+
+    private fun loadUsers() {
+        users.clear()
+        file.takeIf { it.exists() }?.inputStream()?.use {
+            Json.decodeFromStream<List<User>>(it).associateByTo(users, User::name)
+        }
+    }
+
+    override suspend fun validateAdminApiCredits(name: String, password: String): User? {
+        val digest = MessageDigest.getInstance("SHA-256").run {
+            update(":icpc:".toByteArray())
+            update(name.toByteArray())
+            update(":live:".toByteArray())
+            update(password.toByteArray())
+            digest()
+        }
+        val user = mutex.withLock {
+            users[name] ?: run {
+                val newUser = User(name, digest.encodeBase64(), users.isEmpty())
+                users[name] = newUser
+                saveUsers()
+                newUser
+            }
+        }
+        return user.takeIf { MessageDigest.isEqual(digest, user.pass.decodeBase64Bytes()) }
+    }
+
+    override suspend fun getAllUsers() = mutex.withLock {
+        users.values.toList()
+    }
+
+    override suspend fun reload() = mutex.withLock {
+        loadUsers()
+    }
+
+    override suspend fun confirm(name: String) = mutex.withLock {
+        val user = users[name] ?: throw ApiActionException("No such user")
+        users[user.name] = user.copy(confirmed = true)
+        saveUsers()
+    }
 }
 
-fun Route.setupUserRouting() {
-    loadUsers()
+class FakeUsersController : UsersController {
+    private val fakeUser = User("developer", "", true)
+    override suspend fun validateAdminApiCredits(name: String, password: String) = fakeUser
+
+    override suspend fun getAllUsers() = listOf(fakeUser)
+
+    override suspend fun confirm(name: String) {}
+
+    override suspend fun reload() {}
+}
+
+fun Route.setupUserRouting(manager: UsersController) {
     get {
-        val result = usersMutex.withLock {
-            users.values.map { AdminUser(it.name, it.confirmed) }
+        run {
+            call.respond(manager.getAllUsers().map { AdminUser(it.name, it.confirmed) })
         }
-        call.respond(result)
     }
     post("/{username}/confirm") {
         call.adminApiAction {
-            usersMutex.withLock {
-                val user = users[call.parameters["username"]] ?: throw ApiActionException("No such user")
-                users[user.name] = user.copy(confirmed = true)
-                saveUsers()
-            }
+            manager.confirm(call.parameters["username"]!!)
         }
     }
     post("/reload") {
-        call.adminApiAction {
-            usersMutex.withLock {
-                loadUsers()
-            }
-        }
+        call.adminApiAction { manager.reload() }
     }
+}
+
+fun Config.createUsersController() = when {
+    authDisabled -> FakeUsersController()
+    else -> FileBasedUsersController(configDirectory.resolve("users.json").toFile())
 }

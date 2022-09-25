@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
-import org.icpclive.data.WidgetControllers
+import org.icpclive.data.Controllers
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
 import org.icpclive.controllers.PresetsController
@@ -55,13 +55,13 @@ class AnalyticsService {
         }
         when (action) {
             is AnalyticsAction.CreateAdvertisement -> {
-                message.advertisement?.hide(WidgetControllers.advertisement)
-                val presetId = WidgetControllers.advertisement.createWidget(
+                message.advertisement?.hide(Controllers.advertisement)
+                val presetId = Controllers.advertisement.createWidget(
                     AdvertisementSettings(message.message),
                     action.ttl,
                     onDelete = { internalActions.emit(AnalyticsAction.DeleteAdvertisement(action.messageId, it)) }
                 )
-                WidgetControllers.advertisement.show(presetId)
+                Controllers.advertisement.show(presetId)
                 modifyMessage(
                     message.copy(
                         advertisement = AnalyticsCompanionPreset(
@@ -74,19 +74,19 @@ class AnalyticsService {
 
             is AnalyticsAction.DeleteAdvertisement -> {
                 if (action.expectedId == null || message.advertisement?.presetId == action.expectedId) {
-                    message.advertisement?.hide(WidgetControllers.advertisement)
+                    message.advertisement?.hide(Controllers.advertisement)
                     modifyMessage(message.copy(advertisement = null))
                 }
             }
 
             is AnalyticsAction.CreateTickerMessage -> {
-                message.tickerMessage?.hide(WidgetControllers.tickerMessage)
-                val presetId = WidgetControllers.tickerMessage.createWidget(
+                message.tickerMessage?.hide(Controllers.tickerMessage)
+                val presetId = Controllers.tickerMessage.createWidget(
                     TextTickerSettings(TickerPart.LONG, 30000, message.message),
                     action.ttl,
                     onDelete = { internalActions.emit(AnalyticsAction.DeleteTickerMessage(action.messageId, it)) }
                 )
-                WidgetControllers.tickerMessage.show(presetId)
+                Controllers.tickerMessage.show(presetId)
                 modifyMessage(
                     message.copy(
                         tickerMessage = AnalyticsCompanionPreset(
@@ -99,7 +99,7 @@ class AnalyticsService {
 
             is AnalyticsAction.DeleteTickerMessage -> {
                 if (action.expectedId == null || message.tickerMessage?.presetId == action.expectedId) {
-                    message.tickerMessage?.hide(WidgetControllers.tickerMessage)
+                    message.tickerMessage?.hide(Controllers.tickerMessage)
                     modifyMessage(message.copy(tickerMessage = null))
                 }
             }

@@ -17,11 +17,9 @@ import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.icpclive.admin.configureAdminApiRouting
-import org.icpclive.admin.createFakeUser
-import org.icpclive.admin.validateAdminApiCredits
 import org.icpclive.cds.launchContestDataSource
+import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.social.launchSocialServices
 import org.icpclive.utils.defaultJsonSettings
@@ -58,13 +56,13 @@ private fun Application.setupKtorPlugins() {
             val config = object : AuthenticationProvider.Config("admin-api-auth") {}
             register(object : AuthenticationProvider(config) {
                 override suspend fun onAuthenticate(context: AuthenticationContext) {
-                    context.principal(createFakeUser())
+                    context.principal(Controllers.userController.validateAdminApiCredits("", "")!!)
                 }
             })
         } else {
             basic("admin-api-auth") {
                 realm = "Access to the '/api/admin' path"
-                validate { credentials -> validateAdminApiCredits(credentials.name, credentials.password) }
+                validate { credentials -> Controllers.userController.validateAdminApiCredits(credentials.name, credentials.password) }
             }
         }
     }

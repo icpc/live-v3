@@ -9,31 +9,31 @@ import kotlinx.coroutines.flow.first
 import org.icpclive.api.TeamViewPosition
 import org.icpclive.config
 import org.icpclive.data.DataBus
-import org.icpclive.data.WidgetControllers
+import org.icpclive.data.Controllers
 import org.icpclive.utils.sendFlow
 import org.icpclive.utils.sendJsonFlow
 
 fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {
-        route("/queue") { setupController(WidgetControllers.queue) }
-        route("/statistics") { setupController(WidgetControllers.statistics) }
-        route("/ticker") { setupController(WidgetControllers.ticker) }
+        route("/queue") { setupController(Controllers.queue) }
+        route("/statistics") { setupController(Controllers.statistics) }
+        route("/ticker") { setupController(Controllers.ticker) }
         route("/scoreboard") {
-            setupController(WidgetControllers.scoreboard)
+            setupController(Controllers.scoreboard)
             get("/regions") {
                 call.respond(getRegions())
             }
         }
         route("/teamView") {
-            setupController(WidgetControllers.teamView(TeamViewPosition.SINGLE_TOP_RIGHT))
+            setupController(Controllers.teamView(TeamViewPosition.SINGLE_TOP_RIGHT))
             get("/teams") {
                 call.respond(getTeams())
             }
         }
         fun Route.setupTeamViews(positions: List<TeamViewPosition>) {
-            setupControllerGroup(positions.map { WidgetControllers.teamView(it) })
+            setupControllerGroup(positions.map { Controllers.teamView(it) })
             positions.forEach { position ->
-                route("/${position.name}") { setupController(WidgetControllers.teamView(position)) }
+                route("/${position.name}") { setupController(Controllers.teamView(position)) }
             }
             get("/teams") { call.respond(getTeams()) }
         }
@@ -50,13 +50,13 @@ fun Route.configureAdminApiRouting() {
         route("/teamPVP") {
             setupTeamViews(listOf(TeamViewPosition.PVP_TOP, TeamViewPosition.PVP_BOTTOM))
         }
-        route("/teamLocator") { setupController(WidgetControllers.locator) }
+        route("/teamLocator") { setupController(Controllers.locator) }
 
 
-        route("/advertisement") { setupController(WidgetControllers.advertisement) }
-        route("/picture") { setupController(WidgetControllers.picture) }
+        route("/advertisement") { setupController(Controllers.advertisement) }
+        route("/picture") { setupController(Controllers.picture) }
         route("/title") {
-            setupController(WidgetControllers.title)
+            setupController(Controllers.title)
             get("/templates") {
                 run {
                     val mediaDirectoryFile = config.mediaDirectory.toFile()
@@ -67,10 +67,10 @@ fun Route.configureAdminApiRouting() {
                 }
             }
         }
-        route("/tickerMessage") { setupController(WidgetControllers.tickerMessage) }
+        route("/tickerMessage") { setupController(Controllers.tickerMessage) }
         route("/analytics") { setupAnalytics() }
 
-        route("/users") { setupUserRouting() }
+        route("/users") { setupUserRouting(Controllers.userController) }
         get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
