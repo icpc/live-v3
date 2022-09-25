@@ -8,7 +8,7 @@ import org.icpclive.data.DataBus
 import org.icpclive.data.WidgetControllers
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
-import org.icpclive.widget.PresetsController
+import org.icpclive.controllers.PresetsController
 import kotlin.time.Duration
 
 sealed class AnalyticsAction {

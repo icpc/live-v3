@@ -2,22 +2,20 @@ package org.icpclive.data
 
 import org.icpclive.api.*
 import org.icpclive.config
-import org.icpclive.widget.PresetsController
-import org.icpclive.widget.SimpleController
-import org.icpclive.widget.SvgTransformer
-import org.icpclive.widget.TeamViewController
+import org.icpclive.utils.Svg
+import org.icpclive.controllers.*
 
 object WidgetControllers {
     private val WidgetManager = WidgetManager()
     private val TickerManager = TickerManager()
-    val queue = SimpleController(QueueSettings(), WidgetManager, ::QueueWidget)
-    val statistics = SimpleController(StatisticsSettings(), WidgetManager, ::StatisticsWidget)
-    val ticker = SimpleController(TickerSettings(), WidgetManager, ::TickerWidget)
-    val scoreboard = SimpleController(ScoreboardSettings(), WidgetManager, ::ScoreboardWidget)
+    val queue = SingleWidgetController(QueueSettings(), WidgetManager, ::QueueWidget)
+    val statistics = SingleWidgetController(StatisticsSettings(), WidgetManager, ::StatisticsWidget)
+    val ticker = SingleWidgetController(TickerSettings(), WidgetManager, ::TickerWidget)
+    val scoreboard = SingleWidgetController(ScoreboardSettings(), WidgetManager, ::ScoreboardWidget)
     private val teamViews = TeamViewPosition.values().asList().associateWith { TeamViewController(WidgetManager, it) }
     fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
 
-    val locator = SimpleController(TeamLocatorSettings(), WidgetManager, ::TeamLocatorWidget)
+    val locator = SingleWidgetController(TeamLocatorSettings(), WidgetManager, ::TeamLocatorWidget)
 
     private fun presetsPath(name: String) = config.presetsDirectory.resolve("$name.json")
 
@@ -25,7 +23,7 @@ object WidgetControllers {
     val picture = PresetsController(presetsPath("pictures"), WidgetManager, ::PictureWidget)
     val title = PresetsController(presetsPath("title"), WidgetManager) { titleSettings: TitleSettings ->
         SvgWidget(
-            SvgTransformer(config.mediaDirectory, titleSettings.preset, titleSettings.data).toBase64()
+            Svg.loadAndSubstitute(config.mediaDirectory.resolve(titleSettings.preset), titleSettings.data)
         )
     }
     val tickerMessage = PresetsController(presetsPath("ticker"), TickerManager, TickerMessageSettings::toMessage)

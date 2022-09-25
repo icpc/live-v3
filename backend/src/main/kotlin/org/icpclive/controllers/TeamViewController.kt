@@ -1,4 +1,4 @@
-package org.icpclive.widget
+package org.icpclive.controllers
 
 import kotlinx.coroutines.delay
 import org.icpclive.api.TeamViewPosition
@@ -9,11 +9,7 @@ import org.icpclive.data.Manager
 import kotlin.time.Duration.Companion.seconds
 
 class TeamViewController(val manager: Manager<TeamViewWidget>, val position: TeamViewPosition) :
-    WidgetWrapper<TeamViewSettings, TeamViewWidget>(
-        TeamViewSettings(),
-        manager,
-        { settings -> TeamViewWidget(settings) }),
-    SingleWidgetController<TeamViewSettings, TeamViewWidget> {
+    SingleWidgetController<TeamViewSettings, TeamViewWidget>(TeamViewSettings(), manager, ::TeamViewWidget) {
     override suspend fun createWidgetAndShow(settings: TeamViewSettings) {
         if (settings.teamId == null) {
             launchWhileWidgetShown {

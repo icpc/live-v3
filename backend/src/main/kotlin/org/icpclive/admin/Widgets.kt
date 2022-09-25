@@ -7,9 +7,8 @@ import org.icpclive.api.ObjectSettings
 import org.icpclive.api.ObjectStatus
 import org.icpclive.api.TypeWithId
 import org.icpclive.api.UnitSettings
-import org.icpclive.widget.PresetsController
-import org.icpclive.widget.SimpleController
-import org.icpclive.widget.SingleWidgetController
+import org.icpclive.controllers.PresetsController
+import org.icpclive.controllers.SingleWidgetController
 import kotlin.time.Duration.Companion.milliseconds
 
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(
@@ -41,23 +40,21 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
             controller.hide()
         }
     }
-    if (controller is SimpleController<*, *>) {
-        get("/preview") {
-            // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
-            run {
-                call.respond(controller.createWidget())
-            }
+    get("/preview") {
+        // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
+        run {
+            call.respond(controller.previewWidget())
         }
     }
 }
 
-inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(
-    controllers: List<SimpleController<SettingsType, OverlayWidgetType>>
+inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupControllerGroup(
+    controllers: List<SingleWidgetController<SettingsType, OverlayWidgetType>>
 ) {
     get {
         // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
         run {
-            call.respond(ObjectStatus(controllers.any { it.getStatus().shown }, UnitSettings))
+            call.respond(ObjectStatus(controllers.any { it.getStatus().shown }, UnitSettings, null))
         }
     }
     post("/show") {

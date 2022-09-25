@@ -11,5 +11,5 @@ interface TypeWithId {
 data class ObjectStatus<SettingsType : ObjectSettings>(
     val shown: Boolean,
     val settings: SettingsType,
-    val id: Int? = null
+    val id: Int?
 )

@@ -31,7 +31,7 @@ fun Route.configureAdminApiRouting() {
             }
         }
         fun Route.setupTeamViews(positions: List<TeamViewPosition>) {
-            setupController(positions.map { WidgetControllers.teamView(it) })
+            setupControllerGroup(positions.map { WidgetControllers.teamView(it) })
             positions.forEach { position ->
                 route("/${position.name}") { setupController(WidgetControllers.teamView(position)) }
             }
