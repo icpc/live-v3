@@ -6,6 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.random.Random
 import kotlin.random.nextUInt
+import org.icpclive.config
 
 fun generateId(widgetPrefix: String): String = "$widgetPrefix-${Random.nextUInt()}"
 
@@ -17,6 +18,9 @@ class LocationRectangle(
     val sizeY: Int,
 )
 
+fun getLocationOrDefault(widgetPrefix: String, defaultLocationRectangle: LocationRectangle) =
+    config.widgetPositions.getOrDefault(widgetPrefix, defaultLocationRectangle)
+
 @Serializable
 sealed class Widget(
     @SerialName("widgetId") override val id: String,
@@ -25,7 +29,10 @@ sealed class Widget(
 
 @Serializable
 @SerialName("AdvertisementWidget")
-class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
+class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(
+    generateId(WIDGET_ID_PREFIX),
+    getLocationOrDefault(WIDGET_ID_PREFIX, location)
+) {
     companion object {
         const val WIDGET_ID_PREFIX = "advertisement"
         val location = LocationRectangle(0, 860, 1920, 90)
@@ -34,7 +41,10 @@ class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(gen
 
 @Serializable
 @SerialName("PictureWidget")
-class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_PREFIX), location) {
+class PictureWidget(val picture: PictureSettings) : Widget(
+    generateId(WIDGET_ID_PREFIX),
+    getLocationOrDefault(WIDGET_ID_PREFIX, location)
+) {
     companion object {
         const val WIDGET_ID_PREFIX = "picture"
         val location = LocationRectangle(550, 40, 1350, 970)
@@ -43,7 +53,10 @@ class PictureWidget(val picture: PictureSettings) : Widget(generateId(WIDGET_ID_
 
 @Serializable
 @SerialName("SvgWidget")
-class SvgWidget(val content: String) : Widget(generateId(WIDGET_ID_PREFIX), location) {
+class SvgWidget(val content: String) : Widget(
+    generateId(WIDGET_ID_PREFIX),
+    getLocationOrDefault(WIDGET_ID_PREFIX, location)
+) {
     companion object {
         const val WIDGET_ID_PREFIX = "svg"
         val location = LocationRectangle(0, 0, 1920, 1080)
@@ -52,7 +65,10 @@ class SvgWidget(val content: String) : Widget(generateId(WIDGET_ID_PREFIX), loca
 
 @Serializable
 @SerialName("QueueWidget")
-class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
+class QueueWidget(val settings: QueueSettings) : Widget(
+    WIDGET_ID,
+    getLocationOrDefault(WIDGET_ID, location)
+) {
     companion object {
         const val WIDGET_ID = "queue"
         val location = LocationRectangle(30, 40, 515, 970)
@@ -61,7 +77,10 @@ class QueueWidget(val settings: QueueSettings) : Widget(WIDGET_ID, location) {
 
 @Serializable
 @SerialName("ScoreboardWidget")
-class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, location) {
+class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(
+    WIDGET_ID,
+    getLocationOrDefault(WIDGET_ID, location)
+) {
     companion object {
         const val WIDGET_ID = "scoreboard"
         val location = LocationRectangle(550, 40, 1350, 970)
@@ -70,7 +89,10 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(WIDGET_ID, loc
 
 @Serializable
 @SerialName("StatisticsWidget")
-class StatisticsWidget(val settings: StatisticsSettings) : Widget(WIDGET_ID, location) {
+class StatisticsWidget(val settings: StatisticsSettings) : Widget(
+    WIDGET_ID,
+    getLocationOrDefault(WIDGET_ID, location)
+) {
     companion object {
         const val WIDGET_ID = "statistics"
         val location = LocationRectangle(550, 40, 1350, 970)
@@ -79,7 +101,10 @@ class StatisticsWidget(val settings: StatisticsSettings) : Widget(WIDGET_ID, loc
 
 @Serializable
 @SerialName("TickerWidget")
-class TickerWidget(val settings: TickerSettings) : Widget(WIDGET_ID, location) {
+class TickerWidget(val settings: TickerSettings) : Widget(
+    WIDGET_ID,
+    getLocationOrDefault(WIDGET_ID, location)
+) {
     companion object {
         const val WIDGET_ID = "ticker"
         val location = LocationRectangle(0, 1025, 1920, 50)
@@ -95,7 +120,10 @@ enum class TeamViewPosition {
 @SerialName("TeamViewWidget")
 class TeamViewWidget(
     val settings: TeamViewSettings
-) : Widget(getWidgetId(settings.position), getLocation(settings.position)) {
+) : Widget(
+    getWidgetId(settings.position),
+    getLocationOrDefault(getWidgetId(settings.position), getLocation(settings.position))
+) {
     companion object {
         fun getWidgetId(position: TeamViewPosition) = "teamview" + position.name
         fun getLocation(position: TeamViewPosition) = when (position) {
@@ -112,7 +140,10 @@ class TeamViewWidget(
 
 @Serializable
 @SerialName("TeamLocator")
-class TeamLocatorWidget(val settings: TeamLocatorSettings) : Widget(WIDGET_ID, location) {
+class TeamLocatorWidget(val settings: TeamLocatorSettings) : Widget(
+    WIDGET_ID,
+    getLocationOrDefault(WIDGET_ID, location)
+) {
     companion object {
         const val WIDGET_ID = "teamLocator"
         val location = LocationRectangle(0, 0, 1920, 1080)

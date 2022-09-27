@@ -4,6 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.config.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.icpclive.api.LocationRectangle
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -27,6 +28,9 @@ class Config(environment: ApplicationEnvironment) {
     val presetsDirectory: Path = environment.config.directory("live.presetsDirectory")
     val mediaDirectory: Path = environment.config.directory("live.mediaDirectory")
     val creds: Map<String, String> = environment.config.stringOrNull("live.credsFile")?.let {
+        Json.decodeFromStream(File(it).inputStream())
+    } ?: emptyMap()
+    val widgetPositions: Map<String, LocationRectangle> = environment.config.stringOrNull("live.widgetPositionsFile")?.let {
         Json.decodeFromStream(File(it).inputStream())
     } ?: emptyMap()
     val allowUnsecureConnections = environment.config.bool("live.allowUnsecureConnections")
