@@ -235,8 +235,8 @@ const extractScoreboardRows = (data, selectedGroup) => data.rows
 export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const optimismLevel = settings.optimismLevel;
     const teamsOnPage = settings.teamsOnPage;
-    let rows = useSelector((state) =>
-        extractScoreboardRows(state.scoreboard[optimismLevel], settings.group));
+    const rows = extractScoreboardRows(useSelector((state) =>
+        state.scoreboard[optimismLevel]), settings.group);
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const startPageRow = (settings.startFromPage - 1) * teamsOnPage;
     const [row, setRow] = useState(startPageRow);
