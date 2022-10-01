@@ -18,10 +18,16 @@ sealed class Event {
     @Serializable
     sealed class IgnoredEvent : Event()
 
+    sealed class ContestEvent : UpdateContestEvent() {
+        abstract val data: Contest?
+    }
+
+    @Serializable
+    @SerialName("contest")
+    data class ContestEventNamedNonWithSpec(override val token: String, override val data: Contest?) : ContestEvent()
     @Serializable
     @SerialName("contests")
-    data class ContestEvent(override val token: String, val data: Contest?) :
-        UpdateContestEvent()
+    data class ContestEventNamedWithSpec(override val token: String, override val data: Contest?) : ContestEvent()
 
     @Serializable
     @SerialName("problems")
@@ -94,7 +100,7 @@ sealed class Event {
             is EventV1.AwardsEvent             -> AwardsEvent(event.data.id, event.id, if (event.op == Operation.DELETE) null else event.data)
             is EventV1.ClarificationEvent      -> ClarificationEvent(event.data.id, event.id, if (event.op == Operation.DELETE) null else event.data)
             is EventV1.LanguageEvent           -> LanguageEvent(event.data.id, event.id, if (event.op == Operation.DELETE) null else event.data)
-            is EventV1.ContestEvent            -> ContestEvent(event.id, if (event.op == Operation.DELETE) null else event.data)
+            is EventV1.ContestEvent            -> ContestEventNamedWithSpec(event.id, if (event.op == Operation.DELETE) null else event.data)
             is EventV1.GroupsEvent             -> GroupsEvent(event.data.id, event.id, if (event.op == Operation.DELETE) null else event.data)
             is EventV1.JudgementTypeEvent      -> JudgementTypeEvent(event.data.id, event.id, if (event.op == Operation.DELETE) null else event.data)
             is EventV1.OrganizationEvent       -> OrganizationEvent(event.data.id, event.id, if (event.op == Operation.DELETE) null else event.data)
