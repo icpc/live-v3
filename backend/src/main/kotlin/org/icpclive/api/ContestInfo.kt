@@ -20,9 +20,9 @@ data class ProblemInfo(
     val name: String,
     @Serializable(ColorSerializer::class) val color: Color,
     val id: Int,
-    val ordinal:Int
+    val ordinal: Int
 ) {
-    constructor(letter: String, name: String, color: String?, id:Int, ordinal: Int) :
+    constructor(letter: String, name: String, color: String?, id: Int, ordinal: Int) :
             this(letter, name, parseColor(color) ?: Color.BLACK, id, ordinal)
 
 
@@ -54,18 +54,29 @@ sealed class MediaType {
     @Serializable
     @SerialName("Photo")
     class Photo(val url: String) : MediaType()
+
     @Serializable
     @SerialName("Video")
     class Video(val url: String) : MediaType()
+
     @Serializable
     @SerialName("WebRTCConnection")
     class WebRTCConnection(val url: String) : MediaType()
+
     @Serializable
     @SerialName("TeamAchievements")
     class TeamAchievements(val url: String) : MediaType()
+
     @Serializable
     @SerialName("TaskStatus")
     class TaskStatus(val teamId: Int) : MediaType()
+
+    fun applyTemplate(teamId: String) = when (this) {
+        is Photo -> Photo(url.replace("{teamId}", teamId))
+        is Video -> Video(url.replace("{teamId}", teamId))
+        is WebRTCConnection -> WebRTCConnection(url.replace("{teamId}", teamId))
+        else -> this
+    }
 }
 
 @Serializable
@@ -97,7 +108,7 @@ data class TeamInfo(
     val contestSystemId: String,
     val groups: List<String>,
     val hashTag: String?,
-    val medias: Map<TeamMediaType, String>,
+    val medias: Map<TeamMediaType, MediaType>,
     val isHidden: Boolean = false,
 )
 

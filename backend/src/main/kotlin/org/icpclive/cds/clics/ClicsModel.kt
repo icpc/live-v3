@@ -41,6 +41,16 @@ class ClicsModel(
         else -> org
     }
 
+    private fun Media.mediaType(): MediaType? {
+        if (mime.startsWith("image")) {
+            return MediaType.Photo(href)
+        }
+        if (mime.startsWith("video")) {
+            return MediaType.Video(href)
+        }
+        return null
+    }
+
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
@@ -52,10 +62,10 @@ class ClicsModel(
             groups = group_ids.mapNotNull { groups[it]?.name },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
-                photo.firstOrNull()?.let { put(TeamMediaType.PHOTO, it.href) }
-                video.firstOrNull()?.let { put(TeamMediaType.RECORD, it.href) }
-                webcam.firstOrNull()?.let { put(TeamMediaType.CAMERA, it.href) }
-                desktop.firstOrNull()?.let { put(TeamMediaType.SCREEN, it.href) }
+                photo.firstOrNull()?.mediaType()?.let { put(TeamMediaType.PHOTO, it) }
+                video.firstOrNull()?.mediaType()?.let { put(TeamMediaType.RECORD, it) }
+                webcam.firstOrNull()?.mediaType()?.let { put(TeamMediaType.CAMERA, it) }
+                desktop.firstOrNull()?.mediaType()?.let { put(TeamMediaType.SCREEN, it) }
             }
         )
     }

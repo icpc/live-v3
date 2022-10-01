@@ -113,9 +113,9 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             hashTag = "hashtag".attr(),
             groups = "region".attr()?.split(",") ?: emptyList(),
             medias = listOfNotNull(
-                "screen".attr()?.let { TeamMediaType.SCREEN to it },
-                "camera".attr()?.let { TeamMediaType.CAMERA to it },
-                "record".attr()?.let { TeamMediaType.RECORD to it },
+                "screen".attr()?.let { TeamMediaType.SCREEN to MediaType.Video(it) },
+                "camera".attr()?.let { TeamMediaType.CAMERA to MediaType.Video(it) },
+                "record".attr()?.let { TeamMediaType.RECORD to MediaType.Video(it) },
             ).associate { it },
             contestSystemId = alias,
         )

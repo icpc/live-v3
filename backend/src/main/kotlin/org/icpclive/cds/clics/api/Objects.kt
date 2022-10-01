@@ -42,7 +42,8 @@ data class Problem(
 
 @Serializable
 data class Media(
-    val href: String
+    val mime: String,
+    val href: String,
 )
 
 @Serializable

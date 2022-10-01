@@ -28,7 +28,12 @@ class ContestDataPostprocessingService {
         } else {
             val idsSet = infos.map { it.id() }.toSet()
             fun mergeIfNotNull(a: T, b: O?) = if (b == null) a else merge(a, b)
-            infos.map { mergeIfNotNull(mergeIfNotNull(it, getTemplate(it.id())), overrides[it.id()]) } to overrides.keys.filter { it !in idsSet }
+            infos.map {
+                mergeIfNotNull(
+                    mergeIfNotNull(it, getTemplate(it.id())),
+                    overrides[it.id()]
+                )
+            } to overrides.keys.filter { it !in idsSet }
         }
     }
 
@@ -59,7 +64,9 @@ class ContestDataPostprocessingService {
                     TeamInfo::contestSystemId,
                     { id ->
                         TeamInfoOverride(
-                            medias = overrides.teamMediaTemplate?.mapValues { it.value?.replace("{teamId}", id) }
+                            medias = overrides.teamMediaTemplate?.mapValues {
+                                it.value?.applyTemplate(id)
+                            }
                         )
                     }
                 ) { team, override ->

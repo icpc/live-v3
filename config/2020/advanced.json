@@ -3,8 +3,14 @@
     "showTeamsWithoutSubmissions": true
   },
   "teamMediaTemplate": {
-    "screen": "http://localhost:8080/media/screen{teamId}.svg",
-    "camera": "http://localhost:8080/media/camera{teamId}.svg"
+    "screen": {
+      "type": "Photo",
+      "url": "http://localhost:8080/media/screen{teamId}.svg"
+    },
+    "camera": {
+      "type": "Photo",
+      "url": "http://localhost:8080/media/camera{teamId}.svg"
+    }
   },
   "teamOverrides": {}
 }

@@ -14,23 +14,12 @@ class TeamViewController(val manager: Manager<TeamViewWidget>, val position: Tea
         { TeamViewWidget(OverlayTeamViewSettings()) }) {
     override suspend fun constructWidget(settings: ExternalTeamViewSettings): TeamViewWidget {
         val teamInfo = DataBus.contestInfoFlow.await().first().teams.find { it.id == settings.teamId }
-        val content = mutableListOf<MediaType>()
-        settings.mediaTypes.forEach {
-            val url = teamInfo?.medias?.get(it) ?: return@forEach
-            content += when (it) {
-                TeamMediaType.CAMERA -> MediaType.WebRTCConnection(url)
-                TeamMediaType.SCREEN -> MediaType.WebRTCConnection(url)
-                TeamMediaType.REACTION_VIDEO -> MediaType.Video(url)
-                TeamMediaType.RECORD -> MediaType.Video(url)
-                TeamMediaType.PHOTO -> MediaType.Photo(url)
-                else -> null
-            } ?: return@forEach
-        }
+        val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toMutableList()
         if (settings.showTaskStatus) {
             settings.teamId?.let { teamId -> content.add(MediaType.TaskStatus(teamId)) }
         }
         if (settings.showAchievement) {
-            teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.let { content.add(MediaType.TeamAchievements(it)) }
+            teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.let { content.add(it) }
         }
         return TeamViewWidget(OverlayTeamViewSettings(content, position))
     }
