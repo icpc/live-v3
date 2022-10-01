@@ -19,7 +19,7 @@ sealed class Event {
     sealed class IgnoredEvent : Event()
 
     @Serializable
-    @SerialName("contest")
+    @SerialName("contests")
     data class ContestEvent(override val token: String, val data: Contest?) :
         UpdateContestEvent()
 
@@ -82,7 +82,7 @@ sealed class Event {
 
     @Serializable
     @SerialName("accounts")
-    data class AccountEvent(val id: String, override val token: String, val data: Account?) : UpdateContestEvent()
+    data class AccountEvent(val id: String, override val token: String, val data: Account?) : IgnoredEvent()
 
 
     data class PreloadFinishedEvent(override val token: String) : UpdateContestEvent()

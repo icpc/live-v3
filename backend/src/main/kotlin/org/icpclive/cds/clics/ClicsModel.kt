@@ -23,8 +23,7 @@ class ClicsModel(
     private val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
-    private val accounts = mutableMapOf<String, Account>()
-    private val specialTeams = mutableSetOf<String>()
+    private val hiddenTeams = mutableSetOf<String>()
     private val teamSubmissions = mutableMapOf<Int, MutableSet<String>>()
 
     var startTime = Instant.fromEpochMilliseconds(0)
@@ -49,7 +48,7 @@ class ClicsModel(
             name = teamName(teamOrganization?.formalName, name),
             shortName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
-            isHidden = specialTeams.contains(id),
+            isHidden = hiddenTeams.contains(id),
             groups = group_ids.mapNotNull { groups[it]?.name },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
@@ -124,6 +123,7 @@ class ClicsModel(
         } else {
             require(id == team.id)
             teams[id] = team
+            setTeamHidden(team.id, team.is_hidden)
         }
         return emptyList()
     }
@@ -152,30 +152,18 @@ class ClicsModel(
         return emptyList()
     }
 
-    private fun setTeamType(teamId: String, type: Account.TYPE) : List<RunInfo> {
-        val wasSpecial = teamId in specialTeams
-        val isSpecial =  type != Account.TYPE.TEAM
-        if (wasSpecial == isSpecial) return emptyList()
-        if (isSpecial) {
-            specialTeams.add(teamId)
+    private fun setTeamHidden(teamId: String, isHidden: Boolean) : List<RunInfo> {
+        val wasHidden = teamId in hiddenTeams
+        if (wasHidden == isHidden) return emptyList()
+        if (isHidden) {
+            hiddenTeams.add(teamId)
         } else {
-            specialTeams.remove(teamId)
+            hiddenTeams.remove(teamId)
         }
         return teamSubmissions[teamCdsIdToId[teamId]]
-            ?.mapNotNull { submissions[it]?.apply { isHidden = isSpecial } }
+            ?.mapNotNull { submissions[it]?.apply { this.isHidden = isHidden } }
             ?.map { it.toApi() }
             ?: emptyList()
-    }
-
-    fun processAccount(id: String, account: Account?) : List<RunInfo> {
-        return if (account == null) {
-            val old = accounts[id]
-            accounts.remove(id)
-            old?.team_id?.let { setTeamType(it, Account.TYPE.TEAM) }
-        } else {
-            accounts[id] = account
-            account.team_id?.let { setTeamType(account.team_id, account.type ?: Account.TYPE.TEAM) }
-        } ?: emptyList()
     }
 
     fun processSubmission(submission: Submission): ClicsRunInfo {
@@ -190,7 +178,7 @@ class ClicsModel(
             liveProblemId = liveProblemId(problem.id),
             teamId = liveTeamId(team.id),
             submissionTime = submission.contest_time,
-            isHidden = team.id in specialTeams,
+            isHidden = team.id in hiddenTeams,
         )
         submissions[submission.id]?.let { teamSubmissions[it.teamId]?.remove(submission.id) }
         submissions[submission.id] = run

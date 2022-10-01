@@ -60,6 +60,7 @@ data class Team(
     val organization_id: String? = null,
     val group_ids: List<String> = emptyList(),
     val name: String = "",
+    val is_hidden: Boolean = false,
     val photo: List<Media> = emptyList(),
     val video: List<Media> = emptyList(),
     val desktop: List<Media> = emptyList(),
