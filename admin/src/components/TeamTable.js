@@ -14,12 +14,12 @@ const gridButton = {
 
 const CompactSwitchIconButton = ({ propertyName, disabled, isShown, onClick, children, sx }) =>
     (<Tooltip title={propertyName +" " + (isShown ? "will" : "wont") + " shown"}>
-        <span><Button
+        <Button
             sx={sx}
             disabled={disabled}
             startIcon={isShown ? <VisibilityIcon/> : <VisibilityOffIcon/>}
             variant={isShown ? "contained" : "outlined"}
-            onClick={onClick}>{children}</Button></span>
+            onClick={onClick}>{children}</Button>
     </Tooltip>);
 CompactSwitchIconButton.propTypes = {
     propertyName: PropTypes.string,
@@ -31,7 +31,7 @@ CompactSwitchIconButton.propTypes = {
 };
 
 export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, isSomethingSelected, canHide, isPossibleToHide,
-    onShowTeam, onHideTeam, isTaskStatusShown, setIsTaskStatusShown, isTeamAchievementShown, setIsTeamAchievementShown }) {
+    onShowTeam, onHideTeam, showTaskStatus, setShowTaskStatus, showAchievement, setShowAchievement }) {
     canShow = canShow ?? isSomethingSelected;
     canHide = canHide ?? isPossibleToHide;
     return (<ButtonGroup>
@@ -45,12 +45,12 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, 
                 key={elem.text}
                 onClick={() => {onShowTeam(elem.mediaType);}}>{elem.text}</Button>
         ))}
-        {isTaskStatusShown !== undefined && <CompactSwitchIconButton propertyName={"Tasks status"} disabled={!canShow}
-            isShown={isTaskStatusShown} sx={gridButton}
-            onClick={() => setIsTaskStatusShown(s => !s)}><TaskStatusIcon/></CompactSwitchIconButton>}
-        {isTeamAchievementShown !== undefined && <CompactSwitchIconButton propertyName={"Team achievement"} disabled={!canShow}
-            isShown={isTeamAchievementShown} buttonSx={gridButton}
-            onClick={() => setIsTeamAchievementShown(s => !s)}><TeamAchievementIcon/></CompactSwitchIconButton>}
+        {showTaskStatus !== undefined && <CompactSwitchIconButton propertyName={"Tasks status"} disabled={!canShow}
+            isShown={showTaskStatus} sx={gridButton}
+            onClick={() => setShowTaskStatus(s => !s)}><TaskStatusIcon/></CompactSwitchIconButton>}
+        {showAchievement !== undefined && <CompactSwitchIconButton propertyName={"Team achievement"} disabled={!canShow}
+            isShown={showAchievement} buttonSx={gridButton}
+            onClick={() => setShowAchievement(s => !s)}><TeamAchievementIcon/></CompactSwitchIconButton>}
         <Button
             sx={gridButton}
             disabled={!canHide}
@@ -68,10 +68,10 @@ TeamViewSettingsPanel.propTypes = {
     canHide: PropTypes.bool,  // todo: make req
     onShowTeam: PropTypes.func.isRequired,
     onHideTeam: PropTypes.func.isRequired,
-    isTaskStatusShown: PropTypes.bool,
-    setIsTaskStatusShown: PropTypes.func,
-    isTeamAchievementShown: PropTypes.bool,
-    setIsTeamAchievementShown: PropTypes.func,
+    showTaskStatus: PropTypes.bool,
+    setShowTaskStatus: PropTypes.func,
+    showAchievement: PropTypes.bool,
+    setShowAchievement: PropTypes.func,
 };
 TeamViewSettingsPanel.defaultProps = {
     mediaTypes:[
