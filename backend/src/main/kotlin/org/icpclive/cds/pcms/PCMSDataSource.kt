@@ -13,7 +13,8 @@ import org.icpclive.service.RunsBufferService
 import org.icpclive.service.XmlLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.*
-import org.w3c.dom.*
+import org.w3c.dom.Document
+import org.w3c.dom.Element
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -112,9 +113,9 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             hashTag = "hashtag".attr(),
             groups = "region".attr()?.split(",") ?: emptyList(),
             medias = listOfNotNull(
-                "screen".attr()?.let { MediaType.SCREEN to it },
-                "camera".attr()?.let { MediaType.CAMERA to it },
-                "record".attr()?.let { MediaType.RECORD to it },
+                "screen".attr()?.let { TeamMediaType.SCREEN to it },
+                "camera".attr()?.let { TeamMediaType.CAMERA to it },
+                "record".attr()?.let { TeamMediaType.RECORD to it },
             ).associate { it },
             contestSystemId = alias,
         )

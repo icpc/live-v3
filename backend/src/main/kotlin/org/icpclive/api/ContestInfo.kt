@@ -50,7 +50,26 @@ enum class ContestStatus {
 
 
 @Serializable
-enum class MediaType {
+sealed class MediaType {
+    @Serializable
+    @SerialName("Photo")
+    class Photo(val url: String) : MediaType()
+    @Serializable
+    @SerialName("Video")
+    class Video(val url: String) : MediaType()
+    @Serializable
+    @SerialName("WebRTCConnection")
+    class WebRTCConnection(val url: String) : MediaType()
+    @Serializable
+    @SerialName("TeamAchievements")
+    class TeamAchievements(val url: String) : MediaType()
+    @Serializable
+    @SerialName("TaskStatus")
+    class TaskStatus(val teamId: Int) : MediaType()
+}
+
+@Serializable
+enum class TeamMediaType {
     @SerialName("camera")
     CAMERA,
 
@@ -78,7 +97,7 @@ data class TeamInfo(
     val contestSystemId: String,
     val groups: List<String>,
     val hashTag: String?,
-    val medias: Map<MediaType, String>,
+    val medias: Map<TeamMediaType, String>,
     val isHidden: Boolean = false,
 )
 
@@ -101,7 +120,7 @@ data class ContestInfo(
     val holdBeforeStartTime: Duration? = null,
     val emulationSpeed: Double = 1.0,
     val medals: List<MedalType> = emptyList(),
-    val penaltyPerWrongAttempt: Int = 20
+    val penaltyPerWrongAttempt: Int = 20,
 ) {
     val currentContestTime
         get() = when (status) {

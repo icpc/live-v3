@@ -17,6 +17,6 @@ data class RunInfo constructor(
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
     val isFirstSolvedRun: Boolean = false,
-    val featuredRunMedia: MediaType? = null,
+    val featuredRunMedia: TeamMediaType? = null,
     val isHidden: Boolean = false,
 )

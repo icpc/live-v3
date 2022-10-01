@@ -31,8 +31,10 @@ open class SingleWidgetController<SettingsType : ObjectSettings, DataType : Type
         widgetConstructor(settings)
     }
 
+    protected open suspend fun constructWidget(settings: SettingsType) = widgetConstructor(settings)
+
     open suspend fun createWidgetAndShow(settings: SettingsType) {
-        val widget = widgetConstructor(settings)
+        val widget = constructWidget(settings)
         manager.add(widget)
         overlayWidgetId = widget.id
     }
@@ -64,6 +66,7 @@ open class SingleWidgetController<SettingsType : ObjectSettings, DataType : Type
         widgetShowScope = CoroutineScope(Dispatchers.Default)
         createWidgetAndShow(settings)
     }
+
     private suspend fun hideImpl() {
         removeWidget()
         widgetShowScope?.cancel()
@@ -80,5 +83,4 @@ open class SingleWidgetController<SettingsType : ObjectSettings, DataType : Type
         }
         widgetScope.cancel()
     }
-
 }

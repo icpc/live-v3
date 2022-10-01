@@ -32,7 +32,7 @@ export const TeamViewInstanceManager = ({
                 mediaTypes={mediaTypes}
                 canShow={selectedTeamId !== undefined || isAutoMode}
                 canHide={status.shown}
-                onShowTeam={(mediaType) => onShow({ mediaType: mediaType, teamId: isAutoMode ? undefined : selectedTeamId })}
+                onShowTeam={(mediaType) => onShow({ mediaTypes: [mediaType], teamId: isAutoMode ? undefined : selectedTeamId })}
                 onHideTeam={onHide}/>
         </Box>
     </Box>);

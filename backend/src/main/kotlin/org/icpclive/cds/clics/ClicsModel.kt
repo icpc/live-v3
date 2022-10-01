@@ -52,10 +52,10 @@ class ClicsModel(
             groups = group_ids.mapNotNull { groups[it]?.name },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
-                photo.firstOrNull()?.let { put(MediaType.PHOTO, it.href) }
-                video.firstOrNull()?.let { put(MediaType.RECORD, it.href) }
-                webcam.firstOrNull()?.let { put(MediaType.CAMERA, it.href) }
-                desktop.firstOrNull()?.let { put(MediaType.SCREEN, it.href) }
+                photo.firstOrNull()?.let { put(TeamMediaType.PHOTO, it.href) }
+                video.firstOrNull()?.let { put(TeamMediaType.RECORD, it.href) }
+                webcam.firstOrNull()?.let { put(TeamMediaType.CAMERA, it.href) }
+                desktop.firstOrNull()?.let { put(TeamMediaType.SCREEN, it.href) }
             }
         )
     }
