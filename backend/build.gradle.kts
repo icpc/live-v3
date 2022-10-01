@@ -43,7 +43,7 @@ ktor {
 tasks {
     named<JavaExec>("run") {
         this.args = listOfNotNull(
-            "-P:auth.disabled",
+            "-P:auth.disabled=true",
             project.properties["live.dev.credsFile"]?.let { "-P:live.credsFile=$it"},
             project.properties["live.dev.widgetPositionsFile"]?.let { "-P:live.widgetPositionsFile=$it"},
             project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" }
