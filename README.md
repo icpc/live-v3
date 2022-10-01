@@ -6,11 +6,12 @@ Welcome to the ICPC Live Source Code Repository.
 
 * Download release from https://github.com/icpc/live-v3/releases
 * Create contest config files
-    * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/backend/config/archive/rmc21)
-    * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/backend/config/archive/nerc-2021)
-    * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/backend/config/archive/vkoshp-junior-2022)
-    * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/backend/config/archive/yandex-example/)
-    * [See full archive for more examples](https://github.com/icpc/live-v3/tree/main/backend/config/archive)
+    * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/rmc21)
+    * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/config/nerc-2021)
+    * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp-junior-2022)
+    * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/config/yandex-example/)
+    * [Example for Ejduge](https://github.com/icpc/live-v3/tree/main/config/lscpc-2022/)
+    * [See full archive for more examples](https://github.com/icpc/live-v3/tree/main/config)
     * [How to fine tune imported data](https://github.com/icpc/live-v3/blob/main/advanced.json.md)
 *
 
@@ -65,8 +66,7 @@ Before cloning on Windows configure correct crlf handling
 ### To test your changes:
 
 1. Setup configDirectory in `live-v3\backend\config\application.conf`
-2. `live-v3\backend\gradlew buildJs`
-3. `live-v3\backend\gradlew run`
+3. `live-v3\backend\gradlew run -Plive.dev.contest=nerc-onsite-2020`
 4. open http://localhost:8000/admin to control overlay
 5. open http://localhost:8000/overlay to view result
 

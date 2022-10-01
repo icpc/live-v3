@@ -42,7 +42,13 @@ ktor {
 
 tasks {
     named<JavaExec>("run") {
-        this.args = listOf("-config=config/application.conf")
+        this.args = listOfNotNull(
+            "-P:auth.disabled",
+            project.properties["live.dev.credsFile"]?.let { "-P:live.credsFile=$it"},
+            project.properties["live.dev.widgetPositionsFile"]?.let { "-P:live.widgetPositionsFile=$it"},
+            project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" }
+        )
+        this.workingDir(rootDir.resolve("config"))
     }
     task<Copy>("release") {
         from(shadowJar)
