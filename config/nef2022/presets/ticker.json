@@ -1,0 +1,38 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 30000,
+        "text": "#ICPC"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Welcome to the NEF!"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 1000,
+        "text": "subscribe to vk.com/nercnews"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Hi there"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    }
+]
