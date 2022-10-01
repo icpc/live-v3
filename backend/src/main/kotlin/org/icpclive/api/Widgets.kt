@@ -119,7 +119,7 @@ enum class TeamViewPosition {
 @Serializable
 @SerialName("TeamViewWidget")
 class TeamViewWidget(
-    val settings: TeamViewSettings
+    val settings: OverlayTeamViewSettings
 ) : Widget(
     getWidgetId(settings.position),
     getLocationOrDefault(getWidgetId(settings.position), getLocation(settings.position))

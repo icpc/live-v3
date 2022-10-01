@@ -161,12 +161,21 @@ const ScoreboardColumn = ({ teamId }) => {
         <ScoreboardTeamInfoRow>
             <TeamInfo teamId={teamId}/>
         </ScoreboardTeamInfoRow>
-        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs, index }, i) =>
-            getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null : <TaskRow key={i}>
-                <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
-                <StatisticsProblemCell probData={tasks[index]}/>
-                <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)} attempts={wrongAttempts + pendingAttempts}/>
-            </TaskRow>
+        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({
+            wrongAttempts,
+            pendingAttempts,
+            isSolved,
+            isFirstToSolve,
+            lastSubmitTimeMs,
+            index
+        }, i) =>
+            getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null :
+                <TaskRow key={i}>
+                    <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
+                    <StatisticsProblemCell probData={tasks[index]}/>
+                    <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
+                        attempts={wrongAttempts + pendingAttempts}/>
+                </TaskRow>
         )}
     </ScoreboardColumnWrapper>;
 };
@@ -187,13 +196,13 @@ const TeamInfo = ({ teamId }) => {
     </TeamInfoWrapper>;
 };
 
-const TeamImageWrapper =styled.img`
+const TeamImageWrapper = styled.img`
     position: absolute;
     width: 100%;
     top: 0;
 `;
 
-const TeamVideoWrapper =styled.video`
+const TeamVideoWrapper = styled.video`
     position: absolute;
     width: 100%;
     top: 0;
@@ -207,7 +216,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
     useEffect(() => {
         dispatch(pushLog(`Webrtc content from ${url}`));
         rtcRef.current = new RTCPeerConnection();
-        rtcRef.current.ontrack = function(event) {
+        rtcRef.current.ontrack = function (event) {
             if (event.track.kind !== "video") {
                 return;
             }
@@ -260,7 +269,7 @@ const mediaTypeByUrl = (url) => {
 const TeamVideo = ({ teamId, type, setIsLoaded }) => {
     const dispatch = useDispatch();
     const team = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    if(!team || !team.medias || !team.medias[type])
+    if (!team || !team.medias || !team.medias[type])
         return null;
     const mediaUrl = team.medias[type];
     const mediaUrlType = mediaTypeByUrl(mediaUrl);
@@ -281,16 +290,47 @@ const TeamVideo = ({ teamId, type, setIsLoaded }) => {
 };
 
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
-    const [isLoaded, setIsLoaded] = useState(settings?.mediaType === undefined);
+    const dispatch = useDispatch();
+    const [loadedComponents, setLoadedComponents] = useState(0);
+    const isLoaded = loadedComponents === (1 << settings.content.length) - 1;
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
-        {settings.mediaType !== undefined &&
-            <TeamVideo teamId={settings.teamId} type={settings.mediaType} setIsLoaded={setIsLoaded}/>
-        }
-        {settings.showTaskStatus !== false && <ScoreboardColumn teamId={settings.teamId}/>}
+        {settings.content.map((c, index) => {
+            const setIsLoaded = () => setLoadedComponents(m => m | (1 << index));
+            if (c.type === "TaskStatus") {
+                useEffect(() => {
+                    setIsLoaded(true);
+                }, [c.teamId]);
+                return <ScoreboardColumn teamId={c.teamId}/>;
+            }
+            if (c.type === "Photo") {
+                return <TeamVideoAnimationWrapper>
+                    <TeamImageWrapper src={c.url} onLoad={() => setIsLoaded(true)}/>
+                </TeamVideoAnimationWrapper>;
+            }
+            if (c.type === "Video") {
+                return <TeamVideoAnimationWrapper>
+                    <TeamVideoWrapper
+                        src={c.url}
+                        onCanPlay={() => setIsLoaded(true)}
+                        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading video in TeamView widget"))}
+                        autoPlay
+                        muted/>
+                </TeamVideoAnimationWrapper>;
+            }
+            if (c.type === "WebRTCConnection") {
+                return <TeamVideoAnimationWrapper>
+                    <TeamWebRTCVideoWrapper url={c.url} setIsLoaded={setIsLoaded}/>
+                </TeamVideoAnimationWrapper>;
+            }
+            useEffect(() => {
+                setLoadedComponents(m => m | (1 << index));
+            }, [c.teamId]);
+            return undefined;
+        })}
     </TeamViewContainer>;
 };
 TeamView.ignoreAnimation = true;

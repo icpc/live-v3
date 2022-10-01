@@ -22,7 +22,7 @@ private object Subscribe : QueueProcessTrigger()
 sealed class FeaturedRunAction(val runId: Int) {
     class MakeFeatured(
         runId: Int,
-        val mediaType: MediaType,
+        val mediaType: TeamMediaType,
     ) : FeaturedRunAction(runId) {
         val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred()
     }
@@ -169,7 +169,7 @@ class QueueService {
     companion object {
         val logger = getLogger(QueueService::class)
 
-        private data class FeaturedRunInfo(val runId: Int, val mediaType: MediaType)
+        private data class FeaturedRunInfo(val runId: Int, val mediaType: TeamMediaType)
 
         private val WAIT_TIME = 1.minutes
         private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes

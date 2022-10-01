@@ -4,11 +4,11 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import org.icpclive.api.*
-import org.icpclive.data.DataBus
+import org.icpclive.controllers.PresetsController
 import org.icpclive.data.Controllers
+import org.icpclive.data.DataBus
 import org.icpclive.utils.completeOrThrow
 import org.icpclive.utils.getLogger
-import org.icpclive.controllers.PresetsController
 import kotlin.time.Duration
 
 sealed class AnalyticsAction {
@@ -17,7 +17,7 @@ sealed class AnalyticsAction {
     data class DeleteAdvertisement(override val messageId: String, val expectedId: Int? = null) : AnalyticsAction()
     data class CreateTickerMessage(override val messageId: String, val ttl: Duration?) : AnalyticsAction()
     data class DeleteTickerMessage(override val messageId: String, val expectedId: Int? = null) : AnalyticsAction()
-    data class MakeRunFeatured(override val messageId: String, val mediaType: MediaType) : AnalyticsAction()
+    data class MakeRunFeatured(override val messageId: String, val mediaType: TeamMediaType) : AnalyticsAction()
     data class MakeRunNotFeatured(override val messageId: String) : AnalyticsAction()
 }
 

@@ -8,7 +8,7 @@ data class TeamInfoOverride(
     val shortname: String? = null,
     val groups: List<String>? = null,
     val hashTag: String? = null,
-    val medias: Map<MediaType, String?>? = null,
+    val medias: Map<TeamMediaType, String?>? = null,
 )
 
 @Serializable
@@ -28,7 +28,7 @@ class RankingSettings(
 data class AdvancedProperties(
     val startTime: String? = null,
     val holdTimeSeconds: String? = null,
-    val teamMediaTemplate: Map<MediaType, String?>? = null,
+    val teamMediaTemplate: Map<TeamMediaType, String?>? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
     val scoreboardOverrides: RankingSettings? = null

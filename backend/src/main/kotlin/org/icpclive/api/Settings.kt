@@ -50,17 +50,18 @@ class StatisticsSettings : ObjectSettings
 class TickerSettings : ObjectSettings
 
 @Serializable
-data class TeamViewSettings(
+data class ExternalTeamViewSettings(
     val teamId: Int? = null,
-    val mediaType: MediaType? = null,
+    val mediaTypes: List<TeamMediaType> = emptyList(),
     val showTaskStatus: Boolean = true,
     val showAchievement: Boolean = false,
     val position: TeamViewPosition = TeamViewPosition.SINGLE_TOP_RIGHT,
 ) : ObjectSettings
 
 @Serializable
-data class TeamPVPSettings(
-    val teamId: List<Int> = emptyList(), val mediaType: List<MediaType> = emptyList()
+data class OverlayTeamViewSettings(
+    val content: List<MediaType> = emptyList(),
+    val position: TeamViewPosition = TeamViewPosition.SINGLE_TOP_RIGHT,
 ) : ObjectSettings
 
 @Serializable
