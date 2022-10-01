@@ -20,6 +20,8 @@ export const TeamViewInstanceManager = ({
     const shownTeam = useMemo(
         () => teams.find(t => t.id === status.settings.teamId),
         [teams, status]);
+    const [showTaskStatus, setShowTaskStatus] = useState(instanceId === null ? true : undefined);
+    const [showAchievement, setShowAchievement] = useState(instanceId === null ? false : undefined);
     return (<Box>
         {instanceId && <Box><b>Instance {instanceId}</b></Box>}
         <Box>Automatically:
@@ -32,8 +34,17 @@ export const TeamViewInstanceManager = ({
                 mediaTypes={mediaTypes}
                 canShow={selectedTeamId !== undefined || isAutoMode}
                 canHide={status.shown}
-                onShowTeam={(mediaType) => onShow({ mediaTypes: [mediaType], teamId: isAutoMode ? undefined : selectedTeamId })}
-                onHideTeam={onHide}/>
+                onShowTeam={(mediaType) => onShow({
+                    mediaTypes: [mediaType],
+                    teamId: isAutoMode ? undefined : selectedTeamId,
+                    showTaskStatus,
+                    showAchievement })}
+                onHideTeam={onHide}
+                showTaskStatus={showTaskStatus}
+                setShowTaskStatus={setShowTaskStatus}
+                showAchievement={showAchievement}
+                setShowAchievement={setShowAchievement}
+            />
         </Box>
     </Box>);
 };

@@ -64,8 +64,8 @@ sealed class MediaType {
     class WebRTCConnection(val url: String) : MediaType()
 
     @Serializable
-    @SerialName("TeamAchievements")
-    class TeamAchievements(val url: String) : MediaType()
+    @SerialName("TeamAchievement")
+    class TeamAchievement(val url: String) : MediaType()
 
     @Serializable
     @SerialName("TaskStatus")

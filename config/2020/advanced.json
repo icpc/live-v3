@@ -10,6 +10,10 @@
     "camera": {
       "type": "Photo",
       "url": "http://localhost:8080/media/camera{teamId}.svg"
+    },
+    "achievement": {
+      "type": "TeamAchievement",
+      "url": "http://localhost:8080/media/achievements.svg"
     }
   },
   "teamOverrides": {}

@@ -306,8 +306,8 @@ export const TeamView = ({ widgetData: { settings }, transitionState }) => {
                 }, [c.teamId]);
                 return <ScoreboardColumn teamId={c.teamId}/>;
             }
-            if (c.type === "Photo") {
-                return <TeamVideoAnimationWrapper>
+            if (c.type === "Photo" || c.type === "TeamAchievement") {
+                return <TeamVideoAnimationWrapper style={c.type === "TeamAchievement" ? { width: 1920, height: 1080 } : {}}>
                     <TeamImageWrapper src={c.url} onLoad={() => setIsLoaded(true)}/>
                 </TeamVideoAnimationWrapper>;
             }
