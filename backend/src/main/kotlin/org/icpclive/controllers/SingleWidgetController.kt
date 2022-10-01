@@ -28,7 +28,7 @@ open class SingleWidgetController<SettingsType : ObjectSettings, DataType : Type
     }
 
     suspend fun previewWidget() = mutex.withLock {
-        widgetConstructor(settings)
+        constructWidget(settings)
     }
 
     protected open suspend fun constructWidget(settings: SettingsType) = widgetConstructor(settings)
