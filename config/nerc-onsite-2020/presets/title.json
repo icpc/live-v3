@@ -2,8 +2,8 @@
     {
         "preset": "title-webcam.svg",
         "data": {
-            "name": "Мистер",
-            "surname": "Чел"
+            "top_bold": "Pavel Kunyavsky",
+            "bottom": "ICPCLive"
         }
     },
     {
@@ -14,8 +14,8 @@
     {
         "preset": "title-webcam-animated.svg",
         "data": {
-            "name": "Невероятно длинное название",
-            "surname": "Для тестирования"
+            "top_bold": "Для тестирования",
+            "bottom": "Невероятно длинное название"
         }
     }
 ]

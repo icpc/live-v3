@@ -3,15 +3,15 @@
     <g mask="url(#emVHdhXPT6N20)">
         <g transform="translate(0-.871582)">
             <rect width="515" height="80" rx="0" ry="0" transform="translate(30 300)" fill="#0e4087"/>
-            <text dx="0" dy="0" font-family="&quot;Arial&quot;" font-size="19.5" font-weight="400"
-                  transform="translate(-17.851311 5.670131)" fill="#fff" alignment-baseline="middle" text-anchor="middle">
-                <tspan x="317.451" y="357.76" font-family="&quot;Arial&quot;" font-size="19.5" font-weight="400"
-                       font-style="normal" fill="#fff"><![CDATA[{name}]]></tspan>
+            <text dx="0" dy="0" font-family="&quot;Helvetica&quot;" font-size="19.5" font-weight="700"
+                  transform="translate(-34.628818-5.477929)" fill="#fff" alignment-baseline="left" text-anchor="left">
+                <tspan x="100" y="335.76" font-family="&quot;Helvetica&quot;" font-size="19.5" font-weight="700"
+                       font-style="normal" fill="#fff"><![CDATA[{top_bold}]]></tspan>
             </text>
-            <text dx="0" dy="0" font-family="&quot;Arial&quot;" font-size="19.5" font-weight="700"
-                  transform="translate(-34.628818-5.477929)" fill="#fff" alignment-baseline="middle" text-anchor="middle">
-                <tspan x="333.899" y="335.76" font-family="&quot;Arial&quot;" font-size="19.5" font-weight="700"
-                       font-style="normal" fill="#fff"><![CDATA[{surname}]]></tspan>
+            <text dx="0" dy="0" font-family="&quot;Helvetica&quot;" font-size="19.5" font-weight="400"
+                  transform="translate(-17.851311 5.670131)" fill="#fff" alignment-baseline="left" text-anchor="left">
+                <tspan x="100" y="357.76" font-family="&quot;Helvetica&quot;" font-size="19.5" font-weight="400"
+                       font-style="normal" fill="#fff"><![CDATA[{bottom}]]></tspan>
             </text>
             <g id="emVHdhXPT6N9" opacity="0">
                 <path d="M543.677,320.448l-12.887,6.431.824,1.644l12.886-6.431-.823-1.644Z" fill="#fff"/>
