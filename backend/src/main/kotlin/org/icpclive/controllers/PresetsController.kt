@@ -32,7 +32,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     private val currentID = AtomicInteger(0)
     private var innerData = load()
 
-    suspend fun getStatus(): List<ObjectStatus<SettingsType>> = mutex.withLock {
+    suspend fun getStatus() = mutex.withLock {
         innerData.map { it.getStatus() }
     }
 
@@ -55,37 +55,49 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
         id
     }
 
-    suspend fun edit(id: Int, content: SettingsType) = mutex.withLock {
-        findById(id).setSettings(content)
-        save()
-    }
-
-    suspend fun delete(id: Int) = mutex.withLock {
-        findByIdOrNull(id)?.apply {
-            hide()
-            onDelete()
-            innerData = innerData.minus(this)
+    suspend fun edit(id: Int, content: SettingsType) {
+        mutex.withLock {
+            findById(id).setSettings(content)
             save()
         }
     }
 
-    suspend fun show(id: Int) = mutex.withLock {
-        findById(id).show()
-    }
-
-    suspend fun hide(id: Int) = mutex.withLock {
-        findById(id).hide()
-    }
-    suspend fun hideIfExists(id: Int) = mutex.withLock {
-        findByIdOrNull(id)?.hide()
-    }
-
-    suspend fun reload() = mutex.withLock {
-        for (preset in innerData) {
-            preset.hide()
-            preset.onDelete()
+    suspend fun delete(id: Int) {
+        mutex.withLock {
+            findByIdOrNull(id)?.run {
+                hide()
+                onDelete()
+                innerData = innerData.minus(this)
+                save()
+            }
         }
-        innerData = load()
+    }
+
+    suspend fun show(id: Int) {
+        mutex.withLock {
+            findById(id).show()
+        }
+    }
+
+    suspend fun hide(id: Int) {
+        mutex.withLock {
+            findById(id).hide()
+        }
+    }
+    suspend fun hideIfExists(id: Int) {
+        mutex.withLock {
+            findByIdOrNull(id)?.hide()
+        }
+    }
+
+    suspend fun reload() {
+        mutex.withLock {
+            for (preset in innerData) {
+                preset.hide()
+                preset.onDelete()
+            }
+            innerData = load()
+        }
     }
 
     private fun findByIdOrNull(id: Int) = innerData.find { it.id == id }
