@@ -65,12 +65,10 @@ Before cloning on Windows configure correct crlf handling
 
 ### To test your changes:
 
-1. Setup configDirectory in `live-v3\backend\config\application.conf`
-3. `live-v3\backend\gradlew run -Plive.dev.contest=nerc-onsite-2020`
-4. open http://localhost:8000/admin to control overlay
-5. open http://localhost:8000/overlay to view result
-
-Beware of separate release config in resources directory if adding new fields to config.
+1. `live-v3\gradlew run -Plive.dev.contest=nerc-onsite-2020`
+   1. Or run one of configurations from IDEA stored in .run
+2. open http://localhost:8000/admin to control overlay
+3. open http://localhost:8000/overlay to view result
 
 ### General backend architecture
 
