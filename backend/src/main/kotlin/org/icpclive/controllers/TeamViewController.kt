@@ -8,10 +8,9 @@ import org.icpclive.data.Manager
 import kotlin.time.Duration.Companion.seconds
 
 class TeamViewController(val manager: Manager<TeamViewWidget>, val position: TeamViewPosition) :
-    SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(
-        ExternalTeamViewSettings(),
-        manager,
-        { TeamViewWidget(OverlayTeamViewSettings()) }) {
+    SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(ExternalTeamViewSettings(), manager) {
+    override suspend fun onDelete(id: Int) {}
+
     override suspend fun constructWidget(settings: ExternalTeamViewSettings): TeamViewWidget {
         val teamInfo = DataBus.contestInfoFlow.await().first().teams.find { it.id == settings.teamId }
         val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toMutableList()

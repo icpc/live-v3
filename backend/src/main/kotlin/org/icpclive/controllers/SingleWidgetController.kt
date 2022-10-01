@@ -11,12 +11,10 @@ import org.icpclive.api.ObjectStatus
 import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
 
-open class SingleWidgetController<SettingsType : ObjectSettings, DataType : TypeWithId>(
+abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : TypeWithId>(
     private var settings: SettingsType,
     private val manager: Manager<DataType>,
-    private val widgetConstructor: (SettingsType) -> DataType,
     val id: Int? = null,
-    private val onDeleteCallback: suspend (Int) -> Unit = {}
 ) {
     private val mutex = Mutex()
     private val widgetScope = CoroutineScope(Dispatchers.Default)
@@ -31,7 +29,8 @@ open class SingleWidgetController<SettingsType : ObjectSettings, DataType : Type
         constructWidget(settings)
     }
 
-    protected open suspend fun constructWidget(settings: SettingsType) = widgetConstructor(settings)
+    abstract suspend fun constructWidget(settings: SettingsType) : DataType
+    abstract suspend fun onDelete(id:Int)
 
     open suspend fun createWidgetAndShow(settings: SettingsType) {
         val widget = constructWidget(settings)
@@ -79,8 +78,19 @@ open class SingleWidgetController<SettingsType : ObjectSettings, DataType : Type
 
     open suspend fun onDelete() {
         if (id != null) {
-            onDeleteCallback(id)
+            onDelete(id)
         }
         widgetScope.cancel()
     }
+}
+fun <SettingsType : ObjectSettings, DataType : TypeWithId> SingleWidgetController(
+    settings: SettingsType,
+    manager: Manager<DataType>,
+    widgetConstructor: (SettingsType) -> DataType,
+    id: Int? = null,
+    onDeleteCallback: suspend (Int) -> Unit = {}
+) = object: SingleWidgetController<SettingsType, DataType>(settings, manager, id) {
+    override suspend fun constructWidget(settings: SettingsType) = widgetConstructor(settings)
+
+    override suspend fun onDelete(id: Int) = onDeleteCallback(id)
 }
