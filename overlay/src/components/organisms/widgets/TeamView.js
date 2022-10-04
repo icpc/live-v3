@@ -51,7 +51,7 @@ const TeamViewContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: flex-end;
-  position: relative;
+  position: absolute;
   animation: ${props => props.animation} ${TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
@@ -256,41 +256,36 @@ const TeamVideoAnimationWrapper = styled.div`
   align-items: center;
 `;
 
-const mediaTypeByUrl = (url) => {
-    if (url.startsWith("webrtc://")) {
-        return "webrtc";
-    }
-    if (url.endsWith(".svg") || url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".gif")) {
-        return "img";
-    }
-    return "video";
-};
-
-const TeamVideo = ({ teamId, type, setIsLoaded }) => {
-    const dispatch = useDispatch();
-    const team = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    if (!team || !team.medias || !team.medias[type])
-        return null;
-    const mediaUrl = team.medias[type];
-    const mediaUrlType = mediaTypeByUrl(mediaUrl);
-    console.log(`TeamVideo ${mediaUrl} ${mediaUrlType}`);
-    return <TeamVideoAnimationWrapper>
-        {mediaUrlType === "img" && <TeamImageWrapper
-            src={mediaUrl} onLoad={() => setIsLoaded(true)}/>}
-        {mediaUrlType === "video" && <TeamVideoWrapper
-            src={mediaUrl}
-            onCanPlay={() => setIsLoaded(true)}
-            onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
-            autoPlay
-            muted/>}
-        {mediaUrlType === "webrtc" && <TeamWebRTCVideoWrapper
-            url={mediaUrl.split("webrtc://", 2)[1]}
-            setIsLoaded={setIsLoaded}/>}
-    </TeamVideoAnimationWrapper>;
+const teamViewComponentRender = {
+    TaskStatus: ({ setIsLoaded, teamId }) => {
+        useEffect(() => {
+            setIsLoaded(true);
+        }, [teamId]);
+        return <ScoreboardColumn teamId={teamId}/>;
+    },
+    Photo: ({ setIsLoaded, url }) => {
+        return <TeamVideoAnimationWrapper>
+            <TeamImageWrapper src={url} onLoad={() => setIsLoaded(true)}/>
+        </TeamVideoAnimationWrapper>;
+    },
+    Video: ({ setIsLoaded, url }) => {
+        return <TeamVideoAnimationWrapper>
+            <TeamVideoWrapper
+                src={url}
+                onCanPlay={() => setIsLoaded(true)}
+                onError={() => setIsLoaded(false)}
+                autoPlay
+                muted/>
+        </TeamVideoAnimationWrapper>;
+    },
+    WebRTCConnection: ({ setIsLoaded, url }) => {
+        return <TeamVideoAnimationWrapper>
+            <TeamWebRTCVideoWrapper url={url} setIsLoaded={setIsLoaded}/>
+        </TeamVideoAnimationWrapper>;
+    },
 };
 
 export const TeamView = ({ widgetData: { settings }, transitionState }) => {
-    const dispatch = useDispatch();
     const [loadedComponents, setLoadedComponents] = useState(0);
     const isLoaded = loadedComponents === (1 << settings.content.length) - 1;
     return <TeamViewContainer
@@ -299,35 +294,13 @@ export const TeamView = ({ widgetData: { settings }, transitionState }) => {
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
         {settings.content.map((c, index) => {
-            const setIsLoaded = () => setLoadedComponents(m => m | (1 << index));
-            if (c.type === "TaskStatus") {
-                useEffect(() => {
-                    setIsLoaded(true);
-                }, [c.teamId]);
-                return <ScoreboardColumn teamId={c.teamId}/>;
-            }
-            if (c.type === "Photo" || c.type === "TeamAchievement") {
-                return <TeamVideoAnimationWrapper style={c.type === "TeamAchievement" ? { width: 1920, height: 1080 } : {}}>
-                    <TeamImageWrapper src={c.url} onLoad={() => setIsLoaded(true)}/>
-                </TeamVideoAnimationWrapper>;
-            }
-            if (c.type === "Video") {
-                return <TeamVideoAnimationWrapper>
-                    <TeamVideoWrapper
-                        src={c.url}
-                        onCanPlay={() => setIsLoaded(true)}
-                        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading video in TeamView widget"))}
-                        autoPlay
-                        muted/>
-                </TeamVideoAnimationWrapper>;
-            }
-            if (c.type === "WebRTCConnection") {
-                return <TeamVideoAnimationWrapper>
-                    <TeamWebRTCVideoWrapper url={c.url} setIsLoaded={setIsLoaded}/>
-                </TeamVideoAnimationWrapper>;
+            const setIsLoaded = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
+            const Component = teamViewComponentRender[c.type];
+            if (Component !== undefined) {
+                return <Component setIsLoaded={setIsLoaded} {...c}/>;
             }
             useEffect(() => {
-                setLoadedComponents(m => m | (1 << index));
+                setIsLoaded(true);
             }, [c.teamId]);
             return undefined;
         })}

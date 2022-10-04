@@ -12,7 +12,7 @@
       "url": "http://localhost:8080/media/camera{teamId}.svg"
     },
     "achievement": {
-      "type": "TeamAchievement",
+      "type": "Photo",
       "url": "http://localhost:8080/media/achievements.svg"
     }
   },
