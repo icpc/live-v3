@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Tooltip, ButtonGroup } from "@mui/material";
 import { lightBlue, grey } from "@mui/material/colors";
 import { Team, TEAM_FIELD_STRUCTURE } from "./Team";
+import CollectionsIcon from "@mui/icons-material/Collections";
 import TaskStatusIcon from "@mui/icons-material/Segment";
 import TeamAchievementIcon from "@mui/icons-material/StarHalf";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -12,12 +13,12 @@ const gridButton = {
     mx: "2px",
 };
 
-const CompactSwitchIconButton = ({ propertyName, disabled, isShown, onClick, children, sx }) =>
+const CompactSwitchIconButton = ({ propertyName, disabled, isShown, onClick, children, sx, noVisibilityIcon }) =>
     (<Tooltip title={propertyName +" " + (isShown ? "will" : "wont") + " shown"}>
         <Button
             sx={sx}
             disabled={disabled}
-            startIcon={isShown ? <VisibilityIcon/> : <VisibilityOffIcon/>}
+            startIcon={noVisibilityIcon ? undefined : (isShown ? <VisibilityIcon/> : <VisibilityOffIcon/>)}
             variant={isShown ? "contained" : "outlined"}
             onClick={onClick}>{children}</Button>
     </Tooltip>);
@@ -28,22 +29,41 @@ CompactSwitchIconButton.propTypes = {
     onClick: PropTypes.func.isRequired,
     children: PropTypes.element,
     sx: PropTypes.object,
+    noVisibilityIcon: PropTypes.bool,
 };
 
 export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, isSomethingSelected, canHide, isPossibleToHide,
-    onShowTeam, onHideTeam, isStatusShown, setIsStatusShown, isAchievementShown, setIsAchievementShown }) {
+    onShowTeam, onHideTeam, isStatusShown, setIsStatusShown, isAchievementShown, setIsAchievementShown, offerMultiple }) {
     canShow = canShow ?? isSomethingSelected;
     canHide = canHide ?? isPossibleToHide;
+    const [isMultipleMode, setIsMultipleMode] = useState(false);
+    const [secondaryMediaType, setSecondaryMediaType] = useState(undefined);
+    const onShow = (mediaType) => {
+        if (!isMultipleMode) {
+            return onShowTeam([mediaType]);
+        } else if (secondaryMediaType === undefined) {
+            setSecondaryMediaType(mediaType);
+        } else if (secondaryMediaType === mediaType) {
+            setSecondaryMediaType(undefined);
+        } else{
+            onShowTeam([secondaryMediaType, mediaType]);
+            setSecondaryMediaType(undefined);
+        }
+    };
     return (<ButtonGroup>
+        {offerMultiple && <CompactSwitchIconButton isShown={isMultipleMode} propertyName={"Multiple mode"}
+            disabled={!canShow} sx={gridButton} noVisibilityIcon
+            onClick={() => setIsMultipleMode(s => !s)}><CollectionsIcon/></CompactSwitchIconButton>}
         {mediaTypes.map((elem) => (
             <Button
                 disabled={!canShow}
-                sx={{ ...gridButton,
-                    backgroundColor: (selectedMediaType === elem.mediaType ? "#1976d2" : "primary")
-                }}
-                variant={selectedMediaType === elem.mediaType ? "contained" : "outlined"}
+                color={selectedMediaType === elem.mediaType ? "#1976d2" :
+                    (secondaryMediaType === elem.mediaType ? "success" : "primary")}
+                sx={gridButton}
+                variant={(selectedMediaType === elem.mediaType || secondaryMediaType === elem.mediaType)
+                    ? "contained" : "outlined"}
                 key={elem.text}
-                onClick={() => {onShowTeam(elem.mediaType);}}>{elem.text}</Button>
+                onClick={() => onShow(elem.mediaType)}>{elem.text}</Button>
         ))}
         {isStatusShown !== undefined && <CompactSwitchIconButton propertyName={"Tasks status"} disabled={!canShow}
             isShown={isStatusShown} sx={gridButton}
@@ -72,13 +92,14 @@ TeamViewSettingsPanel.propTypes = {
     setIsStatusShown: PropTypes.func,
     isAchievementShown: PropTypes.bool,
     setIsAchievementShown: PropTypes.func,
+    offerMultiple: PropTypes.bool,
 };
 TeamViewSettingsPanel.defaultProps = {
     mediaTypes:[
         { text: "camera", mediaType: "camera" },
         { text: "screen", mediaType: "screen" },
         { text: "record", mediaType: "record" },
-        { text: "info", mediaType: undefined },
+        { text: "info", mediaType: "no" },
     ]
 };
 

@@ -51,7 +51,7 @@ const TeamViewContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: flex-end;
-  position: absolute;
+  position: relative;
   animation: ${props => props.animation} ${TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
@@ -256,6 +256,15 @@ const TeamVideoAnimationWrapper = styled.div`
   align-items: center;
 `;
 
+
+const TeamViewPInPWrapper = styled.div`
+  position: absolute;   
+  width: ${({ sizeX }) => `${sizeX * 0.4}px`};
+  height: ${({ sizeX }) => `${sizeX * 0.5625 * 0.4}px`};
+  right: 0;
+  top: ${({ sizeX }) => `${sizeX * 0.5625 * 0.6}px`};
+`;
+
 const teamViewComponentRender = {
     TaskStatus: ({ setIsLoaded, teamId }) => {
         useEffect(() => {
@@ -285,24 +294,29 @@ const teamViewComponentRender = {
     },
 };
 
-export const TeamView = ({ widgetData: { settings }, transitionState }) => {
+export const TeamView = ({ widgetData: { settings, location }, transitionState }) => {
     const [loadedComponents, setLoadedComponents] = useState(0);
     const isLoaded = loadedComponents === (1 << settings.content.length) - 1;
+    const mediaContent = settings.content.filter(e => e.isMedia).map((e, index) => ({ ...e, pInP: index > 0 }));
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
-        {settings.content.map((c, index) => {
+        {mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
             const setIsLoaded = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
             const Component = teamViewComponentRender[c.type];
-            if (Component !== undefined) {
-                return <Component setIsLoaded={setIsLoaded} {...c}/>;
+            if (Component === undefined) {
+                useEffect(() => {
+                    setIsLoaded(true);
+                }, [c.teamId]);
+                return undefined;
             }
-            useEffect(() => {
-                setIsLoaded(true);
-            }, [c.teamId]);
-            return undefined;
+            const element = <Component setIsLoaded={setIsLoaded} key={index} {...c}/>;
+            if (c.pInP) {
+                return <TeamViewPInPWrapper sizeX={location.sizeX}>{element}</TeamViewPInPWrapper>;
+            }
+            return element;
         })}
     </TeamViewContainer>;
 };

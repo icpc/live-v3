@@ -9,7 +9,6 @@ export const TeamViewInstanceManager = ({
     instanceId,
     status,
     teams,
-    shownMediaType,
     selectedTeamId,
     onShow,
     onHide,
@@ -28,18 +27,18 @@ export const TeamViewInstanceManager = ({
             <Switch onChange={(_, newValue) => setIsAutoMode(newValue)} checked={isAutoMode}/>
         </Box>
         <Box>Shown team: {shownTeam?.name ?? "Auto"}</Box>
-        <Box>Media type: {shownMediaType}</Box>
+        <Box>Media type: {status.settings.mediaTypes?.join(", ")}</Box>
         <Box sx={{ pt: 1 }}>
             <TeamViewSettingsPanel
                 mediaTypes={mediaTypes}
                 canShow={selectedTeamId !== undefined || isAutoMode}
                 canHide={status.shown}
-                onShowTeam={(mediaType) => onShow({
-                    mediaTypes: [mediaType],
+                onShowTeam={(mediaTypes) => onShow({
+                    mediaTypes: mediaTypes,
                     teamId: isAutoMode ? undefined : selectedTeamId,
                     showTaskStatus: isStatusShown,
                     showAchievement: isAchievementShown })}
-                onHideTeam={onHide}
+                onHideTeam={onHide} offerMultiple={true}
                 isStatusShown={isStatusShown} setIsStatusShown={setIsStatusShown}
                 isAchievementShown={isAchievementShown} setIsAchievementShown={setIsAchievementShown}
             />
@@ -52,14 +51,13 @@ TeamViewInstanceManager.propTypes = {
         shown: PropTypes.bool.isRequired,
         settings: PropTypes.shape({
             teamId: PropTypes.number,
-            mediaType: PropTypes.string,
+            mediaTypes: PropTypes.arrayOf(PropTypes.string.isRequired),
         }).isRequired,
     }).isRequired,
     teams: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
     })),
-    shownMediaType: PropTypes.string,
     selectedTeamId: PropTypes.number,
     onShow: PropTypes.func,
     onHide: PropTypes.func,
