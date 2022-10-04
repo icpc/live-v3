@@ -50,22 +50,26 @@ enum class ContestStatus {
 
 
 @Serializable
-sealed class MediaType() {
+sealed class MediaType {
+    abstract val isMedia: Boolean
+
     @Serializable
     @SerialName("Photo")
-    class Photo(val url: String, val isMedia: Boolean = true) : MediaType()
+    class Photo(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("Video")
-    class Video(val url: String, val isMedia: Boolean = true) : MediaType()
+    class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("WebRTCConnection")
-    class WebRTCConnection(val url: String, val isMedia: Boolean = true) : MediaType()
+    class WebRTCConnection(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("TaskStatus")
-    class TaskStatus(val teamId: Int) : MediaType()
+    class TaskStatus(val teamId: Int) : MediaType() {
+        override val isMedia = false
+    }
 
     fun applyTemplate(teamId: String) = when (this) {
         is Photo -> Photo(url.replace("{teamId}", teamId))
