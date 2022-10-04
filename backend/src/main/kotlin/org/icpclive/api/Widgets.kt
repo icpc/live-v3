@@ -130,10 +130,10 @@ class TeamViewWidget(
             TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(550, 40, 1350, 970)
             TeamViewPosition.PVP_TOP -> LocationRectangle(550, 40, 1350, 970 / 2)
             TeamViewPosition.PVP_BOTTOM -> LocationRectangle(550, 40 + 970 / 2, 1350, 970 / 2)
-            TeamViewPosition.TOP_LEFT -> LocationRectangle(0, 0, 960, 540)
-            TeamViewPosition.TOP_RIGHT -> LocationRectangle(960, 0, 960, 540)
-            TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(0, 540, 960, 540)
-            TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(960, 540, 960, 540)
+            TeamViewPosition.TOP_LEFT -> LocationRectangle(550, 40, 672, 378)
+            TeamViewPosition.TOP_RIGHT -> LocationRectangle(550 + 672, 40, 672, 378)
+            TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(550, 40 + 378, 672, 378)
+            TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(550 + 672, 40 + 378, 672, 378)
         }
     }
 }
