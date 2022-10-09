@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { SCOREBOARD_TYPES } from "../../../consts";
@@ -266,30 +266,29 @@ const TeamViewPInPWrapper = styled.div`
 `;
 
 const teamViewComponentRender = {
-    TaskStatus: ({ setIsLoaded, teamId }) => {
-        useEffect(() => {
-            setIsLoaded(true);
-        }, [teamId]);
+    TaskStatus: ({ onLoadStatus, teamId }) => {
+        useLayoutEffect(() => onLoadStatus(true),
+            []);
         return <ScoreboardColumn teamId={teamId}/>;
     },
-    Photo: ({ setIsLoaded, url }) => {
+    Photo: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
-            <TeamImageWrapper src={url} onLoad={() => setIsLoaded(true)}/>
+            <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
         </TeamVideoAnimationWrapper>;
     },
-    Video: ({ setIsLoaded, url }) => {
+    Video: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
             <TeamVideoWrapper
                 src={url}
-                onCanPlay={() => setIsLoaded(true)}
-                onError={() => setIsLoaded(false)}
+                onCanPlay={() => onLoadStatus(true)}
+                onError={() => onLoadStatus(false)}
                 autoPlay
                 muted/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCConnection: ({ setIsLoaded, url }) => {
+    WebRTCConnection: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
-            <TeamWebRTCVideoWrapper url={url} setIsLoaded={setIsLoaded}/>
+            <TeamWebRTCVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
 };
@@ -304,15 +303,14 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
         {mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
-            const setIsLoaded = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
+            const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
             const Component = teamViewComponentRender[c.type];
             if (Component === undefined) {
-                useEffect(() => {
-                    setIsLoaded(true);
-                }, [c.teamId]);
+                useEffect(() => onLoadStatus(true),
+                    [c.teamId]);
                 return undefined;
             }
-            const element = <Component setIsLoaded={setIsLoaded} key={index} {...c}/>;
+            const element = <Component onLoadStatus={onLoadStatus} key={index} {...c}/>;
             if (c.pInP) {
                 return <TeamViewPInPWrapper sizeX={location.sizeX}>{element}</TeamViewPInPWrapper>;
             }
