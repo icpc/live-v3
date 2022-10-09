@@ -5,15 +5,15 @@
   "teamMediaTemplate": {
     "screen": {
       "type": "Photo",
-      "url": "http://localhost:8080/media/screen{teamId}.svg"
+      "url": "http://localhost:8080/media/screen/screen{teamId}.svg"
     },
     "camera": {
       "type": "Photo",
-      "url": "http://localhost:8080/media/camera{teamId}.svg"
+      "url": "http://localhost:8080/media/camera/camera{teamId}.svg"
     },
     "achievement": {
       "type": "Photo",
-      "url": "http://localhost:8080/media/achievements.svg"
+      "url": "http://localhost:8080/media/achievements/achievements{teamId}.svg"
     }
   },
   "teamOverrides": {}

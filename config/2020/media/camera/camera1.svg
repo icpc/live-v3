@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0" y="0" width="1920" height="1080" fill="#3888ff" fill-opacity=".8"/>
+    <text x="107.92038" y="911.28809" fill="#000000" font-family="sans-serif" font-size="133.33px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve"><tspan x="107.92038" y="911.28809" font-family="sans-serif" font-size="133.33px" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal">ASU-FCIS</tspan></text>
+    <text x="98.488327" y="346.57639" fill="#000000" font-family="sans-serif" font-size="266.67px" style="line-height:1.25" xml:space="preserve"><tspan x="98.488327" y="346.57639" font-family="sans-serif" font-size="266.67px" font-weight="bold">1</tspan></text>
+    <g transform="matrix(1.5027 0 0 1.5027 1225.6 113.73)">
+        <path d="m99.469 69.561c-25.423 0-46.104 20.683-46.104 46.104s20.683 46.104 46.104 46.104 46.104-20.683 46.104-46.104-20.683-46.104-46.104-46.104zm0 77.349c-17.229 0-31.245-14.017-31.245-31.245s14.017-31.245 31.245-31.245 31.245 14.017 31.245 31.245c0 17.227-14.016 31.245-31.245 31.245z"/>
+        <path d="m175.5 44.681h-76.03v-16.725c0-9.393-7.64-17.036-17.033-17.036h-38.189c-9.393 0-17.033 7.642-17.033 17.036v16.726h-3.777c-12.922-1e-3 -23.437 10.512-23.437 23.434v96.465c0 12.92 10.515 23.43 23.437 23.43h152.06c12.925 0 23.435-10.51 23.435-23.43v-96.465c3e-3 -12.922-10.51-23.435-23.432-23.435zm-133.43-16.725c0-1.201 0.976-2.176 2.177-2.176h38.189c1.199 0 2.174 0.976 2.174 2.177v16.726h-42.54zm133.43 145.2h-152.06c-4.73 0-8.578-3.846-8.578-8.571v-96.465c0-4.73 3.848-8.576 8.578-8.576h152.06c4.73 0 8.576 3.846 8.576 8.576v96.465h3e-3c0 4.725-3.846 8.571-8.576 8.571z"/>
+        <rect x="156.01" y="71.816" width="18.989" height="14.859"/>
+    </g>
+</svg>
