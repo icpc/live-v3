@@ -6,12 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import org.icpclive.utils.ClientAuth
-import org.icpclive.utils.defaultHttpClient
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.isHttpUrl
+import org.icpclive.utils.*
 import org.w3c.dom.Document
-import java.io.IOException
 import java.nio.file.Paths
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
@@ -34,11 +30,7 @@ abstract class RegularLoaderService<T>(auth: ClientAuth?) {
 
     suspend fun run(period: Duration) = flow {
         while (true) {
-            try {
-                emit(loadOnce())
-            } catch (e: IOException) {
-                logger.error("Failed to load $url", e)
-            }
+            emit(loadOnce())
             delay(period)
         }
     }.flowOn(Dispatchers.IO)

@@ -10,6 +10,7 @@ import org.icpclive.config
 import org.icpclive.api.AdvancedProperties
 import org.icpclive.utils.fileChangesFlow
 import org.icpclive.utils.getLogger
+import org.icpclive.utils.suppressIfNotCancellation
 import kotlin.io.path.inputStream
 
 class AdvancedPropertiesService {
@@ -22,9 +23,10 @@ class AdvancedPropertiesService {
                         path.inputStream().use {
                             Json.decodeFromStream<AdvancedProperties>(it)
                         }
-                    } catch (e: Exception) {
+                    }
+                    catch (e: Exception) {
                         logger.error("Failed to reload $path", e)
-                        null
+                        suppressIfNotCancellation(e)
                     }
                 }.collect {
                     advancedPropertiesFlow.value = it

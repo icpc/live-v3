@@ -20,7 +20,7 @@ plugins {
 group = "org.icpclive"
 version = rootProject.findProperty("build_version")!!
 application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass.set("org.icpclive.ApplicationKt")
 }
 
 kotlin {

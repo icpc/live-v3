@@ -2,6 +2,7 @@ package org.icpclive.utils
 
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
@@ -22,8 +23,8 @@ import kotlin.time.Duration
 
 inline fun <reified T> catchToNull(f: () -> T) = try {
     f()
-} catch (_: Exception) {
-    null
+} catch (e: Exception) {
+    suppressIfNotCancellation(e)
 }
 
 private fun guessDatetimeFormatLocal(time: String) =
@@ -119,3 +120,11 @@ fun NodeList.toSequence() =
     .map { item(it) }
     .filter { it.nodeType == Node.ELEMENT_NODE }
     .filterIsInstance<Element>()
+
+fun suppressIfNotCancellation(e: Exception) = if (e is CancellationException) throw e else null
+
+fun <T> Flow<T>.logAndRetryWithDelay(duration: Duration, log: (Throwable) -> Unit) = retryWhen { cause: Throwable, _: Long ->
+    log(cause)
+    delay(duration)
+    true
+}

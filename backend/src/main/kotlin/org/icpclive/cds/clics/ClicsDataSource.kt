@@ -13,9 +13,10 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.api.Event.*
-import org.icpclive.service.EventFeedLoaderService
+import org.icpclive.service.LineStreamLoaderService
 import org.icpclive.service.launchICPCServices
 import org.icpclive.utils.getLogger
+import org.icpclive.utils.logAndRetryWithDelay
 import org.icpclive.utils.reliableSharedFlow
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
@@ -39,14 +40,13 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
     ) {
-        val eventsLoader = object : EventFeedLoaderService<Event>(central.auth) {
-            val idsSet = mutableSetOf<String>()
+        val eventsLoader = object : LineStreamLoaderService<Event>(central.auth) {
             override val url = central.eventFeedUrl
             override fun processEvent(data: String) = try {
                 when (feedVersion) {
                     FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
                     FeedVersion.V2022_07 -> jsonDecoder.decodeFromString(data)
-                }.takeIf { idsSet.add(it.token) }
+                }
             } catch (e: SerializationException) {
                 logger.error("Failed to deserialize: $data", e)
                 null
@@ -72,100 +72,102 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
             }
 
             fun Flow<Event>.sortedPrefix() = flow {
-                try {
-                    val channel = produceIn(this@launch)
-                    val prefix = mutableListOf<Event>()
-                    prefix.add(channel.receive())
-                    while (true) {
-                        try {
-                            withTimeout(1.seconds) {
-                                channel.receiveCatching().getOrNull()
-                            }?.let { prefix.add(it) } ?: break
-                        } catch (e: TimeoutCancellationException) {
-                            break
-                        }
+                val channel = produceIn(this@launch)
+                val prefix = mutableListOf<Event>()
+                prefix.add(channel.receive())
+                while (true) {
+                    try {
+                        withTimeout(1.seconds) {
+                            channel.receiveCatching().getOrNull()
+                        }?.let { prefix.add(it) } ?: break
+                    } catch (e: TimeoutCancellationException) {
+                        break
                     }
-                    val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
-                    val runEvents = prefix.filterIsInstance<UpdateRunEvent>()
-                    val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
-                    contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
-                    runEvents.sortedBy { priority(it) }.forEach { emit(it) }
-                    otherEvents.forEach { emit(it) }
-                    emit(PreloadFinishedEvent(""))
-                    if (contestEvents.none { it.isFinalEvent }) {
-                        for (event in channel) {
-                            emit(event)
-                            if (event.isFinalEvent) break
-                        }
-                    }
-                    channel.cancel()
-                } catch (e: Exception) {
-                    logger.error("Exception caught in SortedPrefix", e)
-                    throw e
                 }
+                val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
+                val runEvents = prefix.filterIsInstance<UpdateRunEvent>()
+                val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
+                contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
+                runEvents.sortedBy { priority(it) }.forEach { emit(it) }
+                otherEvents.forEach { emit(it) }
+                emit(PreloadFinishedEvent(""))
+                if (contestEvents.none { it.isFinalEvent }) {
+                    for (event in channel) {
+                        emit(event)
+                        if (event.isFinalEvent) break
+                    }
+                }
+                channel.cancel()
             }
 
             var preloadFinished = false
-            eventsLoader.run().sortedPrefix().collect {
-                try {
-                    when (it) {
-                        is UpdateContestEvent -> {
-                            val changedRuns = when (it) {
-                                is ContestEvent -> model.processContest(it.data!!)
-                                is ProblemEvent -> model.processProblem(it.id, it.data)
-                                is OrganizationEvent -> model.processOrganization(it.id, it.data)
-                                is TeamEvent -> model.processTeam(it.id, it.data)
-                                is StateEvent -> model.processState(it.data!!)
-                                is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
-                                is GroupsEvent -> model.processGroup(it.id, it.data)
-                                is PreloadFinishedEvent -> {
-                                    preloadFinished = true
-                                    model.getAllRuns()
-                                }
-                            }
-                            if (preloadFinished) {
-                                onContestInfo(model.contestInfo)
-                                for (run in changedRuns) {
-                                    onRun(run)
-                                }
+
+            suspend fun processEvent(it: Event) {
+                when (it) {
+                    is UpdateContestEvent -> {
+                        val changedRuns = when (it) {
+                            is ContestEvent -> model.processContest(it.data!!)
+                            is ProblemEvent -> model.processProblem(it.id, it.data)
+                            is OrganizationEvent -> model.processOrganization(it.id, it.data)
+                            is TeamEvent -> model.processTeam(it.id, it.data)
+                            is StateEvent -> model.processState(it.data!!)
+                            is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
+                            is GroupsEvent -> model.processGroup(it.id, it.data)
+                            is PreloadFinishedEvent -> {
+                                preloadFinished = true
+                                model.getAllRuns()
                             }
                         }
-
-                        is UpdateRunEvent -> {
-                            when (it) {
-                                is SubmissionEvent -> model.processSubmission(it.data!!)
-                                is JudgementEvent -> model.processJudgement(it.data!!)
-                                is RunsEvent -> model.processRun(it.data!!)
-                            }.also { run ->
-                                if (preloadFinished) {
-                                    onRun(run.toApi())
-                                }
+                        if (preloadFinished) {
+                            onContestInfo(model.contestInfo)
+                            for (run in changedRuns) {
+                                onRun(run)
                             }
                         }
-
-                        is CommentaryEvent -> {
-                            val data = it.data
-                            if (data != null) {
-                                onComment(
-                                    AnalyticsCommentaryEvent(
-                                        data.id,
-                                        data.message,
-                                        data.time,
-                                        data.contest_time,
-                                        data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
-                                        data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
-                                    )
-                                )
-                            }
-                        }
-
-                        is IgnoredEvent -> {}
                     }
-                } catch (e: Exception) {
-                    logger.error("Failed to process event $it", e)
-                    throw e
+
+                    is UpdateRunEvent -> {
+                        when (it) {
+                            is SubmissionEvent -> model.processSubmission(it.data!!)
+                            is JudgementEvent -> model.processJudgement(it.data!!)
+                            is RunsEvent -> model.processRun(it.data!!)
+                        }.also { run ->
+                            if (preloadFinished) {
+                                onRun(run.toApi())
+                            }
+                        }
+                    }
+
+                    is CommentaryEvent -> {
+                        val data = it.data
+                        if (data != null) {
+                            onComment(
+                                AnalyticsCommentaryEvent(
+                                    data.id,
+                                    data.message,
+                                    data.time,
+                                    data.contest_time,
+                                    data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
+                                    data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
+                                )
+                            )
+                        }
+                    }
+
+                    is IgnoredEvent -> {}
                 }
             }
+
+            val idSet = mutableSetOf<String>()
+            eventsLoader.run()
+                .sortedPrefix()
+                .filterNot { it.token in idSet }
+                .onEach { processEvent(it); throw IllegalStateException() }
+                .onEach { idSet.add(it.token) }
+                .logAndRetryWithDelay(5.seconds) {
+                    logger.error("Exception caught in CLICS parser. Will restart in 5 seconds.", it)
+                    preloadFinished = false
+                }.collect()
         }
     }
 

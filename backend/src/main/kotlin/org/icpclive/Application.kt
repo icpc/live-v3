@@ -15,17 +15,16 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.launchContestDataSource
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.social.launchSocialServices
 import org.icpclive.utils.defaultJsonSettings
-import org.icpclive.utils.getLogger
 import org.slf4j.event.Level
 import java.time.Duration
+import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit =
     io.ktor.server.netty.EngineMain.main(args)
@@ -100,7 +99,9 @@ fun Application.module() {
         }
     }
     val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        getLogger(Application::class).error("Uncaught exception in coroutine context $coroutineContext", throwable)
+        environment.log.error("Uncaught exception in coroutine context $coroutineContext", throwable)
+        // TODO: understand why normal exception propagation doesn't work
+        exitProcess(1)
     }
     launch(handler) {
         launchContestDataSource()

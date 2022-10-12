@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.api.ChatMessage
 import org.icpclive.api.SocialEvent
 import org.icpclive.utils.getLogger
+import org.icpclive.utils.suppressIfNotCancellation
 import kotlin.time.Duration.Companion.seconds
 
 class TwitchService(
@@ -28,6 +29,7 @@ class TwitchService(
                     )
                 }
             } catch (e: Exception) {
+                suppressIfNotCancellation(e)
                 logger.error("Twitch client failed: restarting", e)
                 delay(10.seconds)
             }
