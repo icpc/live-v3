@@ -162,7 +162,7 @@ class ClicsDataSource(properties: Properties) : ContestDataSource {
             eventsLoader.run()
                 .sortedPrefix()
                 .filterNot { it.token in idSet }
-                .onEach { processEvent(it); throw IllegalStateException() }
+                .onEach { processEvent(it) }
                 .onEach { idSet.add(it.token) }
                 .logAndRetryWithDelay(5.seconds) {
                     logger.error("Exception caught in CLICS parser. Will restart in 5 seconds.", it)

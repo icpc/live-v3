@@ -52,7 +52,6 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
                 val (info, runs) = parseAndUpdateStandings(it.documentElement)
                 contestInfoFlow.value = info
                 runsBufferFlow.value = runs
-                throw IllegalStateException()
             }.logAndRetryWithDelay(5.seconds) {
                 logger.error("Failed to process xml, retying", it)
             }.collect()
