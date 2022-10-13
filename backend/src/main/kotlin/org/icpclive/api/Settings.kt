@@ -65,10 +65,16 @@ data class OverlayTeamViewSettings(
 ) : ObjectSettings
 
 @Serializable
+data class TeamLocatorCircleSettings(
+    val x: Int,
+    val y: Int,
+    val radius: Int,
+    val teamId: Int,
+)
+
+@Serializable
 data class TeamLocatorSettings(
-    val x: Int = 1920 / 2,
-    val y: Int = 1080 / 2,
-    val radius: Int = 50,
+    val circles: List<TeamLocatorCircleSettings> = emptyList(),
 ) : ObjectSettings
 
 @Serializable
