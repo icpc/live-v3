@@ -1,8 +1,14 @@
 {
   "scoreboard": {
     "positionX": 550,
-    "positionY": 50,
-    "sizeX": 550,
-    "sizeY": 1200
+    "positionY": 40,
+    "sizeX": 1350,
+    "sizeY": 970
+  },
+  "teamview.SINGLE_TOP_RIGHT": {
+    "positionX": 550,
+    "positionY": 40,
+    "sizeX": 1350,
+    "sizeY": 970
   }
 }

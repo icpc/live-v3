@@ -4,9 +4,9 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.config
 import kotlin.random.Random
 import kotlin.random.nextUInt
-import org.icpclive.config
 
 fun generateId(widgetPrefix: String): String = "$widgetPrefix-${Random.nextUInt()}"
 
@@ -125,7 +125,7 @@ class TeamViewWidget(
     getLocationOrDefault(getWidgetId(settings.position), getLocation(settings.position))
 ) {
     companion object {
-        fun getWidgetId(position: TeamViewPosition) = "teamview" + position.name
+        fun getWidgetId(position: TeamViewPosition) = "teamview." + position.name
         fun getLocation(position: TeamViewPosition) = when (position) {
             TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(550, 40, 1350, 970)
             TeamViewPosition.PVP_TOP -> LocationRectangle(550, 40, 1350, 970 / 2)

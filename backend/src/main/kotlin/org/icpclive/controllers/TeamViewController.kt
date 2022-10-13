@@ -18,7 +18,7 @@ class TeamViewController(val manager: Manager<TeamViewWidget>, val position: Tea
             settings.teamId?.let { teamId -> content.add(MediaType.TaskStatus(teamId)) }
         }
         if (settings.showAchievement) {
-            teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.let { content.add(it) }
+            teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.let { content.add(it.noMedia()) }
         }
         return TeamViewWidget(OverlayTeamViewSettings(content, position))
     }
