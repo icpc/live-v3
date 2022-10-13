@@ -56,33 +56,40 @@ sealed class MediaType {
 
     @Serializable
     @SerialName("Photo")
-    class Photo(val url: String, override val isMedia: Boolean = true) : MediaType()
+    data class Photo(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("Video")
-    class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
+    data class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
+
+    @Serializable
+    @SerialName("WebRTCFetchConnection")
+    data class WebRTCFetchConnection(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("WebRTCConnection")
-    class WebRTCConnection(val url: String, override val isMedia: Boolean = true) : MediaType()
+    data class WebRTCConnection(val url: String, val peerName: String, override val isMedia: Boolean = true) :
+        MediaType()
 
     @Serializable
     @SerialName("TaskStatus")
-    class TaskStatus(val teamId: Int) : MediaType() {
+    data class TaskStatus(val teamId: Int) : MediaType() {
         override val isMedia = false
     }
 
     fun applyTemplate(teamId: String) = when (this) {
-        is Photo -> Photo(url.replace("{teamId}", teamId))
-        is Video -> Video(url.replace("{teamId}", teamId))
-        is WebRTCConnection -> WebRTCConnection(url.replace("{teamId}", teamId))
+        is Photo -> copy(url = url.replace("{teamId}", teamId))
+        is Video -> copy(url = url.replace("{teamId}", teamId))
+        is WebRTCFetchConnection -> copy(url = url.replace("{teamId}", teamId))
+        is WebRTCConnection -> copy(url = url.replace("{teamId}", teamId), peerName = peerName.replace("{teamId}", teamId))
         else -> this
     }
 
     fun noMedia(): MediaType = when (this) {
-        is Photo -> Photo(url = url, isMedia = false)
-        is Video -> Video(url = url, isMedia = false)
-        is WebRTCConnection -> WebRTCConnection(url = url, isMedia = false)
+        is Photo -> copy(isMedia = false)
+        is Video -> copy(isMedia = false)
+        is WebRTCFetchConnection -> copy(isMedia = false)
+        is WebRTCConnection -> copy(isMedia = false)
         else -> this
     }
 }
