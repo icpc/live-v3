@@ -9,6 +9,7 @@ import org.icpclive.api.RunInfo
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.ejudge.EjudgeDataSource
+import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.config
@@ -42,6 +43,7 @@ fun CoroutineScope.launchContestDataSource() {
         "CF" -> ::CFDataSource
         "YANDEX" -> ::YandexDataSource
         "EJUDGE" -> ::EjudgeDataSource
+        "KRSU" -> ::KRSUDataSource
         else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
     }(properties)
 
