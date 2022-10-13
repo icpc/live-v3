@@ -23,6 +23,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "sass": "^1.49.7",
+    "socket.io-client": "^4.5.2",
     "styled-components": "^5.3.3",
     "stylelint": "^14.8.2",
     "stylelint-config-recommended": "^7.0.0",

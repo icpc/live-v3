@@ -9,6 +9,7 @@ import { TEAM_VIEW_OPACITY, TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERD
 import { pushLog } from "../../../redux/debug";
 import { DateTime } from "luxon";
 import _ from "lodash";
+import { io } from "socket.io-client";
 
 const slideIn = keyframes`
   from {
@@ -247,6 +248,69 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
         muted/>);
 };
 
+
+const TeamWebRTCSocketVideoWrapper = ({ url, peerName, setIsLoaded }) => {
+    const dispatch = useDispatch();
+    const socketRef = useRef();
+    const videoRef = useRef();
+    const rtcRef = useRef();
+    useEffect(() => {
+        const socket = io(url);
+        socketRef.current = socket;
+        socket.on("init_peer", (pcConfig) => {
+            rtcRef.current?.close();
+
+            dispatch(pushLog(`Webrtc content from ${url} peerName ${peerName}`));
+
+            const pc = new RTCPeerConnection(pcConfig);
+            rtcRef.current = pc;
+            pc.addTransceiver("video");
+
+            pc.addEventListener("track", (e) => {
+                console.log("WebRTCSocket got track");
+                if (e.track.kind === "video" && e.streams.length > 0 && videoRef.current.srcObject !== e.streams[0]) {
+                    videoRef.current.srcObject = null;
+                    videoRef.current.srcObject = e.streams[0];
+                    console.log("WebRTCSocket pc2 received remote stream");
+                }
+            });
+
+            pc.createOffer().then(offer => {
+                pc.setLocalDescription(offer);
+                console.log(`WebRTCSocket send offer to [${peerName}]`);
+                socketRef.current?.emit("offer_name", peerName, offer);
+            });
+
+            pc.addEventListener("icecandidate", (event) => {
+                console.log(`WebRTCSocket sending ice to [${peerName}]`);
+                socketRef.current?.emit("player_ice_name", peerName, event.candidate);
+            });
+
+            socketRef.current.on("offer_answer", (peerId, answer) => {
+                console.log(`WebRTCSocket got offer_answer from ${peerId}`);
+                pc.setRemoteDescription(answer).then(console.log);
+            });
+
+            socketRef.current.on("grabber_ice", async (_, candidate) => {
+                console.log("WebRTCSocket got ice");
+                await pc.addIceCandidate(candidate);
+            });
+        });
+        return () => {
+            rtcRef.current?.close();
+            socketRef.current?.close();
+        };
+    }, [url, peerName]);
+
+    return (<TeamVideoWrapper
+        ref={videoRef}
+        onCanPlay={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
+        autoPlay
+        muted/>);
+};
+
+
 const TeamVideoAnimationWrapper = styled.div`
   position: absolute;
   width: 100%;
@@ -286,9 +350,14 @@ const teamViewComponentRender = {
                 muted/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCConnection: ({ onLoadStatus, url }) => {
+    WebRTCFetchConnection: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
             <TeamWebRTCVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
+        </TeamVideoAnimationWrapper>;
+    },
+    WebRTCConnection: ({ onLoadStatus, url, peerName }) => {
+        return <TeamVideoAnimationWrapper>
+            <TeamWebRTCSocketVideoWrapper url={url} peerName={peerName} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
 };
