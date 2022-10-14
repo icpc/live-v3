@@ -13,12 +13,9 @@ import org.icpclive.data.DataBus
 
 fun CoroutineScope.launchICPCServices(loader: ContestDataSource) {
     val rawRunsDeferred = CompletableDeferred<Flow<RunInfo>>()
-    val rawInfoFlowDeferred = CompletableDeferred<StateFlow<ContestInfo>>()
     val rawAnalyticsMessageFlowDeferred = CompletableDeferred<Flow<AnalyticsMessage>>()
-    launch { loader.run(rawInfoFlowDeferred, rawRunsDeferred, rawAnalyticsMessageFlowDeferred) }
+    launch { loader.run(DataBus.contestInfoFlow, rawRunsDeferred, rawAnalyticsMessageFlowDeferred) }
     val runsFlow = reliableSharedFlow<RunInfo>()
-    launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
-    launch { ContestDataPostprocessingService().run(rawInfoFlowDeferred.await(), DataBus.advancedPropertiesFlow.await(), rawRunsDeferred.await(), DataBus.contestInfoFlow) }
     launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }
     launch { ICPCNormalScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }
     launch { ICPCOptimisticScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }

@@ -17,11 +17,14 @@ import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.*
 import org.icpclive.admin.configureAdminApiRouting
+import org.icpclive.cds.AdvancedDataSourceAdapter
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.social.launchSocialServices
 import org.icpclive.common.util.*
 import org.icpclive.cds.getContestDataSource
+import org.icpclive.data.DataBus
+import org.icpclive.service.AdvancedPropertiesService
 import org.icpclive.service.launchICPCServices
 import org.slf4j.event.Level
 import java.io.FileInputStream
@@ -115,7 +118,8 @@ fun Application.module() {
     val loader = getContestDataSource(properties, config.creds)
 
     launch(handler) {
-        launchICPCServices(loader)
+        launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
+        launchICPCServices(AdvancedDataSourceAdapter(loader, DataBus.advancedPropertiesFlow.await()))
         launchSocialServices()
     }
 }

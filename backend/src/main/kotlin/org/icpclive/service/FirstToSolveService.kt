@@ -27,6 +27,7 @@ class FirstToSolveService {
     }
 
     suspend fun run(rawRunsFlow: Flow<RunInfo>, runsFlow: MutableSharedFlow<RunInfo>) {
+        logger.info("First to solve service is started")
         rawRunsFlow.collect {
             val oldRun = solvedById[it.id]
             if (oldRun != null) {
