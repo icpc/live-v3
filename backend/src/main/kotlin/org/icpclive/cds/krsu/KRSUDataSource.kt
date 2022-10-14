@@ -1,8 +1,10 @@
 package org.icpclive.cds.krsu
 
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -25,6 +27,7 @@ import org.icpclive.utils.*
 import java.awt.Color
 import java.io.IOException
 import java.util.*
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
@@ -37,9 +40,12 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
             launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
             val contestInfoFlow = MutableStateFlow(ContestInfo.unknown())
             launchICPCServices(rawRunsFlow, contestInfoFlow)
-            val (info, runs) = loadOnce()
-            contestInfoFlow.value = info
-            runsBufferFlow.value = runs
+            while (true) {
+                val (info, runs) = loadOnce()
+                contestInfoFlow.value = info
+                runsBufferFlow.value = runs
+                delay(5.seconds)
+            }
         }
     }
 
@@ -67,16 +73,20 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
 
     private fun parseAndUpdateStandings(contest: Contest, submissions: List<Submission>): ContestParseResult {
 //        val startTime = submissions.map{it->it.ReceivedTime}.toList().min()
-        val startTime = contest.StartTime
+
+        val timezoneShift = Duration.parse(properties.getProperty("timezone-shift"))
+
+        val startTime = contest.StartTime - timezoneShift
 
         val random = Random(123123123)
         val problemsList = contest.ProblemSet.mapIndexed { index, it ->
             ProblemInfo(
-                "" + ('A' + index),
-                "" + ('A' + index),
-                if (index < predefinedColors.size) predefinedColors[index] else Color(random.nextInt()),
-                it.Problem,
-                index
+                letter = "" + ('A' + index),
+                name = "" + ('A' + index),
+                color = if (index < predefinedColors.size) predefinedColors[index] else
+                    Color(random.nextInt() and 0xffffff),
+                id = it.Problem,
+                ordinal = index
             )
         }
 //        val problemById = problemsList.associateBy { it.id }
@@ -85,21 +95,21 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
             if (!teams.contains(submission.Login)) {
                 teams[submission.Login] =
                     TeamInfo(
-                        lastTeamId++,
-                        submission.AuthorName,
-                        submission.AuthorName,
-                        submission.Login,
-                        emptyList(),
-                        null,
-                        emptyMap()
+                        id = lastTeamId++,
+                        name = submission.AuthorName,
+                        shortName = submission.AuthorName,
+                        contestSystemId = submission.Login,
+                        groups = emptyList(),
+                        hashTag = null,
+                        medias = emptyMap()
                     )
             }
         }
-        val runs = submissions.mapIndexed { index, it ->
+        val runs = submissions.map {
             val result = outcomeMap.getOrDefault(it.StatusName, "")
             logger.info("" + (it.ReceivedTime - startTime))
             RunInfo(
-                id = index,
+                id = it.Id,
                 isAccepted = "AC" == result,
                 isJudged = "" != result,
                 isAddingPenalty = "AC" != result && "CE" != result,
@@ -107,18 +117,23 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
                 problemId = it.Problem,
                 teamId = teams[it.Login]?.id ?: -1,
                 percentage = if ("" == result) 0.0 else 1.0,
-                time = it.ReceivedTime - startTime,
+                time = (it.ReceivedTime - timezoneShift) - startTime,
             )
         }.toList()
 
+        val time = Clock.System.now() - startTime
         return ContestParseResult(
             ContestInfo(
-                ContestStatus.OVER,
-                startTime,
-                5.hours,
-                4.hours,
-                problemsList,
-                teams.values.toList(),
+                status = when {
+                    time < Duration.ZERO -> ContestStatus.BEFORE
+                    time < 5.hours -> ContestStatus.RUNNING
+                    else -> ContestStatus.OVER
+                },
+                startTime = startTime,
+                contestLength = 5.hours,
+                freezeTime = 4.hours,
+                problems = problemsList,
+                teams = teams.values.toList(),
             ),
             runs
         )
