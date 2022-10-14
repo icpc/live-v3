@@ -1,6 +1,5 @@
-/**
- * Created by icpclive on 4/1/2019.
- */
+package org.icpclive.sniper;
+
 public class LocatorConfig {
     public final double pan;
     public final double tilt;

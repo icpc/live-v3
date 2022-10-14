@@ -1,3 +1,5 @@
+package org.icpclive.sniper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,9 +14,6 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.*;
 
-/**
- * @author: pashka
- */
 public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener {
 
     private static final int WIDTH = 1280;

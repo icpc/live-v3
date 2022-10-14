@@ -1,3 +1,5 @@
+package org.icpclive.sniper;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -6,9 +8,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * @author: pashka
- */
 public class SniperMover {
 
     static String[] urls;

@@ -11,3 +11,4 @@ pluginManagement {
 }
 
 include("backend")
+include("sniper-tools")

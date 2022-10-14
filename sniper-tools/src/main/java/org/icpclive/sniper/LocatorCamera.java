@@ -1,11 +1,10 @@
+package org.icpclive.sniper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Locale;
 import java.util.Scanner;
 
-/**
- * Created by icpclive on 3/31/2019.
- */
 public class LocatorCamera {
     public final String hostName;
     public final File coordinatesFile;

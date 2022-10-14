@@ -1,3 +1,5 @@
+package org.icpclive.sniper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -5,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-/**
- * Created by icpclive on 4/1/2019.
- */
 public class LocatorsData {
     public static List<LocatorCamera> locatorCameras;
 
@@ -15,7 +14,7 @@ public class LocatorsData {
 //        Properties properties = new Properties();
 //        try {
 //            properties = Config.loadProperties("mainscreen");
-////            InputStream resource = LocatorsData.class.getResourceAsStream("/mainscreen.properties");
+////            InputStream resource = org.icpclive.sniper.LocatorsData.class.getResourceAsStream("/mainscreen.properties");
 ////            if (resource == null) {
 ////                throw new AssertionError("/mainscreen.properties not found");
 ////            }
@@ -39,7 +38,7 @@ public class LocatorsData {
 //        locatorCameras = new ArrayList<>(cameraIPs.length);
 //        for (int i = 0; i < cameraIPs.length; i++) {
 //            try {
-//                locatorCameras.add(new LocatorCamera(cameraIPs[i],
+//                locatorCameras.add(new org.icpclive.sniper.LocatorCamera(cameraIPs[i],
 //                        new File(locatorCoordinates[i]), i));
 //            } catch (FileNotFoundException e) {
 //                throw new AssertionError(e);
