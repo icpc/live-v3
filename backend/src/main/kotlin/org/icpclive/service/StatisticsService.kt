@@ -3,8 +3,8 @@ package org.icpclive.service
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
+import org.icpclive.common.util.completeOrThrow
 import org.icpclive.data.DataBus
-import org.icpclive.utils.completeOrThrow
 
 class StatisticsService {
     suspend fun run(scoreboardFlow: Flow<Scoreboard>, contestInfoFlow: Flow<ContestInfo>) {

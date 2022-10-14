@@ -1,7 +1,7 @@
 package org.icpclive.data
 
 import org.icpclive.api.*
-import org.icpclive.utils.completeOrThrow
+import org.icpclive.common.util.completeOrThrow
 
 class WidgetManager : ManagerWithEvents<Widget, MainScreenEvent>() {
     override fun createAddEvent(item: Widget) = ShowWidgetEvent(item)

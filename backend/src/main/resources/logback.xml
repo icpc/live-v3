@@ -11,7 +11,7 @@
             <pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-    <appender name="FLOW" class="org.icpclive.utils.FlowLogger">
+    <appender name="FLOW" class="org.icpclive.util.FlowLogger">
     </appender>
     <root level="info">
         <appender-ref ref="STDOUT"/>
@@ -21,5 +21,5 @@
     <logger name="org.eclipse.jetty" level=""/>
     <logger name="io.netty" level=""/>
     <logger name="org.icpclive.service.QueueService" level=""/>
-    <logger name="org.icpclive.service.EmulationService" level=""/>
+    <logger name="org.icpclive.cds.EmulationContestDataSource" level=""/>
 </configuration>

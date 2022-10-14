@@ -5,10 +5,10 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import org.icpclive.api.*
+import org.icpclive.common.util.completeOrThrow
+import org.icpclive.common.util.getLogger
+import org.icpclive.common.util.intervalFlow
 import org.icpclive.data.DataBus
-import org.icpclive.utils.completeOrThrow
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.tickerFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
@@ -97,7 +97,7 @@ class QueueService {
         contestInfoFlow.filterNot { it.status == ContestStatus.BEFORE }.first()
         logger.info("Queue service is started")
         val firstEventTime = contestInfoFlow.value.currentContestTime
-        val removerFlowTrigger = tickerFlow(1.seconds).map { Clean }
+        val removerFlowTrigger = intervalFlow(1.seconds).map { Clean }
         val runsFlowTrigger = runsFlow.map { Run(it) }
         val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
         val featuredFlowTrigger = featuredRunsFlow.map { Featured(it) }

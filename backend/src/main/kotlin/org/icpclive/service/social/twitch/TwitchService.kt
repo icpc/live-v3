@@ -5,8 +5,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.api.ChatMessage
 import org.icpclive.api.SocialEvent
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.suppressIfNotCancellation
+import org.icpclive.common.util.getLogger
+import org.icpclive.common.util.suppressIfNotCancellation
 import kotlin.time.Duration.Companion.seconds
 
 class TwitchService(

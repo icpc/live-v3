@@ -54,7 +54,7 @@ class TeamSpotlightServiceTest {
         val scoreboardFlow = MutableStateFlow(Scoreboard(emptyList()))
         runBlocking {
             val serviceScope = CoroutineScope(newSingleThreadContext("TeamAccentService"))
-            val service = TeamSpotlightService(serviceScope)
+            val service = TeamSpotlightService()
             serviceScope.launch { service.run(infoFlow, runFlow,scoreboardFlow) }
             block(SimpleTestContext(infoFlow, runFlow, service, serviceScope, this))
         }
@@ -72,7 +72,7 @@ class TeamSpotlightServiceTest {
                 runFlow.emit(run(4, 2, isFts = true))
             }
             launch {
-                val keyTeams = service.getFlow(0.2.seconds).take(4).toList()
+                val keyTeams = service.getFlow().take(4).toList()
                 serviceScope.cancel()
                 Assert.assertEquals(1, keyTeams[0].teamId)
                 Assert.assertEquals(4, keyTeams[1].teamId)
@@ -96,7 +96,7 @@ class TeamSpotlightServiceTest {
                 runFlow.emit(run(6, 2))
             }
             launch {
-                val keyTeams = service.getFlow(0.2.seconds).take(3).toList()
+                val keyTeams = service.getFlow().take(3).toList()
                 serviceScope.cancel()
                 Assert.assertEquals(1, keyTeams[0].teamId)
                 Assert.assertEquals(6, keyTeams[1].teamId)

@@ -1,13 +1,12 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.tickerFlow
+import org.icpclive.common.util.getLogger
+import org.icpclive.common.util.intervalFlow
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -60,7 +59,6 @@ class TeamState(val teamId: Int, private val flowSettings: TeamSpotlightFlowSett
 }
 
 class TeamSpotlightService(
-    val scope: CoroutineScope,
     val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings()
 ) {
     private val mutex = Mutex()
@@ -91,7 +89,7 @@ class TeamSpotlightService(
     ) {
         val runIds = mutableSetOf<Int>()
         merge(
-            tickerFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
+            intervalFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
             runs.filter { !it.isHidden }
         ).collect { update ->
             when (update) {

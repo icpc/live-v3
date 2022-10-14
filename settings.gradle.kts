@@ -10,5 +10,4 @@ pluginManagement {
     }
 }
 
-include("backend")
-include("sniper-tools")
+include("sniper-tools","common", "cds", "backend")

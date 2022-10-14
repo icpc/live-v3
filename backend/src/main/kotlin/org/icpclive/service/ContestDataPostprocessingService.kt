@@ -1,18 +1,13 @@
 package org.icpclive.service
 
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
-import org.icpclive.utils.catchToNull
-import org.icpclive.utils.getLogger
-import org.icpclive.utils.guessDatetimeFormat
-import org.icpclive.utils.humanReadable
+import org.icpclive.common.util.*
 import kotlin.time.Duration.Companion.seconds
 
 class ContestDataPostprocessingService {
@@ -41,7 +36,7 @@ class ContestDataPostprocessingService {
         contestInfoInputFlow: Flow<ContestInfo>,
         advancedPropsFlow: Flow<AdvancedProperties>,
         rawRunsFlow: Flow<RunInfo>,
-        outputFlow: MutableStateFlow<ContestInfo>
+        outputFlowDeferred: CompletableDeferred<StateFlow<ContestInfo>>
     ) {
         coroutineScope {
             val mutex = Mutex()
@@ -57,7 +52,8 @@ class ContestDataPostprocessingService {
                     }
                 }
             }
-            combine(contestInfoInputFlow, advancedPropsFlow, teamsCountFlow, ::Triple).collect { (info, overrides, _) ->
+
+            val outputFlow = combine(contestInfoInputFlow, advancedPropsFlow, teamsCountFlow, ::Triple).map { (info, overrides, _) ->
                 val (teamInfos, unusedTeamOverrides) = mergeOverride(
                     info.teams,
                     overrides.teamOverrides,
@@ -119,7 +115,7 @@ class ContestDataPostprocessingService {
                 }
 
                 logger.info("Team and problem overrides are reloaded")
-                outputFlow.value = info.copy(
+                info.copy(
                     startTime = startTime,
                     holdBeforeStartTime = holdTimeSeconds,
                     teams = teamInfosFiltered,
@@ -127,7 +123,8 @@ class ContestDataPostprocessingService {
                     medals = medals,
                     penaltyPerWrongAttempt = penaltyPerWrongAttempt
                 )
-            }
+            }.stateIn(this)
+            outputFlowDeferred.completeOrThrow(outputFlow)
         }
     }
 

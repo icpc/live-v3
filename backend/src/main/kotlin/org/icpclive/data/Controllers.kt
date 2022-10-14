@@ -3,8 +3,8 @@ package org.icpclive.data
 import org.icpclive.admin.createUsersController
 import org.icpclive.api.*
 import org.icpclive.config
-import org.icpclive.utils.Svg
 import org.icpclive.controllers.*
+import org.icpclive.util.Svg
 
 object Controllers {
     private val WidgetManager = WidgetManager()

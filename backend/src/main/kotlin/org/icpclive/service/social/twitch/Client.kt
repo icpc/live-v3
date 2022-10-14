@@ -2,9 +2,9 @@ package org.icpclive.service.social.twitch
 
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
-import org.icpclive.utils.catchToNull
-import org.icpclive.utils.defaultHttpClient
-import org.icpclive.utils.getLogger
+import org.icpclive.cds.common.defaultHttpClient
+import org.icpclive.common.util.catchToNull
+import org.icpclive.common.util.getLogger
 import java.io.IOException
 
 // This code is rewritten js code from https://dev.twitch.tv/docs/irc/example-bot
@@ -20,8 +20,8 @@ class Client(
 
     suspend fun run(onMessage: suspend WebSocketSession.(String?, String) -> Unit) {
         httpClient.webSocket("ws://irc-ws.chat.twitch.tv") {
-            send("PASS ${password}")
-            send("NICK ${account}")
+            send("PASS $password")
+            send("NICK $account")
 
             for (frame in incoming) {
                 frame as? Frame.Text ?: continue

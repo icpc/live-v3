@@ -17,13 +17,18 @@ import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.*
 import org.icpclive.admin.configureAdminApiRouting
-import org.icpclive.cds.launchContestDataSource
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.social.launchSocialServices
-import org.icpclive.utils.defaultJsonSettings
+import org.icpclive.common.util.*
+import org.icpclive.cds.getContestDataSource
+import org.icpclive.service.launchICPCServices
 import org.slf4j.event.Level
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.nio.file.Files
 import java.time.Duration
+import java.util.*
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit =
@@ -103,8 +108,14 @@ fun Application.module() {
         // TODO: understand why normal exception propagation doesn't work
         exitProcess(1)
     }
+    val path = config.configDirectory.resolve("events.properties")
+    if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in ${config.configDirectory}")
+    val properties = Properties()
+    FileInputStream(path.toString()).use { properties.load(it) }
+    val loader = getContestDataSource(properties, config.creds)
+
     launch(handler) {
-        launchContestDataSource()
+        launchICPCServices(loader)
         launchSocialServices()
     }
 }

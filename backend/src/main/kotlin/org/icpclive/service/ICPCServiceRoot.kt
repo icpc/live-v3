@@ -1,36 +1,34 @@
 package org.icpclive.service
 
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.icpclive.api.*
+import org.icpclive.cds.ContestDataSource
+import org.icpclive.common.util.completeOrThrow
+import org.icpclive.common.util.reliableSharedFlow
 import org.icpclive.data.DataBus
-import org.icpclive.utils.completeOrThrow
-import org.icpclive.utils.reliableSharedFlow
 
 
-fun CoroutineScope.launchICPCServices(
-    rawRuns: Flow<RunInfo>,
-    rawInfoFlow: StateFlow<ContestInfo>,
-    rawAnalyticsMessageFlow: SharedFlow<AnalyticsMessage> = MutableSharedFlow()
-) {
+fun CoroutineScope.launchICPCServices(loader: ContestDataSource) {
+    val rawRunsDeferred = CompletableDeferred<Flow<RunInfo>>()
+    val rawInfoFlowDeferred = CompletableDeferred<StateFlow<ContestInfo>>()
+    val rawAnalyticsMessageFlowDeferred = CompletableDeferred<Flow<AnalyticsMessage>>()
+    launch { loader.run(rawInfoFlowDeferred, rawRunsDeferred, rawAnalyticsMessageFlowDeferred) }
     val runsFlow = reliableSharedFlow<RunInfo>()
-    val advancedPropertiesFlow = MutableStateFlow(AdvancedProperties())
-    val infoFlow = MutableStateFlow(rawInfoFlow.value)
-    DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
-    DataBus.contestInfoFlow.completeOrThrow(infoFlow)
-    launch { AdvancedPropertiesService().run(advancedPropertiesFlow) }
-    launch { ContestDataPostprocessingService().run(rawInfoFlow, advancedPropertiesFlow, rawRuns, infoFlow) }
-    launch { QueueService().run(runsFlow, infoFlow) }
-    launch { ICPCNormalScoreboardService().run(runsFlow, infoFlow) }
-    launch { ICPCOptimisticScoreboardService().run(runsFlow, infoFlow) }
-    launch { ICPCPessimisticScoreboardService().run(runsFlow, infoFlow) }
-    launch { FirstToSolveService().run(rawRuns, runsFlow) }
-    launch { StatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL), infoFlow) }
-    launch { AnalyticsService().run(rawAnalyticsMessageFlow) }
+    launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
+    launch { ContestDataPostprocessingService().run(rawInfoFlowDeferred.await(), DataBus.advancedPropertiesFlow.await(), rawRunsDeferred.await(), DataBus.contestInfoFlow) }
+    launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }
+    launch { ICPCNormalScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }
+    launch { ICPCOptimisticScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }
+    launch { ICPCPessimisticScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }
+    launch { FirstToSolveService().run(rawRunsDeferred.await(), runsFlow) }
+    launch { StatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL), DataBus.contestInfoFlow.await()) }
+    launch { AnalyticsService().run(rawAnalyticsMessageFlowDeferred.await()) }
     launch {
-        val accentService = TeamSpotlightService(this)
+        val accentService = TeamSpotlightService()
         DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
-        accentService.run(infoFlow, runsFlow, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
+        accentService.run(DataBus.contestInfoFlow.await(), runsFlow, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
     }
 }

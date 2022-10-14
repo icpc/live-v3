@@ -4,10 +4,10 @@ import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.MutableSharedFlow
+import org.icpclive.common.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.service.AnalyticsAction
-import org.icpclive.utils.completeOrThrow
-import org.icpclive.utils.sendJsonFlow
+import org.icpclive.util.sendJsonFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 

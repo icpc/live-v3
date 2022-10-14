@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import org.icpclive.api.SocialEvent
 import org.icpclive.config
+import org.icpclive.getCredentials
 import org.icpclive.service.social.twitch.TwitchService
-import org.icpclive.utils.*
 import java.io.FileInputStream
 import java.nio.file.Files
 import java.util.*

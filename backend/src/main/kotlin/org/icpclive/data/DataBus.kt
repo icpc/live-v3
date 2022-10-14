@@ -5,16 +5,17 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import org.icpclive.api.*
+import org.icpclive.common.util.completeOrThrow
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
-import org.icpclive.utils.completeOrThrow
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads
  */
 object DataBus {
-    val contestInfoFlow = CompletableDeferred<Flow<ContestInfo>>()
+    val contestInfoFlow = CompletableDeferred<StateFlow<ContestInfo>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
 

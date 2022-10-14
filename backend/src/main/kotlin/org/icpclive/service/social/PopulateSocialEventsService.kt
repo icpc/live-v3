@@ -4,8 +4,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.ChatMessage
 import org.icpclive.api.SocialEvent
+import org.icpclive.common.util.completeOrThrow
 import org.icpclive.data.DataBus
-import org.icpclive.utils.completeOrThrow
 
 class PopulateSocialEventsService {
     suspend fun run(flow: Flow<SocialEvent>) {
@@ -18,8 +18,8 @@ class PopulateSocialEventsService {
         val hashTagsFlow = DataBus.contestInfoFlow.await().map { info ->
             buildMap {
                 for (team in info.teams) {
-                    if (team.hashTag != null) {
-                        put(team.hashTag, team.id)
+                    team.hashTag?.let {
+                        put(it, team.id)
                     }
                 }
             }

@@ -10,8 +10,8 @@ import org.icpclive.api.TeamViewPosition
 import org.icpclive.config
 import org.icpclive.data.DataBus
 import org.icpclive.data.Controllers
-import org.icpclive.utils.sendFlow
-import org.icpclive.utils.sendJsonFlow
+import org.icpclive.util.sendFlow
+import org.icpclive.util.sendJsonFlow
 
 fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {

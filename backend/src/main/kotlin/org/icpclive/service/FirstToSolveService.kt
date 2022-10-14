@@ -3,7 +3,7 @@ package org.icpclive.service
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.api.RunInfo
-import org.icpclive.utils.getLogger
+import org.icpclive.common.util.getLogger
 import java.util.*
 
 class FirstToSolveService {

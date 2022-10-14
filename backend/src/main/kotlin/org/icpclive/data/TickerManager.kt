@@ -1,7 +1,7 @@
 package org.icpclive.data
 
 import org.icpclive.api.*
-import org.icpclive.utils.completeOrThrow
+import org.icpclive.common.util.completeOrThrow
 
 class TickerManager : ManagerWithEvents<TickerMessage, TickerEvent>() {
     override fun createAddEvent(item: TickerMessage) = AddMessageTickerEvent(item)
