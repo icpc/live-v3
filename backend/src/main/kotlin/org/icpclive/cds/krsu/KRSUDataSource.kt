@@ -50,15 +50,31 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
     val teams = mutableMapOf<String, TeamInfo>()
     var lastTeamId: Int = 0
 
+    val predefinedColors = listOf(
+        Color(0xaa3333),
+        Color(0x4444ee),
+        Color(0x33aa33),
+        Color(0xffaa00),
+        Color(0xaa33ee),
+        Color(0x00aaff),
+        Color(0x777777),
+        Color(0xeeeeaa),
+        Color(0xaa7700),
+        Color(0x00ffaa),
+        Color(0xff8877),
+        Color(0xffaaff),
+    )
+
     private fun parseAndUpdateStandings(contest: Contest, submissions: List<Submission>): ContestParseResult {
 //        val startTime = submissions.map{it->it.ReceivedTime}.toList().min()
         val startTime = contest.StartTime
 
+        val random = Random(123123123)
         val problemsList = contest.ProblemSet.mapIndexed { index, it ->
             ProblemInfo(
                 "" + ('A' + index),
                 "" + ('A' + index),
-                Color.BLACK,
+                if (index < predefinedColors.size) predefinedColors[index] else Color(random.nextInt()),
                 it.Problem,
                 index
             )
