@@ -103,15 +103,11 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     private fun findByIdOrNull(id: Int) = innerData.find { it.id == id }
     private fun findById(id: Int) = findByIdOrNull(id) ?: throw ApiActionException("No such id")
 
-    private fun load() = try {
-        presetsPath.toFile().inputStream().use {
+    private fun load() = presetsPath.toFile().takeIf { it.exists() }?.inputStream()?.use {
             Json.decodeFromStream(fileSerializer, it).map { content ->
                 SingleWidgetController(content, widgetManager, widgetConstructor, currentID.incrementAndGet())
             }
-        }
-    } catch (e: FileNotFoundException) {
-        emptyList()
-    }
+        } ?: emptyList()
 
     private suspend fun save(): Unit = withContext(Dispatchers.IO) {
         val tempFile = Files.createTempFile(presetsPath.parent, null, null)

@@ -1,7 +1,7 @@
 package org.icpclive.cds.pcms
 
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -48,11 +48,13 @@ class PCMSDataSource(val properties: Properties) : ContestDataSource {
             launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
             val contestInfoFlow = MutableStateFlow(ContestInfo.unknown())
             launchICPCServices(rawRunsFlow, contestInfoFlow)
-            xmlLoader.run(5.seconds).collect {
+            xmlLoader.run(5.seconds).onEach {
                 val (info, runs) = parseAndUpdateStandings(it.documentElement)
                 contestInfoFlow.value = info
                 runsBufferFlow.value = runs
-            }
+            }.logAndRetryWithDelay(5.seconds) {
+                logger.error("Failed to process xml, retying", it)
+            }.collect()
         }
     }
 

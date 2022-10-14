@@ -9,6 +9,7 @@ import org.icpclive.utils.DurationInMillisecondsSerializer
 import org.icpclive.utils.UnixMillisecondsSerializer
 import org.icpclive.utils.getLogger
 import java.awt.Color
+import java.lang.NumberFormatException
 import kotlin.time.Duration
 
 @Serializable
@@ -34,7 +35,7 @@ data class ProblemInfo(
                 color.startsWith("#") -> Color.decode("0x" + color.substring(1))
                 else -> Color.decode("0x$color")
             }
-        } catch (e: Exception) {
+        } catch (e: NumberFormatException) {
             logger.warn("Failed to parse color $color")
             null
         }

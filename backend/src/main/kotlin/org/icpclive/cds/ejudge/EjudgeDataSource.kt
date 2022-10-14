@@ -2,6 +2,7 @@ package org.icpclive.cds.ejudge
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
@@ -25,11 +26,13 @@ class EjudgeDataSource(val properties: Properties) : ContestDataSource {
             launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
             val contestInfoFlow = MutableStateFlow(ContestInfo.unknown())
             launchICPCServices(rawRunsFlow, contestInfoFlow)
-            xmlLoader.run(5.seconds).collect { doc ->
+            xmlLoader.run(5.seconds).onEach { doc ->
                 val (info, runs) = parseContestInfo(doc.documentElement)
                 runsBufferFlow.value = runs
                 contestInfoFlow.value = info
-            }
+            }.logAndRetryWithDelay(5.seconds) {
+                getLogger(EjudgeDataSource::class).error("Failed to process xml", it)
+            }.collect {}
         }
     }
 

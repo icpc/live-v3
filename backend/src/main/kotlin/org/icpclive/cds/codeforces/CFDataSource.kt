@@ -34,13 +34,9 @@ class CFDataSource(properties: Properties) : ContestDataSource {
         override val url
             get() = central.standingsUrl
 
-        override fun processLoaded(data: String) = try {
-            central.parseAndUnwrapStatus(data)
+        override fun processLoaded(data: String) = central.parseAndUnwrapStatus(data)
                 ?.let { Json.decodeFromJsonElement<CFStandings>(it) }
                 ?: throw IOException()
-        } catch (e: SerializationException) {
-            throw IOException(e)
-        }
     }
 
     class CFSubmissionList(val list: List<CFSubmission>)
@@ -68,8 +64,7 @@ class CFDataSource(properties: Properties) : ContestDataSource {
             launch { RunsBufferService(runsBufferFlow, rawRunsFlow).run() }
             launchICPCServices(rawRunsFlow, contestInfoFlow)
 
-
-            merge(standingsLoader.run(5.seconds), statusLoader.run(5.seconds)).collect {
+            merge(standingsLoader.run(5.seconds), statusLoader.run(5.seconds)).onEach {
                 when (it) {
                     is CFStandings -> {
                         contestInfo.updateStandings(it)
@@ -81,7 +76,9 @@ class CFDataSource(properties: Properties) : ContestDataSource {
                         runsBufferFlow.value = submissions
                     }
                 }
-            }
+            }.logAndRetryWithDelay(5.seconds) {
+                log.error("Exception in processing data", it)
+            }.collect {}
         }
     }
 
