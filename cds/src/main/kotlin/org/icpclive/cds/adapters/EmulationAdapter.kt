@@ -1,4 +1,4 @@
-package org.icpclive.cds
+package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.delay
@@ -11,6 +11,7 @@ import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
+import org.icpclive.cds.ContestDataSource
 import org.icpclive.common.util.getLogger
 import org.icpclive.common.util.humanReadable
 import org.icpclive.common.util.reliableSharedFlow
@@ -19,21 +20,21 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-private class Event(val time: Duration, val process: suspend () -> Unit)
-
-class EmulationContestDataSource(
+class EmulationAdapter(
     private val startTime: Instant,
     private val emulationSpeed: Double,
-    private val loader: ContestDataSource,
+    private val source: ContestDataSource,
 ) : ContestDataSource {
-    override suspend fun loadOnce() = loader.loadOnce()
+    private class Event(val time: Duration, val process: suspend () -> Unit)
+
+    override suspend fun loadOnce() = source.loadOnce()
 
     override suspend fun run(
         contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,
         runsDeferred: CompletableDeferred<Flow<RunInfo>>,
         analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
     ) {
-        val (finalContestInfo, runs, analyticsMessages) = loadOnce()
+        val (finalContestInfo, runs, analyticsMessages) = source.loadOnce()
         logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${startTime.humanReadable}")
         val contestInfo = finalContestInfo.copy(
             startTime = startTime,
@@ -89,6 +90,6 @@ class EmulationContestDataSource(
     }
 
     companion object {
-        internal val logger = getLogger(EmulationContestDataSource::class)
+        internal val logger = getLogger(EmulationAdapter::class)
     }
 }

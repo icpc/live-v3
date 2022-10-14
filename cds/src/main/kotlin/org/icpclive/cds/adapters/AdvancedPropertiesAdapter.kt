@@ -1,4 +1,4 @@
-package org.icpclive.cds
+package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.coroutineScope
@@ -7,10 +7,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
+import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.ContestParseResult
 import org.icpclive.common.util.*
 import kotlin.time.Duration.Companion.seconds
 
-class AdvancedDataSourceAdapter(
+class AdvancedPropertiesAdapter(
     private val source: ContestDataSource,
     private val advancedPropsFlow: Flow<AdvancedProperties>
 ) : ContestDataSource {
@@ -151,6 +153,6 @@ class AdvancedDataSourceAdapter(
     }
 
     companion object {
-        val logger = getLogger(AdvancedDataSourceAdapter::class)
+        val logger = getLogger(AdvancedPropertiesAdapter::class)
     }
 }

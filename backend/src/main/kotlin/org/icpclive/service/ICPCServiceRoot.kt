@@ -7,25 +7,31 @@ import kotlinx.coroutines.launch
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.common.util.completeOrThrow
-import org.icpclive.common.util.reliableSharedFlow
 import org.icpclive.data.DataBus
 
 
 fun CoroutineScope.launchICPCServices(loader: ContestDataSource) {
-    val rawRunsDeferred = CompletableDeferred<Flow<RunInfo>>()
-    val rawAnalyticsMessageFlowDeferred = CompletableDeferred<Flow<AnalyticsMessage>>()
-    launch { loader.run(DataBus.contestInfoFlow, rawRunsDeferred, rawAnalyticsMessageFlowDeferred) }
-    val runsFlow = reliableSharedFlow<RunInfo>()
-    launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }
-    launch { ICPCNormalScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }
-    launch { ICPCOptimisticScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }
-    launch { ICPCPessimisticScoreboardService().run(runsFlow, DataBus.contestInfoFlow.await()) }
-    launch { FirstToSolveService().run(rawRunsDeferred.await(), runsFlow) }
-    launch { StatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL), DataBus.contestInfoFlow.await()) }
-    launch { AnalyticsService().run(rawAnalyticsMessageFlowDeferred.await()) }
+    val runsDeferred = CompletableDeferred<Flow<RunInfo>>()
+    val analyticsMessageFlowDeferred = CompletableDeferred<Flow<AnalyticsMessage>>()
+    launch { loader.run(DataBus.contestInfoFlow, runsDeferred, analyticsMessageFlowDeferred) }
+    launch { QueueService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+    launch { ICPCNormalScoreboardService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+    launch { ICPCOptimisticScoreboardService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+    launch { ICPCPessimisticScoreboardService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+    launch {
+        StatisticsService().run(
+            DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
+            DataBus.contestInfoFlow.await()
+        )
+    }
+    launch { AnalyticsService().run(analyticsMessageFlowDeferred.await()) }
     launch {
         val accentService = TeamSpotlightService()
         DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
-        accentService.run(DataBus.contestInfoFlow.await(), runsFlow, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
+        accentService.run(
+            DataBus.contestInfoFlow.await(),
+            runsDeferred.await(),
+            DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
+        )
     }
 }

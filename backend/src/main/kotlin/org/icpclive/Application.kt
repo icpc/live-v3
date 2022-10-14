@@ -17,7 +17,7 @@ import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.*
 import org.icpclive.admin.configureAdminApiRouting
-import org.icpclive.cds.AdvancedDataSourceAdapter
+import org.icpclive.cds.adapters.AdvancedPropertiesAdapter
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.social.launchSocialServices
@@ -119,7 +119,7 @@ fun Application.module() {
 
     launch(handler) {
         launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
-        launchICPCServices(AdvancedDataSourceAdapter(loader, DataBus.advancedPropertiesFlow.await()))
+        launchICPCServices(AdvancedPropertiesAdapter(loader, DataBus.advancedPropertiesFlow.await()))
         launchSocialServices()
     }
 }

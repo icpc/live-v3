@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
+import org.icpclive.cds.adapters.EmulationAdapter
+import org.icpclive.cds.adapters.FirstToSolveAdapter
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.RunsBufferService
@@ -57,7 +59,11 @@ abstract class FullReloadContestDataSource(val interval: Duration) : ContestData
     }
 }
 
-fun getContestDataSource(properties: Properties, creds: Map<String, String>) : ContestDataSource {
+fun getContestDataSource(
+    properties: Properties,
+    creds: Map<String, String> = emptyMap(),
+    calculateFTS: Boolean = true
+) : ContestDataSource {
     val loader = when (val standingsType = properties.getProperty("standings.type")) {
         "CLICS" -> ClicsDataSource(properties, creds)
         "PCMS" -> PCMSDataSource(properties, creds)
@@ -72,8 +78,8 @@ fun getContestDataSource(properties: Properties, creds: Map<String, String>) : C
     return if (emulationSpeedProp != null) {
         val emulationSpeed = emulationSpeedProp.toDouble()
         val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-        EmulationContestDataSource(emulationStartTime, emulationSpeed, loader)
+        EmulationAdapter(emulationStartTime, emulationSpeed, loader)
     } else {
         loader
-    }
+    }.let { if (calculateFTS) FirstToSolveAdapter(it) else it }
 }
