@@ -1,31 +1,31 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { SCOREBOARD_TYPES } from "../../../consts";
-import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
-import { Cell } from "../../atoms/Cell";
-import { StarIcon } from "../../atoms/Star";
-import { TEAM_VIEW_OPACITY, TEAM_VIEW_APPEAR_TIME, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
-import { pushLog } from "../../../redux/debug";
-import { DateTime } from "luxon";
 import _ from "lodash";
+import { DateTime } from "luxon";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import styled, { keyframes } from "styled-components";
+import { TEAM_VIEW_APPEAR_TIME, TEAM_VIEW_OPACITY, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { SCOREBOARD_TYPES } from "../../../consts";
+import { pushLog } from "../../../redux/debug";
+import { Cell } from "../../atoms/Cell";
+import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { StarIcon } from "../../atoms/Star";
 
 const slideIn = keyframes`
   from {
     opacity: 0.1;
   }
   to {
-     opacity: 1;
+    opacity: 1;
   }
 `;
 
 const slideOut = keyframes`
   from {
-     opacity: 1;
+    opacity: 1;
   }
   to {
-      opacity: 0.1;
+    opacity: 0.1;
   }
 `;
 
@@ -111,7 +111,7 @@ const StatisticsProblemCell = styled(ProblemCell)`
 `;
 
 const ScoreboardTimeCell = styled(ScoreboardCell)`
-   flex-grow: 1;
+  flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 100%;
   height: 100%;
@@ -135,21 +135,21 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
 }
 
 const ScoreboardColumnWrapper = styled.div`
-    display: grid;
-    opacity: ${TEAM_VIEW_OPACITY};
-    grid-template-columns: repeat(2, auto);
-    grid-auto-rows: 1fr;
-    position: relative;
+  display: grid;
+  opacity: ${TEAM_VIEW_OPACITY};
+  grid-template-columns: repeat(2, auto);
+  grid-auto-rows: 1fr;
+  position: relative;
 `;
 const ScoreboardTeamInfoRow = styled.div`
-    grid-column-start: 1;
-    grid-column-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
 `;
 const TaskRow = styled.div`
-    display: flex;
-    width: 100%;
-    grid-column-start: 2;
-    grid-column-end: 3;
+  display: flex;
+  width: 100%;
+  grid-column-start: 2;
+  grid-column-end: 3;
 `;
 
 const ScoreboardColumn = ({ teamId }) => {
@@ -198,15 +198,15 @@ const TeamInfo = ({ teamId }) => {
 };
 
 const TeamImageWrapper = styled.img`
-    position: absolute;
-    width: 100%;
-    top: 0;
+  position: absolute;
+  width: 100%;
+  top: 0;
 `;
 
 const TeamVideoWrapper = styled.video`
-    position: absolute;
-    width: 100%;
-    top: 0;
+  position: absolute;
+  width: 100%;
+  top: 0;
 `;
 
 
@@ -322,7 +322,7 @@ const TeamVideoAnimationWrapper = styled.div`
 
 
 const TeamViewPInPWrapper = styled.div`
-  position: absolute;   
+  position: absolute;
   width: ${({ sizeX }) => `${sizeX * 0.4}px`};
   height: ${({ sizeX }) => `${sizeX * 0.5625 * 0.4}px`};
   right: 0;
@@ -362,6 +362,16 @@ const teamViewComponentRender = {
     },
 };
 
+export const TeamViewHolder = ({ onLoadStatus, media }) => {
+    const Component = teamViewComponentRender[media.type];
+    if (Component === undefined) {
+        useEffect(() => onLoadStatus(true),
+            [media.teamId]);
+        return undefined;
+    }
+    return <Component onLoadStatus={onLoadStatus} {...media}/>;
+};
+
 export const TeamView = ({ widgetData: { settings, location }, transitionState }) => {
     const [loadedComponents, setLoadedComponents] = useState(0);
     const isLoaded = loadedComponents === (1 << settings.content.length) - 1;
@@ -373,17 +383,11 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
     >
         {mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
             const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
-            const Component = teamViewComponentRender[c.type];
-            if (Component === undefined) {
-                useEffect(() => onLoadStatus(true),
-                    [c.teamId]);
-                return undefined;
-            }
-            const element = <Component onLoadStatus={onLoadStatus} key={index} {...c}/>;
+            const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
             if (c.pInP) {
-                return <TeamViewPInPWrapper sizeX={location.sizeX}>{element}</TeamViewPInPWrapper>;
+                return <TeamViewPInPWrapper sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
             }
-            return element;
+            return component;
         })}
     </TeamViewContainer>;
 };

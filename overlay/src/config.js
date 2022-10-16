@@ -13,6 +13,7 @@ export const TICKER_SCOREBOARD_REPEATS = 1;
 export const WIDGET_TRANSITION_TIME = 300; // ms
 export const QUEUE_ROW_TRANSITION_TIME = 1000; // ms
 export const QUEUE_ROW_APPEAR_TIME = QUEUE_ROW_TRANSITION_TIME; // ms
+export const QUEUE_ROW_FEATURED_RUN_APPEAR_TIME = 500; // ms
 export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
 export const SCOREBOARD_SCROLL_INTERVAL = 8000; // ms
@@ -40,8 +41,8 @@ export const VERDICT_UNKNOWN = "#a59e0c";
 
 export const QUEUE_ROW_HEIGHT = 41; // px
 export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
-export const QUEUE_ROWS_COUNT = 15; // n
 export const QUEUE_OPACITY = 0.95;
+export const QUEUE_FEATURED_RUN_ASPECT = 16 / 9;
 
 export const SCOREBOARD_RANK_WIDTH = "80px"; // px
 export const SCOREBOARD_NAME_WIDTH = "300px"; // px
