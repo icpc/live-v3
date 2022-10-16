@@ -82,6 +82,7 @@ class YandexContestInfo private constructor(
         freezeTime = freezeTime,
         problems = problems,
         teams = teams,
+        penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE
     )
 
     companion object {

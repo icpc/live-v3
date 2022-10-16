@@ -13,7 +13,7 @@ data class ScoreboardRow(
     val teamId: Int,
     val rank: Int,
     val totalScore: Int,
-    val penalty: Int,
+    val penalty: Long,
     val lastAccepted: Long,
     val medalType: String?,
     val problemResults: List<ProblemResult>,

@@ -121,6 +121,15 @@ data class TeamInfo(
 )
 
 @Serializable
+enum class PenaltyRoundingMode {
+    @SerialName("each_submission_down_to_minute")
+    EACH_SUBMISSION_DOWN_TO_MINUTE,
+    @SerialName("sum_down_to_minute")
+    SUM_DOWN_TO_MINUTE,
+}
+
+
+@Serializable
 data class ContestInfo(
     val status: ContestStatus,
     @SerialName("startTimeUnixMs")
@@ -140,6 +149,7 @@ data class ContestInfo(
     val emulationSpeed: Double = 1.0,
     val medals: List<MedalType> = emptyList(),
     val penaltyPerWrongAttempt: Int = 20,
+    val penaltyRoundingMode: PenaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
 ) {
     val currentContestTime
         get() = when (status) {

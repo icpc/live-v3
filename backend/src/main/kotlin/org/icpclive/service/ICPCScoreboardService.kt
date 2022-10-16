@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.merge
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import kotlin.math.max
+import kotlin.time.Duration
 
 private fun List<MedalType>.medalColorByRank(rank_: Int): String? {
     var rank = rank_
@@ -16,6 +17,30 @@ private fun List<MedalType>.medalColorByRank(rank_: Int): String? {
     return null
 }
 
+interface PenaltyCalculator {
+    fun addSolvedProblem(time: Duration, wrongAttempts: Int)
+    val penalty: Long
+}
+
+class EachSubmissionDownToMinutePenaltyCalculator(val penaltyPerWrongAttempt: Int) : PenaltyCalculator {
+    override fun addSolvedProblem(time: Duration, wrongAttempts: Int) {
+        penalty += time.inWholeMinutes + wrongAttempts * penaltyPerWrongAttempt
+    }
+
+    override var penalty = 0L
+        private set
+
+}
+
+class SumDownToMinutePenaltyCalculator(val penaltyPerWrongAttempt: Int) : PenaltyCalculator {
+    var penaltySeconds = 0L
+    override fun addSolvedProblem(time: Duration, wrongAttempts: Int) {
+        penaltySeconds += time.inWholeSeconds + wrongAttempts * penaltyPerWrongAttempt * 60L
+    }
+
+    override val penalty: Long
+        get() = penaltySeconds / 60
+}
 
 abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
     val flow = MutableStateFlow(Scoreboard(emptyList())).also {
@@ -57,8 +82,11 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
         teamGroups: List<String>,
         problems: List<ProblemInfo>
     ): ScoreboardRow {
+        val penaltyCalculator = when (penaltyRoundingMode) {
+            PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE -> EachSubmissionDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
+            PenaltyRoundingMode.SUM_DOWN_TO_MINUTE -> SumDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
+        }
         var solved = 0
-        var penalty = 0
         var lastAccepted = 0L
         val runsByProblem = runs.groupBy { it.problemId }
         val problemResults = problems.map { problem ->
@@ -82,7 +110,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             ).also {
                 if (it.isSolved) {
                     solved++
-                    penalty += okRun!!.time.inWholeMinutes.toInt() + it.wrongAttempts * penaltyPerWrongAttempt
+                    penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
                     lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
                 }
             }
@@ -91,7 +119,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             teamId,
             0,
             solved,
-            penalty,
+            penaltyCalculator.penalty,
             lastAccepted,
             null,
             problemResults,

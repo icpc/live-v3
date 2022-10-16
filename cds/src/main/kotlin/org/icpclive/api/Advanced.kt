@@ -21,7 +21,8 @@ data class ProblemInfoOverride(
 class RankingSettings(
     val medals: List<MedalType>? = null,
     val penaltyPerWrongAttempt: Int? = null,
-    val showTeamsWithoutSubmissions: Boolean? = null
+    val showTeamsWithoutSubmissions: Boolean? = null,
+    val penaltyRoundingMode: PenaltyRoundingMode? = null
 )
 
 @Serializable
