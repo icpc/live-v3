@@ -66,7 +66,7 @@ const transitionProps = {
 
 export const Queue = () => {
     const { queue, totalQueueItems } = useSelector(state => state.queue);
-    const [justRendered, setJustRendered] = useState(true);
+    const [isJustShown, setIsJustShown] = useState(true);
     let allRows = [];
     let queueRowsCount = 0;
     for (let queueEntry of _.sortBy(queue, "isFirstSolvedRun")) {
@@ -74,7 +74,7 @@ export const Queue = () => {
         if (queueEntry.isFirstSolvedRun) {
             bottom = queueRowsCount * QUEUE_ROW_HEIGHT + QUEUE_FTS_PADDING * (queueRowsCount > 0);
         }
-        if (justRendered) {
+        if (isJustShown) {
             bottom = 0;
         }
         const isEven = (totalQueueItems - queueRowsCount) % 2 === 0;
@@ -92,8 +92,8 @@ export const Queue = () => {
         queueRowsCount += 1;
     }
     useEffect(() => {
-        setJustRendered(false);
-    }, [justRendered]);
+        setIsJustShown(false);
+    }, [isJustShown]);
     return <WidgetWrap>
         <TransitionGroup component={null}>
             {allRows}
