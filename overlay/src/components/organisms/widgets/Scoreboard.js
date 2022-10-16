@@ -18,6 +18,7 @@ import {
     VERDICT_OK,
     VERDICT_UNKNOWN
 } from "../../../config";
+import { DEBUG } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
@@ -231,6 +232,39 @@ PositionedScoreboardRow.propTypes = {
 
 const extractScoreboardRows = (data, selectedGroup) => data.rows
     .filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
+/**
+ * Scollbar for scoreboard
+ * @param {number} totalRows - total number of rows in scoreboard
+ * @param {number} singleScreenRowCount - total number of rows that can fit on a single screen
+ * @param {number} scrollInterval - interval of scrolling
+ * @param {number} startFromRow - row to start from inclusive
+ * @param {number} endToRow - row to end to inclusive
+ */
+const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRow, endToRow) => {
+    const totalPageRows = (endToRow - startFromRow + 1);
+    const numPages = Math.ceil(totalRows / singleScreenRowCount);
+    const singglePageRowCount = Math.floor(totalRows / numPages);
+    const remainder = totalRows % singleScreenRowCount;
+    const [curPage, setCurPage] = useState(0);
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurPage((page) => {
+                return (page + 1) % numPages;
+            });
+        }, scrollInterval);
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [scrollInterval, numPages]);
+    const pageStartRow = curPage * singglePageRowCount + startFromRow - ((curPage >= remainder) ? 1 : 0);
+    if (DEBUG) { // FIXME
+        console.log("Current page:", curPage);
+        console.log("Total rows:", totalRows, "of:", numPages);
+        console.log("Single page holds:", singglePageRowCount);
+        console.log("Pages from:", pageStartRow, "to", pageStartRow + singleScreenRowCount);
+    }
+    return pageStartRow;
+};
 
 export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const optimismLevel = settings.optimismLevel;
@@ -238,33 +272,17 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const rows = extractScoreboardRows(useSelector((state) =>
         state.scoreboard[optimismLevel]), settings.group);
     const contestInfo = useSelector((state) => state.contestInfo.info);
-    const startPageRow = (settings.startFromPage - 1) * teamsOnPage;
-    const [row, setRow] = useState(startPageRow);
+    const startPageRow = settings.startFromRow - 1;
+    const entToRow = startPageRow + settings.numRows;
     const totalHeight = location.sizeY;
     const rowHeight = (totalHeight / (teamsOnPage + 1));
-    useEffect(() => {
-        const id = setInterval(() => {
-            setRow((offset) => {
-                let newStart = offset + teamsOnPage;
-                if (newStart >= Math.min(rows.length, ((settings.numPages || Infinity) + startPageRow) * teamsOnPage)) {
-                    if (settings.isInfinite) {
-                        return startPageRow;
-                    } else {
-                        return offset;
-                    }
-                } else {
-                    return newStart;
-                }
-            });
-        }, SCOREBOARD_SCROLL_INTERVAL);
-        return () => clearInterval(id);
-    }, [rows.length]);
+    const scrollPos = useScoller(rows.length, teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, startPageRow, entToRow);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
     return <ScoreboardWrap>
         <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>
         <div style={{ overflow: "hidden", height: "100%" }}>
             {teams.map(([ind, teamRowData]) =>
-                <PositionedScoreboardRow key={teamRowData.teamId} pos={(ind - row) * rowHeight}
+                <PositionedScoreboardRow key={teamRowData.teamId} pos={ind * rowHeight - scrollPos * rowHeight}
                     rowHeight={rowHeight} zIndex={rows.length - ind}>
                     <ScoreboardRow teamId={teamRowData.teamId} optimismLevel={optimismLevel}/>
                 </PositionedScoreboardRow>

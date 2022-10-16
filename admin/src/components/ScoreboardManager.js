@@ -1,30 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import {
-    ButtonGroup,
-    Switch,
-    Table,
-    TableHead,
-    TableBody,
-    TableCell,
-    TableRow,
-    TextField,
-    Button,
-    Container,
-    Checkbox,
-    Typography,
-    Box,
-    IconButton,
-    styled
-} from "@mui/material";
-import { useSnackbar } from "notistack";
-import { errorHandlerWithSnackbar } from "../errors";
-import { BASE_URL_BACKEND } from "../config";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CircleCheckedIcon from "@mui/icons-material/CheckCircleOutline";
 import CircleUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    Checkbox,
+    Container,
+    IconButton,
+    styled,
+    Switch,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextField,
+    Typography
+} from "@mui/material";
+import { useSnackbar } from "notistack";
+import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState } from "react";
+import { BASE_URL_BACKEND } from "../config";
+import { errorHandlerWithSnackbar } from "../errors";
 import { createApiGet, createApiPost } from "../utils";
 
 function NumericField({ onChange, value }) {
@@ -52,7 +52,7 @@ function ScoreboardSettings({ isShown, onClickShow, onClickHide, settings, setSe
     return (<Table align="center" sx={{ my: 2 }} size="small">
         <TableHead>
             <TableRow>
-                {["", "Start from", "Amount", "Infinity"].map(val =>
+                {["", "Start from row", "Amount of rows", "Infinity"].map(val =>
                     <SlimTableCell key={val} align={"center"}>
                         <Typography variant="h6">{val}</Typography>
                     </SlimTableCell>
@@ -68,25 +68,28 @@ function ScoreboardSettings({ isShown, onClickShow, onClickHide, settings, setSe
                     </ButtonGroup>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
-                    <NumericField value={settings.startFromPage} onChange={v => setSettings(s => ({ ...s, startFromPage: v }))}/>
+                    <NumericField value={settings.startFromRow}
+                        onChange={v => setSettings(s => ({ ...s, startFromRow: v }))}/>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
-                    <NumericField value={settings.numPages} onChange={v => setSettings(s => ({ ...s, numPages: v }))}/>
+                    <NumericField value={settings.numRows} onChange={v => setSettings(s => ({ ...s, numRows: v }))}/>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
-                    <Switch checked={settings.isInfinite} onChange={t => setSettings(s => ({ ...s, isInfinite: t.target.checked }))}/>
+                    <Switch checked={settings.isInfinite}
+                        onChange={t => setSettings(s => ({ ...s, isInfinite: t.target.checked }))}/>
                 </SlimTableCell>
             </TableRow>
         </TableBody>
     </Table>);
 }
+
 ScoreboardSettings.propTypes = {
     isShown: PropTypes.bool.isRequired,
     onClickShow: PropTypes.func.isRequired,
     onClickHide: PropTypes.func.isRequired,
     settings: PropTypes.shape({
-        startFromPage: PropTypes.number.isRequired,
-        numPages: PropTypes.number.isRequired,
+        startFromRow: PropTypes.number.isRequired,
+        numRows: PropTypes.number.isRequired,
         isInfinite: PropTypes.bool.isRequired,
     }).isRequired,
     setSettings: PropTypes.func.isRequired,
@@ -109,6 +112,7 @@ function ScoreboardOptLevelCells({ settings, setSettings, group }) {
         </SlimTableCell>
     );
 }
+
 ScoreboardOptLevelCells.propTypes = {
     settings: PropTypes.shape({
         group: PropTypes.string,
@@ -157,6 +161,7 @@ function ScoreboardGroupSetting({ settings, setSettings, groupsList }) {
         </TableBody>
     </Table>);
 }
+
 ScoreboardGroupSetting.propTypes = {
     settings: PropTypes.shape({
         group: PropTypes.string,
@@ -178,8 +183,8 @@ function ScoreboardManager() {
         isInfinite: true,
         optimismLevel: "Normal",
         group: "all",
-        startFromPage: 1,
-        numPages: 100,
+        startFromRow: 1,
+        numRows: 100,
     });
     const [groupsList, setGroupsList] = useState([]);
 
@@ -216,7 +221,8 @@ function ScoreboardManager() {
     };
 
     return (
-        <Container maxWidth="md" sx={{ display: "flex", width: "75%", flexDirection: "column", pt: 2 }} className="ScoreboardSettings">
+        <Container maxWidth="md" sx={{ display: "flex", width: "75%", flexDirection: "column", pt: 2 }}
+            className="ScoreboardSettings">
             <ScoreboardSettings isShown={isShown} onClickShow={onClickShow} onClickHide={onClickHide}
                 settings={settings} setSettings={setSettings}/>
             <ScoreboardGroupSetting groupsList={groupsList} settings={settings} setSettings={setSettings}/>
