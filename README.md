@@ -26,9 +26,9 @@ Run `java -jar /path/to/jar/file -port=8080 -P:live.configDirectory=/path/to/con
     * W H 1920x1080
     * OBS Custom css:
 
-```
+```css
 #root > div {
-background: unset;
+    background: unset;
 }
 ```
 
@@ -66,7 +66,7 @@ Before cloning on Windows configure correct crlf handling
 ### To test your changes:
 
 1. `live-v3\gradlew run -Plive.dev.contest=nerc-onsite-2020`
-   1. Or run one of configurations from IDEA stored in .run
+    1. Or run one of configurations from IDEA stored in .run
 2. open http://localhost:8080/admin to control overlay
 3. open http://localhost:8080/overlay to view result
 
