@@ -162,7 +162,7 @@ function Analytics() {
             <Box sx={{ pl: 2, mt: 1 }}>
                     Featured run: <TeamViewSettingsPanel
                     isSomethingSelected={selectedEventRun !== undefined}
-                    onShowTeam={(mediaType) => makeFeaturedRun(selectedEventId, mediaType)}
+                    onShowTeam={(mediaTypes) => makeFeaturedRun(selectedEventId, mediaTypes[0])}
                     onHideTeam={() => makeNotFeaturedRun(selectedEventId)}
                     isPossibleToHide={selectedEvent?.featuredRun !== undefined}
                     mediaTypes={featuredRunMediaTypes}

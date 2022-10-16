@@ -105,11 +105,13 @@ class AnalyticsService {
             }
 
             is AnalyticsAction.MakeRunFeatured -> {
-                if (message.runIds.size != 1) {
+                if (message.runIds.size != 1 || message.teamIds.size != 1) {
                     logger.warn("Can't make run featured caused by message ${message.id}")
                     return
                 }
-                val request = FeaturedRunAction.MakeFeatured(message.runIds[0], action.mediaType)
+                val team = DataBus.contestInfoFlow.await().value.teams.find { it.id == message.teamIds[0] } ?: return
+                val media = team.medias[action.mediaType] ?: return
+                val request = FeaturedRunAction.MakeFeatured(message.runIds[0], media)
                 featuredRunsFlow.emit(request)
                 val companionRun = request.result.await() ?: return
                 modifyMessage(message.copy(featuredRun = companionRun))
