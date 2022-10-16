@@ -1,6 +1,8 @@
 import { ADMIN_ACTIONS_WS_URL, BASE_URL_BACKEND } from "../config";
 import { createApiGet, createApiPost } from "../utils";
 
+const WEBSOCKET_RECONNECT_TIME = 3000;
+
 export class AbstractWidgetService {
     constructor(apiPath, errorHandler, listenWS) {
         this.apiPath = apiPath;
@@ -9,10 +11,18 @@ export class AbstractWidgetService {
         this.apiPost = createApiPost(this.apiUrl);
         this.errorHandler = errorHandler ?? (cause => e => console.error(cause + ": " + e));
         if (listenWS) {
-            this.ws = new WebSocket(ADMIN_ACTIONS_WS_URL);
-            this.ws.onmessage = ({ data }) => this.isMessageRequireReload(data) && this.reloadDataHandlers.forEach(h => h(data));
+            this.openWS();
         }
         this.reloadDataHandlers = new Set();
+    }
+
+    openWS() {
+        this.ws = new WebSocket(ADMIN_ACTIONS_WS_URL);
+        this.ws.onmessage = ({ data }) => this.isMessageRequireReload(data) && this.reloadDataHandlers.forEach(h => h(data));
+        this.ws.onclose = (function () {
+            this.ws = null;
+            setTimeout(() => this.openWS(), WEBSOCKET_RECONNECT_TIME);
+        }).bind(this);
     }
 
     addReloadDataHandler(handler) {
