@@ -18,9 +18,9 @@ Settings.defaultZone = "utc";
 export const Clock = () => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const getStatus = useCallback(() => {
-        if(contestInfo === undefined)
+        if (contestInfo === undefined)
             return "??";
-        if(contestInfo.status === "RUNNING") {
+        if (contestInfo.status === "RUNNING") {
             const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
                 (contestInfo.emulationSpeed ?? 1);
             return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
@@ -32,7 +32,7 @@ export const Clock = () => {
     useEffect(() => {
         const interval = setInterval(() => setStatus(getStatus()), 200);
         return () => clearInterval(interval);
-    }, []);
+    }, [getStatus]);
     return <TextWrap>
         {status}
     </TextWrap>;
