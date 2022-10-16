@@ -130,8 +130,8 @@ class AdvancedPropertiesAdapter(
         else
             overrides.holdTimeSeconds?.toIntOrNull()?.seconds ?: info.holdBeforeStartTime
         val medals = overrides.scoreboardOverrides?.medals ?: info.medals
-        val penaltyPerWrongAttempt =
-            overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
+        val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
+        val penaltyRoundingMode = overrides.scoreboardOverrides?.penaltyRoundingMode ?: info.penaltyRoundingMode
         if (unusedTeamOverrides.isNotEmpty()) logger.warn("No team for override: $unusedTeamOverrides")
         if (unusedProblemOverrides.isNotEmpty()) logger.warn("No problem for override: $unusedProblemOverrides")
 
@@ -148,7 +148,8 @@ class AdvancedPropertiesAdapter(
             teams = teamInfosFiltered,
             problems = problemInfos.sortedBy { it.ordinal },
             medals = medals,
-            penaltyPerWrongAttempt = penaltyPerWrongAttempt
+            penaltyPerWrongAttempt = penaltyPerWrongAttempt,
+            penaltyRoundingMode = penaltyRoundingMode,
         )
     }
 
