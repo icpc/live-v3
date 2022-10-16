@@ -40,13 +40,13 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, 
     const [secondaryMediaType, setSecondaryMediaType] = useState(undefined);
     const onShow = (mediaType) => {
         if (!isMultipleMode) {
-            return onShowTeam([mediaType]);
+            onShowTeam([mediaType].filter(t => t !== null));
         } else if (secondaryMediaType === undefined) {
             setSecondaryMediaType(mediaType);
         } else if (secondaryMediaType === mediaType) {
             setSecondaryMediaType(undefined);
         } else{
-            onShowTeam([secondaryMediaType, mediaType]);
+            onShowTeam([secondaryMediaType, mediaType].filter(t => t !== null));
             setSecondaryMediaType(undefined);
         }
     };
@@ -99,7 +99,7 @@ TeamViewSettingsPanel.defaultProps = {
         { text: "camera", mediaType: "camera" },
         { text: "screen", mediaType: "screen" },
         { text: "record", mediaType: "record" },
-        { text: "info", mediaType: "no" },
+        { text: "empty", mediaType: null },
     ]
 };
 
