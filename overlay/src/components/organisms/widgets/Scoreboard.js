@@ -241,7 +241,7 @@ const extractScoreboardRows = (data, selectedGroup) => data.rows
  * @param {number} endToRow - row to end to inclusive
  */
 const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRow, endToRow) => {
-    const totalPageRows = (endToRow - startFromRow + 1);
+    // const totalPageRows = (endToRow - startFromRow + 1);
     const numPages = Math.ceil(totalRows / singleScreenRowCount);
     const singglePageRowCount = Math.floor(totalRows / numPages);
     const remainder = totalRows % singleScreenRowCount;
