@@ -1,13 +1,14 @@
 rootProject.name = "live-v3"
 
-pluginManagement {
-    val ktor_version: String by settings
-    val kotlin_version: String by settings
-    plugins {
-        kotlin("jvm") version kotlin_version
-        id("org.jetbrains.kotlin.plugin.serialization") version kotlin_version
-        id("io.ktor.plugin") version ktor_version
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+    versionCatalogs {
+        create("libs") {}
     }
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include("sniper-tools","common", "cds", "backend")

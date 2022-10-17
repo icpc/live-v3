@@ -1,20 +1,6 @@
-val ktor_version: String by project
-val kotlin_version: String by project
-val logback_version: String by project
-val jsoup_version: String by project
-val datetime_version: String by project
-val serialization_version: String by project
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
 plugins {
-    kotlin("jvm")
-    id("org.jetbrains.kotlin.plugin.serialization")
-    id("io.ktor.plugin")
+    id("icpclive")
+    alias(libs.plugins.ktor)
 }
 
 group = "org.icpclive"
@@ -22,17 +8,6 @@ version = rootProject.findProperty("build_version")!!
 application {
     mainClass.set("org.icpclive.ApplicationKt")
 }
-
-kotlin {
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-            languageSettings.optIn("kotlinx.coroutines.FlowPreview")
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
-    }
-}
-
 
 ktor {
     fatJar {
@@ -53,11 +28,6 @@ tasks {
     task<Copy>("release") {
         from(shadowJar)
         destinationDir = rootProject.rootDir.resolve("artifacts")
-    }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
-        kotlinOptions {
-            kotlinOptions.allWarningsAsErrors = true
-        }
     }
 }
 
@@ -88,22 +58,22 @@ repositories {
 }
 
 dependencies {
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-    implementation("io.ktor:ktor-server-auto-head-response:$ktor_version")
-    implementation("io.ktor:ktor-server-auth:$ktor_version")
-    implementation("io.ktor:ktor-server-call-logging:$ktor_version")
-    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
-    implementation("io.ktor:ktor-server-core:$ktor_version")
-    implementation("io.ktor:ktor-server-cors:$ktor_version")
-    implementation("io.ktor:ktor-server-default-headers:$ktor_version")
-    implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
-    implementation("io.ktor:ktor-server-websockets:$ktor_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:$datetime_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serialization_version")
-    implementation(project(":cds"))
-    implementation(project(":common"))
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
-    testImplementation("io.ktor:ktor-server-tests:$ktor_version")
+    implementation(libs.logback)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.server.autoHeadResponse)
+    implementation(libs.ktor.server.auth)
+    implementation(libs.ktor.server.callLogging)
+    implementation(libs.ktor.server.contentNegotiation)
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.cors)
+    implementation(libs.ktor.server.defaultHeaders)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.statusPages)
+    implementation(libs.ktor.server.websockets)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(projects.cds)
+    implementation(projects.common)
+    testImplementation(libs.kotlin.junit)
+    testImplementation(libs.ktor.server.tests)
 }
