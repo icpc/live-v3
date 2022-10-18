@@ -2,10 +2,8 @@ package org.icpclive.service
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.config
@@ -14,27 +12,25 @@ import org.icpclive.common.util.fileChangesFlow
 import org.icpclive.common.util.getLogger
 import org.icpclive.common.util.suppressIfNotCancellation
 import kotlin.io.path.inputStream
+import kotlin.time.Duration.Companion.seconds
 
 class AdvancedPropertiesService {
     suspend fun run(advancedPropertiesFlowDeferred: CompletableDeferred<Flow<AdvancedProperties>>) {
-        val advancedPropertiesFlow = MutableStateFlow(AdvancedProperties())
-        advancedPropertiesFlowDeferred.complete(advancedPropertiesFlow)
-        withContext(Dispatchers.IO) {
-            fileChangesFlow(config.configDirectory.resolve("advanced.json"))
-                .mapNotNull { path ->
-                    logger.info("Reloading $path")
-                    try {
+        coroutineScope {
+            val advancedJsonPath = config.configDirectory.resolve("advanced.json")
+            advancedPropertiesFlowDeferred.complete(
+                fileChangesFlow(advancedJsonPath)
+                    .mapNotNull { path ->
+                        logger.info("Reloading $path")
                         path.inputStream().use {
                             Json.decodeFromStream<AdvancedProperties>(it)
                         }
+                    }.flowOn(Dispatchers.IO)
+                    .logAndRetryWithDelay(5.seconds) {
+                        logger.error("Failed to reload advanced.json", it)
                     }
-                    catch (e: Exception) {
-                        logger.error("Failed to reload $path", e)
-                        suppressIfNotCancellation(e)
-                    }
-                }.collect {
-                    advancedPropertiesFlow.value = it
-                }
+                    .stateIn(this, SharingStarted.Eagerly, AdvancedProperties())
+            )
         }
     }
 
