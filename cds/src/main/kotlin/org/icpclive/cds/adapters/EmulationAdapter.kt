@@ -12,9 +12,9 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.common.util.getLogger
-import org.icpclive.common.util.humanReadable
-import org.icpclive.common.util.reliableSharedFlow
+import org.icpclive.util.getLogger
+import org.icpclive.util.humanReadable
+import org.icpclive.util.reliableSharedFlow
 import kotlin.random.Random
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds

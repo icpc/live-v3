@@ -9,8 +9,8 @@ import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.common.RegularLoaderService
-import org.icpclive.common.util.getCredentials
-import org.icpclive.common.util.getLogger
+import org.icpclive.util.getCredentials
+import org.icpclive.util.getLogger
 import java.io.IOException
 import java.lang.IllegalStateException
 import java.util.*

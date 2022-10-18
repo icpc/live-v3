@@ -14,9 +14,9 @@ import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.yandex.YandexDataSource
-import org.icpclive.common.util.getLogger
-import org.icpclive.common.util.guessDatetimeFormat
-import org.icpclive.common.util.logAndRetryWithDelay
+import org.icpclive.util.getLogger
+import org.icpclive.util.guessDatetimeFormat
+import org.icpclive.util.logAndRetryWithDelay
 import java.util.*
 import kotlin.time.Duration
 

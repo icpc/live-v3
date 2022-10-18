@@ -3,8 +3,8 @@ package org.icpclive.cds.common
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.Flow
 import org.icpclive.api.RunInfo
-import org.icpclive.common.util.getLogger
-import org.icpclive.common.util.reliableSharedFlow
+import org.icpclive.util.getLogger
+import org.icpclive.util.reliableSharedFlow
 
 class RunsBufferService(
     private val runsStorageUpdates: Flow<List<RunInfo>>,

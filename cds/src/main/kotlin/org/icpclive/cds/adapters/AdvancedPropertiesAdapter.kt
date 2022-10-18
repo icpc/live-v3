@@ -9,7 +9,7 @@ import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
-import org.icpclive.common.util.*
+import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
 class AdvancedPropertiesAdapter(

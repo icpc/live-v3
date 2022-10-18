@@ -1,4 +1,4 @@
-package org.icpclive.common.util
+package org.icpclive.util
 
 import org.w3c.dom.Element
 import org.w3c.dom.Node

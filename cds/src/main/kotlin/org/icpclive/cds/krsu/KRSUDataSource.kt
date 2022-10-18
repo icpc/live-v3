@@ -20,7 +20,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.common.RegularLoaderService
-import org.icpclive.common.util.getLogger
+import org.icpclive.util.getLogger
 import java.awt.Color
 import java.io.IOException
 import java.util.*

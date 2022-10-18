@@ -4,7 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.MutableSharedFlow
-import org.icpclive.common.util.completeOrThrow
+import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.util.sendJsonFlow

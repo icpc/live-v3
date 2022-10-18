@@ -1,7 +1,7 @@
 package org.icpclive.cds.yandex.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.common.util.DurationInMillisecondsSerializer
+import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable

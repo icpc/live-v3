@@ -4,10 +4,10 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.common.util.ColorSerializer
-import org.icpclive.common.util.DurationInMillisecondsSerializer
-import org.icpclive.common.util.UnixMillisecondsSerializer
-import org.icpclive.common.util.getLogger
+import org.icpclive.util.ColorSerializer
+import org.icpclive.util.DurationInMillisecondsSerializer
+import org.icpclive.util.UnixMillisecondsSerializer
+import org.icpclive.util.getLogger
 import java.awt.Color
 import java.lang.NumberFormatException
 import kotlin.time.Duration

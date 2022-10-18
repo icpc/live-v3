@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
-import org.icpclive.common.util.getLogger
-import org.icpclive.common.util.intervalFlow
+import org.icpclive.util.getLogger
+import org.icpclive.util.intervalFlow
 import kotlin.time.Duration.Companion.seconds
 
 

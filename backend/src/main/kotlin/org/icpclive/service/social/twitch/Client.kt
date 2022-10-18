@@ -3,8 +3,8 @@ package org.icpclive.service.social.twitch
 import io.ktor.client.plugins.websocket.*
 import io.ktor.websocket.*
 import org.icpclive.cds.common.defaultHttpClient
-import org.icpclive.common.util.catchToNull
-import org.icpclive.common.util.getLogger
+import org.icpclive.util.catchToNull
+import org.icpclive.util.getLogger
 import java.io.IOException
 
 // This code is rewritten js code from https://dev.twitch.tv/docs/irc/example-bot

@@ -10,6 +10,10 @@ import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.RegularLoaderService
 import org.icpclive.cds.common.XmlLoaderService
 import org.icpclive.common.util.*
+import org.icpclive.util.child
+import org.icpclive.util.children
+import org.icpclive.util.getCredentials
+import org.icpclive.util.getLogger
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.util.*

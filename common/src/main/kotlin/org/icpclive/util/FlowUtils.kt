@@ -1,4 +1,4 @@
-package org.icpclive.common.util
+package org.icpclive.util
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow

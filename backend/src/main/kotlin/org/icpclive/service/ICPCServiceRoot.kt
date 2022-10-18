@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.common.util.completeOrThrow
+import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 
 

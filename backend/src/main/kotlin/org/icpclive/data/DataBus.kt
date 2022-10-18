@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.icpclive.api.*
-import org.icpclive.common.util.completeOrThrow
+import org.icpclive.util.completeOrThrow
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
 

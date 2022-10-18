@@ -1,7 +1,7 @@
 package org.icpclive.cds.clics
 
 import org.icpclive.cds.common.ClientAuth
-import org.icpclive.common.util.getCredentials
+import org.icpclive.util.getCredentials
 import java.util.*
 
 class ClicsApiCentral(properties: Properties, creds: Map<String, String>) {

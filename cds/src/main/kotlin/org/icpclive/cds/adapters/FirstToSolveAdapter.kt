@@ -9,7 +9,7 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
-import org.icpclive.common.util.getLogger
+import org.icpclive.util.getLogger
 import java.util.*
 
 class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSource {

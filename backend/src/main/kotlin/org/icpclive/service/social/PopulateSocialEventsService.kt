@@ -4,7 +4,7 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.ChatMessage
 import org.icpclive.api.SocialEvent
-import org.icpclive.common.util.completeOrThrow
+import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 
 class PopulateSocialEventsService {

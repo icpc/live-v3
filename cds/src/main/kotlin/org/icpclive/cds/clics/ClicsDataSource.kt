@@ -14,10 +14,10 @@ import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.LineStreamLoaderService
-import org.icpclive.common.util.completeOrThrow
-import org.icpclive.common.util.getLogger
-import org.icpclive.common.util.logAndRetryWithDelay
-import org.icpclive.common.util.reliableSharedFlow
+import org.icpclive.util.completeOrThrow
+import org.icpclive.util.getLogger
+import org.icpclive.util.logAndRetryWithDelay
+import org.icpclive.util.reliableSharedFlow
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 

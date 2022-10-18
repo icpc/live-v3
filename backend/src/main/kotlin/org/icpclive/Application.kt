@@ -26,6 +26,7 @@ import org.icpclive.cds.getContestDataSource
 import org.icpclive.data.DataBus
 import org.icpclive.service.AdvancedPropertiesService
 import org.icpclive.service.launchICPCServices
+import org.icpclive.util.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.FileInputStream
 import java.io.FileNotFoundException

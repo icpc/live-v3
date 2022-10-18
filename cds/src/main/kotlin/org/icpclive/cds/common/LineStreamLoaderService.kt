@@ -7,7 +7,7 @@ import io.ktor.http.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.*
-import org.icpclive.common.util.getLogger
+import org.icpclive.util.getLogger
 import java.nio.file.Paths
 
 abstract class LineStreamLoaderService<T>(auth: ClientAuth?) {

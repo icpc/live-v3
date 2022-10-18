@@ -3,8 +3,8 @@ package org.icpclive.api
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.common.util.DurationInMillisecondsSerializer
-import org.icpclive.common.util.UnixMillisecondsSerializer
+import org.icpclive.util.DurationInMillisecondsSerializer
+import org.icpclive.util.UnixMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable

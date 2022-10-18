@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
 import org.icpclive.cds.common.setAllowUnsecureConnections
-import org.icpclive.common.util.getCredentials
+import org.icpclive.util.getCredentials
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths

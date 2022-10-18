@@ -3,7 +3,7 @@ package org.icpclive.service
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
-import org.icpclive.common.util.completeOrThrow
+import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 
 class StatisticsService {

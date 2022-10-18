@@ -1,4 +1,4 @@
-package org.icpclive.common.util
+package org.icpclive.util
 
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone

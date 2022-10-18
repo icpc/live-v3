@@ -6,7 +6,7 @@ import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.clics.model.ClicsOrganisationInfo
 import org.icpclive.cds.clics.model.ClicsRunInfo
-import org.icpclive.common.util.getLogger
+import org.icpclive.util.getLogger
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
