@@ -8,35 +8,35 @@ node-plugin = "3.4.0"
 
 [libraries]
 
-ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
-ktor-client-auth = { group = "io.ktor", name = "ktor-client-auth", version.ref = "ktor" }
-ktor-client-websockets = { group = "io.ktor", name = "ktor-client-websockets", version.ref = "ktor" }
+ktor-client-cio        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-cio" }
+ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-auth" }
+ktor-client-websockets = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-websockets" }
 
-ktor-server-tests = { group = "io.ktor", name = "ktor-server-tests", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { version.ref = "ktor", group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 
-ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor-server-autoHeadResponse = { group = "io.ktor", name = "ktor-server-auto-head-response", version.ref = "ktor" }
-ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth", version.ref = "ktor" }
-ktor-server-callLogging = { group = "io.ktor", name = "ktor-server-call-logging", version.ref = "ktor" }
-ktor-server-contentNegotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
-ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
-ktor-server-cors = { group = "io.ktor", name = "ktor-server-cors", version.ref = "ktor" }
-ktor-server-defaultHeaders = { group = "io.ktor", name = "ktor-server-default-headers", version.ref = "ktor" }
-ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktor" }
-ktor-server-statusPages = { group = "io.ktor", name = "ktor-server-status-pages", version.ref = "ktor" }
-ktor-server-websockets = { group = "io.ktor", name = "ktor-server-websockets", version.ref = "ktor" }
+ktor-server-tests = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-tests" }
+ktor-server-autoHeadResponse    = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auto-head-response" }
+ktor-server-auth                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auth" }
+ktor-server-callLogging         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-call-logging" }
+ktor-server-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-content-negotiation" }
+ktor-server-core                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-core" }
+ktor-server-cors                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-cors" }
+ktor-server-defaultHeaders      = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-default-headers" }
+ktor-server-netty               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-netty" }
+ktor-server-statusPages         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-status-pages" }
+ktor-server-websockets          = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-websockets" }
 
 
 
-kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "datetime" }
+kotlinx-datetime = { version.ref = "datetime", group = "org.jetbrains.kotlinx", name = "kotlinx-datetime" }
 
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+kotlinx-serialization-json = { version.ref = "serialization", group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json" }
 
-kotlin-serialization-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
-kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin-junit = {group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
+kotlin-serialization-plugin = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-serialization" }
+kotlin-gradle-plugin        = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin" }
+kotlin-junit                = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit" }
 
-logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+logback = { version.ref = "logback", group = "ch.qos.logback", name = "logback-classic" }
 
 [plugins]
 
