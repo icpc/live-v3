@@ -21,12 +21,11 @@ import org.icpclive.cds.adapters.AdvancedPropertiesAdapter
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.social.launchSocialServices
-import org.icpclive.common.util.*
+import org.icpclive.util.*
 import org.icpclive.cds.getContestDataSource
 import org.icpclive.data.DataBus
 import org.icpclive.service.AdvancedPropertiesService
 import org.icpclive.service.launchICPCServices
-import org.icpclive.util.defaultJsonSettings
 import org.slf4j.event.Level
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -70,7 +69,12 @@ private fun Application.setupKtorPlugins() {
         } else {
             basic("admin-api-auth") {
                 realm = "Access to the '/api/admin' path"
-                validate { credentials -> Controllers.userController.validateAdminApiCredits(credentials.name, credentials.password) }
+                validate { credentials ->
+                    Controllers.userController.validateAdminApiCredits(
+                        credentials.name,
+                        credentials.password
+                    )
+                }
             }
         }
     }

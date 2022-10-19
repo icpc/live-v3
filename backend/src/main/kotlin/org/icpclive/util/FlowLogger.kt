@@ -5,7 +5,6 @@ import ch.qos.logback.core.UnsynchronizedAppenderBase
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
 import org.icpclive.data.DataBus
-import org.icpclive.common.util.*
 
 class FlowLogger<E : ILoggingEvent> : UnsynchronizedAppenderBase<E>() {
     override fun append(eventObject: E) {
