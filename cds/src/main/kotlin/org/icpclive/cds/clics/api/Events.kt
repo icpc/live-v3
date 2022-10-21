@@ -90,6 +90,14 @@ sealed class Event {
     @SerialName("accounts")
     data class AccountEvent(val id: String, override val token: String, val data: Account?) : IgnoredEvent()
 
+    @Serializable
+    @SerialName("persons")
+    data class PersonEvent(val id: String, override val token: String) : IgnoredEvent()
+
+    @Serializable
+    @SerialName("map-info")
+    data class MapEvent(override val token: String) : IgnoredEvent()
+
 
     data class PreloadFinishedEvent(override val token: String) : UpdateContestEvent()
 
