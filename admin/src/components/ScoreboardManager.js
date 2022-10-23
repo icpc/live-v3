@@ -195,7 +195,7 @@ function ScoreboardManager() {
                     setIsShown(result.shown);
                     if (isFirstLoad) {
                         result.settings.group = result.settings.group ?? "all";
-                        result.settings.numPages = result.settings.numPages ?? 100;
+                        result.settings.numRows = result.settings.numRows ?? 100;
                         setSettings(result.settings);
                     }
                 })
