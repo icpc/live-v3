@@ -14,8 +14,14 @@ You can adjust received participant information for each separate participant us
       "hashTag": "#ItMo",
       "groups": ["SPb ITMO", "SPb"],
       "medias": {
-        "screen": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4",
-        "camera": "https://cdn.videvo.net/videvo_files/video/free/2016-12/large_watermarked/Typing_dark_04_Videvo_preview.mp4"
+        "screen": {
+            "type": "Video",
+            "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
+        },
+        "camera": {
+            "type": "Video",
+            "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
+        }
       }
     }
   },
@@ -26,9 +32,29 @@ Also, you can create a template rule for medias, and it would be applied to all 
 
 ```
   "teamMediaTemplate": {
-    "screen": "http://localhost:8080/media/screen{teamId}.svg",
-    "camera": "http://localhost:8080/media/camera{teamId}.svg"
+    "screen": {
+      "type": "Photo",
+      "url": "http://localhost:8080/media/screen/screen{teamId}.svg"
+    },
+    "camera": {
+      "type": "Video",
+      "url": "http://localhost:8080/media/camera/camera{teamId}.mp4"
+    },
+    "achievement": {
+      "type": "Photo",
+      "url": "http://localhost:8080/media/achievements/achievements{teamId}.svg"
+    }
   },
+```
+
+Avaliable medias: `"camera"`, `"screen"`, `"record"`, `"photo"`, `"reactionVideo"`, `"achievement"`. 
+
+Avaliable media types:  
+```
+{ "type": "Photo", "url": "url" }
+{ "type": "Video", "url": "url" }
+{ "type": "WebRTCFetchConnection", "url": "url" }
+{ "type": "WebRTCConnection", "peerName": "peerName", "url": "url" }
 ```
 
 # Customize ranking rules
