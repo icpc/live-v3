@@ -32,13 +32,17 @@ Also, you can create a template rule for medias, and it would be applied to all 
 
 ```
   "teamMediaTemplate": {
+    "record": {
+      "type": "Video",
+      "url": "http://localhost:8080/media/screen/record{teamId}.mp3"
+    },
     "screen": {
-      "type": "Photo",
-      "url": "http://localhost:8080/media/screen/screen{teamId}.svg"
+      "type": "Video",
+      "url": "http://localhost:8080/media/screen/screen{teamId}"
     },
     "camera": {
       "type": "Video",
-      "url": "http://localhost:8080/media/camera/camera{teamId}.mp4"
+      "url": "http://localhost:8080/media/camera/camera{teamId}"
     },
     "achievement": {
       "type": "Photo",
