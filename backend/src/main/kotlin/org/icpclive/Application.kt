@@ -20,7 +20,6 @@ import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.adapters.AdvancedPropertiesAdapter
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
-import org.icpclive.service.social.launchSocialServices
 import org.icpclive.util.*
 import org.icpclive.cds.getContestDataSource
 import org.icpclive.data.DataBus
@@ -125,6 +124,5 @@ fun Application.module() {
     launch(handler) {
         launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
         launchICPCServices(AdvancedPropertiesAdapter(loader, DataBus.advancedPropertiesFlow.await()))
-        launchSocialServices()
     }
 }

@@ -12,7 +12,7 @@ sealed class SocialEvent {
 @Serializable
 data class ChatMessage(
     override val rawText: String,
-    override val teamIds: List<Int>,
+    override val teamIds: List<Int> = emptyList(),
     override val author: String,
     val platform: String,
 ) : SocialEvent()

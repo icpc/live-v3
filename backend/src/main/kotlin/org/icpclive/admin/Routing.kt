@@ -76,4 +76,7 @@ fun Route.configureAdminApiRouting() {
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
     }
+    route("/social") {
+        setupSocial()
+    }
 }

@@ -25,9 +25,9 @@ suspend inline fun <T> ApplicationCall.adminApiAction(
     responseSerializer: KSerializer<T>,
     block: ApplicationCall.() -> T
 ) = try {
-    val user = principal<User>()!!
-    if (!user.confirmed) throw ApiActionException("Your account is not confirmed yet")
-    application.log.info("Changing request ${request.path()} is done by ${user.name}")
+    val user = principal<User>()
+    if (user != null && !user.confirmed) throw ApiActionException("Your account is not confirmed yet")
+    application.log.info("Changing request ${request.path()} is done by ${user?.name}")
     val result = block()
     respondText(contentType = ContentType.Application.Json) {
         Json.encodeToString(
