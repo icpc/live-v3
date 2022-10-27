@@ -46,5 +46,10 @@
         "part": "long",
         "periodMs": 10000,
         "text": "Канал Telegram: t.me/NERCNews"
+    },
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
     }
 ]
