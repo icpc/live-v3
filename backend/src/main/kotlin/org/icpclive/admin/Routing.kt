@@ -8,8 +8,8 @@ import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.first
 import org.icpclive.api.TeamViewPosition
 import org.icpclive.config
-import org.icpclive.data.DataBus
 import org.icpclive.data.Controllers
+import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow
 import org.icpclive.util.sendJsonFlow
 
@@ -69,6 +69,8 @@ fun Route.configureAdminApiRouting() {
         }
         route("/tickerMessage") { setupController(Controllers.tickerMessage) }
         route("/analytics") { setupAnalytics() }
+
+        route("/teamSpotlight") { setupSpotlight() }
 
         route("/users") { setupUserRouting(Controllers.userController) }
         get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }

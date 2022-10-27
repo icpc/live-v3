@@ -26,12 +26,15 @@ fun CoroutineScope.launchICPCServices(loader: ContestDataSource) {
     }
     launch { AnalyticsService().run(analyticsMessageFlowDeferred.await()) }
     launch {
-        val accentService = TeamSpotlightService()
+        val teamInterestingFlow = MutableStateFlow(emptyList<TeamState>())
+        val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
+        DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
         DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
         accentService.run(
             DataBus.contestInfoFlow.await(),
             runsDeferred.await(),
-            DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
+            DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
+            DataBus.teamInterestingScoreRequestFlow.await(),
         )
     }
 }

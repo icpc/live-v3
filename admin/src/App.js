@@ -16,6 +16,7 @@ import ScoreboardManager from "./components/ScoreboardManager";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 import Analytics from "./components/Analytics";
+import TeamSpotlight from "./components/TeamSpotlight";
 import { useLocalStorageState } from "./utils";
 
 const dashboard_elements = {
@@ -56,6 +57,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard elements={dashboard_elements}/>}/>
                         <Route path="/log" element={<BackendLog/>}/>
                         <Route path="/analytics" element={<Analytics/>}/>
+                        <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
                         {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>

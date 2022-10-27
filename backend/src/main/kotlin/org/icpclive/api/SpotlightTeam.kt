@@ -1,5 +1,6 @@
 package org.icpclive.api
 
+import kotlinx.serialization.Serializable
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -8,6 +9,12 @@ class RunCause(val runId: Int) : KeyTeamCause()
 object ScoreSumCause : KeyTeamCause()
 
 data class KeyTeam(val teamId: Int, val cause: KeyTeamCause)
+
+@Serializable
+data class InterestingTeam(val teamId: Int, val teamName: String, val score: Double)
+
+@Serializable
+data class AddTeamScoreRequest(val teamId: Int, val score: Double)
 
 data class TeamSpotlightFlowSettings(
     val notJudgedRunScore: Double = 5.0,
@@ -20,6 +27,7 @@ data class TeamSpotlightFlowSettings(
     val scoreboardLowestRank: Int = 40,
     val scoreboardFirstScore: Double = 5.0,
     val scoreboardLastScore: Double = 1.0,
+    val externalScoreScale: Double = 1.0
 ) {
     fun rankScore(rank: Int): Double {
         if (rank > scoreboardLowestRank) {

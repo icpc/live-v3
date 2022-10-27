@@ -25,6 +25,7 @@ const pages = {
     "Dashboard": "dashboard",
     "Backend Log": "log",
     "Analytics": "analytics",
+    "Spotlight": "teamSpotlight",
     // "Advanced Properties": "AdvancedProperties",
 };
 

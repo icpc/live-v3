@@ -4,6 +4,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.intervalFlow
@@ -13,6 +14,7 @@ import kotlin.time.Duration.Companion.seconds
 sealed class TeamAccent
 class TeamRunAccent(val run: RunInfo) : TeamAccent()
 class TeamScoreboardPlace(val rank: Int) : TeamAccent()
+class ExternalScoreAddAccent(val score: Double) : TeamAccent()
 
 private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
     if (interesting() <= other.interesting()) {
@@ -35,16 +37,19 @@ private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = 
             flowSettings.acceptedRunScore.takeIf(run.isAccepted) +
             flowSettings.judgedRunScore.takeIf(run.isJudged) +
             flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
+
+    is ExternalScoreAddAccent -> flowSettings.externalScoreScale * score
 }
 
-class TeamState(val teamId: Int, private val flowSettings: TeamSpotlightFlowSettings) : Comparable<TeamState> {
+@Serializable
+class TeamState(val teamId: Int) : Comparable<TeamState> {
     var score = 0.0
         private set
     private var causedRun: RunInfo? = null
     val caused: KeyTeamCause
         get() = causedRun?.let { RunCause(it.id) } ?: ScoreSumCause
 
-    fun addAccent(accent: TeamAccent) {
+    fun addAccent(accent: TeamAccent, flowSettings: TeamSpotlightFlowSettings) {
         score += accent.getScoreDelta(flowSettings)
         if (accent is TeamRunAccent) {
             causedRun = causedRun?.coerceAtMost(accent.run) ?: accent.run
@@ -59,12 +64,13 @@ class TeamState(val teamId: Int, private val flowSettings: TeamSpotlightFlowSett
 }
 
 class TeamSpotlightService(
-    val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings()
+    val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings(),
+    private val teamInteresting: MutableStateFlow<List<TeamState>>? = null,
 ) {
     private val mutex = Mutex()
     private val queue = mutableSetOf<TeamState>()
     private fun getTeamInQueue(teamId: Int) =
-        queue.find { it.teamId == teamId } ?: TeamState(teamId, settings).also { queue += it }
+        queue.find { it.teamId == teamId } ?: TeamState(teamId).also { queue += it }
 
     fun getFlow(): Flow<KeyTeam> {
         return flow {
@@ -77,8 +83,15 @@ class TeamSpotlightService(
                     continue
                 }
                 emit(KeyTeam(element.teamId, element.caused))
+                val teams = mutex.withLock { queue.toList() }
+                teamInteresting?.emit(teams)
             }
         }
+    }
+
+    private suspend fun TeamState.addAccent(accent: TeamAccent) {
+        addAccent(accent, settings)
+        teamInteresting?.emit(queue.toList())
     }
 
     suspend fun run(
@@ -86,11 +99,13 @@ class TeamSpotlightService(
         runs: Flow<RunInfo>,
         scoreboard: Flow<Scoreboard>,
         // analyticsMessage: Flow<AnalyticsMessage>
+        addScoreRequests: Flow<AddTeamScoreRequest>? = null,
     ) {
         val runIds = mutableSetOf<Int>()
         merge(
             intervalFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
-            runs.filter { !it.isHidden }
+            runs.filter { !it.isHidden },
+            addScoreRequests ?: emptyFlow(),
         ).collect { update ->
             when (update) {
                 is RunInfo -> {
@@ -103,11 +118,18 @@ class TeamSpotlightService(
                         }
                     }
                 }
+
                 is ScoreboardPushTrigger -> {
                     scoreboard.first().rows.filter { it.rank <= settings.scoreboardLowestRank }.forEach {
                         mutex.withLock {
                             getTeamInQueue(it.teamId).addAccent(TeamScoreboardPlace(it.rank))
                         }
+                    }
+                }
+
+                is AddTeamScoreRequest -> {
+                    mutex.withLock {
+                        getTeamInQueue(update.teamId).addAccent(ExternalScoreAddAccent(update.score))
                     }
                 }
             }
