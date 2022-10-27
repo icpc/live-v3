@@ -15,12 +15,12 @@ You can adjust received participant information for each separate participant us
       "groups": ["SPb ITMO", "SPb"],
       "medias": {
         "screen": {
-            "type": "Video",
-            "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
+          "type": "Video",
+          "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
         },
         "camera": {
-            "type": "Video",
-            "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
+          "type": "Video",
+          "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
         }
       }
     }
