@@ -59,6 +59,7 @@ Avaliable media types:
 { "type": "Video", "url": "url" }
 { "type": "WebRTCFetchConnection", "url": "url" }
 { "type": "WebRTCConnection", "peerName": "peerName", "url": "url" }
+{ "type": "TaskStatus", "teamId": 0 }
 ```
 
 # Customize ranking rules
