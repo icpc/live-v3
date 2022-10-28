@@ -29,7 +29,7 @@ class TeamViewController(val manager: Manager<TeamViewWidget>, val position: Tea
                 DataBus.teamSpotlightFlow.await().collect {
                     val staticSettings = settings.copy(teamId = it.teamId)
                     super.createWidgetAndShow(staticSettings)
-                    delay(20.seconds)
+                    delay(30.seconds)
                 }
             }
         } else {
