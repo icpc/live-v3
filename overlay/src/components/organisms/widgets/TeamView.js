@@ -249,14 +249,20 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
 };
 
 
-const TeamWebRTCSocketVideoWrapper = ({ url, peerName, setIsLoaded }) => {
+const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus }) => {
     const dispatch = useDispatch();
     const socketRef = useRef();
     const videoRef = useRef();
     const rtcRef = useRef();
     useEffect(() => {
-        const socket = io(url);
+        const socket = io(url, { auth: { token: credential ?? undefined } });
         socketRef.current = socket;
+        socket.on("auth", (status) => {
+            if (status === "forbidden") {
+                dispatch(pushLog(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`));
+                console.warn(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`);
+            }
+        });
         socket.on("init_peer", (pcConfig) => {
             rtcRef.current?.close();
 
@@ -304,8 +310,8 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, setIsLoaded }) => {
 
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => setIsLoaded(true)}
-        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
+        onCanPlay={() => onLoadStatus(true)}
+        onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
         autoPlay
         muted/>);
 };
@@ -355,9 +361,9 @@ const teamViewComponentRender = {
             <TeamWebRTCVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCConnection: ({ onLoadStatus, url, peerName }) => {
+    WebRTCConnection: (props) => {
         return <TeamVideoAnimationWrapper>
-            <TeamWebRTCSocketVideoWrapper url={url} peerName={peerName} setIsLoaded={onLoadStatus}/>
+            <TeamWebRTCSocketVideoWrapper { ...props }/>
         </TeamVideoAnimationWrapper>;
     },
 };

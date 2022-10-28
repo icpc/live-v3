@@ -68,7 +68,12 @@ sealed class MediaType {
 
     @Serializable
     @SerialName("WebRTCConnection")
-    data class WebRTCConnection(val url: String, val peerName: String, override val isMedia: Boolean = true) :
+    data class WebRTCConnection(
+        val url: String,
+        val peerName: String,
+        val credential: String?,
+        override val isMedia: Boolean = true
+    ) :
         MediaType()
 
     @Serializable
@@ -81,7 +86,12 @@ sealed class MediaType {
         is Photo -> copy(url = url.replace("{teamId}", teamId))
         is Video -> copy(url = url.replace("{teamId}", teamId))
         is WebRTCFetchConnection -> copy(url = url.replace("{teamId}", teamId))
-        is WebRTCConnection -> copy(url = url.replace("{teamId}", teamId), peerName = peerName.replace("{teamId}", teamId))
+        is WebRTCConnection -> copy(
+            url = url.replace("{teamId}", teamId),
+            peerName = peerName.replace("{teamId}", teamId),
+            credential = credential?.replace("{teamId}", teamId)
+        )
+
         else -> this
     }
 
@@ -131,6 +141,7 @@ data class TeamInfo(
 enum class PenaltyRoundingMode {
     @SerialName("each_submission_down_to_minute")
     EACH_SUBMISSION_DOWN_TO_MINUTE,
+
     @SerialName("sum_down_to_minute")
     SUM_DOWN_TO_MINUTE,
 }
