@@ -38,11 +38,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
 
     val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
 
-    override suspend fun loadOnce() = parseAndUpdateStandings(getLoader().loadOnce().documentElement).also {
-        require(it.contestInfo.status == ContestStatus.OVER) {
-            "Emulation mode require over contest"
-        }
-    }
+    override suspend fun loadOnce() = parseAndUpdateStandings(getLoader().loadOnce().documentElement)
 
     private fun parseAndUpdateStandings(element: Element) = parseContestInfo(element.child("contest"))
 
