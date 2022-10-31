@@ -35,6 +35,7 @@ class EmulationAdapter(
         analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
     ) {
         val (finalContestInfo, runs, analyticsMessages) = source.loadOnce()
+        require(finalContestInfo.status == ContestStatus.OVER) { "Emulation require contest to be finished" }
         logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${startTime.humanReadable}")
         val contestInfo = finalContestInfo.copy(
             startTime = startTime,

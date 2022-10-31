@@ -65,8 +65,8 @@ Before cloning on Windows configure correct crlf handling
 
 ### To test your changes:
 
-1. `live-v3\gradlew run -Plive.dev.contest=nerc-onsite-2020`
-    1. Or run one of configurations from IDEA stored in .run
+1. `live-v3\gradlew :backend:run -Plive.dev.contest=nerc-onsite-2020`
+   * Or run one of configurations from IDEA stored in .run
 2. open http://localhost:8080/admin to control overlay
 3. open http://localhost:8080/overlay to view result
 
@@ -87,12 +87,13 @@ Admin and overlay can be hosted over `/admin` and `/overlay` paths as SPA using 
 SPA hosting.
 
 Contest systems integrations are implemented in `org.icpclive.cds` package. Currently,
-CDS, PCMS, Codeforces and Yandex.Contest are supported. Currently, only ICPC mode
+CLICS, PCMS, Codeforces and Yandex.Contest, E judge and KRSU are supported. Currently, only ICPC mode
 is supported.
 
 Basically, to add new contest data provider, you need to implement contest information updates
 (start time, list of problems, list of teams, etc.) and runs updates (events like new run, run status changes, partial
-and final testing).
+and final testing). In simple cases, if you reload all data every time, it can be useful to inherit from FullReloadContestDataSource. 
+
 Everything else should work automatically in same manner for all CDS sources.
 
 ### Emulation mode
@@ -106,8 +107,7 @@ emulation.speed=10
 emulation.startTime=2022-04-03 22:50
 ```
 
-Now, for supporting this in new contest data provider, you need to copypaste code
-parsing the option, and starting corresponding services. Hope, it will be fixed later.
+Emulation only works if contest is finished. 
 
 ## Developing frontend
 
