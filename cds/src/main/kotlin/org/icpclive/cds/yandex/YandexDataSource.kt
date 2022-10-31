@@ -14,15 +14,12 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.common.ClientAuth
+import org.icpclive.cds.common.*
 import org.icpclive.cds.yandex.YandexConstants.API_BASE
 import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
 import org.icpclive.cds.yandex.api.*
-import org.icpclive.cds.common.RegularLoaderService
-import org.icpclive.cds.common.RunsBufferService
-import org.icpclive.cds.common.defaultHttpClient
 import org.icpclive.util.awaitSubscribers
 import org.icpclive.util.getCredentials
 import org.icpclive.util.getLogger
@@ -37,14 +34,10 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : ContestD
     private val contestId: Long
     private val httpClient: HttpClient
 
-    private val formatter = Json {
-        ignoreUnknownKeys = true
-    }
-
-    private val contestDescriptionLoader: RegularLoaderService<ContestDescription>
-    private val problemLoader: RegularLoaderService<List<Problem>>
-    private val participantLoader: RegularLoaderService<List<Participant>>
-    private val allSubmissionsLoader: RegularLoaderService<List<Submission>>
+    private val contestDescriptionLoader: LoaderService<ContestDescription>
+    private val problemLoader: LoaderService<List<Problem>>
+    private val participantLoader: LoaderService<List<Participant>>
+    private val allSubmissionsLoader: LoaderService<List<Submission>>
 
 
     init {
@@ -63,29 +56,13 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : ContestD
         }
 
 
-        contestDescriptionLoader = object : RegularLoaderService<ContestDescription>(auth) {
-            override val url = "$API_BASE/contests/$contestId"
-            override fun processLoaded(data: String) =
-                formatter.decodeFromString<ContestDescription>(data)
-        }
-
-        problemLoader = object : RegularLoaderService<List<Problem>>(auth) {
-            override val url = "$API_BASE/contests/$contestId/problems"
-            override fun processLoaded(data: String) =
-                formatter.decodeFromString<Problems>(data).problems.sortedBy { it.alias }
-        }
-
-        participantLoader = object : RegularLoaderService<List<Participant>>(auth) {
-            override val url = "$API_BASE/contests/$contestId/participants"
-            override fun processLoaded(data: String) =
-                formatter.decodeFromString<List<Participant>>(data).filter { it.login.matches(Regex(loginPrefix)) }
-        }
-
-        allSubmissionsLoader = object : RegularLoaderService<List<Submission>>(auth) {
-            override val url = "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
-            override fun processLoaded(data: String) =
-                formatter.decodeFromString<Submissions>(data).submissions.reversed()
-        }
+        contestDescriptionLoader = JsonLoaderService("$API_BASE/contests/$contestId", auth)
+        problemLoader = JsonLoaderService("$API_BASE/contests/$contestId/problems", auth)
+        participantLoader = JsonLoaderService("$API_BASE/contests/$contestId/participants", auth)
+        allSubmissionsLoader = JsonLoaderService(
+            "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000",
+            auth
+        )
     }
 
     override suspend fun run(
@@ -190,6 +167,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : ContestD
         runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
         period: Duration
     ) {
+        val formatter = Json { ignoreUnknownKeys = true }
         var pendingRunId = 0
         while (true) {
             try {

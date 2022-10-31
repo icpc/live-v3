@@ -128,9 +128,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         )
     }
 
-    private val xmlLoader = object : XmlLoaderService(null) {
-        override val url = properties.getProperty("url")
-    }
+    private val xmlLoader = XmlLoaderService(properties.getProperty("url"))
 
     companion object {
         private val statusMap = mapOf(

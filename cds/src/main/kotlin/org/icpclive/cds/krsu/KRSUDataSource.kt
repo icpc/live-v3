@@ -1,28 +1,20 @@
 package org.icpclive.cds.krsu
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.json.Json
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.RegularLoaderService
+import org.icpclive.cds.common.JsonLoaderService
 import org.icpclive.util.getLogger
 import java.awt.Color
-import java.io.IOException
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -121,25 +113,8 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         )
     }
 
-    private val submissionsLoader = object : RegularLoaderService<List<Submission>>(null) {
-        override val url = properties.getProperty("submissions-url")
-        private val json = Json { ignoreUnknownKeys = true }
-        override fun processLoaded(data: String) = try {
-            json.decodeFromString<List<Submission>>(data)
-        } catch (e: SerializationException) {
-            throw IOException(e)
-        }
-    }
-
-    private val contestInfoLoader = object : RegularLoaderService<Contest>(null) {
-        override val url = properties.getProperty("contest-url")
-        private val json = Json { ignoreUnknownKeys = true }
-        override fun processLoaded(data: String) = try {
-            json.decodeFromString<Contest>(data)
-        } catch (e: SerializationException) {
-            throw IOException(e)
-        }
-    }
+    private val submissionsLoader = JsonLoaderService<List<Submission>>(properties.getProperty("submissions-url"))
+    private val contestInfoLoader = JsonLoaderService<Contest>(properties.getProperty("contest-url"))
 
     companion object {
         private val logger = getLogger(KRSUDataSource::class)
@@ -166,6 +141,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
     }
 
     @Serializable
+    @Suppress("unused")
     class Submission(
         val Id: Int,
         val Login: String,
@@ -181,6 +157,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
     )
 
     @Serializable
+    @Suppress("unused")
     class Contest(
         val Id: Int,
         val ProblemSet: List<Problem>,
@@ -189,6 +166,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
     )
 
     @Serializable
+    @Suppress("unused")
     class Problem(
         val Letter: Int,
         val Problem: Int

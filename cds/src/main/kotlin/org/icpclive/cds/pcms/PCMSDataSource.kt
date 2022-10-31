@@ -6,13 +6,11 @@ import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.RegularLoaderService
 import org.icpclive.cds.common.XmlLoaderService
 import org.icpclive.util.child
 import org.icpclive.util.children
 import org.icpclive.util.getCredentials
 import org.icpclive.util.getLogger
-import org.w3c.dom.Document
 import org.w3c.dom.Element
 import java.util.*
 import kotlin.time.Duration
@@ -23,14 +21,9 @@ import kotlin.time.Duration.Companion.seconds
 class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val login = properties.getCredentials("login", creds)
     private val password = properties.getCredentials("password", creds)
-    private fun getLoader(): RegularLoaderService<Document> {
-        val auth = run {
-            login?.let { ClientAuth.Basic(login, password!!) }
-        }
-        return object : XmlLoaderService(auth) {
-            override val url = properties.getProperty("url")
-        }
-    }
+    private val dataLoader = XmlLoaderService(
+        properties.getProperty("url"),
+        login?.let { ClientAuth.Basic(login, password!!) })
 
     val runIds = mutableMapOf<String, Int>()
     val teamIds = mutableMapOf<String, Int>()
@@ -38,8 +31,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
 
     val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
 
-    override suspend fun loadOnce() = parseAndUpdateStandings(getLoader().loadOnce().documentElement)
-
+    override suspend fun loadOnce() = parseAndUpdateStandings(dataLoader.loadOnce().documentElement)
     private fun parseAndUpdateStandings(element: Element) = parseContestInfo(element.child("contest"))
 
     private fun parseContestInfo(element: Element) : ContestParseResult {

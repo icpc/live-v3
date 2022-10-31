@@ -1,8 +1,5 @@
 package org.icpclive.cds.codeforces.api
 
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
-import kotlinx.serialization.json.jsonPrimitive
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.util.*
@@ -20,13 +17,6 @@ class CFApiCentral(
         get() = apiRequestUrl("contest.standings", mapOf("contestId" to contestId.toString()))
     val statusUrl: String
         get() = apiRequestUrl("contest.status", mapOf("contestId" to contestId.toString()))
-
-
-    fun parseAndUnwrapStatus(content: String) =
-        Json.parseToJsonElement(content)
-            .takeIf { it.jsonObject["status"]!!.jsonPrimitive.content == "OK" }
-            ?.jsonObject
-            ?.get("result")
 
 
     private fun apiRequestUrl(
