@@ -8,9 +8,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 import org.w3c.dom.Document
 import java.nio.file.Paths
 import javax.xml.parsers.DocumentBuilder
@@ -22,13 +21,16 @@ interface LoaderService<out T> {
     suspend fun run(period: Duration): Flow<T>
 }
 
-abstract class LoaderServiceImpl<out T>(auth: ClientAuth?) : LoaderService<T> {
+private abstract class LoaderServiceImpl<out T>(
+    val computeURL: () -> String,
+    auth: ClientAuth?
+) : LoaderService<T> {
     private val httpClient = defaultHttpClient(auth)
 
-    abstract val url: String
     abstract fun processLoaded(data: String): T
 
     override suspend fun loadOnce(): T {
+        val url = computeURL()
         val content = if (!isHttpUrl(url)) {
             Paths.get(url).toFile().readText()
         } else {
@@ -45,21 +47,29 @@ abstract class LoaderServiceImpl<out T>(auth: ClientAuth?) : LoaderService<T> {
     }.flowOn(Dispatchers.IO)
 }
 
-class XmlLoaderService(override val url: String, auth: ClientAuth? = null) : LoaderServiceImpl<Document>(auth) {
+private class XmlLoaderService(url: () -> String, auth: ClientAuth?) : LoaderServiceImpl<Document>(url, auth) {
     private val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
     override fun processLoaded(data: String): Document = builder.parse(data.byteInputStream())
 }
 
-class JsonLoaderService<out T>(
-    override val url: String,
-    val serializer: KSerializer<out T>,
-    auth: ClientAuth?
-) : LoaderServiceImpl<T>(auth) {
-    val json = Json { ignoreUnknownKeys = true }
-    override fun processLoaded(data: String): T = json.decodeFromString(serializer, data)
+private class StringLoaderService(url: () -> String, auth: ClientAuth?) : LoaderServiceImpl<String>(url, auth) {
+    override fun processLoaded(data: String) = data
 }
 
-inline fun <reified T> JsonLoaderService(url: String, auth: ClientAuth? = null) = JsonLoaderService<T>(url, serializer(), auth)
+fun xmlLoaderService(auth: ClientAuth? = null, url: () -> String): LoaderService<Document> {
+    return XmlLoaderService(url, auth)
+}
+
+fun stringLoaderService(auth: ClientAuth? = null, url: () -> String): LoaderService<String> {
+    return StringLoaderService(url, auth)
+}
+
+inline fun <reified T> jsonLoaderService(auth: ClientAuth? = null, noinline url: () -> String) : LoaderService<T> {
+    val json = Json { ignoreUnknownKeys = true }
+    return stringLoaderService(auth, url).map {
+        json.decodeFromString(it)
+    }
+}
 
 fun <T, R> LoaderService<T>.map(f: suspend (T) -> R) = object : LoaderService<R> {
     val delegate = this@map

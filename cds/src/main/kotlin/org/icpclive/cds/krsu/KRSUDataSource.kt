@@ -12,7 +12,7 @@ import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.JsonLoaderService
+import org.icpclive.cds.common.jsonLoaderService
 import org.icpclive.util.getLogger
 import java.awt.Color
 import java.util.*
@@ -113,8 +113,8 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         )
     }
 
-    private val submissionsLoader = JsonLoaderService<List<Submission>>(properties.getProperty("submissions-url"))
-    private val contestInfoLoader = JsonLoaderService<Contest>(properties.getProperty("contest-url"))
+    private val submissionsLoader = jsonLoaderService<List<Submission>> { properties.getProperty("submissions-url") }
+    private val contestInfoLoader = jsonLoaderService<Contest> { properties.getProperty("contest-url") }
 
     companion object {
         private val logger = getLogger(KRSUDataSource::class)

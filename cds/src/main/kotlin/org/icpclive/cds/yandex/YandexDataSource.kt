@@ -56,13 +56,12 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : ContestD
         }
 
 
-        contestDescriptionLoader = JsonLoaderService("$API_BASE/contests/$contestId", auth)
-        problemLoader = JsonLoaderService("$API_BASE/contests/$contestId/problems", auth)
-        participantLoader = JsonLoaderService("$API_BASE/contests/$contestId/participants", auth)
-        allSubmissionsLoader = JsonLoaderService(
-            "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000",
-            auth
-        )
+        contestDescriptionLoader = jsonLoaderService(auth) { "$API_BASE/contests/$contestId" }
+        problemLoader = jsonLoaderService(auth) { "$API_BASE/contests/$contestId/problems" }
+        participantLoader = jsonLoaderService(auth) { "$API_BASE/contests/$contestId/participants" }
+        allSubmissionsLoader = jsonLoaderService(auth) {
+            "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
+        }
     }
 
     override suspend fun run(

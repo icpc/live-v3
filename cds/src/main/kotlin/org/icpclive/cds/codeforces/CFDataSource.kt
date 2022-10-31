@@ -6,7 +6,7 @@ import org.icpclive.cds.codeforces.api.CFApiCentral
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.codeforces.api.results.CFStatusWrapper
 import org.icpclive.cds.codeforces.api.results.CFSubmissionList
-import org.icpclive.cds.common.JsonLoaderService
+import org.icpclive.cds.common.jsonLoaderService
 import org.icpclive.cds.common.map
 import org.icpclive.util.getCredentials
 import java.lang.IllegalStateException
@@ -22,11 +22,11 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
     )
 
 
-    private val standingsLoader = JsonLoaderService<CFStatusWrapper<CFStandings>>(central.standingsUrl).map {
+    private val standingsLoader = jsonLoaderService<CFStatusWrapper<CFStandings>> { central.standingsUrl }.map {
         it.unwrap()
     }
 
-    private val statusLoader = JsonLoaderService<CFStatusWrapper<CFSubmissionList>>(central.statusUrl).map {
+    private val statusLoader = jsonLoaderService<CFStatusWrapper<CFSubmissionList>> { central.statusUrl }.map {
         it.unwrap()
     }
 

@@ -6,7 +6,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.XmlLoaderService
+import org.icpclive.cds.common.xmlLoaderService
 import org.icpclive.util.child
 import org.icpclive.util.children
 import org.icpclive.util.getCredentials
@@ -21,9 +21,9 @@ import kotlin.time.Duration.Companion.seconds
 class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val login = properties.getCredentials("login", creds)
     private val password = properties.getCredentials("password", creds)
-    private val dataLoader = XmlLoaderService(
-        properties.getProperty("url"),
-        login?.let { ClientAuth.Basic(login, password!!) })
+    private val dataLoader = xmlLoaderService(login?.let { ClientAuth.Basic(login, password!!) }) {
+        properties.getProperty("url")
+    }
 
     val runIds = mutableMapOf<String, Int>()
     val teamIds = mutableMapOf<String, Int>()
