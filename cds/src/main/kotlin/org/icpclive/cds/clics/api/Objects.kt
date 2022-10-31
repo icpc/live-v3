@@ -90,7 +90,8 @@ data class Submission(
     val problem_id: String,
     val team_id: String,
     @Serializable(with = ClicsTime.DurationSerializer::class)
-    val contest_time: Duration
+    val contest_time: Duration,
+    val reaction: List<Media>? = null,
 )
 
 @Serializable
@@ -166,12 +167,16 @@ data class Account(
     enum class TYPE {
         @SerialName("team")
         TEAM,
+
         @SerialName("judge")
         JUDGE,
+
         @SerialName("admin")
         ADMIN,
+
         @SerialName("analyst")
         ANALYST,
+
         @SerialName("staff")
         STAFF
     }

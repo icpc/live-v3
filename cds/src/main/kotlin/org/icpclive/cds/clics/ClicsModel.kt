@@ -108,7 +108,7 @@ class ClicsModel(
             require(id == problem.id)
             problems[problem.id] = problem
         }
-        return emptyList();
+        return emptyList()
     }
 
     fun processOrganization(id: String, organization: Organization?) : List<RunInfo> {
@@ -189,6 +189,7 @@ class ClicsModel(
             teamId = liveTeamId(team.id),
             submissionTime = submission.contest_time,
             isHidden = team.id in hiddenTeams,
+            reactionVideos = submission.reaction?.mapNotNull { it.mediaType() } ?: emptyList()
         )
         submissions[submission.id]?.let { teamSubmissions[it.teamId]?.remove(submission.id) }
         submissions[submission.id] = run

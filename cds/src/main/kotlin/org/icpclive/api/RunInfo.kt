@@ -18,5 +18,6 @@ data class RunInfo constructor(
     val time: Duration,
     val isFirstSolvedRun: Boolean = false,
     val featuredRunMedia: MediaType? = null,
+    val reactionVideos: List<MediaType> = emptyList(),
     val isHidden: Boolean = false,
 )

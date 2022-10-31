@@ -1,5 +1,6 @@
 package org.icpclive.cds.clics.model
 
+import org.icpclive.api.MediaType
 import org.icpclive.cds.clics.api.Problem
 import kotlin.time.Duration
 
@@ -9,7 +10,8 @@ class ClicsRunInfo(
     val liveProblemId: Int,
     val teamId: Int,
     val submissionTime: Duration,
-    var isHidden: Boolean
+    var isHidden: Boolean,
+    val reactionVideos: List<MediaType> = emptyList(),
 ) {
     val passedCaseRun = mutableSetOf<Int>()
     var judgementType: ClicsJudgementTypeInfo? = null
@@ -28,6 +30,7 @@ class ClicsRunInfo(
         },
         time = submissionTime,
         isFirstSolvedRun = false,
+        reactionVideos = reactionVideos,
         isHidden = isHidden,
     )
 }
