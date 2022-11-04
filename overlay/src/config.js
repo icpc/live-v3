@@ -14,6 +14,7 @@ export const WIDGET_TRANSITION_TIME = 300; // ms
 export const QUEUE_ROW_TRANSITION_TIME = 1000; // ms
 export const QUEUE_ROW_APPEAR_TIME = QUEUE_ROW_TRANSITION_TIME; // ms
 export const QUEUE_ROW_FEATURED_RUN_APPEAR_TIME = 500; // ms
+export const QUEUE_ROW_FEATURED_RUN_ADDITIONAL_DELAY = 5000; // ms
 export const QUEUE_ROW_FTS_TRANSITION_TIME = 3000; // ms
 export const SCOREBOARD_ROW_TRANSITION_TIME = 1000; // ms
 export const SCOREBOARD_SCROLL_INTERVAL = 20000; // ms
@@ -25,7 +26,7 @@ export const PVP_APPEAR_TIME = 1000; // ms
 export const TICKER_SCROLL_TRANSITION_TIME = 1000; //ms
 export const TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME = 300; //ms
 export const STATISTICS_CELL_MORPH_TIME = 200; //ms
-
+export const CELL_FLASH_PERIOD = 500; //ms
 // Behaviour
 
 // Styles
