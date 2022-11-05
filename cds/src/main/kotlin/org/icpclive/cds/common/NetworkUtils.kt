@@ -14,6 +14,14 @@ sealed class ClientAuth {
     class Basic(val login: String, val password: String) : ClientAuth()
 
     class OAuth(val token: String) : ClientAuth()
+
+    companion object {
+        fun BasicOrNull(login: String?, password: String?) = if (login != null && password != null) {
+            Basic(login, password)
+        } else {
+            null
+        }
+    }
 }
 
 fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
@@ -26,6 +34,7 @@ fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
                 }
             }
         }
+
         is ClientAuth.OAuth -> {
             defaultRequest {
                 header("Authorization", "OAuth ${auth.token}")

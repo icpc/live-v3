@@ -13,6 +13,7 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.api.Event.*
+import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.LineStreamLoaderService
 import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
@@ -31,7 +32,6 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
     val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("feed_version", "2022_07"))
 
     private val model = ClicsModel(properties.getProperty("use_team_names", "true") == "true")
-    private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
 
@@ -40,17 +40,9 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
     ) {
-        val eventsLoader = object : LineStreamLoaderService<Event>(central.auth) {
-            override val url = central.eventFeedUrl
-            override fun processEvent(data: String) = try {
-                when (feedVersion) {
-                    FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
-                    FeedVersion.V2022_07 -> jsonDecoder.decodeFromString(data)
-                }
-            } catch (e: SerializationException) {
-                logger.error("Failed to deserialize: $data", e)
-                null
-            }
+        val eventsLoader = getEventFeedLoader(central.eventFeedUrl, central.auth, feedVersion)
+        val additionalEventsLoader = central.additionalEventFeedUrl?.let { url ->
+            getEventFeedLoader(url, central.additionalEventFeedAuth, feedVersion)
         }
 
         launch {
@@ -159,7 +151,11 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
             }
 
             val idSet = mutableSetOf<String>()
-            eventsLoader.run()
+            merge(eventsLoader.run(), additionalEventsLoader?.run() ?: emptyFlow())
+                .logAndRetryWithDelay(5.seconds) {
+                    logger.error("Exception caught in CLICS parser.?! Will restart in 5 seconds.", it)
+                    preloadFinished = false
+                }
                 .sortedPrefix()
                 .filterNot { it.token in idSet }
                 .onEach { processEvent(it) }
@@ -209,3 +205,22 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
         val logger = getLogger(ClicsDataSource::class)
     }
 }
+
+private fun getEventFeedLoader(eventFeedUrl: String, auth: ClientAuth.Basic?, feedVersion: FeedVersion) =
+    object : LineStreamLoaderService<Event>(auth) {
+        private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
+
+        override val url = eventFeedUrl
+        override fun processEvent(data: String) = try {
+            if (Random().nextDouble() < 0.005) {
+                throw Exception("fsdfds")
+            }
+            when (feedVersion) {
+                FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
+                FeedVersion.V2022_07 -> jsonDecoder.decodeFromString(data)
+            }
+        } catch (e: SerializationException) {
+            logger.error("Failed to deserialize: $data", e)
+            null
+        }
+    }
