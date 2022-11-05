@@ -105,6 +105,8 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
                     )
             }
         }
+        val contestLength = contest.Length.hours;
+        val freezeTime = contestLength - 1.hours;
         val runs = submissions.map {
             val result = outcomeMap.getOrDefault(it.StatusName, "")
             logger.info("" + (it.ReceivedTime - startTime))
@@ -130,8 +132,8 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
                     else -> ContestStatus.OVER
                 },
                 startTime = startTime,
-                contestLength = 5.hours,
-                freezeTime = 4.hours,
+                contestLength = contestLength,
+                freezeTime = freezeTime,
                 problems = problemsList,
                 teams = teams.values.toList(),
             ),
@@ -203,7 +205,8 @@ class KRSUDataSource(val properties: Properties) : ContestDataSource {
         val Id: Int,
         val ProblemSet: List<Problem>,
         @Serializable(with = TimeSerializer::class)
-        val StartTime: Instant
+        val StartTime: Instant,
+        val Length: Int
     )
 
     @Serializable
