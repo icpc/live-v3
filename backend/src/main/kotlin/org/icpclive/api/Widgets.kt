@@ -139,7 +139,7 @@ class TeamViewWidget(
 }
 
 @Serializable
-@SerialName("TeamLocator")
+@SerialName("TeamLocatorWidget")
 class TeamLocatorWidget(val settings: TeamLocatorSettings) : Widget(
     WIDGET_ID,
     getLocationOrDefault(WIDGET_ID, location)
