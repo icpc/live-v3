@@ -16,6 +16,7 @@ import Statistics from "../organisms/widgets/Statistics";
 import TeamView from "../organisms/widgets/TeamView";
 import Videos from "../organisms/widgets/Videos";
 import PVP from "../organisms/widgets/PVP";
+import Locator from "../organisms/widgets/Locator";
 
 const fadeIn = keyframes`
   from {
@@ -76,7 +77,8 @@ const WIDGETS = {
     TickerWidget: Ticker,
     StatisticsWidget: Statistics,
     TeamViewWidget: TeamView,
-    TeamPVPWidget: PVP
+    TeamPVPWidget: PVP,
+    TeamLocatorWidget: Locator
 };
 
 export const MainLayout = () => {

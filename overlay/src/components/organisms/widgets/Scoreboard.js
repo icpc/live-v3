@@ -260,10 +260,10 @@ const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRo
     }, [scrollInterval, numPages]);
     const pageStartRow = curPage * singglePageRowCount + startFromRow - ((curPage >= remainder) ? 1 : 0);
     if (DEBUG) { // FIXME
-        console.log("Current page:", curPage);
-        console.log("Total rows:", totalRows, "of:", numPages);
-        console.log("Single page holds:", singglePageRowCount);
-        console.log("Pages from:", pageStartRow, "to", pageStartRow + singleScreenRowCount);
+        //  console.log("Current page:", curPage);
+        //  console.log("Total rows:", totalRows, "of:", numPages);
+        //  console.log("Single page holds:", singglePageRowCount);
+        //  console.log("Pages from:", pageStartRow, "to", pageStartRow + singleScreenRowCount);
     }
     return pageStartRow;
 };
