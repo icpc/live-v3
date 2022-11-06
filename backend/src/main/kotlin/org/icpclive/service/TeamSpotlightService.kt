@@ -6,6 +6,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
+import org.icpclive.data.DataBus
 import org.icpclive.util.getLogger
 import org.icpclive.util.intervalFlow
 import kotlin.time.Duration.Companion.seconds
@@ -15,6 +16,7 @@ sealed class TeamAccent
 class TeamRunAccent(val run: RunInfo) : TeamAccent()
 class TeamScoreboardPlace(val rank: Int) : TeamAccent()
 class ExternalScoreAddAccent(val score: Double) : TeamAccent()
+object SocialEventAccent : TeamAccent()
 
 private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
     if (interesting() <= other.interesting()) {
@@ -37,8 +39,8 @@ private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = 
             flowSettings.acceptedRunScore.takeIf(run.isAccepted) +
             flowSettings.judgedRunScore.takeIf(run.isJudged) +
             flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
-
     is ExternalScoreAddAccent -> flowSettings.externalScoreScale * score
+    is SocialEventAccent -> flowSettings.socialEventScore
 }
 
 @Serializable
@@ -106,6 +108,7 @@ class TeamSpotlightService(
             intervalFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
             runs.filter { !it.isHidden },
             addScoreRequests ?: emptyFlow(),
+            DataBus.socialEvents.await(),
         ).collect { update ->
             when (update) {
                 is RunInfo -> {
@@ -130,6 +133,14 @@ class TeamSpotlightService(
                 is AddTeamScoreRequest -> {
                     mutex.withLock {
                         getTeamInQueue(update.teamId).addAccent(ExternalScoreAddAccent(update.score))
+                    }
+                }
+
+                is SocialEvent -> {
+                    update.teamIds.forEach { teamId ->
+                        mutex.withLock {
+                            getTeamInQueue(teamId).addAccent(SocialEventAccent)
+                        }
                     }
                 }
             }

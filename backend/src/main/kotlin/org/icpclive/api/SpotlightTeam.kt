@@ -27,7 +27,8 @@ data class TeamSpotlightFlowSettings(
     val scoreboardLowestRank: Int = 40,
     val scoreboardFirstScore: Double = 5.0,
     val scoreboardLastScore: Double = 1.0,
-    val externalScoreScale: Double = 1.0
+    val socialEventScore: Double = 20.0,
+    val externalScoreScale: Double = 1.0,
 ) {
     fun rankScore(rank: Int): Double {
         if (rank > scoreboardLowestRank) {
