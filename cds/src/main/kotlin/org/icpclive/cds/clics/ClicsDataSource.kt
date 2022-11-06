@@ -213,9 +213,6 @@ private fun getEventFeedLoader(eventFeedUrl: String, auth: ClientAuth.Basic?, fe
 
         override val url = eventFeedUrl
         override fun processEvent(data: String) = try {
-            if (Random().nextDouble() < 0.005) {
-                throw Exception("fsdfds")
-            }
             when (feedVersion) {
                 FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
                 FeedVersion.V2022_07 -> jsonDecoder.decodeFromString(data)
