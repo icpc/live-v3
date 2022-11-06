@@ -1,6 +1,7 @@
 package org.icpclive.cds.clics
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
@@ -11,7 +12,7 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.clics.api.*
+import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.LineStreamLoaderService
@@ -64,7 +65,11 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
             }
 
             fun Flow<Event>.sortedPrefix() = flow {
-                val channel = produceIn(this@launch)
+                val channelDeferred = CompletableDeferred<ReceiveChannel<Event>>()
+                launch {
+                    produceIn(this).also { channelDeferred.completeOrThrow(it) }
+                }
+                val channel = channelDeferred.await()
                 val prefix = mutableListOf<Event>()
                 prefix.add(channel.receive())
                 while (true) {
@@ -152,10 +157,6 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
 
             val idSet = mutableSetOf<String>()
             merge(eventsLoader.run(), additionalEventsLoader?.run() ?: emptyFlow())
-                .logAndRetryWithDelay(5.seconds) {
-                    logger.error("Exception caught in CLICS parser.?! Will restart in 5 seconds.", it)
-                    preloadFinished = false
-                }
                 .sortedPrefix()
                 .filterNot { it.token in idSet }
                 .onEach { processEvent(it) }

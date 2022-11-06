@@ -21,7 +21,8 @@ tasks {
             "-P:auth.disabled=true",
             project.properties["live.dev.credsFile"]?.let { "-P:live.credsFile=$it"},
             project.properties["live.dev.widgetPositionsFile"]?.let { "-P:live.widgetPositionsFile=$it"},
-            project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" }
+            project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" },
+            project.properties["live.dev.allowUnsecureConnections"]?.let { "-P:live.allowUnsecureConnections=$it" },
         )
         this.workingDir(rootDir.resolve("config"))
     }
