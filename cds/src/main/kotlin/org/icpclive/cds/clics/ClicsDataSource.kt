@@ -16,10 +16,7 @@ import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.LineStreamLoaderService
-import org.icpclive.util.completeOrThrow
-import org.icpclive.util.getLogger
-import org.icpclive.util.logAndRetryWithDelay
-import org.icpclive.util.reliableSharedFlow
+import org.icpclive.util.*
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -28,9 +25,25 @@ enum class FeedVersion {
     V2022_07
 }
 
+private class ClicsLoaderSettings(properties: Properties, prefix: String, creds: Map<String, String>) {
+    private val url = properties.getProperty("${prefix}url")
+
+    val auth = ClientAuth.BasicOrNull(
+        properties.getCredentials("${prefix}login", creds),
+        properties.getCredentials("${prefix}password", creds)
+    )
+    val eventFeedUrl = apiRequestUrl(properties.getProperty("${prefix}event_feed_name", "event-feed"))
+
+    private fun apiRequestUrl(method: String) = "$url/$method"
+
+    val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("${prefix}feed_version", "2022_07"))
+}
+
 class ClicsDataSource(properties: Properties, creds: Map<String, String>) : ContestDataSource {
-    private val central = ClicsApiCentral(properties, creds)
-    val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("feed_version", "2022_07"))
+    private val mainLoaderSettings = ClicsLoaderSettings(properties, "", creds)
+    private val additionalLoaderSettings = properties.getProperty("additional_feed.url", null)?.let {
+        ClicsLoaderSettings(properties, "additional_feed.", creds)
+    }
 
     private val model = ClicsModel(properties.getProperty("use_team_names", "true") == "true")
 
@@ -41,10 +54,8 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
     ) {
-        val eventsLoader = getEventFeedLoader(central.eventFeedUrl, central.auth, feedVersion)
-        val additionalEventsLoader = central.additionalEventFeedUrl?.let { url ->
-            getEventFeedLoader(url, central.additionalEventFeedAuth, feedVersion)
-        }
+        val eventsLoader = getEventFeedLoader(mainLoaderSettings)
+        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it, true) }
 
         launch {
             fun priority(event: UpdateContestEvent) = when (event) {
@@ -207,13 +218,16 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
     }
 }
 
-private fun getEventFeedLoader(eventFeedUrl: String, auth: ClientAuth.Basic?, feedVersion: FeedVersion) =
-    object : LineStreamLoaderService<Event>(auth) {
+private fun getEventFeedLoader(settings: ClicsLoaderSettings, verbose: Boolean = false) =
+    object : LineStreamLoaderService<Event>(settings.auth) {
         private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
 
-        override val url = eventFeedUrl
+        override val url = settings.eventFeedUrl
         override fun processEvent(data: String) = try {
-            when (feedVersion) {
+            if (verbose) {
+                logger.info("Got event: $data")
+            }
+            when (settings.feedVersion) {
                 FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
                 FeedVersion.V2022_07 -> jsonDecoder.decodeFromString(data)
             }

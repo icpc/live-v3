@@ -98,6 +98,10 @@ sealed class Event {
     @SerialName("map-info")
     data class MapEvent(override val token: String) : IgnoredEvent()
 
+    @Serializable
+    @SerialName("start-status")
+    data class StartStatusEvent(override val token: String): IgnoredEvent()
+
 
     data class PreloadFinishedEvent(override val token: String) : UpdateContestEvent()
 
