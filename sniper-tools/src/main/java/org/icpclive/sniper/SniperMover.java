@@ -13,17 +13,19 @@ public class SniperMover {
     static String[] urls;
 
     public static void main(String[] args) throws Exception {
+        {
+            Scanner in = new Scanner(new File("snipers.txt"));
+            int m = in.nextInt();
+            urls = new String[m];
+            for (int i = 0; i < m; i++) {
+                urls[i] = in.next();
+            }
+            in.close();
+        }
         Locale.setDefault(Locale.US);
         Scanner in = new Scanner(System.in);
-        System.out.println("Number of snipers:");
-        int m = in.nextInt();
-        urls = new String[m];
-        for (int i = 0; i < m; i++) {
-            System.out.println("URL of sniper " + (i + 1) + ":");
-            urls[i] = in.next();
-        }
         while (true) {
-            System.out.println("Select sniper (1-" + m + ")");
+            System.out.println("Select sniper (1-" + urls.length + ")");
             int sniper = in.nextInt();
             Scanner scanner = new Scanner(new File("coordinates-" + sniper + ".txt"));
             int n = scanner.nextInt();

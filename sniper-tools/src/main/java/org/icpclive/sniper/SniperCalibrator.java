@@ -7,12 +7,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 
 public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener {
 
@@ -29,12 +27,22 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
 
     double pan = 0, tilt = 0, angle = ANGLE;
     private java.util.List<Point> points = new ArrayList<>();
+    private static Scanner in = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        System.out.println("Input sniper URL:");
-        Scanner in = new Scanner(System.in);
-        String cameraUrl = in.next();
-        new SniperCalibrator(cameraUrl).run();
+    public static void main(String[] args) throws FileNotFoundException {
+        String[] urls;
+        {
+            Scanner in = new Scanner(new File("snipers.txt"));
+            int m = in.nextInt();
+            urls = new String[m];
+            for (int i = 0; i < m; i++) {
+                urls[i] = in.next();
+            }
+            in.close();
+        }
+        System.out.println("Select sniper (1-" + urls.length + ")");
+        int sniper = in.nextInt();
+        new SniperCalibrator(urls[sniper - 1]).run();
     }
 
     public SniperCalibrator(String url) {
@@ -44,53 +52,60 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
     JFrame frame;
     JLabel label;
 
+    int currentTeam = -1;
+    Object currentTeamMonitor = new Object();
+
     private void run() {
         try {
-//            Scanner in = new Scanner(new File("output.txt"));
-//            int n = in.nextInt();
-//            for (int i = 0; i < n; i++) {
-//                points.add(new Point(in.nextDouble(), in.nextDouble(), in.nextDouble()));
-//            }
-//            in.close();
-
-            image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-//            updateState();
-            new Thread() {
-                @Override
-                public void run() {
-                    MjpegRunner runner = null;
-                    try {
-                        runner = new MjpegRunner(SniperCalibrator.this, new URL(url + "/mjpg/video.mjpg"));
-                        runner.run();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        System.exit(1);
+            readInput();
+            startPlayer();
+            synchronized (currentTeamMonitor) {
+                while (true) {
+                    System.out.println("Input team id:");
+                    currentTeam = in.nextInt();
+                    if (currentTeam == -1) {
+                        points.clear();
+                        locations.clear();
+                        continue;
+                    }
+                    System.out.println("Now locate team " + currentTeam);
+                    while (currentTeam != -1) {
+                        currentTeamMonitor.wait();
                     }
                 }
-            }.start();
-            frame = new JFrame();
-            label = new JLabel();
-//            bg = ImageIO.read(new File("bg.png"));
-
-//            GraphicsEnvironment ge = GraphicsEnvironment.
-//                    getLocalGraphicsEnvironment();
-//            GraphicsDevice[] gs =
-//                    ge.getScreenDevices();
-//            image = gs[0].getConfigurations()[0].createCompatibleVolatileImage(WIDTH, HEIGHT);
-            draw((Graphics2D) image.getGraphics());
-
-            label.setIcon(new ImageIcon(image));
-            frame.add(label);
-            frame.pack();
-            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            label.addMouseListener(this);
-            frame.addKeyListener(this);
-            frame.setVisible(true);
-
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    private void startPlayer() {
+        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        new Thread() {
+            @Override
+            public void run() {
+                MjpegRunner runner;
+                try {
+                    runner = new MjpegRunner(SniperCalibrator.this, new URL(url + "/mjpg/video.mjpg"));
+                    runner.run();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+            }
+        }.start();
+        frame = new JFrame();
+        label = new JLabel();
+        draw((Graphics2D) image.getGraphics());
+
+        label.setIcon(new ImageIcon(image));
+        frame.add(label);
+        frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        label.addMouseListener(this);
+        frame.addKeyListener(this);
+        frame.setVisible(true);
     }
 
     private synchronized void updateState() throws Exception {
@@ -146,9 +161,6 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
     }
 
     private synchronized void draw(Graphics2D g) {
-//        g.setColor(Color.BLACK);
-//        g.fillRect(0, 0, WIDTH, HEIGHT);
-//        g.drawImage(bg, 0, 0, WIDTH, HEIGHT, null);
         for (Point p : points) {
             p = p.rotateY(pan);
             p = p.rotateX(-tilt);
@@ -189,131 +201,169 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
         click(x, y);
     }
 
-    public synchronized void click(int x, int y) {
-        Point p = new Point(x, y, WIDTH / angle);
-        p = p.move(new Point(-WIDTH / 2, -HEIGHT / 2, 0));
-        p = p.multiply(angle / WIDTH);
-        p = p.rotateX(tilt);
-        p = p.rotateY(-pan);
+    class Position {
+        int id;
+        Point p;
 
-        p = p.multiply(1 / Math.abs(p.z));
-
-        points.add(p);
-        System.out.println(p.x + " " + p.y + " " + p.z);
-
-        Scanner in = null;
-        try {
-            in = new Scanner(new File("input.txt"));
-        } catch (FileNotFoundException e1) {
+        public Position(int id, int x, int y) {
+            this.id = id;
+            p = new Point(x, y, 0);
         }
 
-        int n = in.nextInt();
-        int[] first = new int[4];
+        public Position(int id, double x, double y, double z) {
+            this.id = id;
+            p = new Point(x, y, z);
+        }
+
+        public Position(int id, Point p) {
+            this.id = id;
+            this.p = p;
+        }
+    }
+
+    List<Position> input = new ArrayList<>();
+    List<Position> locations = new ArrayList<>();
+
+    void readInput() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
+        for (int x = 0; ; x++) {
+            String s = reader.readLine();
+            if (s == null) break;
+            String[] ss = s.split("\\s+");
+            for (int y = 0; y < ss.length; y++) {
+                try {
+                    int id = Integer.parseInt(ss[y]);
+                    input.add(new Position(id, x, y));
+                } catch (NumberFormatException e) {
+                }
+            }
+        }
+    }
+
+    void recalculate() {
+        if (locations.size() < 4) return;
+
+        List<Position> from = new ArrayList<>();
+        List<Position> to = new ArrayList<>();
+
+        Map<Integer, Position> mp = new HashMap<>();
+        for (Position position : input) {
+            mp.put(position.id, position);
+        }
+
         for (int i = 0; i < 4; i++) {
-            first[i] = in.nextInt() - 1;
-        }
-        int[] xx = new int[n];
-        int[] yy = new int[n];
-        for (int i = 0; i < n; i++) {
-            in.nextInt();
-            xx[i] = in.nextInt();
-            yy[i] = in.nextInt();
-        }
-
-        if (points.size() == 4) {
-            double[][] a = new double[9][10];
-            for (int i = 0; i < 4; i++) {
-                a[i * 2][0] = xx[first[i]] * points.get(i).z;
-                a[i * 2][1] = yy[first[i]] * points.get(i).z;
-                a[i * 2][2] = points.get(i).z;
-                a[i * 2][6] = -xx[first[i]] * points.get(i).x;
-                a[i * 2][7] = -yy[first[i]] * points.get(i).x;
-                a[i * 2][8] = -points.get(i).x;
-
-                a[i * 2 + 1][3] = xx[first[i]] * points.get(i).z;
-                a[i * 2 + 1][4] = yy[first[i]] * points.get(i).z;
-                a[i * 2 + 1][5] = points.get(i).z;
-                a[i * 2 + 1][6] = -xx[first[i]] * points.get(i).y;
-                a[i * 2 + 1][7] = -yy[first[i]] * points.get(i).y;
-                a[i * 2 + 1][8] = -points.get(i).y;
+            Position e = locations.get(locations.size() - 1 - i);
+            to.add(e);
+            Position e1 = mp.get(e.id);
+            if (e1 == null) {
+                System.out.println("no team " + e.id);
+                return;
             }
-            a[8][8] = a[8][9] = 1;
-            for (int i = 0; i < a.length; i++) {
-                int ii = i;
-                for (int t = i; t < a.length; t++) {
-                    if (Math.abs(a[t][i]) > Math.abs(a[ii][i])) {
-                        ii = t;
-                    }
+            from.add(e1);
+        }
+
+        double[][] a = new double[9][10];
+        for (int i = 0; i < 4; i++) {
+            Point A = from.get(i).p;
+            Point B = to.get(i).p;
+            a[i * 2][0] = A.x * B.z;
+            a[i * 2][1] = A.y * B.z;
+            a[i * 2][2] = B.z;
+            a[i * 2][6] = -A.x * B.x;
+            a[i * 2][7] = -A.y * B.x;
+            a[i * 2][8] = -B.x;
+
+            a[i * 2 + 1][3] = A.x * B.z;
+            a[i * 2 + 1][4] = A.y * B.z;
+            a[i * 2 + 1][5] = B.z;
+            a[i * 2 + 1][6] = -A.x * B.y;
+            a[i * 2 + 1][7] = -A.y * B.y;
+            a[i * 2 + 1][8] = -B.y;
+        }
+        a[8][8] = a[8][9] = 1;
+        for (int i = 0; i < a.length; i++) {
+            int ii = i;
+            for (int t = i; t < a.length; t++) {
+                if (Math.abs(a[t][i]) > Math.abs(a[ii][i])) {
+                    ii = t;
                 }
-                double[] tt = a[i];
-                a[i] = a[ii];
-                a[ii] = tt;
-                if (Math.abs(a[i][i]) < 1e-9) throw new RuntimeException();
-                double k = 1.0 / a[i][i];
-                for (int j = 0; j < a[i].length; j++) {
-                    a[i][j] *= k;
-                }
-                for (int t = 0; t < a.length; t++) {
-                    if (t == i) continue;
-                    k = -a[t][i];
-                    for (int j = 0; j < a[t].length; j++) {
-                        a[t][j] += k * a[i][j];
-                    }
-                }
-//                for (int q = 0; q < a.length; q++) {
-//                    System.out.println(Arrays.toString(a[q]));
-//                }
-//                System.out.println();
             }
-            double[] r = new double[9];
-            for (int i = 0; i < 9; i++) r[i] = a[i][9] / a[i][i];
+            double[] tt = a[i];
+            a[i] = a[ii];
+            a[ii] = tt;
+            if (Math.abs(a[i][i]) < 1e-9) throw new RuntimeException();
+            double k = 1.0 / a[i][i];
+            for (int j = 0; j < a[i].length; j++) {
+                a[i][j] *= k;
+            }
+            for (int t = 0; t < a.length; t++) {
+                if (t == i) continue;
+                k = -a[t][i];
+                for (int j = 0; j < a[t].length; j++) {
+                    a[t][j] += k * a[i][j];
+                }
+            }
+        }
+        double[] r = new double[9];
+        for (int i = 0; i < 9; i++) r[i] = a[i][9] / a[i][i];
 
-            double dx = r[0] * (xx[first[1]] - xx[first[0]])
-                    + r[1] * (yy[first[1]] - yy[first[0]]) + r[2];
-            double dy = r[3] * (xx[first[1]] - xx[first[0]])
-                    + r[4] * (yy[first[1]] - yy[first[0]]) + r[5];
-            double dz = r[6] * (xx[first[1]] - xx[first[0]])
-                    + r[7] * (yy[first[1]] - yy[first[0]]) + r[8];
+        double ddx = from.get(1).p.x - from.get(0).p.x;
+        double ddy = from.get(1).p.y - from.get(0).p.y;
+        double dx = r[0] * ddx + r[1] * ddy + r[2];
+        double dy = r[3] * ddx + r[4] * ddy + r[5];
+        double dz = r[6] * ddx + r[7] * ddy + r[8];
 
-            double dx1 = (xx[first[1]] - xx[first[0]]);
-            double dy1 = (yy[first[1]] - yy[first[0]]);
+        double d = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        double d2 = Math.sqrt(ddx * ddx + ddy * ddy);
 
-            double d = Math.sqrt(dx * dx + dy * dy + dz * dz);
-            double d2 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+        for (int i = 0; i < 9; i++) {
+            r[i] *= d2 / d;
+        }
 
+        if (Math.signum(r[2]) != Math.signum(points.get(0).x)) {
             for (int i = 0; i < 9; i++) {
-                r[i] *= d2 / d;
+                r[i] = -r[i];
             }
+        }
 
-            if (Math.signum(r[2]) != Math.signum(points.get(0).x)) {
-                for (int i = 0; i < 9; i++) {
-                    r[i] = -r[i];
-                }
-            }
+        points.clear();
 
-            points.clear();
-
-            PrintWriter out = null;
-            try {
-                out = new PrintWriter("output.txt");
-            } catch (FileNotFoundException e1) {
-            }
-            out.println(n);
-            for (int i = 0; i < n; i++) {
-                double xc = xx[i];
-                double yc = yy[i];
+        try {
+            PrintWriter out = new PrintWriter("output.txt");
+            out.println(input.size());
+            for (int i = 0; i < input.size(); i++) {
+                double xc = input.get(i).p.x;
+                double yc = input.get(i).p.y;
                 double xt = r[0] * xc + r[1] * yc + r[2];
                 double yt = r[3] * xc + r[4] * yc + r[5];
                 double zt = r[6] * xc + r[7] * yc + r[8];
-                out.println(xt + " " + yt + " " + zt);
+                out.println(input.get(i).id + " " + xt + " " + yt + " " + zt);
                 points.add(new Point(xt, yt, zt));
             }
             out.close();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
         }
+    }
 
-        Graphics2D g = (Graphics2D) this.image.getGraphics();
-        draw(g);
-        frame.repaint();
+    public void click(int x, int y) {
+        synchronized (currentTeamMonitor) {
+            if (currentTeam == -1) return;
+            Point p = new Point(x, y, WIDTH / angle);
+            p = p.move(new Point(-WIDTH / 2, -HEIGHT / 2, 0));
+            p = p.multiply(angle / WIDTH);
+            p = p.rotateX(tilt);
+            p = p.rotateY(-pan);
+            p = p.multiply(1 / Math.abs(p.z));
+            points.add(p);
+            locations.add(new Position(currentTeam, p));
+            currentTeam = -1;
+            recalculate();
+            Graphics2D g = (Graphics2D) this.image.getGraphics();
+            draw(g);
+            frame.repaint();
+            currentTeamMonitor.notifyAll();
+        }
     }
 
     @Override
