@@ -1,6 +1,22 @@
 import PropTypes from "prop-types";
-import styled from "styled-components";
-import { CELL_BG_COLOR, CELL_BG_COLOR_ODD, CELL_FONT_FAMILY, CELL_FONT_SIZE, CELL_TEXT_COLOR } from "../../config";
+import styled, { keyframes } from "styled-components";
+import {
+    CELL_BG_COLOR,
+    CELL_BG_COLOR_ODD,
+    CELL_FLASH_PERIOD,
+    CELL_FONT_FAMILY,
+    CELL_FONT_SIZE,
+    CELL_TEXT_COLOR
+} from "../../config";
+
+const flash = keyframes`
+  from {
+    filter: brightness(0.3);
+  }
+  to {
+    filter: brightness(1);
+  }
+`;
 
 export const Cell = styled.div` // FIXME: too overloaded with props.
   width: ${props => props.width};
@@ -19,6 +35,8 @@ export const Cell = styled.div` // FIXME: too overloaded with props.
 
   color: ${CELL_TEXT_COLOR};
   background-color: ${(props) => props.background ?? ((props.isEven && CELL_BG_COLOR_ODD) || CELL_BG_COLOR)};
+
+  animation: ${props => props.flash ? flash : null} ${CELL_FLASH_PERIOD}ms linear infinite alternate-reverse;
 `;
 
 Cell.propTypes = {

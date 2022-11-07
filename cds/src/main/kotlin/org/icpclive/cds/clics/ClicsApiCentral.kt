@@ -6,11 +6,18 @@ import java.util.*
 
 class ClicsApiCentral(properties: Properties, creds: Map<String, String>) {
     private val contestUrl = properties.getProperty("url")
-    private val login = properties.getCredentials("login", creds)
-    private val password = properties.getCredentials("password", creds)
 
-    val auth = login?.let { login -> password?.let { password -> ClientAuth.Basic(login, password) } }
+    val auth = ClientAuth.BasicOrNull(
+        properties.getCredentials("login", creds),
+        properties.getCredentials("password", creds)
+    )
     val eventFeedUrl = apiRequestUrl("event-feed")
 
     private fun apiRequestUrl(method: String) = "$contestUrl/$method"
+
+    val additionalEventFeedUrl: String? = properties.getProperty("additionalFeedUrl")?.takeIf { it.isNotEmpty() }
+    val additionalEventFeedAuth = ClientAuth.BasicOrNull(
+        properties.getCredentials("additionalFeedLogin", creds),
+        properties.getCredentials("additionalFeedPassword", creds)
+    )
 }
