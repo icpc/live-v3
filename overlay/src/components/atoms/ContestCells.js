@@ -115,14 +115,16 @@ export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "l
     const updateScale = useCallback((newCellRef) => {
         if (newCellRef !== null) {
             cellRef.current = newCellRef;
+            newCellRef.children[0].style.transform = "";
             const styles = getComputedStyle(newCellRef);
             const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
             const scaleFactor = Math.min(1, haveWidth / teamNameWidth);
             newCellRef.children[0].style.transform = `scaleX(${scaleFactor})${align === "center" ? " translateX(-50%)" : ""}`; // dirty hack, don't @ me
         }
-    }, [align, font]);
+    }, [align, font, text]);
     useEffect(() => {
         updateScale(cellRef.current);
+        // console.log(cellRef.current);
     }, [text]);
     return <TextShrinkingWrap ref={updateScale} font={font} {...props}>
         <TextShrinkingContainer scaleY={0} align={align}>
