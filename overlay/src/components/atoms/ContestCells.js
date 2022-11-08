@@ -122,7 +122,7 @@ export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "l
         }
     }, [align, font]);
     useEffect(() => {
-        updateScale(cellRef);
+        updateScale(cellRef.current);
     }, [text]);
     return <TextShrinkingWrap ref={updateScale} font={font} {...props}>
         <TextShrinkingContainer scaleY={0} align={align}>
