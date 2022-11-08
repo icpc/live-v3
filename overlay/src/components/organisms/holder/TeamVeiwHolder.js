@@ -1,15 +1,15 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SCOREBOARD_TYPES } from "../../../consts";
 import _ from "lodash";
 import { DateTime } from "luxon";
-import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
-import styled from "styled-components";
-import { pushLog } from "../../../redux/debug";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import styled from "styled-components";
 import { TEAM_VIEW_OPACITY, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
-import { StarIcon } from "../../atoms/Star";
+import { SCOREBOARD_TYPES } from "../../../consts";
+import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
+import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { StarIcon } from "../../atoms/Star";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -134,12 +134,20 @@ const ScoreboardColumn = ({ teamId }) => {
         <ScoreboardTeamInfoRow>
             <TeamInfo teamId={teamId}/>
         </ScoreboardTeamInfoRow>
-        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs, index }, i) =>
+        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({
+            wrongAttempts,
+            pendingAttempts,
+            isSolved,
+            isFirstToSolve,
+            lastSubmitTimeMs,
+            index
+        }, i) =>
             getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null :
                 <TaskRow key={i}>
                     <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
                     <StatisticsProblemCell probData={tasks[index]}/>
-                    <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)} attempts={wrongAttempts + pendingAttempts}/>
+                    <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
+                        attempts={wrongAttempts + pendingAttempts}/>
                 </TaskRow>
         )}
     </ScoreboardColumnWrapper>;
@@ -179,7 +187,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
     const videoRef = useRef();
     const rtcRef = useRef();
     useEffect(() => {
-        dispatch(pushLog(`Webrtc content from ${url}`));
+        setIsLoaded(false);
         rtcRef.current = new RTCPeerConnection();
         rtcRef.current.ontrack = function (event) {
             if (event.track.kind !== "video") {
@@ -187,6 +195,8 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
             }
             videoRef.current.srcObject = event.streams[0];
             videoRef.current.play();
+            // console.log("TRACK!");
+            window.aboba = videoRef.current;
         };
         rtcRef.current.addTransceiver("video");
         rtcRef.current.addTransceiver("audio");
@@ -201,14 +211,18 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
             })
             .then(res => res.json())
             .then(res => rtcRef.current.setRemoteDescription(res))
-            .catch(e => dispatch(pushLog("ERROR featching  webrtc peer connection info: " + e)));
+            .catch(e => console.trace("ERROR featching  webrtc peer connection info: " + e));
 
         return () => rtcRef.current?.close();
     }, [url]);
     return (<TeamVideoWrapper
         ref={videoRef}
-        onLoadedData={() => setIsLoaded(true)}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+        onLoadedData={() => {
+            // console.log("Loaded");
+            // console.log(videoRef.current.currentTime);
+            return setIsLoaded(true);
+        }}
         autoPlay
         muted/>);
 };
