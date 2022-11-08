@@ -186,6 +186,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
                 return;
             }
             videoRef.current.srcObject = event.streams[0];
+            videoRef.current.play();
         };
         rtcRef.current.addTransceiver("video");
         rtcRef.current.addTransceiver("audio");
@@ -206,7 +207,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
     }, [url]);
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => setIsLoaded(true)}
+        onLoadedData={() => setIsLoaded(true)}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
         autoPlay
         muted/>);
@@ -241,6 +242,7 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
                 if (e.track.kind === "video" && e.streams.length > 0 && videoRef.current.srcObject !== e.streams[0]) {
                     videoRef.current.srcObject = null;
                     videoRef.current.srcObject = e.streams[0];
+                    videoRef.current.play();
                     console.log("WebRTCSocket pc2 received remote stream");
                 }
             });
@@ -274,9 +276,8 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
 
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => onLoadStatus(true)}
+        onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        autoPlay
         muted/>);
 };
 
