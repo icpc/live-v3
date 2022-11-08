@@ -30,15 +30,16 @@ public class SniperMover {
             Scanner scanner = new Scanner(new File("coordinates-" + sniper + ".txt"));
             int n = scanner.nextInt();
             System.out.println("Select team (1-" + n + ")");
-            int id = in.nextInt();
+            int needId = in.nextInt();
             SniperCalibrator.Point point = null;
             for (int i = 1; i <= n; i++) {
+                int id = scanner.nextInt();
                 point = new SniperCalibrator.Point(
                         scanner.nextDouble(),
                         scanner.nextDouble(),
                         scanner.nextDouble()
                 );
-                if (i == id) {
+                if (id == needId) {
                     break;
                 }
             }
