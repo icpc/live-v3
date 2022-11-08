@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import {
     CELL_NAME_LEFT_PADDING,
@@ -111,14 +111,19 @@ const TextShrinkingWrap = styled(Cell)`
 
 export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "left", ...props }) => {
     const teamNameWidth = getTextWidth(text, font);
-    const updateScale = useCallback((cellRef) => {
-        if (cellRef !== null) {
-            const styles = getComputedStyle(cellRef);
+    const cellRef = useRef(null);
+    const updateScale = useCallback((newCellRef) => {
+        if (newCellRef !== null) {
+            cellRef.current = newCellRef;
+            const styles = getComputedStyle(newCellRef);
             const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
             const scaleFactor = Math.min(1, haveWidth / teamNameWidth);
-            cellRef.children[0].style.transform = `scaleX(${scaleFactor})${align === "center" ? " translateX(-50%)" : ""}`; // dirty hack, don't @ me
+            newCellRef.children[0].style.transform = `scaleX(${scaleFactor})${align === "center" ? " translateX(-50%)" : ""}`; // dirty hack, don't @ me
         }
     }, [align, font]);
+    useEffect(() => {
+        updateScale(cellRef);
+    }, [text]);
     return <TextShrinkingWrap ref={updateScale} font={font} {...props}>
         <TextShrinkingContainer scaleY={0} align={align}>
             {text}
