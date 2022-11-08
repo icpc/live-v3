@@ -10,7 +10,7 @@ const AdvertisementContainer = styled.div`
 `;
 
 const AdvertisementWrap = styled.div` // TODO: move this to constants.js
-  padding: 8px;
+  padding: 13px 20px;
   background-color: white;
   border-radius: 12px;
   font-size: 24pt;
