@@ -9,12 +9,14 @@ const AdvertisementContainer = styled.div`
   align-items: center;
 `;
 
-const AdvertisementWrap = styled.div`
-  padding: 8px;
-  background-color: rgb(136, 31, 27);
+const AdvertisementWrap = styled.div` // TODO: move this to constants.js
+  padding: 13px 20px;
+  background-color: white;
+  border-radius: 12px;
   font-size: 24pt;
-  font-family: Passageway, serif;
-  color: white
+  font-weight: 700;
+  font-family: Urbanist, Passageway, serif;
+  color: black;
 `;
 
 

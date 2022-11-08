@@ -1,20 +1,15 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import {
-    PVP_APPEAR_TIME,
-    PVP_OPACITY,
-    STATISTICS_BG_COLOR,
-    VERDICT_NOK,
-    VERDICT_OK,
-    VERDICT_UNKNOWN
-} from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { Cell } from "../../atoms/Cell";
-import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
-import { StarIcon } from "../../atoms/Star";
+import _ from "lodash";
+import { DateTime } from "luxon";
+import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import styled from "styled-components";
 import { pushLog } from "../../../redux/debug";
 import { io } from "socket.io-client";
+import { TEAM_VIEW_OPACITY, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { StarIcon } from "../../atoms/Star";
+import { Cell } from "../../atoms/Cell";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -32,9 +27,9 @@ const ScoreboardStatCell = styled(ScoreboardCell)`
   width: ${STATWIDTH}px;
 `;
 
+
 const TeamInfoWrapper = styled.div`
   display: flex;
-  grid-row: 1;
   position: relative;
   height: 100%;
 `;
@@ -59,18 +54,42 @@ const TeamTaskStatus = Object.freeze({
 const TeamTaskColor = Object.freeze({
     [TeamTaskStatus.solved]: VERDICT_OK,
     [TeamTaskStatus.failed]: VERDICT_NOK,
-    [TeamTaskStatus.untouched]: STATISTICS_BG_COLOR,
+    [TeamTaskStatus.untouched]: undefined,
     [TeamTaskStatus.unknown]: VERDICT_UNKNOWN,
     [TeamTaskStatus.first]: VERDICT_OK,
 });
 
-const StatisticsProblemCellWithColor = ({ probData, status }) => {
+const TeamTaskSymbol = Object.freeze({
+    [TeamTaskStatus.solved]: "+",
+    [TeamTaskStatus.failed]: "-",
+    [TeamTaskStatus.untouched]: "",
+    [TeamTaskStatus.unknown]: "?",
+    [TeamTaskStatus.first]: "+",
+});
+
+const ScoreboardTaskCell = ({ status, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
-        {probData?.letter ?? "??"}
+        {TeamTaskSymbol[status]}
+        {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
     </ScoreboardTaskCellWrap>;
 };
 
+const StatisticsProblemCell = styled(ProblemCell)`
+  padding: 0 10px;
+  width: 50px;
+  box-sizing: border-box;
+`;
+
+const ScoreboardTimeCell = styled(ScoreboardCell)`
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 100%;
+  height: 100%;
+  padding: 5px;
+  padding-left: 10px;
+  min-width: 40px;
+`;
 
 function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
@@ -86,109 +105,52 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     }
 }
 
-const ScoreboardRowAllWrapper = styled.div`
+const ScoreboardColumnWrapper = styled.div`
   display: grid;
-  justify-content: start;
-  grid-template-rows: 41.5px 41.5px;
+  opacity: ${TEAM_VIEW_OPACITY};
+  grid-template-columns: repeat(2, auto);
+  grid-auto-rows: 1fr;
   position: relative;
 `;
-
-const TaskRowWrapperFirst = styled.div`
-  grid-row: 2 / 3;
-  display: grid;
-  justify-content: start;
-  grid-template-rows: 1fr;
-
-  grid-auto-flow: column;
-  position: relative;
-`;
-
-const ScoreboardTeamInfoRowFirst = styled.div`
-  grid-row: 1 / 2;
-`;
-
-const TaskRowWrapperSecond = styled.div`
-  grid-row: 1 / 2;
-  display: grid;
-  justify-content: start;
-  grid-template-rows: 1fr;
-
-  grid-auto-flow: column;
-  position: relative;
-`;
-
-const ScoreboardTeamInfoRowSecond = styled.div`
-  grid-row: 2 / 3;
+const ScoreboardTeamInfoRow = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 3;
 `;
 const TaskRow = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  grid-column-start: 2;
+  grid-column-end: 3;
 `;
 
-const ScoreboardRowAllTaskFirst = ({ teamId }) => {
+
+const ScoreboardColumn = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    console.log(scoreboardData);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    return <ScoreboardRowAllWrapper>
-        <ScoreboardTeamInfoRowFirst>
+    return <ScoreboardColumnWrapper>
+        <ScoreboardTeamInfoRow>
             <TeamInfo teamId={teamId}/>
-        </ScoreboardTeamInfoRowFirst>
-        <TaskRowWrapperFirst>
-            {scoreboardData?.problemResults.flatMap(({
-                wrongAttempts,
-                pendingAttempts,
-                isSolved,
-                isFirstToSolve,
-                index
-            }, i) =>
+        </ScoreboardTeamInfoRow>
+        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({ wrongAttempts, pendingAttempts, isSolved, isFirstToSolve, lastSubmitTimeMs, index }, i) =>
+            getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null :
                 <TaskRow key={i}>
-                    <StatisticsProblemCellWithColor probData={tasks[index]}
-                        status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}/>
+                    <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
+                    <StatisticsProblemCell probData={tasks[index]}/>
+                    <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)} attempts={wrongAttempts + pendingAttempts}/>
                 </TaskRow>
-            )}
-        </TaskRowWrapperFirst>
-    </ScoreboardRowAllWrapper>;
+        )}
+    </ScoreboardColumnWrapper>;
 };
 
-const ScoreboardRowAllTaskSecond = ({ teamId }) => {
-    let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    //console.log(scoreboardData);
-    for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
-        scoreboardData.problemResults[i]["index"] = i;
-    }
-    const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    return <ScoreboardRowAllWrapper>
-        <TaskRowWrapperSecond>
-            {scoreboardData?.problemResults.flatMap(({
-                wrongAttempts,
-                pendingAttempts,
-                isSolved,
-                isFirstToSolve,
-                index
-            }, i) =>
-                <TaskRow key={i}>
-                    <StatisticsProblemCellWithColor probData={tasks[index]}
-                        status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
-                        attempts={wrongAttempts + pendingAttempts}/>
-                </TaskRow>
-            )}
-        </TaskRowWrapperSecond>
-        <ScoreboardTeamInfoRowSecond>
-            <TeamInfo teamId={teamId}/>
-        </ScoreboardTeamInfoRowSecond>
-    </ScoreboardRowAllWrapper>;
-};
-
-const TeamInfo = ({ teamId }) => {
+export const TeamInfo = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    console.log(teamData);
     return <TeamInfoWrapper>
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
-        <TextShrinkingCell text={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
+        <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData?.totalScore}
         </ScoreboardStatCell>
@@ -199,36 +161,18 @@ const TeamInfo = ({ teamId }) => {
     </TeamInfoWrapper>;
 };
 
-const ScoreboardWrapper = styled.div.attrs(({ align }) => ({ style: { justifyContent: align } }))`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: start;
-  position: relative;
-  flex-direction: column;
-  animation: ${props => props.animation} ${PVP_APPEAR_TIME}ms ${props => props.animationStyle};
-  animation-fill-mode: forwards;
-`;
-
-const PVPInfo = styled.div`
-  position: absolute;
-  top: 0;
-  opacity: ${PVP_OPACITY};
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-items: start;
-`;
-
-
 const TeamImageWrapper = styled.img`
-  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
 `;
 
 const TeamVideoWrapper = styled.video`
-  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
 `;
+
 
 const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
     const dispatch = useDispatch();
@@ -242,6 +186,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
                 return;
             }
             videoRef.current.srcObject = event.streams[0];
+            videoRef.current.play();
         };
         rtcRef.current.addTransceiver("video");
         rtcRef.current.addTransceiver("audio");
@@ -262,7 +207,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
     }, [url]);
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => setIsLoaded(true)}
+        onLoadedData={() => setIsLoaded(true)}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
         autoPlay
         muted/>);
@@ -297,6 +242,7 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
                 if (e.track.kind === "video" && e.streams.length > 0 && videoRef.current.srcObject !== e.streams[0]) {
                     videoRef.current.srcObject = null;
                     videoRef.current.srcObject = e.streams[0];
+                    videoRef.current.play();
                     console.log("WebRTCSocket pc2 received remote stream");
                 }
             });
@@ -330,17 +276,15 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
 
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => onLoadStatus(true)}
+        onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        autoPlay
         muted/>);
 };
 
 
 const TeamVideoAnimationWrapper = styled.div`
   position: absolute;
-  right: 0;
-  object-fit: contain;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: start;
@@ -349,6 +293,11 @@ const TeamVideoAnimationWrapper = styled.div`
 
 
 const teamViewComponentRender = {
+    TaskStatus: ({ onLoadStatus, teamId }) => {
+        useLayoutEffect(() => onLoadStatus(true),
+            []);
+        return <ScoreboardColumn teamId={teamId}/>;
+    },
     Photo: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
             <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
@@ -376,7 +325,7 @@ const teamViewComponentRender = {
     },
 };
 
-const TeamViewHolder = ({ onLoadStatus, media }) => {
+export const TeamViewHolder = ({ onLoadStatus, media }) => {
     const Component = teamViewComponentRender[media.type];
     if (Component === undefined) {
         useEffect(() => onLoadStatus(true),
@@ -385,62 +334,3 @@ const TeamViewHolder = ({ onLoadStatus, media }) => {
     }
     return <Component onLoadStatus={onLoadStatus} {...media}/>;
 };
-
-const TeamViewPInPWrapper = styled.div`
-  position: absolute;
-  
-  width: ${({ sizeX }) => `${sizeX * 0.361}px`};
-  height: ${({ sizeX }) => `${sizeX * 0.52 * 0.4}px`};
-  left: 0;
-  bottom: ${({ bottom }) => `${bottom}`};
-  top: ${({ top }) => `${top}`};
-
-`;
-
-export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) => {
-
-    if (settings.position === "PVP_TOP") {
-        return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
-            const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
-            if (c.isMedia) {
-                const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
-                if (c.pInP) {
-                    return <TeamViewPInPWrapper bottom={"80px"} top={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
-                } else {
-                    return component;
-                }
-            } else {
-                useLayoutEffect(() => onLoadStatus(true),
-                    []);
-                return <PVPInfo>
-                    <ScoreboardWrapper align={"end"}>
-                        <ScoreboardRowAllTaskFirst teamId={c.teamId}/>
-                    </ScoreboardWrapper>
-                </PVPInfo>;
-            }
-        });
-    } else {
-        return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
-            const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
-            if (c.isMedia) {
-                const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
-                if (c.pInP) {
-                    return <TeamViewPInPWrapper top={"80px"} bottom={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
-                } else {
-                    return component;
-                }
-            } else {
-                useLayoutEffect(() => onLoadStatus(true),
-                    []);
-                return <PVPInfo>
-                    <ScoreboardWrapper align={"start"}>
-                        <ScoreboardRowAllTaskSecond teamId={c.teamId}/>
-                    </ScoreboardWrapper>
-                </PVPInfo>;
-            }
-        });
-    }
-};
-PVP.ignoreAnimation = true;
-PVP.overrideTimeout = PVP_APPEAR_TIME;
-export default PVP;

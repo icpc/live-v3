@@ -20,13 +20,27 @@ export const Clock = () => {
     const getStatus = useCallback(() => {
         if (contestInfo === undefined)
             return "??";
+
         if (contestInfo.status === "RUNNING") {
             const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
                 (contestInfo.emulationSpeed ?? 1);
             return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
-        } else {
-            return contestInfo.status;
+        } else if (contestInfo.status === "BEFORE") {
+            console.log("kek");
+            if (contestInfo.holdBeforeStartTimeMs !== undefined) {
+                return DateTime.fromMillis(contestInfo.holdBeforeStartTimeMs).toFormat("H:mm:ss");
+            } else if (contestInfo.startTimeUnixMs !== undefined) {
+                const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().milliseconds *
+                    (contestInfo.emulationSpeed ?? 1);
+                if (milliseconds < 0) {
+                    return contestInfo.status;
+                }
+                return "-" + DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
+            }
         }
+
+        return contestInfo.status;
+
     }, [contestInfo]);
     const [status, setStatus] = useState(getStatus());
     useEffect(() => {

@@ -11,4 +11,4 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include("sniper-tools", "social-tools","common", "cds", "backend")
+include("sniper-tools", "social-tools", "reactions-bot", "common", "cds", "backend")
