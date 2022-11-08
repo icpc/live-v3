@@ -10,6 +10,7 @@ import java.util.*;
 
 public class SniperMover {
 
+    private static final String DEFAULT_SPEED = ".2";
     static String[] urls;
 
     public static void main(String[] args) throws Exception {
@@ -66,6 +67,10 @@ public class SniperMover {
                 "&tilt=" + tilt +
                 "&pan=" + pan +
                 "&zoom=" + zoom +
+                "&speed=100" +
+                "&timestamp=" + getUTCTime());
+        sendGet(urls[sniper - 1] + "/axis-cgi/com/ptz.cgi?camera=1" +
+                "&speed=" + DEFAULT_SPEED +
                 "&timestamp=" + getUTCTime());
     }
 
