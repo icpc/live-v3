@@ -15,8 +15,8 @@ import kotlin.time.Duration.Companion.seconds
 
 private sealed class QueueProcessTrigger
 private object Clean : QueueProcessTrigger()
-private class Run(val run: RunInfo) : QueueProcessTrigger()
-private class Featured(val request: FeaturedRunAction) : QueueProcessTrigger()
+private data class Run(val run: RunInfo) : QueueProcessTrigger()
+private data class Featured(val request: FeaturedRunAction) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
 sealed class FeaturedRunAction(val runId: Int) {
@@ -165,6 +165,7 @@ class QueueService {
                     .filterNot { it.isFirstSolvedRun || it.featuredRunMedia != null }
                     .minByOrNull { it.id }
                     ?.run { removeRun(this) }
+                    ?: break
             }
         }
     }
