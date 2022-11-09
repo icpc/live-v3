@@ -2,16 +2,7 @@ plugins {
     kotlin("jvm")
     application
     id("icpclive")
-}
-
-kotlin {
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-            languageSettings.optIn("kotlinx.coroutines.FlowPreview")
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
-    }
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "org.icpclive"
@@ -28,16 +19,6 @@ tasks {
         project.properties["live.dev.video"]?.let { args += listOf("-video", it.toString()) }
         this.args = args
         this.workingDir(rootDir.resolve("reactions-bot"))
-    }
-    val fatJar = register<Jar>("fatJar") {
-        destinationDir = rootProject.rootDir.resolve("artifacts")
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-        manifest { attributes(mapOf("Main-Class" to application.mainClass)) } // Provided we set it up in the application plugin configuration
-        val sourcesMain = sourceSets.main.get()
-        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) } + sourcesMain.output)
-    }
-    build {
-        dependsOn(fatJar) // Trigger fat jar creation during build
     }
 }
 
