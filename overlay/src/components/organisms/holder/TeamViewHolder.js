@@ -321,7 +321,6 @@ const teamViewComponentRender = {
     Object: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
             <object data={url} type="image/svg+xml" onLoad={() => onLoadStatus(true)}>
-
             </object>
         </TeamVideoAnimationWrapper>;
     },
@@ -332,6 +331,7 @@ const teamViewComponentRender = {
                 onCanPlay={() => onLoadStatus(true)}
                 onError={() => onLoadStatus(false)}
                 autoPlay
+                loop
                 muted/>
         </TeamVideoAnimationWrapper>;
     },

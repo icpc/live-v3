@@ -89,6 +89,7 @@ sealed class MediaType {
     fun applyTemplate(teamId: String) = when (this) {
         is Photo -> copy(url = url.replace("{teamId}", teamId))
         is Video -> copy(url = url.replace("{teamId}", teamId))
+        is Object -> copy(url = url.replace("{teamId}", teamId))
         is WebRTCFetchConnection -> copy(url = url.replace("{teamId}", teamId))
         is WebRTCConnection -> copy(
             url = url.replace("{teamId}", teamId),
@@ -102,6 +103,7 @@ sealed class MediaType {
     fun noMedia(): MediaType = when (this) {
         is Photo -> copy(isMedia = false)
         is Video -> copy(isMedia = false)
+        is Object -> copy(isMedia = false)
         is WebRTCFetchConnection -> copy(isMedia = false)
         is WebRTCConnection -> copy(isMedia = false)
         else -> this
