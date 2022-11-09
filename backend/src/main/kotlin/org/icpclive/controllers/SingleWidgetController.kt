@@ -48,7 +48,10 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
 
     suspend fun getSettings() = mutex.withLock { settings }
 
-    suspend fun setSettings(newSettings: SettingsType) = mutex.withLock { settings = newSettings }
+    suspend fun setSettings(newSettings: SettingsType) = mutex.withLock {
+        checkSettings(newSettings)
+        settings = newSettings
+    }
 
     suspend fun show() = mutex.withLock {
         hideImpl()
@@ -82,6 +85,8 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
         }
         widgetScope.cancel()
     }
+    // throws if settings are bad
+    open suspend fun checkSettings(settings: SettingsType) {}
 }
 fun <SettingsType : ObjectSettings, DataType : TypeWithId> SingleWidgetController(
     settings: SettingsType,

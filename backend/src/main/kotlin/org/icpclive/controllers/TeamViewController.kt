@@ -7,7 +7,7 @@ import org.icpclive.data.DataBus
 import org.icpclive.data.Manager
 import kotlin.time.Duration.Companion.seconds
 
-class TeamViewController(val manager: Manager<TeamViewWidget>, val position: TeamViewPosition) :
+class TeamViewController(manager: Manager<TeamViewWidget>, val position: TeamViewPosition) :
     SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(ExternalTeamViewSettings(), manager) {
     override suspend fun onDelete(id: Int) {}
 

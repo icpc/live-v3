@@ -4,6 +4,7 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.admin.ApiActionException
 
 interface ObjectSettings
 
@@ -76,6 +77,27 @@ data class TeamLocatorCircleSettings(
 data class TeamLocatorSettings(
     val circles: List<TeamLocatorCircleSettings> = emptyList(),
 ) : ObjectSettings
+
+@Serializable
+data class TeamLocatorExternalCircleSettings(
+    val x: Int,
+    val y: Int,
+    val radius: Int,
+    val teamId: Int? = null,
+    val cdsTeamId: String? = null,
+) {
+    init {
+        if ((teamId == null) == (cdsTeamId == null)) {
+            throw ApiActionException("Only one of of teamId and cdsTeamsId can be specified")
+        }
+    }
+}
+
+@Serializable
+data class ExternalTeamLocatorSettings(
+    val circles: List<TeamLocatorExternalCircleSettings> = emptyList(),
+) : ObjectSettings
+
 
 @Serializable
 sealed class TickerMessageSettings : ObjectSettings {
