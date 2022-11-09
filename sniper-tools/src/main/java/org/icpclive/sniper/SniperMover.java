@@ -10,7 +10,7 @@ import java.util.*;
 
 public class SniperMover {
 
-    private static final String DEFAULT_SPEED = ".2";
+    private static final String DEFAULT_SPEED = "0.52";
 
     public static void main(String[] args) throws Exception {
         Util.init();

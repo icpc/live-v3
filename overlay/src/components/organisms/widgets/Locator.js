@@ -25,16 +25,13 @@ const TeamViewWrapper = styled.div`
   position: absolute;
   top: ${({ top }) => top}px;
   left: ${({ left }) => left}px;
-  animation:  ${TEAM_VIEW_APPEAR_TIME}ms ${props => props.animation} ${({ duration }) => duration}ms ${props => props.animationStyle};
-    
+
 `;
 
 const LineWrapper = styled.div`
   width: 100%;
   height: 100%;
-  animation-delay: ${TEAM_VIEW_APPEAR_TIME}ms;
-  animation: ${TEAM_VIEW_APPEAR_TIME}ms ${props => props.animation} ${({ duration }) => duration}ms ${props => props.animationStyle};
-    
+  
 `;
 
 export const Locator = ({ widgetData, transitionState }) => {
@@ -47,7 +44,7 @@ export const Locator = ({ widgetData, transitionState }) => {
 
 
     console.log(widgetData);
-    return <div className="mask2">
+    return <div className="mask2" style={{ zIndex:"-1" }}>
         <svg x="0px" y="0px" viewBox="0 0 1920 1080">
             <style type="text/css">{css}</style>
             <defs>
