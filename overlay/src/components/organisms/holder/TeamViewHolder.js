@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { TEAMVIEW_SMALL_FACTOR, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
@@ -111,6 +111,8 @@ const ScoreboardColumnWrapper = styled.div`
   grid-template-columns: repeat(2, auto);
   grid-auto-rows: 1fr;
   position: relative;
+  transform-origin: top right;
+  transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};
 `;
 const ScoreboardTeamInfoRow = styled.div`
   grid-column-start: 1;
@@ -124,13 +126,13 @@ const TaskRow = styled.div`
 `;
 
 
-const ScoreboardColumn = ({ teamId }) => {
+const ScoreboardColumn = ({ teamId, isSmall }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    return <ScoreboardColumnWrapper>
+    return <ScoreboardColumnWrapper isSmall={isSmall}>
         <ScoreboardTeamInfoRow>
             <TeamInfo teamId={teamId}/>
         </ScoreboardTeamInfoRow>
@@ -307,10 +309,10 @@ const TeamVideoAnimationWrapper = styled.div`
 
 
 const teamViewComponentRender = {
-    TaskStatus: ({ onLoadStatus, teamId }) => {
+    TaskStatus: ({ onLoadStatus, teamId, isSmall }) => {
         useLayoutEffect(() => onLoadStatus(true),
             []);
-        return <ScoreboardColumn teamId={teamId}/>;
+        return <ScoreboardColumn teamId={teamId} isSmall={isSmall}/>;
     },
     Photo: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
@@ -339,12 +341,12 @@ const teamViewComponentRender = {
     },
 };
 
-export const TeamViewHolder = ({ onLoadStatus, media }) => {
+export const TeamViewHolder = ({ onLoadStatus, media, isSmall }) => {
     const Component = teamViewComponentRender[media.type];
     if (Component === undefined) {
         useEffect(() => onLoadStatus(true),
             [media.teamId]);
         return undefined;
     }
-    return <Component onLoadStatus={onLoadStatus} {...media}/>;
+    return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} {...media}/>;
 };

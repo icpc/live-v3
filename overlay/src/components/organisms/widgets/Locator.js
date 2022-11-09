@@ -1,7 +1,7 @@
 import React from "react";
-import { TeamInfo } from "../holder/TeamVeiwHolder";
 import styled, { keyframes } from "styled-components";
 import { TEAM_VIEW_APPEAR_TIME } from "../../../config";
+import { TeamInfo } from "../holder/TeamViewHolder";
 
 const slideIn = keyframes`
   from {
@@ -84,7 +84,8 @@ export const Locator = ({ widgetData, transitionState }) => {
             }
             let len = Math.sqrt((left + 540 / 2 - circle.x) * (left + 540 / 2 - circle.x) +
                 (top + 10 - circle.y) * (top + 10 - circle.y));
-            return <div style={{ position:"absolute", top:0, left:0, width:"100%", height:"100%" }} key={circle.teamId}>
+            return <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                key={circle.teamId}>
                 <TeamViewWrapper
                     top={top}
                     left={left}
@@ -99,7 +100,8 @@ export const Locator = ({ widgetData, transitionState }) => {
                     animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
                     duration={(index + 1) * 1500 - 500}>
                     <svg key={index + "path"} height="100%" width="100%" stroke="white" strokeWidth="5" fill="none">
-                        <path d={`M ${circle.x + (left + 540 / 2 - circle.x) / len * circle.radius} ${circle.y + (top + 10 - circle.y) / len * circle.radius} L ${left + 540 / 2} ${top + 10}`} />
+                        <path
+                            d={`M ${circle.x + (left + 540 / 2 - circle.x) / len * circle.radius} ${circle.y + (top + 10 - circle.y) / len * circle.radius} L ${left + 540 / 2} ${top + 10}`}/>
                     </svg>
                 </LineWrapper>
             </div>;

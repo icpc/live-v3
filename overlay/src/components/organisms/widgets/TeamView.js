@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { TEAM_VIEW_APPEAR_TIME } from "../../../config";
-import { TeamViewHolder } from "../holder/TeamVeiwHolder";
+import { TeamViewHolder } from "../holder/TeamViewHolder";
 import PVP from "./PVP";
 
 const slideIn = keyframes`
   from {
-    opacity: 0.1;
+    opacity: 0;
   }
   to {
     opacity: 1;
@@ -18,7 +18,7 @@ const slideOut = keyframes`
     opacity: 1;
   }
   to {
-    opacity: 0.1;
+    opacity: 0;
   }
 `;
 
@@ -43,12 +43,13 @@ const TeamViewPInPWrapper = styled.div`
 `;
 
 
-function TeamViewWrapper({ mediaContent, settings, setLoadedComponents, location }) {
+function TeamViewWrapper({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
     return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
         const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
-        const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
+        const component = <TeamViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
+            isSmall={isSmall}/>;
         if (c.pInP) {
-            return <TeamViewPInPWrapper sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+            return <TeamViewPInPWrapper key={c.type + index} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
         }
         return component;
     });
@@ -58,14 +59,21 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
     const [loadedComponents, setLoadedComponents] = useState(0);
     const isLoaded = loadedComponents === (1 << settings.content.length) - 1;
     const mediaContent = settings.content.filter(e => e.isMedia).map((e, index) => ({ ...e, pInP: index > 0 }));
+    const isSmall = settings.position !== "SINGLE_TOP_RIGHT";
+    const passedProps = {
+        mediaContent,
+        settings,
+        setLoadedComponents,
+        location
+    };
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
         {settings.position === "PVP_TOP" || settings.position === "PVP_BOTTOM" ?
-            <PVP mediaContent={mediaContent} settings={settings} setLoadedComponents={setLoadedComponents} location={location}/> :
-            <TeamViewWrapper setLoadedComponents={setLoadedComponents} mediaContent={mediaContent} settings={settings} location={location}/>
+            <PVP {...passedProps}/> :
+            <TeamViewWrapper isSmall={isSmall} {...passedProps}/>
         }
     </TeamViewContainer>;
 };

@@ -53,7 +53,8 @@ export const SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR = VERDICT_OK;
 export const SCOREBOARD_HEADER_TITLE_FONT_SIZE = "30px";
 export const SCOREBOARD_HEADER_BG_COLOR = "#000000";
 export const SCOREBOARD_OPACITY = 0.95;
-export const PVP_OPACITY = 0.95;
+
+// export const PVP_OPACITY = 0.95;
 // export const TEAM_VIEW_OPACITY = 0.95;
 
 export const STATISTICS_TITLE_FONT_SIZE = "30px";
@@ -91,6 +92,9 @@ export const TICKER_TEXT_MARGIN_LEFT = "10px"; // css property
 export const TICKER_CLOCK_FONT_SIZE = "34px"; // css property
 export const TICKER_CLOCK_MARGIN_LEFT = "10px"; // css property
 export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
+
+
+export const TEAMVIEW_SMALL_FACTOR = "50%"; // css property
 
 
 export const STAR_SIZE = 20; // px

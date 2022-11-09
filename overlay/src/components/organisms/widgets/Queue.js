@@ -14,7 +14,7 @@ import {
     QUEUE_ROW_TRANSITION_TIME
 } from "../../../config";
 import { QueueRow } from "../../molecules/queue/QueueRow";
-import { TeamViewHolder } from "../holder/TeamVeiwHolder";
+import { TeamViewHolder } from "../holder/TeamViewHolder";
 
 const WidgetWrap = styled.div`
   width: 100%;
