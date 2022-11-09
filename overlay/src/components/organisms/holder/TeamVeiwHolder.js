@@ -105,9 +105,9 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     }
 }
 
+// opacity: ${TEAM_VIEW_OPACITY};
 const ScoreboardColumnWrapper = styled.div`
   display: grid;
-    // opacity: ${TEAM_VIEW_OPACITY};
   grid-template-columns: repeat(2, auto);
   grid-auto-rows: 1fr;
   position: relative;
