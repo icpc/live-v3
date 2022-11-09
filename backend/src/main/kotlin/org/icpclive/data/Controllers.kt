@@ -16,7 +16,7 @@ object Controllers {
     private val teamViews = TeamViewPosition.values().asList().associateWith { TeamViewController(WidgetManager, it) }
     fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
 
-    val locator = SingleWidgetController(TeamLocatorSettings(), WidgetManager, ::TeamLocatorWidget)
+    val locator = LocatorWidgetController(WidgetManager)
 
     private fun presetsPath(name: String) = config.presetsDirectory.resolve("$name.json")
 

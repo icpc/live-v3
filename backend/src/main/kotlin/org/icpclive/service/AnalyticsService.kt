@@ -3,6 +3,7 @@ package org.icpclive.service
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
+import org.icpclive.admin.ApiActionException
 import org.icpclive.api.*
 import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
@@ -142,7 +143,11 @@ class AnalyticsService {
                     }
 
                     is Action -> {
-                        event.process(featuredRunFlow)
+                        try {
+                            event.process(featuredRunFlow)
+                        } catch (e: ApiActionException) {
+                            logger.error("Failed during processing action: $event", e)
+                        }
                     }
 
                     is Subscribe -> {

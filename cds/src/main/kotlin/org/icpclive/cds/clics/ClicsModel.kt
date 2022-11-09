@@ -26,7 +26,7 @@ class ClicsModel(
     private val hiddenTeams = mutableSetOf<String>()
     private val teamSubmissions = mutableMapOf<Int, MutableSet<String>>()
 
-    var startTime = Instant.fromEpochMilliseconds(0)
+    var startTime : Instant? = null
     var contestLength = 5.hours
     var freezeTime = 4.hours
     var status = ContestStatus.BEFORE
@@ -81,7 +81,7 @@ class ClicsModel(
     val contestInfo: ContestInfo
         get() = ContestInfo(
             status = status,
-            startTime = startTime,
+            startTime = startTime ?: Instant.fromEpochSeconds(0),
             contestLength = contestLength,
             freezeTime = freezeTime,
             problems = problems.values.map { it.toApi() },
@@ -91,7 +91,7 @@ class ClicsModel(
         )
 
     fun processContest(contest: Contest) : List<RunInfo> {
-        contest.start_time?.let { startTime = it }
+        startTime = contest.start_time
         contestLength = contest.duration
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
         contest.countdown_pause_time?.let {
