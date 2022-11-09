@@ -198,8 +198,6 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
             }
             videoRef.current.srcObject = event.streams[0];
             videoRef.current.play();
-            // console.log("TRACK!");
-            window.aboba = videoRef.current;
         };
         rtcRef.current.addTransceiver("video");
         rtcRef.current.addTransceiver("audio");
