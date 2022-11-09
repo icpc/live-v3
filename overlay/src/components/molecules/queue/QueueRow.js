@@ -7,6 +7,7 @@ import {
     CELL_QUEUE_TASK_WIDTH,
     CELL_QUEUE_TOTAL_SCORE_WIDTH,
     CELL_QUEUE_VERDICT_WIDTH,
+    QUEUE_OPACITY,
     QUEUE_ROW_HEIGHT
 } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
@@ -19,6 +20,7 @@ const QueueRowWrap = styled.div`
   display: flex;
   flex-wrap: nowrap;
   max-width: 100%;
+  opacity: ${QUEUE_OPACITY};
 `;
 
 export const QueueRow = ({ entryData, isEven, flash }) => {

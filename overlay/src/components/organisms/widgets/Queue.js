@@ -6,7 +6,6 @@ import styled, { keyframes } from "styled-components";
 import {
     QUEUE_FEATURED_RUN_ASPECT,
     QUEUE_FTS_PADDING,
-    QUEUE_OPACITY,
     QUEUE_ROW_APPEAR_TIME,
     QUEUE_ROW_FEATURED_RUN_ADDITIONAL_DELAY,
     QUEUE_ROW_FEATURED_RUN_APPEAR_TIME,
@@ -20,7 +19,6 @@ import { TeamViewHolder } from "../holder/TeamVeiwHolder";
 const WidgetWrap = styled.div`
   width: 100%;
   height: 100%;
-  opacity: ${QUEUE_OPACITY};
   position: relative;
 `;
 
