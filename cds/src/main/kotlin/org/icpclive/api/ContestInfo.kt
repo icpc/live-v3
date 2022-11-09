@@ -59,6 +59,10 @@ sealed class MediaType {
     data class Photo(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
+    @SerialName("Object")
+    data class Object(val url: String, override val isMedia: Boolean = true) : MediaType()
+
+    @Serializable
     @SerialName("Video")
     data class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
 

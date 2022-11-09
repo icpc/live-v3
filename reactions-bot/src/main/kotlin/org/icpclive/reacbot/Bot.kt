@@ -20,6 +20,7 @@ import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.entities.keyboard.InlineKeyboardButton
 import com.github.kotlintelegrambot.logging.LogLevel
+import org.icpclive.cds.common.setAllowUnsecureConnections
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 
@@ -93,6 +94,7 @@ class Bot(private val config: Config) {
                         caption = "New reaction run=${run.id} team=${run.teamId} problem=${run.problemId} ${run.time}",
                         disableNotification = true,
                     ).first?.body()?.result ?: return@launch
+                    println("send reaction ${reaction.id} into telegram")
                     val uploadedFileId = message.video?.fileId ?: return@launch
                     storage.setReactionTelegramFileId(reaction.id.value, uploadedFileId)
                 } catch (ignore: FfmpegException) {
@@ -108,9 +110,19 @@ class Bot(private val config: Config) {
         val analyticsFlow = CompletableDeferred<Flow<AnalyticsMessage>>()
 
         scope.launch { bot.startPolling() }
-        scope.launch { cds.run(contestInfo, runs, analyticsFlow) }
         scope.launch {
+            if (config.disableCdsLoader) {
+                return@launch
+            }
+            setAllowUnsecureConnections(true)
+            println("starting cds processing ...")
+            cds.run(contestInfo, runs, analyticsFlow)
+        }
+        scope.launch {
+            println("starting runs processing ...")
+            println("runs processing stated for ${contestInfo.await().value.currentContestTime}")
             runs.await().collect { run ->
+                println("process run update ${run.id}")
                 run.reactionVideos.forEach {
                     if (it is MediaType.Video) {
                         processReaction(scope, run, it.url)

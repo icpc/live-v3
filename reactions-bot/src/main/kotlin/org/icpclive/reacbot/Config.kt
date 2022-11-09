@@ -7,7 +7,7 @@ import kotlinx.cli.required
 
 class Config(
     val eventPropertiesFile: String,
-    val enableCdsLoader: Boolean,
+    val disableCdsLoader: Boolean,
     val telegramToken: String,
     val loaderThreads: Int,
     val videoPathPrefix: String,
@@ -18,11 +18,10 @@ fun parseConfig(args: Array<String>): Config {
     val configParser = ArgParser("reactions-bot")
     val event by configParser.option(ArgType.String, shortName = "event", description = "Event.properties file path")
         .default("./events.properties")
-    val cdsEnable by configParser.option(
+    val cdsDisable by configParser.option(
         ArgType.Boolean,
-        shortName = "cds",
         description = "Enable loading events from cds"
-    ).default(true)
+    ).default(false)
     val telegramToken by configParser.option(ArgType.String, shortName = "token", description = "Telegram bot token")
         .required()
     val loaderThreads by configParser.option(
@@ -41,5 +40,5 @@ fun parseConfig(args: Array<String>): Config {
         description = "System chat id for bot management"
     ).default(316671439)
     configParser.parse(args)
-    return Config(event, cdsEnable, telegramToken, loaderThreads, videoPathPrefix, botSystemChar)
+    return Config(event, cdsDisable, telegramToken, loaderThreads, videoPathPrefix, botSystemChar)
 }
