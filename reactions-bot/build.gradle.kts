@@ -20,6 +20,10 @@ tasks {
         this.args = args
         this.workingDir(rootDir.resolve("reactions-bot"))
     }
+    task<Copy>("release") {
+        from(shadowJar)
+        destinationDir = rootProject.rootDir.resolve("artifacts")
+    }
 }
 
 repositories {
