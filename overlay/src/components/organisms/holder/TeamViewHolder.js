@@ -320,6 +320,13 @@ const teamViewComponentRender = {
             <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
         </TeamVideoAnimationWrapper>;
     },
+    Object: ({ onLoadStatus, url }) => {
+        return <TeamVideoAnimationWrapper>
+            <object data={url} type="image/svg+xml" onLoad={() => onLoadStatus(true)}>
+
+            </object>
+        </TeamVideoAnimationWrapper>;
+    },
     Video: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
             <TeamVideoWrapper
