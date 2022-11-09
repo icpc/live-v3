@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import styled, { keyframes } from "styled-components";
 import { PICTURES_APPEAR_TIME } from "../../../config";
 import { pushLog } from "../../../redux/debug";
-import { useDispatch } from "react-redux";
 
 
 const slideIn = keyframes`
@@ -32,13 +32,18 @@ const PicturesContainerWrap = styled.div`
   display: ${props => props.show ? "flex" : "none"};
   justify-content: start;
   align-items: center;
+  flex-direction: row;
   animation: ${props => props.animation} ${PICTURES_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
 
 
 const PicturesContainer = styled.div`
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  //width: 100%;
+  //height: 100%;
   justify-content: center;
   text-align: center;
 `;
@@ -52,8 +57,12 @@ const PicturesCaptionWrap = styled.div`
   align-self: stretch;
 `;
 
-const PicturesImgWrap = styled.div`
-  background-color: white;
+const PicturesImg = styled.img`
+  object-fit: contain;
+  //max-height: calc(100% - 24pt);
+  flex-shrink: 1;
+  flex-grow: 1;
+  max-width: 100%;
 `;
 
 export const Pictures = ({ widgetData, transitionState }) => {
@@ -65,14 +74,12 @@ export const Pictures = ({ widgetData, transitionState }) => {
         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
     >
         <PicturesContainer>
-            <PicturesImgWrap>
-                <img
-                    src={widgetData.picture.url}
-                    alt={widgetData.picture.name}
-                    onLoad={() => setIsLoaded(true)}
-                    onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
-                />
-            </PicturesImgWrap>
+            <PicturesImg
+                src={widgetData.picture.url}
+                alt={widgetData.picture.name}
+                onLoad={() => setIsLoaded(true)}
+                onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+            />
             <PicturesCaptionWrap>{widgetData.picture.name}</PicturesCaptionWrap>
         </PicturesContainer>
     </PicturesContainerWrap>;
