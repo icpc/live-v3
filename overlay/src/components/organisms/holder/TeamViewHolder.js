@@ -113,6 +113,7 @@ const ScoreboardColumnWrapper = styled.div`
   position: relative;
   transform-origin: top right;
   transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};
+  white-space: nowrap;
 `;
 const ScoreboardTeamInfoRow = styled.div`
   grid-column-start: 1;
