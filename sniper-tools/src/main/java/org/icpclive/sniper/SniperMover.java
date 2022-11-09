@@ -11,31 +11,22 @@ import java.util.*;
 public class SniperMover {
 
     private static final String DEFAULT_SPEED = ".2";
-    static String[] urls;
 
     public static void main(String[] args) throws Exception {
-        {
-            Scanner in = new Scanner(new File("snipers.txt"));
-            int m = in.nextInt();
-            urls = new String[m];
-            for (int i = 0; i < m; i++) {
-                urls[i] = in.next();
-            }
-            in.close();
-        }
+        Util.init();
         Locale.setDefault(Locale.US);
         Scanner in = new Scanner(System.in);
         while (true) {
-            System.out.println("Select sniper (1-" + urls.length + ")");
+            System.out.println("Select sniper (1-" + Util.snipers.size() + ")");
             int sniper = in.nextInt();
             Scanner scanner = new Scanner(new File("coordinates-" + sniper + ".txt"));
             int n = scanner.nextInt();
             System.out.println("Select team (1-" + n + ")");
             int needId = in.nextInt();
-            SniperCalibrator.Point point = null;
+            LocatorPoint point = null;
             for (int i = 1; i <= n; i++) {
                 int id = scanner.nextInt();
-                point = new SniperCalibrator.Point(
+                point = new LocatorPoint(
                         scanner.nextDouble(),
                         scanner.nextDouble(),
                         scanner.nextDouble()
@@ -57,55 +48,21 @@ public class SniperMover {
             double mag = 0.5 * d;
             double maxmag = 35;
             double zoom = (mag * 9999 - 1) / (maxmag - 1);
-            System.out.println(pan + " " + tilt + " " + zoom);
             move(sniper, pan, tilt, (int)zoom);
         }
     }
 
     private static void move(int sniper, double pan, double tilt, int zoom) throws Exception {
-        sendGet(urls[sniper - 1] + "/axis-cgi/com/ptz.cgi?camera=1" +
+        String hostName = Util.snipers.get(sniper - 1).hostName;
+        Util.sendGet(hostName + "/axis-cgi/com/ptz.cgi?camera=1" +
                 "&tilt=" + tilt +
                 "&pan=" + pan +
                 "&zoom=" + zoom +
                 "&speed=100" +
-                "&timestamp=" + getUTCTime());
-        sendGet(urls[sniper - 1] + "/axis-cgi/com/ptz.cgi?camera=1" +
+                "&timestamp=" + Util.getUTCTime());
+        Util.sendGet(hostName + "/axis-cgi/com/ptz.cgi?camera=1" +
                 "&speed=" + DEFAULT_SPEED +
-                "&timestamp=" + getUTCTime());
-    }
-
-    public static String sendGet(String url) throws Exception {
-        System.out.println(url);
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        // optional default is GET
-        con.setRequestMethod("GET");
-
-        int responseCode = con.getResponseCode();
-//        System.out.println("\nSending 'GET' request to URL : " + url);
-//        System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        //print result
-        return response.toString();
-    }
-
-    public static String getUTCTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-d'T'HH:mm:ss'Z'");
-        sdf.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-
-        Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
-        String utcTime = sdf.format(cal.getTime());
-        return utcTime;
+                "&timestamp=" + Util.getUTCTime());
     }
 
 }

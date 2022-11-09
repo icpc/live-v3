@@ -5,33 +5,26 @@ import java.io.FileNotFoundException;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class LocatorCamera {
+public class SniperInfo {
     public final String hostName;
     public final File coordinatesFile;
     public final int cameraID;
     public LocatorPoint[] coordinates;
-    private long lastChanged;
 
-    public LocatorCamera(String hostName, File coordinatesFile, int cameraID) throws FileNotFoundException {
+    public SniperInfo(String hostName, File coordinatesFile, int cameraID) throws FileNotFoundException {
         this.hostName = hostName;
         this.coordinatesFile = coordinatesFile;
         this.cameraID = cameraID;
-        lastChanged = -1;
         update();
     }
 
     public void update() throws FileNotFoundException {
-        long curLastChanged = coordinatesFile.lastModified();
-        if (lastChanged == curLastChanged) {
-            return;
-        }
-        lastChanged = curLastChanged;
         Scanner in = new Scanner(coordinatesFile);
         in.useLocale(Locale.US);
         int n = in.nextInt();
         coordinates = new LocatorPoint[n];
         for (int i = 0; i < n; i++) {
-            coordinates[i] = new LocatorPoint(in.nextDouble(), in.nextDouble(), in.nextDouble());
+            coordinates[i] = new LocatorPoint(in.nextInt(), in.nextDouble(), in.nextDouble(), in.nextDouble());
         }
     }
 

@@ -16,7 +16,6 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
 
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
-    private static final double ANGLE = 1.28;
     private static final double COMPENSATION_TILT = 0;
     private static final double COMPENSATION_PAN = 0;
     private static final double COMPENSATION_X = 1;
@@ -25,24 +24,15 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
     private Image bg;
     private String url;
 
-    double pan = 0, tilt = 0, angle = ANGLE;
-    private java.util.List<Point> points = new ArrayList<>();
+    double pan = 0, tilt = 0, angle = Util.ANGLE;
+    private java.util.List<LocatorPoint> points = new ArrayList<>();
     private static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) throws FileNotFoundException {
-        String[] urls;
-        {
-            Scanner in = new Scanner(new File("snipers.txt"));
-            int m = in.nextInt();
-            urls = new String[m];
-            for (int i = 0; i < m; i++) {
-                urls[i] = in.next();
-            }
-            in.close();
-        }
-        System.out.println("Select sniper (1-" + urls.length + ")");
+        Util.init();
+        System.out.println("Select sniper (1-" + Util.snipers.size() + ")");
         int sniper = in.nextInt();
-        new SniperCalibrator(urls[sniper - 1]).run();
+        new SniperCalibrator(Util.snipers.get(sniper - 1).hostName).run();
     }
 
     public SniperCalibrator(String url) {
@@ -109,43 +99,15 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
     }
 
     private synchronized void updateState() throws Exception {
-        parse(PtzTest.sendGet(url + "/axis-cgi/com/ptz.cgi?query=position,limits&camera=1&html=no&timestamp=" + PtzTest.getUTCTime()));
-    }
-
-    void parse(String s) {
-        s = s.trim();
-        int l = 0;
-        int r = 0;
-        while (r < s.length()) {
-            l = r;
-            r = l + 1;
-            while (r < s.length() && Character.isAlphabetic(s.charAt(r))) {
-                r++;
-            }
-            String key = s.substring(l, r);
-            l = r + 1;
-            r = l + 1;
-            while (r < s.length() && !Character.isAlphabetic(s.charAt(r))) {
-                r++;
-            }
-            try {
-                double value = Double.parseDouble(s.substring(l, r));
-                switch (key) {
-                    case "pan":
-                        pan = value * Math.PI / 180 + COMPENSATION_PAN;
-                        break;
-                    case "tilt":
-                        tilt = value * Math.PI / 180 + COMPENSATION_TILT;
-                        break;
-                    case "zoom":
-                        double maxmag = 35;
-                        double mag = 1 + (maxmag - 1) * value / 9999;
-                        angle = ANGLE / mag;
-                        break;
-                }
-            } catch (Exception e) {
-            }
-        }
+        LocatorConfig conf = Util.parseCameraConfiguration(
+                Util.sendGet(
+                        url +
+                                "/axis-cgi/com/ptz.cgi?query=position,limits&camera=1&html=no&timestamp=" +
+                                Util.getUTCTime())
+        );
+        tilt = conf.tilt;
+        pan = conf.pan;
+        angle = conf.angle;
     }
 
     @Override
@@ -161,15 +123,15 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
     }
 
     private synchronized void draw(Graphics2D g) {
-        for (Point p : points) {
+        for (LocatorPoint p : points) {
             p = p.rotateY(pan);
             p = p.rotateX(-tilt);
-            int R = (int) (20 / Math.abs(p.z) * ANGLE / angle) + 5;
+            int R = (int) (20 / Math.abs(p.z) * Util.ANGLE / angle) + 5;
             p = p.multiply(1 / p.z);
             p = p.multiply(WIDTH / angle);
             p.x *= COMPENSATION_X;
             p.y *= COMPENSATION_Y;
-            p = p.move(new Point(WIDTH / 2, HEIGHT / 2, 0));
+            p = p.move(new LocatorPoint(WIDTH / 2, HEIGHT / 2, 0));
             g.setColor(new Color(255, 0, 0, 150));
             g.fillOval(
                     (int) (p.x - R),
@@ -203,19 +165,19 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
 
     class Position {
         int id;
-        Point p;
+        LocatorPoint p;
 
         public Position(int id, int x, int y) {
             this.id = id;
-            p = new Point(x, y, 0);
+            p = new LocatorPoint(x, y, 0);
         }
 
         public Position(int id, double x, double y, double z) {
             this.id = id;
-            p = new Point(x, y, z);
+            p = new LocatorPoint(x, y, z);
         }
 
-        public Position(int id, Point p) {
+        public Position(int id, LocatorPoint p) {
             this.id = id;
             this.p = p;
         }
@@ -264,8 +226,8 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
 
         double[][] a = new double[9][10];
         for (int i = 0; i < 4; i++) {
-            Point A = from.get(i).p;
-            Point B = to.get(i).p;
+            LocatorPoint A = from.get(i).p;
+            LocatorPoint B = to.get(i).p;
             a[i * 2][0] = A.x * B.z;
             a[i * 2][1] = A.y * B.z;
             a[i * 2][2] = B.z;
@@ -338,7 +300,7 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
                 double yt = r[3] * xc + r[4] * yc + r[5];
                 double zt = r[6] * xc + r[7] * yc + r[8];
                 out.println(input.get(i).id + " " + xt + " " + yt + " " + zt);
-                points.add(new Point(xt, yt, zt));
+                points.add(new LocatorPoint(xt, yt, zt));
             }
             out.close();
         } catch (FileNotFoundException e1) {
@@ -349,8 +311,8 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
     public void click(int x, int y) {
         synchronized (currentTeamMonitor) {
             if (currentTeam == -1) return;
-            Point p = new Point(x, y, WIDTH / angle);
-            p = p.move(new Point(-WIDTH / 2, -HEIGHT / 2, 0));
+            LocatorPoint p = new LocatorPoint(x, y, WIDTH / angle);
+            p = p.move(new LocatorPoint(-WIDTH / 2, -HEIGHT / 2, 0));
             p = p.multiply(angle / WIDTH);
             p = p.rotateX(tilt);
             p = p.rotateY(-pan);
@@ -396,39 +358,4 @@ public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener
 
     }
 
-    static class Point {
-        double x, y, z;
-
-        public Point(double x, double y, double z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-
-        Point move(Point d) {
-            return new Point(x + d.x, y + d.y, z + d.z);
-        }
-
-        Point multiply(double d) {
-            return new Point(x * d, y * d, z * d);
-        }
-
-        Point rotateZ(double a) {
-            return new Point(x * Math.cos(a) - y * Math.sin(a),
-                    x * Math.sin(a) + y * Math.cos(a),
-                    z);
-        }
-
-        Point rotateY(double a) {
-            return new Point(x * Math.cos(a) - z * Math.sin(a),
-                    y,
-                    x * Math.sin(a) + z * Math.cos(a));
-        }
-
-        Point rotateX(double a) {
-            return new Point(x,
-                    y * Math.cos(a) - z * Math.sin(a),
-                    y * Math.sin(a) + z * Math.cos(a));
-        }
-    }
 }
