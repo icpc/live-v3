@@ -114,8 +114,9 @@ class QueueService {
                 is Run -> {
                     val run = event.run
                     removedRuns[run.id] = run
+                    // TODO: we should separately have runs snapshot at the begining
                     val currentTime =
-                        contestInfoFlow.value.currentContestTime.takeIf { it != firstEventTime } ?: run.time
+                        contestInfoFlow.value.currentContestTime.takeIf { it > firstEventTime + 60.seconds } ?: run.time
                     logger.debug("Receive run $run")
                     lastUpdateTime[run.id] = currentTime
                     if (run.isHidden) {
