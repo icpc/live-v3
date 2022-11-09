@@ -54,7 +54,7 @@ export const SCOREBOARD_HEADER_TITLE_FONT_SIZE = "30px";
 export const SCOREBOARD_HEADER_BG_COLOR = "#000000";
 export const SCOREBOARD_OPACITY = 0.95;
 export const PVP_OPACITY = 0.95;
-export const TEAM_VIEW_OPACITY = 0.95;
+// export const TEAM_VIEW_OPACITY = 0.95;
 
 export const STATISTICS_TITLE_FONT_SIZE = "30px";
 export const STATISTICS_OPACITY = 0.95;

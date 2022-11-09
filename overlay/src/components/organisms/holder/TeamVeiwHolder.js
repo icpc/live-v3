@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { TEAM_VIEW_OPACITY, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import { VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
@@ -107,7 +107,7 @@ function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
 
 const ScoreboardColumnWrapper = styled.div`
   display: grid;
-  opacity: ${TEAM_VIEW_OPACITY};
+    // opacity: ${TEAM_VIEW_OPACITY};
   grid-template-columns: repeat(2, auto);
   grid-auto-rows: 1fr;
   position: relative;
