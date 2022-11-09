@@ -117,6 +117,7 @@ SingleTicker.propTypes = {
 const TickerWrap = styled.div`
   width: 100%;
   height: 100%;
+  z-index: 1;
   background-color: ${TICKER_BACKGROUND};
   opacity: ${TICKER_OPACITY};
   color: ${TICKER_FONT_COLOR};
