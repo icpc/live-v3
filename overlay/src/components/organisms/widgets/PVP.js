@@ -239,6 +239,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
                 return;
             }
             videoRef.current.srcObject = event.streams[0];
+            videoRef.current.play();
         };
         rtcRef.current.addTransceiver("video");
         rtcRef.current.addTransceiver("audio");
@@ -261,6 +262,11 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
         ref={videoRef}
         onCanPlay={() => setIsLoaded(true)}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+        onLoadedData={() => {
+            // console.log("Loaded");
+            // console.log(videoRef.current.currentTime);
+            return setIsLoaded(true);
+        }}
         autoPlay
         muted/>);
 };
@@ -327,7 +333,7 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
 
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => onLoadStatus(true)}
+        onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
         autoPlay
         muted/>);
