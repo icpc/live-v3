@@ -1,20 +1,16 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
 import styled from "styled-components";
-import {
-    PVP_APPEAR_TIME,
-    PVP_OPACITY,
-    STATISTICS_BG_COLOR,
-    VERDICT_NOK,
-    VERDICT_OK,
-    VERDICT_UNKNOWN
-} from "../../../config";
+import { PVP_APPEAR_TIME, STATISTICS_BG_COLOR, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
+import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
 import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
-import { pushLog } from "../../../redux/debug";
-import { io } from "socket.io-client";
+
+// Burn this.
+// - Max
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -210,10 +206,11 @@ const ScoreboardWrapper = styled.div.attrs(({ align }) => ({ style: { justifyCon
   animation-fill-mode: forwards;
 `;
 
+// opacity: ${PVP_OPACITY};
+
 const PVPInfo = styled.div`
   position: absolute;
   top: 0;
-  opacity: ${PVP_OPACITY};
   width: 100%;
   height: 100%;
   display: flex;
@@ -388,7 +385,7 @@ const TeamViewHolder = ({ onLoadStatus, media }) => {
 
 const TeamViewPInPWrapper = styled.div`
   position: absolute;
-  
+
   width: ${({ sizeX }) => `${sizeX * 0.361}px`};
   height: ${({ sizeX }) => `${sizeX * 0.52 * 0.4}px`};
   left: 0;
@@ -405,7 +402,8 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
             if (c.isMedia) {
                 const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
                 if (c.pInP) {
-                    return <TeamViewPInPWrapper bottom={"80px"} top={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+                    return <TeamViewPInPWrapper bottom={"80px"} top={"auto"}
+                        sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
                 } else {
                     return component;
                 }
@@ -425,7 +423,8 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
             if (c.isMedia) {
                 const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
                 if (c.pInP) {
-                    return <TeamViewPInPWrapper top={"80px"} bottom={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+                    return <TeamViewPInPWrapper top={"80px"} bottom={"auto"}
+                        sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
                 } else {
                     return component;
                 }
