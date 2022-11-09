@@ -5,10 +5,10 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import org.icpclive.api.*
+import org.icpclive.data.DataBus
 import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
 import org.icpclive.util.intervalFlow
-import org.icpclive.data.DataBus
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
@@ -110,6 +110,7 @@ class QueueService {
                         .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }
                         .forEach { removeRun(it) }
                 }
+
                 is Run -> {
                     val run = event.run
                     removedRuns[run.id] = run
@@ -127,6 +128,7 @@ class QueueService {
                         }
                     }
                 }
+
                 is Featured -> {
                     val runId = event.request.runId
                     val run = runs[runId] ?: removedRuns[runId]
@@ -153,6 +155,7 @@ class QueueService {
                         }
                     }
                 }
+
                 is Subscribe -> {
                     resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
                 }
@@ -174,6 +177,6 @@ class QueueService {
         private val WAIT_TIME = 1.minutes
         private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes
         private val FEATURED_WAIT_TIME = 1.minutes
-        private const val MAX_QUEUE_SIZE = 15
+        private const val MAX_QUEUE_SIZE = 10
     }
 }
