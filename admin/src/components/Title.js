@@ -113,6 +113,7 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
             // onClickEdit();
             const nData = { ...data, settings: { ...data.settings, preset: preset } };
             onEdit(nData);
+            setTimeout(() => onShow(), 400);
             // onChangeField("preset")("left.svg");
             // onClickEdit();
             // onSubmitEdit(e);
