@@ -121,7 +121,7 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
 
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
-            <ShowPresetButton onClick={onShow} active={data.shown}/>
+            {/*<ShowPresetButton onClick={onShow} active={data.shown}/>*/}
             <SpecialShow preset={"left.svg"}/>
             <SpecialShow preset={"right.svg"}/>
         </TableCell>
