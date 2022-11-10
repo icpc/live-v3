@@ -26,7 +26,7 @@ class ClicsModel(
     private val hiddenTeams = mutableSetOf<String>()
     private val teamSubmissions = mutableMapOf<Int, MutableSet<String>>()
 
-    var startTime : Instant? = null
+    var startTime: Instant? = null
     var contestLength = 5.hours
     var freezeTime = 4.hours
     var status = ContestStatus.BEFORE
@@ -90,7 +90,7 @@ class ClicsModel(
             holdBeforeStartTime = holdBeforeStartTime
         )
 
-    fun processContest(contest: Contest) : List<RunInfo> {
+    fun processContest(contest: Contest): List<RunInfo> {
         startTime = contest.start_time
         contestLength = contest.duration
         contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
@@ -101,7 +101,7 @@ class ClicsModel(
         return emptyList()
     }
 
-    fun processProblem(id:String, problem: Problem?) : List<RunInfo> {
+    fun processProblem(id: String, problem: Problem?): List<RunInfo> {
         if (problem == null) {
             problems.remove(id)
         } else {
@@ -111,7 +111,14 @@ class ClicsModel(
         return emptyList()
     }
 
-    fun processOrganization(id: String, organization: Organization?) : List<RunInfo> {
+    fun processHashTag(tag: String): String {
+        if (tag.isNotEmpty() && tag[0] == '#') {
+            return tag.substring(1)
+        }
+        return tag
+    }
+
+    fun processOrganization(id: String, organization: Organization?): List<RunInfo> {
         if (organization == null) {
             organisations.remove(id)
         } else {
@@ -121,13 +128,13 @@ class ClicsModel(
                 name = organization.name,
                 formalName = organization.formal_name ?: organization.name,
                 logo = organization.logo.lastOrNull()?.href,
-                hashtag = organization.twitter_hashtag
+                hashtag = organization.twitter_hashtag?.let { processHashTag(it) }
             )
         }
         return emptyList()
     }
 
-    fun processTeam(id: String, team: Team?) : List<RunInfo> {
+    fun processTeam(id: String, team: Team?): List<RunInfo> {
         if (team == null) {
             teams.remove(id)
         } else {
@@ -138,7 +145,7 @@ class ClicsModel(
         return emptyList()
     }
 
-    fun processJudgementType(id: String, judgementType: JudgementType?) : List<RunInfo> {
+    fun processJudgementType(id: String, judgementType: JudgementType?): List<RunInfo> {
         if (judgementType == null) {
             judgementTypes.remove(id)
         } else {
@@ -152,7 +159,7 @@ class ClicsModel(
         return emptyList()
     }
 
-    fun processGroup(id: String, group: Group?) : List<RunInfo> {
+    fun processGroup(id: String, group: Group?): List<RunInfo> {
         if (group == null) {
             groups.remove(id)
         } else {
@@ -162,7 +169,7 @@ class ClicsModel(
         return emptyList()
     }
 
-    private fun setTeamHidden(teamId: String, isHidden: Boolean) : List<RunInfo> {
+    private fun setTeamHidden(teamId: String, isHidden: Boolean): List<RunInfo> {
         val wasHidden = teamId in hiddenTeams
         if (wasHidden == isHidden) return emptyList()
         if (isHidden) {
@@ -221,7 +228,7 @@ class ClicsModel(
         return run
     }
 
-    fun processState(state: State) : List<RunInfo> {
+    fun processState(state: State): List<RunInfo> {
         status = when {
             state.ended != null -> ContestStatus.OVER
             state.started != null -> ContestStatus.RUNNING
