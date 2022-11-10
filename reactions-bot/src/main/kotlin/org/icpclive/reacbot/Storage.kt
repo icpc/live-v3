@@ -10,6 +10,7 @@ class Storage {
     init {
         transaction(connection) {
             SchemaUtils.create(Reactions)
+            SchemaUtils.create(Votes)
         }
     }
 
@@ -33,22 +34,31 @@ class Storage {
         }
     }
 
-    fun getReactionForVote(): Reaction? {
+    fun getReactionForVote(chatId: Long): Reaction? {
+        println(chatId)
         return transaction(connection) {
-            val reactions = Reactions.select { Reactions.telegramFileId neq null }.orderBy(
-                Reactions.voteCount to SortOrder.ASC,
-                Reactions.isOk to SortOrder.DESC,
-                Random() to SortOrder.ASC
-            )
-            return@transaction reactions.firstOrNull()?.let { Reaction.wrapRow(it) }
+            val reactions = Reactions.select { Reactions.telegramFileId neq null }
+                .orderBy(
+                    Reactions.voteCount to SortOrder.ASC,
+                    Reactions.isOk to SortOrder.DESC,
+                    Random() to SortOrder.ASC
+                )
+            val voted = Votes.select { Votes.chatId eq chatId }.map { Vote.wrapRow(it).id.value }.toSet()
+
+            return@transaction reactions.map { Reaction.wrapRow(it) }.firstOrNull { it.runId !in voted }
         }
     }
 
-    fun storeReactionVote(reactionId: Int, delta: Int) {
+    fun storeReactionVote(reactionId: Int, chatId: Long, delta: Int) {
         transaction(connection) {
             Reactions.update(where = { Reactions.id eq reactionId }) {
                 it[voteCount] = voteCount + 1
                 it[rating] = rating + delta
+            }
+            Votes.insert {
+                it[Votes.reactionId] = reactionId
+                it[Votes.chatId] = chatId
+                it[Votes.vote] = delta
             }
         }
     }

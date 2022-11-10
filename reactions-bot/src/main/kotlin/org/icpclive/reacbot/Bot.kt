@@ -46,7 +46,7 @@ class Bot(private val config: Config) {
     private fun (Bot.Builder).setupDispatch() {
         dispatch {
             val nextReaction: ((Chat) -> Unit) = { chat: Chat ->
-                val reaction = storage.getReactionForVote()
+                val reaction = storage.getReactionForVote(chat.id)
                 if (reaction == null) {
                     bot.sendMessage(ChatId.fromId(chat.id), "No such reaction videos")
                 } else {
@@ -67,7 +67,7 @@ class Bot(private val config: Config) {
                 if (query.size == 3) {
                     val reactionId = query[1].toIntOrNull() ?: return@callbackQuery
                     storage.storeReactionVote(
-                        reactionId, when (query[2]) {
+                        reactionId, this.callbackQuery.message?.chat?.id ?: 0L, when (query[2]) {
                             "like" -> +1
                             "dislike" -> -1
                             else -> 0

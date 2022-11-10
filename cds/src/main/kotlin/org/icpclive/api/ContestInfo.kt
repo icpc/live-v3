@@ -68,7 +68,7 @@ sealed class MediaType {
 
     @Serializable
     @SerialName("WebRTCFetchConnection")
-    data class WebRTCFetchConnection(val url: String, override val isMedia: Boolean = true) : MediaType()
+    data class WebRTCFetchConnection(val url: String, val audioUrl: String? = null, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("WebRTCConnection")
