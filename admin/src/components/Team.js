@@ -41,6 +41,8 @@ export class Team extends React.Component {
                 <Box key="name" sx={{ display: "flex",
                     flexDirection: "row",
                     margin: "4px" }}>
+                    {this.props.rowData.id}
+                    {":"}
                     {this.props.rowData.name}{" "}
                     {/*{this.props.rowData.medias.screen}*/}
                 </Box>
