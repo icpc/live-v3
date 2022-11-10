@@ -122,7 +122,6 @@ class Bot(private val config: Config) {
             println("starting runs processing ...")
             println("runs processing stated for ${contestInfo.await().value.currentContestTime}")
             runs.await().collect { run ->
-                println("process run update ${run.id}")
                 run.reactionVideos.forEach {
                     if (it is MediaType.Video) {
                         processReaction(scope, run, it.url)
