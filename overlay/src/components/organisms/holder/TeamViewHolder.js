@@ -319,8 +319,9 @@ const teamViewComponentRender = {
         </TeamVideoAnimationWrapper>;
     },
     Object: ({ onLoadStatus, url }) => {
+        onLoadStatus(true);
         return <TeamVideoAnimationWrapper>
-            <object data={url} type="image/svg+xml" onLoad={() => onLoadStatus(true)}>
+            <object data={url} type="image/svg+xml">
             </object>
         </TeamVideoAnimationWrapper>;
     },
@@ -335,8 +336,9 @@ const teamViewComponentRender = {
                 muted/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCFetchConnection: ({ onLoadStatus, url }) => {
+    WebRTCFetchConnection: ({ onLoadStatus, url, audioUrl }) => {
         return <TeamVideoAnimationWrapper>
+            {audioUrl && <audio src={audioUrl} onLoad={() => onLoadStatus(true)} autoPlay/>}
             <TeamWebRTCVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
