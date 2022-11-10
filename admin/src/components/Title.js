@@ -117,7 +117,7 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
             // onChangeField("preset")("left.svg");
             // onClickEdit();
             // onSubmitEdit(e);
-\        }}>{ preset[0] }</Button>);
+        }}>{ preset[0] }</Button>);
 
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
