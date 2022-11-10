@@ -35,7 +35,6 @@ class Storage {
     }
 
     fun getReactionForVote(chatId: Long): Reaction? {
-        println(chatId)
         return transaction(connection) {
             val reactions = Reactions.select { Reactions.telegramFileId neq null }
                 .orderBy(

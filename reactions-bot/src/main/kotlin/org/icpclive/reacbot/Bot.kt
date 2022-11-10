@@ -35,6 +35,8 @@ class Bot(private val config: Config) {
         setupDispatch()
     }
     private val alreadyProcessedReactionIds = TreeSet<Int>()
+    private val contestInfo = CompletableDeferred<StateFlow<ContestInfo>>()
+    private val sendAdditionalInfo = true
 
     private fun reactionRatingButtons(reaction: Reaction): InlineKeyboardMarkup {
         return InlineKeyboardMarkup.createSingleRowKeyboard(
@@ -50,9 +52,20 @@ class Bot(private val config: Config) {
                 if (reaction == null) {
                     bot.sendMessage(ChatId.fromId(chat.id), "No such reaction videos")
                 } else {
+                    var caption: String? = null
+                    if (sendAdditionalInfo) {
+                        val ci = runBlocking { contestInfo.await().value }
+                        ci.teams.find { it.id == reaction.teamId }?.let { team ->
+                            ci.problems.find { it.id == reaction.problemId }?.let { problem ->
+                                caption = team.name + ", problem " + problem.letter
+                            }
+                        }
+                    }
+
                     bot.sendVideo(
                         ChatId.fromId(chat.id),
                         TelegramFile.ByFileId(reaction.telegramFileId!!),
+                        caption = caption,
                         replyMarkup = reactionRatingButtons(reaction)
                     )
                 }
@@ -105,7 +118,6 @@ class Bot(private val config: Config) {
     }
 
     fun run(scope: CoroutineScope) {
-        val contestInfo = CompletableDeferred<StateFlow<ContestInfo>>()
         val runs = CompletableDeferred<Flow<RunInfo>>()
         val analyticsFlow = CompletableDeferred<Flow<AnalyticsMessage>>()
 
