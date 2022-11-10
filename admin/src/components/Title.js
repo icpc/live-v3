@@ -113,12 +113,11 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
             // onClickEdit();
             const nData = { ...data, settings: { ...data.settings, preset: preset } };
             onEdit(nData);
-            setTimeout(() => onShow(), 400);
+            setTimeout(() => onShow(), 500);
             // onChangeField("preset")("left.svg");
             // onClickEdit();
             // onSubmitEdit(e);
-            onShow();
-        }}>{ preset[0] }</Button>);
+\        }}>{ preset[0] }</Button>);
 
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
