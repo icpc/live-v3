@@ -25,6 +25,9 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         properties.getProperty("url")
     }
 
+    private val resultType = ContestResultType.valueOf(
+        properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "BINARY"
+    )
     val runIds = mutableMapOf<String, Int>()
     val teamIds = mutableMapOf<String, Int>()
     var startTime = Instant.fromEpochMilliseconds(0)
@@ -63,6 +66,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         return ContestParseResult(
             ContestInfo(
                 status,
+                resultType,
                 startTime,
                 contestLength,
                 freezeTime,
@@ -131,12 +135,14 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             "yes" == element.getAttribute("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
         }
+        val score = if(resultType == ContestResultType.SCORE) element.getAttribute("score").toInt() else 0
         return RunInfo(
             id = id,
             isAccepted = "AC" == result,
             isJudged = percentage >= 1.0,
             isAddingPenalty = "AC" != result && "CE" != result,
             result = result,
+            score = score,
             problemId = problemId,
             teamId = teamId,
             percentage = percentage,

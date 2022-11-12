@@ -92,7 +92,7 @@ const TeamTaskColor = Object.freeze({
     [TeamTaskStatus.first]: VERDICT_OK,
 });
 
-const ScoreboardTaskCell = ({ status, attempts }) => {
+const ScoreboardBinaryTaskCell = ({ status, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {TeamTaskSymbol[status]}
@@ -100,8 +100,22 @@ const ScoreboardTaskCell = ({ status, attempts }) => {
     </ScoreboardTaskCellWrap>;
 };
 
-ScoreboardTaskCell.propTypes = {
+const ScoreboardScoreTaskCell = ({ status, score, attempts }) => {
+    return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
+        {status === TeamTaskStatus.first && <StarIcon/>}
+        {score}
+        {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
+    </ScoreboardTaskCellWrap>;
+};
+
+ScoreboardBinaryTaskCell.propTypes = {
     status: PropTypes.oneOf(Object.values(TeamTaskStatus)),
+    attempts: PropTypes.number
+};
+
+ScoreboardScoreTaskCell.propTypes = {
+    status: PropTypes.oneOf(Object.values(TeamTaskStatus)),
+    score: PropTypes.number,
     attempts: PropTypes.number
 };
 
@@ -128,10 +142,24 @@ const ScoreboardHeaderProblemCell = styled(ProblemCell)`
   position: relative;
 `;
 
-function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
+function getStatusBinary(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
     } else if (isSolved) {
+        return TeamTaskStatus.solved;
+    } else if (pendingAttempts > 0) {
+        return TeamTaskStatus.unknown;
+    } else if (wrongAttempts > 0) {
+        return TeamTaskStatus.failed;
+    } else {
+        return TeamTaskStatus.untouched;
+    }
+}
+
+function getStatusScore(isFirstToSolve, score, pendingAttempts, wrongAttempts) {
+    if (isFirstToSolve) {
+        return TeamTaskStatus.first;
+    } else if (score > 0) {
         return TeamTaskStatus.solved;
     } else if (pendingAttempts > 0) {
         return TeamTaskStatus.unknown;
@@ -157,15 +185,16 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData?.penalty}
         </ScoreboardStatCell>
-        {!hideTasks && scoreboardData?.problemResults.map(({
-            wrongAttempts,
-            pendingAttempts,
-            isSolved,
-            isFirstToSolve
-        }, i) =>
-            <ScoreboardTaskCell key={i} status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
-                attempts={wrongAttempts + pendingAttempts}/>
-        )}
+        {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) => {
+            console.log(resultsData.type)
+            if(resultsData.type == 0) {
+                <ScoreboardBinaryTaskCell key={i} status={getStatusBinary(resultsData.isFirstToSolve, resultsData.isSolved, resultsData.pendingAttempts, resultsData.wrongAttempts)}
+                    attempts={wrongAttempts + pendingAttempts}/>
+            } else if(resultsData.type == 1) {
+                <ScoreboardScoreTaskCell key={i} status={getStatusScore(resultsData.isFirstToSolve, resultsData.score, resultsData.pendingAttempts, resultsData.wrongAttempts)}
+                    score={resultsData.score} attempts={wrongAttempts + pendingAttempts}/>
+            }
+        })}
     </ScoreboardRowContainer>;
 };
 ScoreboardRow.propTypes = {

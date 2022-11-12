@@ -89,6 +89,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
                 isJudged = "" != result,
                 isAddingPenalty = "AC" != result && "CE" != result,
                 result = result,
+                score = 0,
                 problemId = it.Problem,
                 teamId = teams[it.Login]?.id ?: -1,
                 percentage = if ("" == result) 0.0 else 1.0,
@@ -104,6 +105,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
                     time < 5.hours -> ContestStatus.RUNNING
                     else -> ContestStatus.OVER
                 },
+                resultType = ContestResultType.BINARY,
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,

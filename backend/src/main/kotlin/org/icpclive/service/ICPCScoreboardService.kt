@@ -101,19 +101,40 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                     problemRuns.toList().subList(0, okRunIndex) to problemRuns[okRunIndex]
                 }
             }
-            ICPCProblemResult(
-                runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
-                runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
-                okRun != null,
-                okRun?.isFirstSolvedRun == true,
-                (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
-            ).also {
-                if (it.isSolved) {
-                    solved++
-                    penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
-                    lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+
+            val maxScore = problemRuns.maxWith(Comparator.comparingInt { it.score }).score
+
+            when(resultType) {
+                ContestResultType.BINARY -> ICPCBinaryProblemResult(
+                    ContestResultType.BINARY,
+                    runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
+                    runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
+                    okRun != null,
+                    okRun?.isFirstSolvedRun == true,
+                    (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
+                ).also {
+                    if (it.isSolved) {
+                        solved++
+                        penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
+                        lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+                    }
+                }
+                ContestResultType.SCORE -> ICPCScoreProblemResult(
+                    ContestResultType.SCORE,
+                    runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
+                    runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
+                    maxScore,
+                    okRun?.isFirstSolvedRun == true,
+                    (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
+                ).also {
+                    if (it.score > 0) {
+                        solved++
+                        penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
+                        lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+                    }
                 }
             }
+
         }
         return ScoreboardRow(
             teamId,

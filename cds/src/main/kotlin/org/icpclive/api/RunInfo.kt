@@ -11,6 +11,7 @@ data class RunInfo constructor(
     val isJudged: Boolean,
     val isAddingPenalty: Boolean,
     val result: String,
+    val score: Int,
     val problemId: Int,
     val teamId: Int,
     val percentage: Double,

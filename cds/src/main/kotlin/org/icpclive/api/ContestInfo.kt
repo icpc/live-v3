@@ -16,6 +16,12 @@ import kotlin.time.Duration
 data class MedalType(val name: String, val count: Int)
 
 @Serializable
+enum class ContestResultType(val type: Int) {
+    BINARY(0x00),
+    SCORE(0x01)
+}
+
+@Serializable
 data class ProblemInfo(
     val letter: String,
     val name: String,
@@ -156,6 +162,7 @@ enum class PenaltyRoundingMode {
 @Serializable
 data class ContestInfo(
     val status: ContestStatus,
+    val resultType: ContestResultType,
     @SerialName("startTimeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)
     val startTime: Instant,
@@ -185,6 +192,7 @@ data class ContestInfo(
     companion object {
         fun unknown() = ContestInfo(
             ContestStatus.UNKNOWN,
+            ContestResultType.BINARY,
             Instant.fromEpochMilliseconds(0),
             Duration.ZERO,
             Duration.ZERO,

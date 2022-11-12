@@ -20,7 +20,7 @@ class StatisticsService {
                     SolutionsStatistic(
                         List(scoreboard.rows[0].problemResults.size) { problem ->
                             val results =
-                                scoreboard.rows.asSequence().map { it.problemResults[problem] as ICPCProblemResult }
+                                scoreboard.rows.asSequence().map { it.problemResults[problem] as ICPCBinaryProblemResult }
                             ProblemSolutionsStatistic(
                                 results.count { it.isSolved },
                                 results.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
