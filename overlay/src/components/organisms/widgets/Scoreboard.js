@@ -103,7 +103,7 @@ const ScoreboardBinaryTaskCell = ({ status, attempts }) => {
 const ScoreboardScoreTaskCell = ({ status, score, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
-        {score}
+        {TeamTaskStatus === TeamTaskStatus.unknown ? "?" : score}
         {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
     </ScoreboardTaskCellWrap>;
 };
@@ -120,7 +120,7 @@ ScoreboardScoreTaskCell.propTypes = {
 };
 
 const RenderScoreboardTaskCell = ({ data }) => {
-    if(data.type == "icpc_binary") {
+    if(data.type === "icpc_binary") {
         return <ScoreboardBinaryTaskCell status={getStatusBinary(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts}/>;
     } else {
         return <ScoreboardScoreTaskCell status={getStatusScore(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;

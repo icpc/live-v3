@@ -44,21 +44,51 @@ const VerdictCellWrap = styled(Cell)`
   position: relative;
 `;
 
-export const VerdictCell = ({
-    verdict: { isAccepted, isJudged, result, percentage, isFirstToSolve, isFirstSolvedRun },
-    ...props
-}) => {
+const VerdictCellBinary = ({ data, props }) => {
     return <VerdictCellWrap
         background=
-            {isJudged ?
-                isAccepted ? VERDICT_OK : VERDICT_NOK
+            {data.isJudged ?
+                data.isAccepted ? VERDICT_OK : VERDICT_NOK
                 : undefined}
         {...props}
     >
-        {isFirstToSolve || isFirstSolvedRun && <StarIcon/>}
-        {percentage !== 0 && !isJudged && <VerdictCellProgressBar width={percentage * 100 + "%"}/>}
-        {isJudged && result}
+        {data.isFirstToSolve || data.isFirstSolvedRun && <StarIcon/>}
+        {data.percentage !== 0 && !data.isJudged && <VerdictCellProgressBar width={data.percentage * 100 + "%"}/>}
+        {data.isJudged && data.result}
     </VerdictCellWrap>;
+};
+
+VerdictCellBinary.PropTypes = {
+    data: PropTypes.object
+};
+
+const VerdictCellScore = ({ data, props }) => {
+    return <VerdictCellWrap
+        background=
+            {data.isJudged ?
+                data.score > 0 ? VERDICT_OK : VERDICT_NOK
+                : undefined}
+        {...props}
+    >
+        {data.isFirstToSolve || data.isFirstSolvedRun && <StarIcon/>}
+        {data.percentage !== 0 && !data.isJudged && <VerdictCellProgressBar width={data.percentage * 100 + "%"}/>}
+        {data.isJudged && data.score}
+    </VerdictCellWrap>;
+};
+
+VerdictCellScore.PropTypes = {
+    data: PropTypes.object
+};
+
+export const VerdictCell = ({
+    verdict: data,
+    ...props
+}) => {
+    if(data.resultType === "BINARY") {
+        return <VerdictCellBinary data={data} props={props} />;
+    } else {
+        return <VerdictCellScore data={data} props={props} />;
+    }
 };
 
 VerdictCell.propTypes = {

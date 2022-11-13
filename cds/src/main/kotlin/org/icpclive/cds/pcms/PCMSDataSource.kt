@@ -141,6 +141,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             isAccepted = "AC" == result,
             isJudged = percentage >= 1.0,
             isAddingPenalty = "AC" != result && "CE" != result,
+            resultType = resultType,
             result = result,
             score = score,
             problemId = problemId,
