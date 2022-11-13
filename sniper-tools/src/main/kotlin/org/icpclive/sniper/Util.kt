@@ -1,125 +1,115 @@
-package org.icpclive.sniper;
+package org.icpclive.sniper
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.http.HttpClient;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.io.*
+import java.net.HttpURLConnection
+import java.net.URL
+import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.*
 
-public class Util {
-
-    public static List<SniperInfo> snipers = new ArrayList<>();
-
-    public static final double ANGLE = 1.28;
-
-    public static String sendGet(String url) throws Exception {
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-
-        int responseCode = con.getResponseCode();
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+object Util {
+    var snipers: MutableList<SniperInfo?> = ArrayList()
+    const val ANGLE = 1.28
+    @Throws(Exception::class)
+    fun sendGet(url: String?): String {
+        val obj = URL(url)
+        val con = obj.openConnection() as HttpURLConnection
+        con.requestMethod = "GET"
+        val `in` = BufferedReader(
+            InputStreamReader(con.inputStream)
+        )
+        var inputLine: String?
+        val response = StringBuffer()
+        while (`in`.readLine().also { inputLine = it } != null) {
+            response.append(inputLine)
         }
-        in.close();
-
-        return response.toString();
+        `in`.close()
+        return response.toString()
     }
 
-    public static String getUTCTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-d'T'HH:mm:ss'Z'");
-        sdf.setTimeZone(new SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC"));
-
-        Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
-        String utcTime = sdf.format(cal.getTime());
-        return utcTime;
+    fun getUTCTime(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-d'T'HH:mm:ss'Z'")
+        sdf.timeZone = SimpleTimeZone(SimpleTimeZone.UTC_TIME, "UTC")
+        val cal: Calendar = GregorianCalendar(TimeZone.getTimeZone("UTC"))
+        return sdf.format(cal.time)
     }
 
-    public static LocatorConfig parseCameraConfiguration(String s) {
-        s = s.trim();
-        int l = 0;
-        int r = 0;
-        double newPan = Double.NaN;
-        double newTilt = Double.NaN;
-        double newAngle = Double.NaN;
-        while (r < s.length()) {
-            l = r;
-            r = l + 1;
-            while (r < s.length() && Character.isAlphabetic(s.charAt(r))) {
-                r++;
+    fun parseCameraConfiguration(ss: String?): LocatorConfig {
+        var s = ss
+        s = s!!.trim { it <= ' ' }
+        var l: Int
+        var r = 0
+        var newPan = Double.NaN
+        var newTilt = Double.NaN
+        var newAngle = Double.NaN
+        while (r < s.length) {
+            l = r
+            r = l + 1
+            while (r < s.length && Character.isAlphabetic(s[r].code)) {
+                r++
             }
-            String key = s.substring(l, r);
-            l = r + 1;
-            r = l + 1;
-            while (r < s.length() && !Character.isAlphabetic(s.charAt(r))) {
-                r++;
+            val key = s.substring(l, r)
+            l = r + 1
+            r = l + 1
+            while (r < s.length && !Character.isAlphabetic(s[r].code)) {
+                r++
             }
             try {
-                double value = Double.parseDouble(s.substring(l, r));
-                switch (key) {
-                    case "pan":
-                        newPan = value * Math.PI / 180;
-                        break;
-                    case "tilt":
-                        newTilt = value * Math.PI / 180;
-                        break;
-                    case "zoom":
-                        double maxmag = 35;
-                        double mag = 1 + (maxmag - 1) * value / 9999;
-                        newAngle = ANGLE / mag;
-                        break;
+                val value = s.substring(l, r).toDouble()
+                when (key) {
+                    "pan" -> newPan = value * Math.PI / 180
+                    "tilt" -> newTilt = value * Math.PI / 180
+                    "zoom" -> {
+                        val maxmag = 35.0
+                        val mag = 1 + (maxmag - 1) * value / 9999
+                        newAngle = ANGLE / mag
+                    }
                 }
-            } catch (Exception e) {
+            } catch (e: Exception) {
             }
         }
-        if (Double.isNaN(newPan) || Double.isNaN(newTilt) || Double.isNaN(newAngle)) {
-            throw new AssertionError();
+        if (java.lang.Double.isNaN(newPan) || java.lang.Double.isNaN(newTilt) || java.lang.Double.isNaN(newAngle)) {
+            throw AssertionError()
         }
-        return new LocatorConfig(newPan, newTilt, newAngle);
+        return LocatorConfig(newPan, newTilt, newAngle)
     }
 
-    public static void init() {
+    fun init() {
         try {
-            Scanner in = new Scanner(new File("snipers.txt"));
-            int m = in.nextInt();
-            String[] urls = new String[m];
-            for (int i = 0; i < m; i++) {
-                urls[i] = in.next();
+            val `in` = Scanner(File("snipers.txt"))
+            val m = `in`.nextInt()
+            val urls = arrayOfNulls<String>(m)
+            for (i in 0 until m) {
+                urls[i] = `in`.next()
             }
-            in.close();
-            for (int i = 0; i < urls.length; i++) {
-                snipers.add(new SniperInfo(urls[i],
-                        new File("coordinates-" + (i + 1) + ".txt"), i + 1));
+            `in`.close()
+            for (i in urls.indices) {
+                snipers.add(
+                    SniperInfo(
+                        urls[i],
+                        File("coordinates-" + (i + 1) + ".txt"), i + 1
+                    )
+                )
             }
-        } catch (FileNotFoundException e) {
-            throw new AssertionError(e);
+        } catch (e: FileNotFoundException) {
+            throw AssertionError(e)
         }
     }
 
-    public static void sendPost(String urlString, String contentType, String data) throws IOException {
-        URL url = new URL(urlString);
-        URLConnection con = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection)con;
-        http.setRequestMethod("POST");
-        http.setRequestProperty("Content-Type", contentType);
-        http.setDoOutput(true);
-
-        byte[] out = data.getBytes(StandardCharsets.UTF_8);
-        int length = out.length;
-
-        http.setFixedLengthStreamingMode(length);
-        http.connect();
-        OutputStream os = http.getOutputStream();
-        os.write(out);
-        os.close();
+    @Throws(IOException::class)
+    fun sendPost(urlString: String?, contentType: String?, data: String) {
+        val url = URL(urlString)
+        val con = url.openConnection()
+        val http = con as HttpURLConnection
+        http.requestMethod = "POST"
+        http.setRequestProperty("Content-Type", contentType)
+        http.doOutput = true
+        val out = data.toByteArray(StandardCharsets.UTF_8)
+        val length = out.size
+        http.setFixedLengthStreamingMode(length)
+        http.connect()
+        val os = http.outputStream
+        os.write(out)
+        os.close()
     }
 }

@@ -1,361 +1,325 @@
-package org.icpclive.sniper;
+package org.icpclive.sniper
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URL;
-import java.util.*;
-import java.util.List;
+import java.awt.Color
+import java.awt.Graphics2D
+import java.awt.Image
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
+import java.awt.image.BufferedImage
+import java.io.*
+import java.net.URL
+import java.util.*
+import javax.swing.ImageIcon
+import javax.swing.JFrame
+import javax.swing.JLabel
+import javax.swing.WindowConstants
 
-public class SniperCalibrator implements MJpegViewer, MouseListener, KeyListener {
-
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
-    private static final double COMPENSATION_TILT = 0;
-    private static final double COMPENSATION_PAN = 0;
-    private static final double COMPENSATION_X = 1;
-    private static final double COMPENSATION_Y = 1;
-    private Image image;
-    private Image bg;
-    private String url;
-
-    double pan = 0, tilt = 0, angle = Util.ANGLE;
-    private java.util.List<LocatorPoint> points = new ArrayList<>();
-    private static Scanner in = new Scanner(System.in);
-
-    public static void main(String[] args) throws FileNotFoundException {
-        Util.init();
-        System.out.println("Select sniper (1-" + Util.snipers.size() + ")");
-        int sniper = in.nextInt();
-        new SniperCalibrator(Util.snipers.get(sniper - 1).hostName).run();
-    }
-
-    public SniperCalibrator(String url) {
-        this.url = url;
-    }
-
-    JFrame frame;
-    JLabel label;
-
-    int currentTeam = -1;
-    Object currentTeamMonitor = new Object();
-
-    private void run() {
+class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, KeyListener {
+    private var image: Image? = null
+    private val bg: Image? = null
+    var pan = 0.0
+    var tilt = 0.0
+    var angle = Util.ANGLE
+    private val points: MutableList<LocatorPoint?> = ArrayList()
+    var frame: JFrame? = null
+    var label: JLabel? = null
+    var currentTeam = -1
+    var currentTeamMonitor = Object()
+    private fun run() {
         try {
-            readInput();
-            startPlayer();
-            synchronized (currentTeamMonitor) {
+            readInput()
+            startPlayer()
+            synchronized(currentTeamMonitor) {
                 while (true) {
-                    System.out.println("Input team id:");
-                    currentTeam = in.nextInt();
+                    println("Input team id:")
+                    currentTeam = `in`.nextInt()
                     if (currentTeam == -1) {
-                        points.clear();
-                        locations.clear();
-                        continue;
+                        points.clear()
+                        locations.clear()
+                        continue
                     }
-                    System.out.println("Now locate team " + currentTeam);
+                    println("Now locate team $currentTeam")
                     while (currentTeam != -1) {
-                        currentTeamMonitor.wait();
+                        currentTeamMonitor.wait()
                     }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
+        } catch (e: Exception) {
+            e.printStackTrace()
+            System.exit(1)
         }
     }
 
-    private void startPlayer() {
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        new Thread() {
-            @Override
-            public void run() {
-                MjpegRunner runner;
+    private fun startPlayer() {
+        image = BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB)
+        object : Thread() {
+            override fun run() {
+                val runner: MjpegRunner
                 try {
-                    runner = new MjpegRunner(SniperCalibrator.this, new URL(url + "/mjpg/video.mjpg"));
-                    runner.run();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.exit(1);
+                    runner = MjpegRunner(this@SniperCalibrator, URL("$url/mjpg/video.mjpg"))
+                    runner.run()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    System.exit(1)
                 }
             }
-        }.start();
-        frame = new JFrame();
-        label = new JLabel();
-        draw((Graphics2D) image.getGraphics());
-
-        label.setIcon(new ImageIcon(image));
-        frame.add(label);
-        frame.pack();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        label.addMouseListener(this);
-        frame.addKeyListener(this);
-        frame.setVisible(true);
+        }.start()
+        frame = JFrame()
+        label = JLabel()
+        draw(image!!.graphics as Graphics2D)
+        label!!.icon = ImageIcon(image)
+        frame!!.add(label)
+        frame!!.pack()
+        frame!!.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
+        label!!.addMouseListener(this)
+        frame!!.addKeyListener(this)
+        frame!!.isVisible = true
     }
 
-    private synchronized void updateState() throws Exception {
-        LocatorConfig conf = Util.parseCameraConfiguration(
-                Util.sendGet(
-                        url +
-                                "/axis-cgi/com/ptz.cgi?query=position,limits&camera=1&html=no&timestamp=" +
-                                Util.getUTCTime())
-        );
-        tilt = conf.tilt;
-        pan = conf.pan;
-        angle = conf.angle;
+    @Synchronized
+    @Throws(Exception::class)
+    private fun updateState() {
+        val conf = Util.parseCameraConfiguration(
+            Util.sendGet(
+                url +
+                        "/axis-cgi/com/ptz.cgi?query=position,limits&camera=1&html=no&timestamp=" +
+                        Util.getUTCTime()
+            )
+        )
+        tilt = conf.tilt
+        pan = conf.pan
+        angle = conf.angle
     }
 
-    @Override
-    public synchronized void setBufferedImage(BufferedImage image) {
-        Graphics2D g = (Graphics2D) this.image.getGraphics();
-        g.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
+    @Synchronized
+    override fun setBufferedImage(image: BufferedImage?) {
+        val g = this.image!!.graphics as Graphics2D
+        g.drawImage(image, 0, 0, WIDTH, HEIGHT, null)
         try {
-            updateState();
-        } catch (Exception e) {
-            e.printStackTrace();
+            updateState()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        draw(g);
+        draw(g)
     }
 
-    private synchronized void draw(Graphics2D g) {
-        for (LocatorPoint p : points) {
-            p = p.rotateY(pan);
-            p = p.rotateX(-tilt);
-            int R = (int) (20 / Math.abs(p.z) * Util.ANGLE / angle) + 5;
-            p = p.multiply(1 / p.z);
-            p = p.multiply(WIDTH / angle);
-            p.x *= COMPENSATION_X;
-            p.y *= COMPENSATION_Y;
-            p = p.move(new LocatorPoint(WIDTH / 2, HEIGHT / 2, 0));
-            g.setColor(new Color(255, 0, 0, 150));
+    @Synchronized
+    private fun draw(g: Graphics2D) {
+        for (pp in points) {
+            var p = pp
+            p = p!!.rotateY(pan)
+            p = p.rotateX(-tilt)
+            val R = (20 / Math.abs(p.z) * Util.ANGLE / angle).toInt() + 5
+            p = p.multiply(1 / p.z)
+            p = p.multiply(WIDTH / angle)
+            p.x *= COMPENSATION_X
+            p.y *= COMPENSATION_Y
+            p = p.move(LocatorPoint((WIDTH / 2).toDouble(), (HEIGHT / 2).toDouble(), 0.0))
+            g.color = Color(255, 0, 0, 150)
             g.fillOval(
-                    (int) (p.x - R),
-                    (int) (p.y - R),
-                    (int) (2 * R),
-                    (int) (2 * R));
+                (p.x - R).toInt(), (p.y - R).toInt(),
+                (2 * R),
+                (2 * R)
+            )
         }
     }
 
-    @Override
-    public synchronized void repaint() {
-        frame.repaint();
+    @Synchronized
+    override fun repaint() {
+        frame!!.repaint()
     }
 
-    @Override
-    public void setFailedString(String s) {
+    override fun setFailedString(s: String?) {}
+    override fun keyPressed(e: KeyEvent) {
+        if (e.keyChar == ' ') click(WIDTH / 2, HEIGHT / 2)
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar() == ' ')
-            click(WIDTH / 2, HEIGHT / 2);
+    override fun mouseClicked(e: MouseEvent) {
+        val x = e.x
+        val y = e.y
+        click(x, y)
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        click(x, y);
-    }
+    inner class Position {
+        var id: Int
+        var p: LocatorPoint
 
-    class Position {
-        int id;
-        LocatorPoint p;
-
-        public Position(int id, int x, int y) {
-            this.id = id;
-            p = new LocatorPoint(x, y, 0);
+        constructor(id: Int, x: Int, y: Int) {
+            this.id = id
+            p = LocatorPoint(x.toDouble(), y.toDouble(), 0.0)
         }
 
-        public Position(int id, double x, double y, double z) {
-            this.id = id;
-            p = new LocatorPoint(x, y, z);
+        constructor(id: Int, x: Double, y: Double, z: Double) {
+            this.id = id
+            p = LocatorPoint(x, y, z)
         }
 
-        public Position(int id, LocatorPoint p) {
-            this.id = id;
-            this.p = p;
+        constructor(id: Int, p: LocatorPoint) {
+            this.id = id
+            this.p = p
         }
     }
 
-    List<Position> input = new ArrayList<>();
-    List<Position> locations = new ArrayList<>();
-
-    void readInput() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
-        for (int x = 0; ; x++) {
-            String s = reader.readLine();
-            if (s == null) break;
-            String[] ss = s.split("\\s+");
-            for (int y = 0; y < ss.length; y++) {
+    var input: MutableList<Position> = ArrayList()
+    var locations: MutableList<Position> = ArrayList()
+    @Throws(IOException::class)
+    fun readInput() {
+        val reader = BufferedReader(FileReader("input.txt"))
+        var x = 0
+        while (true) {
+            val s = reader.readLine() ?: break
+            val ss = s.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            for (y in ss.indices) {
                 try {
-                    int id = Integer.parseInt(ss[y]);
-                    input.add(new Position(id, x, y));
-                } catch (NumberFormatException e) {
+                    val id = ss[y].toInt()
+                    input.add(Position(id, x, y))
+                } catch (ignored: NumberFormatException) {
                 }
             }
+            x++
         }
     }
 
-    void recalculate() {
-        if (locations.size() < 4) return;
-
-        List<Position> from = new ArrayList<>();
-        List<Position> to = new ArrayList<>();
-
-        Map<Integer, Position> mp = new HashMap<>();
-        for (Position position : input) {
-            mp.put(position.id, position);
+    fun recalculate() {
+        if (locations.size < 4) return
+        val from: MutableList<Position> = ArrayList()
+        val to: MutableList<Position> = ArrayList()
+        val mp: MutableMap<Int, Position> = HashMap()
+        for (position in input) {
+            mp[position.id] = position
         }
-
-        for (int i = 0; i < 4; i++) {
-            Position e = locations.get(locations.size() - 1 - i);
-            to.add(e);
-            Position e1 = mp.get(e.id);
+        for (i in 0..3) {
+            val e = locations[locations.size - 1 - i]
+            to.add(e)
+            val e1 = mp[e.id]
             if (e1 == null) {
-                System.out.println("no team " + e.id);
-                return;
+                println("no team " + e.id)
+                return
             }
-            from.add(e1);
+            from.add(e1)
         }
-
-        double[][] a = new double[9][10];
-        for (int i = 0; i < 4; i++) {
-            LocatorPoint A = from.get(i).p;
-            LocatorPoint B = to.get(i).p;
-            a[i * 2][0] = A.x * B.z;
-            a[i * 2][1] = A.y * B.z;
-            a[i * 2][2] = B.z;
-            a[i * 2][6] = -A.x * B.x;
-            a[i * 2][7] = -A.y * B.x;
-            a[i * 2][8] = -B.x;
-
-            a[i * 2 + 1][3] = A.x * B.z;
-            a[i * 2 + 1][4] = A.y * B.z;
-            a[i * 2 + 1][5] = B.z;
-            a[i * 2 + 1][6] = -A.x * B.y;
-            a[i * 2 + 1][7] = -A.y * B.y;
-            a[i * 2 + 1][8] = -B.y;
+        val a = Array(9) { DoubleArray(10) }
+        for (i in 0..3) {
+            val A = from[i].p
+            val B = to[i].p
+            a[i * 2][0] = A.x * B.z
+            a[i * 2][1] = A.y * B.z
+            a[i * 2][2] = B.z
+            a[i * 2][6] = -A.x * B.x
+            a[i * 2][7] = -A.y * B.x
+            a[i * 2][8] = -B.x
+            a[i * 2 + 1][3] = A.x * B.z
+            a[i * 2 + 1][4] = A.y * B.z
+            a[i * 2 + 1][5] = B.z
+            a[i * 2 + 1][6] = -A.x * B.y
+            a[i * 2 + 1][7] = -A.y * B.y
+            a[i * 2 + 1][8] = -B.y
         }
-        a[8][8] = a[8][9] = 1;
-        for (int i = 0; i < a.length; i++) {
-            int ii = i;
-            for (int t = i; t < a.length; t++) {
+        a[8][9] = 1.0
+        a[8][8] = a[8][9]
+        for (i in a.indices) {
+            var ii = i
+            for (t in i until a.size) {
                 if (Math.abs(a[t][i]) > Math.abs(a[ii][i])) {
-                    ii = t;
+                    ii = t
                 }
             }
-            double[] tt = a[i];
-            a[i] = a[ii];
-            a[ii] = tt;
-            if (Math.abs(a[i][i]) < 1e-9) throw new RuntimeException();
-            double k = 1.0 / a[i][i];
-            for (int j = 0; j < a[i].length; j++) {
-                a[i][j] *= k;
+            val tt = a[i]
+            a[i] = a[ii]
+            a[ii] = tt
+            if (Math.abs(a[i][i]) < 1e-9) throw RuntimeException()
+            var k = 1.0 / a[i][i]
+            for (j in a[i].indices) {
+                a[i][j] *= k
             }
-            for (int t = 0; t < a.length; t++) {
-                if (t == i) continue;
-                k = -a[t][i];
-                for (int j = 0; j < a[t].length; j++) {
-                    a[t][j] += k * a[i][j];
+            for (t in a.indices) {
+                if (t == i) continue
+                k = -a[t][i]
+                for (j in a[t].indices) {
+                    a[t][j] += k * a[i][j]
                 }
             }
         }
-        double[] r = new double[9];
-        for (int i = 0; i < 9; i++) r[i] = a[i][9] / a[i][i];
-
-        double ddx = from.get(1).p.x - from.get(0).p.x;
-        double ddy = from.get(1).p.y - from.get(0).p.y;
-        double dx = r[0] * ddx + r[1] * ddy + r[2];
-        double dy = r[3] * ddx + r[4] * ddy + r[5];
-        double dz = r[6] * ddx + r[7] * ddy + r[8];
-
-        double d = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        double d2 = Math.sqrt(ddx * ddx + ddy * ddy);
-
-        for (int i = 0; i < 9; i++) {
-            r[i] *= d2 / d;
+        val r = DoubleArray(9)
+        for (i in 0..8) r[i] = a[i][9] / a[i][i]
+        val ddx = from[1].p.x - from[0].p.x
+        val ddy = from[1].p.y - from[0].p.y
+        val dx = r[0] * ddx + r[1] * ddy + r[2]
+        val dy = r[3] * ddx + r[4] * ddy + r[5]
+        val dz = r[6] * ddx + r[7] * ddy + r[8]
+        val d = Math.sqrt(dx * dx + dy * dy + dz * dz)
+        val d2 = Math.sqrt(ddx * ddx + ddy * ddy)
+        for (i in 0..8) {
+            r[i] *= d2 / d
         }
-
-        if (Math.signum(r[2]) != Math.signum(points.get(0).x)) {
-            for (int i = 0; i < 9; i++) {
-                r[i] = -r[i];
+        if (Math.signum(r[2]) != Math.signum(points[0]!!.x)) {
+            for (i in 0..8) {
+                r[i] = -r[i]
             }
         }
-
-        points.clear();
-
+        points.clear()
         try {
-            PrintWriter out = new PrintWriter("output.txt");
-            out.println(input.size());
-            for (int i = 0; i < input.size(); i++) {
-                double xc = input.get(i).p.x;
-                double yc = input.get(i).p.y;
-                double xt = r[0] * xc + r[1] * yc + r[2];
-                double yt = r[3] * xc + r[4] * yc + r[5];
-                double zt = r[6] * xc + r[7] * yc + r[8];
-                out.println(input.get(i).id + " " + xt + " " + yt + " " + zt);
-                points.add(new LocatorPoint(xt, yt, zt));
+            val out = PrintWriter("output.txt")
+            out.println(input.size)
+            for (i in input.indices) {
+                val xc = input[i].p.x
+                val yc = input[i].p.y
+                val xt = r[0] * xc + r[1] * yc + r[2]
+                val yt = r[3] * xc + r[4] * yc + r[5]
+                val zt = r[6] * xc + r[7] * yc + r[8]
+                out.println(input[i].id.toString() + " " + xt + " " + yt + " " + zt)
+                points.add(LocatorPoint(xt, yt, zt))
             }
-            out.close();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+            out.close()
+        } catch (e1: FileNotFoundException) {
+            e1.printStackTrace()
         }
     }
 
-    public void click(int x, int y) {
-        synchronized (currentTeamMonitor) {
-            if (currentTeam == -1) return;
-            LocatorPoint p = new LocatorPoint(x, y, WIDTH / angle);
-            p = p.move(new LocatorPoint(-WIDTH / 2, -HEIGHT / 2, 0));
-            p = p.multiply(angle / WIDTH);
-            p = p.rotateX(tilt);
-            p = p.rotateY(-pan);
-            p = p.multiply(1 / Math.abs(p.z));
-            points.add(p);
-            locations.add(new Position(currentTeam, p));
-            currentTeam = -1;
-            recalculate();
-            Graphics2D g = (Graphics2D) this.image.getGraphics();
-            draw(g);
-            frame.repaint();
-            currentTeamMonitor.notifyAll();
+    fun click(x: Int, y: Int) {
+        synchronized(currentTeamMonitor) {
+            if (currentTeam == -1) return
+            var p: LocatorPoint? = LocatorPoint(x.toDouble(), y.toDouble(), WIDTH / angle)
+            p = p!!.move(LocatorPoint((-WIDTH / 2).toDouble(), (-HEIGHT / 2).toDouble(), 0.0))
+            p = p.multiply(angle / WIDTH)
+            p = p.rotateX(tilt)
+            p = p.rotateY(-pan)
+            p = p.multiply(1 / Math.abs(p.z))
+            points.add(p)
+            locations.add(Position(currentTeam, p))
+            currentTeam = -1
+            recalculate()
+            val g = image!!.graphics as Graphics2D
+            draw(g)
+            frame!!.repaint()
+            currentTeamMonitor.notifyAll()
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
+    override fun mousePressed(e: MouseEvent) {}
+    override fun mouseReleased(e: MouseEvent) {}
+    override fun mouseEntered(e: MouseEvent) {}
+    override fun mouseExited(e: MouseEvent) {}
+    override fun keyTyped(e: KeyEvent) {}
+    override fun keyReleased(e: KeyEvent) {}
 
+    companion object {
+        private const val WIDTH = 1280
+        private const val HEIGHT = 720
+        private const val COMPENSATION_TILT = 0.0
+        private const val COMPENSATION_PAN = 0.0
+        private const val COMPENSATION_X = 1.0
+        private const val COMPENSATION_Y = 1.0
+        private val `in` = Scanner(System.`in`)
+        @Throws(FileNotFoundException::class)
+        @JvmStatic
+        fun main(args: Array<String>) {
+            Util.init()
+            println("Select sniper (1-" + Util.snipers.size + ")")
+            val sniper = `in`.nextInt()
+            SniperCalibrator(Util.snipers[sniper - 1]!!.hostName).run()
+        }
     }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-
 }

@@ -1,35 +1,27 @@
-package org.icpclive.sniper;
+package org.icpclive.sniper
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Locale;
-import java.util.Scanner;
+import java.io.*
+import java.util.*
 
-public class SniperInfo {
-    public final String hostName;
-    public final File coordinatesFile;
-    public final int cameraID;
-    public LocatorPoint[] coordinates;
+class SniperInfo(val hostName: String?, val coordinatesFile: File, val cameraID: Int) {
+    var coordinates: Array<LocatorPoint?> = emptyArray()
 
-    public SniperInfo(String hostName, File coordinatesFile, int cameraID) throws FileNotFoundException {
-        this.hostName = hostName;
-        this.coordinatesFile = coordinatesFile;
-        this.cameraID = cameraID;
-        update();
+    init {
+        update()
     }
 
-    public void update() throws FileNotFoundException {
-        Scanner in = new Scanner(coordinatesFile);
-        in.useLocale(Locale.US);
-        int n = in.nextInt();
-        coordinates = new LocatorPoint[n];
-        for (int i = 0; i < n; i++) {
-            coordinates[i] = new LocatorPoint(in.nextInt(), in.nextDouble(), in.nextDouble(), in.nextDouble());
+    @Throws(FileNotFoundException::class)
+    fun update() {
+        val `in` = Scanner(coordinatesFile)
+        `in`.useLocale(Locale.US)
+        val n = `in`.nextInt()
+        coordinates = arrayOfNulls(n)
+        for (i in 0 until n) {
+            coordinates[i] = LocatorPoint(`in`.nextInt(), `in`.nextDouble(), `in`.nextDouble(), `in`.nextDouble())
         }
     }
 
-    @Override
-    public String toString() {
-        return "Sniper " + (cameraID + 1);
+    override fun toString(): String {
+        return "Sniper " + (cameraID + 1)
     }
 }

@@ -3,6 +3,7 @@ package org.icpclive.cds.clics
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -78,6 +79,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
             fun Flow<Event>.sortedPrefix() = flow {
                 val channelDeferred = CompletableDeferred<ReceiveChannel<Event>>()
                 launch {
+                    @OptIn(FlowPreview::class)
                     produceIn(this).also { channelDeferred.completeOrThrow(it) }
                 }
                 val channel = channelDeferred.await()
@@ -218,9 +220,13 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
     }
 }
 
+@OptIn(ExperimentalSerializationApi::class)
 private fun getEventFeedLoader(settings: ClicsLoaderSettings, verbose: Boolean = false) =
     object : LineStreamLoaderService<Event>(settings.auth) {
-        private val jsonDecoder = Json { ignoreUnknownKeys = true; explicitNulls = false }
+        private val jsonDecoder = Json {
+            ignoreUnknownKeys = true
+            explicitNulls = false
+        }
 
         override val url = settings.eventFeedUrl
         override fun processEvent(data: String) = try {
