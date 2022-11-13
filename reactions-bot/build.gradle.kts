@@ -1,8 +1,7 @@
 plugins {
-    kotlin("jvm")
     application
     id("icpclive")
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    alias(libs.plugins.shadow)
 }
 
 group = "org.icpclive"
@@ -35,11 +34,11 @@ dependencies {
     implementation(projects.cds)
     implementation(projects.common)
     implementation(libs.kotlinx.serialization.json)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
-    implementation("org.xerial:sqlite-jdbc:3.39.3.0")
-    implementation("org.jetbrains.exposed", "exposed-core", "0.40.1")
-    implementation("org.jetbrains.exposed", "exposed-dao", "0.40.1")
-    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.40.1")
-    implementation("io.github.kotlin-telegram-bot.kotlin-telegram-bot:telegram:6.0.7")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.cli)
+    implementation(libs.db.sqlite)
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.telegram.bot)
 }
