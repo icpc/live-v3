@@ -38,26 +38,27 @@ tasks {
         from(shadowJar)
         destinationDir = rootProject.rootDir.resolve("artifacts")
     }
+    val jsBuildPath = project.buildDir.resolve("js")
+    val copyJsAdmin = register<Copy>("copyJsAdmin") {
+        from(project(":frontend").tasks["npm_run_buildAdmin"])
+        destinationDir = jsBuildPath.resolve("admin")
+    }
+    val copyJsOverlay = register<Copy>("copyJsOverlay") {
+        from(project(":frontend").tasks["npm_run_buildOverlay"])
+        destinationDir = jsBuildPath.resolve("overlay")
+    }
+    register("buildJs") {
+        dependsOn(copyJsAdmin, copyJsOverlay)
+        outputs.dir(jsBuildPath)
+    }
 }
 
-val jsBuildPath = project.buildDir.resolve("js")
-val copyJsAdmin by tasks.creating(Copy::class) {
-    from(rootProject.tasks["npm_run_buildAdmin"])
-    destinationDir = jsBuildPath.resolve("admin")
-}
-val copyJsOverlay by tasks.creating(Copy::class) {
-    from(rootProject.tasks["npm_run_buildOverlay"])
-    destinationDir = jsBuildPath.resolve("overlay")
-}
-val buildJs by tasks.creating {
-    dependsOn(copyJsAdmin, copyJsOverlay)
-    outputs.dir(jsBuildPath)
-}
+
 
 sourceSets {
     main {
         resources {
-            srcDirs(buildJs.outputs)
+            srcDirs(tasks["buildJs"].outputs)
         }
     }
 }

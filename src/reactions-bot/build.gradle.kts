@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-group = "org.icpclive"
 version = rootProject.findProperty("build_version")!!
 
 application {
