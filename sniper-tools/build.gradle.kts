@@ -1,12 +1,7 @@
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
 plugins {
     application
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("icpclive")
+    alias(libs.plugins.shadow)
 }
 
 group = "org.icpclive"

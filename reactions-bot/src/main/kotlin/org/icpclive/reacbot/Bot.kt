@@ -1,5 +1,11 @@
 package org.icpclive.reacbot
 
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.options.default
+import com.github.ajalt.clikt.parameters.options.flag
+import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.required
+import com.github.ajalt.clikt.parameters.types.int
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.AnalyticsMessage
@@ -102,7 +108,7 @@ class Bot(private val config: Config) {
                 try {
                     convertVideo(config.videoPathPrefix + reactionUrl, outputFileName)
                     val message = bot.sendVideo(
-                        ChatId.fromId(config.botSystemChar.toLong()),
+                        ChatId.fromId(config.botSystemChat.toLong()),
                         TelegramFile.ByFile(Path.of(outputFileName).toFile()),
                         caption = "New reaction run=${run.id} team=${run.teamId} problem=${run.problemId} ${run.time}",
                         disableNotification = true,
@@ -150,11 +156,31 @@ private fun getProperties(fileName: String): Properties {
     return properties
 }
 
+class BotCommand : CliktCommand() {
+    private val events by option(help = "Event.properties file path").default("./events.properties")
+    private val disableCds by option(help = "Enable loading events from cds").flag()
+    private val token by option(help = "Telegram bot token").required()
+    private val threads by option("--threads", "-t", help = "Count of video converter and loader threads").int().default(8)
+    private val video by option( help = "Prefix for video url").default("")
+    private val chat by option("--chat", "-c", help = "System chat id for bot management").int().default(316671439)
+
+    override fun run() {
+        runBlocking {
+            Bot(
+                Config(
+                    eventPropertiesFile = events,
+                    disableCdsLoader = disableCds,
+                    telegramToken = token,
+                    loaderThreads = threads,
+                    videoPathPrefix = video,
+                    botSystemChat = chat,
+                )
+            ).run(this)
+        }
+    }
+}
 
 fun main(args: Array<String>) {
-    val config = parseConfig(args)
-    runBlocking {
-        Bot(config).run(this)
-    }
+    BotCommand().main(args)
 }
 
