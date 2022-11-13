@@ -1,5 +1,6 @@
 package org.icpclive.cds.pcms
 
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
@@ -12,6 +13,7 @@ import org.icpclive.util.children
 import org.icpclive.util.getCredentials
 import org.icpclive.util.getLogger
 import org.w3c.dom.Element
+import java.io.FileInputStream
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -37,6 +39,16 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
     override suspend fun loadOnce() = parseAndUpdateStandings(dataLoader.loadOnce().documentElement)
     private fun parseAndUpdateStandings(element: Element) = parseContestInfo(element.child("contest"))
 
+    private fun loadCustomProblems() : Element {
+        val problemsUrl = properties.getProperty("problems.url")
+        val problemsLoader = xmlLoaderService { problemsUrl }
+
+        // TODO: Async loading
+        return runBlocking {
+            problemsLoader.loadOnce().documentElement
+        }
+    }
+
     private fun parseContestInfo(element: Element) : ContestParseResult {
         val status = ContestStatus.valueOf(element.getAttribute("status").uppercase(Locale.getDefault()))
         val contestTime = element.getAttribute("time").toLong().milliseconds
@@ -44,8 +56,14 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         if (status == ContestStatus.RUNNING && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
-        val problems = element
-            .child("challenge")
+
+        var problemsElement = element.child("challenge")
+
+        if(properties.containsKey("problems.url")) {
+            problemsElement = loadCustomProblems()
+        }
+
+        val problems = problemsElement
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
@@ -56,6 +74,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     index
                 )
             }.toList()
+
         val teamsAndRuns = element
             .children("session")
             .map { parseTeamInfo(it, problems, contestTime) }
