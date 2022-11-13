@@ -103,7 +103,7 @@ class CFContestInfo {
 
     fun toApi() = ContestInfo(
         status,
-        ContestResultType.BINARY,
+        ContestResultType.ICPC,
         startTime,
         contestLength,
         0.seconds,

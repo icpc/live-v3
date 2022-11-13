@@ -44,7 +44,7 @@ const VerdictCellWrap = styled(Cell)`
   position: relative;
 `;
 
-const VerdictCellBinary = ({ data, props }) => {
+const VerdictCellICPC = ({ data, props }) => {
     return <VerdictCellWrap
         background=
             {data.isJudged ?
@@ -58,7 +58,7 @@ const VerdictCellBinary = ({ data, props }) => {
     </VerdictCellWrap>;
 };
 
-VerdictCellBinary.PropTypes = {
+VerdictCellICPC.PropTypes = {
     data: PropTypes.object
 };
 
@@ -84,8 +84,8 @@ export const VerdictCell = ({
     verdict: data,
     ...props
 }) => {
-    if(data.resultType === "BINARY") {
-        return <VerdictCellBinary data={data} props={props} />;
+    if(data.resultType === "ICPC") {
+        return <VerdictCellICPC data={data} props={props} />;
     } else {
         return <VerdictCellScore data={data} props={props} />;
     }

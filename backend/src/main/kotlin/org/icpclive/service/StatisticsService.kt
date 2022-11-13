@@ -22,21 +22,21 @@ class StatisticsService {
                             val results = buildList {
                                 for(row in scoreboard.rows) {
                                     when(row.problemResults[problem]) {
-                                        is ICPCBinaryProblemResult -> add(row.problemResults[problem] as ICPCBinaryProblemResult)
-                                        is ICPCScoreProblemResult -> add(row.problemResults[problem] as ICPCScoreProblemResult)
+                                        is ICPCProblemResult -> add(row.problemResults[problem] as ICPCProblemResult)
+                                        is ScoreProblemResult -> add(row.problemResults[problem] as ScoreProblemResult)
                                     }
                                 }
                             }
 
-                            if(results[0] is ICPCBinaryProblemResult) {
-                                val resultsCast = results.filterIsInstance<ICPCBinaryProblemResult>()
+                            if(results[0] is ICPCProblemResult) {
+                                val resultsCast = results.filterIsInstance<ICPCProblemResult>()
                                 return@List ProblemSolutionsStatistic(
                                     resultsCast.count { it.isSolved },
                                     resultsCast.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
                                     resultsCast.count { !it.isSolved && it.pendingAttempts > 0 },
                                 )
-                            } else if(results[0] is ICPCScoreProblemResult) {
-                                val resultsCast = results.filterIsInstance<ICPCScoreProblemResult>()
+                            } else if(results[0] is ScoreProblemResult) {
+                                val resultsCast = results.filterIsInstance<ScoreProblemResult>()
                                 return@List ProblemSolutionsStatistic(
                                     resultsCast.count { it.score > 0 },
                                     resultsCast.count { it.score == 0 && it.wrongAttempts > 0 && it.pendingAttempts == 0 },

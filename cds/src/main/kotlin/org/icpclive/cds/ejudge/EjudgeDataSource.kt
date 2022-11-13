@@ -77,7 +77,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         return ContestParseResult(
             contestInfo = ContestInfo(
                 status = status,
-                resultType = ContestResultType.BINARY,
+                resultType = ContestResultType.ICPC,
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,

@@ -105,7 +105,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0
 
             return@map when(resultType) {
-                ContestResultType.BINARY -> ICPCBinaryProblemResult(
+                ContestResultType.ICPC -> ICPCProblemResult(
                     runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
                     runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                     okRun != null,
@@ -118,7 +118,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                         lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
                     }
                 }
-                ContestResultType.SCORE -> ICPCScoreProblemResult(
+                ContestResultType.SCORE -> ScoreProblemResult(
                     runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
                     runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                     maxScore,

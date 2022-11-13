@@ -10,7 +10,7 @@ data class RunInfo constructor(
     val isAccepted: Boolean,
     val isJudged: Boolean,
     val isAddingPenalty: Boolean,
-    val resultType: ContestResultType = ContestResultType.BINARY,
+    val resultType: ContestResultType = ContestResultType.ICPC,
     val result: String,
     val score: Int,
     val problemId: Int,

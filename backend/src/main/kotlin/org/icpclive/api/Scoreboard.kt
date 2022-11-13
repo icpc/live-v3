@@ -23,8 +23,8 @@ data class ScoreboardRow(
 
 //TODO: custom string, problem with score, maybe something else
 @Serializable
-@SerialName("icpc_binary")
-data class ICPCBinaryProblemResult(
+@SerialName("icpc")
+data class ICPCProblemResult(
     val wrongAttempts: Int,
     val pendingAttempts: Int,
     val isSolved: Boolean,
@@ -35,8 +35,8 @@ data class ICPCBinaryProblemResult(
 ) : ProblemResult()
 
 @Serializable
-@SerialName("icpc_score")
-data class ICPCScoreProblemResult(
+@SerialName("score")
+data class ScoreProblemResult(
     val wrongAttempts: Int,
     val pendingAttempts: Int,
     val score: Int,

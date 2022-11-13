@@ -17,7 +17,7 @@ data class MedalType(val name: String, val count: Int)
 
 @Serializable
 enum class ContestResultType(val type: Int) {
-    BINARY(0x00),
+    ICPC(0x00),
     SCORE(0x01)
 }
 
@@ -192,7 +192,7 @@ data class ContestInfo(
     companion object {
         fun unknown() = ContestInfo(
             ContestStatus.UNKNOWN,
-            ContestResultType.BINARY,
+            ContestResultType.ICPC,
             Instant.fromEpochMilliseconds(0),
             Duration.ZERO,
             Duration.ZERO,

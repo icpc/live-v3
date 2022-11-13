@@ -81,7 +81,7 @@ class ClicsModel(
     val contestInfo: ContestInfo
         get() = ContestInfo(
             status = status,
-            resultType = ContestResultType.BINARY,
+            resultType = ContestResultType.ICPC,
             startTime = startTime ?: Instant.fromEpochSeconds(0),
             contestLength = contestLength,
             freezeTime = freezeTime,

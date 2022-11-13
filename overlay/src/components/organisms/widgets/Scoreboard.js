@@ -92,7 +92,7 @@ const TeamTaskColor = Object.freeze({
     [TeamTaskStatus.first]: VERDICT_OK,
 });
 
-const ScoreboardBinaryTaskCell = ({ status, attempts }) => {
+const ScoreboardICPCTaskCell = ({ status, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {TeamTaskSymbol[status]}
@@ -108,7 +108,7 @@ const ScoreboardScoreTaskCell = ({ status, score, attempts }) => {
     </ScoreboardTaskCellWrap>;
 };
 
-ScoreboardBinaryTaskCell.propTypes = {
+ScoreboardICPCTaskCell.propTypes = {
     status: PropTypes.oneOf(Object.values(TeamTaskStatus)),
     attempts: PropTypes.number
 };
@@ -120,8 +120,8 @@ ScoreboardScoreTaskCell.propTypes = {
 };
 
 const RenderScoreboardTaskCell = ({ data }) => {
-    if(data.type === "icpc_binary") {
-        return <ScoreboardBinaryTaskCell status={getStatusBinary(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts}/>;
+    if(data.type === "icpc") {
+        return <ScoreboardICPCTaskCell status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts}/>;
     } else {
         return <ScoreboardScoreTaskCell status={getStatusScore(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;
     }
@@ -154,7 +154,7 @@ const ScoreboardHeaderProblemCell = styled(ProblemCell)`
   position: relative;
 `;
 
-function getStatusBinary(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
+function getStatusICPC(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
     } else if (isSolved) {
