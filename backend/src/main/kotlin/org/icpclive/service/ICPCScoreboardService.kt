@@ -126,7 +126,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                     (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
                 ).also {
                     if (it.score > 0) {
-                        solved++
+                        solved += it.score
                         penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
                         lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
                     }

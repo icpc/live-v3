@@ -104,7 +104,7 @@ const ScoreboardScoreTaskCell = ({ status, score, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {TeamTaskStatus === TeamTaskStatus.unknown ? "?" : score}
-        {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
+        {status !== TeamTaskStatus.untouched && attempts > 0 && `-${attempts}`}
     </ScoreboardTaskCellWrap>;
 };
 
