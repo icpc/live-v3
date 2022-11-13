@@ -4,15 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
-kotlin {
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-            languageSettings.optIn("kotlinx.coroutines.FlowPreview")
-            languageSettings.optIn("kotlin.RequiresOptIn")
-        }
-    }
-}
 
 java {
     toolchain {

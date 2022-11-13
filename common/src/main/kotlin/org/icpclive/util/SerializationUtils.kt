@@ -1,6 +1,7 @@
 package org.icpclive.util
 
 import kotlinx.datetime.Instant
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -50,6 +51,7 @@ object ColorSerializer : KSerializer<Color> {
     }
 }
 
+@OptIn(ExperimentalSerializationApi::class)
 fun defaultJsonSettings() = Json {
     encodeDefaults = true
     isLenient = true
