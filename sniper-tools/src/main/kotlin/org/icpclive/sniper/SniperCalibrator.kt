@@ -15,10 +15,13 @@ import javax.swing.ImageIcon
 import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.WindowConstants
+import kotlin.math.abs
+import kotlin.math.sign
+import kotlin.math.sqrt
+import kotlin.system.exitProcess
 
 class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, KeyListener {
     private var image: Image? = null
-    private val bg: Image? = null
     var pan = 0.0
     var tilt = 0.0
     var angle = Util.ANGLE
@@ -48,7 +51,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            System.exit(1)
+            exitProcess(1)
         }
     }
 
@@ -62,7 +65,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
                     runner.run()
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    System.exit(1)
+                    exitProcess(1)
                 }
             }
         }.start()
@@ -94,7 +97,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
     }
 
     @Synchronized
-    override fun setBufferedImage(image: BufferedImage?) {
+    override fun setBufferedImage(image: BufferedImage) {
         val g = this.image!!.graphics as Graphics2D
         g.drawImage(image, 0, 0, WIDTH, HEIGHT, null)
         try {
@@ -131,7 +134,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         frame!!.repaint()
     }
 
-    override fun setFailedString(s: String?) {}
+    override fun setFailedString(s: String) {}
     override fun keyPressed(e: KeyEvent) {
         if (e.keyChar == ' ') click(WIDTH / 2, HEIGHT / 2)
     }
@@ -142,18 +145,13 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         click(x, y)
     }
 
-    inner class Position {
+    class Position {
         var id: Int
         var p: LocatorPoint
 
         constructor(id: Int, x: Int, y: Int) {
             this.id = id
             p = LocatorPoint(x.toDouble(), y.toDouble(), 0.0)
-        }
-
-        constructor(id: Int, x: Double, y: Double, z: Double) {
-            this.id = id
-            p = LocatorPoint(x, y, z)
         }
 
         constructor(id: Int, p: LocatorPoint) {
@@ -222,14 +220,14 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         for (i in a.indices) {
             var ii = i
             for (t in i until a.size) {
-                if (Math.abs(a[t][i]) > Math.abs(a[ii][i])) {
+                if (abs(a[t][i]) > abs(a[ii][i])) {
                     ii = t
                 }
             }
             val tt = a[i]
             a[i] = a[ii]
             a[ii] = tt
-            if (Math.abs(a[i][i]) < 1e-9) throw RuntimeException()
+            if (abs(a[i][i]) < 1e-9) throw RuntimeException()
             var k = 1.0 / a[i][i]
             for (j in a[i].indices) {
                 a[i][j] *= k
@@ -249,12 +247,12 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         val dx = r[0] * ddx + r[1] * ddy + r[2]
         val dy = r[3] * ddx + r[4] * ddy + r[5]
         val dz = r[6] * ddx + r[7] * ddy + r[8]
-        val d = Math.sqrt(dx * dx + dy * dy + dz * dz)
-        val d2 = Math.sqrt(ddx * ddx + ddy * ddy)
+        val d = sqrt(dx * dx + dy * dy + dz * dz)
+        val d2 = sqrt(ddx * ddx + ddy * ddy)
         for (i in 0..8) {
             r[i] *= d2 / d
         }
-        if (Math.signum(r[2]) != Math.signum(points[0]!!.x)) {
+        if (sign(r[2]) != sign(points[0]!!.x)) {
             for (i in 0..8) {
                 r[i] = -r[i]
             }
@@ -281,12 +279,13 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
     fun click(x: Int, y: Int) {
         synchronized(currentTeamMonitor) {
             if (currentTeam == -1) return
-            var p: LocatorPoint? = LocatorPoint(x.toDouble(), y.toDouble(), WIDTH / angle)
-            p = p!!.move(LocatorPoint((-WIDTH / 2).toDouble(), (-HEIGHT / 2).toDouble(), 0.0))
-            p = p.multiply(angle / WIDTH)
-            p = p.rotateX(tilt)
-            p = p.rotateY(-pan)
-            p = p.multiply(1 / Math.abs(p.z))
+            val p = LocatorPoint(x.toDouble(), y.toDouble(), WIDTH / angle)
+                .move(LocatorPoint((-WIDTH / 2).toDouble(), (-HEIGHT / 2).toDouble(), 0.0))
+                .multiply(angle / WIDTH)
+                .rotateX(tilt)
+                .rotateY(-pan).let {
+                    it.multiply(1 / abs(it.z))
+                }
             points.add(p)
             locations.add(Position(currentTeam, p))
             currentTeam = -1
@@ -308,8 +307,6 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
     companion object {
         private const val WIDTH = 1280
         private const val HEIGHT = 720
-        private const val COMPENSATION_TILT = 0.0
-        private const val COMPENSATION_PAN = 0.0
         private const val COMPENSATION_X = 1.0
         private const val COMPENSATION_Y = 1.0
         private val `in` = Scanner(System.`in`)
@@ -319,7 +316,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
             Util.init()
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
-            SniperCalibrator(Util.snipers[sniper - 1]!!.hostName).run()
+            SniperCalibrator(Util.snipers[sniper - 1].hostName).run()
         }
     }
 }

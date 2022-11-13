@@ -2,10 +2,12 @@ package org.icpclive.sniper
 
 import java.io.*
 import java.util.*
+import kotlin.math.atan2
+import kotlin.math.hypot
 
 object SniperMover {
     private const val DEFAULT_SPEED = "0.52"
-    @Throws(Exception::class)
+
     @JvmStatic
     fun main(args: Array<String>) {
         Util.init()
@@ -35,11 +37,11 @@ object SniperMover {
                 point.y = -point.y
                 point.z = -point.z
             }
-            var tilt = Math.atan2(point.y, Math.hypot(point.x, point.z))
-            var pan = Math.atan2(-point.x, -point.z)
+            var tilt = atan2(point.y, hypot(point.x, point.z))
+            var pan = atan2(-point.x, -point.z)
             pan *= 180 / Math.PI
             tilt *= 180 / Math.PI
-            val d = Math.hypot(point.x, Math.hypot(point.y, point.z))
+            val d = hypot(point.x, hypot(point.y, point.z))
             val mag = 0.5 * d
             val maxmag = 35.0
             val zoom = (mag * 9999 - 1) / (maxmag - 1)
@@ -49,7 +51,7 @@ object SniperMover {
 
     @Throws(Exception::class)
     private fun move(sniper: Int, pan: Double, tilt: Double, zoom: Int) {
-        val hostName = Util.snipers[sniper - 1]!!.hostName
+        val hostName = Util.snipers[sniper - 1].hostName
         Util.sendGet(
             hostName + "/axis-cgi/com/ptz.cgi?camera=1" +
                     "&tilt=" + tilt +

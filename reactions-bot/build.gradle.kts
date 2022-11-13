@@ -12,6 +12,12 @@ application {
 }
 
 tasks {
+    jar {
+        archiveFileName.set("reactions-bot-${project.version}-part.jar")
+    }
+    shadowJar {
+        archiveFileName.set("reactions-bot-${project.version}.jar")
+    }
     named<JavaExec>("run") {
         val args = mutableListOf<String>()
         project.properties["live.dev.token"]?.let { args += listOf("-token", it.toString()) }

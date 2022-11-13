@@ -12,6 +12,9 @@ application {
 
 
 tasks {
+    jar {
+        archiveFileName.set("sniper-tools-${project.version}-part.jar")
+    }
     shadowJar {
         archiveFileName.set("sniper-tools-${project.version}.jar")
     }

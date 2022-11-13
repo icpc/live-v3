@@ -3,25 +3,21 @@ package org.icpclive.sniper
 import java.io.*
 import java.util.*
 
-class SniperInfo(val hostName: String?, val coordinatesFile: File, val cameraID: Int) {
-    var coordinates: Array<LocatorPoint?> = emptyArray()
+class SniperInfo(val hostName: String, val coordinatesFile: File, val cameraID: Int) {
+    var coordinates = load()
 
-    init {
-        update()
-    }
+    fun update() { coordinates = load() }
 
-    @Throws(FileNotFoundException::class)
-    fun update() {
-        val `in` = Scanner(coordinatesFile)
-        `in`.useLocale(Locale.US)
-        val n = `in`.nextInt()
-        coordinates = arrayOfNulls(n)
-        for (i in 0 until n) {
-            coordinates[i] = LocatorPoint(`in`.nextInt(), `in`.nextDouble(), `in`.nextDouble(), `in`.nextDouble())
+    private fun load() : Array<LocatorPoint> {
+        return Scanner(coordinatesFile).use { inp ->
+            inp.useLocale(Locale.US)
+            Array(inp.nextInt()) {
+                LocatorPoint(inp.nextInt(), inp.nextDouble(), inp.nextDouble(), inp.nextDouble())
+            }
         }
     }
 
     override fun toString(): String {
-        return "Sniper " + (cameraID + 1)
+        return "Sniper ${cameraID + 1}"
     }
 }
