@@ -6,9 +6,7 @@ import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable
-sealed class ProblemResult {
-    abstract val type: ContestResultType
-}
+sealed class ProblemResult
 
 @Serializable
 data class ScoreboardRow(
@@ -25,9 +23,8 @@ data class ScoreboardRow(
 
 //TODO: custom string, problem with score, maybe something else
 @Serializable
-@SerialName("icpc")
+@SerialName("icpc_binary")
 data class ICPCBinaryProblemResult(
-    override val type: ContestResultType = ContestResultType.BINARY,
     val wrongAttempts: Int,
     val pendingAttempts: Int,
     val isSolved: Boolean,
@@ -38,9 +35,8 @@ data class ICPCBinaryProblemResult(
 ) : ProblemResult()
 
 @Serializable
-@SerialName("icpc")
+@SerialName("icpc_score")
 data class ICPCScoreProblemResult(
-    override val type: ContestResultType = ContestResultType.SCORE,
     val wrongAttempts: Int,
     val pendingAttempts: Int,
     val score: Int,

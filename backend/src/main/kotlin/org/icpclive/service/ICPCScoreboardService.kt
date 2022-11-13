@@ -102,11 +102,10 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                 }
             }
 
-            val maxScore = problemRuns.maxWith(Comparator.comparingInt { it.score }).score
+            val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0
 
-            when(resultType) {
+            return@map when(resultType) {
                 ContestResultType.BINARY -> ICPCBinaryProblemResult(
-                    ContestResultType.BINARY,
                     runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
                     runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                     okRun != null,
@@ -120,7 +119,6 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                     }
                 }
                 ContestResultType.SCORE -> ICPCScoreProblemResult(
-                    ContestResultType.SCORE,
                     runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
                     runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                     maxScore,
@@ -134,7 +132,6 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                     }
                 }
             }
-
         }
         return ScoreboardRow(
             teamId,

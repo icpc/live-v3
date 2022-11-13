@@ -119,6 +119,18 @@ ScoreboardScoreTaskCell.propTypes = {
     attempts: PropTypes.number
 };
 
+const RenderScoreboardTaskCell = ({ data }) => {
+    if(data.type == "icpc_binary") {
+        return <ScoreboardBinaryTaskCell status={getStatusBinary(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts}/>;
+    } else {
+        return <ScoreboardScoreTaskCell status={getStatusScore(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;
+    }
+};
+
+RenderScoreboardTaskCell.propTypes = {
+    data: PropTypes.object
+};
+
 const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
   height: ${props => props.rowHeight}px;
 `;
@@ -185,16 +197,9 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData?.penalty}
         </ScoreboardStatCell>
-        {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) => {
-            console.log(resultsData.type)
-            if(resultsData.type == 0) {
-                <ScoreboardBinaryTaskCell key={i} status={getStatusBinary(resultsData.isFirstToSolve, resultsData.isSolved, resultsData.pendingAttempts, resultsData.wrongAttempts)}
-                    attempts={wrongAttempts + pendingAttempts}/>
-            } else if(resultsData.type == 1) {
-                <ScoreboardScoreTaskCell key={i} status={getStatusScore(resultsData.isFirstToSolve, resultsData.score, resultsData.pendingAttempts, resultsData.wrongAttempts)}
-                    score={resultsData.score} attempts={wrongAttempts + pendingAttempts}/>
-            }
-        })}
+        {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) =>
+            <RenderScoreboardTaskCell key={i}  data={resultsData} />
+        )}
     </ScoreboardRowContainer>;
 };
 ScoreboardRow.propTypes = {

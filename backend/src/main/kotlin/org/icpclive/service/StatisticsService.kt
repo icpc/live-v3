@@ -19,13 +19,31 @@ class StatisticsService {
                 } else {
                     SolutionsStatistic(
                         List(scoreboard.rows[0].problemResults.size) { problem ->
-                            val results =
-                                scoreboard.rows.asSequence().map { it.problemResults[problem] as ICPCBinaryProblemResult }
-                            ProblemSolutionsStatistic(
-                                results.count { it.isSolved },
-                                results.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
-                                results.count { !it.isSolved && it.pendingAttempts > 0 },
-                            )
+                            val results = buildList {
+                                for(row in scoreboard.rows) {
+                                    when(row.problemResults[problem]) {
+                                        is ICPCBinaryProblemResult -> add(row.problemResults[problem] as ICPCBinaryProblemResult)
+                                        is ICPCScoreProblemResult -> add(row.problemResults[problem] as ICPCScoreProblemResult)
+                                    }
+                                }
+                            }
+
+                            if(results[0] is ICPCBinaryProblemResult) {
+                                val resultsCast = results.filterIsInstance<ICPCBinaryProblemResult>()
+                                return@List ProblemSolutionsStatistic(
+                                    resultsCast.count { it.isSolved },
+                                    resultsCast.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
+                                    resultsCast.count { !it.isSolved && it.pendingAttempts > 0 },
+                                )
+                            } else if(results[0] is ICPCScoreProblemResult) {
+                                val resultsCast = results.filterIsInstance<ICPCScoreProblemResult>()
+                                return@List ProblemSolutionsStatistic(
+                                    resultsCast.count { it.score > 0 },
+                                    resultsCast.count { it.score == 0 && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
+                                    resultsCast.count { it.score == 0 && it.pendingAttempts > 0 },
+                                )
+                            }
+                            return@List ProblemSolutionsStatistic(0, 0, 0)
                         }
                     )
                 }

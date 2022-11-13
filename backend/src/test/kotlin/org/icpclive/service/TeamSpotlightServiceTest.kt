@@ -22,7 +22,7 @@ class TeamSpotlightServiceTest {
     private val simpleTeams = (1..10)
         .map { TeamInfo(it, "Team $it", "Team $it", "$it", emptyList(), null, emptyMap()) }
     private val simpleContestInfo =
-        ContestInfo(ContestStatus.RUNNING, Clock.System.now(), 1.hours, 1.hours, simpleProblems, simpleTeams)
+        ContestInfo(ContestStatus.RUNNING, ContestResultType.BINARY, Clock.System.now(), 1.hours, 1.hours, simpleProblems, simpleTeams)
 
     var runIdCounter = 1
     private fun run(
@@ -33,7 +33,7 @@ class TeamSpotlightServiceTest {
         isJudged: Boolean = true,
         time: kotlin.time.Duration = 0.minutes
     ) =
-        RunInfo(runIdCounter++, isAC, isJudged, !isAC, "", problemId, teamId, 1.0, time, isFts)
+        RunInfo(runIdCounter++, isAC, isJudged, !isAC, "", 0, problemId, teamId, 1.0, time, isFts)
 
     private class SimpleTestContext(
         val infoFlow: MutableStateFlow<ContestInfo>,
