@@ -163,7 +163,7 @@ export const TeamInfo = ({ teamId }) => {
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
-            {scoreboardData?.totalScore}
+            {scoreboardData === null ? null : scoreboardData.totalScore.toFixed(getIOIFractionDigits(scoreboardData?.totalScore, 1))}
         </ScoreboardStatCell>
         <ScoreboardStatCell>
             {scoreboardData?.penalty}
