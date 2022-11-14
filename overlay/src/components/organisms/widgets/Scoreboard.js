@@ -100,7 +100,7 @@ const ScoreboardICPCTaskCell = ({ status, attempts }) => {
     </ScoreboardTaskCellWrap>;
 };
 
-const ScoreboardScoreTaskCell = ({ status, score, attempts }) => {
+const ScoreboardIOITaskCell = ({ status, score, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {TeamTaskStatus === TeamTaskStatus.unknown ? "?" : score}
@@ -113,7 +113,7 @@ ScoreboardICPCTaskCell.propTypes = {
     attempts: PropTypes.number
 };
 
-ScoreboardScoreTaskCell.propTypes = {
+ScoreboardIOITaskCell.propTypes = {
     status: PropTypes.oneOf(Object.values(TeamTaskStatus)),
     score: PropTypes.number,
     attempts: PropTypes.number
@@ -123,7 +123,7 @@ const RenderScoreboardTaskCell = ({ data }) => {
     if(data.type === "icpc") {
         return <ScoreboardICPCTaskCell status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts}/>;
     } else {
-        return <ScoreboardScoreTaskCell status={getStatusScore(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;
+        return <ScoreboardIOITaskCell status={getStatusScore(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;
     }
 };
 

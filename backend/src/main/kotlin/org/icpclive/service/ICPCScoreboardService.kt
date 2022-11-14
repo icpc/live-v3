@@ -118,7 +118,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                         lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
                     }
                 }
-                ContestResultType.SCORE -> ScoreProblemResult(
+                ContestResultType.SCORE -> IOIProblemResult(
                     runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
                     runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                     maxScore,

@@ -35,8 +35,8 @@ data class ICPCProblemResult(
 ) : ProblemResult()
 
 @Serializable
-@SerialName("score")
-data class ScoreProblemResult(
+@SerialName("ioi")
+data class IOIProblemResult(
     val wrongAttempts: Int,
     val pendingAttempts: Int,
     val score: Int,

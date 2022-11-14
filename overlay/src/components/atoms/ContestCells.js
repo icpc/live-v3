@@ -62,7 +62,7 @@ VerdictCellICPC.PropTypes = {
     data: PropTypes.object
 };
 
-const VerdictCellScore = ({ data, props }) => {
+const VerdictCellIOI = ({ data, props }) => {
     return <VerdictCellWrap
         background=
             {data.isJudged ?
@@ -76,7 +76,7 @@ const VerdictCellScore = ({ data, props }) => {
     </VerdictCellWrap>;
 };
 
-VerdictCellScore.PropTypes = {
+VerdictCellIOI.PropTypes = {
     data: PropTypes.object
 };
 
@@ -87,7 +87,7 @@ export const VerdictCell = ({
     if(data.resultType === "ICPC") {
         return <VerdictCellICPC data={data} props={props} />;
     } else {
-        return <VerdictCellScore data={data} props={props} />;
+        return <VerdictCellIOI data={data} props={props} />;
     }
 };
 

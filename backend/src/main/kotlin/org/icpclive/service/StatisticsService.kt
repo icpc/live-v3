@@ -23,7 +23,7 @@ class StatisticsService {
                                 for(row in scoreboard.rows) {
                                     when(row.problemResults[problem]) {
                                         is ICPCProblemResult -> add(row.problemResults[problem] as ICPCProblemResult)
-                                        is ScoreProblemResult -> add(row.problemResults[problem] as ScoreProblemResult)
+                                        is IOIProblemResult -> add(row.problemResults[problem] as IOIProblemResult)
                                     }
                                 }
                             }
@@ -35,8 +35,8 @@ class StatisticsService {
                                     resultsCast.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
                                     resultsCast.count { !it.isSolved && it.pendingAttempts > 0 },
                                 )
-                            } else if(results[0] is ScoreProblemResult) {
-                                val resultsCast = results.filterIsInstance<ScoreProblemResult>()
+                            } else if(results[0] is IOIProblemResult) {
+                                val resultsCast = results.filterIsInstance<IOIProblemResult>()
                                 return@List ProblemSolutionsStatistic(
                                     resultsCast.count { it.score > 0 },
                                     resultsCast.count { it.score == 0 && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
