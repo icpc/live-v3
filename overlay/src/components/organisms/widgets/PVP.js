@@ -8,6 +8,7 @@ import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
 import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
+import { getIOIFractionDigits } from "../../atoms/ContestCells";
 
 // Burn this.
 // - Max

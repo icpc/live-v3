@@ -10,6 +10,7 @@ import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
+import { getIOIFractionDigits } from "../../atoms/ContestCells";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
