@@ -16,9 +16,8 @@ import kotlin.time.Duration
 data class MedalType(val name: String, val count: Int)
 
 @Serializable
-enum class ContestResultType(val type: Int) {
-    ICPC(0x00),
-    SCORE(0x01)
+enum class ContestResultType {
+    ICPC, IOI
 }
 
 @Serializable

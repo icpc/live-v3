@@ -27,7 +27,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
     }
 
     private val resultType = ContestResultType.valueOf(
-        properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "BINARY"
+        properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "ICPC"
     )
     private val minScore: Float = properties.getProperty("standings.minScore", "0.0").toFloat()
     private val maxScore: Float = properties.getProperty("standings.maxScore", "1.0").toFloat()
@@ -157,7 +157,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             "yes" == element.getAttribute("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
         }
-        val score = if(resultType == ContestResultType.SCORE) element.getAttribute("score").toFloat() else 0.0f
+        val score = if(resultType == ContestResultType.IOI) element.getAttribute("score").toFloat() else 0.0f
         return RunInfo(
             id = id,
             isAccepted = "AC" == result,
