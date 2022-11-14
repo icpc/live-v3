@@ -1,4 +1,4 @@
-import _, { map } from "lodash";
+import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -99,20 +99,22 @@ const mapNumber = (value, oldMin, oldMax, newMin, newMax) => {
 // Green color: #1B8041, RGB(27, 128, 65) (VERDICT_OK)
 // Red color: #881f1b, RGB(136, 31, 27) (VERDICT_NOK)
 const getTeamTaskColor = (status, score, minScore, maxScore) => {
-    console.log(status, score, minScore, maxScore);
     if(status === TeamTaskStatus.solved || status === TeamTaskStatus.first || status === TeamTaskStatus.failed) {
+        const [ minRed, minGreen, minBlue ] = [136, 31, 27];
+        const [ maxRed, maxGreen, maxBlue ] = [27, 128, 65];
+
         const scoreDiff = maxScore - minScore;
-        const redDiff = 27 - 136;
-        const greenDiff = 128 - 31;
-        const blueDiff = 65 - 27;
+        const redDiff = maxRed - minRed;
+        const greenDiff = maxGreen - minGreen;
+        const blueDiff = maxBlue - minBlue;
 
         const middleRange = mapNumber(score, minScore, maxScore, 0, Math.PI);
         const middleFactor = 90;
 
         const [ red, green, blue ] = [
-            Math.min(136 + score * (redDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
-            Math.min(31 + score * (greenDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
-            Math.min(27 + score * (blueDiff / scoreDiff) + ((middleFactor * Math.sin(middleRange)) / 10), 255)
+            Math.min(minRed + score * (redDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
+            Math.min(minGreen + score * (greenDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
+            Math.min(minBlue + score * (blueDiff / scoreDiff) + ((middleFactor * Math.sin(middleRange)) / 10), 255)
         ];
 
         return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1, 7)}`;
