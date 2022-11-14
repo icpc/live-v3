@@ -22,7 +22,7 @@ import { DEBUG } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
-import { getIOIFractionDigits } from "../../atoms/ContestCells";
+import { formatScore } from "../../atoms/ContestCells";
 
 
 const ScoreboardWrap = styled.div`
@@ -132,7 +132,7 @@ const ScoreboardICPCTaskCell = ({ status, attempts }) => {
 const ScoreboardIOITaskCell = ({ status, score, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
-        {score.toFixed(getIOIFractionDigits(score))}
+        {formatScore(score)}
         {status !== TeamTaskStatus.untouched && attempts > 0 && ` (${attempts})`}
     </ScoreboardTaskCellWrap>;
 };
@@ -193,7 +193,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
             width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)}
             canGrow={nameGrows ?? false} canShrink={nameGrows ?? false}/>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData === null ? null : scoreboardData.totalScore.toFixed(getIOIFractionDigits(scoreboardData.totalScore))}
+            {scoreboardData === null ? null : formatScore(scoreboardData.totalScore)}
         </ScoreboardStatCell>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData?.penalty}

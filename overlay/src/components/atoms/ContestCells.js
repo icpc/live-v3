@@ -14,8 +14,8 @@ import {
 import { Cell } from "./Cell";
 import { StarIcon } from "./Star";
 
-export const getIOIFractionDigits = (score, digits = 2) => {
-    return (score - Math.floor(score)) > 0 ? digits : 0;
+export const formatScore = (score, digits = 2) => {
+    return score.toFixed((score - Math.floor(score)) > 0 ? digits : 0);
 };
 
 export const ProblemCellWrap = styled(Cell)`
@@ -76,7 +76,7 @@ const VerdictCellIOI = ({ data, props }) => {
     >
         {data.isFirstToSolve || data.isFirstSolvedRun && <StarIcon/>}
         {data.percentage !== 0 && !data.isJudged && <VerdictCellProgressBar width={data.percentage * 100 + "%"}/>}
-        {data.isJudged && data.score.toFixed(getIOIFractionDigits(data.score, 1))}
+        {data.isJudged && formatScore(data.score, 1)}
     </VerdictCellWrap>;
 };
 

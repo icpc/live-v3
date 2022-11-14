@@ -13,7 +13,7 @@ import {
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TextShrinkingCell, VerdictCell } from "../../atoms/ContestCells";
-import { getIOIFractionDigits } from "../../atoms/ContestCells";
+import { formatScore } from "../../atoms/ContestCells";
 
 
 const QueueRowWrap = styled.div`
@@ -33,7 +33,7 @@ export const QueueRow = ({ entryData, isEven, flash }) => {
             medal={scoreboardData?.medalType} flash={flash}/>
         <TextShrinkingCell text={teamData?.shortName ?? "??"} isEven={isEven} flash={flash}/>
         <Cell width={CELL_QUEUE_TOTAL_SCORE_WIDTH} isEven={isEven} flash={flash}>
-            {scoreboardData === null ? "??" : scoreboardData.totalScore.toFixed(getIOIFractionDigits(scoreboardData?.totalScore, 1))}
+            {scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore, 1)}
         </Cell>
         <ProblemCell probData={probData} width={CELL_QUEUE_TASK_WIDTH} isEven={isEven} flash={flash}/>
         <VerdictCell verdict={entryData} width={CELL_QUEUE_VERDICT_WIDTH} isEven={isEven} flash={flash}/>
