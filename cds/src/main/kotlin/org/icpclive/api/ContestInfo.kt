@@ -180,7 +180,9 @@ data class ContestInfo(
     val emulationSpeed: Double = 1.0,
     val medals: List<MedalType> = emptyList(),
     val penaltyPerWrongAttempt: Int = 20,
-    val penaltyRoundingMode: PenaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+    val penaltyRoundingMode: PenaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
+    val minScore: Float = 0.0f,
+    val maxScore: Float = 1.0f,
 ) {
     val currentContestTime
         get() = when (status) {

@@ -33,7 +33,7 @@ export const QueueRow = ({ entryData, isEven, flash }) => {
             medal={scoreboardData?.medalType} flash={flash}/>
         <TextShrinkingCell text={teamData?.shortName ?? "??"} isEven={isEven} flash={flash}/>
         <Cell width={CELL_QUEUE_TOTAL_SCORE_WIDTH} isEven={isEven} flash={flash}>
-            {scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore, 1)}
+            {scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0, 1)}
         </Cell>
         <ProblemCell probData={probData} width={CELL_QUEUE_TASK_WIDTH} isEven={isEven} flash={flash}/>
         <VerdictCell verdict={entryData} width={CELL_QUEUE_VERDICT_WIDTH} isEven={isEven} flash={flash}/>

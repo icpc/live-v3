@@ -29,6 +29,8 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
     private val resultType = ContestResultType.valueOf(
         properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "BINARY"
     )
+    private val minScore: Float = properties.getProperty("standings.minScore", "0.0").toFloat()
+    private val maxScore: Float = properties.getProperty("standings.maxScore", "1.0").toFloat()
     val runIds = mutableMapOf<String, Int>()
     val teamIds = mutableMapOf<String, Int>()
     var startTime = Instant.fromEpochMilliseconds(0)
@@ -90,6 +92,8 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                 freezeTime,
                 problems,
                 teamsAndRuns.map { it.first }.sortedBy { it.id },
+                minScore = minScore,
+                maxScore = maxScore
             ),
             teamsAndRuns.flatMap { it.second },
             emptyList()

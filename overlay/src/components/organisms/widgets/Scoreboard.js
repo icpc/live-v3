@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { map } from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -86,12 +86,40 @@ const TeamTaskSymbol = Object.freeze({
 });
 
 const TeamTaskColor = Object.freeze({
-    [TeamTaskStatus.solved]: VERDICT_OK,
-    [TeamTaskStatus.failed]: VERDICT_NOK,
     [TeamTaskStatus.untouched]: undefined,
     [TeamTaskStatus.unknown]: VERDICT_UNKNOWN,
     [TeamTaskStatus.first]: VERDICT_OK,
 });
+
+const mapNumber = (value, oldMin, oldMax, newMin, newMax) => {
+    const result = (value - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
+    return Math.min(Math.max(result, newMin), newMax);
+};
+
+// Green color: #1B8041, RGB(27, 128, 65) (VERDICT_OK)
+// Red color: #881f1b, RGB(136, 31, 27) (VERDICT_NOK)
+const getTeamTaskColor = (status, score, minScore, maxScore) => {
+    console.log(status, score, minScore, maxScore);
+    if(status === TeamTaskStatus.solved || status === TeamTaskStatus.first || status === TeamTaskStatus.failed) {
+        const scoreDiff = maxScore - minScore;
+        const redDiff = 27 - 136;
+        const greenDiff = 128 - 31;
+        const blueDiff = 65 - 27;
+
+        const middleRange = mapNumber(score, minScore, maxScore, 0, Math.PI);
+        const middleFactor = 90;
+
+        const [ red, green, blue ] = [
+            Math.min(136 + score * (redDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
+            Math.min(31 + score * (greenDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
+            Math.min(27 + score * (blueDiff / scoreDiff) + ((middleFactor * Math.sin(middleRange)) / 10), 255)
+        ];
+
+        return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1, 7)}`;
+    }
+
+    return TeamTaskColor[status];
+};
 
 function getStatusICPC(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
@@ -122,15 +150,15 @@ function getStatusIOI(isFirstToSolve, score, pendingAttempts, wrongAttempts) {
 }
 
 const ScoreboardICPCTaskCell = ({ status, attempts }) => {
-    return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
+    return <ScoreboardTaskCellWrap background={getTeamTaskColor(status, (status === TeamTaskStatus.solved || status === TeamTaskStatus.first) ? 1 : 0, 0, 1)}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {TeamTaskSymbol[status]}
         {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
     </ScoreboardTaskCellWrap>;
 };
 
-const ScoreboardIOITaskCell = ({ status, score, attempts }) => {
-    return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
+const ScoreboardIOITaskCell = ({ status, score, attempts, minScore, maxScore }) => {
+    return <ScoreboardTaskCellWrap background={getTeamTaskColor(status, score, minScore, maxScore)}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {formatScore(score)}
         {status !== TeamTaskStatus.untouched && attempts > 0 && ` (${attempts})`}
@@ -145,14 +173,16 @@ ScoreboardICPCTaskCell.propTypes = {
 ScoreboardIOITaskCell.propTypes = {
     status: PropTypes.oneOf(Object.values(TeamTaskStatus)),
     score: PropTypes.number,
-    attempts: PropTypes.number
+    attempts: PropTypes.number,
+    minScore: PropTypes.number,
+    maxScore: PropTypes.number
 };
 
-const RenderScoreboardTaskCell = ({ data }) => {
+const RenderScoreboardTaskCell = ({ data, ...props }) => {
     if(data.type === "icpc") {
-        return <ScoreboardICPCTaskCell status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts}/>;
+        return <ScoreboardICPCTaskCell status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts} {...props} />;
     } else {
-        return <ScoreboardIOITaskCell status={getStatusIOI(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;
+        return <ScoreboardIOITaskCell status={getStatusIOI(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts} {...props} />;
     }
 };
 
@@ -185,6 +215,7 @@ const ScoreboardHeaderProblemCell = styled(ProblemCell)`
 
 export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenWidth, nameGrows, optimismLevel }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
+    const contestData = useSelector((state) => state.contestInfo.info);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     return <ScoreboardRowContainer>
         <RankCell rank={scoreboardData?.rank} medal={scoreboardData?.medalType}
@@ -199,7 +230,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
             {scoreboardData?.penalty}
         </ScoreboardStatCell>
         {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) =>
-            <RenderScoreboardTaskCell key={i}  data={resultsData} />
+            <RenderScoreboardTaskCell key={i}  data={resultsData} minScore={contestData?.minScore} maxScore={contestData?.maxScore} />
         )}
     </ScoreboardRowContainer>;
 };
