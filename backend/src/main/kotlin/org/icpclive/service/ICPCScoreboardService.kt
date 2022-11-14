@@ -86,7 +86,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE -> EachSubmissionDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
             PenaltyRoundingMode.SUM_DOWN_TO_MINUTE -> SumDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
         }
-        var solved = 0
+        var solved = 0.0f
         var lastAccepted = 0L
         val runsByProblem = runs.groupBy { it.problemId }
         val problemResults = problems.map { problem ->
@@ -102,7 +102,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                 }
             }
 
-            val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0
+            val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0.0f
 
             return@map when(resultType) {
                 ContestResultType.ICPC -> ICPCProblemResult(

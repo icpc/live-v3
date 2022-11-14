@@ -22,7 +22,6 @@ class ClicsRunInfo(
         isJudged = judgementType != null,
         isAddingPenalty = judgementType?.isAddingPenalty ?: false,
         result = judgementType?.verdict ?: "",
-        score = 0,
         problemId = liveProblemId,
         teamId = teamId,
         percentage = when (problem.test_data_count) {

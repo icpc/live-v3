@@ -89,7 +89,6 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
                 isJudged = "" != result,
                 isAddingPenalty = "AC" != result && "CE" != result,
                 result = result,
-                score = 0,
                 problemId = it.Problem,
                 teamId = teams[it.Login]?.id ?: -1,
                 percentage = if ("" == result) 0.0 else 1.0,

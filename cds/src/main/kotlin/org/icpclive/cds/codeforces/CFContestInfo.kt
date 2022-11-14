@@ -92,7 +92,6 @@ class CFContestInfo {
                             it.passedTestCount != 0,
                     isJudged = verdict != CFSubmissionVerdict.TESTING,
                     result = verdictToString[verdict]!!,
-                    score = 0,
                     problemId = problemId,
                     teamId = participantsByName[getName(it.author)]!!.id,
                     percentage = it.passedTestCount.toDouble() / problemTests,

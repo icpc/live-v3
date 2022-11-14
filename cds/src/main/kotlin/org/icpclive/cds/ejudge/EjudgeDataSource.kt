@@ -122,7 +122,6 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
             isJudged = "" != result,
             isAddingPenalty = "AC" != result && "CE" != result,
             result = result,
-            score = 0,
             problemId = element.getAttribute("prob_id").toInt(),
             teamId = teamId,
             percentage = percentage,

@@ -12,7 +12,7 @@ data class RunInfo constructor(
     val isAddingPenalty: Boolean,
     val resultType: ContestResultType = ContestResultType.ICPC,
     val result: String,
-    val score: Int,
+    val score: Float = 0.0f,
     val problemId: Int,
     val teamId: Int,
     val percentage: Double,

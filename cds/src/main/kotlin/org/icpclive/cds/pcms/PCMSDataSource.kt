@@ -13,7 +13,6 @@ import org.icpclive.util.children
 import org.icpclive.util.getCredentials
 import org.icpclive.util.getLogger
 import org.w3c.dom.Element
-import java.io.FileInputStream
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -154,7 +153,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             "yes" == element.getAttribute("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
         }
-        val score = if(resultType == ContestResultType.SCORE) element.getAttribute("score").toInt() else 0
+        val score = if(resultType == ContestResultType.SCORE) element.getAttribute("score").toFloat() else 0.0f
         return RunInfo(
             id = id,
             isAccepted = "AC" == result,

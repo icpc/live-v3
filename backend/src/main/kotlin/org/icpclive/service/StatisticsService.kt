@@ -39,8 +39,8 @@ class StatisticsService {
                                 val resultsCast = results.filterIsInstance<IOIProblemResult>()
                                 return@List ProblemSolutionsStatistic(
                                     resultsCast.count { it.score > 0 },
-                                    resultsCast.count { it.score == 0 && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
-                                    resultsCast.count { it.score == 0 && it.pendingAttempts > 0 },
+                                    resultsCast.count { it.score == 0.0f && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
+                                    resultsCast.count { it.score == 0.0f && it.pendingAttempts > 0 },
                                 )
                             }
                             return@List ProblemSolutionsStatistic(0, 0, 0)

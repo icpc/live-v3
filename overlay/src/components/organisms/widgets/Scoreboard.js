@@ -22,6 +22,7 @@ import { DEBUG } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
+import { getIOIFractionDigits } from "../../atoms/ContestCells";
 
 
 const ScoreboardWrap = styled.div`
@@ -92,6 +93,34 @@ const TeamTaskColor = Object.freeze({
     [TeamTaskStatus.first]: VERDICT_OK,
 });
 
+function getStatusICPC(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
+    if (isFirstToSolve) {
+        return TeamTaskStatus.first;
+    } else if (isSolved) {
+        return TeamTaskStatus.solved;
+    } else if (pendingAttempts > 0) {
+        return TeamTaskStatus.unknown;
+    } else if (wrongAttempts > 0) {
+        return TeamTaskStatus.failed;
+    } else {
+        return TeamTaskStatus.untouched;
+    }
+}
+
+function getStatusIOI(isFirstToSolve, score, pendingAttempts, wrongAttempts) {
+    if (isFirstToSolve) {
+        return TeamTaskStatus.first;
+    } else if (score > 0) {
+        return TeamTaskStatus.solved;
+    } else if (pendingAttempts > 0) {
+        return TeamTaskStatus.unknown;
+    } else if (wrongAttempts > 0) {
+        return TeamTaskStatus.failed;
+    } else {
+        return TeamTaskStatus.untouched;
+    }
+}
+
 const ScoreboardICPCTaskCell = ({ status, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
@@ -103,7 +132,7 @@ const ScoreboardICPCTaskCell = ({ status, attempts }) => {
 const ScoreboardIOITaskCell = ({ status, score, attempts }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
-        {TeamTaskStatus === TeamTaskStatus.unknown ? "?" : score}
+        {score.toFixed(getIOIFractionDigits(score))}
         {status !== TeamTaskStatus.untouched && attempts > 0 && ` (${attempts})`}
     </ScoreboardTaskCellWrap>;
 };
@@ -123,7 +152,7 @@ const RenderScoreboardTaskCell = ({ data }) => {
     if(data.type === "icpc") {
         return <ScoreboardICPCTaskCell status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts}/>;
     } else {
-        return <ScoreboardIOITaskCell status={getStatusScore(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;
+        return <ScoreboardIOITaskCell status={getStatusIOI(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts}/>;
     }
 };
 
@@ -154,34 +183,6 @@ const ScoreboardHeaderProblemCell = styled(ProblemCell)`
   position: relative;
 `;
 
-function getStatusICPC(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
-    if (isFirstToSolve) {
-        return TeamTaskStatus.first;
-    } else if (isSolved) {
-        return TeamTaskStatus.solved;
-    } else if (pendingAttempts > 0) {
-        return TeamTaskStatus.unknown;
-    } else if (wrongAttempts > 0) {
-        return TeamTaskStatus.failed;
-    } else {
-        return TeamTaskStatus.untouched;
-    }
-}
-
-function getStatusScore(isFirstToSolve, score, pendingAttempts, wrongAttempts) {
-    if (isFirstToSolve) {
-        return TeamTaskStatus.first;
-    } else if (score > 0) {
-        return TeamTaskStatus.solved;
-    } else if (pendingAttempts > 0) {
-        return TeamTaskStatus.unknown;
-    } else if (wrongAttempts > 0) {
-        return TeamTaskStatus.failed;
-    } else {
-        return TeamTaskStatus.untouched;
-    }
-}
-
 export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenWidth, nameGrows, optimismLevel }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
@@ -192,7 +193,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
             width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)}
             canGrow={nameGrows ?? false} canShrink={nameGrows ?? false}/>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData?.totalScore}
+            {scoreboardData === null ? null : scoreboardData.totalScore.toFixed(getIOIFractionDigits(scoreboardData.totalScore))}
         </ScoreboardStatCell>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData?.penalty}

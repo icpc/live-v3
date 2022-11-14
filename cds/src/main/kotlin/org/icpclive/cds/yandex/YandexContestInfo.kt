@@ -44,7 +44,6 @@ class YandexContestInfo private constructor(
                 isJudged = false,
                 isAddingPenalty = false,
                 result = "",
-                score = 0,
                 problemId = problemId,
                 teamId = submission.authorId.toInt(),
                 percentage = 0.0,
@@ -59,7 +58,6 @@ class YandexContestInfo private constructor(
             isJudged = result != "",
             isAddingPenalty = result !in listOf("OK", "CE", ""),
             result = result,
-            score = 0,
             problemId = problemId,
             teamId = submission.authorId.toInt(),
             percentage = when {
