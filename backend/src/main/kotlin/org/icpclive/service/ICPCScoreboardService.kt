@@ -102,7 +102,21 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                 }
             }
 
-            val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0.0f
+            var maxScore = 0.0f
+            var difference = 0.0f
+            if(resultType == ContestResultType.IOI && problemRuns.isNotEmpty()) {
+                // I don't want to make sort since we only need 2 max numbers
+                var secondScore = 0.0f
+                for(run in problemRuns) {
+                    if(maxScore < run.score) {
+                        secondScore = maxScore
+                        maxScore = run.score
+                    } else if(secondScore < run.score) {
+                        secondScore = run.score
+                    }
+                }
+                difference = maxScore - secondScore
+            }
 
             return@map when(resultType) {
                 ContestResultType.ICPC -> ICPCProblemResult(
@@ -122,6 +136,7 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                     runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
                     runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                     maxScore,
+                    difference,
                     okRun?.isFirstSolvedRun == true,
                     (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
                 ).also {

@@ -48,7 +48,7 @@ const VerdictCellWrap = styled(Cell)`
   position: relative;
 `;
 
-const VerdictCellICPC = ({ data, props }) => {
+const VerdictCellICPC = ({ data, ...props }) => {
     return <VerdictCellWrap
         background=
             {data.isJudged ?
@@ -66,22 +66,23 @@ VerdictCellICPC.PropTypes = {
     data: PropTypes.object
 };
 
-const VerdictCellIOI = ({ data, props }) => {
+const VerdictCellIOI = ({ data, difference, ...props }) => {
     return <VerdictCellWrap
         background=
             {data.isJudged ?
-                data.score > 0 ? VERDICT_OK : VERDICT_NOK
+                difference > 0 ? VERDICT_OK : VERDICT_UNKNOWN
                 : undefined}
         {...props}
     >
         {data.isFirstToSolve || data.isFirstSolvedRun && <StarIcon/>}
         {data.percentage !== 0 && !data.isJudged && <VerdictCellProgressBar width={data.percentage * 100 + "%"}/>}
-        {data.isJudged && formatScore(data.score, 1)}
+        {data.isJudged && (difference > 0 ? `+${formatScore(difference, 1)}` : "=")}
     </VerdictCellWrap>;
 };
 
 VerdictCellIOI.PropTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
+    difference: PropTypes.number
 };
 
 export const VerdictCell = ({
@@ -89,9 +90,9 @@ export const VerdictCell = ({
     ...props
 }) => {
     if(data.resultType === "ICPC") {
-        return <VerdictCellICPC data={data} props={props} />;
+        return <VerdictCellICPC data={data} {...props} />;
     } else {
-        return <VerdictCellIOI data={data} props={props} />;
+        return <VerdictCellIOI data={data} {...props} />;
     }
 };
 
