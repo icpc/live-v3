@@ -86,6 +86,8 @@ const TeamTaskSymbol = Object.freeze({
 });
 
 const TeamTaskColor = Object.freeze({
+    [TeamTaskStatus.solved]: VERDICT_OK,
+    [TeamTaskStatus.failed]: VERDICT_NOK,
     [TeamTaskStatus.untouched]: undefined,
     [TeamTaskStatus.unknown]: VERDICT_UNKNOWN,
     [TeamTaskStatus.first]: VERDICT_OK,
@@ -152,7 +154,7 @@ function getStatusIOI(isFirstToSolve, score, pendingAttempts, wrongAttempts) {
 }
 
 const ScoreboardICPCTaskCell = ({ status, attempts }) => {
-    return <ScoreboardTaskCellWrap background={getTeamTaskColor(status, (status === TeamTaskStatus.solved || status === TeamTaskStatus.first) ? 1 : 0, 0, 1)}>
+    return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {TeamTaskSymbol[status]}
         {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
