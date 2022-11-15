@@ -228,9 +228,9 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData === null ? null : formatScore(scoreboardData.totalScore)}
         </ScoreboardStatCell>
-        <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
+        {contestData?.resultType === "ICPC" && <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData?.penalty}
-        </ScoreboardStatCell>
+        </ScoreboardStatCell>}
         {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) =>
             <RenderScoreboardTaskCell key={i}  data={resultsData} minScore={contestData?.minScore} maxScore={contestData?.maxScore} />
         )}
@@ -242,6 +242,8 @@ ScoreboardRow.propTypes = {
 };
 
 const ScoreboardHeader = ({ problems, rowHeight, name }) => {
+    const contestInfo = useSelector((state) => state.contestInfo.info);
+
     let color = SCOREBOARD_HEADER_TITLE_BG_COLOR;
     if (name === "optimistic") {
         color = SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR;
@@ -249,7 +251,7 @@ const ScoreboardHeader = ({ problems, rowHeight, name }) => {
     return <ScoreboardHeaderWrap rowHeight={rowHeight}>
         <ScoreboardHeaderTitle color={color}>{nameTable[name]} STANDINGS</ScoreboardHeaderTitle>
         <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
-        <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>
+        {contestInfo?.resultType === "ICPC" && <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>}
         {problems && problems.map((probData) =>
             <ScoreboardHeaderProblemCell key={probData.name} probData={probData} canGrow={true} canShrink={true}
                 basis={"100%"}/>
