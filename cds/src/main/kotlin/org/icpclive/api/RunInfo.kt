@@ -13,6 +13,7 @@ data class RunInfo constructor(
     val resultType: ContestResultType = ContestResultType.ICPC,
     val result: String,
     val score: Float = 0.0f,
+    val difference: Float = 0.0f,
     val problemId: Int,
     val teamId: Int,
     val percentage: Double,

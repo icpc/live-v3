@@ -29,9 +29,6 @@ export const QueueRow = ({ entryData, isEven, flash }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[entryData.teamId]);
     const probData = useSelector((state) => state.contestInfo.info?.problemsId[entryData.problemId]);
 
-    const result = scoreboardData?.problemResults[entryData.problemId] ?? null;
-    const difference = result?.difference ?? 0.0;
-
     return <QueueRowWrap>
         <RankCell width={CELL_QUEUE_RANK_WIDTH} isEven={isEven} rank={scoreboardData?.rank}
             medal={scoreboardData?.medalType} flash={flash}/>
@@ -40,7 +37,7 @@ export const QueueRow = ({ entryData, isEven, flash }) => {
             {scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
         </Cell>
         <ProblemCell probData={probData} width={CELL_QUEUE_TASK_WIDTH} isEven={isEven} flash={flash}/>
-        <VerdictCell verdict={entryData} width={CELL_QUEUE_VERDICT_WIDTH} isEven={isEven} flash={flash} difference={difference}/>
+        <VerdictCell verdict={entryData} width={CELL_QUEUE_VERDICT_WIDTH} isEven={isEven} flash={flash} />
     </QueueRowWrap>;
 };
 

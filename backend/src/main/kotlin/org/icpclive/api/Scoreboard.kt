@@ -40,7 +40,6 @@ data class IOIProblemResult(
     val wrongAttempts: Int,
     val pendingAttempts: Int,
     val score: Float,
-    val difference: Float,
     val isFirstToSolve: Boolean,
     @SerialName("lastSubmitTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
