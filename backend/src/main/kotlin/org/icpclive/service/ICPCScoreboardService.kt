@@ -102,33 +102,37 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                 }
             }
 
-            val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0.0f
-
             return@map when(resultType) {
-                ContestResultType.ICPC -> ICPCProblemResult(
-                    runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
-                    runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
-                    okRun != null,
-                    okRun?.isFirstSolvedRun == true,
-                    (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
-                ).also {
-                    if (it.isSolved) {
-                        solved++
-                        penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
-                        lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+                ContestResultType.ICPC -> {
+                    ICPCProblemResult(
+                        runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
+                        runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
+                        okRun != null,
+                        okRun?.isFirstSolvedRun == true,
+                        (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
+                    ).also {
+                        if (it.isSolved) {
+                            solved++
+                            penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
+                            lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+                        }
                     }
                 }
-                ContestResultType.IOI -> IOIProblemResult(
-                    runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
-                    runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
-                    maxScore,
-                    okRun?.isFirstSolvedRun == true,
-                    (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
-                ).also {
-                    if (it.score > 0) {
-                        solved += it.score
-                        penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
-                        lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+                ContestResultType.IOI -> {
+                    val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0.0f
+
+                    IOIProblemResult(
+                        runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
+                        runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
+                        maxScore,
+                        okRun?.isFirstSolvedRun == true,
+                        (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
+                    ).also {
+                        if (it.score > 0) {
+                            solved += it.score
+                            penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
+                            lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+                        }
                     }
                 }
             }

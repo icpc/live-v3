@@ -18,32 +18,27 @@ class StatisticsService {
                     SolutionsStatistic(List(problemNumber) { ProblemSolutionsStatistic(0, 0, 0) })
                 } else {
                     SolutionsStatistic(
-                        List(scoreboard.rows[0].problemResults.size) { problem ->
-                            val results = buildList {
-                                for(row in scoreboard.rows) {
-                                    when(row.problemResults[problem]) {
-                                        is ICPCProblemResult -> add(row.problemResults[problem] as ICPCProblemResult)
-                                        is IOIProblemResult -> add(row.problemResults[problem] as IOIProblemResult)
+                        List(scoreboard.rows[0].problemResults.size) { problemId ->
+                            var success = 0
+                            var wrong = 0
+                            var pending = 0
+
+                            for(row in scoreboard.rows) {
+                                when(val p = row.problemResults[problemId]) {
+                                    is ICPCProblemResult -> {
+                                        success += if (p.isSolved) 1 else 0
+                                        wrong += if (!p.isSolved && p.wrongAttempts > 0 && p.pendingAttempts == 0) 1 else 0
+                                        pending += if (!p.isSolved && p.pendingAttempts > 0) 1 else 0
+                                    }
+                                    is IOIProblemResult -> {
+                                        success += if (p.score > 0) 1 else 0
+                                        wrong += if (p.score == 0.0f && p.wrongAttempts > 0 && p.pendingAttempts == 0) 1 else 0
+                                        pending += if (p.score == 0.0f && p.pendingAttempts > 0) 1 else 0
                                     }
                                 }
                             }
 
-                            if(results[0] is ICPCProblemResult) {
-                                val resultsCast = results.filterIsInstance<ICPCProblemResult>()
-                                return@List ProblemSolutionsStatistic(
-                                    resultsCast.count { it.isSolved },
-                                    resultsCast.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
-                                    resultsCast.count { !it.isSolved && it.pendingAttempts > 0 },
-                                )
-                            } else if(results[0] is IOIProblemResult) {
-                                val resultsCast = results.filterIsInstance<IOIProblemResult>()
-                                return@List ProblemSolutionsStatistic(
-                                    resultsCast.count { it.score > 0 },
-                                    resultsCast.count { it.score == 0.0f && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
-                                    resultsCast.count { it.score == 0.0f && it.pendingAttempts > 0 },
-                                )
-                            }
-                            return@List ProblemSolutionsStatistic(0, 0, 0)
+                            return@List ProblemSolutionsStatistic(success, wrong, pending)
                         }
                     )
                 }
