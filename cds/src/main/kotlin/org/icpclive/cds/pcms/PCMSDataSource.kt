@@ -1,5 +1,6 @@
 package org.icpclive.cds.pcms
 
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
@@ -25,6 +26,11 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         properties.getProperty("url")
     }
 
+    private val resultType = ContestResultType.valueOf(
+        properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "ICPC"
+    )
+    private val minScore: Float = properties.getProperty("standings.minScore", "0.0").toFloat()
+    private val maxScore: Float = properties.getProperty("standings.maxScore", "1.0").toFloat()
     val runIds = mutableMapOf<String, Int>()
     val teamIds = mutableMapOf<String, Int>()
     var startTime = Instant.fromEpochMilliseconds(0)
@@ -34,6 +40,16 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
     override suspend fun loadOnce() = parseAndUpdateStandings(dataLoader.loadOnce().documentElement)
     private fun parseAndUpdateStandings(element: Element) = parseContestInfo(element.child("contest"))
 
+    private fun loadCustomProblems() : Element {
+        val problemsUrl = properties.getProperty("problems.url")
+        val problemsLoader = xmlLoaderService { problemsUrl }
+
+        // TODO: Async loading
+        return runBlocking {
+            problemsLoader.loadOnce().documentElement
+        }
+    }
+
     private fun parseContestInfo(element: Element) : ContestParseResult {
         val status = ContestStatus.valueOf(element.getAttribute("status").uppercase(Locale.getDefault()))
         val contestTime = element.getAttribute("time").toLong().milliseconds
@@ -41,8 +57,14 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         if (status == ContestStatus.RUNNING && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
-        val problems = element
-            .child("challenge")
+
+        var problemsElement = element.child("challenge")
+
+        if(properties.containsKey("problems.url")) {
+            problemsElement = loadCustomProblems()
+        }
+
+        val problems = problemsElement
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
@@ -53,6 +75,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     index
                 )
             }.toList()
+
         val teamsAndRuns = element
             .children("session")
             .map { parseTeamInfo(it, problems, contestTime) }
@@ -63,11 +86,14 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         return ContestParseResult(
             ContestInfo(
                 status,
+                resultType,
                 startTime,
                 contestLength,
                 freezeTime,
                 problems,
                 teamsAndRuns.map { it.first }.sortedBy { it.id },
+                minScore = minScore,
+                maxScore = maxScore
             ),
             teamsAndRuns.flatMap { it.second },
             emptyList()
@@ -131,12 +157,15 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             "yes" == element.getAttribute("accepted") -> "AC"
             else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
         }
+        val score = if(resultType == ContestResultType.IOI) element.getAttribute("score").toFloat() else 0.0f
         return RunInfo(
             id = id,
             isAccepted = "AC" == result,
             isJudged = percentage >= 1.0,
             isAddingPenalty = "AC" != result && "CE" != result,
+            resultType = resultType,
             result = result,
+            score = score,
             problemId = problemId,
             teamId = teamId,
             percentage = percentage,

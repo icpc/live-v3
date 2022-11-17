@@ -104,6 +104,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
                     time < 5.hours -> ContestStatus.RUNNING
                     else -> ContestStatus.OVER
                 },
+                resultType = ContestResultType.ICPC,
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,

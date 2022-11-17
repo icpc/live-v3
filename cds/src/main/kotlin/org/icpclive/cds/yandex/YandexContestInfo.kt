@@ -77,6 +77,7 @@ class YandexContestInfo private constructor(
 
     fun toApi() = ContestInfo(
         status = deduceStatus(startTime, duration),
+        resultType = ContestResultType.ICPC,
         startTime = startTime,
         contestLength = duration,
         freezeTime = freezeTime,

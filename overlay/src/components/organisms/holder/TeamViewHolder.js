@@ -10,6 +10,7 @@ import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
+import { formatScore } from "../../atoms/ContestCells";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -163,7 +164,7 @@ export const TeamInfo = ({ teamId }) => {
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
-            {scoreboardData?.totalScore}
+            {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
         <ScoreboardStatCell>
             {scoreboardData?.penalty}

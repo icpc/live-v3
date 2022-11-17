@@ -18,14 +18,27 @@ class StatisticsService {
                     SolutionsStatistic(List(problemNumber) { ProblemSolutionsStatistic(0, 0, 0) })
                 } else {
                     SolutionsStatistic(
-                        List(scoreboard.rows[0].problemResults.size) { problem ->
-                            val results =
-                                scoreboard.rows.asSequence().map { it.problemResults[problem] as ICPCProblemResult }
-                            ProblemSolutionsStatistic(
-                                results.count { it.isSolved },
-                                results.count { !it.isSolved && it.wrongAttempts > 0 && it.pendingAttempts == 0 },
-                                results.count { !it.isSolved && it.pendingAttempts > 0 },
-                            )
+                        List(scoreboard.rows[0].problemResults.size) { problemId ->
+                            var success = 0
+                            var wrong = 0
+                            var pending = 0
+
+                            for(row in scoreboard.rows) {
+                                when(val p = row.problemResults[problemId]) {
+                                    is ICPCProblemResult -> {
+                                        success += if (p.isSolved) 1 else 0
+                                        wrong += if (!p.isSolved && p.wrongAttempts > 0 && p.pendingAttempts == 0) 1 else 0
+                                        pending += if (!p.isSolved && p.pendingAttempts > 0) 1 else 0
+                                    }
+                                    is IOIProblemResult -> {
+                                        success += if (p.score > 0) 1 else 0
+                                        wrong += if (p.score == 0.0f && p.wrongAttempts > 0 && p.pendingAttempts == 0) 1 else 0
+                                        pending += if (p.score == 0.0f && p.pendingAttempts > 0) 1 else 0
+                                    }
+                                }
+                            }
+
+                            return@List ProblemSolutionsStatistic(success, wrong, pending)
                         }
                     )
                 }

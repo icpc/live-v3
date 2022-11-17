@@ -68,6 +68,7 @@ class EmulationAdapter(
                             isAccepted = false,
                             isAddingPenalty = false,
                             result = "",
+                            score = 0.0f
                         )
                         add(Event(run.time + timeShift.milliseconds) { runsFlow.emit(submittedRun) })
                         percentage += Random.nextDouble(1.0)

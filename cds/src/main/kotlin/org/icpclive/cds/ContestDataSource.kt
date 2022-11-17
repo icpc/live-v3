@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
+import org.icpclive.cds.adapters.DifferenceAdapter
 import org.icpclive.cds.adapters.EmulationAdapter
 import org.icpclive.cds.adapters.FirstToSolveAdapter
 import org.icpclive.cds.clics.ClicsDataSource
@@ -62,7 +63,8 @@ abstract class FullReloadContestDataSource(val interval: Duration) : ContestData
 fun getContestDataSource(
     properties: Properties,
     creds: Map<String, String> = emptyMap(),
-    calculateFTS: Boolean = true
+    calculateFTS: Boolean = true,
+    calculateDifference: Boolean = true
 ) : ContestDataSource {
     val loader = when (val standingsType = properties.getProperty("standings.type")) {
         "CLICS" -> ClicsDataSource(properties, creds)
@@ -81,5 +83,9 @@ fun getContestDataSource(
         EmulationAdapter(emulationStartTime, emulationSpeed, loader)
     } else {
         loader
-    }.let { if (calculateFTS) FirstToSolveAdapter(it) else it }
+    }.let {
+        if (calculateFTS) FirstToSolveAdapter(it) else it
+    }.let {
+        if (calculateDifference) DifferenceAdapter(it) else it
+    }
 }
