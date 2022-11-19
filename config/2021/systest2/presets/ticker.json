@@ -1,0 +1,49 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Hello for all"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Excuse us"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "clock",
+        "part": "long",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "hello from Analytics! correct battery horse staple"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 30000,
+        "text": "#icpcdhaka"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "IIT Bombay submitted a solution for K - Wireless is the New Fiber."
+    }
+]

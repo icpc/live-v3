@@ -1,0 +1,92 @@
+[
+    {
+        "preset": "10.svg",
+        "data": {
+            "t": "Arab Academy for Science and Technology - Alexandria"
+        }
+    },
+    {
+        "preset": "22.svg",
+        "data": {
+            "n": "Carnegie Mellon Univ"
+        }
+    },
+    {
+        "preset": "28.svg",
+        "data": {
+            "n": "École Normale Supérieure de Paris"
+        }
+    },
+    {
+        "preset": "31.svg",
+        "data": {
+            "n": "ETH Zürich"
+        }
+    },
+    {
+        "preset": "42.svg",
+        "data": {
+            "n": "Indian Institute of Technology - Kanpur"
+        }
+    },
+    {
+        "preset": "59.svg",
+        "data": {
+            "n": "Massachusetts Institute of Technology"
+        }
+    },
+    {
+        "preset": "63.svg",
+        "data": {
+            "n": "National Research University Higher School of Economics"
+        }
+    },
+    {
+        "preset": "70.svg",
+        "data": {
+            "n": "Peking University"
+        }
+    },
+    {
+        "preset": "75.svg",
+        "data": {
+            "n": "Seoul National University"
+        }
+    },
+    {
+        "preset": "82.svg",
+        "data": {
+            "n": "St. Petersburg State University"
+        }
+    },
+    {
+        "preset": "92.svg",
+        "data": {
+            "n": "The University of Tokyo"
+        }
+    },
+    {
+        "preset": "101.svg",
+        "data": {
+            "n": "Universidad Nacional de Córdoba - FaMAF"
+        }
+    },
+    {
+        "preset": "118.svg",
+        "data": {
+            "t": "University of Engineering and Technology - VNU"
+        }
+    },
+    {
+        "preset": "122.svg",
+        "data": {
+            "t": "University of Oxford"
+        }
+    },
+    {
+        "preset": "127.svg",
+        "data": {
+            "t": "University of Warsaw"
+        }
+    }
+]
