@@ -23,18 +23,20 @@ fun directoryChangesFlow(path: Path) =
                 path.listDirectoryEntries().forEach { emit(it.fileName) }
                 while (true) {
                     val key = watcher.poll(100, TimeUnit.MILLISECONDS)
-                    for (event in key.pollEvents()) {
-                        val kind = event.kind()
-                        if (kind === StandardWatchEventKinds.OVERFLOW) {
-                            path.listDirectoryEntries().forEach { emit(it) }
-                            continue
+                    if (key != null) {
+                        for (event in key.pollEvents()) {
+                            val kind = event.kind()
+                            if (kind === StandardWatchEventKinds.OVERFLOW) {
+                                path.listDirectoryEntries().forEach { emit(it) }
+                                continue
+                            }
+                            @Suppress("UNCHECKED_CAST")
+                            emit((event as WatchEvent<Path>).context())
                         }
-                        @Suppress("UNCHECKED_CAST")
-                        emit((event as WatchEvent<Path>).context())
-                    }
 
-                    if (!key.reset()) {
-                        break
+                        if (!key.reset()) {
+                            break
+                        }
                     }
                 }
             }
