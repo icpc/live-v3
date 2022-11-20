@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.map
 import java.nio.file.Path
 import java.nio.file.StandardWatchEventKinds
 import java.nio.file.WatchEvent
+import java.util.concurrent.TimeUnit
 import kotlin.io.path.listDirectoryEntries
 
 
@@ -21,7 +22,7 @@ fun directoryChangesFlow(path: Path) =
                 )
                 path.listDirectoryEntries().forEach { emit(it.fileName) }
                 while (true) {
-                    val key = watcher.take()
+                    val key = watcher.poll(100, TimeUnit.MILLISECONDS)
                     for (event in key.pollEvents()) {
                         val kind = event.kind()
                         if (kind === StandardWatchEventKinds.OVERFLOW) {
