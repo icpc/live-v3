@@ -55,13 +55,19 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : ContestD
             }
         }
 
+        val participantRegex = Regex(loginPrefix)
 
         contestDescriptionLoader = jsonLoaderService(auth) { "$API_BASE/contests/$contestId" }
-        problemLoader = jsonLoaderService(auth) { "$API_BASE/contests/$contestId/problems" }
-        participantLoader = jsonLoaderService(auth) { "$API_BASE/contests/$contestId/participants" }
-        allSubmissionsLoader = jsonLoaderService(auth) {
-            "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
+        problemLoader = jsonLoaderService<Problems>(auth) { "$API_BASE/contests/$contestId/problems" }.map {
+            it.problems.sortedBy { it.alias }
         }
+        participantLoader =
+            jsonLoaderService<List<Participant>>(auth) { "$API_BASE/contests/$contestId/participants" }.map {
+                it.filter { participant -> participant.login.matches(participantRegex) }
+            }
+        allSubmissionsLoader = jsonLoaderService<Submissions>(auth) {
+            "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
+        }.map { it.submissions.reversed() }
     }
 
     override suspend fun run(
@@ -189,7 +195,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : ContestD
                 pendingRunId = runs.filter { !it.isJudged }.minOfOrNull { it.id } ?: runs.maxOfOrNull { it.id } ?: 0
                 runsBufferFlow.emit(runs)
             } catch (e: IOException) {
-                log.error("Failed to reload rejudges", e)
+                log.error("Failed to reload new runs", e)
             }
             delay(period)
         }

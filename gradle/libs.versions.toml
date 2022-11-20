@@ -17,6 +17,7 @@ clikt = "3.5.0"                    # https://ajalt.github.io/clikt/
 ktor-client-cio        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-cio" }
 ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-auth" }
 ktor-client-websockets = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-websockets" }
+ktor-client-logging    = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-logging" }
 
 ktor-serialization-kotlinx-json = { version.ref = "ktor", group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 
