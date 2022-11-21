@@ -1,12 +1,16 @@
 package org.icpclive.admin
 
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.first
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.icpclive.api.TeamViewPosition
+import org.icpclive.api.toAdvancedProperties
 import org.icpclive.config
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
@@ -74,6 +78,19 @@ fun Route.configureAdminApiRouting() {
 
         route("/users") { setupUserRouting(Controllers.userController) }
         get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }
+        get("/advancedJsonPreview") {
+            val formatter = Json {
+                prettyPrint = true
+                encodeDefaults = false
+            }
+            run {
+                call.respondText(contentType = ContentType.Application.Json) {
+                    formatter.encodeToString(DataBus.contestInfoFlow.await().first().toAdvancedProperties(
+                        call.request.queryParameters["fields"]?.split(",")?.toSet() ?: emptySet()
+                    ))
+                }
+            }
+        }
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }

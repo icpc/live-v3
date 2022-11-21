@@ -33,7 +33,7 @@ class TeamSpotlightServiceTest {
         isJudged: Boolean = true,
         time: kotlin.time.Duration = 0.minutes
     ) =
-        RunInfo(runIdCounter++, isAC, isJudged, !isAC, ContestResultType.ICPC, "", 0, problemId, teamId, 1.0, time, isFts)
+        RunInfo(runIdCounter++, isAC, isJudged, !isAC, ContestResultType.ICPC, "", 0f, 0f, problemId, teamId, 1.0, time, isFts)
 
     private class SimpleTestContext(
         val infoFlow: MutableStateFlow<ContestInfo>,

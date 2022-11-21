@@ -125,10 +125,7 @@ class AdvancedPropertiesAdapter(
             ?.let { catchToNull { guessDatetimeFormat(it) } }
             ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
             ?: info.startTime
-        val holdTimeSeconds = if (overrides.holdTimeSeconds == "null")
-            null
-        else
-            overrides.holdTimeSeconds?.toIntOrNull()?.seconds ?: info.holdBeforeStartTime
+        val holdTimeSeconds = overrides.holdTimeSeconds?.seconds ?: info.holdBeforeStartTime
         val medals = overrides.scoreboardOverrides?.medals ?: info.medals
         val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
         val penaltyRoundingMode = overrides.scoreboardOverrides?.penaltyRoundingMode ?: info.penaltyRoundingMode
