@@ -108,22 +108,9 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
     const [editData, onClickEdit, onSubmitEdit, onChangeField] = usePresetTableRowDataState(data, onEdit);
     const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
 
-    const SpecialShow = ({ preset }) =>
-        (<Button onClick={(e) => {
-            // onClickEdit();
-            const nData = { ...data, settings: { ...data.settings, preset: preset } };
-            onEdit(nData);
-            setTimeout(() => onShow(), 500);
-            // onChangeField("preset")("left.svg");
-            // onClickEdit();
-            // onSubmitEdit(e);
-        }}>{ preset[0] }</Button>);
-
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
             <ShowPresetButton onClick={onShow} active={data.shown}/>
-            <SpecialShow preset={"left.svg"}/>
-            <SpecialShow preset={"right.svg"}/>
         </TableCell>
         <PresetsTableCell value={data.settings.preset} editValue={editData?.settings?.preset} isActive={data.shown}
             onChange={onChangeField("preset")} onSubmit={onSubmitEdit}
@@ -167,7 +154,7 @@ function Title() {
     const { enqueueSnackbar, } = useSnackbar();
     const service = usePresetWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
-        <Container maxWidth="md" sx={{ pt: 2 }} className="Title">
+        <Container maxWidth="lg" sx={{ pt: 2 }} className="Title">
             <PresetsManager
                 service={service}
                 tableKeys={["preset", "data"]}

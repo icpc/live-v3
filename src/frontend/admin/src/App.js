@@ -47,7 +47,7 @@ function App() {
                         <Route path="/controls" element={<Controls/>}/>
                         {/* <Route path="/advertisement" element={<Advertisement/>}/> */}
                         {/* <Route path="/title" element={<Title/>}/> */}
-                        <Route path="/titles" element={<Dashboard elements={title_elements} layout="oneColumn" maxWidth="md"/>}/>
+                        <Route path="/titles" element={<Dashboard elements={title_elements} layout="oneColumn" maxWidth="lg"/>}/>
                         {/* <Route path="/picture" element={<Picture/>}/> */}
                         <Route path="/teamview" element={<TeamView/>}/>
                         <Route path="/teampvp" element={<TeamPVP/>}/>

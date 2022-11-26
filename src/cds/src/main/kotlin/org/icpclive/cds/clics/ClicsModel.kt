@@ -113,13 +113,6 @@ class ClicsModel(
         return emptyList()
     }
 
-    fun processHashTag(tag: String): String {
-        if (tag.isNotEmpty() && tag[0] == '#') {
-            return tag.substring(1)
-        }
-        return tag
-    }
-
     fun processOrganization(id: String, organization: Organization?): List<RunInfo> {
         if (organization == null) {
             organisations.remove(id)
@@ -130,7 +123,7 @@ class ClicsModel(
                 name = organization.name,
                 formalName = organization.formal_name ?: organization.name,
                 logo = organization.logo.lastOrNull()?.href,
-                hashtag = organization.twitter_hashtag?.let { processHashTag(it) }
+                hashtag = organization.twitter_hashtag,
             )
         }
         return emptyList()

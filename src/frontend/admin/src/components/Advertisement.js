@@ -9,7 +9,7 @@ function Advertisement() {
     const { enqueueSnackbar,  } = useSnackbar();
     const service = usePresetWidgetService("/advertisement", errorHandlerWithSnackbar(enqueueSnackbar));
     return (
-        <Container maxWidth="md" sx={{ pt: 2 }}>
+        <Container maxWidth="lg" sx={{ pt: 2 }}>
             <PresetsManager service={service} tableKeys={["text"]}/>
         </Container>
     );
