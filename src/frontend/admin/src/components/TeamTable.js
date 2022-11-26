@@ -99,6 +99,7 @@ TeamViewSettingsPanel.defaultProps = {
         { text: "camera", mediaType: "camera" },
         { text: "screen", mediaType: "screen" },
         { text: "record", mediaType: "record" },
+        { text: "photo", mediaType: "photo" },
         { text: "empty", mediaType: null },
     ]
 };
