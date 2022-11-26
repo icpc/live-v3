@@ -12,6 +12,7 @@ import kotlin.time.Duration.Companion.hours
 
 class ClicsModel(
     val addTeamNames: Boolean,
+    val hiddenGroups: Set<String>
 ) {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
@@ -141,7 +142,7 @@ class ClicsModel(
         } else {
             require(id == team.id)
             teams[id] = team
-            setTeamHidden(team.id, team.is_hidden)
+            setTeamHidden(team.id, team.is_hidden || team.group_ids.any { groups[it]?.name in hiddenGroups })
         }
         return emptyList()
     }
