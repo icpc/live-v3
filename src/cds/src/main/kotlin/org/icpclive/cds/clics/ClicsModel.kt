@@ -11,8 +11,9 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 class ClicsModel(
-    val addTeamNames: Boolean,
-    val hiddenGroups: Set<String>
+    private val addTeamNames: Boolean,
+    private val hiddenGroups: Set<String>,
+    private val mediaBaseUrl: String
 ) {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
@@ -42,12 +43,18 @@ class ClicsModel(
         else -> org
     }
 
+    private fun String.maybeRelative() = when  {
+        startsWith("http://") -> this
+        startsWith("https://") -> this
+        else -> "$mediaBaseUrl/$this"
+    }
+
     private fun Media.mediaType(): MediaType? {
         if (mime.startsWith("image")) {
-            return MediaType.Photo(href)
+            return MediaType.Photo(href.maybeRelative())
         }
         if (mime.startsWith("video")) {
-            return MediaType.Video(href)
+            return MediaType.Video(href.maybeRelative())
         }
         return null
     }
@@ -122,7 +129,7 @@ class ClicsModel(
                 id = organization.id,
                 name = organization.name,
                 formalName = organization.formal_name ?: organization.name,
-                logo = organization.logo.lastOrNull()?.href,
+                logo = organization.logo.lastOrNull()?.href?.maybeRelative(),
                 hashtag = organization.twitter_hashtag,
             )
         }

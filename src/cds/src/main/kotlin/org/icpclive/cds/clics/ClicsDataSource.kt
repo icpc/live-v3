@@ -49,6 +49,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : Cont
     private val model = ClicsModel(
         properties.getProperty("use_team_names", "true") == "true",
         properties.getProperty("hidden_groups", "").split(",").toSet(),
+        properties.getProperty("media_base_url", "")
     )
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
