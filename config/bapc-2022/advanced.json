@@ -1,0 +1,30 @@
+{
+  "teamOverrides": {
+    "7": {
+      "shortname": "UvA: \uD83C\uDDFA\uD83C\uDDF3\uD83C\uDDEE\uD83C\uDDE8\uD83C\uDDF4\u200B\uD83C\uDDE9\uD83C\uDDEA"
+    },
+    "6": {
+      "shortname": "RUG: Balloon Addicts, PC"
+    },
+    "42": {
+      "shortname": "Uni Lu: local bruh moment d."
+    },
+    "5": {
+      "shortname": "Radboud: Bidoof Aron PC"
+    },
+    "11": {
+      "shortname": "VU: std::string name"
+    },
+    "29": {
+      "shortname": "UTwente: Team BBB"
+    }
+  },
+  "scoreboardOverrides": {
+    "medals": [
+      {"name": "gold", "count": 4},
+      {"name": "silver", "count": 4},
+      {"name": "bronze", "count": 4}
+    ]
+  },
+  "holdTimeSeconds": "1000"
+}
