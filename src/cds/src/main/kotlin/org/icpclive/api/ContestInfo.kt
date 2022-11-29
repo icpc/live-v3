@@ -88,8 +88,8 @@ sealed class MediaType {
     data class WebRTCGrabberConnection(
         val url: String,
         val peerName: String,
-        val credential: String?,
         val streamType: String,
+        val credential: String?,
         override val isMedia: Boolean = true
     ) :
         MediaType()
