@@ -92,7 +92,7 @@ const ScoreboardTimeCell = styled(ScoreboardCell)`
   min-width: 40px;
 `;
 
-function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
+export function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
     } else if (isSolved) {
@@ -186,7 +186,7 @@ const TeamVideoWrapper = styled.video`
 `;
 
 
-const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
+const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded }) => {
     const dispatch = useDispatch();
     const videoRef = useRef();
     const rtcRef = useRef();
@@ -230,7 +230,7 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
 };
 
 
-const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus }) => {
+const TeamWebRTCGrabberVideoWrapper = ({ url, peerName, streamType, credential, onLoadStatus }) => {
     const dispatch = useDispatch();
     const socketRef = useRef();
     const videoRef = useRef();
@@ -265,8 +265,8 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
 
             pc.createOffer().then(offer => {
                 pc.setLocalDescription(offer);
-                console.log(`WebRTCSocket send offer to [${peerName}]`);
-                socketRef.current?.emit("offer_name", peerName, offer);
+                console.log(`WebRTCSocket send offer to [${peerName}] ${streamType}`);
+                socketRef.current?.emit("offer_name", peerName, offer, streamType);
             });
 
             pc.addEventListener("icecandidate", (event) => {
@@ -337,15 +337,15 @@ const teamViewComponentRender = {
                 muted/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCFetchConnection: ({ onLoadStatus, url, audioUrl }) => {
+    WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl }) => {
         return <TeamVideoAnimationWrapper>
             {audioUrl && <audio src={audioUrl} onLoad={() => onLoadStatus(true)} autoPlay/>}
-            <TeamWebRTCVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
+            <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCConnection: (props) => {
+    WebRTCGrabberConnection: (props) => {
         return <TeamVideoAnimationWrapper>
-            <TeamWebRTCSocketVideoWrapper {...props}/>
+            <TeamWebRTCGrabberVideoWrapper {...props}/>
         </TeamVideoAnimationWrapper>;
     },
 };

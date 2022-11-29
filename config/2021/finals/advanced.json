@@ -7,7 +7,7 @@
      "url": "/media/achievements/1.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F0"
     },
     "photo": {
@@ -15,7 +15,7 @@
      "url": "/media/team_photos/1.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F1"
     },
     "record": {
@@ -31,7 +31,7 @@
      "url": "/media/achievements/2.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F2"
     },
     "photo": {
@@ -39,7 +39,7 @@
      "url": "/media/team_photos/2.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F3"
     },
     "record": {
@@ -55,7 +55,7 @@
      "url": "/media/achievements/3.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F4"
     },
     "photo": {
@@ -63,7 +63,7 @@
      "url": "/media/team_photos/3.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F5"
     },
     "record": {
@@ -79,7 +79,7 @@
      "url": "/media/achievements/4.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F6"
     },
     "photo": {
@@ -87,7 +87,7 @@
      "url": "/media/team_photos/4.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F7"
     },
     "record": {
@@ -103,7 +103,7 @@
      "url": "/media/achievements/5.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F8"
     },
     "photo": {
@@ -111,7 +111,7 @@
      "url": "/media/team_photos/5.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F9"
     },
     "record": {
@@ -127,7 +127,7 @@
      "url": "/media/achievements/6.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F10"
     },
     "photo": {
@@ -135,7 +135,7 @@
      "url": "/media/team_photos/6.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F11"
     },
     "record": {
@@ -151,7 +151,7 @@
      "url": "/media/achievements/7.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F12"
     },
     "photo": {
@@ -159,7 +159,7 @@
      "url": "/media/team_photos/7.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F13"
     },
     "record": {
@@ -175,7 +175,7 @@
      "url": "/media/achievements/8.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F14"
     },
     "photo": {
@@ -183,7 +183,7 @@
      "url": "/media/team_photos/8.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F15"
     },
     "record": {
@@ -199,7 +199,7 @@
      "url": "/media/achievements/9.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F16"
     },
     "photo": {
@@ -207,7 +207,7 @@
      "url": "/media/team_photos/9.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F17"
     },
     "record": {
@@ -223,7 +223,7 @@
      "url": "/media/achievements/10.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F18"
     },
     "photo": {
@@ -231,7 +231,7 @@
      "url": "/media/team_photos/10.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F19"
     },
     "record": {
@@ -247,7 +247,7 @@
      "url": "/media/achievements/11.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F20"
     },
     "photo": {
@@ -255,7 +255,7 @@
      "url": "/media/team_photos/11.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F21"
     },
     "record": {
@@ -271,7 +271,7 @@
      "url": "/media/achievements/12.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F22"
     },
     "photo": {
@@ -279,7 +279,7 @@
      "url": "/media/team_photos/12.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F23"
     },
     "record": {
@@ -298,7 +298,7 @@
      "url": "/media/achievements/13.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F24"
     },
     "photo": {
@@ -306,7 +306,7 @@
      "url": "/media/team_photos/13.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F25"
     },
     "record": {
@@ -322,7 +322,7 @@
      "url": "/media/achievements/14.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F26"
     },
     "photo": {
@@ -330,7 +330,7 @@
      "url": "/media/team_photos/14.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F27"
     },
     "record": {
@@ -346,7 +346,7 @@
      "url": "/media/achievements/15.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F28"
     },
     "photo": {
@@ -354,7 +354,7 @@
      "url": "/media/team_photos/15.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F29"
     },
     "record": {
@@ -370,7 +370,7 @@
      "url": "/media/achievements/16.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F30"
     },
     "photo": {
@@ -378,7 +378,7 @@
      "url": "/media/team_photos/16.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F31"
     },
     "record": {
@@ -394,7 +394,7 @@
      "url": "/media/achievements/17.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F32"
     },
     "photo": {
@@ -402,7 +402,7 @@
      "url": "/media/team_photos/17.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F33"
     },
     "record": {
@@ -418,7 +418,7 @@
      "url": "/media/achievements/18.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F34"
     },
     "photo": {
@@ -426,7 +426,7 @@
      "url": "/media/team_photos/18.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F35"
     },
     "record": {
@@ -445,7 +445,7 @@
      "url": "/media/achievements/19.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F36"
     },
     "photo": {
@@ -453,7 +453,7 @@
      "url": "/media/team_photos/19.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F37"
     },
     "record": {
@@ -469,7 +469,7 @@
      "url": "/media/achievements/20.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F38"
     },
     "photo": {
@@ -477,7 +477,7 @@
      "url": "/media/team_photos/20.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F39"
     },
     "record": {
@@ -493,7 +493,7 @@
      "url": "/media/achievements/21.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F40"
     },
     "photo": {
@@ -501,7 +501,7 @@
      "url": "/media/team_photos/21.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F41"
     },
     "record": {
@@ -517,7 +517,7 @@
      "url": "/media/achievements/22.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F42"
     },
     "photo": {
@@ -525,7 +525,7 @@
      "url": "/media/team_photos/22.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F43"
     },
     "record": {
@@ -541,7 +541,7 @@
      "url": "/media/achievements/23.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F44"
     },
     "photo": {
@@ -549,7 +549,7 @@
      "url": "/media/team_photos/23.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F45"
     },
     "record": {
@@ -565,7 +565,7 @@
      "url": "/media/achievements/24.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F46"
     },
     "photo": {
@@ -573,7 +573,7 @@
      "url": "/media/team_photos/24.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F47"
     },
     "record": {
@@ -589,7 +589,7 @@
      "url": "/media/achievements/25.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F48"
     },
     "photo": {
@@ -597,7 +597,7 @@
      "url": "/media/team_photos/25.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F49"
     },
     "record": {
@@ -613,7 +613,7 @@
      "url": "/media/achievements/26.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F50"
     },
     "photo": {
@@ -621,7 +621,7 @@
      "url": "/media/team_photos/26.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F51"
     },
     "record": {
@@ -637,7 +637,7 @@
      "url": "/media/achievements/27.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F52"
     },
     "photo": {
@@ -645,7 +645,7 @@
      "url": "/media/team_photos/27.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F53"
     },
     "record": {
@@ -661,7 +661,7 @@
      "url": "/media/achievements/28.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F54"
     },
     "photo": {
@@ -669,7 +669,7 @@
      "url": "/media/team_photos/28.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F55"
     },
     "record": {
@@ -685,7 +685,7 @@
      "url": "/media/achievements/29.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F56"
     },
     "photo": {
@@ -693,7 +693,7 @@
      "url": "/media/team_photos/29.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F57"
     },
     "record": {
@@ -709,7 +709,7 @@
      "url": "/media/achievements/30.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F58"
     },
     "photo": {
@@ -717,7 +717,7 @@
      "url": "/media/team_photos/30.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F59"
     },
     "record": {
@@ -733,7 +733,7 @@
      "url": "/media/achievements/31.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F60"
     },
     "photo": {
@@ -741,7 +741,7 @@
      "url": "/media/team_photos/31.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F61"
     },
     "record": {
@@ -757,7 +757,7 @@
      "url": "/media/achievements/33.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F62"
     },
     "photo": {
@@ -765,7 +765,7 @@
      "url": "/media/team_photos/33.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F63"
     },
     "record": {
@@ -781,7 +781,7 @@
      "url": "/media/achievements/34.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F64"
     },
     "photo": {
@@ -789,7 +789,7 @@
      "url": "/media/team_photos/34.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F65"
     },
     "record": {
@@ -805,7 +805,7 @@
      "url": "/media/achievements/35.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F66"
     },
     "photo": {
@@ -813,7 +813,7 @@
      "url": "/media/team_photos/35.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F67"
     },
     "record": {
@@ -829,7 +829,7 @@
      "url": "/media/achievements/36.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F68"
     },
     "photo": {
@@ -837,7 +837,7 @@
      "url": "/media/team_photos/36.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F69"
     },
     "record": {
@@ -853,7 +853,7 @@
      "url": "/media/achievements/38.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F70"
     },
     "photo": {
@@ -861,7 +861,7 @@
      "url": "/media/team_photos/38.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F71"
     },
     "record": {
@@ -880,7 +880,7 @@
      "url": "/media/achievements/39.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F72"
     },
     "photo": {
@@ -888,7 +888,7 @@
      "url": "/media/team_photos/39.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F73"
     },
     "record": {
@@ -904,7 +904,7 @@
      "url": "/media/achievements/40.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F74"
     },
     "photo": {
@@ -912,7 +912,7 @@
      "url": "/media/team_photos/40.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F75"
     },
     "record": {
@@ -928,7 +928,7 @@
      "url": "/media/achievements/41.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F76"
     },
     "photo": {
@@ -936,7 +936,7 @@
      "url": "/media/team_photos/41.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F77"
     },
     "record": {
@@ -952,7 +952,7 @@
      "url": "/media/achievements/42.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F78"
     },
     "photo": {
@@ -960,7 +960,7 @@
      "url": "/media/team_photos/42.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F79"
     },
     "record": {
@@ -976,7 +976,7 @@
      "url": "/media/achievements/43.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F80"
     },
     "photo": {
@@ -984,7 +984,7 @@
      "url": "/media/team_photos/43.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F81"
     },
     "record": {
@@ -1000,7 +1000,7 @@
      "url": "/media/achievements/44.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F82"
     },
     "photo": {
@@ -1008,7 +1008,7 @@
      "url": "/media/team_photos/44.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F83"
     },
     "record": {
@@ -1024,7 +1024,7 @@
      "url": "/media/achievements/45.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F84"
     },
     "photo": {
@@ -1032,7 +1032,7 @@
      "url": "/media/team_photos/45.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F85"
     },
     "record": {
@@ -1048,7 +1048,7 @@
      "url": "/media/achievements/46.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F86"
     },
     "photo": {
@@ -1056,7 +1056,7 @@
      "url": "/media/team_photos/46.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F87"
     },
     "record": {
@@ -1072,7 +1072,7 @@
      "url": "/media/achievements/47.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F88"
     },
     "photo": {
@@ -1080,7 +1080,7 @@
      "url": "/media/team_photos/47.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F89"
     },
     "record": {
@@ -1096,7 +1096,7 @@
      "url": "/media/achievements/48.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F90"
     },
     "photo": {
@@ -1104,7 +1104,7 @@
      "url": "/media/team_photos/48.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F91"
     },
     "record": {
@@ -1120,7 +1120,7 @@
      "url": "/media/achievements/49.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F92"
     },
     "photo": {
@@ -1128,7 +1128,7 @@
      "url": "/media/team_photos/49.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F93"
     },
     "record": {
@@ -1144,7 +1144,7 @@
      "url": "/media/achievements/50.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F94"
     },
     "photo": {
@@ -1152,7 +1152,7 @@
      "url": "/media/team_photos/50.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F95"
     },
     "record": {
@@ -1168,7 +1168,7 @@
      "url": "/media/achievements/51.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F96"
     },
     "photo": {
@@ -1176,7 +1176,7 @@
      "url": "/media/team_photos/51.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F97"
     },
     "record": {
@@ -1192,7 +1192,7 @@
      "url": "/media/achievements/52.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F98"
     },
     "photo": {
@@ -1200,7 +1200,7 @@
      "url": "/media/team_photos/52.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F99"
     },
     "record": {
@@ -1219,7 +1219,7 @@
      "url": "/media/achievements/53.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F100"
     },
     "photo": {
@@ -1227,7 +1227,7 @@
      "url": "/media/team_photos/53.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F101"
     },
     "record": {
@@ -1243,7 +1243,7 @@
      "url": "/media/achievements/54.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F102"
     },
     "photo": {
@@ -1251,7 +1251,7 @@
      "url": "/media/team_photos/54.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F103"
     },
     "record": {
@@ -1267,7 +1267,7 @@
      "url": "/media/achievements/55.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F104"
     },
     "photo": {
@@ -1275,7 +1275,7 @@
      "url": "/media/team_photos/55.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F105"
     },
     "record": {
@@ -1294,7 +1294,7 @@
      "url": "/media/achievements/56.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F106"
     },
     "photo": {
@@ -1302,7 +1302,7 @@
      "url": "/media/team_photos/56.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F107"
     },
     "record": {
@@ -1321,7 +1321,7 @@
      "url": "/media/achievements/57.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F108"
     },
     "photo": {
@@ -1329,7 +1329,7 @@
      "url": "/media/team_photos/57.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F109"
     },
     "record": {
@@ -1345,7 +1345,7 @@
      "url": "/media/achievements/58.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F110"
     },
     "photo": {
@@ -1353,7 +1353,7 @@
      "url": "/media/team_photos/58.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F111"
     },
     "record": {
@@ -1372,7 +1372,7 @@
      "url": "/media/achievements/59.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F112"
     },
     "photo": {
@@ -1380,7 +1380,7 @@
      "url": "/media/team_photos/59.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F113"
     },
     "record": {
@@ -1396,7 +1396,7 @@
      "url": "/media/achievements/60.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F114"
     },
     "photo": {
@@ -1404,7 +1404,7 @@
      "url": "/media/team_photos/60.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F115"
     },
     "record": {
@@ -1420,7 +1420,7 @@
      "url": "/media/achievements/61.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F116"
     },
     "photo": {
@@ -1428,7 +1428,7 @@
      "url": "/media/team_photos/61.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F117"
     },
     "record": {
@@ -1444,7 +1444,7 @@
      "url": "/media/achievements/62.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F118"
     },
     "photo": {
@@ -1452,7 +1452,7 @@
      "url": "/media/team_photos/62.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F119"
     },
     "record": {
@@ -1468,7 +1468,7 @@
      "url": "/media/achievements/63.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F120"
     },
     "photo": {
@@ -1476,7 +1476,7 @@
      "url": "/media/team_photos/63.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F121"
     },
     "record": {
@@ -1492,7 +1492,7 @@
      "url": "/media/achievements/64.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F122"
     },
     "photo": {
@@ -1500,7 +1500,7 @@
      "url": "/media/team_photos/64.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F123"
     },
     "record": {
@@ -1519,7 +1519,7 @@
      "url": "/media/achievements/65.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F124"
     },
     "photo": {
@@ -1527,7 +1527,7 @@
      "url": "/media/team_photos/65.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F125"
     },
     "record": {
@@ -1546,7 +1546,7 @@
      "url": "/media/achievements/66.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F126"
     },
     "photo": {
@@ -1554,7 +1554,7 @@
      "url": "/media/team_photos/66.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F127"
     },
     "record": {
@@ -1573,7 +1573,7 @@
      "url": "/media/achievements/67.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F128"
     },
     "photo": {
@@ -1581,7 +1581,7 @@
      "url": "/media/team_photos/67.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F129"
     },
     "record": {
@@ -1597,7 +1597,7 @@
      "url": "/media/achievements/68.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F130"
     },
     "photo": {
@@ -1605,7 +1605,7 @@
      "url": "/media/team_photos/68.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F131"
     },
     "record": {
@@ -1621,7 +1621,7 @@
      "url": "/media/achievements/69.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F132"
     },
     "photo": {
@@ -1629,7 +1629,7 @@
      "url": "/media/team_photos/69.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F133"
     },
     "record": {
@@ -1645,7 +1645,7 @@
      "url": "/media/achievements/70.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F134"
     },
     "photo": {
@@ -1653,7 +1653,7 @@
      "url": "/media/team_photos/70.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F135"
     },
     "record": {
@@ -1669,7 +1669,7 @@
      "url": "/media/achievements/71.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F136"
     },
     "photo": {
@@ -1677,7 +1677,7 @@
      "url": "/media/team_photos/71.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F137"
     },
     "record": {
@@ -1693,7 +1693,7 @@
      "url": "/media/achievements/72.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F138"
     },
     "photo": {
@@ -1701,7 +1701,7 @@
      "url": "/media/team_photos/72.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F139"
     },
     "record": {
@@ -1717,7 +1717,7 @@
      "url": "/media/achievements/73.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F140"
     },
     "photo": {
@@ -1725,7 +1725,7 @@
      "url": "/media/team_photos/73.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F141"
     },
     "record": {
@@ -1741,7 +1741,7 @@
      "url": "/media/achievements/74.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F142"
     },
     "photo": {
@@ -1749,7 +1749,7 @@
      "url": "/media/team_photos/74.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F143"
     },
     "record": {
@@ -1765,7 +1765,7 @@
      "url": "/media/achievements/75.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F144"
     },
     "photo": {
@@ -1773,7 +1773,7 @@
      "url": "/media/team_photos/75.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F145"
     },
     "record": {
@@ -1792,7 +1792,7 @@
      "url": "/media/achievements/76.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F146"
     },
     "photo": {
@@ -1800,7 +1800,7 @@
      "url": "/media/team_photos/76.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F147"
     },
     "record": {
@@ -1816,7 +1816,7 @@
      "url": "/media/achievements/77.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F148"
     },
     "photo": {
@@ -1824,7 +1824,7 @@
      "url": "/media/team_photos/77.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F149"
     },
     "record": {
@@ -1840,7 +1840,7 @@
      "url": "/media/achievements/78.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F150"
     },
     "photo": {
@@ -1848,7 +1848,7 @@
      "url": "/media/team_photos/78.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F151"
     },
     "record": {
@@ -1864,7 +1864,7 @@
      "url": "/media/achievements/79.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F152"
     },
     "photo": {
@@ -1872,7 +1872,7 @@
      "url": "/media/team_photos/79.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F153"
     },
     "record": {
@@ -1888,7 +1888,7 @@
      "url": "/media/achievements/80.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F154"
     },
     "photo": {
@@ -1896,7 +1896,7 @@
      "url": "/media/team_photos/80.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F155"
     },
     "record": {
@@ -1912,7 +1912,7 @@
      "url": "/media/achievements/81.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F156"
     },
     "photo": {
@@ -1920,7 +1920,7 @@
      "url": "/media/team_photos/81.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F157"
     },
     "record": {
@@ -1936,7 +1936,7 @@
      "url": "/media/achievements/82.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F158"
     },
     "photo": {
@@ -1944,7 +1944,7 @@
      "url": "/media/team_photos/82.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F159"
     },
     "record": {
@@ -1960,7 +1960,7 @@
      "url": "/media/achievements/83.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F160"
     },
     "photo": {
@@ -1968,7 +1968,7 @@
      "url": "/media/team_photos/83.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F161"
     },
     "record": {
@@ -1984,7 +1984,7 @@
      "url": "/media/achievements/84.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F162"
     },
     "photo": {
@@ -1992,7 +1992,7 @@
      "url": "/media/team_photos/84.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F163"
     },
     "record": {
@@ -2008,7 +2008,7 @@
      "url": "/media/achievements/85.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F164"
     },
     "photo": {
@@ -2016,7 +2016,7 @@
      "url": "/media/team_photos/85.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F165"
     },
     "record": {
@@ -2032,7 +2032,7 @@
      "url": "/media/achievements/86.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F166"
     },
     "photo": {
@@ -2040,7 +2040,7 @@
      "url": "/media/team_photos/86.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F167"
     },
     "record": {
@@ -2056,7 +2056,7 @@
      "url": "/media/achievements/88.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F168"
     },
     "photo": {
@@ -2064,7 +2064,7 @@
      "url": "/media/team_photos/88.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F169"
     },
     "record": {
@@ -2080,7 +2080,7 @@
      "url": "/media/achievements/89.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F170"
     },
     "photo": {
@@ -2088,7 +2088,7 @@
      "url": "/media/team_photos/89.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F171"
     },
     "record": {
@@ -2104,7 +2104,7 @@
      "url": "/media/achievements/90.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F172"
     },
     "photo": {
@@ -2112,7 +2112,7 @@
      "url": "/media/team_photos/90.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F173"
     },
     "record": {
@@ -2128,7 +2128,7 @@
      "url": "/media/achievements/91.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F174"
     },
     "photo": {
@@ -2136,7 +2136,7 @@
      "url": "/media/team_photos/91.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F175"
     },
     "record": {
@@ -2152,7 +2152,7 @@
      "url": "/media/achievements/92.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F176"
     },
     "photo": {
@@ -2160,7 +2160,7 @@
      "url": "/media/team_photos/92.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F177"
     },
     "record": {
@@ -2179,7 +2179,7 @@
      "url": "/media/achievements/93.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F178"
     },
     "photo": {
@@ -2187,7 +2187,7 @@
      "url": "/media/team_photos/93.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F179"
     },
     "record": {
@@ -2203,7 +2203,7 @@
      "url": "/media/achievements/94.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F180"
     },
     "photo": {
@@ -2211,7 +2211,7 @@
      "url": "/media/team_photos/94.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F181"
     },
     "record": {
@@ -2230,7 +2230,7 @@
      "url": "/media/achievements/95.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F182"
     },
     "photo": {
@@ -2238,7 +2238,7 @@
      "url": "/media/team_photos/95.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F183"
     },
     "record": {
@@ -2254,7 +2254,7 @@
      "url": "/media/achievements/96.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F184"
     },
     "photo": {
@@ -2262,7 +2262,7 @@
      "url": "/media/team_photos/96.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F185"
     },
     "record": {
@@ -2278,7 +2278,7 @@
      "url": "/media/achievements/97.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F186"
     },
     "photo": {
@@ -2286,7 +2286,7 @@
      "url": "/media/team_photos/97.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F187"
     },
     "record": {
@@ -2302,7 +2302,7 @@
      "url": "/media/achievements/98.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F188"
     },
     "photo": {
@@ -2310,7 +2310,7 @@
      "url": "/media/team_photos/98.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F189"
     },
     "record": {
@@ -2326,7 +2326,7 @@
      "url": "/media/achievements/99.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F190"
     },
     "photo": {
@@ -2334,7 +2334,7 @@
      "url": "/media/team_photos/99.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F191"
     },
     "record": {
@@ -2350,7 +2350,7 @@
      "url": "/media/achievements/100.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F192"
     },
     "photo": {
@@ -2358,7 +2358,7 @@
      "url": "/media/team_photos/100.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F193"
     },
     "record": {
@@ -2374,7 +2374,7 @@
      "url": "/media/achievements/101.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F194"
     },
     "photo": {
@@ -2382,7 +2382,7 @@
      "url": "/media/team_photos/101.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F195"
     },
     "record": {
@@ -2398,7 +2398,7 @@
      "url": "/media/achievements/102.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F196"
     },
     "photo": {
@@ -2406,7 +2406,7 @@
      "url": "/media/team_photos/102.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F197"
     },
     "record": {
@@ -2422,7 +2422,7 @@
      "url": "/media/achievements/103.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F198"
     },
     "photo": {
@@ -2430,7 +2430,7 @@
      "url": "/media/team_photos/103.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F199"
     },
     "record": {
@@ -2446,7 +2446,7 @@
      "url": "/media/achievements/104.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F200"
     },
     "photo": {
@@ -2454,7 +2454,7 @@
      "url": "/media/team_photos/104.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F201"
     },
     "record": {
@@ -2470,7 +2470,7 @@
      "url": "/media/achievements/105.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F202"
     },
     "photo": {
@@ -2478,7 +2478,7 @@
      "url": "/media/team_photos/105.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F203"
     },
     "record": {
@@ -2494,7 +2494,7 @@
      "url": "/media/achievements/106.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F204"
     },
     "photo": {
@@ -2502,7 +2502,7 @@
      "url": "/media/team_photos/106.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F205"
     },
     "record": {
@@ -2518,7 +2518,7 @@
      "url": "/media/achievements/107.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F206"
     },
     "photo": {
@@ -2526,7 +2526,7 @@
      "url": "/media/team_photos/107.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F207"
     },
     "record": {
@@ -2542,7 +2542,7 @@
      "url": "/media/achievements/108.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F208"
     },
     "photo": {
@@ -2550,7 +2550,7 @@
      "url": "/media/team_photos/108.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F209"
     },
     "record": {
@@ -2566,7 +2566,7 @@
      "url": "/media/achievements/109.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F210"
     },
     "photo": {
@@ -2574,7 +2574,7 @@
      "url": "/media/team_photos/109.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F211"
     },
     "record": {
@@ -2590,7 +2590,7 @@
      "url": "/media/achievements/110.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F212"
     },
     "photo": {
@@ -2598,7 +2598,7 @@
      "url": "/media/team_photos/110.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F213"
     },
     "record": {
@@ -2617,7 +2617,7 @@
      "url": "/media/achievements/111.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F214"
     },
     "photo": {
@@ -2625,7 +2625,7 @@
      "url": "/media/team_photos/111.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F215"
     },
     "record": {
@@ -2641,7 +2641,7 @@
      "url": "/media/achievements/112.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F216"
     },
     "photo": {
@@ -2649,7 +2649,7 @@
      "url": "/media/team_photos/112.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F217"
     },
     "record": {
@@ -2665,7 +2665,7 @@
      "url": "/media/achievements/113.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F218"
     },
     "photo": {
@@ -2673,7 +2673,7 @@
      "url": "/media/team_photos/113.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F219"
     },
     "record": {
@@ -2689,7 +2689,7 @@
      "url": "/media/achievements/114.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F220"
     },
     "photo": {
@@ -2697,7 +2697,7 @@
      "url": "/media/team_photos/114.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F221"
     },
     "record": {
@@ -2713,7 +2713,7 @@
      "url": "/media/achievements/115.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F222"
     },
     "photo": {
@@ -2721,7 +2721,7 @@
      "url": "/media/team_photos/115.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F223"
     },
     "record": {
@@ -2737,7 +2737,7 @@
      "url": "/media/achievements/116.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F224"
     },
     "photo": {
@@ -2745,7 +2745,7 @@
      "url": "/media/team_photos/116.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F225"
     },
     "record": {
@@ -2761,7 +2761,7 @@
      "url": "/media/achievements/117.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F226"
     },
     "photo": {
@@ -2769,7 +2769,7 @@
      "url": "/media/team_photos/117.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F227"
     },
     "record": {
@@ -2785,7 +2785,7 @@
      "url": "/media/achievements/118.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F228"
     },
     "photo": {
@@ -2793,7 +2793,7 @@
      "url": "/media/team_photos/118.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F229"
     },
     "record": {
@@ -2812,7 +2812,7 @@
      "url": "/media/achievements/119.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F230"
     },
     "photo": {
@@ -2820,7 +2820,7 @@
      "url": "/media/team_photos/119.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F231"
     },
     "record": {
@@ -2836,7 +2836,7 @@
      "url": "/media/achievements/120.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F232"
     },
     "photo": {
@@ -2844,7 +2844,7 @@
      "url": "/media/team_photos/120.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F233"
     },
     "record": {
@@ -2863,7 +2863,7 @@
      "url": "/media/achievements/121.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F234"
     },
     "photo": {
@@ -2871,7 +2871,7 @@
      "url": "/media/team_photos/121.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F235"
     },
     "record": {
@@ -2887,7 +2887,7 @@
      "url": "/media/achievements/122.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F236"
     },
     "photo": {
@@ -2895,7 +2895,7 @@
      "url": "/media/team_photos/122.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F237"
     },
     "record": {
@@ -2911,7 +2911,7 @@
      "url": "/media/achievements/123.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F238"
     },
     "photo": {
@@ -2919,7 +2919,7 @@
      "url": "/media/team_photos/123.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F239"
     },
     "record": {
@@ -2935,7 +2935,7 @@
      "url": "/media/achievements/124.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F240"
     },
     "photo": {
@@ -2943,7 +2943,7 @@
      "url": "/media/team_photos/124.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F241"
     },
     "record": {
@@ -2962,7 +2962,7 @@
      "url": "/media/achievements/125.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F242"
     },
     "photo": {
@@ -2970,7 +2970,7 @@
      "url": "/media/team_photos/125.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F243"
     },
     "record": {
@@ -2986,7 +2986,7 @@
      "url": "/media/achievements/126.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F244"
     },
     "photo": {
@@ -2994,7 +2994,7 @@
      "url": "/media/team_photos/126.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F245"
     },
     "record": {
@@ -3010,7 +3010,7 @@
      "url": "/media/achievements/127.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F246"
     },
     "photo": {
@@ -3018,7 +3018,7 @@
      "url": "/media/team_photos/127.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F247"
     },
     "record": {
@@ -3034,7 +3034,7 @@
      "url": "/media/achievements/128.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F248"
     },
     "photo": {
@@ -3042,7 +3042,7 @@
      "url": "/media/team_photos/128.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F249"
     },
     "record": {
@@ -3058,7 +3058,7 @@
      "url": "/media/achievements/129.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F250"
     },
     "photo": {
@@ -3066,7 +3066,7 @@
      "url": "/media/team_photos/129.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F251"
     },
     "record": {
@@ -3082,7 +3082,7 @@
      "url": "/media/achievements/130.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F252"
     },
     "photo": {
@@ -3090,7 +3090,7 @@
      "url": "/media/team_photos/130.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F253"
     },
     "record": {
@@ -3106,7 +3106,7 @@
      "url": "/media/achievements/131.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F254"
     },
     "photo": {
@@ -3114,7 +3114,7 @@
      "url": "/media/team_photos/131.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F255"
     },
     "record": {
@@ -3133,7 +3133,7 @@
      "url": "/media/achievements/132.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F256"
     },
     "photo": {
@@ -3141,7 +3141,7 @@
      "url": "/media/team_photos/132.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F257"
     },
     "record": {
@@ -3157,7 +3157,7 @@
      "url": "/media/achievements/133.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F258"
     },
     "photo": {
@@ -3165,7 +3165,7 @@
      "url": "/media/team_photos/133.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F259"
     },
     "record": {
@@ -3181,7 +3181,7 @@
      "url": "/media/achievements/135.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F260"
     },
     "photo": {
@@ -3189,7 +3189,7 @@
      "url": "/media/team_photos/135.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F261"
     },
     "record": {
@@ -3205,7 +3205,7 @@
      "url": "/media/achievements/136.svg"
     },
     "screen": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F262"
     },
     "photo": {
@@ -3213,7 +3213,7 @@
      "url": "/media/team_photos/136.jpg"
     },
     "camera": {
-     "type": "WebRTCFetchConnection",
+     "type": "WebRTCProxyConnection",
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F263"
     },
     "record": {

@@ -71,16 +71,25 @@ sealed class MediaType {
     @SerialName("Video")
     data class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
 
+    /**
+     * WebRTC proxy connection
+     * @see <a href="https://github.com/kbats183/webrtc-proxy">https://github.com/kbats183/webrtc-proxy</a>
+     */
     @Serializable
-    @SerialName("WebRTCFetchConnection")
-    data class WebRTCFetchConnection(val url: String, val audioUrl: String? = null, override val isMedia: Boolean = true) : MediaType()
+    @SerialName("WebRTCProxyConnection")
+    data class WebRTCProxyConnection(val url: String, val audioUrl: String? = null, override val isMedia: Boolean = true) : MediaType()
 
+    /**
+     * WebRTC grabber connection
+     * https://github.com/irdkwmnsb/webrtc-grabber
+     */
     @Serializable
-    @SerialName("WebRTCConnection")
-    data class WebRTCConnection(
+    @SerialName("WebRTCGrabberConnection")
+    data class WebRTCGrabberConnection(
         val url: String,
         val peerName: String,
         val credential: String?,
+        val streamType: String,
         override val isMedia: Boolean = true
     ) :
         MediaType()
@@ -95,8 +104,8 @@ sealed class MediaType {
         is Photo -> copy(url = url.replace("{teamId}", teamId))
         is Video -> copy(url = url.replace("{teamId}", teamId))
         is Object -> copy(url = url.replace("{teamId}", teamId))
-        is WebRTCFetchConnection -> copy(url = url.replace("{teamId}", teamId))
-        is WebRTCConnection -> copy(
+        is WebRTCProxyConnection -> copy(url = url.replace("{teamId}", teamId))
+        is WebRTCGrabberConnection -> copy(
             url = url.replace("{teamId}", teamId),
             peerName = peerName.replace("{teamId}", teamId),
             credential = credential?.replace("{teamId}", teamId)
@@ -109,8 +118,8 @@ sealed class MediaType {
         is Photo -> copy(isMedia = false)
         is Video -> copy(isMedia = false)
         is Object -> copy(isMedia = false)
-        is WebRTCFetchConnection -> copy(isMedia = false)
-        is WebRTCConnection -> copy(isMedia = false)
+        is WebRTCProxyConnection -> copy(isMedia = false)
+        is WebRTCGrabberConnection -> copy(isMedia = false)
         else -> this
     }
 }

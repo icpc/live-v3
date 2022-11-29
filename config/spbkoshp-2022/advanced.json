@@ -1,4 +1,13 @@
 {
+  "teamMediaTemplate": {
+    "screen": {
+      "type": "WebRTCGrabberConnection",
+      "peerName": "{teamId}",
+      "url": "http://192.168.1.79:3000/admin",
+      "streamType": "desktop",
+      "credential": "live"
+    }
+  },
   "teamOverrides": {
 "514": {"shortname": "Вторая СПб Гимназия #1: Cyber alliance"},
 "309": {"shortname": "Гатчинский лицей №3: Alpha"},

@@ -15,7 +15,7 @@ import { Cell } from "./Cell";
 import { StarIcon } from "./Star";
 
 export const formatScore = (score, digits = 2) => {
-    return score.toFixed((score - Math.floor(score)) > 0 ? digits : 0);
+    return score?.toFixed((score - Math.floor(score)) > 0 ? digits : 0);
 };
 
 export const ProblemCellWrap = styled(Cell)`

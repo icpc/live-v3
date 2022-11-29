@@ -1,14 +1,13 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
+import React, { useLayoutEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { PVP_APPEAR_TIME, STATISTICS_BG_COLOR, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
 import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 import { formatScore } from "../../atoms/ContestCells";
+import { getStatus, TeamViewHolder } from "../holder/TeamViewHolder";
 
 // Burn this.
 // - Max
@@ -69,20 +68,6 @@ const StatisticsProblemCellWithColor = ({ probData, status }) => {
 };
 
 
-function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
-    if (isFirstToSolve) {
-        return TeamTaskStatus.first;
-    } else if (isSolved) {
-        return TeamTaskStatus.solved;
-    } else if (pendingAttempts > 0) {
-        return TeamTaskStatus.unknown;
-    } else if (wrongAttempts > 0) {
-        return TeamTaskStatus.failed;
-    } else {
-        return TeamTaskStatus.untouched;
-    }
-}
-
 const ScoreboardRowAllWrapper = styled.div`
   display: grid;
   justify-content: start;
@@ -124,7 +109,6 @@ const TaskRow = styled.div`
 
 const ScoreboardRowAllTaskFirst = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    console.log(scoreboardData);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
@@ -152,7 +136,6 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
 
 const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    //console.log(scoreboardData);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
@@ -182,7 +165,6 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
 const TeamInfo = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    console.log(teamData);
     return <TeamInfoWrapper>
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TextShrinkingCell text={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
@@ -219,178 +201,7 @@ const PVPInfo = styled.div`
   justify-items: start;
 `;
 
-
-const TeamImageWrapper = styled.img`
-  height: 100%;
-`;
-
-const TeamVideoWrapper = styled.video`
-  height: 100%;
-`;
-
-const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
-    const dispatch = useDispatch();
-    const videoRef = useRef();
-    const rtcRef = useRef();
-    useEffect(() => {
-        dispatch(pushLog(`Webrtc content from ${url}`));
-        rtcRef.current = new RTCPeerConnection();
-        rtcRef.current.ontrack = function (event) {
-            if (event.track.kind !== "video") {
-                return;
-            }
-            videoRef.current.srcObject = event.streams[0];
-            videoRef.current.play();
-        };
-        rtcRef.current.addTransceiver("video");
-        rtcRef.current.addTransceiver("audio");
-        rtcRef.current.createOffer()
-            .then(offer => {
-                rtcRef.current.setLocalDescription(offer);
-                return fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(offer),
-                });
-            })
-            .then(res => res.json())
-            .then(res => rtcRef.current.setRemoteDescription(res))
-            .catch(e => dispatch(pushLog("ERROR featching  webrtc peer connection info: " + e)));
-
-        return () => rtcRef.current?.close();
-    }, [url]);
-    return (<TeamVideoWrapper
-        ref={videoRef}
-        onCanPlay={() => setIsLoaded(true)}
-        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
-        onLoadedData={() => {
-            // console.log("Loaded");
-            // console.log(videoRef.current.currentTime);
-            return setIsLoaded(true);
-        }}
-        autoPlay
-        muted/>);
-};
-
-
-const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus }) => {
-    const dispatch = useDispatch();
-    const socketRef = useRef();
-    const videoRef = useRef();
-    const rtcRef = useRef();
-    useEffect(() => {
-        const socket = io(url, { auth: { token: credential ?? undefined } });
-        socketRef.current = socket;
-        socket.on("auth", (status) => {
-            if (status === "forbidden") {
-                dispatch(pushLog(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`));
-                console.warn(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`);
-            }
-        });
-        socket.on("init_peer", (pcConfig) => {
-            rtcRef.current?.close();
-
-            dispatch(pushLog(`Webrtc content from ${url} peerName ${peerName}`));
-
-            const pc = new RTCPeerConnection(pcConfig);
-            rtcRef.current = pc;
-            pc.addTransceiver("video");
-
-            pc.addEventListener("track", (e) => {
-                console.log("WebRTCSocket got track");
-                if (e.track.kind === "video" && e.streams.length > 0 && videoRef.current.srcObject !== e.streams[0]) {
-                    videoRef.current.srcObject = null;
-                    videoRef.current.srcObject = e.streams[0];
-                    console.log("WebRTCSocket pc2 received remote stream");
-                }
-            });
-
-            pc.createOffer().then(offer => {
-                pc.setLocalDescription(offer);
-                console.log(`WebRTCSocket send offer to [${peerName}]`);
-                socketRef.current?.emit("offer_name", peerName, offer);
-            });
-
-            pc.addEventListener("icecandidate", (event) => {
-                console.log(`WebRTCSocket sending ice to [${peerName}]`);
-                socketRef.current?.emit("player_ice_name", peerName, event.candidate);
-            });
-
-            socketRef.current.on("offer_answer", (peerId, answer) => {
-                console.log(`WebRTCSocket got offer_answer from ${peerId}`);
-                pc.setRemoteDescription(answer).then(console.log);
-            });
-
-            socketRef.current.on("grabber_ice", async (_, candidate) => {
-                console.log("WebRTCSocket got ice");
-                await pc.addIceCandidate(candidate);
-            });
-        });
-        return () => {
-            rtcRef.current?.close();
-            socketRef.current?.close();
-        };
-    }, [url, peerName]);
-
-    return (<TeamVideoWrapper
-        ref={videoRef}
-        onLoadedData={() => onLoadStatus(true)}
-        onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        autoPlay
-        muted/>);
-};
-
-
-const TeamVideoAnimationWrapper = styled.div`
-  position: absolute;
-  right: 0;
-  object-fit: contain;
-  height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-`;
-
-
-const teamViewComponentRender = {
-    Photo: ({ onLoadStatus, url }) => {
-        return <TeamVideoAnimationWrapper>
-            <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
-        </TeamVideoAnimationWrapper>;
-    },
-    Video: ({ onLoadStatus, url }) => {
-        return <TeamVideoAnimationWrapper>
-            <TeamVideoWrapper
-                src={url}
-                onCanPlay={() => onLoadStatus(true)}
-                onError={() => onLoadStatus(false)}
-                autoPlay
-                muted/>
-        </TeamVideoAnimationWrapper>;
-    },
-    WebRTCFetchConnection: ({ onLoadStatus, url }) => {
-        return <TeamVideoAnimationWrapper>
-            <TeamWebRTCVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
-        </TeamVideoAnimationWrapper>;
-    },
-    WebRTCConnection: (props) => {
-        return <TeamVideoAnimationWrapper>
-            <TeamWebRTCSocketVideoWrapper {...props}/>
-        </TeamVideoAnimationWrapper>;
-    },
-};
-
-const TeamViewHolder = ({ onLoadStatus, media }) => {
-    const Component = teamViewComponentRender[media.type];
-    if (Component === undefined) {
-        useEffect(() => onLoadStatus(true),
-            [media.teamId]);
-        return undefined;
-    }
-    return <Component onLoadStatus={onLoadStatus} {...media}/>;
-};
-
-const TeamViewPInPWrapper = styled.div`
+const TeamPVPPInPWrapper = styled.div`
   position: absolute;
 
   width: ${({ sizeX }) => `${sizeX * 0.361}px`};
@@ -409,8 +220,8 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
             if (c.isMedia) {
                 const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
                 if (c.pInP) {
-                    return <TeamViewPInPWrapper bottom={"80px"} top={"auto"}
-                        sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+                    return <TeamPVPPInPWrapper bottom={"80px"} top={"auto"}
+                        sizeX={location.sizeX}>{component}</TeamPVPPInPWrapper>;
                 } else {
                     return component;
                 }
@@ -430,8 +241,8 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
             if (c.isMedia) {
                 const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
                 if (c.pInP) {
-                    return <TeamViewPInPWrapper top={"80px"} bottom={"auto"}
-                        sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+                    return <TeamPVPPInPWrapper top={"80px"} bottom={"auto"}
+                        sizeX={location.sizeX}>{component}</TeamPVPPInPWrapper>;
                 } else {
                     return component;
                 }
