@@ -10,6 +10,7 @@ data class TeamInfoOverride(
     val groups: List<String>? = null,
     val hashTag: String? = null,
     val medias: Map<TeamMediaType, MediaType?>? = null,
+    val additionalInfo: String? = null,
 )
 
 @Serializable

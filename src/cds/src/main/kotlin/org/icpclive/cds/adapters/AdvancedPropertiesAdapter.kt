@@ -105,7 +105,8 @@ class AdvancedPropertiesAdapter(
                 if (override.medias != null)
                     (team.medias + override.medias).filterValues { it != null }.mapValues { it.value!! }
                 else
-                    team.medias
+                    team.medias,
+                additionalInfo = override.additionalInfo,
             )
         }
         val (problemInfos, unusedProblemOverrides) = mergeOverride(

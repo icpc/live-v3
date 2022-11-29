@@ -5,6 +5,7 @@ import org.icpclive.api.*
 import org.icpclive.config
 import org.icpclive.controllers.*
 import org.icpclive.util.Svg
+import org.icpclive.util.toBase64SVG
 
 object Controllers {
     private val WidgetManager = WidgetManager()
@@ -24,7 +25,7 @@ object Controllers {
     val picture = PresetsController(presetsPath("pictures"), WidgetManager, ::PictureWidget)
     val title = PresetsController(presetsPath("title"), WidgetManager) { titleSettings: TitleSettings ->
         SvgWidget(
-            Svg.loadAndSubstitute(config.mediaDirectory.resolve(titleSettings.preset), titleSettings.data)
+            Svg.loadAndSubstitute(config.mediaDirectory.resolve(titleSettings.preset), titleSettings.data).toBase64SVG()
         )
     }
     val tickerMessage = PresetsController(presetsPath("ticker"), TickerManager, TickerMessageSettings::toMessage)
