@@ -43,6 +43,8 @@ data class AnalyticsCommentaryEvent(
     override val relativeTime: Duration,
     val teamIds: List<Int>,
     val runIds: List<Int>,
+    val priority: Int = 0,
+    val tags: List<String> = emptyList(), // todo: support tage in CLICS parser
     val advertisement: AnalyticsCompanionPreset? = null,
     val tickerMessage: AnalyticsCompanionPreset? = null,
     val featuredRun: AnalyticsCompanionRun? = null,
