@@ -1,5 +1,4 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CommentIcon from "@mui/icons-material/Comment";
 import React, { useCallback, useMemo, useState } from "react";
 import {
     Box,
@@ -7,6 +6,7 @@ import {
     ButtonGroup,
     createTheme,
     Grid,
+    Icon,
     Table,
     TableBody,
     TableCell,
@@ -20,6 +20,7 @@ import { activeRowColor, selectedAndActiveRowColor, selectedRowColor } from "../
 import { timeMsToDuration, unixTimeMsToLocalTime } from "../utils";
 import { useAnalyticsService } from "../services/analytics";
 import { TeamViewSettingsPanel } from "./TeamTable";
+import { StarHalf, EmojiEvents, LooksOne, Check } from "@mui/icons-material";
 
 const rowTheme = createTheme({
     components: {
@@ -37,6 +38,7 @@ const rowTheme = createTheme({
                     type: "icon"
                 },
                 style: {
+                    paddingRight: "0px",
                     fontSize: "0px"
                 }
             }]
@@ -56,6 +58,20 @@ const isActive = (e) => {
     return e.advertisement !== undefined || e.tickerMessage !== undefined || e.featuredRun !== undefined;
 };
 
+const EventTagsIcons = ({ event: { tags } }) => {
+    console.log(tags);
+    if (tags.includes("accepted-first-to-solve")){
+        return <StarHalf/>;
+    } else if (tags.includes("accepted-winner")) {
+        return <LooksOne/>;
+    } else if (tags.includes("accepted-gold-medal")) {
+        return <EmojiEvents/>;
+    } else if (tags.includes("accepted")) {
+        return <Check/>;
+    }
+    return <Icon/>;
+};
+
 function MessagesTable({ messages, selectedRowId, onRowClick }) {
     const rowBackground = useCallback((e) => {
         if (e.id === selectedRowId) {
@@ -71,7 +87,7 @@ function MessagesTable({ messages, selectedRowId, onRowClick }) {
                     {messages.map((event, rowId) =>
                         <TableRow key={rowId} sx={{ backgroundColor: rowBackground(event), cursor: "pointer" }}
                             onClick={() => onRowClick(event)}>
-                            <TableCell type="icon">{event.type === "commentary" ? <CommentIcon/> : "???"}</TableCell>
+                            <TableCell type="icon"><EventTagsIcons event={event}/></TableCell>
                             <TableCell>{event.type === "commentary" ? event.message : ""}</TableCell>
                             <TableCell><Tooltip title={unixTimeMsToLocalTime(event.timeUnixMs)}>
                                 <span>{timeMsToDuration(event.relativeTimeMs)}</span>

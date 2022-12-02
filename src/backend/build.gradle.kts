@@ -31,6 +31,7 @@ tasks {
             project.properties["live.dev.widgetPositionsFile"]?.let { "-P:live.widgetPositionsFile=$it"},
             project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" },
             project.properties["live.dev.allowUnsecureConnections"]?.let { "-P:live.allowUnsecureConnections=$it" },
+            project.properties["live.dev.analyticsTemplatesFile"]?.let { "-P:live.analyticsTemplatesFile=$it" },
         )
         this.workingDir(rootDir.resolve("config"))
     }

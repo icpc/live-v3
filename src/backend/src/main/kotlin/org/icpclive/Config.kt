@@ -26,7 +26,8 @@ class Config(environment: ApplicationEnvironment) {
             environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
         } ?: throw IllegalStateException("Config directory should be set")
 
-    private fun ApplicationConfig.directory(name: String) = configDirectory.resolve(string(name)).also { it.toFile().mkdirs() }
+    private fun ApplicationConfig.directory(name: String) =
+        configDirectory.resolve(string(name)).also { it.toFile().mkdirs() }
 
     val presetsDirectory: Path = environment.config.directory("live.presetsDirectory")
     val mediaDirectory: Path = environment.config.directory("live.mediaDirectory")
@@ -40,6 +41,10 @@ class Config(environment: ApplicationEnvironment) {
         setAllowUnsecureConnections(it)
     }
     val authDisabled = environment.config.bool("auth.disabled")
+    val analyticsTemplatesFile: Path? =
+        environment.config.stringOrNull("live.analyticsTemplatesFile")?.let {
+            println("live.analyticsTemplatesFile $it")
+            Path.of(it) }
 }
 
 lateinit var config: Config
