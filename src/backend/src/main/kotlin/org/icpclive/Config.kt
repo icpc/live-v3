@@ -34,17 +34,15 @@ class Config(environment: ApplicationEnvironment) {
     val creds: Map<String, String> = environment.config.stringOrNull("live.credsFile")?.let {
         Json.decodeFromStream(File(it).inputStream())
     } ?: emptyMap()
-    val widgetPositions: Map<String, LocationRectangle> = environment.config.stringOrNull("live.widgetPositionsFile")?.let {
-        Json.decodeFromStream(File(it).inputStream())
-    } ?: emptyMap()
+    val widgetPositions: Map<String, LocationRectangle> =
+        environment.config.stringOrNull("live.widgetPositionsFile")?.let {
+            Json.decodeFromStream(File(it).inputStream())
+        } ?: emptyMap()
     val allowUnsecureConnections = environment.config.bool("live.allowUnsecureConnections").also {
         setAllowUnsecureConnections(it)
     }
     val authDisabled = environment.config.bool("auth.disabled")
-    val analyticsTemplatesFile: Path? =
-        environment.config.stringOrNull("live.analyticsTemplatesFile")?.let {
-            println("live.analyticsTemplatesFile $it")
-            Path.of(it) }
+    val analyticsTemplatesFile = environment.config.stringOrNull("live.analyticsTemplatesFile")?.let { Path.of(it) }
 }
 
 lateinit var config: Config

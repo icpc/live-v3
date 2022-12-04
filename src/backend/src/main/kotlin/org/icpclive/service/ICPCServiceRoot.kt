@@ -29,12 +29,14 @@ fun CoroutineScope.launchICPCServices(loader: ContestDataSource) {
     }
     val generatedAnalyticsMessages = reliableSharedFlow<AnalyticsMessage>()
     launch {
-        AnalyticsGenerator(config.analyticsTemplatesFile ?: return@launch).run(
-            generatedAnalyticsMessages,
-            DataBus.contestInfoFlow.await(),
-            runsDeferred.await(),
-            DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
-        )
+        config.analyticsTemplatesFile?.let {
+            AnalyticsGenerator(it).run(
+                generatedAnalyticsMessages,
+                DataBus.contestInfoFlow.await(),
+                runsDeferred.await(),
+                DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
+            )
+        }
     }
     launch { AnalyticsService().run(merge(analyticsMessageFlowDeferred.await(), generatedAnalyticsMessages)) }
     launch {
