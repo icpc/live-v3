@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
-import bg from "../../assets/images/bg.jpeg";
+// import bg from "../../assets/images/bg.jpeg";
+import bg from "../../assets/images/tinkoffbg.png";
 import { WIDGET_TRANSITION_TIME } from "../../config";
 import { DEBUG } from "../../consts";
 import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
@@ -55,8 +56,8 @@ const WidgetWrap = styled.div.attrs(
 `;
 
 const MainLayoutWrap = styled.div`
-  width: 1920px;
-  height: 1080px;
+  width: 2048px;
+  height: 768px;
   background: ${DEBUG ? `url(${bg})` : undefined};
 `;
 

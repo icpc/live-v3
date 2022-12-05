@@ -18,7 +18,7 @@ export const Text = ({ tickerSettings, part }) => {
             text={tickerSettings.text}
             background={""}
             font={TICKER_TEXT_FONT_SIZE + " " + TICKER_FONT_FAMILY}
-            align={part === "long" ? "left" : "center"}/>
+            align={"center"}/>
     </TextWrap>;
 };
 

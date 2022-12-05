@@ -40,7 +40,7 @@ data class ScoreboardSettings(
     val numRows: Int? = null,
     val startFromRow: Int = 1,
     val optimismLevel: OptimismLevel = OptimismLevel.NORMAL,
-    val teamsOnPage: Int = 23,
+    val teamsOnPage: Int = 15,
     val group: String = "all"
 ) : ObjectSettings
 

@@ -355,7 +355,7 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
     );
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
     return <ScoreboardWrap>
-        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>
+        {/*<ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>*/}
         <div style={{ overflow: "hidden", height: "100%" }}>
             {teams.map(([ind, teamRowData]) =>
                 <PositionedScoreboardRow key={teamRowData.teamId} pos={ind * rowHeight - scrollPos * rowHeight}

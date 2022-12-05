@@ -83,7 +83,7 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID = "scoreboard"
-        val location = LocationRectangle(550, 20, 1350, 985)
+        val location = LocationRectangle(96, 0, 1920, 768)
     }
 }
 
@@ -107,7 +107,7 @@ class TickerWidget(val settings: TickerSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID = "ticker"
-        val location = LocationRectangle(0, 1025, 1920, 50)
+        val location = LocationRectangle(0, 0, 2016, 768)
     }
 }
 
