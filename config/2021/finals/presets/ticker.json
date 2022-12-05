@@ -19,9 +19,9 @@
     {
         "type": "scoreboard",
         "part": "long",
-        "periodMs": 30000,
+        "periodMs": 5000,
         "from": 1,
-        "to": 12
+        "to": 16
     },
     {
         "type": "clock",

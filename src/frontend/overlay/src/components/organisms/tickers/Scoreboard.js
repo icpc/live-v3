@@ -8,7 +8,7 @@ import {
     TICKER_SCROLL_TRANSITION_TIME
 } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { ScoreboardRow } from "../widgets/Scoreboard";
+import { ScoreboardRow, useScoller } from "../widgets/Scoreboard";
 
 
 const ScoreboardWrap = styled.div.attrs(({ top }) => (
@@ -16,7 +16,7 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
 ))`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(${props => props.nrows}, 100%);
+  grid-template-rows: repeat(${props => props.nrows}, 50%);
   height: 100%;
   width: 100%;
   position: absolute;
@@ -25,20 +25,23 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
 
 export const Scoreboard = ({ tickerSettings, state }) => {
     const { from, to, periodMs } = tickerSettings;
-    const [row, setRow] = useState(0);
+    const screenRows = 2, screenCols = 4;
     const rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
-    const nrows = Math.ceil(rows.length / 4);
-    useEffect(() => {
-        if(state !== "entering") {
-            const interval = setInterval(() => {
-                if (state !== "exiting") {
-                    setRow((row) => (row + 1) % nrows);
-                }
-            }, (periodMs - TICKER_SCROLL_TRANSITION_TIME) / nrows / TICKER_SCOREBOARD_REPEATS + 1);
-            return () => clearInterval(interval);
-        }
-    }, [nrows, periodMs, state]);
-    return <ScoreboardWrap nrows={nrows} top={-row * 100 + "%"}>
+    const nrows = Math.ceil(rows.length / screenCols);
+    const interval = (periodMs - TICKER_SCROLL_TRANSITION_TIME) / nrows / TICKER_SCOREBOARD_REPEATS + 1;
+    const curRow = useScoller(nrows, screenRows, interval, 1);
+    console.log(interval, periodMs, nrows, curRow);
+    // useEffect(() => {
+    //     if(state !== "entering") {
+    //         const interval = setInterval(() => {
+    //             if (state !== "exiting") {
+    //                 setRow((row) => (row + 1) % nrows);
+    //             }
+    //         }, (periodMs - TICKER_SCROLL_TRANSITION_TIME) / nrows / TICKER_SCOREBOARD_REPEATS + 1);
+    //         return () => clearInterval(interval);
+    //     }
+    // }, [nrows, periodMs, state]);
+    return <ScoreboardWrap nrows={nrows} top={-curRow * 50 + "%"}>
         {rows.map((row) => <ScoreboardRow
             key={row.teamId}
             teamId={row.teamId}

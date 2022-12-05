@@ -312,7 +312,7 @@ const extractScoreboardRows = (data, selectedGroup) => data.rows
  * @param {number} startFromRow - row to start from inclusive
  // * @param {number} endToRow - row to end to inclusive
  */
-const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRow,
+export const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRow,
     // endToRow
 ) => {
     // const totalPageRows = (endToRow - startFromRow + 1);
@@ -332,10 +332,10 @@ const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRo
     }, [scrollInterval, numPages]);
     const pageStartRow = curPage * singglePageRowCount + startFromRow - ((curPage >= remainder) ? 1 : 0);
     if (DEBUG) { // FIXME
-        //  console.log("Current page:", curPage);
-        //  console.log("Total rows:", totalRows, "of:", numPages);
-        //  console.log("Single page holds:", singglePageRowCount);
-        //  console.log("Pages from:", pageStartRow, "to", pageStartRow + singleScreenRowCount);
+        // console.log("Current page:", curPage);
+        // console.log("Total rows:", totalRows, "of:", numPages);
+        // console.log("Single page holds:", singglePageRowCount);
+        // console.log("Pages from:", pageStartRow, "to", pageStartRow + singleScreenRowCount);
     }
     return pageStartRow;
 };
