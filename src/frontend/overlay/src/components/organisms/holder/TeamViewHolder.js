@@ -183,6 +183,9 @@ const TeamVideoWrapper = styled.video`
   position: absolute;
   width: 100%;
   top: 0;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  object-position: bottom;
 `;
 
 
