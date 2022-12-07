@@ -80,7 +80,7 @@ const TeamTaskStatus = Object.freeze({
 const TeamTaskSymbol = Object.freeze({
     [TeamTaskStatus.solved]: "+",
     [TeamTaskStatus.failed]: "-",
-    [TeamTaskStatus.untouched]: "",
+    [TeamTaskStatus.untouched]: ".",
     [TeamTaskStatus.unknown]: "?",
     [TeamTaskStatus.first]: "+",
 });

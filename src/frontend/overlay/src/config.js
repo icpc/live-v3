@@ -104,7 +104,8 @@ export const STAR_SIZE = 20; // px
 export const MEDAL_COLORS = Object.freeze({
     "gold": "#C2AC15",
     "silver": "#ABABAB",
-    "bronze": "#7f4c19"
+    "bronze": "#7f4c19",
+    "undefined": "#2f2f2f"
 });
 
 // Debug Behaviour

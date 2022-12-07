@@ -16,5 +16,6 @@ Svg.propTypes = {
 };
 
 Svg.overrideTimeout = SVG_APPEAR_TIME;
+Svg.ignoreAnimation = true;
 
 export default Svg;

@@ -56,9 +56,10 @@ const WidgetWrap = styled.div.attrs(
 `;
 
 const MainLayoutWrap = styled.div`
-  width: 2048px;
+  width: 2016px;
   height: 768px;
-  background: ${DEBUG ? `url(${bg})` : undefined};
+  // background: ${DEBUG ? `url(${bg})` : undefined};
+  background-color: black;
 `;
 
 const transitionProps = {

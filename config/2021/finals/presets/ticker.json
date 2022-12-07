@@ -8,7 +8,7 @@
         "type": "text",
         "part": "long",
         "periodMs": 30000,
-        "text": "Hello for all"
+        "text": "Пробный тур"
     },
     {
         "type": "text",
@@ -38,7 +38,7 @@
         "type": "text",
         "part": "short",
         "periodMs": 30000,
-        "text": "#icpcdhaka"
+        "text": "ВКОШП"
     },
     {
         "type": "text",

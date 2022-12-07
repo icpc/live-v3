@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2048" height="768" viewBox="0 0 2048 768"
+     shape-rendering="geometricPrecision"
+     text-rendering="geometricPrecision">
+    <!--    <rect x="0" y="0" width="2048" height="768" fill="#1b8041">-->
+    <rect x="0" y="0" width="2016" height="768" fill="#881f1b">
+        <animate
+                attributeName="opacity"
+                values="1;0"
+                dur="0.2s"
+                repeatCount="1" fill="freeze"/>
+    </rect>
+</svg>
