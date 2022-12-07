@@ -111,7 +111,7 @@ const ScoreboardColumnWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-auto-rows: 1fr;
-  position: relative;
+  position: absolute;
   transform-origin: top right;
   transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};
   white-space: nowrap;
@@ -182,7 +182,8 @@ const TeamImageWrapper = styled.img`
 const TeamVideoWrapper = styled.video`
   position: absolute;
   width: 100%;
-  top: 0;
+  height: 100%;
+  bottom: 0;
   aspect-ratio: 16/9;
   object-fit: cover;
   object-position: bottom;
@@ -310,6 +311,17 @@ const TeamVideoAnimationWrapper = styled.div`
   align-items: center;
 `;
 
+const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+`;
+
 
 const teamViewComponentRender = {
     TaskStatus: ({ onLoadStatus, teamId, isSmall }) => {
@@ -347,9 +359,9 @@ const teamViewComponentRender = {
         </TeamVideoAnimationWrapper>;
     },
     WebRTCGrabberConnection: (props) => {
-        return <TeamVideoAnimationWrapper>
+        return <TeamVideoAnimationWrapperWithFixForOldBrowsers>
             <TeamWebRTCGrabberVideoWrapper {...props}/>
-        </TeamVideoAnimationWrapper>;
+        </TeamVideoAnimationWrapperWithFixForOldBrowsers>;
     },
 };
 
