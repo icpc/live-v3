@@ -8,10 +8,6 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.int
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.MediaType
-import org.icpclive.api.RunInfo
 import org.icpclive.cds.getContestDataSource
 import java.io.FileInputStream
 import java.util.*
@@ -26,6 +22,7 @@ import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.entities.keyboard.InlineKeyboardButton
 import com.github.kotlintelegrambot.logging.LogLevel
+import org.icpclive.api.*
 import org.icpclive.cds.common.setAllowUnsecureConnections
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
@@ -33,7 +30,11 @@ import kotlin.io.path.createDirectories
 class Bot(private val config: Config) {
     @OptIn(DelicateCoroutinesApi::class)
     private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
-    private val cds = getContestDataSource(getProperties(config.eventPropertiesFile))
+    private val cds = getContestDataSource(
+        getProperties(config.eventPropertiesFile),
+        calculateFTS = false,
+        calculateDifference = false,
+    )
     private val storage = Storage()
     private val bot = bot {
         logLevel = LogLevel.Error

@@ -33,10 +33,13 @@ interface ContestDataSource {
         runsDeferred: CompletableDeferred<Flow<RunInfo>>,
         analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
     )
+}
+
+interface RawContestDataSource : ContestDataSource {
     suspend fun loadOnce(): ContestParseResult
 }
 
-abstract class FullReloadContestDataSource(val interval: Duration) : ContestDataSource {
+abstract class FullReloadContestDataSource(val interval: Duration) : RawContestDataSource {
     override suspend fun run(
         contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,
         runsDeferred: CompletableDeferred<Flow<RunInfo>>,

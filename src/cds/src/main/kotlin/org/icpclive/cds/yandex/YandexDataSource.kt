@@ -14,6 +14,7 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
+import org.icpclive.cds.RawContestDataSource
 import org.icpclive.cds.common.*
 import org.icpclive.cds.yandex.YandexConstants.API_BASE
 import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
@@ -28,7 +29,7 @@ import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class YandexDataSource(props: Properties, creds: Map<String, String>) : ContestDataSource {
+class YandexDataSource(props: Properties, creds: Map<String, String>) : RawContestDataSource {
     private val apiKey: String
     private val loginPrefix: String
     private val contestId: Long

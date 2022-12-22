@@ -11,8 +11,8 @@ import org.icpclive.api.AnalyticsCommentaryEvent
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
+import org.icpclive.cds.RawContestDataSource
 import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.ClientAuth
@@ -40,7 +40,7 @@ private class ClicsLoaderSettings(properties: Properties, prefix: String, creds:
     val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("${prefix}feed_version", "2022_07"))
 }
 
-class ClicsDataSource(properties: Properties, creds: Map<String, String>) : ContestDataSource {
+class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawContestDataSource {
     private val mainLoaderSettings = ClicsLoaderSettings(properties, "", creds)
     private val additionalLoaderSettings = properties.getProperty("additional_feed.url", null)?.let {
         ClicsLoaderSettings(properties, "additional_feed.", creds)
