@@ -31,7 +31,7 @@ jobs:
       - uses: actions/setup-java@master
         with:
           distribution: adopt
-          java-version: 17
+          java-version: 11
 
       - uses: gradle/gradle-build-action@v2
         with:

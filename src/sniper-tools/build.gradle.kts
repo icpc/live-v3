@@ -1,6 +1,7 @@
 plugins {
     application
-    id("icpclive")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.shadow)
 }
 
