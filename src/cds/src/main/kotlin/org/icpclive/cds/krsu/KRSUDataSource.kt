@@ -85,10 +85,12 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
             logger.info("" + (it.ReceivedTime - startTime))
             RunInfo(
                 id = it.Id,
-                isAccepted = "AC" == result,
-                isJudged = "" != result,
-                isAddingPenalty = "AC" != result && "CE" != result,
-                result = result,
+                ICPCRunResult(
+                    isAccepted = "AC" == result,
+                    isAddingPenalty = "AC" != result && "CE" != result,
+                    result = result,
+                    isFirstToSolveRun = false,
+                ).takeIf { result != "" },
                 problemId = it.Problem,
                 teamId = teams[it.Login]?.id ?: -1,
                 percentage = if ("" == result) 0.0 else 1.0,

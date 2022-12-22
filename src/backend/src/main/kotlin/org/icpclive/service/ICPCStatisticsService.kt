@@ -6,7 +6,7 @@ import org.icpclive.api.*
 import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 
-class StatisticsService {
+class ICPCStatisticsService {
     suspend fun run(scoreboardFlow: Flow<Scoreboard>, contestInfoFlow: Flow<ContestInfo>) {
         coroutineScope {
             combine(
@@ -24,18 +24,11 @@ class StatisticsService {
                             var pending = 0
 
                             for(row in scoreboard.rows) {
-                                when(val p = row.problemResults[problemId]) {
-                                    is ICPCProblemResult -> {
-                                        success += if (p.isSolved) 1 else 0
-                                        wrong += if (!p.isSolved && p.wrongAttempts > 0 && p.pendingAttempts == 0) 1 else 0
-                                        pending += if (!p.isSolved && p.pendingAttempts > 0) 1 else 0
-                                    }
-                                    is IOIProblemResult -> {
-                                        success += if (p.score > 0) 1 else 0
-                                        wrong += if (p.score == 0.0f && p.wrongAttempts > 0 && p.pendingAttempts == 0) 1 else 0
-                                        pending += if (p.score == 0.0f && p.pendingAttempts > 0) 1 else 0
-                                    }
-                                }
+                                val p = row.problemResults[problemId]
+                                require(p is ICPCProblemResult)
+                                success += if (p.isSolved) 1 else 0
+                                wrong += if (!p.isSolved && p.wrongAttempts > 0 && p.pendingAttempts == 0) 1 else 0
+                                pending += if (!p.isSolved && p.pendingAttempts > 0) 1 else 0
                             }
 
                             return@List ProblemSolutionsStatistic(success, wrong, pending)

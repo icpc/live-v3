@@ -40,10 +40,7 @@ class YandexContestInfo private constructor(
         if (submission.timeFromStart >= freezeTime) {
             return RunInfo(
                 id = submission.id.toInt(),
-                isAccepted = false,
-                isJudged = false,
-                isAddingPenalty = false,
-                result = "",
+                result = null,
                 problemId = problemId,
                 teamId = submission.authorId.toInt(),
                 percentage = 0.0,
@@ -54,10 +51,12 @@ class YandexContestInfo private constructor(
         val result = getResult(submission.verdict)
         return RunInfo(
             id = submission.id.toInt(),
-            isAccepted = result == "OK",
-            isJudged = result != "",
-            isAddingPenalty = result !in listOf("OK", "CE", ""),
-            result = result,
+            result = ICPCRunResult(
+                isAccepted = result == "OK",
+                isAddingPenalty = result !in listOf("OK", "CE"),
+                result = result,
+                isFirstToSolveRun = false
+            ).takeIf { result != "" },
             problemId = problemId,
             teamId = submission.authorId.toInt(),
             percentage = when {

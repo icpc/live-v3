@@ -59,15 +59,11 @@ class EmulationAdapter(
             for (run in runs) {
                 var percentage = Random.nextDouble(0.1)
                 var timeShift = 0
-                if (run.isJudged) {
+                if (run.result != null) {
                     do {
                         val submittedRun = run.copy(
                             percentage = percentage,
-                            isJudged = false,
-                            isAccepted = false,
-                            isAddingPenalty = false,
-                            result = "",
-                            score = 0.0f
+                            result = null
                         )
                         add(Event(run.time + timeShift.milliseconds) { runsFlow.emit(submittedRun) })
                         percentage += Random.nextDouble(1.0)

@@ -53,17 +53,18 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             "{team.shortName}" to team.shortName,
             "{problem.letter}" to problem.letter,
             "{problem.name}" to problem.name,
-            "{run.result}" to analyse.run.result,
+            "{run.result}" to (analyse.run.result as? ICPCRunResult)?.result.orEmpty(),
             "{result.rank}" to analyse.result.rank.toString(),
-            "{result.solvedProblems}" to (analyse.solvedProblems?.takeIf { it > 0 }?.toString() ?: ""),
+            "{result.solvedProblems}" to analyse.solvedProblems?.takeIf({ it > 0 })?.toString().orEmpty(),
         )
-        if (!analyse.run.isJudged) {
+        val runResult = analyse.run.result
+        if (runResult !is ICPCRunResult) {
             return messagesTemplates.submittedRun.applyTemplate(substitute)
         }
-        if (analyse.run.isFirstSolvedRun) {
+        if (runResult.isFirstToSolveRun) {
             return messagesTemplates.firstToSolveRun.applyTemplate(substitute)
         }
-        if (analyse.run.isAccepted) {
+        if (runResult.isAccepted) {
             if (substitute["{result.solvedProblems}"] != "") {
                 return messagesTemplates.acceptedWithSolvedProblemsRun.applyTemplate(substitute)
             }
@@ -75,16 +76,17 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
     private fun getTags(
         analyse: RunAnalyse
     ): List<String> = buildList {
-        if (!analyse.run.isJudged) {
+        val runResult = analyse.run.result
+        if (runResult !is ICPCRunResult) {
             add("submission")
             return@buildList
         }
-        if (!analyse.run.isAccepted) {
+        if (runResult.isAccepted) {
             add("rejected")
             return@buildList
         }
         add("accepted")
-        if (analyse.run.isFirstSolvedRun) {
+        if (runResult.isFirstToSolveRun) {
             add("accepted-first-to-solve")
         }
         if (analyse.result.rank == 1) {
@@ -103,11 +105,9 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             return null
         }
 
-        val analyse = get(run.id) ?: RunAnalyse(run, Clock.System.now(), result, result).also {
-            put(run.id, it)
-        }
+        val analyse = getOrPut(run.id) { RunAnalyse(run, Clock.System.now(), result, result) }
         analyse.run = run
-        analyse.solvedProblems = result.problemResults.filterIsInstance<ICPCProblemResult>().count { it.isSolved }
+        analyse.solvedProblems = result.problemResults.count { it is ICPCProblemResult && it.isSolved }
         analyse.result = result
         return analyse
     }

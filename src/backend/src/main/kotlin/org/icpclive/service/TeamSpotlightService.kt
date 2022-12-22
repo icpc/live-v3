@@ -18,6 +18,11 @@ class TeamScoreboardPlace(val rank: Int) : TeamAccent()
 class ExternalScoreAddAccent(val score: Double) : TeamAccent()
 object SocialEventAccent : TeamAccent()
 
+
+private val RunInfo.isFirstSolvedRun get() = (result as? ICPCRunResult)?.isFirstToSolveRun == true
+private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.isAccepted == true
+private val RunInfo.isJudged get() = result != null
+
 private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
     if (interesting() <= other.interesting()) {
         return other
@@ -27,8 +32,8 @@ private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
 
 private fun RunInfo.interesting() = when {
     isFirstSolvedRun -> 3
-    isAccepted -> 2
-    isJudged -> 1
+    isAccepted == true -> 2
+    result != null -> 1
     else -> 0
 }
 

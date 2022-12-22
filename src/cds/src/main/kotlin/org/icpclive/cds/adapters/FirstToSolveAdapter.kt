@@ -4,11 +4,9 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.cds.ContestParseResult
+import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
 import java.util.*
 
@@ -19,6 +17,9 @@ class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSo
     private val solvedById = mutableMapOf<Int, RunInfo>()
 
     private fun getSolved(problemId: Int) = solved.getOrPut(problemId) { TreeSet(runComparator) }
+
+    private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.isAccepted == true
+    private fun RunInfo.setFTS(value: Boolean) = copy(result = (result as? ICPCRunResult)?.copy(isFirstToSolveRun = value))
 
     private suspend fun FlowCollector<RunInfo>.replace(old: RunInfo, new: RunInfo) {
         require(old.id == new.id)
@@ -32,16 +33,6 @@ class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSo
         }
     }
 
-    override suspend fun loadOnce() = source.loadOnce().let {
-        it.runs.forEach { run -> getSolved(run.problemId).add(run) }
-        solved.keys.forEach { problemId -> FlowCollector<RunInfo>{}.recalculateFTS(problemId) }
-        ContestParseResult(
-            it.contestInfo,
-            it.runs.map { run -> run.copy(isFirstSolvedRun = firstSolve[run.problemId] == run) },
-            it.analyticsMessages
-        )
-    }
-
     override suspend fun run(
         contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,
         runsDeferred: CompletableDeferred<Flow<RunInfo>>,
@@ -50,29 +41,35 @@ class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSo
         coroutineScope {
             val unprocessedRunsDeferred = CompletableDeferred<Flow<RunInfo>>()
             launch { source.run(contestInfoDeferred, unprocessedRunsDeferred, analyticsMessagesDeferred) }
-            logger.info("First to solve service is started")
-            flow {
-                unprocessedRunsDeferred.await().collect {
-                    val oldRun = solvedById[it.id]
-                    if (oldRun != null) {
-                        if (it.isAccepted) {
-                            replace(solvedById[it.id]!!, it)
-                        } else {
-                            solvedById.remove(oldRun.problemId)
-                            getSolved(oldRun.problemId).remove(oldRun)
-                            recalculateFTS(oldRun.problemId)
+            if (contestInfoDeferred.await().value.resultType != ContestResultType.ICPC) {
+                runsDeferred.completeOrThrow(unprocessedRunsDeferred.await())
+            } else {
+                logger.info("First to solve service is started")
+                runsDeferred.completeOrThrow(
+                    flow {
+                        unprocessedRunsDeferred.await().collect {
+                            require(it.result == null || it.result is ICPCRunResult)
+                            val oldRun = solvedById[it.id]
+                            if (oldRun != null) {
+                                if (it.isAccepted) {
+                                    replace(solvedById[it.id]!!, it)
+                                } else {
+                                    solvedById.remove(oldRun.problemId)
+                                    getSolved(oldRun.problemId).remove(oldRun)
+                                    recalculateFTS(oldRun.problemId)
+                                }
+                            } else if (it.isAccepted) {
+                                getSolved(it.problemId).add(it)
+                                solvedById[it.id] = it
+                            }
+                            recalculateFTS(it.problemId)
+                            if (firstSolve[it.problemId]?.id != it.id) {
+                                emit(it)
+                            }
                         }
-                    } else if (it.isAccepted) {
-                        getSolved(it.problemId).add(it)
-                        solvedById[it.id] = it
-                    }
-                    recalculateFTS(it.problemId)
-                    if (firstSolve[it.problemId]?.id != it.id) {
-                        emit(it)
-                    }
-                }
-            }.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
-                .also { runsDeferred.complete(it) }
+                    }.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+                )
+            }
         }
     }
 
@@ -80,7 +77,7 @@ class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSo
         val result = if (getSolved(problemId).isEmpty()) null else getSolved(problemId).first().takeIf { !it.isHidden }
         if (firstSolve[problemId] == result) return
         firstSolve[problemId]?.takeIf { it.id != result?.id }?.run {
-            val newVersion = copy(isFirstSolvedRun = false)
+            val newVersion = setFTS(false)
             emit(newVersion)
             replace(this, newVersion)
             logger.warn("First to solve for problem $problemId was replaced from $id to ${result?.id}")
@@ -89,7 +86,7 @@ class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSo
             firstSolve.remove(problemId)
             return
         }
-        val newVersion = result.copy(isFirstSolvedRun = true)
+        val newVersion = result.setFTS(true)
         firstSolve[problemId] = newVersion
         replace(result, newVersion)
         emit(newVersion)

@@ -100,7 +100,7 @@ class Bot(private val config: Config) {
     }
 
     private fun processReaction(scope: CoroutineScope, run: RunInfo, reactionUrl: String) {
-        val reaction = storage.addReactions(run.teamId, run.problemId, run.id, run.isAccepted, reactionUrl)
+        val reaction = storage.addReactions(run.teamId, run.problemId, run.id, (run.result as? ICPCRunResult)?.isAccepted == true, reactionUrl)
         if (reaction.telegramFileId == null && reaction.id.value !in alreadyProcessedReactionIds) {
             alreadyProcessedReactionIds.add(reaction.id.value)
             scope.launch(reactionsProcessingPool) {

@@ -1,5 +1,6 @@
 package org.icpclive.api
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
@@ -7,20 +8,33 @@ import kotlin.time.Duration
 @Serializable
 data class RunInfo constructor(
     val id: Int,
-    val isAccepted: Boolean,
-    val isJudged: Boolean,
-    val isAddingPenalty: Boolean,
-    val resultType: ContestResultType = ContestResultType.ICPC,
-    val result: String,
-    val score: Float = 0.0f,
-    val difference: Float = 0.0f,
+    val result: RunResult?,
+    val percentage: Double,
     val problemId: Int,
     val teamId: Int,
-    val percentage: Double,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
-    val isFirstSolvedRun: Boolean = false,
     val featuredRunMedia: MediaType? = null,
     val reactionVideos: List<MediaType> = emptyList(),
     val isHidden: Boolean = false,
 )
+
+@Serializable
+sealed class RunResult
+
+@Serializable
+@SerialName("icpc")
+data class ICPCRunResult(
+    val isAccepted: Boolean,
+    val isAddingPenalty: Boolean,
+    val isFirstToSolveRun: Boolean,
+    val result: String,
+) : RunResult()
+
+@Serializable
+@SerialName("ioi")
+data class IOIRunResult(
+    val score: Double,
+    val difference: Double,
+    val scoreByGroup: List<Double>,
+) : RunResult()

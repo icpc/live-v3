@@ -1,21 +1,8 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.merge
 import org.icpclive.api.*
-import org.icpclive.data.DataBus
 import kotlin.math.max
 import kotlin.time.Duration
-
-private fun List<MedalType>.medalColorByRank(rank_: Int): String? {
-    var rank = rank_
-    for ((color, count) in this) {
-        if (rank <= count) return color
-        rank -= count
-    }
-    return null
-}
 
 interface PenaltyCalculator {
     fun addSolvedProblem(time: Duration, wrongAttempts: Int)
@@ -42,51 +29,29 @@ class SumDownToMinutePenaltyCalculator(val penaltyPerWrongAttempt: Int) : Penalt
         get() = penaltySeconds / 60
 }
 
-abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
-    val flow = MutableStateFlow(Scoreboard(emptyList())).also {
-        DataBus.setScoreboardEvents(optimismLevel, it)
-    }
-    val runs = mutableMapOf<Int, RunInfo>()
-
+abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) : ScoreboardService(optimismLevel) {
     abstract fun isAccepted(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isPending(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
 
-    suspend fun run(
-        runsFlow: Flow<RunInfo>,
-        contestInfoFlow: Flow<ContestInfo>,
-    ) {
-        var info: ContestInfo? = null
-        merge(runsFlow, contestInfoFlow).collect { update ->
-            when (update) {
-                is RunInfo -> {
-                    val oldRun = runs[update.id]
-                    runs[update.id] = update
-                    if (oldRun?.isJudged == false && !update.isJudged) {
-                        return@collect
-                    }
-                }
-                is ContestInfo -> {
-                    info = update
-                }
-            }
-            info?.let {
-                flow.value = getScoreboard(it)
-            }
-        }
-    }
+    override val comparator: Comparator<ScoreboardRow> = compareBy(
+        { -it.totalScore },
+        { it.penalty },
+        { it.lastAccepted }
+    )
 
-    private fun ContestInfo.getScoreboardRow(
+    override fun ContestInfo.getScoreboardRow(
         teamId: Int,
         runs: List<RunInfo>,
         teamGroups: List<String>,
         problems: List<ProblemInfo>
     ): ScoreboardRow {
+        require(resultType == ContestResultType.ICPC)
         val penaltyCalculator = when (penaltyRoundingMode) {
             PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE -> EachSubmissionDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
             PenaltyRoundingMode.SUM_DOWN_TO_MINUTE -> SumDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
         }
-        var solved = 0.0f
+        var solved = 0
         var lastAccepted = 0L
         val runsByProblem = runs.groupBy { it.problemId }
         val problemResults = problems.map { problem ->
@@ -102,45 +67,24 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
                 }
             }
 
-            return@map when(resultType) {
-                ContestResultType.ICPC -> {
-                    ICPCProblemResult(
-                        runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
-                        runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
-                        okRun != null,
-                        okRun?.isFirstSolvedRun == true,
-                        (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
-                    ).also {
-                        if (it.isSolved) {
-                            solved++
-                            penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
-                            lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
-                        }
-                    }
-                }
-                ContestResultType.IOI -> {
-                    val maxScore = if(problemRuns.isNotEmpty()) problemRuns.maxBy { it.score }.score else 0.0f
-
-                    IOIProblemResult(
-                        runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
-                        runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
-                        maxScore,
-                        okRun?.isFirstSolvedRun == true,
-                        (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
-                    ).also {
-                        if (it.score > 0) {
-                            solved += it.score
-                            penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
-                            lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
-                        }
-                    }
+            ICPCProblemResult(
+                runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
+                runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
+                okRun != null,
+                (okRun?.result as? ICPCRunResult)?.isFirstToSolveRun == true,
+                (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
+            ).also {
+                if (it.isSolved) {
+                    solved++
+                    penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
+                    lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
                 }
             }
         }
         return ScoreboardRow(
             teamId,
             0,
-            solved,
+            solved.toDouble(),
             penaltyCalculator.penalty,
             lastAccepted,
             null,
@@ -149,44 +93,12 @@ abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) {
             emptyList()
         )
     }
-
-    private fun getScoreboard(info: ContestInfo): Scoreboard {
-        val runs = runs.values
-            .sortedWith(compareBy({ it.time }, { it.id }))
-            .groupBy { it.teamId }
-        val teamsInfo = info.teams.filterNot { it.isHidden }.associateBy { it.id }
-        val comparator = compareBy<ScoreboardRow>(
-            { -it.totalScore },
-            { it.penalty },
-            { it.lastAccepted }
-        )
-
-        val allGroups = teamsInfo.values.flatMap { it.groups }.toMutableSet()
-
-        val rows = teamsInfo.values
-            .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.problems) }
-            .sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
-            .toMutableList()
-        if (rows.isNotEmpty()) {
-            var rank = 1
-            for (i in 0 until rows.size) {
-                if (i != 0 && comparator.compare(rows[i - 1], rows[i]) < 0) {
-                    rank++
-                }
-                val medal = info.medals.medalColorByRank(rank)?.takeIf { rows[i].totalScore > 0 }
-                val championInGroups = if (rows[i].totalScore > 0)
-                    teamsInfo[rows[i].teamId]!!.groups.filter { it in allGroups }
-                else
-                    emptyList()
-                for (group in championInGroups) {
-                    allGroups -= group
-                }
-                rows[i] = rows[i].copy(rank = rank, medalType = medal, championInGroups = championInGroups)
-            }
-        }
-        return Scoreboard(rows)
-    }
 }
+
+private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.isAccepted == true
+private val RunInfo.isAddingPenalty get() = (result as? ICPCRunResult)?.isAddingPenalty == true
+private val RunInfo.isJudged get() = result != null
+
 
 class ICPCNormalScoreboardService : ICPCScoreboardService(OptimismLevel.NORMAL) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
