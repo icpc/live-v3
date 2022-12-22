@@ -193,7 +193,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
                     }
                     page++
                 }
-                pendingRunId = runs.filter { !it.isJudged }.minOfOrNull { it.id } ?: runs.maxOfOrNull { it.id } ?: 0
+                pendingRunId = runs.filter { it.result == null }.minOfOrNull { it.id } ?: runs.maxOfOrNull { it.id } ?: 0
                 runsBufferFlow.emit(runs)
             } catch (e: IOException) {
                 log.error("Failed to reload new runs", e)

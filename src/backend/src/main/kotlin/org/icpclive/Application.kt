@@ -24,7 +24,7 @@ import org.icpclive.util.*
 import org.icpclive.cds.getContestDataSource
 import org.icpclive.data.DataBus
 import org.icpclive.service.AdvancedPropertiesService
-import org.icpclive.service.launchICPCServices
+import org.icpclive.service.launchServices
 import org.slf4j.event.Level
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -123,6 +123,6 @@ fun Application.module() {
 
     launch(handler) {
         launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
-        launchICPCServices(AdvancedPropertiesAdapter(loader, DataBus.advancedPropertiesFlow.await()))
+        launchServices(AdvancedPropertiesAdapter(loader, DataBus.advancedPropertiesFlow.await()))
     }
 }

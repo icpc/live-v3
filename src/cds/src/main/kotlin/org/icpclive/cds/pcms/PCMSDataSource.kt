@@ -30,7 +30,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "ICPC"
     )
     private val minScore: Float = properties.getProperty("standings.minScore", "0.0").toFloat()
-    private val maxScore: Float = properties.getProperty("standings.maxScore", "1.0").toFloat()
+    private val maxScore: Float = properties.getProperty("standings.maxScore", "100.0").toFloat()
     val runIds = mutableMapOf<String, Int>()
     val teamIds = mutableMapOf<String, Int>()
     var startTime = Instant.fromEpochMilliseconds(0)
@@ -152,20 +152,34 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             "undefined" == element.getAttribute("outcome") -> 0.0
             else -> 1.0
         }
-        val result = when {
-            percentage < 1.0 -> ""
-            "yes" == element.getAttribute("accepted") -> "AC"
-            else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
-        }
-        val score = if(resultType == ContestResultType.IOI) element.getAttribute("score").toFloat() else 0.0f
+
         return RunInfo(
             id = id,
-            isAccepted = "AC" == result,
-            isJudged = percentage >= 1.0,
-            isAddingPenalty = "AC" != result && "CE" != result,
-            resultType = resultType,
-            result = result,
-            score = score,
+            when (resultType) {
+                ContestResultType.IOI -> {
+                    val score = element.getAttribute("score").toDouble()
+                    IOIRunResult(
+                        score = score,
+                        difference = 0.0,
+                        scoreByGroup = listOf(score)
+                    )
+                }
+                ContestResultType.ICPC -> {
+                    val result = when {
+                        percentage < 1.0 -> null
+                        "yes" == element.getAttribute("accepted") -> "AC"
+                        else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
+                    }
+                    result?.let {
+                        ICPCRunResult(
+                            isAccepted = "AC" == it,
+                            isAddingPenalty = "AC" != it && "CE" != it,
+                            result = it,
+                            isFirstToSolveRun = false
+                        )
+                    }
+                }
+            },
             problemId = problemId,
             teamId = teamId,
             percentage = percentage,

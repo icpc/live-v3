@@ -118,10 +118,12 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
 
         return RunInfo(
             id = runId,
-            isAccepted = "AC" == result,
-            isJudged = "" != result,
-            isAddingPenalty = "AC" != result && "CE" != result,
-            result = result,
+            ICPCRunResult(
+                isAccepted = "AC" == result,
+                isAddingPenalty = "AC" != result && "CE" != result,
+                result = result,
+                isFirstToSolveRun = false
+            ).takeIf { result != "" },
             problemId = element.getAttribute("prob_id").toInt(),
             teamId = teamId,
             percentage = percentage,

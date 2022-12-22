@@ -86,12 +86,14 @@ class CFContestInfo {
                 val problemTests = problemTestsCount[it.problem.index]!!
                 RunInfo(
                     id = it.id.toInt(),
-                    isAccepted = verdict == CFSubmissionVerdict.OK,
-                    isAddingPenalty = verdict != CFSubmissionVerdict.TESTING &&
-                            verdict != CFSubmissionVerdict.COMPILATION_ERROR &&
-                            it.passedTestCount != 0,
-                    isJudged = verdict != CFSubmissionVerdict.TESTING,
-                    result = verdictToString[verdict]!!,
+                    ICPCRunResult(
+                        isAccepted = verdict == CFSubmissionVerdict.OK,
+                        isAddingPenalty = verdict != CFSubmissionVerdict.COMPILATION_ERROR && it.passedTestCount != 0,
+                        result = verdictToString[verdict]!!,
+                        isFirstToSolveRun = false
+                    ).takeIf {
+                        verdict != CFSubmissionVerdict.TESTING
+                    },
                     problemId = problemId,
                     teamId = participantsByName[getName(it.author)]!!.id,
                     percentage = it.passedTestCount.toDouble() / problemTests,

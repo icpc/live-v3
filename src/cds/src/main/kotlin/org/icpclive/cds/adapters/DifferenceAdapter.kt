@@ -4,26 +4,46 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.cds.ContestParseResult
+import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
-import java.util.TreeSet
+import kotlin.math.abs
 
 class DifferenceAdapter(private val source: ContestDataSource) : ContestDataSource {
-    private val runComparator = compareBy<RunInfo> { it.score }
-    private val runMap = mutableMapOf<Int, MutableMap<Int, TreeSet<RunInfo>>>()
+    private val runMap = mutableMapOf<Pair<Int, Int>, MutableList<RunInfo>>()
 
-    private fun calculateDifference(run: RunInfo) : Float {
-        val runSet = runMap
-            .getOrPut(run.teamId) { mutableMapOf() }
-            .getOrPut(run.problemId) { TreeSet(runComparator) }
-        val last = try { runSet.last() } catch (e: NoSuchElementException) { null }
-        runSet.add(run)
+    private suspend fun FlowCollector<RunInfo>.add(run: RunInfo) {
+        val runsList = runMap
+            .getOrPut(run.teamId to run.problemId) { mutableListOf() }
+        val index = runsList.indexOfFirst { it.id == run.id }
+        if (run.result == null) {
+            emit(run)
+            if (index != -1) runsList.removeAt(index) else return
+        } else {
+            val copy = run.copy(result = (run.result as IOIRunResult).copy(difference = Double.NaN))
+            if (index == -1) runsList.add(copy) else runsList[index] = copy
+        }
+        recalc(runsList)
+    }
+    private suspend fun FlowCollector<RunInfo>.recalc(list: MutableList<RunInfo>) {
+        list.sortBy { it.id }
+        val bestByGroup = mutableMapOf<Int, Double>()
 
-        return if(last != null) run.score - last.score else run.score
+        for ((index, i) in list.withIndex()) {
+            val byGroup = (i.result as IOIRunResult).scoreByGroup
+            var d = 0.0
+            for (g in byGroup.indices) {
+                if (bestByGroup.getOrDefault(g, 0.0) < byGroup[g]) {
+                    d += byGroup[g] - bestByGroup.getOrDefault(g, 0.0)
+                    bestByGroup[g] = byGroup[g]
+                }
+            }
+            if (i.result.difference.isNaN() || abs(i.result.difference - d) > 1e-5) {
+                list[index] = i.copy(result = i.result.copy(difference = d))
+                emit(list[index])
+            }
+        }
     }
 
     override suspend fun run(
@@ -35,21 +55,18 @@ class DifferenceAdapter(private val source: ContestDataSource) : ContestDataSour
             val unprocessedRunsDeferred = CompletableDeferred<Flow<RunInfo>>()
             launch { source.run(contestInfoDeferred, unprocessedRunsDeferred, analyticsMessagesDeferred) }
             logger.info("Difference service is started")
-            flow {
-                unprocessedRunsDeferred.await().collect {
-                    emit(it.copy(difference = calculateDifference(it)))
-                }
-            }.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
-                .also { runsDeferred.complete(it) }
+            if (contestInfoDeferred.await().value.resultType == ContestResultType.ICPC) {
+                runsDeferred.completeOrThrow(unprocessedRunsDeferred.await())
+            } else {
+                runsDeferred.completeOrThrow(
+                    flow {
+                        unprocessedRunsDeferred.await().collect {
+                            add(it)
+                        }
+                    }.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+                )
+            }
         }
-    }
-
-    override suspend fun loadOnce() = source.loadOnce().let {
-        ContestParseResult(
-            it.contestInfo,
-            it.runs.map { run -> run.copy(difference = calculateDifference(run)) },
-            it.analyticsMessages
-        )
     }
 
     companion object {

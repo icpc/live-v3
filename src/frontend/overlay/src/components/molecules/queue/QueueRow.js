@@ -37,7 +37,7 @@ export const QueueRow = ({ entryData, isEven, flash }) => {
             {scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
         </Cell>
         <ProblemCell probData={probData} width={CELL_QUEUE_TASK_WIDTH} isEven={isEven} flash={flash}/>
-        <VerdictCell verdict={entryData} width={CELL_QUEUE_VERDICT_WIDTH} isEven={isEven} flash={flash} />
+        <VerdictCell runData={entryData} width={CELL_QUEUE_VERDICT_WIDTH} isEven={isEven} flash={flash} />
     </QueueRowWrap>;
 };
 

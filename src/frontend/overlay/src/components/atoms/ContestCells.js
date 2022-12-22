@@ -48,59 +48,74 @@ const VerdictCellWrap = styled(Cell)`
   position: relative;
 `;
 
-const VerdictCellICPC = ({ data, ...props }) => {
+const VerdictCellICPC = ({ verdict, ...props }) => {
     return <VerdictCellWrap
-        background=
-            {data.isJudged ?
-                data.isAccepted ? VERDICT_OK : VERDICT_NOK
-                : undefined}
+        background= {verdict.isAccepted ? VERDICT_OK : VERDICT_NOK}
         {...props}
     >
-        {data.isFirstToSolve || data.isFirstSolvedRun && <StarIcon/>}
-        {data.percentage !== 0 && !data.isJudged && <VerdictCellProgressBar width={data.percentage * 100 + "%"}/>}
-        {data.isJudged && data.result}
+        {verdict.isFirstToSolveRun  && <StarIcon/>}
+        {verdict.result}
     </VerdictCellWrap>;
 };
+
+const ICPCVerdict = PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    isFirstToSolveRun: PropTypes.bool.isRequired,
+    isAccepted: PropTypes.bool.isRequired,
+    result: PropTypes.string.isRequired
+});
 
 VerdictCellICPC.PropTypes = {
-    data: PropTypes.object
+    verdict: ICPCVerdict,
 };
 
-const VerdictCellIOI = ({ data, ...props }) => {
+const VerdictCellIOI = ({ verdict, ...props }) => {
     return <VerdictCellWrap
-        background=
-            {data.isJudged ?
-                data.difference > 0 ? VERDICT_OK : VERDICT_UNKNOWN
-                : undefined}
+        background={verdict.difference > 0 ? VERDICT_OK : (verdict.difference < 0 ? VERDICT_NOK : VERDICT_UNKNOWN)}
         {...props}
     >
-        {data.isFirstToSolve || data.isFirstSolvedRun && <StarIcon/>}
-        {data.percentage !== 0 && !data.isJudged && <VerdictCellProgressBar width={data.percentage * 100 + "%"}/>}
-        {data.isJudged && (data.difference > 0 ? `+${formatScore(data.difference, 1)}` : "=")}
+        {verdict.difference > 0 ? `+${formatScore(verdict.difference, 1)}` : "="}
     </VerdictCellWrap>;
 };
 
+const IOIVerdict = PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    difference: PropTypes.number.isRequired,
+});
+
 VerdictCellIOI.PropTypes = {
-    data: PropTypes.object
+    verdict: IOIVerdict.isRequired,
+};
+
+const VerdictCellInProgress =  ({ percentage, ...props }) => {
+    return <VerdictCellWrap {...props} >
+        {percentage !== 0 && <VerdictCellProgressBar width={percentage * 100 + "%"}/>}
+    </VerdictCellWrap>;
+};
+
+VerdictCellInProgress.PropTypes = {
+    percentage: PropTypes.number.isRequired
 };
 
 export const VerdictCell = ({
-    verdict: data,
+    runData: data,
     ...props
 }) => {
-    if(data.resultType === "ICPC") {
-        return <VerdictCellICPC data={data} {...props} />;
+    console.log(data);
+    if (data.result === undefined) {
+        return <VerdictCellInProgress percentage={data.percentage} {...props}/>;
+    } if (data.result.type === "icpc") {
+        return <VerdictCellICPC verdict={data.result} {...props} />;
     } else {
-        return <VerdictCellIOI data={data} {...props} />;
+        return <VerdictCellIOI verdict={data.result} {...props} />;
     }
 };
 
 VerdictCell.propTypes = {
     ...Cell.propTypes,
-    verdict: PropTypes.shape({
-        isAccepted: PropTypes.bool.isRequired,
-        isJudged: PropTypes.bool.isRequired,
-        result: PropTypes.string.isRequired,
+    runData: PropTypes.shape({
+        result: PropTypes.oneOf([IOIVerdict, ICPCVerdict]),
         percentage: PropTypes.number.isRequired
     })
 };

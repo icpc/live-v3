@@ -131,9 +131,9 @@ export const Queue = ({ widgetData }) => {
             setFeaturedRunLoaded(false);
         }
     }, [hasFeatured]);
-    for (let queueEntry of _.sortBy(queue, ["isFirstSolvedRun"])) {
+    for (let queueEntry of _.sortBy(queue, function (e) { return (e.result === undefined) ? false : e.result.isFirstToSolveRun; })) {
         let bottom = QUEUE_ROW_HEIGHT * queueRowsCount;
-        if (queueEntry.isFirstSolvedRun) {
+        if (queueEntry.result !== undefined && queueEntry.result.isFirstToSolveRun) {
             bottom += QUEUE_FTS_PADDING * (queueRowsCount > 0);
         }
         const featured = queueEntry.featuredRunMedia;

@@ -12,7 +12,7 @@ sealed class ProblemResult
 data class ScoreboardRow(
     val teamId: Int,
     val rank: Int,
-    val totalScore: Float,
+    val totalScore: Double,
     val penalty: Long,
     val lastAccepted: Long,
     val medalType: String?,
@@ -37,10 +37,7 @@ data class ICPCProblemResult(
 @Serializable
 @SerialName("ioi")
 data class IOIProblemResult(
-    val wrongAttempts: Int,
-    val pendingAttempts: Int,
-    val score: Float,
-    val isFirstToSolve: Boolean,
+    val score: Double,
     @SerialName("lastSubmitTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val lastSubmitTime: Duration?,
