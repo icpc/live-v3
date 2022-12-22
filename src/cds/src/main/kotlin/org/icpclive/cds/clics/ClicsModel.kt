@@ -154,7 +154,7 @@ class ClicsModel(
             require(id == judgementType.id)
             judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
                 id = judgementType.id,
-                isAccepted = judgementType.solved!!,
+                isAccepted = judgementType.solved,
                 isAddingPenalty = judgementType.penalty,
             )
         }

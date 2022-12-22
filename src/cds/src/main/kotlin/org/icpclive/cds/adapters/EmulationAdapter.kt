@@ -12,6 +12,7 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestStatus
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.RawContestDataSource
 import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
 import org.icpclive.util.reliableSharedFlow
@@ -23,11 +24,9 @@ import kotlin.time.Duration.Companion.seconds
 class EmulationAdapter(
     private val startTime: Instant,
     private val emulationSpeed: Double,
-    private val source: ContestDataSource,
+    private val source: RawContestDataSource,
 ) : ContestDataSource {
     private class Event(val time: Duration, val process: suspend () -> Unit)
-
-    override suspend fun loadOnce() = source.loadOnce()
 
     override suspend fun run(
         contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,

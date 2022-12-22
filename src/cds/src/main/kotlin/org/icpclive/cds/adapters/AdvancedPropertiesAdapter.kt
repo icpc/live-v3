@@ -37,14 +37,6 @@ class AdvancedPropertiesAdapter(
         }
     }
 
-    override suspend fun loadOnce() = source.loadOnce().let {
-        ContestParseResult(
-            applyOverrides(it.contestInfo, advancedPropsFlow.first(), it.runs.map(RunInfo::teamId).toSet()),
-            it.runs,
-            it.analyticsMessages
-        )
-    }
-
     override suspend fun run(
         contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,
         runsDeferred: CompletableDeferred<Flow<RunInfo>>,

@@ -79,8 +79,8 @@ data class Group(
 @Serializable
 data class JudgementType(
     val id: String,
-    val solved: Boolean? = null,
-    val penalty: Boolean? = null
+    val solved: Boolean = false,
+    val penalty: Boolean = false
 )
 
 @Serializable
