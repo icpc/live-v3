@@ -42,8 +42,6 @@ const PicturesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  //width: 100%;
-  //height: 100%;
   justify-content: center;
   text-align: center;
 `;
@@ -59,7 +57,6 @@ const PicturesCaptionWrap = styled.div`
 
 const PicturesImg = styled.img`
   object-fit: contain;
-  //max-height: calc(100% - 24pt);
   flex-shrink: 1;
   flex-grow: 1;
   max-width: 100%;

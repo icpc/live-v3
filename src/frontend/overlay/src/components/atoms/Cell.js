@@ -18,7 +18,8 @@ const flash = keyframes`
   }
 `;
 
-export const Cell = styled.div` // FIXME: too overloaded with props.
+// FIXME: too overloaded with props.
+export const Cell = styled.div`
   width: ${props => props.width};
   height: 100%;
   display: inline-flex;

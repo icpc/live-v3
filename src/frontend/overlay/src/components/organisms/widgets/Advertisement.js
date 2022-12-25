@@ -9,7 +9,8 @@ const AdvertisementContainer = styled.div`
   align-items: center;
 `;
 
-const AdvertisementWrap = styled.div` // TODO: move this to constants.js
+// TODO: move this to constants.js
+const AdvertisementWrap = styled.div`
   padding: 13px 20px;
   background-color: white;
   border-radius: 12px;
