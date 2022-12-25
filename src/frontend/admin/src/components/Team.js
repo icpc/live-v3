@@ -6,6 +6,7 @@ import { grey } from "@mui/material/colors";
 
 export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    contestSystemId: PropTypes.string.isRequired,
     shown: PropTypes.bool.isRequired,
     selected: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
@@ -41,7 +42,7 @@ export class Team extends React.Component {
                 <Box key="name" sx={{ display: "flex",
                     flexDirection: "row",
                     margin: "4px" }}>
-                    {this.props.rowData.hashTag ?? this.props.rowData.contestSystemId}
+                    {this.props.rowData.contestSystemId}
                     {" : "}
                     {this.props.rowData.name}{" "}
                     {/*{this.props.rowData.medias.screen}*/}

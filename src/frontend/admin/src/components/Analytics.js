@@ -59,7 +59,6 @@ const isActive = (e) => {
 };
 
 const EventTagsIcons = ({ event: { tags } }) => {
-    console.log(tags);
     if (tags.includes("accepted-first-to-solve")){
         return <StarHalf/>;
     } else if (tags.includes("accepted-winner")) {
@@ -70,6 +69,11 @@ const EventTagsIcons = ({ event: { tags } }) => {
         return <Check/>;
     }
     return <Icon/>;
+};
+EventTagsIcons.propTypes = {
+    event: PropTypes.shape({
+        tags: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    }).isRequired,
 };
 
 function MessagesTable({ messages, selectedRowId, onRowClick }) {
