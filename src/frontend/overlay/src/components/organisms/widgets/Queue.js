@@ -131,7 +131,7 @@ export const Queue = ({ widgetData }) => {
             setFeaturedRunLoaded(false);
         }
     }, [hasFeatured]);
-    for (let queueEntry of _.sortBy(queue, function (e) { return (e.result === undefined) ? false : e.result.isFirstToSolveRun; })) {
+    for (let queueEntry of _.sortBy(queue, [ e => e.result?.isFirstToSolveRun ?? false ])) {
         let bottom = QUEUE_ROW_HEIGHT * queueRowsCount;
         if (queueEntry.result !== undefined && queueEntry.result.isFirstToSolveRun) {
             bottom += QUEUE_FTS_PADDING * (queueRowsCount > 0);
