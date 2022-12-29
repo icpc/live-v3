@@ -26,6 +26,8 @@ data class ProblemInfo(
     val name: String,
     val id: Int,
     val ordinal: Int,
+    val minScore: Double? = null,
+    val maxScore: Double? = null,
     @Serializable(ColorSerializer::class) val color: Color? = null,
 ) {
     companion object {
@@ -174,8 +176,6 @@ data class ContestInfo(
     val medals: List<MedalType> = emptyList(),
     val penaltyPerWrongAttempt: Int = 20,
     val penaltyRoundingMode: PenaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
-    val minScore: Float = 0.0f,
-    val maxScore: Float = 1.0f,
 ) {
     val currentContestTime
         get() = when (status) {

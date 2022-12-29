@@ -100,10 +100,10 @@ const mapNumber = (value, oldMin, oldMax, newMin, newMax) => {
 
 // Green color: #1B8041, RGB(27, 128, 65) (VERDICT_OK)
 // Red color: #881f1b, RGB(136, 31, 27) (VERDICT_NOK)
-const getTeamTaskColor = (status, score, minScore, maxScore) => {
-    if(status === TeamTaskStatus.solved || status === TeamTaskStatus.first || status === TeamTaskStatus.failed) {
-        const [ minRed, minGreen, minBlue ] = [136, 31, 27];
-        const [ maxRed, maxGreen, maxBlue ] = [27, 128, 65];
+const getTeamTaskColor = (score, minScore, maxScore) => {
+    if (minScore !== undefined && maxScore !== undefined) {
+        const [minRed, minGreen, minBlue] = [136, 31, 27];
+        const [maxRed, maxGreen, maxBlue] = [27, 128, 65];
 
         const scoreDiff = maxScore - minScore;
         const redDiff = maxRed - minRed;
@@ -113,7 +113,7 @@ const getTeamTaskColor = (status, score, minScore, maxScore) => {
         const middleRange = mapNumber(score, minScore, maxScore, 0, Math.PI);
         const middleFactor = 90;
 
-        const [ red, green, blue ] = [
+        const [red, green, blue] = [
             Math.min(minRed + score * (redDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
             Math.min(minGreen + score * (greenDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
             Math.min(minBlue + score * (blueDiff / scoreDiff) + ((middleFactor * Math.sin(middleRange)) / 10), 255)
@@ -122,27 +122,13 @@ const getTeamTaskColor = (status, score, minScore, maxScore) => {
         return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1, 7)}`;
     }
 
-    return TeamTaskColor[status];
+    return undefined;
 };
 
 function getStatusICPC(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
     } else if (isSolved) {
-        return TeamTaskStatus.solved;
-    } else if (pendingAttempts > 0) {
-        return TeamTaskStatus.unknown;
-    } else if (wrongAttempts > 0) {
-        return TeamTaskStatus.failed;
-    } else {
-        return TeamTaskStatus.untouched;
-    }
-}
-
-function getStatusIOI(isFirstToSolve, score, pendingAttempts, wrongAttempts) {
-    if (isFirstToSolve) {
-        return TeamTaskStatus.first;
-    } else if (score > 0) {
         return TeamTaskStatus.solved;
     } else if (pendingAttempts > 0) {
         return TeamTaskStatus.unknown;
@@ -161,11 +147,9 @@ const ScoreboardICPCTaskCell = ({ status, attempts }) => {
     </ScoreboardTaskCellWrap>;
 };
 
-const ScoreboardIOITaskCell = ({ status, score, attempts, minScore, maxScore }) => {
-    return <ScoreboardTaskCellWrap background={getTeamTaskColor(status, score, minScore, maxScore)}>
-        {status === TeamTaskStatus.first && <StarIcon/>}
+const ScoreboardIOITaskCell = ({ score, minScore, maxScore }) => {
+    return <ScoreboardTaskCellWrap background={getTeamTaskColor(score, minScore, maxScore)}>
         {formatScore(score)}
-        {status !== TeamTaskStatus.untouched && attempts > 0 && ` (${attempts})`}
     </ScoreboardTaskCellWrap>;
 };
 
@@ -183,10 +167,14 @@ ScoreboardIOITaskCell.propTypes = {
 };
 
 const RenderScoreboardTaskCell = ({ data, ...props }) => {
-    if(data.type === "icpc") {
-        return <ScoreboardICPCTaskCell status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)} attempts={data.wrongAttempts + data.pendingAttempts} {...props} />;
+    if (data.type === "icpc") {
+        return <ScoreboardICPCTaskCell
+            status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)}
+            attempts={data.wrongAttempts + data.pendingAttempts}
+            {...props}
+        />;
     } else {
-        return <ScoreboardIOITaskCell status={getStatusIOI(data.isFirstToSolve, data.score, data.pendingAttempts, data.wrongAttempts)} score={data.score} attempts={data.wrongAttempts + data.pendingAttempts} {...props} />;
+        return <ScoreboardIOITaskCell score={data.score} {...props} />;
     }
 };
 
@@ -234,7 +222,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
             {scoreboardData?.penalty}
         </ScoreboardStatCell>}
         {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) =>
-            <RenderScoreboardTaskCell key={i}  data={resultsData} minScore={contestData?.minScore} maxScore={contestData?.maxScore} />
+            <RenderScoreboardTaskCell key={i}  data={resultsData} minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore} />
         )}
     </ScoreboardRowContainer>;
 };

@@ -20,6 +20,8 @@ data class ProblemInfoOverride(
     val name: String? = null,
     @Serializable(ColorSerializer::class)
     val color: Color? = null,
+    val minScore: Double? = null,
+    val maxScore: Double? = null,
 )
 
 @Serializable
@@ -55,7 +57,9 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) = AdvancedProperties(
     problemOverrides = problems.associate {
         it.letter to ProblemInfoOverride(
             name = it.name.takeIf { "problemName" in fields },
-            color = it.color.takeIf { "color" in fields }
+            color = it.color.takeIf { "color" in fields },
+            minScore = it.minScore.takeIf { "minScore" in fields },
+            maxScore = it.maxScore.takeIf { "maxScore" in fields },
         )
     },
     scoreboardOverrides = RankingSettings(

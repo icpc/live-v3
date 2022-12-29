@@ -110,6 +110,8 @@ class AdvancedPropertiesAdapter(
                 override.name ?: problem.name,
                 problem.id,
                 problem.ordinal,
+                override.minScore ?: problem.minScore,
+                override.maxScore ?: problem.maxScore,
                 override.color ?: problem.color
             )
         }
