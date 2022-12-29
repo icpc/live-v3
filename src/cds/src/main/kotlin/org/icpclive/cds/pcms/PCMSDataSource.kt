@@ -158,10 +158,11 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             when (resultType) {
                 ContestResultType.IOI -> {
                     val score = element.getAttribute("score").toDouble()
+                    val groupsScore = element.children("group").map { it.getAttribute("score").toDouble() }.toList().takeIf { it.isNotEmpty() }
                     IOIRunResult(
                         score = score,
                         difference = 0.0,
-                        scoreByGroup = listOf(score)
+                        scoreByGroup = groupsScore ?: listOf(score)
                     )
                 }
                 ContestResultType.ICPC -> {
