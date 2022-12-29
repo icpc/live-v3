@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 object DurationInMillisecondsSerializer : KSerializer<Duration> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("DurationMs", PrimitiveKind.LONG)
@@ -22,6 +23,18 @@ object DurationInMillisecondsSerializer : KSerializer<Duration> {
 
     override fun deserialize(decoder: Decoder): Duration {
         return decoder.decodeLong().milliseconds
+    }
+}
+
+object DurationInSecondsSerializer : KSerializer<Duration> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("DurationS", PrimitiveKind.LONG)
+
+    override fun serialize(encoder: Encoder, value: Duration) {
+        encoder.encodeLong(value.inWholeSeconds)
+    }
+
+    override fun deserialize(decoder: Decoder): Duration {
+        return decoder.decodeLong().seconds
     }
 }
 
@@ -36,6 +49,19 @@ object UnixMillisecondsSerializer : KSerializer<Instant> {
         return Instant.fromEpochMilliseconds(decoder.decodeLong())
     }
 }
+
+object UnixSecondsSerializer : KSerializer<Instant> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantS", PrimitiveKind.LONG)
+
+    override fun serialize(encoder: Encoder, value: Instant) {
+        encoder.encodeLong(value.toEpochMilliseconds() / 1000)
+    }
+
+    override fun deserialize(decoder: Decoder): Instant {
+        return Instant.fromEpochMilliseconds(decoder.decodeLong() * 1000)
+    }
+}
+
 
 object ColorSerializer : KSerializer<Color> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Color", PrimitiveKind.STRING)

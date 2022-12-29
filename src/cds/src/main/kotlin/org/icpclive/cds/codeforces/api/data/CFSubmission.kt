@@ -3,6 +3,8 @@
 package org.icpclive.cds.codeforces.api.data
 
 import kotlinx.serialization.Serializable
+import org.icpclive.util.DurationInSecondsSerializer
+import kotlin.time.Duration
 
 enum class CFSubmissionVerdict {
     FAILED, OK, PARTIAL, COMPILATION_ERROR, RUNTIME_ERROR, WRONG_ANSWER, PRESENTATION_ERROR, TIME_LIMIT_EXCEEDED, MEMORY_LIMIT_EXCEEDED, IDLENESS_LIMIT_EXCEEDED, SECURITY_VIOLATED, CRASHED, INPUT_PREPARATION_CRASHED, CHALLENGED, SKIPPED, TESTING, REJECTED
@@ -17,7 +19,8 @@ data class CFSubmission(
     val id: Long,
     val contestId: Int? = null,
     val creationTimeSeconds: Long,
-    val relativeTimeSeconds: Long,
+    @Serializable(DurationInSecondsSerializer::class)
+    val relativeTimeSeconds: Duration,
     val problem: CFProblem,
     val author: CFParty,
     val programmingLanguage: String,

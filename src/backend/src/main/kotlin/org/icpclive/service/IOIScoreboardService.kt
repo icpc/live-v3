@@ -17,10 +17,10 @@ class IOIScoreboardService(optimismLevel: OptimismLevel) : ScoreboardService(opt
         val runsByProblem = runs.groupBy { it.problemId }
         val problemResults = problems.map { problem ->
             val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
-            val improvingRuns = problemRuns.filter { it.result != null && (it.result as IOIRunResult).difference > 0 }
+            val changingRuns = problemRuns.filter { it.result != null && (it.result as IOIRunResult).difference != 0.0 }
             IOIProblemResult(
-                improvingRuns.sumOf { (it.result as IOIRunResult).difference },
-                improvingRuns.lastOrNull()?.time
+                changingRuns.sumOf { (it.result as IOIRunResult).difference },
+                changingRuns.lastOrNull()?.time
             )
         }
         return ScoreboardRow(

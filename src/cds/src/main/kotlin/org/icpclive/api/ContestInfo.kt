@@ -9,7 +9,6 @@ import org.icpclive.util.DurationInMillisecondsSerializer
 import org.icpclive.util.UnixMillisecondsSerializer
 import org.icpclive.util.getLogger
 import java.awt.Color
-import java.lang.NumberFormatException
 import kotlin.time.Duration
 
 @Serializable
@@ -18,6 +17,14 @@ data class MedalType(val name: String, val count: Int)
 @Serializable
 enum class ContestResultType {
     ICPC, IOI
+}
+
+enum class ScoreMergeMode {
+    MAX_PER_GROUP,
+    MAX_TOTAL,
+    LAST,
+    LAST_OK,
+    SUM
 }
 
 @Serializable
@@ -29,6 +36,7 @@ data class ProblemInfo(
     val minScore: Double? = null,
     val maxScore: Double? = null,
     @Serializable(ColorSerializer::class) val color: Color? = null,
+    val scoreMergeMode: ScoreMergeMode? = null,
 ) {
     companion object {
         val logger = getLogger(ProblemInfo::class)

@@ -37,4 +37,5 @@ data class IOIRunResult(
     val score: Double,
     val difference: Double,
     val scoreByGroup: List<Double>,
+    val wrongVerdict: String?
 ) : RunResult()

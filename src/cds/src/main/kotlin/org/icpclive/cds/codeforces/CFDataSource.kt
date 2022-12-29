@@ -1,5 +1,6 @@
 package org.icpclive.cds.codeforces
 
+import CFHack
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.codeforces.api.CFApiCentral
@@ -30,10 +31,15 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
         it.unwrap()
     }
 
+    private val hacksLoader = jsonLoaderService<CFStatusWrapper<List<CFHack>>> { central.hacksUrl }.map {
+        it.unwrap()
+    }
+
     override suspend fun loadOnce(): ContestParseResult {
         contestInfo.updateStandings(standingsLoader.loadOnce())
         val runs = contestInfo.parseSubmissions(statusLoader.loadOnce().list)
-        return ContestParseResult(contestInfo.toApi(), runs, emptyList())
+        val hacks = contestInfo.parseHacks(hacksLoader.loadOnce())
+        return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
     }
 
     companion object {

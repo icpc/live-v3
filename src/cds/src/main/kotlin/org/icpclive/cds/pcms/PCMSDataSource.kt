@@ -72,6 +72,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     index,
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (resultType == ContestResultType.IOI) 1000.0 else null,
+                    scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_PER_GROUP else null
                 )
             }.toList()
 
@@ -159,7 +160,8 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     IOIRunResult(
                         score = score,
                         difference = 0.0,
-                        scoreByGroup = groupsScore ?: listOf(score)
+                        scoreByGroup = groupsScore ?: listOf(score),
+                        wrongVerdict = null
                     )
                 }
                 ContestResultType.ICPC -> {

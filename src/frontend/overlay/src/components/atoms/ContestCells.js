@@ -70,18 +70,23 @@ VerdictCellICPC.PropTypes = {
 };
 
 const VerdictCellIOI = ({ verdict, ...props }) => {
-    return <VerdictCellWrap
-        background={verdict.difference > 0 ? VERDICT_OK : (verdict.difference < 0 ? VERDICT_NOK : VERDICT_UNKNOWN)}
-        {...props}
-    >
-        {verdict.difference > 0 ? `+${formatScore(verdict.difference, 1)}` : "="}
-    </VerdictCellWrap>;
+    if (verdict.wrongVerdict === undefined) {
+        return <VerdictCellWrap
+            background={verdict.difference > 0 ? VERDICT_OK : (verdict.difference < 0 ? VERDICT_NOK : VERDICT_UNKNOWN)}
+            {...props}
+        >
+            {verdict.difference > 0 ? `+${formatScore(verdict.difference, 1)}` : (verdict.difference < 0 ? `-${formatScore(-verdict.difference, 1)}` : "=")}
+        </VerdictCellWrap>;
+    } else {
+        return <VerdictCellWrap background={VERDICT_NOK} {...props}> { verdict.wrongVerdict } </VerdictCellWrap>;
+    }
 };
 
 const IOIVerdict = PropTypes.shape({
     type: PropTypes.string.isRequired,
     score: PropTypes.number.isRequired,
     difference: PropTypes.number.isRequired,
+    wrongVerdict: PropTypes.string
 });
 
 VerdictCellIOI.PropTypes = {
