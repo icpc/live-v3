@@ -25,7 +25,7 @@ class YandexContestInfo private constructor(
         Instant.parse(contestDescription.startTime),
         contestDescription.duration.seconds,
         (contestDescription.freezeTime ?: contestDescription.duration).seconds,
-        problems.mapIndexed { index, it -> ProblemInfo(it.alias, it.name, null, index, index) },
+        problems.mapIndexed { index, it -> ProblemInfo(it.alias, it.name, index, index) },
         participants.map(Participant::toTeamInfo).sortedBy { it.id },
         problems.map(Problem::testCount)
     )

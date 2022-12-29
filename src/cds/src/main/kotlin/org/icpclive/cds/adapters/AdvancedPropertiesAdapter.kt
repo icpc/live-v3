@@ -8,7 +8,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.cds.ContestParseResult
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -109,9 +108,9 @@ class AdvancedPropertiesAdapter(
             ProblemInfo(
                 problem.letter,
                 override.name ?: problem.name,
-                ProblemInfo.parseColor(override.color) ?: problem.color,
                 problem.id,
-                problem.ordinal
+                problem.ordinal,
+                override.color ?: problem.color
             )
         }
         val startTime = overrides.startTime

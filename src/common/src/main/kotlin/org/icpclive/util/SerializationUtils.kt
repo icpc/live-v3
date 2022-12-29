@@ -45,9 +45,8 @@ object ColorSerializer : KSerializer<Color> {
     }
 
     override fun deserialize(decoder: Decoder): Color {
-        return decoder.decodeString().substring(1).toUInt(radix = 16).let {
-            Color(it.toInt(), true)
-        }
+        val str = decoder.decodeString().removePrefix("0x").removePrefix("#")
+        return Color(str.toUInt(radix = 16).toInt(), str.length == 8)
     }
 }
 

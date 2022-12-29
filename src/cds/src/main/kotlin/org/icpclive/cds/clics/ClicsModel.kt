@@ -7,6 +7,7 @@ import org.icpclive.cds.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.clics.model.ClicsOrganisationInfo
 import org.icpclive.cds.clics.model.ClicsRunInfo
 import org.icpclive.util.getLogger
+import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
@@ -81,9 +82,9 @@ class ClicsModel(
     fun Problem.toApi() = ProblemInfo(
         letter = label,
         name = name,
-        color = rgb,
         id = liveProblemId(id),
-        ordinal = ordinal
+        ordinal = ordinal,
+        color = rgb ?: Color.BLACK
     )
 
     val contestInfo: ContestInfo

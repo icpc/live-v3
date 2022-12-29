@@ -23,7 +23,7 @@ export const ProblemCellWrap = styled(Cell)`
 `;
 
 export const ProblemCell = ({ probData, ...props }) => {
-    return <ProblemCellWrap probColor={probData?.color ?? "red"} {...props}>
+    return <ProblemCellWrap probColor={probData?.color ?? "black"} {...props}>
         {probData?.letter ?? "??"}
     </ProblemCellWrap>;
 };

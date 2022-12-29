@@ -31,7 +31,6 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
             ProblemInfo(
                 element.getAttribute("short_name"),
                 element.getAttribute("short_name"),
-                null,
                 element.getAttribute("id").toInt(),
                 index,
             )

@@ -44,7 +44,7 @@ class CFContestInfo {
     fun updateStandings(standings: CFStandings) {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
-                val problemInfo = ProblemInfo(problem.index, problem.name!!, null, id, id)
+                val problemInfo = ProblemInfo(problem.index, problem.name!!, id, id)
                 problemsMap[problem.index] = problemInfo
                 problemsIdMap[problem.index] = id
                 problems.add(problemInfo)

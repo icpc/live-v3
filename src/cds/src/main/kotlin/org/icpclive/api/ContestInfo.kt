@@ -24,34 +24,18 @@ enum class ContestResultType {
 data class ProblemInfo(
     val letter: String,
     val name: String,
-    @Serializable(ColorSerializer::class) val color: Color,
     val id: Int,
-    val ordinal: Int
+    val ordinal: Int,
+    @Serializable(ColorSerializer::class) val color: Color? = null,
 ) {
-    constructor(letter: String, name: String, color: String?, id: Int, ordinal: Int) :
-            this(letter, name, parseColor(color) ?: Color.BLACK, id, ordinal)
-
-
     companion object {
-        fun parseColor(color: String?): Color? = try {
-            when {
-                color == null -> null
-                color.startsWith("0x") -> Color.decode(color)
-                color.startsWith("#") -> Color.decode("0x" + color.substring(1))
-                else -> Color.decode("0x$color")
-            }
-        } catch (e: NumberFormatException) {
-            logger.warn("Failed to parse color $color")
-            null
-        }
-
         val logger = getLogger(ProblemInfo::class)
     }
 }
 
 @Serializable
 enum class ContestStatus {
-    UNKNOWN, BEFORE, RUNNING, OVER
+    BEFORE, RUNNING, OVER
 }
 
 
@@ -195,20 +179,8 @@ data class ContestInfo(
 ) {
     val currentContestTime
         get() = when (status) {
-            ContestStatus.BEFORE, ContestStatus.UNKNOWN -> Duration.ZERO
+            ContestStatus.BEFORE -> Duration.ZERO
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER -> contestLength
         }
-
-    companion object {
-        fun unknown() = ContestInfo(
-            ContestStatus.UNKNOWN,
-            ContestResultType.ICPC,
-            Instant.fromEpochMilliseconds(0),
-            Duration.ZERO,
-            Duration.ZERO,
-            emptyList(),
-            emptyList()
-        )
-    }
 }

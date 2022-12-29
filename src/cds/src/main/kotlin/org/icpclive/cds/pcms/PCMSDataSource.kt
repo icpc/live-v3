@@ -70,7 +70,6 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                 ProblemInfo(
                     it.getAttribute("alias"),
                     it.getAttribute("name"),
-                    it.getAttribute("color").takeIf { it.isNotEmpty() },
                     index,
                     index
                 )

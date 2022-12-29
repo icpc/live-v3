@@ -16,8 +16,8 @@ import kotlin.time.Duration.Companion.seconds
 
 class TeamSpotlightServiceTest {
     private val simpleProblems = listOf(
-        ProblemInfo("A", "Problem A", Color.BLACK, 1, 1),
-        ProblemInfo("B", "Problem B", Color.BLACK, 2, 2)
+        ProblemInfo("A", "Problem A", 1, 1, Color.BLACK),
+        ProblemInfo("B", "Problem B", 2, 2, Color.BLACK)
     )
     private val simpleTeams = (1..10)
         .map { TeamInfo(it, "Team $it", "Team $it", "$it", emptyList(), null, emptyMap()) }

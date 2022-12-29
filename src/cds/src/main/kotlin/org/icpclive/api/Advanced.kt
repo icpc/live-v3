@@ -1,7 +1,9 @@
 package org.icpclive.api
 
 import kotlinx.serialization.Serializable
+import org.icpclive.util.ColorSerializer
 import org.icpclive.util.humanReadable
+import java.awt.Color
 
 @Serializable
 data class TeamInfoOverride(
@@ -16,7 +18,8 @@ data class TeamInfoOverride(
 @Serializable
 data class ProblemInfoOverride(
     val name: String? = null,
-    val color: String? = null,
+    @Serializable(ColorSerializer::class)
+    val color: Color? = null,
 )
 
 @Serializable
@@ -50,10 +53,9 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) = AdvancedProperties(
         )
     },
     problemOverrides = problems.associate {
-        val colorString = (it.color.rgb and 0xffffff).toString(radix = 16).padStart(6, '0')
         it.letter to ProblemInfoOverride(
             name = it.name.takeIf { "problemName" in fields },
-            color = "#$colorString".takeIf { "color" in fields }
+            color = it.color.takeIf { "color" in fields }
         )
     },
     scoreboardOverrides = RankingSettings(

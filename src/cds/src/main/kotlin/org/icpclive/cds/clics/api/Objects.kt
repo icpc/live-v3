@@ -4,6 +4,8 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.clics.ClicsTime
+import org.icpclive.util.ColorSerializer
+import java.awt.Color
 import kotlin.time.Duration
 
 @Serializable
@@ -36,7 +38,8 @@ data class Problem(
     val ordinal: Int = 0,
     val label: String = "",
     val name: String = "",
-    val rgb: String? = null,
+    @Serializable(ColorSerializer::class)
+    val rgb: Color? = null,
     val test_data_count: Int? = null
 )
 
