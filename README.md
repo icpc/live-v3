@@ -6,11 +6,11 @@ Welcome to the ICPC Live Source Code Repository.
 
 * Download release from https://github.com/icpc/live-v3/releases
 * Create contest config files
-    * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/rmc21)
-    * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/config/nerc-2021)
-    * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp-junior-2022)
-    * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/config/yandex-example/)
-    * [Example for Ejduge](https://github.com/icpc/live-v3/tree/main/config/lscpc-2022/)
+    * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-rmc/21)
+    * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/config/icpc-nef/2021-2022/main)
+    * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp/2022-junior)
+    * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/config/_yandex/)
+    * [Example for Ejduge](https://github.com/icpc/live-v3/tree/main/config/lscpc/2022/)
     * [See full archive for more examples](https://github.com/icpc/live-v3/tree/main/config)
     * [How to fine tune imported data](https://github.com/icpc/live-v3/blob/main/advanced.json.md)
 *
