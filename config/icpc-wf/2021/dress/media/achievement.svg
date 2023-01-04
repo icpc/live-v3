@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1350" height="970" viewBox="0 0 1350 970" fill="none" version="1.1" id="svg46" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <mask id="mask-intro">
+    <rect class="slow-roll" x="0" y="0" width="1350" height="970" fill="white" />
+  </mask>
+  <g mask="url(#mask-intro)">
+    <g clip-path="url(#clip0_303_366)" id="g36">
+      <path d="m 0,765 h 1350 v 189.001 c 0,8.836 -7.16,16 -16,16 H 16 c -8.83656,0 -16,-7.164 -16,-16 z" fill="#154326" id="path2" />
+      <image width="161.6842" height="159.15788" preserveAspectRatio="none" 
+             xlink:href="data:image/png;base64,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 " id="image1257" x="32.462746" y="784.02509" />
+
+      <text opacity="0.03" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="220px" font-weight="bold" letter-spacing="-20px" id="text6">
+        <tspan x="-490.703" y="946.50897" id="tspan4">St. Petersburg State University</tspan>
+      </text>
+      <g class="hide-1">
+        <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="20px" font-weight="bold" letter-spacing="0em" id="text20">
+          <tspan x="216" y="829.89899" id="tspan18">St. Petersburg SU Northern Eurasia</tspan>
+        </text>
+        <rect x="1222" y="809" width="88" height="28" rx="4" fill="#ffffff" id="rect22" />
+        <text fill="#000000" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="16px" font-weight="bold" letter-spacing="0em" id="text26">
+          <tspan x="1227" y="828.52002" id="tspan24">23 FINALS</tspan>
+        </text>
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="40px" font-weight="bold" letter-spacing="0em" id="text30">
+          <tspan x="216" y="881.79901" id="tspan28">St. Petersburg State University #SPBU</tspan>
+        </text>
+        <!--        <text fill="#ffffff" fill-opacity="0.5" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="40px" font-weight="bold" letter-spacing="0em" id="text34"><tspan x="745.57001" y="881.79901" id="tspan32">#SPBU</tspan></text>-->
+      </g>
+      <g class="switch-2">
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="32px" font-weight="bold" letter-spacing="0em" id="text19690" x="13.304717" y="758.2099">
+          <tspan x="229.30472" y="823.74896" id="tspan19688">Ivan Bochkov</tspan>
+        </text>
+        <rect x="1245.3047" y="798.7099" width="78" height="28" rx="4" fill="#dd340f" id="rect19698" />
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="16px" font-weight="bold" letter-spacing="0em" id="text19702" x="13.304717" y="758.2099">
+          <tspan x="1253.3047" y="818.22937" id="tspan19700">CF 2468</tspan>
+        </text>
+
+        <g clip-path="url(#clip0_303_308)" id="g19752" transform="translate(13.304718,758.20987)">
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19706">
+            <tspan x="216" y="103.52" id="tspan19704">VK Cup Finalist (2017)</tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19710">
+            <tspan x="216" y="133.52" id="tspan19708"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19714">
+            <tspan x="216" y="163.52" id="tspan19712"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19718">
+            <tspan x="523" y="103.52" id="tspan19716"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19722">
+            <tspan x="523" y="133.52" id="tspan19720"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19726">
+            <tspan x="523" y="163.52" id="tspan19724"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19730">
+            <tspan x="800" y="103.52" id="tspan19728"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19734">
+            <tspan x="800" y="133.52" id="tspan19732"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19738">
+            <tspan x="800" y="163.52" id="tspan19736"></tspan>
+          </text>
+        </g>
+      </g>
+      <g class="switch-3">
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="32px" font-weight="bold" letter-spacing="0em" id="text19690" x="13.304717" y="758.2099">
+          <tspan x="229.30472" y="823.74896" id="tspan19688">Nikita Gaevoi</tspan>
+        </text>
+        <rect x="1245.3047" y="798.7099" width="78" height="28" rx="4" fill="#dd340f" id="rect19698" />
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="16px" font-weight="bold" letter-spacing="0em" id="text19702" x="13.304717" y="758.2099">
+          <tspan x="1253.3047" y="818.22937" id="tspan19700">CF 2676</tspan>
+        </text>
+
+        <g clip-path="url(#clip0_303_308)" id="g19752" transform="translate(13.304718,758.20987)">
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19706">
+            <tspan x="216" y="103.52" id="tspan19704">VK Cup Finalist (2017)</tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19710">
+            <tspan x="216" y="133.52" id="tspan19708"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19714">
+            <tspan x="216" y="163.52" id="tspan19712"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19718">
+            <tspan x="523" y="103.52" id="tspan19716"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19722">
+            <tspan x="523" y="133.52" id="tspan19720"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19726">
+            <tspan x="523" y="163.52" id="tspan19724"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19730">
+            <tspan x="800" y="103.52" id="tspan19728"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19734">
+            <tspan x="800" y="133.52" id="tspan19732"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19738">
+            <tspan x="800" y="163.52" id="tspan19736"></tspan>
+          </text>
+        </g>
+      </g>
+      <g class="switch-4">
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="32px" font-weight="bold" letter-spacing="0em" id="text19690" x="13.304717" y="758.2099">
+          <tspan x="229.30472" y="823.74896" id="tspan19688">Vladislav Makarov</tspan>
+        </text>
+        <rect x="1245.3047" y="798.7099" width="78" height="28" rx="4" fill="#dd340f" id="rect19698" />
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="16px" font-weight="bold" letter-spacing="0em" id="text19702" x="13.304717" y="758.2099">
+          <tspan x="1253.3047" y="818.22937" id="tspan19700">CF 2543</tspan>
+        </text>
+
+        <g clip-path="url(#clip0_303_308)" id="g19752" transform="translate(13.304718,758.20987)">
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19706">
+            <tspan x="216" y="103.52" id="tspan19704">ICPC World Finals Finalist (2018)</tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19710">
+            <tspan x="216" y="133.52" id="tspan19708">Russian Code Cup Finalist (2016)</tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19714">
+            <tspan x="216" y="163.52" id="tspan19712">CROC Finalist (2016)</tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19718">
+            <tspan x="523" y="103.52" id="tspan19716">VK Cup Finalist (2015, 2016)</tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19722">
+            <tspan x="523" y="133.52" id="tspan19720"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19726">
+            <tspan x="523" y="163.52" id="tspan19724"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19730">
+            <tspan x="800" y="103.52" id="tspan19728"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19734">
+            <tspan x="800" y="133.52" id="tspan19732"></tspan>
+          </text>
+          <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="18px" letter-spacing="0em" id="text19738">
+            <tspan x="800" y="163.52" id="tspan19736"></tspan>
+          </text>
+        </g>
+      </g>
+      <g class="switch-5">
+        <text
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre"
+   font-family="Helvetica"
+   font-size="32px"
+   font-weight="bold"
+   letter-spacing="0em"
+   id="text19690"
+   x="13.304717"
+   y="758.2099"><tspan
+     x="229.30472"
+     y="823.74896"
+     id="tspan19688">Andrei Lopatin</tspan></text>
+        
+        
+
+        <text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre;font-size:16px"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19706"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="229.30472"
+     y="861.72986"
+     id="tspan19704"
+     style="font-size:16px">ACM ICPC win as coach (2014, 2016)</tspan></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre;font-size:16px"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19710"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="229.30472"
+     y="891.72986"
+     id="tspan19708"
+     style="font-size:16px">ACM ICPC gold medal as coach (2017)</tspan></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre;font-size:16px"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19714"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="229.30472"
+     y="921.72986"
+     id="tspan19712"
+     style="font-size:16px">ACM ICPC silver medal as coach (2013)</tspan></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="font-size:16px;white-space:pre"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19718"
+   x="23.304718"
+   y="758.2099"><tspan
+     x="546.30469"
+     y="861.72986"
+     id="tspan19716"
+     style="font-size:16px">World Finals coach (2012, 2015, 2018-2020)</tspan></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19722"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="536.30469"
+     y="891.72986"
+     id="tspan19720" /></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19726"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="536.30469"
+     y="921.72986"
+     id="tspan19724" /></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19730"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="813.30469"
+     y="861.72986"
+     id="tspan19728" /></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19734"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="813.30469"
+     y="891.72986"
+     id="tspan19732" /></text><text
+   opacity="0.75"
+   fill="#ffffff"
+   xml:space="preserve"
+   style="white-space:pre"
+   font-family="Helvetica"
+   font-size="18px"
+   letter-spacing="0em"
+   id="text19738"
+   x="13.304718"
+   y="758.2099"><tspan
+     x="813.30469"
+     y="921.72986"
+     id="tspan19736" /></text>
+    </g>
+      <g class="show-6">
+        <text opacity="0.75" fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="20px" font-weight="bold" letter-spacing="0em" id="text20">
+          <tspan x="216" y="829.89899" id="tspan18">St. Petersburg SU Northern Eurasia</tspan>
+        </text>
+        <rect x="1222" y="809" width="88" height="28" rx="4" fill="#ffffff" id="rect22" />
+        <text fill="#000000" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="16px" font-weight="bold" letter-spacing="0em" id="text26">
+          <tspan x="1227" y="828.52002" id="tspan24">23 FINALS</tspan>
+        </text>
+        <text fill="#ffffff" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="40px" font-weight="bold" letter-spacing="0em" id="text30">
+          <tspan x="216" y="881.79901" id="tspan28">St. Petersburg State University #SPBU</tspan>
+        </text>
+        <!--        <text fill="#ffffff" fill-opacity="0.5" xml:space="preserve" style="white-space:pre" font-family="Helvetica" font-size="40px" font-weight="bold" letter-spacing="0em" id="text34"><tspan x="745.57001" y="881.79901" id="tspan32">#SPBU</tspan></text>-->
+      </g>
+    </g>
+</g>
+  <defs id="defs44">
+    <clipPath id="clip0_303_366">
+      <rect width="1350" height="970" rx="12" fill="#ffffff" id="rect38" x="0" y="0" />
+    </clipPath>
+  </defs>
+<style>
+@keyframes slow-roll {
+    0% { height: 0; opacity: 0; }
+    100% { height: 970; opacity: 1; }
+}
+
+@keyframes turn-on {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes turn-off {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes switch {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    85% { opacity: 1; }
+    95% { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+rect.slow-roll {
+  animation: slow-roll 0.5s;
+  animation-delay: 1s;
+  animation-timing-function: ease-out;
+}
+
+.hide-1 {
+  animation: turn-off 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 5s;
+  animation-fill-mode: both;
+}
+
+.switch-2 {
+  opacity: 0;
+  animation: switch 5.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 5.4s;
+  animation-fill-mode: both;
+}
+
+.switch-3 {
+  opacity: 0;
+  animation: switch 5.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 10.4s;
+  animation-fill-mode: both;
+}
+
+.switch-4 {
+  opacity: 0;
+  animation: switch 5.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 15.4s;
+  animation-fill-mode: both;
+}
+
+.switch-5 {
+  opacity: 0;
+  animation: switch 5.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 20.4s;
+  animation-fill-mode: both;
+}
+
+.show-6 {
+  opacity: 0;
+  animation: turn-on 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 25.4s;
+  animation-fill-mode: both;
+}
+</style>
+</svg>

@@ -1,0 +1,21 @@
+[
+    {
+        "preset": "title-webcam.svg",
+        "data": {
+            "top_bold": "Pavel Kunyavsky",
+            "bottom": "ICPCLive"
+        }
+    },
+    {
+        "preset": "animation.svg",
+        "data": {
+        }
+    },
+    {
+        "preset": "title-webcam-animated.svg",
+        "data": {
+            "top_bold": "Для тестирования",
+            "bottom": "Невероятно длинное название"
+        }
+    }
+]

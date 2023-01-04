@@ -1,0 +1,44 @@
+[
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "Prof. Dr. Qumrul Ahsan",
+            "role": "World Finals Director"
+        }
+    },
+    {
+        "preset": "left.svg",
+        "data": {
+            "name": "Bill Poucher",
+            "role": "Executive Director, ICPC"
+        }
+    },
+    {
+        "preset": "left.svg",
+        "data": {
+            "name": "Jeff Donahoo",
+            "role": "World Finals Contests Director"
+        }
+    },
+    {
+        "preset": "left.svg",
+        "data": {
+            "name": "Steve Bourne",
+            "role": "ICPC Director of Ceremonies"
+        }
+    },
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "Roy Andersson",
+            "role": "Director of Regional Contests, ICPC"
+        }
+    },
+    {
+        "preset": "left.svg",
+        "data": {
+            "name": "Bill's sleeve",
+            "role": ""
+        }
+    }
+]

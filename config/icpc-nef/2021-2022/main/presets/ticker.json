@@ -1,0 +1,55 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 10000,
+        "text": "#ICPC"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Hello world!"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Сайт: nerc.itmo.ru"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 10000,
+        "text": "NERC 2021"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Группа VK: vk.com/nercnews"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Канал Telegram: t.me/NERCNews"
+    },
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    }
+]
