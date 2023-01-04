@@ -6,7 +6,7 @@ Welcome to the ICPC Live Source Code Repository.
 
 * Download release from https://github.com/icpc/live-v3/releases
 * Create contest config files
-    * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-rmc/21)
+    * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-rmc/2021)
     * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/config/icpc-nef/2021-2022/main)
     * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp/2022-junior)
     * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/config/_yandex/)
