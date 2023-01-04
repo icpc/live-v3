@@ -1,4 +1,6 @@
 test/**
 **/users.json
+**/media
+**/presets
 creds.json
 widget_positions.json
