@@ -1,16 +1,16 @@
 [versions]
-ktor = "2.2.1"                     # https://ktor.io/
+ktor = "2.2.2"                     # https://ktor.io/
 datetime = "0.4.0"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.4.1"            # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "1.7.22"
+kotlin = "1.8.0"
 logback = "1.4.5"                  # https://logback.qos.ch/download.html
-node-plugin = "3.5.0"              # https://github.com/node-gradle/gradle-node-plugin
+node-plugin = "3.5.1"              # https://github.com/node-gradle/gradle-node-plugin
 coroutines = "1.6.4"               # https://github.com/Kotlin/kotlinx.coroutines/
 exposed = "0.41.1"                 # https://github.com/JetBrains/Exposed
 telegram-bot = "6.0.7"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
 shadow-plugin = "7.1.2"            # https://github.com/johnrengelman/shadow
 sqlite = "3.40.0.0"                # https://github.com/xerial/sqlite-jdbc
-clikt = "3.5.0"                    # https://ajalt.github.io/clikt/
+clikt = "3.5.1"                    # https://ajalt.github.io/clikt/
 
 [libraries]
 
