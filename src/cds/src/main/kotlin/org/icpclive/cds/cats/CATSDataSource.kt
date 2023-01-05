@@ -5,6 +5,7 @@ import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.stringLoaderService
 import org.icpclive.util.getCredentials
+import org.w3c.dom.Element
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -20,7 +21,9 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>): Fu
     }
 
     override suspend fun loadOnce(): ContestParseResult {
-        TODO("Not yet implemented")
+        val element = dataLoader.loadOnce()
+        TODO()
+//        return
     }
 
 }
