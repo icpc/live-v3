@@ -47,7 +47,6 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
         for (elem in element.problems) {
             println(elem)
         }
-        val time = Clock.System.now()
 
         val contestInfo = ContestInfo(
             status = ContestStatus.UNKNOWN,
