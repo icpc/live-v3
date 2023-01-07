@@ -4,7 +4,7 @@
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="-Plive.dev.contest=spb-2022-regional-day1" />
+      <option name="scriptParameters" value="-Plive.dev.contest=regionalroi/spb-2022-d1" />
       <option name="taskDescriptions">
         <list />
       </option>
