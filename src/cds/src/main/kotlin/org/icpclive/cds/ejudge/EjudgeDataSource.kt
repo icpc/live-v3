@@ -11,18 +11,18 @@ import org.icpclive.util.guessDatetimeFormat
 import org.w3c.dom.Element
 import java.util.*
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
 class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
+    private val resultType = ContestResultType.valueOf(
+        properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "ICPC"
+    )
 
     override suspend fun loadOnce(): ContestParseResult {
         val element = xmlLoader.loadOnce()
-        return parseContestInfo(element.documentElement).also {
-            require(it.contestInfo.status == ContestStatus.OVER) {
-                "Emulation mode require over contest"
-            }
-        }
+        return parseContestInfo(element.documentElement)
     }
 
     private fun parseProblemsInfo(doc: Element) = doc
@@ -33,6 +33,9 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
                 element.getAttribute("short_name"),
                 element.getAttribute("id").toInt(),
                 index,
+                minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
+                maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
+                scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
             )
         }.toList()
 
@@ -69,14 +72,18 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
             else -> ContestStatus.RUNNING
         }
 
-        val freezeTime = contestLength - element.getAttribute("fog_time").toLong().seconds
+        var freezeTime = 4.hours
+        if (element.hasAttribute("fog_time")) {
+            freezeTime = contestLength - element.getAttribute("fog_time").toLong().seconds
+        }
+
         val teams = parseTeamsInfo(element)
         val teamIdMapping = teams.associateBy({ it.contestSystemId }, { it.id })
 
         return ContestParseResult(
             contestInfo = ContestInfo(
                 status = status,
-                resultType = ContestResultType.ICPC,
+                resultType = resultType,
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,
@@ -117,12 +124,23 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
 
         return RunInfo(
             id = runId,
-            ICPCRunResult(
-                isAccepted = "AC" == result,
-                isAddingPenalty = "AC" != result && "CE" != result,
-                result = result,
-                isFirstToSolveRun = false
-            ).takeIf { result != "" },
+            when (resultType) {
+                ContestResultType.ICPC -> ICPCRunResult(
+                    isAccepted = "AC" == result,
+                    isAddingPenalty = "AC" != result && "CE" != result,
+                    result = result,
+                    isFirstToSolveRun = false
+                ).takeIf { result != "" }
+                ContestResultType.IOI -> {
+                    val score = element.getAttribute("score").ifEmpty { "0" }.toDouble()
+                    IOIRunResult(
+                        score = score,
+                        difference = 0.0,
+                        scoreByGroup = emptyList(),
+                        wrongVerdict = null
+                    )
+                }
+            },
             problemId = element.getAttribute("prob_id").toInt(),
             teamId = teamId,
             percentage = percentage,
