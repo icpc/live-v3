@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<parties
+    id = "ru.mail.codecup.2016.final"
+
+    xmlai-process = "http://neerc.ifmo.ru/develop/pcms2/xmlai/default-rules.xml"
+>
+    <party id = "S101" shortname = "Jury" name = "Jury" region = "ITMO" hashtag = "#jury" />
+    <party id = "S102" shortname = "Budainik"   name = "Nikolay Budin"     region = "ITMO"    hashtag = "#budainik" />
+    <party id = "S103" shortname = "subscriber" name = "Adam Bardashevich" region = "ITMO"    hashtag = "#subscriber" delay = "1000" />
+    <party id = "S104" shortname = "enot110"    name = "Vladimir Smykalov" region = "ITMO"    hashtag = "#enot" />
+    <party id = "S105" shortname = "pashka"     name = "Pavel Mavrin"      region = "ITMO"    hashtag = "#pashka" />
+    <party id = "I101" shortname = "-XraY-"     name = "Igor Pyshkin"      region = "Internet" hashtag = "#xray" />
+    <party id = "I102" shortname = "winger"     name = "Vladislav Isenbaev" region = "Internet" hashtag = "#winger" />
+    <party id = "I103" shortname = "cerealguy"  name = "Mikhail Kever"      region = "Internet" hashtag = "#cerealguy"/>
+</parties> 
+

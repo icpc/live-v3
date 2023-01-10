@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<standings>
+    <contest name="RCC 2016 Final" time="15905731" length="18000000" status="running" frozen="yes">
+        <challenge>
+            <problem alias="A" name="Closing ceremony"/>
+            <problem alias="B" name="Cactusophobia"/>
+            <problem alias="C" name="Homework"/>
+            <problem alias="D" name="Slalom"/>
+            <problem alias="E" name="Cipher"/>
+            <problem alias="F" name="Array cover"/>
+        </challenge>
+        <session id="ru.mail.codecup.2016.final.S101" party="Jury" alias="S101" solved="3" penalty="290" time="7360043" accepted="0" attempts="0" score="0">
+            <problem alias="A" id="ru.mail.codecup.2016.final.concert" solved="0" penalty="29" time="1772511" accepted="1" attempts="1" score="0">
+            </problem>
+            <problem alias="B" id="ru.mail.codecup.2016.final.cactus" solved="0" penalty="142" time="7360043" accepted="1" attempts="2" score="0">
+            </problem>
+            <problem alias="C" id="ru.mail.codecup.2016.final.corners" solved="0" penalty="265" time="15915731" accepted="1" attempts="1" score="0">
+                <run accepted="no" outcome="undefined" time="15915731" score="0"></run>
+                <!--run accepted="yes" outcome="accepted" time="15915731" score="100"></run-->
+            </problem>
+            <problem alias="D" id="ru.mail.codecup.2016.final.slalom" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="E" id="ru.mail.codecup.2016.final.timer" solved="0" penalty="0" time="0" accepted="0" attempts="0" score="0">
+            </problem>
+            <problem alias="F" id="ru.mail.codecup.2016.final.array-covering" solved="0" penalty="119" time="7141426" accepted="1" attempts="1" score="0">
+            </problem>
+        </session>
+    </contest>
+</standings>

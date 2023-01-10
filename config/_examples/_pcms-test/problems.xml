@@ -1,0 +1,8 @@
+<challenge>
+    <problem alias="A" name="Closing ceremony" color="#7C0026" />
+    <problem alias="B" name="Cactusophobia" color="#BD6B80" />
+    <problem alias="C" name="Homework" color="#9C8E00" />
+    <problem alias="D" name="Slalom" color="#000000" />
+    <problem alias="E" name="Cipher" color="#5E0078" />
+    <problem alias="F" name="Array cover" color="#FFFFFF" />
+</challenge>
