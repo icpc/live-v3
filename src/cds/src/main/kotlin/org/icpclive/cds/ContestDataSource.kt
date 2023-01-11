@@ -19,6 +19,7 @@ import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.getLogger
 import org.icpclive.util.guessDatetimeFormat
 import org.icpclive.util.logAndRetryWithDelay
+import org.icpclive.util.loopFlow
 import java.util.*
 import kotlin.time.Duration
 
@@ -47,15 +48,12 @@ abstract class FullReloadContestDataSource(val interval: Duration) : RawContestD
         analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
     ) {
         coroutineScope {
-            val reloadFlow = flow {
-                while (true) {
-                    emit(loadOnce())
-                    delay(interval)
-                }
+            val reloadFlow = loopFlow(
+                interval,
+                { getLogger(ContestDataSource::class).error("Failed to reload data, retrying", it) }
+            ) {
+                loadOnce()
             }.flowOn(Dispatchers.IO)
-                .logAndRetryWithDelay(interval) {
-                    getLogger(ContestDataSource::class).error("Failed to reload data, retrying", it)
-                }
                 .stateIn(this)
             launch { RunsBufferService(reloadFlow.map { it.runs }, runsDeferred).run() }
             analyticsMessagesDeferred.complete(emptyFlow())

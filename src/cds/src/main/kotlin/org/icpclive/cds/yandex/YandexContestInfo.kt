@@ -7,27 +7,40 @@ import org.icpclive.cds.yandex.api.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
+private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInfo(
+    letter = alias,
+    name = name,
+    id = index,
+    ordinal = index,
+    minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
+    maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
+    scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
+)
+
 class YandexContestInfo private constructor(
     private val startTime: Instant,
     private val duration: Duration,
     private val freezeTime: Duration,
     private val problems: List<ProblemInfo>,
     private val teams: List<TeamInfo>,
-    private val testCountByProblem: List<Int?>
+    private val testCountByProblem: List<Int?>,
+    private val resultType: ContestResultType,
 ) {
     private val teamIds: Set<Int> = teams.map(TeamInfo::id).toSet()
 
     constructor(
         contestDescription: ContestDescription,
         problems: List<Problem>,
-        participants: List<Participant>
+        participants: List<Participant>,
+        resultType: ContestResultType
     ) : this(
         Instant.parse(contestDescription.startTime),
         contestDescription.duration.seconds,
         (contestDescription.freezeTime ?: contestDescription.duration).seconds,
-        problems.mapIndexed { index, it -> ProblemInfo(it.alias, it.name, index, index) },
+        problems.mapIndexed { index, it -> it.toApi(index, resultType) },
         participants.map(Participant::toTeamInfo).sortedBy { it.id },
-        problems.map(Problem::testCount)
+        problems.map(Problem::testCount),
+        resultType
     )
 
     fun submissionToRun(submission: Submission): RunInfo {
@@ -40,12 +53,15 @@ class YandexContestInfo private constructor(
         val result = getResult(submission.verdict)
         return RunInfo(
             id = submission.id.toInt(),
-            result = ICPCRunResult(
-                isAccepted = result == "OK",
-                isAddingPenalty = result !in listOf("OK", "CE"),
-                result = result,
-                isFirstToSolveRun = false
-            ).takeIf { result != "" },
+            result = when (resultType) {
+                ContestResultType.ICPC -> ICPCRunResult(
+                    isAccepted = result == "OK",
+                    isAddingPenalty = result !in listOf("OK", "CE"),
+                    result = result,
+                    isFirstToSolveRun = false
+                )
+                ContestResultType.IOI -> TODO()
+            }.takeIf { result != "" },
             problemId = problemId,
             teamId = submission.authorId.toInt(),
             percentage = when {
@@ -65,7 +81,7 @@ class YandexContestInfo private constructor(
 
     fun toApi() = ContestInfo(
         status = deduceStatus(startTime, duration),
-        resultType = ContestResultType.ICPC,
+        resultType = resultType,
         startTime = startTime,
         contestLength = duration,
         freezeTime = freezeTime,

@@ -54,9 +54,7 @@ internal class AdvancedPropertiesAdapter(
                     if (!submittedTeams.contains(teamId)) {
                         mutex.withLock {
                             submittedTeams.add(teamId)
-                            if (advancedPropsFlow.await().first().scoreboardOverrides?.showTeamsWithoutSubmissions == true) {
-                                forceRecalculationTriggerFlow.update { it + 1 }
-                            }
+                            forceRecalculationTriggerFlow.update { it + 1 }
                         }
                     }
                 }
@@ -164,7 +162,9 @@ internal class AdvancedPropertiesAdapter(
         val teamInfosFiltered = if (overrides.scoreboardOverrides?.showTeamsWithoutSubmissions != false) {
             teamInfos
         } else {
-            teamInfos.filter { it.id in submittedTeams }
+            teamInfos.filter { it.id in submittedTeams }.also {
+                logger.info("Filtered out ${teamInfos.size - it.size} of ${teamInfos.size} teams as they don't have submissions")
+            }
         }
 
         logger.info("Team and problem overrides are reloaded")

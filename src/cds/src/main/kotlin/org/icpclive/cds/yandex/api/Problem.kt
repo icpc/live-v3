@@ -17,8 +17,7 @@ data class Problem(
     val name: String,
     val statements: List<Statement>,
     val testCount: Int?
-) {
-}
+)
 
 @Serializable
 data class CompilerLimit(

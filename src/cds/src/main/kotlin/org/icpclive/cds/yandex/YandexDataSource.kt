@@ -5,12 +5,12 @@ import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
+import org.icpclive.api.ContestResultType
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.RawContestDataSource
@@ -20,10 +20,7 @@ import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
 import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
 import org.icpclive.cds.yandex.api.*
-import org.icpclive.util.awaitSubscribers
-import org.icpclive.util.getCredentials
-import org.icpclive.util.getLogger
-import java.io.IOException
+import org.icpclive.util.*
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -38,6 +35,8 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
     private val problemLoader: DataLoader<List<Problem>>
     private val participantLoader: DataLoader<List<Participant>>
     private val allSubmissionsLoader: DataLoader<List<Submission>>
+
+    val resultType = ContestResultType.valueOf(props.getProperty("standings.resultType", "ICPC").uppercase())
 
 
     init {
@@ -55,16 +54,17 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
             }
         }
 
-        val participantRegex = Regex(loginPrefix)
 
         contestDescriptionLoader = jsonLoader(auth) { "$API_BASE/contests/$contestId" }
         problemLoader = jsonLoader<Problems>(auth) { "$API_BASE/contests/$contestId/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
-        participantLoader =
+        participantLoader = run {
+            val participantRegex = Regex(loginPrefix)
             jsonLoader<List<Participant>>(auth) { "$API_BASE/contests/$contestId/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
+        }
         allSubmissionsLoader = jsonLoader<Submissions>(auth) {
             "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
         }.map { it.submissions.reversed() }
@@ -75,34 +75,34 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         runsDeferred: CompletableDeferred<Flow<RunInfo>>,
         analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
     ) {
-        val rawContestInfo = YandexContestInfo(
-            contestDescriptionLoader.load(),
-            problemLoader.load(),
-            participantLoader.load()
-        )
-        val contestInfo = rawContestInfo.toApi()
-
-        val rawContestInfoFlow = MutableStateFlow(rawContestInfo)
-        val contestInfoFlow = MutableStateFlow(contestInfo)
-
-        val runsBufferFlow = MutableSharedFlow<List<RunInfo>>(
-            extraBufferCapacity = 16,
-            onBufferOverflow = BufferOverflow.SUSPEND
-        )
-
         coroutineScope {
+            val rawContestInfoFlow = loopFlow(
+                30.seconds,
+                { log.error("Failed to reload contest info", it) }
+            ) {
+                YandexContestInfo(
+                    contestDescriptionLoader.load(),
+                    problemLoader.load(),
+                    participantLoader.load(),
+                    resultType
+                )
+            }.flowOn(Dispatchers.IO)
+                .stateIn(this)
             analyticsMessagesDeferred.complete(emptyFlow())
-            contestInfoDeferred.complete(contestInfoFlow)
-            launch(Dispatchers.IO) { reloadContestInfo(rawContestInfoFlow, contestInfoFlow, 30.seconds) }
-            launch(Dispatchers.IO) {
-                runsBufferFlow.awaitSubscribers()
-                fetchNewRunsOnly(rawContestInfoFlow, runsBufferFlow, 1.seconds)
+            contestInfoDeferred.complete(rawContestInfoFlow.map { it.toApi()}.stateIn(this))
+            val newSubmissionsFlow = newSubmissionsFlow(1.seconds)
+            val allSubmissionsFlow = allSubmissionsLoader.reloadFlow(120.seconds).flowOn(Dispatchers.IO)
+            val submissionsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
+                with(rawContestInfoFlow.value) {
+                    it.mapNotNull { submission ->
+                        if (isTeamSubmission(submission))
+                            submissionToRun(submission)
+                        else
+                            null
+                    }
+                }
             }
-            launch(Dispatchers.IO) {
-                runsBufferFlow.awaitSubscribers()
-                reloadAllRuns(rawContestInfoFlow, runsBufferFlow, 120.seconds)
-            }
-            launch { RunsBufferService(runsBufferFlow, runsDeferred).run() }
+            launch { RunsBufferService(submissionsFlow, runsDeferred).run() }
         }
     }
 
@@ -110,7 +110,8 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         val rawContestInfo = YandexContestInfo(
             contestDescriptionLoader.load(),
             problemLoader.load(),
-            participantLoader.load()
+            participantLoader.load(),
+            resultType
         )
         val contestInfo = rawContestInfo.toApi()
 
@@ -126,78 +127,30 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         private val log = getLogger(YandexDataSource::class)
     }
 
-    // TODO: try .stateIn
-    private suspend fun reloadContestInfo(
-        rawFlow: MutableStateFlow<YandexContestInfo>,
-        flow: MutableStateFlow<ContestInfo>,
+    private suspend fun newSubmissionsFlow(
         period: Duration
-    ) {
-        while (true) {
-            try {
-                val info = YandexContestInfo(
-                    contestDescriptionLoader.load(),
-                    problemLoader.load(),
-                    participantLoader.load()
-                )
-                rawFlow.value = info
-                flow.value = info.toApi()
-            } catch (e: IOException) {
-                log.error("Failed to reload ContestInfo", e)
-            }
-            delay(period)
-        }
-    }
-
-    private suspend fun reloadAllRuns(
-        rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
-        runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
-        period: Duration
-    ) {
-        while (true) {
-            try {
-                val rawContestInfo = rawContestInfoFlow.value
-                val submissions = allSubmissionsLoader.load()
-                    .filter(rawContestInfo::isTeamSubmission)
-                    .map(rawContestInfo::submissionToRun)
-                runsBufferFlow.emit(submissions)
-            } catch (e: IOException) {
-                log.error("Failed to reload rejudges", e)
-            }
-            delay(period)
-        }
-    }
-
-    private suspend fun fetchNewRunsOnly(
-        rawContestInfoFlow: MutableStateFlow<YandexContestInfo>,
-        runsBufferFlow: MutableSharedFlow<List<RunInfo>>,
-        period: Duration
-    ) {
+    ) : Flow<List<Submission>> {
         val formatter = Json { ignoreUnknownKeys = true }
-        var pendingRunId = 0
-        while (true) {
-            try {
-                val rawContestInfo = rawContestInfoFlow.value
+        var pendingRunId = 0L
+
+        return loopFlow(
+            period,
+            { log.error("Fail to load new submissions", it) }
+        ) {
+            buildList {
                 var page = 1
-                val runs = mutableListOf<RunInfo>()
                 while (true) {
                     val response = httpClient.request("submissions?locale=ru&page=$page&pageSize=100") {}
                     val pageSubmissions = formatter.decodeFromString<Submissions>(response.body()).submissions
-                    runs.addAll(
-                        pageSubmissions
-                            .filter(rawContestInfo::isTeamSubmission)
-                            .map(rawContestInfo::submissionToRun)
-                    )
+                    addAll(pageSubmissions)
                     if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunId) {
                         break
                     }
                     page++
                 }
-                pendingRunId = runs.filter { it.result == null }.minOfOrNull { it.id } ?: runs.maxOfOrNull { it.id } ?: 0
-                runsBufferFlow.emit(runs)
-            } catch (e: IOException) {
-                log.error("Failed to reload new runs", e)
+            }.also { runs ->
+                pendingRunId = runs.filter { it.verdict == "" }.minOfOrNull { it.id } ?: runs.maxOfOrNull { it.id } ?: 0
             }
-            delay(period)
         }
     }
 }
