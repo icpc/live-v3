@@ -156,8 +156,7 @@ class CFContestInfo {
                 submissions.sortedBy { it.id }.map {
                     val problemId = problemsMap[it.problem.index]!!.id
                     val problemTests = problemTestsCount[it.problem.index]!!
-                    wrongs += if (it.isAddingPenalty) 1 else 0
-                    RunInfo(
+                    val run = RunInfo(
                         id = it.id.toInt(),
                         submissionToResult(it, wrongs),
                         problemId = problemId,
@@ -165,6 +164,8 @@ class CFContestInfo {
                         percentage = it.passedTestCount.toDouble() / problemTests,
                         time = it.relativeTimeSeconds,
                     )
+                    wrongs += if (it.isAddingPenalty || it.verdict == CFSubmissionVerdict.OK) 1 else 0
+                    run
                 }
             }.values.flatten()
     }
