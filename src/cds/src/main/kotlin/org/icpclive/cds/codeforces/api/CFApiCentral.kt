@@ -19,6 +19,8 @@ class CFApiCentral(
         get() = apiRequestUrl("contest.status", mapOf("contestId" to contestId.toString()))
     val hacksUrl: String
         get() = apiRequestUrl("contest.hacks", mapOf("contestId" to contestId.toString()))
+    val contestListUrl: String
+        get() = apiRequestUrl("contest.list", emptyMap())
 
 
     private fun apiRequestUrl(

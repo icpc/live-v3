@@ -5,7 +5,6 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.codeforces.api.data.*
 import org.icpclive.cds.codeforces.api.results.CFStandings
-import org.icpclive.util.getLogger
 import kotlin.math.ceil
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -35,7 +34,8 @@ private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
 class CFContestInfo {
     private var contestLength: Duration = 5.hours
     private var startTime: Instant = Instant.fromEpochMilliseconds(0)
-    private var status = ContestStatus.BEFORE
+    var status = ContestStatus.BEFORE
+        private set
     private val problems = mutableListOf<ProblemInfo>()
     private var cfStandings: CFStandings? = null
     private val problemsMap = mutableMapOf<String, ProblemInfo>()
@@ -44,10 +44,23 @@ class CFContestInfo {
     private var nextParticipantId = 1
     private var contestType: CFContestType = CFContestType.ICPC
 
+    fun updateContestInfo(contest: CFContest) {
+        contestType = contest.type
+        contestLength = contest.durationSeconds!!
+        val phase = contest.phase
+        startTime = contest.startTimeSeconds
+            ?.let { Instant.fromEpochSeconds(it) }
+            ?: Instant.DISTANT_FUTURE
+        status = when (phase) {
+            CFContestPhase.BEFORE -> ContestStatus.BEFORE
+            CFContestPhase.CODING -> ContestStatus.RUNNING
+            else -> ContestStatus.OVER
+        }
+    }
+
     fun updateStandings(standings: CFStandings) {
         this.cfStandings = standings
-        contestType = standings.contest.type
-        contestLength = standings.contest.durationSeconds!!
+        updateContestInfo(standings.contest)
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(
@@ -79,15 +92,6 @@ class CFContestInfo {
                 problemsMap[hacksInfo.letter] = hacksInfo
                 problems.add(hacksInfo)
             }
-        }
-        val phase = standings.contest.phase
-        startTime = standings.contest.startTimeSeconds
-            ?.let { Instant.fromEpochSeconds(it) }
-            ?: Instant.DISTANT_FUTURE
-        status = when (phase) {
-            CFContestPhase.BEFORE -> ContestStatus.BEFORE
-            CFContestPhase.CODING -> ContestStatus.RUNNING
-            else -> ContestStatus.OVER
         }
         for (row in standings.rows) {
             val teamInfo = CFTeamInfo(row)
