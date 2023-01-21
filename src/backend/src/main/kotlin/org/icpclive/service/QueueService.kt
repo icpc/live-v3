@@ -126,7 +126,7 @@ class QueueService {
                         if (run.id in runs || contestInfoFlow.value.currentContestTime <= currentTime + run.timeInQueue) {
                             modifyRun(run)
                         } else {
-                            logger.debug("Ignore run as it is too old: ${contestInfoFlow.value.currentContestTime} vs ${currentTime + run.timeInQueue}")
+                            logger.info("Ignore run as it is too old: ${contestInfoFlow.value.currentContestTime} vs ${currentTime + run.timeInQueue}")
                         }
                     }
                 }
