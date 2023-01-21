@@ -112,7 +112,8 @@ class AdvancedPropertiesAdapter(
                 problem.ordinal,
                 override.minScore ?: problem.minScore,
                 override.maxScore ?: problem.maxScore,
-                override.color ?: problem.color
+                override.color ?: problem.color,
+                override.scoreMergeMode ?: problem.scoreMergeMode
             )
         }
         val startTime = overrides.startTime
