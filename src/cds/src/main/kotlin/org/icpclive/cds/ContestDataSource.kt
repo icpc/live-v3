@@ -8,6 +8,7 @@ import org.icpclive.api.RunInfo
 import org.icpclive.cds.adapters.DifferenceAdapter
 import org.icpclive.cds.adapters.EmulationAdapter
 import org.icpclive.cds.adapters.FirstToSolveAdapter
+import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.RunsBufferService
@@ -76,6 +77,7 @@ fun getContestDataSource(
         "YANDEX" -> YandexDataSource(properties, creds)
         "EJUDGE" -> EjudgeDataSource(properties)
         "KRSU" -> KRSUDataSource(properties)
+        "CATS" -> CATSDataSource(properties, creds)
         else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
     }
 
