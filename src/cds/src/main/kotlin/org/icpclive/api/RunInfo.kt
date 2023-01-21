@@ -34,8 +34,7 @@ data class ICPCRunResult(
 @Serializable
 @SerialName("ioi")
 data class IOIRunResult(
-    val score: Double,
-    val difference: Double,
-    val scoreByGroup: List<Double>,
-    val wrongVerdict: String?
+    val score: List<Double>,
+    val wrongVerdict: String? = null,
+    val difference: Double = 0.0
 ) : RunResult()

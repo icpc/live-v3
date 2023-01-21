@@ -134,10 +134,8 @@ class CFContestInfo {
                     0.0
                 }
                 IOIRunResult(
-                    score = score,
-                    difference = 0.0,
-                    scoreByGroup = listOf(score),
-                    wrongVerdict = if (isWrong) verdictToString[submission.verdict] else null
+                    score = listOf(score),
+                    wrongVerdict = if (isWrong) verdictToString[submission.verdict] else null,
                 )
             }
         }
@@ -179,25 +177,17 @@ class CFContestInfo {
                         id = (hack.id * 2).inv(),
                         result = when (hack.verdict) {
                             CFHackVerdict.HACK_SUCCESSFUL -> IOIRunResult(
-                                score = 100.0,
-                                difference = 0.0,
-                                scoreByGroup = emptyList(),
-                                wrongVerdict = null
+                                score = listOf(100.0),
                             )
 
                             CFHackVerdict.HACK_UNSUCCESSFUL -> IOIRunResult(
-                                score = -50.0,
-                                difference = 0.0,
-                                scoreByGroup = emptyList(),
-                                wrongVerdict = null
+                                score = listOf(-50.0),
                             )
 
                             CFHackVerdict.TESTING -> null
                             else -> IOIRunResult(
-                                score = 0.0,
-                                difference = 0.0,
-                                scoreByGroup = emptyList(),
-                                wrongVerdict = "CE"
+                                score = emptyList(),
+                                wrongVerdict = "CE",
                             )
                         },
                         percentage = 0.0,
@@ -210,10 +200,8 @@ class CFContestInfo {
                     RunInfo(
                         id = (hack.id * 2 + 1).inv(),
                         result = IOIRunResult(
-                            score = 0.0,
-                            difference = 0.0,
-                            scoreByGroup = emptyList(),
-                            wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else "OK"
+                            score = listOf(0.0),
+                            wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else "OK",
                         ),
                         isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
                         percentage = 0.0,

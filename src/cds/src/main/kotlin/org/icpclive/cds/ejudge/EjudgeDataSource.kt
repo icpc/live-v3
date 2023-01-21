@@ -134,10 +134,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
                 ContestResultType.IOI -> {
                     val score = element.getAttribute("score").ifEmpty { "0" }.toDouble()
                     IOIRunResult(
-                        score = score,
-                        difference = 0.0,
-                        scoreByGroup = emptyList(),
-                        wrongVerdict = null
+                        score = listOf(score),
                     )
                 }
             },

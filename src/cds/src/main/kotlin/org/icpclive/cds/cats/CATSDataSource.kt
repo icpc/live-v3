@@ -1,7 +1,6 @@
 package org.icpclive.cds.cats
 
 import kotlinx.coroutines.*
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
@@ -17,7 +16,6 @@ import java.awt.Color
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -198,10 +196,7 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
                         result = it.state_text
                     ) else {
                         IOIRunResult(
-                            score = it.points,
-                            difference = 0.0,
-                            scoreByGroup = listOf(it.points),
-                            wrongVerdict = null
+                            score = listOf(it.points)
                         )
                     },
                     problemId = it.problem_id,
