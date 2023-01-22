@@ -17,7 +17,6 @@ import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.*
 import org.icpclive.admin.configureAdminApiRouting
-import org.icpclive.cds.adapters.AdvancedPropertiesAdapter
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.util.*
@@ -119,10 +118,17 @@ fun Application.module() {
     if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in ${config.configDirectory}")
     val properties = Properties()
     FileInputStream(path.toString()).use { properties.load(it) }
-    val loader = getContestDataSource(properties, config.creds)
+    val loader = getContestDataSource(
+        properties,
+        config.creds,
+        calculateFTS = true,
+        calculateDifference = true,
+        removeFrozenResults = true,
+        advancedPropertiesDeferred = DataBus.advancedPropertiesFlow
+    )
 
     launch(handler) {
         launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
-        launchServices(AdvancedPropertiesAdapter(loader, DataBus.advancedPropertiesFlow.await()))
+        launchServices(loader)
     }
 }

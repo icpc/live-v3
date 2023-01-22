@@ -36,6 +36,7 @@ class RankingSettings(
 @Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
+    val freezeTimeSeconds: Long? = null,
     val holdTimeSeconds: Long? = null,
     val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
@@ -45,6 +46,7 @@ data class AdvancedProperties(
 
 fun ContestInfo.toAdvancedProperties(fields: Set<String>) = AdvancedProperties(
     startTime = startTime.humanReadable.takeIf { "startTime" in fields },
+    freezeTimeSeconds = freezeTime.inWholeSeconds.takeIf { "freezeTime" in fields },
     holdTimeSeconds = holdBeforeStartTime?.inWholeSeconds?.takeIf { "holdBeforeStartTime" in fields},
     teamOverrides = teams.associate {
         it.contestSystemId to TeamInfoOverride(

@@ -12,9 +12,9 @@ import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class AdvancedPropertiesAdapter(
+internal class AdvancedPropertiesAdapter(
     private val source: ContestDataSource,
-    private val advancedPropsFlow: Flow<AdvancedProperties>
+    private val advancedPropsFlow: CompletableDeferred<Flow<AdvancedProperties>>
 ) : ContestDataSource {
     private fun <T, O> mergeOverride(
         infos: List<T>,
@@ -55,7 +55,7 @@ class AdvancedPropertiesAdapter(
                     if (!submittedTeams.contains(teamId)) {
                         mutex.withLock {
                             submittedTeams.add(teamId)
-                            if (advancedPropsFlow.first().scoreboardOverrides?.showTeamsWithoutSubmissions == true) {
+                            if (advancedPropsFlow.await().first().scoreboardOverrides?.showTeamsWithoutSubmissions == true) {
                                 forceRecalculationTriggerFlow.update { it + 1 }
                             }
                         }
@@ -74,7 +74,7 @@ class AdvancedPropertiesAdapter(
                         }
                     }
                 }
-                combine(unprocessedContestInfo.await(), advancedPropsFlow, ::Pair).collect {(info, overrides) ->
+                combine(unprocessedContestInfo.await(), advancedPropsFlow.await(), ::Pair).collect {(info, overrides) ->
                     overrides.startTime
                         ?.let { catchToNull { guessDatetimeFormat(it) } }
                         ?.let {
@@ -87,7 +87,7 @@ class AdvancedPropertiesAdapter(
             contestInfoDeferred.complete(
                 combine(
                     unprocessedContestInfo.await(),
-                    advancedPropsFlow,
+                    advancedPropsFlow.await(),
                     forceRecalculationTriggerFlow,
                     ::Triple
                 ).map { (info, overrides, _) ->
@@ -154,6 +154,7 @@ class AdvancedPropertiesAdapter(
             ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
             ?.let { it to getStateBasedOnStartTime(it, info.contestLength) }
             ?: (info.startTime to info.status)
+        val freezeTime = overrides.freezeTimeSeconds?.seconds ?: info.freezeTime
         val holdTimeSeconds = overrides.holdTimeSeconds?.seconds ?: info.holdBeforeStartTime
         val medals = overrides.scoreboardOverrides?.medals ?: info.medals
         val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
@@ -170,6 +171,7 @@ class AdvancedPropertiesAdapter(
         logger.info("Team and problem overrides are reloaded")
         return info.copy(
             startTime = startTime,
+            freezeTime = freezeTime,
             status = status,
             holdBeforeStartTime = holdTimeSeconds,
             teams = teamInfosFiltered,

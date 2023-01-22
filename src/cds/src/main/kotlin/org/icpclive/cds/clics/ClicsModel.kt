@@ -211,7 +211,6 @@ class ClicsModel(
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgement.submission_id}")
         judgements[judgement.id] = judgement
-        if (run.submissionTime >= freezeTime) return run // TODO: why we can know it?
         judgement.judgement_type_id?.let { run.judgementType = judgementTypes[it] }
         logger.debug("Process $judgement")
         return run
@@ -222,7 +221,6 @@ class ClicsModel(
             ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}")
         val run = submissions[judgement.submission_id]
             ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}, submission_id ${judgement.submission_id}")
-        if (run.submissionTime >= freezeTime) return run // TODO: why we can know it?
         val judgementType = judgementTypes[casesRun.judgement_type_id]
         if (judgementType?.isAccepted == true) { // may be WA runs also need to add
             run.passedCaseRun.add(casesRun.ordinal)
