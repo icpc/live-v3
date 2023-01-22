@@ -9,7 +9,7 @@ import org.icpclive.cds.codeforces.api.data.CFContest
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.codeforces.api.results.CFStatusWrapper
 import org.icpclive.cds.codeforces.api.results.CFSubmissionList
-import org.icpclive.cds.common.jsonLoaderService
+import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.common.map
 import org.icpclive.util.getCredentials
 import java.lang.IllegalStateException
@@ -26,31 +26,31 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
     )
 
 
-    private val standingsLoader = jsonLoaderService<CFStatusWrapper<CFStandings>> { central.standingsUrl }.map {
+    private val standingsLoader = jsonLoader<CFStatusWrapper<CFStandings>> { central.standingsUrl }.map {
         it.unwrap()
     }
 
-    private val statusLoader = jsonLoaderService<CFStatusWrapper<CFSubmissionList>> { central.statusUrl }.map {
+    private val statusLoader = jsonLoader<CFStatusWrapper<CFSubmissionList>> { central.statusUrl }.map {
         it.unwrap()
     }
 
-    private val hacksLoader = jsonLoaderService<CFStatusWrapper<List<CFHack>>> { central.hacksUrl }.map {
+    private val hacksLoader = jsonLoader<CFStatusWrapper<List<CFHack>>> { central.hacksUrl }.map {
         it.unwrap()
     }
 
-    private val contestStatusBeforeLoader = jsonLoaderService<CFStatusWrapper<List<CFContest>>> { central.contestListUrl }.map {
+    private val contestStatusBeforeLoader = jsonLoader<CFStatusWrapper<List<CFContest>>> { central.contestListUrl }.map {
         it.unwrap().single { it.id == contestId }
     }
 
     override suspend fun loadOnce(): ContestParseResult {
         if (contestInfo.status == ContestStatus.BEFORE) {
-            contestInfo.updateContestInfo(contestStatusBeforeLoader.loadOnce())
+            contestInfo.updateContestInfo(contestStatusBeforeLoader.load())
         }
         // can change inside previous if, so we do recheck, not else.
         if (contestInfo.status != ContestStatus.BEFORE) {
-            contestInfo.updateStandings(standingsLoader.loadOnce())
-            val runs = contestInfo.parseSubmissions(statusLoader.loadOnce().list)
-            val hacks = contestInfo.parseHacks(hacksLoader.loadOnce())
+            contestInfo.updateStandings(standingsLoader.load())
+            val runs = contestInfo.parseSubmissions(statusLoader.load().list)
+            val hacks = contestInfo.parseHacks(hacksLoader.load())
             return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
         } else {
             return ContestParseResult(contestInfo.toApi(), emptyList(), emptyList())

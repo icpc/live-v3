@@ -12,7 +12,6 @@ import kotlinx.serialization.json.Json
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.RawContestDataSource
 import org.icpclive.cds.common.*
@@ -35,10 +34,10 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
     private val contestId: Long
     private val httpClient: HttpClient
 
-    private val contestDescriptionLoader: LoaderService<ContestDescription>
-    private val problemLoader: LoaderService<List<Problem>>
-    private val participantLoader: LoaderService<List<Participant>>
-    private val allSubmissionsLoader: LoaderService<List<Submission>>
+    private val contestDescriptionLoader: DataLoader<ContestDescription>
+    private val problemLoader: DataLoader<List<Problem>>
+    private val participantLoader: DataLoader<List<Participant>>
+    private val allSubmissionsLoader: DataLoader<List<Submission>>
 
 
     init {
@@ -58,15 +57,15 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
 
         val participantRegex = Regex(loginPrefix)
 
-        contestDescriptionLoader = jsonLoaderService(auth) { "$API_BASE/contests/$contestId" }
-        problemLoader = jsonLoaderService<Problems>(auth) { "$API_BASE/contests/$contestId/problems" }.map {
+        contestDescriptionLoader = jsonLoader(auth) { "$API_BASE/contests/$contestId" }
+        problemLoader = jsonLoader<Problems>(auth) { "$API_BASE/contests/$contestId/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader =
-            jsonLoaderService<List<Participant>>(auth) { "$API_BASE/contests/$contestId/participants" }.map {
+            jsonLoader<List<Participant>>(auth) { "$API_BASE/contests/$contestId/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
-        allSubmissionsLoader = jsonLoaderService<Submissions>(auth) {
+        allSubmissionsLoader = jsonLoader<Submissions>(auth) {
             "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
         }.map { it.submissions.reversed() }
     }
@@ -77,9 +76,9 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
     ) {
         val rawContestInfo = YandexContestInfo(
-            contestDescriptionLoader.loadOnce(),
-            problemLoader.loadOnce(),
-            participantLoader.loadOnce()
+            contestDescriptionLoader.load(),
+            problemLoader.load(),
+            participantLoader.load()
         )
         val contestInfo = rawContestInfo.toApi()
 
@@ -109,14 +108,14 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
 
     override suspend fun loadOnce(): ContestParseResult {
         val rawContestInfo = YandexContestInfo(
-            contestDescriptionLoader.loadOnce(),
-            problemLoader.loadOnce(),
-            participantLoader.loadOnce()
+            contestDescriptionLoader.load(),
+            problemLoader.load(),
+            participantLoader.load()
         )
         val contestInfo = rawContestInfo.toApi()
 
         log.info("Loading all contest submissions")
-        val submissions = allSubmissionsLoader.loadOnce()
+        val submissions = allSubmissionsLoader.load()
             .filter(rawContestInfo::isTeamSubmission)
             .map(rawContestInfo::submissionToRun)
         log.info("Loaded all submissions for emulation")
@@ -136,9 +135,9 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         while (true) {
             try {
                 val info = YandexContestInfo(
-                    contestDescriptionLoader.loadOnce(),
-                    problemLoader.loadOnce(),
-                    participantLoader.loadOnce()
+                    contestDescriptionLoader.load(),
+                    problemLoader.load(),
+                    participantLoader.load()
                 )
                 rawFlow.value = info
                 flow.value = info.toApi()
@@ -157,7 +156,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         while (true) {
             try {
                 val rawContestInfo = rawContestInfoFlow.value
-                val submissions = allSubmissionsLoader.loadOnce()
+                val submissions = allSubmissionsLoader.load()
                     .filter(rawContestInfo::isTeamSubmission)
                     .map(rawContestInfo::submissionToRun)
                 runsBufferFlow.emit(submissions)

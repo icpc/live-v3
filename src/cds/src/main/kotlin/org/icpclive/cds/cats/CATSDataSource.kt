@@ -14,7 +14,7 @@ import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonLoaderService
+import org.icpclive.cds.common.jsonLoader
 import org.icpclive.util.getCredentials
 import org.icpclive.util.getLogger
 import java.time.ZonedDateTime
@@ -125,19 +125,19 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
         val contest_start: Int
     ) : Run()
 
-    private val authLoader = jsonLoaderService<Auth> { "$url/?f=login&login=$login&passwd=$password&json=1" }
-    private val problemsLoader = jsonLoaderService<Problems> { "$url/problems?cid=$cid&sid=${sid!!}&json=1" }
-    private val usersLoader = jsonLoaderService<Users> { "$url/users?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
-    private val contestLoader = jsonLoaderService<Contest> { "$url/contest_params?cid=$cid&sid=${sid!!}&json=1" }
-    private val runsLoader = jsonLoaderService<List<Run>> { "$url/console?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
+    private val authLoader = jsonLoader<Auth> { "$url/?f=login&login=$login&passwd=$password&json=1" }
+    private val problemsLoader = jsonLoader<Problems> { "$url/problems?cid=$cid&sid=${sid!!}&json=1" }
+    private val usersLoader = jsonLoader<Users> { "$url/users?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
+    private val contestLoader = jsonLoader<Contest> { "$url/contest_params?cid=$cid&sid=${sid!!}&json=1" }
+    private val runsLoader = jsonLoader<List<Run>> { "$url/console?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
 
     override suspend fun loadOnce(): ContestParseResult {
-        sid = authLoader.loadOnce().sid
+        sid = authLoader.load().sid
         return parseAndUpdateStandings(
-            problemsLoader.loadOnce(),
-            usersLoader.loadOnce(),
-            contestLoader.loadOnce(),
-            runsLoader.loadOnce()
+            problemsLoader.load(),
+            usersLoader.load(),
+            contestLoader.load(),
+            runsLoader.load()
         )
     }
 

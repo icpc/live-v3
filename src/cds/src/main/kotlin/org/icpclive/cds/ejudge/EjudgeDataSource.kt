@@ -4,7 +4,7 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.xmlLoaderService
+import org.icpclive.cds.common.xmlLoader
 import org.icpclive.util.child
 import org.icpclive.util.children
 import org.icpclive.util.guessDatetimeFormat
@@ -21,7 +21,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
     )
 
     override suspend fun loadOnce(): ContestParseResult {
-        val element = xmlLoader.loadOnce()
+        val element = xmlLoader.load()
         return parseContestInfo(element.documentElement)
     }
 
@@ -145,7 +145,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         )
     }
 
-    private val xmlLoader = xmlLoaderService { properties.getProperty("url") }
+    private val xmlLoader = xmlLoader { properties.getProperty("url") }
 
     companion object {
         private val statusMap = mapOf(

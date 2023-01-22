@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 import org.icpclive.util.getLogger
 import java.nio.file.Paths
 
-abstract class LineStreamLoaderService<T>(auth: ClientAuth?) {
+abstract class LineStreamLoaderService<T : Any>(auth: ClientAuth?) {
     private val httpClient = defaultHttpClient(auth)
 
     abstract val url: String

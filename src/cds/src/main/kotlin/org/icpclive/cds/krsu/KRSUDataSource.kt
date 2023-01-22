@@ -12,9 +12,8 @@ import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonLoaderService
+import org.icpclive.cds.common.jsonLoader
 import org.icpclive.util.getLogger
-import java.awt.Color
 import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -23,7 +22,7 @@ import kotlin.time.Duration.Companion.seconds
 class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
 
     override suspend fun loadOnce() = parseAndUpdateStandings(
-        contestInfoLoader.loadOnce(), submissionsLoader.loadOnce()
+        contestInfoLoader.load(), submissionsLoader.load()
     )
 
     val teams = mutableMapOf<String, TeamInfo>()
@@ -100,8 +99,8 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         )
     }
 
-    private val submissionsLoader = jsonLoaderService<List<Submission>> { properties.getProperty("submissions-url") }
-    private val contestInfoLoader = jsonLoaderService<Contest> { properties.getProperty("contest-url") }
+    private val submissionsLoader = jsonLoader<List<Submission>> { properties.getProperty("submissions-url") }
+    private val contestInfoLoader = jsonLoader<Contest> { properties.getProperty("contest-url") }
 
     companion object {
         private val logger = getLogger(KRSUDataSource::class)

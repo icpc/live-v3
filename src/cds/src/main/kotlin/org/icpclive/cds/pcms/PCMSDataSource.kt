@@ -7,7 +7,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.xmlLoaderService
+import org.icpclive.cds.common.xmlLoader
 import org.icpclive.util.child
 import org.icpclive.util.children
 import org.icpclive.util.getCredentials
@@ -22,7 +22,7 @@ import kotlin.time.Duration.Companion.seconds
 class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val login = properties.getCredentials("login", creds)
     private val password = properties.getCredentials("password", creds)
-    private val dataLoader = xmlLoaderService(login?.let { ClientAuth.Basic(login, password!!) }) {
+    private val dataLoader = xmlLoader(login?.let { ClientAuth.Basic(login, password!!) }) {
         properties.getProperty("url")
     }
 
@@ -35,16 +35,16 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
 
     val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
 
-    override suspend fun loadOnce() = parseAndUpdateStandings(dataLoader.loadOnce().documentElement)
+    override suspend fun loadOnce() = parseAndUpdateStandings(dataLoader.load().documentElement)
     private fun parseAndUpdateStandings(element: Element) = parseContestInfo(element.child("contest"))
 
     private fun loadCustomProblems() : Element {
         val problemsUrl = properties.getProperty("problems.url")
-        val problemsLoader = xmlLoaderService { problemsUrl }
+        val problemsLoader = xmlLoader { problemsUrl }
 
         // TODO: Async loading
         return runBlocking {
-            problemsLoader.loadOnce().documentElement
+            problemsLoader.load().documentElement
         }
     }
 
