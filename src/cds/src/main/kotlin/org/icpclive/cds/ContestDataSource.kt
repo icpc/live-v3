@@ -3,12 +3,11 @@ package org.icpclive.cds
 import org.icpclive.cds.noop.NoopDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import org.icpclive.api.AdvancedProperties
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.adapters.DifferenceAdapter
-import org.icpclive.cds.adapters.EmulationAdapter
-import org.icpclive.cds.adapters.FirstToSolveAdapter
+import org.icpclive.cds.adapters.*
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
@@ -68,8 +67,10 @@ abstract class FullReloadContestDataSource(val interval: Duration) : RawContestD
 fun getContestDataSource(
     properties: Properties,
     creds: Map<String, String> = emptyMap(),
-    calculateFTS: Boolean = true,
-    calculateDifference: Boolean = true
+    calculateFTS: Boolean,
+    calculateDifference: Boolean,
+    removeFrozenResults: Boolean,
+    advancedPropertiesDeferred: CompletableDeferred<Flow<AdvancedProperties>>?,
 ) : ContestDataSource {
     val loader = when (val standingsType = properties.getProperty("standings.type")) {
         "CLICS" -> ClicsDataSource(properties, creds)
@@ -83,16 +84,17 @@ fun getContestDataSource(
         else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
     }
 
-    val emulationSpeedProp: String? = properties.getProperty("emulation.speed")
-    return if (emulationSpeedProp != null) {
-        val emulationSpeed = emulationSpeedProp.toDouble()
-        val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-        EmulationAdapter(emulationStartTime, emulationSpeed, loader)
-    } else {
-        loader
-    }.let {
-        if (calculateFTS) FirstToSolveAdapter(it) else it
-    }.let {
-        if (calculateDifference) DifferenceAdapter(it) else it
-    }
+    val adapters = listOfNotNull(
+        properties.getProperty("emulation.speed")?.let {
+            val emulationSpeed = it.toDouble()
+            val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"));
+            { source: ContestDataSource -> EmulationAdapter(emulationStartTime, emulationSpeed, source as RawContestDataSource) }
+        },
+        advancedPropertiesDeferred?.let { { source : ContestDataSource -> AdvancedPropertiesAdapter(source, it) } },
+        ::RemoveFrozenSubmissionsAdapter.takeIf { removeFrozenResults },
+        ::FirstToSolveAdapter.takeIf { calculateFTS },
+        ::DifferenceAdapter.takeIf { calculateDifference }
+    )
+
+    return adapters.fold(loader as ContestDataSource) { acc, function -> function(acc) }
 }

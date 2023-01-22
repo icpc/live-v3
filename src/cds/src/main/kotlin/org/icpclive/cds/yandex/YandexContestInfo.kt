@@ -37,17 +37,6 @@ class YandexContestInfo private constructor(
         }
         val testCount = testCountByProblem[problemId]
 
-        if (submission.timeFromStart >= freezeTime) {
-            return RunInfo(
-                id = submission.id.toInt(),
-                result = null,
-                problemId = problemId,
-                teamId = submission.authorId.toInt(),
-                percentage = 0.0,
-                time = submission.timeFromStart,
-            )
-        }
-
         val result = getResult(submission.verdict)
         return RunInfo(
             id = submission.id.toInt(),

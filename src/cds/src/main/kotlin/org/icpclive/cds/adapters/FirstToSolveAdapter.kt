@@ -10,7 +10,7 @@ import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
 import java.util.*
 
-class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSource {
+internal class FirstToSolveAdapter(private val source: ContestDataSource) : ContestDataSource {
     private val firstSolve = mutableMapOf<Int, RunInfo>()
     private val runComparator = compareBy<RunInfo>({it.isHidden}, { it.time }, { it.id })
     private val solved = mutableMapOf<Int, TreeSet<RunInfo>>()

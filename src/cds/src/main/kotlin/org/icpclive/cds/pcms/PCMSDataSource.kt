@@ -33,8 +33,6 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
     val teamIds = mutableMapOf<String, Int>()
     var startTime = Instant.fromEpochMilliseconds(0)
 
-    val freezeTime = properties.getProperty("freeze.time")?.toInt()?.milliseconds ?: 4.hours
-
     override suspend fun loadOnce() = parseAndUpdateStandings(dataLoader.load().documentElement)
     private fun parseAndUpdateStandings(element: Element) = parseContestInfo(element.child("contest"))
 
@@ -55,6 +53,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         if (status == ContestStatus.RUNNING && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
+        val freezeTime = if (resultType == ContestResultType.ICPC) contestLength - 1.hours else contestLength
 
         var problemsElement = element.child("challenge")
 
@@ -143,10 +142,8 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         problemId: Int,
     ): RunInfo {
         val time = element.getAttribute("time").toLong().milliseconds
-        val isFrozen = time >= freezeTime
         val id = runIds.getOrPut(element.getAttribute("run-id")) { runIds.size }
         val percentage = when {
-            isFrozen -> 0.0
             "undefined" == element.getAttribute("outcome") -> 0.0
             else -> 1.0
         }

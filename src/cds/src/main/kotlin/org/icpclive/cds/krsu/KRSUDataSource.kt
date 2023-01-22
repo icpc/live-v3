@@ -29,8 +29,6 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
     var lastTeamId: Int = 0
 
     private fun parseAndUpdateStandings(contest: Contest, submissions: List<Submission>): ContestParseResult {
-//        val startTime = submissions.map{it->it.ReceivedTime}.toList().min()
-
         val timezoneShift = Duration.parse(properties.getProperty("timezone-shift"))
 
         val startTime = contest.StartTime - timezoneShift
@@ -59,8 +57,8 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
                     )
             }
         }
-        val contestLength = contest.Length.hours;
-        val freezeTime = contestLength - 1.hours;
+        val contestLength = contest.Length.hours
+        val freezeTime = contestLength - 1.hours
         val runs = submissions.map {
             val result = outcomeMap.getOrDefault(it.StatusName, "")
             logger.info("" + (it.ReceivedTime - startTime))
@@ -84,7 +82,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
             ContestInfo(
                 status = when {
                     time < Duration.ZERO -> ContestStatus.BEFORE
-                    time < 5.hours -> ContestStatus.RUNNING
+                    time < contestLength -> ContestStatus.RUNNING
                     else -> ContestStatus.OVER
                 },
                 resultType = ContestResultType.ICPC,

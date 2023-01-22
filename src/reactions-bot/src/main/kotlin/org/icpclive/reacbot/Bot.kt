@@ -34,6 +34,8 @@ class Bot(private val config: Config) {
         getProperties(config.eventPropertiesFile),
         calculateFTS = false,
         calculateDifference = false,
+        removeFrozenResults = true,
+        advancedPropertiesDeferred = null
     )
     private val storage = Storage()
     private val bot = bot {

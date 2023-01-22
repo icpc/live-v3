@@ -72,7 +72,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
             else -> ContestStatus.RUNNING
         }
 
-        var freezeTime = 4.hours
+        var freezeTime = if (resultType == ContestResultType.ICPC) 4.hours else contestLength
         if (element.hasAttribute("fog_time")) {
             freezeTime = contestLength - element.getAttribute("fog_time").toLong().seconds
         }
@@ -91,7 +91,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
                 teams = teams
             ),
             runs = element.child("runs").children().mapNotNull { run ->
-                parseRunInfo(run, currentTime - startTime, freezeTime, teamIdMapping)
+                parseRunInfo(run, currentTime - startTime, teamIdMapping)
             }.toList(),
             emptyList()
         )
@@ -100,7 +100,6 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
     private fun parseRunInfo(
         element: Element,
         currentTime: Duration,
-        freezeTime: Duration,
         teamIdMapping: Map<String, Int>
     ) : RunInfo? {
         val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
@@ -111,14 +110,9 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         val teamId = teamIdMapping[element.getAttribute("user_id")]!!
         val runId = element.getAttribute("run_id").toInt()
 
-        val isFrozen = time >= freezeTime
-        val result = when {
-            isFrozen -> ""
-            else -> statusMap.getOrDefault(element.getAttribute("status"), "WA")
-        }
-        val percentage = when {
-            isFrozen -> 0.0
-            "" == result -> 0.0
+        val result = statusMap.getOrDefault(element.getAttribute("status"), "WA")
+        val percentage = when (result) {
+            "" -> 0.0
             else -> 1.0
         }
 

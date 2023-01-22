@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.merge
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.util.getLogger
-import kotlin.math.log
 
 private fun List<MedalType>.medalColorByRank(rank_: Int): String? {
     var rank = rank_
@@ -34,7 +33,7 @@ abstract class ScoreboardService(val optimismLevel: OptimismLevel) {
                 is RunInfo -> {
                     val oldRun = runs[update.id]
                     runs[update.id] = update
-                    if (oldRun?.result == null && update.result == null) {
+                    if (oldRun != null && oldRun.result == update.result) {
                         return@collect
                     }
                 }

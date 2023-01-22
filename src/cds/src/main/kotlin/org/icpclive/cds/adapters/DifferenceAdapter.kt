@@ -56,7 +56,7 @@ class SumScoreAccumulator : ScoreAccumulator {
 
 
 
-class DifferenceAdapter(private val source: ContestDataSource) : ContestDataSource {
+internal class DifferenceAdapter(private val source: ContestDataSource) : ContestDataSource {
     private val runMap = mutableMapOf<Pair<Int, Int>, MutableList<RunInfo>>()
 
     private suspend fun FlowCollector<RunInfo>.add(run: RunInfo, modes: Map<Int, ScoreMergeMode>) {

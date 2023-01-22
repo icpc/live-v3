@@ -21,7 +21,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class EmulationAdapter(
+internal class EmulationAdapter(
     private val startTime: Instant,
     private val emulationSpeed: Double,
     private val source: RawContestDataSource,
