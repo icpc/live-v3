@@ -1,5 +1,6 @@
 package org.icpclive.cds
 
+import org.icpclive.cds.noop.NoopDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.AnalyticsMessage
@@ -78,6 +79,7 @@ fun getContestDataSource(
         "EJUDGE" -> EjudgeDataSource(properties)
         "KRSU" -> KRSUDataSource(properties)
         "CATS" -> CATSDataSource(properties, creds)
+        "NOOP" -> NoopDataSource()
         else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
     }
 
