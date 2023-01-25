@@ -1,0 +1,21 @@
+{
+  "scoreboardOverrides": {
+    "medals": [
+      {
+        "name": "gold",
+        "count": 16
+      }
+    ]
+  },
+  "problemOverrides": {
+    "A":{"color":"#e6194B"},
+    "B":{"color":"#3cb44b"},
+    "C":{"color":"#ffe119"},
+    "D":{"color":"#4363d8"},
+    "E":{"color":"#f58231"},
+    "F":{"color":"#42d4f4"},
+    "G":{"color":"#f032e6"},
+    "H1":{"color":"#fabed4"},
+    "H2":{"color":"#469990"}
+  }
+}
