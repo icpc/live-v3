@@ -37,7 +37,7 @@ data class ICPCProblemResult(
 @Serializable
 @SerialName("ioi")
 data class IOIProblemResult(
-    val score: Double,
+    val score: Double?,
     @SerialName("lastSubmitTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val lastSubmitTime: Duration?,

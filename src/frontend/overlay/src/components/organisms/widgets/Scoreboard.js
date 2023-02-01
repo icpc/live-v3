@@ -16,7 +16,8 @@ import {
     SCOREBOARD_SUM_PEN_WIDTH,
     VERDICT_NOK,
     VERDICT_OK,
-    VERDICT_UNKNOWN
+    VERDICT_UNKNOWN,
+    CELL_BG_COLOR
 } from "../../../config";
 import { DEBUG } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
@@ -101,6 +102,9 @@ const mapNumber = (value, oldMin, oldMax, newMin, newMax) => {
 // Green color: #1B8041, RGB(27, 128, 65) (VERDICT_OK)
 // Red color: #881f1b, RGB(136, 31, 27) (VERDICT_NOK)
 const getTeamTaskColor = (score, minScore, maxScore) => {
+    if (score === undefined) {
+        return CELL_BG_COLOR;
+    }
     if (minScore !== undefined && maxScore !== undefined) {
         const [minRed, minGreen, minBlue] = [136, 31, 27];
         const [maxRed, maxGreen, maxBlue] = [27, 128, 65];

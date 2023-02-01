@@ -19,14 +19,14 @@ class IOIScoreboardService(optimismLevel: OptimismLevel) : ScoreboardService(opt
             val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
             val changingRuns = problemRuns.filter { it.result != null && (it.result as IOIRunResult).difference != 0.0 }
             IOIProblemResult(
-                changingRuns.sumOf { (it.result as IOIRunResult).difference },
+                if (problemRuns.isEmpty()) null else changingRuns.sumOf { (it.result as IOIRunResult).difference },
                 changingRuns.lastOrNull()?.time
             )
         }
         return ScoreboardRow(
             teamId,
             0,
-            problemResults.sumOf { it.score },
+            problemResults.sumOf { it.score ?: 0.0 },
             0,
             problemResults.maxOfOrNull { it.lastSubmitTime?.inWholeMilliseconds ?: 0 } ?: 0,
             null,

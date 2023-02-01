@@ -9,12 +9,16 @@ import {
     MEDAL_COLORS,
     VERDICT_NOK,
     VERDICT_OK,
-    VERDICT_UNKNOWN
+    VERDICT_UNKNOWN,
+    SCORE_NONE_TEXT
 } from "../../config";
 import { Cell } from "./Cell";
 import { StarIcon } from "./Star";
 
 export const formatScore = (score, digits = 2) => {
+    if (score === undefined) {
+        return SCORE_NONE_TEXT;
+    }
     return score?.toFixed((score - Math.floor(score)) > 0 ? digits : 0);
 };
 
