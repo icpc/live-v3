@@ -48,18 +48,18 @@ const VerdictCellProgressBar = styled.div.attrs(({ width }) => ({
   background-color: ${VERDICT_UNKNOWN};
 `;
 
-const VerdictCellWrap = styled(Cell)`
-  position: relative;
-`;
 
 const VerdictCellICPC = ({ verdict, ...props }) => {
-    return <VerdictCellWrap
-        background= {verdict.isAccepted ? VERDICT_OK : VERDICT_NOK}
+    return <TextShrinkingCell
+        background={verdict.isAccepted ? VERDICT_OK : VERDICT_NOK}
+        align="center"
+        text={verdict.result}
+        canGrow={false}
+        canShrink={false}
         {...props}
     >
-        {verdict.isFirstToSolveRun  && <StarIcon/>}
-        {verdict.result}
-    </VerdictCellWrap>;
+        {verdict.isFirstToSolveRun && <StarIcon/>}
+    </TextShrinkingCell>;
 };
 
 const ICPCVerdict = PropTypes.shape({
@@ -75,14 +75,22 @@ VerdictCellICPC.PropTypes = {
 
 const VerdictCellIOI = ({ verdict, ...props }) => {
     if (verdict.wrongVerdict === undefined) {
-        return <VerdictCellWrap
+        return <TextShrinkingCell
+            align="center"
+            canGrow={false}
+            canShrink={false}
             background={verdict.difference > 0 ? VERDICT_OK : (verdict.difference < 0 ? VERDICT_NOK : VERDICT_UNKNOWN)}
+            text={verdict.difference > 0 ? `+${formatScore(verdict.difference, 1)}` : (verdict.difference < 0 ? `-${formatScore(-verdict.difference, 1)}` : "=")}
             {...props}
-        >
-            {verdict.difference > 0 ? `+${formatScore(verdict.difference, 1)}` : (verdict.difference < 0 ? `-${formatScore(-verdict.difference, 1)}` : "=")}
-        </VerdictCellWrap>;
+        />;
     } else {
-        return <VerdictCellWrap background={VERDICT_NOK} {...props}> { verdict.wrongVerdict } </VerdictCellWrap>;
+        return <TextShrinkingCell background={VERDICT_NOK} 
+            text={verdict.wrongVerdict}
+            align="center"
+            canGrow={false}
+            canShrink={false}
+            {...props}
+        />;
     }
 };
 
@@ -97,10 +105,10 @@ VerdictCellIOI.PropTypes = {
     verdict: IOIVerdict.isRequired,
 };
 
-const VerdictCellInProgress =  ({ percentage, ...props }) => {
-    return <VerdictCellWrap {...props} >
+const VerdictCellInProgress = ({ percentage, ...props }) => {
+    return <Cell {...props} >
         {percentage !== 0 && <VerdictCellProgressBar width={percentage * 100 + "%"}/>}
-    </VerdictCellWrap>;
+    </Cell>;
 };
 
 VerdictCellInProgress.PropTypes = {
@@ -114,7 +122,8 @@ export const VerdictCell = ({
     console.log(data);
     if (data.result === undefined) {
         return <VerdictCellInProgress percentage={data.percentage} {...props}/>;
-    } if (data.result.type === "icpc") {
+    }
+    if (data.result.type === "icpc") {
         return <VerdictCellICPC verdict={data.result} {...props} />;
     } else {
         return <VerdictCellIOI verdict={data.result} {...props} />;
@@ -167,16 +176,16 @@ const TextShrinkingWrap = styled(Cell)`
   font: ${props => props.font};
 `;
 
-export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "left", ...props }) => {
-    const teamNameWidth = getTextWidth(text, font);
+export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "left", children, ...props }) => {
+    const textWidth = getTextWidth(text, font);
     const cellRef = useRef(null);
     const updateScale = useCallback((newCellRef) => {
         if (newCellRef !== null) {
             cellRef.current = newCellRef;
             newCellRef.children[0].style.transform = "";
             const styles = getComputedStyle(newCellRef);
-            const haveWidth = parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight));
-            const scaleFactor = Math.min(1, haveWidth / teamNameWidth);
+            const haveWidth = (parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight)));
+            const scaleFactor = Math.min(1, haveWidth / textWidth);
             newCellRef.children[0].style.transform = `scaleX(${scaleFactor})${align === "center" ? " translateX(-50%)" : ""}`; // dirty hack, don't @ me
         }
     }, [align, font, text]);
@@ -188,6 +197,7 @@ export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "l
         <TextShrinkingContainer scaleY={0} align={align}>
             {text}
         </TextShrinkingContainer>
+        {children}
     </TextShrinkingWrap>;
 };
 
