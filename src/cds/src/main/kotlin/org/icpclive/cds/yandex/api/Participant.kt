@@ -13,7 +13,7 @@ data class Participant(
     fun toTeamInfo() = TeamInfo(
         id = id,
         name = name,
-        shortName = name.replaceAfterLast("(", ""),
+        shortName = name,
         contestSystemId = login,
         groups = emptyList(),
         hashTag = null,
