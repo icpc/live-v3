@@ -8,7 +8,6 @@ import org.icpclive.cds.codeforces.api.results.CFStandings
 import kotlin.math.ceil
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.seconds
 
 
 private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
@@ -223,7 +222,7 @@ class CFContestInfo {
         },
         startTime,
         contestLength,
-        0.seconds,
+        contestLength,
         problems,
         participantsById.values.map { it.toApi() }.sortedBy { it.id },
     )
