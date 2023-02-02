@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+    CELL_BG_COLOR,
     SCOREBOARD_HEADER_BG_COLOR,
     SCOREBOARD_HEADER_TITLE_BG_COLOR,
     SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR,
@@ -16,14 +17,11 @@ import {
     SCOREBOARD_SUM_PEN_WIDTH,
     VERDICT_NOK,
     VERDICT_OK,
-    VERDICT_UNKNOWN,
-    CELL_BG_COLOR
+    VERDICT_UNKNOWN
 } from "../../../config";
-import { DEBUG } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
-import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { formatScore, ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
-import { formatScore } from "../../atoms/ContestCells";
 
 
 const ScoreboardWrap = styled.div`
@@ -294,8 +292,11 @@ PositionedScoreboardRow.propTypes = {
     children: PropTypes.node
 };
 
-const extractScoreboardRows = (data, selectedGroup) => data.rows
-    .filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
+const extractScoreboardRows = (data, selectedGroup, rowsCount) => {
+    const rows = data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
+    return rowsCount ? rows.slice(0, rowsCount) : rows;
+};
+
 /**
  * Scollbar for scoreboard
  * @param {number} totalRows - total number of rows in scoreboard
@@ -309,36 +310,29 @@ const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRo
 ) => {
     // const totalPageRows = (endToRow - startFromRow + 1);
     const numPages = Math.ceil(totalRows / singleScreenRowCount);
-    const singglePageRowCount = Math.floor(totalRows / numPages);
-    const remainder = totalRows % singleScreenRowCount;
+    const singlePageRowCount = Math.floor(totalRows / numPages);
     const [curPage, setCurPage] = useState(0);
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setCurPage((page) => {
-                return (page + 1) % numPages;
-            });
+            setCurPage((page) => (page + 1) % numPages);
         }, scrollInterval);
         return () => {
             clearInterval(intervalId);
         };
     }, [scrollInterval, numPages]);
-    const pageStartRow = curPage * singglePageRowCount + startFromRow - ((curPage >= remainder) ? 1 : 0);
-    if (DEBUG) { // FIXME
-        //  console.log("Current page:", curPage);
-        //  console.log("Total rows:", totalRows, "of:", numPages);
-        //  console.log("Single page holds:", singglePageRowCount);
-        //  console.log("Pages from:", pageStartRow, "to", pageStartRow + singleScreenRowCount);
-    }
-    return pageStartRow;
+    const pageEndRow = Math.min((curPage + 1) * singlePageRowCount + startFromRow, totalRows);
+    return Math.max(startFromRow, pageEndRow - singleScreenRowCount);
 };
 
 export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const optimismLevel = settings.optimismLevel;
     const teamsOnPage = settings.teamsOnPage;
-    const rows = extractScoreboardRows(useSelector((state) =>
-        state.scoreboard[optimismLevel]), settings.group);
-    const contestInfo = useSelector((state) => state.contestInfo.info);
     const startPageRow = settings.startFromRow - 1;
+    const endToRow = settings.numRows ? startPageRow + settings.numRows : null;
+    const rows = extractScoreboardRows(
+        useSelector((state) => state.scoreboard[optimismLevel]),
+        settings.group, endToRow);
+    const contestInfo = useSelector((state) => state.contestInfo.info);
     // const endToRow = startPageRow + settings.numRows;
     const totalHeight = location.sizeY;
     const rowHeight = (totalHeight / (teamsOnPage + 1));

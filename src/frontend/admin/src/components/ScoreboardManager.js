@@ -22,25 +22,32 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { BASE_URL_BACKEND } from "../config";
 import { errorHandlerWithSnackbar } from "../errors";
 import { createApiGet, createApiPost } from "../utils";
 
-function NumericField({ onChange, value }) {
+function NumericField({ onChange : _onChange, value, minValue, arrowsDelta }) {
+    arrowsDelta = arrowsDelta ?? 1;
     const ref = useRef(null);
     const blockWidth = ref.current?.offsetWidth ?? 0;
     const isPossibleArrows = blockWidth > 150;
+    const onChange = useCallback(v => {
+        const newV = Number.parseInt(v);
+        _onChange(minValue === undefined || newV >= minValue ? newV : minValue);
+    }, [_onChange, minValue]);
     return (<Box display="flex" justifyContent="space-between" alignItems="center" ref={ref}>
-        {isPossibleArrows && <IconButton onClick={() => onChange(value - 1)}><ArrowBackIosIcon/></IconButton>}
-        <TextField type="number" size="small" onChange={(e) => onChange(e.target.value)} value={value}
+        {isPossibleArrows && <IconButton onClick={() => onChange(value - arrowsDelta)}><ArrowBackIosIcon/></IconButton>}
+        <TextField type="number" size="small" onChange={e => onChange(e.target.value)} value={value}
             sx={{ maxWidth: isPossibleArrows ? blockWidth - 100 : 1 }}/>
-        {isPossibleArrows && <IconButton onClick={() => onChange(value + 1)}><ArrowForwardIosIcon/></IconButton>}
+        {isPossibleArrows && <IconButton onClick={() => onChange(value + arrowsDelta)}><ArrowForwardIosIcon/></IconButton>}
     </Box>);
 }
 
 NumericField.propTypes = {
     value: PropTypes.number.isRequired,
+    minValue: PropTypes.number,
+    arrowsDelta: PropTypes.number,
     onChange: PropTypes.func.isRequired,
 };
 
@@ -68,11 +75,12 @@ function ScoreboardSettings({ isShown, onClickShow, onClickHide, settings, setSe
                     </ButtonGroup>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
-                    <NumericField value={settings.startFromRow}
+                    <NumericField value={settings.startFromRow} minValue={1} arrowsDelta={settings.teamsOnPage}
                         onChange={v => setSettings(s => ({ ...s, startFromRow: v }))}/>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
-                    <NumericField value={settings.numRows} onChange={v => setSettings(s => ({ ...s, numRows: v }))}/>
+                    <NumericField value={settings.numRows} minValue={0} arrowsDelta={settings.teamsOnPage}
+                        onChange={v => setSettings(s => ({ ...s, numRows: v }))}/>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
                     <Switch checked={settings.isInfinite}
@@ -90,6 +98,7 @@ ScoreboardSettings.propTypes = {
     settings: PropTypes.shape({
         startFromRow: PropTypes.number.isRequired,
         numRows: PropTypes.number.isRequired,
+        teamsOnPage: PropTypes.number.isRequired,
         isInfinite: PropTypes.bool.isRequired,
     }).isRequired,
     setSettings: PropTypes.func.isRequired,
@@ -184,7 +193,8 @@ function ScoreboardManager() {
         optimismLevel: "Normal",
         group: "all",
         startFromRow: 1,
-        numRows: 100,
+        numRows: 0,
+        teamsOnPage: 23,
     });
     const [groupsList, setGroupsList] = useState([]);
 
