@@ -149,8 +149,9 @@ const ScoreboardICPCTaskCell = ({ status, attempts }) => {
     </ScoreboardTaskCellWrap>;
 };
 
-const ScoreboardIOITaskCell = ({ score, minScore, maxScore }) => {
-    return <ScoreboardTaskCellWrap background={getTeamTaskColor(score, minScore, maxScore)}>
+export const ScoreboardIOITaskCell = ({ score, minScore, maxScore, ...props }) => {
+    console.log("props", props);
+    return <ScoreboardTaskCellWrap background={getTeamTaskColor(score, minScore, maxScore)} {...props}>
         {formatScore(score)}
     </ScoreboardTaskCellWrap>;
 };

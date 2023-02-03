@@ -44,6 +44,7 @@ const TeamViewPInPWrapper = styled.div`
 
 
 function TeamViewWrapper({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
+
     return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
         const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
         const component = <TeamViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
@@ -66,6 +67,7 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
         setLoadedComponents,
         location
     };
+    console.log("settings", settings);
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
