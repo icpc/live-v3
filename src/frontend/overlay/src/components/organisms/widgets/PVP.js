@@ -148,15 +148,12 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
                 <TeamInfo teamId={teamId}/>
             </ScoreboardTeamInfoRowFirst>
             <TaskRowWrapperFirst>
-                {scoreboardData?.problemResults.flatMap(({
-                    score,
-                    index
-                }, i) =>
+                {scoreboardData?.problemResults?.flatMap(({ score, index }, i) =>
                     <TaskRow key={i}>
-                        {(tasks[index].letter !== "*" || score !== undefined) &&
+                        {tasks !== undefined && (tasks[index].letter !== "*" || score !== undefined) &&
                             <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>
                         }
-                        {tasks[index].letter === "*" && score === undefined &&
+                        {tasks !== undefined && tasks[index].letter === "*" && score === undefined &&
                             <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={"*"}/>
                         }
                     </TaskRow>
@@ -264,18 +261,19 @@ const TeamVideoWrapper = styled.video`
   height: 100%;
 `;
 
-const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
+const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded }) => {
     const dispatch = useDispatch();
     const videoRef = useRef();
     const rtcRef = useRef();
     useEffect(() => {
-        dispatch(pushLog(`Webrtc content from ${url}`));
+        setIsLoaded(false);
         rtcRef.current = new RTCPeerConnection();
         rtcRef.current.ontrack = function (event) {
             if (event.track.kind !== "video") {
                 return;
             }
             videoRef.current.srcObject = event.streams[0];
+            videoRef.current.play();
         };
         rtcRef.current.addTransceiver("video");
         rtcRef.current.addTransceiver("audio");
@@ -290,20 +288,24 @@ const TeamWebRTCVideoWrapper = ({ url, setIsLoaded }) => {
             })
             .then(res => res.json())
             .then(res => rtcRef.current.setRemoteDescription(res))
-            .catch(e => dispatch(pushLog("ERROR featching  webrtc peer connection info: " + e)));
+            .catch(e => console.trace("ERROR featching  webrtc peer connection info: " + e));
 
         return () => rtcRef.current?.close();
     }, [url]);
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => setIsLoaded(true)}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+        onLoadedData={() => {
+            // console.log("Loaded");
+            // console.log(videoRef.current.currentTime);
+            return setIsLoaded(true);
+        }}
         autoPlay
         muted/>);
 };
 
 
-const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus }) => {
+const TeamWebRTCGrabberVideoWrapper = ({ url, peerName, streamType, credential, onLoadStatus }) => {
     const dispatch = useDispatch();
     const socketRef = useRef();
     const videoRef = useRef();
@@ -331,14 +333,15 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
                 if (e.track.kind === "video" && e.streams.length > 0 && videoRef.current.srcObject !== e.streams[0]) {
                     videoRef.current.srcObject = null;
                     videoRef.current.srcObject = e.streams[0];
+                    videoRef.current.play();
                     console.log("WebRTCSocket pc2 received remote stream");
                 }
             });
 
             pc.createOffer().then(offer => {
                 pc.setLocalDescription(offer);
-                console.log(`WebRTCSocket send offer to [${peerName}]`);
-                socketRef.current?.emit("offer_name", peerName, offer);
+                console.log(`WebRTCSocket send offer to [${peerName}] ${streamType}`);
+                socketRef.current?.emit("offer_name", peerName, offer, streamType);
             });
 
             pc.addEventListener("icecandidate", (event) => {
@@ -364,9 +367,8 @@ const TeamWebRTCSocketVideoWrapper = ({ url, peerName, credential, onLoadStatus 
 
     return (<TeamVideoWrapper
         ref={videoRef}
-        onCanPlay={() => onLoadStatus(true)}
+        onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        autoPlay
         muted/>);
 };
 
@@ -388,6 +390,13 @@ const teamViewComponentRender = {
             <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
         </TeamVideoAnimationWrapper>;
     },
+    Object: ({ onLoadStatus, url }) => {
+        onLoadStatus(true);
+        return <TeamVideoAnimationWrapper>
+            <object data={url} type="image/svg+xml">
+            </object>
+        </TeamVideoAnimationWrapper>;
+    },
     Video: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
             <TeamVideoWrapper
@@ -395,17 +404,19 @@ const teamViewComponentRender = {
                 onCanPlay={() => onLoadStatus(true)}
                 onError={() => onLoadStatus(false)}
                 autoPlay
+                loop
                 muted/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCFetchConnection: ({ onLoadStatus, url }) => {
+    WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl }) => {
         return <TeamVideoAnimationWrapper>
-            <TeamWebRTCVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
+            {audioUrl && <audio src={audioUrl} onLoad={() => onLoadStatus(true)} autoPlay/>}
+            <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCConnection: (props) => {
+    WebRTCGrabberConnection: (props) => {
         return <TeamVideoAnimationWrapper>
-            <TeamWebRTCSocketVideoWrapper {...props}/>
+            <TeamWebRTCGrabberVideoWrapper {...props}/>
         </TeamVideoAnimationWrapper>;
     },
 };
@@ -446,7 +457,7 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
             } else {
                 useLayoutEffect(() => onLoadStatus(true),
                     []);
-                return <PVPInfo>
+                return <PVPInfo key={index}>
                     <ScoreboardWrapper align={"end"}>
                         <ScoreboardRowAllTaskFirst teamId={c.teamId}/>
                     </ScoreboardWrapper>
