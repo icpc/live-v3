@@ -62,7 +62,6 @@ const TeamTaskColor = Object.freeze({
 });
 
 const StatisticsProblemCellWithColorICPC = ({ probData, status }) => {
-    console.log("probData", probData);
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {probData?.letter ?? "??"}
@@ -119,7 +118,6 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
     //console.log(scoreboardData);
     const contestData = useSelector((state) => state.contestInfo.info);
 
-    console.log(scoreboardData);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
