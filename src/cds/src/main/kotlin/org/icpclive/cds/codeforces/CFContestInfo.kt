@@ -170,45 +170,49 @@ class CFContestInfo {
     fun parseHacks(hacks: List<CFHack>) : List<RunInfo> {
         return buildList {
             for (hack in hacks) {
-                if (hack.hacker.participantType != CFPartyParticipantType.CONTESTANT) continue
-                add(
-                    RunInfo(
-                        id = (hack.id * 2).inv(),
-                        result = when (hack.verdict) {
-                            CFHackVerdict.HACK_SUCCESSFUL -> IOIRunResult(
-                                score = listOf(100.0),
-                            )
+                if (hack.creationTimeSeconds - startTime > contestLength) continue
+                if (hack.hacker.participantType == CFPartyParticipantType.CONTESTANT) {
+                    add(
+                        RunInfo(
+                            id = (hack.id * 2).inv(),
+                            result = when (hack.verdict) {
+                                CFHackVerdict.HACK_SUCCESSFUL -> IOIRunResult(
+                                    score = listOf(100.0),
+                                )
 
-                            CFHackVerdict.HACK_UNSUCCESSFUL -> IOIRunResult(
-                                score = listOf(-50.0),
-                            )
+                                CFHackVerdict.HACK_UNSUCCESSFUL -> IOIRunResult(
+                                    score = listOf(-50.0),
+                                )
 
-                            CFHackVerdict.TESTING -> null
-                            else -> IOIRunResult(
-                                score = emptyList(),
-                                wrongVerdict = "CE",
-                            )
-                        },
-                        percentage = 0.0,
-                        problemId = -1,
-                        teamId = participantsByName[getName(hack.hacker)]!!.id,
-                        time = hack.creationTimeSeconds - startTime
+                                CFHackVerdict.TESTING -> null
+                                else -> IOIRunResult(
+                                    score = emptyList(),
+                                    wrongVerdict = "CE",
+                                )
+                            },
+                            percentage = 0.0,
+                            problemId = -1,
+                            teamId = participantsByName[getName(hack.hacker)]!!.id,
+                            time = hack.creationTimeSeconds - startTime
+                        )
                     )
-                )
-                add(
-                    RunInfo(
-                        id = (hack.id * 2 + 1).inv(),
-                        result = IOIRunResult(
-                            score = listOf(0.0),
-                            wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else "OK",
-                        ),
-                        isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
-                        percentage = 0.0,
-                        problemId = problemsMap[hack.problem.index]!!.id,
-                        teamId = participantsByName[getName(hack.defender)]!!.id,
-                        time = hack.creationTimeSeconds - startTime
+                }
+                if (hack.defender.participantType == CFPartyParticipantType.CONTESTANT) {
+                    add(
+                        RunInfo(
+                            id = (hack.id * 2 + 1).inv(),
+                            result = IOIRunResult(
+                                score = listOf(0.0),
+                                wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else "OK",
+                            ),
+                            isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
+                            percentage = 0.0,
+                            problemId = problemsMap[hack.problem.index]!!.id,
+                            teamId = participantsByName[getName(hack.defender)]!!.id,
+                            time = hack.creationTimeSeconds - startTime
+                        )
                     )
-                )
+                }
             }
         }
     }

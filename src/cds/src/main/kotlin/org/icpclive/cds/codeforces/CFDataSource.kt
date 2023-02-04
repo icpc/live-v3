@@ -47,13 +47,13 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
             contestInfo.updateContestInfo(contestStatusBeforeLoader.load())
         }
         // can change inside previous if, so we do recheck, not else.
-        if (contestInfo.status != ContestStatus.BEFORE) {
+        return if (contestInfo.status != ContestStatus.BEFORE) {
             contestInfo.updateStandings(standingsLoader.load())
             val runs = contestInfo.parseSubmissions(statusLoader.load().list)
             val hacks = contestInfo.parseHacks(hacksLoader.load())
-            return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
+            ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
         } else {
-            return ContestParseResult(contestInfo.toApi(), emptyList(), emptyList())
+            ContestParseResult(contestInfo.toApi(), emptyList(), emptyList())
         }
     }
 
