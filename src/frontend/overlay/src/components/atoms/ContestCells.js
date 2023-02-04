@@ -105,10 +105,14 @@ VerdictCellIOI.PropTypes = {
     verdict: IOIVerdict.isRequired,
 };
 
+const VerdictCellInProgressWrap = styled(Cell)`
+  position: relative;
+`;
+
 const VerdictCellInProgress = ({ percentage, ...props }) => {
-    return <Cell {...props} >
+    return <VerdictCellInProgressWrap {...props} >
         {percentage !== 0 && <VerdictCellProgressBar width={percentage * 100 + "%"}/>}
-    </Cell>;
+    </VerdictCellInProgressWrap>;
 };
 
 VerdictCellInProgress.PropTypes = {
