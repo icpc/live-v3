@@ -18,6 +18,8 @@ import { StarIcon } from "./Star";
 export const formatScore = (score, digits = 2) => {
     if (score === undefined) {
         return SCORE_NONE_TEXT;
+    } else if (score === "*") {
+        return score;
     }
     return score?.toFixed((score - Math.floor(score)) > 0 ? digits : 0);
 };

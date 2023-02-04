@@ -4,13 +4,20 @@ import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import styled from "styled-components";
-import { TEAMVIEW_SMALL_FACTOR, VERDICT_NOK, VERDICT_OK, VERDICT_UNKNOWN } from "../../../config";
+import {
+    CELL_QUEUE_VERDICT_WIDTH,
+    TEAMVIEW_SMALL_FACTOR,
+    VERDICT_NOK,
+    VERDICT_OK,
+    VERDICT_UNKNOWN
+} from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
-import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { ProblemCell, RankCell, TextShrinkingCell, VerdictCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 import { formatScore } from "../../atoms/ContestCells";
+import { ScoreboardIOITaskCell } from "../widgets/Scoreboard";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -134,27 +141,49 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    return <ScoreboardColumnWrapper isSmall={isSmall}>
-        <ScoreboardTeamInfoRow>
-            <TeamInfo teamId={teamId}/>
-        </ScoreboardTeamInfoRow>
-        {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({
-            wrongAttempts,
-            pendingAttempts,
-            isSolved,
-            isFirstToSolve,
-            lastSubmitTimeMs,
-            index
-        }, i) =>
-            getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null :
-                <TaskRow key={i}>
-                    <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
-                    <StatisticsProblemCell probData={tasks[index]}/>
-                    <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
-                        attempts={wrongAttempts + pendingAttempts}/>
-                </TaskRow>
-        )}
-    </ScoreboardColumnWrapper>;
+    const contestData = useSelector((state) => state.contestInfo.info);
+
+    if (scoreboardData?.problemResults[0].type === "icpc") {
+        return <ScoreboardColumnWrapper isSmall={isSmall}>
+            <ScoreboardTeamInfoRow>
+                <TeamInfo teamId={teamId}/>
+            </ScoreboardTeamInfoRow>
+            {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({
+                wrongAttempts,
+                pendingAttempts,
+                isSolved,
+                isFirstToSolve,
+                lastSubmitTimeMs,
+                index
+            }, i) =>
+                getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null :
+                    <TaskRow key={i}>
+                        <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
+                        <StatisticsProblemCell probData={tasks[index]}/>
+                        <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
+                            attempts={wrongAttempts + pendingAttempts}/>
+                    </TaskRow>
+            )}
+        </ScoreboardColumnWrapper>;
+    } else {
+        return <ScoreboardColumnWrapper isSmall={isSmall}>
+            <ScoreboardTeamInfoRow>
+                <TeamInfo teamId={teamId}/>
+            </ScoreboardTeamInfoRow>
+            {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({
+                score,
+                lastSubmitTimeMs,
+                index
+            }, i) =>
+                (score === undefined || lastSubmitTimeMs === undefined) ? null :
+                    <TaskRow key={i}>
+                        <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
+                        <StatisticsProblemCell probData={tasks[index]}/>
+                        <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>
+                    </TaskRow>
+            )}
+        </ScoreboardColumnWrapper>;
+    }
 };
 
 export const TeamInfo = ({ teamId }) => {
@@ -166,9 +195,10 @@ export const TeamInfo = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
+        {scoreboardData?.problemResults[0].type !== "ioi" &&
         <ScoreboardStatCell>
             {scoreboardData?.penalty}
-        </ScoreboardStatCell>
+        </ScoreboardStatCell>}
 
     </TeamInfoWrapper>;
 };

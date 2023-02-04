@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+    CELL_QUEUE_VERDICT_WIDTH,
     PVP_APPEAR_TIME,
     STATISTICS_BG_COLOR,
     VERDICT_NOK,
@@ -10,10 +11,11 @@ import {
 } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
-import { RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { formatScore, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 import { pushLog } from "../../../redux/debug";
 import { io } from "socket.io-client";
+import { ScoreboardIOITaskCell } from "./Scoreboard";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -59,7 +61,7 @@ const TeamTaskColor = Object.freeze({
     [TeamTaskStatus.first]: VERDICT_OK,
 });
 
-const StatisticsProblemCellWithColor = ({ probData, status }) => {
+const StatisticsProblemCellWithColorICPC = ({ probData, status }) => {
     return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
         {status === TeamTaskStatus.first && <StarIcon/>}
         {probData?.letter ?? "??"}
@@ -114,74 +116,120 @@ const TaskRow = styled.div`
 const ScoreboardRowAllTaskFirst = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     //console.log(scoreboardData);
-    console.log(scoreboardData);
+    const contestData = useSelector((state) => state.contestInfo.info);
+
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    return <ScoreboardRowAllWrapper>
-        <ScoreboardTeamInfoRowFirst>
-            <TeamInfo teamId={teamId}/>
-        </ScoreboardTeamInfoRowFirst>
-        <TaskRowWrapperFirst>
-            {scoreboardData?.problemResults.flatMap(({
-                wrongAttempts,
-                pendingAttempts,
-                isSolved,
-                isFirstToSolve,
-                index
-            }, i) =>
-                <TaskRow key={i}>
-                    <StatisticsProblemCellWithColor probData={tasks[index]}
-                        status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}/>
-                </TaskRow>
-            )}
-        </TaskRowWrapperFirst>
-    </ScoreboardRowAllWrapper>;
+    if (scoreboardData?.problemResults[0].type === "icpc") {
+        return <ScoreboardRowAllWrapper>
+            <ScoreboardTeamInfoRowFirst>
+                <TeamInfo teamId={teamId}/>
+            </ScoreboardTeamInfoRowFirst>
+            <TaskRowWrapperFirst>
+                {scoreboardData?.problemResults.flatMap(({
+                    wrongAttempts,
+                    pendingAttempts,
+                    isSolved,
+                    isFirstToSolve,
+                    index
+                }, i) =>
+                    <TaskRow key={i}>
+                        <StatisticsProblemCellWithColorICPC probData={tasks[index]}
+                            status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}/>
+                    </TaskRow>
+                )}
+            </TaskRowWrapperFirst>
+        </ScoreboardRowAllWrapper>;
+    } else {
+        return <ScoreboardRowAllWrapper>
+            <ScoreboardTeamInfoRowFirst>
+                <TeamInfo teamId={teamId}/>
+            </ScoreboardTeamInfoRowFirst>
+            <TaskRowWrapperFirst>
+                {scoreboardData?.problemResults.flatMap(({
+                    score,
+                    index
+                }, i) =>
+                    <TaskRow key={i}>
+                        {(tasks[index].letter !== "*" || score !== undefined) &&
+                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>
+                        }
+                        {tasks[index].letter === "*" && score === undefined &&
+                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={"*"}/>
+                        }
+                    </TaskRow>
+                )}
+            </TaskRowWrapperFirst>
+        </ScoreboardRowAllWrapper>;
+    }
 };
 const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     //console.log(scoreboardData);
+    const contestData = useSelector((state) => state.contestInfo.info);
+
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    return <ScoreboardRowAllWrapper>
-        <TaskRowWrapperSecond>
-            {scoreboardData?.problemResults.flatMap(({
-                wrongAttempts,
-                pendingAttempts,
-                isSolved,
-                isFirstToSolve,
-                index
-            }, i) =>
-                <TaskRow key={i}>
-                    <StatisticsProblemCellWithColor probData={tasks[index]}
-                        status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
-                        attempts={wrongAttempts + pendingAttempts}/>
-                </TaskRow>
-            )}
-        </TaskRowWrapperSecond>
-        <ScoreboardTeamInfoRowSecond>
-            <TeamInfo teamId={teamId}/>
-        </ScoreboardTeamInfoRowSecond>
-    </ScoreboardRowAllWrapper>;
+    if (scoreboardData?.problemResults[0].type === "icpc") {
+        return <ScoreboardRowAllWrapper>
+            <TaskRowWrapperSecond>
+                {scoreboardData?.problemResults.flatMap(({
+                    wrongAttempts,
+                    pendingAttempts,
+                    isSolved,
+                    isFirstToSolve,
+                    index
+                }, i) =>
+                    <TaskRow key={i}>
+                        <StatisticsProblemCellWithColorICPC probData={tasks[index]}
+                            status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
+                            attempts={wrongAttempts + pendingAttempts}/>
+                    </TaskRow>
+                )}
+            </TaskRowWrapperSecond>
+            <ScoreboardTeamInfoRowSecond>
+                <TeamInfo teamId={teamId}/>
+            </ScoreboardTeamInfoRowSecond>
+        </ScoreboardRowAllWrapper>;
+    } else {
+        return <ScoreboardRowAllWrapper>
+            <TaskRowWrapperSecond>
+                {scoreboardData?.problemResults.flatMap(({ score, index }, i) =>
+                    <TaskRow key={i}>
+                        {(tasks[index].letter !== "*" || score !== undefined) &&
+                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>
+                        }
+                        {tasks[index].letter === "*" && score === undefined &&
+                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={"*"}/>
+                        }
+                    </TaskRow>
+                )}
+            </TaskRowWrapperSecond>
+            <ScoreboardTeamInfoRowSecond>
+                <TeamInfo teamId={teamId}/>
+            </ScoreboardTeamInfoRowSecond>
+        </ScoreboardRowAllWrapper>;
+    }
 };
 
 const TeamInfo = ({ teamId }) => {
-    // console.log(useSelector((state) => state.contestInfo.info?.teamsId[teamId]));
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    console.log(teamData);
     return <TeamInfoWrapper>
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
-        <TextShrinkingCell text={teamData?.shortName} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
+        <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
-            {scoreboardData?.totalScore}
+            {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        <ScoreboardStatCell>
-            {scoreboardData?.penalty}
-        </ScoreboardStatCell>
+        {scoreboardData?.problemResults[0].type !== "ioi" &&
+            <ScoreboardStatCell>
+                {scoreboardData?.penalty}
+            </ScoreboardStatCell>}
+
     </TeamInfoWrapper>;
 };
 
