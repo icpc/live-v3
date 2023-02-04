@@ -1,8 +1,9 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.util.getLogger
@@ -17,35 +18,48 @@ private fun List<MedalType>.medalColorByRank(rank_: Int): String? {
 }
 
 abstract class ScoreboardService(val optimismLevel: OptimismLevel) {
-    val flow = MutableStateFlow(Scoreboard(emptyList())).also {
-        DataBus.setScoreboardEvents(optimismLevel, it)
-    }
-    val runs = mutableMapOf<Int, RunInfo>()
 
     suspend fun run(
         runsFlow: Flow<RunInfo>,
         contestInfoFlow: Flow<ContestInfo>,
     ) {
         logger.info("Scoreboard service for optimismLevel=${optimismLevel} started")
-        var info: ContestInfo? = null
-        merge(runsFlow, contestInfoFlow).collect { update ->
-            when (update) {
-                is RunInfo -> {
-                    val oldRun = runs[update.id]
-                    runs[update.id] = update
-                    if (oldRun != null && oldRun.result == update.result) {
-                        return@collect
+        coroutineScope {
+            var info: ContestInfo? = null
+            val runs = mutableMapOf<Int, RunInfo>()
+            // We need mutex, as conflate runs part of flow before and after it in different coroutines
+            // So we make part before as lightweight as possible, and just drops intermediate values
+            val mutex = Mutex()
+            merge(runsFlow, contestInfoFlow).mapNotNull { update ->
+                when (update) {
+                    is RunInfo -> {
+                        mutex.withLock {
+                            val oldRun = runs[update.id]
+                            runs[update.id] = update
+                            if (oldRun != null && oldRun.result == update.result) {
+                                return@mapNotNull null
+                            }
+                        }
+                    }
+
+                    is ContestInfo -> {
+                        info = update
                     }
                 }
-                is ContestInfo -> {
-                    info = update
-                }
+                // It would be nice to copy runs here to avoid mutex, but it is too slow
+                info
             }
-            info?.let {
-                flow.value = getScoreboard(it)
-            }
+                .conflate()
+                .map { getScoreboard(it, mutex.withLock { sortSubmissions(runs.values) }) }
+                .stateIn(this)
+                .let { DataBus.setScoreboardEvents(optimismLevel, it) }
         }
     }
+
+    private fun sortSubmissions(runs: Iterable<RunInfo>) = runs
+        .sortedWith(compareBy(RunInfo::time, RunInfo::id))
+        .groupBy(RunInfo::teamId)
+
 
     abstract fun ContestInfo.getScoreboardRow(
         teamId: Int,
@@ -56,10 +70,8 @@ abstract class ScoreboardService(val optimismLevel: OptimismLevel) {
 
     abstract val comparator : Comparator<ScoreboardRow>
 
-    private fun getScoreboard(info: ContestInfo): Scoreboard {
-        val runs = runs.values
-            .sortedWith(compareBy({ it.time }, { it.id }))
-            .groupBy { it.teamId }
+    private fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>): Scoreboard {
+        logger.info("Calculating scoreboard: runs count = ${runs.values.sumOf { it.size }}")
         val teamsInfo = info.teams.filterNot { it.isHidden }.associateBy { it.id }
 
         val allGroups = teamsInfo.values.flatMap { it.groups }.toMutableSet()
