@@ -294,7 +294,8 @@ PositionedScoreboardRow.propTypes = {
 
 const extractScoreboardRows = (data, selectedGroup, rowsCount) => {
     const rows = data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
-    return rowsCount ? rows.slice(0, rowsCount) : rows;
+    // return rowsCount ? rows.slice(0, rowsCount) : rows; // FIXME: This breaks animation.
+    return rows;
 };
 
 /**
