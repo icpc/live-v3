@@ -67,7 +67,6 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
         setLoadedComponents,
         location
     };
-    console.log("settings", settings);
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}

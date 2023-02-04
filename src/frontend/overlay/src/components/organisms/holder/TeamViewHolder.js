@@ -143,7 +143,6 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     const contestData = useSelector((state) => state.contestInfo.info);
 
-    console.log("contestData", contestData);
     if (scoreboardData?.problemResults[0].type === "icpc") {
         return <ScoreboardColumnWrapper isSmall={isSmall}>
             <ScoreboardTeamInfoRow>
@@ -190,7 +189,6 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
 export const TeamInfo = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    console.log(scoreboardData);
     return <TeamInfoWrapper>
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
@@ -398,7 +396,6 @@ const teamViewComponentRender = {
 };
 
 export const TeamViewHolder = ({ onLoadStatus, media, isSmall }) => {
-    console.log("media", media);
     const Component = teamViewComponentRender[media.type];
     if (Component === undefined) {
         useEffect(() => onLoadStatus(true),
