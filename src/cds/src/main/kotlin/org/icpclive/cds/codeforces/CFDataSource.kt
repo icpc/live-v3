@@ -1,11 +1,10 @@
 package org.icpclive.cds.codeforces
 
-import CFHack
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.codeforces.api.CFApiCentral
-import org.icpclive.cds.codeforces.api.data.CFContest
+import org.icpclive.cds.codeforces.api.data.*
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.codeforces.api.results.CFStatusWrapper
 import org.icpclive.cds.codeforces.api.results.CFSubmissionList

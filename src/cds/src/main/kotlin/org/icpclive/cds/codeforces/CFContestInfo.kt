@@ -1,6 +1,5 @@
 package org.icpclive.cds.codeforces
 
-import CFHack
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.codeforces.api.data.*
@@ -127,7 +126,7 @@ class CFContestInfo {
                 val score = if (!isWrong) {
                     maxOf(
                         maxScore * 3 / 10,
-                        ceil(maxScore - submission.relativeTimeSeconds.inWholeMinutes * (maxScore / 250.0 * 120.0 / contestLength.inWholeMinutes) - 50 * wrongAttempts)
+                        ceil(maxScore - submission.relativeTimeSeconds.inWholeMinutes * getProblemLooseScorePerMinute(maxScore, contestLength.inWholeMinutes) - 50 * wrongAttempts)
                     )
                 } else {
                     0.0
@@ -138,6 +137,12 @@ class CFContestInfo {
                 )
             }
         }
+    }
+
+    fun getProblemLooseScorePerMinute(initialScore: Double, duration: Long): Double {
+        val finalScore = initialScore * 0.52
+        val roundedContestDuration = maxOf(1, duration / 30) * 30
+        return (initialScore - finalScore) / roundedContestDuration
     }
 
     fun parseSubmissions(submissions: List<CFSubmission>): List<RunInfo> {

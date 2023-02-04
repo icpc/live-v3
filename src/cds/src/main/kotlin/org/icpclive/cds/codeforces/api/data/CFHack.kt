@@ -1,7 +1,7 @@
+package org.icpclive.cds.codeforces.api.data
+
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.codeforces.api.data.CFParty
-import org.icpclive.cds.codeforces.api.data.CFProblem
 import org.icpclive.util.UnixSecondsSerializer
 
 enum class CFHackVerdict {
