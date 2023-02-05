@@ -146,8 +146,8 @@ class CFContestInfo {
     }
 
     fun parseSubmissions(submissions: List<CFSubmission>): List<RunInfo> {
-        val problemTestsCount = submissions.groupingBy { it.problem.index }.fold(Int.MAX_VALUE) { acc, submit ->
-            minOf(acc, submit.passedTestCount + if (submit.verdict == CFSubmissionVerdict.OK) 0 else 1)
+        val problemTestsCount = submissions.groupBy { it.problem.index }.mapValues { (_, v) ->
+            v.maxOf { submit -> submit.passedTestCount + if (submit.verdict == CFSubmissionVerdict.OK) 0 else 1 }
         }
         return submissions.reversed().asSequence()
             .filter { it.author.participantType == CFPartyParticipantType.CONTESTANT }
@@ -158,12 +158,13 @@ class CFContestInfo {
                 submissions.sortedBy { it.id }.map {
                     val problemId = problemsMap[it.problem.index]!!.id
                     val problemTests = problemTestsCount[it.problem.index]!!
+                    val result = submissionToResult(it, wrongs)
                     val run = RunInfo(
                         id = it.id.toInt(),
-                        submissionToResult(it, wrongs),
+                        result = result,
                         problemId = problemId,
                         teamId = participantsByName[getName(it.author)]!!.id,
-                        percentage = it.passedTestCount.toDouble() / problemTests,
+                        percentage = if (result != null) 1.0 else (it.passedTestCount.toDouble() / problemTests),
                         time = it.relativeTimeSeconds,
                     )
                     wrongs += if (it.isAddingPenalty || it.verdict == CFSubmissionVerdict.OK) 1 else 0

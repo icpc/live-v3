@@ -18,7 +18,7 @@ class RunsBufferService(
         runsStorageUpdates.collect {
             for (run in it) {
                 if (storage[run.id] != run) {
-                    log.debug("Run ${run.id} changed")
+                    log.debug("Run ${run.id} changed old=${storage[run.id]} new=${run}")
                     storage[run.id] = run
                     runsFlow.emit(run)
                 }
