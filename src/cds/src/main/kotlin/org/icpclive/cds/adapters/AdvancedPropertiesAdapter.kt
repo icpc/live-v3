@@ -10,7 +10,6 @@ import org.icpclive.api.*
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.util.*
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
 
 internal class AdvancedPropertiesAdapter(
     private val source: ContestDataSource,
@@ -154,8 +153,8 @@ internal class AdvancedPropertiesAdapter(
             ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
             ?.let { it to getStateBasedOnStartTime(it, info.contestLength) }
             ?: (info.startTime to info.status)
-        val freezeTime = overrides.freezeTimeSeconds?.seconds ?: info.freezeTime
-        val holdTimeSeconds = overrides.holdTimeSeconds?.seconds ?: info.holdBeforeStartTime
+        val freezeTime = overrides.freezeTime ?: info.freezeTime
+        val holdTimeSeconds = overrides.holdTime ?: info.holdBeforeStartTime
         val medals = overrides.scoreboardOverrides?.medals ?: info.medals
         val penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt
         val penaltyRoundingMode = overrides.scoreboardOverrides?.penaltyRoundingMode ?: info.penaltyRoundingMode

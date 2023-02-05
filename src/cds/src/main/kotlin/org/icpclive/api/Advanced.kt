@@ -1,9 +1,12 @@
 package org.icpclive.api
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.util.ColorSerializer
+import org.icpclive.util.DurationInSecondsSerializer
 import org.icpclive.util.humanReadable
 import java.awt.Color
+import kotlin.time.Duration
 
 @Serializable
 data class TeamInfoOverride(
@@ -36,39 +39,46 @@ class RankingSettings(
 @Serializable
 data class AdvancedProperties(
     val startTime: String? = null,
-    val freezeTimeSeconds: Long? = null,
-    val holdTimeSeconds: Long? = null,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("freezeTimeSeconds")
+    val freezeTime: Duration? = null,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("holdTimeSeconds")
+    val holdTime: Duration? = null,
     val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
     val scoreboardOverrides: RankingSettings? = null
 )
 
-fun ContestInfo.toAdvancedProperties(fields: Set<String>) = AdvancedProperties(
-    startTime = startTime.humanReadable.takeIf { "startTime" in fields },
-    freezeTimeSeconds = freezeTime.inWholeSeconds.takeIf { "freezeTime" in fields },
-    holdTimeSeconds = holdBeforeStartTime?.inWholeSeconds?.takeIf { "holdBeforeStartTime" in fields},
-    teamOverrides = teams.associate {
-        it.contestSystemId to TeamInfoOverride(
-            name = it.name.takeIf { "name" in fields },
-            shortname = it.shortName.takeIf { "shortname" in fields },
-            groups = it.groups.takeIf { "groups" in fields },
-            hashTag = it.hashTag.takeIf { "hashTag" in fields},
-            medias = it.medias.takeIf { "medias" in fields }
+fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
+    fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
+    return AdvancedProperties(
+        startTime = startTime.humanReadable.takeIfAsked("startTime"),
+        freezeTime = freezeTime.takeIfAsked("freezeTime"),
+        holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
+        teamOverrides = teams.associate {
+            it.contestSystemId to TeamInfoOverride(
+                name = it.name.takeIfAsked("name"),
+                shortname = it.shortName.takeIfAsked("shortname"),
+                groups = it.groups.takeIfAsked("groups"),
+                hashTag = it.hashTag.takeIfAsked("hashTag"),
+                medias = it.medias.takeIfAsked("medias")
+            )
+        },
+        problemOverrides = problems.associate {
+            it.letter to ProblemInfoOverride(
+                name = it.name.takeIfAsked("problemName"),
+                color = it.color.takeIfAsked("color"),
+                minScore = it.minScore.takeIfAsked("minScore"),
+                maxScore = it.maxScore.takeIfAsked("maxScore"),
+                scoreMergeMode = it.scoreMergeMode.takeIfAsked("scoreMergeMode")
+            )
+        },
+        scoreboardOverrides = RankingSettings(
+            medals = medals.takeIfAsked("medals"),
+            penaltyPerWrongAttempt = penaltyPerWrongAttempt.takeIfAsked("penaltyPerWrongAttempt"),
+            penaltyRoundingMode = penaltyRoundingMode.takeIfAsked("penaltyRoundingMode")
         )
-    },
-    problemOverrides = problems.associate {
-        it.letter to ProblemInfoOverride(
-            name = it.name.takeIf { "problemName" in fields },
-            color = it.color.takeIf { "color" in fields },
-            minScore = it.minScore.takeIf { "minScore" in fields },
-            maxScore = it.maxScore.takeIf { "maxScore" in fields },
-            scoreMergeMode = it.scoreMergeMode.takeIf { "scoreMergeMode" in fields }
-        )
-    },
-    scoreboardOverrides = RankingSettings(
-        medals = medals.takeIf { "medals" in fields },
-        penaltyPerWrongAttempt = penaltyPerWrongAttempt.takeIf { "penaltyPerWrongAttempt" in fields },
-        penaltyRoundingMode = penaltyRoundingMode.takeIf { "penaltyRoundingMode" in fields }
     )
-)
+}
