@@ -1,0 +1,319 @@
+{
+    "teamOverrides": {
+        "karelia23w-092": {
+            "shortname": "karelia23w-092"
+        },
+        "karelia23w-091": {
+            "shortname": "* GAGA Team"
+        },
+        "karelia23w-090": {
+            "shortname": "* ITMO U: Budin"
+        },
+        "karelia23w-082": {
+            "shortname": "karelia23w-082"
+        },
+        "karelia23w-081": {
+            "shortname": "karelia23w-081"
+        },
+        "karelia23w-080": {
+            "shortname": "karelia23w-080"
+        },
+        "karelia23w-079": {
+            "shortname": "karelia23w-079"
+        },
+        "karelia23w-035": {
+            "shortname": "HSE: nizaz"
+        },
+        "karelia23w-034": {
+            "shortname": "HSE: Muffix Sassif"
+        },
+        "karelia23w-033": {
+            "shortname": "HSE: KIS"
+        },
+        "karelia23w-032": {
+            "shortname": "HSE: It Has To Work"
+        },
+        "karelia23w-031": {
+            "shortname": "HSE: Higher School of Rampage"
+        },
+        "karelia23w-030": {
+            "shortname": "HSE: FFTilted"
+        },
+        "karelia23w-029": {
+            "shortname": "HSE: FAT"
+        },
+        "karelia23w-028": {
+            "shortname": "HSE: Elderly Passion Fruit"
+        },
+        "karelia23w-027": {
+            "shortname": "HSE: Dirizhabl'"
+        },
+        "karelia23w-026": {
+            "shortname": "HSE + Sch_CPM: Шары и Перегородки"
+        },
+        "karelia23w-025": {
+            "shortname": "RDFZ 2"
+        },
+        "karelia23w-024": {
+            "shortname": "RDFZ 1"
+        },
+        "karelia23w-023": {
+            "shortname": "Harbour.Space: x^3"
+        },
+        "karelia23w-022": {
+            "shortname": "Harbour.Space: P+P+P"
+        },
+        "karelia23w-021": {
+            "shortname": "Harbour.Space: I eat PHP for breakfast"
+        },
+        "karelia23w-020": {
+            "shortname": "Hangzhou Xuejun HS: Nice Nature"
+        },
+        "karelia23w-019": {
+            "shortname": "Hangzhou Xuejun HS: FireBladeMaster"
+        },
+        "karelia23w-018": {
+            "shortname": "Hangzhou Xuejun HS: ban Genshin Impact"
+        },
+        "karelia23w-016": {
+            "shortname": "SNU 1"
+        },
+        "karelia23w-015": {
+            "shortname": "German U in Cairo: Hemose 3al shagra wala 10 fl 2eed"
+        },
+        "karelia23w-014": {
+            "shortname": "Free U of Tbilisi: inksamurai"
+        },
+        "karelia23w-013": {
+            "shortname": "Ecole Normale Supérieure de Paris"
+        },
+        "karelia23w-012": {
+            "shortname": "Central South U: Unnamed"
+        },
+        "karelia23w-011": {
+            "shortname": "Belarusian SUIR #1: So stuffy "
+        },
+        "karelia23w-010": {
+            "shortname": "Beihang U: Racing to the Moonlight"
+        },
+        "karelia23w-009": {
+            "shortname": "Beihang U: fire and blood"
+        },
+        "karelia23w-008": {
+            "shortname": "Beihang U: Eager to embrace the seniors' thigh"
+        },
+        "karelia23w-007": {
+            "shortname": "Beihang U: 3 handicapped coders"
+        },
+        "karelia23w-006": {
+            "shortname": "Astana ITU: Moment"
+        },
+        "karelia23w-005": {
+            "shortname": "Astana ITU 2"
+        },
+        "karelia23w-004": {
+            "shortname": "Astana ITU 1"
+        },
+        "karelia23w-003": {
+            "shortname": "Astana ITU 0"
+        },
+        "karelia23w-002": {
+            "shortname": "ADA U: Pop Kek"
+        },
+        "karelia23w-001": {
+            "shortname": "ADA U: AzCoders"
+        },
+        "karelia23w-077": {
+            "shortname": "karelia23w-077"
+        },
+        "karelia23w-076": {
+            "shortname": "IITU: Old Boys United"
+        },
+        "karelia23w-075": {
+            "shortname": "IITU: Defective Memory"
+        },
+        "karelia23w-074": {
+            "shortname": "IITU: SuperNova"
+        },
+        "karelia23w-073": {
+            "shortname": "SUST: BerlekampMassey"
+        },
+        "karelia23w-072": {
+            "shortname": "PetrSU 3"
+        },
+        "karelia23w-071": {
+            "shortname": "PetrSU 2"
+        },
+        "karelia23w-070": {
+            "shortname": "PetrSU 1"
+        },
+        "karelia23w-069": {
+            "shortname": "Voronezh SU: Сыграем в гвинт"
+        },
+        "karelia23w-068": {
+            "shortname": "Ural FU: CheezeKEK"
+        },
+        "karelia23w-067": {
+            "shortname": "SESC UrFU"
+        },
+        "karelia23w-066": {
+            "shortname": "SPb SU: Urgant Team"
+        },
+        "karelia23w-065": {
+            "shortname": "SPb SU 36"
+        },
+        "karelia23w-064": {
+            "shortname": "SPb SU 25"
+        },
+        "karelia23w-063": {
+            "shortname": "ITMO U: pengzoo"
+        },
+        "karelia23w-062": {
+            "shortname": "ITMO U: Cataleptodius"
+        },
+        "karelia23w-061": {
+            "shortname": "South Ural SU"
+        },
+        "karelia23w-060": {
+            "shortname": "SCH_Moscow: Лпшки"
+        },
+        "karelia23w-059": {
+            "shortname": "Saratov SU1"
+        },
+        "karelia23w-058": {
+            "shortname": "Orel SU 2"
+        },
+        "karelia23w-057": {
+            "shortname": "Orel SU 1"
+        },
+        "karelia23w-056": {
+            "shortname": "NNSU-2"
+        },
+        "karelia23w-089": {
+            "shortname": "karelia23w-089"
+        },
+        "karelia23w-088": {
+            "shortname": "karelia23w-088"
+        },
+        "karelia23w-087": {
+            "shortname": "karelia23w-087"
+        },
+        "karelia23w-086": {
+            "shortname": "karelia23w-086"
+        },
+        "karelia23w-085": {
+            "shortname": "karelia23w-085"
+        },
+        "karelia23w-084": {
+            "shortname": "karelia23w-084"
+        },
+        "karelia23w-083": {
+            "shortname": "karelia23w-083"
+        },
+        "karelia23w-099": {
+            "shortname": "karelia23w-099"
+        },
+        "karelia23w-098": {
+            "shortname": "karelia23w-098"
+        },
+        "karelia23w-097": {
+            "shortname": "karelia23w-097"
+        },
+        "karelia23w-096": {
+            "shortname": "karelia23w-096"
+        },
+        "karelia23w-095": {
+            "shortname": "karelia23w-095"
+        },
+        "karelia23w-094": {
+            "shortname": "karelia23w-094"
+        },
+        "karelia23w-093": {
+            "shortname": "karelia23w-093"
+        },
+        "karelia23w-055": {
+            "shortname": "NNSU: Lera Retired"
+        },
+        "karelia23w-054": {
+            "shortname": "National Taiwan U: ckiseki"
+        },
+        "karelia23w-053": {
+            "shortname": "National Taiwan U: BBQube"
+        },
+        "karelia23w-052": {
+            "shortname": "Moscow SU: NoNames"
+        },
+        "karelia23w-051": {
+            "shortname": "MAI #2"
+        },
+        "karelia23w-050": {
+            "shortname": "MAI #1"
+        },
+        "karelia23w-049": {
+            "shortname": "MISiS: Eva fan club"
+        },
+        "karelia23w-048": {
+            "shortname": "Moscow IPT: Yolki-palki"
+        },
+        "karelia23w-047": {
+            "shortname": "Moscow IPT: Skyfall"
+        },
+        "karelia23w-046": {
+            "shortname": "Moscow IPT: Log-rank conjecture"
+        },
+        "karelia23w-045": {
+            "shortname": "MEPhi: Useless but powerfull"
+        },
+        "karelia23w-044": {
+            "shortname": "Kazan Federal U: Konichiwa"
+        },
+        "karelia23w-043": {
+            "shortname": "Izhevsk STU: ZEDbl"
+        },
+        "karelia23w-042": {
+            "shortname": "Izhevsk STU: hope eagles ++"
+        },
+        "karelia23w-041": {
+            "shortname": "Izhevsk STU"
+        },
+        "karelia23w-040": {
+            "shortname": "ICPC means Irkutsk Competitive Programming Community"
+        },
+        "karelia23w-039": {
+            "shortname": "HSE: ¿wanna smash?"
+        },
+        "karelia23w-017": {
+            "shortname": "Hailiang FLS + RDFZ: Anonymous"
+        },
+        "karelia23w-078": {
+            "shortname": "karelia23w-078"
+        },
+        "karelia23w-038": {
+            "shortname": "HSE: Undertrained+Overpressured"
+        },
+        "karelia23w-037": {
+            "shortname": "HSE: sandy morning"
+        },
+        "karelia23w-036": {
+            "shortname": "HSE: Popular Bloggers"
+        }
+    },
+  "problemOverrides": {
+    "A":{"color":"#e6194B"},
+    "B":{"color":"#3cb44b"},
+    "C":{"color":"#ffe119"},
+    "D":{"color":"#4363d8"},
+    "E":{"color":"#f58231"},
+    "F":{"color":"#42d4f4"},
+    "G":{"color":"#f032e6"},
+    "H":{"color":"#fabed4"},
+    "I":{"color":"#469990"},
+    "J":{"color":"#dcbeff"},
+    "K":{"color":"#9A6324"},
+    "L":{"color":"#fffac8"},
+    "M":{"color":"#800000"},
+    "N":{"color":"#aaffc3"},
+    "O":{"color":"#000075"},
+    "P":{"color":"#a9a9a9"}
+  }
+}

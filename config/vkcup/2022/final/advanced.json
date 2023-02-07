@@ -1,0 +1,121 @@
+{
+  "teamOverrides": {
+    "budalnik": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "01", "streamType": "desktop", "credential": "password" },
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "01", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "turmax": {
+      "medias": {
+      }
+    },
+
+    "never_giveup": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "03", "streamType": "desktop", "credential": "password" }
+      }
+    },
+
+    "isaf27": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "04", "streamType": "desktop", "credential": "password" }
+      }
+    },
+
+    "353cerega": {
+      "medias": {
+      }
+    },
+
+    "Golovanov399": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "06", "streamType": "desktop", "credential": "password" },
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "06", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "Maksim1744": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "07", "streamType": "desktop", "credential": "password" }
+      }
+    },
+
+    "Kirill22": {
+      "medias": {
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "08", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "Egor": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "09", "streamType": "desktop", "credential": "password" },
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "09", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "244mhq": {
+      "medias": {
+      }
+    },
+
+    "Allvik06": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "11", "streamType": "desktop", "credential": "password" },
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "11", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "AndreySergunin": {
+      "medias": {
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "12", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "Ormlis": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "13", "streamType": "desktop", "credential": "password" },
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "13", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "vepifanov": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "14", "streamType": "desktop", "credential": "password" },
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "14", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "Kapt": {
+      "medias": {
+        "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "15", "streamType": "desktop", "credential": "password" },
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "15", "streamType": "webcam", "credential": "password" }
+      }
+    },
+
+    "Mangooste": {
+      "medias": {
+        "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "16", "streamType": "webcam", "credential": "password" }
+      }
+    }
+
+  },
+
+  "scoreboardOverrides": {
+    "medals": [
+      {
+        "name": "gold",
+        "count": 4
+      }
+    ]
+  },
+  "problemOverrides": {
+    "A":{"color":"#e6194B"},
+    "B":{"color":"#3cb44b"},
+    "C":{"color":"#ffe119"},
+    "D":{"color":"#4363d8"},
+    "E":{"color":"#f58231"},
+    "F":{"color":"#42d4f4"}
+  }
+}
