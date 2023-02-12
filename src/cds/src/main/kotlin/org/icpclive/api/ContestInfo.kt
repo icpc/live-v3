@@ -11,8 +11,18 @@ import org.icpclive.util.getLogger
 import java.awt.Color
 import kotlin.time.Duration
 
+enum class MedalTiebreakMode {
+    NONE,
+    ALL
+}
+
 @Serializable
-data class MedalType(val name: String, val count: Int)
+data class MedalType(
+    val name: String,
+    val count: Int,
+    val minScore: Double = Double.MIN_VALUE,
+    val tiebreakMode: MedalTiebreakMode = MedalTiebreakMode.ALL
+)
 
 @Serializable
 enum class ContestResultType {

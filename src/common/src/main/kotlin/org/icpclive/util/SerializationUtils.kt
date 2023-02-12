@@ -71,8 +71,40 @@ object ColorSerializer : KSerializer<Color> {
     }
 
     override fun deserialize(decoder: Decoder): Color {
-        val str = decoder.decodeString().removePrefix("0x").removePrefix("#")
-        return Color(str.toUInt(radix = 16).toInt(), str.length == 8)
+        val data = decoder.decodeString()
+        return try {
+            if (data.startsWith("0x")) {
+                return Color(data.toUInt(radix = 16).toInt(), data.length == 8)
+            }
+            val str = data.removePrefix("#")
+            when (str.length) {
+                8 -> Color(
+                    str.substring(0, 2).toInt(radix = 16),
+                    str.substring(2, 4).toInt(radix = 16),
+                    str.substring(4, 6).toInt(radix = 16),
+                    str.substring(6, 8).toInt(radix = 16),
+                )
+
+                6 -> Color(
+                    str.substring(0, 2).toInt(radix = 16),
+                    str.substring(2, 4).toInt(radix = 16),
+                    str.substring(4, 6).toInt(radix = 16),
+                )
+
+                3 -> Color(
+                    str[0].digitToInt(16) * 0x11,
+                    str[1].digitToInt(16) * 0x11,
+                    str[2].digitToInt(16) * 0x11,
+                )
+
+                else -> {
+                    throw NumberFormatException()
+                }
+            }
+        } catch (e: NumberFormatException) {
+            getLogger(ColorSerializer::class).error("Failed to parse color from $data", e)
+            Color.BLACK
+        }
     }
 }
 
