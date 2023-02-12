@@ -8,14 +8,6 @@ import org.icpclive.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.util.getLogger
 
-private fun List<MedalType>.medalColorByRank(rank_: Int): String? {
-    var rank = rank_
-    for ((color, count) in this) {
-        if (rank <= count) return color
-        rank -= count
-    }
-    return null
-}
 
 abstract class ScoreboardService(val optimismLevel: OptimismLevel) {
 
@@ -70,31 +62,48 @@ abstract class ScoreboardService(val optimismLevel: OptimismLevel) {
 
     abstract val comparator : Comparator<ScoreboardRow>
 
+
     private fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>): Scoreboard {
         logger.info("Calculating scoreboard: runs count = ${runs.values.sumOf { it.size }}")
         val teamsInfo = info.teams.filterNot { it.isHidden }.associateBy { it.id }
+        fun ScoreboardRow.team() = teamsInfo[teamId]!!
 
-        val allGroups = teamsInfo.values.flatMap { it.groups }.toMutableSet()
+        val hasChampion = mutableSetOf<String>()
 
         val rows = teamsInfo.values
             .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.problems) }
-            .sortedWith(comparator.thenComparing { it: ScoreboardRow -> teamsInfo[it.teamId]!!.name })
+            .sortedWith(comparator.thenComparing { it -> it.team().name })
             .toMutableList()
-        if (rows.isNotEmpty()) {
-            var rank = 1
-            for (i in 0 until rows.size) {
-                if (i != 0 && comparator.compare(rows[i - 1], rows[i]) < 0) {
-                    rank = i + 1
+        var left: Int
+        var right = 0
+        while (right < rows.size) {
+            left = right
+            while (right < rows.size && comparator.compare(rows[left], rows[right]) == 0) {
+                right++
+            }
+            val medal = run {
+                var skipped = 0
+                for (type in info.medals) {
+                    val canGetMedal = when (type.tiebreakMode) {
+                        MedalTiebreakMode.ALL -> left < type.count + skipped
+                        MedalTiebreakMode.NONE -> right <= type.count + skipped
+                    } && rows[left].totalScore >= type.minScore
+                    if (canGetMedal) {
+                        return@run type.name
+                    }
+                    skipped += type.count
                 }
-                val medal = info.medals.medalColorByRank(rank)?.takeIf { rows[i].totalScore > 0 }
-                val championInGroups = if (rows[i].totalScore > 0)
-                    teamsInfo[rows[i].teamId]!!.groups.filter { it in allGroups }
-                else
-                    emptyList()
-                for (group in championInGroups) {
-                    allGroups -= group
-                }
-                rows[i] = rows[i].copy(rank = rank, medalType = medal, championInGroups = championInGroups)
+                null
+            }
+            for (i in left until right) {
+                rows[i] = rows[i].copy(
+                    rank = left + 1,
+                    medalType = medal,
+                    championInGroups = teamsInfo[rows[i].teamId]!!.groups.filter { it !in hasChampion }
+                )
+            }
+            for (i in left until right) {
+                hasChampion.addAll(teamsInfo[rows[i].teamId]!!.groups)
             }
         }
         return Scoreboard(rows)

@@ -1,0 +1,8 @@
+{
+   "scoreboardOverrides": {
+     "medals": [
+       {"name":  "gold", "count": 20, "tiebreakMode": "NONE"},
+       {"name":  "silver", "count": 10, "tiebreakMode": "ALL"}
+     ]
+   }
+}
