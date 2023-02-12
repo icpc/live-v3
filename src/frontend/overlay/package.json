@@ -15,14 +15,14 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "react-transition-group": "^4.4.2",
     "redux": "^4.1.2",
     "redux-deep-persist": "^1.0.6",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
-    "sass": "^1.49.7",
+    "sass": "^1.58.0",
     "socket.io-client": "^4.5.2",
     "styled-components": "^5.3.3",
     "stylelint": "^14.8.2",
@@ -38,7 +38,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:css": "stylelint -f verbose './src/**/*.js'",
-    "lint:js": "eslint '**/*.js'"
+    "lint:js": "eslint '**/*.js'",
+    "lint": "npm run lint:css && npm run lint:js"
   },
   "eslintConfig": {
     "extends": [

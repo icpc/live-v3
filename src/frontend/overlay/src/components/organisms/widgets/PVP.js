@@ -410,7 +410,7 @@ const teamViewComponentRender = {
     },
     WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl }) => {
         return <TeamVideoAnimationWrapper>
-            {audioUrl && <audio src={audioUrl} onLoad={() => onLoadStatus(true)} autoPlay/>}
+            {audioUrl && <audio src={audioUrl} onLoadedData={() => onLoadStatus(true)} autoPlay/>}
             <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
@@ -450,7 +450,7 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
             if (c.isMedia) {
                 const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
                 if (c.pInP) {
-                    return <TeamViewPInPWrapper bottom={"80px"} top={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+                    return <TeamViewPInPWrapper key={index} bottom={"80px"} top={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
                 } else {
                     return component;
                 }
@@ -470,14 +470,14 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
             if (c.isMedia) {
                 const component = <TeamViewHolder key={index} onLoadStatus={onLoadStatus} media={c}/>;
                 if (c.pInP) {
-                    return <TeamViewPInPWrapper top={"80px"} bottom={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+                    return <TeamViewPInPWrapper key={index} top={"80px"} bottom={"auto"} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
                 } else {
                     return component;
                 }
             } else {
                 useLayoutEffect(() => onLoadStatus(true),
                     []);
-                return <PVPInfo>
+                return <PVPInfo key={index}>
                     <ScoreboardWrapper align={"start"}>
                         <ScoreboardRowAllTaskSecond teamId={c.teamId}/>
                     </ScoreboardWrapper>
