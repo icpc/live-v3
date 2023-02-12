@@ -292,12 +292,8 @@ PositionedScoreboardRow.propTypes = {
     children: PropTypes.node
 };
 
-// eslint-disable-next-line no-unused-vars
-const extractScoreboardRows = (data, selectedGroup, rowsCount) => {
-    const rows = data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
-    // return rowsCount ? rows.slice(0, rowsCount) : rows; // FIXME: This breaks animation.
-    return rows;
-};
+const extractScoreboardRows = (data, selectedGroup) =>
+    data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
 
 /**
  * Scollbar for scoreboard
@@ -305,14 +301,17 @@ const extractScoreboardRows = (data, selectedGroup, rowsCount) => {
  * @param {number} singleScreenRowCount - total number of rows that can fit on a single screen
  * @param {number} scrollInterval - interval of scrolling
  * @param {number} startFromRow - row to start from inclusive
- // * @param {number} endToRow - row to end to inclusive
+ * @param {number} numRows - row to end to inclusive
  */
-const useScoller = (totalRows, singleScreenRowCount, scrollInterval, startFromRow,
-    // endToRow
+const useScoller = (totalRows,
+    singleScreenRowCount,
+    scrollInterval,
+    startFromRow,
+    numRows
 ) => {
-    // const totalPageRows = (endToRow - startFromRow + 1);
-    const numPages = Math.ceil(totalRows / singleScreenRowCount);
-    const singlePageRowCount = Math.floor(totalRows / numPages);
+    const showRows = numRows ? numRows : totalRows;
+    const numPages = Math.ceil(showRows / singleScreenRowCount);
+    const singlePageRowCount = Math.floor(showRows / numPages);
     const [curPage, setCurPage] = useState(0);
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -330,17 +329,13 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const optimismLevel = settings.optimismLevel;
     const teamsOnPage = settings.teamsOnPage;
     const startPageRow = settings.startFromRow - 1;
-    const endToRow = settings.numRows ? startPageRow + settings.numRows : null;
     const rows = extractScoreboardRows(
         useSelector((state) => state.scoreboard[optimismLevel]),
-        settings.group, endToRow);
+        settings.group);
     const contestInfo = useSelector((state) => state.contestInfo.info);
-    // const endToRow = startPageRow + settings.numRows;
     const totalHeight = location.sizeY;
     const rowHeight = (totalHeight / (teamsOnPage + 1));
-    const scrollPos = useScoller(rows.length, teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, startPageRow,
-        // endToRow
-    );
+    const scrollPos = useScoller(rows.length, teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, startPageRow, settings.numRows);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
     return <ScoreboardWrap>
         <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>
