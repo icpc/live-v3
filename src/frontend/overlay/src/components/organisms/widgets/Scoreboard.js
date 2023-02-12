@@ -292,6 +292,7 @@ PositionedScoreboardRow.propTypes = {
     children: PropTypes.node
 };
 
+// eslint-disable-next-line no-unused-vars
 const extractScoreboardRows = (data, selectedGroup, rowsCount) => {
     const rows = data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
     // return rowsCount ? rows.slice(0, rowsCount) : rows; // FIXME: This breaks animation.

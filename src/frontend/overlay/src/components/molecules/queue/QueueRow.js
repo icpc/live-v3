@@ -11,7 +11,6 @@ import {
     QUEUE_ROW_HEIGHT
 } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { Cell } from "../../atoms/Cell";
 import { ProblemCell, RankCell, TextShrinkingCell, VerdictCell } from "../../atoms/ContestCells";
 import { formatScore } from "../../atoms/ContestCells";
 
