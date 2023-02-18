@@ -103,10 +103,8 @@ class ClicsModel(
     fun processContest(contest: Contest): List<RunInfo> {
         startTime = contest.start_time
         contestLength = contest.duration
-        contest.scoreboard_freeze_duration?.let { freezeTime = contestLength - it }
-        contest.countdown_pause_time?.let {
-            holdBeforeStartTime = it
-        }
+        freezeTime = contestLength - (contest.scoreboard_freeze_duration ?: Duration.ZERO)
+        holdBeforeStartTime = contest.countdown_pause_time
         penaltyPerWrongAttempt = contest.penalty_time ?: 20
         return emptyList()
     }
