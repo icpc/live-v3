@@ -13,7 +13,7 @@
         animation: fade-in;
         animation-duration: 0.001s;
         animation-delay: 0.5s;
-        animation-fill-mode: backwards;
+        animation-fill-mode: both;
         }
 
         @keyframes fade-in {
@@ -52,13 +52,11 @@
         animation: enter-screen, leave-screen-red;
         animation-duration: 0.5s, 0.3s;
         animation-delay: 0s, 0.4s;
-        animation-fill-mode: backwards, forwards;
+        animation-fill-mode: both, both;
         animation-timing-function: ease-in, ease-in-out;
         position: absolute;
         top: 0;
-        left: 0;
         height: 100%;
-        width: 100%;
         }
 
         .yellow {
@@ -66,13 +64,11 @@
         animation: enter-screen, leave-screen-yellow;
         animation-duration: 0.5s, 0.3s;
         animation-delay: 0.1s, 0.5s;
-        animation-fill-mode: backwards, forwards;
+        animation-fill-mode: both, both;
         animation-timing-function: ease-in, ease-in-out;
         position: absolute;
         top: 0;
-        left: 0;
         height: 100%;
-        width: 100%;
         }
 
         .blue {
@@ -80,13 +76,11 @@
         animation: enter-screen, leave-screen-blue;
         animation-duration: 0.5s, 0.3s;
         animation-delay: 0.18s, 0.58s;
-        animation-fill-mode: backwards, forwards;
+        animation-fill-mode: both, both;
         animation-timing-function: ease-in, ease-in-out;
         position: absolute;
         top: 0;
-        left: 0;
         height: 100%;
-        width: 100%;
         }
 
         @keyframes enter-screen {
