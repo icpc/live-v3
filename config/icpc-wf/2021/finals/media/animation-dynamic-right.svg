@@ -125,8 +125,8 @@
     <foreignObject x="20" y="20" width="1920" height="1080">
         <div xmlns="http://www.w3.org/1999/xhtml">
             <div class="lower-thirds rounded">
-                <p class="first-line">{name}1234534</p>
-                <p class="second-line">{role}123454</p>
+                <p class="first-line">{name}</p>
+                <p class="second-line">{role}</p>
             </div>
             <div class="colored-rectangle rounded">
                 <div class="blue"></div>
