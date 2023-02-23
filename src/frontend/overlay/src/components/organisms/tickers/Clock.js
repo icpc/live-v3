@@ -28,7 +28,7 @@ export const Clock = () => {
         } else if (contestInfo.status === "BEFORE") {
             console.log("kek");
             if (contestInfo.holdBeforeStartTimeMs !== undefined) {
-                return DateTime.fromMillis(contestInfo.holdBeforeStartTimeMs).toFormat("H:mm:ss");
+                return "-" + DateTime.fromMillis(contestInfo.holdBeforeStartTimeMs).toFormat("H:mm:ss");
             } else if (contestInfo.startTimeUnixMs !== undefined) {
                 const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().milliseconds *
                     (contestInfo.emulationSpeed ?? 1);
