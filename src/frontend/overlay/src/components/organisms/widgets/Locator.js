@@ -38,7 +38,7 @@ export const Locator = ({ widgetData, transitionState }) => {
     const css = `
     .circles{filter:url(#maskfilter);}
     .circle{fill:#FFFFFF;}
-    .backdrop{opacity:0.5;mask:url(#mask);}
+    .backdrop{opacity:0.75;mask:url(#mask);}
     `;
 
 
