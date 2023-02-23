@@ -17,6 +17,7 @@ import TeamView from "../organisms/widgets/TeamView";
 import Videos from "../organisms/widgets/Videos";
 import PVP from "../organisms/widgets/PVP";
 import Locator from "../organisms/widgets/Locator";
+import { LOCATIONS } from "../../locations";
 
 const fadeIn = keyframes`
   from {
@@ -88,16 +89,17 @@ export const MainLayout = () => {
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
                 const Widget = WIDGETS[obj.type];
-                if(Widget === undefined) {
+                if (Widget === undefined) {
                     return null;
                 }
+                const overrideLocation = LOCATIONS[obj.type] ?? obj.location;
                 return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
-                            left={obj.location.positionX}
-                            top={obj.location.positionY}
-                            width={obj.location.sizeX}
-                            height={obj.location.sizeY}
+                            left={overrideLocation.positionX}
+                            top={overrideLocation.positionY}
+                            width={overrideLocation.sizeX}
+                            height={overrideLocation.sizeY}
                             {...(!Widget.ignoreAnimation && transitionProps[state])}
                         >
                             <Widget widgetData={obj} transitionState={state}/>
