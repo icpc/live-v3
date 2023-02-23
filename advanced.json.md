@@ -70,12 +70,17 @@ Avaliable media types:
       {"name": "bronze", "count": 4}
     ],
     "penaltyPerWrongAttempt": 20,
-    "showTeamsWithoutSubmissions": true
+    "showTeamsWithoutSubmissions": true,
+    "penaltyRoundingMode": "each_submission_down_to_minute"
   }
 }
 ```
 
-# Change problem colors
+Default ```penaltyRoundingMode``` is CDS-specific. But you are welcome to override them here between two options:
+```each_submission_down_to_minute``` or ```sum_down_to_minute```. 
+
+# Change problem info
+##Color
 ```
 {
   "problemOverrides": {
@@ -99,12 +104,52 @@ Avaliable media types:
 }
 ```
 
-# Set contest start time, if it is not available from the contest management system
-Please, do not use this option, if contest management system provides you with the scheduled contest start time. 
-Some systems don't (PCMS), so this option allows you to have countdown before the contest start
+##Other
+```
+{
+  "problemOverrides": {
+    "A":{
+      "name":"Pineapple",
+      "color":"#a9a9a9",
+      "minScore":"-100",
+      "maxScore":"100",
+      "scoreMergeMode":"MAX_PER_GROUP"
+    },
+    "B":{
+      "scoreMergeMode":"MAX_TOTAL"
+    },
+    "C":{
+      "scoreMergeMode":"LAST"
+    },
+    "D":{
+      "scoreMergeMode":"LAST_OK"
+    },
+    "E":{
+      "scoreMergeMode":"SUM"
+    }
+  }
+}
+```
+A little more info on ```scoreMergeMode``` -- it is only applicable to score-based leaderboards:
+* ```MAX_TOTAL``` -- each submission has total score. Final score for that problem is max of these values
+* ```MAX_PER_GROUP``` -- IOI style. Each submission total score is sum of scores for each group of tests in that problem. Final score for that problem is sum of max scores for each group over all contestant submissions on that problem.
+* ```LAST``` -- ML style. Final score is just the score of last submission
+* ```LAST_OK``` -- ML style. Final score is just the score of last OK submission
+* ```SUM``` -- codeforces hack hack. Final score fore the problem is THE SUM OF ALL CONTESTANT'S SCORES FOR SUBMISSIONS on this problem. CF Hacks are treated as submissions into an extra problem with scores +100 or -50. 
+
+
+# Advanced contest start time management
 
 ```
 {
-  "startTime": "2022-04-13 10:10"
+  "startTime": "2022-04-13 10:10",
+  "freezeTimeSeconds": 14400,
+  "holdTimeSeconds": 600
 }
 ```
+
+```startTime``` -- Some systems (PCMS) don't provide contest start time, so this option allows you to have countdown before the contest start.
+```freezeTimeSecond``` -- after how many seconds after the start of the contest will the freeze period start. Freeze never ends.
+```holdTimeSeconds``` -- only before the start of the contest. You can delay the start of the contest and hold the countdown on that value.
+
+
