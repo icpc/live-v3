@@ -1,0 +1,26 @@
+{
+  "teamMediaTemplate": {
+    "photo": {
+      "type": "Photo",
+      "url": "/media/photo/{teamId}.jpg"
+    }
+  },
+  "teamOverrides": {
+  },
+  "scoreboardOverrides": {
+    "medals": [
+      {
+        "name": "gold",
+        "count": 2
+      },
+      {
+        "name": "silver",
+        "count": 4
+      },
+      {
+        "name": "bronze",
+        "count": 8
+      }
+    ]
+  }
+}
