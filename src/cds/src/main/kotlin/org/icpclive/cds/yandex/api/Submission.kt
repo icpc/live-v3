@@ -19,6 +19,7 @@ data class Submission(
     val problemId: String,
     val problemAlias: String,
     val verdict: String,
+    val score: Double?,
     val test: Long,
     val time: Long,
     val memory: Long,

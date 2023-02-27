@@ -60,7 +60,9 @@ class YandexContestInfo private constructor(
                     result = result,
                     isFirstToSolveRun = false
                 )
-                ContestResultType.IOI -> TODO()
+                ContestResultType.IOI -> IOIRunResult(
+                    score = listOf(submission.score ?: 0.0),
+                )
             }.takeIf { result != "" },
             problemId = problemId,
             teamId = submission.authorId.toInt(),

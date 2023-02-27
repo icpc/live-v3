@@ -94,7 +94,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
             val allSubmissionsFlow = allSubmissionsLoader.reloadFlow(120.seconds).flowOn(Dispatchers.IO)
             val submissionsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
-                    it.mapNotNull { submission ->
+                    it.sortedBy { it.id }.mapNotNull { submission ->
                         if (isTeamSubmission(submission))
                             submissionToRun(submission)
                         else
