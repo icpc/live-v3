@@ -91,7 +91,11 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
             analyticsMessagesDeferred.complete(emptyFlow())
             contestInfoDeferred.complete(rawContestInfoFlow.map { it.toApi()}.stateIn(this))
             val newSubmissionsFlow = newSubmissionsFlow(1.seconds)
-            val allSubmissionsFlow = allSubmissionsLoader.reloadFlow(120.seconds).flowOn(Dispatchers.IO)
+            val allSubmissionsFlow = loopFlow(
+                120.seconds,
+                onError = { getLogger(YandexDataSource::class).error("Failed to reload data, retrying", it) }
+            ) { allSubmissionsLoader.load() }
+                .flowOn(Dispatchers.IO)
             val submissionsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
                     it.sortedBy { it.id }.mapNotNull { submission ->
