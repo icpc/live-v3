@@ -23,6 +23,7 @@ enum class Operation {
 @Serializable
 data class Contest(
     val start_time: Instant? = null,
+    val formal_name: String? = null,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val duration: Duration,
     @Serializable(with = ClicsTime.DurationSerializer::class)

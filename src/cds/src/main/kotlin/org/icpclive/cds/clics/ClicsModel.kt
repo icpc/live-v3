@@ -35,6 +35,7 @@ class ClicsModel(
     var status = ContestStatus.BEFORE
     var penaltyPerWrongAttempt = 20
     var holdBeforeStartTime: Duration? = null
+    var name: String = ""
 
     fun getAllRuns() = submissions.values.map { it.toApi() }
 
@@ -84,11 +85,13 @@ class ClicsModel(
         name = name,
         id = liveProblemId(id),
         ordinal = ordinal,
+        cdsId = id,
         color = rgb ?: Color.BLACK
     )
 
     val contestInfo: ContestInfo
         get() = ContestInfo(
+            name = name,
             status = status,
             resultType = ContestResultType.ICPC,
             startTime = startTime ?: Instant.fromEpochSeconds(0),
@@ -101,6 +104,7 @@ class ClicsModel(
         )
 
     fun processContest(contest: Contest): List<RunInfo> {
+        name = contest.formal_name ?: ""
         startTime = contest.start_time
         contestLength = contest.duration
         freezeTime = contestLength - (contest.scoreboard_freeze_duration ?: Duration.ZERO)

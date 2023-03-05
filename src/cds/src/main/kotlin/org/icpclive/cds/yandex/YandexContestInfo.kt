@@ -12,12 +12,14 @@ private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInf
     name = name,
     id = index,
     ordinal = index,
+    cdsId = id,
     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
     maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
 )
 
 class YandexContestInfo private constructor(
+    private val name: String,
     private val startTime: Instant,
     private val duration: Duration,
     private val freezeTime: Duration,
@@ -34,6 +36,7 @@ class YandexContestInfo private constructor(
         participants: List<Participant>,
         resultType: ContestResultType
     ) : this(
+        contestDescription.name,
         Instant.parse(contestDescription.startTime),
         contestDescription.duration.seconds,
         (contestDescription.freezeTime ?: contestDescription.duration).seconds,
@@ -82,6 +85,7 @@ class YandexContestInfo private constructor(
     }
 
     fun toApi() = ContestInfo(
+        name = name,
         status = deduceStatus(startTime, duration),
         resultType = resultType,
         startTime = startTime,

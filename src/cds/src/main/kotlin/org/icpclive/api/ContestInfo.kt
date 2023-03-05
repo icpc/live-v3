@@ -43,6 +43,7 @@ data class ProblemInfo(
     val name: String,
     val id: Int,
     val ordinal: Int,
+    val cdsId: String,
     val minScore: Double? = null,
     val maxScore: Double? = null,
     @Serializable(ColorSerializer::class) val color: Color? = null,
@@ -174,6 +175,7 @@ enum class PenaltyRoundingMode {
 
 @Serializable
 data class ContestInfo(
+    val name: String,
     val status: ContestStatus,
     val resultType: ContestResultType,
     @SerialName("startTimeUnixMs")

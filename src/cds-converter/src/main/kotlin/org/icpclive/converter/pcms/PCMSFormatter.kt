@@ -35,7 +35,7 @@ object PCMSFormatter {
 
 
     private fun Element.buildContestNode(info: ContestInfo) {
-        //setAttribute("name", "")
+        setAttribute("name", info.name)
         setAttribute("time", info.currentContestTime.inWholeMilliseconds.toString())
         setAttribute("start-time", info.startTime.toString())
         setAttribute("start-time-millis", info.startTime.toEpochMilliseconds().toString())
@@ -64,7 +64,7 @@ object PCMSFormatter {
 
     private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>) {
         setAttribute("party", teamInfo.name)
-        // setAttribute("id", "")
+        setAttribute("id", teamInfo.contestSystemId)
         // setAttribute("time", "")
         setAttribute("alias", teamInfo.contestSystemId)
         setAttribute("penalty", row.penalty.toString())
@@ -75,7 +75,7 @@ object PCMSFormatter {
             val problemRuns = (runsByProblem[index] ?: emptyList())
             probNode.setAttribute("accepted", if ((probResult as ICPCProblemResult).isSolved) "1" else "0")
             probNode.setAttribute("attempts", problemRuns.size.toString())
-            // probNode.setAttribute("id", "")
+            probNode.setAttribute("id", info.problems[index].cdsId)
             probNode.setAttribute("alias", info.problems[index].letter)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
             probNode.setAttribute("penalty", (if (probResult.isSolved) {

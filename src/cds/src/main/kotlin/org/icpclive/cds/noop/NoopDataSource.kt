@@ -13,6 +13,7 @@ import kotlin.time.Duration
 
 class NoopDataSource : RawContestDataSource {
     val noopContestInfo = ContestInfo(
+        name = "",
         status = ContestStatus.BEFORE,
         startTime = Instant.DISTANT_FUTURE,
         contestLength = Duration.ZERO,
