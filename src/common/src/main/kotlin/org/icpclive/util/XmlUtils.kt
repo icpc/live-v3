@@ -15,3 +15,8 @@ fun NodeList.toSequence() =
         .map { item(it) }
         .filter { it.nodeType == Node.ELEMENT_NODE }
         .filterIsInstance<Element>()
+
+
+fun Element.createChild(name: String)  = ownerDocument.createElement(name)!!.also {
+    appendChild(it)
+}
