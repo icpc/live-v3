@@ -82,10 +82,13 @@ fun Application.module() {
     val configDirectory = environment.config.property("live.configDirectory").getString().let {
         Paths.get(it).toAbsolutePath()
     }
+    environment.log.info("Using config directory $configDirectory")
+    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     val path = configDirectory.resolve("events.properties")
     if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in $configDirectory")
     val properties = Properties()
     FileInputStream(path.toString()).use { properties.load(it) }
+
 
     val advancedPropertiesDeferred = CompletableDeferred<Flow<AdvancedProperties>>()
     val contestInfoDeferred = CompletableDeferred<StateFlow<ContestInfo>>()
@@ -113,6 +116,7 @@ fun Application.module() {
         launch {
             runsCollectedDeferred.complete(
                 runsDeferred.await().runningFold(persistentMapOf<Int, RunInfo>()) { acc, value ->
+                    environment.log.info("Received new run")
                     acc.put(value.id, value)
                 }.stateIn(this)
             )
@@ -127,4 +131,5 @@ fun Application.module() {
         }
     }
 
+    log.info("Configuration is done")
 }

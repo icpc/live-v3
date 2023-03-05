@@ -13,7 +13,6 @@
     </appender>
     <root level="info">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FLOW"/>
         <appender-ref ref="FILE"/>
     </root>
     <logger name="org.eclipse.jetty" level=""/>
