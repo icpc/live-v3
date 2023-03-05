@@ -26,11 +26,10 @@ kotlin {
 
 tasks {
     jar {
-        archiveFileName.set("reactions-bot-${project.version}-part.jar")
+        archiveFileName.set("${project.name}-${project.version}-part.jar")
     }
     named<JavaExec>("run") {
         this.args = listOfNotNull(
-            "-P:auth.disabled=true",
             project.properties["live.dev.credsFile"]?.let { "-P:live.credsFile=$it"},
             project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" },
             project.properties["live.dev.allowUnsecureConnections"]?.let { "-P:live.allowUnsecureConnections=$it" },
