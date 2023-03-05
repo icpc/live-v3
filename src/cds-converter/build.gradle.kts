@@ -25,6 +25,9 @@ kotlin {
 }
 
 tasks {
+    jar {
+        archiveFileName.set("reactions-bot-${project.version}-part.jar")
+    }
     named<JavaExec>("run") {
         this.args = listOfNotNull(
             "-P:auth.disabled=true",
