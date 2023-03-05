@@ -23,18 +23,6 @@ data class PictureSettings(val url: String, val name: String) : ObjectSettings
 class QueueSettings : ObjectSettings
 
 @Serializable
-enum class OptimismLevel {
-    @SerialName("normal")
-    NORMAL,
-
-    @SerialName("optimistic")
-    OPTIMISTIC,
-
-    @SerialName("pessimistic")
-    PESSIMISTIC;
-}
-
-@Serializable
 data class ScoreboardSettings(
     val isInfinite: Boolean = true,
     val numRows: Int? = null,

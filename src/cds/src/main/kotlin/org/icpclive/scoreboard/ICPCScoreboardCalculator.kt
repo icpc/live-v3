@@ -1,4 +1,4 @@
-package org.icpclive.service
+package org.icpclive.scoreboard
 
 import org.icpclive.api.*
 import kotlin.math.max
@@ -29,7 +29,7 @@ class SumDownToMinutePenaltyCalculator(val penaltyPerWrongAttempt: Int) : Penalt
         get() = penaltySeconds / 60
 }
 
-abstract class ICPCScoreboardService(optimismLevel: OptimismLevel) : ScoreboardService(optimismLevel) {
+abstract class ICPCScoreboardCalculator : ScoreboardCalculator() {
     abstract fun isAccepted(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isPending(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
@@ -100,19 +100,19 @@ private val RunInfo.isAddingPenalty get() = (result as? ICPCRunResult)?.isAdding
 private val RunInfo.isJudged get() = result != null
 
 
-class ICPCNormalScoreboardService : ICPCScoreboardService(OptimismLevel.NORMAL) {
+class ICPCNormalScoreboardCalculator : ICPCScoreboardCalculator() {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
 }
 
-class ICPCPessimisticScoreboardService : ICPCScoreboardService(OptimismLevel.PESSIMISTIC) {
+class ICPCPessimisticScoreboardCalculator : ICPCScoreboardCalculator() {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged || runInfo.isAddingPenalty
 }
 
-class ICPCOptimisticScoreboardService : ICPCScoreboardService(OptimismLevel.OPTIMISTIC) {
+class ICPCOptimisticScoreboardCalculator : ICPCScoreboardCalculator() {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) =
         runInfo.isAccepted || (!runInfo.isJudged && index == count - 1)
 

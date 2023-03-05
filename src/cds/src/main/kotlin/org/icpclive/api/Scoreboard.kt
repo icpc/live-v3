@@ -6,6 +6,18 @@ import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable
+enum class OptimismLevel {
+    @SerialName("normal")
+    NORMAL,
+
+    @SerialName("optimistic")
+    OPTIMISTIC,
+
+    @SerialName("pessimistic")
+    PESSIMISTIC;
+}
+
+@Serializable
 sealed class ProblemResult
 
 @Serializable
