@@ -13,6 +13,7 @@ Welcome to the ICPC Live Source Code Repository.
     * [Example for Ejduge](https://github.com/icpc/live-v3/tree/main/config/lscpc/2022/)
     * [See full archive for more examples](https://github.com/icpc/live-v3/tree/main/config)
     * [How to fine tune imported data](https://github.com/icpc/live-v3/blob/main/advanced.json.md)
+    * [How to get current state of imported data](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
 *
 
 Run `java -jar /path/to/jar/file -port=8080 -P:live.configDirectory=/path/to/config/directory -P:live.credsFile=creds.json`
