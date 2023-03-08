@@ -1,5 +1,6 @@
 package org.icpclive
 
+import ClicsExporter
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -15,6 +16,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
+import io.ktor.websocket.*
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.*
@@ -26,7 +28,7 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.util.*
 import org.icpclive.cds.getContestDataSource
-import org.icpclive.converter.pcms.PCMSFormatter
+import org.icpclive.org.icpclive.export.pcms.PCMSExporter
 import org.slf4j.event.Level
 import java.io.File
 import java.io.FileInputStream
@@ -116,7 +118,6 @@ fun Application.module() {
         launch {
             runsCollectedDeferred.complete(
                 runsDeferred.await().runningFold(persistentMapOf<Int, RunInfo>()) { acc, value ->
-                    environment.log.info("Received new run")
                     acc.put(value.id, value)
                 }.stateIn(this)
             )
@@ -124,9 +125,14 @@ fun Application.module() {
     }
 
     routing {
-        get("/pcms") {
-            call.respondText(contentType = ContentType.Text.Xml) {
-                PCMSFormatter.format(contestInfoDeferred.await().value, runsCollectedDeferred.await().value.values.toList())
+        with (ClicsExporter) {
+            route("/clics") {
+                setUp(application + handler, contestInfoDeferred, runsDeferred)
+            }
+        }
+        with (PCMSExporter) {
+            route("/pcms") {
+                setUp(contestInfoDeferred, runsCollectedDeferred)
             }
         }
     }

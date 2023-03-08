@@ -69,7 +69,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     name = it.getAttribute("name"),
                     id = index,
                     ordinal = index,
-                    cdsId = it.getAttribute("id") ?: it.getAttribute("alias"),
+                    cdsId = it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias"),
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
                     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_PER_GROUP else null

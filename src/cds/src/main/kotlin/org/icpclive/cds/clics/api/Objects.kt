@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED")
+
 package org.icpclive.cds.clics.api
 
 import kotlinx.datetime.Instant
@@ -22,7 +24,10 @@ enum class Operation {
 
 @Serializable
 data class Contest(
+    val id: String,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
     val start_time: Instant? = null,
+    val name: String? = null,
     val formal_name: String? = null,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val duration: Duration,
@@ -30,7 +35,8 @@ data class Contest(
     val scoreboard_freeze_duration: Duration?,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val countdown_pause_time: Duration? = null,
-    val penalty_time: Int? = null
+    val penalty_time: Int? = null,
+    val scoreboard_type: String? = null
 )
 
 @Serializable
@@ -65,7 +71,7 @@ data class Team(
     val organization_id: String? = null,
     val group_ids: List<String> = emptyList(),
     val name: String = "",
-    val is_hidden: Boolean = false,
+    val hidden: Boolean = false,
     val photo: List<Media> = emptyList(),
     val video: List<Media> = emptyList(),
     val desktop: List<Media> = emptyList(),
@@ -83,6 +89,7 @@ data class Group(
 @Serializable
 data class JudgementType(
     val id: String,
+    val name: String,
     val solved: Boolean = false,
     val penalty: Boolean = false
 )
@@ -93,6 +100,8 @@ data class Submission(
     val language_id: String,
     val problem_id: String,
     val team_id: String,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val time: Instant,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val contest_time: Duration,
     val reaction: List<Media>? = null,
@@ -103,8 +112,12 @@ data class Judgement(
     val id: String,
     val submission_id: String,
     val judgement_type_id: String?,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val start_time: Instant,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val start_contest_time: Duration,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val end_time: Instant,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val end_contest_time: Duration?,
 )
@@ -152,7 +165,12 @@ data class Commentary(
 data class Clarification(val id: String)
 
 @Serializable
-data class Language(val id: String)
+data class Language(
+    val id: String,
+    val name: String,
+    val entry_point_required: Boolean,
+    val extensions: List<String>,
+)
 
 @Serializable
 data class Award(val id: String)

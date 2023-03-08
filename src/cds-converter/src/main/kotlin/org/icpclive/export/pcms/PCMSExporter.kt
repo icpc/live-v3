@@ -1,5 +1,12 @@
-package org.icpclive.converter.pcms
+package org.icpclive.org.icpclive.export.pcms
 
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import kotlinx.collections.immutable.PersistentMap
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.flow.StateFlow
 import org.icpclive.api.*
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
@@ -13,7 +20,7 @@ import javax.xml.transform.stream.StreamResult
 import kotlin.time.Duration
 
 
-object PCMSFormatter {
+object PCMSExporter {
 
     private fun convertOutcome(outcome: String?) = when (outcome) {
         null -> "unknown"
@@ -121,5 +128,16 @@ object PCMSFormatter {
 
         transformer.transform(domSource, streamResult)
         return output.toString()
+    }
+
+    fun Route.setUp(contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>, runsCollectedDeferred: CompletableDeferred<StateFlow<PersistentMap<Int, RunInfo>>>) {
+        get("standings.xml") {
+            call.respondText(contentType = ContentType.Text.Xml) {
+                format(
+                    contestInfoDeferred.await().value,
+                    runsCollectedDeferred.await().value.values.toList()
+                )
+            }
+        }
     }
 }

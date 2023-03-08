@@ -145,7 +145,7 @@ class ClicsModel(
         } else {
             require(id == team.id)
             teams[id] = team
-            setTeamHidden(team.id, team.is_hidden || team.group_ids.any { groups[it]?.name in hiddenGroups })
+            setTeamHidden(team.id, team.hidden || team.group_ids.any { groups[it]?.name in hiddenGroups })
         }
         return emptyList()
     }
