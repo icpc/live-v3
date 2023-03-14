@@ -11,6 +11,7 @@ telegram-bot = "6.0.7"             # https://github.com/kotlin-telegram-bot/kotl
 shadow-plugin = "7.1.2"            # https://github.com/johnrengelman/shadow
 sqlite = "3.40.0.0"                # https://github.com/xerial/sqlite-jdbc
 clikt = "3.5.1"                    # https://ajalt.github.io/clikt/
+immutable = "0.3.5"                # https://github.com/Kotlin/kotlinx.collections.immutable
 
 [libraries]
 
@@ -38,6 +39,7 @@ ktor-server-websockets          = { version.ref = "ktor", group = "io.ktor", nam
 kotlinx-datetime           = { version.ref = "datetime", group = "org.jetbrains.kotlinx", name = "kotlinx-datetime" }
 kotlinx-serialization-json = { version.ref = "serialization", group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json" }
 kotlinx-coroutines-core    = { version.ref = "coroutines", group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
+kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable"}
 
 
 kotlin-serialization-plugin = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-serialization" }

@@ -21,9 +21,9 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
     launch {
         when (DataBus.contestInfoFlow.await().value.resultType) {
             ContestResultType.ICPC -> {
-                launch { ICPCNormalScoreboardService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
-                launch { ICPCOptimisticScoreboardService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
-                launch { ICPCPessimisticScoreboardService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.OPTIMISTIC).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.PESSIMISTIC).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
                 launch {
                     ICPCStatisticsService().run(
                         DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
@@ -57,7 +57,7 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
             }
 
             ContestResultType.IOI -> {
-                launch { IOIScoreboardService(OptimismLevel.NORMAL).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
                 DataBus.setScoreboardEvents(OptimismLevel.OPTIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
                 DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
                 DataBus.analyticsFlow.completeOrThrow(emptyFlow())

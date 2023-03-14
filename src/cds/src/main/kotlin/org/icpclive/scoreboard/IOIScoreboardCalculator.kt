@@ -1,8 +1,8 @@
-package org.icpclive.service
+package org.icpclive.scoreboard
 
 import org.icpclive.api.*
 
-class IOIScoreboardService(optimismLevel: OptimismLevel) : ScoreboardService(optimismLevel) {
+class IOIScoreboardCalculator : ScoreboardCalculator() {
     override val comparator: Comparator<ScoreboardRow> = compareBy(
         { -it.totalScore },
     )

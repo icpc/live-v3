@@ -1,13 +1,13 @@
 package org.icpclive.cds.clics
 
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toKotlinInstant
+import kotlinx.datetime.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
@@ -94,6 +94,9 @@ object ClicsTime {
             )
         }
 
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    fun formatIso(instant: Instant) = Instant.fromEpochMilliseconds(instant.toEpochMilliseconds()).toJavaInstant().atZone(ZoneId.systemDefault()).format(formatter)
+
     object DurationSerializer : KSerializer<Duration> {
         override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ClicsDuration", PrimitiveKind.STRING)
 
@@ -109,7 +112,9 @@ object ClicsTime {
     object InstantSerializer : KSerializer<Instant> {
         override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ClicsInstant", PrimitiveKind.STRING)
 
-        override fun serialize(encoder: Encoder, value: Instant) = TODO()
+        override fun serialize(encoder: Encoder, value: Instant) {
+            encoder.encodeString(formatIso(value))
+        }
 
         override fun deserialize(decoder: Decoder): Instant {
             return parseTime(decoder.decodeString())

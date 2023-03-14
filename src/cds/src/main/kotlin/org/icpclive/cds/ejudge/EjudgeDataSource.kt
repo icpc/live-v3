@@ -29,10 +29,11 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         .child("problems")
         .children().mapIndexed { index, element ->
             ProblemInfo(
-                element.getAttribute("short_name"),
-                element.getAttribute("short_name"),
-                element.getAttribute("id").toInt(),
-                index,
+                letter = element.getAttribute("short_name"),
+                name = element.getAttribute("long_name"),
+                id = element.getAttribute("id").toInt(),
+                ordinal = index,
+                cdsId = element.getAttribute("id"),
                 minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                 maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
                 scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
@@ -65,6 +66,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         val contestLength = element.getAttribute("duration").toLong().seconds
         val startTime = parseEjudgeTime(element.getAttribute("start_time"))
         val currentTime = parseEjudgeTime(element.getAttribute("current_time"))
+        val name = element.child("name").textContent
 
         val status = when {
             currentTime >= startTime + contestLength -> ContestStatus.OVER
@@ -82,6 +84,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
 
         return ContestParseResult(
             contestInfo = ContestInfo(
+                name = name,
                 status = status,
                 resultType = resultType,
                 startTime = startTime,

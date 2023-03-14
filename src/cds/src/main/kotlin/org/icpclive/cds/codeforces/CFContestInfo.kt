@@ -41,8 +41,10 @@ class CFContestInfo {
     private val participantsById = mutableMapOf<Int, CFTeamInfo>()
     private var nextParticipantId = 1
     private var contestType: CFContestType = CFContestType.ICPC
+    private var name: String = ""
 
     fun updateContestInfo(contest: CFContest) {
+        name = contest.name
         contestType = contest.type
         contestLength = contest.durationSeconds!!
         val phase = contest.phase
@@ -66,6 +68,7 @@ class CFContestInfo {
                     name = problem.name!!,
                     id = id,
                     ordinal = id,
+                    cdsId = id.toString(),
                     minScore = if (problem.points != null) 0.0 else null,
                     maxScore = problem.points,
                     scoreMergeMode = when (contestType) {
@@ -83,6 +86,7 @@ class CFContestInfo {
                     name = "Hacks",
                     id = -1,
                     ordinal = -1,
+                    cdsId = "hacks",
                     minScore = null,
                     maxScore = null,
                     scoreMergeMode = ScoreMergeMode.SUM,
@@ -224,6 +228,7 @@ class CFContestInfo {
     }
 
     fun toApi() = ContestInfo(
+        name,
         status,
         when (contestType) {
             CFContestType.CF -> ContestResultType.IOI

@@ -156,6 +156,7 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     color = null,
                     id = problem.id,
                     ordinal = index,
+                    cdsId = problem.id.toString(),
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (resultType == ContestResultType.IOI) problem.max_points else null,
                     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
@@ -183,6 +184,7 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
         val freezeTime = contest.freeze_date.toInstant(timezone) - startTime
 
         val contestInfo = ContestInfo(
+            name = contest.title,
             status = ContestStatus.OVER,
             resultType = resultType,
             startTime = startTime,

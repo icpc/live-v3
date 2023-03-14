@@ -3,11 +3,17 @@ package org.icpclive.util
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import java.nio.file.Path
 import java.nio.file.StandardWatchEventKinds
 import java.nio.file.WatchEvent
 import java.util.concurrent.TimeUnit
+import org.slf4j.Logger
+import kotlin.io.path.inputStream
 import kotlin.io.path.listDirectoryEntries
+import kotlin.time.Duration.Companion.seconds
 
 
 fun directoryChangesFlow(path: Path) =
@@ -42,3 +48,14 @@ fun directoryChangesFlow(path: Path) =
 
 fun fileChangesFlow(path: Path) = directoryChangesFlow(path.parent.toAbsolutePath())
     .filter { it.endsWith(path.fileName) }
+
+@OptIn(ExperimentalSerializationApi::class)
+inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger) = fileChangesFlow(path).map {
+    logger.info("Reloaded ${path.fileName}")
+    path.inputStream().use {
+        Json.decodeFromStream<T>(it)
+    }
+}.flowOn(Dispatchers.IO)
+    .logAndRetryWithDelay(5.seconds) {
+        logger.error("Failed to reload ${path.fileName}", it)
+    }
