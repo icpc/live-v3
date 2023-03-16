@@ -2,7 +2,6 @@ import _ from "lodash";
 import { DateTime } from "luxon";
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
 import styled from "styled-components";
 import {
     CELL_QUEUE_VERDICT_WIDTH,
@@ -18,6 +17,7 @@ import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCel
 import { StarIcon } from "../../atoms/Star";
 import { formatScore } from "../../atoms/ContestCells";
 import { ScoreboardIOITaskCell } from "../widgets/Scoreboard";
+import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -266,63 +266,31 @@ const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded }) => {
 
 const TeamWebRTCGrabberVideoWrapper = ({ url, peerName, streamType, credential, onLoadStatus }) => {
     const dispatch = useDispatch();
-    const socketRef = useRef();
     const videoRef = useRef();
-    const rtcRef = useRef();
     useEffect(() => {
-        const socket = io(url, { auth: { token: credential ?? undefined } });
-        socketRef.current = socket;
-        socket.on("auth", (status) => {
-            if (status === "forbidden") {
-                dispatch(pushLog(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`));
-                console.warn(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`);
-            }
-        });
-        socket.on("init_peer", (pcConfig) => {
-            rtcRef.current?.close();
-
-            dispatch(pushLog(`Webrtc content from ${url} peerName ${peerName}`));
-
-            const pc = new RTCPeerConnection(pcConfig);
-            rtcRef.current = pc;
-            pc.addTransceiver("video");
-
-            pc.addEventListener("track", (e) => {
-                console.log("WebRTCSocket got track");
-                if (e.track.kind === "video" && e.streams.length > 0 && videoRef.current.srcObject !== e.streams[0]) {
-                    videoRef.current.srcObject = null;
-                    videoRef.current.srcObject = e.streams[0];
-                    videoRef.current.play();
-                    console.log("WebRTCSocket pc2 received remote stream");
-                }
-            });
-
-            pc.createOffer().then(offer => {
-                pc.setLocalDescription(offer);
-                console.log(`WebRTCSocket send offer to [${peerName}] ${streamType}`);
-                socketRef.current?.emit("offer_name", peerName, offer, streamType);
-            });
-
-            pc.addEventListener("icecandidate", (event) => {
-                console.log(`WebRTCSocket sending ice to [${peerName}]`);
-                socketRef.current?.emit("player_ice_name", peerName, event.candidate);
-            });
-
-            socketRef.current.on("offer_answer", (peerId, answer) => {
-                console.log(`WebRTCSocket got offer_answer from ${peerId}`);
-                pc.setRemoteDescription(answer).then(console.log);
-            });
-
-            socketRef.current.on("grabber_ice", async (_, candidate) => {
-                console.log("WebRTCSocket got ice");
-                await pc.addIceCandidate(candidate);
+        const client = new GrabberPlayerClient("play", url);
+        client.authorize(credential);
+        client.on("initialized", () => {
+            console.log(`Connecting to grabber peer ${peerName} for stream ${streamType}`);
+            client.connect({ peerName: peerName }, streamType, (track) => {
+                videoRef.current.srcObject = null;
+                videoRef.current.srcObject = track;
+                videoRef.current.play();
+                console.log(`WebRTCSocket pc2 received remote stream (${peerName}, ${streamType})`);
             });
         });
+        client.on("auth:failed", () => {
+            dispatch(pushLog(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`));
+            console.warn(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`);
+        });
+
         return () => {
-            rtcRef.current?.close();
-            socketRef.current?.close();
+            client.close();
+            if (videoRef.current) {
+                videoRef.current.srcObject = null;
+            }
         };
-    }, [url, peerName]);
+    }, [url, peerName, streamType]);
 
     return (<TeamVideoWrapper
         ref={videoRef}
