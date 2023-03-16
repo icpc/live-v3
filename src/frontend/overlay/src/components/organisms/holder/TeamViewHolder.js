@@ -220,7 +220,7 @@ const TeamVideoWrapper = styled.video`
 `;
 
 
-const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded }) => {
+export const TeamWebRTCProxyVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, setIsLoaded }) => {
     const dispatch = useDispatch();
     const videoRef = useRef();
     const rtcRef = useRef();
@@ -251,7 +251,7 @@ const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded }) => {
 
         return () => rtcRef.current?.close();
     }, [url]);
-    return (<TeamVideoWrapper
+    return (<Wrapper
         ref={videoRef}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
         onLoadedData={() => {
@@ -264,7 +264,7 @@ const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded }) => {
 };
 
 
-const TeamWebRTCGrabberVideoWrapper = ({ url, peerName, streamType, credential, onLoadStatus }) => {
+export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, peerName, streamType, credential, onLoadStatus }) => {
     const dispatch = useDispatch();
     const videoRef = useRef();
     useEffect(() => {
@@ -292,7 +292,7 @@ const TeamWebRTCGrabberVideoWrapper = ({ url, peerName, streamType, credential, 
         };
     }, [url, peerName, streamType]);
 
-    return (<TeamVideoWrapper
+    return (<Wrapper
         ref={videoRef}
         onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
