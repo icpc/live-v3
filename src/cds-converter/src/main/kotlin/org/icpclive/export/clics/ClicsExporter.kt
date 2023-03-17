@@ -8,26 +8,29 @@ import org.icpclive.api.*
 
 import org.icpclive.cds.clics.api.*
 import org.icpclive.util.defaultJsonSettings
+import org.icpclive.util.intervalFlow
+import java.nio.ByteBuffer
+import kotlin.time.Duration.Companion.minutes
 
 typealias EventProducer = (String) -> Event
 
 object ClicsExporter  {
-    val judgementOk = JudgementType("AC", "ok", true, false)
-    val judgementWrongWithPenalty = JudgementType("RJ", "rejected", false, true)
-    val judgementWrongWithOutPenalty = JudgementType("CE", "compilation-error", false, false)
-    val unknownLanguage = Language(
+    private val judgementOk = JudgementType("AC", "ok", true, false)
+    private val judgementWrongWithPenalty = JudgementType("RJ", "rejected", false, true)
+    private val judgementWrongWithOutPenalty = JudgementType("CE", "compilation-error", false, false)
+    private val unknownLanguage = Language(
         "unknown",
         "unknown",
         false,
         emptyList()
     )
-    fun <T> updateEvent(id: String, data: T, block : (String, String, T?) -> Event) : EventProducer = { block(id, it, data) }
-    fun <T> updateEvent(data: T, block : (String, T?) -> Event) : EventProducer = { block(it, data) }
+    private fun <T> updateEvent(id: String, data: T, block : (String, String, T?) -> Event) : EventProducer = { block(id, it, data) }
+    private fun <T> updateEvent(data: T, block : (String, T?) -> Event) : EventProducer = { block(it, data) }
 
 
-    suspend fun awaitContest() { }
+    private suspend fun awaitContest() { }
 
-    fun contestFlow(info: StateFlow<ContestInfo>) = info.map {
+    private fun contestFlow(info: StateFlow<ContestInfo>) = info.map {
         Contest(
             id = "contest",
             start_time = it.startTime.takeIf { it != kotlinx.datetime.Instant.fromEpochSeconds(0) },
@@ -41,14 +44,14 @@ object ClicsExporter  {
         )
     }.distinctUntilChanged().map { updateEvent(it, Event::ContestEventNamedNonWithSpec) }
 
-    fun judgementTypesFlow() = flow {
+    private fun judgementTypesFlow() = flow {
         awaitContest()
         for (type in listOf(judgementOk, judgementWrongWithPenalty, judgementWrongWithOutPenalty)) {
             emit(type)
         }
     }.map { updateEvent(it.id, it, Event::JudgementTypeEvent) }
 
-    fun languagesFlow() = flow {
+    private fun languagesFlow() = flow {
         awaitContest()
         for (type in listOf(unknownLanguage)) {
             emit(type)
@@ -56,7 +59,7 @@ object ClicsExporter  {
     }.map { updateEvent(it.id, it, Event::LanguageEvent) }
 
 
-    suspend fun <E, K, T> FlowCollector<E>.diff(
+    private suspend fun <E, K, T> FlowCollector<E>.diff(
         old: MutableMap<K, T>,
         new: List<T>,
         id: T.() -> K,
@@ -77,7 +80,7 @@ object ClicsExporter  {
         }
     }
 
-    fun problemsFlow(info: StateFlow<ContestInfo>) = flow {
+    private fun problemsFlow(info: StateFlow<ContestInfo>) = flow {
         awaitContest()
         val current = mutableMapOf<String, ProblemInfo>()
         info.collect {
@@ -101,7 +104,7 @@ object ClicsExporter  {
         }
     }
 
-    fun teamsFlow(info: StateFlow<ContestInfo>) = flow {
+    private fun teamsFlow(info: StateFlow<ContestInfo>) = flow {
         awaitContest()
         val current = mutableMapOf<String, TeamInfo>()
         val groups = mutableSetOf<String>()
@@ -135,7 +138,7 @@ object ClicsExporter  {
         }
     }
 
-    fun stateFlow(info: StateFlow<ContestInfo>) = info.map {
+    private fun stateFlow(info: StateFlow<ContestInfo>) = info.map {
         when (it.status) {
             ContestStatus.BEFORE -> State(ended = null, frozen = null, started = null, unfrozen = null, finalized = null, end_of_updates = null)
             ContestStatus.RUNNING -> State(ended = null, frozen = if (it.currentContestTime >= it.freezeTime) it.startTime + it.freezeTime else null, started = it.startTime, unfrozen = null, finalized = null, end_of_updates = null)
@@ -143,7 +146,7 @@ object ClicsExporter  {
         }
     }.distinctUntilChanged().map { updateEvent(it, Event::StateEvent) }
 
-    fun runsFlow(info: StateFlow<ContestInfo>, runs: Flow<RunInfo>) = flow {
+    private fun runsFlow(info: StateFlow<ContestInfo>, runs: Flow<RunInfo>) = flow {
         val submissionsCreated = mutableSetOf<Int>()
         runs.collect {run ->
             if (run.id !in submissionsCreated) {
@@ -185,7 +188,7 @@ object ClicsExporter  {
     }
 
 
-    suspend fun FlowCollector<Event>.generateEventFeed(info: StateFlow<ContestInfo>, runs: Flow<RunInfo>) {
+    private suspend fun FlowCollector<Event>.generateEventFeed(info: StateFlow<ContestInfo>, runs: Flow<RunInfo>) {
         runs.let { }
         var eventCounter = 1
         merge(
@@ -207,10 +210,9 @@ object ClicsExporter  {
         }.shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
         get("/event-feed") {
             val json = defaultJsonSettings()
-            call.respondTextWriter {
-                eventFeed.collect {
-                    write(json.encodeToString(it))
-                    write("\n")
+            call.respondBytesWriter {
+                merge(eventFeed.map { json.encodeToString(it) }, intervalFlow(2.minutes).map { "" }).collect {
+                    writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
                     flush()
                 }
             }
