@@ -100,7 +100,8 @@ fun Application.module() {
     launch(handler) {
         launch {
             advancedPropertiesDeferred.complete(
-                fileJsonContentFlow(configDirectory.resolve("advanced.json"), environment.log)
+                fileJsonContentFlow<AdvancedProperties>(configDirectory.resolve("advanced.json"), environment.log)
+                    .stateIn(this, SharingStarted.Eagerly, AdvancedProperties())
             )
         }
         launch {
@@ -121,6 +122,7 @@ fun Application.module() {
                     acc.put(value.id, value)
                 }.stateIn(this)
             )
+            log.info("HERE2!")
         }
     }
 
