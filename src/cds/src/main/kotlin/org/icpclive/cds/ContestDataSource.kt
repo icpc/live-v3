@@ -16,9 +16,9 @@ import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.yandex.YandexDataSource
+import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
 import org.icpclive.util.guessDatetimeFormat
-import org.icpclive.util.logAndRetryWithDelay
 import org.icpclive.util.loopFlow
 import java.util.*
 import kotlin.time.Duration
@@ -56,8 +56,8 @@ abstract class FullReloadContestDataSource(val interval: Duration) : RawContestD
             }.flowOn(Dispatchers.IO)
                 .stateIn(this)
             launch { RunsBufferService(reloadFlow.map { it.runs }, runsDeferred).run() }
-            analyticsMessagesDeferred.complete(emptyFlow())
-            contestInfoDeferred.complete(reloadFlow.map { it.contestInfo }.stateIn(this))
+            analyticsMessagesDeferred.completeOrThrow(emptyFlow())
+            contestInfoDeferred.completeOrThrow(reloadFlow.map { it.contestInfo }.stateIn(this))
         }
     }
 }

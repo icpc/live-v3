@@ -37,23 +37,13 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
         it.unwrap()
     }
 
-    private val contestStatusBeforeLoader = jsonLoader<CFStatusWrapper<List<CFContest>>> { central.contestListUrl }.map {
-        it.unwrap().single { it.id == contestId }
-    }
 
     override suspend fun loadOnce(): ContestParseResult {
-        if (contestInfo.status == ContestStatus.BEFORE) {
-            contestInfo.updateContestInfo(contestStatusBeforeLoader.load())
-        }
         // can change inside previous if, so we do recheck, not else.
-        return if (contestInfo.status != ContestStatus.BEFORE) {
-            contestInfo.updateStandings(standingsLoader.load())
-            val runs = contestInfo.parseSubmissions(statusLoader.load().list)
-            val hacks = contestInfo.parseHacks(hacksLoader.load())
-            ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
-        } else {
-            ContestParseResult(contestInfo.toApi(), emptyList(), emptyList())
-        }
+        contestInfo.updateStandings(standingsLoader.load())
+        val runs = if (contestInfo.status == ContestStatus.BEFORE) emptyList() else contestInfo.parseSubmissions(statusLoader.load().list)
+        val hacks = if (contestInfo.status == ContestStatus.BEFORE) emptyList() else contestInfo.parseHacks(hacksLoader.load())
+        return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
     }
 
     companion object {

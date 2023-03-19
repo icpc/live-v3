@@ -1,5 +1,5 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useLayoutEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
     CELL_QUEUE_VERDICT_WIDTH,
@@ -13,9 +13,8 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { formatScore, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
-import { pushLog } from "../../../redux/debug";
-import { io } from "socket.io-client";
 import { ScoreboardIOITaskCell } from "./Scoreboard";
+import { TeamWebRTCProxyVideoWrapper, TeamWebRTCGrabberVideoWrapper } from "../holder/TeamViewHolder";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -257,120 +256,9 @@ const TeamImageWrapper = styled.img`
   height: 100%;
 `;
 
-const TeamVideoWrapper = styled.video`
+const PVPVideoWrapper = styled.video`
   height: 100%;
 `;
-
-const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded }) => {
-    const dispatch = useDispatch();
-    const videoRef = useRef();
-    const rtcRef = useRef();
-    useEffect(() => {
-        setIsLoaded(false);
-        rtcRef.current = new RTCPeerConnection();
-        rtcRef.current.ontrack = function (event) {
-            if (event.track.kind !== "video") {
-                return;
-            }
-            videoRef.current.srcObject = event.streams[0];
-            videoRef.current.play();
-        };
-        rtcRef.current.addTransceiver("video");
-        rtcRef.current.addTransceiver("audio");
-        rtcRef.current.createOffer()
-            .then(offer => {
-                rtcRef.current.setLocalDescription(offer);
-                return fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(offer),
-                });
-            })
-            .then(res => res.json())
-            .then(res => rtcRef.current.setRemoteDescription(res))
-            .catch(e => console.trace("ERROR featching  webrtc peer connection info: " + e));
-
-        return () => rtcRef.current?.close();
-    }, [url]);
-    return (<TeamVideoWrapper
-        ref={videoRef}
-        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
-        onLoadedData={() => {
-            // console.log("Loaded");
-            // console.log(videoRef.current.currentTime);
-            return setIsLoaded(true);
-        }}
-        autoPlay
-        muted/>);
-};
-
-
-const TeamWebRTCGrabberVideoWrapper = ({ url, peerName, streamType, credential, onLoadStatus }) => {
-    const dispatch = useDispatch();
-    const socketRef = useRef();
-    const videoRef = useRef();
-    const rtcRef = useRef();
-    useEffect(() => {
-        const socket = io(url, { auth: { token: credential ?? undefined } });
-        socketRef.current = socket;
-        socket.on("auth", (status) => {
-            if (status === "forbidden") {
-                dispatch(pushLog(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`));
-                console.warn(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`);
-            }
-        });
-        socket.on("init_peer", (pcConfig) => {
-            rtcRef.current?.close();
-
-            dispatch(pushLog(`Webrtc content from ${url} peerName ${peerName}`));
-
-            const pc = new RTCPeerConnection(pcConfig);
-            rtcRef.current = pc;
-            pc.addTransceiver("video");
-
-            pc.addEventListener("track", (e) => {
-                console.log("WebRTCSocket got track");
-                if (e.track.kind === "video" && e.streams.length > 0 && videoRef.current.srcObject !== e.streams[0]) {
-                    videoRef.current.srcObject = null;
-                    videoRef.current.srcObject = e.streams[0];
-                    videoRef.current.play();
-                    console.log("WebRTCSocket pc2 received remote stream");
-                }
-            });
-
-            pc.createOffer().then(offer => {
-                pc.setLocalDescription(offer);
-                console.log(`WebRTCSocket send offer to [${peerName}] ${streamType}`);
-                socketRef.current?.emit("offer_name", peerName, offer, streamType);
-            });
-
-            pc.addEventListener("icecandidate", (event) => {
-                console.log(`WebRTCSocket sending ice to [${peerName}]`);
-                socketRef.current?.emit("player_ice_name", peerName, event.candidate);
-            });
-
-            socketRef.current.on("offer_answer", (peerId, answer) => {
-                console.log(`WebRTCSocket got offer_answer from ${peerId}`);
-                pc.setRemoteDescription(answer).then(console.log);
-            });
-
-            socketRef.current.on("grabber_ice", async (_, candidate) => {
-                console.log("WebRTCSocket got ice");
-                await pc.addIceCandidate(candidate);
-            });
-        });
-        return () => {
-            rtcRef.current?.close();
-            socketRef.current?.close();
-        };
-    }, [url, peerName]);
-
-    return (<TeamVideoWrapper
-        ref={videoRef}
-        onLoadedData={() => onLoadStatus(true)}
-        onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        muted/>);
-};
 
 
 const TeamVideoAnimationWrapper = styled.div`
@@ -399,7 +287,7 @@ const teamViewComponentRender = {
     },
     Video: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>
-            <TeamVideoWrapper
+            <PVPVideoWrapper
                 src={url}
                 onCanPlay={() => onLoadStatus(true)}
                 onError={() => onLoadStatus(false)}
@@ -411,12 +299,12 @@ const teamViewComponentRender = {
     WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl }) => {
         return <TeamVideoAnimationWrapper>
             {audioUrl && <audio src={audioUrl} onLoadedData={() => onLoadStatus(true)} autoPlay/>}
-            <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
+            <TeamWebRTCProxyVideoWrapper Wrapper={PVPVideoWrapper} url={url} setIsLoaded={onLoadStatus}/>
         </TeamVideoAnimationWrapper>;
     },
     WebRTCGrabberConnection: (props) => {
         return <TeamVideoAnimationWrapper>
-            <TeamWebRTCGrabberVideoWrapper {...props}/>
+            <TeamWebRTCGrabberVideoWrapper Wrapper={PVPVideoWrapper} {...props}/>
         </TeamVideoAnimationWrapper>;
     },
 };
