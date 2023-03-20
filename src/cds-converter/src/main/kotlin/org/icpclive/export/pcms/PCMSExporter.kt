@@ -131,6 +131,9 @@ object PCMSExporter {
     }
 
     fun Route.setUp(contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>, runsCollectedDeferred: CompletableDeferred<StateFlow<PersistentMap<Int, RunInfo>>>) {
+        get {
+            call.respondRedirect("/pcms/standings.xml", permanent = true)
+        }
         get("standings.xml") {
             call.respondText(contentType = ContentType.Text.Xml) {
                 format(
