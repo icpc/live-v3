@@ -122,7 +122,6 @@ fun Application.module() {
                     acc.put(value.id, value)
                 }.stateIn(this)
             )
-            log.info("HERE2!")
         }
     }
 
