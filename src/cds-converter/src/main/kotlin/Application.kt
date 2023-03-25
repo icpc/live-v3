@@ -17,17 +17,17 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
-import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.AdvancedProperties
-import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
+import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.RunUpdate
 import org.icpclive.util.*
-import org.icpclive.cds.getContestDataSource
+import org.icpclive.cds.getContestDataSourceAsFlow
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
 import org.slf4j.event.Level
 import java.io.File
@@ -91,49 +91,43 @@ fun Application.module() {
     val properties = Properties()
     FileInputStream(path.toString()).use { properties.load(it) }
 
-
     val advancedPropertiesDeferred = CompletableDeferred<Flow<AdvancedProperties>>()
-    val contestInfoDeferred = CompletableDeferred<StateFlow<ContestInfo>>()
-    val runsDeferred = CompletableDeferred<Flow<RunInfo>>()
-    val runsCollectedDeferred = CompletableDeferred<StateFlow<PersistentMap<Int, RunInfo>>>()
 
-    launch(handler) {
-        launch {
-            advancedPropertiesDeferred.complete(
-                fileJsonContentFlow<AdvancedProperties>(configDirectory.resolve("advanced.json"), environment.log)
-                    .stateIn(this, SharingStarted.Eagerly, AdvancedProperties())
-            )
-        }
-        launch {
-            getContestDataSource(
-                properties,
-                environment.config.propertyOrNull("live.credsFile")?.getString()?.let {
-                    Json.decodeFromStream(File(it).inputStream())
-                } ?: emptyMap(),
-                calculateFTS = false,
-                calculateDifference = false,
-                removeFrozenResults = false,
-                advancedPropertiesDeferred = advancedPropertiesDeferred
-            ).run(contestInfoDeferred, runsDeferred, CompletableDeferred())
-        }
-        launch {
-            runsCollectedDeferred.complete(
-                runsDeferred.await().runningFold(persistentMapOf<Int, RunInfo>()) { acc, value ->
-                    acc.put(value.id, value)
-                }.stateIn(this)
-            )
-        }
-    }
+    val loaded = getContestDataSourceAsFlow(
+        properties,
+        environment.config.propertyOrNull("live.credsFile")?.getString()?.let {
+            Json.decodeFromStream(File(it).inputStream())
+        } ?: emptyMap(),
+        calculateFTS = false,
+        calculateDifference = false,
+        removeFrozenResults = false,
+        advancedPropertiesDeferred = advancedPropertiesDeferred
+    ).shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
+
+    val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
+    val runsCollected = runs.runningFold(persistentMapOf<Int, RunInfo>()) { acc, value ->
+        acc.put(value.id, value)
+    }.stateIn(this + handler, SharingStarted.Eagerly, persistentMapOf())
+    val contestInfo = loaded
+        .filterIsInstance<InfoUpdate>()
+        .map { it.newInfo }
+        .distinctUntilChanged()
+        .shareIn(this + handler, SharingStarted.Eagerly, 1)
+
+    advancedPropertiesDeferred.complete(
+        fileJsonContentFlow<AdvancedProperties>(configDirectory.resolve("advanced.json"), environment.log)
+            .stateIn(this + handler, SharingStarted.Eagerly, AdvancedProperties())
+    )
 
     routing {
         with (ClicsExporter) {
             route("/clics") {
-                setUp(application + handler, contestInfoDeferred, runsDeferred)
+                setUp(application + handler, contestInfo, runs)
             }
         }
         with (PCMSExporter) {
             route("/pcms") {
-                setUp(contestInfoDeferred, runsCollectedDeferred)
+                setUp(contestInfo, runsCollected)
             }
         }
     }

@@ -1,11 +1,10 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.icpclive.api.*
-import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.*
 import org.icpclive.config
 import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
@@ -13,17 +12,20 @@ import org.icpclive.service.analytics.AnalyticsGenerator
 import org.icpclive.util.reliableSharedFlow
 
 
-fun CoroutineScope.launchServices(loader: ContestDataSource) {
-    val runsDeferred = CompletableDeferred<Flow<RunInfo>>()
-    val analyticsMessageFlowDeferred = CompletableDeferred<Flow<AnalyticsMessage>>()
-    launch { loader.run(DataBus.contestInfoFlow, runsDeferred, analyticsMessageFlowDeferred) }
-    launch { QueueService().run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
+    val loaded = loader.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+    val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
+    val analyticsFlow = loaded.filterIsInstance<Analytics>().map { it.message }
+    launch {
+        DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this))
+    }
+    launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }
     launch {
         when (DataBus.contestInfoFlow.await().value.resultType) {
             ContestResultType.ICPC -> {
-                launch { ScoreboardService(OptimismLevel.OPTIMISTIC).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
-                launch { ScoreboardService(OptimismLevel.PESSIMISTIC).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
-                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.OPTIMISTIC).run(runsFlow, DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.PESSIMISTIC).run(runsFlow, DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsFlow, DataBus.contestInfoFlow.await()) }
                 launch {
                     ICPCStatisticsService().run(
                         DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
@@ -36,12 +38,12 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
                         AnalyticsGenerator(it).run(
                             generatedAnalyticsMessages,
                             DataBus.contestInfoFlow.await(),
-                            runsDeferred.await(),
+                            runsFlow,
                             DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
                         )
                     }
                 }
-                launch { AnalyticsService().run(merge(analyticsMessageFlowDeferred.await(), generatedAnalyticsMessages)) }
+                launch { AnalyticsService().run(merge(analyticsFlow, generatedAnalyticsMessages)) }
                 launch {
                     val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
                     val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
@@ -49,7 +51,7 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
                     DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
                     accentService.run(
                         DataBus.contestInfoFlow.await(),
-                        runsDeferred.await(),
+                        runsFlow,
                         DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
                         DataBus.teamInterestingScoreRequestFlow.await(),
                     )
@@ -57,7 +59,7 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
             }
 
             ContestResultType.IOI -> {
-                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsFlow, DataBus.contestInfoFlow.await()) }
                 DataBus.setScoreboardEvents(OptimismLevel.OPTIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
                 DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
 

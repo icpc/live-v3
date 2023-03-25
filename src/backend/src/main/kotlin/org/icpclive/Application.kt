@@ -20,7 +20,7 @@ import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.util.*
-import org.icpclive.cds.getContestDataSource
+import org.icpclive.cds.getContestDataSourceAsFlow
 import org.icpclive.data.DataBus
 import org.icpclive.service.AdvancedPropertiesService
 import org.icpclive.service.launchServices
@@ -118,7 +118,7 @@ fun Application.module() {
     if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in ${config.configDirectory}")
     val properties = Properties()
     FileInputStream(path.toString()).use { properties.load(it) }
-    val loader = getContestDataSource(
+    val loader = getContestDataSourceAsFlow(
         properties,
         config.creds,
         calculateFTS = true,

@@ -30,7 +30,7 @@ object ClicsExporter  {
 
     private suspend fun awaitContest() { }
 
-    private fun contestFlow(info: StateFlow<ContestInfo>) = info.map {
+    private fun contestFlow(info: Flow<ContestInfo>) = info.map {
         Contest(
             id = "contest",
             start_time = it.startTime.takeIf { it != kotlinx.datetime.Instant.fromEpochSeconds(0) },
@@ -80,7 +80,7 @@ object ClicsExporter  {
         }
     }
 
-    private fun problemsFlow(info: StateFlow<ContestInfo>) = flow {
+    private fun problemsFlow(info: Flow<ContestInfo>) = flow {
         awaitContest()
         val current = mutableMapOf<String, ProblemInfo>()
         info.collect {
@@ -104,7 +104,7 @@ object ClicsExporter  {
         }
     }
 
-    private fun teamsFlow(info: StateFlow<ContestInfo>) = flow {
+    private fun teamsFlow(info: Flow<ContestInfo>) = flow {
         awaitContest()
         val current = mutableMapOf<String, TeamInfo>()
         val groups = mutableSetOf<String>()
@@ -138,7 +138,7 @@ object ClicsExporter  {
         }
     }
 
-    private fun stateFlow(info: StateFlow<ContestInfo>) = info.map {
+    private fun stateFlow(info: Flow<ContestInfo>) = info.map {
         when (it.status) {
             ContestStatus.BEFORE -> State(ended = null, frozen = null, started = null, unfrozen = null, finalized = null, end_of_updates = null)
             ContestStatus.RUNNING -> State(ended = null, frozen = if (it.currentContestTime >= it.freezeTime) it.startTime + it.freezeTime else null, started = it.startTime, unfrozen = null, finalized = null, end_of_updates = null)
@@ -146,9 +146,9 @@ object ClicsExporter  {
         }
     }.distinctUntilChanged().map { updateEvent(it, Event::StateEvent) }
 
-    private fun runsFlow(info: StateFlow<ContestInfo>, runs: Flow<RunInfo>) = flow {
+    private fun runsFlow(info: Flow<ContestInfo>, runs: Flow<RunInfo>) = flow {
         val submissionsCreated = mutableSetOf<Int>()
-        runs.collect {run ->
+        runs.collect { run ->
             if (run.id !in submissionsCreated) {
                 submissionsCreated.add(run.id)
                 emit(updateEvent(
@@ -158,7 +158,7 @@ object ClicsExporter  {
                         language_id = unknownLanguage.id,
                         problem_id = info.mapNotNull { it.problems.getOrNull(run.problemId) }.first().cdsId,
                         team_id = info.mapNotNull { it.teams.getOrNull(run.teamId) }.first().contestSystemId,
-                        time = info.value.startTime + run.time,
+                        time = info.first().startTime + run.time,
                         contest_time = run.time,
                     ),
                     Event::SubmissionEvent
@@ -176,9 +176,9 @@ object ClicsExporter  {
                             result.isAddingPenalty -> judgementWrongWithPenalty
                             else -> judgementWrongWithOutPenalty
                         }.id,
-                        start_time = info.value.startTime + run.time,
+                        start_time = info.first().startTime + run.time,
                         start_contest_time = run.time,
-                        end_time = info.value.startTime + run.time,
+                        end_time = info.first().startTime + run.time,
                         end_contest_time = run.time
                     ),
                     Event::JudgementEvent
@@ -188,8 +188,7 @@ object ClicsExporter  {
     }
 
 
-    private suspend fun FlowCollector<Event>.generateEventFeed(info: StateFlow<ContestInfo>, runs: Flow<RunInfo>) {
-        runs.let { }
+    private suspend fun FlowCollector<Event>.generateEventFeed(info: Flow<ContestInfo>, runs: Flow<RunInfo>) {
         var eventCounter = 1
         merge(
             contestFlow(info),
@@ -204,9 +203,9 @@ object ClicsExporter  {
         }
     }
 
-    fun Route.setUp(scope: CoroutineScope, contestInfo: CompletableDeferred<StateFlow<ContestInfo>>, runs: CompletableDeferred<Flow<RunInfo>>) {
+    fun Route.setUp(scope: CoroutineScope, contestInfo: Flow<ContestInfo>, runs: Flow<RunInfo>) {
         val eventFeed = flow {
-            generateEventFeed(contestInfo.await(), runs.await())
+            generateEventFeed(contestInfo, runs)
         }.shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
         get("/event-feed") {
             val json = defaultJsonSettings()

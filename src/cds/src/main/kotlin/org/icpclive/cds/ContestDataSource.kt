@@ -20,6 +20,11 @@ import org.icpclive.util.loopFlow
 import java.util.*
 import kotlin.time.Duration
 
+sealed interface ContestUpdate
+data class InfoUpdate(val newInfo: ContestInfo) : ContestUpdate
+data class RunUpdate(val newInfo: RunInfo) : ContestUpdate
+data class Analytics(val message: AnalyticsMessage) : ContestUpdate
+
 data class ContestParseResult(
     val contestInfo: ContestInfo,
     val runs: List<RunInfo>,
@@ -96,4 +101,38 @@ fun getContestDataSource(
     )
 
     return adapters.fold(loader as ContestDataSource) { acc, function -> function(acc) }
+}
+
+fun getContestDataSourceAsFlow(
+    properties: Properties,
+    creds: Map<String, String> = emptyMap(),
+    calculateFTS: Boolean,
+    calculateDifference: Boolean,
+    removeFrozenResults: Boolean,
+    advancedPropertiesDeferred: CompletableDeferred<Flow<AdvancedProperties>>?,
+) = flow {
+    coroutineScope {
+        val contestInfoDeferred = CompletableDeferred<StateFlow<ContestInfo>>()
+        val runsDeferred = CompletableDeferred<Flow<RunInfo>>()
+        val analyticsMessagesDeferred = CompletableDeferred<Flow<AnalyticsMessage>>()
+        launch {
+            getContestDataSource(
+                properties,
+                creds,
+                calculateFTS,
+                calculateDifference,
+                removeFrozenResults,
+                advancedPropertiesDeferred
+            ).run(
+                contestInfoDeferred, runsDeferred, analyticsMessagesDeferred
+            )
+        }
+        emitAll(
+            merge(
+                contestInfoDeferred.await().map { InfoUpdate(it) },
+                runsDeferred.await().map { RunUpdate(it) },
+                analyticsMessagesDeferred.await().map { Analytics(it) }
+            )
+        )
+    }
 }

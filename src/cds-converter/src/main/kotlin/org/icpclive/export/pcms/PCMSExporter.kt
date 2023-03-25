@@ -6,7 +6,9 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import org.icpclive.api.*
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
@@ -130,15 +132,15 @@ object PCMSExporter {
         return output.toString()
     }
 
-    fun Route.setUp(contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>, runsCollectedDeferred: CompletableDeferred<StateFlow<PersistentMap<Int, RunInfo>>>) {
+    fun Route.setUp(contestInfo: Flow<ContestInfo>, runsCollected: Flow<PersistentMap<Int, RunInfo>>) {
         get {
             call.respondRedirect("/pcms/standings.xml", permanent = true)
         }
         get("standings.xml") {
             call.respondText(contentType = ContentType.Text.Xml) {
                 format(
-                    contestInfoDeferred.await().value,
-                    runsCollectedDeferred.await().value.values.toList()
+                    contestInfo.first(),
+                    runsCollected.first().values.toList()
                 )
             }
         }

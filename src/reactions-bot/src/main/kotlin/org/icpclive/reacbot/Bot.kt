@@ -8,7 +8,6 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.int
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import org.icpclive.cds.getContestDataSource
 import java.io.FileInputStream
 import java.util.*
 import com.github.kotlintelegrambot.bot
@@ -23,14 +22,17 @@ import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.entities.keyboard.InlineKeyboardButton
 import com.github.kotlintelegrambot.logging.LogLevel
 import org.icpclive.api.*
+import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.common.setAllowUnsecureConnections
+import org.icpclive.cds.getContestDataSourceAsFlow
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 
 class Bot(private val config: Config) {
     @OptIn(DelicateCoroutinesApi::class)
     private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
-    private val cds = getContestDataSource(
+    private val cds = getContestDataSourceAsFlow(
         getProperties(config.eventPropertiesFile),
         calculateFTS = false,
         calculateDifference = false,
@@ -54,7 +56,7 @@ class Bot(private val config: Config) {
         )
     }
 
-    private fun (Bot.Builder).setupDispatch() {
+    private fun Bot.Builder.setupDispatch() {
         dispatch {
             val nextReaction: ((Chat) -> Unit) = { chat: Chat ->
                 val reaction = storage.getReactionForVote(chat.id)
@@ -127,22 +129,17 @@ class Bot(private val config: Config) {
     }
 
     fun run(scope: CoroutineScope) {
-        val runs = CompletableDeferred<Flow<RunInfo>>()
-        val analyticsFlow = CompletableDeferred<Flow<AnalyticsMessage>>()
-
-        scope.launch { bot.startPolling() }
+        setAllowUnsecureConnections(true)
+        val loaded = if (config.disableCdsLoader) emptyFlow() else cds.shareIn(scope, SharingStarted.Eagerly, Int.MAX_VALUE)
+        val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
         scope.launch {
-            if (config.disableCdsLoader) {
-                return@launch
-            }
-            setAllowUnsecureConnections(true)
-            println("starting cds processing ...")
-            cds.run(contestInfo, runs, analyticsFlow)
+            contestInfo.complete(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(scope))
         }
+        scope.launch { bot.startPolling() }
         scope.launch {
             println("starting runs processing ...")
             println("runs processing stated for ${contestInfo.await().value.currentContestTime}")
-            runs.await().collect { run ->
+            runs.collect { run ->
                 run.reactionVideos.forEach {
                     if (it is MediaType.Video) {
                         processReaction(scope, run, it.url)
