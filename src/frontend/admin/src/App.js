@@ -18,7 +18,7 @@ import Dashboard from "./components/Dashboard";
 import Analytics from "./components/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight";
 import { useLocalStorageState } from "./utils";
-import BigClockManager from "./components/BigClockManager";
+import FullScreenClockManager from "./components/FullScreenClockManager";
 
 const dashboard_elements = {
     "Controls": <Controls/>,
@@ -27,7 +27,7 @@ const dashboard_elements = {
     "Picture": <Picture/>,
     "Scoreboard": <ScoreboardManager/>,
     "Ticker": <TickerMessage/>,
-    "BigClock": <BigClockManager/>,
+    "Full screen clock": <FullScreenClockManager/>,
 };
 
 const title_elements = {

@@ -3,12 +3,12 @@ import { Button, ButtonGroup, Container, Switch, Table, TableBody, TableRow } fr
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { errorHandlerWithSnackbar } from "../errors";
-import { useBigClockWidget } from "../services/bigClockWidget";
+import { useFullScreenClockWidget } from "../services/fullScreenClockWidget";
 
 
-function BigCLockManager() {
+function FullScreenClockManager() {
     const { enqueueSnackbar,  } = useSnackbar();
-    const service = useBigClockWidget();
+    const service = useFullScreenClockWidget();
     useEffect(() => {
         const h = errorHandlerWithSnackbar(enqueueSnackbar);
         service.addErrorHandler(h);
@@ -46,4 +46,4 @@ function BigCLockManager() {
     </Container>);
 }
 
-export default BigCLockManager;
+export default FullScreenClockManager;

@@ -139,13 +139,13 @@ class TeamViewWidget(
 }
 
 @Serializable
-@SerialName("BigClockWidget")
-class BigClockWidget(val settings: BigClockSettings) : Widget(
+@SerialName("FullScreenClockWidget")
+class FullScreenClockWidget(val settings: FullScreenClockSettings) : Widget(
     WIDGET_ID,
     getLocationOrDefault(WIDGET_ID, location)
 ) {
     companion object {
-        const val WIDGET_ID = "bigClock"
+        const val WIDGET_ID = "fullScreenClock"
         val location = LocationRectangle(0, 0, 1920, 1080)
     }
 }

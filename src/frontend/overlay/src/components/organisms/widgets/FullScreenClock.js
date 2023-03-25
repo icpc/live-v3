@@ -15,12 +15,12 @@ const ClockWrapper = styled.div`
   padding-top: 240px;
 `;
 
-export const BigClock = ({ widgetData: { settings: { globalTimeMode } } }) => {
+export const FullScreenClock = ({ widgetData: { settings: { globalTimeMode } } }) => {
     return <ClockWrapper>
         <ContestClock noStatusText={""} showStatus={false} globalTimeMode={globalTimeMode}/>
     </ClockWrapper>;
 };
 
-BigClock.overrideTimeout = SVG_APPEAR_TIME;
+FullScreenClock.overrideTimeout = SVG_APPEAR_TIME;
 
-export default BigClock;
+export default FullScreenClock;

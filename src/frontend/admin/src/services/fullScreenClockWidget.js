@@ -1,9 +1,9 @@
 import { AbstractWidgetService } from "./abstractWidget";
 import { useMemo } from "react";
 
-export class BigClockService extends AbstractWidgetService {
+export class FullScreenClockService extends AbstractWidgetService {
     constructor(errorHandler, listenWS = true) {
-        super("/bigClock", errorHandler, listenWS);
+        super("/fullScreenClock", errorHandler, listenWS);
     }
 
     isMessageRequireReload(data) {
@@ -30,7 +30,6 @@ export class BigClockService extends AbstractWidgetService {
     }
 }
 
-export const useBigClockWidget = (errorHandler, listenWS) =>
-    useMemo(
-        () => new BigClockService(errorHandler, listenWS),
+export const useFullScreenClockWidget = (errorHandler, listenWS) =>
+    useMemo(() => new FullScreenClockService(errorHandler, listenWS),
         [errorHandler, listenWS]);

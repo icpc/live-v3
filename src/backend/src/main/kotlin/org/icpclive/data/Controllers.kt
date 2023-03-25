@@ -14,7 +14,7 @@ object Controllers {
     val statistics = SingleWidgetController(StatisticsSettings(), WidgetManager, ::StatisticsWidget)
     val ticker = SingleWidgetController(TickerSettings(), WidgetManager, ::TickerWidget)
     val scoreboard = SingleWidgetController(ScoreboardSettings(), WidgetManager, ::ScoreboardWidget)
-    val bigClock = SingleWidgetController(BigClockSettings(), WidgetManager, ::BigClockWidget)
+    val fullScreenClock = SingleWidgetController(FullScreenClockSettings(), WidgetManager, ::FullScreenClockWidget)
     private val teamViews = TeamViewPosition.values().asList().associateWith { TeamViewController(WidgetManager, it) }
     fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
 
