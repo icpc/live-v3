@@ -9,11 +9,15 @@ export class AbstractWidgetService {
         this.apiUrl = BASE_URL_BACKEND + apiPath;
         this.apiGet = createApiGet(this.apiUrl);
         this.apiPost = createApiPost(this.apiUrl);
-        this.errorHandler = errorHandler ?? (cause => e => console.error(cause + ": " + e));
+        this.errorHandler = cause => e => this.handleError(cause, e);
         if (listenWS) {
             this.openWS();
         }
         this.reloadDataHandlers = new Set();
+        this.errorHandlers = new Set();
+        if (errorHandler) {
+            this.errorHandlers.add(errorHandler);
+        }
     }
 
     openWS() {
@@ -33,6 +37,21 @@ export class AbstractWidgetService {
         this.reloadDataHandlers.delete(handler);
     }
 
+    addErrorHandler(handler) {
+        this.errorHandlers.add(handler);
+    }
+
+    deleteErrorHandler(handler) {
+        this.errorHandlers.delete(handler);
+    }
+
+    handleError(cause, e) {
+        if (this.errorHandlers.size === 0) {
+            console.error(cause + ": " + e);
+        }
+        this.errorHandlers.forEach(h => h(cause)(e));
+    }
+
     isMessageRequireReload(/* data */) {}
 
     loadPresets() {}
@@ -48,6 +67,7 @@ export class AbstractWidgetService {
     }
 
     showPreset(presetId) {
+        console.log("hey", this, this.apiPost);
         return this.apiPost(this.presetSubPath(presetId) + "/show").catch(this.errorHandler("Failed to show preset"));
     }
 

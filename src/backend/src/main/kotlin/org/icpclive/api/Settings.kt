@@ -54,6 +54,9 @@ data class OverlayTeamViewSettings(
 ) : ObjectSettings
 
 @Serializable
+class BigClockSettings(val globalTimeMode: Boolean = false) : ObjectSettings
+
+@Serializable
 data class TeamLocatorCircleSettings(
     val x: Int,
     val y: Int,

@@ -5,7 +5,7 @@ import { Paper, Container, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import PropTypes from "prop-types";
 
-function Dashboard(props) {
+function Dashboard({ elements, layout, maxWidth }) {
     const defaultLayout = "twoColumns";
     const defaultMaxWidth = "xl";
 
@@ -15,13 +15,13 @@ function Dashboard(props) {
     };
 
     return (
-        <Container maxWidth={props.maxWidth !== undefined ? props.maxWidth : defaultMaxWidth}
+        <Container maxWidth={maxWidth !== undefined ? maxWidth : defaultMaxWidth}
             sx={{
                 pt: 6,
                 display: "grid",
-                gridTemplateColumns: (gridLayouts[props.layout] !== undefined ? gridLayouts[props.layout] : gridLayouts[defaultLayout]),
+                gridTemplateColumns: (gridLayouts[layout] !== undefined ? gridLayouts[layout] : gridLayouts[defaultLayout]),
                 gap: 0.25 }}>
-            {Object.entries(props.elements).map(([name, element]) => (
+            {Object.entries(elements).map(([name, element]) => (
                 <Paper
                     elevation={1}
                     key={name}

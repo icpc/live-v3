@@ -16,6 +16,7 @@ import Statistics from "../organisms/widgets/Statistics";
 import TeamView from "../organisms/widgets/TeamView";
 import Videos from "../organisms/widgets/Videos";
 import PVP from "../organisms/widgets/PVP";
+import BigClock from "../organisms/widgets/BigClock";
 import Locator from "../organisms/widgets/Locator";
 
 const fadeIn = keyframes`
@@ -78,6 +79,7 @@ const WIDGETS = {
     StatisticsWidget: Statistics,
     TeamViewWidget: TeamView,
     TeamPVPWidget: PVP,
+    BigClockWidget: BigClock,
     TeamLocatorWidget: Locator
 };
 

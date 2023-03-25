@@ -54,6 +54,7 @@ fun Route.configureAdminApiRouting() {
         route("/teamPVP") {
             setupTeamViews(listOf(TeamViewPosition.PVP_TOP, TeamViewPosition.PVP_BOTTOM))
         }
+        route("/bigClock") { setupController(Controllers.bigClock) }
         route("/teamLocator") { setupController(Controllers.locator) }
 
 

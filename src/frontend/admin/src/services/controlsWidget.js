@@ -7,6 +7,7 @@ const controlElements = [
     { text: "Statistics", id: "statistics" },
     { text: "Ticker", id: "ticker" },
     // { text: "SplitScreen", id: "splitScreen" },
+    { text: "BigClock", id: "bigClock" },
 ];
 
 export class ControlsWidgetService extends AbstractWidgetService {

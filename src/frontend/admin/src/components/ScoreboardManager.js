@@ -10,7 +10,6 @@ import {
     Checkbox,
     Container,
     IconButton,
-    styled,
     Switch,
     Table,
     TableBody,
@@ -26,6 +25,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { BASE_URL_BACKEND } from "../config";
 import { errorHandlerWithSnackbar } from "../errors";
 import { createApiGet, createApiPost } from "../utils";
+import { SlimTableCell } from "./atoms/Table";
 
 function NumericField({ onChange : _onChange, value, minValue, arrowsDelta }) {
     arrowsDelta = arrowsDelta ?? 1;
@@ -50,10 +50,6 @@ NumericField.propTypes = {
     arrowsDelta: PropTypes.number,
     onChange: PropTypes.func.isRequired,
 };
-
-const SlimTableCell = styled(TableCell)({
-    padding: 4,
-});
 
 function ScoreboardSettings({ isShown, onClickShow, onClickHide, settings, setSettings }) {
     return (<Table align="center" sx={{ my: 2 }} size="small">
