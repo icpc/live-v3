@@ -16,7 +16,14 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import org.icpclive.admin.configureAdminApiRouting
+import org.icpclive.api.AdvancedProperties
+import org.icpclive.api.RunInfo
+import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.adapters.*
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.util.*
@@ -121,14 +128,19 @@ fun Application.module() {
     val loader = getContestDataSourceAsFlow(
         properties,
         config.creds,
-        calculateFTS = true,
-        calculateDifference = true,
-        removeFrozenResults = true,
-        advancedPropertiesDeferred = DataBus.advancedPropertiesFlow
-    )
+    ).withRunsBefore()
+        .filterUseless()
+        .removeFrozenSubmissions()
+        .calculateScoreDifferences()
+        .addFirstToSolves()
+
 
     launch(handler) {
-        launch { AdvancedPropertiesService().run(DataBus.advancedPropertiesFlow) }
-        launchServices(loader)
+        val advancedJsonPath = config.configDirectory.resolve("advanced.json")
+        val advancedPropertiesFlow = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, AdvancedPropertiesService.logger)
+            .stateIn(this, SharingStarted.Eagerly, AdvancedProperties())
+        DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
+
+        launchServices(loader.applyAdvancedProperties(advancedPropertiesFlow).filterUseless())
     }
 }

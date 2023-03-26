@@ -24,6 +24,9 @@ import com.github.kotlintelegrambot.logging.LogLevel
 import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.adapters.filterUseless
+import org.icpclive.cds.adapters.removeFrozenSubmissions
+import org.icpclive.cds.adapters.withRunsBefore
 import org.icpclive.cds.common.setAllowUnsecureConnections
 import org.icpclive.cds.getContestDataSourceAsFlow
 import java.nio.file.Path
@@ -34,11 +37,9 @@ class Bot(private val config: Config) {
     private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
     private val cds = getContestDataSourceAsFlow(
         getProperties(config.eventPropertiesFile),
-        calculateFTS = false,
-        calculateDifference = false,
-        removeFrozenResults = true,
-        advancedPropertiesDeferred = null
-    )
+    ).withRunsBefore()
+        .filterUseless()
+        .removeFrozenSubmissions()
     private val storage = Storage()
     private val bot = bot {
         logLevel = LogLevel.Error

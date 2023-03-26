@@ -11,8 +11,7 @@ import org.icpclive.api.AnalyticsCommentaryEvent
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.RawContestDataSource
+import org.icpclive.cds.*
 import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.ClientAuth
@@ -54,7 +53,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
 
-    fun CoroutineScope.launchLoader(
+    suspend fun runLoader(
         onRun: suspend (RunInfo) -> Unit,
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
@@ -62,25 +61,25 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
         val eventsLoader = getEventFeedLoader(mainLoaderSettings)
         val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it, true) }
 
-        launch {
-            fun priority(event: UpdateContestEvent) = when (event) {
-                is ContestEvent -> 0
-                is StateEvent -> 1
-                is JudgementTypeEvent -> 2
-                is OrganizationEvent -> 3
-                is GroupsEvent -> 4
-                is TeamEvent -> 5
-                is ProblemEvent -> 6
-                is PreloadFinishedEvent -> throw IllegalStateException()
-            }
+        fun priority(event: UpdateContestEvent) = when (event) {
+            is ContestEvent -> 0
+            is StateEvent -> 1
+            is JudgementTypeEvent -> 2
+            is OrganizationEvent -> 3
+            is GroupsEvent -> 4
+            is TeamEvent -> 5
+            is ProblemEvent -> 6
+            is PreloadFinishedEvent -> throw IllegalStateException()
+        }
 
-            fun priority(event: UpdateRunEvent) = when (event) {
-                is SubmissionEvent -> 0
-                is JudgementEvent -> 1
-                is RunsEvent -> 2
-            }
+        fun priority(event: UpdateRunEvent) = when (event) {
+            is SubmissionEvent -> 0
+            is JudgementEvent -> 1
+            is RunsEvent -> 2
+        }
 
-            fun Flow<Event>.sortedPrefix() = flow {
+        fun Flow<Event>.sortedPrefix() = flow {
+            coroutineScope {
                 val channelDeferred = CompletableDeferred<ReceiveChannel<Event>>()
                 launch {
                     @OptIn(FlowPreview::class)
@@ -113,107 +112,94 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
                 }
                 channel.cancel()
             }
-
-            var preloadFinished = false
-
-            suspend fun processEvent(it: Event) {
-                when (it) {
-                    is UpdateContestEvent -> {
-                        val changedRuns = when (it) {
-                            is ContestEvent -> model.processContest(it.data!!)
-                            is ProblemEvent -> model.processProblem(it.id, it.data)
-                            is OrganizationEvent -> model.processOrganization(it.id, it.data)
-                            is TeamEvent -> model.processTeam(it.id, it.data)
-                            is StateEvent -> model.processState(it.data!!)
-                            is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
-                            is GroupsEvent -> model.processGroup(it.id, it.data)
-                            is PreloadFinishedEvent -> {
-                                preloadFinished = true
-                                model.getAllRuns()
-                            }
-                        }
-                        if (preloadFinished) {
-                            onContestInfo(model.contestInfo)
-                            for (run in changedRuns) {
-                                onRun(run)
-                            }
-                        }
-                    }
-
-                    is UpdateRunEvent -> {
-                        when (it) {
-                            is SubmissionEvent -> model.processSubmission(it.data!!)
-                            is JudgementEvent -> model.processJudgement(it.data!!)
-                            is RunsEvent -> model.processRun(it.data!!)
-                        }.also { run ->
-                            if (preloadFinished) {
-                                onRun(run.toApi())
-                            }
-                        }
-                    }
-
-                    is CommentaryEvent -> {
-                        val data = it.data
-                        if (data != null) {
-                            onComment(
-                                AnalyticsCommentaryEvent(
-                                    data.id,
-                                    data.message,
-                                    data.time,
-                                    data.contest_time,
-                                    data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
-                                    data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
-                                )
-                            )
-                        }
-                    }
-
-                    is IgnoredEvent -> {}
-                }
-            }
-
-            val idSet = mutableSetOf<String>()
-            merge(eventsLoader.run(), additionalEventsLoader?.run() ?: emptyFlow())
-                .sortedPrefix()
-                .filterNot { it.token in idSet }
-                .onEach { processEvent(it) }
-                .onEach { idSet.add(it.token) }
-                .logAndRetryWithDelay(5.seconds) {
-                    logger.error("Exception caught in CLICS parser. Will restart in 5 seconds.", it)
-                    preloadFinished = false
-                }.collect()
         }
+
+        var preloadFinished = false
+
+        suspend fun processEvent(it: Event) {
+            when (it) {
+                is UpdateContestEvent -> {
+                    val changedRuns = when (it) {
+                        is ContestEvent -> model.processContest(it.data!!)
+                        is ProblemEvent -> model.processProblem(it.id, it.data)
+                        is OrganizationEvent -> model.processOrganization(it.id, it.data)
+                        is TeamEvent -> model.processTeam(it.id, it.data)
+                        is StateEvent -> model.processState(it.data!!)
+                        is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
+                        is GroupsEvent -> model.processGroup(it.id, it.data)
+                        is PreloadFinishedEvent -> {
+                            preloadFinished = true
+                            model.getAllRuns()
+                        }
+                    }
+                    if (preloadFinished) {
+                        onContestInfo(model.contestInfo)
+                        for (run in changedRuns) {
+                            onRun(run)
+                        }
+                    }
+                }
+
+                is UpdateRunEvent -> {
+                    when (it) {
+                        is SubmissionEvent -> model.processSubmission(it.data!!)
+                        is JudgementEvent -> model.processJudgement(it.data!!)
+                        is RunsEvent -> model.processRun(it.data!!)
+                    }.also { run ->
+                        if (preloadFinished) {
+                            onRun(run.toApi())
+                        }
+                    }
+                }
+
+                is CommentaryEvent -> {
+                    val data = it.data
+                    if (data != null) {
+                        onComment(
+                            AnalyticsCommentaryEvent(
+                                data.id,
+                                data.message,
+                                data.time,
+                                data.contest_time,
+                                data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
+                                data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
+                            )
+                        )
+                    }
+                }
+
+                is IgnoredEvent -> {}
+            }
+        }
+
+        val idSet = mutableSetOf<String>()
+        merge(eventsLoader.run(), additionalEventsLoader?.run() ?: emptyFlow())
+            .sortedPrefix()
+            .filterNot { it.token in idSet }
+            .onEach { processEvent(it) }
+            .onEach { idSet.add(it.token) }
+            .logAndRetryWithDelay(5.seconds) {
+                logger.error("Exception caught in CLICS parser. Will restart in 5 seconds.", it)
+                preloadFinished = false
+            }.collect()
     }
 
-    override suspend fun run(
-        contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,
-        runsDeferred: CompletableDeferred<Flow<RunInfo>>,
-        analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
-    ) {
-        coroutineScope {
-            val contestInfoFlow = MutableStateFlow(model.contestInfo)
-            val rawRunsFlow = reliableSharedFlow<RunInfo>()
-            val analyticsEventsFlow = reliableSharedFlow<AnalyticsMessage>()
-            launchLoader(
-                onRun = { rawRunsFlow.emit(it) },
-                onContestInfo = { contestInfoFlow.value = it },
-                onComment = { analyticsEventsFlow.emit(it) }
-            )
-            runsDeferred.completeOrThrow(rawRunsFlow)
-            contestInfoDeferred.completeOrThrow(contestInfoFlow)
-            analyticsMessagesDeferred.completeOrThrow(analyticsEventsFlow)
-        }
+    override fun getFlow() = flow {
+        emit(InfoUpdate(model.contestInfo))
+        runLoader(
+            onRun = { emit(RunUpdate(it)) },
+            onContestInfo = { emit(InfoUpdate(it)) },
+            onComment = { emit(Analytics(it)) }
+        )
     }
 
     override suspend fun loadOnce(): ContestParseResult {
         val analyticsMessages = mutableListOf<AnalyticsMessage>()
-        coroutineScope {
-            launchLoader(
-                onRun = {},
-                onContestInfo = {},
-                onComment = { analyticsMessages.add(it) }
-            )
-        }
+        runLoader(
+            onRun = {},
+            onContestInfo = {},
+            onComment = { analyticsMessages.add(it) }
+        )
         logger.info("Loaded data from CLICS")
         val runs = model.getAllRuns()
         return ContestParseResult(model.contestInfo, runs, analyticsMessages)

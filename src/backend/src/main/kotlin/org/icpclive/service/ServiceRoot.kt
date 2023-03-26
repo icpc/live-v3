@@ -9,7 +9,6 @@ import org.icpclive.config
 import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
-import org.icpclive.util.reliableSharedFlow
 
 
 fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
@@ -23,63 +22,24 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     launch {
         when (DataBus.contestInfoFlow.await().value.resultType) {
             ContestResultType.ICPC -> {
-                launch { ScoreboardService(OptimismLevel.OPTIMISTIC).run(runsFlow, DataBus.contestInfoFlow.await()) }
-                launch { ScoreboardService(OptimismLevel.PESSIMISTIC).run(runsFlow, DataBus.contestInfoFlow.await()) }
-                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsFlow, DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.OPTIMISTIC).run(loaded) }
+                launch { ScoreboardService(OptimismLevel.PESSIMISTIC).run(loaded) }
+                launch { ScoreboardService(OptimismLevel.NORMAL).run(loaded) }
                 launch {
                     ICPCStatisticsService().run(
                         DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
                         DataBus.contestInfoFlow.await()
                     )
                 }
-                val generatedAnalyticsMessages = reliableSharedFlow<AnalyticsMessage>()
-                launch {
-                    config.analyticsTemplatesFile?.let {
-                        AnalyticsGenerator(it).run(
-                            generatedAnalyticsMessages,
-                            DataBus.contestInfoFlow.await(),
-                            runsFlow,
-                            DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
-                        )
-                    }
-                }
-                launch { AnalyticsService().run(merge(analyticsFlow, generatedAnalyticsMessages)) }
-                launch {
-                    val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
-                    val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
-                    DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
-                    DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
-                    accentService.run(
-                        DataBus.contestInfoFlow.await(),
-                        runsFlow,
-                        DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
-                        DataBus.teamInterestingScoreRequestFlow.await(),
-                    )
-                }
             }
 
             ContestResultType.IOI -> {
-                launch { ScoreboardService(OptimismLevel.NORMAL).run(runsFlow, DataBus.contestInfoFlow.await()) }
+                launch { ScoreboardService(OptimismLevel.NORMAL).run(loaded) }
                 DataBus.setScoreboardEvents(OptimismLevel.OPTIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
-                DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
-
-                val generatedAnalyticsMessages = reliableSharedFlow<AnalyticsMessage>()
-                launch {
-                    config.analyticsTemplatesFile?.let {
-                        AnalyticsGenerator(it).run(
-                            generatedAnalyticsMessages,
-                            DataBus.contestInfoFlow.await(),
-                            runsDeferred.await(),
-                            DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
-                        )
-                    }
-                }
-                launch { AnalyticsService().run(merge(analyticsMessageFlowDeferred.await(), generatedAnalyticsMessages)) }
-                launch {
-                    generatedAnalyticsMessages.collect {
-                        println("$it")
-                    }
-                }
+                DataBus.setScoreboardEvents(
+                    OptimismLevel.PESSIMISTIC,
+                    DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
+                )
 
                 //DataBus.statisticFlow.completeOrThrow(emptyFlow())
                 launch {
@@ -89,19 +49,27 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
                     )
                 }
 
-                launch {
-                    val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
-                    val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
-                    DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
-                    DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
-                    accentService.run(
-                        DataBus.contestInfoFlow.await(),
-                        runsDeferred.await(),
-                        DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
-                        DataBus.teamInterestingScoreRequestFlow.await(),
-                    )
-                }
             }
+        }
+        val generatedAnalyticsMessages = config.analyticsTemplatesFile?.let {
+            AnalyticsGenerator(it).getFlow(
+                DataBus.contestInfoFlow.await(),
+                runsFlow,
+                DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
+            )
+        } ?: emptyFlow()
+        launch { AnalyticsService().run(merge(analyticsFlow, generatedAnalyticsMessages)) }
+        launch {
+            val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
+            val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
+            DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
+            DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
+            accentService.run(
+                DataBus.contestInfoFlow.await(),
+                runsFlow,
+                DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
+                DataBus.teamInterestingScoreRequestFlow.await(),
+            )
         }
     }
 }

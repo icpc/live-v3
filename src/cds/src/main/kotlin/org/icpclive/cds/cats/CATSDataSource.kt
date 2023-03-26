@@ -1,6 +1,5 @@
 package org.icpclive.cds.cats
 
-import kotlinx.coroutines.*
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.KSerializer
@@ -16,7 +15,6 @@ import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.common.jsonLoader
 import org.icpclive.util.getCredentials
-import org.icpclive.util.getLogger
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -53,10 +51,9 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
     private val password = properties.getCredentials("password", creds)
     private val url = properties.getProperty("url")
     private val timezone = TimeZone.of(properties.getProperty("timezone") ?: throw IllegalStateException("Cats requires timezone property to be set"))
-    override val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
+    val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
     private val cid = properties.getProperty("cid")
 
-    private val logger = getLogger(CATSDataSource::class)
     private var sid: String? = null
 
     @Serializable

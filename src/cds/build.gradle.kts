@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)
     implementation(projects.common)
+    implementation(libs.kotlinx.collections.immutable)
 
     testImplementation(libs.kotlin.junit)
 }

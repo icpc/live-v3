@@ -6,7 +6,7 @@ import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable
-data class RunInfo constructor(
+data class RunInfo(
     val id: Int,
     val result: RunResult?,
     val percentage: Double,
@@ -37,5 +37,7 @@ data class IOIRunResult(
     val score: List<Double>,
     val wrongVerdict: String? = null,
     val difference: Double = 0.0,
+    val scoreAfter: Double = 0.0,
     val isFirstBestRun: Boolean = false,
+    val isFirstBestTeamRun: Boolean = false
 ) : RunResult()

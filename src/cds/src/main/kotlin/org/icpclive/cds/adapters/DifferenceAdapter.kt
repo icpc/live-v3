@@ -1,35 +1,61 @@
 package org.icpclive.cds.adapters
 
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import org.icpclive.api.*
-import org.icpclive.cds.ContestDataSource
-import org.icpclive.util.completeOrThrow
-import org.icpclive.util.getLogger
-import kotlin.math.abs
+import org.icpclive.cds.ContestUpdate
 
+private interface ScoreAccumulator {
+    fun add(score: IOIRunResult)
+    val total : Double
+}
 
-internal class DifferenceAdapter(private val source: ContestDataSource) : ContestDataSource {
-    private val runMap = mutableMapOf<Pair<Int, Int>, MutableList<RunInfo>>()
+private class MaxByGroupScoreAccumulator : ScoreAccumulator {
+    private val bestByGroup = mutableMapOf<Int, Double>()
+    override var total = 0.0
 
-    private suspend fun FlowCollector<RunInfo>.add(run: RunInfo, modes: Map<Int, ScoreMergeMode>) {
-        val runsList = runMap.getOrPut(run.teamId to run.problemId) { mutableListOf() }
-        val index = runsList.indexOfFirst { it.id == run.id }
-        if (run.result == null) {
-            emit(run)
-            if (index != -1) runsList.removeAt(index) else return
-        } else {
-            val copy = run.copy(result = (run.result as IOIRunResult).copy(difference = Double.NaN))
-            if (index == -1) runsList.add(copy) else runsList[index] = copy
+    override fun add(score: IOIRunResult) {
+        val byGroup = score.score
+        for (g in byGroup.indices) {
+            if (bestByGroup.getOrDefault(g, 0.0) < byGroup[g]) {
+                total += byGroup[g] - bestByGroup.getOrDefault(g, 0.0)
+                bestByGroup[g] = byGroup[g]
+            }
         }
-        recalc(runsList, modes[run.problemId])
     }
+}
 
-    private suspend fun FlowCollector<RunInfo>.recalc(list: MutableList<RunInfo>, mergeMode: ScoreMergeMode?) {
-        list.sortWith(compareBy({it.time}, { it.id }))
-        val accumulator = when (mergeMode ?: ScoreMergeMode.LAST) {
+private class MaxTotalScoreAccumulator : ScoreAccumulator {
+    override var total = 0.0
+
+    override fun add(score: IOIRunResult) { total = maxOf(total, score.score.sum()) }
+}
+
+private class LastScoreAccumulator : ScoreAccumulator {
+    override var total = 0.0
+
+    override fun add(score: IOIRunResult) { total = score.score.sum() }
+}
+
+private class LastOKScoreAccumulator : ScoreAccumulator {
+    override var total = 0.0
+
+    override fun add(score: IOIRunResult) { if (score.wrongVerdict == null) total = score.score.sum() }
+}
+
+private class SumScoreAccumulator : ScoreAccumulator {
+    override var total = 0.0
+
+    override fun add(score: IOIRunResult) { total += score.score.sum() }
+}
+
+fun Flow<ContestUpdate>.calculateScoreDifferences() = withGroupedRuns(
+    selector = { it.problemId to it.teamId },
+    needUpdateGroup = { new, old, key ->
+        new.problems.getOrNull(key.first)?.scoreMergeMode != old?.problems?.getOrNull(key.first)?.scoreMergeMode
+    },
+    transformGroup = transform@{ key, runs, contestInfo ->
+        if (contestInfo?.resultType != ContestResultType.IOI) return@transform runs
+        val accumulator = when (contestInfo.problems.getOrNull(key.first)?.scoreMergeMode ?: ScoreMergeMode.LAST) {
             ScoreMergeMode.MAX_PER_GROUP -> MaxByGroupScoreAccumulator()
             ScoreMergeMode.MAX_TOTAL -> MaxTotalScoreAccumulator()
             ScoreMergeMode.LAST -> LastScoreAccumulator()
@@ -37,60 +63,27 @@ internal class DifferenceAdapter(private val source: ContestDataSource) : Contes
             ScoreMergeMode.SUM -> SumScoreAccumulator()
         }
 
-        for ((index, i) in list.withIndex()) {
-            val before = accumulator.total
-            accumulator.add(i.result as IOIRunResult)
-            val after = accumulator.total
-
-            val d = after - before
-            if (i.result.difference.isNaN() || abs(i.result.difference - d) > 1e-5) {
-                list[index] = i.copy(result = i.result.copy(difference = d))
-                emit(list[index])
-            }
-        }
-    }
-
-    override suspend fun run(
-        contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,
-        runsDeferred: CompletableDeferred<Flow<RunInfo>>,
-        analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
-    ) {
-        coroutineScope {
-            val unprocessedRunsDeferred = CompletableDeferred<Flow<RunInfo>>()
-            launch { source.run(contestInfoDeferred, unprocessedRunsDeferred, analyticsMessagesDeferred) }
-            logger.info("Difference service is started")
-            val infoFlow = contestInfoDeferred.await()
-            if (infoFlow.value.resultType == ContestResultType.ICPC) {
-                runsDeferred.completeOrThrow(unprocessedRunsDeferred.await())
+        val results = runs.map {
+            if (it.result !is IOIRunResult) {
+                it.result
             } else {
-                runsDeferred.completeOrThrow(
-                    flow {
-                        val modesFlow = infoFlow.map { ScoreMergeModes(it.problems) }.distinctUntilChanged()
-                        var modes = ScoreMergeModes(infoFlow.value.problems)
-                        merge(
-                            unprocessedRunsDeferred.await(),
-                            modesFlow,
-                        ).collect {
-                            when (it) {
-                                is RunInfo -> add(it, modes.modes)
+                val before = accumulator.total
+                accumulator.add(it.result)
+                val after = accumulator.total
 
-                                is ScoreMergeModes -> {
-                                    modes = it
-                                    for ((key, list) in runMap) {
-                                        recalc(list, modes.modes[key.second])
-                                    }
-                                }
-
-                                else -> TODO()
-                            }
-                        }
-                    }.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+                it.result.copy(
+                    difference = after - before,
+                    scoreAfter = after
                 )
             }
         }
-    }
+        val bestIndex = results.indexOfLast { (it as? IOIRunResult)?.difference != null && it.difference > 0 }
 
-    companion object {
-        private val logger = getLogger(DifferenceAdapter::class)
+        runs.zip(results).mapIndexed { index, (run, result) ->
+            if (index == bestIndex)
+                run.copy(result = (result as IOIRunResult).copy(isFirstBestTeamRun = true))
+            else
+                run.copy(result = result)
+        }
     }
-}
+).map { it.event }

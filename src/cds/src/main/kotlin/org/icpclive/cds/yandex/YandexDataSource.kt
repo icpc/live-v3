@@ -8,11 +8,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
 import org.icpclive.api.ContestResultType
-import org.icpclive.api.RunInfo
-import org.icpclive.cds.ContestParseResult
+import org.icpclive.cds.*
 import org.icpclive.cds.RawContestDataSource
 import org.icpclive.cds.common.*
 import org.icpclive.cds.yandex.YandexConstants.API_BASE
@@ -36,7 +33,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
     private val participantLoader: DataLoader<List<Participant>>
     private val allSubmissionsLoader: DataLoader<List<Submission>>
 
-    override val resultType = ContestResultType.valueOf(props.getProperty("standings.resultType", "ICPC").uppercase())
+    val resultType = ContestResultType.valueOf(props.getProperty("standings.resultType", "ICPC").uppercase())
 
 
     init {
@@ -70,11 +67,8 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         }.map { it.submissions.reversed() }
     }
 
-    override suspend fun run(
-        contestInfoDeferred: CompletableDeferred<StateFlow<ContestInfo>>,
-        runsDeferred: CompletableDeferred<Flow<RunInfo>>,
-        analyticsMessagesDeferred: CompletableDeferred<Flow<AnalyticsMessage>>
-    ) {
+    @OptIn(FlowPreview::class)
+    override fun getFlow() = flow {
         coroutineScope {
             val rawContestInfoFlow = loopFlow(
                 30.seconds,
@@ -88,28 +82,21 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
                 )
             }.flowOn(Dispatchers.IO)
                 .stateIn(this)
-            analyticsMessagesDeferred.complete(emptyFlow())
-            contestInfoDeferred.complete(rawContestInfoFlow.map { it.toApi()}.stateIn(this))
+            emit(InfoUpdate(rawContestInfoFlow.value.toApi()))
             val newSubmissionsFlow = newSubmissionsFlow(1.seconds)
             val allSubmissionsFlow = loopFlow(
                 120.seconds,
                 onError = { getLogger(YandexDataSource::class).error("Failed to reload data, retrying", it) }
             ) { allSubmissionsLoader.load() }
                 .flowOn(Dispatchers.IO)
-            val submissionsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
+            val allRunsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
-                    it.sortedBy { it.id }.mapNotNull { submission ->
-                        if (isTeamSubmission(submission))
-                            submissionToRun(submission)
-                        else
-                            null
-                    }
+                    it.sortedWith(compareBy({it.time}, { it.id })).filter(this::isTeamSubmission).map { RunUpdate(submissionToRun(it)) }
                 }
-            }
-            launch { RunsBufferService(submissionsFlow, runsDeferred).run() }
+            }.flatMapConcat { it.asFlow() }
+            emitAll(merge(allRunsFlow, rawContestInfoFlow.map { InfoUpdate(it.toApi()) }))
         }
     }
-
     override suspend fun loadOnce(): ContestParseResult {
         val rawContestInfo = YandexContestInfo(
             contestDescriptionLoader.load(),
@@ -126,6 +113,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         log.info("Loaded all submissions for emulation")
         return ContestParseResult(contestInfo, submissions, emptyList())
     }
+
 
     companion object {
         private val log = getLogger(YandexDataSource::class)

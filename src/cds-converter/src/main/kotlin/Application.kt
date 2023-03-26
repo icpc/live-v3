@@ -4,7 +4,6 @@ import ClicsExporter
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
@@ -12,20 +11,18 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import io.ktor.websocket.*
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.AdvancedProperties
-import org.icpclive.api.RunInfo
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.adapters.*
 import org.icpclive.util.*
 import org.icpclive.cds.getContestDataSourceAsFlow
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
@@ -91,33 +88,29 @@ fun Application.module() {
     val properties = Properties()
     FileInputStream(path.toString()).use { properties.load(it) }
 
-    val advancedPropertiesDeferred = CompletableDeferred<Flow<AdvancedProperties>>()
+    val advancedProperties = fileJsonContentFlow<AdvancedProperties>(configDirectory.resolve("advanced.json"), environment.log)
+        .stateIn(this + handler, SharingStarted.Eagerly, AdvancedProperties())
+
 
     val loaded = getContestDataSourceAsFlow(
         properties,
         environment.config.propertyOrNull("live.credsFile")?.getString()?.let {
             Json.decodeFromStream(File(it).inputStream())
         } ?: emptyMap(),
-        calculateFTS = false,
-        calculateDifference = false,
-        removeFrozenResults = false,
-        advancedPropertiesDeferred = advancedPropertiesDeferred
-    ).shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
+    )
+        .applyAdvancedProperties(advancedProperties)
+        .filterUseless()
+        .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
-    val runsCollected = runs.runningFold(persistentMapOf<Int, RunInfo>()) { acc, value ->
-        acc.put(value.id, value)
-    }.stateIn(this + handler, SharingStarted.Eagerly, persistentMapOf())
+    val contestState = loaded
+        .stateWithGroupedRuns { it.teamId }
+        .stateIn(this + handler, SharingStarted.Eagerly, ContestStateWithGroupedRuns(null, persistentMapOf()))
     val contestInfo = loaded
         .filterIsInstance<InfoUpdate>()
         .map { it.newInfo }
         .distinctUntilChanged()
         .shareIn(this + handler, SharingStarted.Eagerly, 1)
-
-    advancedPropertiesDeferred.complete(
-        fileJsonContentFlow<AdvancedProperties>(configDirectory.resolve("advanced.json"), environment.log)
-            .stateIn(this + handler, SharingStarted.Eagerly, AdvancedProperties())
-    )
 
     routing {
         with (ClicsExporter) {
@@ -127,7 +120,7 @@ fun Application.module() {
         }
         with (PCMSExporter) {
             route("/pcms") {
-                setUp(contestInfo, runsCollected)
+                setUp(contestState)
             }
         }
     }

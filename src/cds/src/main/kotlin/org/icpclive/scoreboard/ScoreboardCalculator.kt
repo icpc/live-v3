@@ -1,14 +1,14 @@
 package org.icpclive.scoreboard
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import org.icpclive.api.*
+import org.icpclive.cds.adapters.ContestStateWithRunsByTeam
 import org.icpclive.util.getLogger
 
 abstract class ScoreboardCalculator {
-
-    private fun sortSubmissions(runs: Iterable<RunInfo>) = runs
-        .sortedWith(compareBy(RunInfo::time, RunInfo::id))
-        .groupBy(RunInfo::teamId)
-
 
     abstract fun ContestInfo.getScoreboardRow(
         teamId: Int,
@@ -19,9 +19,7 @@ abstract class ScoreboardCalculator {
 
     abstract val comparator : Comparator<ScoreboardRow>
 
-
-    fun getScoreboard(info: ContestInfo, runsUnsorted: List<RunInfo>): Scoreboard {
-        val runs = sortSubmissions(runsUnsorted)
+    fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>): Scoreboard {
         logger.info("Calculating scoreboard: runs count = ${runs.values.sumOf { it.size }}")
         val teamsInfo = info.teams.filterNot { it.isHidden }.associateBy { it.id }
         fun ScoreboardRow.team() = teamsInfo[teamId]!!
@@ -80,3 +78,11 @@ fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel) = w
     }
     ContestResultType.IOI -> IOIScoreboardCalculator()
 }
+
+fun Flow<ContestStateWithRunsByTeam>.calculateScoreboard(optimismLevel: OptimismLevel) =
+    filter { it.info != null }
+    .conflate()
+    .map {
+        getScoreboardCalculator(it.info!!, optimismLevel).getScoreboard(it.info, it.runs)
+    }
+

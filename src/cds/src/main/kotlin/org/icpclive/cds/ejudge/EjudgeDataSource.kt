@@ -16,7 +16,7 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
 class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-    override val resultType =
+    val resultType =
         ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
 
     override suspend fun loadOnce(): ContestParseResult {

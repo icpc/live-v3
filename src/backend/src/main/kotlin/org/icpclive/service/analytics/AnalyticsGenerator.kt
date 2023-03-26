@@ -1,9 +1,6 @@
 package org.icpclive.service.analytics
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
@@ -17,12 +14,11 @@ import kotlin.io.path.inputStream
 class AnalyticsGenerator(jsonTemplatePath: Path) {
     private val messagesTemplates = Json.decodeFromStream<JsonAnalyticTemplates>(jsonTemplatePath.inputStream())
 
-    suspend fun run(
-        analyticsMessagesFlow: FlowCollector<AnalyticsMessage>,
+    suspend fun getFlow(
         contestInfoFlow: StateFlow<ContestInfo>,
         runsFlow: Flow<RunInfo>,
         scoreboardFlow: Flow<Scoreboard>,
-    ) {
+    ) = flow {
         logger.info("Analytics generator service is started")
         val runs = mutableMapOf<Int, RunAnalyse>()
         combine(contestInfoFlow, runsFlow, scoreboardFlow, ::Triple).collect { (contestInfo, run, scoreboard) ->
@@ -34,7 +30,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
 
             val team = contestInfo.teams.firstOrNull { it.id == run.teamId } ?: return@collect
             val problem = contestInfo.problems.firstOrNull { it.id == run.problemId } ?: return@collect
-            analyticsMessagesFlow.emit(
+            emit(
                 AnalyticsCommentaryEvent(
                     "_analytics_by_run_${run.id}",
                     getMessage(analysis, team, problem),

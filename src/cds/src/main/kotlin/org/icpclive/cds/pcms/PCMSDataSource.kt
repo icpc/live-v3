@@ -26,7 +26,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         properties.getProperty("url")
     }
 
-    override val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
+    val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
     val runIds = mutableMapOf<String, Int>()
     val teamIds = mutableMapOf<String, Int>()
     var startTime = Instant.fromEpochMilliseconds(0)

@@ -4,12 +4,10 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.collections.immutable.PersistentMap
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import org.icpclive.api.*
+import org.icpclive.cds.adapters.ContestStateWithGroupedRuns
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
 import org.w3c.dom.Element
@@ -99,7 +97,7 @@ object PCMSExporter {
     }
 
 
-    fun format(info: ContestInfo, runs: List<RunInfo>) : String {
+    fun format(info: ContestInfo, runsByTeam: Map<Int, List<RunInfo>>) : String {
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
         val documentFactory = DocumentBuilderFactory.newInstance()!!
         val documentBuilder = documentFactory.newDocumentBuilder()!!
@@ -111,8 +109,7 @@ object PCMSExporter {
         contest.buildContestNode(info)
         val challenge = contest.createChild("challenge")
         challenge.buildChallengeNode(info)
-        val scoreboard = getScoreboardCalculator(info, OptimismLevel.NORMAL).getScoreboard(info, runs)
-        val runsByTeam = runs.groupBy { it.teamId }
+        val scoreboard = getScoreboardCalculator(info, OptimismLevel.NORMAL).getScoreboard(info, runsByTeam)
         val teamById = info.teams.associateBy { it.id }
         scoreboard.rows.forEach {
             contest.createChild("session").also { session ->
@@ -132,15 +129,16 @@ object PCMSExporter {
         return output.toString()
     }
 
-    fun Route.setUp(contestInfo: Flow<ContestInfo>, runsCollected: Flow<PersistentMap<Int, RunInfo>>) {
+    fun Route.setUp(contestInfo: Flow<ContestStateWithGroupedRuns<Int>>) {
         get {
             call.respondRedirect("/pcms/standings.xml", permanent = true)
         }
         get("standings.xml") {
             call.respondText(contentType = ContentType.Text.Xml) {
+                val state = contestInfo.first { it.info != null }
                 format(
-                    contestInfo.first(),
-                    runsCollected.first().values.toList()
+                    state.info!!,
+                    state.runs
                 )
             }
         }
