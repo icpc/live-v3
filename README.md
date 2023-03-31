@@ -9,7 +9,7 @@ Welcome to the ICPC Live Source Code Repository.
     * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-rmc/2021)
     * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/config/icpc-nef/2021-2022/main)
     * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp/2022-junior)
-    * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/config/_yandex/)
+    * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/config/_examples/_yandex/)
     * [Example for Ejduge](https://github.com/icpc/live-v3/tree/main/config/lscpc/2022/)
     * [See full archive for more examples](https://github.com/icpc/live-v3/tree/main/config)
     * [How to fine tune imported data](https://github.com/icpc/live-v3/blob/main/advanced.json.md)
