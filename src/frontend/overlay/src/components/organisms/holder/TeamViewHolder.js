@@ -187,6 +187,7 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
 };
 
 export const TeamInfo = ({ teamId }) => {
+    const contestInfo = useSelector((state) => state.contestInfo.info);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     return <TeamInfoWrapper>
@@ -195,7 +196,7 @@ export const TeamInfo = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        {scoreboardData?.problemResults[0].type !== "ioi" &&
+        {contestInfo.resultType !== "ioi" &&
         <ScoreboardStatCell>
             {scoreboardData?.penalty}
         </ScoreboardStatCell>}
