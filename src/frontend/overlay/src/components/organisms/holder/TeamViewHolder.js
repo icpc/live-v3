@@ -143,7 +143,7 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     const contestData = useSelector((state) => state.contestInfo.info);
 
-    if (scoreboardData?.problemResults[0].type === "icpc") {
+    if (contestData.resultType === "icpc") {
         return <ScoreboardColumnWrapper isSmall={isSmall}>
             <ScoreboardTeamInfoRow>
                 <TeamInfo teamId={teamId}/>
