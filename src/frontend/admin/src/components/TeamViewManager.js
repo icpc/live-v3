@@ -90,7 +90,7 @@ export const TeamViewManager = ({ service, mediaTypes }) => {
 
     const [searchValue, setSearchValue] = useState("");
     const filteredTeams = useMemo(() =>
-        teamsWithStatus.filter(t => (searchValue === "" || t.name.toLowerCase().includes(searchValue))),
+        teamsWithStatus.filter(t => (searchValue === "" || (t.contestSystemId + " : " + t.name).toLowerCase().includes(searchValue))),
     [teamsWithStatus, searchValue]);
 
     const [isMultipleMode, setIsMultipleMode] = useState(false);
