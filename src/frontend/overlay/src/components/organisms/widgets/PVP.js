@@ -121,7 +121,7 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    if (scoreboardData?.problemResults[0].type === "icpc") {
+    if (contestData.resultType === "icpc") {
         return <ScoreboardRowAllWrapper>
             <ScoreboardTeamInfoRowFirst>
                 <TeamInfo teamId={teamId}/>
@@ -165,12 +165,15 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     //console.log(scoreboardData);
     const contestData = useSelector((state) => state.contestInfo.info);
+    if(contestData === null) {
+        return null;
+    }
 
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    if (scoreboardData?.problemResults[0].type === "icpc") {
+    if (contestData.resultType === "icpc") {
         return <ScoreboardRowAllWrapper>
             <TaskRowWrapperSecond>
                 {scoreboardData?.problemResults.flatMap(({
@@ -215,13 +218,17 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
 const TeamInfo = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
+    const contestData = useSelector((state) => state.contestInfo.info);
+    if(contestData === null) {
+        return null;
+    }
     return <TeamInfoWrapper>
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        {scoreboardData?.problemResults[0].type !== "ioi" &&
+        {contestData.resultType !== "ioi" &&
             <ScoreboardStatCell>
                 {scoreboardData?.penalty}
             </ScoreboardStatCell>}
