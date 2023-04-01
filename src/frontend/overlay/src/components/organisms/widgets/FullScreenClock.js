@@ -15,9 +15,9 @@ const ClockWrapper = styled.div`
   padding-top: 240px;
 `;
 
-export const FullScreenClock = ({ widgetData: { settings: { globalTimeMode } } }) => {
+export const FullScreenClock = ({ widgetData: { settings: { globalTimeMode, quietMode } } }) => {
     return <ClockWrapper>
-        <ContestClock noStatusText={""} showStatus={false} globalTimeMode={globalTimeMode}/>
+        <ContestClock noStatusText={""} showStatus={false} globalTimeMode={globalTimeMode} quietMode={quietMode}/>
     </ClockWrapper>;
 };
 

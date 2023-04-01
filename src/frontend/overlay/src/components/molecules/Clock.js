@@ -6,8 +6,20 @@ import PropTypes from "prop-types";
 
 Settings.defaultZone = "utc";
 
+const formatTime = (time, quietMode) => {
+    if (quietMode) {
+        return time.toFormat("H:mm");
+    }
+    return time.toFormat("H:mm:ss");
+};
 
-export const ContestClock = ({ noStatusText = "??", showStatus = true, globalTimeMode = false }) => {
+
+export const ContestClock = ({
+    noStatusText = "??",
+    showStatus = true,
+    globalTimeMode = false,
+    quietMode = false,
+}) => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const getStatus = useCallback(() => {
         if (globalTimeMode === true) {
@@ -21,17 +33,17 @@ export const ContestClock = ({ noStatusText = "??", showStatus = true, globalTim
         if (contestInfo.status === "RUNNING") {
             const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
                 (contestInfo.emulationSpeed ?? 1);
-            return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
+            return formatTime(DateTime.fromMillis(milliseconds), quietMode);
         } else if (contestInfo.status === "BEFORE") {
             if (contestInfo.holdBeforeStartTimeMs !== undefined) {
-                return "-" + DateTime.fromMillis(contestInfo.holdBeforeStartTimeMs).toFormat("H:mm:ss");
+                return "-" + formatTime(DateTime.fromMillis(contestInfo.holdBeforeStartTimeMs), quietMode);
             } else if (contestInfo.startTimeUnixMs !== undefined) {
                 const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
                     (contestInfo.emulationSpeed ?? 1);
                 if (milliseconds > 0) {
-                    return DateTime.fromMillis(milliseconds).toFormat("H:mm:ss");
+                    return formatTime(DateTime.fromMillis(milliseconds), quietMode);
                 }
-                return "-" + DateTime.fromMillis(-milliseconds + 1000).toFormat("H:mm:ss");
+                return "-" + formatTime(DateTime.fromMillis(-milliseconds + 1000), quietMode);
             }
         }
 

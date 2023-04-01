@@ -16,7 +16,7 @@ function FullScreenClockManager() {
     }, [service, enqueueSnackbar]);
 
     const [isShown, setIsShown] = useState(false);
-    const [settings, setSettings] = useState({ globalTimeMode: false });
+    const [settings, setSettings] = useState({ globalTimeMode: false, quietMode: false });
     const loadSettings = () => service.loadOne().then((info) => setIsShown(info.shown));
 
     useEffect(loadSettings, []);
@@ -32,7 +32,20 @@ function FullScreenClockManager() {
                     <SlimTableCell align={"center"}>
                         Global time instead contest
                         <Switch checked={settings.globalTimeMode}
-                            onChange={(e) => setSettings(({ globalTimeMode: e.target.checked }))}/>
+                            onChange={(e) => setSettings(s => ({ ...s, globalTimeMode: e.target.checked }))}/>
+                    </SlimTableCell>
+                    <SlimTableCell align={"center"}>
+                        <ButtonGroup variant="contained" sx={{ m: 2 }}>
+                            <Button color="primary" onClick={() => service.showPresetWithSettings(null, settings)}>Show</Button>
+                            <Button color="error" disabled={!isShown} onClick={() => service.hidePreset()}>Hide</Button>
+                        </ButtonGroup>
+                    </SlimTableCell>
+                </TableRow>
+                <TableRow>
+                    <SlimTableCell align={"center"}>
+                        Quiet mode (seconds only in countdown)
+                        <Switch checked={settings.quietMode}
+                            onChange={(e) => setSettings(s => ({ ...s, quietMode: e.target.checked }))}/>
                     </SlimTableCell>
                     <SlimTableCell align={"center"}>
                         <ButtonGroup variant="contained" sx={{ m: 2 }}>

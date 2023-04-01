@@ -54,7 +54,7 @@ data class OverlayTeamViewSettings(
 ) : ObjectSettings
 
 @Serializable
-class FullScreenClockSettings(val globalTimeMode: Boolean = false) : ObjectSettings
+class FullScreenClockSettings(val globalTimeMode: Boolean = false, val quietMode: Boolean = false) : ObjectSettings
 
 @Serializable
 data class TeamLocatorCircleSettings(
