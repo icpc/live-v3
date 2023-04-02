@@ -116,6 +116,9 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     //console.log(scoreboardData);
     const contestData = useSelector((state) => state.contestInfo.info);
+    if (contestData === undefined) {
+        return null;
+    }
 
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
