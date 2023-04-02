@@ -168,12 +168,12 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     //console.log(scoreboardData);
     const contestData = useSelector((state) => state.contestInfo.info);
-    if(contestData === undefined) {
-        return null;
-    }
 
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
+    }
+    if(contestData === undefined) {
+        return null;
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     if (contestData.resultType === "icpc") {
