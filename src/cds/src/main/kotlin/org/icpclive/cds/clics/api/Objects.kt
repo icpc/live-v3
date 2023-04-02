@@ -117,7 +117,7 @@ data class Judgement(
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val start_contest_time: Duration,
     @Serializable(with = ClicsTime.InstantSerializer::class)
-    val end_time: Instant,
+    val end_time: Instant?,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val end_contest_time: Duration?,
 )
