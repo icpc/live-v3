@@ -9,8 +9,8 @@ Welcome to the ICPC Live Source Code Repository.
     * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-rmc/2021)
     * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/config/icpc-nef/2021-2022/main)
     * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp/2022-junior)
-    * [Example for Yandex](https://github.com/icpc/live-v3/tree/main/config/_examples/_yandex/)
-    * [Example for Ejduge](https://github.com/icpc/live-v3/tree/main/config/lscpc/2022/)
+    * [Example for Yandex.Contest](https://github.com/icpc/live-v3/tree/main/config/_examples/_yandex/)
+    * [Example for Ejudge](https://github.com/icpc/live-v3/tree/main/config/lscpc/2022/)
     * [See full archive for more examples](https://github.com/icpc/live-v3/tree/main/config)
     * [How to fine tune imported data](https://github.com/icpc/live-v3/blob/main/advanced.json.md)
     * [How to get current state of imported data](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
@@ -18,7 +18,7 @@ Welcome to the ICPC Live Source Code Repository.
 
 Run `java -jar /path/to/jar/file -port=8080 -P:live.configDirectory=/path/to/config/directory -P:live.credsFile=creds.json`
 
-* Port 8080 is default, if you are okay with it option can be omitted
+* Port 8080 is default, if you are okay with it this option can be omitted
 
 * Add source to OBS
     * +Source
@@ -42,7 +42,7 @@ Also, check emulation mode part of development doc for testing.
 For now http basic auth is used. If you try to login with
 user, which does not exist, it will be automatically created.
 First created receives admin rights. Others only receive them when
-someone with admin rights confirms, it's okey.
+someone with admin rights confirms, it's okay.
 
 Consider, if you are okay with passing your passwords using plain HTTP.
 
@@ -88,14 +88,14 @@ Admin and overlay can be hosted over `/admin` and `/overlay` paths as SPA using 
 SPA hosting.
 
 Contest systems integrations are implemented in `org.icpclive.cds` package. Currently,
-CLICS, PCMS, Codeforces and Yandex.Contest, E judge and KRSU are supported. Currently, only ICPC mode
-is supported.
+CLICS, PCMS, Codeforces and Yandex.Contest, Ejudge and KRSU are supported. Only ICPC mode
+is supported at the moment.
 
 Basically, to add new contest data provider, you need to implement contest information updates
 (start time, list of problems, list of teams, etc.) and runs updates (events like new run, run status changes, partial
 and final testing). In simple cases, if you reload all data every time, it can be useful to inherit from FullReloadContestDataSource. 
 
-Everything else should work automatically in same manner for all CDS sources.
+Everything else should work automatically in the same manner for all CDS sources.
 
 ### Emulation mode
 
