@@ -40,10 +40,25 @@ private fun RunInfo.interesting() = when {
 private fun Double.takeIf(condition: Boolean?) = if (condition == true) this else 0.0
 private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = when (this) {
     is TeamScoreboardPlace -> flowSettings.rankScore(rank)
-    is TeamRunAccent -> flowSettings.firstToSolvedRunScore.takeIf(run.isFirstSolvedRun) +
-            flowSettings.acceptedRunScore.takeIf(run.isAccepted) +
-            flowSettings.judgedRunScore.takeIf(run.isJudged) +
-            flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
+    is TeamRunAccent -> {
+        when (val result = run.result) {
+            is ICPCRunResult -> {
+                flowSettings.firstToSolvedRunScore.takeIf(result.isFirstToSolveRun) +
+                        flowSettings.acceptedRunScore.takeIf(result.isAccepted) +
+                        flowSettings.judgedRunScore.takeIf(run.isFirstSolvedRun) +
+                        flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
+            }
+
+            is IOIRunResult -> {
+                flowSettings.acceptedRunScore.takeIf(result.difference != 0.0) +
+                        flowSettings.judgedRunScore.takeIf(run.isFirstSolvedRun) +
+                        flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
+            }
+
+            else -> 0.0
+        }
+    }
+
     is ExternalScoreAddAccent -> flowSettings.externalScoreScale * score
     is SocialEventAccent -> flowSettings.socialEventScore
 }
@@ -72,7 +87,7 @@ class TeamState(val teamId: Int) : Comparable<TeamState> {
 
 class TeamSpotlightService(
     val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings(),
-    private val teamInteresting: MutableStateFlow<List<TeamState>>? = null,
+    private val teamInteresting: MutableStateFlow<List<CurrentTeamState>>? = null,
 ) {
     private val mutex = Mutex()
     private val queue = mutableSetOf<TeamState>()
@@ -90,7 +105,7 @@ class TeamSpotlightService(
                     continue
                 }
                 emit(KeyTeam(element.teamId, element.caused))
-                val teams = mutex.withLock { queue.toList() }
+                val teams = mutex.withLock { queue.map(::CurrentTeamState) }
                 teamInteresting?.emit(teams)
             }
         }
@@ -98,7 +113,7 @@ class TeamSpotlightService(
 
     private suspend fun TeamState.addAccent(accent: TeamAccent) {
         addAccent(accent, settings)
-        teamInteresting?.emit(queue.toList())
+        teamInteresting?.emit(queue.map(::CurrentTeamState))
     }
 
     suspend fun run(

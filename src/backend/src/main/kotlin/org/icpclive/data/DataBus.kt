@@ -10,7 +10,6 @@ import org.icpclive.api.*
 import org.icpclive.util.completeOrThrow
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
-import org.icpclive.service.TeamState
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads
@@ -40,7 +39,7 @@ object DataBus {
     )
     val teamSpotlightFlow = CompletableDeferred<Flow<KeyTeam>>()
     val teamInterestingScoreRequestFlow = CompletableDeferred<Flow<AddTeamScoreRequest>>()
-    val teamInterestingFlow = CompletableDeferred<Flow<List<TeamState>>>()
+    val teamInterestingFlow = CompletableDeferred<Flow<List<CurrentTeamState>>>()
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {

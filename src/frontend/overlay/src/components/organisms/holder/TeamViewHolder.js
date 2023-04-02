@@ -146,7 +146,9 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
         return null;
     }
 
-    if (contestData.resultType === "icpc") {
+    if (!contestData) {
+        return null;
+    } else if (contestData.resultType === "icpc") {
         return <ScoreboardColumnWrapper isSmall={isSmall}>
             <ScoreboardTeamInfoRow>
                 <TeamInfo teamId={teamId}/>

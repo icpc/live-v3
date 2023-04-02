@@ -43,7 +43,7 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
                 }
                 launch { AnalyticsService().run(merge(analyticsMessageFlowDeferred.await(), generatedAnalyticsMessages)) }
                 launch {
-                    val teamInterestingFlow = MutableStateFlow(emptyList<TeamState>())
+                    val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
                     val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
                     DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
                     DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
@@ -62,8 +62,19 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
                 DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
                 DataBus.analyticsFlow.completeOrThrow(emptyFlow())
                 DataBus.statisticFlow.completeOrThrow(emptyFlow())
-                DataBus.teamInterestingFlow.completeOrThrow(emptyFlow())
-                DataBus.teamSpotlightFlow.completeOrThrow(emptyFlow())
+
+                launch {
+                    val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
+                    val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
+                    DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
+                    DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
+                    accentService.run(
+                        DataBus.contestInfoFlow.await(),
+                        runsDeferred.await(),
+                        DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
+                        DataBus.teamInterestingScoreRequestFlow.await(),
+                    )
+                }
             }
         }
     }

@@ -4,7 +4,6 @@ import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
 import org.icpclive.api.AddTeamScoreRequest
 import org.icpclive.api.InterestingTeam
 import org.icpclive.data.DataBus
@@ -24,15 +23,9 @@ fun Route.setupSpotlight() {
     }
 
     webSocket {
-        sendJsonFlow(flow {
-            combine(
-                DataBus.teamInterestingFlow.await(),
-                DataBus.contestInfoFlow.await(),
-                ::Pair
-            ).collect { (teams, info) ->
-                val teamsScore = teams.associate { it.teamId to it.score }
-                emit(info.teams.map { InterestingTeam(it.id, it.name, teamsScore[it.id] ?: 0.0) })
-            }
+        sendJsonFlow(DataBus.teamInterestingFlow.await().combine(DataBus.contestInfoFlow.await()) { teams, info ->
+            val teamsScore = teams.associate { it.teamId to it.score }
+            info.teams.map { InterestingTeam(it.id, it.name, teamsScore[it.id] ?: 0.0) }
         })
     }
 }
