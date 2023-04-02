@@ -172,10 +172,10 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
     }
+    const tasks = useSelector(state => state.contestInfo?.info?.problems);
     if(contestData === undefined) {
         return null;
     }
-    const tasks = useSelector(state => state.contestInfo?.info?.problems);
     if (contestData.resultType === "icpc") {
         return <ScoreboardRowAllWrapper>
             <TaskRowWrapperSecond>
