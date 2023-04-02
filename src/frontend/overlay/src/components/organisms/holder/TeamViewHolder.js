@@ -142,7 +142,7 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
     }
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     const contestData = useSelector((state) => state.contestInfo.info);
-    if (contestData === null) {
+    if (contestData === undefined) {
         return null;
     }
 

@@ -165,7 +165,7 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     //console.log(scoreboardData);
     const contestData = useSelector((state) => state.contestInfo.info);
-    if(contestData === null) {
+    if(contestData === undefined) {
         return null;
     }
 
@@ -219,7 +219,7 @@ const TeamInfo = ({ teamId }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     const contestData = useSelector((state) => state.contestInfo.info);
-    if(contestData === null) {
+    if(contestData === undefined) {
         return null;
     }
     return <TeamInfoWrapper>
