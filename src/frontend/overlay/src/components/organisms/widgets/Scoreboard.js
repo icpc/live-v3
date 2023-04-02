@@ -99,7 +99,7 @@ const mapNumber = (value, oldMin, oldMax, newMin, newMax) => {
 
 // Green color: #1B8041, RGB(27, 128, 65) (VERDICT_OK)
 // Red color: #881f1b, RGB(136, 31, 27) (VERDICT_NOK)
-const getTeamTaskColor = (score, minScore, maxScore) => {
+export const getTeamTaskColor = (score, minScore, maxScore) => {
     if (score === undefined) {
         return CELL_BG_COLOR;
     }

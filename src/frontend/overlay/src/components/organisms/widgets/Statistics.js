@@ -17,6 +17,7 @@ import {
 } from "../../../config";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell } from "../../atoms/ContestCells";
+import { getTeamTaskColor } from "./Scoreboard";
 
 const AllDiv = styled.div`
   width: 100%;
@@ -76,7 +77,11 @@ const StatEntry = styled(Cell).attrs(({ targetWidth }) => ({
   float: left;
   box-sizing: border-box;
   text-align: center;
-  font-family: ${CELL_FONT_FAMILY}
+  font-family: ${CELL_FONT_FAMILY};
+  &:before {
+    content: '';
+    display: inline-block;
+  }
 `;
 
 
@@ -85,33 +90,57 @@ const StatisticsProblemCell = styled(ProblemCell)`
   box-sizing: border-box;
 `;
 
-const getFormattedWidth = (count) => (val) => {
-    return `calc(max(${val / count * 100}%, ${val === 0 ? 0 : (val + "").length + 1}ch))`;
+const getFormattedWidth = (count) => (val, fl) => {
+    if (fl) {
+        return `calc(max(${val / count * 100}%, ${val === 0 ? 0 : (val + "").length + 1}ch))`;
+    } else {
+        return `${val / count * 100}%`;
+    }
 };
+
+const StatEntryContent = styled.div`
+   white-space: nowrap;
+    display: inline-block;
+`;
 
 export const Statistics = () => {
     const statistics = useSelector(state => state.statistics.statistics);
+    const resultType = useSelector(state => state.contestInfo?.info?.resultType);
     const count = useSelector(state => state.contestInfo?.info?.teams?.length);
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
+    const contestData = useSelector((state) => state.contestInfo?.info);
+
     const calculator = getFormattedWidth(count);
     return <AllDiv>
         <StatisticsWrap>
             <Title>Statistics</Title>
             <Table>
-                {tasks && statistics?.map(({ success, wrong, pending }, index) => {
+                {tasks && statistics?.map(({ result }, index) => {
+                    const [success, pending, wrong] = result;
                     return <Fragment key={index}>
                         <StatisticsProblemCell probData={tasks[index]}/>
+                        {resultType === "icpc" &&
                         <SubmissionStats>
-                            <StatEntry targetWidth={calculator(success)} color={VERDICT_OK}>
+                            <StatEntry targetWidth={calculator(success, true)} color={VERDICT_OK}>
                                 {success}
                             </StatEntry>
-                            <StatEntry targetWidth={calculator(pending)} color={VERDICT_UNKNOWN}>
+                            <StatEntry targetWidth={calculator(pending, true)} color={VERDICT_UNKNOWN}>
                                 {pending}
                             </StatEntry>
-                            <StatEntry targetWidth={calculator(wrong)} color={VERDICT_NOK}>
+                            <StatEntry targetWidth={calculator(wrong, true)} color={VERDICT_NOK}>
                                 {wrong}
                             </StatEntry>
                         </SubmissionStats>
+                        }
+                        {resultType !== "icpc" &&
+                            <SubmissionStats>
+                                {result.map(({ count, score }, i) => {
+                                    return <StatEntry targetWidth={calculator(count, false)} color={getTeamTaskColor(score, contestData?.problems[index]?.minScore, contestData?.problems[index]?.maxScore)} key={i}>
+                                    </StatEntry>;
+                                })}
+                            </SubmissionStats>
+                        }
+
                     </Fragment>;
                 })}
             </Table>

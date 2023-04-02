@@ -61,7 +61,13 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
                 DataBus.setScoreboardEvents(OptimismLevel.OPTIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
                 DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
                 DataBus.analyticsFlow.completeOrThrow(emptyFlow())
-                DataBus.statisticFlow.completeOrThrow(emptyFlow())
+                //DataBus.statisticFlow.completeOrThrow(emptyFlow())
+                launch {
+                    IOIStatisticsService().run(
+                        DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
+                        DataBus.contestInfoFlow.await()
+                    )
+                }
 
                 launch {
                     val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())

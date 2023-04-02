@@ -3,7 +3,16 @@ package org.icpclive.api
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ProblemSolutionsStatistic(val success: Int, val wrong: Int, val pending: Int)
+sealed interface ProblemSolutionStatistic
 
 @Serializable
-data class SolutionsStatistic(val stats: List<ProblemSolutionsStatistic>)
+data class ICPCProblemSolutionsStatistic(val success: Int, val wrong: Int, val pending: Int) : ProblemSolutionStatistic
+
+@Serializable
+data class IOIProblemSolutionsStatistic(val result: List<IOIProblemEntity>, val pending: Int) : ProblemSolutionStatistic
+
+@Serializable
+data class IOIProblemEntity(var count: Int, var score: Double)
+
+@Serializable
+data class SolutionsStatistic(val stats: List<ProblemSolutionStatistic>)

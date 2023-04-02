@@ -15,7 +15,7 @@ class ICPCStatisticsService {
                 ::Pair,
             ).map { (scoreboard, problemNumber) ->
                 if (scoreboard.rows.isEmpty()) {
-                    SolutionsStatistic(List(problemNumber) { ProblemSolutionsStatistic(0, 0, 0) })
+                    SolutionsStatistic(List(problemNumber) { ICPCProblemSolutionsStatistic(0, 0, 0) })
                 } else {
                     SolutionsStatistic(
                         List(scoreboard.rows[0].problemResults.size) { problemId ->
@@ -31,7 +31,7 @@ class ICPCStatisticsService {
                                 pending += if (!p.isSolved && p.pendingAttempts > 0) 1 else 0
                             }
 
-                            return@List ProblemSolutionsStatistic(success, wrong, pending)
+                            return@List ICPCProblemSolutionsStatistic(success, wrong, pending)
                         }
                     )
                 }
