@@ -11,15 +11,26 @@ export const ContestClock = ({
     noStatusText = "??",
     showStatus = true,
     globalTimeMode = false,
+    contestCountdownMode = false,
     quietMode = false,
 }) => {
-    const formatTime = (time) => {
-        if (quietMode) {
-            return time.toFormat("H:mm");
+    const formatTime = (time, fullFormat) => {
+        if (!fullFormat && quietMode && time > 60 * 1000) {
+            return DateTime.fromMillis(time).toFormat("H:mm");
         }
-        return time.toFormat("H:mm:ss");
+        return DateTime.fromMillis(time).toFormat("H:mm:ss");
     };
     const contestInfo = useSelector((state) => state.contestInfo.info);
+    const getMilliseconds = useCallback(() => {
+        if (contestCountdownMode) {
+            return DateTime.fromMillis(contestInfo.startTimeUnixMs + contestInfo.contestLengthMs)
+                .diffNow().milliseconds * (contestInfo.emulationSpeed ?? 1);
+        } else {
+            return DateTime.fromMillis(contestInfo.startTimeUnixMs)
+                .diffNow().negate().milliseconds * (contestInfo.emulationSpeed ?? 1);
+        }
+    }, [contestInfo, contestCountdownMode]);
+
     const getStatus = useCallback(() => {
         if (globalTimeMode === true) {
             return DateTime.now().setZone(new SystemZone()).toFormat("HH:mm:ss");
@@ -29,25 +40,20 @@ export const ContestClock = ({
             return noStatusText;
         }
 
-        if (contestInfo.status === "RUNNING") {
-            const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
-                (contestInfo.emulationSpeed ?? 1);
-            return formatTime(DateTime.fromMillis(milliseconds));
-        } else if (contestInfo.status === "BEFORE") {
+        const milliseconds = getMilliseconds();
+        if (contestInfo.status === "BEFORE") {
             if (contestInfo.holdBeforeStartTimeMs !== undefined) {
-                return "-" + formatTime(DateTime.fromMillis(contestInfo.holdBeforeStartTimeMs));
-            } else if (contestInfo.startTimeUnixMs !== undefined) {
-                const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs).diffNow().negate().milliseconds *
-                    (contestInfo.emulationSpeed ?? 1);
-                if (milliseconds > 0) {
-                    return "BEFORE";
-                }
-                return "-" + formatTime(DateTime.fromMillis(-milliseconds + 1000));
+                return "-" + formatTime(contestInfo.holdBeforeStartTimeMs, true);
+            } else if (contestInfo.startTimeUnixMs !== undefined && milliseconds <= 0) {
+                return "-" + formatTime(-milliseconds + 1000, true);
             }
+        }
+        if (contestInfo.status === "RUNNING" || contestInfo.status === "BEFORE") {
+            return formatTime(milliseconds);
         }
 
         return showStatus ? contestInfo.status : "";
-    }, [contestInfo, globalTimeMode]);
+    }, [contestInfo, globalTimeMode, getMilliseconds, formatTime]);
     const [status, setStatus] = useState(getStatus());
     useEffect(() => {
         const interval = setInterval(() => setStatus(getStatus()), 200);
