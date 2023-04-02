@@ -124,7 +124,7 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
     if (contestData === undefined) {
         return null;
     }
-    if (contestData.resultType === "icpc") {
+    if (contestData.resultType === "ICPC") {
         return <ScoreboardRowAllWrapper>
             <ScoreboardTeamInfoRowFirst>
                 <TeamInfo teamId={teamId}/>
@@ -176,7 +176,7 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
     if(contestData === undefined) {
         return null;
     }
-    if (contestData.resultType === "icpc") {
+    if (contestData.resultType === "ICPC") {
         return <ScoreboardRowAllWrapper>
             <TaskRowWrapperSecond>
                 {scoreboardData?.problemResults.flatMap(({
@@ -231,7 +231,7 @@ const TeamInfo = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        {contestData.resultType !== "ioi" &&
+        {contestData.resultType !== "IOI" &&
             <ScoreboardStatCell>
                 {scoreboardData?.penalty}
             </ScoreboardStatCell>}

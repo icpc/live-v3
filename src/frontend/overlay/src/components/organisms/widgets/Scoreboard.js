@@ -169,7 +169,7 @@ ScoreboardIOITaskCell.propTypes = {
 };
 
 const RenderScoreboardTaskCell = ({ data, ...props }) => {
-    if (data.type === "icpc") {
+    if (data.type === "ICPC") {
         return <ScoreboardICPCTaskCell
             status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)}
             attempts={data.wrongAttempts + data.pendingAttempts}

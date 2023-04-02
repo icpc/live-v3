@@ -148,7 +148,7 @@ const ScoreboardColumn = ({ teamId, isSmall }) => {
 
     if (!contestData) {
         return null;
-    } else if (contestData.resultType === "icpc") {
+    } else if (contestData.resultType === "ICPC") {
         return <ScoreboardColumnWrapper isSmall={isSmall}>
             <ScoreboardTeamInfoRow>
                 <TeamInfo teamId={teamId}/>
@@ -201,7 +201,7 @@ export const TeamInfo = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        {contestInfo.resultType !== "ioi" &&
+        {contestInfo.resultType !== "IOI" &&
         <ScoreboardStatCell>
             {scoreboardData?.penalty}
         </ScoreboardStatCell>}

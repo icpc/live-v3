@@ -129,7 +129,7 @@ export const VerdictCell = ({
     if (data.result === undefined) {
         return <VerdictCellInProgress percentage={data.percentage} {...props}/>;
     }
-    if (data.result.type === "icpc") {
+    if (data.result.type === "ICPC") {
         return <VerdictCellICPC verdict={data.result} {...props} />;
     } else {
         return <VerdictCellIOI verdict={data.result} {...props} />;
