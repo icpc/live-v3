@@ -10,51 +10,6 @@ import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
 import kotlin.math.abs
 
-interface ScoreAccumulator {
-    fun add(score: IOIRunResult)
-    val total : Double
-}
-
-class MaxByGroupScoreAccumulator : ScoreAccumulator {
-    private val bestByGroup = mutableMapOf<Int, Double>()
-    override var total = 0.0
-
-    override fun add(score: IOIRunResult) {
-        val byGroup = score.score
-        for (g in byGroup.indices) {
-            if (bestByGroup.getOrDefault(g, 0.0) < byGroup[g]) {
-                total += byGroup[g] - bestByGroup.getOrDefault(g, 0.0)
-                bestByGroup[g] = byGroup[g]
-            }
-        }
-    }
-}
-
-class MaxTotalScoreAccumulator : ScoreAccumulator {
-    override var total = 0.0
-
-    override fun add(score: IOIRunResult) { total = maxOf(total, score.score.sum()) }
-}
-
-class LastScoreAccumulator : ScoreAccumulator {
-    override var total = 0.0
-
-    override fun add(score: IOIRunResult) { total = score.score.sum() }
-}
-
-class LastOKScoreAccumulator : ScoreAccumulator {
-    override var total = 0.0
-
-    override fun add(score: IOIRunResult) { if (score.wrongVerdict == null) total = score.score.sum() }
-}
-
-class SumScoreAccumulator : ScoreAccumulator {
-    override var total = 0.0
-
-    override fun add(score: IOIRunResult) { total += score.score.sum() }
-}
-
-
 
 internal class DifferenceAdapter(private val source: ContestDataSource) : ContestDataSource {
     private val runMap = mutableMapOf<Pair<Int, Int>, MutableList<RunInfo>>()
@@ -93,12 +48,6 @@ internal class DifferenceAdapter(private val source: ContestDataSource) : Contes
                 emit(list[index])
             }
         }
-    }
-
-    data class ScoreMergeModes(val modes: Map<Int, ScoreMergeMode>) {
-        constructor(problems: List<ProblemInfo>): this(
-            problems.associate { it.id to it.scoreMergeMode!! }
-        )
     }
 
     override suspend fun run(

@@ -53,9 +53,7 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
     private val password = properties.getCredentials("password", creds)
     private val url = properties.getProperty("url")
     private val timezone = TimeZone.of(properties.getProperty("timezone") ?: throw IllegalStateException("Cats requires timezone property to be set"))
-    private val resultType: ContestResultType = ContestResultType.valueOf(
-        properties.getProperty("standings.resultType")?.toString()?.uppercase() ?: "ICPC"
-    )
+    override val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
     private val cid = properties.getProperty("cid")
 
     private val logger = getLogger(CATSDataSource::class)

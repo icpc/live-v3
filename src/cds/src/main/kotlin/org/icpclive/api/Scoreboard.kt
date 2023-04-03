@@ -53,6 +53,7 @@ data class IOIProblemResult(
     @SerialName("lastSubmitTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val lastSubmitTime: Duration?,
+    val isFirstBest: Boolean
 ) : ProblemResult()
 
 @Serializable

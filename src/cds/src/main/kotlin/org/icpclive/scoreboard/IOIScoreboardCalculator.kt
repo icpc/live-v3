@@ -20,7 +20,8 @@ class IOIScoreboardCalculator : ScoreboardCalculator() {
             val changingRuns = problemRuns.filter { it.result != null && (it.result as IOIRunResult).difference != 0.0 }
             IOIProblemResult(
                 if (problemRuns.isEmpty()) null else changingRuns.sumOf { (it.result as IOIRunResult).difference },
-                changingRuns.lastOrNull()?.time
+                changingRuns.lastOrNull()?.time,
+                changingRuns.find { (it.result as IOIRunResult).isFirstBestRun } != null
             )
         }
         return ScoreboardRow(

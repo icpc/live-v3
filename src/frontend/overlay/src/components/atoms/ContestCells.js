@@ -84,7 +84,9 @@ const VerdictCellIOI = ({ verdict, ...props }) => {
             background={verdict.difference > 0 ? VERDICT_OK : (verdict.difference < 0 ? VERDICT_NOK : VERDICT_UNKNOWN)}
             text={verdict.difference > 0 ? `+${formatScore(verdict.difference, 1)}` : (verdict.difference < 0 ? `-${formatScore(-verdict.difference, 1)}` : "=")}
             {...props}
-        />;
+        >
+            {verdict.isFirstBestRun && <StarIcon/>}
+        </TextShrinkingCell>;
     } else {
         return <TextShrinkingCell background={VERDICT_NOK} 
             text={verdict.wrongVerdict}

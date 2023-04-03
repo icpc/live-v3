@@ -36,5 +36,6 @@ data class ICPCRunResult(
 data class IOIRunResult(
     val score: List<Double>,
     val wrongVerdict: String? = null,
-    val difference: Double = 0.0
+    val difference: Double = 0.0,
+    val isFirstBestRun: Boolean = false
 ) : RunResult()
