@@ -36,7 +36,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
     private val participantLoader: DataLoader<List<Participant>>
     private val allSubmissionsLoader: DataLoader<List<Submission>>
 
-    val resultType = ContestResultType.valueOf(props.getProperty("standings.resultType", "ICPC").uppercase())
+    override val resultType = ContestResultType.valueOf(props.getProperty("standings.resultType", "ICPC").uppercase())
 
 
     init {

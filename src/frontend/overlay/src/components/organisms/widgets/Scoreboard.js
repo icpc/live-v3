@@ -149,8 +149,9 @@ const ScoreboardICPCTaskCell = ({ status, attempts }) => {
     </ScoreboardTaskCellWrap>;
 };
 
-export const ScoreboardIOITaskCell = ({ score, minScore, maxScore, ...props }) => {
+export const ScoreboardIOITaskCell = ({ score, isFirstBest, minScore, maxScore, ...props }) => {
     return <ScoreboardTaskCellWrap background={getTeamTaskColor(score, minScore, maxScore)} {...props}>
+        {isFirstBest && <StarIcon/>}
         {formatScore(score)}
     </ScoreboardTaskCellWrap>;
 };
@@ -161,7 +162,7 @@ ScoreboardICPCTaskCell.propTypes = {
 };
 
 ScoreboardIOITaskCell.propTypes = {
-    status: PropTypes.oneOf(Object.values(TeamTaskStatus)),
+    isFirstBest: PropTypes.bool,
     score: PropTypes.number,
     attempts: PropTypes.number,
     minScore: PropTypes.number,
@@ -176,7 +177,7 @@ const RenderScoreboardTaskCell = ({ data, ...props }) => {
             {...props}
         />;
     } else {
-        return <ScoreboardIOITaskCell score={data.score} {...props} />;
+        return <ScoreboardIOITaskCell score={data.score} isFirstBest={data.isFirstBest} {...props} />;
     }
 };
 

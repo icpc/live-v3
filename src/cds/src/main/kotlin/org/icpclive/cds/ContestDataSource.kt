@@ -3,10 +3,7 @@ package org.icpclive.cds
 import org.icpclive.cds.noop.NoopDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import org.icpclive.api.AdvancedProperties
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
@@ -38,6 +35,9 @@ interface ContestDataSource {
 }
 
 interface RawContestDataSource : ContestDataSource {
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
+
     suspend fun loadOnce(): ContestParseResult
 }
 
@@ -90,7 +90,8 @@ fun getContestDataSource(
         },
         advancedPropertiesDeferred?.let { { source : ContestDataSource -> AdvancedPropertiesAdapter(source, it) } },
         ::RemoveFrozenSubmissionsAdapter.takeIf { removeFrozenResults },
-        ::FirstToSolveAdapter.takeIf { calculateFTS },
+        ::ICPCFirstToSolveAdapter.takeIf { calculateFTS && loader.resultType == ContestResultType.ICPC },
+        ::IOIFirstToSolveAdapter.takeIf { calculateFTS && loader.resultType == ContestResultType.IOI },
         ::DifferenceAdapter.takeIf { calculateDifference }
     )
 
