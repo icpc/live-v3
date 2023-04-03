@@ -14,8 +14,8 @@ export const ContestClock = ({
     contestCountdownMode = false,
     quietMode = false,
 }) => {
-    const formatTime = (time, fullFormat) => {
-        if (!fullFormat && quietMode && time > 60 * 1000) {
+    const formatTime = (time, fullFormat = false) => {
+        if (!fullFormat && quietMode && time > 5 * 60 * 1000) {
             return DateTime.fromMillis(time).toFormat("H:mm");
         }
         return DateTime.fromMillis(time).toFormat("H:mm:ss");
@@ -40,14 +40,16 @@ export const ContestClock = ({
             return noStatusText;
         }
 
-        const milliseconds = getMilliseconds();
         if (contestInfo.status === "BEFORE") {
+            const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs)
+                .diffNow().negate().milliseconds * (contestInfo.emulationSpeed ?? 1);
             if (contestInfo.holdBeforeStartTimeMs !== undefined) {
                 return "-" + formatTime(contestInfo.holdBeforeStartTimeMs, true);
             } else if (contestInfo.startTimeUnixMs !== undefined && milliseconds <= 0) {
                 return "-" + formatTime(-milliseconds + 1000, true);
             }
         }
+        const milliseconds = getMilliseconds();
         if (contestInfo.status === "RUNNING" || contestInfo.status === "BEFORE") {
             return formatTime(milliseconds);
         }
