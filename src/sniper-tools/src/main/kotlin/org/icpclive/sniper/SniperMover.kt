@@ -1,5 +1,6 @@
 package org.icpclive.sniper
 
+import org.icpclive.sniper.LocatorController.continuesSniperMover
 import java.io.*
 import java.util.*
 import kotlin.math.atan2
@@ -46,6 +47,13 @@ object SniperMover {
             val maxmag = 35.0
             val zoom = (mag * 9999 - 1) / (maxmag - 1)
             move(sniper, pan, tilt, zoom.toInt())
+
+            println("Do want to use locator? (y/n)")
+            val yes = `in`.next()
+
+            if (yes.lowercase() in listOf("yes", "y")) {
+                continuesSniperMover(BufferedReader(InputStreamReader(System.`in`)))
+            }
         }
     }
 
