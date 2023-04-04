@@ -55,11 +55,17 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             "{problem.name}" to problem.name,
             "{run.result}" to (analyse.run.result as? ICPCRunResult)?.result.orEmpty(),
             "{result.rank}" to analyse.result.rank.toString(),
-            "{result.solvedProblems}" to analyse.solvedProblems?.takeIf({ it > 0 })?.toString().orEmpty(),
+            "{result.solvedProblems}" to analyse.solvedProblems?.takeIf { it > 0 }?.toString().orEmpty(),
+            "{result.ioiDifference}" to (analyse.run.result as? IOIRunResult)?.difference?.toString().orEmpty(),
+            // TODO: not just sum scores by group. We should use accumulator
+            "{result.ioiScore}" to (analyse.run.result as? IOIRunResult)?.score?.sum()?.toString().orEmpty(),
         )
         val runResult = analyse.run.result
+        if (runResult is IOIRunResult && runResult.difference > 0) {
+            return messagesTemplates.ioiJudgedPositiveDiffRun.applyTemplate(substitute)
+        }
         if (runResult !is ICPCRunResult) {
-            return messagesTemplates.submittedRun.applyTemplate(substitute)
+            return messagesTemplates.ioiJudgedRun.applyTemplate(substitute)
         }
         if (runResult.isFirstToSolveRun) {
             return messagesTemplates.firstToSolveRun.applyTemplate(substitute)
@@ -77,11 +83,21 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         analyse: RunAnalyse
     ): List<String> = buildList {
         val runResult = analyse.run.result
+        if (runResult is IOIRunResult) {
+            add("submission")
+            if (runResult.difference > 0) {
+                add("accepted")
+            }
+            if (runResult.isFirstBestRun) {
+                add("accepted-first-to-solve")
+            }
+            return@buildList
+        }
         if (runResult !is ICPCRunResult) {
             add("submission")
             return@buildList
         }
-        if (runResult.isAccepted) {
+        if (!runResult.isAccepted) {
             add("rejected")
             return@buildList
         }
@@ -129,6 +145,8 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         val firstToSolveRun: String
         val acceptedRun: String
         val acceptedWithSolvedProblemsRun: String
+        val ioiJudgedRun: String
+        val ioiJudgedPositiveDiffRun: String
     }
 
     @Serializable
@@ -137,7 +155,9 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         override val rejectedRun: String,
         override val firstToSolveRun: String,
         override val acceptedRun: String,
-        override val acceptedWithSolvedProblemsRun: String
+        override val acceptedWithSolvedProblemsRun: String,
+        override val ioiJudgedRun: String,
+        override val ioiJudgedPositiveDiffRun: String,
     ) : AnalyticsTemplates
 
     companion object {

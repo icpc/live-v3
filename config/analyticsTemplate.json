@@ -3,5 +3,7 @@
   "firstToSolveRun": "{team.shortName} is the first team to solve problem {problem.letter}.{problem.name}",
   "rejectedRun": "{team.shortName} failed {problem.letter}.{problem.name} due to {run.result}",
   "acceptedRun": "{team.shortName} solves {problem.letter}.{problem.name} and id now at rank {result.rank}",
-  "acceptedWithSolvedProblemsRun": "{team.shortName} solves {problem.letter}.{problem.name}. It is at rank {result.rank} and has {result.solvedProblems} problems solved"
+  "acceptedWithSolvedProblemsRun": "{team.shortName} solves {problem.letter}.{problem.name}. It is at rank {result.rank} and has {result.solvedProblems} problems solved",
+  "ioiJudgedRun": "{team.shortName} got {result.ioiScore} points by {problem.letter}.{problem.name}",
+  "ioiJudgedPositiveDiffRun": "{team.shortName} got +{result.ioiDifference} points ({result.ioiScore} total) by problem {problem.letter}.{problem.name}"
 }

@@ -60,7 +60,25 @@ fun CoroutineScope.launchServices(loader: ContestDataSource) {
                 launch { ScoreboardService(OptimismLevel.NORMAL).run(runsDeferred.await(), DataBus.contestInfoFlow.await()) }
                 DataBus.setScoreboardEvents(OptimismLevel.OPTIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
                 DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
-                DataBus.analyticsFlow.completeOrThrow(emptyFlow())
+
+                val generatedAnalyticsMessages = reliableSharedFlow<AnalyticsMessage>()
+                launch {
+                    config.analyticsTemplatesFile?.let {
+                        AnalyticsGenerator(it).run(
+                            generatedAnalyticsMessages,
+                            DataBus.contestInfoFlow.await(),
+                            runsDeferred.await(),
+                            DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
+                        )
+                    }
+                }
+                launch { AnalyticsService().run(merge(analyticsMessageFlowDeferred.await(), generatedAnalyticsMessages)) }
+                launch {
+                    generatedAnalyticsMessages.collect {
+                        println("$it")
+                    }
+                }
+
                 //DataBus.statisticFlow.completeOrThrow(emptyFlow())
                 launch {
                     IOIStatisticsService().run(

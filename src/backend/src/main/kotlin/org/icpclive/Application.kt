@@ -104,11 +104,6 @@ fun Application.module() {
             applicationRoute = "overlay"
             react("overlay")
         }
-        singlePageApplication {
-            useResources = true
-            applicationRoute = "overlay2"
-            react("overlay2")
-        }
         route("/api") {
             route("/admin") { configureAdminApiRouting() }
             route("/overlay") { configureOverlayRouting() }
