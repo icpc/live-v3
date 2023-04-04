@@ -41,32 +41,35 @@ internal class ICPCFirstToSolveAdapter(private val source: ContestDataSource) : 
         coroutineScope {
             val unprocessedRunsDeferred = CompletableDeferred<Flow<RunInfo>>()
             launch { source.run(contestInfoDeferred, unprocessedRunsDeferred, analyticsMessagesDeferred) }
-
-            logger.info("First to solve service is started")
-            runsDeferred.completeOrThrow(
-                flow {
-                    unprocessedRunsDeferred.await().collect {
-                        require(it.result == null || it.result is ICPCRunResult)
-                        val oldRun = solvedById[it.id]
-                        if (oldRun != null) {
-                            if (it.isAccepted) {
-                                replace(solvedById[it.id]!!, it)
-                            } else {
-                                solvedById.remove(oldRun.problemId)
-                                getSolved(oldRun.problemId).remove(oldRun)
-                                recalculateFTS(oldRun.problemId)
+            if (contestInfoDeferred.await().value.resultType != ContestResultType.ICPC) {
+                runsDeferred.completeOrThrow(unprocessedRunsDeferred.await())
+            } else {
+                logger.info("First to solve service is started")
+                runsDeferred.completeOrThrow(
+                    flow {
+                        unprocessedRunsDeferred.await().collect {
+                            require(it.result == null || it.result is ICPCRunResult)
+                            val oldRun = solvedById[it.id]
+                            if (oldRun != null) {
+                                if (it.isAccepted) {
+                                    replace(solvedById[it.id]!!, it)
+                                } else {
+                                    solvedById.remove(oldRun.problemId)
+                                    getSolved(oldRun.problemId).remove(oldRun)
+                                    recalculateFTS(oldRun.problemId)
+                                }
+                            } else if (it.isAccepted) {
+                                getSolved(it.problemId).add(it)
+                                solvedById[it.id] = it
                             }
-                        } else if (it.isAccepted) {
-                            getSolved(it.problemId).add(it)
-                            solvedById[it.id] = it
+                            recalculateFTS(it.problemId)
+                            if (firstSolve[it.problemId]?.id != it.id) {
+                                emit(it)
+                            }
                         }
-                        recalculateFTS(it.problemId)
-                        if (firstSolve[it.problemId]?.id != it.id) {
-                            emit(it)
-                        }
-                    }
-                }.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
-            )
+                    }.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+                )
+            }
         }
     }
 
