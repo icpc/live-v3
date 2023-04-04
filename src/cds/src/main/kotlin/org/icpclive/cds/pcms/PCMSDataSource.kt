@@ -154,9 +154,12 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                 ContestResultType.IOI -> {
                     val score = element.getAttribute("score").toDouble()
                     val groupsScore = element.children("group").map { it.getAttribute("score").toDouble() }.toList().takeIf { it.isNotEmpty() }
-                    IOIRunResult(
-                        score = groupsScore ?: listOf(score),
-                    )
+
+                    if(percentage >= 1.0) {
+                        IOIRunResult(
+                            score = groupsScore ?: listOf(score),
+                        )
+                    } else null
                 }
                 ContestResultType.ICPC -> {
                     val result = when {
