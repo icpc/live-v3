@@ -66,7 +66,7 @@ object LocatorController {
         ).map {
             "{\"x\": ${it.x}, \"y\": ${it.y}, \"radius\": \"${it.r}\", \"cdsTeamId\": ${it.id}}"
         }
-        val data = "{\"circles\": [${parts.joinToString(",")}]}"
+        val data = "{\"circles\": [${parts.joinToString(",")}], \"scene\": \"sniper${sniperNumber}\"}"
         Util.sendPost(showUrl(), "application/json", data)
     }
 

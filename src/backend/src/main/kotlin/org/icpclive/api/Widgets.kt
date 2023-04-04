@@ -154,7 +154,7 @@ class FullScreenClockWidget(val settings: FullScreenClockSettings) : Widget(
 @SerialName("TeamLocatorWidget")
 class TeamLocatorWidget(val settings: TeamLocatorSettings) : Widget(
     WIDGET_ID,
-    getLocationOrDefault(WIDGET_ID, location)
+    getLocationOrDefault(WIDGET_ID, location),
 ) {
     companion object {
         const val WIDGET_ID = "teamLocator"
