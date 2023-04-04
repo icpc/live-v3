@@ -201,7 +201,7 @@ export const TeamInfo = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        {contestInfo.resultType !== "IOI" &&
+        {contestInfo?.resultType !== "IOI" &&
         <ScoreboardStatCell>
             {scoreboardData?.penalty}
         </ScoreboardStatCell>}
