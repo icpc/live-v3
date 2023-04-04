@@ -67,7 +67,7 @@ data class TeamLocatorCircleSettings(
 @Serializable
 data class TeamLocatorSettings(
     val circles: List<TeamLocatorCircleSettings> = emptyList(),
-    val scene: String, // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
+    val scene: String = "default", // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
 ) : ObjectSettings
 
 @Serializable
