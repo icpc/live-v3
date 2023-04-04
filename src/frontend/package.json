@@ -10,7 +10,6 @@
   },
   "workspaces": [
     "overlay",
-    "overlay2",
     "admin"
   ]
 }

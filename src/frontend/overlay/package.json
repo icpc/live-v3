@@ -1,5 +1,5 @@
 {
-  "name": "icpc-live-v3",
+  "name": "icpc-live-v3-overlay",
   "version": "3.1.0",
   "private": true,
   "dependencies": {
