@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "buildOverlay": "npm run build -w overlay",
-    "buildOverlay2": "npm run build -w overlay2",
     "buildAdmin": "npm run build -w admin",
     "lint": "npm run lint -w overlay && npm run lint -w admin"
   },
