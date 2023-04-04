@@ -6,6 +6,7 @@ import java.util.*
 object LocatorController {
     private const val WIDTH = 1920
     private const val HEIGHT = 1080
+    var overlayUrl = "http://172.24.0.173:8080"
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -15,50 +16,62 @@ object LocatorController {
             try {
                 println("Select sniper (1-${Util.snipers.size})")
                 val sniper = input.readLine().trim { it <= ' ' }.toInt()
-                val scanner = Scanner(File("coordinates-$sniper.txt"))
-                val n = scanner.nextInt()
-                println("Select teams (space separated) (1-$n)")
-                val ss = input.readLine().split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                println(ss.contentToString())
-                val k = ss.size
-                val need: MutableSet<Int> = HashSet()
-                for (i in 0 until k) {
-                    need.add(ss[i].toInt())
-                }
-                val allPoints: MutableList<LocatorPoint> = ArrayList()
-                for (i in 1..n) {
-                    val point = LocatorPoint(
-                        scanner.nextInt(),
-                        scanner.nextDouble(),
-                        scanner.nextDouble(),
-                        scanner.nextDouble()
-                    )
-                    allPoints.add(point)
-                }
-                var res = allPoints.filter { need.contains(it.id) }
-                var d = 1e100
-                for (p1 in allPoints) {
-                    for (p2 in allPoints) {
-                        if (p1 === p2) continue
-                        d = d.coerceAtMost(p1.distTo(p2))
-                    }
-                }
-                res = translatePoints(res, sniper, d)
-                val url = "http://172.24.0.173:8080/api/admin/teamLocator"
-                val parts = res.map {
-                    "{\"x\": ${it.x}, \"y\": ${it.y}, \"radius\": \"${it.r}\", \"cdsTeamId\": ${it.id}}"
-                }
-                println(parts)
-                val data = "{\"circles\": [${parts.joinToString(",")}]}"
-                println(data)
-                Util.sendPost("$url/show_with_settings", "application/json", data)
+                println("Select teams (space separated)")
+                val teamIds = input.readLine()
+                    .split("\\s+".toRegex())
+                    .dropLastWhile { it.isEmpty() }
+                    .map { it.toInt() }
+                    .toSet()
+
+                showLocatorWidget(sniper, teamIds)
+
                 println("Press Enter to hide")
                 input.readLine()
-                Util.sendPost("$url/hide", "application/json", "")
+                hideLocatorWidget()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun showUrl() = "$overlayUrl/api/admin/teamLocator/show_with_settings"
+    private fun hideUrl() = "$overlayUrl/api/admin/teamLocator/hide"
+
+    fun showLocatorWidget(sniperNumber: Int, teamIds: Set<Int>) {
+        val scanner = Scanner(File("coordinates-$sniperNumber.txt"))
+        val n = scanner.nextInt()
+
+        val allPoints = mutableListOf<LocatorPoint>()
+        for (i in 1..n) {
+            val point = LocatorPoint(
+                scanner.nextInt(),
+                scanner.nextDouble(),
+                scanner.nextDouble(),
+                scanner.nextDouble()
+            )
+            allPoints.add(point)
+        }
+        var d = 1e100
+        for (p1 in allPoints) {
+            for (p2 in allPoints) {
+                if (p1 === p2) continue
+                d = d.coerceAtMost(p1.distTo(p2))
+            }
+        }
+        println("xxx")
+        val parts = translatePoints(
+            allPoints.filter { teamIds.contains(it.id) },
+            sniperNumber,
+            d
+        ).map {
+            "{\"x\": ${it.x}, \"y\": ${it.y}, \"radius\": \"${it.r}\", \"cdsTeamId\": ${it.id}}"
+        }
+        val data = "{\"circles\": [${parts.joinToString(",")}]}"
+        Util.sendPost(showUrl(), "application/json", data)
+    }
+
+    fun hideLocatorWidget() {
+        Util.sendPost(hideUrl(), "application/json", "")
     }
 
     private fun translatePoints(points: List<LocatorPoint>, sniper: Int, d: Double): List<LocatorPoint> {
@@ -70,14 +83,14 @@ object LocatorController {
         val config = Util.parseCameraConfiguration(response)
         val res: MutableList<LocatorPoint> = ArrayList()
         for (pp in points) {
-            var p = pp
-            p.r = d / 2
-            p = p.rotateY(config.pan)
-            p = p.rotateX(-config.tilt)
-            p = p.multiply(1 / p.z)
-            p = p.multiply(WIDTH / config.angle)
-            p = p.move(LocatorPoint((WIDTH / 2).toDouble(), (HEIGHT / 2).toDouble(), 0.0))
-            res.add(p)
+            pp.r = d / 2
+            res.add(
+                pp.rotateY(config.pan)
+                    .rotateX(-config.tilt)
+                    .multiply(1 / pp.z)
+                    .multiply(WIDTH / config.angle)
+                    .move(LocatorPoint((WIDTH / 2).toDouble(), (HEIGHT / 2).toDouble(), 0.0))
+            )
         }
         return res
     }

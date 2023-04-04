@@ -11,6 +11,8 @@ object Util {
     val snipers: MutableList<SniperInfo> = ArrayList()
     const val ANGLE = 1.28
     fun sendGet(url: String?): String {
+    println("send get $url" +
+            "")
         val obj = URL(url)
         val con = obj.openConnection() as HttpURLConnection
         con.requestMethod = "GET"
