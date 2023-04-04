@@ -18,6 +18,15 @@ Welcome to the ICPC Live Source Code Repository.
 
 Run `java -jar /path/to/jar/file -port=8080 -P:live.configDirectory=/path/to/config/directory -P:live.credsFile=creds.json`
 
+Possible java invocation options are:
+* ```-P:live.configDirectory=config/icpc-nef/2022-2023``` -- path to config directory
+* ```-P:live.credsFile=artifacts/creds.json``` -- path to credentials file
+* ```-P:auth.disabled=true``` -- do not use credentials in admin interface
+* ```-P:live.analyticsTemplatesFile=config/analyticsTemplateRu.json``` -- path to i18n configuration for Analytics and Analytics enable
+* ```-P:live.allowUnsecureConnections=true``` -- allow non-https contest system urls
+* ```-P:live.widgetPositionsFile=config/widget_positions.json.splitscreen``` -- set non-standard widget positions, for example for split screen 
+
+
 * Port 8080 is default, if you are okay with it this option can be omitted
 
 * Add source to OBS
