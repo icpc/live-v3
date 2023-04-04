@@ -106,7 +106,7 @@ fun Application.module() {
             }
         }
         get {
-            call.respondRedirect("/admin", false)
+            call.respondRedirect("/admin/locator", false)
         }
     }
 }
