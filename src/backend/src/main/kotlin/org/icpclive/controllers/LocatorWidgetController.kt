@@ -24,6 +24,6 @@ class LocatorWidgetController(manager: Manager<TeamLocatorWidget>) :
         fun TeamLocatorExternalCircleSettings.toCircle() = TeamLocatorCircleSettings(
             x, y, radius, getTeam(teams)?.id ?: throw ApiActionException("No team for circle $this")
         )
-        return TeamLocatorWidget(TeamLocatorSettings(settings.circles.map { it.toCircle() }))
+        return TeamLocatorWidget(TeamLocatorSettings(settings.circles.map { it.toCircle() }, settings.scene))
     }
 }
