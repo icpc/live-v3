@@ -96,7 +96,7 @@ export const MainLayout = () => {
                     return null;
                 }
                 console.log(obj);
-                if (obj.settings.scene !== (params.get("scene") || undefined)) {
+                if (obj.settings?.scene !== (params.get("scene") || undefined)) {
                     // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
                     return null;
                 }
