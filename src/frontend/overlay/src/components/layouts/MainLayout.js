@@ -5,6 +5,7 @@ import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.jpeg";
 import { WIDGET_TRANSITION_TIME } from "../../config";
 import { DEBUG } from "../../consts";
+import { useQueryParams } from "../../utils/query-params";
 import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
 import Advertisement from "../organisms/widgets/Advertisement";
 import Pictures from "../organisms/widgets/Pictures";
@@ -85,12 +86,18 @@ const WIDGETS = {
 
 export const MainLayout = () => {
     const widgets = useSelector(state => state.widgets.widgets);
+    const params = useQueryParams();
     return <MainLayoutWrap>
         <StatusLightbulbs compact={true}/>
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
                 const Widget = WIDGETS[obj.type];
                 if(Widget === undefined) {
+                    return null;
+                }
+                console.log(obj);
+                if (obj.settings.scene !== (params.get("scene") || undefined)) {
+                    // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
                     return null;
                 }
                 return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME}>
