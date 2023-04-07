@@ -98,8 +98,9 @@ export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
 
 export const TEAMVIEW_SMALL_FACTOR = "50%"; // css property
 
-export const BIG_CLOCK_FONT_SIZE = "400px";
-export const BIG_CLOCK_COLOR = "#eeeeee";
+export const FULL_SCREEN_CLOCK_FONT_SIZE = "400px";
+export const FULL_SCREEN_CLOCK_COLOR = "#eeeeee";
+export const FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica, monospace";
 
 export const STAR_SIZE = 20; // px
 
