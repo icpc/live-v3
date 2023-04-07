@@ -71,6 +71,8 @@ repositories {
 
 dependencies {
     implementation(libs.logback)
+    implementation("io.ktor:ktor-client-content-negotiation")
+    implementation("io.ktor:ktor-serialization-kotlinx-json")
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.autoHeadResponse)
     implementation(libs.ktor.server.auth)
