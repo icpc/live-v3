@@ -1,0 +1,1843 @@
+<?xml version="1.0" ?>
+<standings>
+    <contest name="IT-сиквел" time="7200000" length="7200000" status="over" frozen="no">
+        <challenge>
+            <problem alias="A" name="Робинзон Крузо"/>
+            <problem alias="B" name="Ромб"/>
+            <problem alias="C" name="Штангист"/>
+            <problem alias="D" name="Хаотические разбиения"/>
+            <problem alias="E" name="Генераторы квадратов"/>
+        </challenge>
+        <session alias="1442" id="itsequel.main.1442" party="Ермаков Егор Андреевич (город Тюмень)" score="500">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="131850" score="100">
+                <run accepted="yes" time="131850" language-id="cpp.gnu.win" run-id="itsequel.main.1442.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="390507" score="100">
+                <run accepted="yes" time="390507" language-id="cpp.gnu.win" run-id="itsequel.main.1442.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="724841" score="100">
+                <run accepted="yes" time="724841" language-id="cpp.gnu.win" run-id="itsequel.main.1442.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="1658461" score="100">
+                <run accepted="yes" time="1658461" language-id="cpp.gnu.win" run-id="itsequel.main.1442.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="8" accepted="1" time="6639352" score="100">
+                <run accepted="yes" time="2402758" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2565396" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.2" outcome="accepted" score="25"/>
+                <run accepted="yes" time="3552988" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.3" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4016995" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4331038" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4858810" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.6" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5271333" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.7" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6639352" language-id="cpp.gnu.win" run-id="itsequel.main.1442.E.8" outcome="accepted" score="100"/>
+            </problem>
+        </session>
+        <session alias="1841" id="itsequel.main.1841" party="Малков Максим Леонидович (город Тюмень)" score="500">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="331845" score="100">
+                <run accepted="yes" time="118823" language-id="cpp.gnu.win" run-id="itsequel.main.1841.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="331845" language-id="cpp.gnu.win" run-id="itsequel.main.1841.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="368352" score="100">
+                <run accepted="yes" time="343473" language-id="cpp.gnu.win" run-id="itsequel.main.1841.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="368352" language-id="cpp.gnu.win" run-id="itsequel.main.1841.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="566960" score="100">
+                <run accepted="yes" time="566960" language-id="cpp.gnu.win" run-id="itsequel.main.1841.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="1712161" score="100">
+                <run accepted="yes" time="1712161" language-id="cpp.gnu.win" run-id="itsequel.main.1841.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="7" accepted="1" time="5981497" score="100">
+                <run accepted="yes" time="2946645" language-id="cpp.gnu.win" run-id="itsequel.main.1841.E.1" outcome="accepted" score="25"/>
+                <run accepted="yes" time="3527162" language-id="cpp.gnu.win" run-id="itsequel.main.1841.E.2" outcome="accepted" score="85"/>
+                <run accepted="yes" time="4269534" language-id="cpp.gnu.win" run-id="itsequel.main.1841.E.3" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5010338" language-id="cpp.gnu.win" run-id="itsequel.main.1841.E.4" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5848545" language-id="cpp.gnu.win" run-id="itsequel.main.1841.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5883788" language-id="cpp.gnu.win" run-id="itsequel.main.1841.E.6" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5981497" language-id="cpp.gnu.win" run-id="itsequel.main.1841.E.7" outcome="accepted" score="100"/>
+            </problem>
+        </session>
+        <session alias="1242" id="itsequel.main.1242" party="Ваньжа Кирилл Евгеньевич (город Тюмень)" score="485">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="98060" score="100">
+                <run accepted="yes" time="98060" language-id="cpp.gnu.win" run-id="itsequel.main.1242.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="471362" score="100">
+                <run accepted="yes" time="471362" language-id="cpp.gnu.win" run-id="itsequel.main.1242.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="789315" score="100">
+                <run accepted="yes" time="789315" language-id="cpp.gnu.win" run-id="itsequel.main.1242.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="3864901" score="100">
+                <run accepted="yes" time="3864901" language-id="cpp.gnu.win" run-id="itsequel.main.1242.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="7" accepted="1" time="6647189" score="85">
+                <run accepted="yes" time="1876859" language-id="cpp.gnu.win" run-id="itsequel.main.1242.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5108473" language-id="cpp.gnu.win" run-id="itsequel.main.1242.E.2" outcome="accepted" score="70"/>
+                <run accepted="yes" time="6143022" language-id="cpp.gnu.win" run-id="itsequel.main.1242.E.3" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6193388" language-id="cpp.gnu.win" run-id="itsequel.main.1242.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6320135" language-id="cpp.gnu.win" run-id="itsequel.main.1242.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6402819" language-id="cpp.gnu.win" run-id="itsequel.main.1242.E.6" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6647189" language-id="cpp.gnu.win" run-id="itsequel.main.1242.E.7" outcome="accepted" score="85"/>
+            </problem>
+        </session>
+        <session alias="1648" id="itsequel.main.1648" party="Кузнецов Андрей Витальевич (город Тюмень)" score="485">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="158459" score="100">
+                <run accepted="yes" time="158459" language-id="pypy3.win" run-id="itsequel.main.1648.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="3" accepted="1" time="764748" score="100">
+                <run accepted="yes" time="629261" language-id="pypy3.win" run-id="itsequel.main.1648.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="656001" language-id="pypy3.win" run-id="itsequel.main.1648.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="764748" language-id="pypy3.win" run-id="itsequel.main.1648.B.3" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1061691" score="100">
+                <run accepted="yes" time="1061691" language-id="pypy3.win" run-id="itsequel.main.1648.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="4468252" score="100">
+                <run accepted="yes" time="2920876" language-id="pypy3.win" run-id="itsequel.main.1648.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2978691" language-id="pypy3.win" run-id="itsequel.main.1648.D.2" outcome="accepted" score="100"/>
+                <run accepted="yes" time="4468252" language-id="pypy3.win" run-id="itsequel.main.1648.D.3" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="6" accepted="1" time="6314604" score="85">
+                <run accepted="yes" time="4483143" language-id="pypy3.win" run-id="itsequel.main.1648.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5540404" language-id="pypy3.win" run-id="itsequel.main.1648.E.2" outcome="accepted" score="55"/>
+                <run accepted="yes" time="6087185" language-id="pypy3.win" run-id="itsequel.main.1648.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6160512" language-id="pypy3.win" run-id="itsequel.main.1648.E.4" outcome="accepted" score="70"/>
+                <run accepted="yes" time="6251968" language-id="pypy3.win" run-id="itsequel.main.1648.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6314604" language-id="pypy3.win" run-id="itsequel.main.1648.E.6" outcome="accepted" score="85"/>
+            </problem>
+        </session>
+        <session alias="1742" id="itsequel.main.1742" party="Куприянова Софья Андреевна (город Тюмень)" score="485">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="157264" score="100">
+                <run accepted="yes" time="157264" language-id="cpp.gnu.win" run-id="itsequel.main.1742.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="403952" score="100">
+                <run accepted="yes" time="403952" language-id="cpp.gnu.win" run-id="itsequel.main.1742.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="631721" score="100">
+                <run accepted="yes" time="631721" language-id="cpp.gnu.win" run-id="itsequel.main.1742.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="1613271" score="100">
+                <run accepted="yes" time="1613271" language-id="cpp.gnu.win" run-id="itsequel.main.1742.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="6" accepted="1" time="7022390" score="85">
+                <run accepted="yes" time="2780645" language-id="cpp.gnu.win" run-id="itsequel.main.1742.E.1" outcome="accepted" score="85"/>
+                <run accepted="yes" time="4217116" language-id="cpp.gnu.win" run-id="itsequel.main.1742.E.2" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5820748" language-id="cpp.gnu.win" run-id="itsequel.main.1742.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6937928" language-id="cpp.gnu.win" run-id="itsequel.main.1742.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6992287" language-id="cpp.gnu.win" run-id="itsequel.main.1742.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="7022390" language-id="cpp.gnu.win" run-id="itsequel.main.1742.E.6" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1942" id="itsequel.main.1942" party="Омельченко Андрей Александрович (город Тюмень)" score="485">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="396119" score="100">
+                <run accepted="yes" time="131228" language-id="cpp.gnu.win" run-id="itsequel.main.1942.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="396119" language-id="cpp.gnu.win" run-id="itsequel.main.1942.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="404469" score="100">
+                <run accepted="yes" time="404469" language-id="cpp.gnu.win" run-id="itsequel.main.1942.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="551370" score="100">
+                <run accepted="yes" time="551370" language-id="cpp.gnu.win" run-id="itsequel.main.1942.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="1164473" score="100">
+                <run accepted="yes" time="1164473" language-id="cpp.gnu.win" run-id="itsequel.main.1942.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="27" accepted="1" time="7198884" score="85">
+                <run accepted="yes" time="2462254" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.1" outcome="accepted" score="25"/>
+                <run accepted="yes" time="2609724" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2789146" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.3" outcome="accepted" score="25"/>
+                <run accepted="yes" time="2864703" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="3221066" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.5" outcome="accepted" score="85"/>
+                <run accepted="yes" time="3400404" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.6" outcome="accepted" score="85"/>
+                <run accepted="yes" time="4329744" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.7" outcome="accepted" score="55"/>
+                <run accepted="yes" time="4362491" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.8" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5085911" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.9" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5157017" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.10" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5300593" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.11" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5531741" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.12" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6548416" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.13" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6708559" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.14" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6785624" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.15" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6811664" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.16" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6841070" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.17" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6935019" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.18" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6967621" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.19" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6995361" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.20" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7043546" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.21" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7103784" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.22" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7130200" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.23" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7149433" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.24" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7167998" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.25" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7178400" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.26" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7198884" language-id="cpp.gnu.win" run-id="itsequel.main.1942.E.27" outcome="accepted" score="85"/>
+            </problem>
+        </session>
+        <session alias="2144" id="itsequel.main.2144" party="Сердюк Матвей Алексеевич (город Тюмень)" score="485">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="153055" score="100">
+                <run accepted="yes" time="153055" language-id="cpp.gnu.win" run-id="itsequel.main.2144.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="509864" score="100">
+                <run accepted="yes" time="509864" language-id="cpp.gnu.win" run-id="itsequel.main.2144.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="746798" score="100">
+                <run accepted="yes" time="746798" language-id="cpp.gnu.win" run-id="itsequel.main.2144.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="2368433" score="100">
+                <run accepted="yes" time="1871764" language-id="cpp.gnu.win" run-id="itsequel.main.2144.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="2123563" language-id="cpp.gnu.win" run-id="itsequel.main.2144.D.2" outcome="accepted" score="32"/>
+                <run accepted="yes" time="2368433" language-id="cpp.gnu.win" run-id="itsequel.main.2144.D.3" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="4" accepted="1" time="5700369" score="85">
+                <run accepted="yes" time="3591523" language-id="cpp.gnu.win" run-id="itsequel.main.2144.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5473883" language-id="cpp.gnu.win" run-id="itsequel.main.2144.E.2" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5614244" language-id="cpp.gnu.win" run-id="itsequel.main.2144.E.3" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5700369" language-id="cpp.gnu.win" run-id="itsequel.main.2144.E.4" outcome="accepted" score="85"/>
+            </problem>
+        </session>
+        <session alias="2442" id="itsequel.main.2442" party="Шевелев Дмитрий Алексеевич (город Тюмень)" score="485">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="184904" score="100">
+                <run accepted="yes" time="184904" language-id="cpp.gnu.win" run-id="itsequel.main.2442.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="522749" score="100">
+                <run accepted="yes" time="522749" language-id="cpp.gnu.win" run-id="itsequel.main.2442.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="750271" score="100">
+                <run accepted="yes" time="750271" language-id="cpp.gnu.win" run-id="itsequel.main.2442.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="1360292" score="100">
+                <run accepted="yes" time="1360292" language-id="cpp.gnu.win" run-id="itsequel.main.2442.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="11" accepted="1" time="7186236" score="85">
+                <run accepted="yes" time="3654827" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.1" outcome="accepted" score="85"/>
+                <run accepted="yes" time="3957500" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.2" outcome="accepted" score="85"/>
+                <run accepted="yes" time="4061393" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.3" outcome="accepted" score="85"/>
+                <run accepted="yes" time="4577969" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.4" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5533984" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5613325" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5659382" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.7" outcome="accepted" score="85"/>
+                <run accepted="yes" time="5819850" language-id="cpp.visual" run-id="itsequel.main.2442.E.8" outcome="accepted" score="85"/>
+                <run accepted="yes" time="6226115" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.9" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6259739" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.10" outcome="accepted" score="85"/>
+                <run accepted="yes" time="7186236" language-id="cpp.gnu.win" run-id="itsequel.main.2442.E.11" outcome="accepted" score="85"/>
+            </problem>
+        </session>
+        <session alias="1645" id="itsequel.main.1645" party="Кортыш Константин Олегович (город Тюмень)" score="470">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="84671" score="100">
+                <run accepted="yes" time="84671" language-id="pypy3.win" run-id="itsequel.main.1645.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="222379" score="100">
+                <run accepted="yes" time="222379" language-id="pypy3.win" run-id="itsequel.main.1645.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="313690" score="100">
+                <run accepted="yes" time="313690" language-id="pypy3.win" run-id="itsequel.main.1645.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="902332" score="100">
+                <run accepted="yes" time="639036" language-id="pypy3.win" run-id="itsequel.main.1645.D.1" outcome="accepted" score="88"/>
+                <run accepted="yes" time="902332" language-id="cpp.gnu.win" run-id="itsequel.main.1645.D.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="17" accepted="1" time="6299341" score="70">
+                <run accepted="yes" time="1412502" language-id="pypy3.win" run-id="itsequel.main.1645.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1523605" language-id="pypy3.win" run-id="itsequel.main.1645.E.2" outcome="accepted" score="25"/>
+                <run accepted="yes" time="3133918" language-id="pypy3.win" run-id="itsequel.main.1645.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3458695" language-id="pypy3.win" run-id="itsequel.main.1645.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3838364" language-id="pypy3.win" run-id="itsequel.main.1645.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4028400" language-id="pypy3.win" run-id="itsequel.main.1645.E.6" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4091020" language-id="pypy3.win" run-id="itsequel.main.1645.E.7" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4157933" language-id="pypy3.win" run-id="itsequel.main.1645.E.8" outcome="accepted" score="40"/>
+                <run accepted="yes" time="4624611" language-id="pypy3.win" run-id="itsequel.main.1645.E.9" outcome="accepted" score="40"/>
+                <run accepted="yes" time="4651873" language-id="pypy3.win" run-id="itsequel.main.1645.E.10" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4680916" language-id="pypy3.win" run-id="itsequel.main.1645.E.11" outcome="accepted" score="40"/>
+                <run accepted="yes" time="5282708" language-id="pypy3.win" run-id="itsequel.main.1645.E.12" outcome="accepted" score="55"/>
+                <run accepted="yes" time="5363999" language-id="pypy3.win" run-id="itsequel.main.1645.E.13" outcome="accepted" score="10"/>
+                <run accepted="yes" time="5640652" language-id="pypy3.win" run-id="itsequel.main.1645.E.14" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5693309" language-id="pypy3.win" run-id="itsequel.main.1645.E.15" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5866750" language-id="pypy3.win" run-id="itsequel.main.1645.E.16" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6299341" language-id="pypy3.win" run-id="itsequel.main.1645.E.17" outcome="accepted" score="70"/>
+            </problem>
+        </session>
+        <session alias="1741" id="itsequel.main.1741" party="Кулезнёв Ярослав Павлович (город Тюмень)" score="470">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="93160" score="100">
+                <run accepted="yes" time="93160" language-id="pypy3.win" run-id="itsequel.main.1741.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="343084" score="100">
+                <run accepted="yes" time="343084" language-id="pypy3.win" run-id="itsequel.main.1741.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="503496" score="100">
+                <run accepted="yes" time="503496" language-id="pypy3.win" run-id="itsequel.main.1741.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="4" accepted="1" time="3678456" score="100">
+                <run accepted="yes" time="1398984" language-id="pypy3.win" run-id="itsequel.main.1741.D.1" outcome="accepted" score="76"/>
+                <run accepted="yes" time="1432380" language-id="python3.win" run-id="itsequel.main.1741.D.2" outcome="accepted" score="76"/>
+                <run accepted="yes" time="3635675" language-id="pypy3.win" run-id="itsequel.main.1741.D.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3678456" language-id="pypy3.win" run-id="itsequel.main.1741.D.4" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="7" accepted="1" time="7165034" score="70">
+                <run accepted="yes" time="4956036" language-id="pypy3.win" run-id="itsequel.main.1741.E.1" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5028716" language-id="pypy3.win" run-id="itsequel.main.1741.E.2" outcome="accepted" score="70"/>
+                <run accepted="yes" time="5467609" language-id="pypy3.win" run-id="itsequel.main.1741.E.3" outcome="accepted" score="70"/>
+                <run accepted="yes" time="5999764" language-id="pypy3.win" run-id="itsequel.main.1741.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6070909" language-id="pypy3.win" run-id="itsequel.main.1741.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6124221" language-id="pypy3.win" run-id="itsequel.main.1741.E.6" outcome="accepted" score="70"/>
+                <run accepted="yes" time="7165034" language-id="pypy3.win" run-id="itsequel.main.1741.E.7" outcome="accepted" score="10"/>
+            </problem>
+        </session>
+        <session alias="2341" id="itsequel.main.2341" party="Франк Артур Владимирович (город Тюмень)" score="470">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="255743" score="100">
+                <run accepted="yes" time="171993" language-id="cpp.gnu.win" run-id="itsequel.main.2341.A.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="255743" language-id="cpp.gnu.win" run-id="itsequel.main.2341.A.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="534573" score="100">
+                <run accepted="yes" time="534573" language-id="cpp.gnu.win" run-id="itsequel.main.2341.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="726855" score="100">
+                <run accepted="yes" time="726855" language-id="cpp.gnu.win" run-id="itsequel.main.2341.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="2448976" score="100">
+                <run accepted="yes" time="2401440" language-id="cpp.gnu.win" run-id="itsequel.main.2341.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2448976" language-id="cpp.gnu.win" run-id="itsequel.main.2341.D.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="6" accepted="1" time="6495377" score="70">
+                <run accepted="yes" time="3012922" language-id="cpp.gnu.win" run-id="itsequel.main.2341.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3404612" language-id="cpp.gnu.win" run-id="itsequel.main.2341.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3423213" language-id="cpp.gnu.win" run-id="itsequel.main.2341.E.3" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4935653" language-id="cpp.gnu.win" run-id="itsequel.main.2341.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4951573" language-id="cpp.gnu.win" run-id="itsequel.main.2341.E.5" outcome="accepted" score="70"/>
+                <run accepted="yes" time="6495377" language-id="cpp.gnu.win" run-id="itsequel.main.2341.E.6" outcome="accepted" score="70"/>
+            </problem>
+        </session>
+        <session alias="2343" id="itsequel.main.2343" party="Хмелев Максим Андреевич (город Тюмень)" score="470">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="595491" score="100">
+                <run accepted="yes" time="149728" language-id="python3.win" run-id="itsequel.main.2343.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="595491" language-id="cpp.visual" run-id="itsequel.main.2343.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="616065" score="100">
+                <run accepted="yes" time="616065" language-id="cpp.visual" run-id="itsequel.main.2343.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="926098" score="100">
+                <run accepted="yes" time="926098" language-id="cpp.visual" run-id="itsequel.main.2343.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="2894249" score="100">
+                <run accepted="yes" time="2894249" language-id="cpp.visual" run-id="itsequel.main.2343.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="5" accepted="1" time="7186440" score="70">
+                <run accepted="yes" time="4165488" language-id="cpp.visual" run-id="itsequel.main.2343.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4281514" language-id="cpp.visual" run-id="itsequel.main.2343.E.2" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5539776" language-id="cpp.visual" run-id="itsequel.main.2343.E.3" outcome="accepted" score="40"/>
+                <run accepted="yes" time="6203995" language-id="cpp.visual" run-id="itsequel.main.2343.E.4" outcome="accepted" score="55"/>
+                <run accepted="yes" time="7186440" language-id="cpp.gnu.win" run-id="itsequel.main.2343.E.5" outcome="accepted" score="70"/>
+            </problem>
+        </session>
+        <session alias="1448" id="itsequel.main.1448" party="Зырянов Виталий Александрович (город Тюмень)" score="440">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="116125" score="100">
+                <run accepted="yes" time="116125" language-id="pypy3.win" run-id="itsequel.main.1448.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="5" accepted="1" time="1533409" score="100">
+                <run accepted="yes" time="861029" language-id="pypy3.win" run-id="itsequel.main.1448.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="917564" language-id="pypy3.win" run-id="itsequel.main.1448.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="999420" language-id="pypy3.win" run-id="itsequel.main.1448.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1051399" language-id="pypy3.win" run-id="itsequel.main.1448.B.4" outcome="accepted" score="38"/>
+                <run accepted="yes" time="1533409" language-id="pypy3.win" run-id="itsequel.main.1448.B.5" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1746567" score="100">
+                <run accepted="yes" time="1746567" language-id="pypy3.win" run-id="itsequel.main.1448.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="3834584" score="100">
+                <run accepted="yes" time="2561306" language-id="pypy3.win" run-id="itsequel.main.1448.D.1" outcome="accepted" score="64"/>
+                <run accepted="yes" time="3834584" language-id="pypy3.win" run-id="itsequel.main.1448.D.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="5456901" score="40">
+                <run accepted="yes" time="5240824" language-id="pypy3.win" run-id="itsequel.main.1448.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5456901" language-id="pypy3.win" run-id="itsequel.main.1448.E.2" outcome="accepted" score="40"/>
+            </problem>
+        </session>
+        <session alias="1547" id="itsequel.main.1547" party="Катаев Иван Павлович (город Тюмень)" score="440">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="813840" score="100">
+                <run accepted="yes" time="524287" language-id="cpp.visual" run-id="itsequel.main.1547.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="813840" language-id="cpp.visual" run-id="itsequel.main.1547.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="820964" score="100">
+                <run accepted="yes" time="820964" language-id="cpp.visual" run-id="itsequel.main.1547.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1224404" score="100">
+                <run accepted="yes" time="1224404" language-id="cpp.visual" run-id="itsequel.main.1547.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="1949497" score="100">
+                <run accepted="yes" time="1949497" language-id="cpp.visual" run-id="itsequel.main.1547.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="4" accepted="1" time="7192105" score="40">
+                <run accepted="yes" time="5873947" language-id="cpp.gnu.win" run-id="itsequel.main.1547.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6537152" language-id="cpp.gnu.win" run-id="itsequel.main.1547.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7036954" language-id="cpp.gnu.win" run-id="itsequel.main.1547.E.3" outcome="accepted" score="40"/>
+                <run accepted="yes" time="7192105" language-id="cpp.gnu.win" run-id="itsequel.main.1547.E.4" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1843" id="itsequel.main.1843" party="Мамаев Дмитрий Евгеньевич (город Тюмень)" score="440">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="111706" score="100">
+                <run accepted="yes" time="111706" language-id="pypy3.win" run-id="itsequel.main.1843.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1138046" score="100">
+                <run accepted="yes" time="1138046" language-id="pypy3.win" run-id="itsequel.main.1843.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1330745" score="100">
+                <run accepted="yes" time="1330745" language-id="pypy3.win" run-id="itsequel.main.1843.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="4" accepted="1" time="7147524" score="100">
+                <run accepted="yes" time="5670701" language-id="pypy3.win" run-id="itsequel.main.1843.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="5930313" language-id="pypy3.win" run-id="itsequel.main.1843.D.2" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6521093" language-id="pypy3.win" run-id="itsequel.main.1843.D.3" outcome="accepted" score="28"/>
+                <run accepted="yes" time="7147524" language-id="pypy3.win" run-id="itsequel.main.1843.D.4" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="5" accepted="1" time="5229724" score="40">
+                <run accepted="yes" time="3600549" language-id="pypy3.win" run-id="itsequel.main.1843.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3911119" language-id="pypy3.win" run-id="itsequel.main.1843.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4048406" language-id="pypy3.win" run-id="itsequel.main.1843.E.3" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5181005" language-id="pypy3.win" run-id="itsequel.main.1843.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5229724" language-id="pypy3.win" run-id="itsequel.main.1843.E.5" outcome="accepted" score="40"/>
+            </problem>
+        </session>
+        <session alias="2443" id="itsequel.main.2443" party="Шилинг Максим Александрович (город Тобольск)" score="440">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="96070" score="100">
+                <run accepted="yes" time="96070" language-id="pypy3.win" run-id="itsequel.main.2443.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="607725" score="100">
+                <run accepted="yes" time="549679" language-id="pypy3.win" run-id="itsequel.main.2443.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="607725" language-id="pypy3.win" run-id="itsequel.main.2443.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="860986" score="100">
+                <run accepted="yes" time="860986" language-id="pypy3.win" run-id="itsequel.main.2443.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="2388012" score="100">
+                <run accepted="yes" time="2388012" language-id="pypy3.win" run-id="itsequel.main.2443.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="8" accepted="1" time="6971158" score="40">
+                <run accepted="yes" time="3841739" language-id="pypy3.win" run-id="itsequel.main.2443.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5364568" language-id="pypy3.win" run-id="itsequel.main.2443.E.2" outcome="accepted" score="40"/>
+                <run accepted="yes" time="6253807" language-id="pypy3.win" run-id="itsequel.main.2443.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6644929" language-id="pypy3.win" run-id="itsequel.main.2443.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6788880" language-id="pypy3.win" run-id="itsequel.main.2443.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6903804" language-id="pypy3.win" run-id="itsequel.main.2443.E.6" outcome="accepted" score="40"/>
+                <run accepted="yes" time="6958736" language-id="pypy3.win" run-id="itsequel.main.2443.E.7" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6971158" language-id="pypy3.win" run-id="itsequel.main.2443.E.8" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="2142" id="itsequel.main.2142" party="Селезнев Никита Сергеевич (город Тюмень)" score="426">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="203729" score="100">
+                <run accepted="yes" time="203729" language-id="cpp.visual" run-id="itsequel.main.2142.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="940718" score="100">
+                <run accepted="yes" time="940718" language-id="cpp.visual" run-id="itsequel.main.2142.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="2" accepted="1" time="4711320" score="100">
+                <run accepted="yes" time="1176562" language-id="cpp.visual" run-id="itsequel.main.2142.C.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="4711320" language-id="cpp.visual" run-id="itsequel.main.2142.C.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="7" accepted="1" time="7024136" score="56">
+                <run accepted="yes" time="5477625" language-id="cpp.visual" run-id="itsequel.main.2142.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5653411" language-id="cpp.visual" run-id="itsequel.main.2142.D.2" outcome="accepted" score="24"/>
+                <run accepted="yes" time="6368973" language-id="cpp.visual" run-id="itsequel.main.2142.D.3" outcome="accepted" score="36"/>
+                <run accepted="yes" time="6759953" language-id="cpp.visual" run-id="itsequel.main.2142.D.4" outcome="accepted" score="44"/>
+                <run accepted="yes" time="6840431" language-id="cpp.visual" run-id="itsequel.main.2142.D.5" outcome="accepted" score="52"/>
+                <run accepted="yes" time="6905503" language-id="cpp.visual" run-id="itsequel.main.2142.D.6" outcome="accepted" score="56"/>
+                <run accepted="yes" time="7024136" language-id="cpp.visual" run-id="itsequel.main.2142.D.7" outcome="accepted" score="56"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="3" accepted="1" time="5469249" score="70">
+                <run accepted="yes" time="4722498" language-id="cpp.visual" run-id="itsequel.main.2142.E.1" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5002733" language-id="cpp.visual" run-id="itsequel.main.2142.E.2" outcome="accepted" score="70"/>
+                <run accepted="yes" time="5469249" language-id="cpp.visual" run-id="itsequel.main.2142.E.3" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1342" id="itsequel.main.1342" party="Гильманова Лейла Руслановна (город Тюмень)" score="425">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="142736" score="100">
+                <run accepted="yes" time="142736" language-id="cpp.gnu.win" run-id="itsequel.main.1342.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="558678" score="100">
+                <run accepted="yes" time="544863" language-id="cpp.gnu.win" run-id="itsequel.main.1342.B.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="558678" language-id="cpp.gnu.win" run-id="itsequel.main.1342.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="830886" score="100">
+                <run accepted="yes" time="830886" language-id="cpp.gnu.win" run-id="itsequel.main.1342.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="2723562" score="100">
+                <run accepted="yes" time="2313234" language-id="cpp.gnu.win" run-id="itsequel.main.1342.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="2723562" language-id="cpp.gnu.win" run-id="itsequel.main.1342.D.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="5" accepted="1" time="6035089" score="25">
+                <run accepted="yes" time="4491976" language-id="cpp.gnu.win" run-id="itsequel.main.1342.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4753201" language-id="cpp.gnu.win" run-id="itsequel.main.1342.E.2" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5017046" language-id="cpp.gnu.win" run-id="itsequel.main.1342.E.3" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5078877" language-id="cpp.gnu.win" run-id="itsequel.main.1342.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6035089" language-id="cpp.gnu.win" run-id="itsequel.main.1342.E.5" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1842" id="itsequel.main.1842" party="Малюгин Михаил Александрович (город Тюмень)" score="425">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="64606" score="100">
+                <run accepted="yes" time="64606" language-id="pypy3.win" run-id="itsequel.main.1842.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="506851" score="100">
+                <run accepted="yes" time="506851" language-id="pypy3.win" run-id="itsequel.main.1842.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="260644" score="100">
+                <run accepted="yes" time="260644" language-id="pypy3.win" run-id="itsequel.main.1842.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="3630455" score="100">
+                <run accepted="yes" time="929890" language-id="pypy3.win" run-id="itsequel.main.1842.D.1" outcome="accepted" score="92"/>
+                <run accepted="yes" time="2282997" language-id="pypy3.win" run-id="itsequel.main.1842.D.2" outcome="accepted" score="100"/>
+                <run accepted="yes" time="3630455" language-id="pypy3.win" run-id="itsequel.main.1842.D.3" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="8" accepted="1" time="5737059" score="25">
+                <run accepted="yes" time="3639909" language-id="pypy3.win" run-id="itsequel.main.1842.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3737418" language-id="pypy3.win" run-id="itsequel.main.1842.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3802923" language-id="pypy3.win" run-id="itsequel.main.1842.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3928914" language-id="pypy3.win" run-id="itsequel.main.1842.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3965184" language-id="pypy3.win" run-id="itsequel.main.1842.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4042729" language-id="pypy3.win" run-id="itsequel.main.1842.E.6" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4413646" language-id="pypy3.win" run-id="itsequel.main.1842.E.7" outcome="accepted" score="25"/>
+                <run accepted="yes" time="5737059" language-id="pypy3.win" run-id="itsequel.main.1842.E.8" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1943" id="itsequel.main.1943" party="Очеретяный Демьян Николаевич (город Тюмень)" score="425">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="351159" score="100">
+                <run accepted="yes" time="351159" language-id="cpp.gnu.win" run-id="itsequel.main.1943.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="969224" score="100">
+                <run accepted="yes" time="969224" language-id="cpp.gnu.win" run-id="itsequel.main.1943.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1363562" score="100">
+                <run accepted="yes" time="1363562" language-id="cpp.gnu.win" run-id="itsequel.main.1943.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="3921782" score="100">
+                <run accepted="yes" time="3921782" language-id="cpp.gnu.win" run-id="itsequel.main.1943.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="11" accepted="1" time="6533261" score="25">
+                <run accepted="no" time="5501456" language-id="cpp.gnu.win" run-id="itsequel.main.1943.E.1" outcome="compilation-error" score="0"/>
+                <run accepted="no" time="5550368" language-id="cpp.gnu.win" run-id="itsequel.main.1943.E.2" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="5569759" language-id="cpp.visual" run-id="itsequel.main.1943.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5707347" language-id="cpp.visual" run-id="itsequel.main.1943.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5835335" language-id="cpp.visual" run-id="itsequel.main.1943.E.5" outcome="accepted" score="0"/>
+                <run accepted="no" time="6017517" language-id="cpp.visual" run-id="itsequel.main.1943.E.6" outcome="compilation-error" score="0"/>
+                <run accepted="no" time="6163166" language-id="cpp.visual" run-id="itsequel.main.1943.E.7" outcome="compilation-error" score="0"/>
+                <run accepted="no" time="6206390" language-id="cpp.visual" run-id="itsequel.main.1943.E.8" outcome="compilation-error" score="0"/>
+                <run accepted="no" time="6326727" language-id="cpp.visual" run-id="itsequel.main.1943.E.9" outcome="compilation-error" score="0"/>
+                <run accepted="no" time="6415051" language-id="cpp.visual" run-id="itsequel.main.1943.E.10" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="6533261" language-id="cpp.visual" run-id="itsequel.main.1943.E.11" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1146" id="itsequel.main.1146" party="Барабанов Дмитрий Алексеевич (город Тюмень)" score="421">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="194722" score="100">
+                <run accepted="yes" time="194722" language-id="pypy3.win" run-id="itsequel.main.1146.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="609964" score="100">
+                <run accepted="yes" time="609964" language-id="pypy3.win" run-id="itsequel.main.1146.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="923496" score="100">
+                <run accepted="yes" time="923496" language-id="pypy3.win" run-id="itsequel.main.1146.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="7144081" score="36">
+                <run accepted="yes" time="6733284" language-id="pypy3.win" run-id="itsequel.main.1146.D.1" outcome="accepted" score="36"/>
+                <run accepted="yes" time="6964579" language-id="pypy3.win" run-id="itsequel.main.1146.D.2" outcome="accepted" score="36"/>
+                <run accepted="yes" time="7144081" language-id="pypy3.win" run-id="itsequel.main.1146.D.3" outcome="accepted" score="36"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="3" accepted="1" time="4792930" score="85">
+                <run accepted="yes" time="4524519" language-id="pypy3.win" run-id="itsequel.main.1146.E.1" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4757485" language-id="pypy3.win" run-id="itsequel.main.1146.E.2" outcome="accepted" score="85"/>
+                <run accepted="yes" time="4792930" language-id="pypy3.win" run-id="itsequel.main.1146.E.3" outcome="accepted" score="85"/>
+            </problem>
+        </session>
+        <session alias="1144" id="itsequel.main.1144" party="Арцер Александр Александрович (город Тюмень)" score="400">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="441635" score="100">
+                <run accepted="yes" time="161269" language-id="cpp.gnu.win" run-id="itsequel.main.1144.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="441635" language-id="cpp.gnu.win" run-id="itsequel.main.1144.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="449257" score="100">
+                <run accepted="yes" time="449257" language-id="cpp.gnu.win" run-id="itsequel.main.1144.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="630174" score="100">
+                <run accepted="yes" time="630174" language-id="cpp.gnu.win" run-id="itsequel.main.1144.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="11" accepted="1" time="7091719" score="100">
+                <run accepted="yes" time="3631655" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.1" outcome="accepted" score="32"/>
+                <run accepted="yes" time="4075914" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.2" outcome="accepted" score="32"/>
+                <run accepted="yes" time="4291844" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.3" outcome="accepted" score="32"/>
+                <run accepted="yes" time="4591189" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.4" outcome="accepted" score="32"/>
+                <run accepted="yes" time="4623651" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4676060" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.6" outcome="accepted" score="32"/>
+                <run accepted="yes" time="4751317" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.7" outcome="accepted" score="28"/>
+                <run accepted="yes" time="4879683" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.8" outcome="accepted" score="32"/>
+                <run accepted="yes" time="5258190" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.9" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6755908" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.10" outcome="accepted" score="28"/>
+                <run accepted="yes" time="7091719" language-id="cpp.gnu.win" run-id="itsequel.main.1144.D.11" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1341" id="itsequel.main.1341" party="Гаврилов Владислав Алексеевич (город Тюмень)" score="400">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="211873" score="100">
+                <run accepted="yes" time="211873" language-id="cpp.visual" run-id="itsequel.main.1341.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="736953" score="100">
+                <run accepted="no" time="717488" language-id="cpp.visual" run-id="itsequel.main.1341.B.1" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="736953" language-id="python3.win" run-id="itsequel.main.1341.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1224598" score="100">
+                <run accepted="yes" time="1224598" language-id="cpp.visual" run-id="itsequel.main.1341.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="3932011" score="100">
+                <run accepted="yes" time="2689099" language-id="cpp.visual" run-id="itsequel.main.1341.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="3932011" language-id="cpp.visual" run-id="itsequel.main.1341.D.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="4" accepted="1" time="7127253" score="0">
+                <run accepted="yes" time="6299793" language-id="cpp.visual" run-id="itsequel.main.1341.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6388296" language-id="cpp.visual" run-id="itsequel.main.1341.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6861768" language-id="cpp.visual" run-id="itsequel.main.1341.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7127253" language-id="cpp.visual" run-id="itsequel.main.1341.E.4" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1441" id="itsequel.main.1441" party="Дышлевский Игорь Максимович (город Тюмень)" score="400">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="190322" score="100">
+                <run accepted="yes" time="190322" language-id="python3.win" run-id="itsequel.main.1441.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="620549" score="100">
+                <run accepted="yes" time="620549" language-id="python3.win" run-id="itsequel.main.1441.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="868368" score="100">
+                <run accepted="yes" time="868368" language-id="python3.win" run-id="itsequel.main.1441.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="6268355" score="100">
+                <run accepted="yes" time="3131746" language-id="python3.win" run-id="itsequel.main.1441.D.1" outcome="accepted" score="96"/>
+                <run accepted="yes" time="6268355" language-id="python3.win" run-id="itsequel.main.1441.D.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1443" id="itsequel.main.1443" party="Жгунов Ростислав Ильич (город Тюмень)" score="400">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="124167" score="100">
+                <run accepted="yes" time="124167" language-id="pypy3.win" run-id="itsequel.main.1443.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1435345" score="100">
+                <run accepted="yes" time="1435345" language-id="pypy3.win" run-id="itsequel.main.1443.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="2" accepted="1" time="3326323" score="100">
+                <run accepted="yes" time="1825680" language-id="pypy3.win" run-id="itsequel.main.1443.C.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="3326323" language-id="pypy3.win" run-id="itsequel.main.1443.C.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="3767541" score="100">
+                <run accepted="yes" time="3340397" language-id="pypy3.win" run-id="itsequel.main.1443.D.1" outcome="accepted" score="36"/>
+                <run accepted="yes" time="3767541" language-id="pypy3.win" run-id="itsequel.main.1443.D.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="11" accepted="1" time="6844365" score="0">
+                <run accepted="yes" time="4841576" language-id="pypy3.win" run-id="itsequel.main.1443.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4926303" language-id="pypy3.win" run-id="itsequel.main.1443.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4997430" language-id="python3.win" run-id="itsequel.main.1443.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5100970" language-id="pypy3.win" run-id="itsequel.main.1443.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5119654" language-id="pypy3.win" run-id="itsequel.main.1443.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5140511" language-id="pypy3.win" run-id="itsequel.main.1443.E.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5189287" language-id="pypy3.win" run-id="itsequel.main.1443.E.7" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5869128" language-id="pypy3.win" run-id="itsequel.main.1443.E.8" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6050110" language-id="pypy3.win" run-id="itsequel.main.1443.E.9" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6634671" language-id="pypy3.win" run-id="itsequel.main.1443.E.10" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6844365" language-id="pypy3.win" run-id="itsequel.main.1443.E.11" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2141" id="itsequel.main.2141" party="Сагитов Карим Камилович (город Тюмень)" score="400">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="477310" score="100">
+                <run accepted="yes" time="477310" language-id="cpp.gnu.win" run-id="itsequel.main.2141.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1004307" score="100">
+                <run accepted="yes" time="1004307" language-id="cpp.gnu.win" run-id="itsequel.main.2141.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1346383" score="100">
+                <run accepted="yes" time="1346383" language-id="cpp.gnu.win" run-id="itsequel.main.2141.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="2523056" score="100">
+                <run accepted="yes" time="2523056" language-id="cpp.gnu.win" run-id="itsequel.main.2141.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2244" id="itsequel.main.2244" party="Тимканов Рахман-Али Рахимович (город Тобольск)" score="400">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="243895" score="100">
+                <run accepted="yes" time="243895" language-id="python3.win" run-id="itsequel.main.2244.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1473119" score="100">
+                <run accepted="yes" time="1473119" language-id="cpp.visual" run-id="itsequel.main.2244.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2212741" score="100">
+                <run accepted="yes" time="2212741" language-id="cpp.visual" run-id="itsequel.main.2244.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="5376827" score="100">
+                <run accepted="yes" time="5376827" language-id="python3.win" run-id="itsequel.main.2244.D.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1348" id="itsequel.main.1348" party="Дубровин Артём Олегович (город Тюмень)" score="395">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="1094326" score="100">
+                <run accepted="yes" time="189178" language-id="python3.win" run-id="itsequel.main.1348.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="1094326" language-id="python3.win" run-id="itsequel.main.1348.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1114982" score="100">
+                <run accepted="yes" time="1114982" language-id="python3.win" run-id="itsequel.main.1348.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1532960" score="100">
+                <run accepted="yes" time="1532960" language-id="python3.win" run-id="itsequel.main.1348.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="6747560" score="40">
+                <run accepted="yes" time="6491244" language-id="python3.win" run-id="itsequel.main.1348.D.1" outcome="accepted" score="24"/>
+                <run accepted="yes" time="6621541" language-id="python3.win" run-id="itsequel.main.1348.D.2" outcome="accepted" score="40"/>
+                <run accepted="yes" time="6747560" language-id="python3.win" run-id="itsequel.main.1348.D.3" outcome="accepted" score="32"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="4349796" score="55">
+                <run accepted="yes" time="4349796" language-id="python3.win" run-id="itsequel.main.1348.E.1" outcome="accepted" score="55"/>
+            </problem>
+        </session>
+        <session alias="1745" id="itsequel.main.1745" party="Ласкин Павел Александрович (город Тюмень)" score="377">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="3142679" score="100">
+                <run accepted="yes" time="1080793" language-id="pypy3.win" run-id="itsequel.main.1745.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="3142679" language-id="pypy3.win" run-id="itsequel.main.1745.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="3212980" score="100">
+                <run accepted="yes" time="3212980" language-id="pypy3.win" run-id="itsequel.main.1745.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="3679944" score="100">
+                <run accepted="yes" time="3679944" language-id="pypy3.win" run-id="itsequel.main.1745.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="5" accepted="1" time="5812755" score="52">
+                <run accepted="yes" time="5040744" language-id="pypy3.win" run-id="itsequel.main.1745.D.1" outcome="accepted" score="36"/>
+                <run accepted="yes" time="5372461" language-id="pypy3.win" run-id="itsequel.main.1745.D.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5704985" language-id="pypy3.win" run-id="itsequel.main.1745.D.3" outcome="accepted" score="44"/>
+                <run accepted="yes" time="5770401" language-id="pypy3.win" run-id="itsequel.main.1745.D.4" outcome="accepted" score="52"/>
+                <run accepted="yes" time="5812755" language-id="pypy3.win" run-id="itsequel.main.1745.D.5" outcome="accepted" score="48"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="9" accepted="1" time="7165288" score="25">
+                <run accepted="yes" time="6442485" language-id="pypy3.win" run-id="itsequel.main.1745.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6496370" language-id="pypy3.win" run-id="itsequel.main.1745.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6795961" language-id="pypy3.win" run-id="itsequel.main.1745.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6874729" language-id="pypy3.win" run-id="itsequel.main.1745.E.4" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6989955" language-id="pypy3.win" run-id="itsequel.main.1745.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="7060303" language-id="pypy3.win" run-id="itsequel.main.1745.E.6" outcome="accepted" score="25"/>
+                <run accepted="yes" time="7092017" language-id="pypy3.win" run-id="itsequel.main.1745.E.7" outcome="accepted" score="25"/>
+                <run accepted="yes" time="7116164" language-id="pypy3.win" run-id="itsequel.main.1745.E.8" outcome="accepted" score="25"/>
+                <run accepted="yes" time="7165288" language-id="pypy3.win" run-id="itsequel.main.1745.E.9" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1744" id="itsequel.main.1744" party="Курманов Адиль Радикович (город Тобольск)" score="361">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="263462" score="100">
+                <run accepted="yes" time="263462" language-id="python3.win" run-id="itsequel.main.1744.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="3" accepted="1" time="1347706" score="100">
+                <run accepted="yes" time="1089040" language-id="python3.win" run-id="itsequel.main.1744.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1111418" language-id="python3.win" run-id="itsequel.main.1744.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1347706" language-id="python3.win" run-id="itsequel.main.1744.B.3" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1806180" score="100">
+                <run accepted="yes" time="1806180" language-id="python3.win" run-id="itsequel.main.1744.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="3368345" score="36">
+                <run accepted="yes" time="3165526" language-id="python3.win" run-id="itsequel.main.1744.D.1" outcome="accepted" score="16"/>
+                <run accepted="yes" time="3238679" language-id="python3.win" run-id="itsequel.main.1744.D.2" outcome="accepted" score="36"/>
+                <run accepted="yes" time="3368345" language-id="python3.win" run-id="itsequel.main.1744.D.3" outcome="accepted" score="36"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="6" accepted="1" time="7193179" score="25">
+                <run accepted="yes" time="5121172" language-id="python3.win" run-id="itsequel.main.1744.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5295188" language-id="python3.win" run-id="itsequel.main.1744.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5362042" language-id="python3.win" run-id="itsequel.main.1744.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5550559" language-id="python3.win" run-id="itsequel.main.1744.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5633161" language-id="python3.win" run-id="itsequel.main.1744.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="7193179" language-id="python3.win" run-id="itsequel.main.1744.E.6" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1247" id="itsequel.main.1247" party="Власов Илья Евгеньевич (город Тюмень)" score="353">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="271023" score="100">
+                <run accepted="yes" time="271023" language-id="cpp.gnu.win" run-id="itsequel.main.1247.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="675865" score="100">
+                <run accepted="yes" time="675865" language-id="cpp.gnu.win" run-id="itsequel.main.1247.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1074559" score="100">
+                <run accepted="yes" time="1074559" language-id="cpp.gnu.win" run-id="itsequel.main.1247.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="3664453" score="28">
+                <run accepted="yes" time="3390585" language-id="cpp.gnu.win" run-id="itsequel.main.1247.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="3664453" language-id="cpp.gnu.win" run-id="itsequel.main.1247.D.2" outcome="accepted" score="28"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="7066405" score="25">
+                <run accepted="yes" time="5030726" language-id="cpp.gnu.win" run-id="itsequel.main.1247.E.1" outcome="accepted" score="25"/>
+                <run accepted="yes" time="7066405" language-id="cpp.gnu.win" run-id="itsequel.main.1247.E.2" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1944" id="itsequel.main.1944" party="Павленко Андрей Викторович (город Тюмень)" score="353">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="166276" score="100">
+                <run accepted="yes" time="166276" language-id="pypy3.win" run-id="itsequel.main.1944.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="2346936" score="100">
+                <run accepted="yes" time="2346936" language-id="pypy3.win" run-id="itsequel.main.1944.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="532457" score="100">
+                <run accepted="yes" time="532457" language-id="pypy3.win" run-id="itsequel.main.1944.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="6801246" score="28">
+                <run accepted="yes" time="3440862" language-id="pypy3.win" run-id="itsequel.main.1944.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6550551" language-id="pypy3.win" run-id="itsequel.main.1944.D.2" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6801246" language-id="pypy3.win" run-id="itsequel.main.1944.D.3" outcome="accepted" score="28"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="6044265" score="25">
+                <run accepted="yes" time="5857001" language-id="pypy3.win" run-id="itsequel.main.1944.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6044265" language-id="pypy3.win" run-id="itsequel.main.1944.E.2" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="2446" id="itsequel.main.2446" party="Шульгин Максим Александрович (город Тюмень)" score="353">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="103575" score="100">
+                <run accepted="yes" time="103575" language-id="python3.win" run-id="itsequel.main.2446.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="3905139" score="100">
+                <run accepted="yes" time="3323201" language-id="python3.win" run-id="itsequel.main.2446.B.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="3905139" language-id="python3.win" run-id="itsequel.main.2446.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="577527" score="100">
+                <run accepted="yes" time="577527" language-id="python3.win" run-id="itsequel.main.2446.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="4" accepted="1" time="6995931" score="28">
+                <run accepted="yes" time="4145786" language-id="python3.win" run-id="itsequel.main.2446.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5362826" language-id="python3.win" run-id="itsequel.main.2446.D.2" outcome="accepted" score="24"/>
+                <run accepted="yes" time="6292661" language-id="python3.win" run-id="itsequel.main.2446.D.3" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6995931" language-id="python3.win" run-id="itsequel.main.2446.D.4" outcome="accepted" score="28"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="5" accepted="1" time="5104140" score="25">
+                <run accepted="yes" time="4542344" language-id="python3.win" run-id="itsequel.main.2446.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4591651" language-id="python3.win" run-id="itsequel.main.2446.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4681763" language-id="python3.win" run-id="itsequel.main.2446.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4703011" language-id="python3.win" run-id="itsequel.main.2446.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5104140" language-id="python3.win" run-id="itsequel.main.2446.E.5" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="2041" id="itsequel.main.2041" party="Порошин Иван Вячеславович (город Тюмень)" score="352">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="220866" score="100">
+                <run accepted="yes" time="220866" language-id="python3.win" run-id="itsequel.main.2041.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="3" accepted="1" time="1554905" score="100">
+                <run accepted="yes" time="1254733" language-id="python3.win" run-id="itsequel.main.2041.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1407008" language-id="python3.win" run-id="itsequel.main.2041.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1554905" language-id="python3.win" run-id="itsequel.main.2041.B.3" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1779460" score="100">
+                <run accepted="yes" time="1779460" language-id="python3.win" run-id="itsequel.main.2041.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="5" accepted="1" time="6586867" score="52">
+                <run accepted="yes" time="4017207" language-id="python3.win" run-id="itsequel.main.2041.D.1" outcome="accepted" score="32"/>
+                <run accepted="yes" time="5093257" language-id="python3.win" run-id="itsequel.main.2041.D.2" outcome="accepted" score="32"/>
+                <run accepted="yes" time="6375242" language-id="python3.win" run-id="itsequel.main.2041.D.3" outcome="accepted" score="44"/>
+                <run accepted="yes" time="6433561" language-id="python3.win" run-id="itsequel.main.2041.D.4" outcome="accepted" score="48"/>
+                <run accepted="yes" time="6586867" language-id="python3.win" run-id="itsequel.main.2041.D.5" outcome="accepted" score="52"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="7191851" score="0">
+                <run accepted="yes" time="7191851" language-id="python3.win" run-id="itsequel.main.2041.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2044" id="itsequel.main.2044" party="Рейтблат Евгения Олеговна (город Тюмень)" score="345">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="180491" score="100">
+                <run accepted="yes" time="180491" language-id="python3.win" run-id="itsequel.main.2044.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="3817140" score="100">
+                <run accepted="yes" time="3527724" language-id="python3.win" run-id="itsequel.main.2044.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3817140" language-id="python3.win" run-id="itsequel.main.2044.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1555699" score="100">
+                <run accepted="yes" time="1555699" language-id="python3.win" run-id="itsequel.main.2044.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="12" accepted="1" time="7155705" score="20">
+                <run accepted="yes" time="5297223" language-id="python3.win" run-id="itsequel.main.2044.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5608441" language-id="python3.win" run-id="itsequel.main.2044.D.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5656983" language-id="python3.win" run-id="itsequel.main.2044.D.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5693815" language-id="python3.win" run-id="itsequel.main.2044.D.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5720496" language-id="python3.win" run-id="itsequel.main.2044.D.5" outcome="accepted" score="4"/>
+                <run accepted="yes" time="5756303" language-id="python3.win" run-id="itsequel.main.2044.D.6" outcome="accepted" score="8"/>
+                <run accepted="yes" time="5813199" language-id="python3.win" run-id="itsequel.main.2044.D.7" outcome="accepted" score="20"/>
+                <run accepted="yes" time="5962869" language-id="python3.win" run-id="itsequel.main.2044.D.8" outcome="accepted" score="20"/>
+                <run accepted="yes" time="6096542" language-id="python3.win" run-id="itsequel.main.2044.D.9" outcome="accepted" score="20"/>
+                <run accepted="yes" time="6179793" language-id="python3.win" run-id="itsequel.main.2044.D.10" outcome="accepted" score="20"/>
+                <run accepted="yes" time="7034290" language-id="python3.win" run-id="itsequel.main.2044.D.11" outcome="accepted" score="20"/>
+                <run accepted="yes" time="7155705" language-id="python3.win" run-id="itsequel.main.2044.D.12" outcome="accepted" score="20"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="5115799" score="25">
+                <run accepted="yes" time="4594781" language-id="python3.win" run-id="itsequel.main.2044.E.1" outcome="accepted" score="10"/>
+                <run accepted="yes" time="5115799" language-id="python3.win" run-id="itsequel.main.2044.E.2" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1643" id="itsequel.main.1643" party="Козинов Cергей Сергеевич (город Тюмень)" score="340">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="190116" score="100">
+                <run accepted="yes" time="190116" language-id="python3.win" run-id="itsequel.main.1643.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1362810" score="100">
+                <run accepted="yes" time="1362810" language-id="python3.win" run-id="itsequel.main.1643.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="815678" score="100">
+                <run accepted="yes" time="815678" language-id="python3.win" run-id="itsequel.main.1643.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="6591305" score="40">
+                <run accepted="yes" time="6591305" language-id="python3.win" run-id="itsequel.main.1643.D.1" outcome="accepted" score="40"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="6784549" score="0">
+                <run accepted="yes" time="6784549" language-id="python3.win" run-id="itsequel.main.1643.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2342" id="itsequel.main.2342" party="Хачатрян Артуш Арменакович (город Тюмень)" score="336">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="359098" score="100">
+                <run accepted="yes" time="359098" language-id="cpp.visual" run-id="itsequel.main.2342.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="6" accepted="1" time="2534169" score="100">
+                <run accepted="no" time="1229165" language-id="cpp.visual" run-id="itsequel.main.2342.B.1" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="1337525" language-id="cpp.visual" run-id="itsequel.main.2342.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1592797" language-id="cpp.visual" run-id="itsequel.main.2342.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1780722" language-id="cpp.visual" run-id="itsequel.main.2342.B.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2419927" language-id="cpp.visual" run-id="itsequel.main.2342.B.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2534169" language-id="cpp.visual" run-id="itsequel.main.2342.B.6" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="3182380" score="100">
+                <run accepted="yes" time="3182380" language-id="cpp.visual" run-id="itsequel.main.2342.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="6" accepted="1" time="6230332" score="36">
+                <run accepted="yes" time="5284723" language-id="cpp.visual" run-id="itsequel.main.2342.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5459920" language-id="cpp.visual" run-id="itsequel.main.2342.D.2" outcome="accepted" score="36"/>
+                <run accepted="yes" time="5912383" language-id="cpp.visual" run-id="itsequel.main.2342.D.3" outcome="accepted" score="36"/>
+                <run accepted="yes" time="6015232" language-id="cpp.visual" run-id="itsequel.main.2342.D.4" outcome="accepted" score="36"/>
+                <run accepted="yes" time="6149057" language-id="cpp.visual" run-id="itsequel.main.2342.D.5" outcome="accepted" score="36"/>
+                <run accepted="yes" time="6230332" language-id="cpp.visual" run-id="itsequel.main.2342.D.6" outcome="accepted" score="32"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="6470199" score="0">
+                <run accepted="yes" time="6470199" language-id="cpp.visual" run-id="itsequel.main.2342.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2248" id="itsequel.main.2248" party="Филатов Виктор Сергеевич (город Тюмень)" score="332">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="360741" score="100">
+                <run accepted="yes" time="360741" language-id="python3.win" run-id="itsequel.main.2248.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1228457" score="100">
+                <run accepted="yes" time="1228457" language-id="python3.win" run-id="itsequel.main.2248.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1801985" score="100">
+                <run accepted="yes" time="1801985" language-id="python3.win" run-id="itsequel.main.2248.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="6977612" score="32">
+                <run accepted="yes" time="6977612" language-id="python3.win" run-id="itsequel.main.2248.D.1" outcome="accepted" score="32"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1141" id="itsequel.main.1141" party="Алехина Ксения Степановна (город Тюмень)" score="328">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="1117021" score="100">
+                <run accepted="yes" time="182874" language-id="python3.win" run-id="itsequel.main.1141.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="1117021" language-id="python3.win" run-id="itsequel.main.1141.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="1202200" score="100">
+                <run accepted="yes" time="1131728" language-id="python3.win" run-id="itsequel.main.1141.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1202200" language-id="python3.win" run-id="itsequel.main.1141.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1666546" score="100">
+                <run accepted="yes" time="1666546" language-id="python3.win" run-id="itsequel.main.1141.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="4" accepted="1" time="7120630" score="28">
+                <run accepted="yes" time="6442976" language-id="python3.win" run-id="itsequel.main.1141.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6592580" language-id="python3.win" run-id="itsequel.main.1141.D.2" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6692888" language-id="python3.win" run-id="itsequel.main.1141.D.3" outcome="accepted" score="28"/>
+                <run accepted="yes" time="7120630" language-id="python3.win" run-id="itsequel.main.1141.D.4" outcome="accepted" score="28"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="4678217" score="0">
+                <run accepted="yes" time="4678217" language-id="python3.win" run-id="itsequel.main.1141.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1147" id="itsequel.main.1147" party="Букаринов Данила Сергеевич (город Тобольск)" score="328">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="291963" score="100">
+                <run accepted="yes" time="291963" language-id="python3.win" run-id="itsequel.main.1147.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="5991114" score="100">
+                <run accepted="yes" time="5991114" language-id="python3.win" run-id="itsequel.main.1147.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="2" accepted="1" time="3951812" score="100">
+                <run accepted="yes" time="1365818" language-id="python3.win" run-id="itsequel.main.1147.C.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="3951812" language-id="python3.win" run-id="itsequel.main.1147.C.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="6432865" score="28">
+                <run accepted="yes" time="3967876" language-id="python3.win" run-id="itsequel.main.1147.D.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6432865" language-id="python3.win" run-id="itsequel.main.1147.D.2" outcome="accepted" score="28"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1847" id="itsequel.main.1847" party="Недобитков Степан Тимофеевич (город Тюмень)" score="328">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="200836" score="100">
+                <run accepted="yes" time="200836" language-id="cpp.visual" run-id="itsequel.main.1847.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1051936" score="100">
+                <run accepted="yes" time="1051936" language-id="cpp.visual" run-id="itsequel.main.1847.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1549275" score="100">
+                <run accepted="yes" time="1549275" language-id="cpp.visual" run-id="itsequel.main.1847.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="4" accepted="1" time="5355032" score="28">
+                <run accepted="yes" time="5270728" language-id="cpp.visual" run-id="itsequel.main.1847.D.1" outcome="accepted" score="24"/>
+                <run accepted="yes" time="5309160" language-id="cpp.visual" run-id="itsequel.main.1847.D.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5339787" language-id="cpp.visual" run-id="itsequel.main.1847.D.3" outcome="accepted" score="28"/>
+                <run accepted="yes" time="5355032" language-id="cpp.visual" run-id="itsequel.main.1847.D.4" outcome="accepted" score="28"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1444" id="itsequel.main.1444" party="Жигилёв Всеволод Андреевич (город Тюмень)" score="325">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="178329" score="100">
+                <run accepted="yes" time="178329" language-id="python3.win" run-id="itsequel.main.1444.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="1203534" score="100">
+                <run accepted="yes" time="1057872" language-id="python3.win" run-id="itsequel.main.1444.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1203534" language-id="python3.win" run-id="itsequel.main.1444.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1544482" score="100">
+                <run accepted="yes" time="1544482" language-id="python3.win" run-id="itsequel.main.1444.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="5934725" score="25">
+                <run accepted="yes" time="5530278" language-id="python3.win" run-id="itsequel.main.1444.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5934725" language-id="python3.win" run-id="itsequel.main.1444.E.2" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1641" id="itsequel.main.1641" party="Киселев Григорий Александрович (город Тюмень)" score="325">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="119009" score="100">
+                <run accepted="yes" time="119009" language-id="python3.win" run-id="itsequel.main.1641.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="3" accepted="1" time="1954296" score="100">
+                <run accepted="yes" time="556737" language-id="python3.win" run-id="itsequel.main.1641.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="754250" language-id="python3.win" run-id="itsequel.main.1641.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1954296" language-id="python3.win" run-id="itsequel.main.1641.B.3" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1116900" score="100">
+                <run accepted="yes" time="1116900" language-id="python3.win" run-id="itsequel.main.1641.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="6" accepted="1" time="4771425" score="25">
+                <run accepted="yes" time="3686948" language-id="python3.win" run-id="itsequel.main.1641.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3716989" language-id="python3.win" run-id="itsequel.main.1641.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3894384" language-id="python3.win" run-id="itsequel.main.1641.E.3" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4478759" language-id="python3.win" run-id="itsequel.main.1641.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4658027" language-id="python3.win" run-id="itsequel.main.1641.E.5" outcome="accepted" score="25"/>
+                <run accepted="yes" time="4771425" language-id="python3.win" run-id="itsequel.main.1641.E.6" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1941" id="itsequel.main.1941" party="Носков Никита Станиславович (город Тюмень)" score="325">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="153919" score="100">
+                <run accepted="yes" time="153919" language-id="python3.win" run-id="itsequel.main.1941.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="921647" score="100">
+                <run accepted="yes" time="921647" language-id="python3.win" run-id="itsequel.main.1941.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1455394" score="100">
+                <run accepted="yes" time="1455394" language-id="python3.win" run-id="itsequel.main.1941.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="2552235" score="0">
+                <run accepted="yes" time="2552235" language-id="python3.win" run-id="itsequel.main.1941.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="8" accepted="1" time="6274531" score="25">
+                <run accepted="yes" time="3611502" language-id="python3.win" run-id="itsequel.main.1941.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3801954" language-id="python3.win" run-id="itsequel.main.1941.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3896451" language-id="python3.win" run-id="itsequel.main.1941.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4841903" language-id="python3.win" run-id="itsequel.main.1941.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5229072" language-id="python3.win" run-id="itsequel.main.1941.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5560288" language-id="python3.win" run-id="itsequel.main.1941.E.6" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6155817" language-id="python3.win" run-id="itsequel.main.1941.E.7" outcome="accepted" score="25"/>
+                <run accepted="yes" time="6274531" language-id="python3.win" run-id="itsequel.main.1941.E.8" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="2348" id="itsequel.main.2348" party="Чепасов Егор Юрьевич (город Тюмень)" score="325">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="133094" score="100">
+                <run accepted="yes" time="133094" language-id="python3.win" run-id="itsequel.main.2348.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="9" accepted="1" time="5089469" score="100">
+                <run accepted="yes" time="2741067" language-id="python3.win" run-id="itsequel.main.2348.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3025672" language-id="python3.win" run-id="itsequel.main.2348.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3061107" language-id="python3.win" run-id="itsequel.main.2348.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3089641" language-id="python3.win" run-id="itsequel.main.2348.B.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3857112" language-id="python3.win" run-id="itsequel.main.2348.B.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3891227" language-id="python3.win" run-id="itsequel.main.2348.B.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4019762" language-id="python3.win" run-id="itsequel.main.2348.B.7" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4668849" language-id="python3.win" run-id="itsequel.main.2348.B.8" outcome="accepted" score="28"/>
+                <run accepted="yes" time="5089469" language-id="python3.win" run-id="itsequel.main.2348.B.9" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1123580" score="100">
+                <run accepted="yes" time="1123580" language-id="cpp.gnu.win" run-id="itsequel.main.2348.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="5751088" score="0">
+                <run accepted="yes" time="5689528" language-id="python3.win" run-id="itsequel.main.2348.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5751088" language-id="python3.win" run-id="itsequel.main.2348.D.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="11" accepted="1" time="7051651" score="25">
+                <run accepted="yes" time="5788613" language-id="python3.win" run-id="itsequel.main.2348.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5825846" language-id="python3.win" run-id="itsequel.main.2348.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5899895" language-id="python3.win" run-id="itsequel.main.2348.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5980563" language-id="python3.win" run-id="itsequel.main.2348.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6363346" language-id="python3.win" run-id="itsequel.main.2348.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6379064" language-id="python3.win" run-id="itsequel.main.2348.E.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6575545" language-id="python3.win" run-id="itsequel.main.2348.E.7" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6601830" language-id="python3.win" run-id="itsequel.main.2348.E.8" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6723022" language-id="python3.win" run-id="itsequel.main.2348.E.9" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6975683" language-id="python3.win" run-id="itsequel.main.2348.E.10" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7051651" language-id="python3.win" run-id="itsequel.main.2348.E.11" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1241" id="itsequel.main.1241" party="Валяев Дмитрий Алексеевич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="282246" score="100">
+                <run accepted="yes" time="282246" language-id="python3.win" run-id="itsequel.main.1241.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="2276607" score="100">
+                <run accepted="yes" time="2276607" language-id="python3.win" run-id="itsequel.main.1241.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="7" accepted="1" time="4854877" score="100">
+                <run accepted="yes" time="3667155" language-id="python3.win" run-id="itsequel.main.1241.C.1" outcome="accepted" score="2"/>
+                <run accepted="yes" time="3834388" language-id="python3.win" run-id="itsequel.main.1241.C.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4482880" language-id="python3.win" run-id="itsequel.main.1241.C.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4616670" language-id="python3.win" run-id="itsequel.main.1241.C.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4780677" language-id="python3.win" run-id="itsequel.main.1241.C.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4815948" language-id="python3.win" run-id="itsequel.main.1241.C.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4854877" language-id="python3.win" run-id="itsequel.main.1241.C.7" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1243" id="itsequel.main.1243" party="Васенгин Кирилл Игоревич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="3" accepted="1" time="2888922" score="100">
+                <run accepted="yes" time="187777" language-id="pypy3.win" run-id="itsequel.main.1243.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="2860657" language-id="pypy3.win" run-id="itsequel.main.1243.A.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2888922" language-id="python3.win" run-id="itsequel.main.1243.A.3" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="4" accepted="1" time="6609536" score="100">
+                <run accepted="yes" time="4901205" language-id="python3.win" run-id="itsequel.main.1243.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5123061" language-id="python3.win" run-id="itsequel.main.1243.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5905811" language-id="python3.win" run-id="itsequel.main.1243.B.3" outcome="accepted" score="28"/>
+                <run accepted="yes" time="6609536" language-id="python3.win" run-id="itsequel.main.1243.B.4" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="3074380" score="100">
+                <run accepted="yes" time="3074380" language-id="python3.win" run-id="itsequel.main.1243.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="7097837" score="0">
+                <run accepted="yes" time="7007805" language-id="python3.win" run-id="itsequel.main.1243.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7097837" language-id="python3.win" run-id="itsequel.main.1243.E.2" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1245" id="itsequel.main.1245" party="Велижанин Илья Олегович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="234223" score="100">
+                <run accepted="yes" time="234223" language-id="pypy3.win" run-id="itsequel.main.1245.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="860192" score="100">
+                <run accepted="yes" time="860192" language-id="pypy3.win" run-id="itsequel.main.1245.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1919253" score="100">
+                <run accepted="yes" time="1919253" language-id="pypy3.win" run-id="itsequel.main.1245.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="6056198" score="0">
+                <run accepted="yes" time="4521659" language-id="pypy3.win" run-id="itsequel.main.1245.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5568860" language-id="pypy3.win" run-id="itsequel.main.1245.D.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6056198" language-id="pypy3.win" run-id="itsequel.main.1245.D.3" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="7146821" score="0">
+                <run accepted="yes" time="7146821" language-id="pypy3.win" run-id="itsequel.main.1245.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1346" id="itsequel.main.1346" party="Давидюк Тимофей Владимирович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="145165" score="100">
+                <run accepted="yes" time="145165" language-id="pypy3.win" run-id="itsequel.main.1346.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1400749" score="100">
+                <run accepted="yes" time="1400749" language-id="pypy3.win" run-id="itsequel.main.1346.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1791371" score="100">
+                <run accepted="yes" time="1791371" language-id="pypy3.win" run-id="itsequel.main.1346.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="7156912" score="0">
+                <run accepted="yes" time="7156912" language-id="pypy3.win" run-id="itsequel.main.1346.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1542" id="itsequel.main.1542" party="Иванов Сергей Евгеньевич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="393601" score="100">
+                <run accepted="yes" time="393601" language-id="python3.win" run-id="itsequel.main.1542.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="5648833" score="100">
+                <run accepted="yes" time="4731078" language-id="python3.win" run-id="itsequel.main.1542.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5648833" language-id="python3.win" run-id="itsequel.main.1542.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2582932" score="100">
+                <run accepted="yes" time="2582932" language-id="python3.win" run-id="itsequel.main.1542.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="4831502" score="0">
+                <run accepted="yes" time="4831502" language-id="python3.win" run-id="itsequel.main.1542.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="3570943" score="0">
+                <run accepted="yes" time="3570943" language-id="python3.win" run-id="itsequel.main.1542.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1543" id="itsequel.main.1543" party="Ивлев Лев Иванович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="443061" score="100">
+                <run accepted="yes" time="443061" language-id="cpp.visual" run-id="itsequel.main.1543.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="2189292" score="100">
+                <run accepted="yes" time="1599767" language-id="cpp.visual" run-id="itsequel.main.1543.B.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="2189292" language-id="cpp.visual" run-id="itsequel.main.1543.B.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2209398" score="100">
+                <run accepted="yes" time="2209398" language-id="cpp.visual" run-id="itsequel.main.1543.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="7095735" score="0">
+                <run accepted="yes" time="7054865" language-id="cpp.visual" run-id="itsequel.main.1543.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7095735" language-id="cpp.visual" run-id="itsequel.main.1543.E.2" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1545" id="itsequel.main.1545" party="Карпенко Александр Алексеевич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="4" accepted="1" time="2278677" score="100">
+                <run accepted="yes" time="264587" language-id="cpp.visual" run-id="itsequel.main.1545.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="340143" language-id="cpp.visual" run-id="itsequel.main.1545.A.2" outcome="accepted" score="100"/>
+                <run accepted="no" time="1763466" language-id="cpp.visual" run-id="itsequel.main.1545.A.3" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="2278677" language-id="cpp.visual" run-id="itsequel.main.1545.A.4" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="2293244" score="100">
+                <run accepted="no" time="1821893" language-id="cpp.visual" run-id="itsequel.main.1545.B.1" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="2293244" language-id="cpp.visual" run-id="itsequel.main.1545.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2703564" score="100">
+                <run accepted="yes" time="2703564" language-id="cpp.visual" run-id="itsequel.main.1545.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1546" id="itsequel.main.1546" party="Карпушин Денис Сергеевич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="333705" score="100">
+                <run accepted="yes" time="333705" language-id="cpp.gnu.win" run-id="itsequel.main.1546.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="2950188" score="100">
+                <run accepted="yes" time="2950188" language-id="cpp.gnu.win" run-id="itsequel.main.1546.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1048557" score="100">
+                <run accepted="yes" time="1048557" language-id="cpp.gnu.win" run-id="itsequel.main.1546.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="0" time="0" score="0">
+                <run accepted="no" time="7175859" language-id="cpp.gnu.win" run-id="itsequel.main.1546.E.1" outcome="compilation-error" score="0"/>
+            </problem>
+        </session>
+        <session alias="1548" id="itsequel.main.1548" party="Каюмов Артём Рустаямович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="295583" score="100">
+                <run accepted="yes" time="295583" language-id="cpp.visual" run-id="itsequel.main.1548.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="4327206" score="100">
+                <run accepted="yes" time="4327206" language-id="cpp.visual" run-id="itsequel.main.1548.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="5433673" score="100">
+                <run accepted="yes" time="5433673" language-id="cpp.visual" run-id="itsequel.main.1548.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="6157070" score="0">
+                <run accepted="yes" time="6157070" language-id="cpp.visual" run-id="itsequel.main.1548.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1743" id="itsequel.main.1743" party="Курач Ярослав Евгеньевич (город Тобольск)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="11" accepted="1" time="6970531" score="100">
+                <run accepted="yes" time="287206" language-id="python3.win" run-id="itsequel.main.1743.A.1" outcome="accepted" score="90"/>
+                <run accepted="yes" time="3371788" language-id="python3.win" run-id="itsequel.main.1743.A.2" outcome="accepted" score="90"/>
+                <run accepted="yes" time="3435042" language-id="python3.win" run-id="itsequel.main.1743.A.3" outcome="accepted" score="90"/>
+                <run accepted="yes" time="3825263" language-id="python3.win" run-id="itsequel.main.1743.A.4" outcome="accepted" score="90"/>
+                <run accepted="yes" time="4273262" language-id="python3.win" run-id="itsequel.main.1743.A.5" outcome="accepted" score="90"/>
+                <run accepted="yes" time="4404273" language-id="python3.win" run-id="itsequel.main.1743.A.6" outcome="accepted" score="90"/>
+                <run accepted="yes" time="4438058" language-id="python3.win" run-id="itsequel.main.1743.A.7" outcome="accepted" score="90"/>
+                <run accepted="yes" time="4485761" language-id="python3.win" run-id="itsequel.main.1743.A.8" outcome="accepted" score="100"/>
+                <run accepted="yes" time="6937513" language-id="python3.win" run-id="itsequel.main.1743.A.9" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6960581" language-id="python3.win" run-id="itsequel.main.1743.A.10" outcome="accepted" score="90"/>
+                <run accepted="yes" time="6970531" language-id="python3.win" run-id="itsequel.main.1743.A.11" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="4" accepted="1" time="6982882" score="100">
+                <run accepted="yes" time="2058082" language-id="python3.win" run-id="itsequel.main.1743.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2258239" language-id="python3.win" run-id="itsequel.main.1743.B.2" outcome="accepted" score="100"/>
+                <run accepted="yes" time="2986393" language-id="python3.win" run-id="itsequel.main.1743.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6982882" language-id="python3.win" run-id="itsequel.main.1743.B.4" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="3011557" score="100">
+                <run accepted="yes" time="3011557" language-id="python3.win" run-id="itsequel.main.1743.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1846" id="itsequel.main.1846" party="Мужев Андрей Дмитриевич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="238782" score="100">
+                <run accepted="yes" time="238782" language-id="python3.win" run-id="itsequel.main.1846.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="2828914" score="100">
+                <run accepted="yes" time="2828914" language-id="python3.win" run-id="itsequel.main.1846.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="2" accepted="1" time="4164847" score="100">
+                <run accepted="yes" time="4033133" language-id="python3.win" run-id="itsequel.main.1846.C.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4164847" language-id="python3.win" run-id="itsequel.main.1846.C.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1848" id="itsequel.main.1848" party="Новиков Демьян Ильич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="111213" score="100">
+                <run accepted="yes" time="111213" language-id="python3.win" run-id="itsequel.main.1848.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="1092284" score="100">
+                <run accepted="yes" time="846308" language-id="python3.win" run-id="itsequel.main.1848.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1092284" language-id="python3.win" run-id="itsequel.main.1848.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1291161" score="100">
+                <run accepted="yes" time="1291161" language-id="python3.win" run-id="itsequel.main.1848.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="7198416" score="0">
+                <run accepted="yes" time="7038537" language-id="python3.win" run-id="itsequel.main.1848.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7198416" language-id="python3.win" run-id="itsequel.main.1848.E.2" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1945" id="itsequel.main.1945" party="Пантелеев Данил Александрович (Тюменский район)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="376520" score="100">
+                <run accepted="yes" time="376520" language-id="python3.win" run-id="itsequel.main.1945.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="3" accepted="1" time="4099125" score="100">
+                <run accepted="yes" time="3513026" language-id="python3.win" run-id="itsequel.main.1945.B.1" outcome="accepted" score="28"/>
+                <run accepted="yes" time="3806430" language-id="python3.win" run-id="itsequel.main.1945.B.2" outcome="accepted" score="28"/>
+                <run accepted="yes" time="4099125" language-id="python3.win" run-id="itsequel.main.1945.B.3" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1396946" score="100">
+                <run accepted="yes" time="1396946" language-id="python3.win" run-id="itsequel.main.1945.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="4908621" score="0">
+                <run accepted="yes" time="4908621" language-id="python3.win" run-id="itsequel.main.1945.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="6" accepted="1" time="7153326" score="0">
+                <run accepted="yes" time="6543284" language-id="python3.win" run-id="itsequel.main.1945.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6611993" language-id="python3.win" run-id="itsequel.main.1945.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6877282" language-id="python3.win" run-id="itsequel.main.1945.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7084425" language-id="python3.win" run-id="itsequel.main.1945.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7134237" language-id="python3.win" run-id="itsequel.main.1945.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7153326" language-id="python3.win" run-id="itsequel.main.1945.E.6" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2048" id="itsequel.main.2048" party="Рожнова Дарья Владимировна (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="1288497" score="100">
+                <run accepted="yes" time="636620" language-id="python3.win" run-id="itsequel.main.2048.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="1288497" language-id="python3.win" run-id="itsequel.main.2048.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1300296" score="100">
+                <run accepted="yes" time="1300296" language-id="python3.win" run-id="itsequel.main.2048.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1568823" score="100">
+                <run accepted="yes" time="1568823" language-id="python3.win" run-id="itsequel.main.2048.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="7148530" score="0">
+                <run accepted="yes" time="7088606" language-id="python3.win" run-id="itsequel.main.2048.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7148530" language-id="python3.win" run-id="itsequel.main.2048.E.2" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2143" id="itsequel.main.2143" party="Сергеев Владислав Александрович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="271236" score="100">
+                <run accepted="yes" time="271236" language-id="cpp.visual" run-id="itsequel.main.2143.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1089032" score="100">
+                <run accepted="yes" time="1089032" language-id="cpp.visual" run-id="itsequel.main.2143.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1547202" score="100">
+                <run accepted="yes" time="1547202" language-id="cpp.visual" run-id="itsequel.main.2143.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2146" id="itsequel.main.2146" party="Соболева Софья Дмитриевна (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="354751" score="100">
+                <run accepted="yes" time="354751" language-id="python3.win" run-id="itsequel.main.2146.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="2397674" score="100">
+                <run accepted="yes" time="2397674" language-id="cpp.visual" run-id="itsequel.main.2146.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="3135066" score="100">
+                <run accepted="yes" time="3135066" language-id="cpp.visual" run-id="itsequel.main.2146.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="3" accepted="1" time="7191172" score="0">
+                <run accepted="yes" time="7128577" language-id="cpp.gnu.win" run-id="itsequel.main.2146.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7150581" language-id="cpp.visual" run-id="itsequel.main.2146.D.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7191172" language-id="cpp.visual" run-id="itsequel.main.2146.D.3" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2148" id="itsequel.main.2148" party="Степанов Илья Константинович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="5" accepted="1" time="3748317" score="100">
+                <run accepted="yes" time="346167" language-id="python3.win" run-id="itsequel.main.2148.A.1" outcome="accepted" score="70"/>
+                <run accepted="yes" time="3369710" language-id="python3.win" run-id="itsequel.main.2148.A.2" outcome="accepted" score="80"/>
+                <run accepted="yes" time="3520074" language-id="python3.win" run-id="itsequel.main.2148.A.3" outcome="accepted" score="50"/>
+                <run accepted="yes" time="3555661" language-id="python3.win" run-id="itsequel.main.2148.A.4" outcome="accepted" score="80"/>
+                <run accepted="yes" time="3748317" language-id="python3.win" run-id="itsequel.main.2148.A.5" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1900139" score="100">
+                <run accepted="yes" time="1900139" language-id="cpp.gnu.win" run-id="itsequel.main.2148.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2598220" score="100">
+                <run accepted="yes" time="2598220" language-id="python3.win" run-id="itsequel.main.2148.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="6046326" score="0">
+                <run accepted="yes" time="6004974" language-id="python3.win" run-id="itsequel.main.2148.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6046326" language-id="python3.win" run-id="itsequel.main.2148.E.2" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2241" id="itsequel.main.2241" party="Сунцов Александр Александрович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="476784" score="100">
+                <run accepted="yes" time="476784" language-id="python3.win" run-id="itsequel.main.2241.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="6820729" score="100">
+                <run accepted="yes" time="6820729" language-id="python3.win" run-id="itsequel.main.2241.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="2" accepted="1" time="1284843" score="100">
+                <run accepted="yes" time="1120685" language-id="python3.win" run-id="itsequel.main.2241.C.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1284843" language-id="python3.win" run-id="itsequel.main.2241.C.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="11" accepted="1" time="7158741" score="0">
+                <run accepted="yes" time="4693135" language-id="python3.win" run-id="itsequel.main.2241.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4793184" language-id="python3.win" run-id="itsequel.main.2241.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4972649" language-id="python3.win" run-id="itsequel.main.2241.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5003959" language-id="python3.win" run-id="itsequel.main.2241.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5184629" language-id="python3.win" run-id="itsequel.main.2241.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5347901" language-id="python3.win" run-id="itsequel.main.2241.E.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5457099" language-id="python3.win" run-id="itsequel.main.2241.E.7" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6121856" language-id="python3.win" run-id="itsequel.main.2241.E.8" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6805585" language-id="python3.win" run-id="itsequel.main.2241.E.9" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7132727" language-id="python3.win" run-id="itsequel.main.2241.E.10" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7158741" language-id="python3.win" run-id="itsequel.main.2241.E.11" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2346" id="itsequel.main.2346" party="Худышкин Станислав Дмитриевич (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="5052493" score="100">
+                <run accepted="yes" time="5052493" language-id="python3.win" run-id="itsequel.main.2346.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="5121600" score="100">
+                <run accepted="yes" time="5121600" language-id="python3.win" run-id="itsequel.main.2346.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="5136939" score="100">
+                <run accepted="yes" time="5136939" language-id="python3.win" run-id="itsequel.main.2346.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2444" id="itsequel.main.2444" party="Шляпин Александр Артемович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="677798" score="100">
+                <run accepted="yes" time="677798" language-id="python3.win" run-id="itsequel.main.2444.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1803165" score="100">
+                <run accepted="yes" time="1803165" language-id="python3.win" run-id="itsequel.main.2444.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2489762" score="100">
+                <run accepted="yes" time="2489762" language-id="python3.win" run-id="itsequel.main.2444.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="4755372" score="0">
+                <run accepted="yes" time="4755372" language-id="python3.win" run-id="itsequel.main.2444.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2447" id="itsequel.main.2447" party="Шуляк Олег Вячеславович (город Тюмень)" score="300">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="218634" score="100">
+                <run accepted="yes" time="218634" language-id="python3.win" run-id="itsequel.main.2447.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="1026223" score="100">
+                <run accepted="yes" time="1026223" language-id="cpp.visual" run-id="itsequel.main.2447.B.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1596096" score="100">
+                <run accepted="yes" time="1596096" language-id="python3.win" run-id="itsequel.main.2447.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1747" id="itsequel.main.1747" party="Левицкий Илья Александрович (город Тюмень)" score="230">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="3" accepted="1" time="710590" score="30">
+                <run accepted="yes" time="299445" language-id="pypy3.win" run-id="itsequel.main.1747.A.1" outcome="accepted" score="30"/>
+                <run accepted="yes" time="519558" language-id="pypy3.win" run-id="itsequel.main.1747.A.2" outcome="accepted" score="30"/>
+                <run accepted="yes" time="710590" language-id="pypy3.win" run-id="itsequel.main.1747.A.3" outcome="accepted" score="30"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="3495872" score="100">
+                <run accepted="yes" time="2972700" language-id="pypy3.win" run-id="itsequel.main.1747.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3495872" language-id="pypy3.win" run-id="itsequel.main.1747.B.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="2" accepted="1" time="7176345" score="100">
+                <run accepted="yes" time="4476398" language-id="pypy3.win" run-id="itsequel.main.1747.C.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="7176345" language-id="pypy3.win" run-id="itsequel.main.1747.C.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="7189113" score="0">
+                <run accepted="yes" time="7189113" language-id="pypy3.win" run-id="itsequel.main.1747.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1445" id="itsequel.main.1445" party="Залилов Эльдар Ринатович (город Тюмень)" score="210">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="248588" score="100">
+                <run accepted="yes" time="248588" language-id="pypy3.win" run-id="itsequel.main.1445.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1132048" score="100">
+                <run accepted="yes" time="1132048" language-id="pypy3.win" run-id="itsequel.main.1445.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="12" accepted="1" time="5471504" score="10">
+                <run accepted="yes" time="2424127" language-id="pypy3.win" run-id="itsequel.main.1445.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2700184" language-id="pypy3.win" run-id="itsequel.main.1445.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2839707" language-id="pypy3.win" run-id="itsequel.main.1445.E.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3491716" language-id="pypy3.win" run-id="itsequel.main.1445.E.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3743885" language-id="pypy3.win" run-id="itsequel.main.1445.E.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3910567" language-id="python3.win" run-id="itsequel.main.1445.E.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4627530" language-id="python3.win" run-id="itsequel.main.1445.E.7" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4659860" language-id="python3.win" run-id="itsequel.main.1445.E.8" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4854206" language-id="pypy3.win" run-id="itsequel.main.1445.E.9" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4914898" language-id="pypy3.win" run-id="itsequel.main.1445.E.10" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4933081" language-id="pypy3.win" run-id="itsequel.main.1445.E.11" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5471504" language-id="pypy3.win" run-id="itsequel.main.1445.E.12" outcome="accepted" score="10"/>
+            </problem>
+        </session>
+        <session alias="1145" id="itsequel.main.1145" party="Ашмарин Денис Юрьевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="592716" score="100">
+                <run accepted="yes" time="592716" language-id="python3.win" run-id="itsequel.main.1145.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="7" accepted="1" time="7139024" score="0">
+                <run accepted="yes" time="3784034" language-id="python3.win" run-id="itsequel.main.1145.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4979867" language-id="python3.win" run-id="itsequel.main.1145.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5247974" language-id="python3.win" run-id="itsequel.main.1145.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6103663" language-id="python3.win" run-id="itsequel.main.1145.B.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6645844" language-id="python3.win" run-id="itsequel.main.1145.B.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7012763" language-id="pypy3.win" run-id="itsequel.main.1145.B.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7139024" language-id="python3.win" run-id="itsequel.main.1145.B.7" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1720895" score="100">
+                <run accepted="yes" time="1720895" language-id="python3.win" run-id="itsequel.main.1145.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1244" id="itsequel.main.1244" party="Ващенко Иван Алексеевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="199379" score="100">
+                <run accepted="yes" time="199379" language-id="python3.win" run-id="itsequel.main.1244.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="1770480" score="0">
+                <run accepted="yes" time="1399858" language-id="python3.win" run-id="itsequel.main.1244.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="1770480" language-id="python3.win" run-id="itsequel.main.1244.B.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2528807" score="100">
+                <run accepted="yes" time="2528807" language-id="python3.win" run-id="itsequel.main.1244.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1343" id="itsequel.main.1343" party="Голдобин Георгий Дмитриевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="126049" score="100">
+                <run accepted="yes" time="126049" language-id="python3.win" run-id="itsequel.main.1343.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="555805" score="100">
+                <run accepted="yes" time="555805" language-id="python3.win" run-id="itsequel.main.1343.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1344" id="itsequel.main.1344" party="Горбачев Виктор Максимович (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="265184" score="100">
+                <run accepted="yes" time="265184" language-id="python3.win" run-id="itsequel.main.1344.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="6215477" score="0">
+                <run accepted="yes" time="6215477" language-id="python3.win" run-id="itsequel.main.1344.B.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2501986" score="100">
+                <run accepted="yes" time="2501986" language-id="python3.win" run-id="itsequel.main.1344.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1345" id="itsequel.main.1345" party="Григорьев Кирилл Дмитриевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="201588" score="100">
+                <run accepted="yes" time="201588" language-id="pypy3.win" run-id="itsequel.main.1345.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="647752" score="100">
+                <run accepted="yes" time="647752" language-id="pypy3.win" run-id="itsequel.main.1345.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1644" id="itsequel.main.1644" party="Коптяев Рустам Сергеевич (город Тобольск)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="662200" score="100">
+                <run accepted="yes" time="662200" language-id="python3.win" run-id="itsequel.main.1644.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="3" accepted="1" time="5084513" score="0">
+                <run accepted="yes" time="4660942" language-id="python3.win" run-id="itsequel.main.1644.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4671174" language-id="python3.win" run-id="itsequel.main.1644.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5084513" language-id="python3.win" run-id="itsequel.main.1644.B.3" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="4067982" score="100">
+                <run accepted="yes" time="4067982" language-id="python3.win" run-id="itsequel.main.1644.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1646" id="itsequel.main.1646" party="Крук Илья Вадимович (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="228907" score="100">
+                <run accepted="yes" time="228907" language-id="python3.win" run-id="itsequel.main.1646.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="7030836" score="0">
+                <run accepted="yes" time="7030836" language-id="python3.win" run-id="itsequel.main.1646.B.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2305575" score="100">
+                <run accepted="yes" time="2305575" language-id="python3.win" run-id="itsequel.main.1646.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1844" id="itsequel.main.1844" party="Мартынов Артём Андреевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="260740" score="100">
+                <run accepted="yes" time="260740" language-id="python3.win" run-id="itsequel.main.1844.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1644458" score="100">
+                <run accepted="yes" time="1644458" language-id="python3.win" run-id="itsequel.main.1844.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2043" id="itsequel.main.2043" party="Пузынин Кирилл Андреевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="319057" score="100">
+                <run accepted="yes" time="319057" language-id="cpp.gnu.win" run-id="itsequel.main.2043.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="1" accepted="1" time="4787391" score="0">
+                <run accepted="yes" time="4787391" language-id="cpp.gnu.win" run-id="itsequel.main.2043.B.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2972775" score="100">
+                <run accepted="yes" time="2972775" language-id="cpp.gnu.win" run-id="itsequel.main.2043.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="7162448" score="0">
+                <run accepted="yes" time="7162448" language-id="cpp.gnu.win" run-id="itsequel.main.2043.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2046" id="itsequel.main.2046" party="Родивилова Ирина Дмитриевна (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="220107" score="100">
+                <run accepted="yes" time="220107" language-id="python3.win" run-id="itsequel.main.2046.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="7" accepted="1" time="6929721" score="0">
+                <run accepted="yes" time="3603984" language-id="python3.win" run-id="itsequel.main.2046.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4502551" language-id="python3.win" run-id="itsequel.main.2046.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4660248" language-id="python3.win" run-id="itsequel.main.2046.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4972514" language-id="python3.win" run-id="itsequel.main.2046.B.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5680890" language-id="python3.win" run-id="itsequel.main.2046.B.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6053572" language-id="python3.win" run-id="itsequel.main.2046.B.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6929721" language-id="python3.win" run-id="itsequel.main.2046.B.7" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="2" accepted="1" time="1116496" score="100">
+                <run accepted="yes" time="923675" language-id="python3.win" run-id="itsequel.main.2046.C.1" outcome="accepted" score="14"/>
+                <run accepted="yes" time="1116496" language-id="python3.win" run-id="itsequel.main.2046.C.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2147" id="itsequel.main.2147" party="Солод Александр Сергеевич (город Тобольск)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="635640" score="100">
+                <run accepted="yes" time="635640" language-id="python3.win" run-id="itsequel.main.2147.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="2425178" score="100">
+                <run accepted="yes" time="2425178" language-id="python3.win" run-id="itsequel.main.2147.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2243" id="itsequel.main.2243" party="Тепляков Геннадий Дмитриевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="303654" score="100">
+                <run accepted="yes" time="303654" language-id="cpp.gnu.win" run-id="itsequel.main.2243.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="4" accepted="1" time="7116499" score="0">
+                <run accepted="yes" time="6007751" language-id="cpp.gnu.win" run-id="itsequel.main.2243.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6267704" language-id="cpp.gnu.win" run-id="itsequel.main.2243.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6866211" language-id="cpp.gnu.win" run-id="itsequel.main.2243.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7116499" language-id="cpp.gnu.win" run-id="itsequel.main.2243.B.4" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="1753529" score="100">
+                <run accepted="yes" time="1753529" language-id="cpp.gnu.win" run-id="itsequel.main.2243.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="3426809" score="0">
+                <run accepted="yes" time="3426809" language-id="cpp.gnu.win" run-id="itsequel.main.2243.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2247" id="itsequel.main.2247" party="Турыгин Никита Денисович (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="283344" score="100">
+                <run accepted="yes" time="283344" language-id="pypy3.win" run-id="itsequel.main.2247.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="7" accepted="1" time="7106170" score="0">
+                <run accepted="yes" time="3921380" language-id="pypy3.win" run-id="itsequel.main.2247.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3957444" language-id="python3.win" run-id="itsequel.main.2247.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4156192" language-id="pypy3.win" run-id="itsequel.main.2247.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6524395" language-id="pypy3.win" run-id="itsequel.main.2247.B.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6672316" language-id="pypy3.win" run-id="itsequel.main.2247.B.5" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6707738" language-id="pypy3.win" run-id="itsequel.main.2247.B.6" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7106170" language-id="pypy3.win" run-id="itsequel.main.2247.B.7" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="5543987" score="100">
+                <run accepted="yes" time="5543987" language-id="pypy3.win" run-id="itsequel.main.2247.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2345" id="itsequel.main.2345" party="Хромова Ульяна Вячеславовна (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="176155" score="100">
+                <run accepted="yes" time="176155" language-id="python3.win" run-id="itsequel.main.2345.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="4" accepted="1" time="5688199" score="0">
+                <run accepted="yes" time="4376295" language-id="python3.win" run-id="itsequel.main.2345.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4670192" language-id="python3.win" run-id="itsequel.main.2345.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5647934" language-id="python3.win" run-id="itsequel.main.2345.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5688199" language-id="python3.win" run-id="itsequel.main.2345.B.4" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="682209" score="100">
+                <run accepted="yes" time="682209" language-id="python3.win" run-id="itsequel.main.2345.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2347" id="itsequel.main.2347" party="Чебаков Егор Алексеевич (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="691466" score="100">
+                <run accepted="yes" time="691466" language-id="python3.win" run-id="itsequel.main.2347.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="5" accepted="1" time="7166387" score="0">
+                <run accepted="yes" time="5514264" language-id="python3.win" run-id="itsequel.main.2347.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5789003" language-id="python3.win" run-id="itsequel.main.2347.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5981883" language-id="python3.win" run-id="itsequel.main.2347.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6395705" language-id="python3.win" run-id="itsequel.main.2347.B.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7166387" language-id="python3.win" run-id="itsequel.main.2347.B.5" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="3195722" score="100">
+                <run accepted="yes" time="3195722" language-id="python3.win" run-id="itsequel.main.2347.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2441" id="itsequel.main.2441" party="Черных Илья Максимович (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="1210458" score="100">
+                <run accepted="yes" time="1210458" language-id="cpp.visual" run-id="itsequel.main.2441.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="3" accepted="1" time="6929904" score="100">
+                <run accepted="no" time="6692800" language-id="cpp.visual" run-id="itsequel.main.2441.B.1" outcome="compilation-error" score="0"/>
+                <run accepted="no" time="6721446" language-id="cpp.visual" run-id="itsequel.main.2441.B.2" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="6929904" language-id="cpp.gnu.win" run-id="itsequel.main.2441.B.3" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2542" id="itsequel.main.2542" party="Янин Сергей Олегович (город Тюмень)" score="200">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="314780" score="100">
+                <run accepted="yes" time="314780" language-id="python3.win" run-id="itsequel.main.2542.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="5" accepted="1" time="5123293" score="0">
+                <run accepted="yes" time="3082092" language-id="python3.win" run-id="itsequel.main.2542.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3412250" language-id="python3.win" run-id="itsequel.main.2542.B.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4008351" language-id="python3.win" run-id="itsequel.main.2542.B.3" outcome="accepted" score="0"/>
+                <run accepted="yes" time="4480738" language-id="python3.win" run-id="itsequel.main.2542.B.4" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5123293" language-id="python3.win" run-id="itsequel.main.2542.B.5" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="1" accepted="1" time="781433" score="100">
+                <run accepted="yes" time="781433" language-id="python3.win" run-id="itsequel.main.2542.C.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="2" accepted="1" time="6264334" score="0">
+                <run accepted="yes" time="5973033" language-id="python3.win" run-id="itsequel.main.2542.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="6264334" language-id="python3.win" run-id="itsequel.main.2542.E.2" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2145" id="itsequel.main.2145" party="Сихварт Дарья Николаевна (Заводоуковский г.о.)" score="164">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="2704465" score="100">
+                <run accepted="yes" time="2704465" language-id="python3.win" run-id="itsequel.main.2145.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="5" accepted="1" time="6697261" score="39">
+                <run accepted="yes" time="4822473" language-id="python3.win" run-id="itsequel.main.2145.C.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="5128721" language-id="python3.win" run-id="itsequel.main.2145.C.2" outcome="accepted" score="20"/>
+                <run accepted="yes" time="5732809" language-id="python3.win" run-id="itsequel.main.2145.C.3" outcome="accepted" score="20"/>
+                <run accepted="yes" time="5906199" language-id="python3.win" run-id="itsequel.main.2145.C.4" outcome="accepted" score="20"/>
+                <run accepted="yes" time="6697261" language-id="python3.win" run-id="itsequel.main.2145.C.5" outcome="accepted" score="39"/>
+            </problem>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="5" accepted="1" time="4038511" score="25">
+                <run accepted="yes" time="2745864" language-id="python3.win" run-id="itsequel.main.2145.E.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="2948337" language-id="python3.win" run-id="itsequel.main.2145.E.2" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3179579" language-id="python3.win" run-id="itsequel.main.2145.E.3" outcome="accepted" score="10"/>
+                <run accepted="yes" time="3900846" language-id="python3.win" run-id="itsequel.main.2145.E.4" outcome="accepted" score="10"/>
+                <run accepted="yes" time="4038511" language-id="python3.win" run-id="itsequel.main.2145.E.5" outcome="accepted" score="25"/>
+            </problem>
+        </session>
+        <session alias="1148" id="itsequel.main.1148" party="Ваганов Никита Владимирович (город Тюмень)" score="100">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="412000" score="100">
+                <run accepted="no" time="368614" language-id="cpp.gnu.win" run-id="itsequel.main.1148.A.1" outcome="compilation-error" score="0"/>
+                <run accepted="yes" time="412000" language-id="python3.win" run-id="itsequel.main.1148.A.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="1" accepted="1" time="1175440" score="0">
+                <run accepted="yes" time="1175440" language-id="python3.win" run-id="itsequel.main.1148.D.1" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1446" id="itsequel.main.1446" party="Занвилевич Роман Станиславович (город Тюмень)" score="100">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="678371" score="100">
+                <run accepted="yes" time="678371" language-id="python3.win" run-id="itsequel.main.1446.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="2" accepted="1" time="7014158" score="0">
+                <run accepted="yes" time="4259134" language-id="python3.win" run-id="itsequel.main.1446.B.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="7014158" language-id="python3.win" run-id="itsequel.main.1446.B.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="C" id="itsequel.main.training" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="1947" id="itsequel.main.1947" party="Пешков Фёдор Андреевич (город Тюмень)" score="100">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="2083143" score="100">
+                <run accepted="yes" time="544294" language-id="python3.win" run-id="itsequel.main.1947.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="2083143" language-id="python3.win" run-id="itsequel.main.1947.A.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="2" accepted="1" time="3988468" score="0">
+                <run accepted="yes" time="3934643" language-id="python3.win" run-id="itsequel.main.1947.D.1" outcome="accepted" score="0"/>
+                <run accepted="yes" time="3988468" language-id="python3.win" run-id="itsequel.main.1947.D.2" outcome="accepted" score="0"/>
+            </problem>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="4189690" score="0">
+                <run accepted="yes" time="4189690" language-id="python3.win" run-id="itsequel.main.1947.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="1948" id="itsequel.main.1948" party="Полищук Владимир Игоревич (город Тюмень)" score="100">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="2" accepted="1" time="6686928" score="100">
+                <run accepted="yes" time="640592" language-id="python3.win" run-id="itsequel.main.1948.A.1" outcome="accepted" score="100"/>
+                <run accepted="yes" time="6686928" language-id="python3.win" run-id="itsequel.main.1948.A.2" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="1" accepted="1" time="6657267" score="0">
+                <run accepted="yes" time="6657267" language-id="python3.win" run-id="itsequel.main.1948.E.1" outcome="accepted" score="0"/>
+            </problem>
+        </session>
+        <session alias="2047" id="itsequel.main.2047" party="Родионова Лия Михайловна (город Тюмень)" score="100">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="6" accepted="1" time="6527579" score="100">
+                <run accepted="yes" time="556664" language-id="python3.win" run-id="itsequel.main.2047.A.1" outcome="accepted" score="10"/>
+                <run accepted="yes" time="652965" language-id="python3.win" run-id="itsequel.main.2047.A.2" outcome="accepted" score="30"/>
+                <run accepted="yes" time="1538780" language-id="python3.win" run-id="itsequel.main.2047.A.3" outcome="accepted" score="90"/>
+                <run accepted="yes" time="1841659" language-id="python3.win" run-id="itsequel.main.2047.A.4" outcome="accepted" score="90"/>
+                <run accepted="yes" time="1906420" language-id="python3.win" run-id="itsequel.main.2047.A.5" outcome="accepted" score="90"/>
+                <run accepted="yes" time="6527579" language-id="python3.win" run-id="itsequel.main.2047.A.6" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+        <session alias="2246" id="itsequel.main.2246" party="Трегубов Антон Игоревич (город Тюмень)" score="100">
+            <problem alias="A" id="itsequel.main.cruzo" attempts="1" accepted="1" time="96513" score="100">
+                <run accepted="yes" time="96513" language-id="python3.win" run-id="itsequel.main.2246.A.1" outcome="accepted" score="100"/>
+            </problem>
+            <problem alias="B" id="itsequel.main.rhomb" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="C" id="itsequel.main.training" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="D" id="itsequel.main.inbalanced-partitions" attempts="0" accepted="0" time="0" score="0"/>
+            <problem alias="E" id="itsequel.main.squary" attempts="0" accepted="0" time="0" score="0"/>
+        </session>
+    </contest>
+</standings>

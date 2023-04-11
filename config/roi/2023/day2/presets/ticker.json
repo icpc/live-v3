@@ -1,0 +1,50 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "Второй тур заключительного этапа ВсОШ по информатике!"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Текущие результаты: nerc.itmo.ru/school/archive/2022-2023/ru-olymp-roi-2023-standings-day2.html"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 5000,
+        "text": "ВсОШ"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "Официальная страница олимпиады tyuiu.ru/abitur/olymp/vsosh/"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Прямой эфир ВсОШ от VK"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "Задания тура доступны на tyuiu.ru/abitur/olymp/vsosh/zadaniya-turov/"
+    }
+]

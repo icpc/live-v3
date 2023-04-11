@@ -1,0 +1,38 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "IT-сиквел ВсОШ по информатике!"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 5000,
+        "text": "ВсОШ"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Прямой эфир ВсОШ от VK"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 5000,
+        "text": "IT-сиквел"
+    }
+]
