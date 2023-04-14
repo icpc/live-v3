@@ -16,7 +16,8 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
 class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-    override val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
+    override val resultType =
+        ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
 
     override suspend fun loadOnce(): ContestParseResult {
         val element = xmlLoader.load()
@@ -60,9 +61,11 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         return guessDatetimeFormat(formattedTime)
     }
 
-    private fun parseContestInfo(element: Element) : ContestParseResult {
+    private fun parseContestInfo(element: Element): ContestParseResult {
         val contestLength = element.getAttribute("duration").toLong().seconds
-        val startTime = parseEjudgeTime(element.getAttribute("start_time"))
+        val startTime = element.getAttribute("start_time").ifEmpty {
+            element.getAttribute("sched_start_time").ifEmpty { null }
+        }?.let { parseEjudgeTime(it) } ?: Instant.fromEpochMilliseconds(0)
         val currentTime = parseEjudgeTime(element.getAttribute("current_time"))
         val name = element.child("name").textContent
 
@@ -102,7 +105,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         element: Element,
         currentTime: Duration,
         teamIdMapping: Map<String, Int>
-    ) : RunInfo? {
+    ): RunInfo? {
         val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
         if (time > currentTime) {
             return null
@@ -126,6 +129,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
                     result = result,
                     isFirstToSolveRun = false
                 ).takeIf { result != "" }
+
                 ContestResultType.IOI -> {
                     val score = element.getAttribute("score").ifEmpty { "0" }.toDouble()
                     IOIRunResult(

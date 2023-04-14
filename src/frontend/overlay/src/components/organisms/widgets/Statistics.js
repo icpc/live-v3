@@ -115,8 +115,7 @@ export const Statistics = () => {
         <StatisticsWrap>
             <Title>Statistics</Title>
             <Table>
-                {tasks && statistics?.map(({ result }, index) => {
-                    const [success, pending, wrong] = result;
+                {tasks && statistics?.map(({ result, success, pending, wrong }, index) => {
                     return <Fragment key={index}>
                         <StatisticsProblemCell probData={tasks[index]}/>
                         {resultType === "ICPC" &&
