@@ -35,7 +35,7 @@ data class ScoreboardRow(
 
 //TODO: custom string, maybe something else
 @Serializable
-@SerialName("icpc")
+@SerialName("ICPC")
 data class ICPCProblemResult(
     val wrongAttempts: Int,
     val pendingAttempts: Int,
@@ -47,7 +47,7 @@ data class ICPCProblemResult(
 ) : ProblemResult()
 
 @Serializable
-@SerialName("ioi")
+@SerialName("IOI")
 data class IOIProblemResult(
     val score: Double?,
     @SerialName("lastSubmitTimeMs")

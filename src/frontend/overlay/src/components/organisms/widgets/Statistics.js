@@ -119,7 +119,7 @@ export const Statistics = () => {
                     const [success, pending, wrong] = result;
                     return <Fragment key={index}>
                         <StatisticsProblemCell probData={tasks[index]}/>
-                        {resultType === "icpc" &&
+                        {resultType === "ICPC" &&
                         <SubmissionStats>
                             <StatEntry targetWidth={calculator(success, true)} color={VERDICT_OK}>
                                 {success}
@@ -132,7 +132,7 @@ export const Statistics = () => {
                             </StatEntry>
                         </SubmissionStats>
                         }
-                        {resultType !== "icpc" &&
+                        {resultType !== "ICPC" &&
                             <SubmissionStats>
                                 {result.map(({ count, score }, i) => {
                                     return <StatEntry targetWidth={calculator(count, false)} color={getTeamTaskColor(score, contestData?.problems[index]?.minScore, contestData?.problems[index]?.maxScore)} key={i}>

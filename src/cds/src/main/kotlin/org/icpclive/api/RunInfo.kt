@@ -32,7 +32,7 @@ data class ICPCRunResult(
 ) : RunResult()
 
 @Serializable
-@SerialName("ioi")
+@SerialName("IOI")
 data class IOIRunResult(
     val score: List<Double>,
     val wrongVerdict: String? = null,
