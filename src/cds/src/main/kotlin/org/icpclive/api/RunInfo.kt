@@ -23,7 +23,7 @@ data class RunInfo constructor(
 sealed class RunResult
 
 @Serializable
-@SerialName("icpc")
+@SerialName("ICPC")
 data class ICPCRunResult(
     val isAccepted: Boolean,
     val isAddingPenalty: Boolean,
