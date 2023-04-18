@@ -122,7 +122,18 @@ class CFContestInfo {
                 )
             }
 
-            CFContestType.IOI -> TODO()
+            CFContestType.IOI -> {
+                val isWrong = submission.verdict !in listOf(CFSubmissionVerdict.OK, CFSubmissionVerdict.CHALLENGED, CFSubmissionVerdict.SKIPPED)
+                val score = if (!isWrong) {
+                    submission.problem.points!!
+                } else {
+                    0.0
+                }
+                IOIRunResult(
+                    score = listOf(score),
+                    wrongVerdict = if (isWrong) verdictToString[submission.verdict] else null,
+                )
+            }
             CFContestType.CF -> {
                 // TODO: this should come from API
                 val maxScore = submission.problem.points!!
