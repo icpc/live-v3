@@ -123,12 +123,9 @@ class CFContestInfo {
             }
 
             CFContestType.IOI -> {
-                val isWrong = submission.verdict !in listOf(CFSubmissionVerdict.OK, CFSubmissionVerdict.CHALLENGED, CFSubmissionVerdict.SKIPPED)
-                val score = if (!isWrong) {
-                    submission.problem.points!!
-                } else {
-                    0.0
-                }
+                // TODO: is CFSubmissionVerdict.SKIPPED not wrong
+                val isWrong = submission.verdict !in listOf(CFSubmissionVerdict.OK, CFSubmissionVerdict.CHALLENGED, CFSubmissionVerdict.PARTIAL)
+                val score = submission.points?.takeIf { !isWrong } ?: 0.0
                 IOIRunResult(
                     score = listOf(score),
                     wrongVerdict = if (isWrong) verdictToString[submission.verdict] else null,

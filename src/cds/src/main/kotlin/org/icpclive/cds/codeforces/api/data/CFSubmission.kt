@@ -29,4 +29,5 @@ data class CFSubmission(
     val passedTestCount: Int,
     val timeConsumedMillis: Int,
     val memoryConsumedBytes: Long,
+    val points: Double?,
 )
