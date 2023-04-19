@@ -1,5 +1,6 @@
 package org.icpclive.cds.clics
 
+import io.ktor.utils.io.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -17,6 +18,7 @@ import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.getLineStreamLoaderFlow
 import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.util.*
+import java.lang.Exception
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -93,13 +95,14 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
                         break
                     }
                 }
-                val contestEvents = prefix.filterIsInstance<UpdateContestEvent>()
-                val runEvents = prefix.filterIsInstance<UpdateRunEvent>()
+                val contestEvents = prefix.filterIsInstance<UpdateContestEvent>().sortedBy { priority(it) }
+                val runEvents = prefix.filterIsInstance<UpdateRunEvent>().sortedBy { priority(it) }
                 val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
-                contestEvents.sortedBy { priority(it) }.forEach { emit(it) }
-                runEvents.sortedBy { priority(it) }.forEach { emit(it) }
+                contestEvents.filter { !it.isFinalEvent }.forEach { emit(it) }
+                runEvents.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
                 emit(PreloadFinishedEvent(""))
+                contestEvents.filter { it.isFinalEvent }.forEach { emit(it) }
                 for (event in channel) {
                     emit(event)
                 }
@@ -172,7 +175,16 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
             }
             .sortedPrefix()
             .filterNot { it.token in idSet }
-            .onEach { processEvent(it) }
+            .onEach {
+                try {
+                    println("Before process: $it")
+                    processEvent(it)
+                    println("End process: $it")
+                } catch (e: Throwable) {
+                    println(e.printStackTrace())
+                    throw e
+                }
+            }
             .takeWhile { !it.isFinalEvent }
             .onEach { idSet.add(it.token) }
             .logAndRetryWithDelay(5.seconds) {
