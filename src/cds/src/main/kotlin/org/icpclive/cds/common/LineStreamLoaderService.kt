@@ -10,42 +10,34 @@ import kotlinx.coroutines.*
 import org.icpclive.util.getLogger
 import java.nio.file.Paths
 
-abstract class LineStreamLoaderService<T : Any>(auth: ClientAuth?) {
-    private val httpClient = defaultHttpClient(auth)
-
-    abstract val url: String
-    abstract fun processEvent(data: String): T?
-
-
-    suspend fun run() = flow {
-        if (!isHttpUrl(url)) {
-            Paths.get(url).toFile().useLines { lines ->
-                lines.forEach { processEvent(it)?.also { emit(it) } }
-            }
-            return@flow
+fun getLineStreamLoaderFlow(url: String, auth: ClientAuth?) = flow {
+    val httpClient = defaultHttpClient(auth)
+    if (!isHttpUrl(url)) {
+        Paths.get(url).toFile().useLines { lines ->
+            lines.forEach { emit(it) }
         }
-
-        logger.warn("Requesting $url")
-        httpClient.prepareGet(url) {
-            timeout {
-                socketTimeoutMillis = Long.MAX_VALUE
-                requestTimeoutMillis = Long.MAX_VALUE
-            }
-        }.execute { httpResponse ->
-            if (httpResponse.status != HttpStatusCode.OK) {
-                logger.warn("Got ${httpResponse.status} from $url")
-                return@execute
-            }
-            val channel = httpResponse.bodyAsChannel()
-            while (!channel.isClosedForRead) {
-                val line = channel.readUTF8Line() ?: continue
-                if (line.isEmpty()) continue
-                processEvent(line)?.also { emit(it) }
-            }
-        }
-    }.flowOn(Dispatchers.IO)
-
-    companion object {
-        val logger = getLogger(LineStreamLoaderService::class)
+        return@flow
     }
-}
+
+    logger.debug("Requesting $url")
+    httpClient.prepareGet(url) {
+        timeout {
+            socketTimeoutMillis = Long.MAX_VALUE
+            requestTimeoutMillis = Long.MAX_VALUE
+        }
+    }.execute { httpResponse ->
+        if (httpResponse.status != HttpStatusCode.OK) {
+            logger.warn("Got ${httpResponse.status} from $url")
+            return@execute
+        }
+        val channel = httpResponse.bodyAsChannel()
+        while (!channel.isClosedForRead) {
+            val line = channel.readUTF8Line() ?: continue
+            if (line.isEmpty()) continue
+            emit(line)
+        }
+    }
+}.flowOn(Dispatchers.IO)
+
+object LineStreamLoaderService
+val logger = getLogger(LineStreamLoaderService::class)

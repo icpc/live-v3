@@ -1,7 +1,6 @@
 package org.icpclive.cds.clics
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
@@ -15,7 +14,8 @@ import org.icpclive.cds.*
 import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.LineStreamLoaderService
+import org.icpclive.cds.common.getLineStreamLoaderFlow
+import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.util.*
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
@@ -59,7 +59,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
     ) {
         val eventsLoader = getEventFeedLoader(mainLoaderSettings)
-        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it, true) }
+        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it) }
 
         fun priority(event: UpdateContestEvent) = when (event) {
             is ContestEvent -> 0
@@ -80,12 +80,8 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
 
         fun Flow<Event>.sortedPrefix() = flow {
             coroutineScope {
-                val channelDeferred = CompletableDeferred<ReceiveChannel<Event>>()
-                launch {
-                    @OptIn(FlowPreview::class)
-                    produceIn(this).also { channelDeferred.completeOrThrow(it) }
-                }
-                val channel = channelDeferred.await()
+                @OptIn(FlowPreview::class)
+                val channel = produceIn(this)
                 val prefix = mutableListOf<Event>()
                 prefix.add(channel.receive())
                 while (true) {
@@ -104,13 +100,9 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
                 runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
                 emit(PreloadFinishedEvent(""))
-                if (contestEvents.none { it.isFinalEvent }) {
-                    for (event in channel) {
-                        emit(event)
-                        if (event.isFinalEvent) break
-                    }
+                for (event in channel) {
+                    emit(event)
                 }
-                channel.cancel()
             }
         }
 
@@ -173,10 +165,15 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
         }
 
         val idSet = mutableSetOf<String>()
-        merge(eventsLoader.run(), additionalEventsLoader?.run() ?: emptyFlow())
+        merge(eventsLoader, additionalEventsLoader ?: emptyFlow())
+            .logAndRetryWithDelay(5.seconds) {
+                logger.error("Exception caught in CLICS loader. Will restart in 5 seconds.", it)
+                preloadFinished = false
+            }
             .sortedPrefix()
             .filterNot { it.token in idSet }
             .onEach { processEvent(it) }
+            .takeWhile { !it.isFinalEvent }
             .onEach { idSet.add(it.token) }
             .logAndRetryWithDelay(5.seconds) {
                 logger.error("Exception caught in CLICS parser. Will restart in 5 seconds.", it)
@@ -207,28 +204,30 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
 
     companion object {
         val logger = getLogger(ClicsDataSource::class)
+        @OptIn(ExperimentalSerializationApi::class)
+        private fun getEventFeedLoader(settings: ClicsLoaderSettings) = flow {
+            val jsonDecoder = Json {
+                ignoreUnknownKeys = true
+                explicitNulls = false
+            }
+
+            while (true) {
+                emitAll(getLineStreamLoaderFlow(settings.eventFeedUrl, settings.auth)
+                    .mapNotNull { data ->
+                        try {
+                            when (settings.feedVersion) {
+                                FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
+                                FeedVersion.V2022_07 -> jsonDecoder.decodeFromString<Event>(data)
+                            }
+                        } catch (e: SerializationException) {
+                            logger.error("Failed to deserialize: $data", e)
+                            null
+                        }
+                    })
+                if (!isHttpUrl(settings.eventFeedUrl)) break
+                delay(5.seconds)
+                logger.info("Connection ${settings.eventFeedUrl} is closed, retrying")
+            }
+        }
     }
 }
-
-@OptIn(ExperimentalSerializationApi::class)
-private fun getEventFeedLoader(settings: ClicsLoaderSettings, verbose: Boolean = false) =
-    object : LineStreamLoaderService<Event>(settings.auth) {
-        private val jsonDecoder = Json {
-            ignoreUnknownKeys = true
-            explicitNulls = false
-        }
-
-        override val url = settings.eventFeedUrl
-        override fun processEvent(data: String) = try {
-            if (verbose) {
-                logger.info("Got event: $data")
-            }
-            when (settings.feedVersion) {
-                FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
-                FeedVersion.V2022_07 -> jsonDecoder.decodeFromString(data)
-            }
-        } catch (e: SerializationException) {
-            logger.error("Failed to deserialize: $data", e)
-            null
-        }
-    }

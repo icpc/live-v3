@@ -167,9 +167,9 @@ data class Clarification(val id: String)
 @Serializable
 data class Language(
     val id: String,
-    val name: String,
-    val entry_point_required: Boolean,
-    val extensions: List<String>,
+    val name: String? = null,
+    val entry_point_required: Boolean? = null,
+    val extensions: List<String>? = null,
 )
 
 @Serializable
