@@ -104,13 +104,20 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
                 runEvents.sortedBy { priority(it) }.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
                 emit(PreloadFinishedEvent(""))
-                if (contestEvents.none { it.isFinalEvent }) {
+                var hasFinalEvent = !contestEvents.none { it.isFinalEvent }
+                if (!hasFinalEvent) {
                     for (event in channel) {
                         emit(event)
-                        if (event.isFinalEvent) break
+                        if (event.isFinalEvent) {
+                            hasFinalEvent = true
+                            break
+                        }
                     }
                 }
                 channel.cancel()
+                if (!hasFinalEvent) {
+                    throw IllegalStateException()
+                }
             }
         }
 
@@ -175,7 +182,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
         val idSet = mutableSetOf<String>()
         merge(eventsLoader.run(), additionalEventsLoader?.run() ?: emptyFlow())
             .sortedPrefix()
-            .filterNot { it.token in idSet }
+            .filterNot { !(it is PreloadFinishedEvent) && it.token in idSet }
             .onEach { processEvent(it) }
             .onEach { idSet.add(it.token) }
             .logAndRetryWithDelay(5.seconds) {
