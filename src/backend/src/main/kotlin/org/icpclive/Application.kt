@@ -99,8 +99,7 @@ fun Application.module() {
     setupKtorPlugins()
 
     routing {
-        static("/static") { resources("static") }
-        static("/media") { files(config.mediaDirectory.toString()) }
+        staticFiles("/media", config.mediaDirectory.toFile())
         singlePageApplication {
             useResources = true
             applicationRoute = "admin"
