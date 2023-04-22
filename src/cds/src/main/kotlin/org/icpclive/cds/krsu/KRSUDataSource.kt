@@ -61,19 +61,14 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         val contestLength = contest.Length.hours
         val freezeTime = contestLength - 1.hours
         val runs = submissions.map {
-            val result = outcomeMap.getOrDefault(it.StatusName, "")
+            val result = outcomeMap[it.StatusName]
             logger.info("" + (it.ReceivedTime - startTime))
             RunInfo(
                 id = it.Id,
-                ICPCRunResult(
-                    isAccepted = "AC" == result,
-                    isAddingPenalty = "AC" != result && "CE" != result,
-                    result = result,
-                    isFirstToSolveRun = false,
-                ).takeIf { result != "" },
+                result?.toRunResult(),
                 problemId = it.Problem,
                 teamId = teams[it.Login]?.id ?: -1,
-                percentage = if ("" == result) 0.0 else 1.0,
+                percentage = if (result == null) 0.0 else 1.0,
                 time = (it.ReceivedTime - timezoneShift) - startTime,
             )
         }.toList()
@@ -105,24 +100,16 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
     companion object {
         private val logger = getLogger(KRSUDataSource::class)
         private val outcomeMap = mapOf(
-            "InternalError" to "FL",
-            "Received" to "",
-            "Compiling" to "",
-            "Running" to "",
-            "Compile Error" to "CE",
-            "Run-Time Error" to "RE",
-            "Time Limit Exceeded" to "TL",
-            "Memory Limit Exceeded" to "ML",
-            "Output Limit Exceeded" to "OL",
-            "Security Violation" to "SV",
-            "Wrong Answer" to "WA",
-            "Accepted" to "AC",
-            "Waiting For Compile" to "",
-            "Waiting For Run" to "",
-            "Presentation Error" to "PE",
-            "Partial Solution" to "",
-            "Rejected" to "",
-            "Disqualified" to ""
+            "InternalError" to Verdict.Fail,
+            "Compile Error" to Verdict.CompilationError,
+            "Run-Time Error" to Verdict.RuntimeError,
+            "Time Limit Exceeded" to Verdict.TimeLimitExceeded,
+            "Memory Limit Exceeded" to Verdict.MemoryLimitExceeded,
+            "Output Limit Exceeded" to Verdict.OutputLimitExceeded,
+            "Security Violation" to Verdict.SecurityViolation,
+            "Wrong Answer" to Verdict.WrongAnswer,
+            "Accepted" to Verdict.Accepted,
+            "Presentation Error" to Verdict.PresentationError,
         )
     }
 

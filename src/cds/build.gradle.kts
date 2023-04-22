@@ -13,6 +13,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(projects.common)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(kotlin("reflect"))
 
     testImplementation(libs.kotlin.junit)
 }

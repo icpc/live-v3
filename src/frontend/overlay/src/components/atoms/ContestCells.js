@@ -51,45 +51,50 @@ const VerdictCellProgressBar = styled.div.attrs(({ width }) => ({
 `;
 
 
-const VerdictCellICPC = ({ verdict, ...props }) => {
+const VerdictCellICPC = ({ result, ...props }) => {
     return <TextShrinkingCell
-        background={verdict.isAccepted ? VERDICT_OK : VERDICT_NOK}
+        background={result.verdict.isAccepted ? VERDICT_OK : VERDICT_NOK}
         align="center"
-        text={verdict.result}
+        text={result.verdict.shortName}
         canGrow={false}
         canShrink={false}
         {...props}
     >
-        {verdict.isFirstToSolveRun && <StarIcon/>}
+        {result.isFirstToSolveRun && <StarIcon/>}
     </TextShrinkingCell>;
 };
 
-const ICPCVerdict = PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    isFirstToSolveRun: PropTypes.bool.isRequired,
+const Verdict = PropTypes.shape({
     isAccepted: PropTypes.bool.isRequired,
-    result: PropTypes.string.isRequired
+    isAddingPenalty: PropTypes.bool.isRequired,
+    shortName: PropTypes.string.isRequired,
+});
+
+const ICPCResult = PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    verdict: Verdict.isRequired,
+    isFirstToSolveRun: PropTypes.bool.isRequired
 });
 
 VerdictCellICPC.PropTypes = {
-    verdict: ICPCVerdict,
+    result: ICPCResult,
 };
 
-const VerdictCellIOI = ({ verdict, ...props }) => {
-    if (verdict.wrongVerdict === undefined) {
+const VerdictCellIOI = ({ result, ...props }) => {
+    if (result.wrongVerdict === undefined) {
         return <TextShrinkingCell
             align="center"
             canGrow={false}
             canShrink={false}
-            background={verdict.difference > 0 ? VERDICT_OK : (verdict.difference < 0 ? VERDICT_NOK : VERDICT_UNKNOWN)}
-            text={verdict.difference > 0 ? `+${formatScore(verdict.difference, 1)}` : (verdict.difference < 0 ? `-${formatScore(-verdict.difference, 1)}` : "=")}
+            background={result.difference > 0 ? VERDICT_OK : (result.difference < 0 ? VERDICT_NOK : VERDICT_UNKNOWN)}
+            text={result.difference > 0 ? `+${formatScore(result.difference, 1)}` : (result.difference < 0 ? `-${formatScore(-result.difference, 1)}` : "=")}
             {...props}
         >
-            {verdict.isFirstBestRun && <StarIcon/>}
+            {result.isFirstBestRun && <StarIcon/>}
         </TextShrinkingCell>;
     } else {
         return <TextShrinkingCell background={VERDICT_NOK} 
-            text={verdict.wrongVerdict}
+            text={result.wrongVerdict.shortName}
             align="center"
             canGrow={false}
             canShrink={false}
@@ -98,15 +103,16 @@ const VerdictCellIOI = ({ verdict, ...props }) => {
     }
 };
 
-const IOIVerdict = PropTypes.shape({
+const IOIResult = PropTypes.shape({
     type: PropTypes.string.isRequired,
     score: PropTypes.number.isRequired,
     difference: PropTypes.number.isRequired,
-    wrongVerdict: PropTypes.string
+    wrongVerdict: Verdict.isRequired,
+    isFirstBestRun: PropTypes.bool.isRequired
 });
 
 VerdictCellIOI.PropTypes = {
-    verdict: IOIVerdict.isRequired,
+    result: IOIResult,
 };
 
 const VerdictCellInProgressWrap = styled(Cell)`
@@ -132,16 +138,16 @@ export const VerdictCell = ({
         return <VerdictCellInProgress percentage={data.percentage} {...props}/>;
     }
     if (data.result.type === "ICPC") {
-        return <VerdictCellICPC verdict={data.result} {...props} />;
+        return <VerdictCellICPC result={data.result} {...props} />;
     } else {
-        return <VerdictCellIOI verdict={data.result} {...props} />;
+        return <VerdictCellIOI result={data.result} {...props} />;
     }
 };
 
 VerdictCell.propTypes = {
     ...Cell.propTypes,
     runData: PropTypes.shape({
-        result: PropTypes.oneOf([IOIVerdict, ICPCVerdict]),
+        result: PropTypes.oneOf([IOIResult, ICPCResult]),
         percentage: PropTypes.number.isRequired
     })
 };

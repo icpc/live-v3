@@ -1,5 +1,6 @@
 package org.icpclive.cds.ejudge
 
+import io.ktor.util.*
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
@@ -114,21 +115,30 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         val teamId = teamIdMapping[element.getAttribute("user_id")]!!
         val runId = element.getAttribute("run_id").toInt()
 
-        val result = statusMap.getOrDefault(element.getAttribute("status"), "WA")
-        val percentage = when (result) {
-            "" -> 0.0
-            else -> 1.0
+        val result = when (element.getAttribute("status")) {
+            "OK" -> Verdict.Accepted
+            "CE" -> Verdict.CompilationError
+            "RT" -> Verdict.RuntimeError
+            "TL" -> Verdict.TimeLimitExceeded
+            "PE" -> Verdict.PresentationError
+            "WA" -> Verdict.WrongAnswer
+            "CF" -> Verdict.Fail
+            "IG" -> Verdict.Ignored
+            "DQ" -> Verdict.Ignored
+            "ML" -> Verdict.MemoryLimitExceeded
+            "SE" -> Verdict.SecurityViolation
+            "SV" -> Verdict.Ignored
+            "WT" -> Verdict.IdlenessLimitExceeded
+            "RJ" -> Verdict.Ignored
+            "SK" -> Verdict.Ignored
+            else -> null
         }
+        val percentage = if (result == null) 0.0 else 1.0
 
         return RunInfo(
             id = runId,
             when (resultType) {
-                ContestResultType.ICPC -> ICPCRunResult(
-                    isAccepted = "AC" == result,
-                    isAddingPenalty = "AC" != result && "CE" != result,
-                    result = result,
-                    isFirstToSolveRun = false
-                ).takeIf { result != "" }
+                ContestResultType.ICPC -> result?.toRunResult()
 
                 ContestResultType.IOI -> {
                     val score = element.getAttribute("score").ifEmpty { "0" }.toDouble()
@@ -145,37 +155,4 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
     }
 
     private val xmlLoader = xmlLoader { properties.getProperty("url") }
-
-    companion object {
-        private val statusMap = mapOf(
-            "OK" to "AC",
-            "CE" to "CE",
-            "RT" to "RE",
-            "TL" to "TL",
-            "PE" to "PE",
-            "WA" to "WA",
-            "CF" to "FL",
-            "PT" to "",
-            "AC" to "OK",
-            "IG" to "",
-            "DQ" to "",
-            "PD" to "",
-            "ML" to "ML",
-            "SE" to "SV",
-            "SV" to "",
-            "WT" to "IL",
-            "PR" to "",
-            "RJ" to "",
-            "SK" to "",
-            "SY" to "",
-            "SM" to "",
-            "RU" to "",
-            "CD" to "",
-            "CG" to "",
-            "AV" to "",
-            "EM" to "",
-            "VS" to "",
-            "VT" to "",
-        )
-    }
 }

@@ -49,12 +49,11 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             "{team.shortName}" to team.shortName,
             "{problem.letter}" to problem.letter,
             "{problem.name}" to problem.name,
-            "{run.result}" to (analyse.run.result as? ICPCRunResult)?.result.orEmpty(),
+            "{run.result}" to (analyse.run.result as? ICPCRunResult)?.verdict?.shortName.orEmpty(),
             "{result.rank}" to analyse.result.rank.toString(),
             "{result.solvedProblems}" to analyse.solvedProblems?.takeIf { it > 0 }?.toString().orEmpty(),
             "{result.ioiDifference}" to (analyse.run.result as? IOIRunResult)?.difference?.toString().orEmpty(),
-            // TODO: not just sum scores by group. We should use accumulator
-            "{result.ioiScore}" to (analyse.run.result as? IOIRunResult)?.score?.sum()?.toString().orEmpty(),
+            "{result.ioiScore}" to (analyse.run.result as? IOIRunResult)?.scoreAfter?.toString().orEmpty(),
         )
         val runResult = analyse.run.result
         if (runResult is IOIRunResult && runResult.difference > 0) {
@@ -66,7 +65,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         if (runResult.isFirstToSolveRun) {
             return messagesTemplates.firstToSolveRun.applyTemplate(substitute)
         }
-        if (runResult.isAccepted) {
+        if (runResult.verdict.isAccepted) {
             if (substitute["{result.solvedProblems}"] != "") {
                 return messagesTemplates.acceptedWithSolvedProblemsRun.applyTemplate(substitute)
             }
@@ -93,7 +92,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             add("submission")
             return@buildList
         }
-        if (!runResult.isAccepted) {
+        if (!runResult.verdict.isAccepted) {
             add("rejected")
             return@buildList
         }

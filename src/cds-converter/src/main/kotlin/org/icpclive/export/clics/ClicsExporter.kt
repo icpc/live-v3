@@ -15,9 +15,32 @@ import kotlin.time.Duration.Companion.minutes
 typealias EventProducer = (String) -> Event
 
 object ClicsExporter  {
-    private val judgementOk = JudgementType("AC", "ok", true, false)
-    private val judgementWrongWithPenalty = JudgementType("RJ", "rejected", false, true)
-    private val judgementWrongWithOutPenalty = JudgementType("CE", "compilation-error", false, false)
+
+    private fun Verdict.toJudgmentType() = when (this) {
+        Verdict.Accepted -> JudgementType("AC", "correct", solved = true, penalty = false)
+
+        Verdict.Fail -> JudgementType("JE", "judging error", solved = false, penalty = false)
+        Verdict.Ignored -> JudgementType("IG", "ignored", solved = false, penalty = false)
+        Verdict.CompilationError -> JudgementType("CE", "compiler error", solved = false, penalty = false)
+
+        Verdict.Challenged -> JudgementType("CH", "challenged", solved = false, penalty = true)
+
+        Verdict.CompilationErrorWithPenalty -> JudgementType("CEP", "compiler error penalised", solved = false, penalty = true)
+        Verdict.IdlenessLimitExceeded -> JudgementType( "IL", "idleness limit", solved = false, penalty = true)
+        Verdict.MemoryLimitExceeded -> JudgementType("MLE", "memory limit", solved = false, penalty = true)
+        Verdict.OutputLimitExceeded -> JudgementType("OLE", "output limit", solved = false, penalty = true)
+        Verdict.PresentationError -> JudgementType("PE", "presentation error", solved = false, penalty = true)
+        Verdict.Rejected -> JudgementType("RE", "rejected", solved = false, penalty = true)
+        Verdict.RuntimeError -> JudgementType("RTE", "run-time error", solved = false, penalty = true)
+        Verdict.SecurityViolation -> JudgementType( "SV", "security violation", solved = false, penalty = true)
+        Verdict.TimeLimitExceeded -> JudgementType("TLE", "time limit", solved = false, penalty = true)
+        Verdict.WrongAnswer -> JudgementType("WA", "wrong answer", solved = false, penalty = true)
+    }
+
+    private val judgments = Verdict.all.associateWith {
+        it.toJudgmentType()
+    }
+
     private val unknownLanguage = Language(
         "unknown",
         "unknown",
@@ -46,7 +69,7 @@ object ClicsExporter  {
 
     private fun judgementTypesFlow() = flow {
         awaitContest()
-        for (type in listOf(judgementOk, judgementWrongWithPenalty, judgementWrongWithOutPenalty)) {
+        for (type in judgments.values) {
             emit(type)
         }
     }.map { updateEvent(it.id, it, Event::JudgementTypeEvent) }
@@ -171,11 +194,7 @@ object ClicsExporter  {
                     Judgement(
                         id = run.id.toString(),
                         submission_id = run.id.toString(),
-                        judgement_type_id = when {
-                            result.isAccepted -> judgementOk
-                            result.isAddingPenalty -> judgementWrongWithPenalty
-                            else -> judgementWrongWithOutPenalty
-                        }.id,
+                        judgement_type_id = judgments[result.verdict]?.id,
                         start_time = info.first().startTime + run.time,
                         start_contest_time = run.time,
                         end_time = info.first().startTime + run.time,

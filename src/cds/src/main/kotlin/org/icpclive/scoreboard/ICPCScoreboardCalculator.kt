@@ -95,8 +95,8 @@ abstract class ICPCScoreboardCalculator : ScoreboardCalculator() {
     }
 }
 
-private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.isAccepted == true
-private val RunInfo.isAddingPenalty get() = (result as? ICPCRunResult)?.isAddingPenalty == true
+private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.verdict?.isAccepted == true
+private val RunInfo.isAddingPenalty get() = (result as? ICPCRunResult)?.verdict?.isAddingPenalty == true
 private val RunInfo.isJudged get() = result != null
 
 

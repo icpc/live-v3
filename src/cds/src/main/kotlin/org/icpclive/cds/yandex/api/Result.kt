@@ -1,26 +1,28 @@
 package org.icpclive.cds.yandex.api
 
+import org.icpclive.api.Verdict
+
 fun getResult(verdict: String) = when (verdict) {
-    "OK" -> "OK"
-    "WrongAnswer" -> "WA"
-    "TimeLimitExceeded" -> "TL"
-    "MemoryLimitExceeded" -> "ML"
-    "RuntimeError" -> "RE"
-    "IdlenessLimitExceeded" -> "IL"
-    "PresentationError" -> "PE"
-    "OutputLimitExceeded" -> "OL"
-    "CompilationError" -> "CE"
-    "Ignored" -> "IG"
-    "PrecompileCheckFailed" -> "PC"
+    "OK" -> Verdict.Accepted
+    "WrongAnswer" -> Verdict.WrongAnswer
+    "TimeLimitExceeded" -> Verdict.TimeLimitExceeded
+    "MemoryLimitExceeded" -> Verdict.MemoryLimitExceeded
+    "RuntimeError" -> Verdict.RuntimeError
+    "IdlenessLimitExceeded" -> Verdict.IdlenessLimitExceeded
+    "PresentationError" -> Verdict.PresentationError
+    "OutputLimitExceeded" -> Verdict.OutputLimitExceeded
+    "CompilationError" -> Verdict.CompilationError
+    "Ignored" -> Verdict.Ignored
+    "PrecompileCheckFailed" -> Verdict.CompilationError
 
     // in testing
-    "" -> ""
+    "" -> null
 
     // I think we don't need to show those:
-    "SecurityViolation" -> "RE"
+    "SecurityViolation" -> Verdict.RuntimeError
     // "AcceptedForTesting" -> "AC" // impossible on real contest
     // "ManualInspection" -> "MI" // impossible on real contest
-    "Crash" -> "" // mark it as “judging” before some (human) judge resolves it
+    "Crash" -> null // mark it as “judging” before some (human) judge resolves it
 
-    else -> "??"
+    else -> null
 }

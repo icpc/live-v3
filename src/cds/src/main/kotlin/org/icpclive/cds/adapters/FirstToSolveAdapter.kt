@@ -13,7 +13,7 @@ fun Flow<ContestUpdate>.addFirstToSolves() = withGroupedRuns(
 
         when (it.result) {
             is ICPCRunResult -> when {
-                it.result.isAccepted && !it.isHidden -> it.problemId * 2
+                it.result.verdict.isAccepted && !it.isHidden -> it.problemId * 2
                 else -> Int.MIN_VALUE
             }
             is IOIRunResult -> when {
