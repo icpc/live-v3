@@ -98,11 +98,6 @@ const getFormattedWidth = (count) => (val, fl) => {
     }
 };
 
-const StatEntryContent = styled.div`
-   white-space: nowrap;
-    display: inline-block;
-`;
-
 export const Statistics = () => {
     const statistics = useSelector(state => state.statistics.statistics);
     const resultType = useSelector(state => state.contestInfo?.info?.resultType);
