@@ -20,7 +20,7 @@ object SocialEventAccent : TeamAccent()
 
 
 private val RunInfo.isFirstSolvedRun get() = (result as? ICPCRunResult)?.isFirstToSolveRun == true
-private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.isAccepted == true
+private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.verdict?.isAccepted == true
 private val RunInfo.isJudged get() = result != null
 
 private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
@@ -44,7 +44,7 @@ private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = 
         when (val result = run.result) {
             is ICPCRunResult -> {
                 flowSettings.firstToSolvedRunScore.takeIf(result.isFirstToSolveRun) +
-                        flowSettings.acceptedRunScore.takeIf(result.isAccepted) +
+                        flowSettings.acceptedRunScore.takeIf(result.verdict.isAccepted) +
                         flowSettings.judgedRunScore.takeIf(run.isFirstSolvedRun) +
                         flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
             }

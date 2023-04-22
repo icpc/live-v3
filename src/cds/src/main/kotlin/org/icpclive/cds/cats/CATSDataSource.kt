@@ -195,12 +195,11 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
             .map {
                 val result = if (it.state_text.isNotEmpty()) {
                     when (contestInfo.resultType) {
-                        ContestResultType.ICPC -> ICPCRunResult(
-                            isAccepted = ("OK" == it.state_text),
-                            isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
-                            isFirstToSolveRun = false,
-                            result = it.state_text
-                        )
+                        ContestResultType.ICPC -> Verdict.lookup(
+                                shortName = it.state_text,
+                                isAccepted = ("OK" == it.state_text),
+                                isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
+                            ).toRunResult()
                         ContestResultType.IOI -> IOIRunResult(score = listOf(it.points))
                     }
                 } else null

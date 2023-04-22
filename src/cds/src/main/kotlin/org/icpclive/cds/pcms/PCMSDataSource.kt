@@ -159,19 +159,24 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     )
                 }
                 ContestResultType.ICPC -> {
-                    val result = when {
-                        percentage < 1.0 -> null
-                        "yes" == element.getAttribute("accepted") -> "AC"
-                        else -> outcomeMap.getOrDefault(element.getAttribute("outcome"), "WA")
-                    }
-                    result?.let {
-                        ICPCRunResult(
-                            isAccepted = "AC" == it,
-                            isAddingPenalty = "AC" != it && "CE" != it,
-                            result = it,
-                            isFirstToSolveRun = false
-                        )
-                    }
+                    when {
+                        "yes" == element.getAttribute("accepted") -> Verdict.Accepted
+                        else -> when (element.getAttribute("outcome")) {
+                            "fail" -> Verdict.Fail
+                            "unknown" -> null
+                            "accepted" -> Verdict.Accepted
+                            "compilation-error" -> Verdict.CompilationError
+                            "wrong-answer" -> Verdict.WrongAnswer
+                            "presentation-error" -> Verdict.PresentationError
+                            "runtime-error" -> Verdict.RuntimeError
+                            "time-limit-exceeded" -> Verdict.TimeLimitExceeded
+                            "memory-limit-exceeded" -> Verdict.MemoryLimitExceeded
+                            "output-limit-exceeded" -> Verdict.OutputLimitExceeded
+                            "idleness-limit-exceeded" -> Verdict.IdlenessLimitExceeded
+                            "security-violation" -> Verdict.SecurityViolation
+                            else -> Verdict.WrongAnswer
+                        }
+                    }?.toRunResult()
                 }
             },
             problemId = problemId,
@@ -183,20 +188,5 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
 
     companion object {
         private val logger = getLogger(PCMSDataSource::class)
-        private val outcomeMap = mapOf(
-            "undefined" to "UD",
-            "fail" to "FL",
-            "unknown" to "",
-            "accepted" to "AC",
-            "compilation-error" to "CE",
-            "wrong-answer" to "WA",
-            "presentation-error" to "PE",
-            "runtime-error" to "RE",
-            "time-limit-exceeded" to "TL",
-            "memory-limit-exceeded" to "ML",
-            "output-limit-exceeded" to "OL",
-            "idleness-limit-exceeded" to "IL",
-            "security-violation" to "SV",
-        )
     }
 }

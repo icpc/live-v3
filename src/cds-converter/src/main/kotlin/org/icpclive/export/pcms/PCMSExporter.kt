@@ -22,22 +22,23 @@ import kotlin.time.Duration
 
 object PCMSExporter {
 
-    private fun convertOutcome(outcome: String?) = when (outcome) {
+    private fun convertOutcome(outcome: Verdict?) = when (outcome) {
         null -> "unknown"
-        "UD" -> "undefined"
-        "AC" -> "accepted"
-        "OK" -> "accepted"
-        "FL" -> "fail"
-        "CE" -> "compilation-error"
-        "WA" -> "wrong-answer"
-        "PE" -> "presentation-error"
-        "RE" -> "runtime-error"
-        "TL" -> "time-limit-exceeded"
-        "ML" -> "memory-limit-exceeded"
-        "OL" -> "output-limit-exceeded"
-        "IL" -> "idleness-limit-exceeded"
-        "SV" -> "security-violation"
-        else -> "unknown-wrong-verdict"
+        Verdict.Accepted -> "accepted"
+        Verdict.Fail -> "fail"
+        Verdict.CompilationError -> "compilation-error"
+        Verdict.WrongAnswer -> "wrong-answer"
+        Verdict.PresentationError -> "presentation-error"
+        Verdict.RuntimeError -> "runtime-error"
+        Verdict.TimeLimitExceeded -> "time-limit-exceeded"
+        Verdict.MemoryLimitExceeded -> "memory-limit-exceeded"
+        Verdict.OutputLimitExceeded -> "output-limit-exceeded"
+        Verdict.IdlenessLimitExceeded -> "idleness-limit-exceeded"
+        Verdict.SecurityViolation -> "security-violation"
+        Verdict.Challenged -> "wrong-answer"
+        Verdict.CompilationErrorWithPenalty -> "wrong-answer"
+        Verdict.Ignored -> "compilation-error"
+        Verdict.Rejected -> "wrong-answer"
     }
 
 
@@ -61,12 +62,12 @@ object PCMSExporter {
         }
     }
     private fun Element.buildRunNode(info: RunInfo) {
-        setAttribute("accepted", if ((info.result as? ICPCRunResult)?.isAccepted == true) "yes" else "no")
+        setAttribute("accepted", if ((info.result as? ICPCRunResult)?.verdict?.isAccepted == true) "yes" else "no")
         setAttribute("time", info.time.inWholeMilliseconds.toString())
         setAttribute("score", "0")
         //setAttribute("language-id", "")
         //setAttribute("run-id", "")
-        setAttribute("outcome", convertOutcome((info.result as? ICPCRunResult)?.result))
+        setAttribute("outcome", convertOutcome((info.result as? ICPCRunResult)?.verdict))
     }
 
     private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>) {

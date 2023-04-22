@@ -57,20 +57,15 @@ class YandexContestInfo private constructor(
         return RunInfo(
             id = submission.id.toInt(),
             result = when (resultType) {
-                ContestResultType.ICPC -> ICPCRunResult(
-                    isAccepted = result == "OK",
-                    isAddingPenalty = result !in listOf("OK", "CE"),
-                    result = result,
-                    isFirstToSolveRun = false
-                )
+                ContestResultType.ICPC -> result?.toRunResult()
                 ContestResultType.IOI -> IOIRunResult(
                     score = listOf(submission.score ?: 0.0),
                 )
-            }.takeIf { result != "" },
+            }.takeIf { result != null },
             problemId = problemId,
             teamId = submission.authorId.toInt(),
             percentage = when {
-                result != "" -> 100.0
+                result != null -> 100.0
                 testCount == null || testCount == 0 -> 0.0
                 submission.test == -1L -> 0.0
                 submission.test >= testCount -> 100.0

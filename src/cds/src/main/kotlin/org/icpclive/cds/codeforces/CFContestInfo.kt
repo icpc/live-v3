@@ -9,26 +9,6 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 
-private val verdictToString: Map<CFSubmissionVerdict, String> = mapOf(
-    CFSubmissionVerdict.CHALLENGED to "CH",
-    CFSubmissionVerdict.COMPILATION_ERROR to "CE",
-    CFSubmissionVerdict.CRASHED to "CR",
-    CFSubmissionVerdict.FAILED to "FL",
-    CFSubmissionVerdict.IDLENESS_LIMIT_EXCEEDED to "IL",
-    CFSubmissionVerdict.INPUT_PREPARATION_CRASHED to "IC",
-    CFSubmissionVerdict.MEMORY_LIMIT_EXCEEDED to "ML",
-    CFSubmissionVerdict.OK to "AC",
-    CFSubmissionVerdict.PARTIAL to "PA",
-    CFSubmissionVerdict.PRESENTATION_ERROR to "PE",
-    CFSubmissionVerdict.REJECTED to "RJ",
-    CFSubmissionVerdict.RUNTIME_ERROR to "RE",
-    CFSubmissionVerdict.SECURITY_VIOLATED to "SV",
-    CFSubmissionVerdict.SKIPPED to "SK",
-    CFSubmissionVerdict.TESTING to "",
-    CFSubmissionVerdict.TIME_LIMIT_EXCEEDED to "TL",
-    CFSubmissionVerdict.WRONG_ANSWER to "WA",
-)
-
 class CFContestInfo {
     private var contestLength: Duration = 5.hours
     private var startTime: Instant = Instant.fromEpochMilliseconds(0)
@@ -43,7 +23,7 @@ class CFContestInfo {
     private var contestType: CFContestType = CFContestType.ICPC
     private var name: String = ""
 
-    fun updateContestInfo(contest: CFContest) {
+    private fun updateContestInfo(contest: CFContest) {
         name = contest.name
         contestType = contest.type
         contestLength = contest.durationSeconds!!
@@ -107,19 +87,38 @@ class CFContestInfo {
         }
     }
 
-    private val CFSubmission.isAddingPenalty
-        get() = verdict != CFSubmissionVerdict.OK && verdict != CFSubmissionVerdict.COMPILATION_ERROR && passedTestCount != 0
+    private val CFSubmission.processedVerdict get() = when (verdict) {
+        CFSubmissionVerdict.FAILED -> Verdict.Fail
+        CFSubmissionVerdict.OK -> Verdict.Accepted
+        CFSubmissionVerdict.PARTIAL -> null
+        CFSubmissionVerdict.COMPILATION_ERROR -> Verdict.CompilationError
+        CFSubmissionVerdict.RUNTIME_ERROR -> Verdict.RuntimeError
+        CFSubmissionVerdict.WRONG_ANSWER -> Verdict.WrongAnswer
+        CFSubmissionVerdict.PRESENTATION_ERROR -> Verdict.PresentationError
+        CFSubmissionVerdict.TIME_LIMIT_EXCEEDED -> Verdict.TimeLimitExceeded
+        CFSubmissionVerdict.MEMORY_LIMIT_EXCEEDED -> Verdict.MemoryLimitExceeded
+        CFSubmissionVerdict.IDLENESS_LIMIT_EXCEEDED -> Verdict.IdlenessLimitExceeded
+        CFSubmissionVerdict.SECURITY_VIOLATED -> Verdict.SecurityViolation
+        CFSubmissionVerdict.CRASHED -> Verdict.Fail
+        CFSubmissionVerdict.INPUT_PREPARATION_CRASHED -> Verdict.Fail
+        CFSubmissionVerdict.CHALLENGED -> Verdict.Challenged
+        CFSubmissionVerdict.SKIPPED -> Verdict.Ignored
+        CFSubmissionVerdict.TESTING -> null
+        CFSubmissionVerdict.REJECTED -> Verdict.Rejected
+        null -> null
+    }?.let {
+        if (passedTestCount == 0 && it.isAddingPenalty && !it.isAccepted) {
+            Verdict.lookup(it.shortName, isAddingPenalty = false, isAccepted = false)
+        } else {
+            it
+        }
+    }
 
     private fun submissionToResult(submission: CFSubmission, wrongAttempts: Int) : RunResult? {
         if (submission.verdict == null || submission.verdict == CFSubmissionVerdict.TESTING) return null
         return when (contestType) {
             CFContestType.ICPC -> {
-                ICPCRunResult(
-                    isAccepted = submission.verdict == CFSubmissionVerdict.OK,
-                    isAddingPenalty = submission.isAddingPenalty,
-                    result = verdictToString[submission.verdict]!!,
-                    isFirstToSolveRun = false
-                )
+                submission.processedVerdict?.toRunResult()
             }
 
             CFContestType.IOI -> {
@@ -128,7 +127,7 @@ class CFContestInfo {
                 val score = submission.points?.takeIf { !isWrong } ?: 0.0
                 IOIRunResult(
                     score = listOf(score),
-                    wrongVerdict = if (isWrong) verdictToString[submission.verdict] else null,
+                    wrongVerdict = submission.processedVerdict.takeIf { isWrong },
                 )
             }
             CFContestType.CF -> {
@@ -145,13 +144,13 @@ class CFContestInfo {
                 }
                 IOIRunResult(
                     score = listOf(score),
-                    wrongVerdict = if (isWrong) verdictToString[submission.verdict] else null,
+                    wrongVerdict = submission.processedVerdict.takeIf { isWrong },
                 )
             }
         }
     }
 
-    fun getProblemLooseScorePerMinute(initialScore: Double, duration: Long): Double {
+    private fun getProblemLooseScorePerMinute(initialScore: Double, duration: Long): Double {
         val finalScore = initialScore * 0.52
         val roundedContestDuration = maxOf(1, duration / 30) * 30
         return (initialScore - finalScore) / roundedContestDuration
@@ -179,7 +178,7 @@ class CFContestInfo {
                         percentage = if (result != null) 1.0 else (it.passedTestCount.toDouble() / problemTests),
                         time = it.relativeTimeSeconds,
                     )
-                    wrongs += if (it.isAddingPenalty || it.verdict == CFSubmissionVerdict.OK) 1 else 0
+                    wrongs += if (it.processedVerdict?.isAddingPenalty == true) 1 else 0
                     run
                 }
             }.values.flatten()
@@ -205,7 +204,7 @@ class CFContestInfo {
                                 CFHackVerdict.TESTING -> null
                                 else -> IOIRunResult(
                                     score = emptyList(),
-                                    wrongVerdict = "CE",
+                                    wrongVerdict = Verdict.CompilationError,
                                 )
                             },
                             percentage = 0.0,
@@ -221,7 +220,7 @@ class CFContestInfo {
                             id = (hack.id * 2 + 1).inv(),
                             result = IOIRunResult(
                                 score = listOf(0.0),
-                                wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else "OK",
+                                wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else Verdict.Accepted,
                             ),
                             isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
                             percentage = 0.0,

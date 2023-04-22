@@ -2,6 +2,7 @@ package org.icpclive.cds.clics.model
 
 import org.icpclive.api.ICPCRunResult
 import org.icpclive.api.MediaType
+import org.icpclive.api.Verdict
 import org.icpclive.cds.clics.api.Problem
 import kotlin.time.Duration
 
@@ -20,12 +21,11 @@ class ClicsRunInfo(
     fun toApi() = org.icpclive.api.RunInfo(
         id = id,
         judgementType?.let {
-            ICPCRunResult(
+            Verdict.lookup(
+                shortName = it.id,
                 isAccepted = it.isAccepted,
                 isAddingPenalty = it.isAddingPenalty,
-                isFirstToSolveRun = false,
-                result = it.verdict,
-            )
+            ).toRunResult()
         },
         problemId = liveProblemId,
         teamId = teamId,
