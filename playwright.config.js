@@ -47,6 +47,7 @@ module.exports = defineConfig({
         command: "./gradlew :backend:run -P:auth.disabled=true -Plive.dev.contest=icpc-nef/2020-2021/onsite",
         url: "http://127.0.0.1:8080/overlay",
         reuseExistingServer: !process.env.CI,
+        timeout: 1000000
     },
 });
 
