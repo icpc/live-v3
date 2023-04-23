@@ -1,0 +1,17 @@
+{
+  "name": "live-v3",
+  "version": "1.0.0",
+  "description": "Welcome to the ICPC Live Source Code Repository.",
+  "main": "index.js",
+  "dependencies": {
+    "fsevents": "^2.3.2",
+    "playwright-core": "^1.32.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.3"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
