@@ -18,14 +18,6 @@ test.afterAll(async () => {
     await page.close();
 });
 
-// Uniform screenshots for all platforms
-// https://github.com/microsoft/playwright/issues/7575
-// eslint-disable-next-line no-empty-pattern
-test.beforeEach(async ({ }, testInfo) => {
-    testInfo.snapshotPath = (name) =>
-        `${testInfo.file}-snapshots/${name}`;
-});
-
 const simpleWidgets = ["scoreboard", "statistics"];
 
 for (const widgetName of simpleWidgets) {
