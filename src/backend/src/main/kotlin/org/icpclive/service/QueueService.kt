@@ -5,10 +5,10 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import org.icpclive.api.*
+import org.icpclive.data.DataBus
 import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
 import org.icpclive.util.intervalFlow
-import org.icpclive.data.DataBus
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
@@ -108,6 +108,7 @@ class QueueService {
                     val currentTime = contestInfoFlow.value.currentContestTime
                     runs.values
                         .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }
+                        .filterNot { (it.result as? ICPCRunResult)?.isFirstToSolveRun == true || it.featuredRunMedia != null }
                         .forEach { removeRun(it) }
                 }
                 is Run -> {
