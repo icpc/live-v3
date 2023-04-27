@@ -108,7 +108,7 @@ class QueueService {
                     val currentTime = contestInfoFlow.value.currentContestTime
                     runs.values
                         .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }
-                        .filterNot { (it.result as? ICPCRunResult)?.isFirstToSolveRun == true || it.featuredRunMedia != null }
+                        .filterNot { it.featuredRunMedia != null }
                         .forEach { removeRun(it) }
                 }
                 is Run -> {
