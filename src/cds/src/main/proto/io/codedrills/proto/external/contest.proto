@@ -1,0 +1,42 @@
+syntax = "proto3";
+package io.codedrills.proto.external;
+
+option java_multiple_files = true;
+
+import "io/codedrills/proto/external/common.proto";
+
+message Contest {
+  int32 id = 1;
+  string title = 2;
+  string url = 3;
+  ContestType type = 4;
+  bool frozen = 5;
+  int64 duration_seconds = 6;
+  int64 start_time_milli_seconds = 7;
+  string description = 8;
+  string avatar_url = 9;
+  string banner_url = 10;
+  LanguageRestriction language_restriction = 11;
+  ScoreboardSettings scoreboard_settings = 12;
+}
+
+message ScoreboardSettings {
+  ScoreboardType scoreboard_type = 1;
+  int64 penalty_per_attempt_in_s = 2;
+  FreezeSettings freeze_settings = 3;
+}
+
+message FreezeSettings {
+  int64 freeze_offset_time_in_s = 1;
+}
+
+enum ScoreboardType {
+  UNKNOWN_SCOREBOARD_TYPE = 0;
+  ONE_POINT_WITH_PENALTY = 1;
+  ONE_POINT_WITH_MAX_PENALTY = 2;
+}
+
+enum ContestType {
+  CONTEST_TYPE_INDIVIDUAL = 0;
+  CONTEST_TYPE_TEAM = 1;
+}

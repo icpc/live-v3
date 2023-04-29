@@ -14,6 +14,7 @@ import org.icpclive.cds.adapters.EmulationAdapter
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.clics.FeedVersion
+import org.icpclive.cds.codedrills.CodeDrillsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.ContestDataSource
 import org.icpclive.cds.common.RawContestDataSource
@@ -192,6 +193,18 @@ class ClicsSettings(
     val mainFeed get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
 
     override fun toRawDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
+}
+
+@SerialName("codedrills")
+@Serializable
+class CodeDrillsSettings(
+    val url: String,
+    val port: Int,
+    val contestId: String,
+    val authKey: Credential,
+    override val emulation: EmulationSettings? = null
+) : CDSSettings() {
+    override fun toRawDataSource(creds: Map<String, String>) = CodeDrillsDataSource(this, creds)
 }
 
 @OptIn(ExperimentalSerializationApi::class)

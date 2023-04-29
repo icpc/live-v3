@@ -81,7 +81,7 @@ internal class YandexContestInfo private constructor(
 
     fun toApi() = ContestInfo(
         name = name,
-        status = deduceStatus(startTime, duration),
+        status = ContestStatus.byCurrentTime(startTime, duration),
         resultType = resultType,
         startTime = startTime,
         contestLength = duration,
@@ -91,18 +91,5 @@ internal class YandexContestInfo private constructor(
         groups = emptyList(),
         penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE
     )
-
-    companion object {
-        // There is no way to fetch YC server time, so here we go
-        fun deduceStatus(startTime: Instant, duration: Duration): ContestStatus {
-            val now = Clock.System.now()
-
-            return when {
-                now < startTime -> ContestStatus.BEFORE
-                now < startTime + duration -> ContestStatus.RUNNING
-                else -> ContestStatus.OVER
-            }
-        }
-    }
 }
 

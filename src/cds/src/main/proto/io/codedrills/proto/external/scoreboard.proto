@@ -1,0 +1,49 @@
+syntax = "proto3";
+package io.codedrills.proto.external;
+
+option java_multiple_files = true;
+
+import "io/codedrills/proto/external/common.proto";
+import "io/codedrills/proto/external/contest.proto";
+import "io/codedrills/proto/external/problem.proto";
+import "io/codedrills/proto/external/submission.proto";
+import "io/codedrills/proto/external/team.proto";
+
+message Scoreboard {
+  Contest contest = 1;
+  repeated Problem problem = 2;
+  repeated RanklistRow row = 3;
+  ScoreboardStats scoreboard_stats = 4;
+}
+
+message RanklistRow {
+  Team team = 1;
+  int32 rank = 2;
+  double score = 3;
+  double penalty = 4;
+  repeated ProblemResult result = 5;
+}
+
+message ProblemResult {
+  int32 problem_id = 1;
+  double score = 2;
+  double penalty = 3;
+  int32 total_submissions = 4;
+  int64 solved_at = 5;
+  ScoringStatus status = 6;
+  Submission successful_submission = 7;
+}
+
+message ScoreboardStats {
+  repeated ProblemScore problem_score = 1;
+  int32 total_participants = 2;
+  int32 total_submissions = 3;
+}
+
+message ProblemScore {
+  int32 problem_id = 1;
+  int32 total_submissions = 2;
+  int32 solved_user_count = 3;
+  double score = 4;
+  Problem problem = 5;
+}

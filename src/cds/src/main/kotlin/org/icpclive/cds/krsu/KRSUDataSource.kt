@@ -61,15 +61,10 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             )
         }.toList()
 
-        val time = Clock.System.now() - startTime
         return ContestParseResult(
             ContestInfo(
                 name = "",
-                status = when {
-                    time < Duration.ZERO -> ContestStatus.BEFORE
-                    time < contestLength -> ContestStatus.RUNNING
-                    else -> ContestStatus.OVER
-                },
+                status = ContestStatus.byCurrentTime(startTime, contestLength),
                 resultType = ContestResultType.ICPC,
                 startTime = startTime,
                 contestLength = contestLength,

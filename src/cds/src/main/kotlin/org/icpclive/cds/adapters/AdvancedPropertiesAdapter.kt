@@ -81,15 +81,6 @@ fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<Advanced
     }
 }
 
-private fun getStateBasedOnStartTime(time: Instant, contestLength: Duration): ContestStatus {
-    val offset = Clock.System.now() - time
-    return when {
-        offset < Duration.ZERO -> ContestStatus.BEFORE
-        offset < contestLength -> ContestStatus.RUNNING
-        else -> ContestStatus.OVER
-    }
-}
-
 private fun <T, O> mergeOverride(
     infos: List<T>,
     overrides: Map<String, O>?,
@@ -164,7 +155,7 @@ private fun applyOverrides(
     }
     val (startTime, status) = overrides.startTime
         ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
-        ?.let { it to getStateBasedOnStartTime(it, info.contestLength) }
+        ?.let { it to ContestStatus.byCurrentTime(it, info.contestLength) }
         ?: (info.startTime to info.status)
     val freezeTime = overrides.freezeTime ?: info.freezeTime
     val holdTimeSeconds = overrides.holdTime ?: info.holdBeforeStartTime

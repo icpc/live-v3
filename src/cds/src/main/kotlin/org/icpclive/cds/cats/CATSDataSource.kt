@@ -174,7 +174,7 @@ internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, Str
 
         val contestInfo = ContestInfo(
             name = contest.title,
-            status = ContestStatus.OVER,
+            status = ContestStatus.byCurrentTime(startTime, contestLength),
             resultType = settings.resultType,
             startTime = startTime,
             contestLength = contestLength,

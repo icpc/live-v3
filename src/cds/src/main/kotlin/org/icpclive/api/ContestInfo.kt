@@ -76,7 +76,18 @@ data class ProblemInfo(
 
 @Serializable
 enum class ContestStatus {
-    BEFORE, RUNNING, OVER
+    BEFORE, RUNNING, OVER;
+
+    companion object {
+        fun byCurrentTime(startTime: Instant, contestLength: Duration, now: Instant = Clock.System.now()): ContestStatus {
+            val offset = now - startTime
+            return when {
+                offset < Duration.ZERO -> BEFORE
+                offset < contestLength -> RUNNING
+                else -> OVER
+            }
+        }
+    }
 }
 
 

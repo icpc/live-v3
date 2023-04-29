@@ -1,10 +1,35 @@
+import com.google.protobuf.gradle.*
 import java.net.URI
-import java.net.URL
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     id("org.jetbrains.dokka") version "1.8.20"
+    alias(libs.plugins.protobuf)
+    base
+    idea
+}
+
+protobuf {
+    plugins {
+        id("grpc") {
+            artifact = libs.grpc.gen.java.get().toString()
+        }
+        id("grpckt") {
+            artifact = libs.grpc.gen.kotlin.get().toString() + ":jdk8@jar"
+        }
+    }
+    generateProtoTasks {
+        ofSourceSet("main").configureEach {
+            plugins {
+                id("grpc")
+                id("grpckt")
+            }
+            builtins {
+                id("kotlin")
+            }
+        }
+    }
     base
 }
 
@@ -43,9 +68,14 @@ dependencies {
     implementation(libs.kotlinx.serialization.properties)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
-    implementation(projects.common)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.grpc.netty)
+    implementation(libs.grpc.protobuf)
+    implementation(libs.grpc.stub)
+    implementation(libs.protobuf)
     implementation(kotlin("reflect"))
+
+    implementation(projects.common)
 
     testImplementation(libs.kotlin.junit)
     testImplementation("com.approvaltests:approvaltests:18.6.0")
