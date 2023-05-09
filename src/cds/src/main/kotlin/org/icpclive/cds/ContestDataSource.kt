@@ -13,6 +13,7 @@ import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
+import org.icpclive.cds.testsys.TestSysDataSource
 import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.getLogger
 import org.icpclive.util.guessDatetimeFormat
@@ -68,6 +69,7 @@ fun getContestDataSourceAsFlow(
         "EJUDGE" -> EjudgeDataSource(properties)
         "KRSU" -> KRSUDataSource(properties)
         "CATS" -> CATSDataSource(properties, creds)
+        "TESTSYS" -> TestSysDataSource(properties)
         "NOOP" -> NoopDataSource()
         else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
     }
