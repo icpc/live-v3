@@ -8,6 +8,7 @@ node {
     version.set("16.14.0")
     npmInstallCommand.set("ci")
     download.set(rootProject.findProperty("npm.download") == "true")
+    fastNpmInstall.set(true)
 }
 
 tasks {

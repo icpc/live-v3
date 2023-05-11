@@ -1,11 +1,11 @@
 [versions]
 ktor = "2.3.0"                     # https://ktor.io/
 datetime = "0.4.0"                 # https://github.com/Kotlin/kotlinx-datetime
-serialization = "1.5.0"            # https://github.com/Kotlin/kotlinx.serialization
+serialization = "1.5.1"            # https://github.com/Kotlin/kotlinx.serialization
 kotlin = "1.8.21"
 logback = "1.4.7"                  # https://logback.qos.ch/download.html
-node-plugin = "3.5.1"              # https://github.com/node-gradle/gradle-node-plugin
-coroutines = "1.6.4"               # https://github.com/Kotlin/kotlinx.coroutines/
+node-plugin = "4.0.0"              # https://github.com/node-gradle/gradle-node-plugin
+coroutines = "1.7.0"               # https://github.com/Kotlin/kotlinx.coroutines/
 exposed = "0.41.1"                 # https://github.com/JetBrains/Exposed
 telegram-bot = "6.0.7"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
 shadow-plugin = "8.1.1"            # https://github.com/johnrengelman/shadow
