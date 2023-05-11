@@ -37,12 +37,6 @@ enum class ScoreMergeMode {
     SUM
 }
 
-data class ScoreMergeModes(val modes: Map<Int, ScoreMergeMode>) {
-    constructor(problems: List<ProblemInfo>): this(
-        problems.associate { it.id to it.scoreMergeMode!! }
-    )
-}
-
 @Serializable
 data class ProblemInfo(
     val letter: String,
