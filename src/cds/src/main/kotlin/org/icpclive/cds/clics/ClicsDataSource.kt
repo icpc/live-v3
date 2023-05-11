@@ -1,6 +1,5 @@
 package org.icpclive.cds.clics
 
-import io.ktor.utils.io.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -18,7 +17,6 @@ import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.getLineStreamLoaderFlow
 import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.util.*
-import java.lang.Exception
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -175,16 +173,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
             }
             .sortedPrefix()
             .filterNot { it.token in idSet }
-            .onEach {
-                try {
-                    println("Before process: $it")
-                    processEvent(it)
-                    println("End process: $it")
-                } catch (e: Throwable) {
-                    println(e.printStackTrace())
-                    throw e
-                }
-            }
+            .onEach { processEvent(it) }
             .takeWhile { !it.isFinalEvent }
             .onEach { idSet.add(it.token) }
             .logAndRetryWithDelay(5.seconds) {
