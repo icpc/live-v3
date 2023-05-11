@@ -41,7 +41,7 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
         val penalty = problemsWithPenalty.map { it.second }.distinct().takeIf { it.size <= 1 } ?:
             TODO("Different problem penalties are not supported")
         val teams = (data["@t"] ?: emptyList()).mapIndexed { index, team ->
-            val (id, _, _, name) = team.splitCommas().also { println(it) }
+            val (id, _, _, name) = team.splitCommas()
             TeamInfo(
                 id = index,
                 name = name,
@@ -72,16 +72,15 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
             val (teamId, problemId, _, time, verdict) = subm.splitCommas()
             RunInfo(
                 id = index,
-                result = ICPCRunResult(
-                    isAccepted = (verdict == "OK"),
-                    isAddingPenalty = when {
-                        verdict == "OK" -> false
-                        verdict == "CE" -> isCEPenalty
+                result = Verdict.lookup(
+                    shortName = verdict,
+                    isAccepted = verdict == "OK",
+                    isAddingPenalty = when (verdict) {
+                        "OK" -> false
+                        "CE" -> isCEPenalty
                         else -> true
-                    },
-                    isFirstToSolveRun = false,
-                    result = verdict
-                ),
+                    }
+                ).toRunResult(),
                 percentage = 1.0,
                 problemId = problemIdMap[problemId]!!,
                 teamId = teamIdMap[teamId]!!,

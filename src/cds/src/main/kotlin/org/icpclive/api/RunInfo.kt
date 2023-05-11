@@ -3,8 +3,6 @@ package org.icpclive.api
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.util.DurationInMillisecondsSerializer
@@ -80,6 +78,7 @@ private object LookupHolder {
     private val alternativeNames = mapOf(
         "OK" to Verdict.Accepted,
         "TLE" to Verdict.TimeLimitExceeded,
+        "RT" to Verdict.RuntimeError,
         "RTE" to Verdict.RuntimeError,
         "OLE" to Verdict.OutputLimitExceeded,
         "MLE" to Verdict.MemoryLimitExceeded,
