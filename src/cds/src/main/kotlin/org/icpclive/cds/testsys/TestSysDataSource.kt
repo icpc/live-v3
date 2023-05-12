@@ -8,7 +8,9 @@ import kotlinx.datetime.toKotlinLocalDateTime
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.common.ByteArrayLoader
 import org.icpclive.cds.common.defaultHttpClient
+import org.icpclive.cds.common.map
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
 import java.util.Properties
@@ -17,19 +19,23 @@ import kotlin.time.Duration.Companion.seconds
 
 
 class TestSysDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-    private val httpClient = defaultHttpClient(null)
+    val url = properties.getProperty("url")
+    val loader = ByteArrayLoader(null) { url }
+        .map {
+            val eofPosition = it.indexOf(EOF)
+            String(
+                it,
+                eofPosition + 1, it.size - eofPosition - 1,
+                Charset.forName("windows-1251")
+            )
+        }.map {
+            it.split("\r\n").filter(String::isNotEmpty)
+        }
 
     val timeZone = properties.getProperty("timezone") ?: "Europe/Moscow"
 
     override suspend fun loadOnce(): ContestParseResult {
-        val monitorDataBytes = httpClient.get(properties.getProperty("url")).body<ByteArray>()
-        val eofPosition = monitorDataBytes.indexOf(EOF)
-        val data = String(
-            monitorDataBytes,
-            eofPosition + 1, monitorDataBytes.size - eofPosition - 1,
-            Charset.forName("windows-1251")
-        ).split("\r\n")
-            .filter { it.isNotEmpty() }.groupBy(
+        val data = loader.load().groupBy(
                 keySelector = { it.split(" ", limit = 2)[0] },
                 valueTransform = { it.split(" ", limit = 2)[1] }
             )

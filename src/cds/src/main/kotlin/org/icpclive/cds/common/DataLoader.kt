@@ -1,5 +1,6 @@
 package org.icpclive.cds.common
 
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.serialization.decodeFromString
@@ -29,6 +30,24 @@ class StringLoader(
         return content
     }
 }
+
+class ByteArrayLoader(
+    auth: ClientAuth?,
+    val computeURL: () -> String
+) : DataLoader<ByteArray> {
+    private val httpClient = defaultHttpClient(auth)
+
+    override suspend fun load(): ByteArray {
+        val url = computeURL()
+        val content = if (!isHttpUrl(url)) {
+            Paths.get(url).toFile().readBytes()
+        } else {
+            httpClient.request(url).body<ByteArray>()
+        }
+        return content
+    }
+}
+
 
 fun xmlLoader(auth: ClientAuth? = null, url: () -> String): DataLoader<Document> {
     val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
