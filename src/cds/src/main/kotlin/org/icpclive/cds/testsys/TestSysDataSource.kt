@@ -1,13 +1,15 @@
 package org.icpclive.cds.testsys
 
+import io.ktor.client.call.*
+import io.ktor.client.request.*
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.StringLoader
-import org.icpclive.cds.common.map
+import org.icpclive.cds.common.defaultHttpClient
+import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
 import java.util.Properties
 import kotlin.time.Duration.Companion.minutes
@@ -15,19 +17,22 @@ import kotlin.time.Duration.Companion.seconds
 
 
 class TestSysDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-    val loader = StringLoader(null) {
-        properties.getProperty("url")
-    }.map { it.substring(it.indexOf(EOF) + 1) }
-        .map { it.split("\r\n").filter { it.isNotEmpty() } }
+    private val httpClient = defaultHttpClient(null)
 
     val timeZone = properties.getProperty("timezone") ?: "Europe/Moscow"
 
     override suspend fun loadOnce(): ContestParseResult {
-        val lines = loader.load()
-        val data = lines.groupBy(
-            keySelector = { it.split(" ", limit = 2)[0] },
-            valueTransform = { it.split(" ", limit = 2)[1] }
-        )
+        val monitorDataBytes = httpClient.get(properties.getProperty("url")).body<ByteArray>()
+        val eofPosition = monitorDataBytes.indexOf(EOF)
+        val data = String(
+            monitorDataBytes,
+            eofPosition + 1, monitorDataBytes.size - eofPosition - 1,
+            Charset.forName("windows-1251")
+        ).split("\r\n")
+            .filter { it.isNotEmpty() }.groupBy(
+                keySelector = { it.split(" ", limit = 2)[0] },
+                valueTransform = { it.split(" ", limit = 2)[1] }
+            )
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
@@ -38,8 +43,8 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
                 cdsId = letter,
             ) to penalty.toInt()
         }
-        val penalty = problemsWithPenalty.map { it.second }.distinct().takeIf { it.size <= 1 } ?:
-            TODO("Different problem penalties are not supported")
+        val penalty = problemsWithPenalty.map { it.second }.distinct().takeIf { it.size <= 1 }
+            ?: TODO("Different problem penalties are not supported")
         val teams = (data["@t"] ?: emptyList()).mapIndexed { index, team ->
             val (id, _, _, name) = team.splitCommas()
             TeamInfo(
@@ -80,8 +85,8 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
                         "CE" -> isCEPenalty
                         else -> true
                     }
-                ).toRunResult(),
-                percentage = 1.0,
+                ).takeIf { verdict != "FZ" }?.toRunResult(),
+                percentage = if (verdict == "FZ") 0.0 else 1.0,
                 problemId = problemIdMap[problemId]!!,
                 teamId = teamIdMap[teamId]!!,
                 time = time.toInt().seconds,
@@ -125,6 +130,6 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
     }
 
     companion object {
-        const val EOF = 26.toChar()
+        const val EOF = 26.toByte()
     }
 }
