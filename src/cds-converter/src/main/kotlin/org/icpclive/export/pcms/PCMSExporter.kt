@@ -81,8 +81,9 @@ object PCMSExporter {
         row.problemResults.forEachIndexed { index, probResult ->
             val probNode = createChild("problem")
             val problemRuns = (runsByProblem[index] ?: emptyList())
-            probNode.setAttribute("accepted", if ((probResult as ICPCProblemResult).isSolved) "1" else "0")
-            probNode.setAttribute("attempts", problemRuns.size.toString())
+            val isAcceptedInt = if ((probResult as ICPCProblemResult).isSolved) 1 else 0
+            probNode.setAttribute("accepted", isAcceptedInt.toString())
+            probNode.setAttribute("attempts", (probResult.wrongAttempts + isAcceptedInt).toString())
             probNode.setAttribute("id", info.problems[index].cdsId)
             probNode.setAttribute("alias", info.problems[index].letter)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
