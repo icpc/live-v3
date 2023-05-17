@@ -24,7 +24,7 @@ Possible java invocation options are:
 * ```-P:auth.disabled=true``` -- do not use credentials in admin interface
 * ```-P:live.analyticsTemplatesFile=config/analyticsTemplateRu.json``` -- path to i18n configuration for Analytics and Analytics enable
 * ```-P:live.allowUnsecureConnections=true``` -- allow non-https contest system urls
-* ```-P:live.widgetPositionsFile=config/widget_positions.json.splitscreen``` -- set non-standard widget positions, for example for split screen 
+* ```-P:live.widgetPositionsFile=config/widget_positions.json.splitscreen``` -- set non-standard widget positions, for example for split screen or fullscreen leaderboard.
 
 
 * Port 8080 is default, if you are okay with it this option can be omitted
