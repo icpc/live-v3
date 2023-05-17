@@ -1,0 +1,12 @@
+{
+  "problemOverrides": {
+    "A1":{
+      "minScore":"0",
+      "maxScore":"900"
+    },
+    "A2":{
+      "minScore":"0",
+      "maxScore":"900"
+    }
+  }
+}
