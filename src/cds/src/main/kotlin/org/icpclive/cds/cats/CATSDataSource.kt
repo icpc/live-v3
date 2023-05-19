@@ -60,7 +60,7 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
     data class Auth(val status: String, val sid: String, val cid: Long)
 
     @Serializable
-    data class Problem(val id: Int, val name: String, val code: String, val max_points: Double = 0.0)
+    data class Problem(val id: Int, val name: String, val code: String, val max_points: String = "0.0")
 
     @Serializable
     data class Problems(val problems: List<Problem>)
@@ -121,10 +121,10 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
     ) : Run()
 
     private val authLoader = jsonLoader<Auth> { "$url/?f=login&login=$login&passwd=$password&json=1" }
-    private val problemsLoader = jsonLoader<Problems> { "$url/problems?cid=$cid&sid=${sid!!}&json=1" }
+    private val problemsLoader = jsonLoader<Problems> { "$url/problems?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
     private val usersLoader = jsonLoader<Users> { "$url/users?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
     private val contestLoader = jsonLoader<Contest> { "$url/contest_params?cid=$cid&sid=${sid!!}&json=1" }
-    private val runsLoader = jsonLoader<List<Run>> { "$url/console?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
+    private val runsLoader = jsonLoader<List<Run>> { "$url/console?cid=$cid&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1" }
 
     override suspend fun loadOnce(): ContestParseResult {
         sid = authLoader.load().sid
@@ -153,7 +153,7 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
                     ordinal = index,
                     cdsId = problem.id.toString(),
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
-                    maxScore = if (resultType == ContestResultType.IOI) problem.max_points else null,
+                    maxScore = if (resultType == ContestResultType.IOI) problem.max_points.toDoubleOrNull() else null,
                     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
                 )
             }
