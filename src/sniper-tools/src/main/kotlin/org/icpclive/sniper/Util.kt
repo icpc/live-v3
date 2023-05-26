@@ -2,7 +2,7 @@ package org.icpclive.sniper
 
 import java.io.*
 import java.net.HttpURLConnection
-import java.net.URL
+import java.net.URI
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
@@ -10,10 +10,10 @@ import java.util.*
 object Util {
     val snipers: MutableList<SniperInfo> = ArrayList()
     const val ANGLE = 1.28
-    fun sendGet(url: String?): String {
+    fun sendGet(url: String): String {
     println("send get $url" +
             "")
-        val obj = URL(url)
+        val obj = URI(url).toURL()
         val con = obj.openConnection() as HttpURLConnection
         con.requestMethod = "GET"
         return con.inputStream.reader().buffered().use {
@@ -84,8 +84,8 @@ object Util {
         }
     }
 
-    fun sendPost(urlString: String?, contentType: String?, data: String) {
-        val url = URL(urlString)
+    fun sendPost(urlString: String, contentType: String?, data: String) {
+        val url = URI(urlString).toURL()
         val con = url.openConnection()
         val http = con as HttpURLConnection
         http.requestMethod = "POST"

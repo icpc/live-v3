@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
 import java.awt.image.BufferedImage
 import java.io.*
-import java.net.URL
+import java.net.URI
 import java.util.*
 import javax.swing.ImageIcon
 import javax.swing.JFrame
@@ -61,7 +61,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
             override fun run() {
                 val runner: MjpegRunner
                 try {
-                    runner = MjpegRunner(this@SniperCalibrator, URL("$url/mjpg/video.mjpg"))
+                    runner = MjpegRunner(this@SniperCalibrator, URI("$url/mjpg/video.mjpg").toURL())
                     runner.run()
                 } catch (e: IOException) {
                     e.printStackTrace()
