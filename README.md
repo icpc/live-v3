@@ -69,6 +69,7 @@ Requirements:
 
 Before cloning on Windows configure correct crlf handling
 
+* `git config --global core.autocrlf false`
 * `git config --global core.symlinks true`
 
 ## Developing backend
