@@ -16,6 +16,7 @@ data class TeamInfoOverride(
     val hashTag: String? = null,
     val medias: Map<TeamMediaType, MediaType?>? = null,
     val additionalInfo: String? = null,
+    val isHidden: Boolean? = null
 )
 
 @Serializable
@@ -63,7 +64,8 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
                 shortname = it.shortName.takeIfAsked("shortname"),
                 groups = it.groups.takeIfAsked("groups"),
                 hashTag = it.hashTag.takeIfAsked("hashTag"),
-                medias = it.medias.takeIfAsked("medias")
+                medias = it.medias.takeIfAsked("medias"),
+                isHidden = it.isHidden.takeIfAsked("isHidden")
             )
         },
         problemOverrides = problems.associate {

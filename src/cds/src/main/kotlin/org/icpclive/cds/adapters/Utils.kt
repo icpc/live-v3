@@ -92,13 +92,29 @@ private fun PersistentList<RunInfo>.resort(index_: Int) = builder().apply {
 private fun PersistentList<RunInfo>.addAndResort(info: RunInfo) = add(info).resort(size)
 private fun PersistentList<RunInfo>.setAndResort(index: Int, info: RunInfo) = set(index, info).resort(index)
 
+inline fun <K, V> PersistentMap<K, V>.update(k: K, block: (V?) -> V) = put(k, block(get(k)))
+
+private fun <K> PersistentMap<K, PersistentList<RunInfo>>.addAndResort(k: K, info: RunInfo) = update(k) {
+    (it ?: persistentListOf()).addAndResort(info)
+}
+private fun <K> PersistentMap<K, PersistentList<RunInfo>>.updateAndResort(k: K, info: RunInfo) = update(k) {
+    val index = it!!.indexOfFirst { run -> run.id == info.id }
+    it.setAndResort(index, info)
+}
+private fun <K> PersistentMap<K, PersistentList<RunInfo>>.removeRun(k: K, info: RunInfo) = update(k) {
+    val index = it!!.indexOfFirst { run -> run.id == info.id }
+    it.removeAt(index)
+}
+
+
 fun <K: Any> Flow<ContestUpdate>.withGroupedRuns(
     selector: (RunInfo) -> K,
-    transformGroup : ((K, PersistentList<RunInfo>, ContestInfo?) -> List<RunInfo>)? = null,
+    transformGroup : ((key: K, cur: PersistentList<RunInfo>, original: PersistentList<RunInfo>, info: ContestInfo?) -> List<RunInfo>)? = null,
     needUpdateGroup : ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null,
 ) = flow {
     var curInfo: ContestInfo? = null
     var curRuns = persistentMapOf<K, PersistentList<RunInfo>>()
+    var originalRuns = persistentMapOf<K, PersistentList<RunInfo>>()
     val oldKey = mutableMapOf<Int, K>()
     collect { update ->
         suspend fun emit(update: ContestUpdate) = emit(ContestEventWithGroupedRuns(update, curInfo, curRuns))
@@ -108,7 +124,7 @@ fun <K: Any> Flow<ContestUpdate>.withGroupedRuns(
                 newRun?.let { emit(RunUpdate(it)) }
                 return
             }
-            val newList = transformGroup(key, plist, curInfo)
+            val newList = transformGroup(key, plist, originalRuns[key] ?: persistentListOf(), curInfo)
             if (newList === plist) {
                 newRun?.let { emit(RunUpdate(it)) }
                 return
@@ -128,18 +144,16 @@ fun <K: Any> Flow<ContestUpdate>.withGroupedRuns(
                 oldKey[update.newInfo.id] = k
                 if (oldK != k) {
                     if (oldK != null) {
-                        val oldList = curRuns[oldK]!!
-                        val index = oldList.indexOfFirst { run -> run.id == update.newInfo.id }
-                        curRuns = curRuns.put(oldK, oldList.removeAt(index))
+                        curRuns = curRuns.removeRun(oldK, update.newInfo)
+                        originalRuns = originalRuns.removeRun(oldK, update.newInfo)
                         updateGroup(oldK)
                     }
-                    val oldList = curRuns[k] ?: persistentListOf()
-                    curRuns = curRuns.put(k, oldList.addAndResort(update.newInfo))
+                    curRuns = curRuns.addAndResort(k, update.newInfo)
+                    originalRuns = originalRuns.addAndResort(k, update.newInfo)
                     updateGroup(k, update.newInfo)
                 } else {
-                    val oldList = curRuns[k]!!
-                    val index = oldList.indexOfFirst { run -> run.id == update.newInfo.id }
-                    curRuns = curRuns.put(k, oldList.setAndResort(index, update.newInfo))
+                    curRuns = curRuns.updateAndResort(k, update.newInfo)
+                    originalRuns = originalRuns.updateAndResort(k, update.newInfo)
                     updateGroup(k, update.newInfo)
                 }
             }

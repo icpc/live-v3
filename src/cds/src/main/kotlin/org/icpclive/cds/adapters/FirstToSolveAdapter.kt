@@ -23,7 +23,7 @@ fun Flow<ContestUpdate>.addFirstToSolves() = withGroupedRuns(
             else -> Int.MIN_VALUE
         }
     },
-    transformGroup = { k, runs, _ ->
+    transformGroup = { k, runs, _, _ ->
         when {
             k == Int.MIN_VALUE -> runs
             k % 2 == 0 -> runs.mapIndexed { index, run ->

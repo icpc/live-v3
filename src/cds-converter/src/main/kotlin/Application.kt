@@ -100,6 +100,7 @@ fun Application.module() {
     )
         .applyAdvancedProperties(advancedProperties)
         .filterUseless()
+        .processHiddenTeams()
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }

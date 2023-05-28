@@ -13,7 +13,6 @@ import kotlin.time.Duration.Companion.hours
 
 class ClicsModel(
     private val addTeamNames: Boolean,
-    private val hiddenGroups: Set<String>,
     private val mediaBaseUrl: String
 ) {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
@@ -26,8 +25,6 @@ class ClicsModel(
     private val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
-    private val hiddenTeams = mutableSetOf<String>()
-    private val teamSubmissions = mutableMapOf<Int, MutableSet<String>>()
 
     var startTime: Instant? = null
     var contestLength = 5.hours
@@ -68,7 +65,7 @@ class ClicsModel(
             name = teamName(teamOrganization?.formalName, name),
             shortName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
-            isHidden = hiddenTeams.contains(id),
+            isHidden = hidden,
             groups = group_ids.mapNotNull { groups[it]?.name },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
@@ -145,7 +142,6 @@ class ClicsModel(
         } else {
             require(id == team.id)
             teams[id] = team
-            setTeamHidden(team.id, team.hidden || team.group_ids.any { groups[it]?.name in hiddenGroups })
         }
         return emptyList()
     }
@@ -174,20 +170,6 @@ class ClicsModel(
         return emptyList()
     }
 
-    private fun setTeamHidden(teamId: String, isHidden: Boolean): List<RunInfo> {
-        val wasHidden = teamId in hiddenTeams
-        if (wasHidden == isHidden) return emptyList()
-        if (isHidden) {
-            hiddenTeams.add(teamId)
-        } else {
-            hiddenTeams.remove(teamId)
-        }
-        return teamSubmissions[teamCdsIdToId[teamId]]
-            ?.mapNotNull { submissions[it]?.apply { this.isHidden = isHidden } }
-            ?.map { it.toApi() }
-            ?: emptyList()
-    }
-
     fun processSubmission(submission: Submission): ClicsRunInfo {
         val id = liveSubmissionId(submission.id)
         val problem = problems[submission.problem_id]
@@ -200,12 +182,9 @@ class ClicsModel(
             liveProblemId = liveProblemId(problem.id),
             teamId = liveTeamId(team.id),
             submissionTime = submission.contest_time,
-            isHidden = team.id in hiddenTeams,
             reactionVideos = submission.reaction?.mapNotNull { it.mediaType() } ?: emptyList()
         )
-        submissions[submission.id]?.let { teamSubmissions[it.teamId]?.remove(submission.id) }
         submissions[submission.id] = run
-        teamSubmissions.getOrPut(run.teamId) { mutableSetOf() }.add(submission.id)
         return run
     }
 

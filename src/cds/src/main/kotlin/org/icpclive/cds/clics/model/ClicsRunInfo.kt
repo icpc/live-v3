@@ -12,7 +12,6 @@ class ClicsRunInfo(
     val liveProblemId: Int,
     val teamId: Int,
     val submissionTime: Duration,
-    var isHidden: Boolean,
     val reactionVideos: List<MediaType> = emptyList(),
 ) {
     val passedCaseRun = mutableSetOf<Int>()
@@ -35,6 +34,5 @@ class ClicsRunInfo(
         },
         time = submissionTime,
         reactionVideos = reactionVideos,
-        isHidden = isHidden,
     )
 }

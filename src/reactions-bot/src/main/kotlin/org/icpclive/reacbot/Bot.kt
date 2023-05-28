@@ -25,6 +25,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.filterUseless
+import org.icpclive.cds.adapters.processHiddenTeams
 import org.icpclive.cds.adapters.removeFrozenSubmissions
 import org.icpclive.cds.adapters.withRunsBefore
 import org.icpclive.cds.common.setAllowUnsecureConnections
@@ -40,6 +41,7 @@ class Bot(private val config: Config) {
     ).withRunsBefore()
         .filterUseless()
         .removeFrozenSubmissions()
+        .processHiddenTeams()
     private val storage = Storage()
     private val bot = bot {
         logLevel = LogLevel.Error

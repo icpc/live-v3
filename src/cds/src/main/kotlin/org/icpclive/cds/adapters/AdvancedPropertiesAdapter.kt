@@ -129,17 +129,18 @@ private fun applyOverrides(
         }
     ) { team, override ->
         TeamInfo(
-            team.id,
-            override.name ?: team.name,
-            override.shortname ?: team.shortName,
-            team.contestSystemId,
-            override.groups ?: team.groups,
-            override.hashTag ?: team.hashTag,
-            if (override.medias != null)
+            id = team.id,
+            name = override.name ?: team.name,
+            shortName = override.shortname ?: team.shortName,
+            contestSystemId = team.contestSystemId,
+            groups = override.groups ?: team.groups,
+            hashTag = override.hashTag ?: team.hashTag,
+            medias = if (override.medias != null)
                 (team.medias + override.medias).filterValues { it != null }.mapValues { it.value!! }
             else
                 team.medias,
             additionalInfo = override.additionalInfo,
+            isHidden = override.isHidden ?: team.isHidden
         )
     }
     val (problemInfos, unusedProblemOverrides) = mergeOverride(

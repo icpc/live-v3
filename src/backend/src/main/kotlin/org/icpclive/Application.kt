@@ -130,6 +130,7 @@ fun Application.module() {
     ).withRunsBefore()
         .filterUseless()
         .removeFrozenSubmissions()
+        .processHiddenTeams()
         .calculateScoreDifferences()
         .addFirstToSolves()
 

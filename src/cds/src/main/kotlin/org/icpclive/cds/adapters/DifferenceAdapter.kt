@@ -53,7 +53,7 @@ fun Flow<ContestUpdate>.calculateScoreDifferences() = withGroupedRuns(
     needUpdateGroup = { new, old, key ->
         new.problems.getOrNull(key.first)?.scoreMergeMode != old?.problems?.getOrNull(key.first)?.scoreMergeMode
     },
-    transformGroup = transform@{ key, runs, contestInfo ->
+    transformGroup = transform@{ key, runs, _, contestInfo ->
         if (contestInfo?.resultType != ContestResultType.IOI) return@transform runs
         val accumulator = when (contestInfo.problems.getOrNull(key.first)?.scoreMergeMode ?: ScoreMergeMode.LAST) {
             ScoreMergeMode.MAX_PER_GROUP -> MaxByGroupScoreAccumulator()

@@ -4,7 +4,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.icpclive.api.AnalyticsCommentaryEvent
 import org.icpclive.api.AnalyticsMessage
@@ -47,7 +46,6 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
 
     private val model = ClicsModel(
         properties.getProperty("use_team_names", "true") == "true",
-        properties.getProperty("hidden_groups", "").split(",").toSet(),
         properties.getProperty("media_base_url", "")
     )
 
