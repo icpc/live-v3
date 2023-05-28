@@ -75,7 +75,7 @@ class VerdictSerializer : KSerializer<Verdict> {
 private object LookupHolder {
     val all = Verdict::class.sealedSubclasses.map { it.objectInstance!! }
 
-    private val alternativeNames = mapOf(
+    private val alternativeNames = listOf(
         "OK" to Verdict.Accepted,
         "TLE" to Verdict.TimeLimitExceeded,
         "RT" to Verdict.RuntimeError,
@@ -87,17 +87,17 @@ private object LookupHolder {
         "CTL" to Verdict.CompilationError,
     )
 
-    private val mainNames = all.associateBy {
-        it.shortName
+    private val mainNames = all.map {
+        it.shortName to it
     }
 
-    private val allNames = alternativeNames + mainNames
+    private val allNames = (alternativeNames + mainNames).groupBy({ it.first }, { it.second })
 
 
     fun lookup(shortName: String, isAddingPenalty: Boolean, isAccepted: Boolean) : Verdict {
-        val found = allNames[shortName]
+        val found = allNames[shortName]?.singleOrNull { it.isAddingPenalty == isAddingPenalty && it.isAccepted == isAccepted }
         return when {
-            found?.isAddingPenalty == isAddingPenalty && found.isAccepted == isAccepted -> found
+            found != null -> found
             isAccepted -> Verdict.Accepted
             isAddingPenalty -> Verdict.Rejected
             else -> Verdict.Ignored
