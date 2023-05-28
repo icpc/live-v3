@@ -33,7 +33,7 @@ export const ContestClock = ({
 
     const getStatus = useCallback(() => {
         if (globalTimeMode === true) {
-            return DateTime.now().setZone(new SystemZone()).toFormat("HH:mm:ss");
+            return DateTime.now().setZone(new SystemZone()).toFormat(quietMode ? "HH:mm" : "HH:mm:ss");
         }
 
         if (contestInfo === undefined) {
