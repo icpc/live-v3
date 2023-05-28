@@ -223,9 +223,17 @@ TextShrinkingCell.propTypes = {
     align: PropTypes.oneOf(["center", "left"])
 };
 
+export const formatRank = (rank) => {
+    if (rank === undefined || rank == null)
+        return "??";
+    else if (rank === 0)
+        return "*";
+    return rank.toString();
+};
+
 export const RankCell = ({ rank, medal, ...props }) => {
     return <Cell background={MEDAL_COLORS[medal]} {...props}>
-        {rank ?? "??"}
+        {formatRank(rank)}
     </Cell>;
 };
 

@@ -81,6 +81,7 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         if (status == ContestStatus.RUNNING) {
             logger.info("Loaded contestInfo for time = $contestTime")
         }
+        val teams = teamsAndRuns.map { it.first }.sortedBy { it.id }
         return ContestParseResult(
             ContestInfo(
                 element.getAttribute("name"),
@@ -90,7 +91,8 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                 contestLength,
                 freezeTime,
                 problems,
-                teamsAndRuns.map { it.first }.sortedBy { it.id },
+                teams,
+                teams.toGroupInfos()
             ),
             teamsAndRuns.flatMap { it.second },
             emptyList()

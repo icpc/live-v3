@@ -16,7 +16,8 @@ data class TeamInfoOverride(
     val hashTag: String? = null,
     val medias: Map<TeamMediaType, MediaType?>? = null,
     val additionalInfo: String? = null,
-    val isHidden: Boolean? = null
+    val isHidden: Boolean? = null,
+    val isOutOfContest: Boolean? = null
 )
 
 @Serializable
@@ -27,6 +28,12 @@ data class ProblemInfoOverride(
     val minScore: Double? = null,
     val maxScore: Double? = null,
     val scoreMergeMode: ScoreMergeMode? = null
+)
+
+@Serializable
+data class GroupInfoOverride(
+    val isHidden: Boolean? = null,
+    val isOutOfContest: Boolean? = null
 )
 
 @Serializable
@@ -48,6 +55,7 @@ data class AdvancedProperties(
     val holdTime: Duration? = null,
     val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
+    val groupOverrides: Map<String, GroupInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
     val scoreboardOverrides: RankingSettings? = null
 )
@@ -65,7 +73,8 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
                 groups = it.groups.takeIfAsked("groups"),
                 hashTag = it.hashTag.takeIfAsked("hashTag"),
                 medias = it.medias.takeIfAsked("medias"),
-                isHidden = it.isHidden.takeIfAsked("isHidden")
+                isHidden = it.isHidden.takeIfAsked("isHidden"),
+                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
             )
         },
         problemOverrides = problems.associate {
@@ -75,6 +84,12 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
                 minScore = it.minScore.takeIfAsked("minScore"),
                 maxScore = it.maxScore.takeIfAsked("maxScore"),
                 scoreMergeMode = it.scoreMergeMode.takeIfAsked("scoreMergeMode")
+            )
+        },
+        groupOverrides = groups.associate {
+            it.name to GroupInfoOverride(
+                isHidden = it.isHidden.takeIfAsked("isHidden"),
+                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
             )
         },
         scoreboardOverrides = RankingSettings(

@@ -18,6 +18,7 @@ class NoopDataSource : RawContestDataSource {
             problems = emptyList(),
             teams = emptyList(),
             resultType = ContestResultType.ICPC,
+            groups = emptyList()
         ))
     )
 

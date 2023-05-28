@@ -58,6 +58,8 @@ class ClicsModel(
         return null
     }
 
+    fun Group.toApi() : GroupInfo = GroupInfo(name)
+
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
@@ -96,6 +98,7 @@ class ClicsModel(
             freezeTime = freezeTime,
             problems = problems.values.map { it.toApi() },
             teams = teams.values.map { it.toApi() },
+            groups = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             holdBeforeStartTime = holdBeforeStartTime
         )

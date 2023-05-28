@@ -32,7 +32,7 @@ private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
 
 private fun RunInfo.interesting() = when {
     isFirstSolvedRun -> 3
-    isAccepted == true -> 2
+    isAccepted -> 2
     result != null -> 1
     else -> 0
 }

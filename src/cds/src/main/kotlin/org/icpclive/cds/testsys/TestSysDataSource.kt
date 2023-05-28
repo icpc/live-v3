@@ -77,7 +77,8 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
             teams = teams,
             problems = problems,
             penaltyPerWrongAttempt = (penalty.getOrNull(0) ?: 20),
-            penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE
+            penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE,
+            groups = emptyList(),
         )
         val runs = (data["@s"] ?: emptyList()).mapIndexed { index, subm ->
             val (teamId, problemId, _, time, verdict) = subm.splitCommas()

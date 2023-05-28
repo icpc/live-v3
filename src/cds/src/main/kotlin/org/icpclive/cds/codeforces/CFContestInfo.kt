@@ -247,6 +247,7 @@ class CFContestInfo {
         contestLength,
         problems,
         participantsById.values.map { it.toApi() }.sortedBy { it.id },
+        groups = emptyList()
     )
 
     companion object {

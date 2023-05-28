@@ -161,6 +161,14 @@ data class TeamInfo(
     val medias: Map<TeamMediaType, MediaType>,
     val additionalInfo: String? = null,
     val isHidden: Boolean = false,
+    val isOutOfContest: Boolean = false,
+)
+
+@Serializable
+data class GroupInfo(
+    val name: String,
+    val isHidden: Boolean = false,
+    val isOutOfContest: Boolean = false
 )
 
 @Serializable
@@ -189,6 +197,7 @@ data class ContestInfo(
     val freezeTime: Duration,
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
+    val groups: List<GroupInfo>,
     @SerialName("holdBeforeStartTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val holdBeforeStartTime: Duration? = null,
@@ -203,4 +212,7 @@ data class ContestInfo(
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER -> contestLength
         }
+    fun groupById(id: String) = groups.find { it.name == id }
 }
+
+fun List<TeamInfo>.toGroupInfos() = flatMap { it.groups }.distinct().map { GroupInfo(it) }

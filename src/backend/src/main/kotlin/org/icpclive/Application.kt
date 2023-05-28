@@ -21,8 +21,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.api.AdvancedProperties
-import org.icpclive.api.RunInfo
-import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.data.Controllers
 import org.icpclive.overlay.configureOverlayRouting
@@ -124,16 +123,6 @@ fun Application.module() {
     if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in ${config.configDirectory}")
     val properties = Properties()
     FileInputStream(path.toString()).use { properties.load(it) }
-    val loader = getContestDataSourceAsFlow(
-        properties,
-        config.creds,
-    ).withRunsBefore()
-        .filterUseless()
-        .removeFrozenSubmissions()
-        .processHiddenTeams()
-        .calculateScoreDifferences()
-        .addFirstToSolves()
-
 
     launch(handler) {
         val advancedJsonPath = config.configDirectory.resolve("advanced.json")
@@ -141,6 +130,18 @@ fun Application.module() {
             .stateIn(this, SharingStarted.Eagerly, AdvancedProperties())
         DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
 
-        launchServices(loader.applyAdvancedProperties(advancedPropertiesFlow).filterUseless())
+        val loader = getContestDataSourceAsFlow(
+            properties,
+            config.creds,
+        ).applyAdvancedProperties(advancedPropertiesFlow)
+            .withRunsBefore()
+            .filterUseless()
+            .removeFrozenSubmissions()
+            .processHiddenTeamsAndGroups()
+            .calculateScoreDifferences()
+            .addFirstToSolves()
+
+
+        launchServices(loader)
     }
 }

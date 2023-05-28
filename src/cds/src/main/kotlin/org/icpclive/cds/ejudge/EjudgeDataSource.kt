@@ -93,7 +93,8 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
                 contestLength = contestLength,
                 freezeTime = freezeTime,
                 problems = parseProblemsInfo(element),
-                teams = teams
+                teams = teams,
+                groups = emptyList()
             ),
             runs = element.child("runs").children().mapNotNull { run ->
                 parseRunInfo(run, currentTime - startTime, teamIdMapping)

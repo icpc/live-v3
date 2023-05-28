@@ -140,7 +140,8 @@ private fun applyOverrides(
             else
                 team.medias,
             additionalInfo = override.additionalInfo,
-            isHidden = override.isHidden ?: team.isHidden
+            isHidden = override.isHidden ?: team.isHidden,
+            isOutOfContest = override.isOutOfContest ?: team.isOutOfContest
         )
     }
     val (problemInfos, unusedProblemOverrides) = mergeOverride(
@@ -181,6 +182,19 @@ private fun applyOverrides(
             logger.info("Filtered out ${teamInfos.size - it.size} of ${teamInfos.size} teams as they don't have submissions")
         }
     }
+    val newGroups = teamInfosFiltered.flatMap { it.groups }.toSet() - info.groups.map { it.name }.toSet()
+    val (groups, unusedGroupsOverrides) = mergeOverride(
+        info.groups + newGroups.map { GroupInfo(it, false, false) },
+        overrides.groupOverrides,
+        GroupInfo::name
+    ) { group, override ->
+        GroupInfo(
+            name = group.name,
+            isHidden = override.isHidden ?: group.isHidden,
+            isOutOfContest = override.isOutOfContest ?: group.isOutOfContest
+        )
+    }
+    if (unusedGroupsOverrides.isNotEmpty()) logger.warn("No group for override: $unusedGroupsOverrides")
 
     logger.info("Team and problem overrides are reloaded")
     return info.copy(
@@ -189,6 +203,7 @@ private fun applyOverrides(
         status = status,
         holdBeforeStartTime = holdTimeSeconds,
         teams = teamInfosFiltered,
+        groups = groups,
         problems = problemInfos.sortedBy { it.ordinal },
         medals = medals,
         penaltyPerWrongAttempt = penaltyPerWrongAttempt,

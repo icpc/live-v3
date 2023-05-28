@@ -30,19 +30,21 @@ abstract class ScoreboardCalculator {
             .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.problems) }
             .sortedWith(comparator.thenComparing { it -> it.team().name })
             .toMutableList()
-        var left: Int
         var right = 0
+        var outOfContestTeams = 0
         while (right < rows.size) {
-            left = right
+            val left = right
             while (right < rows.size && comparator.compare(rows[left], rows[right]) == 0) {
                 right++
             }
+            val minRank = left + 1 - outOfContestTeams
+            val nextRank = minRank + rows.subList(left, right).count { !teamsInfo[it.teamId]!!.isOutOfContest }
             val medal = run {
                 var skipped = 0
                 for (type in info.medals) {
                     val canGetMedal = when (type.tiebreakMode) {
-                        MedalTiebreakMode.ALL -> left < type.count + skipped
-                        MedalTiebreakMode.NONE -> right <= type.count + skipped
+                        MedalTiebreakMode.ALL -> minRank <= type.count + skipped
+                        MedalTiebreakMode.NONE -> nextRank <= type.count + skipped + 1
                     } && rows[left].totalScore >= type.minScore
                     if (canGetMedal) {
                         return@run type.name
@@ -52,11 +54,16 @@ abstract class ScoreboardCalculator {
                 null
             }
             for (i in left until right) {
-                rows[i] = rows[i].copy(
-                    rank = left + 1,
-                    medalType = medal,
-                    championInGroups = teamsInfo[rows[i].teamId]!!.groups.filter { it !in hasChampion }
-                )
+                val team = teamsInfo[rows[i].teamId]!!
+                if (team.isOutOfContest) {
+                    outOfContestTeams++
+                } else {
+                    rows[i] = rows[i].copy(
+                        rank = minRank,
+                        medalType = medal,
+                        championInGroups = team.groups.filter { it !in hasChampion }
+                    )
+                }
             }
             for (i in left until right) {
                 hasChampion.addAll(teamsInfo[rows[i].teamId]!!.groups)

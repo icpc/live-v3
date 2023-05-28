@@ -186,7 +186,8 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
             contestLength = contestLength,
             freezeTime = freezeTime,
             problems = problemsList,
-            teams = teamList
+            teams = teamList,
+            groups = emptyList()
         )
 
         val resultRuns = runs
