@@ -55,23 +55,28 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             "{result.ioiDifference}" to (analyse.run.result as? IOIRunResult)?.difference?.toString().orEmpty(),
             "{result.ioiScore}" to (analyse.run.result as? IOIRunResult)?.scoreAfter?.toString().orEmpty(),
         )
-        val runResult = analyse.run.result
-        if (runResult is IOIRunResult && runResult.difference > 0) {
-            return messagesTemplates.ioiJudgedPositiveDiffRun.applyTemplate(substitute)
-        }
-        if (runResult !is ICPCRunResult) {
-            return messagesTemplates.ioiJudgedRun.applyTemplate(substitute)
-        }
-        if (runResult.isFirstToSolveRun) {
-            return messagesTemplates.firstToSolveRun.applyTemplate(substitute)
-        }
-        if (runResult.verdict.isAccepted) {
-            if (substitute["{result.solvedProblems}"] != "") {
-                return messagesTemplates.acceptedWithSolvedProblemsRun.applyTemplate(substitute)
+        return when (val runResult = analyse.run.result) {
+            is IOIRunResult -> {
+                if (runResult.difference > 0) {
+                    return messagesTemplates.ioiJudgedPositiveDiffRun.applyTemplate(substitute)
+                } else {
+                    return messagesTemplates.ioiJudgedRun.applyTemplate(substitute)
+                }
             }
-            return messagesTemplates.acceptedRun.applyTemplate(substitute)
+            is ICPCRunResult -> {
+                if (runResult.isFirstToSolveRun) {
+                     messagesTemplates.firstToSolveRun.applyTemplate(substitute)
+                } else if (runResult.verdict.isAccepted) {
+                    return if (substitute["{result.solvedProblems}"] != "") {
+                        messagesTemplates.acceptedWithSolvedProblemsRun.applyTemplate(substitute)
+                    } else {
+                        messagesTemplates.acceptedRun.applyTemplate(substitute)
+                    }
+                }
+                return messagesTemplates.rejectedRun.applyTemplate(substitute)
+            }
+            else -> messagesTemplates.submittedRun.applyTemplate(substitute)
         }
-        return messagesTemplates.rejectedRun.applyTemplate(substitute)
     }
 
     private fun getTags(
