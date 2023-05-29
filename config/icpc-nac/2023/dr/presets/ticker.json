@@ -1,0 +1,38 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 5000,
+        "text": "NAC2023"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 10000,
+        "from": 1,
+        "to": 8
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "Welcome to the North America Championship Dress Rehearsal!"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "More information about the contest is available on nac.icpc.global"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "The scoreboard is now frozen"
+    }
+]

@@ -1,0 +1,25 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "USC: USC Cardinal solves J.Tic Tac Toe Counting and id now at rank 16"
+    },
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    }
+]

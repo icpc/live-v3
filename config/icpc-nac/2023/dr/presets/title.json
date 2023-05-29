@@ -1,0 +1,16 @@
+[
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "David Harmeyer",
+            "role": "ICPC Live"
+        }
+    },
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "Andrew He",
+            "role": "NAPC Trainer"
+        }
+    }
+]

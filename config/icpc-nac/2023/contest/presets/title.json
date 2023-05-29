@@ -1,0 +1,30 @@
+[
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "David Harmeyer",
+            "role": "ICPC Live"
+        }
+    },
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "Andrew He",
+            "role": "NAPC Trainer"
+        }
+    },
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "Nick Wu",
+            "role": "NAC Judge"
+        }
+    },
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "Toni Logar",
+            "role": "NAC Contest Director"
+        }
+    }
+]

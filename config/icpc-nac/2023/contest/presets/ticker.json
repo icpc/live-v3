@@ -1,0 +1,44 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 5000,
+        "text": "NAC2023"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 10000,
+        "from": 1,
+        "to": 8
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "Welcome to the North America Championship!"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "More information and mirror contest on nac.icpc.global"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 5000,
+        "text": "The scoreboard is now frozen"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Purdue solves B.A Tree and Two Edges. They are at rank 1 and have 7 problems solved"
+    }
+]

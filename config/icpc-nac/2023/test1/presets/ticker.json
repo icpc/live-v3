@@ -1,0 +1,14 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    }
+]
