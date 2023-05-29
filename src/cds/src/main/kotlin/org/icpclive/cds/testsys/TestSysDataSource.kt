@@ -1,7 +1,5 @@
 package org.icpclive.cds.testsys
 
-import io.ktor.client.call.*
-import io.ktor.client.request.*
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
@@ -9,7 +7,6 @@ import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.common.ByteArrayLoader
-import org.icpclive.cds.common.defaultHttpClient
 import org.icpclive.cds.common.map
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
@@ -46,7 +43,7 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
                 name = name,
                 id = index,
                 ordinal = index,
-                cdsId = letter,
+                contestSystemId = letter,
             ) to penalty.toInt()
         }
         val penalty = problemsWithPenalty.map { it.second }.distinct().takeIf { it.size <= 1 }
@@ -65,7 +62,7 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
         }
         val isCEPenalty = data["@comment"]?.contains("@pragma IgnoreCE") != true
         val problems = problemsWithPenalty.map { it.first }
-        val problemIdMap = problems.associate { it.cdsId to it.id }
+        val problemIdMap = problems.associate { it.contestSystemId to it.id }
         val teamIdMap = teams.associate { it.contestSystemId to it.id }
         val contestInfo = ContestInfo(
             name = data["@contest"]!!.single(),

@@ -1,6 +1,5 @@
 package org.icpclive.cds.ejudge
 
-import io.ktor.util.*
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
@@ -33,7 +32,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
                 name = element.getAttribute("long_name"),
                 id = element.getAttribute("id").toInt(),
                 ordinal = index,
-                cdsId = element.getAttribute("id"),
+                contestSystemId = element.getAttribute("id"),
                 minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                 maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
                 scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null

@@ -12,7 +12,7 @@ private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInf
     name = name,
     id = index,
     ordinal = index,
-    cdsId = id,
+    contestSystemId = id,
     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
     maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null

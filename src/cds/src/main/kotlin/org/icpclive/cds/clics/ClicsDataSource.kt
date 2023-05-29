@@ -144,17 +144,9 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
                 }
 
                 is CommentaryEvent -> {
-                    val data = it.data
-                    if (data != null) {
+                    if (it.data != null) {
                         onComment(
-                            AnalyticsCommentaryEvent(
-                                data.id,
-                                data.message,
-                                data.time,
-                                data.contest_time,
-                                data.team_ids?.map { model.liveTeamId(it) } ?: emptyList(),
-                                data.submission_ids?.map { model.liveSubmissionId(it) } ?: emptyList(),
-                            )
+                            model.processCommentary(it.data)
                         )
                     }
                 }

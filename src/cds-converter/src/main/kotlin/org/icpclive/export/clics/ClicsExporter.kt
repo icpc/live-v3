@@ -110,11 +110,11 @@ object ClicsExporter  {
             diff(
                 current,
                 it.problems,
-                ProblemInfo::cdsId,
+                ProblemInfo::contestSystemId,
                 {
                     emit(
-                        updateEvent(it.cdsId, Problem(
-                        id = it.cdsId,
+                        updateEvent(it.contestSystemId, Problem(
+                        id = it.contestSystemId,
                         ordinal = it.ordinal,
                         label = it.letter,
                         name = it.name,
@@ -179,7 +179,7 @@ object ClicsExporter  {
                     Submission(
                         id = run.id.toString(),
                         language_id = unknownLanguage.id,
-                        problem_id = info.mapNotNull { it.problems.getOrNull(run.problemId) }.first().cdsId,
+                        problem_id = info.mapNotNull { it.problems.getOrNull(run.problemId) }.first().contestSystemId,
                         team_id = info.mapNotNull { it.teams.getOrNull(run.teamId) }.first().contestSystemId,
                         time = info.first().startTime + run.time,
                         contest_time = run.time,

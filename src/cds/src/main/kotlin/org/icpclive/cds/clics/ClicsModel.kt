@@ -6,6 +6,7 @@ import org.icpclive.cds.clics.api.*
 import org.icpclive.cds.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.clics.model.ClicsOrganisationInfo
 import org.icpclive.cds.clics.model.ClicsRunInfo
+import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
 import java.awt.Color
 import kotlin.time.Duration
@@ -19,9 +20,9 @@ class ClicsModel(
     private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
     private val teams = mutableMapOf<String, Team>()
-    private val submissionCdsIdToId = mutableMapOf<String, Int>()
-    private val teamCdsIdToId = mutableMapOf<String, Int>()
-    private val problemCdsIdToId = mutableMapOf<String, Int>()
+    private val submissionId = Enumerator<String>()
+    private val teamId = Enumerator<String>()
+    private val problemToId = Enumerator<String>()
     private val submissions = mutableMapOf<String, ClicsRunInfo>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
@@ -63,7 +64,7 @@ class ClicsModel(
     fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
-            id = liveTeamId(id),
+            id = teamId[id],
             name = teamName(teamOrganization?.formalName, name),
             shortName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
@@ -82,9 +83,9 @@ class ClicsModel(
     fun Problem.toApi() = ProblemInfo(
         letter = label,
         name = name,
-        id = liveProblemId(id),
+        id = problemToId[id],
         ordinal = ordinal,
-        cdsId = id,
+        contestSystemId = id,
         color = rgb ?: Color.BLACK
     )
 
@@ -174,7 +175,7 @@ class ClicsModel(
     }
 
     fun processSubmission(submission: Submission): ClicsRunInfo {
-        val id = liveSubmissionId(submission.id)
+        val id = submissionId[submission.id]
         val problem = problems[submission.problem_id]
             ?: throw IllegalStateException("Failed to load submission with problem_id ${submission.problem_id}")
         val team = teams[submission.team_id]
@@ -182,8 +183,8 @@ class ClicsModel(
         val run = ClicsRunInfo(
             id = id,
             problem = problem,
-            liveProblemId = liveProblemId(problem.id),
-            teamId = liveTeamId(team.id),
+            liveProblemId = problemToId[problem.id],
+            teamId = teamId[team.id],
             submissionTime = submission.contest_time,
             reactionVideos = submission.reaction?.mapNotNull { it.mediaType() } ?: emptyList()
         )
@@ -213,6 +214,17 @@ class ClicsModel(
         return run
     }
 
+    fun processCommentary(commentary: Commentary) =
+        AnalyticsCommentaryEvent(
+            commentary.id,
+            commentary.message,
+            commentary.time,
+            commentary.contest_time,
+            commentary.team_ids?.map { teamId[it] } ?: emptyList(),
+            commentary.submission_ids?.map { submissionId[it] } ?: emptyList(),
+        )
+
+
     fun processState(state: State): List<RunInfo> {
         status = when {
             state.ended != null -> ContestStatus.OVER
@@ -221,10 +233,6 @@ class ClicsModel(
         }
         return emptyList()
     }
-
-    fun liveProblemId(cdsId: String) = problemCdsIdToId.getOrPut(cdsId) { problemCdsIdToId.size + 1 }
-    fun liveTeamId(cdsId: String) = teamCdsIdToId.getOrPut(cdsId) { teamCdsIdToId.size + 1 }
-    fun liveSubmissionId(cdsId: String) = submissionCdsIdToId.getOrPut(cdsId) { submissionCdsIdToId.size + 1 }
 
     companion object {
         val logger = getLogger(ClicsModel::class)

@@ -154,7 +154,7 @@ private fun applyOverrides(
             override.name ?: problem.name,
             problem.id,
             problem.ordinal,
-            problem.cdsId,
+            problem.contestSystemId,
             override.minScore ?: problem.minScore,
             override.maxScore ?: problem.maxScore,
             override.color ?: problem.color,

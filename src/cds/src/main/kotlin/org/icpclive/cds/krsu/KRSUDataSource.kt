@@ -39,7 +39,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
                 name = "" + ('A' + index),
                 id = it.Problem,
                 ordinal = index,
-                cdsId = index.toString(),
+                contestSystemId = index.toString(),
             )
         }
 //        val problemById = problemsList.associateBy { it.id }

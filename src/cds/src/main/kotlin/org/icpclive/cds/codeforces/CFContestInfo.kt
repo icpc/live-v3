@@ -48,7 +48,7 @@ class CFContestInfo {
                     name = problem.name!!,
                     id = id,
                     ordinal = id,
-                    cdsId = id.toString(),
+                    contestSystemId = id.toString(),
                     minScore = if (problem.points != null) 0.0 else null,
                     maxScore = problem.points,
                     scoreMergeMode = when (contestType) {
@@ -66,7 +66,7 @@ class CFContestInfo {
                     name = "Hacks",
                     id = -1,
                     ordinal = -1,
-                    cdsId = "hacks",
+                    contestSystemId = "hacks",
                     minScore = null,
                     maxScore = null,
                     scoreMergeMode = ScoreMergeMode.SUM,

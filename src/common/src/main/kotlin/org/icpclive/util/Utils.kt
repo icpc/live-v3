@@ -13,9 +13,6 @@ inline fun <reified T> catchToNull(f: () -> T) = try {
 
 fun getLogger(clazz: KClass<*>) = LoggerFactory.getLogger(clazz.java)!!
 
-fun suppressIfNotCancellation(e: Exception) = if (e is CancellationException) throw e else null
-
-
 fun Properties.getCredentials(key: String, creds: Map<String, String>) = getProperty(key)?.let {
     val prefix = "\$creds."
     if (it.startsWith(prefix)) {
@@ -25,3 +22,9 @@ fun Properties.getCredentials(key: String, creds: Map<String, String>) = getProp
         it
     }
 }?.takeIf { it.isNotEmpty() }
+
+class Enumerator<K> {
+    val keys = mutableMapOf<K, Int>()
+
+    operator fun get(key: K) = keys.getOrPut(key) { keys.size + 1 }
+}

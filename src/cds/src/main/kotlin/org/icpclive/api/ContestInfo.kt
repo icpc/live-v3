@@ -43,7 +43,7 @@ data class ProblemInfo(
     val name: String,
     val id: Int,
     val ordinal: Int,
-    val cdsId: String,
+    val contestSystemId: String,
     val minScore: Double? = null,
     val maxScore: Double? = null,
     @Serializable(ColorSerializer::class) val color: Color? = null,
