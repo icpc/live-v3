@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
+    base
 }
 
 
 dependencies {
+    implementation(libs.logback)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.auth)
     implementation(libs.ktor.client.websockets)
@@ -16,4 +18,5 @@ dependencies {
     implementation(kotlin("reflect"))
 
     testImplementation(libs.kotlin.junit)
+    testImplementation("com.approvaltests:approvaltests:18.6.0")
 }

@@ -204,6 +204,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
 
             while (true) {
                 emitAll(getLineStreamLoaderFlow(settings.eventFeedUrl, settings.auth)
+                    .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {
                             when (settings.feedVersion) {

@@ -3,6 +3,7 @@ package org.icpclive.cds
 import org.icpclive.cds.noop.NoopDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.Serializable
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
@@ -26,6 +27,7 @@ data class InfoUpdate(val newInfo: ContestInfo) : ContestUpdate
 data class RunUpdate(val newInfo: RunInfo) : ContestUpdate
 data class Analytics(val message: AnalyticsMessage) : ContestUpdate
 
+@Serializable
 data class ContestParseResult(
     val contestInfo: ContestInfo,
     val runs: List<RunInfo>,
@@ -36,7 +38,7 @@ interface ContestDataSource {
     fun getFlow(): Flow<ContestUpdate>
 }
 
-interface RawContestDataSource : ContestDataSource {
+internal interface RawContestDataSource : ContestDataSource {
     suspend fun loadOnce(): ContestParseResult
 }
 
@@ -56,23 +58,25 @@ abstract class FullReloadContestDataSource(val interval: Duration) : RawContestD
     }
 }
 
+internal fun getRawLoader(properties: Properties, creds: Map<String, String>) = when (val standingsType = properties.getProperty("standings.type")) {
+    "CLICS" -> ClicsDataSource(properties, creds)
+    "PCMS" -> PCMSDataSource(properties, creds)
+    "CF" -> CFDataSource(properties, creds)
+    "YANDEX" -> YandexDataSource(properties, creds)
+    "EJUDGE" -> EjudgeDataSource(properties)
+    "KRSU" -> KRSUDataSource(properties)
+    "CATS" -> CATSDataSource(properties, creds)
+    "TESTSYS" -> TestSysDataSource(properties)
+    "NOOP" -> NoopDataSource()
+    else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
+}
+
 
 fun getContestDataSourceAsFlow(
     properties: Properties,
     creds: Map<String, String> = emptyMap(),
 ) : Flow<ContestUpdate> {
-    val rawLoader = when (val standingsType = properties.getProperty("standings.type")) {
-        "CLICS" -> ClicsDataSource(properties, creds)
-        "PCMS" -> PCMSDataSource(properties, creds)
-        "CF" -> CFDataSource(properties, creds)
-        "YANDEX" -> YandexDataSource(properties, creds)
-        "EJUDGE" -> EjudgeDataSource(properties)
-        "KRSU" -> KRSUDataSource(properties)
-        "CATS" -> CATSDataSource(properties, creds)
-        "TESTSYS" -> TestSysDataSource(properties)
-        "NOOP" -> NoopDataSource()
-        else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
-    }
+    val rawLoader = getRawLoader(properties, creds)
 
     val emulationSpeed = properties.getProperty("emulation.speed")?.toDouble()
     val loader = if (emulationSpeed == null) {
