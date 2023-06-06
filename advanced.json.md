@@ -13,6 +13,8 @@ You can adjust received participant information for each separate participant us
       "name":"ITMO NAME test override",
       "hashTag": "#ItMo",
       "groups": ["SPb ITMO", "SPb"],
+      "isHidden": false,
+      "isOutOfCompetition": false, 
       "medias": {
         "screen": {
           "type": "Video",
@@ -27,6 +29,16 @@ You can adjust received participant information for each separate participant us
   },
 }
 ```
+
+`isHidden` and `isOutOfCompetition` can be be applied to groups:
+```
+  "groupOverrides": {
+    "test": {"isOutOfContest":true}
+  }
+```
+
+`isHidden`: allows to hide a team or a group of teams from everywhere
+`isOutOfCompetition`: replaces team place with * sign, but still shows the team in testing queue, leaderboard and others.
 
 Also, you can create a template rule for medias, and it would be applied to all teams.
 
@@ -80,7 +92,7 @@ Default ```penaltyRoundingMode``` is CDS-specific. But you are welcome to overri
 ```each_submission_down_to_minute``` or ```sum_down_to_minute```. 
 
 # Change problem info
-##Color
+## Color
 ```
 {
   "problemOverrides": {
@@ -104,7 +116,7 @@ Default ```penaltyRoundingMode``` is CDS-specific. But you are welcome to overri
 }
 ```
 
-##Other
+## Other
 ```
 {
   "problemOverrides": {
