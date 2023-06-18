@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 object DurationInMillisecondsSerializer : KSerializer<Duration> {
@@ -37,6 +38,19 @@ object DurationInSecondsSerializer : KSerializer<Duration> {
         return decoder.decodeLong().seconds
     }
 }
+
+object DurationInMinutesSerializer : KSerializer<Duration> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("DurationM", PrimitiveKind.LONG)
+
+    override fun serialize(encoder: Encoder, value: Duration) {
+        encoder.encodeLong(value.inWholeMinutes)
+    }
+
+    override fun deserialize(decoder: Decoder): Duration {
+        return decoder.decodeLong().minutes
+    }
+}
+
 
 object UnixMillisecondsSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantMs", PrimitiveKind.LONG)

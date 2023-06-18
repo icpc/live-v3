@@ -247,7 +247,12 @@ class CFContestInfo {
         contestLength,
         problems,
         participantsById.values.map { it.toApi() }.sortedBy { it.id },
-        groups = emptyList()
+        groups = emptyList(),
+        penaltyRoundingMode = when (contestType) {
+            CFContestType.CF -> PenaltyRoundingMode.ZERO
+            CFContestType.IOI -> PenaltyRoundingMode.ZERO
+            CFContestType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+        }
     )
 
     companion object {

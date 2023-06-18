@@ -90,7 +90,11 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                 freezeTime,
                 problems,
                 teams,
-                teams.toGroupInfos()
+                teams.toGroupInfos(),
+                when (resultType) {
+                    ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                    ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+                }
             ),
             teamsAndRuns.flatMap { it.second },
             emptyList()

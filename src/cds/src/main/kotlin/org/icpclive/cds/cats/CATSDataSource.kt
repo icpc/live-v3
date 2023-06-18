@@ -187,7 +187,11 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
             freezeTime = freezeTime,
             problems = problemsList,
             teams = teamList,
-            groups = emptyList()
+            groups = emptyList(),
+            penaltyRoundingMode = when (resultType) {
+                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+            }
         )
 
         val resultRuns = runs

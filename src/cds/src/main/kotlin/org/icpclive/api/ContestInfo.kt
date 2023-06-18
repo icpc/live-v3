@@ -10,6 +10,7 @@ import org.icpclive.util.UnixMillisecondsSerializer
 import org.icpclive.util.getLogger
 import java.awt.Color
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 
 enum class MedalTiebreakMode {
     NONE,
@@ -178,6 +179,15 @@ enum class PenaltyRoundingMode {
 
     @SerialName("sum_down_to_minute")
     SUM_DOWN_TO_MINUTE,
+
+    @SerialName("sum_in_seconds")
+    SUM_IN_SECONDS,
+
+    @SerialName("last")
+    LAST,
+
+    @SerialName("zero")
+    ZERO,
 }
 
 
@@ -198,13 +208,13 @@ data class ContestInfo(
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
     val groups: List<GroupInfo>,
+    val penaltyRoundingMode: PenaltyRoundingMode,
     @SerialName("holdBeforeStartTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val holdBeforeStartTime: Duration? = null,
     val emulationSpeed: Double = 1.0,
     val medals: List<MedalType> = emptyList(),
-    val penaltyPerWrongAttempt: Int = 20,
-    val penaltyRoundingMode: PenaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
+    val penaltyPerWrongAttempt: Duration = 20.minutes,
 ) {
     val currentContestTime
         get() = when (status) {

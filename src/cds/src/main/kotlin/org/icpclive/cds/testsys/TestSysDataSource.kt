@@ -73,7 +73,7 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
             freezeTime = data["@freeze"]!!.single().toInt().minutes,
             teams = teams,
             problems = problems,
-            penaltyPerWrongAttempt = (penalty.getOrNull(0) ?: 20),
+            penaltyPerWrongAttempt = (penalty.getOrNull(0) ?: 20).minutes,
             penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE,
             groups = emptyList(),
         )

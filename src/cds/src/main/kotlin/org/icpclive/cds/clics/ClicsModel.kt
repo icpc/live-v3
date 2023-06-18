@@ -11,6 +11,7 @@ import org.icpclive.util.getLogger
 import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
 
 class ClicsModel(
     private val addTeamNames: Boolean,
@@ -31,7 +32,7 @@ class ClicsModel(
     var contestLength = 5.hours
     var freezeTime = 4.hours
     var status = ContestStatus.BEFORE
-    var penaltyPerWrongAttempt = 20
+    var penaltyPerWrongAttempt = 20.minutes
     var holdBeforeStartTime: Duration? = null
     var name: String = ""
 
@@ -101,7 +102,8 @@ class ClicsModel(
             teams = teams.values.map { it.toApi() },
             groups = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
-            holdBeforeStartTime = holdBeforeStartTime
+            holdBeforeStartTime = holdBeforeStartTime,
+            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
         )
 
     fun processContest(contest: Contest): List<RunInfo> {
@@ -110,7 +112,7 @@ class ClicsModel(
         contestLength = contest.duration
         freezeTime = contestLength - (contest.scoreboard_freeze_duration ?: Duration.ZERO)
         holdBeforeStartTime = contest.countdown_pause_time
-        penaltyPerWrongAttempt = contest.penalty_time ?: 20
+        penaltyPerWrongAttempt = contest.penalty_time ?: 20.minutes
         return emptyList()
     }
 

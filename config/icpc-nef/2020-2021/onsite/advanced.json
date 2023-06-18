@@ -1,5 +1,5 @@
 {
-  "freezeTimeSeconds": 14400,
+  "freezeTimeSeconds": 18000,
   "teamMediaTemplate": {
     "screen": {
       "type": "Video",    

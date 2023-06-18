@@ -88,7 +88,7 @@ object PCMSExporter {
             probNode.setAttribute("alias", info.problems[index].letter)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
             probNode.setAttribute("penalty", (if (probResult.isSolved) {
-                probResult.lastSubmitTime!!.inWholeMinutes + probResult.wrongAttempts * info.penaltyPerWrongAttempt
+                (probResult.lastSubmitTime!! + info.penaltyPerWrongAttempt * probResult.wrongAttempts).inWholeMinutes
             } else 0).toString())
             problemRuns.forEach {
                 probNode.createChild("run").apply {

@@ -7,6 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.clics.ClicsTime
 import org.icpclive.util.ColorSerializer
+import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
 import kotlin.time.Duration
 
@@ -35,7 +36,8 @@ data class Contest(
     val scoreboard_freeze_duration: Duration?,
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val countdown_pause_time: Duration? = null,
-    val penalty_time: Int? = null,
+    @Serializable(with = DurationInMinutesSerializer::class)
+    val penalty_time: Duration? = null,
     val scoreboard_type: String? = null
 )
 

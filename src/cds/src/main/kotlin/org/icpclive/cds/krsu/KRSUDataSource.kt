@@ -88,7 +88,8 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
                 freezeTime = freezeTime,
                 problems = problemsList,
                 teams = teams.values.toList(),
-                groups = emptyList()
+                groups = emptyList(),
+                penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
             ),
             runs,
             emptyList()

@@ -18,7 +18,8 @@ class NoopDataSource : RawContestDataSource {
             problems = emptyList(),
             teams = emptyList(),
             resultType = ContestResultType.ICPC,
-            groups = emptyList()
+            groups = emptyList(),
+            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
         ))
     )
 

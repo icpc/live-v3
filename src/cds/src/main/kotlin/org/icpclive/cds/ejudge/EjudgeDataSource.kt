@@ -93,7 +93,11 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
                 freezeTime = freezeTime,
                 problems = parseProblemsInfo(element),
                 teams = teams,
-                groups = emptyList()
+                groups = emptyList(),
+                penaltyRoundingMode = when (resultType) {
+                    ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                    ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+                }
             ),
             runs = element.child("runs").children().mapNotNull { run ->
                 parseRunInfo(run, currentTime - startTime, teamIdMapping)

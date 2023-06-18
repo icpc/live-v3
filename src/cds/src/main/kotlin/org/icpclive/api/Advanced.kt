@@ -3,6 +3,7 @@ package org.icpclive.api
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.util.ColorSerializer
+import org.icpclive.util.DurationInMinutesSerializer
 import org.icpclive.util.DurationInSecondsSerializer
 import org.icpclive.util.humanReadable
 import java.awt.Color
@@ -39,7 +40,8 @@ data class GroupInfoOverride(
 @Serializable
 class RankingSettings(
     val medals: List<MedalType>? = null,
-    val penaltyPerWrongAttempt: Int? = null,
+    @Serializable(with = DurationInMinutesSerializer::class)
+    val penaltyPerWrongAttempt: Duration? = null,
     val showTeamsWithoutSubmissions: Boolean? = null,
     val penaltyRoundingMode: PenaltyRoundingMode? = null
 )

@@ -3,6 +3,7 @@ package org.icpclive.api
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.util.DurationInMillisecondsSerializer
+import org.icpclive.util.DurationInMinutesSerializer
 import kotlin.time.Duration
 
 @Serializable
@@ -25,7 +26,8 @@ data class ScoreboardRow(
     val teamId: Int,
     val rank: Int,
     val totalScore: Double,
-    val penalty: Long,
+    @Serializable(with = DurationInMinutesSerializer::class)
+    val penalty: Duration,
     val lastAccepted: Long,
     val medalType: String?,
     val problemResults: List<ProblemResult>,
