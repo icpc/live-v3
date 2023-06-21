@@ -1,33 +1,50 @@
 // @ts-check
-import { test, expect } from "@playwright/test";
+import { test, expect, request } from "@playwright/test";
+import { spawn } from "child_process";
 
-let adminApiContext;
-let page;
+const simpleWidgets = ["scoreboard", "statistics", "queue"];
+const contestConfigs = ["config/icpc-nef/2020-2021/onsite"];
 
+const baseURL = "http://127.0.0.1:8080";
 
-test.beforeAll(async ({ playwright, baseURL, browser }) => {
-    page = await browser.newPage();
-    await page.waitForTimeout(1000);
-    await page.goto("/overlay");
-    adminApiContext = await playwright.request.newContext({
-        baseURL: `${baseURL}/api/admin/`
-    });
-});
+for (const contestConfig of contestConfigs) {
+    test(`config ${contestConfig}`, async ({ page }) => {
+        const childProcess = spawn("java", ["-jar", "artifacts/live-v3-dev.jar", "-P:auth.disabled=true", `-P:live.configDirectory=${contestConfig}`]);
 
-test.afterAll(async () => {
-    await page.close();
-});
+        childProcess.stdout.on("data", (data) => {
+            console.log(`Child process stdout: ${data}`);
+        });
 
-const simpleWidgets = ["scoreboard", "statistics"];
+        childProcess.stderr.on("data", (data) => {
+            console.error(`Child process stderr: ${data}`);
+        });
 
-for (const widgetName of simpleWidgets) {
-    test(`test ${widgetName}`, async () => {
-        const showWidget = await adminApiContext.post(`./${widgetName}/show`);
-        expect(showWidget.ok()).toBeTruthy();
+        childProcess.on("close", (code) => {
+            console.log(`Child process exited with code ${code}`);
+        });
 
-        await expect(page).toHaveScreenshot();
+        await page.waitForTimeout(10000);
+        await page.goto("/overlay");
 
-        const hideWidget = await adminApiContext.post(`./${widgetName}/hide`);
-        expect(hideWidget.ok()).toBeTruthy();
+        const adminApiContext = await request.newContext({
+            baseURL: `${baseURL}/api/admin/`
+        });
+
+        for (const widgetName of simpleWidgets) {
+            const showWidget = await adminApiContext.post(`./${widgetName}/show`);
+            expect(showWidget.ok()).toBeTruthy();
+        }
+
+        await page.waitForTimeout(10000);
+
+        const contestName = contestConfig.replace(/\//g, "_");
+        await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
+
+        for (const widgetName of simpleWidgets) {
+            const hideWidget = await adminApiContext.post(`./${widgetName}/hide`);
+            expect(hideWidget.ok()).toBeTruthy();
+        }
+
+        childProcess.kill();
     });
 }
