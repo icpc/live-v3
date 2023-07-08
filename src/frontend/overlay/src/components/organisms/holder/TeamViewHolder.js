@@ -209,13 +209,14 @@ export const TeamInfo = ({ teamId }) => {
     </TeamInfoWrapper>;
 };
 
-const TeamImageWrapper = styled.img`
+export const TeamImageWrapper = styled.img`
   position: absolute;
   width: 100%;
   top: 0;
+  border-radius: ${({ borderRadius }) => borderRadius};
 `;
 
-const TeamVideoWrapper = styled.video`
+export const TeamVideoWrapper = styled.video`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -223,10 +224,11 @@ const TeamVideoWrapper = styled.video`
   aspect-ratio: 16/9;
   object-fit: cover;
   object-position: bottom;
+  border-radius: ${({ borderRadius }) => borderRadius};
 `;
 
 
-export const TeamWebRTCProxyVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, setIsLoaded }) => {
+export const TeamWebRTCProxyVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, setIsLoaded, ...props }) => {
     const dispatch = useDispatch();
     const videoRef = useRef();
     const rtcRef = useRef();
@@ -266,11 +268,13 @@ export const TeamWebRTCProxyVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, s
             return setIsLoaded(true);
         }}
         autoPlay
-        muted/>);
+        muted
+        {...props}
+    />);
 };
 
 
-export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, peerName, streamType, credential, onLoadStatus }) => {
+export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, peerName, streamType, credential, onLoadStatus, ...props }) => {
     const dispatch = useDispatch();
     const videoRef = useRef();
     useEffect(() => {
@@ -302,11 +306,12 @@ export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url,
         ref={videoRef}
         onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        muted/>);
+        muted
+        {...props}/>);
 };
 
 
-const TeamVideoAnimationWrapper = styled.div`
+export const TeamVideoAnimationWrapper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -315,7 +320,7 @@ const TeamVideoAnimationWrapper = styled.div`
   align-items: center;
 `;
 
-const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
+export const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
   position: relative;
   width: 100%;
   display: flex;
@@ -328,14 +333,14 @@ const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
 
 
 const teamViewComponentRender = {
-    TaskStatus: ({ onLoadStatus, teamId, isSmall }) => {
+    TaskStatus: ({ onLoadStatus, teamId, isSmall, ...props }) => {
         useLayoutEffect(() => onLoadStatus(true),
             []);
-        return <ScoreboardColumn teamId={teamId} isSmall={isSmall}/>;
+        return <ScoreboardColumn teamId={teamId} isSmall={isSmall} {...props}/>;
     },
-    Photo: ({ onLoadStatus, url }) => {
+    Photo: ({ onLoadStatus, url, ...props }) => {
         return <TeamVideoAnimationWrapper>
-            <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
+            <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)} {...props}/>
         </TeamVideoAnimationWrapper>;
     },
     Object: ({ onLoadStatus, url }) => {
@@ -345,7 +350,7 @@ const teamViewComponentRender = {
             </object>
         </TeamVideoAnimationWrapper>;
     },
-    Video: ({ onLoadStatus, url }) => {
+    Video: ({ onLoadStatus, url, ...props }) => {
         return <TeamVideoAnimationWrapper>
             <TeamVideoWrapper
                 src={url}
@@ -353,13 +358,15 @@ const teamViewComponentRender = {
                 onError={() => onLoadStatus(false)}
                 autoPlay
                 loop
-                muted/>
+                muted
+                {...props}
+            />
         </TeamVideoAnimationWrapper>;
     },
-    WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl }) => {
+    WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl, ...props }) => {
         return <TeamVideoAnimationWrapper>
             {audioUrl && <audio src={audioUrl} onLoadedData={() => onLoadStatus(true)} autoPlay/>}
-            <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
+            <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus} {...props}/>
         </TeamVideoAnimationWrapper>;
     },
     WebRTCGrabberConnection: (props) => {
@@ -369,12 +376,12 @@ const teamViewComponentRender = {
     },
 };
 
-export const TeamViewHolder = ({ onLoadStatus, media, isSmall }) => {
+export const TeamViewHolder = ({ onLoadStatus, media, isSmall, ...props }) => {
     const Component = teamViewComponentRender[media.type];
     if (Component === undefined) {
         useEffect(() => onLoadStatus(true),
             [media.teamId]);
         return undefined;
     }
-    return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} {...media}/>;
+    return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} {...props} {...media}/>;
 };

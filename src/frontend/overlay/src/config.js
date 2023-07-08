@@ -1,3 +1,6 @@
+// Version
+export const OVERLAY_VERSION = process.env.REACT_APP_VERSION;
+
 // Strings
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = process.env.REACT_APP_WEBSOCKET_PORT ?? window.location.port;
@@ -38,15 +41,21 @@ export const GLOBAL_DEFAULT_FONT = GLOBAL_DEFAULT_FONT_SIZE + " " + GLOBAL_DEFAU
 export const VERDICT_OK = "#1b8041";
 export const VERDICT_NOK = "#881f1b";
 export const VERDICT_UNKNOWN = "#a59e0c";
+export const VERDICT_OK2 = "#2ecb68";
+export const VERDICT_NOK2 = "#cb2e28";
+export const VERDICT_UNKNOWN2 = "#e5da1c";
 
 
 export const QUEUE_ROW_HEIGHT = 41; // px
+export const QUEUE_ROW_HEIGHT2 = 36; // px
 export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
 export const QUEUE_OPACITY = 0.95;
 export const QUEUE_FEATURED_RUN_ASPECT = 16 / 9;
 
 export const SCOREBOARD_RANK_WIDTH = "80px"; // px
+export const SCOREBOARD_RANK_WIDTH2 = "50px"; // px
 export const SCOREBOARD_NAME_WIDTH = "300px"; // px
+export const SCOREBOARD_NAME_WIDTH2 = "350px"; // px
 export const SCOREBOARD_SUM_PEN_WIDTH = "80px"; // px
 export const SCOREBOARD_HEADER_TITLE_BG_COLOR = VERDICT_NOK;
 export const SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR = VERDICT_OK;
@@ -71,12 +80,17 @@ export const STATISTICS_STATS_VALUE_COLOR = "#FFFFFF";
 export const CELL_FONT_FAMILY = GLOBAL_DEFAULT_FONT_FAMILY;
 export const CELL_FONT_SIZE = "22pt";
 export const CELL_TEXT_COLOR = "#FFFFFF";
+export const CELL_TEXT_COLOR_INVERSE = "#000000";
 export const CELL_BG_COLOR = "#000000";
 export const CELL_BG_COLOR_ODD = "rgba(1, 1, 1, 0.9)";
+export const CELL_BG_COLOR2 = "#1E1E1E";
+export const CELL_BG_COLOR_ODD2 = "#242424";
 
 export const CELL_PROBLEM_LINE_WIDTH = "5px"; // css property
 export const CELL_QUEUE_VERDICT_WIDTH = "80px"; // css property
+export const CELL_QUEUE_VERDICT_WIDTH2 = "20px"; // css property
 export const CELL_QUEUE_RANK_WIDTH = "50px"; // css property
+export const CELL_QUEUE_RANK_WIDTH2 = "30px"; // css property
 export const CELL_QUEUE_TOTAL_SCORE_WIDTH = "50px"; // css property
 export const CELL_QUEUE_TASK_WIDTH = "50px"; // css property
 
@@ -104,6 +118,7 @@ export const FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica, monospace";
 
 export const STAR_SIZE = 20; // px
 
+export const CIRCLE_CELL_FONT_SIZE = "20px";
 
 // Medals
 export const MEDAL_COLORS = Object.freeze({
@@ -114,3 +129,20 @@ export const MEDAL_COLORS = Object.freeze({
 
 // Debug Behaviour
 export const LOG_LINES = 300;
+
+export const WIDGET_LAYOUT_BACKGROUND = "#343434";
+
+export const CONTESTER_ROW_OPACITY = 1;
+export const CONTESTER_ROW_BORDER_RADIUS = "16px";
+export const CONTESTER_ROW_VERDICT_FONT_SIZE2 = "14pt"; // css-property
+
+export const QUEUE_PER_COLUMNS_PADDING2 = "5px"; // css property
+export const QUEUE_VERDICT_PADDING_LEFT2 = "6px"; // css property
+export const CIRCLE_PROBLEM_SIZE = "28px";
+export const GLOBAL_BORDER_RADIUS = "16px";
+export const CIRCLE_PROBLEM_LINE_WIDTH = "3.5px";
+
+export const CELL_INFO_VERDICT_WIDTH = "100px"; // css property
+
+// layers (z-indexes)
+export const QUEUE_BASIC_ZINDEX = 20;

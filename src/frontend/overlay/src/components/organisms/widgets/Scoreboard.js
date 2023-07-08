@@ -36,7 +36,7 @@ const ScoreboardWrap = styled.div`
 `;
 
 
-const nameTable = {
+export const nameTable = {
     normal: "CURRENT",
     optimistic: "OPTIMISTIC",
     pessimistic: "PESSIMISTIC",
@@ -293,7 +293,7 @@ PositionedScoreboardRow.propTypes = {
     children: PropTypes.node
 };
 
-const extractScoreboardRows = (data, selectedGroup) =>
+export const extractScoreboardRows = (data, selectedGroup) =>
     data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
 
 /**
@@ -304,7 +304,8 @@ const extractScoreboardRows = (data, selectedGroup) =>
  * @param {number} startFromRow - row to start from inclusive
  * @param {number} numRows - row to end to inclusive
  */
-const useScoller = (totalRows,
+export const useScroller = (
+    totalRows,
     singleScreenRowCount,
     scrollInterval,
     startFromRow,
@@ -336,7 +337,7 @@ export const Scoreboard = ({ widgetData: { settings, location } }) => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const totalHeight = location.sizeY;
     const rowHeight = (totalHeight / (teamsOnPage + 1));
-    const scrollPos = useScoller(rows.length, teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, startPageRow, settings.numRows);
+    const scrollPos = useScroller(rows.length, teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, startPageRow, settings.numRows);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
     return <ScoreboardWrap>
         <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>

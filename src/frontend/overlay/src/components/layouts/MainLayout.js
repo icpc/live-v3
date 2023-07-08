@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.jpeg";
-import { WIDGET_TRANSITION_TIME } from "../../config";
+import { OVERLAY_VERSION, WIDGET_TRANSITION_TIME } from "../../config";
 import { DEBUG } from "../../consts";
 import { useQueryParams } from "../../utils/query-params";
 import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
@@ -11,10 +11,12 @@ import Advertisement from "../organisms/widgets/Advertisement";
 import Pictures from "../organisms/widgets/Pictures";
 import Svg from "../organisms/widgets/Svg";
 import Queue from "../organisms/widgets/Queue";
+import Queue2 from "../organisms/widgets/Queue2";
 import Scoreboard from "../organisms/widgets/Scoreboard";
+import Scoreboard2 from "../organisms/widgets/Scoreboard2";
 import Ticker from "../organisms/widgets/Ticker";
 import Statistics from "../organisms/widgets/Statistics";
-import TeamView from "../organisms/widgets/TeamView";
+import { TeamView, TeamView2 } from "../organisms/widgets/TeamView";
 import Videos from "../organisms/widgets/Videos";
 import PVP from "../organisms/widgets/PVP";
 import FullScreenClock from "../organisms/widgets/FullScreenClock";
@@ -84,6 +86,13 @@ const WIDGETS = {
     TeamLocatorWidget: Locator
 };
 
+const WIDGETS2 = {
+    ...WIDGETS,
+    QueueWidget: Queue2,
+    ScoreboardWidget: Scoreboard2,
+    TeamViewWidget: TeamView2,
+};
+
 export const MainLayout = () => {
     const widgets = useSelector(state => state.widgets.widgets);
     const params = useQueryParams();
@@ -91,11 +100,10 @@ export const MainLayout = () => {
         <StatusLightbulbs compact={true}/>
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
-                const Widget = WIDGETS[obj.type];
-                if(Widget === undefined) {
+                const Widget = (OVERLAY_VERSION === "2" ? WIDGETS2 : WIDGETS)[obj.type];
+                if (Widget === undefined) {
                     return null;
                 }
-                console.log(obj);
                 if (obj.settings?.scene !== (params.get("scene") || undefined)) {
                     // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
                     return null;

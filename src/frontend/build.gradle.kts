@@ -23,6 +23,13 @@ tasks {
         inputs.file("overlay/package.json")
         outputs.dir("overlay/build")
     }
+    named<NpmTask>("npm_run_buildOverlay2") {
+        environment.set(mapOf("PUBLIC_URL" to "/overlay2", "REACT_APP_VERSION" to "2"))
+        inputs.dir("overlay/src")
+        inputs.dir("overlay/public")
+        inputs.file("overlay/package.json")
+        outputs.dir("overlay2/build")
+    }
     named<NpmTask>("npm_run_buildAdmin") {
         environment.set(mapOf("PUBLIC_URL" to "/admin"))
         inputs.dir("admin/src")

@@ -49,8 +49,12 @@ tasks {
         from(project(":frontend").tasks["npm_run_buildOverlay"])
         destinationDir = jsBuildPath.resolve("overlay")
     }
+    val copyJsOverlay2 = register<Copy>("copyJsOverlay2") {
+        from(project(":frontend").tasks["npm_run_buildOverlay"])
+        destinationDir = jsBuildPath.resolve("overlay2")
+    }
     register("buildJs") {
-        dependsOn(copyJsAdmin, copyJsOverlay)
+        dependsOn(copyJsAdmin, copyJsOverlay, copyJsOverlay2)
         outputs.dir(jsBuildPath)
     }
 }

@@ -70,7 +70,7 @@ const Verdict = PropTypes.shape({
     shortName: PropTypes.string.isRequired,
 });
 
-const ICPCResult = PropTypes.shape({
+export const ICPCResult = PropTypes.shape({
     type: PropTypes.string.isRequired,
     verdict: Verdict.isRequired,
     isFirstToSolveRun: PropTypes.bool.isRequired
@@ -78,6 +78,19 @@ const ICPCResult = PropTypes.shape({
 
 VerdictCellICPC.PropTypes = {
     result: ICPCResult,
+};
+
+export const ICPCVerdict = PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    verdict: PropTypes.shape({
+        isFirstToSolveRun: PropTypes.bool.isRequired,
+        isAccepted: PropTypes.bool.isRequired,
+        result: PropTypes.string.isRequired
+    }),
+});
+
+VerdictCellICPC.PropTypes = {
+    verdict: ICPCVerdict,
 };
 
 const VerdictCellIOI = ({ result, ...props }) => {
@@ -103,7 +116,7 @@ const VerdictCellIOI = ({ result, ...props }) => {
     }
 };
 
-const IOIResult = PropTypes.shape({
+export const IOIResult = PropTypes.shape({
     type: PropTypes.string.isRequired,
     score: PropTypes.number.isRequired,
     difference: PropTypes.number.isRequired,
@@ -113,6 +126,17 @@ const IOIResult = PropTypes.shape({
 
 VerdictCellIOI.PropTypes = {
     result: IOIResult,
+};
+
+export const IOIVerdict = PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    score: PropTypes.number.isRequired,
+    difference: PropTypes.number.isRequired,
+    wrongVerdict: PropTypes.string
+});
+
+VerdictCellIOI.PropTypes = {
+    verdict: IOIVerdict.isRequired,
 };
 
 const VerdictCellInProgressWrap = styled(Cell)`
