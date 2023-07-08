@@ -45,14 +45,14 @@ const borderRadius = ({
 
 export const ContesterRow2 = styled.div`
   background-color: ${({ background, medal, isEven }) => getContesterRowBackground(background, medal, isEven)};
-  background-size: 34px 100%; // why 34
+  background-size: 34px 100%; /* TODO: 34 is a magic number for gradient medal color */
   background-repeat: no-repeat;
   border-radius: ${props => borderRadius(props)};
 
   height: ${QUEUE_ROW_HEIGHT2}px;
   display: flex;
   flex-wrap: nowrap;
-  max-width: 100%; // why?
+  max-width: 100%;
   opacity: ${CONTESTER_ROW_OPACITY};
   padding: 0 10px;
 

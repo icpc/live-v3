@@ -30,8 +30,6 @@ const ScoreboardWrap2 = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${WIDGET_LAYOUT_BACKGROUND};
-  background-size: 34px 100%; // why 34
-  background-repeat: no-repeat;
   border-radius: 16px;
   overflow: hidden;
 `;

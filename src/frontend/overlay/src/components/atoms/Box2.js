@@ -57,7 +57,6 @@ export const FlexedBox2 = styled(Box2)`
   flex-basis: ${({ flexBasis }) => flexBasis};
   align-items: center;
   justify-content: ${({ justifyContent }) => justifyContent ?? "center"};
-  flex-basis: ${props => props.basis};
 `;
 
 FlexedBox2.propTypes = {

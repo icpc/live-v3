@@ -77,7 +77,7 @@ const rowContract = (fullHeight) => keyframes`
   }
 `;
 
-const contractionStatesFeature = (fullHeight) => ({
+const contractionStatesFeatured = (fullHeight) => ({
     entering: {},
     entered: { animation: rowExpand(fullHeight) },
     exiting: { animation: rowContract(fullHeight) },
@@ -155,16 +155,10 @@ const useQueueRowsData = ({
 
 const FeaturedRunRow2 = ({ isFeatured, isLoaded, setIsLoaded, height, media, zIndex }) => {
     const [isReady, setIsReady] = useState(false);
-    useEffect(() => {
-        if (isLoaded) {
-            console.log("media ready", Date.now() / 1000);
-        }
-        setIsReady(true);
-    }, [isLoaded]);
     return (
         <TransitionGroup>
             {isFeatured && (
-                <Transition timeout={QUEUE_ROW_FEATURED_RUN_APPEAR_TIME} in={isReady}>
+                <Transition timeout={QUEUE_ROW_FEATURED_RUN_APPEAR_TIME} in={isLoaded}>
                     {state => {
                         const actualState = state === "entering" && !isLoaded ? "exited" : state;
                         const actualHeight = state !== "exited" && isLoaded ? height : 0;
@@ -176,16 +170,9 @@ const FeaturedRunRow2 = ({ isFeatured, isLoaded, setIsLoaded, height, media, zIn
                             <FeaturedRunQueueRow
                                 height={state !== "exited"? height : 0}
                                 zIndex={zIndex}
-                                {...contractionStatesFeature(height)[state]}
+                                {...contractionStatesFeatured(height)[state]}
                             >
-                                <TeamViewHolder media={media} onLoadStatus={(v) => {
-                                    console.log("media loaded in sec", Date.now() / 1000);
-                                    if (v) {
-                                        setTimeout(() => setIsLoaded(v), 1000);
-                                    } else {
-                                        setIsLoaded(false);
-                                    }
-                                }} borderRadius="16px"/>
+                                <TeamViewHolder media={media} onLoadStatus={setIsLoaded} borderRadius="16px"/>
                             </FeaturedRunQueueRow>
                         );
                     }}
