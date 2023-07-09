@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.ktor.server.websockets)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(projects.cds)
     implementation(projects.common)
     testImplementation(libs.kotlin.junit)

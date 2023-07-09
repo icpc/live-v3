@@ -67,7 +67,7 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         }.map { it.submissions.reversed() }
     }
 
-    @OptIn(FlowPreview::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getFlow() = flow {
         coroutineScope {
             val rawContestInfoFlow = loopFlow(
