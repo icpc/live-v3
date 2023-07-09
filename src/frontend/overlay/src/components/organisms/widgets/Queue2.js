@@ -154,7 +154,6 @@ const useQueueRowsData = ({
 };
 
 const FeaturedRunRow2 = ({ isFeatured, isLoaded, setIsLoaded, height, media, zIndex }) => {
-    const [isReady, setIsReady] = useState(false);
     return (
         <TransitionGroup>
             {isFeatured && (

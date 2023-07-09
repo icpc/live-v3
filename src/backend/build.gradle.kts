@@ -50,7 +50,7 @@ tasks {
         destinationDir = jsBuildPath.resolve("overlay")
     }
     val copyJsOverlay2 = register<Copy>("copyJsOverlay2") {
-        from(project(":frontend").tasks["npm_run_buildOverlay"])
+        from(project(":frontend").tasks["npm_run_buildOverlay2"])
         destinationDir = jsBuildPath.resolve("overlay2")
     }
     register("buildJs") {
