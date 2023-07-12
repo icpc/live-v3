@@ -22,7 +22,6 @@ export const CircleCell = ({ content, borderColor, backgroundColor, radius }) =>
     return <CircleCellProblemWrap
         borderColor={borderColor}
         backgroundColor={backgroundColor}
-        radius={radius}
         inverseColor={isShouldUseDarkColor(backgroundColor)}>
         {content}
     </CircleCellProblemWrap>;

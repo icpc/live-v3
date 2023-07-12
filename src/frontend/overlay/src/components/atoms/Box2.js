@@ -15,11 +15,18 @@ export const Box2 = styled.div`
   height: ${({ height }) => height ?? "100%"};
   
   font-family: ${GLOBAL_DEFAULT_FONT_FAMILY};
-  font-size: ${({ fontSize }) => fontSize ?? GLOBAL_DEFAULT_FONT_SIZE};
+  font-size: ${GLOBAL_DEFAULT_FONT_SIZE};
+  color: ${CELL_TEXT_COLOR};
+
+  box-sizing: border-box;
+  overflow-x: hidden;
+  white-space: nowrap;
+`;
+
+/*
   font-weight: ${({ fontWeight }) => fontWeight};
-  color: ${({ color, inverseColor }) => color ?? (inverseColor ? CELL_TEXT_COLOR_INVERSE : CELL_TEXT_COLOR)};
   text-align: ${({ align }) => align};
-  
+
   display: ${({ display }) => display};
 
   margin-left: ${({ marginLeft }) => marginLeft};
@@ -29,10 +36,7 @@ export const Box2 = styled.div`
 
   padding-top: ${({ paddingTop }) => paddingTop};
 
-  box-sizing: border-box;
-  overflow-x: hidden;
-  white-space: nowrap;
-`;
+ */
 
 Box2.propTypes = {
     width: PropTypes.string,
@@ -52,6 +56,7 @@ Box2.propTypes = {
 };
 
 export const FlexedBox2 = styled(Box2)`
+  display: flex;
   flex-grow: ${({ flexGrow }) => flexGrow ?? 0};
   flex-shrink: ${({ flexShrink }) => flexShrink ?? 0};
   flex-basis: ${({ flexBasis }) => flexBasis};
@@ -108,27 +113,3 @@ const TextShrinkingContainer2 = styled.div`
   font-family: ${({ fontFamily }) => fontFamily};
   font-size: ${({ fontSize }) => fontSize};
 `;
-
-export const TextShrinking2 = ({ text, font = GLOBAL_DEFAULT_FONT, align = "left", children, ...props }) => {
-    const textWidth = getTextWidth(text, font);
-    const cellRef = useRef(null);
-    const updateScale = useCallback((newCellRef) => {
-        if (newCellRef !== null) {
-            cellRef.current = newCellRef;
-            newCellRef.children[0].style.transform = "";
-            const styles = getComputedStyle(newCellRef);
-            const haveWidth = (parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight)));
-            const scaleFactor = Math.min(1, haveWidth / textWidth);
-            newCellRef.children[0].style.transform = `scaleX(${scaleFactor})${align === "center" ? " translateX(-50%)" : ""}`; // dirty hack, don't @ me
-        }
-    }, [align, font, text]);
-    useEffect(() => {
-        updateScale(cellRef.current);
-    }, [text]);
-    return <Box2 ref={updateScale} {...props}>
-        <TextShrinkingContainer2 scaleY={0} align={align}>
-            {text}
-        </TextShrinkingContainer2>
-        {children}
-    </Box2>;
-};

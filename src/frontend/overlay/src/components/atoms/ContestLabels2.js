@@ -5,9 +5,8 @@ import {
     VERDICT_NOK2,
     VERDICT_OK2,
     VERDICT_UNKNOWN2,
-    CELL_TEXT_COLOR,
 } from "../../config";
-import { Box2, FlexedBox2, ShrinkingBox2, TextShrinking2 } from "./Box2";
+import { Box2, FlexedBox2, ShrinkingBox2 } from "./Box2";
 import { formatScore, ICPCResult, IOIResult } from "./ContestCells";
 import {
     TeamTaskColor2,
@@ -31,35 +30,6 @@ export const IOITaskResult = PropTypes.shape({
     score: PropTypes.number,
 });
 
-
-export const ICPCScoreCell = ({ score, Wrapper = FlexedBox2, ...props }) => {
-    return <ShrinkingBox2 Wrapper={Wrapper} text={ score ?? "??" } {...props}/>;
-};
-
-ICPCScoreCell.propTypes = {
-    score: PropTypes.string,
-    background: PropTypes.string,
-    color: PropTypes.string,
-};
-
-
-export const IOIScoreCell = ({ score, Wrapper = FlexedBox2, ...props }) => {
-    return <Wrapper {...props}>
-        <TextShrinking2
-            text={ score ?? "??" }
-            color={ getTeamTaskColor2(score, props.minScore, props.maxScore) ?? CELL_TEXT_COLOR }
-            background={getTeamTaskColor2(score, props.minScore, props.maxScore)}
-        />
-    </Wrapper>;
-};
-
-
-export const QueueStatusCell = ({ data, score, ...props }) => {
-    return data.type === "icpc" ? <ICPCScoreCell score={score} color={data.isAccepted ? VERDICT_OK2 : VERDICT_NOK2} {...props}/> :
-        <ICPCScoreCell score={data.difference > 0 ? `+${formatScore(data.difference, 1)}` : (data.difference < 0 ? `-${formatScore(-data.difference, 1)}` : "=")}
-            color={data.difference > 0 ? VERDICT_OK2 : (data.difference < 0 ? VERDICT_NOK2 : VERDICT_UNKNOWN2)} {...props}/>;
-};
-
 const ICPCVerdictLabel = ({ runResult, ...props }) => {
     const color = runResult?.verdict.isAccepted ? VERDICT_OK2 : VERDICT_NOK2;
     return <ShrinkingBox2 text={runResult?.verdict.shortName ?? "??"} color={color} Wrapper={FlexedBox2} {...props}/>;
@@ -69,9 +39,18 @@ ICPCVerdictLabel.propTypes = {
     runResult: ICPCResult,
 };
 
+const getIOIScoreText = (difference) => {
+    if (difference > 0) {
+        return [`+${formatScore(difference, 1)}`, VERDICT_OK2];
+    }
+    if (difference < 0) {
+        return [`-${formatScore(-difference, 1)}`, VERDICT_NOK2];
+    }
+    return ["=", VERDICT_UNKNOWN2];
+};
+
 const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) => {
-    const diffColor = difference > 0 ? VERDICT_OK2 : (difference < 0 ? VERDICT_NOK2 : VERDICT_UNKNOWN2);
-    const diffText = difference > 0 ? `+${formatScore(difference, 1)}` : (difference < 0 ? `-${formatScore(-difference, 1)}` : "=");
+    const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
         {wrongVerdict !== undefined && <ShrinkingBox2 text={wrongVerdict ?? "??"} color={VERDICT_NOK2} {...{ Wrapper: FlexedBox2, ...props }}/>}
         {wrongVerdict === undefined && <ShrinkingBox2 text={diffText ?? "??"} color={diffColor} {...{ Wrapper: FlexedBox2, ...props }}/>}
@@ -118,7 +97,7 @@ const VerdictCellInProgressWrap2 = styled(FlexedBox2)`
 
 const VerdictCellInProgress2 = ({ percentage, ...props }) => {
     return <VerdictCellInProgressWrap2 {...props} >
-        {percentage !== 0 && <VerdictCellProgressBar2 width={percentage * 100 * 0.6 + "%"}/>}
+        {percentage !== 0 && <VerdictCellProgressBar2 width={percentage * 100 + "%"}/>}
     </VerdictCellInProgressWrap2>;
 };
 
@@ -141,16 +120,21 @@ RunStatusLabel2.propTypes = {
     }),
 };
 
+const TaskResultLabelWrapper2 = styled(Box2)`
+  font-weight: bold;
+  color: ${({ color }) => color};
+`
+
 // TODO: fts start
 const ICPCTaskResultLabel2 = ({ problemResult: r, ...props }) => {
     const status = getStatus2(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
     return <>
         {/*{status === TeamTaskStatus.first && <StarIcon/>}*/}
-        <Box2 color={TeamTaskColor2[status]} fontWeight={"bold"} {...props}>
+        <TaskResultLabelWrapper2 color={TeamTaskColor2[status]} {...props}>
             {TeamTaskSymbol[status]}
             {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
-        </Box2>
+        </TaskResultLabelWrapper2>
     </>;
 };
 
@@ -159,9 +143,9 @@ ICPCTaskResultLabel2.propTypes = {
 };
 
 const IOITaskResultLabel2 = ({ problemResult: r, minScore, maxScore,  ...props }) => {
-    return <Box2 color={getTeamTaskColor2(r.score, minScore, maxScore)} fontWeight={"bold"} { ...props}>
+    return <TaskResultLabelWrapper2 color={getTeamTaskColor2(r.score, minScore, maxScore)} { ...props}>
         {formatScore(r?.score)}
-    </Box2>;
+    </TaskResultLabelWrapper2>;
 };
 
 IOITaskResultLabel2.propTypes = {
