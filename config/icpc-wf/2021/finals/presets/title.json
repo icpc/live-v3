@@ -88,5 +88,18 @@
         "data": {
             "t": "University of Warsaw"
         }
+    },
+    {
+        "preset": "animation-dynamic-right.svg",
+        "data": {
+            "name": "Azat Ismagiov",
+            "role": "bebra aboba"
+        }
+    },
+    {
+        "preset": "animation-bouncing-icpclive-logo.svg",
+        "data": {
+            "url": "https://avatars.githubusercontent.com/u/5224374?v=4"
+        }
     }
 ]
