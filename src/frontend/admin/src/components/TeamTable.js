@@ -1,16 +1,68 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Tooltip, ButtonGroup } from "@mui/material";
+import { Box, Button, Tooltip, ButtonGroup, Grid } from "@mui/material";
 import { lightBlue, grey } from "@mui/material/colors";
-import { Team, TEAM_FIELD_STRUCTURE } from "./Team";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import TaskStatusIcon from "@mui/icons-material/Segment";
 import TeamAchievementIcon from "@mui/icons-material/StarHalf";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import AutoModeIcon from "@mui/icons-material/AutoMode";
 
 const gridButton = {
     mx: "2px",
+};
+
+export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    contestSystemId: PropTypes.string,
+    shown: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    medias: PropTypes.shape({
+        screen: PropTypes.object,
+        camera: PropTypes.object,
+    }).isRequired,
+});
+
+const TeamTableRow = ({ rowData, onClick, tStyle }) => {
+    return (<Grid sx={{ display: "flex", width: "100%", height: "100%" }}>
+        <Box
+            key={rowData.id}
+            sx={{
+                backgroundColor:
+                    (rowData.shown?
+                        tStyle.activeColor :
+                        (rowData.selected?
+                            tStyle.selectedColor :
+                            tStyle.inactiveColor)),
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                height: "100%",
+                cursor: "pointer",
+                margin: "4px",
+                borderBottom: "1px solid rgba(224, 224, 224, 1)",
+                color: (rowData.selected || rowData.shown ? grey[900] : grey[700]) }}
+            onClick={() => onClick(rowData.id)}
+        >
+            {rowData.contestSystemId && `${rowData.contestSystemId} :`}
+            {rowData.contestSystemId === null && <AutoModeIcon sx={{ mr: 1 }} />}
+            {" " + rowData.name}
+        </Box>
+    </Grid>);
+};
+
+TeamTableRow.propTypes = {
+    tStyle: PropTypes.shape({
+        activeColor: PropTypes.string,
+        inactiveColor: PropTypes.string,
+        selectedColor: PropTypes.string,
+    }).isRequired,
+    rowData: TEAM_FIELD_STRUCTURE,
+    createErrorHandler: PropTypes.func,
+    isImmutable: PropTypes.bool,
+    onClick: PropTypes.func.isRequired
 };
 
 const CompactSwitchIconButton = ({ propertyName, disabled, isShown, onClick, children, sx, noVisibilityIcon }) =>
@@ -133,5 +185,5 @@ SelectTeamTable.defaultProps = {
         activeColor: lightBlue[100],
         inactiveColor: "white",
     },
-    RowComponent: Team,
+    RowComponent: TeamTableRow,
 };

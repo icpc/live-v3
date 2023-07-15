@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup, Grid, Switch, TextField, Tooltip } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
-import { SelectTeamTable, TeamViewSettingsPanel } from "./TeamTable";
+import { SelectTeamTable, TEAM_FIELD_STRUCTURE, TeamViewSettingsPanel } from "./TeamTable";
 import PropTypes from "prop-types";
 import { TeamViewService } from "../services/teamViewWidget";
 
@@ -15,7 +15,6 @@ export const TeamViewInstanceManager = ({
     mediaTypes,
 }) =>
 {
-    const [isAutoMode, setIsAutoMode] = useState(status.settings.teamId === undefined);
     const shownTeam = useMemo(
         () => teams.find(t => t.id === status.settings.teamId),
         [teams, status]);
@@ -23,19 +22,16 @@ export const TeamViewInstanceManager = ({
     const [isAchievementShown, setIsAchievementShown] = useState(instanceId === null ? false : undefined);
     return (<Box>
         {instanceId && <Box><b>Instance {instanceId}</b></Box>}
-        <Box>Automatically:
-            <Switch onChange={(_, newValue) => setIsAutoMode(newValue)} checked={isAutoMode}/>
-        </Box>
         <Box>Shown team: {shownTeam?.name ?? "Auto"}</Box>
         <Box>Media type: {status.settings.mediaTypes?.join(", ")}</Box>
         <Box sx={{ pt: 1 }}>
             <TeamViewSettingsPanel
                 mediaTypes={mediaTypes}
-                canShow={selectedTeamId !== undefined || isAutoMode}
+                canShow={selectedTeamId !== undefined}
                 canHide={status.shown}
                 onShowTeam={(mediaTypes) => onShow({
                     mediaTypes: mediaTypes,
-                    teamId: isAutoMode ? undefined : selectedTeamId,
+                    teamId: selectedTeamId,
                     showTaskStatus: isStatusShown,
                     showAchievement: isAchievementShown })}
                 onHideTeam={onHide} offerMultiple={true}
@@ -54,20 +50,35 @@ TeamViewInstanceManager.propTypes = {
             mediaTypes: PropTypes.arrayOf(PropTypes.string.isRequired),
         }).isRequired,
     }).isRequired,
-    teams: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-    })),
+    teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE),
     selectedTeamId: PropTypes.number,
     onShow: PropTypes.func,
     onHide: PropTypes.func,
     mediaTypes: TeamViewSettingsPanel.propTypes.mediaTypes,
 };
 
+const AUTOMODE_TEAM = {
+    "id": null,
+    "name": "Automode",
+    "shortName": "Automode",
+    "contestSystemId": null,
+    "groups": [],
+    "medias": {},
+    "shown": false,
+};
+
+const isTeamSatisfiesSearch = (team, searchValue) => {
+    if (searchValue === "" || team.id === null) {
+        return true;
+    }
+    return (team.contestSystemId + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
+};
+
 export const TeamViewManager = ({ service, mediaTypes }) => {
     const [teams, setTeams] = useState([]);
-    useEffect(() => service.teams().then(setTeams),
-        [service]);
+    useEffect(() => {
+        service.teams().then((ts) => setTeams([ AUTOMODE_TEAM, ...ts ]));
+    }, [service]);
 
     const [selectedTeamId, setSelectedTeamId] = useState(undefined);
 
@@ -89,9 +100,10 @@ export const TeamViewManager = ({ service, mediaTypes }) => {
         [teams, status, selectedTeamId]);
 
     const [searchValue, setSearchValue] = useState("");
-    const filteredTeams = useMemo(() =>
-        teamsWithStatus.filter(t => (searchValue === "" || (t.contestSystemId + " : " + t.name).toLowerCase().includes(searchValue))),
-    [teamsWithStatus, searchValue]);
+    const filteredTeams = useMemo(() => {
+        return teamsWithStatus.filter(t => isTeamSatisfiesSearch(t, searchValue));
+    },[teamsWithStatus, searchValue]);
+    console.log(filteredTeams);
 
     const [isMultipleMode, setIsMultipleMode] = useState(false);
     const selectTeam = (teamId) => setSelectedTeamId(teamId);
@@ -116,7 +128,7 @@ export const TeamViewManager = ({ service, mediaTypes }) => {
                         instanceId={id}
                         selectedTeamId={selectedTeamId}
                         status={status[id]}
-                        teams={teams}
+                        teams={teamsWithStatus}
                         onShow={onShowInstance(id)}
                         onHide={onHideInstance(id)}
                         mediaTypes={mediaTypes}
