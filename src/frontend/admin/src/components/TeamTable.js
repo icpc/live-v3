@@ -84,10 +84,32 @@ CompactSwitchIconButton.propTypes = {
     noVisibilityIcon: PropTypes.bool,
 };
 
-export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, isSomethingSelected, canHide, isPossibleToHide,
-    onShowTeam, onHideTeam, isStatusShown, setIsStatusShown, isAchievementShown, setIsAchievementShown, offerMultiple }) {
+const isMediaTypeChoosen = (mediaType, selectedMediaTypes) => {
+    if (!selectedMediaTypes) {
+        return false;
+    }
+    return selectedMediaTypes.includes(mediaType) || mediaType === null && selectedMediaTypes.length === 0;
+};
+
+export const TeamViewSettingsPanel = ({
+    mediaTypes,
+    selectedMediaTypes,
+    canShow,
+    isSomethingSelected,
+    canHide,
+    isPossibleToHide,
+    showHideButton,
+    onShowTeam,
+    onHideTeam,
+    isStatusShown,
+    setIsStatusShown,
+    isAchievementShown,
+    setIsAchievementShown,
+    offerMultiple
+}) => {
     canShow = canShow ?? isSomethingSelected;
     canHide = canHide ?? isPossibleToHide;
+    showHideButton = showHideButton ?? true;
     const [isMultipleMode, setIsMultipleMode] = useState(false);
     const [secondaryMediaType, setSecondaryMediaType] = useState(undefined);
     const onShow = (mediaType) => {
@@ -109,10 +131,9 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, 
         {mediaTypes.map((elem) => (
             <Button
                 disabled={!canShow}
-                color={selectedMediaType === elem.mediaType ? "#1976d2" :
-                    (secondaryMediaType === elem.mediaType ? "success" : "primary")}
+                color={secondaryMediaType === elem.mediaType ? "warning" : "primary"}
                 sx={gridButton}
-                variant={(selectedMediaType === elem.mediaType || secondaryMediaType === elem.mediaType)
+                variant={(isMediaTypeChoosen(elem.mediaType, selectedMediaTypes) || secondaryMediaType === elem.mediaType)
                     ? "contained" : "outlined"}
                 key={elem.text}
                 onClick={() => onShow(elem.mediaType)}>{elem.text}</Button>
@@ -123,23 +144,29 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, 
         {isAchievementShown !== undefined && <CompactSwitchIconButton propertyName={"Team achievement"} disabled={!canShow}
             isShown={isAchievementShown} buttonSx={gridButton}
             onClick={() => setIsAchievementShown(s => !s)}><TeamAchievementIcon/></CompactSwitchIconButton>}
-        <Button
-            sx={gridButton}
-            disabled={!canHide}
-            variant={!canHide ? "outlined" : "contained"}
-            color="error"
-            onClick={() => onHideTeam()}>hide</Button>
+        {showHideButton && (
+            <Button
+                sx={gridButton}
+                disabled={!canHide}
+                variant={!canHide ? "outlined" : "contained"}
+                color="error"
+                onClick={() => onHideTeam()}
+            >
+                hide
+            </Button>
+        )}
     </ButtonGroup>);
-}
+};
+
 TeamViewSettingsPanel.propTypes = {
     mediaTypes: PropTypes.arrayOf(PropTypes.shape({ "text":PropTypes.string.isRequired, "mediaType":PropTypes.any })),
-    selectedMediaType: PropTypes.any,
+    selectedMediaTypes: PropTypes.arrayOf(PropTypes.string),
     isSomethingSelected: PropTypes.bool,
     canShow: PropTypes.bool, // todo: make req
     isPossibleToHide: PropTypes.bool,
     canHide: PropTypes.bool,  // todo: make req
     onShowTeam: PropTypes.func.isRequired,
-    onHideTeam: PropTypes.func.isRequired,
+    onHideTeam: PropTypes.func,
     isStatusShown: PropTypes.bool,
     setIsStatusShown: PropTypes.func,
     isAchievementShown: PropTypes.bool,

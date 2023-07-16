@@ -4,9 +4,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.icpclive.api.ObjectSettings
-import org.icpclive.api.ObjectStatus
 import org.icpclive.api.TypeWithId
-import org.icpclive.api.UnitSettings
 import org.icpclive.controllers.PresetsController
 import org.icpclive.controllers.SingleWidgetController
 import kotlin.time.Duration.Companion.milliseconds
@@ -49,22 +47,22 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
 }
 
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupControllerGroup(
-    controllers: List<SingleWidgetController<SettingsType, OverlayWidgetType>>
+    controllers: Map<String, SingleWidgetController<SettingsType, OverlayWidgetType>>
 ) {
     get {
         // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
         run {
-            call.respond(ObjectStatus(controllers.any { it.getStatus().shown }, UnitSettings, null))
+            call.respond(controllers.mapValues { it.value.getStatus() })
         }
     }
     post("/show") {
         call.adminApiAction {
-            controllers.forEach { it.show() }
+            controllers.forEach { it.value.show() }
         }
     }
     post("/hide") {
         call.adminApiAction {
-            controllers.forEach { it.hide() }
+            controllers.forEach { it.value.hide() }
         }
     }
 }
