@@ -27,15 +27,8 @@ export class TeamViewService extends AbstractWidgetService {
         return presetId == null ? "" : "/" + presetId;
     }
 
-    loadOne(element) {
-        return this.apiGet(this.presetSubPath(element)).catch(this.errorHandler("Failed to load " + element + " info"));
-    }
-
     loadElements() {
-        return Promise.all(
-            this.instances.map(id =>
-                this.loadOne(id).then(r => [id, r])))
-            .then(els => els.reduce((s, el) => ({ ...s, [el[0]]: el[1] }), {}));
+        return this.apiGet("").catch(this.errorHandler("Failed to load status"));
     }
 
     editPreset(element, settings) {
