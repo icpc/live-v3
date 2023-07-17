@@ -2,11 +2,13 @@ import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
 import {
+    MEDAL_COLORS,
     VERDICT_NOK2,
     VERDICT_OK2,
     VERDICT_UNKNOWN2,
 } from "../../config";
 import { Box2, FlexedBox2, ShrinkingBox2 } from "./Box2";
+import { Cell } from "./Cell";
 import { formatScore, ICPCResult, IOIResult } from "./ContestCells";
 import {
     TeamTaskColor2,
@@ -68,14 +70,21 @@ export const VerdictLabel2 = ({ runResult, ...props }) => {
 };
 
 
-export const RankLabel2 = ({ rank, ...props }) => {
-    return <ShrinkingBox2 text={rank ?? "??"} align={"center"} Wrapper={FlexedBox2} {...props}>
-    </ShrinkingBox2>;
+export const formatRank = (rank) => {
+    if (rank === undefined || rank == null)
+        return "??";
+    else if (rank === 0)
+        return "*";
+    return rank.toString();
 };
 
-RankLabel2.propTypes = {
-    ...Box2.propTypes,
-    rank: PropTypes.number
+const RankLabelWrap = styled(Box2)`
+    color: ${({ color }) => color}
+`;
+export const RankLabel = ({ rank, medal, className }) => {
+    return <RankLabelWrap color={MEDAL_COLORS[medal]} className={className}>
+        {formatRank(rank)}
+    </RankLabelWrap>;
 };
 
 const VerdictCellProgressBar2 = styled.div`
@@ -95,8 +104,8 @@ const VerdictCellInProgressWrap2 = styled(FlexedBox2)`
   align-content: center;
 `;
 
-const VerdictCellInProgress2 = ({ percentage, ...props }) => {
-    return <VerdictCellInProgressWrap2 {...props} >
+const VerdictCellInProgress2 = ({ percentage, className }) => {
+    return <VerdictCellInProgressWrap2 className={className}>
         {percentage !== 0 && <VerdictCellProgressBar2 width={percentage * 100 + "%"}/>}
     </VerdictCellInProgressWrap2>;
 };
@@ -105,10 +114,10 @@ VerdictCellInProgress2.propTypes = {
     percentage: PropTypes.number.isRequired
 };
 
-export const RunStatusLabel2 = ({ runInfo, ...props }) => {
+export const RunStatusLabel2 = ({ runInfo, className }) => {
     return <>
-        {runInfo.result === undefined && <VerdictCellInProgress2 percentage={runInfo.percentage} align={"center"} {...props}/>}
-        {runInfo.result !== undefined && <VerdictLabel2 runResult={runInfo.result} score={runInfo.result.result} align={"center"} {...props}/>}
+        {runInfo.result === undefined && <VerdictCellInProgress2 percentage={runInfo.percentage} align={"center"} className={className}/>}
+        {runInfo.result !== undefined && <VerdictLabel2 runResult={runInfo.result} score={runInfo.result.result} align={"center"} className={className}/>}
     </>;
 };
 
@@ -123,7 +132,7 @@ RunStatusLabel2.propTypes = {
 const TaskResultLabelWrapper2 = styled(Box2)`
   font-weight: bold;
   color: ${({ color }) => color};
-`
+`;
 
 // TODO: fts start
 const ICPCTaskResultLabel2 = ({ problemResult: r, ...props }) => {

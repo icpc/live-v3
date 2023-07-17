@@ -2,7 +2,7 @@ import React from "react";
 import _ from "lodash";
 import { useSelector } from "react-redux";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { ContesterInfo2 } from "./ContesterInfo2";
+import { ContestantInfo2 } from "./ContestantInfo2";
 import SubmissionRow from "./SubmissionRow";
 import styled from "styled-components";
 import { TEAMVIEW_SMALL_FACTOR } from "../../../config";
@@ -27,7 +27,7 @@ const TaskRow = styled.div`
   grid-column-end: 3;
 `;
 
-export const ContesterCorner2 = ({ teamId, isSmall }) => {
+export const ContestantViewCorner2 = ({ teamId, isSmall }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
@@ -40,7 +40,7 @@ export const ContesterCorner2 = ({ teamId, isSmall }) => {
 
     return <ScoreboardColumnWrapper isSmall={isSmall}>
         <ScoreboardTeamInfoRow>
-            <ContesterInfo2 teamId={teamId} roundBR={results.length === 0}/>
+            <ContestantInfo2 teamId={teamId} roundBR={results.length === 0}/>
         </ScoreboardTeamInfoRow>
         {results.map((result, i) =>
             <TaskRow key={i}>

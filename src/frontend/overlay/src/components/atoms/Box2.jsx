@@ -72,15 +72,19 @@ FlexedBox2.propTypes = {
     justifyContent: PropTypes.string,
 };
 
+const TextShrinkingWrap = styled(Box2)`
+  display: flex;
+  flex-grow: ${({ flexGrow }) => flexGrow};
+  flex-shrink: ${({ flexShrink }) => flexShrink};
+`;
+
 export const ShrinkingBox2 = ({
     text,
     // children,
     fontFamily = GLOBAL_DEFAULT_FONT_FAMILY,
     fontSize = GLOBAL_DEFAULT_FONT_SIZE,
     align = "left",
-    color,
-    Wrapper = Box2,
-    ...props
+    className
 }) => {
     const boxRef = useRef(null);
     const updateScale = useCallback((newCellRef) => {
@@ -88,7 +92,7 @@ export const ShrinkingBox2 = ({
             boxRef.current = newCellRef;
             newCellRef.children[0].style.transform = "";
             const styles = getComputedStyle(newCellRef);
-            const textWidth = getTextWidth(text, `${fontSize} ${fontFamily}`);
+            const textWidth = getTextWidth(text, `${styles.fontSize} ${styles.fontFamily}`);
             const haveWidth = (parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight)));
             const scaleFactor = Math.min(1, haveWidth / textWidth);
             newCellRef.children[0].style.transform = `scaleX(${scaleFactor})`;
@@ -97,19 +101,17 @@ export const ShrinkingBox2 = ({
     useEffect(() => {
         updateScale(boxRef.current);
     }, [text]);
-    return <Wrapper ref={updateScale} {...props}>
-        <TextShrinkingContainer2 align={align} color={color} fontSize={fontSize} fontFamily={fontFamily}>
+    // console.log(props);
+    return <TextShrinkingWrap ref={updateScale} className={className}>
+        <TextShrinkingContainer2 align={align}>
             {text}
         </TextShrinkingContainer2>
-    </Wrapper>;
+    </TextShrinkingWrap>;
 };
-
 
 const TextShrinkingContainer2 = styled.div`
   transform-origin: left;
   position: relative;
   text-align: ${({ align }) => align};
   color: ${({ color }) => color};
-  font-family: ${({ fontFamily }) => fontFamily};
-  font-size: ${({ fontSize }) => fontSize};
 `;

@@ -1,15 +1,15 @@
 {
   "queue": {
-    "positionX": 1536,
-    "positionY": 324,
+    "positionX": 1520,
+    "positionY": 248,
     "sizeX": 384,
-    "sizeY": 648
+    "sizeY": 400
   },
   "scoreboard": {
-    "positionX": 0,
-    "positionY": 104,
-    "sizeX": 1536,
-    "sizeY": 864
+    "positionX": 16,
+    "positionY": 16,
+    "sizeX": 1488,
+    "sizeY": 837
   },
   "teamview.SINGLE_TOP_RIGHT": {
     "positionX": 0,

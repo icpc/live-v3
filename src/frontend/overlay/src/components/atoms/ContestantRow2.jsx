@@ -43,7 +43,7 @@ const borderRadius = ({
     return `${borderRadiusTL} ${borderRadiusTR} ${borderRadiusBR} ${borderRadiusBL}`;
 };
 
-export const ContesterRow2 = styled.div`
+export const ContestantRow2 = styled.div`
   background-color: ${({ background, medal, isEven }) => getContesterRowBackground(background, medal, isEven)};
   background-size: 34px 100%; /* TODO: 34 is a magic number for gradient medal color */
   background-repeat: no-repeat;
@@ -59,7 +59,7 @@ export const ContesterRow2 = styled.div`
   animation: ${props => props.flashing ? rowFlashing : null} ${CELL_FLASH_PERIOD}ms linear infinite alternate-reverse;
 `;
 
-ContesterRow2.propTypes = {
+ContestantRow2.propTypes = {
     background: PropTypes.string,
     medal: PropTypes.string,
     isEven: PropTypes.bool,

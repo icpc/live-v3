@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect } from "react";
-import { ContesterCorner2 } from "../../molecules/info/ContesterCorner2";
+import { ContestantViewCorner2 } from "../../molecules/info/ContestantViewCorner2";
 import {
     TeamImageWrapper,
     TeamVideoAnimationWrapper,
@@ -14,7 +14,7 @@ const teamViewComponentRender = {
     TaskStatus: ({ onLoadStatus, teamId, isSmall }) => {
         useLayoutEffect(() => onLoadStatus(true),
             []);
-        return <ContesterCorner2 teamId={teamId} isSmall={isSmall}/>;
+        return <ContestantViewCorner2 teamId={teamId} isSmall={isSmall}/>;
     },
     Photo: ({ onLoadStatus, url }) => {
         return <TeamVideoAnimationWrapper>

@@ -1,13 +1,13 @@
 // Version
-export const OVERLAY_VERSION = process.env.REACT_APP_VERSION;
-
+export const OVERLAY_VERSION = import.meta.env.VITE_VERSION;
 // Strings
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
-const WS_PORT = process.env.REACT_APP_WEBSOCKET_PORT ?? window.location.port;
-export const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay";
+const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
+export const BASE_URL_WS = import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay";
 
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
+export const QUEUE_CAPTION = "46th";
 
 // Behaviour
 export const TICKER_SCOREBOARD_REPEATS = 1;
@@ -35,7 +35,7 @@ export const CELL_FLASH_PERIOD = 500; //ms
 // Styles
 
 export const GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
-export const GLOBAL_DEFAULT_FONT_SIZE = "22pt"; // css-property
+export const GLOBAL_DEFAULT_FONT_SIZE = "18px"; // css-property
 export const GLOBAL_DEFAULT_FONT = GLOBAL_DEFAULT_FONT_SIZE + " " + GLOBAL_DEFAULT_FONT_FAMILY; // css property MUST HAVE FONT SIZE
 
 export const VERDICT_OK = "#1b8041";
@@ -47,10 +47,11 @@ export const VERDICT_UNKNOWN2 = "#e5da1c";
 
 
 export const QUEUE_ROW_HEIGHT = 41; // px
-export const QUEUE_ROW_HEIGHT2 = 36; // px
+export const QUEUE_ROW_HEIGHT2 = 25; // px
 export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
 export const QUEUE_OPACITY = 0.95;
 export const QUEUE_FEATURED_RUN_ASPECT = 16 / 9;
+export const QUEUE_BACKGROUND_COLOR = "#4C83C3";
 
 export const SCOREBOARD_RANK_WIDTH = "80px"; // px
 export const SCOREBOARD_RANK_WIDTH2 = "50px"; // px
@@ -78,7 +79,7 @@ export const STATISTICS_STATS_VALUE_COLOR = "#FFFFFF";
 
 
 export const CELL_FONT_FAMILY = GLOBAL_DEFAULT_FONT_FAMILY;
-export const CELL_FONT_SIZE = "22pt";
+export const CELL_FONT_SIZE = "18px";
 export const CELL_TEXT_COLOR = "#FFFFFF";
 export const CELL_TEXT_COLOR_INVERSE = "#000000";
 export const CELL_BG_COLOR = "#000000";
@@ -134,7 +135,7 @@ export const WIDGET_LAYOUT_BACKGROUND = "#343434";
 
 export const CONTESTER_ROW_OPACITY = 1;
 export const CONTESTER_ROW_BORDER_RADIUS = "16px";
-export const CONTESTER_ROW_VERDICT_FONT_SIZE2 = "14pt"; // css-property
+export const CONTESTER_ROW_VERDICT_FONT_SIZE2 = "16px"; // css-property
 
 export const QUEUE_PER_COLUMNS_PADDING2 = "5px"; // css property
 export const QUEUE_VERDICT_PADDING_LEFT2 = "6px"; // css property

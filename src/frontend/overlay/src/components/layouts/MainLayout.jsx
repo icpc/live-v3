@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
-import bg from "../../assets/images/bg.jpeg";
+import bg from "../../assets/images/bg.png";
 import { OVERLAY_VERSION, WIDGET_TRANSITION_TIME } from "../../config";
 import { DEBUG } from "../../consts";
 import { useQueryParams } from "../../utils/query-params";
@@ -53,7 +53,7 @@ const WidgetWrap = styled.div.attrs(
     }
 )`
   position: absolute;
-  overflow: hidden;
+  overflow: ${({ shouldCrop = true }) => shouldCrop ? "hidden" : ""};
   animation: ${props => props.animation} ${WIDGET_TRANSITION_TIME}ms linear;
   animation-fill-mode: forwards;
 `;
@@ -115,6 +115,7 @@ export const MainLayout = () => {
                             top={obj.location.positionY}
                             width={obj.location.sizeX}
                             height={obj.location.sizeY}
+                            shouldCrop={Widget.shouldCrop}
                             {...(!Widget.ignoreAnimation && transitionProps[state])}
                         >
                             <Widget widgetData={obj} transitionState={state}/>

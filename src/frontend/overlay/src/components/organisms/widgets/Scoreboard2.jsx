@@ -15,8 +15,8 @@ import {
 } from "../../../config";
 import { formatScore } from "../../atoms/ContestCells";
 import { extractScoreboardRows, nameTable, useScroller } from "./Scoreboard";
-import { ContesterRow2 } from "../../atoms/ContesterRow2";
-import { TaskResultLabel2, RankLabel2 } from "../../atoms/ContestLabels2";
+import { ContestantRow2 } from "../../atoms/ContestantRow2";
+import { TaskResultLabel2, RankLabel } from "../../atoms/ContestLabels2";
 import { FlexedBox2, ShrinkingBox2 } from "../../atoms/Box2";
 import { CircleCell } from "../../atoms/CircleCellsProblem";
 
@@ -39,8 +39,8 @@ export const ScoreboardRow2 = ({ teamId, hideTasks, optimismLevel }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const contestData = useSelector((state) => state.contestInfo.info);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    return <ContesterRow2 medal={scoreboardData?.medalType}>
-        <RankLabel2 rank={scoreboardData?.rank} width={"50px"}/>
+    return <ContestantRow2 medal={scoreboardData?.medalType}>
+        <RankLabel rank={scoreboardData?.rank} width={"50px"}/>
         <ShrinkingBox2 text={teamData?.shortName ?? "??"} Wrapper={FlexedBox2}
             marginLeft={QUEUE_PER_COLUMNS_PADDING2} marginRight={QUEUE_PER_COLUMNS_PADDING2}
             width={SCOREBOARD_NAME_WIDTH2}/>
@@ -54,7 +54,7 @@ export const ScoreboardRow2 = ({ teamId, hideTasks, optimismLevel }) => {
                 <TaskResultLabel2 problemResult={result}
                     minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore}/>
             </FlexedBox2>)}
-    </ContesterRow2>;
+    </ContestantRow2>;
 };
 ScoreboardRow2.propTypes = {
     teamId: PropTypes.number.isRequired,
@@ -100,7 +100,7 @@ const ScoreboardHeader2 = ({ problems, name }) => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     let color = name === "optimistic" ? SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR : undefined;
 
-    return <ContesterRow2>
+    return <ContestantRow2>
         <ScoreboardHeaderTitle2 color={color} marginLeft={QUEUE_PER_COLUMNS_PADDING2} marginRight={QUEUE_PER_COLUMNS_PADDING2}>
             {nameTable[name] + " STANDINGS"}
         </ScoreboardHeaderTitle2>
@@ -108,7 +108,7 @@ const ScoreboardHeader2 = ({ problems, name }) => {
         <FlexedBox2 flexGrow={1} flexShrink={1} flexBasis={0} align={"center"}>&#931;</FlexedBox2>
         {contestInfo?.resultType === "ICPC" && <FlexedBox2 flexGrow={1} flexShrink={1} flexBasis={0} align={"center"}>PEN</FlexedBox2>}
         {problems && problems.map((probData) => <ScoreboardProblemLabel2 probData={probData} key={probData.name}/>)}
-    </ContesterRow2>;
+    </ContestantRow2>;
 };
 
 ScoreboardHeader2.propTypes = {
