@@ -11,6 +11,7 @@ export const QUEUE_CAPTION = "46th";
 
 // Behaviour
 export const TICKER_SCOREBOARD_REPEATS = 1;
+export const QUEUE_MAX_ROWS = 12;
 
 // Timings
 export const WIDGET_TRANSITION_TIME = 300; // ms
@@ -119,13 +120,13 @@ export const FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica, monospace";
 
 export const STAR_SIZE = 20; // px
 
-export const CIRCLE_CELL_FONT_SIZE = "20px";
+export const PROBLEM_LABEL_FONT_SIZE = "14px";
 
 // Medals
 export const MEDAL_COLORS = Object.freeze({
-    "gold": "#C2AC15",
-    "silver": "#ABABAB",
-    "bronze": "#7f4c19"
+    "gold": "#F9A80D",
+    "silver": "#ACACAC",
+    "bronze": "#E27B5A"
 });
 
 // Debug Behaviour

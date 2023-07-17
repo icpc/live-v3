@@ -16,5 +16,9 @@ export const isShouldUseDarkColor = (backgroundColor) => {
         return false;
     }
     const { r, g, b } = rgb;
-    return (r > 160 && g > 160) || (r > 160 && b > 160) || (g > 160 && b > 160);
+    // http://www.w3.org/TR/AERT#color-contrast
+    const brightness = Math.round(((r * 299) +
+        (g * 587) +
+        (b * 114)) / 1000);
+    return brightness > 125;
 };

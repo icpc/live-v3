@@ -8,7 +8,6 @@ import {
     VERDICT_UNKNOWN2,
 } from "../../config";
 import { Box2, FlexedBox2, ShrinkingBox2 } from "./Box2";
-import { Cell } from "./Cell";
 import { formatScore, ICPCResult, IOIResult } from "./ContestCells";
 import {
     TeamTaskColor2,
@@ -78,8 +77,11 @@ export const formatRank = (rank) => {
     return rank.toString();
 };
 
-const RankLabelWrap = styled(Box2)`
-    color: ${({ color }) => color}
+const RankLabelWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ color }) => color}
 `;
 export const RankLabel = ({ rank, medal, className }) => {
     return <RankLabelWrap color={MEDAL_COLORS[medal]} className={className}>
@@ -87,21 +89,24 @@ export const RankLabel = ({ rank, medal, className }) => {
     </RankLabelWrap>;
 };
 
-const VerdictCellProgressBar2 = styled.div`
-  width: ${({ width }) => width};
-  height: 12px;
-  border-bottom-left-radius: 16px;
-  border-top-left-radius: 16px;
-  
+const VerdictCellProgressBar2 = styled.div.attrs(({width}) => ({
+    style: {
+        width
+    }
+}))`
+  height: 100%;
   background-color: ${VERDICT_UNKNOWN2};
 `;
 
 
-const VerdictCellInProgressWrap2 = styled(FlexedBox2)`
-  margin-top: 12px;
+const VerdictCellInProgressWrap2 = styled.div`
   flex-direction: row;
   justify-content: flex-start;
+  height: 100%;
   align-content: center;
+  border-radius: 0 16px 16px 0;
+  border: 3px solid ${VERDICT_UNKNOWN2};
+  box-sizing: border-box;
 `;
 
 const VerdictCellInProgress2 = ({ percentage, className }) => {
@@ -116,8 +121,8 @@ VerdictCellInProgress2.propTypes = {
 
 export const RunStatusLabel2 = ({ runInfo, className }) => {
     return <>
-        {runInfo.result === undefined && <VerdictCellInProgress2 percentage={runInfo.percentage} align={"center"} className={className}/>}
-        {runInfo.result !== undefined && <VerdictLabel2 runResult={runInfo.result} score={runInfo.result.result} align={"center"} className={className}/>}
+        {runInfo.result === undefined && <VerdictCellInProgress2 percentage={runInfo.percentage} className={className}/>}
+        {runInfo.result !== undefined && <VerdictLabel2 runResult={runInfo.result} score={runInfo.result.result} className={className}/>}
     </>;
 };
 

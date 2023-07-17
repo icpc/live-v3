@@ -1,36 +1,30 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+// import PropTypes from "prop-types";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import {
-    CELL_QUEUE_RANK_WIDTH2,
-    CELL_QUEUE_TOTAL_SCORE_WIDTH,
-    CELL_QUEUE_VERDICT_WIDTH2,
-    CONTESTER_ROW_VERDICT_FONT_SIZE2,
     QUEUE_BACKGROUND_COLOR,
     QUEUE_BASIC_ZINDEX, QUEUE_CAPTION,
-    QUEUE_FEATURED_RUN_ASPECT,
     QUEUE_ROW_APPEAR_TIME,
     QUEUE_ROW_FEATURED_RUN_APPEAR_TIME,
     QUEUE_ROW_FTS_TRANSITION_TIME,
     QUEUE_ROW_HEIGHT2,
-    QUEUE_ROW_TRANSITION_TIME,
-    QUEUE_VERDICT_PADDING_LEFT2,
-    WIDGET_LAYOUT_BACKGROUND
+    QUEUE_ROW_TRANSITION_TIME
 } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import { FlexedBox2, ShrinkingBox2 } from "../../atoms/Box2";
-import { ContestantRow2 } from "../../atoms/ContestantRow2";
+import { ShrinkingBox2 } from "../../atoms/Box2";
 import { formatScore } from "../../atoms/ContestCells";
-import { ProblemCircleLabel, RankLabel, RunStatusLabel2 } from "../../atoms/ContestLabels2";
+import { RankLabel, RunStatusLabel2 } from "../../atoms/ContestLabels2";
+import { ProblemLabel } from "../../atoms/ProblemLabel";
 // import { QueueRow } from "../../molecules/queue/QueueRow";
 import { TeamViewHolder } from "../holder/TeamViewHolder";
 import { useWithTimeoutAfterRender } from "../../../utils/hooks/withTimeoutAfterRender";
 
-const MAX_QUEUE_ROWS_COUNT = 20;
+// const MAX_QUEUE_ROWS_COUNT = 20;
 
-const QueueRowContainer = styled.div.attrs(({ bottom, zIndex }) => ({
+// Needed just for positioning and transitions. Don't use for anything else
+const QueueRowAnimator = styled.div.attrs(({ bottom, zIndex }) => ({
     style: {
         bottom: bottom + "px",
         zIndex: zIndex,
@@ -40,8 +34,6 @@ const QueueRowContainer = styled.div.attrs(({ bottom, zIndex }) => ({
   width: 100%;
 
   position: absolute;
-  display: flex;
-  flex-direction: column;
   transition: bottom linear ${({ fts }) => fts ? QUEUE_ROW_FTS_TRANSITION_TIME : QUEUE_ROW_TRANSITION_TIME}ms;
   animation: ${({ animation }) => animation} ${QUEUE_ROW_APPEAR_TIME}ms linear;
   animation-fill-mode: forwards;
@@ -96,20 +88,19 @@ const contractionStates = (fullHeight) => ({
 });
 
 const useQueueRowsData = ({
-    width,
+    // width,
     height,
     basicZIndex = QUEUE_BASIC_ZINDEX,
 }) => {
     const isNotShownYet = useWithTimeoutAfterRender(300);
-    const featuredRunHeight = width / QUEUE_FEATURED_RUN_ASPECT;
 
     const { queue, totalQueueItems } = useSelector(state => state.queue);
 
     const [isFeaturedRunMediaLoaded, setIsFeaturedRunMediaLoaded] = useState(false);
 
-    const featuredRunsRow = [];
-    const ftsRunsRows = [];
-    const regularRunsRows = [];
+    const rows = [];
+    let featured = null;
+    let totalFts = 0;
     queue.forEach((run, runIndex) => {
         const row = {
             ...run,
@@ -117,84 +108,99 @@ const useQueueRowsData = ({
             zIndex: basicZIndex + runIndex,
             bottom: 0,
             isFeatured: false,
-            isFeaturedShown: false,
+            isFeaturedRunMediaLoaded: false,
             isFts: run.result?.isFirstToSolveRun ?? false,
         };
+        totalFts += row.isFts;
         if (run.featuredRunMedia && featuredRunsRow.length === 0) {
             row.isFeatured = true;
-            row.isFeaturedShown = isFeaturedRunMediaLoaded;
+            row.isFeaturedRunMediaLoaded = isFeaturedRunMediaLoaded;
             row.setIsFeaturedRunMediaLoaded = setIsFeaturedRunMediaLoaded;
-            row.featuredRunMediaHeight = featuredRunHeight;
             if (isFeaturedRunMediaLoaded) {
-                featuredRunsRow.push(row);
+                featured = row;
             } else {
-                if (run.result?.isFirstToSolveRun) {
-                    ftsRunsRows.push(row);
-                } else {
-                    regularRunsRows.push(row);
-                }
+                rows.push(row);
             }
-        } else if (run.result?.isFirstToSolveRun) {
-            ftsRunsRows.push(row);
         } else {
-            regularRunsRows.push(row);
+            rows.push(row);
         }
     });
     if (isNotShownYet) {
-        return [...featuredRunsRow, ...ftsRunsRows, ...regularRunsRows];
+        return [null, rows];
     }
-    featuredRunsRow.forEach((row) => {
-        row.zIndex = basicZIndex + MAX_QUEUE_ROWS_COUNT;
-        row.isEven = false;
-        row.bottom = height - featuredRunHeight - QUEUE_ROW_HEIGHT2;
+    let ftsRowCount = 0;
+    let regularRowCount = 0;
+    rows.forEach((row) => {
+        if(row.isFts) {
+            row.bottom = (height - (QUEUE_ROW_HEIGHT2 + 3) * (totalFts - ftsRowCount));
+            ftsRowCount++;
+        } else {
+            row.bottom = (QUEUE_ROW_HEIGHT2 + 3) * regularRowCount;
+            regularRowCount++;
+        }
     });
-    ftsRunsRows.forEach((row, rowIndex) => {
-        row.bottom = QUEUE_ROW_HEIGHT2 * (rowIndex + regularRunsRows.length + 1 * (regularRunsRows.length > 0));
-    });
-    regularRunsRows.forEach((row, rowIndex) => {
-        row.bottom = (QUEUE_ROW_HEIGHT2 + 3) * rowIndex;
-    });
-    return [...featuredRunsRow, ...ftsRunsRows, ...regularRunsRows];
+    return [featured, rows];
 };
 
 const QueueRankLabel = styled(RankLabel)`
-  width: ${CELL_QUEUE_RANK_WIDTH2};
-  margin-right: 6px;
+  width: 32px;
+  align-self: stretch;
+  padding-left: 4px;
+  flex-shrink: 0;
 `;
 
 const QueueTeamNameLabel = styled(ShrinkingBox2)`
   flex-grow: 1;
-  flex-shrink: 1;
+  //flex-shrink: 0;
 `;
 const QueueRunStatusLabel = styled(RunStatusLabel2)`
-  width: ${CELL_QUEUE_RANK_WIDTH2};
-  margin-left: ${QUEUE_VERDICT_PADDING_LEFT2};
-  margin-top: 6px;
-  font-size: ${CONTESTER_ROW_VERDICT_FONT_SIZE2};
+  width: 46px;
+  flex-shrink: 0;
 `;
-const QueueRowWrap = styled.div`
+
+const StyledQueueRow = styled.div`
+  width: 100%;
+  height: 25px;
   display: flex;
+  align-items: center;
+  border-radius: 16px;
+  overflow: hidden;
+  gap: 5px;
+  color: white;
+  font-size: 18px;
   background: rgba(0, 0, 0, 0.08);
 `;
-export const QueueRow = ({ runInfo, isEven, flashing }) => {
+
+const QueueScoreLabel = styled(ShrinkingBox2)`
+  width: 51px;
+  flex-shrink: 0;
+  flex-direction: row-reverse;
+`;
+const QueueProblemLabel = styled(ProblemLabel)`
+  flex-shrink: 0;
+`;
+const QueueRightPart = styled.div`
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: nowrap;
+`;
+export const QueueRow = ({ runInfo, flashing }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[runInfo.teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[runInfo.teamId]);
     const probData = useSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
 
-    return <QueueRowWrap medal={scoreboardData?.medalType} flashing={flashing}>
-        <QueueRankLabel rank={scoreboardData?.rank}/>
-        <QueueTeamNameLabel text={teamData?.shortName ?? "??"}/>
-        <ShrinkingBox2 width={CELL_QUEUE_TOTAL_SCORE_WIDTH} align={"center"}
+    return <StyledQueueRow medal={scoreboardData?.medalType} flashing={flashing}>
+        <QueueRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medal}/>
+        <QueueTeamNameLabel text={teamData?.shortName + "abobaabobaabobaaboabaobaboaob" ?? "??"}/>
+        <QueueScoreLabel align={"right"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
         />
-        <ProblemCircleLabel letter={probData?.letter} problemColor={probData?.color} />
-        <QueueRunStatusLabel runInfo={runInfo}/>
-    </QueueRowWrap>;
-};
-
-QueueRow.propTypes = {
-    runInfo: PropTypes.object.isRequired,
-    isEven: PropTypes.bool.isRequired
+        <QueueRightPart>
+            <QueueProblemLabel letter={probData?.letter} problemColor={probData?.color} />
+            <QueueRunStatusLabel runInfo={{percentage: 0.3}}/>
+        </QueueRightPart>
+    </StyledQueueRow>;
 };
 
 
@@ -256,7 +262,7 @@ const QueueHeader = styled.div`
 `;
 
 const Title = styled.div`
-  flex-grow: 1
+  flex: 1 0 0;
 `;
 
 const Caption = styled.div`
@@ -264,7 +270,7 @@ const Caption = styled.div`
 
 export const Queue2 = ({ widgetData }) => {
     const { sizeX: width, sizeY: height } = widgetData.location;
-    const queueRows = useQueueRowsData({ width, height });
+    const [featured, queueRows] = useQueueRowsData({ width, height });
 
     return <QueueWrap>
         <QueueHeader>
@@ -281,22 +287,22 @@ export const Queue2 = ({ widgetData }) => {
                     <Transition key={row.id} timeout={QUEUE_ROW_APPEAR_TIME}>
                         {state => {
                             return state !== "exited" && (
-                                <QueueRowContainer
+                                <QueueRowAnimator
                                     bottom={row.bottom}
                                     zIndex={row.zIndex}
                                     fts={row.isFts}
                                     {...contractionStates(QUEUE_ROW_HEIGHT2)[state]}
                                 >
-                                    <FeaturedRunRow2
-                                        isFeatured={row.isFeatured}
-                                        media={row.featuredRunMedia}
-                                        isLoaded={row.isFeaturedShown}
-                                        setIsLoaded={row.setIsFeaturedRunMediaLoaded}
-                                        height={row.featuredRunMediaHeight}
-                                        zIndex={QUEUE_BASIC_ZINDEX + 20}
-                                    />
-                                    <QueueRow runInfo={row} isEven={row.isEven} flashing={row.isFeatured && !row.isFeaturedShown}/>
-                                </QueueRowContainer>
+                                    {/*<FeaturedRunRow2*/}
+                                    {/*    isFeatured={row.isFeatured}*/}
+                                    {/*    media={row.featuredRunMedia}*/}
+                                    {/*    isLoaded={row.isFeaturedShown}*/}
+                                    {/*    setIsLoaded={row.setIsFeaturedRunMediaLoaded}*/}
+                                    {/*    height={row.featuredRunMediaHeight}*/}
+                                    {/*    zIndex={QUEUE_BASIC_ZINDEX + 20}*/}
+                                    {/*/>*/}
+                                    <QueueRow runInfo={row} isEven={row.isEven} flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded}/>
+                                </QueueRowAnimator>
                             );
                         }}
                     </Transition>

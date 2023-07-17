@@ -2,8 +2,6 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import {
     CELL_TEXT_COLOR,
-    CELL_TEXT_COLOR_INVERSE,
-    GLOBAL_DEFAULT_FONT,
     GLOBAL_DEFAULT_FONT_FAMILY,
     GLOBAL_DEFAULT_FONT_SIZE,
 } from "../../config";
@@ -11,16 +9,16 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { getTextWidth } from "./ContestCells";
 
 export const Box2 = styled.div`
-  width: ${({ width }) => width};
-  height: ${({ height }) => height ?? "100%"};
-  
-  font-family: ${GLOBAL_DEFAULT_FONT_FAMILY};
-  font-size: ${GLOBAL_DEFAULT_FONT_SIZE};
-  color: ${CELL_TEXT_COLOR};
+  // width: ${({ width }) => width};
+  // height: ${({ height }) => height};
 
-  box-sizing: border-box;
-  overflow-x: hidden;
-  white-space: nowrap;
+  // font-family: ${GLOBAL_DEFAULT_FONT_FAMILY};
+  //font-size: ${GLOBAL_DEFAULT_FONT_SIZE};
+  //color: ${CELL_TEXT_COLOR};
+
+  //box-sizing: border-box;
+  //overflow-x: hidden;
+  //white-space: nowrap;
 `;
 
 /*
@@ -72,10 +70,9 @@ FlexedBox2.propTypes = {
     justifyContent: PropTypes.string,
 };
 
-const TextShrinkingWrap = styled(Box2)`
+const TextShrinkingWrap = styled.div`
   display: flex;
-  flex-grow: ${({ flexGrow }) => flexGrow};
-  flex-shrink: ${({ flexShrink }) => flexShrink};
+  overflow: auto;
 `;
 
 export const ShrinkingBox2 = ({
@@ -110,8 +107,9 @@ export const ShrinkingBox2 = ({
 };
 
 const TextShrinkingContainer2 = styled.div`
-  transform-origin: left;
+  transform-origin: ${({align}) => align};
   position: relative;
   text-align: ${({ align }) => align};
   color: ${({ color }) => color};
+  white-space: nowrap;
 `;
