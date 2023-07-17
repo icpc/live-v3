@@ -13,6 +13,8 @@ import {
     Switch,
     TextField,
     styled,
+    InputAdornment,
+    FormLabel,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
@@ -28,6 +30,7 @@ import BottomLeftIcon from "@mui/icons-material/SouthWest";
 import BottomRightIcon from "@mui/icons-material/SouthEast";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import { SelectTeamTable, TEAM_FIELD_STRUCTURE, TeamViewSettingsPanel } from "./TeamTable";
 import PropTypes from "prop-types";
 
@@ -62,7 +65,8 @@ const isTeamSatisfiesSearch = (team, searchValue) => {
 const useTeamsList = (rawTeams, status) => {
     const [selectedTeamId, setSelectedTeamId] = useState(undefined);
     const teamsWithStatus = useMemo(
-        () => rawTeams.map(t => ({ ...t,
+        () => rawTeams.map(t => ({
+            ...t,
             shown: Object.values(status).some(s => s.shown && s.settings.teamId === t.id),
             selected: t.id === selectedTeamId,
         })),
@@ -72,8 +76,8 @@ const useTeamsList = (rawTeams, status) => {
 
     const filteredTeams = useMemo(() => {
         return teamsWithStatus.filter(t => isTeamSatisfiesSearch(t, searchValue));
-    },[teamsWithStatus, searchValue]);
-    return { teams: filteredTeams, selectedTeamId, setSelectedTeamId, setSearchValue };
+    }, [teamsWithStatus, searchValue]);
+    return { teams: filteredTeams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue };
 };
 
 const TEAMVIEW_INSTANCES = [
@@ -94,9 +98,9 @@ const VariantSelect = ({ variant, setVariant }) => {
             exclusive
             onChange={(_, v) => setVariant(v)}
         >
-            <ToggleButton value={"single"}><SingleTeamViewIcon /></ToggleButton>
-            <ToggleButton value={"pvp"}><PVPTeamViewIcon /></ToggleButton>
-            <ToggleButton value={"splitScreen"}><SplitTeamViewIcon /></ToggleButton>
+            <ToggleButton value={"single"}><SingleTeamViewIcon />Single</ToggleButton>
+            <ToggleButton value={"pvp"}><PVPTeamViewIcon />PVP</ToggleButton>
+            <ToggleButton value={"splitScreen"}><SplitTeamViewIcon />SplitScreen</ToggleButton>
         </ToggleButtonGroup>
     );
 };
@@ -106,7 +110,7 @@ const InstanceStatusCard = styled(Paper)(({ theme }) => ({
     marginBottom: theme.spacing(1),
 }));
 
-const InstanceStatus = ({ instanceId, Icon, status, teams, canShow, onShow, onHide }) => {
+const InstanceStatus = ({ instanceId, Icon, status, teams, canShow, isSelected, onShow, onHide }) => {
     const iStatus = status[instanceId];
     const shownTeam = useMemo(
         () => teams.find(t => t.id === iStatus?.settings?.teamId),
@@ -114,9 +118,11 @@ const InstanceStatus = ({ instanceId, Icon, status, teams, canShow, onShow, onHi
     return (
         <InstanceStatusCard>
             <Stack sx={{ mb: 1 }} spacing={1} direction="row" flexWrap="wrap" alignItems={"center"}>
-                {Icon && <Icon fontSize={"large"} color={iStatus?.shown ? "primary" : "disabled"}/>}
+                {Icon && <Icon fontSize={"large"} color={iStatus?.shown ? "primary" : "disabled"} />}
                 <ButtonGroup variant="contained" sx={{ m: 2 }}>
-                    <Button color="primary" disabled={!canShow} onClick={onShow(instanceId)}>Show</Button>
+                    <Button color="primary" disabled={!canShow(instanceId)} onClick={onShow(instanceId)}>
+                        {isSelected(instanceId) ? "Selected" : (!iStatus?.shown ? "Show here" : "Replace here")}
+                    </Button>
                     <Button color="error" disabled={!iStatus?.shown} onClick={onHide(instanceId)}>Hide</Button>
                 </ButtonGroup>
             </Stack>
@@ -131,7 +137,8 @@ InstanceStatus.propTypes = {
     Icon: PropTypes.elementType.isRequired,
     status: PropTypes.object.isRequired,
     teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE).isRequired,
-    canShow: PropTypes.bool.isRequired,
+    canShow: PropTypes.func.isRequired,
+    isSelected: PropTypes.func.isRequired,
     onShow: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
 };
@@ -140,30 +147,30 @@ const InstancesManager = ({ variant, ...props }) => {
     return (
         <>
             {variant === "single" && (
-                <InstanceStatus instanceId={null} Icon={SingleTeamViewIcon} {...props}/>
+                <InstanceStatus instanceId={null} Icon={SingleTeamViewIcon} {...props} />
             )}
             {variant === "pvp" && (
                 <>
-                    <InstanceStatus instanceId={"PVP_TOP"} Icon={TopIcon} {...props}/>
-                    <InstanceStatus instanceId={"PVP_BOTTOM"} Icon={BottomIcon} {...props}/>
+                    <InstanceStatus instanceId={"PVP_TOP"} Icon={TopIcon} {...props} />
+                    <InstanceStatus instanceId={"PVP_BOTTOM"} Icon={BottomIcon} {...props} />
                 </>
             )}
             {variant === "splitScreen" && (
                 <>
                     <Grid container columnSpacing={1}>
                         <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"TOP_LEFT"} Icon={TopLeftIcon} {...props}/>
+                            <InstanceStatus instanceId={"TOP_LEFT"} Icon={TopLeftIcon} {...props} />
                         </Grid>
                         <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"TOP_RIGHT"} Icon={TopRightIcon} {...props}/>
+                            <InstanceStatus instanceId={"TOP_RIGHT"} Icon={TopRightIcon} {...props} />
                         </Grid>
                     </Grid>
                     <Grid container columnSpacing={1}>
                         <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"BOTTOM_LEFT"} Icon={BottomLeftIcon} {...props}/>
+                            <InstanceStatus instanceId={"BOTTOM_LEFT"} Icon={BottomLeftIcon} {...props} />
                         </Grid>
                         <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"BOTTOM_RIGHT"} Icon={BottomRightIcon} {...props}/>
+                            <InstanceStatus instanceId={"BOTTOM_RIGHT"} Icon={BottomRightIcon} {...props} />
                         </Grid>
                     </Grid>
                 </>
@@ -178,7 +185,8 @@ InstancesManager.propTypes = {
     Icon: PropTypes.node,
     status: PropTypes.object.isRequired,
     teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE).isRequired,
-    canShow: PropTypes.bool.isRequired,
+    canShow: PropTypes.func.isRequired,
+    isSelected: PropTypes.func.isRequired,
     onShow: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
 };
@@ -205,13 +213,44 @@ TeamViewInstanceStatus.propTypes = {
     teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE),
 };
 
+const MultipleModeSwitch = ({ currentService, setIsMultipleMode }) => {
+    return (
+        <Tooltip
+            sx={{ display: "flex", alignContent: "center", mr: 1 }}
+            title="When enabled any modifications to the team instances will be applied after you press Show all"
+        >
+            <Box>
+                <Switch onChange={(_, newV) => setIsMultipleMode(newV)} />
+                <ButtonGroup>
+                    <Button
+                        variant="contained"
+                        onClick={() => currentService?.showAll()}
+                        startIcon={<VisibilityIcon />}
+                    >
+                        All
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => currentService?.hideAll()}
+                        startIcon={<VisibilityOffIcon />}
+                    >
+                        All
+                    </Button>
+                </ButtonGroup>
+            </Box>
+        </Tooltip>
+    );
+};
+
+
 const TeamViewManager = ({ service, pvpService, splitService }) => {
     const [status, setStatus] = useState({});
     useTeamviewService(service, setStatus);
     useTeamviewService(pvpService, setStatus);
     useTeamviewService(splitService, setStatus);
 
-    const [variant, setVariant] = useState(undefined);
+    const [variant, setVariant] = useState("single");
     useEffect(() => {
         if (Object.values(status).length === 7 && variant === undefined) {
             const shownInstance = Object.entries(status).find(([, i]) => i.shown);
@@ -228,17 +267,21 @@ const TeamViewManager = ({ service, pvpService, splitService }) => {
     const currentService = useMemo(() => {
         if (variant === "splitScreen") {
             return splitService;
-        } else if (variant ==="pvp") {
+        } else if (variant === "pvp") {
             return pvpService;
         }
         return service;
     }, [variant, service, pvpService, splitService]);
 
     const [rawTeams, setRawTeams] = useState([]);
+
     useEffect(() => {
-        service.teams().then((ts) => setRawTeams([ AUTOMODE_TEAM, ...ts ]));
+        service.teams().then((ts) => setRawTeams([AUTOMODE_TEAM, ...ts]));
     }, [service]);
-    const { teams, selectedTeamId, setSelectedTeamId, setSearchValue } = useTeamsList(rawTeams, status);
+
+    const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, status);
+
+    const [selectedInstance, setSelectedInstance] = useState(undefined);
 
     const [isMultipleMode, setIsMultipleMode] = useState(false);
 
@@ -258,87 +301,141 @@ const TeamViewManager = ({ service, pvpService, splitService }) => {
         } else {
             currentService.showPresetWithSettings(instance, settings);
         }
+        setSelectedInstance(undefined);
+        setSelectedTeamId(undefined);
     }, [currentService, isMultipleMode, mediaTypes, selectedTeamId, isStatusShown, isAchievementShown]);
 
-    const onHide = useCallback((instance) => () => {
+    const onInstanceShow = useCallback((instance) => () => {
+        if (instance === selectedInstance) {
+            setSelectedInstance(undefined);
+        } else {
+            setSelectedInstance(instance);
+        }
+    }, [selectedInstance]);
+
+    const onInstanceHide = useCallback((instance) => () => {
         currentService.hidePreset(instance);
     }, [currentService]);
 
+    const isInstanceSelected = useMemo(() => (instance) => {
+        return selectedInstance === instance;
+    }, [selectedInstance]);
+
+    const canInstanceShow = useMemo(() => (instance) => {
+        return selectedInstance === undefined || selectedInstance === instance;
+    }, [selectedInstance]);
+
+    const selectedTeamName = useMemo(() => {
+        if (selectedTeamId === undefined) {
+            return "";
+        }
+        return teams.find(team => team.id == selectedTeamId).name;
+    }, [teams, selectedTeamId]);
+
     return (
         <Box>
-            <Box sx={{ mb: 1 }}>
-                <VariantSelect variant={variant} setVariant={setVariant} />
-            </Box>
-
-            <Box sx={{ mb: 1 }}>
+            <Box sx={{ mb: 3 }}>
+                <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <VariantSelect variant={variant} setVariant={setVariant} />
+                    <MultipleModeSwitch currentService={currentService} setIsMultipleMode={setIsMultipleMode} />
+                </Box>
                 <InstancesManager
                     variant={variant}
                     status={status}
                     teams={teams}
-                    canShow={selectedTeamId !== undefined && mediaTypes !== undefined}
-                    onShow={onShow}
-                    onHide={onHide}
+                    canShow={canInstanceShow}
+                    isSelected={isInstanceSelected}
+                    onShow={onInstanceShow}
+                    onHide={onInstanceHide}
                 />
             </Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
-                <TeamViewSettingsPanel
-                    canShow={true}
-                    onShowTeam={ts => setMediaTypes(ts)}
-                    showHideButton={false}
-                    offerMultiple={true}
-                    isStatusShown={variant === "single" ? isStatusShown : undefined}
-                    setIsStatusShown={setIsStatusShown}
-                    isAchievementShown={variant === "single" ? isAchievementShown : undefined}
-                    setIsAchievementShown={setIsAchievementShown}
-                    selectedMediaTypes={mediaTypes}
-                />
-                <Box display="flex">
-                    <Tooltip
-                        sx={{ display: "flex", alignContent: "center", mr: 1 }}
-                        title="When enabled any modifications to the team instances will be applied after you press Show all"
-                    >
-                        <Box>
-                            <Switch onChange={(_, newV) => setIsMultipleMode(newV)}/>
-                            <ButtonGroup>
-                                <Button
+
+            {selectedInstance !== undefined &&
+                <Box>
+                    <Box sx={{ mb: 3 }}>
+                        {selectedTeamId === undefined &&
+                            <Box>
+                                <TextField
+                                    onChange={(e) => setSearchValue(e.target.value.toLowerCase())}
+                                    defaultValue={searchValue}
+                                    size="small"
+                                    margin="none"
+                                    label="Search"
+                                    variant="outlined"
+                                    fullWidth
+                                />
+                                <SelectTeamTable teams={teams} onClickHandler={setSelectedTeamId} />
+                            </Box>}
+                        {selectedTeamId !== undefined &&
+                            <TextField
+                                defaultValue={selectedTeamName}
+                                label="Team name"
+                                variant="standard"
+                                fullWidth
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <ArrowDropDown />
+                                        </InputAdornment>
+                                    ),
+                                    onClick: () => setSelectedTeamId(undefined),
+                                }}
+                            />}
+                    </Box>
+
+                    {selectedTeamId !== undefined &&
+                        <Box sx={{ mb: 3 }}>
+                            <Box display="flex" justifyContent="space-between" alignItems="center">
+                                <Box>
+                                    <Box sx={{ mb: 3 }}>
+                                        <FormLabel component="legend">Main content</FormLabel>
+                                        <TeamViewSettingsPanel
+                                            canShow={true}
+                                            onShowTeam={ts => setMediaTypes(ts)}
+                                            showHideButton={false}
+                                            offerMultiple={false}
+                                            isStatusShown={variant === "single" ? isStatusShown : undefined}
+                                            setIsStatusShown={setIsStatusShown}
+                                            isAchievementShown={variant === "single" ? isAchievementShown : undefined}
+                                            setIsAchievementShown={setIsAchievementShown}
+                                            selectedMediaTypes={mediaTypes}
+                                        />
+                                    </Box>
+                                    <Box sx={{ mb: 3 }}>
+                                        <FormLabel component="legend">Additional content</FormLabel>
+                                        <TeamViewSettingsPanel
+                                            canShow={true}
+                                            onShowTeam={ts => setMediaTypes(ts)}
+                                            showHideButton={false}
+                                            offerMultiple={false}
+                                            isStatusShown={variant === "single" ? isStatusShown : undefined}
+                                            setIsStatusShown={setIsStatusShown}
+                                            isAchievementShown={variant === "single" ? isAchievementShown : undefined}
+                                            setIsAchievementShown={setIsAchievementShown}
+                                            selectedMediaTypes={mediaTypes}
+                                        />
+                                    </Box>
+                                </Box>
+
+                                <Button color="primary"
                                     variant="contained"
-                                    onClick={() => currentService?.showAll()}
-                                    startIcon={<VisibilityIcon/>}
-                                >
-                                    All
+                                    onClick={onShow(selectedInstance)}>
+                                    Show
                                 </Button>
-                                <Button
-                                    variant="contained"
-                                    color="error"
-                                    onClick={() => currentService?.hideAll()}
-                                    startIcon={<VisibilityOffIcon/>}
-                                >
-                                    All
-                                </Button>
-                            </ButtonGroup>
+                            </Box>
                         </Box>
-                    </Tooltip>
-                    <TextField
-                        onChange={(e) => setSearchValue(e.target.value.toLowerCase())}
-                        defaultValue={""}
-                        size="small"
-                        margin="none"
-                        label="Search"
-                        variant="outlined"
-                        fullWidth
-                    />
+                    }
                 </Box>
-            </Box>
-            <SelectTeamTable teams={teams} onClickHandler={setSelectedTeamId}/>
+            }
         </Box>
     );
 };
 
 function TeamView() {
-    const { enqueueSnackbar,  } = useSnackbar();
+    const { enqueueSnackbar, } = useSnackbar();
     const service = useTeamViewService("singe", errorHandlerWithSnackbar(enqueueSnackbar));
     const pvpService = useTeamViewService("pvp", errorHandlerWithSnackbar(enqueueSnackbar));
-    const splitService= useTeamViewService("splitScreen", errorHandlerWithSnackbar(enqueueSnackbar));
+    const splitService = useTeamViewService("splitScreen", errorHandlerWithSnackbar(enqueueSnackbar));
 
     return (
         <Container sx={{ pt: 2 }}>
