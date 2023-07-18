@@ -17,9 +17,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
     width: 100vw;
 
-    font-family: -apple-system, BlinkMacSystemFont, 'Noto Color Emoji', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: Helvetica, sans-serif;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

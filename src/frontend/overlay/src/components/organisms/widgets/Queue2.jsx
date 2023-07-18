@@ -5,7 +5,7 @@ import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import {
     QUEUE_BACKGROUND_COLOR,
-    QUEUE_BASIC_ZINDEX, QUEUE_CAPTION,
+    QUEUE_BASIC_ZINDEX, QUEUE_CAPTION, QUEUE_MAX_ROWS,
     QUEUE_ROW_APPEAR_TIME,
     QUEUE_ROW_FEATURED_RUN_APPEAR_TIME,
     QUEUE_ROW_FTS_TRANSITION_TIME,
@@ -37,7 +37,14 @@ const QueueRowAnimator = styled.div.attrs(({ bottom, zIndex }) => ({
   transition: bottom linear ${({ fts }) => fts ? QUEUE_ROW_FTS_TRANSITION_TIME : QUEUE_ROW_TRANSITION_TIME}ms;
   animation: ${({ animation }) => animation} ${QUEUE_ROW_APPEAR_TIME}ms linear;
   animation-fill-mode: forwards;
+  
+  // styles below are needed for the padding-bottom based animation
+  // If you remove any one of them - the animation breaks
+  // And god knows why
   box-sizing: border-box;
+  display: flex;
+  height: 25px;
+  align-items: flex-end;
 `;
 
 const FeaturedRunQueueRow = styled.div.attrs(({ zIndex, height }) => ({
@@ -65,25 +72,35 @@ const rowExpand = (fullHeight) => keyframes`
 
 const rowContract = (fullHeight) => keyframes`
   from {
-    max-height: ${fullHeight}px;
+    padding-bottom: 0;
   }
 
   to {
-    max-height: 0;
+    padding-bottom: ${fullHeight}px;
   }
 `;
 
 const contractionStatesFeatured = (fullHeight) => ({
     entering: {},
-    entered: { animation: rowExpand(fullHeight) },
-    exiting: { animation: rowContract(fullHeight) },
+    entered: {
+        // animation: rowExpand(fullHeight),
+    },
+    exiting: {
+        // animation: rowContract(fullHeight),
+    },
     exited: {},
 });
 
 const contractionStates = (fullHeight) => ({
-    entering: { animation: rowExpand(fullHeight) },
+    entering: {
+        animation: rowExpand(fullHeight),
+        style: {alignItems: "flex-start"},
+    },
     entered: {},
-    exiting: { animation: rowContract(fullHeight) },
+    exiting: {
+        animation: rowContract(fullHeight),
+        // style: {alignItems: "flex-start"},
+    },
     exited: {},
 });
 
@@ -98,20 +115,22 @@ const useQueueRowsData = ({
 
     const [isFeaturedRunMediaLoaded, setIsFeaturedRunMediaLoaded] = useState(false);
 
-    const rows = [];
+    let rows = [];
     let featured = null;
     let totalFts = 0;
     queue.forEach((run, runIndex) => {
         const row = {
             ...run,
             isEven: (totalQueueItems - runIndex) % 2 === 0,
-            zIndex: basicZIndex + runIndex,
+            zIndex: basicZIndex - runIndex + totalQueueItems,
             bottom: 0,
             isFeatured: false,
             isFeaturedRunMediaLoaded: false,
             isFts: run.result?.isFirstToSolveRun ?? false,
         };
-        totalFts += row.isFts;
+        if (row.isFts) {
+            totalFts++;
+        }
         if (run.featuredRunMedia && featuredRunsRow.length === 0) {
             row.isFeatured = true;
             row.isFeaturedRunMediaLoaded = isFeaturedRunMediaLoaded;
@@ -131,13 +150,19 @@ const useQueueRowsData = ({
     let ftsRowCount = 0;
     let regularRowCount = 0;
     rows.forEach((row) => {
-        if(row.isFts) {
-            row.bottom = (height - (QUEUE_ROW_HEIGHT2 + 3) * (totalFts - ftsRowCount));
+        if (row.isFts) {
+            row.bottom = (height - (QUEUE_ROW_HEIGHT2 + 3) * (totalFts - ftsRowCount)) + 3;
+            console.log(row.bottom);
+            console.log(height);
             ftsRowCount++;
         } else {
             row.bottom = (QUEUE_ROW_HEIGHT2 + 3) * regularRowCount;
             regularRowCount++;
         }
+    });
+    const allowedRegular = QUEUE_MAX_ROWS - ftsRowCount;
+    rows = rows.filter((row, index) => {
+        return row.isFts || index < allowedRegular;
     });
     return [featured, rows];
 };
@@ -191,14 +216,14 @@ export const QueueRow = ({ runInfo, flashing }) => {
     const probData = useSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
 
     return <StyledQueueRow medal={scoreboardData?.medalType} flashing={flashing}>
-        <QueueRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medal}/>
-        <QueueTeamNameLabel text={teamData?.shortName + "abobaabobaabobaaboabaobaboaob" ?? "??"}/>
+        <QueueRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
+        <QueueTeamNameLabel text={teamData?.shortName ?? "??"}/>
         <QueueScoreLabel align={"right"}
-            text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
+                         text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
         />
         <QueueRightPart>
-            <QueueProblemLabel letter={probData?.letter} problemColor={probData?.color} />
-            <QueueRunStatusLabel runInfo={{percentage: 0.3}}/>
+            <QueueProblemLabel letter={probData?.letter} problemColor={probData?.color}/>
+            <QueueRunStatusLabel runInfo={runInfo}/>
         </QueueRightPart>
     </StyledQueueRow>;
 };
@@ -218,7 +243,7 @@ const FeaturedRunRow2 = ({ isFeatured, isLoaded, setIsLoaded, height, media, zIn
                         console.log(state, actualState, Date.now() / 1000, height, actualHeight);
                         return (
                             <FeaturedRunQueueRow
-                                height={state !== "exited"? height : 0}
+                                height={state !== "exited" ? height : 0}
                                 zIndex={zIndex}
                                 {...contractionStatesFeatured(height)[state]}
                             >
@@ -256,6 +281,7 @@ const RowsContainer = styled.div`
 const QueueHeader = styled.div`
   font-size: 32px;
   font-weight: 700;
+  line-height: 44px;
   color: white;
   width: 100%;
   display: flex;
@@ -268,8 +294,9 @@ const Title = styled.div`
 const Caption = styled.div`
 `;
 
-export const Queue2 = ({ widgetData }) => {
-    const { sizeX: width, sizeY: height } = widgetData.location;
+export const Queue2 = ({ }) => {
+    const [width, setWidth] = useState(null);
+    const [height, setHeight] = useState(null);
     const [featured, queueRows] = useQueueRowsData({ width, height });
 
     return <QueueWrap>
@@ -281,7 +308,13 @@ export const Queue2 = ({ widgetData }) => {
                 {QUEUE_CAPTION}
             </Caption>
         </QueueHeader>
-        <RowsContainer>
+        <RowsContainer ref={(el) => {
+            if (el != null) {
+                const bounding = el.getBoundingClientRect();
+                setWidth(bounding.width);
+                setHeight(bounding.height);
+            }
+        }}>
             <TransitionGroup component={null}>
                 {queueRows.map(row => (
                     <Transition key={row.id} timeout={QUEUE_ROW_APPEAR_TIME}>
@@ -301,7 +334,8 @@ export const Queue2 = ({ widgetData }) => {
                                     {/*    height={row.featuredRunMediaHeight}*/}
                                     {/*    zIndex={QUEUE_BASIC_ZINDEX + 20}*/}
                                     {/*/>*/}
-                                    <QueueRow runInfo={row} isEven={row.isEven} flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded}/>
+                                    <QueueRow runInfo={row} isEven={row.isEven}
+                                              flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded}/>
                                 </QueueRowAnimator>
                             );
                         }}

@@ -31,9 +31,18 @@ export const IOITaskResult = PropTypes.shape({
     score: PropTypes.number,
 });
 
-const ICPCVerdictLabel = ({ runResult, ...props }) => {
+const VerdictLabel = styled(ShrinkingBox2)`
+  background-color: ${({ color }) => color};
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const ICPCVerdictLabel = ({ runResult, className }) => {
     const color = runResult?.verdict.isAccepted ? VERDICT_OK2 : VERDICT_NOK2;
-    return <ShrinkingBox2 text={runResult?.verdict.shortName ?? "??"} color={color} Wrapper={FlexedBox2} {...props}/>;
+    return <VerdictLabel text={runResult?.verdict.shortName ?? "??"} color={color} align="center" className={className}/>;
 };
 
 ICPCVerdictLabel.propTypes = {
@@ -95,6 +104,7 @@ const VerdictCellProgressBar2 = styled.div.attrs(({width}) => ({
     }
 }))`
   height: 100%;
+  transition: width 250ms linear;
   background-color: ${VERDICT_UNKNOWN2};
 `;
 

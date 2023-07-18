@@ -19,7 +19,7 @@ const StyledProblemLabel = styled.div`
 
 export const ProblemLabel = ({letter, problemColor, className}) => {
     const dark = isShouldUseDarkColor(problemColor);
-    console.log(dark);
+    // console.log(dark);
     return <StyledProblemLabel
         backgroundColor={problemColor}
         darkText={dark}

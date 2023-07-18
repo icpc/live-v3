@@ -157,7 +157,7 @@ export const VerdictCell = ({
     runData: data,
     ...props
 }) => {
-    console.log(data);
+    // console.log(data);
     if (data.result === undefined) {
         return <VerdictCellInProgress percentage={data.percentage} {...props}/>;
     }
