@@ -16,6 +16,7 @@ export class TeamViewService extends AbstractWidgetService {
     constructor(variant, errorHandler, listenWS = true) {
         const [instances, apiPath] = getTeamViewVariantParams(variant);
         super("/" + apiPath, errorHandler, listenWS);
+        this.variant = variant;
         this.instances = instances;
     }
 
@@ -28,6 +29,9 @@ export class TeamViewService extends AbstractWidgetService {
     }
 
     loadElements() {
+        if (this.variant === "single") {
+            return this.apiGet("").then(r => ({ [null]: r })).catch(this.errorHandler("Failed to load status"));
+        }
         return this.apiGet("").catch(this.errorHandler("Failed to load status"));
     }
 
