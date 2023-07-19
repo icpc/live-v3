@@ -164,6 +164,7 @@ TeamViewSettingsPanel.propTypes = {
     isSomethingSelected: PropTypes.bool,
     canShow: PropTypes.bool, // todo: make req
     isPossibleToHide: PropTypes.bool,
+    showHideButton: PropTypes.bool,
     canHide: PropTypes.bool,  // todo: make req
     onShowTeam: PropTypes.func.isRequired,
     onHideTeam: PropTypes.func,
