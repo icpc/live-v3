@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect } from "react";
 import { ContestantViewCorner2 } from "../../molecules/info/ContestantViewCorner2";
 import {
     TeamImageWrapper,
-    TeamVideoAnimationWrapper,
+    FullWidthWrapper,
     TeamVideoWrapper,
     TeamWebRTCGrabberVideoWrapper,
     TeamWebRTCProxyVideoWrapper,
@@ -17,19 +17,19 @@ const teamViewComponentRender = {
         return <ContestantViewCorner2 teamId={teamId} isSmall={isSmall}/>;
     },
     Photo: ({ onLoadStatus, url }) => {
-        return <TeamVideoAnimationWrapper>
+        return <FullWidthWrapper>
             <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
-        </TeamVideoAnimationWrapper>;
+        </FullWidthWrapper>;
     },
     Object: ({ onLoadStatus, url }) => {
         onLoadStatus(true);
-        return <TeamVideoAnimationWrapper>
+        return <FullWidthWrapper>
             <object data={url} type="image/svg+xml">
             </object>
-        </TeamVideoAnimationWrapper>;
+        </FullWidthWrapper>;
     },
     Video: ({ onLoadStatus, url }) => {
-        return <TeamVideoAnimationWrapper>
+        return <FullWidthWrapper>
             <TeamVideoWrapper
                 src={url}
                 onCanPlay={() => onLoadStatus(true)}
@@ -37,13 +37,13 @@ const teamViewComponentRender = {
                 autoPlay
                 loop
                 muted/>
-        </TeamVideoAnimationWrapper>;
+        </FullWidthWrapper>;
     },
     WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl }) => {
-        return <TeamVideoAnimationWrapper>
+        return <FullWidthWrapper>
             {audioUrl && <audio src={audioUrl} onLoadedData={() => onLoadStatus(true)} autoPlay/>}
             <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus}/>
-        </TeamVideoAnimationWrapper>;
+        </FullWidthWrapper>;
     },
     WebRTCGrabberConnection: (props) => {
         return <TeamVideoAnimationWrapperWithFixForOldBrowsers>

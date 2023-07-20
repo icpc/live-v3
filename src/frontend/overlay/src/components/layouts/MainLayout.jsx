@@ -48,7 +48,7 @@ const WidgetWrap = styled.div.attrs(
             left: left+"px",
             top: top+"px",
             width: width+"px",
-            height: height+"px"
+            height: height+"px",
         } };
     }
 )`
@@ -56,6 +56,7 @@ const WidgetWrap = styled.div.attrs(
   overflow: ${({ shouldCrop = true }) => shouldCrop ? "hidden" : ""};
   animation: ${props => props.animation} ${WIDGET_TRANSITION_TIME}ms linear;
   animation-fill-mode: forwards;
+  z-index: ${({zIndex}) => zIndex};
 `;
 
 const MainLayoutWrap = styled.div`
@@ -116,6 +117,7 @@ export const MainLayout = () => {
                             width={obj.location.sizeX}
                             height={obj.location.sizeY}
                             shouldCrop={Widget.shouldCrop}
+                            zIndex={Widget.zIndex ?? 0}
                             {...(!Widget.ignoreAnimation && transitionProps[state])}
                         >
                             <Widget widgetData={obj} transitionState={state}/>

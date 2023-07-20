@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import {
     QUEUE_BACKGROUND_COLOR,
     QUEUE_BASIC_ZINDEX, QUEUE_CAPTION, QUEUE_MAX_ROWS,
@@ -10,7 +10,7 @@ import {
     QUEUE_ROW_FEATURED_RUN_APPEAR_TIME,
     QUEUE_ROW_FTS_TRANSITION_TIME,
     QUEUE_ROW_HEIGHT2,
-    QUEUE_ROW_TRANSITION_TIME
+    QUEUE_ROW_TRANSITION_TIME, QUEUE_TITLE
 } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { ShrinkingBox2 } from "../../atoms/Box2";
@@ -35,28 +35,7 @@ const QueueRowAnimator = styled.div.attrs(({ bottom, zIndex }) => ({
 
   position: absolute;
   transition: bottom linear ${({ fts }) => fts ? QUEUE_ROW_FTS_TRANSITION_TIME : QUEUE_ROW_TRANSITION_TIME}ms;
-  animation: ${({ animation }) => animation} ${QUEUE_ROW_APPEAR_TIME}ms linear;
-  animation-fill-mode: forwards;
-  
-  // styles below are needed for the padding-bottom based animation
-  // If you remove any one of them - the animation breaks
-  // And god knows why
-  box-sizing: border-box;
-  display: flex;
-  height: 25px;
-  align-items: flex-end;
-`;
-
-const FeaturedRunQueueRow = styled.div.attrs(({ zIndex, height }) => ({
-    style: {
-        zIndex: zIndex,
-        height: height,
-    }
-}))`
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  animation: ${({ animation }) => animation} ${QUEUE_ROW_FEATURED_RUN_APPEAR_TIME}ms ease-in-out;
+  animation: ${({ animation }) => animation} ${QUEUE_ROW_APPEAR_TIME}ms linear; // dissapear is also linear for now. FIXME
   animation-fill-mode: forwards;
 `;
 
@@ -70,35 +49,46 @@ const rowExpand = (fullHeight) => keyframes`
   }
 `;
 
-const rowContract = (fullHeight) => keyframes`
+const slideOutToRight = () => keyframes`
   from {
-    padding-bottom: 0;
+    transform: translate(0, 0);
   }
 
   to {
-    padding-bottom: ${fullHeight}px;
+    transform: translate(100%, 0);
   }
 `;
 
-const contractionStatesFeatured = (fullHeight) => ({
-    entering: {},
-    entered: {
-        // animation: rowExpand(fullHeight),
-    },
-    exiting: {
-        // animation: rowContract(fullHeight),
-    },
-    exited: {},
-});
+const slideInFromRight = () => keyframes`
+  from {
+    transform: translate(100%, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
+`
+
+const appearStatesFeatured = {
+    // entering: {},
+    entering: css`
+      animation: ${slideInFromRight()} ${QUEUE_ROW_FEATURED_RUN_APPEAR_TIME}ms ease-out;
+    `,
+    exiting: css`
+      animation: ${slideOutToRight()} ${QUEUE_ROW_FEATURED_RUN_APPEAR_TIME}ms ease-in;
+    `,
+    exited: css`
+      opacity: 0
+    `,
+};
 
 const contractionStates = (fullHeight) => ({
     entering: {
         animation: rowExpand(fullHeight),
-        style: {alignItems: "flex-start"},
+        style: { alignItems: "flex-start" },
     },
     entered: {},
     exiting: {
-        animation: rowContract(fullHeight),
+        animation: slideOutToRight(fullHeight),
         // style: {alignItems: "flex-start"},
     },
     exited: {},
@@ -113,7 +103,7 @@ const useQueueRowsData = ({
 
     const { queue, totalQueueItems } = useSelector(state => state.queue);
 
-    const [isFeaturedRunMediaLoaded, setIsFeaturedRunMediaLoaded] = useState(false);
+    const [loadedMediaRun, setLoadedMediaRun] = useState(null);
 
     let rows = [];
     let featured = null;
@@ -131,18 +121,17 @@ const useQueueRowsData = ({
         if (row.isFts) {
             totalFts++;
         }
-        if (run.featuredRunMedia && featuredRunsRow.length === 0) {
+        if (run.featuredRunMedia !== undefined) {
             row.isFeatured = true;
-            row.isFeaturedRunMediaLoaded = isFeaturedRunMediaLoaded;
-            row.setIsFeaturedRunMediaLoaded = setIsFeaturedRunMediaLoaded;
-            if (isFeaturedRunMediaLoaded) {
-                featured = row;
-            } else {
-                rows.push(row);
-            }
+            row.isFeaturedRunMediaLoaded = loadedMediaRun === run.id;
+            row.setIsFeaturedRunMediaLoaded = (state) => {
+                setLoadedMediaRun(state ? run.id : null)
+            };
+            featured = row;
         } else {
             rows.push(row);
         }
+        // console.log(row);
     });
     if (isNotShownYet) {
         return [null, rows];
@@ -152,8 +141,8 @@ const useQueueRowsData = ({
     rows.forEach((row) => {
         if (row.isFts) {
             row.bottom = (height - (QUEUE_ROW_HEIGHT2 + 3) * (totalFts - ftsRowCount)) + 3;
-            console.log(row.bottom);
-            console.log(height);
+            // console.log(row.bottom);
+            // console.log(height);
             ftsRowCount++;
         } else {
             row.bottom = (QUEUE_ROW_HEIGHT2 + 3) * regularRowCount;
@@ -228,35 +217,6 @@ export const QueueRow = ({ runInfo, flashing }) => {
     </StyledQueueRow>;
 };
 
-
-const FeaturedRunRow2 = ({ isFeatured, isLoaded, setIsLoaded, height, media, zIndex }) => {
-    return <>
-        <TransitionGroup component={null}>
-            {isFeatured && (
-                <Transition timeout={QUEUE_ROW_FEATURED_RUN_APPEAR_TIME} in={isLoaded}>
-                    {state => {
-                        const actualState = state === "entering" && !isLoaded ? "exited" : state;
-                        const actualHeight = state !== "exited" && isLoaded ? height : 0;
-                        if (state === "exited" && isLoaded) {
-                            setIsLoaded(false);
-                        }
-                        console.log(state, actualState, Date.now() / 1000, height, actualHeight);
-                        return (
-                            <FeaturedRunQueueRow
-                                height={state !== "exited" ? height : 0}
-                                zIndex={zIndex}
-                                {...contractionStatesFeatured(height)[state]}
-                            >
-                                <TeamViewHolder media={media} onLoadStatus={setIsLoaded} borderRadius="16px"/>
-                            </FeaturedRunQueueRow>
-                        );
-                    }}
-                </Transition>
-            )}
-        </TransitionGroup>
-    </>;
-};
-
 const QueueWrap = styled.div`
   width: 100%;
   height: 100%;
@@ -294,56 +254,110 @@ const Title = styled.div`
 const Caption = styled.div`
 `;
 
-export const Queue2 = ({ }) => {
+const StyledFeatured = styled.div`
+  width: 334px;
+  position: absolute;
+  
+  right: calc(100% - 16px); // this with padding is a hack to hide the rounded corner of the widget
+  padding: 3px 16px 3px 3px;
+  
+  background-color: ${QUEUE_BACKGROUND_COLOR};
+  border-radius: 16px 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  ${({ additional }) => additional}
+`;
+
+const QueueTeamView = styled(TeamViewHolder)`
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+`;
+
+export const Featured = ({ runInfo }) => {
+    // console.log(runInfo);
+    // const [{ status, isMounted }, toggle] = useTransition({
+    //     timeout: 500,
+    //     mountOnEnter: true,
+    //     unmountOnExit: true,
+    //     preEnter: true
+    // });
+    // console.log(runInfo !== null);
+    console.log(runInfo);
+    return <TransitionGroup component={null}>
+        {runInfo && <Transition timeout={QUEUE_ROW_FEATURED_RUN_APPEAR_TIME} key={runInfo.id}>
+            {state => {
+                const realState = runInfo.isFeaturedRunMediaLoaded ? state : "exited"
+                console.log(state, realState, runInfo.isFeaturedRunMediaLoaded, JSON.stringify(appearStatesFeatured[state]))
+                return (
+                    <StyledFeatured additional={appearStatesFeatured[realState]}>
+                        <QueueTeamView media={runInfo.featuredRunMedia}
+                                        onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}/>
+                        <QueueRow runInfo={runInfo}/>
+                    </StyledFeatured>
+                );
+            }}
+        </Transition>
+        }
+    </TransitionGroup>
+};
+
+export const Queue2 = ({}) => {
     const [width, setWidth] = useState(null);
     const [height, setHeight] = useState(null);
     const [featured, queueRows] = useQueueRowsData({ width, height });
-
-    return <QueueWrap>
-        <QueueHeader>
-            <Title>
-                Queue
-            </Title>
-            <Caption>
-                {QUEUE_CAPTION}
-            </Caption>
-        </QueueHeader>
-        <RowsContainer ref={(el) => {
-            if (el != null) {
-                const bounding = el.getBoundingClientRect();
-                setWidth(bounding.width);
-                setHeight(bounding.height);
-            }
-        }}>
-            <TransitionGroup component={null}>
-                {queueRows.map(row => (
-                    <Transition key={row.id} timeout={QUEUE_ROW_APPEAR_TIME}>
-                        {state => {
-                            return state !== "exited" && (
-                                <QueueRowAnimator
-                                    bottom={row.bottom}
-                                    zIndex={row.zIndex}
-                                    fts={row.isFts}
-                                    {...contractionStates(QUEUE_ROW_HEIGHT2)[state]}
-                                >
-                                    {/*<FeaturedRunRow2*/}
-                                    {/*    isFeatured={row.isFeatured}*/}
-                                    {/*    media={row.featuredRunMedia}*/}
-                                    {/*    isLoaded={row.isFeaturedShown}*/}
-                                    {/*    setIsLoaded={row.setIsFeaturedRunMediaLoaded}*/}
-                                    {/*    height={row.featuredRunMediaHeight}*/}
-                                    {/*    zIndex={QUEUE_BASIC_ZINDEX + 20}*/}
-                                    {/*/>*/}
-                                    <QueueRow runInfo={row} isEven={row.isEven}
-                                              flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded}/>
-                                </QueueRowAnimator>
-                            );
-                        }}
-                    </Transition>
-                ))}
-            </TransitionGroup>
-        </RowsContainer>
-    </QueueWrap>;
+    // console.log(featured);
+    return <>
+        <Featured runInfo={featured}/>
+        <QueueWrap>
+            <QueueHeader>
+                <Title>
+                    {QUEUE_TITLE}
+                </Title>
+                <Caption>
+                    {QUEUE_CAPTION}
+                </Caption>
+            </QueueHeader>
+            <RowsContainer ref={(el) => {
+                if (el != null) {
+                    const bounding = el.getBoundingClientRect();
+                    setWidth(bounding.width);
+                    setHeight(bounding.height);
+                }
+            }}>
+                <TransitionGroup component={null}>
+                    {queueRows.map(row => (
+                        <Transition key={row.id} timeout={QUEUE_ROW_APPEAR_TIME}>
+                            {state => {
+                                return state !== "exited" && (
+                                    <QueueRowAnimator
+                                        bottom={row.bottom}
+                                        zIndex={row.zIndex}
+                                        fts={row.isFts}
+                                        {...contractionStates(QUEUE_ROW_HEIGHT2)[state]}
+                                    >
+                                        {/*<FeaturedRunRow2*/}
+                                        {/*    isFeatured={row.isFeatured}*/}
+                                        {/*    media={row.featuredRunMedia}*/}
+                                        {/*    isLoaded={row.isFeaturedShown}*/}
+                                        {/*    setIsLoaded={row.setIsFeaturedRunMediaLoaded}*/}
+                                        {/*    height={row.featuredRunMediaHeight}*/}
+                                        {/*    zIndex={QUEUE_BASIC_ZINDEX + 20}*/}
+                                        {/*/>*/}
+                                        <QueueRow runInfo={row} isEven={row.isEven}
+                                                  flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded}/>
+                                    </QueueRowAnimator>
+                                );
+                            }}
+                        </Transition>
+                    ))}
+                </TransitionGroup>
+            </RowsContainer>
+        </QueueWrap>
+    </>;
 };
 Queue2.shouldCrop = false;
+Queue2.zIndex=1;
 export default Queue2;

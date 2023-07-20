@@ -210,9 +210,6 @@ export const TeamInfo = ({ teamId }) => {
 };
 
 export const TeamImageWrapper = styled.img`
-  position: absolute;
-  width: 100%;
-  top: 0;
   border-radius: ${({ borderRadius }) => borderRadius};
 `;
 
@@ -311,13 +308,18 @@ export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url,
 };
 
 
-export const TeamVideoAnimationWrapper = styled.div`
-  position: absolute;
+export const FullWidthWrapper = styled.div`
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
+
+  // this is how you make aspect ratio before aspect-ratio. 
+  // Do not remove until the whole world starts using modern VMix
+  // Sadly this hack will cut off the bottom of the picture
+  // But since all we show here is 16/9 images - it's ok.
+  // Have to deal with it.
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 `;
 
 export const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
@@ -338,20 +340,20 @@ const teamViewComponentRender = {
             []);
         return <ScoreboardColumn teamId={teamId} isSmall={isSmall} {...props}/>;
     },
-    Photo: ({ onLoadStatus, url, ...props }) => {
-        return <TeamVideoAnimationWrapper>
-            <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)} {...props}/>
-        </TeamVideoAnimationWrapper>;
+    Photo: ({ onLoadStatus, url, className }) => {
+        return <FullWidthWrapper className={className}>
+            <TeamImageWrapper src={url} onLoad={() => onLoadStatus(true)}/>
+        </FullWidthWrapper>;
     },
     Object: ({ onLoadStatus, url }) => {
         onLoadStatus(true);
-        return <TeamVideoAnimationWrapper>
+        return <FullWidthWrapper>
             <object data={url} type="image/svg+xml">
             </object>
-        </TeamVideoAnimationWrapper>;
+        </FullWidthWrapper>;
     },
     Video: ({ onLoadStatus, url, ...props }) => {
-        return <TeamVideoAnimationWrapper>
+        return <FullWidthWrapper>
             <TeamVideoWrapper
                 src={url}
                 onCanPlay={() => onLoadStatus(true)}
@@ -361,13 +363,13 @@ const teamViewComponentRender = {
                 muted
                 {...props}
             />
-        </TeamVideoAnimationWrapper>;
+        </FullWidthWrapper>;
     },
     WebRTCProxyConnection: ({ onLoadStatus, url, audioUrl, ...props }) => {
-        return <TeamVideoAnimationWrapper>
+        return <FullWidthWrapper>
             {audioUrl && <audio src={audioUrl} onLoadedData={() => onLoadStatus(true)} autoPlay/>}
             <TeamWebRTCProxyVideoWrapper url={url} setIsLoaded={onLoadStatus} {...props}/>
-        </TeamVideoAnimationWrapper>;
+        </FullWidthWrapper>;
     },
     WebRTCGrabberConnection: (props) => {
         return <TeamVideoAnimationWrapperWithFixForOldBrowsers>
@@ -376,12 +378,12 @@ const teamViewComponentRender = {
     },
 };
 
-export const TeamViewHolder = ({ onLoadStatus, media, isSmall, ...props }) => {
+export const TeamViewHolder = ({ onLoadStatus, media, isSmall, className }) => {
     const Component = teamViewComponentRender[media.type];
     if (Component === undefined) {
         useEffect(() => onLoadStatus(true),
             [media.teamId]);
         return undefined;
     }
-    return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} {...props} {...media}/>;
+    return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} className={className} {...media}/>;
 };

@@ -7,6 +7,7 @@ export const BASE_URL_WS = import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + wind
 
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
+export const QUEUE_TITLE = "Queue";
 export const QUEUE_CAPTION = "46th";
 
 // Behaviour
