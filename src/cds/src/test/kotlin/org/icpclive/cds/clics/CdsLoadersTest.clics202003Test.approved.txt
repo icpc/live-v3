@@ -1998,7 +1998,8 @@
             {
                 "name": "Jury"
             }
-        ]
+        ],
+        "penaltyRoundingMode": "each_submission_down_to_minute"
     },
     "runs": [
         {

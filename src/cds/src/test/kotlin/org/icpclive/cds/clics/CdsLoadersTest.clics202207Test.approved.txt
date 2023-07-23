@@ -2033,7 +2033,8 @@
             {
                 "name": "Self-Registered"
             }
-        ]
+        ],
+        "penaltyRoundingMode": "each_submission_down_to_minute"
     },
     "runs": [
         {
