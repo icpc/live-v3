@@ -17,16 +17,16 @@ tasks {
         inputs.file("overlay/package.json")
     }
     named<NpmTask>("npm_run_buildOverlay") {
-        environment.set(mapOf("PUBLIC_URL" to "/overlay"))
+        environment.set(mapOf("PUBLIC_URL" to "/overlay", "BUILD_PATH" to "build"))
         inputs.dir("overlay/src")
-        inputs.dir("overlay/public")
+        inputs.file("overlay/index.html")
         inputs.file("overlay/package.json")
         outputs.dir("overlay/build")
     }
     named<NpmTask>("npm_run_buildOverlay2") {
         environment.set(mapOf("PUBLIC_URL" to "/overlay2", "BUILD_PATH" to "build2", "VITE_VERSION" to "2"))
         inputs.dir("overlay/src")
-        inputs.dir("overlay/public")
+        inputs.file("overlay/index.html")
         inputs.file("overlay/package.json")
         outputs.dir("overlay/build2")
     }

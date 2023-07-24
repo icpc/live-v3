@@ -3,8 +3,8 @@
   "version": "3.1.0",
   "private": true,
   "scripts": {
-    "buildOverlay": "OUT_DIR=build_old npm run build -w overlay",
-    "buildOverlay2": "OUT_DIR=build npm run build -w overlay",
+    "buildOverlay": "npm run build -w overlay",
+    "buildOverlay2": "npm run build -w overlay",
     "buildAdmin": "npm run build -w admin",
     "lint": "npm run lint -w overlay && npm run lint -w admin"
   },
