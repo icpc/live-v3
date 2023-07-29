@@ -35,7 +35,10 @@ internal class CFDataSource(val settings: CFSettings, creds: Map<String, String>
     private val standingsLoader = jsonLoader<CFStatusWrapper<CFStandings>> {
         apiRequestUrl(
             "contest.standings",
-            mapOf("contestId" to settings.contestId.toString())
+            mapOf(
+                "contestId" to settings.contestId.toString(),
+                "asManager" to settings.asManager.toString()
+            )
         )
     }.map {
         it.unwrap()
@@ -44,7 +47,10 @@ internal class CFDataSource(val settings: CFSettings, creds: Map<String, String>
     private val statusLoader = jsonLoader<CFStatusWrapper<List<CFSubmission>>> {
         apiRequestUrl(
             "contest.status",
-            mapOf("contestId" to settings.contestId.toString())
+            mapOf(
+                "contestId" to settings.contestId.toString(),
+                "asManager" to settings.asManager.toString()
+            )
         )
     }.map {
         it.unwrap()
@@ -53,7 +59,10 @@ internal class CFDataSource(val settings: CFSettings, creds: Map<String, String>
     private val hacksLoader = jsonLoader<CFStatusWrapper<List<CFHack>>> {
         apiRequestUrl(
             "contest.hacks",
-            mapOf("contestId" to settings.contestId.toString())
+            mapOf(
+                "contestId" to settings.contestId.toString(),
+                "asManager" to settings.asManager.toString()
+            )
         )
     }.map {
         it.unwrap()

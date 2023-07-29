@@ -27,6 +27,7 @@ import org.icpclive.util.HumanTimeSerializer
 import org.icpclive.util.TimeZoneSerializer
 import org.icpclive.util.getLogger
 import java.nio.file.Path
+import javax.swing.text.StyledEditorKit.BoldAction
 
 // I'd like to have them in cds files, but then serializing would be much harder
 
@@ -147,6 +148,7 @@ class CFSettings(
     val contestId: Int,
     val apiKey: Credential,
     val apiSecret: Credential,
+    val asManager: Boolean = true,
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
     override fun toRawDataSource(creds: Map<String, String>) = CFDataSource(this, creds)
