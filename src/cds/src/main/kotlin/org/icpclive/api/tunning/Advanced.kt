@@ -74,22 +74,23 @@ class RankingSettings(
 )
 
 /**
- * This class represents possible overrides.
+ * This class represents possible contest configuration overrides.
  *
- * For most cases, all this information should be received from the contest system.
+ * Ideally, all this information should be received from the contest system.
  * Unfortunately, in the real world, it's not always possible, or information
- * can be not fully correct on convenient to display.
+ * can be not fully correct or convenient to display.
  *
  * This class contains the data to be fixed in what is received from a contest system.
  *
  * @param startTime Override for contest start time.
  *        The preferred format is `yyyy-mm-dd hh:mm:ss`, but some others would be accepted too.
- *        It also affects contest state if overridden.
+ *        Conside using 'now' if you want the contest emulation to start together with the overlay.
+ *        startTime overrise also can affect contest state.
  * @param freezeTime Time from the start of the contest before scoreboard freezing.
  * @param holdTime Fixed time to show as time before the contest start
  * @param teamMediaTemplate Template medias for all teams.
- *        One can use `{teamId}` inside, it would be replaced with team id from contest system.
- * @param teamOverrides Overrides for specific teams. Team id from the contest system is key.
+ *        You can use `{teamId}` within the template, it will be substituted with team id from contest system.
+ * @param teamOverrides Overrides for a specific team. Team id from the contest system is key.
  * @param groupOverrides Overrides for specific groups. Group name is key.
  * @param problemOverrides Overrides for specific problems. Problem letter is key.
  * @param scoreboardOverrides Overrides of scoreboard calculation settings
