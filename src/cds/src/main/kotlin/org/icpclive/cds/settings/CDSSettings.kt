@@ -210,6 +210,7 @@ fun parseFileToCdsSettings(path: Path) : CDSSettings {
             "cf.api.secret" to "apiSecret",
             "problems.url" to "problemsUrl",
             "submissions-url" to "submissionsUrl",
+            "contest_id" to "contestId",
             "contest-url" to "contestUrl",
             "timezone" to "timeZone",
             "event_feed_name" to "eventFeedName",
@@ -232,7 +233,7 @@ fun parseFileToCdsSettings(path: Path) : CDSSettings {
             }
         }
         properties.getProperty("type")?.let { properties.setProperty("type", it.lowercase()) }
-        properties.getProperty("resultType")?.let { properties.setProperty("type", it.uppercase()) }
+        properties.getProperty("resultType")?.let { properties.setProperty("resultType", it.uppercase()) }
         @Suppress("UNCHECKED_CAST")
         Properties.decodeFromStringMap<CDSSettings>(properties as Map<String, String>)
     } else if (file.name.endsWith(".json")) {
