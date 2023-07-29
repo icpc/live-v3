@@ -231,6 +231,8 @@ fun parseFileToCdsSettings(path: Path) : CDSSettings {
                 properties.remove(k)
             }
         }
+        properties.getProperty("type")?.let { properties.setProperty("type", it.lowercase()) }
+        properties.getProperty("resultType")?.let { properties.setProperty("type", it.uppercase()) }
         @Suppress("UNCHECKED_CAST")
         Properties.decodeFromStringMap<CDSSettings>(properties as Map<String, String>)
     } else if (file.name.endsWith(".json")) {
