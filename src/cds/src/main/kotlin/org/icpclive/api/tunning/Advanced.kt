@@ -36,7 +36,7 @@ data class TeamInfoOverride(
  * @param color Color of a problem balloon. It would be shown in queue and scoreboard in places related to the problem
  * @param minScore In ioi mode minimal possible value of points in this problem
  * @param maxScore In ioi mode maximal possible value of points in this problem
- * @param scoreMergeMode In ioi mode, it determinate how final points for participant are calculated from points of many submissions.
+ * @param scoreMergeMode In ioi mode, select the ruleset to calculate final score based on the scores for each submission.
  */
 @Serializable
 data class ProblemInfoOverride(
@@ -49,8 +49,8 @@ data class ProblemInfoOverride(
 )
 
 /**
- * @param isHidden Totally hide all teams from the group
- * @param isOutOfContest Don't get rank in the scoreboard to all teams from the group
+ * @param isHidden Totally hide all teams from this group
+ * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in leaderboard
  */
 @Serializable
 data class GroupInfoOverride(
@@ -84,7 +84,7 @@ class RankingSettings(
  *
  * @param startTime Override for contest start time.
  *        The preferred format is `yyyy-mm-dd hh:mm:ss`, but some others would be accepted too.
- *        Conside using 'now' if you want the contest emulation to start together with the overlay.
+ *        Consider using 'now' if you want the contest emulation to start together with the overlay.
  *        startTime overrise also can affect contest state.
  * @param freezeTime Time from the start of the contest before scoreboard freezing.
  * @param holdTime Fixed time to show as time before the contest start
