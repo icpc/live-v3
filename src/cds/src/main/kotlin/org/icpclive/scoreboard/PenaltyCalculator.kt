@@ -5,7 +5,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.times
 
-sealed interface PenaltyCalculator {
+internal sealed interface PenaltyCalculator {
     fun addSolvedProblem(time: Duration, wrongAttempts: Int)
     val penalty: Duration
 

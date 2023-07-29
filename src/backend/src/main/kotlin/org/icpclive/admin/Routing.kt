@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.api.TeamViewPosition
-import org.icpclive.api.toAdvancedProperties
+import org.icpclive.api.tunning.toAdvancedProperties
 import org.icpclive.config
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus

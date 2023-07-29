@@ -7,7 +7,7 @@ import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.Analytics
+import org.icpclive.cds.AnalyticsUpdate
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
@@ -55,7 +55,7 @@ fun Flow<ContestUpdate>.withRunsBefore() = flow {
         when (it) {
             is RunUpdate -> curRuns = curRuns.put(it.newInfo.id, it.newInfo)
             is InfoUpdate -> curInfo = it.newInfo
-            is Analytics -> {}
+            is AnalyticsUpdate -> {}
         }
     }
 }
@@ -64,7 +64,7 @@ fun Flow<ContestEventWithRunsBefore>.filterUseless() = filter {
     when (it.event) {
         is RunUpdate -> it.runs[it.event.newInfo.id] != it.event.newInfo
         is InfoUpdate -> it.infoBeforeEvent != it.event.newInfo
-        is Analytics -> true
+        is AnalyticsUpdate -> true
     }
 }
 
@@ -169,7 +169,7 @@ fun <K: Any> Flow<ContestUpdate>.withGroupedRuns(
                     }
                 }
             }
-            is Analytics -> {
+            is AnalyticsUpdate -> {
                 emit(update)
             }
         }

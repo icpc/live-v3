@@ -6,7 +6,7 @@ import org.icpclive.api.Verdict
 import org.icpclive.cds.clics.api.Problem
 import kotlin.time.Duration
 
-class ClicsRunInfo(
+internal class ClicsRunInfo(
     val id: Int,
     val problem: Problem,
     val liveProblemId: Int,

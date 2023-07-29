@@ -9,7 +9,7 @@ import io.ktor.client.request.*
 import java.security.cert.X509Certificate
 import javax.net.ssl.X509TrustManager
 
-sealed class ClientAuth {
+internal sealed class ClientAuth {
 
     class Basic(val login: String, val password: String) : ClientAuth()
 
@@ -24,7 +24,7 @@ sealed class ClientAuth {
     }
 }
 
-fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
+internal fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
     when (auth) {
         is ClientAuth.Basic -> {
             install(Auth) {
@@ -49,7 +49,7 @@ fun setAllowUnsecureConnections(value: Boolean) {
     allowUnsecure = value
 }
 
-fun defaultHttpClient(
+internal fun defaultHttpClient(
     auth: ClientAuth?,
     block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {}
 ) = HttpClient(CIO) {
@@ -73,4 +73,4 @@ fun defaultHttpClient(
 }
 
 
-fun isHttpUrl(text: String) = text.startsWith("http://") || text.startsWith("https://")
+internal fun isHttpUrl(text: String) = text.startsWith("http://") || text.startsWith("https://")

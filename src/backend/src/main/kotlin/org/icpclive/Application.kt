@@ -20,13 +20,12 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.icpclive.admin.configureAdminApiRouting
-import org.icpclive.api.AdvancedProperties
+import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.parseFileToCdsSettings
+import org.icpclive.cds.settings.parseFileToCdsSettings
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
-import org.icpclive.service.AdvancedPropertiesService
 import org.icpclive.service.launchServices
 import org.icpclive.util.completeOrThrow
 import org.icpclive.util.defaultJsonSettings
@@ -120,7 +119,7 @@ fun Application.module() {
 
     launch(handler) {
         val advancedJsonPath = config.configDirectory.resolve("advanced.json")
-        val advancedPropertiesFlow = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, AdvancedPropertiesService.logger)
+        val advancedPropertiesFlow = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, environment.log)
             .stateIn(this, SharingStarted.Eagerly, AdvancedProperties())
         DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
 

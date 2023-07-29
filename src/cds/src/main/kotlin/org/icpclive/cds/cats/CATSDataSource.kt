@@ -10,10 +10,10 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
-import org.icpclive.cds.CatsSettings
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.jsonLoader
+import org.icpclive.cds.settings.CatsSettings
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.seconds
@@ -44,7 +44,7 @@ private object SubmissionTimeSerializer : KSerializer<Instant> {
     }
 }
 
-class CATSDataSource(val settings: CatsSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val login = settings.login.get(creds)
     private val password = settings.password.get(creds)
 

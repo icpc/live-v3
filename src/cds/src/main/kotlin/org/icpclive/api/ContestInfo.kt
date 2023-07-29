@@ -31,10 +31,29 @@ enum class ContestResultType {
 }
 
 enum class ScoreMergeMode {
+    /**
+     * For each tests group in the problem, get maximum score over all submissions.
+     */
     MAX_PER_GROUP,
+
+    /**
+     * Get maximum total score over all submissions
+     */
     MAX_TOTAL,
+
+    /**
+     * Get score from last submission
+     */
     LAST,
+
+    /**
+     * Get score from last submissions, ignoring submissions, which didn't pass preliminary testing (e.g. on sample tests)
+     */
     LAST_OK,
+
+    /**
+     * Get the sum of scores over all submissions
+     */
     SUM
 }
 
@@ -175,17 +194,32 @@ data class GroupInfo(
 @Serializable
 enum class PenaltyRoundingMode {
     @SerialName("each_submission_down_to_minute")
+    /**
+     * Round time of all submissions from the beginning of the contest down to whole minute, and then sum them
+     */
     EACH_SUBMISSION_DOWN_TO_MINUTE,
 
+    /**
+     * Sum time of all submissions from the beginning of the contest and then round it down to whole minute
+     */
     @SerialName("sum_down_to_minute")
     SUM_DOWN_TO_MINUTE,
 
+    /**
+     * Sum time of all submissions without rounding
+     */
     @SerialName("sum_in_seconds")
     SUM_IN_SECONDS,
 
+    /**
+     * Get time of last submission as penalty
+     */
     @SerialName("last")
     LAST,
 
+    /**
+     * Don't have any penalty as a tie-breaker
+     */
     @SerialName("zero")
     ZERO,
 }

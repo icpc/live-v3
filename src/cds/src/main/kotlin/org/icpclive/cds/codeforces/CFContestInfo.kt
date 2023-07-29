@@ -9,7 +9,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 
-class CFContestInfo {
+internal class CFContestInfo {
     private var contestLength: Duration = 5.hours
     private var startTime: Instant = Instant.fromEpochMilliseconds(0)
     var status = ContestStatus.BEFORE

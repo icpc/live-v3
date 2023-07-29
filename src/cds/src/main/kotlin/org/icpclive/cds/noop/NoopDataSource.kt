@@ -8,7 +8,7 @@ import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.RawContestDataSource
 import kotlin.time.Duration
 
-class NoopDataSource : RawContestDataSource {
+internal class NoopDataSource : RawContestDataSource {
 
     override fun getFlow() = flowOf(
         InfoUpdate(ContestInfo(

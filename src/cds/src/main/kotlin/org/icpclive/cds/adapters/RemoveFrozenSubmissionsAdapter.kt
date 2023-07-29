@@ -1,7 +1,7 @@
 package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.*
-import org.icpclive.cds.Analytics
+import org.icpclive.cds.AnalyticsUpdate
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
@@ -33,7 +33,7 @@ fun Flow<ContestEventWithRunsBefore>.removeFrozenSubmissions() = transform {
                 }
             }
         }
-        is Analytics -> emit(it.event)
+        is AnalyticsUpdate -> emit(it.event)
     }
 }
 

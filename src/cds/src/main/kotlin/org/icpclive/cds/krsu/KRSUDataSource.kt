@@ -5,13 +5,13 @@ import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.KRSUSettings
 import org.icpclive.cds.common.jsonLoader
+import org.icpclive.cds.settings.KRSUSettings
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
-class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDataSource(5.seconds) {
+internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce() = parseAndUpdateStandings(
         contestInfoLoader.load(), submissionsLoader.load()
     )

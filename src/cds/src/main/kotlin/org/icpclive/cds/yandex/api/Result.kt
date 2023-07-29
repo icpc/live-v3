@@ -2,7 +2,7 @@ package org.icpclive.cds.yandex.api
 
 import org.icpclive.api.Verdict
 
-fun getResult(verdict: String) = when (verdict) {
+internal fun getResult(verdict: String) = when (verdict) {
     "OK" -> Verdict.Accepted
     "WrongAnswer" -> Verdict.WrongAnswer
     "TimeLimitExceeded" -> Verdict.TimeLimitExceeded

@@ -3,9 +3,9 @@ package org.icpclive.cds.ejudge
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.EjudgeSettings
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.xmlLoader
+import org.icpclive.cds.settings.EjudgeSettings
 import org.icpclive.util.child
 import org.icpclive.util.children
 import org.icpclive.util.guessDatetimeFormat
@@ -15,7 +15,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
-class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
+internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce(): ContestParseResult {
         val element = xmlLoader.load()
         return parseContestInfo(element.documentElement)

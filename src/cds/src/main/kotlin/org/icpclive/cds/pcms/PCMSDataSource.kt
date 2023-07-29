@@ -5,9 +5,9 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.PCMSSettings
 import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.xmlLoader
+import org.icpclive.cds.settings.PCMSSettings
 import org.icpclive.util.*
 import org.w3c.dom.Element
 import java.util.*
@@ -16,7 +16,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val login = settings.login?.get(creds)
     private val password = settings.password?.get(creds)
     private val dataLoader = xmlLoader(login?.let { ClientAuth.Basic(login, password!!) }) {

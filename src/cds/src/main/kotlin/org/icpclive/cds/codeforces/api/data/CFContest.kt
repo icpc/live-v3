@@ -9,16 +9,16 @@ import org.icpclive.util.DurationInSecondsSerializer
 import org.icpclive.util.UnixSecondsSerializer
 import kotlin.time.Duration
 
-enum class CFContestType {
+internal enum class CFContestType {
     CF, IOI, ICPC
 }
 
-enum class CFContestPhase {
+internal enum class CFContestPhase {
     BEFORE, CODING, PENDING_SYSTEM_TEST, SYSTEM_TEST, FINISHED
 }
 
 @Serializable
-data class CFContest(
+internal data class CFContest(
     val id: Int,
     val name: String,
     val type: CFContestType,

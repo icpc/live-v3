@@ -3,7 +3,7 @@ package org.icpclive.cds.codeforces.api.data
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CFRankListRow(
+internal data class CFRankListRow(
     val party: CFParty,
     val rank: Int,
     val points: Double,

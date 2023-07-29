@@ -19,12 +19,12 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.api.AdvancedProperties
+import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.*
+import org.icpclive.cds.settings.parseFileToCdsSettings
 import org.icpclive.util.*
-import org.icpclive.cds.parseFileToCdsSettings
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
 import org.slf4j.event.Level
 import java.io.File

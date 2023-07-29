@@ -14,6 +14,8 @@ import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.common.RawContestDataSource
+import org.icpclive.cds.settings.ClicsLoaderSettings
+import org.icpclive.cds.settings.ClicsSettings
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -36,7 +38,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Ma
     val feedVersion = settings.feedVersion
 }
 
-class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : RawContestDataSource {
+internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : RawContestDataSource {
     private val mainLoaderSettings = ParsedClicsLoaderSettings(settings.mainFeed, creds)
     private val additionalLoaderSettings = settings.additionalFeed?.let { ParsedClicsLoaderSettings(it, creds) }
 
@@ -173,7 +175,7 @@ class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) :
         runLoader(
             onRun = { emit(RunUpdate(it)) },
             onContestInfo = { emit(InfoUpdate(it)) },
-            onComment = { emit(Analytics(it)) }
+            onComment = { emit(AnalyticsUpdate(it)) }
         )
     }
 

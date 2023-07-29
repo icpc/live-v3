@@ -1,9 +1,36 @@
+import java.net.URI
+import java.net.URL
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
+    id("org.jetbrains.dokka") version "1.8.20"
     base
 }
 
+tasks.dokkaHtml {
+    dokkaSourceSets.configureEach {
+        // should be moved to another package, as reused by exporter
+        perPackageOption {
+            matchingRegex.set("org.icpclive.cds.clics.*")
+            suppress.set(true)
+        }
+        perPackageOption {
+            matchingRegex.set(".*")
+            reportUndocumented.set(true)
+            sourceLink {
+                localDirectory.set(projectDir)
+                remoteUrl.set(URI("https://github.com/icpc/live-v3/tree/main/src/cds").toURL())
+                remoteLineSuffix.set("#L")
+            }
+        }
+    }
+}
+
+tasks.create<Copy>("doc") {
+    from(tasks.dokkaHtml)
+    destinationDir = rootProject.rootDir.resolve("docs/cds")
+}
 
 dependencies {
     implementation(libs.logback)

@@ -10,11 +10,11 @@ import java.nio.file.Paths
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 
-interface DataLoader<out T> {
+internal interface DataLoader<out T> {
     suspend fun load(): T
 }
 
-class StringLoader(
+internal class StringLoader(
     auth: ClientAuth?,
     val computeURL: () -> String
 ) : DataLoader<String> {
@@ -31,7 +31,7 @@ class StringLoader(
     }
 }
 
-class ByteArrayLoader(
+internal class ByteArrayLoader(
     auth: ClientAuth?,
     val computeURL: () -> String
 ) : DataLoader<ByteArray> {
@@ -49,19 +49,19 @@ class ByteArrayLoader(
 }
 
 
-fun xmlLoader(auth: ClientAuth? = null, url: () -> String): DataLoader<Document> {
+internal fun xmlLoader(auth: ClientAuth? = null, url: () -> String): DataLoader<Document> {
     val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
     return StringLoader(auth, url)
         .map { builder.parse(it.byteInputStream()) }
 }
 
 
-inline fun <reified T> jsonLoader(auth: ClientAuth? = null, noinline url: () -> String) : DataLoader<T> {
+internal inline fun <reified T> jsonLoader(auth: ClientAuth? = null, noinline url: () -> String) : DataLoader<T> {
     val json = Json { ignoreUnknownKeys = true }
     return StringLoader(auth, url)
         .map { json.decodeFromString(it) }
 }
 
-fun <T, R> DataLoader<T>.map(f: suspend (T) -> R) = object : DataLoader<R> {
+internal fun <T, R> DataLoader<T>.map(f: suspend (T) -> R) = object : DataLoader<R> {
     override suspend fun load() = f(this@map.load())
 }

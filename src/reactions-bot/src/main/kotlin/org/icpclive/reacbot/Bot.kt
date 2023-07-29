@@ -28,7 +28,7 @@ import org.icpclive.cds.adapters.processHiddenTeamsAndGroups
 import org.icpclive.cds.adapters.removeFrozenSubmissions
 import org.icpclive.cds.adapters.withRunsBefore
 import org.icpclive.cds.common.setAllowUnsecureConnections
-import org.icpclive.cds.parseFileToCdsSettings
+import org.icpclive.cds.settings.parseFileToCdsSettings
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 

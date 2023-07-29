@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 import org.icpclive.api.ProblemInfo
 
 @Serializable
-data class Problems(
+internal data class Problems(
     val problems: List<Problem>
 )
 
 @Serializable
-data class Problem(
+internal data class Problem(
     val id: String,
     val alias: String,
     val compilers: List<String>,
@@ -20,7 +20,7 @@ data class Problem(
 )
 
 @Serializable
-data class CompilerLimit(
+internal data class CompilerLimit(
     val compilerName: String?,
     val idlenessLimit: Long?,
     val memoryLimit: Long?,
@@ -29,7 +29,7 @@ data class CompilerLimit(
 )
 
 @Serializable
-data class Statement(
+internal data class Statement(
     val path: String?,
     val type: String?
 )

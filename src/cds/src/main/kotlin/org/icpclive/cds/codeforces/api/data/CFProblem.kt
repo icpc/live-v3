@@ -4,13 +4,13 @@ package org.icpclive.cds.codeforces.api.data
 
 import kotlinx.serialization.Serializable
 
-enum class CFProblemType {
+internal enum class CFProblemType {
     PROGRAMMING, QUESTION
 }
 
 
 @Serializable
-data class CFProblem(
+internal data class CFProblem(
     val contestId: Int,
     val problemsetName: String? = null,
     val index: String,

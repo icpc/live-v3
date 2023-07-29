@@ -1,9 +1,8 @@
 package org.icpclive.scoreboard
 
 import org.icpclive.api.*
-import kotlin.time.Duration
 
-class IOIScoreboardCalculator : ScoreboardCalculator() {
+internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
     override val comparator: Comparator<ScoreboardRow> = compareBy(
         { -it.totalScore },
     )

@@ -18,7 +18,7 @@ private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInf
     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
 )
 
-class YandexContestInfo private constructor(
+internal class YandexContestInfo private constructor(
     private val name: String,
     private val startTime: Instant,
     private val duration: Duration,

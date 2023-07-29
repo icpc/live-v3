@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 import org.icpclive.util.getLogger
 import java.nio.file.Paths
 
-fun getLineStreamLoaderFlow(url: String, auth: ClientAuth?) = flow {
+internal fun getLineStreamLoaderFlow(url: String, auth: ClientAuth?) = flow {
     val httpClient = defaultHttpClient(auth)
     if (!isHttpUrl(url)) {
         Paths.get(url).toFile().useLines { lines ->
@@ -39,5 +39,5 @@ fun getLineStreamLoaderFlow(url: String, auth: ClientAuth?) = flow {
     }
 }.flowOn(Dispatchers.IO)
 
-object LineStreamLoaderService
-val logger = getLogger(LineStreamLoaderService::class)
+private object LineStreamLoaderService
+private val logger = getLogger(LineStreamLoaderService::class)

@@ -10,13 +10,13 @@ import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.common.RawContestDataSource
 import org.icpclive.cds.common.*
-import org.icpclive.cds.yandex.YandexConstants.API_BASE
+import org.icpclive.cds.settings.YandexSettings
 import org.icpclive.cds.yandex.api.*
 import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : RawContestDataSource {
+internal class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : RawContestDataSource {
     private val apiKey = settings.apiKey.get(creds)
     private val httpClient: HttpClient
 
@@ -105,6 +105,7 @@ class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : R
 
     companion object {
         private val log = getLogger(YandexDataSource::class)
+        const val API_BASE = "https://api.contest.yandex.net/api/public/v2"
     }
 
     private suspend fun newSubmissionsFlow(

@@ -6,7 +6,7 @@ import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 
 @Serializable
-data class ContestParseResult(
+internal data class ContestParseResult(
     val contestInfo: ContestInfo,
     val runs: List<RunInfo>,
     val analyticsMessages: List<AnalyticsMessage>

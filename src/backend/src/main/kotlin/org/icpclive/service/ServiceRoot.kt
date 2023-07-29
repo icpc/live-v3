@@ -14,7 +14,7 @@ import org.icpclive.service.analytics.AnalyticsGenerator
 fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     val loaded = loader.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
     val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
-    val analyticsFlow = loaded.filterIsInstance<Analytics>().map { it.message }
+    val analyticsFlow = loaded.filterIsInstance<AnalyticsUpdate>().map { it.message }
     launch {
         DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this))
     }

@@ -13,7 +13,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
-class ClicsModel(
+internal class ClicsModel(
     private val addTeamNames: Boolean,
     private val mediaBaseUrl: String
 ) {

@@ -3,7 +3,7 @@ package org.icpclive.cds.yandex.api
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ContestDescription(
+internal data class ContestDescription(
     val duration: Long,
     val freezeTime: Long?,
     val name: String,

@@ -56,7 +56,7 @@ internal class EmulationAdapter(
                 }
                 add(Event(run.time + timeShift.milliseconds) { emit(RunUpdate(run)) })
             }
-            addAll(analyticsMessages.map { Event(it.relativeTime) { emit(Analytics(it)) } })
+            addAll(analyticsMessages.map { Event(it.relativeTime) { emit(AnalyticsUpdate(it)) } })
         }.sortedBy { it.time }
         for (event in events) {
             val nextEventTime = (startTime + event.time / emulationSpeed)

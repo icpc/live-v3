@@ -17,7 +17,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-object ClicsTime {
+internal object ClicsTime {
     // https://ccs-specs.icpc.io/2021-11/contest_api#json-attribute-types
     private const val DATE_STR = "([0-9]{1,4})-([0-9]{1,2})-([0-9]{1,2})"
     private const val TIME_STR = "([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2}([.][0-9]{1,})?)"

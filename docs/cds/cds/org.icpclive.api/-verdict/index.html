@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Verdict</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>cds</span>
+            </a>
+    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":cds:dokkaHtml/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="cds::org.icpclive.api/Verdict///PointingToDeclaration//1358218503">
+  <div class="breadcrumbs"><a href="../../../index.html">cds</a><span class="delimiter">/</span><a href="../index.html">org.icpclive.api</a><span class="delimiter">/</span><span class="current">Verdict</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Verdict</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span><span class="token punctuation">(</span><span>with<span class="token operator"> = </span><a href="../-verdict-serializer/index.html">VerdictSerializer::class</a></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">Verdict</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/icpc/live-v3/tree/main/src/cds/src/main/kotlin/org/icpclive/api/RunInfo.kt#L29">source</a>)</span></span></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-accepted/index.html">Accepted</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-rejected/index.html">Rejected</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-fail/index.html">Fail</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-compilation-error/index.html">CompilationError</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-compilation-error-with-penalty/index.html">CompilationErrorWithPenalty</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-presentation-error/index.html">PresentationError</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-runtime-error/index.html">RuntimeError</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-time-limit-exceeded/index.html">TimeLimitExceeded</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-memory-limit-exceeded/index.html">MemoryLimitExceeded</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-output-limit-exceeded/index.html">OutputLimitExceeded</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-idleness-limit-exceeded/index.html">IdlenessLimitExceeded</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-security-violation/index.html">SecurityViolation</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-ignored/index.html">Ignored</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-challenged/index.html">Challenged</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-wrong-answer/index.html">WrongAnswer</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="95318965%2FClasslikes%2F1358218503" anchor-label="Accepted" id="95318965%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-accepted/index.html"><span><span>Accepted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="95318965%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-accepted/index.html">Accepted</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="544260475%2FClasslikes%2F1358218503" anchor-label="Challenged" id="544260475%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-challenged/index.html"><span><span>Challenged</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="544260475%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-challenged/index.html">Challenged</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1913487034%2FClasslikes%2F1358218503" anchor-label="Companion" id="1913487034%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1913487034%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1671440361%2FClasslikes%2F1358218503" anchor-label="CompilationError" id="-1671440361%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compilation-error/index.html"><span>Compilation</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1671440361%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-compilation-error/index.html">CompilationError</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1035345192%2FClasslikes%2F1358218503" anchor-label="CompilationErrorWithPenalty" id="1035345192%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compilation-error-with-penalty/index.html"><span>Compilation</span><wbr></wbr><span>Error</span><wbr></wbr><span>With</span><wbr></wbr><span><span>Penalty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1035345192%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-compilation-error-with-penalty/index.html">CompilationErrorWithPenalty</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2120359326%2FClasslikes%2F1358218503" anchor-label="Fail" id="2120359326%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-fail/index.html"><span><span>Fail</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2120359326%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-fail/index.html">Fail</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-695037853%2FClasslikes%2F1358218503" anchor-label="IdlenessLimitExceeded" id="-695037853%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-idleness-limit-exceeded/index.html"><span>Idleness</span><wbr></wbr><span>Limit</span><wbr></wbr><span><span>Exceeded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-695037853%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-idleness-limit-exceeded/index.html">IdlenessLimitExceeded</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="17076468%2FClasslikes%2F1358218503" anchor-label="Ignored" id="17076468%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ignored/index.html"><span><span>Ignored</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="17076468%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-ignored/index.html">Ignored</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1788158471%2FClasslikes%2F1358218503" anchor-label="MemoryLimitExceeded" id="-1788158471%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-memory-limit-exceeded/index.html"><span>Memory</span><wbr></wbr><span>Limit</span><wbr></wbr><span><span>Exceeded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1788158471%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-memory-limit-exceeded/index.html">MemoryLimitExceeded</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1209285113%2FClasslikes%2F1358218503" anchor-label="OutputLimitExceeded" id="1209285113%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-output-limit-exceeded/index.html"><span>Output</span><wbr></wbr><span>Limit</span><wbr></wbr><span><span>Exceeded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1209285113%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-output-limit-exceeded/index.html">OutputLimitExceeded</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-930029576%2FClasslikes%2F1358218503" anchor-label="PresentationError" id="-930029576%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-presentation-error/index.html"><span>Presentation</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-930029576%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-presentation-error/index.html">PresentationError</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-357478722%2FClasslikes%2F1358218503" anchor-label="Rejected" id="-357478722%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rejected/index.html"><span><span>Rejected</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-357478722%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-rejected/index.html">Rejected</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1361742612%2FClasslikes%2F1358218503" anchor-label="RuntimeError" id="-1361742612%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-runtime-error/index.html"><span>Runtime</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1361742612%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-runtime-error/index.html">RuntimeError</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1692048673%2FClasslikes%2F1358218503" anchor-label="SecurityViolation" id="1692048673%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-security-violation/index.html"><span>Security</span><wbr></wbr><span><span>Violation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1692048673%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-security-violation/index.html">SecurityViolation</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2139116539%2FClasslikes%2F1358218503" anchor-label="TimeLimitExceeded" id="-2139116539%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-time-limit-exceeded/index.html"><span>Time</span><wbr></wbr><span>Limit</span><wbr></wbr><span><span>Exceeded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2139116539%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-time-limit-exceeded/index.html">TimeLimitExceeded</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-773762661%2FClasslikes%2F1358218503" anchor-label="WrongAnswer" id="-773762661%2FClasslikes%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-wrong-answer/index.html"><span>Wrong</span><wbr></wbr><span><span>Answer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-773762661%2FClasslikes%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-wrong-answer/index.html">WrongAnswer</a> : <a href="index.html">Verdict</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-175404298%2FProperties%2F1358218503" anchor-label="isAccepted" id="-175404298%2FProperties%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-accepted.html"><span>is</span><wbr></wbr><span><span>Accepted</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-175404298%2FProperties%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="is-accepted.html">isAccepted</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1189358101%2FProperties%2F1358218503" anchor-label="isAddingPenalty" id="1189358101%2FProperties%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-adding-penalty.html"><span>is</span><wbr></wbr><span>Adding</span><wbr></wbr><span><span>Penalty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1189358101%2FProperties%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="is-adding-penalty.html">isAddingPenalty</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="555360812%2FProperties%2F1358218503" anchor-label="shortName" id="555360812%2FProperties%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="short-name.html"><span>short</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="555360812%2FProperties%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="short-name.html">shortName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1516212806%2FFunctions%2F1358218503" anchor-label="toRunResult" id="1516212806%2FFunctions%2F1358218503" data-filterable-set=":cds:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":cds:dokkaHtml/main" data-filterable-set=":cds:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-run-result.html"><span>to</span><wbr></wbr><span>Run</span><wbr></wbr><span><span>Result</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1516212806%2FFunctions%2F1358218503"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":cds:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="to-run-result.html"><span class="token function">toRunResult</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-i-c-p-c-run-result/index.html">ICPCRunResult</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>

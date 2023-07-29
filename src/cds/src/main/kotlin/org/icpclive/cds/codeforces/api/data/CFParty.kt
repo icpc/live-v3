@@ -4,12 +4,12 @@ package org.icpclive.cds.codeforces.api.data
 
 import kotlinx.serialization.Serializable
 
-enum class CFPartyParticipantType {
+internal enum class CFPartyParticipantType {
     CONTESTANT, PRACTICE, VIRTUAL, MANAGER, OUT_OF_COMPETITION
 }
 
 @Serializable
-data class CFParty(
+internal data class CFParty(
     val contestId: Int? = null,
     val members: List<CFMember>,
     val participantType: CFPartyParticipantType,

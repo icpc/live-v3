@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import org.icpclive.api.TeamInfo
 
 @Serializable
-data class Participant(
+internal data class Participant(
     val id: Int,
     val name: String,
     val login: String,

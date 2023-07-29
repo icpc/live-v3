@@ -2,7 +2,6 @@ package org.icpclive.cds.codeforces
 
 import kotlinx.datetime.Clock
 import org.icpclive.api.ContestStatus
-import org.icpclive.cds.CFSettings
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.codeforces.api.data.*
@@ -10,12 +9,13 @@ import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.codeforces.api.results.CFStatusWrapper
 import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.common.map
+import org.icpclive.cds.settings.CFSettings
 import java.security.MessageDigest
 import java.util.*
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 
-class CFDataSource(val settings: CFSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+internal class CFDataSource(val settings: CFSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val contestInfo = CFContestInfo()
     private val apiKey = settings.apiKey.get(creds)
     private val apiSecret = settings.apiSecret.get(creds)
