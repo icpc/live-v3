@@ -1,0 +1,9 @@
+{
+  "problemOverrides": {
+    "A":{"color":"#06d50d"},
+    "B":{"color":"#1b2cff"},
+    "C":{"color":"#9d2fff"},
+    "D":{"color":"#fd920e"},
+    "E":{"color":"#ff3821"}
+  }
+}
