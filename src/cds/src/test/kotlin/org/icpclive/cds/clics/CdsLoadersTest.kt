@@ -4,8 +4,10 @@ import kotlinx.serialization.json.Json
 import org.approvaltests.Approvals
 import org.approvaltests.core.Options
 import org.icpclive.api.ContestResultType
-import org.icpclive.cds.*
 import org.icpclive.cds.clics.FeedVersion
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.ClicsSettings
+import org.icpclive.cds.settings.PCMSSettings
 import org.junit.*
 
 class CdsLoadersTest {
