@@ -15,12 +15,21 @@ const contestConfigs = [
 
 const backendCooldown = 2000;
 const overlayDisplayDelay = 1000;
-const address = "127.0.0.1:8080";
-const baseURL = "http://" + address;
+const address = "127.0.0.1";
+const startingPort = 8080;
 
-for (const contestConfig of contestConfigs) {
+for (const [index, contestConfig] of contestConfigs.entries()) {
     test(`config ${contestConfig}`, async ({ page }) => {
-        const childProcess = spawn("java", ["-jar", "artifacts/live-v3-dev.jar", "-P:auth.disabled=true", `-P:live.configDirectory=${contestConfig}`]);
+        const port = startingPort + index;
+        const baseURL = `http://${address}:${port}`;
+        const wsURL = `ws://${address}:${port}`;
+
+        const childProcess = spawn("java", [
+            "-jar",
+            "artifacts/live-v3-dev.jar",
+            `-port=${port}`,
+            "-P:auth.disabled=true",
+            `-P:live.configDirectory=${contestConfig}`]);
 
         childProcess.stdout.on("data", (data) => {
             console.log(`Child process stdout: ${data}`);
@@ -41,7 +50,7 @@ for (const contestConfig of contestConfigs) {
 
             await page.waitForTimeout(backendCooldown);
 
-            let contestInfo = new WebSocket(`ws://${address}/api/overlay/contestInfo`);
+            let contestInfo = new WebSocket(`${wsURL}/api/overlay/contestInfo`);
 
             const contestOver = new Promise((resolve) => {
                 if (contestInfo) {
