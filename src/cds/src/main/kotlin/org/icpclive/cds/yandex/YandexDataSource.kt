@@ -6,26 +6,18 @@ import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.icpclive.api.ContestResultType
 import org.icpclive.cds.*
 import org.icpclive.cds.RawContestDataSource
 import org.icpclive.cds.common.*
 import org.icpclive.cds.yandex.YandexConstants.API_BASE
-import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
-import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
-import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
 import org.icpclive.cds.yandex.api.*
 import org.icpclive.util.*
-import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class YandexDataSource(props: Properties, creds: Map<String, String>) : RawContestDataSource {
-    private val apiKey: String
-    private val loginPrefix: String
-    private val contestId: Long
+class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : RawContestDataSource {
+    private val apiKey = settings.apiKey.get(creds)
     private val httpClient: HttpClient
 
     private val contestDescriptionLoader: DataLoader<ContestDescription>
@@ -33,18 +25,14 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
     private val participantLoader: DataLoader<List<Participant>>
     private val allSubmissionsLoader: DataLoader<List<Submission>>
 
-    val resultType = ContestResultType.valueOf(props.getProperty("standings.resultType", "ICPC").uppercase())
+    val resultType = settings.resultType
 
 
     init {
-        apiKey = props.getCredentials(TOKEN_PROPERTY_NAME, creds) ?: throw IllegalStateException("YC api key is not defined")
-        contestId = props.getProperty(CONTEST_ID_PROPERTY_NAME).toLong()
-        loginPrefix = props.getProperty(LOGIN_PREFIX_PROPERTY_NAME)
-
         val auth = ClientAuth.OAuth(apiKey)
         httpClient = defaultHttpClient(auth) {
             defaultRequest {
-                url("$API_BASE/contests/$contestId/")
+                url("$API_BASE/contests/${settings.contestId}/")
             }
             engine {
                 requestTimeout = 40000
@@ -52,18 +40,18 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         }
 
 
-        contestDescriptionLoader = jsonLoader(auth) { "$API_BASE/contests/$contestId" }
-        problemLoader = jsonLoader<Problems>(auth) { "$API_BASE/contests/$contestId/problems" }.map {
+        contestDescriptionLoader = jsonLoader(auth) { "$API_BASE/contests/${settings.contestId}" }
+        problemLoader = jsonLoader<Problems>(auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
-            val participantRegex = Regex(loginPrefix)
-            jsonLoader<List<Participant>>(auth) { "$API_BASE/contests/$contestId/participants" }.map {
+            val participantRegex = Regex(settings.loginRegex)
+            jsonLoader<List<Participant>>(auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
         }
         allSubmissionsLoader = jsonLoader<Submissions>(auth) {
-            "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
+            "$API_BASE/contests/${settings.contestId}/submissions?locale=ru&page=1&pageSize=100000"
         }.map { it.submissions.reversed() }
     }
 

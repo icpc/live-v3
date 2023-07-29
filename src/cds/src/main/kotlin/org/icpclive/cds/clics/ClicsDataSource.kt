@@ -16,37 +16,34 @@ import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.getLineStreamLoaderFlow
 import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.util.*
-import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 enum class FeedVersion {
-    V2020_03,
-    V2022_07
+    `2020_03`,
+    `2022_07`
 }
 
-private class ClicsLoaderSettings(properties: Properties, prefix: String, creds: Map<String, String>) {
-    private val url = properties.getProperty("${prefix}url")
+private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Map<String, String>) {
+    private val url = settings.url
 
     val auth = ClientAuth.BasicOrNull(
-        properties.getCredentials("${prefix}login", creds),
-        properties.getCredentials("${prefix}password", creds)
+        settings.login?.get(creds),
+        settings.password?.get(creds)
     )
-    val eventFeedUrl = apiRequestUrl(properties.getProperty("${prefix}event_feed_name", "event-feed"))
+    val eventFeedUrl = apiRequestUrl(settings.event_feed_name)
 
     private fun apiRequestUrl(method: String) = "$url/$method"
 
-    val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("${prefix}feed_version", "2022_07"))
+    val feedVersion = settings.feed_version
 }
 
-class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawContestDataSource {
-    private val mainLoaderSettings = ClicsLoaderSettings(properties, "", creds)
-    private val additionalLoaderSettings = properties.getProperty("additional_feed.url", null)?.let {
-        ClicsLoaderSettings(properties, "additional_feed.", creds)
-    }
+class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : RawContestDataSource {
+    private val mainLoaderSettings = ParsedClicsLoaderSettings(settings.main_feed, creds)
+    private val additionalLoaderSettings = settings.additional_feed?.let { ParsedClicsLoaderSettings(it, creds) }
 
     private val model = ClicsModel(
-        properties.getProperty("use_team_names", "true") == "true",
-        properties.getProperty("media_base_url", "")
+        settings.use_team_names,
+        settings.media_base_url
     )
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
@@ -196,7 +193,7 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
     companion object {
         val logger = getLogger(ClicsDataSource::class)
         @OptIn(ExperimentalSerializationApi::class)
-        private fun getEventFeedLoader(settings: ClicsLoaderSettings) = flow {
+        private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings) = flow {
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
                 explicitNulls = false
@@ -208,8 +205,8 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
                     .mapNotNull { data ->
                         try {
                             when (settings.feedVersion) {
-                                FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
-                                FeedVersion.V2022_07 -> jsonDecoder.decodeFromString<Event>(data)
+                                FeedVersion.`2020_03` -> Event.fromV1(jsonDecoder.decodeFromString(data))
+                                FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
                             }
                         } catch (e: SerializationException) {
                             logger.error("Failed to deserialize: $data", e)

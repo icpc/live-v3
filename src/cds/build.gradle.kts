@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.ktor.client.websockets)
     implementation(libs.ktor.client.logging)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.properties)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
     implementation(projects.common)

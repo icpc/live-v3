@@ -5,6 +5,7 @@ import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.PCMSSettings
 import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.xmlLoader
 import org.icpclive.util.*
@@ -15,34 +16,28 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
-    private val login = properties.getCredentials("login", creds)
-    private val password = properties.getCredentials("password", creds)
+class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+    private val login = settings.login?.get(creds)
+    private val password = settings.password?.get(creds)
     private val dataLoader = xmlLoader(login?.let { ClientAuth.Basic(login, password!!) }) {
-        properties.getProperty("url")
+        settings.url
     }
 
-    val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
+    val resultType = settings.resultType
     val runIds = Enumerator<String>()
     val teamIds = Enumerator<String>()
     val problemIds = Enumerator<String>()
     var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce() : ContestParseResult {
-        val problemsOverride =  if(properties.containsKey("problems.url")) {
-            loadCustomProblems()
-        } else {
-            null
-        }
+        val problemsOverride =  settings.problemsUrl?.let { loadCustomProblems(it) }
 
         return parseAndUpdateStandings(dataLoader.load().documentElement, problemsOverride)
     }
     private fun parseAndUpdateStandings(element: Element, problemsOverride: Element?) = parseContestInfo(element.child("contest"), problemsOverride)
 
-    private suspend fun loadCustomProblems() : Element {
-        val problemsUrl = properties.getProperty("problems.url")
+    private suspend fun loadCustomProblems(problemsUrl: String) : Element {
         val problemsLoader = xmlLoader { problemsUrl }
-
         return problemsLoader.load().documentElement
     }
 

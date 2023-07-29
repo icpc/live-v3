@@ -1,11 +1,9 @@
 package org.icpclive.api
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.util.ColorSerializer
-import org.icpclive.util.DurationInMinutesSerializer
-import org.icpclive.util.DurationInSecondsSerializer
-import org.icpclive.util.humanReadable
+import org.icpclive.util.*
 import java.awt.Color
 import kotlin.time.Duration
 
@@ -48,7 +46,8 @@ class RankingSettings(
 
 @Serializable
 data class AdvancedProperties(
-    val startTime: String? = null,
+    @Serializable(with = HumanTimeSerializer::class)
+    val startTime: Instant? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("freezeTimeSeconds")
     val freezeTime: Duration? = null,
@@ -65,7 +64,7 @@ data class AdvancedProperties(
 fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
     fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
     return AdvancedProperties(
-        startTime = startTime.humanReadable.takeIfAsked("startTime"),
+        startTime = startTime.takeIfAsked("startTime"),
         freezeTime = freezeTime.takeIfAsked("freezeTime"),
         holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teams.associate {

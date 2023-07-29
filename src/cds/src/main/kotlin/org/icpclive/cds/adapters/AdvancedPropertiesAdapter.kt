@@ -40,7 +40,7 @@ fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<Advanced
             val ci = contestInfo ?: return
             val ap = advancedProperties ?: return
             emit(InfoUpdate(applyOverrides(ci, ap, submittedTeams)))
-            val startOverride = ap.startTime?.let { catchToNull { guessDatetimeFormat(it) } } ?: return
+            val startOverride = ap.startTime ?: return
             triggerAt(startOverride)
             triggerAt(startOverride + ci.contestLength)
         }
@@ -162,7 +162,6 @@ private fun applyOverrides(
         )
     }
     val (startTime, status) = overrides.startTime
-        ?.let { catchToNull { guessDatetimeFormat(it) } }
         ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
         ?.let { it to getStateBasedOnStartTime(it, info.contestLength) }
         ?: (info.startTime to info.status)

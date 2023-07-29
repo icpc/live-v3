@@ -1,23 +1,21 @@
 package org.icpclive.cds.testsys
 
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.TestSysSettings
 import org.icpclive.cds.common.ByteArrayLoader
 import org.icpclive.cds.common.map
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
-import java.util.Properties
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 
-class TestSysDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-    val url = properties.getProperty("url")
-    val loader = ByteArrayLoader(null) { url }
+class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {
+    val loader = ByteArrayLoader(null) { settings.url }
         .map {
             val eofPosition = it.indexOf(EOF)
             String(
@@ -28,8 +26,6 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
         }.map {
             it.split("\r\n").filter(String::isNotEmpty)
         }
-
-    val timeZone = properties.getProperty("timezone") ?: "Europe/Moscow"
 
     override suspend fun loadOnce(): ContestParseResult {
         val data = loader.load().groupBy(
@@ -122,7 +118,7 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
     private fun String.toDate() =
         java.time.LocalDateTime.parse(this, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))
             .toKotlinLocalDateTime()
-            .toInstant(TimeZone.of(timeZone))
+            .toInstant(settings.timeZone)
 
     private fun String.toStatus() = when (this) {
         "RESULTS" -> ContestStatus.OVER

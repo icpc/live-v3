@@ -2,6 +2,7 @@ package org.icpclive.cds.codeforces
 
 import kotlinx.datetime.Clock
 import org.icpclive.api.ContestStatus
+import org.icpclive.cds.CFSettings
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.codeforces.api.data.*
@@ -9,17 +10,15 @@ import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.codeforces.api.results.CFStatusWrapper
 import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.common.map
-import org.icpclive.util.getCredentials
 import java.security.MessageDigest
 import java.util.*
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 
-class CFDataSource(properties: Properties, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+class CFDataSource(val settings: CFSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val contestInfo = CFContestInfo()
-    private val contestId = properties.getProperty("contest_id").toInt()
-    private val apiKey = properties.getCredentials("cf.api.key", creds) ?: error("No Codeforces api key defined")
-    private val apiSecret = properties.getCredentials("cf.api.secret", creds) ?: error("No Codeforces api secret defined")
+    private val apiKey = settings.apiKey.get(creds)
+    private val apiSecret = settings.apiSecret.get(creds)
 
     private fun apiRequestUrl(
         method: String,
@@ -36,7 +35,7 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
     private val standingsLoader = jsonLoader<CFStatusWrapper<CFStandings>> {
         apiRequestUrl(
             "contest.standings",
-            mapOf("contestId" to contestId.toString())
+            mapOf("contestId" to settings.contest_id.toString())
         )
     }.map {
         it.unwrap()
@@ -45,7 +44,7 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
     private val statusLoader = jsonLoader<CFStatusWrapper<List<CFSubmission>>> {
         apiRequestUrl(
             "contest.status",
-            mapOf("contestId" to contestId.toString())
+            mapOf("contestId" to settings.contest_id.toString())
         )
     }.map {
         it.unwrap()
@@ -54,7 +53,7 @@ class CFDataSource(properties: Properties, creds: Map<String, String>) : FullRel
     private val hacksLoader = jsonLoader<CFStatusWrapper<List<CFHack>>> {
         apiRequestUrl(
             "contest.hacks",
-            mapOf("contestId" to contestId.toString())
+            mapOf("contestId" to settings.contest_id.toString())
         )
     }.map {
         it.unwrap()

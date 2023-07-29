@@ -1,26 +1,17 @@
 package org.icpclive.cds.krsu
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.serialization.KSerializer
+import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.KRSUSettings
 import org.icpclive.cds.common.jsonLoader
-import org.icpclive.util.getLogger
-import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
-class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-
+class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce() = parseAndUpdateStandings(
         contestInfoLoader.load(), submissionsLoader.load()
     )
@@ -29,9 +20,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
     var lastTeamId: Int = 0
 
     private fun parseAndUpdateStandings(contest: Contest, submissions: List<Submission>): ContestParseResult {
-        val timezoneShift = Duration.parse(properties.getProperty("timezone-shift"))
-
-        val startTime = contest.StartTime - timezoneShift
+        val startTime = contest.StartTime.toInstant(settings.timeZone)
 
         val problemsList = contest.ProblemSet.mapIndexed { index, it ->
             ProblemInfo(
@@ -62,14 +51,13 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         val freezeTime = contestLength - 1.hours
         val runs = submissions.map {
             val result = outcomeMap[it.StatusName]
-            logger.info("" + (it.ReceivedTime - startTime))
             RunInfo(
                 id = it.Id,
                 result?.toRunResult(),
                 problemId = it.Problem,
                 teamId = teams[it.Login]?.id ?: -1,
                 percentage = if (result == null) 0.0 else 1.0,
-                time = (it.ReceivedTime - timezoneShift) - startTime,
+                time = (it.ReceivedTime.toInstant(settings.timeZone)) - startTime,
             )
         }.toList()
 
@@ -96,11 +84,10 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         )
     }
 
-    private val submissionsLoader = jsonLoader<List<Submission>> { properties.getProperty("submissions-url") }
-    private val contestInfoLoader = jsonLoader<Contest> { properties.getProperty("contest-url") }
+    private val submissionsLoader = jsonLoader<List<Submission>> { settings.submissionsUrl }
+    private val contestInfoLoader = jsonLoader<Contest> { settings.contestUrl }
 
     companion object {
-        private val logger = getLogger(KRSUDataSource::class)
         private val outcomeMap = mapOf(
             "InternalError" to Verdict.Fail,
             "Compile Error" to Verdict.CompilationError,
@@ -126,8 +113,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         val Status: Int,
         val StatusName: String,
         val TestPassed: Int,
-        @Serializable(with = TimeSerializer::class)
-        val ReceivedTime: Instant,
+        val ReceivedTime: LocalDateTime,
         val AuthorName: String,
     )
 
@@ -136,8 +122,7 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
     class Contest(
         val Id: Int,
         val ProblemSet: List<Problem>,
-        @Serializable(with = TimeSerializer::class)
-        val StartTime: Instant,
+        val StartTime: LocalDateTime,
         val Length: Int
     )
 
@@ -147,18 +132,5 @@ class KRSUDataSource(val properties: Properties) : FullReloadContestDataSource(5
         val Letter: Int,
         val Problem: Int
     )
-
-    class TimeSerializer : KSerializer<Instant> {
-        override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("krsu time", PrimitiveKind.STRING)
-
-        override fun deserialize(decoder: Decoder): Instant {
-            return Instant.parse(decoder.decodeString() + "Z")
-        }
-
-        override fun serialize(encoder: Encoder, value: Instant) {
-            TODO("Not yet implemented")
-        }
-
-    }
 }
 

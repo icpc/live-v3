@@ -1,26 +1,18 @@
 package org.icpclive.cds
 
-import org.icpclive.cds.noop.NoopDataSource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import org.icpclive.api.AnalyticsMessage
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.cats.CATSDataSource
-import org.icpclive.cds.clics.ClicsDataSource
-import org.icpclive.cds.codeforces.CFDataSource
-import org.icpclive.cds.ejudge.EjudgeDataSource
-import org.icpclive.cds.krsu.KRSUDataSource
-import org.icpclive.cds.pcms.PCMSDataSource
-import org.icpclive.cds.testsys.TestSysDataSource
-import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.getLogger
-import org.icpclive.util.guessDatetimeFormat
 import org.icpclive.util.loopFlow
-import java.util.*
 import kotlin.time.Duration
+import kotlinx.serialization.properties.*
+import kotlinx.serialization.properties.Properties
 
 sealed interface ContestUpdate
 data class InfoUpdate(val newInfo: ContestInfo) : ContestUpdate
@@ -58,34 +50,22 @@ abstract class FullReloadContestDataSource(val interval: Duration) : RawContestD
     }
 }
 
-internal fun getRawLoader(properties: Properties, creds: Map<String, String>) = when (val standingsType = properties.getProperty("standings.type")) {
-    "CLICS" -> ClicsDataSource(properties, creds)
-    "PCMS" -> PCMSDataSource(properties, creds)
-    "CF" -> CFDataSource(properties, creds)
-    "YANDEX" -> YandexDataSource(properties, creds)
-    "EJUDGE" -> EjudgeDataSource(properties)
-    "KRSU" -> KRSUDataSource(properties)
-    "CATS" -> CATSDataSource(properties, creds)
-    "TESTSYS" -> TestSysDataSource(properties)
-    "NOOP" -> NoopDataSource()
-    else -> throw IllegalArgumentException("Unknown standings.type $standingsType")
-}
-
-
+@OptIn(ExperimentalSerializationApi::class)
 fun getContestDataSourceAsFlow(
-    properties: Properties,
+    properties: java.util.Properties,
     creds: Map<String, String> = emptyMap(),
 ) : Flow<ContestUpdate> {
-    val rawLoader = getRawLoader(properties, creds)
+    properties.getProperty("standings.type")?.let { properties.setProperty("type", it.lowercase()) }
+    properties.getProperty("standings.resultType")?.let { properties.setProperty("resultType", it.uppercase()) }
+    @Suppress("UNCHECKED_CAST")
+    val settings = Properties.decodeFromStringMap<CDSSettings>(properties as Map<String, String>)
+    val rawLoader = settings.toDataSource(creds)
 
-    val emulationSpeed = properties.getProperty("emulation.speed")?.toDouble()
-    val loader = if (emulationSpeed == null) {
-        rawLoader
-    } else {
-        val emulationStartTime = guessDatetimeFormat(properties.getProperty("emulation.startTime"))
-        EmulationAdapter(emulationStartTime, emulationSpeed, rawLoader)
+    val loader = when (val emulationSettings = settings.emulation) {
+        null -> rawLoader
+        else -> EmulationAdapter(emulationSettings.startTime, emulationSettings.speed, rawLoader)
     }
-
 
     return loader.getFlow()
 }
+

@@ -1,8 +1,10 @@
 package org.icpclive.util
 
 import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -73,6 +75,39 @@ object UnixSecondsSerializer : KSerializer<Instant> {
 
     override fun deserialize(decoder: Decoder): Instant {
         return Instant.fromEpochMilliseconds(decoder.decodeLong() * 1000)
+    }
+}
+
+object HumanTimeSerializer : KSerializer<Instant> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantH", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: Instant) {
+        encoder.encodeString(value.humanReadable)
+    }
+
+    override fun deserialize(decoder: Decoder): Instant {
+        val strValue = decoder.decodeString()
+        return try {
+            guessDatetimeFormat(strValue)
+        } catch (e: IllegalArgumentException) {
+            throw SerializationException(e.message)
+        }
+    }
+}
+
+object TimeZoneSerializer : KSerializer<TimeZone> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("TimeZone", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: TimeZone) {
+        encoder.encodeString(value.id)
+    }
+
+    override fun deserialize(decoder: Decoder): TimeZone {
+        return try {
+            TimeZone.of(decoder.decodeString())
+        } catch (e: IllegalArgumentException) {
+            throw SerializationException(e.message)
+        }
     }
 }
 
