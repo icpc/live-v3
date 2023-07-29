@@ -1,8 +1,8 @@
-// @ts-check
 import { test, expect, request } from "@playwright/test";
 import { spawn } from "child_process";
+import WebSocket from "ws";
 
-const simpleWidgets = ["scoreboard", "statistics", "queue"];
+const simpleWidgets = ["queue", "scoreboard", "statistics"];
 const contestConfigs = [
     "config/__tests/ejudge icpc unfreeze/2023-voronezh",
     "config/__tests/ejudge ioi/regionalroi-lpk-2021-d1",
@@ -13,7 +13,10 @@ const contestConfigs = [
     "config/__tests/testsys icpc/spbsu-2023-may"
 ];
 
-const baseURL = "http://127.0.0.1:8080";
+const backendCooldown = 2000;
+const overlayDisplayDelay = 1000;
+const address = "127.0.0.1:8080";
+const baseURL = "http://" + address;
 
 for (const contestConfig of contestConfigs) {
     test(`config ${contestConfig}`, async ({ page }) => {
@@ -31,19 +34,35 @@ for (const contestConfig of contestConfigs) {
             console.log(`Child process exited with code ${code}`);
         });
 
-        await page.waitForTimeout(10000);
-        await page.goto("/overlay");
-
         const adminApiContext = await request.newContext({
             baseURL: `${baseURL}/api/admin/`
         });
+
+        await page.waitForTimeout(backendCooldown);
+
+        let contestInfo = new WebSocket(`ws://${address}/api/overlay/contestInfo`);
+
+        const contestOver = new Promise((resolve) => {
+            if (contestInfo) {
+                contestInfo.onmessage = (event) => {
+                    const message = JSON.parse(event.data.toString());
+                    if (message.status === "OVER") {
+                        resolve(null);
+                    }
+                };
+            }
+        });
+        await contestOver;
+        contestInfo.close();
+
+        await page.goto("/overlay");
 
         for (const widgetName of simpleWidgets) {
             const showWidget = await adminApiContext.post(`./${widgetName}/show`);
             expect(showWidget.ok()).toBeTruthy();
         }
 
-        await page.waitForTimeout(10000);
+        await page.waitForTimeout(overlayDisplayDelay);
 
         const contestName = contestConfig.replace(/\//g, "_");
         await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
@@ -54,5 +73,6 @@ for (const contestConfig of contestConfigs) {
         }
 
         childProcess.kill();
+        await page.waitForTimeout(backendCooldown);
     });
 }
