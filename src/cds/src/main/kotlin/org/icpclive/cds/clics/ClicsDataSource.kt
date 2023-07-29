@@ -12,9 +12,8 @@ import org.icpclive.api.RunInfo
 import org.icpclive.cds.*
 import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
-import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.getLineStreamLoaderFlow
-import org.icpclive.cds.common.isHttpUrl
+import org.icpclive.cds.common.*
+import org.icpclive.cds.common.RawContestDataSource
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -30,20 +29,20 @@ private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Ma
         settings.login?.get(creds),
         settings.password?.get(creds)
     )
-    val eventFeedUrl = apiRequestUrl(settings.event_feed_name)
+    val eventFeedUrl = apiRequestUrl(settings.eventFeedName)
 
     private fun apiRequestUrl(method: String) = "$url/$method"
 
-    val feedVersion = settings.feed_version
+    val feedVersion = settings.feedVersion
 }
 
 class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : RawContestDataSource {
-    private val mainLoaderSettings = ParsedClicsLoaderSettings(settings.main_feed, creds)
-    private val additionalLoaderSettings = settings.additional_feed?.let { ParsedClicsLoaderSettings(it, creds) }
+    private val mainLoaderSettings = ParsedClicsLoaderSettings(settings.mainFeed, creds)
+    private val additionalLoaderSettings = settings.additionalFeed?.let { ParsedClicsLoaderSettings(it, creds) }
 
     private val model = ClicsModel(
-        settings.use_team_names,
-        settings.media_base_url
+        settings.useTeamNames,
+        settings.mediaBaseUrl
     )
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null

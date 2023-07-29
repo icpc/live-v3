@@ -34,7 +34,7 @@ class CdsLoadersTest {
         loaderTest(
             ClicsSettings(
                 url = "testData/loaders/clics-2020-03",
-                feed_version = FeedVersion.`2020_03`
+                feedVersion = FeedVersion.`2020_03`
             )
         )
     }
@@ -44,7 +44,7 @@ class CdsLoadersTest {
         loaderTest(
             ClicsSettings(
                 url = "testData/loaders/clics-2022-07",
-                feed_version = FeedVersion.`2022_07`
+                feedVersion = FeedVersion.`2022_07`
             )
         )
     }
@@ -55,7 +55,7 @@ class CdsLoadersTest {
     }
 
     private fun loaderTest(args: CDSSettings) {
-        val loader = args.toDataSource(emptyMap())
+        val loader = args.toRawDataSource(emptyMap())
         val result = runBlocking { loader.loadOnce() }
         val options = Options()
         Approvals.verify(json.encodeToString(result), options)

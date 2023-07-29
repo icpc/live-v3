@@ -3,8 +3,8 @@ package org.icpclive.cds.pcms
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.PCMSSettings
 import org.icpclive.cds.common.ClientAuth
 import org.icpclive.cds.common.xmlLoader

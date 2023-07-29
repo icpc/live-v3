@@ -15,27 +15,24 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.api.AdvancedProperties
-import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.adapters.*
+import org.icpclive.cds.parseFileToCdsSettings
 import org.icpclive.data.Controllers
-import org.icpclive.overlay.configureOverlayRouting
-import org.icpclive.util.*
-import org.icpclive.cds.getContestDataSourceAsFlow
 import org.icpclive.data.DataBus
+import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.AdvancedPropertiesService
 import org.icpclive.service.launchServices
+import org.icpclive.util.completeOrThrow
+import org.icpclive.util.defaultJsonSettings
+import org.icpclive.util.fileJsonContentFlow
 import org.slf4j.event.Level
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.nio.file.Files
 import java.time.Duration
-import java.util.*
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit =
@@ -120,9 +117,6 @@ fun Application.module() {
         exitProcess(1)
     }
     val path = config.configDirectory.resolve("events.properties")
-    if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in ${config.configDirectory}")
-    val properties = Properties()
-    FileInputStream(path.toString()).use { properties.load(it) }
 
     launch(handler) {
         val advancedJsonPath = config.configDirectory.resolve("advanced.json")
@@ -130,10 +124,9 @@ fun Application.module() {
             .stateIn(this, SharingStarted.Eagerly, AdvancedProperties())
         DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
 
-        val loader = getContestDataSourceAsFlow(
-            properties,
-            config.creds,
-        ).applyAdvancedProperties(advancedPropertiesFlow)
+        val loader = parseFileToCdsSettings(path)
+            .toFlow(config.creds)
+            .applyAdvancedProperties(advancedPropertiesFlow)
             .withRunsBefore()
             .filterUseless()
             .removeFrozenSubmissions()

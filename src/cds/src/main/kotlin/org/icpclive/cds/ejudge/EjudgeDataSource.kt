@@ -2,9 +2,9 @@ package org.icpclive.cds.ejudge
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
+import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.EjudgeSettings
-import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.xmlLoader
 import org.icpclive.util.child
 import org.icpclive.util.children

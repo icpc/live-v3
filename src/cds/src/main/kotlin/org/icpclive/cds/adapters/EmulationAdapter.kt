@@ -6,6 +6,8 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
+import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.common.RawContestDataSource
 import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
 import kotlin.random.Random

@@ -3,8 +3,8 @@ package org.icpclive.cds.codeforces
 import kotlinx.datetime.Clock
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.CFSettings
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.codeforces.api.data.*
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.codeforces.api.results.CFStatusWrapper
@@ -35,7 +35,7 @@ class CFDataSource(val settings: CFSettings, creds: Map<String, String>) : FullR
     private val standingsLoader = jsonLoader<CFStatusWrapper<CFStandings>> {
         apiRequestUrl(
             "contest.standings",
-            mapOf("contestId" to settings.contest_id.toString())
+            mapOf("contestId" to settings.contestId.toString())
         )
     }.map {
         it.unwrap()
@@ -44,7 +44,7 @@ class CFDataSource(val settings: CFSettings, creds: Map<String, String>) : FullR
     private val statusLoader = jsonLoader<CFStatusWrapper<List<CFSubmission>>> {
         apiRequestUrl(
             "contest.status",
-            mapOf("contestId" to settings.contest_id.toString())
+            mapOf("contestId" to settings.contestId.toString())
         )
     }.map {
         it.unwrap()
@@ -53,7 +53,7 @@ class CFDataSource(val settings: CFSettings, creds: Map<String, String>) : FullR
     private val hacksLoader = jsonLoader<CFStatusWrapper<List<CFHack>>> {
         apiRequestUrl(
             "contest.hacks",
-            mapOf("contestId" to settings.contest_id.toString())
+            mapOf("contestId" to settings.contestId.toString())
         )
     }.map {
         it.unwrap()

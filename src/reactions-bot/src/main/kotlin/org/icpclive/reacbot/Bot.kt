@@ -8,7 +8,6 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.int
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.io.FileInputStream
 import java.util.*
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.Bot
@@ -29,16 +28,17 @@ import org.icpclive.cds.adapters.processHiddenTeamsAndGroups
 import org.icpclive.cds.adapters.removeFrozenSubmissions
 import org.icpclive.cds.adapters.withRunsBefore
 import org.icpclive.cds.common.setAllowUnsecureConnections
-import org.icpclive.cds.getContestDataSourceAsFlow
+import org.icpclive.cds.parseFileToCdsSettings
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 
 class Bot(private val config: Config) {
     @OptIn(DelicateCoroutinesApi::class)
     private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
-    private val cds = getContestDataSourceAsFlow(
-        getProperties(config.eventPropertiesFile),
-    ).withRunsBefore()
+    private val cds = parseFileToCdsSettings(
+        Path.of(config.eventPropertiesFile),
+    ).toFlow(emptyMap())
+        .withRunsBefore()
         .filterUseless()
         .removeFrozenSubmissions()
         .processHiddenTeamsAndGroups()
@@ -151,12 +151,6 @@ class Bot(private val config: Config) {
             }
         }
     }
-}
-
-private fun getProperties(fileName: String): Properties {
-    val properties = Properties()
-    FileInputStream(fileName).use { properties.load(it) }
-    return properties
 }
 
 class BotCommand : CliktCommand() {

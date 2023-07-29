@@ -6,11 +6,17 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.properties.Properties
+import kotlinx.serialization.properties.decodeFromStringMap
 import org.icpclive.api.ContestResultType
+import org.icpclive.cds.adapters.EmulationAdapter
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.cds.codeforces.CFDataSource
+import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.common.RawContestDataSource
 import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.noop.NoopDataSource
@@ -19,6 +25,8 @@ import org.icpclive.cds.testsys.TestSysDataSource
 import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.HumanTimeSerializer
 import org.icpclive.util.TimeZoneSerializer
+import org.icpclive.util.getLogger
+import java.nio.file.Path
 
 // I'd like to have them in cds files, but then serializing would be much harder
 
@@ -50,7 +58,16 @@ sealed class CDSSettings {
         return json.encodeToString(this)
     }
 
-    internal abstract fun toDataSource(creds: Map<String, String>): RawContestDataSource
+    fun toFlow(creds: Map<String, String>) = toDataSource(creds).getFlow()
+
+    internal fun toDataSource(creds: Map<String, String>) : ContestDataSource {
+        val raw = toRawDataSource(creds)
+        return when (val emulationSettings = emulation) {
+            null -> raw
+            else -> EmulationAdapter(emulationSettings.startTime, emulationSettings.speed, raw)
+        }
+    }
+    internal abstract fun toRawDataSource(creds: Map<String, String>): RawContestDataSource
 
     companion object {
         private val json = Json { prettyPrint = true }
@@ -60,7 +77,7 @@ sealed class CDSSettings {
 @Serializable
 @SerialName("noop")
 class NoopSettings(override val emulation: EmulationSettings? = null) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = NoopDataSource()
+    override fun toRawDataSource(creds: Map<String, String>) = NoopDataSource()
 }
 
 @Serializable
@@ -71,7 +88,7 @@ class TestSysSettings(
     val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = TestSysDataSource(this)
+    override fun toRawDataSource(creds: Map<String, String>) = TestSysDataSource(this)
 }
 
 @Serializable
@@ -86,21 +103,21 @@ class CatsSettings(
     val cid: String,
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = CATSDataSource(this, creds)
+    override fun toRawDataSource(creds: Map<String, String>) = CATSDataSource(this, creds)
 }
 
 @Serializable
 @SerialName("krsu")
 class KRSUSettings(
-    @SerialName("submissions-url")
+    @SerialName("submissions_url")
     val submissionsUrl: String,
-    @SerialName("contest-url")
+    @SerialName("contest_url")
     val contestUrl: String,
     @Serializable(with = TimeZoneSerializer::class)
     val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = KRSUDataSource(this)
+    override fun toRawDataSource(creds: Map<String, String>) = KRSUDataSource(this)
 }
 
 @Serializable
@@ -110,36 +127,37 @@ class EjudgeSettings(
     val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = EjudgeDataSource(this)
+    override fun toRawDataSource(creds: Map<String, String>) = EjudgeDataSource(this)
 }
 
 
 @Serializable
 @SerialName("yandex")
 class YandexSettings(
-    @SerialName("yandex.token")
+    @SerialName("api_key")
     val apiKey: Credential,
-    @SerialName("yandex.login_prefix")
+    @SerialName("login_regex")
     val loginRegex: String,
-    @SerialName("yandex.contest_id")
+    @SerialName("contest_id")
     val contestId: Int,
     val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = YandexDataSource(this, creds)
+    override fun toRawDataSource(creds: Map<String, String>) = YandexDataSource(this, creds)
 }
 
 @Serializable
 @SerialName("cf")
 class CFSettings(
-    val contest_id: Int,
-    @SerialName("cf.api.key")
+    @SerialName("contest_id")
+    val contestId: Int,
+    @SerialName("api_key")
     val apiKey: Credential,
-    @SerialName("cf.api.secret")
+    @SerialName("api_secret")
     val apiSecret: Credential,
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = CFDataSource(this, creds)
+    override fun toRawDataSource(creds: Map<String, String>) = CFDataSource(this, creds)
 }
 
 @Serializable
@@ -148,12 +166,12 @@ class PCMSSettings(
     val url: String,
     val login: Credential? = null,
     val password: Credential? = null,
-    @SerialName("problems.url")
+    @SerialName("problems_url")
     val problemsUrl: String? = null,
     val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = PCMSDataSource(this, creds)
+    override fun toRawDataSource(creds: Map<String, String>) = PCMSDataSource(this, creds)
 }
 
 @Serializable
@@ -161,8 +179,10 @@ class ClicsLoaderSettings(
     val url: String,
     val login: Credential? = null,
     val password: Credential? = null,
-    val event_feed_name: String = "event-feed",
-    val feed_version: FeedVersion = FeedVersion.`2022_07`
+    @SerialName("event_feed_name")
+    val eventFeedName: String = "event-feed",
+    @SerialName("feed_version")
+    val feedVersion: FeedVersion = FeedVersion.`2022_07`
 )
 
 @SerialName("clics")
@@ -171,14 +191,58 @@ class ClicsSettings(
     private val url: String,
     private val login: Credential? = null,
     private val password: Credential? = null,
-    private val event_feed_name: String = "event-feed",
-    private val feed_version: FeedVersion = FeedVersion.`2022_07`,
-    val additional_feed: ClicsLoaderSettings? = null,
-    val use_team_names: Boolean = true,
-    val media_base_url: String = "",
+    @SerialName("event_feed_name")
+    private val eventFeedName: String = "event-feed",
+    @SerialName("feed_version")
+    private val feedVersion: FeedVersion = FeedVersion.`2022_07`,
+    @SerialName("additional_feed")
+    val additionalFeed: ClicsLoaderSettings? = null,
+    @SerialName("use_team_names")
+    val useTeamNames: Boolean = true,
+    @SerialName("media_base_url")
+    val mediaBaseUrl: String = "",
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    val main_feed get() = ClicsLoaderSettings(url,login, password, event_feed_name, feed_version)
+    val mainFeed get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
 
-    override fun toDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
+    override fun toRawDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
+}
+
+@OptIn(ExperimentalSerializationApi::class)
+fun parseFileToCdsSettings(path: Path) : CDSSettings {
+    val file = path.toFile()
+    return if (!file.exists()) {
+        throw java.lang.IllegalArgumentException("File ${file.absolutePath} does not exist")
+    } else if (file.name.endsWith(".properties")) {
+        val properties = java.util.Properties()
+        file.inputStream().use { properties.load(it) }
+        val legacyMap = mapOf(
+            "standings.type" to "type",
+            "standings.resultType" to "resultType",
+            "yandex.token" to "api_key",
+            "yandex.login_prefix" to "login_regex",
+            "yandex.contest_id" to "contest_id",
+            "cf.api.key" to "api_key",
+            "cf.api.secret" to "api_secret",
+            "problems.url" to "problems_url",
+            "submissions-url" to "submissions_url",
+            "contest-url" to "contest_url",
+            "timezone" to "timeZone"
+        )
+        for ((k, v) in legacyMap) {
+            properties.getProperty(k)?.let {
+                getLogger(CDSSettings::class).info(
+                    "Deprecated event.properties key $k is used. Use $v instead."
+                )
+                properties.setProperty(v, it)
+                properties.remove(k)
+            }
+        }
+        @Suppress("UNCHECKED_CAST")
+        Properties.decodeFromStringMap<CDSSettings>(properties as Map<String, String>)
+    } else if (file.name.endsWith(".json")) {
+        file.inputStream().use { Json.decodeFromStream<CDSSettings>(it) }
+    } else {
+        throw IllegalArgumentException("Unknown settings file extension: ${file.path}")
+    }
 }

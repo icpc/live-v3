@@ -24,16 +24,12 @@ import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.util.*
-import org.icpclive.cds.getContestDataSourceAsFlow
+import org.icpclive.cds.parseFileToCdsSettings
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
 import org.slf4j.event.Level
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.nio.file.Files
 import java.nio.file.Paths
 import java.time.Duration
-import java.util.*
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit =
@@ -83,21 +79,16 @@ fun Application.module() {
     }
     environment.log.info("Using config directory $configDirectory")
     environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
-    val path = configDirectory.resolve("events.properties")
-    if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in $configDirectory")
-    val properties = Properties()
-    FileInputStream(path.toString()).use { properties.load(it) }
 
     val advancedProperties = fileJsonContentFlow<AdvancedProperties>(configDirectory.resolve("advanced.json"), environment.log)
         .stateIn(this + handler, SharingStarted.Eagerly, AdvancedProperties())
 
+    val creds: Map<String, String> = environment.config.propertyOrNull("live.credsFile")?.getString()?.let {
+        Json.decodeFromStream(File(it).inputStream())
+    } ?: emptyMap()
 
-    val loaded = getContestDataSourceAsFlow(
-        properties,
-        environment.config.propertyOrNull("live.credsFile")?.getString()?.let {
-            Json.decodeFromStream(File(it).inputStream())
-        } ?: emptyMap(),
-    )
+    val loaded = parseFileToCdsSettings(configDirectory.resolve("events.properties"))
+        .toFlow(creds)
         .applyAdvancedProperties(advancedProperties)
         .filterUseless()
         .processHiddenTeamsAndGroups()

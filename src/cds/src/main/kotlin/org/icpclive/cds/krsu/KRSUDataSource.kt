@@ -3,8 +3,8 @@ package org.icpclive.cds.krsu
 import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.KRSUSettings
 import org.icpclive.cds.common.jsonLoader
 import kotlin.time.Duration

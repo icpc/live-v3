@@ -3,8 +3,8 @@ package org.icpclive.cds.testsys
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.TestSysSettings
 import org.icpclive.cds.common.ByteArrayLoader
 import org.icpclive.cds.common.map
