@@ -34,45 +34,47 @@ for (const contestConfig of contestConfigs) {
             console.log(`Child process exited with code ${code}`);
         });
 
-        const adminApiContext = await request.newContext({
-            baseURL: `${baseURL}/api/admin/`
-        });
+        try {
+            const adminApiContext = await request.newContext({
+                baseURL: `${baseURL}/api/admin/`
+            });
 
-        await page.waitForTimeout(backendCooldown);
+            await page.waitForTimeout(backendCooldown);
 
-        let contestInfo = new WebSocket(`ws://${address}/api/overlay/contestInfo`);
+            let contestInfo = new WebSocket(`ws://${address}/api/overlay/contestInfo`);
 
-        const contestOver = new Promise((resolve) => {
-            if (contestInfo) {
-                contestInfo.onmessage = (event) => {
-                    const message = JSON.parse(event.data.toString());
-                    if (message.status === "OVER") {
-                        resolve(null);
-                    }
-                };
+            const contestOver = new Promise((resolve) => {
+                if (contestInfo) {
+                    contestInfo.onmessage = (event) => {
+                        const message = JSON.parse(event.data.toString());
+                        if (message.status === "OVER") {
+                            resolve(null);
+                        }
+                    };
+                }
+            });
+            await contestOver;
+            contestInfo.close();
+
+            await page.goto("/overlay");
+
+            for (const widgetName of simpleWidgets) {
+                const showWidget = await adminApiContext.post(`./${widgetName}/show`);
+                expect.soft(showWidget.ok()).toBeTruthy();
             }
-        });
-        await contestOver;
-        contestInfo.close();
 
-        await page.goto("/overlay");
+            await page.waitForTimeout(overlayDisplayDelay);
 
-        for (const widgetName of simpleWidgets) {
-            const showWidget = await adminApiContext.post(`./${widgetName}/show`);
-            expect(showWidget.ok()).toBeTruthy();
+            const contestName = contestConfig.replace(/\//g, "_");
+            await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
+
+            for (const widgetName of simpleWidgets) {
+                const hideWidget = await adminApiContext.post(`./${widgetName}/hide`);
+                expect.soft(hideWidget.ok()).toBeTruthy();
+            }
+        } finally {
+            childProcess.kill();
+            await page.waitForTimeout(backendCooldown);
         }
-
-        await page.waitForTimeout(overlayDisplayDelay);
-
-        const contestName = contestConfig.replace(/\//g, "_");
-        await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
-
-        for (const widgetName of simpleWidgets) {
-            const hideWidget = await adminApiContext.post(`./${widgetName}/hide`);
-            expect(hideWidget.ok()).toBeTruthy();
-        }
-
-        childProcess.kill();
-        await page.waitForTimeout(backendCooldown);
     });
 }
