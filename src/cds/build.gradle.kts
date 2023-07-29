@@ -9,8 +9,8 @@ plugins {
 }
 
 tasks.dokkaHtml {
+    moduleName.set("ICPC-live contest data parser")
     dokkaSourceSets.configureEach {
-        moduleName.set("ICPC-live contest data parser")
         // should be moved to another package, as reused by exporter
         perPackageOption {
             matchingRegex.set("org.icpclive.cds.clics.*")
