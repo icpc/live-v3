@@ -31,10 +31,6 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
             "-P:auth.disabled=true",
             `-P:live.configDirectory=${contestConfig}`]);
 
-        childProcess.stdout.on("data", (data) => {
-            console.log(`Child process stdout: ${data}`);
-        });
-
         childProcess.stderr.on("data", (data) => {
             console.error(`Child process stderr: ${data}`);
         });
