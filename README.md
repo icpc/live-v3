@@ -176,6 +176,15 @@ set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/admin
 npm run start
 ```
 
+# Run tests
+
+Create release in artifacts, then run:
+```bash
+npm ci
+npx playwright install --with-deps
+npx playwright test
+```
+
 # Previous versions:
 
 * https://github.com/icpc-live
