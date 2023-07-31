@@ -4,13 +4,16 @@ import java.net.URI
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
-    id("org.jetbrains.dokka") version "1.8.20"
+    alias(libs.plugins.dokka)
     alias(libs.plugins.protobuf)
     base
     idea
 }
 
 protobuf {
+    protoc {
+        artifact = libs.protoc.get().toString()
+    }
     plugins {
         id("grpc") {
             artifact = libs.grpc.gen.java.get().toString()
