@@ -149,7 +149,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings, creds: Map
             resultType = ContestResultType.ICPC,
             startTime = startTime,
             contestLength = contestLength,
-            freezeTime = contestLength,// - contest.scoreboardSettings.freezeSettings.freezeOffsetTimeInS.seconds,
+            freezeTime = contestLength - contest.scoreboardSettings.freezeSettings.freezeOffsetTimeInS.seconds,
             problems = problems,
             teams = teams,
             penaltyPerWrongAttempt = contest.scoreboardSettings.penaltyPerAttemptInS.seconds,
