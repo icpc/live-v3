@@ -78,7 +78,7 @@ data class ProblemInfo(
 enum class ContestStatus {
     BEFORE, RUNNING, OVER;
 
-    companion object {
+    internal companion object {
         fun byCurrentTime(startTime: Instant, contestLength: Duration, now: Instant = Clock.System.now()): ContestStatus {
             val offset = now - startTime
             return when {
