@@ -29,7 +29,7 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
             "artifacts/live-v3-dev.jar",
             `-port=${port}`,
             "-P:auth.disabled=true",
-            `-P:live.configDirectory=${contestConfig}`]);
+            `-P:live.configDirectory=${contestConfig}`], {stdio: ['ignore', 'ignore', 'pipe']});
 
         childProcess.stderr.on("data", (data) => {
             console.error(`Child process stderr: ${data}`);
@@ -61,7 +61,7 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
             await contestOver;
             contestInfo.close();
 
-            await page.goto("/overlay");
+            await page.goto(baseURL + "/overlay");
 
             for (const widgetName of simpleWidgets) {
                 const showWidget = await adminApiContext.post(`./${widgetName}/show`);
