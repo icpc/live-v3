@@ -66,7 +66,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         val currentTime = parseEjudgeTime(element.getAttribute("current_time"))
         val name = element.child("name").textContent
 
-        val status = ContestStatus.byCurrentTime(startTime, contestLength, startTime)
+        val status = ContestStatus.byCurrentTime(startTime, contestLength)
 
         var freezeTime = if (settings.resultType == ContestResultType.ICPC) 4.hours else contestLength
         if (element.hasAttribute("fog_time")) {
