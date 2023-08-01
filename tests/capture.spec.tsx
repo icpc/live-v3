@@ -29,14 +29,27 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
             "artifacts/live-v3-dev.jar",
             `-port=${port}`,
             "-P:auth.disabled=true",
-            `-P:live.configDirectory=${contestConfig}`], {stdio: ['ignore', 'ignore', 'pipe']});
+            `-P:live.configDirectory=${contestConfig}`]);
+
+        childProcess.stdout.on("data", (data) => {
+            console.log(`${data}`);
+        });
 
         childProcess.stderr.on("data", (data) => {
-            console.error(`Child process stderr: ${data}`);
+            console.error(`${data}`);
         });
 
         childProcess.on("close", (code) => {
             console.log(`Child process exited with code ${code}`);
+        });
+
+        process.on('exit', function () {
+            childProcess.kill();
+        });
+        
+        process.on('SIGINT', function () {
+            childProcess.kill();
+            process.exit();
         });
 
         try {
@@ -49,14 +62,13 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
             let contestInfo = new WebSocket(`${wsURL}/api/overlay/contestInfo`);
 
             const contestOver = new Promise((resolve) => {
-                if (contestInfo) {
-                    contestInfo.onmessage = (event) => {
-                        const message = JSON.parse(event.data.toString());
-                        if (message.status === "OVER") {
-                            resolve(null);
-                        }
-                    };
-                }
+                contestInfo.onmessage = (event) => {
+                    const message = JSON.parse(event.data.toString());
+                    console.log(message.status);
+                    if (message.status === "OVER") {
+                        resolve(null);
+                    }
+                };
             });
             await contestOver;
             contestInfo.close();
@@ -78,7 +90,6 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
                 expect.soft(hideWidget.ok()).toBeTruthy();
             }
         } finally {
-            childProcess.kill();
             await page.waitForTimeout(backendCooldown);
         }
     });
