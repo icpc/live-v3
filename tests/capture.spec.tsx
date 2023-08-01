@@ -13,13 +13,15 @@ const contestConfigs = [
     "config/__tests/testsys icpc/spbsu-2023-may"
 ];
 
-const backendCooldown = 2000;
+const backendStartCooldown = 3000;
+const backendFinishCooldown = 1000;
 const overlayDisplayDelay = 1000;
 const address = "127.0.0.1";
 const startingPort = 8080;
 
 for (const [index, contestConfig] of contestConfigs.entries()) {
     test(`config ${contestConfig}`, async ({ page }) => {
+        console.log(`Starting contest ${contestConfig}`)
         const port = startingPort + index;
         const baseURL = `http://${address}:${port}`;
         const wsURL = `ws://${address}:${port}`;
@@ -46,51 +48,47 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
         process.on('exit', function () {
             childProcess.kill();
         });
-        
+
         process.on('SIGINT', function () {
             childProcess.kill();
             process.exit();
         });
 
-        try {
-            const adminApiContext = await request.newContext({
-                baseURL: `${baseURL}/api/admin/`
-            });
+        const adminApiContext = await request.newContext({
+            baseURL: `${baseURL}/api/admin/`
+        });
 
-            await page.waitForTimeout(backendCooldown);
+        await page.waitForTimeout(backendStartCooldown);
 
-            let contestInfo = new WebSocket(`${wsURL}/api/overlay/contestInfo`);
+        let contestInfo = new WebSocket(`${wsURL}/api/overlay/contestInfo`);
 
-            const contestOver = new Promise((resolve) => {
-                contestInfo.onmessage = (event) => {
-                    const message = JSON.parse(event.data.toString());
-                    console.log(message.status);
-                    if (message.status === "OVER") {
-                        resolve(null);
-                    }
-                };
-            });
-            await contestOver;
-            contestInfo.close();
+        const contestOver = new Promise((resolve) => {
+            contestInfo.onmessage = (event) => {
+                const message = JSON.parse(event.data.toString());
+                if (message.status === "OVER") {
+                    resolve(null);
+                }
+            };
+        });
+        await contestOver;
+        contestInfo.close();
 
-            await page.goto(baseURL + "/overlay");
+        await page.goto(baseURL + "/overlay");
 
-            for (const widgetName of simpleWidgets) {
-                const showWidget = await adminApiContext.post(`./${widgetName}/show`);
-                expect.soft(showWidget.ok()).toBeTruthy();
-            }
-
-            await page.waitForTimeout(overlayDisplayDelay);
-
-            const contestName = contestConfig.replace(/\//g, "_");
-            await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
-
-            for (const widgetName of simpleWidgets) {
-                const hideWidget = await adminApiContext.post(`./${widgetName}/hide`);
-                expect.soft(hideWidget.ok()).toBeTruthy();
-            }
-        } finally {
-            await page.waitForTimeout(backendCooldown);
+        for (const widgetName of simpleWidgets) {
+            const showWidget = await adminApiContext.post(`./${widgetName}/show`);
+            expect.soft(showWidget.ok()).toBeTruthy();
         }
+
+        await page.waitForTimeout(overlayDisplayDelay);
+
+        const contestName = contestConfig.replace(/\//g, "_");
+        await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
+
+        for (const widgetName of simpleWidgets) {
+            const hideWidget = await adminApiContext.post(`./${widgetName}/hide`);
+            expect.soft(hideWidget.ok()).toBeTruthy();
+        }
+        await page.waitForTimeout(backendFinishCooldown);
     });
 }
