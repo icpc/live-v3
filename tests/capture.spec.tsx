@@ -17,7 +17,7 @@ const backendStartCooldown = 10000;
 const backendFinishCooldown = 1000;
 const overlayDisplayDelay = 1000;
 const address = "127.0.0.1";
-const startingPort = 8080;
+const startingPort = 8090;
 
 for (const [index, contestConfig] of contestConfigs.entries()) {
     test(`config ${contestConfig}`, async ({ page }) => {
