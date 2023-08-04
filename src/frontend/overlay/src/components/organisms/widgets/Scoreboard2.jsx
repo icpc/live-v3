@@ -4,36 +4,66 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
-    CELL_QUEUE_TASK_WIDTH,
     QUEUE_PER_COLUMNS_PADDING2,
-    SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR,
     SCOREBOARD_NAME_WIDTH2,
-    SCOREBOARD_RANK_WIDTH2,
     SCOREBOARD_ROW_TRANSITION_TIME,
     SCOREBOARD_SCROLL_INTERVAL,
-    WIDGET_LAYOUT_BACKGROUND,
+    SCOREBOARD_BACKGROUND_COLOR,
+    SCOREBOARD_CAPTION,
+    SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR,
+    SCOREBOARD_TABLE_HEADER_DIVIDER_COLOR,
 } from "../../../config";
 import { formatScore } from "../../atoms/ContestCells";
-import { extractScoreboardRows, nameTable, useScroller } from "./Scoreboard";
+import { ProblemLabel } from "../../atoms/ProblemLabel";
+import { extractScoreboardRows, useScroller } from "./Scoreboard";
 import { ContestantRow2 } from "../../atoms/ContestantRow2";
 import { TaskResultLabel2, RankLabel } from "../../atoms/ContestLabels2";
 import { FlexedBox2, ShrinkingBox2 } from "../../atoms/Box2";
-import { CircleCell } from "../../atoms/CircleCellsProblem";
 
 
-const ScoreboardWrap2 = styled.div`
+const ScoreboardWrap = styled.div`
+  color: #FFF;
   height: 100%;
   width: 100%;
-  border: none;
-  border-collapse: collapse;
-  table-layout: fixed;
   display: flex;
+  gap: 14px;
+  padding: 7px 16px 0 16px;
+  box-sizing: border-box;
   flex-direction: column;
-  background-color: ${WIDGET_LAYOUT_BACKGROUND};
+  background-color: ${SCOREBOARD_BACKGROUND_COLOR};
   border-radius: 16px;
   overflow: hidden;
 `;
 
+const ScoreboardHeader = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 44px; /* 137.5% */
+`;
+
+const ScoreboardTitle = styled.div`
+  flex: 1 0 0;
+`;
+
+const ScoreboardCaption = styled.div`
+`;
+
+const ScoreboardContent = styled.div`
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: column;
+`;
+
+
+export const nameTable = {
+    normal: "Current",
+    optimistic: "Optimistic",
+    pessimistic: "Pessimistic",
+};
 
 export const ScoreboardRow2 = ({ teamId, hideTasks, optimismLevel }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
@@ -61,7 +91,7 @@ ScoreboardRow2.propTypes = {
     hideTasks: PropTypes.bool
 };
 
-const PositionedScoreboardRowWrap = styled.div.attrs(({ zIndex, pos }) => ({
+const PositionedScoreboardRow = styled.div.attrs(({ zIndex, pos }) => ({
     style: {
         zIndex: zIndex,
         top: pos + "px",
@@ -75,69 +105,121 @@ const PositionedScoreboardRowWrap = styled.div.attrs(({ zIndex, pos }) => ({
   position: absolute;
 `;
 
-const PositionedScoreboardRow = ({ zIndex, children, ...props }) => {
-    return <PositionedScoreboardRowWrap zIndex={zIndex} {...props}>
-        {children}
-    </PositionedScoreboardRowWrap>;
-};
-
-PositionedScoreboardRow.propTypes = {
-    zIndex: PropTypes.number,
-    children: PropTypes.node
-};
-
-const ScoreboardHeaderTitle2 = styled(FlexedBox2)`
-  text-align: center;
-  width: calc(${SCOREBOARD_RANK_WIDTH2} + ${SCOREBOARD_NAME_WIDTH2});
+const ScoreboardRowsWrap = styled.div`
+  position: relative;
+  flex: 1 0 0;
+  overflow: hidden;
 `;
 
-const ScoreboardProblemLabel2 = ({ probData: prob }) =>
-    <FlexedBox2 flexGrow={1} flexShrink={1} flexBasis={0} align={"center"} display="flex">
-        <CircleCell content={prob?.letter ?? "??"} backgroundColor={prob?.color ?? "black"} width={CELL_QUEUE_TASK_WIDTH}/>
-    </FlexedBox2>;
-
-const ScoreboardHeader2 = ({ problems, name }) => {
-    const contestInfo = useSelector((state) => state.contestInfo.info);
-    let color = name === "optimistic" ? SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR : undefined;
-
-    return <ContestantRow2>
-        <ScoreboardHeaderTitle2 color={color} marginLeft={QUEUE_PER_COLUMNS_PADDING2} marginRight={QUEUE_PER_COLUMNS_PADDING2}>
-            {nameTable[name] + " STANDINGS"}
-        </ScoreboardHeaderTitle2>
-        {/*marginRight={QUEUE_PER_COLUMNS_PADDING2}*/}
-        <FlexedBox2 flexGrow={1} flexShrink={1} flexBasis={0} align={"center"}>&#931;</FlexedBox2>
-        {contestInfo?.resultType === "ICPC" && <FlexedBox2 flexGrow={1} flexShrink={1} flexBasis={0} align={"center"}>PEN</FlexedBox2>}
-        {problems && problems.map((probData) => <ScoreboardProblemLabel2 probData={probData} key={probData.name}/>)}
-    </ContestantRow2>;
-};
-
-ScoreboardHeader2.propTypes = {
-    problems: PropTypes.arrayOf(PropTypes.object)
-};
-
-export const Scoreboard2 = ({ widgetData: { settings, location } }) => {
-    const optimismLevel = settings.optimismLevel;
-    const teamsOnPage = settings.teamsOnPage;
-    const startPageRow = settings.startFromRow - 1;
+export const ScoreboardRows = ({ settings }) => {
     const rows = extractScoreboardRows(
-        useSelector((state) => state.scoreboard[optimismLevel]),
+        useSelector((state) => state.scoreboard[settings.optimismLevel]),
         settings.group);
-    const contestInfo = useSelector((state) => state.contestInfo.info);
-    const totalHeight = location.sizeY;
-    const rowHeight = (totalHeight / (teamsOnPage + 1));
-    const scrollPos = useScroller(rows.length, teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, startPageRow, settings.numRows);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
-    return <ScoreboardWrap2>
-        <PositionedScoreboardRow pos={0} rowHeight={rowHeight} zIndex={rows.length + 1}>
-            <ScoreboardHeader2 problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>
-        </PositionedScoreboardRow>
-        {teams.map(([ind, teamRowData]) =>
-            <PositionedScoreboardRow key={teamRowData.teamId} pos={ind * rowHeight - scrollPos * rowHeight + rowHeight}
-                rowHeight={rowHeight} zIndex={rows.length - ind}>
-                <ScoreboardRow2 teamId={teamRowData.teamId} optimismLevel={optimismLevel} isEven={ind % 2 === 0}/>
+    const rowHeight = 44;
+    const scrollPos = useScroller(rows.length, settings.teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
+    return <ScoreboardRowsWrap>
+        {teams.map(([index, teamData]) =>
+            <PositionedScoreboardRow key={teamData.teamId} zIndex={index} pos={index * rowHeight - scrollPos * rowHeight}>
+                <ScoreboardRow2 key={teamData.teamId} teamId={teamData.teamId} optimismLevel={settings.optimismLevel}/>
             </PositionedScoreboardRow>
         )}
-    </ScoreboardWrap2>;
+    </ScoreboardRowsWrap>
+}
+
+const ScoreboardTableHeaderWrap = styled.div`
+  background-color: ${SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR};
+  padding-left: 10px;
+  gap: 8px;
+  box-sizing: border-box;
+  display: flex;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 44px;
+  
+`;
+
+const ScoreboardTableHeaderCell = styled.div`
+  flex-shrink: 0;
+  text-align: center;
+`;
+
+const ScoreboardTableHeaderPlace = styled(ScoreboardTableHeaderCell)`
+  width: 55px;
+`
+
+const ScoreboardTableHeaderName = styled(ScoreboardTableHeaderCell)`
+  width: 288px;
+`
+
+const ScoreboardTableHeaderPoints = styled(ScoreboardTableHeaderCell)`
+  width: 65px;
+`
+
+const ScoreboardTableHeaderPenalty = styled(ScoreboardTableHeaderCell)`
+  width: 76px;
+`
+
+const TableDivider = styled.div`
+  width: 3px;
+  flex-shrink: 0;
+  align-self: stretch;
+  background-color: ${SCOREBOARD_TABLE_HEADER_DIVIDER_COLOR};
+`
+
+const ScoreboardTableHeaderProblems = styled.div`
+    display: flex;
+    align-items: center;
+    flex: 1 0 0;
+    align-self: stretch;
+`
+
+const ScoreboardProblemLabel = styled(ProblemLabel)`
+  flex: 1 0 0;
+`
+
+const ScoreboardTableHeader = () => {
+    const problems = useSelector((state) => state.contestInfo.info?.problems);
+    return <ScoreboardTableHeaderWrap>
+        <ScoreboardTableHeaderPlace>Place</ScoreboardTableHeaderPlace>
+        <TableDivider/>
+        <ScoreboardTableHeaderName>Team name</ScoreboardTableHeaderName>
+        <TableDivider/>
+        <ScoreboardTableHeaderPoints>Points</ScoreboardTableHeaderPoints>
+        <TableDivider/>
+        <ScoreboardTableHeaderPenalty>Penalty</ScoreboardTableHeaderPenalty>
+        <ScoreboardTableHeaderProblems>
+            {problems && problems.map((probData) => {
+                    return <React.Fragment key={probData.name}>
+                        <TableDivider/>
+                        <ScoreboardProblemLabel letter={probData.letter} problemColor={probData.color}/>
+                    </React.Fragment>;
+                }
+            )}
+        </ScoreboardTableHeaderProblems>
+    </ScoreboardTableHeaderWrap>;
+}
+
+ScoreboardTableHeader.propTypes = { name: PropTypes.any };
+export const Scoreboard2 = ({ widgetData: { settings } }) => {
+    return <ScoreboardWrap>
+        <ScoreboardHeader>
+            <ScoreboardTitle>
+                {nameTable[settings.optimismLevel] ?? "??"} standings
+            </ScoreboardTitle>
+            <ScoreboardCaption>
+                {SCOREBOARD_CAPTION}
+            </ScoreboardCaption>
+        </ScoreboardHeader>
+        <ScoreboardContent>
+            <ScoreboardTableHeader/>
+            <ScoreboardRows settings={settings}/>
+        </ScoreboardContent>
+    </ScoreboardWrap>;
 };
 
 Scoreboard2.propTypes = {

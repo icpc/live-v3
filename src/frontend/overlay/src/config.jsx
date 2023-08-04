@@ -5,10 +5,16 @@ const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
 export const BASE_URL_WS = import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay";
 
+const CONTEST_COLOR = "#4C83C3"
+
 // Non Styling configs
 export const WEBSOCKET_RECONNECT_TIME = 5000; // ms
 export const QUEUE_TITLE = "Queue";
 export const QUEUE_CAPTION = "46th";
+
+export const SCOREBOARD_CAPTION = "46th";
+export const SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR = CONTEST_COLOR;
+export const SCOREBOARD_TABLE_HEADER_DIVIDER_COLOR = "#242425"
 
 // Behaviour
 export const TICKER_SCOREBOARD_REPEATS = 1;
@@ -53,7 +59,7 @@ export const QUEUE_ROW_HEIGHT2 = 25; // px
 export const QUEUE_FTS_PADDING = QUEUE_ROW_HEIGHT / 2; // px
 export const QUEUE_OPACITY = 0.95;
 export const QUEUE_FEATURED_RUN_ASPECT = 16 / 9;
-export const QUEUE_BACKGROUND_COLOR = "#4C83C3";
+export const QUEUE_BACKGROUND_COLOR = CONTEST_COLOR;
 
 export const SCOREBOARD_RANK_WIDTH = "80px"; // px
 export const SCOREBOARD_RANK_WIDTH2 = "50px"; // px
@@ -121,7 +127,7 @@ export const FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica, monospace";
 
 export const STAR_SIZE = 20; // px
 
-export const PROBLEM_LABEL_FONT_SIZE = "14px";
+export const QUEUE_PROBLEM_LABEL_FONT_SIZE = "14px";
 
 // Medals
 export const MEDAL_COLORS = Object.freeze({
@@ -133,7 +139,7 @@ export const MEDAL_COLORS = Object.freeze({
 // Debug Behaviour
 export const LOG_LINES = 300;
 
-export const WIDGET_LAYOUT_BACKGROUND = "#343434";
+export const SCOREBOARD_BACKGROUND_COLOR = "#242425";
 
 export const CONTESTER_ROW_OPACITY = 1;
 export const CONTESTER_ROW_BORDER_RADIUS = "16px";

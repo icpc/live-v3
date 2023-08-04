@@ -1,14 +1,12 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { PROBLEM_LABEL_FONT_SIZE } from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 
 const StyledProblemLabel = styled.div`
   width: 28px;
   height: 100%;
   position: relative;
-  font-size: ${PROBLEM_LABEL_FONT_SIZE};
-  color: ${({darkText}) => darkText && "#000"};
+  color: ${({darkText}) => darkText ? "#000" : "#FFF"};
   font-weight: bold;
   background: ${props => props.backgroundColor};
   

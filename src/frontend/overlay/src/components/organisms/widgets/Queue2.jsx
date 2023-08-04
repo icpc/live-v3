@@ -5,7 +5,7 @@ import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { css, keyframes } from "styled-components";
 import {
     QUEUE_BACKGROUND_COLOR,
-    QUEUE_BASIC_ZINDEX, QUEUE_CAPTION, QUEUE_MAX_ROWS,
+    QUEUE_BASIC_ZINDEX, QUEUE_CAPTION, QUEUE_MAX_ROWS, QUEUE_PROBLEM_LABEL_FONT_SIZE,
     QUEUE_ROW_APPEAR_TIME,
     QUEUE_ROW_FEATURED_RUN_APPEAR_TIME,
     QUEUE_ROW_FTS_TRANSITION_TIME,
@@ -191,6 +191,8 @@ const QueueScoreLabel = styled(ShrinkingBox2)`
   flex-direction: row-reverse;
 `;
 const QueueProblemLabel = styled(ProblemLabel)`
+  width: 28px;
+  font-size: ${QUEUE_PROBLEM_LABEL_FONT_SIZE};
   flex-shrink: 0;
 `;
 const QueueRightPart = styled.div`
@@ -277,20 +279,10 @@ const QueueTeamView = styled(TeamViewHolder)`
 `;
 
 export const Featured = ({ runInfo }) => {
-    // console.log(runInfo);
-    // const [{ status, isMounted }, toggle] = useTransition({
-    //     timeout: 500,
-    //     mountOnEnter: true,
-    //     unmountOnExit: true,
-    //     preEnter: true
-    // });
-    // console.log(runInfo !== null);
-    console.log(runInfo);
     return <TransitionGroup component={null}>
         {runInfo && <Transition timeout={QUEUE_ROW_FEATURED_RUN_APPEAR_TIME} key={runInfo.id}>
             {state => {
                 const realState = runInfo.isFeaturedRunMediaLoaded ? state : "exited"
-                console.log(state, realState, runInfo.isFeaturedRunMediaLoaded, JSON.stringify(appearStatesFeatured[state]))
                 return (
                     <StyledFeatured additional={appearStatesFeatured[realState]}>
                         <QueueTeamView media={runInfo.featuredRunMedia}
