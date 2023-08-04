@@ -1,16 +1,10 @@
 package org.icpclive.cds.adapters
 
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.PersistentMap
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.collections.immutable.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.ContestInfo
 import org.icpclive.api.RunInfo
-import org.icpclive.cds.AnalyticsUpdate
-import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.*
 
 class ContestEventWithRunsBefore(
     val event: ContestUpdate,

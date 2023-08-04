@@ -2,13 +2,9 @@ package org.icpclive.cds.ejudge
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.xmlLoader
+import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.EjudgeSettings
-import org.icpclive.util.child
-import org.icpclive.util.children
-import org.icpclive.util.guessDatetimeFormat
+import org.icpclive.util.*
 import org.w3c.dom.Element
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours

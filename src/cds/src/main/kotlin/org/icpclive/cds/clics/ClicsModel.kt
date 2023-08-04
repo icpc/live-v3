@@ -3,9 +3,7 @@ package org.icpclive.cds.clics
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.clics.api.*
-import org.icpclive.cds.clics.model.ClicsJudgementTypeInfo
-import org.icpclive.cds.clics.model.ClicsOrganisationInfo
-import org.icpclive.cds.clics.model.ClicsRunInfo
+import org.icpclive.cds.clics.model.*
 import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
 import java.awt.Color

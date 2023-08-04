@@ -6,12 +6,11 @@ import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.api.tunning.*
-import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.RunUpdate
-import org.icpclive.util.*
-import kotlin.time.Duration
+import org.icpclive.api.tunning.AdvancedProperties
+import org.icpclive.api.tunning.TeamInfoOverride
+import org.icpclive.cds.*
+import org.icpclive.util.getLogger
+import org.icpclive.util.humanReadable
 
 private sealed interface AdvancedAdapterEvent
 private class Update(val update: ContestUpdate) : AdvancedAdapterEvent

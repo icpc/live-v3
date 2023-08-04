@@ -3,9 +3,7 @@ package org.icpclive.cds.common
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import org.icpclive.cds.AnalyticsUpdate
-import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.loopFlow
 import kotlin.time.Duration

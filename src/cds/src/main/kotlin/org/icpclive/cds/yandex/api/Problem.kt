@@ -1,7 +1,6 @@
 package org.icpclive.cds.yandex.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.api.ProblemInfo
 
 @Serializable
 internal data class Problems(

@@ -3,7 +3,6 @@ package org.icpclive.cds.common
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.w3c.dom.Document
 import java.nio.file.Paths

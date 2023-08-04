@@ -1,10 +1,8 @@
 package org.icpclive.cds.clics
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.cds.clics.ClicsTime
 import org.junit.Assert
 import org.junit.Test
 import java.time.ZonedDateTime

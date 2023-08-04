@@ -1,9 +1,7 @@
 package org.icpclive.cds.common
 
 import kotlinx.serialization.Serializable
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 
 @Serializable
 internal data class ContestParseResult(

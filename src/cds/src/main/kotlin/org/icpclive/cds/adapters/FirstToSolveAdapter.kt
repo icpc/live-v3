@@ -1,9 +1,9 @@
 package org.icpclive.cds.adapters
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import org.icpclive.api.*
-import org.icpclive.cds.*
-import kotlin.time.Duration.Companion.minutes
+import org.icpclive.cds.ContestUpdate
 
 private fun RunInfo.setICPC(value: Boolean) = copy(result = (result as? ICPCRunResult)?.copy(isFirstToSolveRun = value))
 private fun RunInfo.setIOI(value: Boolean) = copy(result = (result as? IOIRunResult)?.copy(isFirstBestRun = value))

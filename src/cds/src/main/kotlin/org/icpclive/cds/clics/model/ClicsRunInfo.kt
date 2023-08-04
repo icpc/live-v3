@@ -1,6 +1,5 @@
 package org.icpclive.cds.clics.model
 
-import org.icpclive.api.ICPCRunResult
 import org.icpclive.api.MediaType
 import org.icpclive.api.Verdict
 import org.icpclive.cds.clics.api.Problem

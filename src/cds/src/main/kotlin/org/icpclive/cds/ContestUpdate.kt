@@ -1,8 +1,6 @@
 package org.icpclive.cds
 
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 
 sealed interface ContestUpdate
 data class InfoUpdate(val newInfo: ContestInfo) : ContestUpdate

@@ -1,6 +1,5 @@
 package org.icpclive.cds.yandex
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.yandex.api.*

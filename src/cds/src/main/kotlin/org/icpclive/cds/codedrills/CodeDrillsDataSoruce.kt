@@ -1,16 +1,16 @@
 package org.icpclive.cds.codedrills
 
 import io.codedrills.proto.external.*
-import io.grpc.*
-import io.grpc.stub.*
+import io.grpc.ManagedChannelBuilder
+import io.grpc.Metadata
+import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.settings.CodeDrillsSettings
 import org.icpclive.util.getLogger
-import java.util.*
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.*
 import kotlin.time.Duration.Companion.seconds
 
 internal class CodeDrillsClient(url: String, port: Int, authKey: String) : AutoCloseable {

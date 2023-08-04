@@ -5,10 +5,8 @@ import org.approvaltests.Approvals
 import org.approvaltests.core.Options
 import org.icpclive.api.ContestResultType
 import org.icpclive.cds.clics.FeedVersion
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.ClicsSettings
-import org.icpclive.cds.settings.PCMSSettings
-import org.junit.*
+import org.icpclive.cds.settings.*
+import org.junit.Test
 
 class CdsLoadersTest {
     @Test
