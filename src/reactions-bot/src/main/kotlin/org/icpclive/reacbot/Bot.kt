@@ -36,7 +36,7 @@ class Bot(private val config: Config) {
     @OptIn(DelicateCoroutinesApi::class)
     private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
     private val cds = parseFileToCdsSettings(
-        Path.of(config.eventPropertiesFile),
+        Path.of(config.settingsFile),
     ).toFlow(emptyMap())
         .withRunsBefore()
         .filterUseless()
@@ -154,7 +154,7 @@ class Bot(private val config: Config) {
 }
 
 class BotCommand : CliktCommand() {
-    private val events by option(help = "Event.properties file path").default("./events.properties")
+    private val settings by option(help = "settings file path").default("./settings.json")
     private val disableCds by option(help = "Enable loading events from cds").flag()
     private val token by option(help = "Telegram bot token").required()
     private val threads by option("--threads", "-t", help = "Count of video converter and loader threads").int().default(8)
@@ -165,7 +165,7 @@ class BotCommand : CliktCommand() {
         runBlocking {
             Bot(
                 Config(
-                    eventPropertiesFile = events,
+                    settingsFile = settings,
                     disableCdsLoader = disableCds,
                     telegramToken = token,
                     loaderThreads = threads,

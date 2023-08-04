@@ -32,6 +32,7 @@ import org.icpclive.util.defaultJsonSettings
 import org.icpclive.util.fileJsonContentFlow
 import org.slf4j.event.Level
 import java.time.Duration
+import kotlin.io.path.exists
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit =
@@ -115,7 +116,11 @@ fun Application.module() {
         // TODO: understand why normal exception propagation doesn't work
         exitProcess(1)
     }
-    val path = config.configDirectory.resolve("events.properties")
+    val path =
+        config.configDirectory.resolve("events.properties")
+            .takeIf { it.exists() }
+            ?.also { environment.log.warn("Using events.properties is deprecated, use settings.json instead.") }
+            ?: config.configDirectory.resolve("settings.json")
 
     launch(handler) {
         val advancedJsonPath = config.configDirectory.resolve("advanced.json")

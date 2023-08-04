@@ -2,7 +2,7 @@ package org.icpclive.reacbot
 
 
 class Config(
-    val eventPropertiesFile: String,
+    val settingsFile: String,
     val disableCdsLoader: Boolean,
     val telegramToken: String,
     val loaderThreads: Int,

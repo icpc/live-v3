@@ -30,6 +30,7 @@ import org.slf4j.event.Level
 import java.io.File
 import java.nio.file.Paths
 import java.time.Duration
+import kotlin.io.path.exists
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit =
@@ -87,7 +88,13 @@ fun Application.module() {
         Json.decodeFromStream(File(it).inputStream())
     } ?: emptyMap()
 
-    val loaded = parseFileToCdsSettings(configDirectory.resolve("events.properties"))
+    val path = configDirectory.resolve("events.properties")
+            .takeIf { it.exists() }
+            ?.also { environment.log.warn("Using events.properties is deprecated, use settings.json instead.") }
+            ?: configDirectory.resolve("settings.json")
+
+
+    val loaded = parseFileToCdsSettings(path)
         .toFlow(creds)
         .applyAdvancedProperties(advancedProperties)
         .filterUseless()
