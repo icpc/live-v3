@@ -15,6 +15,7 @@ export const QUEUE_CAPTION = "46th";
 export const SCOREBOARD_CAPTION = "46th";
 export const SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR = CONTEST_COLOR;
 export const SCOREBOARD_TABLE_HEADER_DIVIDER_COLOR = "#242425"
+export const SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR = CONTEST_COLOR;
 
 // Behaviour
 export const TICKER_SCOREBOARD_REPEATS = 1;
@@ -49,9 +50,9 @@ export const GLOBAL_DEFAULT_FONT = GLOBAL_DEFAULT_FONT_SIZE + " " + GLOBAL_DEFAU
 export const VERDICT_OK = "#1b8041";
 export const VERDICT_NOK = "#881f1b";
 export const VERDICT_UNKNOWN = "#a59e0c";
-export const VERDICT_OK2 = "#2ecb68";
-export const VERDICT_NOK2 = "#cb2e28";
-export const VERDICT_UNKNOWN2 = "#e5da1c";
+export const VERDICT_OK2 = "#3bba6b";
+export const VERDICT_NOK2 = "#CB2E28";
+export const VERDICT_UNKNOWN2 = "#F3BE4B";
 
 
 export const QUEUE_ROW_HEIGHT = 41; // px

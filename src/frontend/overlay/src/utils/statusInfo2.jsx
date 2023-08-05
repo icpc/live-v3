@@ -1,9 +1,6 @@
 import {
     CELL_BG_COLOR,
-    STATISTICS_BG_COLOR,
-    VERDICT_NOK2,
-    VERDICT_OK2,
-    VERDICT_UNKNOWN2
+    VERDICT_NOK2, VERDICT_OK2, VERDICT_UNKNOWN2
 } from "../config";
 
 export const TeamTaskStatus = Object.freeze({
@@ -39,7 +36,7 @@ export function getStatus2(isFirstToSolve, isSolved, pendingAttempts, wrongAttem
 export const TeamTaskColor2 = Object.freeze({
     [TeamTaskStatus.solved]: VERDICT_OK2,
     [TeamTaskStatus.failed]: VERDICT_NOK2,
-    [TeamTaskStatus.untouched]: STATISTICS_BG_COLOR,
+    // [TeamTaskStatus.untouched]: STATISTICS_BG_COLOR,
     [TeamTaskStatus.unknown]: VERDICT_UNKNOWN2,
     [TeamTaskStatus.first]: VERDICT_OK2,
 });

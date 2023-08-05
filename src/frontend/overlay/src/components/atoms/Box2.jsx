@@ -72,7 +72,8 @@ FlexedBox2.propTypes = {
 
 const TextShrinkingWrap = styled.div`
   display: flex;
-  overflow: auto;
+  overflow: hidden;
+  justify-content: ${props => props.align};
 `;
 
 export const ShrinkingBox2 = ({
@@ -89,7 +90,7 @@ export const ShrinkingBox2 = ({
             boxRef.current = newCellRef;
             newCellRef.children[0].style.transform = "";
             const styles = getComputedStyle(newCellRef);
-            const textWidth = getTextWidth(text, `${styles.fontSize} ${styles.fontFamily}`);
+            const textWidth = getTextWidth(text, `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`);
             const haveWidth = (parseFloat(styles.width) - (parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight)));
             const scaleFactor = Math.min(1, haveWidth / textWidth);
             newCellRef.children[0].style.transform = `scaleX(${scaleFactor})`;
@@ -99,7 +100,7 @@ export const ShrinkingBox2 = ({
         updateScale(boxRef.current);
     }, [text]);
     // console.log(props);
-    return <TextShrinkingWrap ref={updateScale} className={className}>
+    return <TextShrinkingWrap ref={updateScale} align={align} className={className}>
         <TextShrinkingContainer2 align={align}>
             {text}
         </TextShrinkingContainer2>

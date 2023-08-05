@@ -7,6 +7,7 @@ import {
     VERDICT_OK2,
     VERDICT_UNKNOWN2,
 } from "../../config";
+import { isShouldUseDarkColor } from "../../utils/colors";
 import { Box2, FlexedBox2, ShrinkingBox2 } from "./Box2";
 import { formatScore, ICPCResult, IOIResult } from "./ContestCells";
 import {
@@ -90,10 +91,14 @@ const RankLabelWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ color }) => color}
+  background-color: ${({ color }) => color};
+  color: ${props => props.dark ? "#000" : "#FFF"};
 `;
+
 export const RankLabel = ({ rank, medal, className }) => {
-    return <RankLabelWrap color={MEDAL_COLORS[medal]} className={className}>
+    const color = MEDAL_COLORS[medal];
+    const dark = isShouldUseDarkColor(color);
+    return <RankLabelWrap color={color} className={className} dark={dark}>
         {formatRank(rank)}
     </RankLabelWrap>;
 };
@@ -146,7 +151,8 @@ RunStatusLabel2.propTypes = {
 
 const TaskResultLabelWrapper2 = styled(Box2)`
   font-weight: bold;
-  color: ${({ color }) => color};
+  background-color: ${({ color }) => color};
+  color: #fff;
 `;
 
 // TODO: fts start
