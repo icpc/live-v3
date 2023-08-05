@@ -120,6 +120,7 @@ const useQueueRowsData = ({
         };
         if (row.isFts) {
             totalFts++;
+            row.bottom = height;
         }
         if (run.featuredRunMedia !== undefined) {
             row.isFeatured = true;
