@@ -66,6 +66,7 @@ export const nameTable = {
 const ScoreboardTableRowWrap = styled.div`
   gap: 3px;
   box-sizing: border-box;
+  background-color: ${SCOREBOARD_BACKGROUND_COLOR};
   display: grid;
   grid-template-columns: 73px 304px 81px 92px repeat(${props => props.nProblems}, 1fr);
 `;
@@ -116,7 +117,7 @@ const PositionedScoreboardRow = styled.div.attrs(({ zIndex, pos }) => ({
     }
 }))`
   height: ${props => props.rowHeight + 2}px; /* FIXME lol */
-  transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
+  transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
   left: 0;
   right: 0;
   width: 100%;
@@ -138,7 +139,7 @@ export const ScoreboardRows = ({ settings }) => {
     const scrollPos = useScroller(rows.length, settings.teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
     return <ScoreboardRowsWrap>
         {teams.map(([index, teamData]) =>
-            <PositionedScoreboardRow key={teamData.teamId} zIndex={index} pos={(index - scrollPos) * (rowHeight + 3) - 3}>
+            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * (rowHeight + 3) - 3}>
                 <ScoreboardRow2 teamId={teamData.teamId} optimismLevel={settings.optimismLevel}/>
             </PositionedScoreboardRow>
         )}

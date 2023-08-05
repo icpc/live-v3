@@ -52,10 +52,14 @@ const rowExpand = (fullHeight) => keyframes`
 const slideOutToRight = () => keyframes`
   from {
     transform: translate(0, 0);
+    opacity: 1;
   }
-
+  50% {
+    opacity: 0;
+  }
   to {
     transform: translate(100%, 0);
+    opacity: 0;
   }
 `;
 
