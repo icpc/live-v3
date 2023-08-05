@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.png";
-import { OVERLAY_VERSION, WIDGET_TRANSITION_TIME } from "../../config";
+import { WIDGET_TRANSITION_TIME } from "../../config";
 import { DEBUG } from "../../consts";
 import { useQueryParams } from "../../utils/query-params";
 import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
@@ -11,14 +11,12 @@ import Advertisement from "../organisms/widgets/Advertisement";
 import Pictures from "../organisms/widgets/Pictures";
 import Svg from "../organisms/widgets/Svg";
 import Queue from "../organisms/widgets/Queue";
-import Queue2 from "../organisms/widgets/Queue2";
 import Scoreboard from "../organisms/widgets/Scoreboard";
-import Scoreboard2 from "../organisms/widgets/Scoreboard2";
 import Ticker from "../organisms/widgets/Ticker";
 import Statistics from "../organisms/widgets/Statistics";
-import { TeamView, TeamView2 } from "../organisms/widgets/TeamView";
+import { TeamView } from "../organisms/widgets/TeamView";
 import Videos from "../organisms/widgets/Videos";
-import PVP from "../organisms/widgets/PVP";
+// import PVP from "../organisms/widgets/PVP";
 import FullScreenClock from "../organisms/widgets/FullScreenClock";
 import Locator from "../organisms/widgets/Locator";
 
@@ -82,16 +80,9 @@ const WIDGETS = {
     TickerWidget: Ticker,
     StatisticsWidget: Statistics,
     TeamViewWidget: TeamView,
-    TeamPVPWidget: PVP,
+    // TeamPVPWidget: PVP, // Not actually a widget in backend.
     FullScreenClockWidget: FullScreenClock,
     TeamLocatorWidget: Locator
-};
-
-const WIDGETS2 = {
-    ...WIDGETS,
-    QueueWidget: Queue2,
-    ScoreboardWidget: Scoreboard2,
-    TeamViewWidget: TeamView2,
 };
 
 export const MainLayout = () => {
@@ -101,7 +92,7 @@ export const MainLayout = () => {
         <StatusLightbulbs compact={true}/>
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
-                const Widget = (OVERLAY_VERSION === "2" ? WIDGETS2 : WIDGETS)[obj.type];
+                const Widget = WIDGETS[obj.type];
                 if (Widget === undefined) {
                     return null;
                 }

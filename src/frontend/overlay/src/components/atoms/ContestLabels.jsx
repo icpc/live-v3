@@ -8,15 +8,15 @@ import {
     VERDICT_UNKNOWN2,
 } from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
-import { Box2, FlexedBox2, ShrinkingBox2 } from "./Box2";
+import { ShrinkingBox } from "./ShrinkingBox";
 import { formatScore, ICPCResult, IOIResult } from "./ContestCells";
 import {
-    TeamTaskColor2,
+    TeamTaskColor,
     TeamTaskSymbol,
     TeamTaskStatus,
-    getStatus2,
-    getTeamTaskColor2,
-} from "../../utils/statusInfo2";
+    getStatus,
+    getTeamTaskColor,
+} from "../../utils/statusInfo";
 import { CircleCell } from "./CircleCellsProblem";
 
 export const ICPCTaskResult = PropTypes.shape({
@@ -32,7 +32,7 @@ export const IOITaskResult = PropTypes.shape({
     score: PropTypes.number,
 });
 
-const VerdictLabel = styled(ShrinkingBox2)`
+const VerdictLabel = styled(ShrinkingBox)`
   background-color: ${({ color }) => color};
   font-size: 14px;
   font-weight: 700;
@@ -63,8 +63,8 @@ const getIOIScoreText = (difference) => {
 const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
-        {wrongVerdict !== undefined && <ShrinkingBox2 text={wrongVerdict ?? "??"} color={VERDICT_NOK2} {...{ Wrapper: FlexedBox2, ...props }}/>}
-        {wrongVerdict === undefined && <ShrinkingBox2 text={diffText ?? "??"} color={diffColor} {...{ Wrapper: FlexedBox2, ...props }}/>}
+        {wrongVerdict !== undefined && <ShrinkingBox text={wrongVerdict ?? "??"} color={VERDICT_NOK2} {...{ Wrapper: FlexedBox2, ...props }}/>}
+        {wrongVerdict === undefined && <ShrinkingBox text={diffText ?? "??"} color={diffColor} {...{ Wrapper: FlexedBox2, ...props }}/>}
     </>;
 };
 IOIVerdictLabel.propTypes = {
@@ -134,22 +134,21 @@ VerdictCellInProgress2.propTypes = {
     percentage: PropTypes.number.isRequired
 };
 
-export const RunStatusLabel2 = ({ runInfo, className }) => {
+export const RunStatusLabel = ({ runInfo, className }) => {
     return <>
         {runInfo.result === undefined && <VerdictCellInProgress2 percentage={runInfo.percentage} className={className}/>}
         {runInfo.result !== undefined && <VerdictLabel2 runResult={runInfo.result} score={runInfo.result.result} className={className}/>}
     </>;
 };
 
-RunStatusLabel2.propTypes = {
-    ...Box2.propTypes,
+RunStatusLabel.propTypes = {
     runInfo: PropTypes.shape({
         result: PropTypes.oneOf([IOIResult, IOIResult]),
         percentage: PropTypes.number.isRequired,
     }),
 };
 
-const TaskResultLabelWrapper2 = styled(Box2)`
+const TaskResultLabelWrapper2 = styled.div`
   font-weight: bold;
   background-color: ${({ color }) => color};
   color: #fff;
@@ -157,11 +156,11 @@ const TaskResultLabelWrapper2 = styled(Box2)`
 
 // TODO: fts start
 const ICPCTaskResultLabel2 = ({ problemResult: r, ...props }) => {
-    const status = getStatus2(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
+    const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
     return <>
         {/*{status === TeamTaskStatus.first && <StarIcon/>}*/}
-        <TaskResultLabelWrapper2 color={TeamTaskColor2[status]} {...props}>
+        <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
             {TeamTaskSymbol[status]}
             {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
         </TaskResultLabelWrapper2>
@@ -173,7 +172,7 @@ ICPCTaskResultLabel2.propTypes = {
 };
 
 const IOITaskResultLabel2 = ({ problemResult: r, minScore, maxScore,  ...props }) => {
-    return <TaskResultLabelWrapper2 color={getTeamTaskColor2(r.score, minScore, maxScore)} { ...props}>
+    return <TaskResultLabelWrapper2 color={getTeamTaskColor(r.score, minScore, maxScore)} { ...props}>
         {formatScore(r?.score)}
     </TaskResultLabelWrapper2>;
 };
@@ -184,17 +183,9 @@ IOITaskResultLabel2.propTypes = {
     maxScore: PropTypes.number,
 };
 
-export const TaskResultLabel2 = ({ problemResult, minScore, maxScore, ...props }) => {
+export const TaskResultLabel = ({ problemResult, minScore, maxScore, ...props }) => {
     return <>
         {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}
         {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult} minScore={minScore} maxScore={maxScore} {...props}/>}
     </>;
-};
-
-export const ProblemCircleLabel = ({ letter, problemColor }) => {
-    return (
-        <Box2 width={"30px"} marginBottom={"8px"} paddingTop={"4px"}>
-            <CircleCell content={letter ?? "??"} backgroundColor={problemColor ?? "#000000"} />
-        </Box2>
-    );
 };

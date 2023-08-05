@@ -15,9 +15,9 @@ import {
     VERDICT_OK,
     VERDICT_UNKNOWN
 } from "../../../config";
+import { getTeamTaskColor } from "../../../utils/statusInfo";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell } from "../../atoms/ContestCells";
-import { getTeamTaskColor } from "./Scoreboard";
 
 const AllDiv = styled.div`
   width: 100%;
@@ -28,7 +28,7 @@ const AllDiv = styled.div`
 const StatisticsWrap = styled.div`
   width: 100%;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   opacity: ${STATISTICS_OPACITY};

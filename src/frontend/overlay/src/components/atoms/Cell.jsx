@@ -19,6 +19,10 @@ const flash = keyframes`
 `;
 
 // FIXME: too overloaded with props.
+/**
+ * @deprecated Do not use this component or inherit from this component. If you need styles - use them ad hoc.
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 export const Cell = styled.div`
   width: ${props => props.width};
   height: 100%;

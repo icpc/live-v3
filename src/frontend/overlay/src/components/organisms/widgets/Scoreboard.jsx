@@ -4,294 +4,131 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
-    CELL_BG_COLOR,
-    SCOREBOARD_HEADER_BG_COLOR,
-    SCOREBOARD_HEADER_TITLE_BG_COLOR,
-    SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR,
-    SCOREBOARD_HEADER_TITLE_FONT_SIZE,
-    SCOREBOARD_NAME_WIDTH,
-    SCOREBOARD_OPACITY,
-    SCOREBOARD_RANK_WIDTH,
     SCOREBOARD_ROW_TRANSITION_TIME,
     SCOREBOARD_SCROLL_INTERVAL,
-    SCOREBOARD_SUM_PEN_WIDTH,
-    VERDICT_NOK,
-    VERDICT_OK,
-    VERDICT_UNKNOWN
+    SCOREBOARD_BACKGROUND_COLOR,
+    SCOREBOARD_CAPTION,
+    SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR,
+    SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR,
 } from "../../../config";
-import { Cell } from "../../atoms/Cell";
-import { formatScore, ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
-import { StarIcon } from "../../atoms/Star";
+import { formatScore } from "../../atoms/ContestCells";
+import { ProblemLabel } from "../../atoms/ProblemLabel";
+// import { extractScoreboardRows, useScroller } from "./Scoreboard";
+import { TaskResultLabel, RankLabel } from "../../atoms/ContestLabels";
+import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 
 
 const ScoreboardWrap = styled.div`
+  color: #FFF;
   height: 100%;
   width: 100%;
-  opacity: ${SCOREBOARD_OPACITY};
-  border: none;
-  border-collapse: collapse;
-  table-layout: fixed;
+  display: flex;
+  gap: 14px;
+  padding: 7px 16px 0 16px;
+  box-sizing: border-box;
+  flex-direction: column;
+  background-color: ${SCOREBOARD_BACKGROUND_COLOR};
+  border-radius: 16px;
+  overflow: hidden;
+`;
+
+const ScoreboardHeader = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 44px; /* 137.5% */
+`;
+
+const ScoreboardTitle = styled.div`
+  flex: 1 0 0;
+`;
+
+const ScoreboardCaption = styled.div`
+`;
+
+const ScoreboardContent = styled.div`
+  flex: 1 0 0;
   display: flex;
   flex-direction: column;
+  gap: 3px;
 `;
 
 
 export const nameTable = {
-    normal: "CURRENT",
-    optimistic: "OPTIMISTIC",
-    pessimistic: "PESSIMISTIC",
+    normal: "Current",
+    optimistic: "Optimistic",
+    pessimistic: "Pessimistic",
 };
 
-const ScoreboardRowContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  overflow: hidden;
-  /* box-sizing: border-box; */
+const ScoreboardTableRowWrap = styled.div`
+  gap: 3px;
+  box-sizing: border-box;
+  background-color: ${SCOREBOARD_BACKGROUND_COLOR};
+  display: grid;
+  grid-template-columns: 73px 304px 81px 92px repeat(${props => props.nProblems}, 1fr);
 `;
 
-const ScoreboardCell = styled(Cell)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  position: relative;
-`;
+const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
+  height: 44px;
+  box-sizing: content-box;
+  border-top: ${SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 3px;
+  border-bottom: ${SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 3px;
 
-const ScoreboardStatCell = styled(ScoreboardCell)`
-  width: ${props => props.width};
-`;
-
-const ScoreboardTaskCellWrap = styled(ScoreboardCell)`
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 100%;
-`;
-
-const TeamTaskStatus = Object.freeze({
-    solved: 1,
-    failed: 2,
-    untouched: 3,
-    unknown: 4,
-    first: 5
-});
-
-const TeamTaskSymbol = Object.freeze({
-    [TeamTaskStatus.solved]: "+",
-    [TeamTaskStatus.failed]: "-",
-    [TeamTaskStatus.untouched]: "",
-    [TeamTaskStatus.unknown]: "?",
-    [TeamTaskStatus.first]: "+",
-});
-
-const TeamTaskColor = Object.freeze({
-    [TeamTaskStatus.solved]: VERDICT_OK,
-    [TeamTaskStatus.failed]: VERDICT_NOK,
-    [TeamTaskStatus.untouched]: undefined,
-    [TeamTaskStatus.unknown]: VERDICT_UNKNOWN,
-    [TeamTaskStatus.first]: VERDICT_OK,
-});
-
-const mapNumber = (value, oldMin, oldMax, newMin, newMax) => {
-    const result = (value - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
-    return Math.min(Math.max(result, newMin), newMax);
-};
-
-// Green color: #1B8041, RGB(27, 128, 65) (VERDICT_OK)
-// Red color: #881f1b, RGB(136, 31, 27) (VERDICT_NOK)
-export const getTeamTaskColor = (score, minScore, maxScore) => {
-    if (score === undefined) {
-        return CELL_BG_COLOR;
-    }
-    if (minScore !== undefined && maxScore !== undefined) {
-        const [minRed, minGreen, minBlue] = [136, 31, 27];
-        const [maxRed, maxGreen, maxBlue] = [27, 128, 65];
-
-        const scoreDiff = maxScore - minScore;
-        const redDiff = maxRed - minRed;
-        const greenDiff = maxGreen - minGreen;
-        const blueDiff = maxBlue - minBlue;
-
-        const middleRange = mapNumber(score, minScore, maxScore, 0, Math.PI);
-        const middleFactor = 90;
-
-        const [red, green, blue] = [
-            Math.min(minRed + score * (redDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
-            Math.min(minGreen + score * (greenDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
-            Math.min(minBlue + score * (blueDiff / scoreDiff) + ((middleFactor * Math.sin(middleRange)) / 10), 255)
-        ];
-
-        return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1, 7)}`;
-    }
-
-    return undefined;
-};
-
-function getStatusICPC(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
-    if (isFirstToSolve) {
-        return TeamTaskStatus.first;
-    } else if (isSolved) {
-        return TeamTaskStatus.solved;
-    } else if (pendingAttempts > 0) {
-        return TeamTaskStatus.unknown;
-    } else if (wrongAttempts > 0) {
-        return TeamTaskStatus.failed;
-    } else {
-        return TeamTaskStatus.untouched;
-    }
-}
-
-const ScoreboardICPCTaskCell = ({ status, attempts }) => {
-    return <ScoreboardTaskCellWrap background={TeamTaskColor[status]}>
-        {status === TeamTaskStatus.first && <StarIcon/>}
-        {TeamTaskSymbol[status]}
-        {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
-    </ScoreboardTaskCellWrap>;
-};
-
-export const ScoreboardIOITaskCell = ({ score, isFirstBest, minScore, maxScore, ...props }) => {
-    return <ScoreboardTaskCellWrap background={getTeamTaskColor(score, minScore, maxScore)} {...props}>
-        {isFirstBest && <StarIcon/>}
-        {formatScore(score)}
-    </ScoreboardTaskCellWrap>;
-};
-
-ScoreboardICPCTaskCell.propTypes = {
-    status: PropTypes.oneOf(Object.values(TeamTaskStatus)),
-    attempts: PropTypes.number
-};
-
-ScoreboardIOITaskCell.propTypes = {
-    isFirstBest: PropTypes.bool,
-    score: PropTypes.number,
-    attempts: PropTypes.number,
-    minScore: PropTypes.number,
-    maxScore: PropTypes.number
-};
-
-const RenderScoreboardTaskCell = ({ data, ...props }) => {
-    if (data.type === "ICPC") {
-        return <ScoreboardICPCTaskCell
-            status={getStatusICPC(data.isFirstToSolve, data.isSolved, data.pendingAttempts, data.wrongAttempts)}
-            attempts={data.wrongAttempts + data.pendingAttempts}
-            {...props}
-        />;
-    } else {
-        return <ScoreboardIOITaskCell score={data.score} isFirstBest={data.isFirstBest} {...props} />;
-    }
-};
-
-RenderScoreboardTaskCell.propTypes = {
-    data: PropTypes.object
-};
-
-const ScoreboardHeaderWrap = styled(ScoreboardRowContainer)`
-  height: ${props => props.rowHeight}px;
-`;
-
-const ScoreboardHeaderTitle = styled(ScoreboardCell).attrs(({ color }) => ({
-    style: {
-        background: color
-    }
-}))`
-  width: calc(${SCOREBOARD_RANK_WIDTH} + ${SCOREBOARD_NAME_WIDTH});
-  font-size: ${SCOREBOARD_HEADER_TITLE_FONT_SIZE};
-`;
-
-const ScoreboardHeaderStatCell = styled(ScoreboardStatCell)`
-  background: ${SCOREBOARD_HEADER_BG_COLOR};
-  width: ${SCOREBOARD_SUM_PEN_WIDTH};
   text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 44px; /* 183.333% */
 `;
 
-const ScoreboardHeaderProblemCell = styled(ProblemCell)`
-  position: relative;
+const ScoreboardRowName = styled(ShrinkingBox)`
+  font-weight: 700;
+  padding: 0 8px;
 `;
 
-export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenWidth, nameGrows, optimismLevel }) => {
+export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const contestData = useSelector((state) => state.contestInfo.info);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    return <ScoreboardRowContainer>
-        <RankCell rank={scoreboardData?.rank} medal={scoreboardData?.medalType}
-            width={rankWidth ?? SCOREBOARD_RANK_WIDTH}/>
-        <TextShrinkingCell text={teamData?.shortName}
-            width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)}
-            canGrow={nameGrows ?? false} canShrink={nameGrows ?? false}/>
-        <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData === null ? null : formatScore(scoreboardData.totalScore)}
-        </ScoreboardStatCell>
-        {contestData?.resultType === "ICPC" && <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData?.penalty}
-        </ScoreboardStatCell>}
-        {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) =>
-            <RenderScoreboardTaskCell key={i}  data={resultsData} minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore} />
+    return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1}>
+        <RankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
+        <ScoreboardRowName align={"center"} text={teamData?.shortName ?? "??"}/>
+        <ShrinkingBox align={"center"}
+            text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
+        {contestData?.resultType === "ICPC" && <ShrinkingBox align={"center"} text={scoreboardData?.penalty} />}
+        {!hideTasks && scoreboardData?.problemResults.map((result, i) =>
+            <TaskResultLabel problemResult={result} key={i}
+                minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore}/>
         )}
-    </ScoreboardRowContainer>;
+    </ScoreboardRowWrap>;
 };
 ScoreboardRow.propTypes = {
     teamId: PropTypes.number.isRequired,
     hideTasks: PropTypes.bool
 };
 
-const ScoreboardHeader = ({ problems, rowHeight, name }) => {
-    const contestInfo = useSelector((state) => state.contestInfo.info);
-
-    let color = SCOREBOARD_HEADER_TITLE_BG_COLOR;
-    if (name === "optimistic") {
-        color = SCOREBOARD_HEADER_TITLE_BG_GREEN_COLOR;
-    }
-    return <ScoreboardHeaderWrap rowHeight={rowHeight}>
-        <ScoreboardHeaderTitle color={color}>{nameTable[name]} STANDINGS</ScoreboardHeaderTitle>
-        <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
-        {contestInfo?.resultType === "ICPC" && <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>}
-        {problems && problems.map((probData) =>
-            <ScoreboardHeaderProblemCell key={probData.name} probData={probData} canGrow={true} canShrink={true}
-                basis={"100%"}/>
-        )}
-    </ScoreboardHeaderWrap>;
-};
-
-ScoreboardHeader.propTypes = {
-    problems: PropTypes.arrayOf(PropTypes.object)
-};
-
-const ScoreboardRowWrap = styled.div.attrs((props) => ({
+const PositionedScoreboardRow = styled.div.attrs(({ zIndex, pos }) => ({
     style: {
-        top: props.pos + "px"
+        zIndex: zIndex,
+        top: pos + "px",
     }
 }))`
+  height: ${props => props.rowHeight + 2}px; /* FIXME lol */
+  transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
   left: 0;
   right: 0;
-  height: ${props => props.rowHeight + 2}px; /* FIXME lol */
-  transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-out;
+  width: 100%;
   position: absolute;
 `;
-/**
- * Aligned vertically with zIndex
- * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, function({zIndex: *}): {style: {zIndex: *}}, keyof function({zIndex: *}): {style: {zIndex: *}}>}
- */
-const PositionedScoreboardRowWrap = styled.div.attrs(({ zIndex }) => ({
-    style: {
-        zIndex: zIndex
-    }
-}
-))`
+
+const ScoreboardRowsWrap = styled.div`
   position: relative;
+  flex: 1 0 0;
+  overflow: hidden;
 `;
-
-const PositionedScoreboardRow = ({ zIndex, children, ...rest }) => {
-    return <PositionedScoreboardRowWrap zIndex={zIndex}>
-        <ScoreboardRowWrap {...rest}>
-            {children}
-        </ScoreboardRowWrap>
-    </PositionedScoreboardRowWrap>;
-};
-
-PositionedScoreboardRow.propTypes = {
-    zIndex: PropTypes.number,
-    children: PropTypes.node
-};
 
 export const extractScoreboardRows = (data, selectedGroup) =>
     data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
@@ -327,28 +164,72 @@ export const useScroller = (
     return Math.max(startFromRow, pageEndRow - singleScreenRowCount);
 };
 
-export const Scoreboard = ({ widgetData: { settings, location } }) => {
-    const optimismLevel = settings.optimismLevel;
-    const teamsOnPage = settings.teamsOnPage;
-    const startPageRow = settings.startFromRow - 1;
+export const ScoreboardRows = ({ settings }) => {
     const rows = extractScoreboardRows(
-        useSelector((state) => state.scoreboard[optimismLevel]),
+        useSelector((state) => state.scoreboard[settings.optimismLevel]),
         settings.group);
-    const contestInfo = useSelector((state) => state.contestInfo.info);
-    const totalHeight = location.sizeY;
-    const rowHeight = (totalHeight / (teamsOnPage + 1));
-    const scrollPos = useScroller(rows.length, teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, startPageRow, settings.numRows);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
+    const rowHeight = 44;
+    const scrollPos = useScroller(rows.length, settings.teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
+    return <ScoreboardRowsWrap>
+        {teams.map(([index, teamData]) =>
+            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * (rowHeight + 3) - 3}>
+                <ScoreboardRow teamId={teamData.teamId} optimismLevel={settings.optimismLevel}/>
+            </PositionedScoreboardRow>
+        )}
+    </ScoreboardRowsWrap>;
+};
+
+const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
+  // background-color: ${SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR};
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 44px;
+  
+`;
+
+const ScoreboardTableHeaderCell = styled.div`
+  text-align: center;
+  background-color: ${SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR};
+  padding: 0 8px;
+`;
+
+
+const ScoreboardProblemLabel = styled(ProblemLabel)`
+  width: unset;
+`;
+
+const ScoreboardTableHeader = () => {
+    const problems = useSelector((state) => state.contestInfo.info?.problems);
+    return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1}>
+        <ScoreboardTableHeaderCell>Place</ScoreboardTableHeaderCell>
+        <ScoreboardTableHeaderCell>Team name</ScoreboardTableHeaderCell>
+        <ScoreboardTableHeaderCell>Points</ScoreboardTableHeaderCell>
+        <ScoreboardTableHeaderCell>Penalty</ScoreboardTableHeaderCell>
+        {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.name} letter={probData.letter}
+            problemColor={probData.color}/>
+        )}
+    </ScoreboardTableHeaderWrap>;
+};
+
+export const Scoreboard = ({ widgetData: { settings } }) => {
     return <ScoreboardWrap>
-        <ScoreboardHeader problems={contestInfo?.problems} rowHeight={rowHeight} name={optimismLevel} key={"header"}/>
-        <div style={{ overflow: "hidden", height: "100%" }}>
-            {teams.map(([ind, teamRowData]) =>
-                <PositionedScoreboardRow key={teamRowData.teamId} pos={ind * rowHeight - scrollPos * rowHeight}
-                    rowHeight={rowHeight} zIndex={rows.length - ind}>
-                    <ScoreboardRow teamId={teamRowData.teamId} optimismLevel={optimismLevel}/>
-                </PositionedScoreboardRow>
-            )}
-        </div>
+        <ScoreboardHeader>
+            <ScoreboardTitle>
+                {nameTable[settings.optimismLevel] ?? "??"} standings
+            </ScoreboardTitle>
+            <ScoreboardCaption>
+                {SCOREBOARD_CAPTION}
+            </ScoreboardCaption>
+        </ScoreboardHeader>
+        <ScoreboardContent>
+            <ScoreboardTableHeader/>
+            <ScoreboardRows settings={settings}/>
+        </ScoreboardContent>
     </ScoreboardWrap>;
 };
 

@@ -13,8 +13,9 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { formatScore, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
-import { ScoreboardIOITaskCell } from "./Scoreboard";
-import { TeamWebRTCProxyVideoWrapper, TeamWebRTCGrabberVideoWrapper } from "../holder/TeamViewHolder";
+import { TeamWebRTCGrabberVideoWrapper, TeamWebRTCProxyVideoWrapper } from "../holder/TeamViewHolder";
+// import { ScoreboardIOITaskCell } from "./Scoreboard";
+// import { TeamWebRTCProxyVideoWrapper, TeamWebRTCGrabberVideoWrapper } from "../holder/ContestantViewHolder";
 
 const NUMWIDTH = 80;
 const NAMEWIDTH = 300;
@@ -152,12 +153,12 @@ const ScoreboardRowAllTaskFirst = ({ teamId }) => {
             <TaskRowWrapperFirst>
                 {scoreboardData?.problemResults?.flatMap(({ score, index }, i) =>
                     <TaskRow key={i}>
-                        {tasks !== undefined && (tasks[index].letter !== "*" || score !== undefined) &&
-                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>
-                        }
-                        {tasks !== undefined && tasks[index].letter === "*" && score === undefined &&
-                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={"*"}/>
-                        }
+                        {/*{tasks !== undefined && (tasks[index].letter !== "*" || score !== undefined) &&*/}
+                        {/*    <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>*/}
+                        {/*}*/}
+                        {/*{tasks !== undefined && tasks[index].letter === "*" && score === undefined &&*/}
+                        {/*    <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={"*"}/>*/}
+                        {/*}*/}
                     </TaskRow>
                 )}
             </TaskRowWrapperFirst>
@@ -202,12 +203,12 @@ const ScoreboardRowAllTaskSecond = ({ teamId }) => {
             <TaskRowWrapperSecond>
                 {scoreboardData?.problemResults.flatMap(({ score, index }, i) =>
                     <TaskRow key={i}>
-                        {(tasks[index].letter !== "*" || score !== undefined) &&
-                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>
-                        }
-                        {tasks[index].letter === "*" && score === undefined &&
-                            <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={"*"}/>
-                        }
+                        {/*{(tasks[index].letter !== "*" || score !== undefined) &&*/}
+                        {/*    <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}  minScore={contestData?.problems[index]?.minScore} maxScore={contestData?.problems[index]?.maxScore}/>*/}
+                        {/*}*/}
+                        {/*{tasks[index].letter === "*" && score === undefined &&*/}
+                        {/*    <ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={"*"}/>*/}
+                        {/*}*/}
                     </TaskRow>
                 )}
             </TaskRowWrapperSecond>

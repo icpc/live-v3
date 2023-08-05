@@ -1,5 +1,3 @@
-// Version
-export const OVERLAY_VERSION = import.meta.env.VITE_VERSION;
 // Strings
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;

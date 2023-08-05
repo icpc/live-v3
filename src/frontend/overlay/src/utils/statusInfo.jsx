@@ -19,7 +19,7 @@ export const TeamTaskSymbol = Object.freeze({
     [TeamTaskStatus.first]: "+",
 });
 
-export function getStatus2(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
+export function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
     } else if (isSolved) {
@@ -33,7 +33,7 @@ export function getStatus2(isFirstToSolve, isSolved, pendingAttempts, wrongAttem
     }
 }
 
-export const TeamTaskColor2 = Object.freeze({
+export const TeamTaskColor = Object.freeze({
     [TeamTaskStatus.solved]: VERDICT_OK2,
     [TeamTaskStatus.failed]: VERDICT_NOK2,
     // [TeamTaskStatus.untouched]: STATISTICS_BG_COLOR,
@@ -41,7 +41,7 @@ export const TeamTaskColor2 = Object.freeze({
     [TeamTaskStatus.first]: VERDICT_OK2,
 });
 
-export const getTeamTaskColor2 = (score, minScore, maxScore) => {
+export const getTeamTaskColor = (score, minScore, maxScore) => {
     if (score === undefined) {
         return CELL_BG_COLOR;
     }

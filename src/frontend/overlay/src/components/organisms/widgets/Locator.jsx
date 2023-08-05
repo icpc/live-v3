@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { TeamInfo } from "../holder/TeamViewHolder";
 
 const slideIn = keyframes`
   from {
