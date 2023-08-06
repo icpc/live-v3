@@ -108,7 +108,7 @@ internal class CFContestInfo {
         CFSubmissionVerdict.REJECTED -> Verdict.Rejected
         null -> null
     }?.let {
-        if (passedTestCount == 0 && it.isAddingPenalty && !it.isAccepted) {
+        if (contestType == CFContestType.CF && passedTestCount == 0 && it.isAddingPenalty && !it.isAccepted) {
             Verdict.lookup(it.shortName, isAddingPenalty = false, isAccepted = false)
         } else {
             it
