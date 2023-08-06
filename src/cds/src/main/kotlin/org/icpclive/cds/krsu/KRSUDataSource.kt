@@ -41,7 +41,10 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                         contestSystemId = submission.Login,
                         groups = emptyList(),
                         hashTag = null,
-                        medias = emptyMap()
+                        medias = emptyMap(),
+                        isOutOfContest = false,
+                        isHidden = false,
+                        organizationId = null
                     )
             }
         }
@@ -70,6 +73,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                 problems = problemsList,
                 teams = teams.values.toList(),
                 groups = emptyList(),
+                organizations = emptyList(),
                 penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
             ),
             runs,

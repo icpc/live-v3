@@ -83,6 +83,7 @@ internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, Str
                 problems,
                 teams,
                 teams.toGroupInfos(),
+                emptyList(),
                 when (resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                     ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
@@ -108,6 +109,9 @@ internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, Str
                 attr("record")?.let { TeamMediaType.RECORD to MediaType.Video(it) },
             ).associate { it },
             contestSystemId = alias,
+            isOutOfContest = false,
+            isHidden = false,
+            organizationId = null
         )
         val runs =
             element.children("problem").flatMap { problem ->

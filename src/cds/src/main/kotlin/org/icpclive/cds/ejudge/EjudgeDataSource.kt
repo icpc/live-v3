@@ -43,7 +43,10 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 contestSystemId = participant.getAttribute("id"),
                 groups = listOf(),
                 hashTag = null,
-                medias = emptyMap()
+                medias = emptyMap(),
+                isOutOfContest = false,
+                isHidden = false,
+                organizationId = null
             )
         }.toList()
 
@@ -83,6 +86,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 problems = parseProblemsInfo(element),
                 teams = teams,
                 groups = emptyList(),
+                organizations = emptyList(),
                 penaltyRoundingMode = when (settings.resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                     ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
@@ -91,7 +95,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             runs = element.child("runs").children().mapNotNull { run ->
                 parseRunInfo(run, currentTime - startTime, teamIdMapping)
             }.toList(),
-            emptyList()
+            emptyList(),
         )
     }
 

@@ -187,9 +187,10 @@ data class TeamInfo(
     val groups: List<String>,
     val hashTag: String?,
     val medias: Map<TeamMediaType, MediaType>,
+    val isHidden: Boolean,
+    val isOutOfContest: Boolean,
+    val organizationId: String?,
     val additionalInfo: String? = null,
-    val isHidden: Boolean = false,
-    val isOutOfContest: Boolean = false,
 )
 
 @Serializable
@@ -197,6 +198,13 @@ data class GroupInfo(
     val name: String,
     val isHidden: Boolean = false,
     val isOutOfContest: Boolean = false
+)
+
+@Serializable
+data class OrganizationInfo(
+    val cdsId: String,
+    val shortname: String,
+    val name: String,
 )
 
 @Serializable
@@ -250,6 +258,7 @@ data class ContestInfo(
     val problems: List<ProblemInfo>,
     val teams: List<TeamInfo>,
     val groups: List<GroupInfo>,
+    val organizations: List<OrganizationInfo>,
     val penaltyRoundingMode: PenaltyRoundingMode,
     @SerialName("holdBeforeStartTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)

@@ -17,6 +17,9 @@ internal data class Participant(
         contestSystemId = login,
         groups = emptyList(),
         hashTag = null,
-        medias = emptyMap()
+        medias = emptyMap(),
+        isOutOfContest = false,
+        isHidden = false,
+        organizationId = null
     )
 }

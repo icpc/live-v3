@@ -21,12 +21,13 @@ class ICPCScoreboardTest {
             ProblemInfo("B", "B", 2, 1, "B"),
         ),
         teams = listOf(
-            TeamInfo(1, "T1", "T1", "T1", emptyList(), null, emptyMap()),
-            TeamInfo(2, "T2", "T2", "T2", emptyList(), null, emptyMap()),
-            TeamInfo(3, "T3", "T3", "T3", emptyList(), null, emptyMap()),
-            TeamInfo(4, "T4", "T4", "T4", emptyList(), null, emptyMap()),
+            TeamInfo(1, "T1", "T1", "T1", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(2, "T2", "T2", "T2", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(3, "T3", "T3", "T3", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(4, "T4", "T4", "T4", emptyList(), null, emptyMap(), false, false, null),
         ),
         groups = emptyList(),
+        organizations = emptyList(),
         penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
     )
 

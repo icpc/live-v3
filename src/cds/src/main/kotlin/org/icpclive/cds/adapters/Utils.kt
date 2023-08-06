@@ -31,13 +31,13 @@ open class ContestStateWithGroupedRuns<K>(
 
 class ContestStateWithRunsByTeam(val info: ContestInfo?, val runs: PersistentMap<Int, PersistentList<RunInfo>>)
 
-fun Flow<ContestUpdate>.withContestInfo() = flow {
+fun Flow<ContestUpdate>.withContestInfoBefore() = flow {
     var lastInfo : ContestInfo? = null
     collect {
+        emit(it to lastInfo)
         if (it is InfoUpdate) {
             lastInfo = it.newInfo
         }
-        emit(it to lastInfo)
     }
 }
 

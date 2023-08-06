@@ -101,20 +101,14 @@ fun Application.module() {
         .processHiddenTeamsAndGroups()
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
-    val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
     val contestState = loaded
         .stateWithGroupedRuns { it.teamId }
         .stateIn(this + handler, SharingStarted.Eagerly, ContestStateWithGroupedRuns(null, persistentMapOf()))
-    val contestInfo = loaded
-        .filterIsInstance<InfoUpdate>()
-        .map { it.newInfo }
-        .distinctUntilChanged()
-        .shareIn(this + handler, SharingStarted.Eagerly, 1)
 
     routing {
         with (ClicsExporter) {
             route("/clics") {
-                setUp(application + handler, contestInfo, runs)
+                setUp(application + handler, loaded)
             }
         }
         with (PCMSExporter) {
