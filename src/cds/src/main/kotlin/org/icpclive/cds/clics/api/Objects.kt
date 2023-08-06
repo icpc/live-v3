@@ -6,10 +6,70 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.clics.ClicsTime
+import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.util.ColorSerializer
 import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
 import kotlin.time.Duration
+
+@Serializable
+data class ApiProvider(
+    val name: String,
+    val version: String? = null,
+    val logo: List<Media> = emptyList(),
+)
+
+@Serializable
+data class ApiInfo(
+    val version: FeedVersion,
+    val versionUrl: String,
+    val provider: ApiProvider
+)
+
+@Serializable
+data class Endpoint(
+    val type: String,
+    val properties: List<String>
+)
+
+@Serializable
+data class Access(
+    val capabilities: List<String>,
+    val endpoints: List<Endpoint>
+)
+
+@Serializable
+data class Scoreboard(
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val time: Instant,
+    @Serializable(with = ClicsTime.DurationSerializer::class)
+    val contest_time: Duration,
+    val state: State,
+    val rows: List<ScoreboardRow>
+)
+
+@Serializable
+data class ScoreboardRow(
+    val rank: Int,
+    val team_id: String,
+    val score: ScoreboardRowScore,
+    val problems: List<ScoreboardRowProblem>
+)
+
+@Serializable
+data class ScoreboardRowScore(
+    val num_solved: Int,
+    val total_time: Long
+)
+
+@Serializable
+data class ScoreboardRowProblem(
+    val problem_id: String,
+    val num_judged: Int,
+    val num_pending: Int,
+    val solved: Boolean,
+    val time: Long? = null,
+)
 
 @Serializable
 enum class Operation {
@@ -176,6 +236,13 @@ data class Language(
 
 @Serializable
 data class Award(val id: String)
+
+@Serializable
+data class Person(
+    val id: String,
+    val name: String,
+    val role: String
+)
 
 @Serializable
 data class Account(

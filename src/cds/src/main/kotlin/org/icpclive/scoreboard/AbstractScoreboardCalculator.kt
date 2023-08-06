@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.adapters.ContestStateWithRunsByTeam
 import org.icpclive.util.getLogger
+import kotlin.time.Duration
 
 interface ScoreboardCalculator {
     fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>) : Scoreboard
@@ -70,7 +71,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                 hasChampion.addAll(teamsInfo[rows[i].teamId]!!.groups)
             }
         }
-        return Scoreboard(rows)
+        return Scoreboard(runs.values.maxOfOrNull { it.maxOfOrNull { it.time } ?: Duration.ZERO } ?: Duration.ZERO , rows)
     }
 
     companion object {
@@ -87,10 +88,13 @@ fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel) : S
     ContestResultType.IOI -> IOIScoreboardCalculator()
 }
 
-fun Flow<ContestStateWithRunsByTeam>.calculateScoreboard(optimismLevel: OptimismLevel) =
+fun Flow<ContestStateWithRunsByTeam>.calculateScoreboardWithInfo(optimismLevel: OptimismLevel) =
     filter { it.info != null }
     .conflate()
     .map {
-        getScoreboardCalculator(it.info!!, optimismLevel).getScoreboard(it.info, it.runs)
+        it.info!! to getScoreboardCalculator(it.info, optimismLevel).getScoreboard(it.info, it.runs)
     }
 
+
+fun Flow<ContestStateWithRunsByTeam>.calculateScoreboard(optimismLevel: OptimismLevel) =
+    calculateScoreboardWithInfo(optimismLevel).map { it.second }
