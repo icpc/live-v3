@@ -3,6 +3,7 @@ package org.icpclive.cds.clics
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.clics.api.*
+import org.icpclive.cds.clics.api.Organization
 import org.icpclive.cds.clics.model.*
 import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
@@ -58,9 +59,9 @@ internal class ClicsModel(
         return null
     }
 
-    fun Group.toApi() : GroupInfo = GroupInfo(name)
+    private fun Group.toApi() : GroupInfo = GroupInfo(name)
 
-    fun Team.toApi(): TeamInfo {
+    private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
             id = teamId[id],
@@ -75,17 +76,25 @@ internal class ClicsModel(
                 video.firstOrNull()?.mediaType()?.let { put(TeamMediaType.RECORD, it) }
                 webcam.firstOrNull()?.mediaType()?.let { put(TeamMediaType.CAMERA, it) }
                 desktop.firstOrNull()?.mediaType()?.let { put(TeamMediaType.SCREEN, it) }
-            }
+            },
+            organizationId = organization_id,
+            isOutOfContest = false,
         )
     }
 
-    fun Problem.toApi() = ProblemInfo(
+    private fun Problem.toApi() = ProblemInfo(
         letter = label,
         name = name,
         id = problemToId[id],
         ordinal = ordinal,
         contestSystemId = id,
         color = rgb ?: Color.BLACK
+    )
+
+    private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(
+        cdsId = id,
+        shortname = name,
+        name = formalName,
     )
 
     val contestInfo: ContestInfo
@@ -102,6 +111,7 @@ internal class ClicsModel(
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             holdBeforeStartTime = holdBeforeStartTime,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
+            organizations = organisations.values.map { it.toApi() }
         )
 
     fun processContest(contest: Contest): List<RunInfo> {

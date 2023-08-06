@@ -132,7 +132,8 @@ private fun applyOverrides(
                 team.medias,
             additionalInfo = override.additionalInfo,
             isHidden = override.isHidden ?: team.isHidden,
-            isOutOfContest = override.isOutOfContest ?: team.isOutOfContest
+            isOutOfContest = override.isOutOfContest ?: team.isOutOfContest,
+            organizationId = override.organizationId ?: team.organizationId
         )
     }
     val (problemInfos, unusedProblemOverrides) = mergeOverride(

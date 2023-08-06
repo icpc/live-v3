@@ -50,7 +50,10 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                 contestSystemId = id,
                 groups = listOf(),
                 hashTag = null,
-                medias = emptyMap()
+                medias = emptyMap(),
+                isOutOfContest = false,
+                isHidden = false,
+                organizationId = null
             )
         }
         val isCEPenalty = data["@comment"]?.contains("@pragma IgnoreCE") != true
@@ -69,6 +72,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
             penaltyPerWrongAttempt = (penalty.getOrNull(0) ?: 20).minutes,
             penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE,
             groups = emptyList(),
+            organizations = emptyList(),
         )
         val runs = (data["@s"] ?: emptyList()).mapIndexed { index, subm ->
             val (teamId, problemId, _, time, verdict) = subm.splitCommas()

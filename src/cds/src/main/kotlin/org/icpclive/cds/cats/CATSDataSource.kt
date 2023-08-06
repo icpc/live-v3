@@ -158,7 +158,10 @@ internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, Str
                     contestSystemId = team.account_id.toString(),
                     groups = listOf(),
                     hashTag = null,
-                    medias = mapOf()
+                    medias = mapOf(),
+                    isHidden = false,
+                    isOutOfContest = false,
+                    organizationId = null
                 )
             }.toList()
 
@@ -176,6 +179,7 @@ internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, Str
             problems = problemsList,
             teams = teamList,
             groups = emptyList(),
+            organizations = emptyList(),
             penaltyRoundingMode = when (settings.resultType) {
                 ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                 ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE

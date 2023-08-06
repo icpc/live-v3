@@ -103,7 +103,10 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings, creds: Map
                 shortName = team.name,
                 groups = emptyList(),
                 hashTag = null,
-                medias = emptyMap()
+                medias = emptyMap(),
+                organizationId = null,
+                isOutOfContest = false,
+                isHidden = false
             )
         }
 
@@ -159,6 +162,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings, creds: Map
                 ScoreboardType.ONE_POINT_WITH_MAX_PENALTY -> PenaltyRoundingMode.LAST
                 ScoreboardType.UNRECOGNIZED, null -> TODO("Unsupported scoreboard type")
             },
+            organizations = emptyList()
         )
         return ContestParseResult(contestInfo, submissions, emptyList())
     }

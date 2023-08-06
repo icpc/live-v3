@@ -84,6 +84,9 @@ internal class CFContestInfo {
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
+                organizationId = null,
+                isHidden = false,
+                isOutOfContest = false
             )
         }
     }
@@ -253,7 +256,8 @@ internal class CFContestInfo {
             CFContestType.CF -> PenaltyRoundingMode.ZERO
             CFContestType.IOI -> PenaltyRoundingMode.ZERO
             CFContestType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
-        }
+        },
+        organizations = emptyList()
     )
 
     companion object {
