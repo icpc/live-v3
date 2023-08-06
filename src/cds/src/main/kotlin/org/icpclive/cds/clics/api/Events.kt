@@ -4,6 +4,16 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.clics.api.v1.Event as EventV1
 
+interface IdEvent<T> {
+    val id: String
+    val data: T?
+}
+
+interface GlobalEvent<T> {
+    val data: T?
+}
+
+
 @Serializable
 sealed class Event {
     abstract val token: String
@@ -17,9 +27,7 @@ sealed class Event {
     @Serializable
     sealed class IgnoredEvent : Event()
 
-    sealed class ContestEvent : UpdateContestEvent() {
-        abstract val data: Contest?
-    }
+    sealed class ContestEvent : UpdateContestEvent(), GlobalEvent<Contest>
 
     @Serializable
     @SerialName("contest")
@@ -30,68 +38,76 @@ sealed class Event {
 
     @Serializable
     @SerialName("problems")
-    data class ProblemEvent(val id: String, override val token: String, val data: Problem?) :
-        UpdateContestEvent()
+    data class ProblemEvent(override val id: String, override val token: String, override val data: Problem?) :
+        UpdateContestEvent(), IdEvent<Problem>
 
     @Serializable
     @SerialName("teams")
-    data class TeamEvent(val id: String, override val token: String, val data: Team?) : UpdateContestEvent()
+    data class TeamEvent(override val id: String, override val token: String, override val data: Team?) :
+        UpdateContestEvent(), IdEvent<Team>
 
     @Serializable
     @SerialName("organizations")
-    data class OrganizationEvent(val id: String, override val token: String, val data: Organization?) :
-        UpdateContestEvent()
+    data class OrganizationEvent(override val id: String, override val token: String, override val data: Organization?) :
+        UpdateContestEvent(), IdEvent<Organization>
 
     @Serializable
     @SerialName("state")
-    data class StateEvent(override val token: String, val data: State?) : UpdateContestEvent()
+    data class StateEvent(override val token: String, override val data: State?) : UpdateContestEvent(), GlobalEvent<State>
 
     @Serializable
     @SerialName("judgement-types")
-    data class JudgementTypeEvent(val id: String, override val token: String, val data: JudgementType?) :
-        UpdateContestEvent()
+    data class JudgementTypeEvent(override val id: String, override val token: String, override val data: JudgementType?) :
+        UpdateContestEvent(), IdEvent<JudgementType>
 
     @Serializable
     @SerialName("groups")
-    data class GroupsEvent(val id: String, override val token: String, val data: Group?) : UpdateContestEvent()
+    data class GroupsEvent(override val id: String, override val token: String, override val data: Group?) :
+        UpdateContestEvent(),IdEvent<Group>
 
     @Serializable
     @SerialName("submissions")
-    data class SubmissionEvent(val id: String, override val token: String, val data: Submission?) :
-        UpdateRunEvent()
+    data class SubmissionEvent(override val id: String, override val token: String, override val data: Submission?) :
+        UpdateRunEvent(), IdEvent<Submission>
 
     @Serializable
     @SerialName("judgements")
-    data class JudgementEvent(val id: String, override val token: String, val data: Judgement?) :
-        UpdateRunEvent()
+    data class JudgementEvent(override val id: String, override val token: String, override val data: Judgement?) :
+        UpdateRunEvent(), IdEvent<Judgement>
 
     @Serializable
     @SerialName("runs")
-    data class RunsEvent(val id: String, override val token: String, val data: Run?) : UpdateRunEvent()
+    data class RunsEvent(override val id: String, override val token: String, override val data: Run?) :
+        UpdateRunEvent(), IdEvent<Run>
 
     @Serializable
     @SerialName("commentary")
-    data class CommentaryEvent(val id: String, override val token: String, val data: Commentary?) : Event()
+    data class CommentaryEvent(override val id: String, override val token: String, override val data: Commentary?) :
+        Event(), IdEvent<Commentary>
 
     @Serializable
     @SerialName("awards")
-    data class AwardsEvent(val id: String, override val token: String, val data: Award?) : IgnoredEvent()
+    data class AwardsEvent(override val id: String, override val token: String, override val data: Award?) :
+        IgnoredEvent(), IdEvent<Award>
 
     @Serializable
     @SerialName("languages")
-    data class LanguageEvent(val id: String, override val token: String, val data: Language?) : IgnoredEvent()
+    data class LanguageEvent(override val id: String, override val token: String, override val data: Language?) :
+        IgnoredEvent(), IdEvent<Language>
 
     @Serializable
     @SerialName("clarifications")
-    data class ClarificationEvent(val id: String, override val token: String, val data: Clarification?) : IgnoredEvent()
+    data class ClarificationEvent(override val id: String, override val token: String, override val data: Clarification?) :
+        IgnoredEvent(), IdEvent<Clarification>
 
     @Serializable
     @SerialName("accounts")
-    data class AccountEvent(val id: String, override val token: String, val data: Account?) : IgnoredEvent()
+    data class AccountEvent(override val id: String, override val token: String, override val data: Account?)
+        : IgnoredEvent(), IdEvent<Account>
 
     @Serializable
     @SerialName("persons")
-    data class PersonEvent(val id: String, override val token: String) : IgnoredEvent()
+    data class PersonEvent(override val id: String, override val token: String, override val data: Person) : IgnoredEvent(), IdEvent<Person>
 
     @Serializable
     @SerialName("map-info")

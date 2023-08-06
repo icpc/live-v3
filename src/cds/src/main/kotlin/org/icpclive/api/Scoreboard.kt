@@ -59,4 +59,8 @@ data class IOIProblemResult(
 ) : ProblemResult()
 
 @Serializable
-data class Scoreboard(val rows: List<ScoreboardRow>)
+data class Scoreboard(
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val lastSubmitTime: Duration,
+    val rows: List<ScoreboardRow>
+)
