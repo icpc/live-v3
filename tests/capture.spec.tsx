@@ -13,7 +13,7 @@ const contestConfigs = [
     "config/__tests/testsys icpc/spbsu-2023-may"
 ];
 
-const backendStartCooldown = 10000;
+const backendStartCooldown = 1000;
 const backendFinishCooldown = 1000;
 const overlayDisplayDelay = 1000;
 const address = "127.0.0.1";
