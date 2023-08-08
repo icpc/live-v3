@@ -8,6 +8,10 @@ jobs:
   test:
     timeout-minutes: 20
     runs-on: ubuntu-latest
+    # It is recommended to use Docker image version that matches Playwright version. 
+    # If the Playwright version in your Docker image does not match the version in your project/tests, Playwright will be unable to locate browser executables.
+    container:
+      image: mcr.microsoft.com/playwright:v1.32.3-jammy
     steps:
       - uses: actions/checkout@v3
 
@@ -16,7 +20,7 @@ jobs:
           node-version: '16'
           cache: 'npm'
           cache-dependency-path: 'src/frontend/package-lock.json'
-
+            
       - uses: actions/setup-java@master
         with:
           distribution: adopt
@@ -29,8 +33,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      # You don't need this if you are running playwright container
+      # - name: Install Playwright Browsers
+      #   run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test 2>&1
