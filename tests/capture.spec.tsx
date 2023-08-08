@@ -4,13 +4,13 @@ import WebSocket from "ws";
 
 const simpleWidgets = ["queue", "scoreboard", "statistics"];
 const contestConfigs = [
-    "config/__tests/ejudge icpc unfreeze/2023-voronezh",
-    "config/__tests/ejudge ioi/regionalroi-lpk-2021-d1",
-    "config/__tests/ejudge ioi virtual/mosh-2023-keldysh",
-    "config/__tests/pcms icpc freeze/icpc-nef-2022-2023",
-    "config/__tests/pcms icpc overrides/icpc-nef-2021-2022",
-    "config/__tests/pcms ioi/innopolis-open-2022-2023-final",
-    "config/__tests/testsys icpc/spbsu-2023-may"
+    "config/__tests/ejudge_icpc_unfreeze/2023-voronezh",
+    "config/__tests/ejudge_ioi/regionalroi-lpk-2021-d1",
+    "config/__tests/ejudge_ioi_virtual/mosh-2023-keldysh",
+    "config/__tests/pcms_icpc_freeze/icpc-nef-2022-2023",
+    "config/__tests/pcms_icpc_overrides/icpc-nef-2021-2022",
+    "config/__tests/pcms_ioi/innopolis-open-2022-2023-final",
+    "config/__tests/testsys_icpc/spbsu-2023-may"
 ];
 
 const backendStartCooldown = 3000;
