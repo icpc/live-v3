@@ -25,6 +25,9 @@ kotlin {
 }
 
 tasks {
+    shadowJar {
+        mergeServiceFiles()
+    }
     named<JavaExec>("run") {
         this.args = listOfNotNull(
             "-P:auth.disabled=true",
@@ -68,6 +71,7 @@ sourceSets {
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     implementation(libs.logback)
