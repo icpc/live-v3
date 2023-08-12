@@ -79,6 +79,9 @@ internal class ClicsModel(
             },
             organizationId = organization_id,
             isOutOfContest = false,
+            customFields = mapOf(
+                "name" to name,
+            )
         )
     }
 
@@ -93,8 +96,8 @@ internal class ClicsModel(
 
     private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(
         cdsId = id,
-        shortname = name,
-        name = formalName,
+        displayName = name,
+        fullName = formalName,
     )
 
     val contestInfo: ContestInfo

@@ -36,6 +36,7 @@ data class TeamInfoOverride(
 /**
  * @param name Problem name.
  * @param color Color of a problem balloon. It would be shown in queue and scoreboard in places related to the problem
+ * @param ordinal Number to sort problems in the scoreboard
  * @param minScore In ioi mode minimal possible value of points in this problem
  * @param maxScore In ioi mode maximal possible value of points in this problem
  * @param scoreMergeMode In ioi mode, select the ruleset to calculate final score based on the scores for each submission.
@@ -43,8 +44,8 @@ data class TeamInfoOverride(
 @Serializable
 data class ProblemInfoOverride(
     val name: String? = null,
-    @Serializable(ColorSerializer::class)
-    val color: Color? = null,
+    @Serializable(ColorSerializer::class) val color: Color? = null,
+    val ordinal: Int? = null,
     val minScore: Double? = null,
     val maxScore: Double? = null,
     val scoreMergeMode: ScoreMergeMode? = null
@@ -73,6 +74,12 @@ class RankingSettings(
     val penaltyPerWrongAttempt: Duration? = null,
     val showTeamsWithoutSubmissions: Boolean? = null,
     val penaltyRoundingMode: PenaltyRoundingMode? = null
+)
+
+@Serializable
+data class OrganizationInfoOverride(
+    val displayName: String? = null,
+    val fullName: String? = null
 )
 
 /**
@@ -110,6 +117,7 @@ data class AdvancedProperties(
     val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val groupOverrides: Map<String, GroupInfoOverride>? = null,
+    val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
     val scoreboardOverrides: RankingSettings? = null
 )
@@ -130,8 +138,10 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
                 name = it.fullName.takeIfAsked("name"),
                 shortname = it.displayName.takeIfAsked("shortname"),
                 groups = it.groups.takeIfAsked("groups"),
+                organizationId = it.organizationId.takeIfAsked("organizationId"),
                 hashTag = it.hashTag.takeIfAsked("hashTag"),
                 medias = it.medias.takeIfAsked("medias"),
+                customFields = it.customFields.takeIfAsked("customFields"),
                 isHidden = it.isHidden.takeIfAsked("isHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
             )
@@ -140,6 +150,7 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
             it.letter to ProblemInfoOverride(
                 name = it.name.takeIfAsked("problemName"),
                 color = it.color.takeIfAsked("color"),
+                ordinal = it.ordinal.takeIfAsked("ordinal"),
                 minScore = it.minScore.takeIfAsked("minScore"),
                 maxScore = it.maxScore.takeIfAsked("maxScore"),
                 scoreMergeMode = it.scoreMergeMode.takeIfAsked("scoreMergeMode")
@@ -149,6 +160,12 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
             it.name to GroupInfoOverride(
                 isHidden = it.isHidden.takeIfAsked("isHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
+            )
+        },
+        organizationOverrides = organizations.associate {
+            it.cdsId to OrganizationInfoOverride(
+                displayName = it.displayName.takeIfAsked("orgDisplayName"),
+                fullName = it.fullName.takeIfAsked("orgFullName")
             )
         },
         scoreboardOverrides = RankingSettings(
