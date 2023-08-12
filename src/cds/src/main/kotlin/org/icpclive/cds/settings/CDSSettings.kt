@@ -132,7 +132,7 @@ class EjudgeSettings(
 @SerialName("yandex")
 class YandexSettings(
     val apiKey: Credential,
-    val loginRegex: String,
+    @Serializable(with = RegexSerializer::class) val loginRegex: Regex,
     val contestId: Int,
     val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null

@@ -6,7 +6,7 @@
     }
   },
   "teamOverrides": {
-"486860": {"shortname": "SPb HSE 1: Lemon Tree", "groups": ["SPb HSE", "SPb"], "additionalInfo": "Safonov | Gorokhovskii | Fedoseev"},
+"486860": {"shortname": "SPb HSE 1: Lemon Tree", "groups": ["SPb HSE", "SPb"], "customFields": {"svgInfo": "Safonov | Gorokhovskii | Fedoseev"}},
 "486908": {"shortname": "Ufa SATU: Electric Funeral", "groups": ["Ufa SATU", "Other"]},
 "486910": {"shortname": "Budenny Mil Telecom A: 1", "groups": ["Budenny Mil Telecom A", "SPb"]}
   }

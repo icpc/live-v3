@@ -44,7 +44,7 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
-            val participantRegex = Regex(settings.loginRegex)
+            val participantRegex = settings.loginRegex
             jsonLoader<List<Participant>>(auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }

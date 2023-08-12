@@ -1,16 +1,16 @@
 package org.icpclive.api.tunning
 
 import kotlinx.datetime.Instant
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
+import kotlinx.serialization.json.JsonNames
 import org.icpclive.api.*
 import org.icpclive.util.*
 import java.awt.Color
 import kotlin.time.Duration
 
 /**
- * @param name Full name of the team. Will be mostly shown on admin pages.
- * @param shortname Name of the team shown in most places.
+ * @param fullName Full name of the team. Will be mostly shown on admin pages.
+ * @param displayName Name of the team shown in most places.
  * @param groups The list of the groups team belongs too.
  * @param organizationId The id of organization team comes from
  * @param hashTag Team hashtag. Can be shown on some team related pages
@@ -20,10 +20,11 @@ import kotlin.time.Duration
  * @param isHidden If set to true, the team would be totally hidden.
  * @param isOutOfContest If set to true, the team would not receive rank in scoreboard, but it's submission would still be shown.
  */
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class TeamInfoOverride(
-    val name: String? = null,
-    val shortname: String? = null,
+    @JsonNames("name") val fullName: String? = null,
+    @JsonNames("shortname") val displayName: String? = null,
     val groups: List<String>? = null,
     val organizationId: String? = null,
     val hashTag: String? = null,
@@ -99,6 +100,7 @@ data class OrganizationInfoOverride(
  * @param holdTime Fixed time to show as time before the contest start
  * @param teamMediaTemplate Template medias for all teams.
  *        You can use `{teamId}` within the template, it will be substituted with team id from contest system.
+ * @param teamRegexes Bunch of regexes to extract information cds doesn't provide from team name.
  * @param teamOverrides Overrides for a specific team. Team id from the contest system is key.
  * @param groupOverrides Overrides for specific groups. Group name is key.
  * @param problemOverrides Overrides for specific problems. Problem letter is key.
@@ -114,12 +116,40 @@ data class AdvancedProperties(
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("holdTimeSeconds")
     val holdTime: Duration? = null,
+    @Deprecated(level = DeprecationLevel.WARNING, message = "Use teamOverrideTemplate instead")
     val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
+    val teamOverrideTemplate: TeamOverrideTemplate? = null,
+    val teamRegexes: TeamRegexOverrides? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val groupOverrides: Map<String, GroupInfoOverride>? = null,
     val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
     val scoreboardOverrides: RankingSettings? = null
+)
+
+typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
+
+/**
+ * All regexes are java regex.
+ *
+ * Regexes are matched against team full name from cds.
+ *
+ * @property organizationRegex The only matched group would be equal to new organization id for the team.
+ * @property customFields The only group would be set as custom field value for the corresponding key
+ * @property groupRegex The group is added if the name matches regex.
+ */
+@Serializable
+data class TeamRegexOverrides(
+    val organizationRegex: Regex? = null,
+    val customFields: Map<String, Regex>? = null,
+    val groupRegex: Map<String, Regex>? = null,
+)
+
+@Serializable
+data class TeamOverrideTemplate(
+    val displayName: String? = null,
+    val fullName: String? = null,
+    val medias: Map<TeamMediaType, MediaType?>? = null,
 )
 
 /**
@@ -135,8 +165,8 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
         holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teams.associate {
             it.contestSystemId to TeamInfoOverride(
-                name = it.fullName.takeIfAsked("name"),
-                shortname = it.displayName.takeIfAsked("shortname"),
+                fullName = it.fullName.takeIfAsked("fullName"),
+                displayName = it.displayName.takeIfAsked("displayName"),
                 groups = it.groups.takeIfAsked("groups"),
                 organizationId = it.organizationId.takeIfAsked("organizationId"),
                 hashTag = it.hashTag.takeIfAsked("hashTag"),
