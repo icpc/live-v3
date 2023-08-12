@@ -58,7 +58,7 @@ fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<Advanced
         suspend fun apply() {
             val ci = contestInfo ?: return
             val ap = advancedProperties ?: return
-            emit(InfoUpdate(applyOverrides(ci, ap, submittedTeams)))
+            emit(InfoUpdate(applyAdvancedProperties(ci, ap, submittedTeams)))
             val startOverride = ap.startTime ?: return
             triggerAt(startOverride)
             triggerAt(startOverride + ci.contestLength)
@@ -188,7 +188,7 @@ private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides
     }
 }
 
-private fun applyOverrides(
+internal fun applyAdvancedProperties(
     info: ContestInfo,
     overrides: AdvancedProperties,
     submittedTeams: Set<Int>
