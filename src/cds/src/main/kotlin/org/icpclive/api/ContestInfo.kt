@@ -133,20 +133,6 @@ sealed class MediaType {
         override val isMedia = false
     }
 
-    fun applyTemplate(teamId: String) = when (this) {
-        is Photo -> copy(url = url.replace("{teamId}", teamId))
-        is Video -> copy(url = url.replace("{teamId}", teamId))
-        is Object -> copy(url = url.replace("{teamId}", teamId))
-        is WebRTCProxyConnection -> copy(url = url.replace("{teamId}", teamId))
-        is WebRTCGrabberConnection -> copy(
-            url = url.replace("{teamId}", teamId),
-            peerName = peerName.replace("{teamId}", teamId),
-            credential = credential?.replace("{teamId}", teamId)
-        )
-
-        else -> this
-    }
-
     fun noMedia(): MediaType = when (this) {
         is Photo -> copy(isMedia = false)
         is Video -> copy(isMedia = false)
@@ -203,8 +189,8 @@ data class GroupInfo(
 @Serializable
 data class OrganizationInfo(
     val cdsId: String,
-    val shortname: String,
-    val name: String,
+    val displayName: String,
+    val fullName: String,
 )
 
 @Serializable

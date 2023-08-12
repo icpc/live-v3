@@ -41,8 +41,8 @@ private fun GroupInfo.toClicsGroup() = Group(
 
 private fun OrganizationInfo.toClicsOrg() = Organization(
     id = cdsId,
-    name = shortname,
-    formal_name = name,
+    name = displayName,
+    formal_name = fullName,
 )
 
 private fun TeamInfo.toClicsTeam() = Team(
