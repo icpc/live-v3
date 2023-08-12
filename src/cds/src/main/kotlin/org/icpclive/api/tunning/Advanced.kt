@@ -92,14 +92,30 @@ data class OrganizationInfoOverride(
  *
  * This class contains the data to be fixed in what is received from a contest system.
  *
+ * The order in which overrides applied:
+ *   * Time and scoreboard related (they don't interact with others)
+ *   * Filtering out non-submitted teams if requested
+ *   * Regexp overrides (so values provided by them can be used in templated)
+ *   * Creating new groups mentioned in teams or overrides and group overrides
+ *   * Creating new organizations mentioned in teams or overrides and organization overrides
+ *   * (Deprecated) Team media template
+ *   * Team override template
+ *   * Normal team overrides
+ *
+ * In all templates in all strings inside `{variableName}` pattern is substituted.
+ * The following variable names are supported:
+ *   * teamId - team id from the contest system
+ *   * orgFullName - fullName of team organization
+ *   * orgDisplayName - displayName of team organization
+ *   * all values from customFields
+ *
  * @param startTime Override for contest start time.
  *        The preferred format is `yyyy-mm-dd hh:mm:ss`, but some others would be accepted too.
- *        Consider using 'now' if you want the contest emulation to start together with the overlay.
- *        startTime overrise also can affect contest state.
+ *        startTime override also can affect contest state.
  * @param freezeTime Time from the start of the contest before scoreboard freezing.
  * @param holdTime Fixed time to show as time before the contest start
  * @param teamMediaTemplate Template medias for all teams.
- *        You can use `{teamId}` within the template, it will be substituted with team id from contest system.
+ * @param teamOverrideTemplate Template for team overrides
  * @param teamRegexes Bunch of regexes to extract information cds doesn't provide from team name.
  * @param teamOverrides Overrides for a specific team. Team id from the contest system is key.
  * @param groupOverrides Overrides for specific groups. Group name is key.
@@ -130,6 +146,9 @@ data class AdvancedProperties(
 typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
 
 /**
+ * In some cases, the contest system provides some useful information as part of team name.
+ * This can be used to extract this information to something more structured.
+ *
  * All regexes are java regex.
  *
  * Regexes are matched against team full name from cds.
@@ -145,6 +164,17 @@ data class TeamRegexOverrides(
     val groupRegex: Map<String, Regex>? = null,
 )
 
+/**
+ * Template for the team override.
+ *
+ * It has smaller priority than override in the team itself.
+ *
+ * Check [AdvancedProperties] doc about patterns inside template.
+ *
+ * @property displayName Template string for team display name. Check [TeamInfoOverride.displayName] for details.
+ * @property fullName Template string for team full name. Check [TeamInfoOverride.fullName] for details.
+ * @property medias Templates for team medias. Check [TeamInfoOverride.medias] for details.
+ */
 @Serializable
 data class TeamOverrideTemplate(
     val displayName: String? = null,

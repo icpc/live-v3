@@ -143,6 +143,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/1/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3664",
+                "customFields": {
+                    "name": "Ain Shams University - Faculty of Computer and Information Sciences"
                 }
             },
             {
@@ -159,6 +165,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/10/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0144",
+                "customFields": {
+                    "name": "Belarusian State University"
                 }
             },
             {
@@ -171,6 +183,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1962",
+                "customFields": {
+                    "name": "University of Aizu"
                 }
             },
             {
@@ -187,6 +205,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/101/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2324",
+                "customFields": {
+                    "name": "University of British Columbia"
                 }
             },
             {
@@ -203,6 +227,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/102/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0196",
+                "customFields": {
+                    "name": "University of Bucharest"
                 }
             },
             {
@@ -219,6 +249,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/103/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2343",
+                "customFields": {
+                    "name": "University of Cambridge"
                 }
             },
             {
@@ -235,6 +271,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/104/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2349",
+                "customFields": {
+                    "name": "University of Central Florida"
                 }
             },
             {
@@ -251,6 +293,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/105/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2366",
+                "customFields": {
+                    "name": "University of Dhaka"
                 }
             },
             {
@@ -267,6 +315,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/106/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2387",
+                "customFields": {
+                    "name": "University of Illinois at Urbana-Champaign"
                 }
             },
             {
@@ -283,6 +337,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/107/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2400",
+                "customFields": {
+                    "name": "University of Latvia"
                 }
             },
             {
@@ -299,6 +359,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/108/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2493",
+                "customFields": {
+                    "name": "University of Rochester"
                 }
             },
             {
@@ -315,6 +381,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/109/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2519",
+                "customFields": {
+                    "name": "University of Southern California"
                 }
             },
             {
@@ -331,6 +403,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/11/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0140",
+                "customFields": {
+                    "name": "Belarusian State University of Informatics and Radioelectronics"
                 }
             },
             {
@@ -343,6 +421,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2528",
+                "customFields": {
+                    "name": "University of Tehran"
                 }
             },
             {
@@ -359,6 +443,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/111/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2562",
+                "customFields": {
+                    "name": "University of Utah"
                 }
             },
             {
@@ -375,6 +465,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/112/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2673",
+                "customFields": {
+                    "name": "University of Warsaw"
                 }
             },
             {
@@ -391,6 +487,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/113/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2574",
+                "customFields": {
+                    "name": "University of Wisconsin - Madison"
                 }
             },
             {
@@ -407,6 +509,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/114/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2589",
+                "customFields": {
+                    "name": "University of Wroclaw"
                 }
             },
             {
@@ -423,6 +531,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/115/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "12694",
+                "customFields": {
+                    "name": "Utrecht - Leiden University"
                 }
             },
             {
@@ -439,6 +553,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/116/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2648",
+                "customFields": {
+                    "name": "Virginia Tech"
                 }
             },
             {
@@ -455,6 +575,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/117/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2659",
+                "customFields": {
+                    "name": "Volgograd State Technical University"
                 }
             },
             {
@@ -471,6 +597,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/118/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2742",
+                "customFields": {
+                    "name": "Yerevan State University"
                 }
             },
             {
@@ -487,6 +619,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/119/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2745",
+                "customFields": {
+                    "name": "Yonsei University"
                 }
             },
             {
@@ -503,6 +641,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/12/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0160",
+                "customFields": {
+                    "name": "Bilkent University"
                 }
             },
             {
@@ -519,6 +663,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/13/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "5628",
+                "customFields": {
+                    "name": "BITS-Pilani, Hyderabad Campus"
                 }
             },
             {
@@ -535,6 +685,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/14/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3348",
+                "customFields": {
+                    "name": "Cairo University - Faculty of Computers and Artificial Intelligence"
                 }
             },
             {
@@ -551,6 +707,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/16/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0358",
+                "customFields": {
+                    "name": "Damascus University"
                 }
             },
             {
@@ -567,6 +729,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/17/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3944",
+                "customFields": {
+                    "name": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar"
                 }
             },
             {
@@ -583,6 +751,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/18/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0413",
+                "customFields": {
+                    "name": "Duke University"
                 }
             },
             {
@@ -599,6 +773,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/19/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3436",
+                "customFields": {
+                    "name": "École Normale Supérieure de Paris"
                 }
             },
             {
@@ -615,6 +795,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/2/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "7113",
+                "customFields": {
+                    "name": "Al-Baath University"
                 }
             },
             {
@@ -631,6 +817,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/20/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0443",
+                "customFields": {
+                    "name": "Ecole Polytechnique"
                 }
             },
             {
@@ -647,6 +839,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/21/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0451",
+                "customFields": {
+                    "name": "ETH Zürich"
                 }
             },
             {
@@ -663,6 +861,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/22/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3360",
+                "customFields": {
+                    "name": "Faculty of Computer Science, Belgrade "
                 }
             },
             {
@@ -679,6 +883,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/23/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "5724",
+                "customFields": {
+                    "name": "Free University of Tbilisi"
                 }
             },
             {
@@ -695,6 +905,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/24/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3519",
+                "customFields": {
+                    "name": "German University in Cairo"
                 }
             },
             {
@@ -711,6 +927,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/25/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0642",
+                "customFields": {
+                    "name": "Harvard University"
                 }
             },
             {
@@ -727,6 +949,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/26/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "6581",
+                "customFields": {
+                    "name": "Higher Institute for Applied Sciences and Technology"
                 }
             },
             {
@@ -739,6 +967,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0724",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Bombay"
                 }
             },
             {
@@ -755,6 +989,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/28/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0725",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Delhi"
                 }
             },
             {
@@ -771,6 +1011,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/29/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0718",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Guwahati"
                 }
             },
             {
@@ -787,6 +1033,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/3/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0502",
+                "customFields": {
+                    "name": "Alexandria University - Faculty of Engineering"
                 }
             },
             {
@@ -803,6 +1055,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/30/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "5640",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Indore"
                 }
             },
             {
@@ -819,6 +1077,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/31/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0727",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Kanpur"
                 }
             },
             {
@@ -835,6 +1099,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/32/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0728",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Kharagpur"
                 }
             },
             {
@@ -851,6 +1121,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/33/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "6908",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Patna"
                 }
             },
             {
@@ -867,6 +1143,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/34/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0722",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Roorkee"
                 }
             },
             {
@@ -883,6 +1165,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/35/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "9406",
+                "customFields": {
+                    "name": "Indian Institute of Technology - Varanasi"
                 }
             },
             {
@@ -899,6 +1187,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/36/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3919",
+                "customFields": {
+                    "name": "Indian Institute of Technology (ISM), Dhanbad"
                 }
             },
             {
@@ -915,6 +1209,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/37/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "9574",
+                "customFields": {
+                    "name": "Indraprastha Institute of Information Technology"
                 }
             },
             {
@@ -931,6 +1231,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/38/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "7857",
+                "customFields": {
+                    "name": "Innopolis University"
                 }
             },
             {
@@ -947,6 +1253,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/39/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "6960",
+                "customFields": {
+                    "name": "Institut National des Sciences Appliquées et de Technologie"
                 }
             },
             {
@@ -963,6 +1275,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/4/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0061",
+                "customFields": {
+                    "name": "American University - Central Asia"
                 }
             },
             {
@@ -979,6 +1297,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/40/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "7325",
+                "customFields": {
+                    "name": "Institute of Computing - Federal University of Amazonas"
                 }
             },
             {
@@ -995,6 +1319,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/41/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3071",
+                "customFields": {
+                    "name": "Instituto de Informática - UFG"
                 }
             },
             {
@@ -1011,6 +1341,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/42/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0846",
+                "customFields": {
+                    "name": "International Institute of Information Technology - Hyderabad"
                 }
             },
             {
@@ -1027,6 +1363,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/43/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "4330",
+                "customFields": {
+                    "name": "International IT University"
                 }
             },
             {
@@ -1043,6 +1385,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/44/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0923",
+                "customFields": {
+                    "name": "Izhevsk State Technical University"
                 }
             },
             {
@@ -1059,6 +1407,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/45/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0931",
+                "customFields": {
+                    "name": "Jagiellonian University in Krakow"
                 }
             },
             {
@@ -1075,6 +1429,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/46/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0993",
+                "customFields": {
+                    "name": "Kazan (Volga Region) Federal University"
                 }
             },
             {
@@ -1091,6 +1451,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/47/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1008",
+                "customFields": {
+                    "name": "Kharkiv National University of Radio Electronics"
                 }
             },
             {
@@ -1107,6 +1473,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/48/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1026",
+                "customFields": {
+                    "name": "Korea University"
                 }
             },
             {
@@ -1123,6 +1495,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/49/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "7423",
+                "customFields": {
+                    "name": "Kyungpook National University"
                 }
             },
             {
@@ -1139,6 +1517,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/5/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0065",
+                "customFields": {
+                    "name": "American University of Beirut"
                 }
             },
             {
@@ -1155,6 +1539,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/50/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1145",
+                "customFields": {
+                    "name": "Massachusetts Institute of Technology"
                 }
             },
             {
@@ -1171,6 +1561,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/51/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1214",
+                "customFields": {
+                    "name": "Moscow Aviation Institute"
                 }
             },
             {
@@ -1187,6 +1583,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/52/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1220",
+                "customFields": {
+                    "name": "Moscow Institute of Physics and Technology"
                 }
             },
             {
@@ -1203,6 +1605,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/53/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1237",
+                "customFields": {
+                    "name": "Moscow State University"
                 }
             },
             {
@@ -1219,6 +1627,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/54/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1215",
+                "customFields": {
+                    "name": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)"
                 }
             },
             {
@@ -1235,6 +1649,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/55/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3534",
+                "customFields": {
+                    "name": "National Research University Higher School of Economics"
                 }
             },
             {
@@ -1251,6 +1671,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/56/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1303",
+                "customFields": {
+                    "name": "National Taiwan University"
                 }
             },
             {
@@ -1267,6 +1693,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/58/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "9780",
+                "customFields": {
+                    "name": "Netaji Subhash University Of Technology"
                 }
             },
             {
@@ -1283,6 +1715,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/59/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1338",
+                "customFields": {
+                    "name": "Nizhny Novgorod State University"
                 }
             },
             {
@@ -1299,6 +1737,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/6/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0068",
+                "customFields": {
+                    "name": "Amirkabir University of Technology"
                 }
             },
             {
@@ -1311,6 +1755,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "7898",
+                "customFields": {
+                    "name": "NU-FAST Karachi"
                 }
             },
             {
@@ -1327,6 +1777,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/61/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1452",
+                "customFields": {
+                    "name": "Perm State University"
                 }
             },
             {
@@ -1343,6 +1799,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/62/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "4376",
+                "customFields": {
+                    "name": "Princess Sumaya University for Technology"
                 }
             },
             {
@@ -1359,6 +1821,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/63/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3328",
+                "customFields": {
+                    "name": "Purdue University"
                 }
             },
             {
@@ -1375,6 +1843,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/64/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1623",
+                "customFields": {
+                    "name": "Saratov State University"
                 }
             },
             {
@@ -1391,6 +1865,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/65/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1636",
+                "customFields": {
+                    "name": "Seoul National University"
                 }
             },
             {
@@ -1407,6 +1887,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/66/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1677",
+                "customFields": {
+                    "name": "Sharif University of Technology"
                 }
             },
             {
@@ -1423,6 +1909,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/67/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1730",
+                "customFields": {
+                    "name": "Sogang University"
                 }
             },
             {
@@ -1439,6 +1931,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/68/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "9606",
+                "customFields": {
+                    "name": "St. Petersburg Campus of Higher School of Economics"
                 }
             },
             {
@@ -1455,6 +1953,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/69/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3295",
+                "customFields": {
+                    "name": "St. Petersburg ITMO University"
                 }
             },
             {
@@ -1471,6 +1975,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/7/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0081",
+                "customFields": {
+                    "name": "Arab Academy for Science and Technology - Alexandria"
                 }
             },
             {
@@ -1487,6 +1997,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/70/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1802",
+                "customFields": {
+                    "name": "St. Petersburg State University"
                 }
             },
             {
@@ -1503,6 +2019,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/71/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1822",
+                "customFields": {
+                    "name": "Stanford University"
                 }
             },
             {
@@ -1519,6 +2041,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/72/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "8162",
+                "customFields": {
+                    "name": "Syrian Virtual University"
                 }
             },
             {
@@ -1535,6 +2063,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/73/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1917",
+                "customFields": {
+                    "name": "Technische Universität München"
                 }
             },
             {
@@ -1551,6 +2085,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/74/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1966",
+                "customFields": {
+                    "name": "The University of Asia Pacific"
                 }
             },
             {
@@ -1567,6 +2107,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/75/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "1977",
+                "customFields": {
+                    "name": "The University of Jordan"
                 }
             },
             {
@@ -1583,6 +2129,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/76/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2538",
+                "customFields": {
+                    "name": "The University of Texas at Dallas"
                 }
             },
             {
@@ -1599,6 +2151,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/77/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3775",
+                "customFields": {
+                    "name": "Tishreen University"
                 }
             },
             {
@@ -1615,6 +2173,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/78/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "4846",
+                "customFields": {
+                    "name": "Ulsan National Institute of Science and Technology"
                 }
             },
             {
@@ -1631,6 +2195,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/79/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3683",
+                "customFields": {
+                    "name": "Universidad de Buenos Aires - FCEN"
                 }
             },
             {
@@ -1647,6 +2217,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/8/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "8628",
+                "customFields": {
+                    "name": "Avicenna University"
                 }
             },
             {
@@ -1659,6 +2235,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2107",
+                "customFields": {
+                    "name": "Universidad de Chile"
                 }
             },
             {
@@ -1671,6 +2253,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "5716",
+                "customFields": {
+                    "name": "Universidad de Costa Rica"
                 }
             },
             {
@@ -1687,6 +2275,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/82/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "8140",
+                "customFields": {
+                    "name": "Universidad de Guanajuato - DCNE"
                 }
             },
             {
@@ -1703,6 +2297,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/83/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2112",
+                "customFields": {
+                    "name": "Universidad de La Habana"
                 }
             },
             {
@@ -1719,6 +2319,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/84/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "4193",
+                "customFields": {
+                    "name": "Universidad de Oriente - Sede Antonio Maceo"
                 }
             },
             {
@@ -1735,6 +2341,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/85/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3098",
+                "customFields": {
+                    "name": "Universidad Icesi"
                 }
             },
             {
@@ -1751,6 +2363,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/86/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3272",
+                "customFields": {
+                    "name": "Universidad Nacional de Colombia - Bogotá"
                 }
             },
             {
@@ -1767,6 +2385,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/87/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0492",
+                "customFields": {
+                    "name": "Universidad Nacional de Córdoba - FaMAF"
                 }
             },
             {
@@ -1783,6 +2407,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/88/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3487",
+                "customFields": {
+                    "name": "Universidad Nacional del Sur"
                 }
             },
             {
@@ -1799,6 +2429,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/89/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "3372",
+                "customFields": {
+                    "name": "Universidad Panamericana Campus Bonaterra"
                 }
             },
             {
@@ -1811,6 +2447,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0114",
+                "customFields": {
+                    "name": "Bangladesh University of Engineering and Technology"
                 }
             },
             {
@@ -1823,6 +2465,12 @@
                 ],
                 "hashTag": null,
                 "medias": {
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2172",
+                "customFields": {
+                    "name": "Universidad Simón Bolívar"
                 }
             },
             {
@@ -1839,6 +2487,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/91/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2195",
+                "customFields": {
+                    "name": "Universidade de Brasília"
                 }
             },
             {
@@ -1855,6 +2509,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/92/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2204",
+                "customFields": {
+                    "name": "Universidade de São Paulo"
                 }
             },
             {
@@ -1871,6 +2531,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/93/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "0695",
+                "customFields": {
+                    "name": "Universidade de São Paulo - Campus de São Carlos"
                 }
             },
             {
@@ -1887,6 +2553,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/94/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2216",
+                "customFields": {
+                    "name": "Universidade Estadual de Campinas"
                 }
             },
             {
@@ -1903,6 +2575,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/95/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2230",
+                "customFields": {
+                    "name": "Universidade Federal de Minas Gerais"
                 }
             },
             {
@@ -1919,6 +2597,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/96/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2232",
+                "customFields": {
+                    "name": "Universidade Federal de Pernambuco"
                 }
             },
             {
@@ -1935,6 +2619,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/97/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "4166",
+                "customFields": {
+                    "name": "Universidade Federal do Ceará - Campus Quixadá"
                 }
             },
             {
@@ -1951,6 +2641,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/98/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "7990",
+                "customFields": {
+                    "name": "Università Degli Studi di Milano"
                 }
             },
             {
@@ -1967,6 +2663,12 @@
                         "type": "Photo",
                         "url": "/contests/finals/teams/99/photo.jpg"
                     }
+                },
+                "isHidden": false,
+                "isOutOfContest": false,
+                "organizationId": "2390",
+                "customFields": {
+                    "name": "Universitas Indonesia"
                 }
             }
         ],
@@ -1997,6 +2699,598 @@
             },
             {
                 "name": "Jury"
+            }
+        ],
+        "organizations": [
+            {
+                "cdsId": "0061",
+                "displayName": "AUCA",
+                "fullName": "American University - Central Asia"
+            },
+            {
+                "cdsId": "0065",
+                "displayName": "AU Beirut",
+                "fullName": "American University of Beirut"
+            },
+            {
+                "cdsId": "0068",
+                "displayName": "Amirkabir UT",
+                "fullName": "Amirkabir University of Technology"
+            },
+            {
+                "cdsId": "0081",
+                "displayName": "AAST-Alex",
+                "fullName": "Arab Academy for Science and Technology - Alexandria"
+            },
+            {
+                "cdsId": "0114",
+                "displayName": "BUET",
+                "fullName": "Bangladesh University of Engineering and Technology"
+            },
+            {
+                "cdsId": "0140",
+                "displayName": "BSUIR",
+                "fullName": "Belarusian State University of Informatics and Radioelectronics"
+            },
+            {
+                "cdsId": "0144",
+                "displayName": "Belarusian SU",
+                "fullName": "Belarusian State University"
+            },
+            {
+                "cdsId": "0160",
+                "displayName": "Bilkent U.",
+                "fullName": "Bilkent University"
+            },
+            {
+                "cdsId": "0196",
+                "displayName": "UniBuc",
+                "fullName": "University of Bucharest"
+            },
+            {
+                "cdsId": "0232",
+                "displayName": "Carnegie Mellon",
+                "fullName": "Carnegie Mellon University"
+            },
+            {
+                "cdsId": "0358",
+                "displayName": "Damascus U",
+                "fullName": "Damascus University"
+            },
+            {
+                "cdsId": "0413",
+                "displayName": "Duke",
+                "fullName": "Duke University"
+            },
+            {
+                "cdsId": "0443",
+                "displayName": "EP",
+                "fullName": "Ecole Polytechnique"
+            },
+            {
+                "cdsId": "0451",
+                "displayName": "ETH Zürich",
+                "fullName": "ETH Zürich"
+            },
+            {
+                "cdsId": "0492",
+                "displayName": "FAMAF - UNC",
+                "fullName": "Universidad Nacional de Córdoba - FaMAF"
+            },
+            {
+                "cdsId": "0502",
+                "displayName": "Alex-FE",
+                "fullName": "Alexandria University - Faculty of Engineering"
+            },
+            {
+                "cdsId": "0642",
+                "displayName": "Harvard",
+                "fullName": "Harvard University"
+            },
+            {
+                "cdsId": "0695",
+                "displayName": "USP - São Carlos",
+                "fullName": "Universidade de São Paulo - Campus de São Carlos"
+            },
+            {
+                "cdsId": "0718",
+                "displayName": "IIT Guwahati",
+                "fullName": "Indian Institute of Technology - Guwahati"
+            },
+            {
+                "cdsId": "0722",
+                "displayName": "IIT Roorkee",
+                "fullName": "Indian Institute of Technology - Roorkee"
+            },
+            {
+                "cdsId": "0724",
+                "displayName": "IIT Bombay",
+                "fullName": "Indian Institute of Technology - Bombay"
+            },
+            {
+                "cdsId": "0725",
+                "displayName": "IIT Delhi",
+                "fullName": "Indian Institute of Technology - Delhi"
+            },
+            {
+                "cdsId": "0727",
+                "displayName": "IIT Kanpur",
+                "fullName": "Indian Institute of Technology - Kanpur"
+            },
+            {
+                "cdsId": "0728",
+                "displayName": "IIT Kharagpur",
+                "fullName": "Indian Institute of Technology - Kharagpur"
+            },
+            {
+                "cdsId": "0846",
+                "displayName": "IIIT Hyderabad",
+                "fullName": "International Institute of Information Technology - Hyderabad"
+            },
+            {
+                "cdsId": "0923",
+                "displayName": "Izhevsk STU",
+                "fullName": "Izhevsk State Technical University"
+            },
+            {
+                "cdsId": "0931",
+                "displayName": "Jagiellonian",
+                "fullName": "Jagiellonian University in Krakow"
+            },
+            {
+                "cdsId": "0993",
+                "displayName": "Kazan FU",
+                "fullName": "Kazan (Volga Region) Federal University"
+            },
+            {
+                "cdsId": "1008",
+                "displayName": "KhNURE",
+                "fullName": "Kharkiv National University of Radio Electronics"
+            },
+            {
+                "cdsId": "1026",
+                "displayName": "Korea U",
+                "fullName": "Korea University"
+            },
+            {
+                "cdsId": "1145",
+                "displayName": "MIT",
+                "fullName": "Massachusetts Institute of Technology"
+            },
+            {
+                "cdsId": "1214",
+                "displayName": "MAI",
+                "fullName": "Moscow Aviation Institute"
+            },
+            {
+                "cdsId": "1215",
+                "displayName": "MEPhI",
+                "fullName": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)"
+            },
+            {
+                "cdsId": "1220",
+                "displayName": "MIPT",
+                "fullName": "Moscow Institute of Physics and Technology"
+            },
+            {
+                "cdsId": "1237",
+                "displayName": "Moscow SU",
+                "fullName": "Moscow State University"
+            },
+            {
+                "cdsId": "12694",
+                "displayName": "Utrecht - Leiden",
+                "fullName": "Utrecht - Leiden University"
+            },
+            {
+                "cdsId": "1303",
+                "displayName": "National Taiwan U",
+                "fullName": "National Taiwan University"
+            },
+            {
+                "cdsId": "1338",
+                "displayName": "UNN",
+                "fullName": "Nizhny Novgorod State University"
+            },
+            {
+                "cdsId": "1452",
+                "displayName": "Perm SU",
+                "fullName": "Perm State University"
+            },
+            {
+                "cdsId": "1623",
+                "displayName": "Saratov State U",
+                "fullName": "Saratov State University"
+            },
+            {
+                "cdsId": "1636",
+                "displayName": "Seoul National U",
+                "fullName": "Seoul National University"
+            },
+            {
+                "cdsId": "1677",
+                "displayName": "Sharif UT",
+                "fullName": "Sharif University of Technology"
+            },
+            {
+                "cdsId": "1730",
+                "displayName": "Sogang U",
+                "fullName": "Sogang University"
+            },
+            {
+                "cdsId": "1802",
+                "displayName": "St. Petersburg SU",
+                "fullName": "St. Petersburg State University"
+            },
+            {
+                "cdsId": "1822",
+                "displayName": "Stanford",
+                "fullName": "Stanford University"
+            },
+            {
+                "cdsId": "1917",
+                "displayName": "TUM",
+                "fullName": "Technische Universität München"
+            },
+            {
+                "cdsId": "1962",
+                "displayName": "U Aizu",
+                "fullName": "University of Aizu"
+            },
+            {
+                "cdsId": "1966",
+                "displayName": "UAP",
+                "fullName": "The University of Asia Pacific"
+            },
+            {
+                "cdsId": "1977",
+                "displayName": "UJ",
+                "fullName": "The University of Jordan"
+            },
+            {
+                "cdsId": "2107",
+                "displayName": "UChile",
+                "fullName": "Universidad de Chile"
+            },
+            {
+                "cdsId": "2112",
+                "displayName": "UH",
+                "fullName": "Universidad de La Habana"
+            },
+            {
+                "cdsId": "2172",
+                "displayName": "USB",
+                "fullName": "Universidad Simón Bolívar"
+            },
+            {
+                "cdsId": "2195",
+                "displayName": "UnB",
+                "fullName": "Universidade de Brasília"
+            },
+            {
+                "cdsId": "2204",
+                "displayName": "USP",
+                "fullName": "Universidade de São Paulo"
+            },
+            {
+                "cdsId": "2216",
+                "displayName": "UNICAMP",
+                "fullName": "Universidade Estadual de Campinas"
+            },
+            {
+                "cdsId": "2230",
+                "displayName": "UFMG",
+                "fullName": "Universidade Federal de Minas Gerais"
+            },
+            {
+                "cdsId": "2232",
+                "displayName": "UFPE",
+                "fullName": "Universidade Federal de Pernambuco"
+            },
+            {
+                "cdsId": "2324",
+                "displayName": "U British Columbia",
+                "fullName": "University of British Columbia"
+            },
+            {
+                "cdsId": "2343",
+                "displayName": "Cambridge",
+                "fullName": "University of Cambridge"
+            },
+            {
+                "cdsId": "2349",
+                "displayName": "U Central Florida",
+                "fullName": "University of Central Florida"
+            },
+            {
+                "cdsId": "2366",
+                "displayName": "U Dhaka",
+                "fullName": "University of Dhaka"
+            },
+            {
+                "cdsId": "2387",
+                "displayName": "U Illinois at U-C",
+                "fullName": "University of Illinois at Urbana-Champaign"
+            },
+            {
+                "cdsId": "2390",
+                "displayName": "UI",
+                "fullName": "Universitas Indonesia"
+            },
+            {
+                "cdsId": "2400",
+                "displayName": "Latvia",
+                "fullName": "University of Latvia"
+            },
+            {
+                "cdsId": "2493",
+                "displayName": "U Rochester",
+                "fullName": "University of Rochester"
+            },
+            {
+                "cdsId": "2519",
+                "displayName": "USC",
+                "fullName": "University of Southern California"
+            },
+            {
+                "cdsId": "2528",
+                "displayName": "UT",
+                "fullName": "University of Tehran"
+            },
+            {
+                "cdsId": "2538",
+                "displayName": "UT Dallas",
+                "fullName": "The University of Texas at Dallas"
+            },
+            {
+                "cdsId": "2562",
+                "displayName": "Utah",
+                "fullName": "University of Utah"
+            },
+            {
+                "cdsId": "2574",
+                "displayName": "U Wisconsin - Madison",
+                "fullName": "University of Wisconsin - Madison"
+            },
+            {
+                "cdsId": "2589",
+                "displayName": "U Wroclaw",
+                "fullName": "University of Wroclaw"
+            },
+            {
+                "cdsId": "2648",
+                "displayName": "Virginia Tech",
+                "fullName": "Virginia Tech"
+            },
+            {
+                "cdsId": "2659",
+                "displayName": "Volgograd STU",
+                "fullName": "Volgograd State Technical University"
+            },
+            {
+                "cdsId": "2673",
+                "displayName": "U Warsaw",
+                "fullName": "University of Warsaw"
+            },
+            {
+                "cdsId": "2742",
+                "displayName": "YSU",
+                "fullName": "Yerevan State University"
+            },
+            {
+                "cdsId": "2745",
+                "displayName": "Yonsei U",
+                "fullName": "Yonsei University"
+            },
+            {
+                "cdsId": "3071",
+                "displayName": "UFG",
+                "fullName": "Instituto de Informática - UFG"
+            },
+            {
+                "cdsId": "3098",
+                "displayName": "ICESI",
+                "fullName": "Universidad Icesi"
+            },
+            {
+                "cdsId": "3272",
+                "displayName": "UNAL Bogotá",
+                "fullName": "Universidad Nacional de Colombia - Bogotá"
+            },
+            {
+                "cdsId": "3295",
+                "displayName": "SPb ITMO",
+                "fullName": "St. Petersburg ITMO University"
+            },
+            {
+                "cdsId": "3328",
+                "displayName": "Purdue",
+                "fullName": "Purdue University"
+            },
+            {
+                "cdsId": "3348",
+                "displayName": "CU-FCAI",
+                "fullName": "Cairo University - Faculty of Computers and Artificial Intelligence"
+            },
+            {
+                "cdsId": "3360",
+                "displayName": "RAF",
+                "fullName": "Faculty of Computer Science, Belgrade "
+            },
+            {
+                "cdsId": "3372",
+                "displayName": "UP Bonaterra",
+                "fullName": "Universidad Panamericana Campus Bonaterra"
+            },
+            {
+                "cdsId": "3436",
+                "displayName": "ENS Paris",
+                "fullName": "École Normale Supérieure de Paris"
+            },
+            {
+                "cdsId": "3487",
+                "displayName": "UN del Sur",
+                "fullName": "Universidad Nacional del Sur"
+            },
+            {
+                "cdsId": "3519",
+                "displayName": "GUC",
+                "fullName": "German University in Cairo"
+            },
+            {
+                "cdsId": "3534",
+                "displayName": "HSE",
+                "fullName": "National Research University Higher School of Economics"
+            },
+            {
+                "cdsId": "3664",
+                "displayName": "ASU-FCIS",
+                "fullName": "Ain Shams University - Faculty of Computer and Information Sciences"
+            },
+            {
+                "cdsId": "3683",
+                "displayName": "UBA - FCEN",
+                "fullName": "Universidad de Buenos Aires - FCEN"
+            },
+            {
+                "cdsId": "3775",
+                "displayName": "Tishreen",
+                "fullName": "Tishreen University"
+            },
+            {
+                "cdsId": "3919",
+                "displayName": "IIT(ISM) Dhanbad",
+                "fullName": "Indian Institute of Technology (ISM), Dhanbad"
+            },
+            {
+                "cdsId": "3944",
+                "displayName": "DA-IICT",
+                "fullName": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar"
+            },
+            {
+                "cdsId": "4166",
+                "displayName": "UFC-Quixadá",
+                "fullName": "Universidade Federal do Ceará - Campus Quixadá"
+            },
+            {
+                "cdsId": "4193",
+                "displayName": "UO-SAM",
+                "fullName": "Universidad de Oriente - Sede Antonio Maceo"
+            },
+            {
+                "cdsId": "4330",
+                "displayName": "IITU",
+                "fullName": "International IT University"
+            },
+            {
+                "cdsId": "4376",
+                "displayName": "PSUT",
+                "fullName": "Princess Sumaya University for Technology"
+            },
+            {
+                "cdsId": "4846",
+                "displayName": "UNIST",
+                "fullName": "Ulsan National Institute of Science and Technology"
+            },
+            {
+                "cdsId": "5628",
+                "displayName": "BPHC",
+                "fullName": "BITS-Pilani, Hyderabad Campus"
+            },
+            {
+                "cdsId": "5640",
+                "displayName": "IIT Indore",
+                "fullName": "Indian Institute of Technology - Indore"
+            },
+            {
+                "cdsId": "5716",
+                "displayName": "UCR",
+                "fullName": "Universidad de Costa Rica"
+            },
+            {
+                "cdsId": "5724",
+                "displayName": "Free U of Tbilisi",
+                "fullName": "Free University of Tbilisi"
+            },
+            {
+                "cdsId": "6581",
+                "displayName": "HIAST",
+                "fullName": "Higher Institute for Applied Sciences and Technology"
+            },
+            {
+                "cdsId": "6908",
+                "displayName": "IIT Patna",
+                "fullName": "Indian Institute of Technology - Patna"
+            },
+            {
+                "cdsId": "6960",
+                "displayName": "INSAT",
+                "fullName": "Institut National des Sciences Appliquées et de Technologie"
+            },
+            {
+                "cdsId": "7113",
+                "displayName": "Al-Baath",
+                "fullName": "Al-Baath University"
+            },
+            {
+                "cdsId": "7325",
+                "displayName": "IComp/UFAM",
+                "fullName": "Institute of Computing - Federal University of Amazonas"
+            },
+            {
+                "cdsId": "7423",
+                "displayName": "Kyungpook National U",
+                "fullName": "Kyungpook National University"
+            },
+            {
+                "cdsId": "7857",
+                "displayName": "Innopolis",
+                "fullName": "Innopolis University"
+            },
+            {
+                "cdsId": "7898",
+                "displayName": "NU-FAST-KHI",
+                "fullName": "NU-FAST Karachi"
+            },
+            {
+                "cdsId": "7990",
+                "displayName": "UNIMI",
+                "fullName": "Università Degli Studi di Milano"
+            },
+            {
+                "cdsId": "8140",
+                "displayName": "UG-CIMAT",
+                "fullName": "Universidad de Guanajuato - DCNE"
+            },
+            {
+                "cdsId": "8162",
+                "displayName": "SVU",
+                "fullName": "Syrian Virtual University"
+            },
+            {
+                "cdsId": "8628",
+                "displayName": "AU",
+                "fullName": "Avicenna University"
+            },
+            {
+                "cdsId": "9406",
+                "displayName": "IITBHU",
+                "fullName": "Indian Institute of Technology - Varanasi"
+            },
+            {
+                "cdsId": "9574",
+                "displayName": "IIIT DELHI",
+                "fullName": "Indraprastha Institute of Information Technology"
+            },
+            {
+                "cdsId": "9606",
+                "displayName": "SPb HSE",
+                "fullName": "St. Petersburg Campus of Higher School of Economics"
+            },
+            {
+                "cdsId": "9780",
+                "displayName": "NSUT",
+                "fullName": "Netaji Subhash University Of Technology"
             }
         ],
         "penaltyRoundingMode": "each_submission_down_to_minute"
