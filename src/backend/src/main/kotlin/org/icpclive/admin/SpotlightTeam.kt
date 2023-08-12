@@ -25,7 +25,7 @@ fun Route.setupSpotlight() {
     webSocket {
         sendJsonFlow(DataBus.teamInterestingFlow.await().combine(DataBus.contestInfoFlow.await()) { teams, info ->
             val teamsScore = teams.associate { it.teamId to it.score }
-            info.teams.map { InterestingTeam(it.id, it.name, teamsScore[it.id] ?: 0.0) }
+            info.teams.map { InterestingTeam(it.id, it.fullName, teamsScore[it.id] ?: 0.0) }
         })
     }
 }

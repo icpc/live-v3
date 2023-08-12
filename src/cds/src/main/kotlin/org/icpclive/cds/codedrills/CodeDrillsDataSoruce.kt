@@ -99,8 +99,8 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings, creds: Map
             TeamInfo(
                 id = team.id,
                 contestSystemId = team.id.toString(),
-                name = team.name,
-                shortName = team.name,
+                fullName = team.name,
+                displayName = team.name,
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),

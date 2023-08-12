@@ -45,8 +45,8 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
             val (id, _, _, name) = team.splitCommas()
             TeamInfo(
                 id = index,
-                name = name,
-                shortName = name,
+                fullName = name,
+                displayName = name,
                 contestSystemId = id,
                 groups = listOf(),
                 hashTag = null,

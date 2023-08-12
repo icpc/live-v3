@@ -38,8 +38,8 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             val participantName = participant.getAttribute("name")
             TeamInfo(
                 id = index,
-                name = participantName,
-                shortName = participantName,
+                fullName = participantName,
+                displayName = participantName,
                 contestSystemId = participant.getAttribute("id"),
                 groups = listOf(),
                 hashTag = null,

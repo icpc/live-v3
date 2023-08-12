@@ -78,8 +78,8 @@ internal class CFContestInfo {
             val party = row.party
             participantsByCdsId[cdsId] = TeamInfo(
                 id = id,
-                name = party.teamName ?: party.members[0].let { it.name ?: it.handle },
-                shortName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
+                fullName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
+                displayName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
                 contestSystemId = cdsId,
                 groups = emptyList(),
                 hashTag = null,

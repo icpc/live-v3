@@ -12,8 +12,8 @@ internal data class Participant(
 ) {
     fun toTeamInfo() = TeamInfo(
         id = id,
-        name = name,
-        shortName = name,
+        fullName = name,
+        displayName = name,
         contestSystemId = login,
         groups = emptyList(),
         hashTag = null,

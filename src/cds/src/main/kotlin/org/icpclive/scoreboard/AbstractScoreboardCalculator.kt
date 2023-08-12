@@ -30,7 +30,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
 
         val rows = teamsInfo.values
             .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.problems) }
-            .sortedWith(comparator.thenComparing { it -> it.team().name })
+            .sortedWith(comparator.thenComparing { it -> it.team().fullName })
             .toMutableList()
         var right = 0
         var outOfContestTeams = 0
