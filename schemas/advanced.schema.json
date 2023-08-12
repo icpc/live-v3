@@ -816,16 +816,860 @@
                 }
             }
         },
+        "teamOverrideTemplate": {
+            "type": "object",
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                },
+                "fullName": {
+                    "type": "string"
+                },
+                "medias": {
+                    "type": "object",
+                    "properties": {
+                        "camera": {
+                            "oneOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Object"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Photo"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "TaskStatus"
+                                        },
+                                        "teamId": {
+                                            "type": "integer"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "teamId"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Video"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCGrabberConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "peerName": {
+                                            "type": "string"
+                                        },
+                                        "streamType": {
+                                            "type": "string"
+                                        },
+                                        "credential": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url",
+                                        "peerName",
+                                        "streamType",
+                                        "credential"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCProxyConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "audioUrl": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                }
+                            ]
+                        },
+                        "screen": {
+                            "oneOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Object"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Photo"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "TaskStatus"
+                                        },
+                                        "teamId": {
+                                            "type": "integer"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "teamId"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Video"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCGrabberConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "peerName": {
+                                            "type": "string"
+                                        },
+                                        "streamType": {
+                                            "type": "string"
+                                        },
+                                        "credential": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url",
+                                        "peerName",
+                                        "streamType",
+                                        "credential"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCProxyConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "audioUrl": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                }
+                            ]
+                        },
+                        "record": {
+                            "oneOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Object"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Photo"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "TaskStatus"
+                                        },
+                                        "teamId": {
+                                            "type": "integer"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "teamId"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Video"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCGrabberConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "peerName": {
+                                            "type": "string"
+                                        },
+                                        "streamType": {
+                                            "type": "string"
+                                        },
+                                        "credential": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url",
+                                        "peerName",
+                                        "streamType",
+                                        "credential"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCProxyConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "audioUrl": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                }
+                            ]
+                        },
+                        "photo": {
+                            "oneOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Object"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Photo"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "TaskStatus"
+                                        },
+                                        "teamId": {
+                                            "type": "integer"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "teamId"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Video"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCGrabberConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "peerName": {
+                                            "type": "string"
+                                        },
+                                        "streamType": {
+                                            "type": "string"
+                                        },
+                                        "credential": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url",
+                                        "peerName",
+                                        "streamType",
+                                        "credential"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCProxyConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "audioUrl": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                }
+                            ]
+                        },
+                        "reactionVideo": {
+                            "oneOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Object"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Photo"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "TaskStatus"
+                                        },
+                                        "teamId": {
+                                            "type": "integer"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "teamId"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Video"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCGrabberConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "peerName": {
+                                            "type": "string"
+                                        },
+                                        "streamType": {
+                                            "type": "string"
+                                        },
+                                        "credential": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url",
+                                        "peerName",
+                                        "streamType",
+                                        "credential"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCProxyConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "audioUrl": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                }
+                            ]
+                        },
+                        "achievement": {
+                            "oneOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Object"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Photo"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "TaskStatus"
+                                        },
+                                        "teamId": {
+                                            "type": "integer"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "teamId"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "Video"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCGrabberConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "peerName": {
+                                            "type": "string"
+                                        },
+                                        "streamType": {
+                                            "type": "string"
+                                        },
+                                        "credential": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url",
+                                        "peerName",
+                                        "streamType",
+                                        "credential"
+                                    ]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "const": "WebRTCProxyConnection"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        },
+                                        "audioUrl": {
+                                            "type": "string"
+                                        },
+                                        "isMedia": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "additionalProperties": false,
+                                    "required": [
+                                        "type",
+                                        "url"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+            ]
+        },
+        "teamRegexes": {
+            "type": "object",
+            "properties": {
+                "organizationRegex": {
+                    "type": "string"
+                },
+                "customFields": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "groupRegex": {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+            ]
+        },
         "teamOverrides": {
             "type": "object",
             "patternProperties": {
                 ".*": {
                     "type": "object",
                     "properties": {
-                        "name": {
+                        "fullName": {
                             "type": "string"
                         },
-                        "shortname": {
+                        "displayName": {
                             "type": "string"
                         },
                         "groups": {
@@ -833,6 +1677,9 @@
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "organizationId": {
+                            "type": "string"
                         },
                         "hashTag": {
                             "type": "string"
@@ -1640,8 +2487,13 @@
                                 }
                             }
                         },
-                        "additionalInfo": {
-                            "type": "string"
+                        "customFields": {
+                            "type": "object",
+                            "patternProperties": {
+                                ".*": {
+                                    "type": "string"
+                                }
+                            }
                         },
                         "isHidden": {
                             "type": "boolean"
@@ -1675,6 +2527,25 @@
                 }
             }
         },
+        "organizationOverrides": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "object",
+                    "properties": {
+                        "displayName": {
+                            "type": "string"
+                        },
+                        "fullName": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            }
+        },
         "problemOverrides": {
             "type": "object",
             "patternProperties": {
@@ -1686,6 +2557,9 @@
                         },
                         "color": {
                             "type": "string"
+                        },
+                        "ordinal": {
+                            "type": "integer"
                         },
                         "minScore": {
                             "type": "number"

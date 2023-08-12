@@ -19,15 +19,20 @@ private object TimeTrigger : AdvancedAdapterEvent
 
 object AdvancedPropertiesAdapter
 
-private fun MediaType.applyTemplate(teamId: String) = when (this) {
-    is MediaType.Photo -> copy(url = url.replace("{teamId}", teamId))
-    is MediaType.Video -> copy(url = url.replace("{teamId}", teamId))
-    is MediaType.Object -> copy(url = url.replace("{teamId}", teamId))
-    is MediaType.WebRTCProxyConnection -> copy(url = url.replace("{teamId}", teamId))
+private val templateRegex = kotlin.text.Regex("\\{(.*)}")
+
+private fun String.applyTemplate(valueProvider: (String) -> String?) =
+    replace(templateRegex) { valueProvider(it.groups[1]!!.value) ?: it.value }
+
+private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (this) {
+    is MediaType.Photo -> copy(url = url.applyTemplate(valueProvider))
+    is MediaType.Video -> copy(url = url.applyTemplate(valueProvider))
+    is MediaType.Object -> copy(url = url.applyTemplate(valueProvider))
+    is MediaType.WebRTCProxyConnection -> copy(url = url.applyTemplate(valueProvider))
     is MediaType.WebRTCGrabberConnection -> copy(
-        url = url.replace("{teamId}", teamId),
-        peerName = peerName.replace("{teamId}", teamId),
-        credential = credential?.replace("{teamId}", teamId)
+        url = url.applyTemplate(valueProvider),
+        peerName = peerName.applyTemplate(valueProvider),
+        credential = credential?.applyTemplate(valueProvider)
     )
 
     else -> this
@@ -60,8 +65,8 @@ fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<Advanced
         }
         merge(
             this@applyAdvancedProperties.map { Update(it) },
-            triggerFlow.receiveAsFlow(),
-            advancedPropsFlow.map { Advanced(it) },
+            triggerFlow.receiveAsFlow().conflate(),
+            advancedPropsFlow.map { Advanced(it) }.conflate(),
         ).collect {
             when (it) {
                 is TimeTrigger -> {
@@ -126,10 +131,61 @@ private fun <K, V> mergeMaps(original: Map<K, V>, override: Map<K, V?>) = buildM
     }
 }
 
-fun Map<TeamMediaType, MediaType?>.instantiateTemplate(teams: List<TeamInfo>) = teams.associate {
+fun Map<TeamMediaType, MediaType?>.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
     it.contestSystemId to TeamInfoOverride(
-        medias = mapValues { (_,v) -> v?.applyTemplate(it.contestSystemId) }
+        medias = mapValues { (_,v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
     )
+}
+
+fun TeamOverrideTemplate.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
+    it.contestSystemId to TeamInfoOverride(
+        fullName = fullName?.applyTemplate { name -> it.valueProvider(name) },
+        displayName = displayName?.applyTemplate { name -> it.valueProvider(name) },
+        medias = medias?.mapValues { (_,v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
+    )
+}
+
+private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Set<Int>) = if (show != false) {
+    this
+} else {
+    filter { it.id in submittedTeams }.also {
+        logger.info("Filtered out ${size - it.size} of $size teams as they don't have submissions")
+    }
+}
+
+private fun String.matchSingleGroupRegex(regex: Regex?, name: String) : String? {
+    if (regex == null) return null
+    val match = regex.matchAt(this, 0)
+    return if (match != null) {
+        if (match.groups.size != 2) {
+            logger.warn("${name.replaceFirstChar { it.uppercase() }} should match single group for ${this}, but ${match.groups.size} matched")
+            null
+        } else {
+            this.substring(match.groups[1]!!.range)
+        }
+    } else {
+        logger.warn("$this didn't match $name")
+        null
+    }
+}
+
+private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides?) : List<TeamInfo> {
+    if (regexOverrides == null) return teams
+    return teams.map { team ->
+        val newOrg = team.fullName.matchSingleGroupRegex(regexOverrides.organizationRegex, "organization regex")
+        val newGroups = regexOverrides.groupRegex?.entries?.filter { (_, regex) ->
+            regex.matches(team.fullName)
+        }?.map { it.key }.orEmpty()
+        val newCustomFields = regexOverrides.customFields?.mapValues { (name, regex) ->
+            team.fullName.matchSingleGroupRegex(regex, "$name regex")
+        }?.filterValues { it != null }?.mapValues { it.value!! }.orEmpty()
+
+        team.copy(
+            organizationId = newOrg ?: team.organizationId,
+            groups = team.groups + newGroups,
+            customFields = newCustomFields + team.customFields
+        )
+    }
 }
 
 private fun applyOverrides(
@@ -137,29 +193,39 @@ private fun applyOverrides(
     overrides: AdvancedProperties,
     submittedTeams: Set<Int>
 ): ContestInfo {
-    val teamInfos = mergeTeams(
-        mergeTeams(info.teams, overrides.teamMediaTemplate?.instantiateTemplate(info.teams)),
-        overrides.teamOverrides
+    val teamInfosPrelim = applyRegex(
+        info.teams.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
+        overrides.teamRegexes
     )
-    val problemInfos = mergeProblems(info.problems, overrides.problemOverrides)
-    val teamInfosFiltered = if (overrides.scoreboardOverrides?.showTeamsWithoutSubmissions != false) {
-        teamInfos
-    } else {
-        teamInfos.filter { it.id in submittedTeams }.also {
-            logger.info("Filtered out ${teamInfos.size - it.size} of ${teamInfos.size} teams as they don't have submissions")
-        }
-    }
-    val newGroups = teamInfosFiltered.flatMap { it.groups }.toSet() - info.groups.map { it.name }.toSet()
+    val newGroups = teamInfosPrelim.flatMap { it.groups }.toSet() - info.groups.map { it.name }.toSet()
     val groups = mergeGroups(
-        info.groups + newGroups.map { GroupInfo(it, false, false) },
+        info.groups + newGroups.map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
         overrides.groupOverrides
     )
     val newOrganizations =
-        teamInfosFiltered.mapNotNull { it.organizationId }.toSet() - info.organizations.map { it.cdsId }.toSet()
+        teamInfosPrelim.mapNotNull { it.organizationId }.toSet() - info.organizations.map { it.cdsId }.toSet()
     val organizations = mergeOrganizations(
         info.organizations + newOrganizations.map { OrganizationInfo(it, it, it) },
         overrides.organizationOverrides
     )
+
+    val orgsById = organizations.associateBy { it.cdsId }
+
+    fun TeamInfo.templateValueGetter(name: String) : String? {
+        return when (name) {
+            "teamId" -> contestSystemId
+            "orgFullName" -> organizationId?.let { orgsById[it]?.fullName }
+            "orgDisplayName" -> organizationId?.let { orgsById[it]?.displayName }
+            else -> customFields[name]
+        }
+    }
+
+
+    @Suppress("DEPRECATION") val teamInfos = teamInfosPrelim
+        .mergeTeams(overrides.teamMediaTemplate?.instantiateTemplate(teamInfosPrelim, TeamInfo::templateValueGetter))
+        .mergeTeams(overrides.teamOverrideTemplate?.instantiateTemplate(teamInfosPrelim, TeamInfo::templateValueGetter))
+        .mergeTeams(overrides.teamOverrides)
+    val problemInfos = mergeProblems(info.problems, overrides.problemOverrides)
 
     val (startTime, status) = overrides.startTime
         ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
@@ -172,7 +238,7 @@ private fun applyOverrides(
         freezeTime = overrides.freezeTime ?: info.freezeTime,
         status = status,
         holdBeforeStartTime = overrides.holdTime ?: info.holdBeforeStartTime,
-        teams = teamInfosFiltered,
+        teams = teamInfos,
         groups = groups,
         organizations = organizations,
         problems = problemInfos.sortedBy { it.ordinal },
@@ -236,16 +302,16 @@ private fun mergeProblems(
     )
 }
 
-private fun mergeTeams(teams: List<TeamInfo>, overrides: Map<String, TeamInfoOverride>?) = mergeOverrides(
-    teams,
+private fun List<TeamInfo>.mergeTeams(overrides: Map<String, TeamInfoOverride>?) = mergeOverrides(
+    this,
     overrides,
     TeamInfo::contestSystemId,
     unusedMessage = { "No team for override: $it" },
 ) { team, override ->
     TeamInfo(
         id = team.id,
-        fullName = override.name ?: team.fullName,
-        displayName = override.shortname ?: team.displayName,
+        fullName = override.fullName ?: team.fullName,
+        displayName = override.displayName ?: team.displayName,
         contestSystemId = team.contestSystemId,
         groups = override.groups ?: team.groups,
         hashTag = override.hashTag ?: team.hashTag,

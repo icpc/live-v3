@@ -12,6 +12,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.Json
 import java.awt.Color
+import java.lang.Exception
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
@@ -154,6 +155,22 @@ object ColorSerializer : KSerializer<Color> {
             getLogger(ColorSerializer::class).error("Failed to parse color from $data", e)
             Color.BLACK
         }
+    }
+}
+
+object RegexSerializer : KSerializer<Regex> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Regex", PrimitiveKind.STRING)
+    override fun deserialize(decoder: Decoder) : Regex {
+        val s = decoder.decodeString()
+        return try {
+            Regex(s)
+        } catch (e: Exception) {
+            throw SerializationException("Failed to compile regexp: $s", e);
+        }
+    }
+
+    override fun serialize(encoder: Encoder, value: Regex) {
+        encoder.encodeString(value.pattern)
     }
 }
 
