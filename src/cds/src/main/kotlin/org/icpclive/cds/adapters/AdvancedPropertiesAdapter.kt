@@ -131,13 +131,13 @@ private fun <K, V> mergeMaps(original: Map<K, V>, override: Map<K, V?>) = buildM
     }
 }
 
-fun Map<TeamMediaType, MediaType?>.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
+private fun Map<TeamMediaType, MediaType?>.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
     it.contestSystemId to TeamInfoOverride(
         medias = mapValues { (_,v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
     )
 }
 
-fun TeamOverrideTemplate.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
+private fun TeamOverrideTemplate.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
     it.contestSystemId to TeamInfoOverride(
         fullName = fullName?.applyTemplate { name -> it.valueProvider(name) },
         displayName = displayName?.applyTemplate { name -> it.valueProvider(name) },
@@ -197,13 +197,32 @@ private fun applyOverrides(
         info.teams.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
         overrides.teamRegexes
     )
-    val newGroups = teamInfosPrelim.flatMap { it.groups }.toSet() - info.groups.map { it.name }.toSet()
+    val newGroups = buildSet {
+        for (team in teamInfosPrelim) {
+            addAll(team.groups)
+        }
+        overrides.teamOverrides?.values?.forEach { override ->
+            override.groups?.let { addAll(it) }
+        }
+        for (group in info.groups) {
+            remove(group.name)
+        }
+    }
     val groups = mergeGroups(
         info.groups + newGroups.map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
         overrides.groupOverrides
     )
-    val newOrganizations =
-        teamInfosPrelim.mapNotNull { it.organizationId }.toSet() - info.organizations.map { it.cdsId }.toSet()
+    val newOrganizations = buildSet {
+        for (team in teamInfosPrelim) {
+            team.organizationId?.let { add(it) }
+        }
+        overrides.teamOverrides?.values?.forEach { override ->
+            override.organizationId?.let { add(it) }
+        }
+        for (group in info.organizations) {
+            remove(group.cdsId)
+        }
+    }
     val organizations = mergeOrganizations(
         info.organizations + newOrganizations.map { OrganizationInfo(it, it, it) },
         overrides.organizationOverrides
