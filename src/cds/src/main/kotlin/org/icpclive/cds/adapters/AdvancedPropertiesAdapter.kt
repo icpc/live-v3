@@ -121,8 +121,8 @@ private fun applyOverrides(
     ) { team, override ->
         TeamInfo(
             id = team.id,
-            name = override.name ?: team.name,
-            shortName = override.shortname ?: team.shortName,
+            fullName = override.name ?: team.fullName,
+            displayName = override.shortname ?: team.displayName,
             contestSystemId = team.contestSystemId,
             groups = override.groups ?: team.groups,
             hashTag = override.hashTag ?: team.hashTag,
@@ -130,7 +130,7 @@ private fun applyOverrides(
                 (team.medias + override.medias).filterValues { it != null }.mapValues { it.value!! }
             else
                 team.medias,
-            additionalInfo = override.additionalInfo,
+            customFields = override.customFields ?: emptyMap(),
             isHidden = override.isHidden ?: team.isHidden,
             isOutOfContest = override.isOutOfContest ?: team.isOutOfContest,
             organizationId = override.organizationId ?: team.organizationId

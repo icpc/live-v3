@@ -181,8 +181,8 @@ enum class TeamMediaType {
 @Serializable
 data class TeamInfo(
     val id: Int,
-    val name: String,
-    val shortName: String,
+    @SerialName("name") val fullName: String,
+    @SerialName("shortName") val displayName: String,
     val contestSystemId: String,
     val groups: List<String>,
     val hashTag: String?,
@@ -190,7 +190,7 @@ data class TeamInfo(
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
     val organizationId: String?,
-    val additionalInfo: String? = null,
+    val customFields: Map<String, String> = emptyMap(),
 )
 
 @Serializable

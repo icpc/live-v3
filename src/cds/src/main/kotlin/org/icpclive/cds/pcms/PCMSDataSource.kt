@@ -99,8 +99,8 @@ internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, Str
         val alias = attr("alias")!!
         val team = TeamInfo(
             id = teamIds[alias],
-            name = attr("party")!!,
-            shortName = attr("shortname") ?: attr("party")!!,
+            fullName = attr("party")!!,
+            displayName = attr("shortname") ?: attr("party")!!,
             hashTag = attr("hashtag"),
             groups = attr("region")?.split(",") ?: emptyList(),
             medias = listOfNotNull(

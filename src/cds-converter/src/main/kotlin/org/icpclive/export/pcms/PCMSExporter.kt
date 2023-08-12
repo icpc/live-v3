@@ -71,7 +71,7 @@ object PCMSExporter {
     }
 
     private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>) {
-        setAttribute("party", teamInfo.name)
+        setAttribute("party", teamInfo.fullName)
         setAttribute("id", teamInfo.contestSystemId)
         // setAttribute("time", "")
         setAttribute("alias", teamInfo.contestSystemId)

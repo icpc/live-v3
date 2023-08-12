@@ -153,8 +153,8 @@ internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, Str
             .map { team ->
                 TeamInfo(
                     id = team.account_id,
-                    name = team.name,
-                    shortName = team.name,
+                    fullName = team.name,
+                    displayName = team.name,
                     contestSystemId = team.account_id.toString(),
                     groups = listOf(),
                     hashTag = null,

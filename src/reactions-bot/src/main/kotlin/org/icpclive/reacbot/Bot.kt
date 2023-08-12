@@ -71,7 +71,7 @@ class Bot(private val config: Config) {
                         val ci = runBlocking { contestInfo.await().value }
                         ci.teams.find { it.id == reaction.teamId }?.let { team ->
                             ci.problems.find { it.id == reaction.problemId }?.let { problem ->
-                                caption = team.name + ", problem " + problem.letter
+                                caption = team.fullName + ", problem " + problem.letter
                             }
                         }
                     }

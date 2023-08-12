@@ -36,8 +36,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                 teams[submission.Login] =
                     TeamInfo(
                         id = lastTeamId++,
-                        name = submission.AuthorName,
-                        shortName = submission.AuthorName,
+                        fullName = submission.AuthorName,
+                        displayName = submission.AuthorName,
                         contestSystemId = submission.Login,
                         groups = emptyList(),
                         hashTag = null,

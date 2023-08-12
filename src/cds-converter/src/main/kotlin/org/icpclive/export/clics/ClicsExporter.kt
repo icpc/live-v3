@@ -47,7 +47,7 @@ private fun OrganizationInfo.toClicsOrg() = Organization(
 
 private fun TeamInfo.toClicsTeam() = Team(
     id = contestSystemId,
-    name = name,
+    name = fullName,
     hidden = isHidden,
     group_ids = groups,
     organization_id = organizationId

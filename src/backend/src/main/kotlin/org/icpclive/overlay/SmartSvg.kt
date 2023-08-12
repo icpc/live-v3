@@ -18,10 +18,10 @@ fun Route.configureSvgAtchievementRouting(mediaDirectory: Path) {
         val substitute = call.request.queryParameters.toMap().mapValues { it.value.first() }.toMutableMap()
         substitute["teamId"]?.let { teamId ->
             getTeams().firstOrNull { it.contestSystemId == teamId }?.let {
-                substitute["team.name"] = it.name
-                substitute["team.shortName"] = it.shortName
+                substitute["team.name"] = it.fullName
+                substitute["team.shortName"] = it.displayName
                 substitute["team.hashTag"] = it.hashTag ?: ""
-                substitute["team.info"] = it.additionalInfo ?: ""
+                substitute["team.info"] = it.customFields["svgInfo"] ?: ""
             }
         }
         call.respondBytes(ContentType.Image.SVG) { Svg.loadAndSubstitute(paths, substitute).toByteArray() }

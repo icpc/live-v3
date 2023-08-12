@@ -16,9 +16,9 @@ import kotlin.time.Duration
  * @param hashTag Team hashtag. Can be shown on some team related pages
  * @param medias Map of urls to team related medias. E.g., team photo or some kind of video from workstation.
  *               If media is explicitly set to null, it would be removed if received from a contest system.
- * @param additionalInfo
- * @param isHidden If set to true, team would be totaly hidden.
- * @param isOutOfContest If set to true, team would not recieve rank in scoreboard, but it's submission would still be shown.
+ * @param customFields Map of custom values. They can be used in substitutions in templates.
+ * @param isHidden If set to true, the team would be totally hidden.
+ * @param isOutOfContest If set to true, the team would not receive rank in scoreboard, but it's submission would still be shown.
  */
 @Serializable
 data class TeamInfoOverride(
@@ -28,7 +28,7 @@ data class TeamInfoOverride(
     val organizationId: String? = null,
     val hashTag: String? = null,
     val medias: Map<TeamMediaType, MediaType?>? = null,
-    val additionalInfo: String? = null,
+    val customFields: Map<String, String>? = null,
     val isHidden: Boolean? = null,
     val isOutOfContest: Boolean? = null,
 )
@@ -127,8 +127,8 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
         holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teams.associate {
             it.contestSystemId to TeamInfoOverride(
-                name = it.name.takeIfAsked("name"),
-                shortname = it.shortName.takeIfAsked("shortname"),
+                name = it.fullName.takeIfAsked("name"),
+                shortname = it.displayName.takeIfAsked("shortname"),
                 groups = it.groups.takeIfAsked("groups"),
                 hashTag = it.hashTag.takeIfAsked("hashTag"),
                 medias = it.medias.takeIfAsked("medias"),

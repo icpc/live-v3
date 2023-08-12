@@ -65,8 +65,8 @@ internal class ClicsModel(
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
             id = teamId[id],
-            name = teamName(teamOrganization?.formalName, name),
-            shortName = teamName(teamOrganization?.name, name),
+            fullName = teamName(teamOrganization?.formalName, name),
+            displayName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
             isHidden = hidden,
             groups = group_ids.mapNotNull { groups[it]?.name },
