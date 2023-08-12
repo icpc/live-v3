@@ -79,14 +79,16 @@ fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<Advanced
                 is Update -> {
                     when (it.update) {
                         is InfoUpdate -> {
-                            contestInfo = it.update.newInfo
-                            apply()
+                            if (contestInfo != it.update.newInfo) {
+                                contestInfo = it.update.newInfo
+                                apply()
+                            }
                         }
                         is RunUpdate -> {
-                            emit(it.update)
                             if (submittedTeams.add(it.update.newInfo.teamId) && advancedProperties?.scoreboardOverrides?.showTeamsWithoutSubmissions == false) {
                                 apply()
                             }
+                            emit(it.update)
                         }
                         else -> {
                             emit(it.update)
