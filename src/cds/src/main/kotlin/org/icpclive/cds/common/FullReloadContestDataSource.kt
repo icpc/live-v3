@@ -1,8 +1,7 @@
 package org.icpclive.cds.common
 
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.loopFlow
@@ -16,6 +15,7 @@ internal abstract class FullReloadContestDataSource(val interval: Duration) : Ra
         ) {
             loadOnce()
         }.flowOn(Dispatchers.IO)
+            .conflate()
             .collect {
                 emit(InfoUpdate(it.contestInfo))
                 it.runs.forEach { emit(RunUpdate(it)) }
