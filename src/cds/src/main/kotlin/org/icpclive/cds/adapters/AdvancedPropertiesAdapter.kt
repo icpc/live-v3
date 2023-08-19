@@ -17,7 +17,7 @@ private class Advanced(val update: AdvancedProperties) : AdvancedAdapterEvent
 private object TimeTrigger : AdvancedAdapterEvent
 
 
-object AdvancedPropertiesAdapter
+internal object AdvancedPropertiesAdapter
 
 private val templateRegex = kotlin.text.Regex("\\{(.*)}")
 
