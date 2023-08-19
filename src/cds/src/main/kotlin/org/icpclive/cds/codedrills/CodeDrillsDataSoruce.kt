@@ -153,16 +153,16 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings, creds: Map
             startTime = startTime,
             contestLength = contestLength,
             freezeTime = contestLength - contest.scoreboardSettings.freezeSettings.freezeOffsetTimeInS.seconds,
-            problems = problems,
-            teams = teams,
+            problemList = problems,
+            teamList = teams,
             penaltyPerWrongAttempt = contest.scoreboardSettings.penaltyPerAttemptInS.seconds,
-            groups = emptyList(),
+            groupList = emptyList(),
             penaltyRoundingMode = when (contest.scoreboardSettings.scoreboardType) {
                 ScoreboardType.UNKNOWN_SCOREBOARD_TYPE, ScoreboardType.ONE_POINT_WITH_PENALTY -> PenaltyRoundingMode.SUM_DOWN_TO_MINUTE
                 ScoreboardType.ONE_POINT_WITH_MAX_PENALTY -> PenaltyRoundingMode.LAST
                 ScoreboardType.UNRECOGNIZED, null -> TODO("Unsupported scoreboard type")
             },
-            organizations = emptyList()
+            organizationList = emptyList()
         )
         return ContestParseResult(contestInfo, submissions, emptyList())
     }

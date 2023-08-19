@@ -69,9 +69,9 @@ class Bot(private val config: Config) {
                     var caption: String? = null
                     if (sendAdditionalInfo) {
                         val ci = runBlocking { contestInfo.await().value }
-                        ci.teams.find { it.id == reaction.teamId }?.let { team ->
-                            ci.problems.find { it.id == reaction.problemId }?.let { problem ->
-                                caption = team.fullName + ", problem " + problem.letter
+                        ci.teams[reaction.teamId]?.let { team ->
+                            ci.problems[reaction.problemId]?.let { problem ->
+                                caption = "${team.fullName}, problem ${problem.letter}"
                             }
                         }
                     }

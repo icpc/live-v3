@@ -16,18 +16,18 @@ class ICPCScoreboardTest {
         startTime = Instant.fromEpochMilliseconds(1687460000),
         contestLength = 5.hours,
         freezeTime = 4.hours,
-        problems = listOf(
+        problemList = listOf(
             ProblemInfo("A", "A", 1, 0, "A"),
             ProblemInfo("B", "B", 2, 1, "B"),
         ),
-        teams = listOf(
+        teamList = listOf(
             TeamInfo(1, "T1", "T1", "T1", emptyList(), null, emptyMap(), false, false, null),
             TeamInfo(2, "T2", "T2", "T2", emptyList(), null, emptyMap(), false, false, null),
             TeamInfo(3, "T3", "T3", "T3", emptyList(), null, emptyMap(), false, false, null),
             TeamInfo(4, "T4", "T4", "T4", emptyList(), null, emptyMap(), false, false, null),
         ),
-        groups = emptyList(),
-        organizations = emptyList(),
+        groupList = emptyList(),
+        organizationList = emptyList(),
         penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
     )
 

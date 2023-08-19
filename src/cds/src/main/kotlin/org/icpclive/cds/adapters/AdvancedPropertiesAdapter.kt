@@ -190,13 +190,14 @@ private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides
     }
 }
 
+@OptIn(InefficientContestInfoApi::class)
 internal fun applyAdvancedProperties(
     info: ContestInfo,
     overrides: AdvancedProperties,
     submittedTeams: Set<Int>
 ): ContestInfo {
     val teamInfosPrelim = applyRegex(
-        info.teams.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
+        info.teamList.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
         overrides.teamRegexes
     )
     val newGroups = buildSet {
@@ -206,12 +207,12 @@ internal fun applyAdvancedProperties(
         overrides.teamOverrides?.values?.forEach { override ->
             override.groups?.let { addAll(it) }
         }
-        for (group in info.groups) {
+        for (group in info.groupList) {
             remove(group.name)
         }
     }
     val groups = mergeGroups(
-        info.groups + newGroups.map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
+        info.groupList + newGroups.map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
         overrides.groupOverrides
     )
     val newOrganizations = buildSet {
@@ -221,12 +222,12 @@ internal fun applyAdvancedProperties(
         overrides.teamOverrides?.values?.forEach { override ->
             override.organizationId?.let { add(it) }
         }
-        for (group in info.organizations) {
+        for (group in info.organizationList) {
             remove(group.cdsId)
         }
     }
     val organizations = mergeOrganizations(
-        info.organizations + newOrganizations.map { OrganizationInfo(it, it, it) },
+        info.organizationList + newOrganizations.map { OrganizationInfo(it, it, it) },
         overrides.organizationOverrides
     )
 
@@ -246,7 +247,7 @@ internal fun applyAdvancedProperties(
         .mergeTeams(overrides.teamMediaTemplate?.instantiateTemplate(teamInfosPrelim, TeamInfo::templateValueGetter))
         .mergeTeams(overrides.teamOverrideTemplate?.instantiateTemplate(teamInfosPrelim, TeamInfo::templateValueGetter))
         .mergeTeams(overrides.teamOverrides)
-    val problemInfos = mergeProblems(info.problems, overrides.problemOverrides)
+    val problemInfos = mergeProblems(info.problemList, overrides.problemOverrides)
 
     val (startTime, status) = overrides.startTime
         ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
@@ -259,10 +260,10 @@ internal fun applyAdvancedProperties(
         freezeTime = overrides.freezeTime ?: info.freezeTime,
         status = status,
         holdBeforeStartTime = overrides.holdTime ?: info.holdBeforeStartTime,
-        teams = teamInfos,
-        groups = groups,
-        organizations = organizations,
-        problems = problemInfos.sortedBy { it.ordinal },
+        teamList = teamInfos,
+        groupList = groups,
+        organizationList = organizations,
+        problemList = problemInfos,
         medals = overrides.scoreboardOverrides?.medals ?: info.medals,
         penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt,
         penaltyRoundingMode = overrides.scoreboardOverrides?.penaltyRoundingMode ?: info.penaltyRoundingMode,

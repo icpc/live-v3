@@ -176,10 +176,10 @@ internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, Str
             startTime = startTime,
             contestLength = contestLength,
             freezeTime = freezeTime,
-            problems = problemsList,
-            teams = teamList,
-            groups = emptyList(),
-            organizations = emptyList(),
+            problemList = problemsList,
+            teamList = teamList,
+            groupList = emptyList(),
+            organizationList = emptyList(),
             penaltyRoundingMode = when (settings.resultType) {
                 ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                 ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE

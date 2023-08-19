@@ -74,17 +74,17 @@ internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, Str
         val teams = teamsAndRuns.map { it.first }.sortedBy { it.id }
         return ContestParseResult(
             ContestInfo(
-                element.getAttribute("name"),
-                status,
-                resultType,
-                startTime,
-                contestLength,
-                freezeTime,
-                problems,
-                teams,
-                teams.toGroupInfos(),
-                emptyList(),
-                when (resultType) {
+                name = element.getAttribute("name"),
+                status = status,
+                resultType = resultType,
+                startTime = startTime,
+                contestLength = contestLength,
+                freezeTime = freezeTime,
+                problemList = problems,
+                teamList = teams,
+                groupList = teams.toGroupInfos(),
+                organizationList = emptyList(),
+                penaltyRoundingMode = when (resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                     ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
                 }

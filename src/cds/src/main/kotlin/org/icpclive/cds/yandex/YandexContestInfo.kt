@@ -85,10 +85,10 @@ internal class YandexContestInfo private constructor(
         startTime = startTime,
         contestLength = duration,
         freezeTime = freezeTime,
-        problems = problems,
-        teams = teams,
-        groups = emptyList(),
-        organizations = emptyList(),
+        problemList = problems,
+        teamList = teams,
+        groupList = emptyList(),
+        organizationList = emptyList(),
         penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE
     )
 }

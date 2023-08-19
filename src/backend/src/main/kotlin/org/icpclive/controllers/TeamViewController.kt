@@ -12,7 +12,7 @@ class TeamViewController(manager: Manager<TeamViewWidget>, val position: TeamVie
     override suspend fun onDelete(id: Int) {}
 
     override suspend fun constructWidget(settings: ExternalTeamViewSettings): TeamViewWidget {
-        val teamInfo = DataBus.contestInfoFlow.await().first().teams.find { it.id == settings.teamId }
+        val teamInfo = DataBus.contestInfoFlow.await().first().teams[settings.teamId]
         val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toMutableList()
         if (settings.showTaskStatus) {
             settings.teamId?.let { teamId -> content.add(MediaType.TaskStatus(teamId)) }

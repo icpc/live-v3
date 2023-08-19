@@ -16,5 +16,8 @@
   },
   "teamOverrideTemplate": {
     "displayName": "{funnyName}"
+  },
+  "problemOverrides": {
+    "A": { "ordinal": 100 }
   }
 }

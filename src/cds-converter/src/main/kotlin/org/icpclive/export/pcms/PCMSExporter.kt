@@ -54,7 +54,7 @@ object PCMSExporter {
         setAttribute("freeze-time-millis", info.freezeTime.inWholeMilliseconds.toString())
     }
     private fun Element.buildChallengeNode(info: ContestInfo) {
-        info.problems.forEach { problem ->
+        info.scoreboardProblems.forEach { problem ->
             createChild("problem").also {
                 it.setAttribute("alias", problem.letter)
                 it.setAttribute("name", problem.name)
@@ -84,8 +84,8 @@ object PCMSExporter {
             val isAcceptedInt = if ((probResult as ICPCProblemResult).isSolved) 1 else 0
             probNode.setAttribute("accepted", isAcceptedInt.toString())
             probNode.setAttribute("attempts", (probResult.wrongAttempts + isAcceptedInt).toString())
-            probNode.setAttribute("id", info.problems[index].contestSystemId)
-            probNode.setAttribute("alias", info.problems[index].letter)
+            probNode.setAttribute("id", info.scoreboardProblems[index].contestSystemId)
+            probNode.setAttribute("alias", info.scoreboardProblems[index].letter)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
             probNode.setAttribute("penalty", (if (probResult.isSolved) {
                 (probResult.lastSubmitTime!! + info.penaltyPerWrongAttempt * probResult.wrongAttempts).inWholeMinutes
@@ -112,10 +112,9 @@ object PCMSExporter {
         val challenge = contest.createChild("challenge")
         challenge.buildChallengeNode(info)
         val scoreboard = getScoreboardCalculator(info, OptimismLevel.NORMAL).getScoreboard(info, runsByTeam)
-        val teamById = info.teams.associateBy { it.id }
         scoreboard.rows.forEach {
             contest.createChild("session").also { session ->
-                session.buildSessionNode(info, teamById[it.teamId]!!, it, runsByTeam[it.teamId] ?: emptyList())
+                session.buildSessionNode(info, info.teams[it.teamId]!!, it, runsByTeam[it.teamId] ?: emptyList())
             }
         }
 

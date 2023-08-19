@@ -18,11 +18,11 @@ internal class NoopDataSource : RawContestDataSource {
             startTime = Instant.DISTANT_FUTURE,
             contestLength = Duration.ZERO,
             freezeTime = Duration.ZERO,
-            problems = emptyList(),
-            teams = emptyList(),
+            problemList = emptyList(),
+            teamList = emptyList(),
             resultType = ContestResultType.ICPC,
-            groups = emptyList(),
-            organizations = emptyList(),
+            groupList = emptyList(),
+            organizationList = emptyList(),
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
         ))
     )

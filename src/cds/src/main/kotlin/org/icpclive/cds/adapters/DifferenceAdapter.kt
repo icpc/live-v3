@@ -52,11 +52,11 @@ private class SumScoreAccumulator : ScoreAccumulator {
 fun Flow<ContestUpdate>.calculateScoreDifferences() = withGroupedRuns(
     selector = { it.problemId to it.teamId },
     needUpdateGroup = { new, old, key ->
-        new.problems.getOrNull(key.first)?.scoreMergeMode != old?.problems?.getOrNull(key.first)?.scoreMergeMode
+        new.problems[key.first]?.scoreMergeMode != old?.problems?.get(key.first)?.scoreMergeMode
     },
     transformGroup = transform@{ key, runs, _, contestInfo ->
         if (contestInfo?.resultType != ContestResultType.IOI) return@transform runs
-        val accumulator = when (contestInfo.problems.getOrNull(key.first)?.scoreMergeMode ?: ScoreMergeMode.LAST) {
+        val accumulator = when (contestInfo.problems[key.first]?.scoreMergeMode ?: ScoreMergeMode.LAST) {
             ScoreMergeMode.MAX_PER_GROUP -> MaxByGroupScoreAccumulator()
             ScoreMergeMode.MAX_TOTAL -> MaxTotalScoreAccumulator()
             ScoreMergeMode.LAST -> LastScoreAccumulator()

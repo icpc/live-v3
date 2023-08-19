@@ -1,9 +1,11 @@
 package org.icpclive.admin
 
 import kotlinx.coroutines.flow.first
+import org.icpclive.api.InefficientContestInfoApi
 import org.icpclive.data.DataBus
 
-suspend fun getTeams() = DataBus.contestInfoFlow.await().first().teams.filterNot { it.isHidden }
+@OptIn(InefficientContestInfoApi::class)
+suspend fun getTeams() = DataBus.contestInfoFlow.await().first().teamList.filterNot { it.isHidden }
 
 suspend fun getRegions() = getTeams().flatMap { it.groups }.distinct().sorted()
 

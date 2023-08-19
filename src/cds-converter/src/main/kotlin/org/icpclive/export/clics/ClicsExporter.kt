@@ -228,9 +228,10 @@ object ClicsExporter  {
     private val problemsMap = mutableMapOf<String, ProblemInfo>()
     private val teamsMap = mutableMapOf<String, TeamInfo>()
 
+    @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
-        problemIdToCdsId = newInfo.problems.associate { it.id to it.contestSystemId }
-        teamIdToCdsId = newInfo.teams.associate { it.id to it.contestSystemId }
+        problemIdToCdsId = newInfo.problemList.associate { it.id to it.contestSystemId }
+        teamIdToCdsId = newInfo.teamList.associate { it.id to it.contestSystemId }
 
         diff(oldInfo, newInfo, ::getContest, Event::ContestEventNamedWithSpec)
         diff(oldInfo, newInfo, ::getState, Event::StateEvent)
@@ -242,14 +243,14 @@ object ClicsExporter  {
                 updateEvent(language.id, language, Event::LanguageEvent)
             }
         }
-        diff(problemsMap, newInfo.problems, ProblemInfo::contestSystemId, ProblemInfo::toClicsProblem, Event::ProblemEvent)
-        diffChange(groupsMap, newInfo.groups, GroupInfo::name, GroupInfo::toClicsGroup, Event::GroupsEvent)
-        diffChange(orgsMap, newInfo.organizations, OrganizationInfo::cdsId, OrganizationInfo::toClicsOrg, Event::OrganizationEvent)
+        diff(problemsMap, newInfo.problemList, ProblemInfo::contestSystemId, ProblemInfo::toClicsProblem, Event::ProblemEvent)
+        diffChange(groupsMap, newInfo.groupList, GroupInfo::name, GroupInfo::toClicsGroup, Event::GroupsEvent)
+        diffChange(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, OrganizationInfo::toClicsOrg, Event::OrganizationEvent)
 
-        diff(teamsMap, newInfo.teams, TeamInfo::contestSystemId, TeamInfo::toClicsTeam, Event::TeamEvent)
+        diff(teamsMap, newInfo.teamList, TeamInfo::contestSystemId, TeamInfo::toClicsTeam, Event::TeamEvent)
 
-        diffRemove(groupsMap, newInfo.groups, GroupInfo::name, Event::GroupsEvent)
-        diffRemove(orgsMap, newInfo.organizations, OrganizationInfo::cdsId, Event::OrganizationEvent)
+        diffRemove(groupsMap, newInfo.groupList, GroupInfo::name, Event::GroupsEvent)
+        diffRemove(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, Event::OrganizationEvent)
     }
 
     private suspend fun FlowCollector<EventProducer>.processAnalytics(message: AnalyticsMessage) {
@@ -350,7 +351,6 @@ object ClicsExporter  {
         //val awardsFlow = eventFeed.filterIdEvent<Award, Event.AwardsEvent>(scope)
         val scoreboardFlow = updates.stateGroupedByTeam()
             .calculateScoreboardWithInfo(OptimismLevel.NORMAL).map {(info, scorboard) ->
-                val tids = info.teams.associate { it.id to it.contestSystemId }
                 Scoreboard(
                     time = info.startTime + scorboard.lastSubmitTime,
                     contest_time = scorboard.lastSubmitTime,
@@ -358,12 +358,12 @@ object ClicsExporter  {
                     rows = scorboard.rows.map {
                         ScoreboardRow(
                             it.rank,
-                            tids[it.teamId]!!,
+                            info.teams[it.teamId]!!.contestSystemId,
                             ScoreboardRowScore(it.totalScore.toInt(), it.penalty.inWholeMinutes),
                             it.problemResults.mapIndexed { index, v ->
                                 val iv = v as ICPCProblemResult
                                 ScoreboardRowProblem(
-                                    info.problems[index].contestSystemId,
+                                    info.scoreboardProblems[index].contestSystemId,
                                     iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
                                     iv.pendingAttempts,
                                     iv.isSolved,

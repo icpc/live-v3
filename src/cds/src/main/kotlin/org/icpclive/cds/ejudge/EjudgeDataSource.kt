@@ -83,10 +83,10 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,
-                problems = parseProblemsInfo(element),
-                teams = teams,
-                groups = emptyList(),
-                organizations = emptyList(),
+                problemList = parseProblemsInfo(element),
+                teamList = teams,
+                groupList = emptyList(),
+                organizationList = emptyList(),
                 penaltyRoundingMode = when (settings.resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                     ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE

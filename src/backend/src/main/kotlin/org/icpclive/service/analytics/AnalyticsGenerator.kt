@@ -28,8 +28,8 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             }
             val analysis = runs.processRun(run, scoreboard) ?: return@collect
 
-            val team = contestInfo.teams.firstOrNull { it.id == run.teamId } ?: return@collect
-            val problem = contestInfo.problems.firstOrNull { it.id == run.problemId } ?: return@collect
+            val team = contestInfo.teams[run.teamId] ?: return@collect
+            val problem = contestInfo.problems[run.problemId] ?: return@collect
             emit(
                 AnalyticsCommentaryEvent(
                     "_analytics_by_run_${run.id}",

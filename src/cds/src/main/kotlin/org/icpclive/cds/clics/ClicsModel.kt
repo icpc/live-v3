@@ -108,13 +108,13 @@ internal class ClicsModel(
             startTime = startTime ?: Instant.fromEpochSeconds(0),
             contestLength = contestLength,
             freezeTime = freezeTime,
-            problems = problems.values.map { it.toApi() },
-            teams = teams.values.map { it.toApi() },
-            groups = groups.values.map { it.toApi() },
+            problemList = problems.values.map { it.toApi() },
+            teamList = teams.values.map { it.toApi() },
+            groupList = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             holdBeforeStartTime = holdBeforeStartTime,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
-            organizations = organisations.values.map { it.toApi() }
+            organizationList = organisations.values.map { it.toApi() }
         )
 
     fun processContest(contest: Contest): List<RunInfo> {

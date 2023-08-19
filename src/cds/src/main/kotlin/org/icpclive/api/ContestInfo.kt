@@ -227,7 +227,12 @@ enum class PenaltyRoundingMode {
 }
 
 
+@Target(AnnotationTarget.PROPERTY)
+@RequiresOptIn(level = RequiresOptIn.Level.ERROR, message = "This api is not efficient in most cases, consider using corresponding map instead")
+annotation class InefficientContestInfoApi
+
 @Serializable
+@OptIn(InefficientContestInfoApi::class)
 data class ContestInfo(
     val name: String,
     val status: ContestStatus,
@@ -241,10 +246,10 @@ data class ContestInfo(
     @SerialName("freezeTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val freezeTime: Duration,
-    val problems: List<ProblemInfo>,
-    val teams: List<TeamInfo>,
-    val groups: List<GroupInfo>,
-    val organizations: List<OrganizationInfo>,
+    @InefficientContestInfoApi @SerialName("problems") val problemList: List<ProblemInfo>,
+    @InefficientContestInfoApi @SerialName("teams") val teamList: List<TeamInfo>,
+    @InefficientContestInfoApi @SerialName("groups") val groupList: List<GroupInfo>,
+    @InefficientContestInfoApi @SerialName("organizations") val organizationList: List<OrganizationInfo>,
     val penaltyRoundingMode: PenaltyRoundingMode,
     @SerialName("holdBeforeStartTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
@@ -259,7 +264,12 @@ data class ContestInfo(
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER -> contestLength
         }
-    fun groupById(id: String) = groups.find { it.name == id }
+    val groups by lazy { groupList.associateBy { it.name } }
+    val teams by lazy { teamList.associateBy { it.id } }
+    val cdsTeams by lazy { teamList.associateBy { it.contestSystemId } }
+    val organizations by lazy { organizationList.associateBy { it.cdsId } }
+    val problems by lazy { problemList.associateBy { it.id } }
+    val scoreboardProblems by lazy { problemList.sortedBy { it.ordinal } }
 }
 
 fun List<TeamInfo>.toGroupInfos() = flatMap { it.groups }.distinct().map { GroupInfo(it) }

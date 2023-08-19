@@ -187,13 +187,14 @@ data class TeamOverrideTemplate(
  *
  * @param fields set of fields to include in returned value. Other would be set to null
  */
+@OptIn(InefficientContestInfoApi::class)
 fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
     fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
     return AdvancedProperties(
         startTime = startTime.takeIfAsked("startTime"),
         freezeTime = freezeTime.takeIfAsked("freezeTime"),
         holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
-        teamOverrides = teams.associate {
+        teamOverrides = teamList.associate {
             it.contestSystemId to TeamInfoOverride(
                 fullName = it.fullName.takeIfAsked("fullName"),
                 displayName = it.displayName.takeIfAsked("displayName"),
@@ -206,7 +207,7 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
             )
         },
-        problemOverrides = problems.associate {
+        problemOverrides = problemList.associate {
             it.letter to ProblemInfoOverride(
                 name = it.name.takeIfAsked("problemName"),
                 color = it.color.takeIfAsked("color"),
@@ -216,13 +217,13 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
                 scoreMergeMode = it.scoreMergeMode.takeIfAsked("scoreMergeMode")
             )
         },
-        groupOverrides = groups.associate {
+        groupOverrides = groupList.associate {
             it.name to GroupInfoOverride(
                 isHidden = it.isHidden.takeIfAsked("isHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
             )
         },
-        organizationOverrides = organizations.associate {
+        organizationOverrides = organizationList.associate {
             it.cdsId to OrganizationInfoOverride(
                 displayName = it.displayName.takeIfAsked("orgDisplayName"),
                 fullName = it.fullName.takeIfAsked("orgFullName")

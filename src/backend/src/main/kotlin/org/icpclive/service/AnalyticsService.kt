@@ -110,7 +110,7 @@ class AnalyticsService {
                     logger.warn("Can't make run featured caused by message ${message.id}")
                     return
                 }
-                val team = DataBus.contestInfoFlow.await().value.teams.find { it.id == message.teamIds[0] } ?: return
+                val team = DataBus.contestInfoFlow.await().value.teams[message.teamIds[0]] ?: return
                 val media = team.medias[action.mediaType] ?: return
                 val request = FeaturedRunAction.MakeFeatured(message.runIds[0], media)
                 featuredRunsFlow.emit(request)

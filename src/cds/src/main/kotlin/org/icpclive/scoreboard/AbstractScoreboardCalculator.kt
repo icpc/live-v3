@@ -23,13 +23,13 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
 
     override fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>): Scoreboard {
         logger.info("Calculating scoreboard: runs count = ${runs.values.sumOf { it.size }}")
-        val teamsInfo = info.teams.filterNot { it.isHidden }.associateBy { it.id }
+        val teamsInfo = info.teams.filterValues { !it.isHidden }
         fun ScoreboardRow.team() = teamsInfo[teamId]!!
 
         val hasChampion = mutableSetOf<String>()
 
         val rows = teamsInfo.values
-            .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.problems) }
+            .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.scoreboardProblems) }
             .sortedWith(comparator.thenComparing { it -> it.team().fullName })
             .toMutableList()
         var right = 0

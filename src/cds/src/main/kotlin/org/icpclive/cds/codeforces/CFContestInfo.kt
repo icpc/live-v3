@@ -249,15 +249,15 @@ internal class CFContestInfo {
         startTime = startTime,
         contestLength = contestLength,
         freezeTime = contestLength,
-        problems = problems,
-        teams = participantsByCdsId.values.sortedBy { it.id },
-        groups = emptyList(),
+        problemList = problems,
+        teamList = participantsByCdsId.values.sortedBy { it.id },
+        groupList = emptyList(),
         penaltyRoundingMode = when (contestType) {
             CFContestType.CF -> PenaltyRoundingMode.ZERO
             CFContestType.IOI -> PenaltyRoundingMode.ZERO
             CFContestType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
         },
-        organizations = emptyList()
+        organizationList = emptyList()
     )
 
     companion object {
