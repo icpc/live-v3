@@ -920,8 +920,5 @@
         "F": {
             "color": "#42d4f4"
         }
-    },
-    "scoreboardOverrides": {        
-        "showTeamsWithoutSubmissions": false
     }
 }
