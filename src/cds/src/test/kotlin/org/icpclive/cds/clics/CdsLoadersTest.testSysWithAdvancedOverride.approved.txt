@@ -448,13 +448,18 @@
         ],
         "groups": [
             {
-                "name": "firstGrade"
+                "name": "firstGrade",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "school"
+                "name": "school",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
                 "name": "outOfContest",
+                "isHidden": false,
                 "isOutOfContest": true
             }
         ],

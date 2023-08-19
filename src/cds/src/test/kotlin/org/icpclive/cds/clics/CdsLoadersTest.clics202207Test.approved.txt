@@ -2748,10 +2748,14 @@
         ],
         "groups": [
             {
-                "name": "SWERC 2022-2023"
+                "name": "SWERC 2022-2023",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Self-Registered"
+                "name": "Self-Registered",
+                "isHidden": false,
+                "isOutOfContest": false
             }
         ],
         "organizations": [

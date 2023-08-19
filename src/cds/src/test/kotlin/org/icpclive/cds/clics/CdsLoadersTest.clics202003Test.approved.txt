@@ -2674,31 +2674,49 @@
         ],
         "groups": [
             {
-                "name": "System"
+                "name": "System",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "North America"
+                "name": "North America",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Northern Eurasia"
+                "name": "Northern Eurasia",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Asia West"
+                "name": "Asia West",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Europe"
+                "name": "Europe",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Latin America"
+                "name": "Latin America",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Africa and the Middle East"
+                "name": "Africa and the Middle East",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Asia Pacific"
+                "name": "Asia Pacific",
+                "isHidden": false,
+                "isOutOfContest": false
             },
             {
-                "name": "Jury"
+                "name": "Jury",
+                "isHidden": false,
+                "isOutOfContest": false
             }
         ],
         "organizations": [

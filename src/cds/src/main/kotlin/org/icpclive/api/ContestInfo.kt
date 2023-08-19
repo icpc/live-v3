@@ -182,8 +182,8 @@ data class TeamInfo(
 @Serializable
 data class GroupInfo(
     val name: String,
-    val isHidden: Boolean = false,
-    val isOutOfContest: Boolean = false
+    val isHidden: Boolean,
+    val isOutOfContest: Boolean,
 )
 
 @Serializable
@@ -271,5 +271,3 @@ data class ContestInfo(
     val problems by lazy { problemList.associateBy { it.id } }
     val scoreboardProblems by lazy { problemList.sortedBy { it.ordinal } }
 }
-
-fun List<TeamInfo>.toGroupInfos() = flatMap { it.groups }.distinct().map { GroupInfo(it) }

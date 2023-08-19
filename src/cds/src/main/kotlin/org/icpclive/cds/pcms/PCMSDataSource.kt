@@ -82,7 +82,7 @@ internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, Str
                 freezeTime = freezeTime,
                 problemList = problems,
                 teamList = teams,
-                groupList = teams.toGroupInfos(),
+                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
                 organizationList = emptyList(),
                 penaltyRoundingMode = when (resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
