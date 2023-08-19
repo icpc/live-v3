@@ -17,6 +17,7 @@ tasks {
         inputs.file("overlay/package.json")
     }
     named<NpmTask>("npm_run_buildOverlay") {
+        outputs.cacheIf { true }
         environment.set(mapOf("PUBLIC_URL" to "/overlay"))
         inputs.dir("overlay/src")
         inputs.dir("overlay/public")
@@ -26,6 +27,7 @@ tasks {
         outputs.dir("overlay/build")
     }
     named<NpmTask>("npm_run_buildAdmin") {
+        outputs.cacheIf { true }
         environment.set(mapOf("PUBLIC_URL" to "/admin"))
         inputs.dir("admin/src")
         inputs.dir("admin/public")
