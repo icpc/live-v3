@@ -33,7 +33,7 @@ jobs:
       - name: Build with Dokka
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: dokkaHtml -i
+          arguments: doc -i
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
 

@@ -58,7 +58,7 @@ tasks.dokkaHtml {
 
 tasks.create<Copy>("doc") {
     from(tasks.dokkaHtml)
-    destinationDir = rootProject.rootDir.resolve("docs/cds")
+    destinationDir = rootProject.rootDir.resolve("_site/cds")
 }
 
 dependencies {
