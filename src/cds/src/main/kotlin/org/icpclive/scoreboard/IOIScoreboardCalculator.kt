@@ -5,6 +5,7 @@ import org.icpclive.api.*
 internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
     override val comparator: Comparator<ScoreboardRow> = compareBy(
         { -it.totalScore },
+        { it.penalty }
     )
 
     override fun ContestInfo.getScoreboardRow(

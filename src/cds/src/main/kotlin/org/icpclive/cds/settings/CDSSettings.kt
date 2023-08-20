@@ -12,6 +12,7 @@ import kotlinx.serialization.properties.decodeFromStringMap
 import org.icpclive.api.ContestResultType
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.toEmulationFlow
+import org.icpclive.cds.atcoder.AtcoderDataSource
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.clics.FeedVersion
@@ -27,6 +28,7 @@ import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.*
 import java.io.InputStream
 import java.nio.file.Path
+import kotlin.time.Duration
 
 // I'd like to have them in cds files, but then serializing would be much harder
 
@@ -220,6 +222,21 @@ class CodeDrillsSettings(
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = CodeDrillsDataSource(this, creds)
+}
+
+@SerialName("atcoder")
+@Serializable
+class AtcoderSettings(
+    val contestId: String,
+    val sessionCookie: String,
+    @Serializable(with = HumanTimeSerializer::class)
+    val startTime: Instant,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("contestLengthSeconds") val contestLength: Duration,
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource(creds: Map<String, String>) = AtcoderDataSource(this)
 }
 
 @OptIn(ExperimentalSerializationApi::class)

@@ -7,6 +7,7 @@ import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
 import org.icpclive.cds.settings.NetworkSettings
+import io.ktor.http.*
 import java.security.cert.X509Certificate
 import javax.net.ssl.X509TrustManager
 
@@ -15,6 +16,8 @@ internal sealed class ClientAuth {
     class Basic(val login: String, val password: String) : ClientAuth()
 
     class OAuth(val token: String) : ClientAuth()
+
+    class CookieAuth(val name: String, val value: String): ClientAuth()
 
     companion object {
         fun BasicOrNull(login: String?, password: String?) = if (login != null && password != null) {
@@ -38,7 +41,13 @@ internal fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
 
         is ClientAuth.OAuth -> {
             defaultRequest {
-                header("Authorization", "OAuth ${auth.token}")
+                header(HttpHeaders.Authorization, "OAuth ${auth.token}")
+            }
+        }
+
+        is ClientAuth.CookieAuth -> {
+            defaultRequest {
+                header(HttpHeaders.Cookie, "${auth.name}=${auth.value}")
             }
         }
     }

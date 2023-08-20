@@ -13,7 +13,7 @@ import {
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { pushLog } from "../../../redux/debug";
 import { Cell } from "../../atoms/Cell";
-import { ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { formatPenalty, needPenalty, ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 import { formatScore } from "../../atoms/ContestCells";
 import { ScoreboardIOITaskCell } from "../widgets/Scoreboard";
@@ -201,10 +201,10 @@ export const TeamInfo = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        {contestInfo?.resultType !== "IOI" &&
-        <ScoreboardStatCell>
-            {scoreboardData?.penalty}
-        </ScoreboardStatCell>}
+        {needPenalty(contestInfo) &&
+            <ScoreboardStatCell>
+                {scoreboardData === null ? null : formatPenalty(contestInfo, scoreboardData.penalty)}
+            </ScoreboardStatCell>}
 
     </TeamInfoWrapper>;
 };
