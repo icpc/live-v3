@@ -20,7 +20,14 @@ import {
     VERDICT_UNKNOWN
 } from "../../../config";
 import { Cell } from "../../atoms/Cell";
-import { formatScore, ProblemCell, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import {
+    formatPenalty,
+    formatScore,
+    needPenalty,
+    ProblemCell,
+    RankCell,
+    TextShrinkingCell
+} from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 
 
@@ -221,8 +228,8 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData === null ? null : formatScore(scoreboardData.totalScore)}
         </ScoreboardStatCell>
-        {contestData?.resultType === "ICPC" && <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData?.penalty}
+        {needPenalty(contestData) && <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
+            {scoreboardData === null ? null : formatPenalty(contestData, scoreboardData.penalty)}
         </ScoreboardStatCell>}
         {!hideTasks && scoreboardData?.problemResults.map((resultsData, i) =>
             <RenderScoreboardTaskCell key={i}  data={resultsData} minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore} />
@@ -244,7 +251,7 @@ const ScoreboardHeader = ({ problems, rowHeight, name }) => {
     return <ScoreboardHeaderWrap rowHeight={rowHeight}>
         <ScoreboardHeaderTitle color={color}>{nameTable[name]} STANDINGS</ScoreboardHeaderTitle>
         <ScoreboardHeaderStatCell>&#931;</ScoreboardHeaderStatCell>
-        {contestInfo?.resultType === "ICPC" && <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>}
+        {needPenalty(contestInfo) && <ScoreboardHeaderStatCell>PEN</ScoreboardHeaderStatCell>}
         {problems && problems.map((probData) =>
             <ScoreboardHeaderProblemCell key={probData.name} probData={probData} canGrow={true} canShrink={true}
                 basis={"100%"}/>
