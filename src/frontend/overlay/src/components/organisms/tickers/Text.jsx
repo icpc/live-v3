@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { TICKER_FONT_FAMILY, TICKER_TEXT_FONT_SIZE, TICKER_TEXT_MARGIN_LEFT } from "../../../config";
-import { TextShrinkingCell } from "../../atoms/ContestCells";
+import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 
 export const TextWrap = styled.div`
     width: 100%;
@@ -14,11 +14,12 @@ export const TextWrap = styled.div`
 
 export const Text = ({ tickerSettings, part }) => {
     return <TextWrap part={part}>
-        <TextShrinkingCell
+        <ShrinkingBox
             text={tickerSettings.text}
-            background={""}
-            font={TICKER_TEXT_FONT_SIZE + " " + TICKER_FONT_FAMILY}
-            align={part === "long" ? "left" : "center"}/>
+            fontSize={TICKER_TEXT_FONT_SIZE}
+            fontFamily={TICKER_FONT_FAMILY}
+            align={part === "long" ? "left" : "center"}
+        />
     </TextWrap>;
 };
 

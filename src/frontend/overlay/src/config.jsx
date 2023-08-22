@@ -105,17 +105,18 @@ export const CELL_QUEUE_TASK_WIDTH = "50px"; // css property
 export const CELL_NAME_LEFT_PADDING = "5px"; // css property
 export const CELL_NAME_RIGHT_PADDING = CELL_NAME_LEFT_PADDING; // css property
 
-export const TICKER_SMALL_SIZE = "10%"; // css property
+export const TICKER_SMALL_SIZE = "12%"; // css property
 export const TICKER_SMALL_BACKGROUND = VERDICT_NOK;
 export const TICKER_BACKGROUND = CELL_BG_COLOR;
 export const TICKER_OPACITY = 0.95;
 export const TICKER_FONT_COLOR = "#FFFFFF";
 export const TICKER_FONT_FAMILY = "Helvetica, serif";
-export const TICKER_TEXT_FONT_SIZE = "34px"; // css property
-export const TICKER_TEXT_MARGIN_LEFT = "10px"; // css property
-export const TICKER_CLOCK_FONT_SIZE = "34px"; // css property
+export const TICKER_TEXT_FONT_SIZE = "32px"; // css property
+export const TICKER_TEXT_MARGIN_LEFT = "16px"; // css property
+export const TICKER_CLOCK_FONT_SIZE = "32px"; // css property
 export const TICKER_CLOCK_MARGIN_LEFT = "10px"; // css property
 export const TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
+export const TICKER_LIVE_ICON_SIZE = "32px";
 
 
 export const TEAMVIEW_SMALL_FACTOR = "50%"; // css property
@@ -138,7 +139,9 @@ export const MEDAL_COLORS = Object.freeze({
 // Debug Behaviour
 export const LOG_LINES = 300;
 
-export const SCOREBOARD_BACKGROUND_COLOR = "#242425";
+export const GLOBAL_BACKGROUND_COLOR = "#242425";
+
+export const SCOREBOARD_BACKGROUND_COLOR = GLOBAL_BACKGROUND_COLOR;
 
 export const CONTESTER_ROW_OPACITY = 1;
 export const CONTESTER_ROW_BORDER_RADIUS = "16px";
