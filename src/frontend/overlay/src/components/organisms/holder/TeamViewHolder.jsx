@@ -107,7 +107,7 @@ export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url,
 
 export const FullWidthWrapper = styled.div`
   width: 100%;
-
+  border-radius: 16px;
   // this is how you make aspect ratio before aspect-ratio. 
   // Do not remove until the whole world starts using modern VMix
   // Sadly this hack will cut off the bottom of the picture

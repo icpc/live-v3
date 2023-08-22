@@ -16,7 +16,7 @@ const ScoreboardColumnWrapper = styled.div`
   transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};
   white-space: nowrap;
 `;
-const ScoreboardTeamInfoRow = styled.div`
+const TeamInfoRow = styled.div`
   grid-column-start: 1;
   grid-column-end: 3;
 `;
@@ -37,11 +37,10 @@ export const ContestantViewCorner = ({ teamId, isSmall }) => {
 
     const results = _.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs")
         .filter(result => result.lastSubmitTimeMs !== undefined);
-
     return <ScoreboardColumnWrapper isSmall={isSmall}>
-        <ScoreboardTeamInfoRow>
-            <ContestantInfo teamId={teamId} roundBR={results.length === 0}/>
-        </ScoreboardTeamInfoRow>
+        <TeamInfoRow >
+            <ContestantInfo teamId={teamId} roundBR={results.length === 0} />
+        </TeamInfoRow>
         {results.map((result, i) =>
             <TaskRow key={i}>
                 <SubmissionRow

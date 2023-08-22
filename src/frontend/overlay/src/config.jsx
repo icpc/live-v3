@@ -140,8 +140,12 @@ export const LOG_LINES = 300;
 
 export const SCOREBOARD_BACKGROUND_COLOR = "#242425";
 
-export const CONTESTER_ROW_OPACITY = 1;
+export const CONTESTER_ROW_OPACITY = 0.95;
+export const CONTESTER_BACKGROUND_COLOR = "#4C83C3";
+
 export const CONTESTER_ROW_BORDER_RADIUS = "16px";
+export const CONTESTER_ROW_HEIGHT = "25px";
+export const CONTESTER_NAME_WIDTH = "150px";
 export const CONTESTER_ROW_VERDICT_FONT_SIZE2 = "16px"; // css-property
 
 export const QUEUE_PER_COLUMNS_PADDING2 = "5px"; // css property
@@ -154,3 +158,4 @@ export const CELL_INFO_VERDICT_WIDTH = "100px"; // css property
 
 // layers (z-indexes)
 export const QUEUE_BASIC_ZINDEX = 20;
+

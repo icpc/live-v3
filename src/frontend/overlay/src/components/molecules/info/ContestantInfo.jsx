@@ -5,12 +5,14 @@ import styled, { keyframes } from "styled-components";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import {
     CELL_BG_COLOR2,
-    CELL_BG_COLOR_ODD, CELL_FLASH_PERIOD,
-    CELL_QUEUE_RANK_WIDTH,
-    CELL_QUEUE_TOTAL_SCORE_WIDTH, CONTESTER_ROW_BORDER_RADIUS, CONTESTER_ROW_OPACITY, MEDAL_COLORS, QUEUE_ROW_HEIGHT2
+    CELL_BG_COLOR_ODD,
+    CELL_FLASH_PERIOD, CONTESTER_BACKGROUND_COLOR, CONTESTER_NAME_WIDTH,
+    CONTESTER_ROW_BORDER_RADIUS, CONTESTER_ROW_HEIGHT,
+    CONTESTER_ROW_OPACITY,
+    QUEUE_ROW_HEIGHT2
 } from "../../../config";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
-import { RankLabel } from "../../atoms/ContestLabels";
+import {RankLabel} from "../../atoms/ContestLabels";
 import { formatScore } from "../../atoms/ContestCells";
 
 
@@ -77,19 +79,54 @@ ContestantRow.propTypes = {
     roundBR : PropTypes.bool,
 };
 
-export const ContestantInfo = ({ teamId, ...props }) => {
+const ContestantInfoLabel = styled(RankLabel)`
+  width: 32px;
+  align-self: stretch;
+  padding-left: 4px;
+  flex-shrink: 0;
+`;
+
+const ContestantInfoTeamNameLabel = styled(ShrinkingBox)`
+  flex-grow: 1;
+  width: ${CONTESTER_NAME_WIDTH};
+  //flex-shrink: 0;
+`;
+
+
+const ContestantInfoWrap = styled.div`
+  width: 100%;
+  height: ${CONTESTER_ROW_HEIGHT};
+  background-color: ${CONTESTER_BACKGROUND_COLOR};
+  display: flex;
+  align-items: center;
+  border-radius: 16px 16px ${props => props.round ? "16px" : "0px"} 16px ;
+  overflow: hidden;
+  gap: 5px;
+  color: white;
+  font-size: 18px;
+`;
+
+const ContestantInfoScoreLabel = styled(ShrinkingBox)`
+  width: 51px;
+  flex-shrink: 0;
+  padding-right: 20px;
+  flex-direction: row-reverse;
+`;
+
+
+export const ContestantInfo = ({ teamId, roundBR }) => {
+    const contestInfo = useSelector((state) => state.contestInfo.info);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    return <ContestantRow medal={scoreboardData?.medalType} {...props}>
-        <RankLabel width={CELL_QUEUE_RANK_WIDTH} rank={scoreboardData?.rank}/>
-        {/* This broke because now shrinking box follows flow. Set it with styles. */}
-        {/* see https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flow_layout */}
-        <ShrinkingBox width={"342px"} text={teamData?.shortName ?? "??"}/>
-        <ShrinkingBox width={CELL_QUEUE_TOTAL_SCORE_WIDTH} align={"center"}
-                      text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
-        />
-        <ShrinkingBox width={CELL_QUEUE_TOTAL_SCORE_WIDTH} align={"center"}
-                      text={scoreboardData === null ? "??" : formatScore(scoreboardData?.penalty ?? 0.0, 1)}
-        />
-    </ContestantRow>;
+
+    return <ContestantInfoWrap round={roundBR}>
+        <ContestantInfoLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
+        <ContestantInfoTeamNameLabel text={teamData?.shortName ?? "??"}/>
+        <ContestantInfoScoreLabel align={"right"}
+                         text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
+        {contestInfo?.resultType !== "IOI" && <ContestantInfoScoreLabel align={"right"}
+                                  text={scoreboardData === null ? "??" : formatScore(scoreboardData?.penalty ?? 0.0, 1)}/>}
+
+
+    </ContestantInfoWrap>;
 };
