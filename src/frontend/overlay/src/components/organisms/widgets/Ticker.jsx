@@ -1,19 +1,20 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Transition, TransitionGroup } from "react-transition-group";
-import styled, { keyframes } from "styled-components";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Transition, TransitionGroup} from "react-transition-group";
+import styled, {keyframes} from "styled-components";
 import {
-    TICKER_BACKGROUND,
+    GLOBAL_BORDER_RADIUS,
+    SCOREBOARD_BACKGROUND_COLOR,
     TICKER_FONT_COLOR,
-    TICKER_FONT_FAMILY,
-    TICKER_OPACITY,
+    TICKER_FONT_FAMILY, TICKER_LIVE_ICON_SIZE,
     TICKER_SCROLL_TRANSITION_TIME,
     TICKER_SMALL_BACKGROUND,
     TICKER_SMALL_SIZE
 } from "../../../config";
-import { pushLog } from "../../../redux/debug";
-import { startScrolling, stopScrolling } from "../../../redux/ticker";
+import {pushLog} from "../../../redux/debug";
+import {startScrolling, stopScrolling} from "../../../redux/ticker";
+import live from "../../../assets/icons/live.svg";
 import Clock from "../tickers/Clock";
 import Scoreboard from "../tickers/Scoreboard";
 import Text from "../tickers/Text";
@@ -56,16 +57,20 @@ const TickerRowContainer = styled.div`
   font-family: ${TICKER_FONT_FAMILY};
 `;
 
-const TickerRow = ({ children, state }) => {
-    return <TickerRowContainer animation={transitionProps[state]}>
-        {children}
-    </TickerRowContainer>;
+const TickerRow = ({children, state}) => {
+    return (
+        <TickerRowContainer animation={transitionProps[state]}>
+            {children}
+        </TickerRowContainer>
+    );
 };
+
 
 const SingleTickerWrap = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
+  border-radius: ${GLOBAL_BORDER_RADIUS};
   background-color: ${props => props.color};
   display: flex;
   justify-content: ${props => props.justify};
@@ -79,17 +84,17 @@ const widgetTypes = Object.freeze({
     scoreboard: Scoreboard
 });
 
-const DefaultTicker = ({ tickerSettings }) => {
-    return <div style={{ backgroundColor: "red", wordBreak: "break-all" }}>
+const DefaultTicker = ({tickerSettings}) => {
+    return <div style={{backgroundColor: "red", wordBreak: "break-all"}}>
         {JSON.stringify(tickerSettings)}
     </div>;
 };
 
-export const SingleTicker = ({ part, color }) => {
+export const SingleTickerRows = ({part}) => {
     const dispatch = useDispatch();
     const curMessage = useSelector((state) => state.ticker.tickers[part].curDisplaying);
     const isFirst = useSelector((state) => state.ticker.tickers[part].isFirst);
-    return <SingleTickerWrap color={color}>
+    return (
         <TransitionGroup component={null}>
             {curMessage &&
                 <Transition key={curMessage?.id} timeout={TICKER_SCROLL_TRANSITION_TIME}>
@@ -99,14 +104,48 @@ export const SingleTicker = ({ part, color }) => {
                             dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
                         }
                         const sanitizedState = isFirst && state === "entering" ? "entered" : state; // ignore first entering render
-                        return state !== "exited" && <TickerRow state={sanitizedState}>
+                        return state !== "exited" && <TickerRow state={sanitizedState} part={part}>
                             <TickerComponent tickerSettings={curMessage.settings} state={sanitizedState} part={part}/>
                         </TickerRow>;
                     }}
                 </Transition>
             }
         </TransitionGroup>
-    </SingleTickerWrap>;
+    );
+};
+
+
+const ShortTickerGrid = styled.div`
+  width: 100%;
+  display: grid;
+  margin: 0 8px;
+  grid-template-columns: ${TICKER_LIVE_ICON_SIZE} auto;
+  column-gap: 8px;
+`
+
+const LiveIcon = styled.img`
+  height: ${TICKER_LIVE_ICON_SIZE};
+  padding: 8px 0;
+`
+
+export const SingleTicker = ({part, color}) => {
+    if (part === "short") {
+        return (
+            <SingleTickerWrap color={color}>
+                <ShortTickerGrid>
+                    <LiveIcon src={live}/>
+                    <SingleTickerWrap>
+                        <SingleTickerRows part={part}/>
+                    </SingleTickerWrap>
+                </ShortTickerGrid>
+            </SingleTickerWrap>
+        );
+    }
+    return (
+        <SingleTickerWrap color={color}>
+            <SingleTickerRows part={part}/>
+        </SingleTickerWrap>
+    );
 };
 
 SingleTicker.propTypes = {
@@ -119,11 +158,10 @@ const TickerWrap = styled.div`
   height: 100%;
   position: absolute;
   z-index: 2147000000;
-  background-color: ${TICKER_BACKGROUND};
-  opacity: ${TICKER_OPACITY};
   color: ${TICKER_FONT_COLOR};
   display: grid;
   grid-template-columns: ${TICKER_SMALL_SIZE} auto;
+  column-gap: 9px;
 `;
 
 export const Ticker = () => {
@@ -140,7 +178,7 @@ export const Ticker = () => {
         {isLoaded &&
             <>
                 <SingleTicker part={"short"} color={TICKER_SMALL_BACKGROUND}/>
-                <SingleTicker part={"long"}/>
+                <SingleTicker part={"long"} color={SCOREBOARD_BACKGROUND_COLOR}/>
             </>
         }
     </TickerWrap>;
