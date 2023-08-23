@@ -89,10 +89,10 @@ fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel) : S
 }
 
 fun Flow<ContestStateWithRunsByTeam>.calculateScoreboardWithInfo(optimismLevel: OptimismLevel) =
-    filter { it.info != null }
+    filter { it.infoAfterEvent != null }
     .conflate()
     .map {
-        it.info!! to getScoreboardCalculator(it.info, optimismLevel).getScoreboard(it.info, it.runs)
+        it.infoAfterEvent!! to getScoreboardCalculator(it.infoAfterEvent!!, optimismLevel).getScoreboard(it.infoAfterEvent!!, it.runs)
     }
 
 

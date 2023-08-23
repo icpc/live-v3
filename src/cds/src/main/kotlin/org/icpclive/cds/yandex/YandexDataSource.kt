@@ -7,7 +7,10 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
+import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
+import org.icpclive.cds.adapters.contestState
+import org.icpclive.cds.adapters.withGroupedRuns
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.YandexSettings
 import org.icpclive.cds.yandex.api.*
@@ -15,7 +18,7 @@ import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-internal class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : RawContestDataSource {
+internal class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : ContestDataSource {
     private val apiKey = settings.apiKey.get(creds)
     private val httpClient: HttpClient
 
@@ -83,24 +86,16 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
             }.flatMapConcat { it.asFlow() }
             emitAll(merge(allRunsFlow, rawContestInfoFlow.map { InfoUpdate(it.toApi()) }))
         }
-    }
-    override suspend fun loadOnce(): ContestParseResult {
-        val rawContestInfo = YandexContestInfo(
-            contestDescriptionLoader.load(),
-            problemLoader.load(),
-            participantLoader.load(),
-            resultType
-        )
-        val contestInfo = rawContestInfo.toApi()
-
-        log.info("Loading all contest submissions")
-        val submissions = allSubmissionsLoader.load()
-            .filter(rawContestInfo::isTeamSubmission)
-            .map(rawContestInfo::submissionToRun)
-        log.info("Loaded all submissions for emulation")
-        return ContestParseResult(contestInfo, submissions, emptyList())
-    }
-
+    }.withGroupedRuns({ it.result != null })
+        .transformWhile {
+            emit(it.event)
+            if (it.infoAfterEvent?.status == ContestStatus.OVER  && it.runs[false].isNullOrEmpty()) {
+                emit(InfoUpdate(it.infoAfterEvent!!.copy(status = ContestStatus.FINALIZED)))
+                false
+            } else {
+                true
+            }
+        }
 
     companion object {
         private val log = getLogger(YandexDataSource::class)

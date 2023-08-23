@@ -4,10 +4,11 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
-import org.icpclive.cds.adapters.ContestStateWithGroupedRuns
+import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.adapters.*
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
 import org.w3c.dom.Element
@@ -130,15 +131,20 @@ object PCMSExporter {
         return output.toString()
     }
 
-    fun Route.setUp(contestInfo: Flow<ContestStateWithGroupedRuns<Int>>) {
+    fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
+        val stateFlow = contestUpdates
+            .stateGroupedByTeam()
+            .stateIn(scope, SharingStarted.Eagerly, null)
+            .filterNotNull()
+            .filter { it.infoAfterEvent == null }
         get {
             call.respondRedirect("/pcms/standings.xml", permanent = true)
         }
         get("standings.xml") {
             call.respondText(contentType = ContentType.Text.Xml) {
-                val state = contestInfo.first { it.info != null }
+                val state = stateFlow.first()
                 format(
-                    state.info!!,
+                    state.infoAfterEvent!!,
                     state.runs
                 )
             }

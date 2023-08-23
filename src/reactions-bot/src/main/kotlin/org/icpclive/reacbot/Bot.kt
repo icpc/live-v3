@@ -23,10 +23,7 @@ import com.github.kotlintelegrambot.logging.LogLevel
 import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
-import org.icpclive.cds.adapters.filterUseless
-import org.icpclive.cds.adapters.processHiddenTeamsAndGroups
-import org.icpclive.cds.adapters.removeFrozenSubmissions
-import org.icpclive.cds.adapters.withRunsBefore
+import org.icpclive.cds.adapters.*
 import org.icpclive.cds.common.setAllowUnsecureConnections
 import org.icpclive.cds.settings.parseFileToCdsSettings
 import java.nio.file.Path
@@ -38,7 +35,7 @@ class Bot(private val config: Config) {
     private val cds = parseFileToCdsSettings(
         Path.of(config.settingsFile),
     ).toFlow(emptyMap())
-        .withRunsBefore()
+        .contestState()
         .filterUseless()
         .removeFrozenSubmissions()
         .processHiddenTeamsAndGroups()

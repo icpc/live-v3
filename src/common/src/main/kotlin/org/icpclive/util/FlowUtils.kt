@@ -4,7 +4,10 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 fun intervalFlow(interval: Duration) = flow {
     while (true) {
@@ -35,3 +38,15 @@ inline fun <reified T> loopFlow(interval: Duration, crossinline onError: (Throwa
     intervalFlow(interval)
         .map { block() }
         .logAndRetryWithDelay(interval) { onError(it) }
+
+fun <T> Flow<Pair<Instant, T>>.toTimedFlow(log: (Instant) -> Unit = {}) : Flow<T> {
+    var lastLoggedTime: Instant = Instant.DISTANT_PAST
+    return map { (nextEventTime, item) ->
+        delay(nextEventTime - Clock.System.now())
+        if (nextEventTime - lastLoggedTime > 10.seconds) {
+            log(nextEventTime)
+            lastLoggedTime = nextEventTime
+        }
+        item
+    }
+}

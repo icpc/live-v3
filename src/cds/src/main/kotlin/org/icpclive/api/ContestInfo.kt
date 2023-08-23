@@ -73,11 +73,11 @@ data class ProblemInfo(
 
 @Serializable
 enum class ContestStatus {
-    BEFORE, RUNNING, OVER;
+    BEFORE, RUNNING, OVER, FINALIZED;
 
     internal companion object {
-        fun byCurrentTime(startTime: Instant, contestLength: Duration, now: Instant = Clock.System.now()): ContestStatus {
-            val offset = now - startTime
+        fun byCurrentTime(startTime: Instant, contestLength: Duration): ContestStatus {
+            val offset = Clock.System.now() - startTime
             return when {
                 offset < Duration.ZERO -> BEFORE
                 offset < contestLength -> RUNNING
@@ -263,6 +263,7 @@ data class ContestInfo(
             ContestStatus.BEFORE -> Duration.ZERO
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER -> contestLength
+            ContestStatus.FINALIZED -> contestLength
         }
     val groups by lazy { groupList.associateBy { it.name } }
     val teams by lazy { teamList.associateBy { it.id } }

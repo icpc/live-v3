@@ -155,6 +155,7 @@ object ClicsExporter  {
             started = null,
             unfrozen = null,
             finalized = null,
+            thawed = null,
             end_of_updates = null
         )
 
@@ -164,6 +165,7 @@ object ClicsExporter  {
             started = info.startTime,
             unfrozen = null,
             finalized = null,
+            thawed = null,
             end_of_updates = null
         )
 
@@ -173,7 +175,17 @@ object ClicsExporter  {
             started = info.startTime,
             unfrozen = null,
             finalized = null,
+            thawed = null,
             end_of_updates = null
+        )
+        ContestStatus.FINALIZED -> State(
+            ended = info.startTime + info.contestLength,
+            frozen = null,
+            started = info.startTime,
+            unfrozen = null,
+            finalized = info.startTime + info.contestLength,
+            thawed = null,
+            end_of_updates = info.startTime + info.contestLength
         )
     }
 

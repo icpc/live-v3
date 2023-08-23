@@ -240,6 +240,7 @@ internal class ClicsModel(
 
     fun processState(state: State): List<RunInfo> {
         status = when {
+            state.finalized != null && (state.frozen == null || state.thawed != null) -> ContestStatus.FINALIZED
             state.ended != null -> ContestStatus.OVER
             state.started != null -> ContestStatus.RUNNING
             else -> ContestStatus.BEFORE

@@ -131,7 +131,7 @@ fun Application.module() {
         val loader = parseFileToCdsSettings(path)
             .toFlow(config.creds)
             .applyAdvancedProperties(advancedPropertiesFlow)
-            .withRunsBefore()
+            .contestState()
             .filterUseless()
             .removeFrozenSubmissions()
             .processHiddenTeamsAndGroups()

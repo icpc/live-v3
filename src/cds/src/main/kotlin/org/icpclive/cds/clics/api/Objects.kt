@@ -201,6 +201,8 @@ data class State(
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val frozen: Instant?,
     @Serializable(with = ClicsTime.InstantSerializer::class)
+    val thawed: Instant?,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
     val started: Instant?,
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val unfrozen: Instant?,

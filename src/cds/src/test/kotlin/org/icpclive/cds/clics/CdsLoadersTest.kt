@@ -95,7 +95,7 @@ class CdsLoadersTest {
     }
 
     private fun loaderTest(args: CDSSettings, advanced: AdvancedProperties? = null) {
-        val loader = args.toRawDataSource(emptyMap())
+        val loader = args.toDataSource(emptyMap())
         val result = runBlocking {
             val result = loader.loadOnce()
             if (advanced != null) {

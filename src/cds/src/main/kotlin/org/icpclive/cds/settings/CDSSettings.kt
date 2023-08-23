@@ -2,6 +2,7 @@
 package org.icpclive.cds.settings
 
 
+import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.*
@@ -10,14 +11,14 @@ import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.properties.Properties
 import kotlinx.serialization.properties.decodeFromStringMap
 import org.icpclive.api.ContestResultType
-import org.icpclive.cds.adapters.EmulationAdapter
+import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.adapters.toEmulationFlow
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.cds.codedrills.CodeDrillsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.ContestDataSource
-import org.icpclive.cds.common.RawContestDataSource
 import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.noop.NoopDataSource
@@ -57,16 +58,14 @@ sealed class CDSSettings {
         return json.encodeToString(this)
     }
 
-    fun toFlow(creds: Map<String, String>) = toDataSource(creds).getFlow()
-
-    internal fun toDataSource(creds: Map<String, String>) : ContestDataSource {
-        val raw = toRawDataSource(creds)
+    fun toFlow(creds: Map<String, String>) : Flow<ContestUpdate> {
+        val raw = toDataSource(creds)
         return when (val emulationSettings = emulation) {
-            null -> raw
-            else -> EmulationAdapter(emulationSettings.startTime, emulationSettings.speed, raw)
+            null -> raw.getFlow()
+            else -> raw.getFlow().toEmulationFlow(emulationSettings.startTime, emulationSettings.speed)
         }
     }
-    internal abstract fun toRawDataSource(creds: Map<String, String>): RawContestDataSource
+    internal abstract fun toDataSource(creds: Map<String, String>): ContestDataSource
 
     internal companion object {
         private val json = Json { prettyPrint = true }
@@ -76,7 +75,7 @@ sealed class CDSSettings {
 @Serializable
 @SerialName("noop")
 class NoopSettings(override val emulation: EmulationSettings? = null) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = NoopDataSource()
+    override fun toDataSource(creds: Map<String, String>) = NoopDataSource()
 }
 
 @Serializable
@@ -87,7 +86,7 @@ class TestSysSettings(
     val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = TestSysDataSource(this)
+    override fun toDataSource(creds: Map<String, String>) = TestSysDataSource(this)
 }
 
 @Serializable
@@ -102,7 +101,7 @@ class CatsSettings(
     val cid: String,
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = CATSDataSource(this, creds)
+    override fun toDataSource(creds: Map<String, String>) = CATSDataSource(this, creds)
 }
 
 @Serializable
@@ -114,7 +113,7 @@ class KRSUSettings(
     val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = KRSUDataSource(this)
+    override fun toDataSource(creds: Map<String, String>) = KRSUDataSource(this)
 }
 
 @Serializable
@@ -124,7 +123,7 @@ class EjudgeSettings(
     val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = EjudgeDataSource(this)
+    override fun toDataSource(creds: Map<String, String>) = EjudgeDataSource(this)
 }
 
 
@@ -137,7 +136,7 @@ class YandexSettings(
     val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = YandexDataSource(this, creds)
+    override fun toDataSource(creds: Map<String, String>) = YandexDataSource(this, creds)
 }
 
 @Serializable
@@ -149,7 +148,7 @@ class CFSettings(
     val asManager: Boolean = true,
     override val emulation: EmulationSettings? = null,
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = CFDataSource(this, creds)
+    override fun toDataSource(creds: Map<String, String>) = CFDataSource(this, creds)
 }
 
 @Serializable
@@ -162,7 +161,7 @@ class PCMSSettings(
     val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = PCMSDataSource(this, creds)
+    override fun toDataSource(creds: Map<String, String>) = PCMSDataSource(this, creds)
 }
 
 @Serializable
@@ -189,7 +188,7 @@ class ClicsSettings(
 ) : CDSSettings() {
     val mainFeed get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
 
-    override fun toRawDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
+    override fun toDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
 }
 
 @SerialName("codedrills")
@@ -201,7 +200,7 @@ class CodeDrillsSettings(
     val authKey: Credential,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toRawDataSource(creds: Map<String, String>) = CodeDrillsDataSource(this, creds)
+    override fun toDataSource(creds: Map<String, String>) = CodeDrillsDataSource(this, creds)
 }
 
 @OptIn(ExperimentalSerializationApi::class)

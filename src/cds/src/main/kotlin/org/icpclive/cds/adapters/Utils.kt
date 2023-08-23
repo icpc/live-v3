@@ -2,34 +2,36 @@ package org.icpclive.cds.adapters
 
 import kotlinx.collections.immutable.*
 import kotlinx.coroutines.flow.*
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.cds.*
+import kotlin.reflect.KFunction4
 
-class ContestEventWithRunsBefore(
+class ContestState(
     val event: ContestUpdate,
     val infoBeforeEvent: ContestInfo?,
-    val runs: PersistentMap<Int, RunInfo>
-) {
-    val infoAfterEvent: ContestInfo?
-        get() = if (event is InfoUpdate) event.newInfo else infoBeforeEvent
-}
-
-class ContestEventWithGroupedRuns<K>(
-    val event: ContestUpdate,
-    val infoBeforeEvent: ContestInfo?,
-    val runs: PersistentMap<K, PersistentList<RunInfo>>
+    val runs: PersistentMap<Int, RunInfo>,
+    val analyticsMessages: PersistentMap<String, AnalyticsMessage>
 ) {
     val infoAfterEvent: ContestInfo?
         get() = if (event is InfoUpdate) event.newInfo else infoBeforeEvent
 }
 
 open class ContestStateWithGroupedRuns<K>(
-    val info: ContestInfo?,
-    val runs: PersistentMap<K, PersistentList<RunInfo>>
-)
+    val event: ContestUpdate,
+    val infoBeforeEvent: ContestInfo?,
+    val runs: PersistentMap<K, PersistentList<RunInfo>>,
+    val analyticsMessages: PersistentMap<String, AnalyticsMessage>
+) {
+    val infoAfterEvent: ContestInfo?
+        get() = if (event is InfoUpdate) event.newInfo else infoBeforeEvent
+}
 
-class ContestStateWithRunsByTeam(val info: ContestInfo?, val runs: PersistentMap<Int, PersistentList<RunInfo>>)
+class ContestStateWithRunsByTeam(
+    event: ContestUpdate,
+    infoBeforeEvent: ContestInfo?,
+    runs: PersistentMap<Int, PersistentList<RunInfo>>,
+    analyticsMessages: PersistentMap<String, AnalyticsMessage>
+) : ContestStateWithGroupedRuns<Int>(event, infoBeforeEvent, runs, analyticsMessages)
 
 fun Flow<ContestUpdate>.withContestInfoBefore() = flow {
     var lastInfo : ContestInfo? = null
@@ -41,31 +43,27 @@ fun Flow<ContestUpdate>.withContestInfoBefore() = flow {
     }
 }
 
-fun Flow<ContestUpdate>.withRunsBefore() = flow {
+fun Flow<ContestUpdate>.contestState() = flow {
     var curInfo: ContestInfo? = null
     var curRuns = persistentMapOf<Int, RunInfo>()
+    var curMessages = persistentMapOf<String, AnalyticsMessage>()
     collect {
-        emit(ContestEventWithRunsBefore(it, curInfo, curRuns))
+        emit(ContestState(it, curInfo, curRuns, curMessages))
         when (it) {
             is RunUpdate -> curRuns = curRuns.put(it.newInfo.id, it.newInfo)
             is InfoUpdate -> curInfo = it.newInfo
-            is AnalyticsUpdate -> {}
+            is AnalyticsUpdate -> curMessages = curMessages.put(it.message.id, it.message)
         }
     }
 }
 
-fun Flow<ContestEventWithRunsBefore>.filterUseless() = filter {
+fun Flow<ContestState>.filterUseless() = filter {
     when (it.event) {
         is RunUpdate -> it.runs[it.event.newInfo.id] != it.event.newInfo
         is InfoUpdate -> it.infoBeforeEvent != it.event.newInfo
-        is AnalyticsUpdate -> true
+        is AnalyticsUpdate -> it.analyticsMessages[it.event.message.id] != it.event.message
     }
 }
-
-@JvmName("filterUseless2")
-fun Flow<ContestUpdate>.filterUseless() = withRunsBefore().filterUseless().map { it.event }
-
-
 
 private fun PersistentList<RunInfo>.resort(index_: Int) = builder().apply {
     var index = index_
@@ -100,18 +98,25 @@ private fun <K> PersistentMap<K, PersistentList<RunInfo>>.removeRun(k: K, info: 
     it.removeAt(index)
 }
 
-
 fun <K: Any> Flow<ContestUpdate>.withGroupedRuns(
     selector: (RunInfo) -> K,
-    transformGroup : ((key: K, cur: PersistentList<RunInfo>, original: PersistentList<RunInfo>, info: ContestInfo?) -> List<RunInfo>)? = null,
-    needUpdateGroup : ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null,
+    transformGroup: ((key: K, cur: PersistentList<RunInfo>, original: PersistentList<RunInfo>, info: ContestInfo?) -> List<RunInfo>)? = null,
+    needUpdateGroup: ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null,
+) = withGroupedRuns(selector, ::ContestStateWithGroupedRuns, transformGroup, needUpdateGroup)
+
+fun <K: Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.withGroupedRuns(
+    selector: (RunInfo) -> K,
+    provider: (ContestUpdate, ContestInfo?, PersistentMap<K, PersistentList<RunInfo>>, PersistentMap<String, AnalyticsMessage>) -> S,
+    transformGroup: ((key: K, cur: PersistentList<RunInfo>, original: PersistentList<RunInfo>, info: ContestInfo?) -> List<RunInfo>)? = null,
+    needUpdateGroup: ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null
 ) = flow {
     var curInfo: ContestInfo? = null
     var curRuns = persistentMapOf<K, PersistentList<RunInfo>>()
+    var curMessages = persistentMapOf<String, AnalyticsMessage>()
     var originalRuns = persistentMapOf<K, PersistentList<RunInfo>>()
     val oldKey = mutableMapOf<Int, K>()
     collect { update ->
-        suspend fun emit(update: ContestUpdate) = emit(ContestEventWithGroupedRuns(update, curInfo, curRuns))
+        suspend fun emit(update: ContestUpdate) = emit(provider(update, curInfo, curRuns, curMessages))
         suspend fun updateGroup(key: K, newRun: RunInfo? = null) {
             var plist = curRuns[key] ?: persistentListOf()
             if (transformGroup == null) {
@@ -164,16 +169,11 @@ fun <K: Any> Flow<ContestUpdate>.withGroupedRuns(
                 }
             }
             is AnalyticsUpdate -> {
+                curMessages = curMessages.put(update.message.id, update.message)
                 emit(update)
             }
         }
     }
 }
 
-fun <K:Any> Flow<ContestUpdate>.stateWithGroupedRuns(selector: (RunInfo) -> K) = withGroupedRuns(selector).map {
-    ContestStateWithGroupedRuns(it.infoAfterEvent, it.runs)
-}.conflate()
-
-fun Flow<ContestUpdate>.stateGroupedByTeam() = stateWithGroupedRuns { it.teamId }.map {
-    ContestStateWithRunsByTeam(it.info, it.runs)
-}
+fun Flow<ContestUpdate>.stateGroupedByTeam() = withGroupedRuns({ it.teamId }, ::ContestStateWithRunsByTeam).conflate()

@@ -35,7 +35,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Ma
     val feedVersion = settings.feedVersion
 }
 
-internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : RawContestDataSource {
+internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : ContestDataSource {
     private val mainLoaderSettings = ParsedClicsLoaderSettings(settings.mainFeed, creds)
     private val additionalLoaderSettings = settings.additionalFeed?.let { ParsedClicsLoaderSettings(it, creds) }
 
@@ -73,7 +73,6 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
 
         fun Flow<Event>.sortedPrefix() = flow {
             coroutineScope {
-                @OptIn(FlowPreview::class)
                 val channel = produceIn(this)
                 val prefix = mutableListOf<Event>()
                 prefix.add(channel.receive())
@@ -174,18 +173,10 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
             onContestInfo = { emit(InfoUpdate(it)) },
             onComment = { emit(AnalyticsUpdate(it)) }
         )
-    }
-
-    override suspend fun loadOnce(): ContestParseResult {
-        val analyticsMessages = mutableListOf<AnalyticsMessage>()
-        runLoader(
-            onRun = {},
-            onContestInfo = {},
-            onComment = { analyticsMessages.add(it) }
-        )
-        logger.info("Loaded data from CLICS")
-        val runs = model.getAllRuns()
-        return ContestParseResult(model.contestInfo, runs, analyticsMessages)
+        if (model.contestInfo.status != ContestStatus.FINALIZED) {
+            logger.info("Events are finished, while contest is not finalized. Enforce finalization.")
+            emit(InfoUpdate(model.contestInfo.copy(status = ContestStatus.FINALIZED)))
+        }
     }
 
     companion object {
@@ -211,7 +202,7 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
                             null
                         }
                     })
-                if (!isHttpUrl(settings.eventFeedUrl)) break
+                if (!isHttpUrl(settings.eventFeedUrl)) { break }
                 delay(5.seconds)
                 logger.info("Connection ${settings.eventFeedUrl} is closed, retrying")
             }

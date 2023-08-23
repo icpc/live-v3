@@ -5,11 +5,11 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.RawContestDataSource
+import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ContestDataSource
 import kotlin.time.Duration
 
-internal class NoopDataSource : RawContestDataSource {
+internal class NoopDataSource : ContestDataSource {
 
     override fun getFlow() = flowOf(
         InfoUpdate(ContestInfo(
@@ -25,11 +25,5 @@ internal class NoopDataSource : RawContestDataSource {
             organizationList = emptyList(),
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
         ))
-    )
-
-    override suspend fun loadOnce() = ContestParseResult(
-        getFlow().first().newInfo,
-        emptyList(),
-        emptyList()
     )
 }

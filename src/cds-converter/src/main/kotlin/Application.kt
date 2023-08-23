@@ -97,13 +97,11 @@ fun Application.module() {
     val loaded = parseFileToCdsSettings(path)
         .toFlow(creds)
         .applyAdvancedProperties(advancedProperties)
+        .contestState()
         .filterUseless()
+        .map { it.event }
         .processHiddenTeamsAndGroups()
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
-
-    val contestState = loaded
-        .stateWithGroupedRuns { it.teamId }
-        .stateIn(this + handler, SharingStarted.Eagerly, ContestStateWithGroupedRuns(null, persistentMapOf()))
 
     routing {
         with (ClicsExporter) {
@@ -113,7 +111,7 @@ fun Application.module() {
         }
         with (PCMSExporter) {
             route("/pcms") {
-                setUp(contestState)
+                setUp(application + handler, loaded)
             }
         }
     }
