@@ -65,7 +65,7 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
         const contestOver = new Promise((resolve) => {
             contestInfo.onmessage = (event) => {
                 const message = JSON.parse(event.data.toString());
-                if (message.status === "OVER") {
+                if (message.status === "OVER" || message.status == "FINALIZED") {
                     resolve(null);
                 }
             };
