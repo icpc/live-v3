@@ -26,7 +26,7 @@
           <value>
             <SchemaInfo>
               <option name="generatedName" value="New Schema" />
-              <option name="name" value="ICPC live settiIngs" />
+              <option name="name" value="ICPC live settings" />
               <option name="relativePathToSchema" value="schemas/settings.schema.json" />
               <option name="schemaVersion" value="JSON Schema version 7" />
             </SchemaInfo>
