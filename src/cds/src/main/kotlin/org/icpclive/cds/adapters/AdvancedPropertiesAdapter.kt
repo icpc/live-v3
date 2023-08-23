@@ -13,8 +13,7 @@ import org.icpclive.util.humanReadable
 
 private sealed interface AdvancedAdapterEvent
 private class Update(val update: ContestUpdate) : AdvancedAdapterEvent
-private class Advanced(val update: AdvancedProperties) : AdvancedAdapterEvent
-private object TimeTrigger : AdvancedAdapterEvent
+private object Trigger : AdvancedAdapterEvent
 
 
 internal object AdvancedPropertiesAdapter
@@ -40,24 +39,24 @@ private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (
 
 
 fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>) = flow {
-    val triggerFlow = Channel<TimeTrigger>()
-    var contestInfo: ContestInfo? = null
-    var advancedProperties: AdvancedProperties? = null
+    val triggerFlow = Channel<Trigger>()
     val submittedTeams = mutableSetOf<Int>()
     val triggers = mutableSetOf<Instant>()
     coroutineScope {
+        val advancedPropsStateFlow = advancedPropsFlow.stateIn(this)
+        var contestInfo: ContestInfo? = null
         suspend fun triggerAt(time: Instant) {
             if (time < Clock.System.now()) return
             if (triggers.add(time)) {
                 launch {
                     delay(time - Clock.System.now())
-                    triggerFlow.send(TimeTrigger)
+                    triggerFlow.send(Trigger)
                 }
             }
         }
         suspend fun apply() {
             val ci = contestInfo ?: return
-            val ap = advancedProperties ?: return
+            val ap = advancedPropsStateFlow.value
             emit(InfoUpdate(applyAdvancedProperties(ci, ap, submittedTeams)))
             val startOverride = ap.startTime ?: return
             triggerAt(startOverride)
@@ -66,14 +65,10 @@ fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<Advanced
         merge(
             this@applyAdvancedProperties.map { Update(it) },
             triggerFlow.receiveAsFlow().conflate(),
-            advancedPropsFlow.map { Advanced(it) }.conflate(),
+            advancedPropsStateFlow.map { Trigger },
         ).collect {
             when (it) {
-                is TimeTrigger -> {
-                    apply()
-                }
-                is Advanced -> {
-                    advancedProperties = it.update
+                is Trigger -> {
                     apply()
                 }
                 is Update -> {
@@ -85,7 +80,7 @@ fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<Advanced
                             }
                         }
                         is RunUpdate -> {
-                            if (submittedTeams.add(it.update.newInfo.teamId) && advancedProperties?.scoreboardOverrides?.showTeamsWithoutSubmissions == false) {
+                            if (submittedTeams.add(it.update.newInfo.teamId) && advancedPropsStateFlow.value.scoreboardOverrides?.showTeamsWithoutSubmissions == false) {
                                 apply()
                             }
                             emit(it.update)

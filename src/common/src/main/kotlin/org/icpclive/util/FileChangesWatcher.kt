@@ -11,8 +11,7 @@ import java.nio.file.StandardWatchEventKinds
 import java.nio.file.WatchEvent
 import java.util.concurrent.TimeUnit
 import org.slf4j.Logger
-import kotlin.io.path.inputStream
-import kotlin.io.path.listDirectoryEntries
+import kotlin.io.path.*
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -46,7 +45,7 @@ fun directoryChangesFlow(path: Path) =
     }.map { path.resolve(it).toAbsolutePath() }
     .flowOn(Dispatchers.IO)
 
-fun fileChangesFlow(path: Path) = directoryChangesFlow(path.parent.toAbsolutePath())
+fun fileChangesFlow(path: Path) = directoryChangesFlow(path.toAbsolutePath().parent)
     .filter { it.endsWith(path.fileName) }
 
 @OptIn(ExperimentalSerializationApi::class)
@@ -59,3 +58,7 @@ inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger) = fileCha
     .logAndRetryWithDelay(5.seconds) {
         logger.error("Failed to reload ${path.fileName}", it)
     }
+
+inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger, noData: T) =
+    fileJsonContentFlow<T>(path, logger)
+        .onStart { if (!path.exists()) emit(noData) }

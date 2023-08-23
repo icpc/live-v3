@@ -11,6 +11,7 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
+import org.icpclive.util.getLogger
 import org.w3c.dom.Element
 import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilderFactory
@@ -136,7 +137,7 @@ object PCMSExporter {
             .stateGroupedByTeam()
             .stateIn(scope, SharingStarted.Eagerly, null)
             .filterNotNull()
-            .filter { it.infoAfterEvent == null }
+            .filter { it.infoAfterEvent != null }
         get {
             call.respondRedirect("/pcms/standings.xml", permanent = true)
         }

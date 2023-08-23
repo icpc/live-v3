@@ -29,11 +29,11 @@ tasks {
         archiveFileName.set("${project.name}-${project.version}-part.jar")
     }
     named<JavaExec>("run") {
-        this.args = listOfNotNull(
-            project.properties["live.dev.credsFile"]?.let { "-P:live.credsFile=$it"},
-            project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" },
-            project.properties["live.dev.allowUnsecureConnections"]?.let { "-P:live.allowUnsecureConnections=$it" },
-        )
+        this.args = buildList {
+            add("server")
+            project.properties["live.dev.credsFile"]?.let { add("--creds=${it}") }
+            project.properties["live.dev.contest"]?.let { add("--config-directory=${it}") }
+        }
         this.workingDir(rootDir.resolve("config"))
     }
     task<Copy>("release") {
@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.cli)
     implementation(projects.cds)
     implementation(projects.common)
     testImplementation(libs.kotlin.junit)
