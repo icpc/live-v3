@@ -63,7 +63,9 @@ tasks {
 sourceSets {
     main {
         resources {
-            srcDirs(tasks["buildJs"].outputs)
+            if (project.properties["live.dev.embedFrontend"] == "true") {
+                srcDirs(tasks["buildJs"].outputs)
+            }
         }
     }
 }
