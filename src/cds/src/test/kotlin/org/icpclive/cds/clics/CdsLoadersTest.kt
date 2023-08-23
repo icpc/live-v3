@@ -1,12 +1,16 @@
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.approvaltests.Approvals
 import org.approvaltests.core.Options
 import org.icpclive.api.ContestResultType
+import org.icpclive.api.ContestStatus
 import org.icpclive.api.tunning.*
 import org.icpclive.cds.adapters.applyAdvancedProperties
+import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.clics.FeedVersion
+import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.settings.*
 import org.junit.Test
 import kotlin.text.Regex
@@ -95,9 +99,15 @@ class CdsLoadersTest {
     }
 
     private fun loaderTest(args: CDSSettings, advanced: AdvancedProperties? = null) {
-        val loader = args.toDataSource(emptyMap())
+        val loader = args.toFlow(emptyMap())
         val result = runBlocking {
-            val result = loader.loadOnce()
+            val result = loader.contestState().first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }.let {
+                ContestParseResult(
+                    it.infoAfterEvent!!,
+                    it.runs.values.toList(),
+                    it.analyticsMessages.values.toList()
+                )
+            }
             if (advanced != null) {
                 result.copy(
                     contestInfo = applyAdvancedProperties(

@@ -1,7 +1,7 @@
 {
     "contestInfo": {
         "name": "ICPC 2022—2023, NERC — Northern Eurasia Finals",
-        "status": "OVER",
+        "status": "FINALIZED",
         "resultType": "ICPC",
         "startTimeUnixMs": 0,
         "contestLengthMs": 18000000,

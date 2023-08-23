@@ -1,7 +1,7 @@
 {
     "contestInfo": {
         "name": "\"LVI St. Petersburg State University Championship, Sunday, December 06, 2020\"",
-        "status": "OVER",
+        "status": "FINALIZED",
         "resultType": "ICPC",
         "startTimeUnixMs": 1607241600000,
         "contestLengthMs": 18000000,

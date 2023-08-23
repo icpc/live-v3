@@ -1,7 +1,7 @@
 {
     "contestInfo": {
         "name": "SWERC 2022",
-        "status": "OVER",
+        "status": "FINALIZED",
         "resultType": "ICPC",
         "startTimeUnixMs": 1676794500000,
         "contestLengthMs": 18000000,

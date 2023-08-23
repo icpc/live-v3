@@ -1,7 +1,7 @@
 {
     "contestInfo": {
         "name": "ICPC World Finals Moscow",
-        "status": "OVER",
+        "status": "FINALIZED",
         "resultType": "ICPC",
         "startTimeUnixMs": 1633414869000,
         "contestLengthMs": 18000000,
