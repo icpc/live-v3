@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
-import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.adapters.withGroupedRuns
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.YandexSettings
@@ -32,7 +31,7 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
 
     init {
         val auth = ClientAuth.OAuth(apiKey)
-        httpClient = defaultHttpClient(auth) {
+        httpClient = defaultHttpClient(auth, settings.network) {
             defaultRequest {
                 url("$API_BASE/contests/${settings.contestId}/")
             }
@@ -42,17 +41,17 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
         }
 
 
-        contestDescriptionLoader = jsonLoader(auth) { "$API_BASE/contests/${settings.contestId}" }
-        problemLoader = jsonLoader<Problems>(auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
+        contestDescriptionLoader = jsonLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
+        problemLoader = jsonLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
             val participantRegex = settings.loginRegex
-            jsonLoader<List<Participant>>(auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
+            jsonLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
         }
-        allSubmissionsLoader = jsonLoader<Submissions>(auth) {
+        allSubmissionsLoader = jsonLoader<Submissions>(settings.network, auth) {
             "$API_BASE/contests/${settings.contestId}/submissions?locale=ru&page=1&pageSize=100000"
         }.map { it.submissions.reversed() }
     }

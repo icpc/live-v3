@@ -81,8 +81,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         )
     }
 
-    private val submissionsLoader = jsonLoader<List<Submission>> { settings.submissionsUrl }
-    private val contestInfoLoader = jsonLoader<Contest> { settings.contestUrl }
+    private val submissionsLoader = jsonLoader<List<Submission>>(networkSettings = settings.network) { settings.submissionsUrl }
+    private val contestInfoLoader = jsonLoader<Contest>(networkSettings = settings.network) { settings.contestUrl }
 
     companion object {
         private val outcomeMap = mapOf(

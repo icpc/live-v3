@@ -4,6 +4,7 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.serialization.json.Json
+import org.icpclive.cds.settings.NetworkSettings
 import org.w3c.dom.Document
 import java.nio.file.Paths
 import javax.xml.parsers.DocumentBuilder
@@ -14,10 +15,11 @@ internal interface DataLoader<out T> {
 }
 
 internal class StringLoader(
+    networkSettings: NetworkSettings?,
     auth: ClientAuth?,
     val computeURL: () -> String
 ) : DataLoader<String> {
-    private val httpClient = defaultHttpClient(auth)
+    private val httpClient = defaultHttpClient(auth, networkSettings)
 
     override suspend fun load(): String {
         val url = computeURL()
@@ -31,10 +33,11 @@ internal class StringLoader(
 }
 
 internal class ByteArrayLoader(
+    networkSettings: NetworkSettings?,
     auth: ClientAuth?,
     val computeURL: () -> String
 ) : DataLoader<ByteArray> {
-    private val httpClient = defaultHttpClient(auth)
+    private val httpClient = defaultHttpClient(auth, networkSettings)
 
     override suspend fun load(): ByteArray {
         val url = computeURL()
@@ -48,16 +51,20 @@ internal class ByteArrayLoader(
 }
 
 
-internal fun xmlLoader(auth: ClientAuth? = null, url: () -> String): DataLoader<Document> {
+internal fun xmlLoader(networkSettings: NetworkSettings?, auth: ClientAuth? = null, url: () -> String): DataLoader<Document> {
     val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-    return StringLoader(auth, url)
+    return StringLoader(networkSettings, auth, url)
         .map { builder.parse(it.byteInputStream()) }
 }
 
 
-internal inline fun <reified T> jsonLoader(auth: ClientAuth? = null, noinline url: () -> String) : DataLoader<T> {
+internal inline fun <reified T> jsonLoader(
+    networkSettings: NetworkSettings?,
+    auth: ClientAuth? = null,
+    noinline url: () -> String
+) : DataLoader<T> {
     val json = Json { ignoreUnknownKeys = true }
-    return StringLoader(auth, url)
+    return StringLoader(networkSettings, auth, url)
         .map { json.decodeFromString(it) }
 }
 

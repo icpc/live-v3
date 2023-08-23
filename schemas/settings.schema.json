@@ -36,6 +36,17 @@
                         "speed",
                         "startTime"
                     ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -87,6 +98,17 @@
                     "required": [
                         "speed",
                         "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
                     ]
                 }
             },
@@ -171,6 +193,17 @@
                         "speed",
                         "startTime"
                     ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -211,6 +244,17 @@
                     "required": [
                         "speed",
                         "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
                     ]
                 }
             },
@@ -253,6 +297,17 @@
                         "speed",
                         "startTime"
                     ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -291,6 +346,17 @@
                         "speed",
                         "startTime"
                     ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -320,6 +386,17 @@
                     "required": [
                         "speed",
                         "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
                     ]
                 }
             },
@@ -367,6 +444,17 @@
                         "speed",
                         "startTime"
                     ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 }
             },
             "additionalProperties": false,
@@ -401,6 +489,17 @@
                     "required": [
                         "speed",
                         "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
                     ]
                 }
             },
@@ -445,6 +544,17 @@
                     "required": [
                         "speed",
                         "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
                     ]
                 }
             },

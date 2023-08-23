@@ -24,7 +24,6 @@ import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.common.setAllowUnsecureConnections
 import org.icpclive.cds.settings.parseFileToCdsSettings
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
@@ -129,7 +128,6 @@ class Bot(private val config: Config) {
     }
 
     fun run(scope: CoroutineScope) {
-        setAllowUnsecureConnections(true)
         val loaded = if (config.disableCdsLoader) emptyFlow() else cds.shareIn(scope, SharingStarted.Eagerly, Int.MAX_VALUE)
         val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
         scope.launch {

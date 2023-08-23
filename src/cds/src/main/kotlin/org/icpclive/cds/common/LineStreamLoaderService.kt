@@ -8,11 +8,12 @@ import io.ktor.utils.io.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import org.icpclive.cds.settings.NetworkSettings
 import org.icpclive.util.getLogger
 import java.nio.file.Paths
 
-internal fun getLineStreamLoaderFlow(url: String, auth: ClientAuth?) = flow {
-    val httpClient = defaultHttpClient(auth)
+internal fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: String) = flow {
+    val httpClient = defaultHttpClient(auth, networkSettings)
     if (!isHttpUrl(url)) {
         Paths.get(url).toFile().useLines { lines ->
             lines.forEach { emit(it) }

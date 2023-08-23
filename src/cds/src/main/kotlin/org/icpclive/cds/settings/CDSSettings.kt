@@ -52,8 +52,15 @@ class EmulationSettings(
 )
 
 @Serializable
+class NetworkSettings(
+    val allowUnsecureConnections: Boolean = true
+)
+
+@Serializable
 sealed class CDSSettings {
     abstract val emulation: EmulationSettings?
+    abstract val network: NetworkSettings?
+
     override fun toString(): String {
         return json.encodeToString(this)
     }
@@ -74,7 +81,10 @@ sealed class CDSSettings {
 
 @Serializable
 @SerialName("noop")
-class NoopSettings(override val emulation: EmulationSettings? = null) : CDSSettings() {
+class NoopSettings(
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = NoopDataSource()
 }
 
@@ -85,6 +95,7 @@ class TestSysSettings(
     @Serializable(with = TimeZoneSerializer::class)
     val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = TestSysDataSource(this)
 }
@@ -100,6 +111,7 @@ class CatsSettings(
     val resultType: ContestResultType = ContestResultType.ICPC,
     val cid: String,
     override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = CATSDataSource(this, creds)
 }
@@ -112,6 +124,7 @@ class KRSUSettings(
     @Serializable(with = TimeZoneSerializer::class)
     val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
     override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = KRSUDataSource(this)
 }
@@ -121,7 +134,8 @@ class KRSUSettings(
 class EjudgeSettings(
     val url: String,
     val resultType: ContestResultType = ContestResultType.ICPC,
-    override val emulation: EmulationSettings? = null
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = EjudgeDataSource(this)
 }
@@ -134,7 +148,8 @@ class YandexSettings(
     @Serializable(with = RegexSerializer::class) val loginRegex: Regex,
     val contestId: Int,
     val resultType: ContestResultType = ContestResultType.ICPC,
-    override val emulation: EmulationSettings? = null
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = YandexDataSource(this, creds)
 }
@@ -147,6 +162,7 @@ class CFSettings(
     val apiSecret: Credential,
     val asManager: Boolean = true,
     override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = CFDataSource(this, creds)
 }
@@ -159,7 +175,8 @@ class PCMSSettings(
     val password: Credential? = null,
     val problemsUrl: String? = null,
     val resultType: ContestResultType = ContestResultType.ICPC,
-    override val emulation: EmulationSettings? = null
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = PCMSDataSource(this, creds)
 }
@@ -185,6 +202,7 @@ class ClicsSettings(
     val useTeamNames: Boolean = true,
     val mediaBaseUrl: String = "",
     override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     val mainFeed get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
 
@@ -198,7 +216,8 @@ class CodeDrillsSettings(
     val port: Int,
     val contestId: String,
     val authKey: Credential,
-    override val emulation: EmulationSettings? = null
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = CodeDrillsDataSource(this, creds)
 }

@@ -16,7 +16,9 @@ import kotlin.time.Duration.Companion.seconds
 internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     private val login = settings.login?.get(creds)
     private val password = settings.password?.get(creds)
-    private val dataLoader = xmlLoader(login?.let { ClientAuth.Basic(login, password!!) }) {
+    private val dataLoader = xmlLoader(
+        networkSettings = settings.network,
+        login?.let { ClientAuth.Basic(login, password!!) }) {
         settings.url
     }
 
@@ -34,7 +36,7 @@ internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, Str
     private fun parseAndUpdateStandings(element: Element, problemsOverride: Element?) = parseContestInfo(element.child("contest"), problemsOverride)
 
     private suspend fun loadCustomProblems(problemsUrl: String) : Element {
-        val problemsLoader = xmlLoader { problemsUrl }
+        val problemsLoader = xmlLoader(networkSettings = settings.network) { problemsUrl }
         return problemsLoader.load().documentElement
     }
 

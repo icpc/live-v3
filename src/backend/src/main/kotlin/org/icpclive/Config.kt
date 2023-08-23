@@ -5,12 +5,9 @@ import io.ktor.server.config.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
-import org.icpclive.cds.common.setAllowUnsecureConnections
-import org.icpclive.util.getCredentials
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.*
 import kotlin.io.path.exists
 
 class Config(environment: ApplicationEnvironment) {
@@ -38,13 +35,8 @@ class Config(environment: ApplicationEnvironment) {
         environment.config.stringOrNull("live.widgetPositionsFile")?.let {
             Json.decodeFromStream(File(it).inputStream())
         } ?: emptyMap()
-    val allowUnsecureConnections = environment.config.bool("live.allowUnsecureConnections").also {
-        setAllowUnsecureConnections(it)
-    }
     val authDisabled = environment.config.bool("auth.disabled")
     val analyticsTemplatesFile = environment.config.stringOrNull("live.analyticsTemplatesFile")?.let { Path.of(it) }
 }
 
 lateinit var config: Config
-
-fun Properties.getCredentials(key: String) = getCredentials(key, config.creds)

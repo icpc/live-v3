@@ -10,8 +10,7 @@ import org.icpclive.cds.*
 import org.icpclive.cds.clics.api.Event
 import org.icpclive.cds.clics.api.Event.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.ClicsLoaderSettings
-import org.icpclive.cds.settings.ClicsSettings
+import org.icpclive.cds.settings.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
@@ -51,8 +50,8 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
     ) {
-        val eventsLoader = getEventFeedLoader(mainLoaderSettings)
-        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it) }
+        val eventsLoader = getEventFeedLoader(mainLoaderSettings, settings.network)
+        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it, settings.network) }
 
         fun priority(event: UpdateContestEvent) = when (event) {
             is ContestEvent -> 0
@@ -182,14 +181,14 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
     companion object {
         val logger = getLogger(ClicsDataSource::class)
         @OptIn(ExperimentalSerializationApi::class)
-        private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings) = flow {
+        private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings, networkSettings: NetworkSettings?) = flow {
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
                 explicitNulls = false
             }
 
             while (true) {
-                emitAll(getLineStreamLoaderFlow(settings.eventFeedUrl, settings.auth)
+                emitAll(getLineStreamLoaderFlow(networkSettings, settings.auth, settings.eventFeedUrl)
                     .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {
