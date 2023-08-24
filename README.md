@@ -5,18 +5,9 @@ Welcome to the ICPC Live Source Code Repository.
 # Run release version
 
 * Download release from https://github.com/icpc/live-v3/releases
-* Create contest config files
-    * [Example for CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-rmc/2021)
-    * [Example for PCMS](https://github.com/icpc/live-v3/tree/main/config/icpc-nef/2021-2022/main)
-    * [Example for Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp/2022-junior)
-    * [Example for Yandex.Contest](https://github.com/icpc/live-v3/tree/main/config/_examples/_yandex/)
-    * [Example for Ejudge](https://github.com/icpc/live-v3/tree/main/config/lscpc/2022/)
-    * [See the full archive for more examples](https://github.com/icpc/live-v3/tree/main/config)
-    * [How to fine tune imported data](https://github.com/icpc/live-v3/blob/main/docs/advanced.json.md)
-    * [How to get the current state of imported data](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
-
-
-
+  * You can download [latest dev build](https://github.com/icpc/live-v3/actions/runs/5968512041) instead if you are brave enough
+* Create [contest config files](https://github.com/icpc/live-v3/tree/main/doc/config.md)
+* (Optional) [Tune](https://github.com/icpc/live-v3/blob/main/docs/advanced.json.md) imported data, so it looks better 
 * Run `java -jar /path/to/jar/file -c /path/to/config/directory`
 
   Check for more options by running `java -jar /path/to/jar/file` without arguments. Here is the couple most useful
@@ -24,25 +15,24 @@ Welcome to the ICPC Live Source Code Repository.
   * ```--no-auth``` -- Disable auth in admin interface. It's useful if you are running the overlayer on localhost.
   * ```-p 8080``` -- 8080 is default port to listen, but it can be changed.
 
+* (Optional) Check [imported contest data](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
 
-* Add source to OBS
+* Add a source to OBS
     * +Source
     * Browser
     * URL http://localhost:8080/overlay?noStatus
     * W H 1920x1080
-    * OBS Custom css:
+    * OBS Custom css: 
+  ```css
+  #root > div {
+      background: unset;
+  }
+  ```
 
-```css
-#root > div {
-    background: unset;
-}
-```
-
-* Use http://localhost:8080/admin in your browser to control overlay
+* Use [admin interface](http://localhost:8080/admin) in your browser to control overlay
 * Check general broadcast production [schema](https://docs.google.com/document/d/1JcOhmkvbRtG3MLLYUpzVBMqiQOoNpamOz-MvppCgcYk) for other details of typical setup
-
-Also, check [emulation mode](https://github.com/icpc/live-v3/blob/main/docs/emulation.md) part of development doc for testing.
-
+* Check [emulation mode](https://github.com/icpc/live-v3/blob/main/docs/emulation.md) part of development doc for testing your setup before the contest started.
+* Check [troubleshooting guide](https://github.com/icpc/live-v3/blob/main/docs/troubleshooting.md) is something looks wrong. 
 # Authorisation
 
 For now http basic auth is used. If you try to login with
