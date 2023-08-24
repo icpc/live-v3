@@ -9,7 +9,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
 
-object Config : CliktCommand(name = "java -jar live-v3.jar") {
+object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
     val configDirectory by option(
         "-c", "--config-directory",
         help = "Path to config directory"
@@ -28,7 +28,7 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
     ).path(mustExist = true, canBeFile = true, canBeDir = false)
         .convert { path ->
             path.toFile().inputStream().use { Json.decodeFromStream<Map<String, String>>(it) }
-        }.default(emptyMap())
+        }.default(emptyMap(), "none")
 
     val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
 
@@ -48,7 +48,7 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
         help = "File with custom widget positions"
     ).path(canBeDir = false, mustExist = true, canBeFile = true).convert { path->
             path.toFile().inputStream().use { Json.decodeFromStream<Map<String, LocationRectangle>>(it) }
-        }.default(emptyMap())
+        }.default(emptyMap(), "none")
 
     val analyticsTemplatesFile by option(
         "--analytics-template",
