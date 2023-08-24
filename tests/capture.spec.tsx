@@ -29,9 +29,10 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
         const childProcess = spawn("java", [
             "-jar",
             "artifacts/live-v3-dev.jar",
-            `-port=${port}`,
-            "-P:auth.disabled=true",
-            `-P:live.configDirectory=${contestConfig}`]);
+            "-p",`${port}`,
+            "--no-auth",
+            "-c", `${contestConfig}`
+            ]);
 
         childProcess.stdout.on("data", (data) => {
             console.log(`${data}`);
