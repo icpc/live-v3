@@ -1,3 +1,6 @@
+This doc is a bit outdated, although it is still a good source of examples.
+Full description of all properties supported can be found [here](https://icpc.io/live-v3/cds/-i-c-p-c-live%20contest%20data%20parser/org.icpclive.api.tunning/-advanced-properties/index.html)
+
 # How to setup advanced.json
 
 Apart from ```events.properties``` file, each contest can adjust imported from contest management system using ```advanced.json``` file.
