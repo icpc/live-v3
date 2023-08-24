@@ -6,7 +6,7 @@ Welcome to the ICPC Live Source Code Repository.
 
 * Download release from https://github.com/icpc/live-v3/releases
   * You can download [latest dev build](https://github.com/icpc/live-v3/actions/runs/5968512041) instead if you are brave enough
-* Create [contest config files](https://github.com/icpc/live-v3/tree/main/doc/config.md)
+* Create [contest config files](https://github.com/icpc/live-v3/tree/main/docs/config.md)
 * (Optional) [Tune](https://github.com/icpc/live-v3/blob/main/docs/advanced.json.md) imported data, so it looks better 
 * Run `java -jar /path/to/jar/file -c /path/to/config/directory`
 
