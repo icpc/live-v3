@@ -30,12 +30,11 @@ tasks {
     }
     named<JavaExec>("run") {
         this.args = listOfNotNull(
-            "-P:auth.disabled=true",
-            project.properties["live.dev.credsFile"]?.let { "-P:live.credsFile=$it"},
-            project.properties["live.dev.widgetPositionsFile"]?.let { "-P:live.widgetPositionsFile=$it"},
-            project.properties["live.dev.contest"]?.let { "-P:live.configDirectory=$it" },
-            project.properties["live.dev.allowUnsecureConnections"]?.let { "-P:live.allowUnsecureConnections=$it" },
-            project.properties["live.dev.analyticsTemplatesFile"]?.let { "-P:live.analyticsTemplatesFile=$it" },
+            "--no-auth",
+            project.properties["live.dev.credsFile"]?.let { "--creds=$it"},
+            project.properties["live.dev.widgetPositionsFile"]?.let { "--widget-positions=$it"},
+            project.properties["live.dev.contest"]?.let { "--config-directory=$it" },
+            project.properties["live.dev.analyticsTemplatesFile"]?.let { "--analytics-template=$it" },
         )
         this.workingDir(rootDir.resolve("config"))
     }
@@ -91,6 +90,7 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.cli)
     implementation(projects.cds)
     implementation(projects.common)
     testImplementation(libs.kotlin.junit)

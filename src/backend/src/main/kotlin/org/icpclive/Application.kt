@@ -16,6 +16,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.api.tunning.AdvancedProperties
@@ -27,12 +28,12 @@ import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.launchServices
 import org.icpclive.util.*
 import org.slf4j.event.Level
+import java.nio.file.Paths
 import java.time.Duration
 import kotlin.io.path.exists
 import kotlin.system.exitProcess
 
-fun main(args: Array<String>): Unit =
-    io.ktor.server.netty.EngineMain.main(args)
+fun main(args: Array<String>): Unit = Config.main(args)
 
 private fun Application.setupKtorPlugins() {
     install(DefaultHeaders)
@@ -56,7 +57,7 @@ private fun Application.setupKtorPlugins() {
         masking = false
     }
     install(Authentication) {
-        if (config.authDisabled) {
+        if (Config.authDisabled) {
             val config = object : AuthenticationProvider.Config("admin-api-auth") {}
             register(object : AuthenticationProvider(config) {
                 override suspend fun onAuthenticate(context: AuthenticationContext) {
@@ -87,11 +88,12 @@ private fun Application.setupKtorPlugins() {
 
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-    config = Config(environment)
+    environment.log.info("Using config directory ${Config.configDirectory.toAbsolutePath()}")
+    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     setupKtorPlugins()
 
     routing {
-        staticFiles("/media", config.mediaDirectory.toFile())
+        staticFiles("/media", Config.mediaDirectory.toFile())
         singlePageApplication {
             useResources = true
             applicationRoute = "admin"
@@ -113,14 +115,15 @@ fun Application.module() {
         exitProcess(1)
     }
     val path =
-        config.configDirectory.resolve("events.properties")
+        Config.configDirectory.resolve("events.properties")
             .takeIf { it.exists() }
             ?.also { environment.log.warn("Using events.properties is deprecated, use settings.json instead.") }
-            ?: config.configDirectory.resolve("settings.json")
+            ?: Config.configDirectory.resolve("settings.json")
 
     launch(handler) {
-        val advancedJsonPath = config.configDirectory.resolve("advanced.json")
-        val advancedPropertiesFlow = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, environment.log, AdvancedProperties())
+        val advancedPropertiesFlow =
+            fileJsonContentFlow<AdvancedProperties>(Config.advancedJsonPath, environment.log, AdvancedProperties())
+            .stateIn(this)
         DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
 
         val loader = parseFileToCdsSettings(path)
