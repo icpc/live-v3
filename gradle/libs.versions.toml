@@ -1,22 +1,23 @@
 [versions]
 ktor = "2.3.3"                     # https://ktor.io/
 datetime = "0.4.0"                 # https://github.com/Kotlin/kotlinx-datetime
-serialization = "1.5.1"            # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "1.9.0"
-logback = "1.4.8"                  # https://logback.qos.ch/download.html
-node-plugin = "5.0.0"              # https://github.com/node-gradle/gradle-node-plugin
+serialization = "1.6.0"            # https://github.com/Kotlin/kotlinx.serialization
+kotlin = "1.9.10"
+logback = "1.4.11"                 # https://logback.qos.ch/download.html
+node-plugin = "7.0.0"              # https://github.com/node-gradle/gradle-node-plugin
 coroutines = "1.7.3"               # https://github.com/Kotlin/kotlinx.coroutines/
-exposed = "0.42.0"                 # https://github.com/JetBrains/Exposed
-telegram-bot = "6.0.7"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
+exposed = "0.42.1"                 # https://github.com/JetBrains/Exposed
+telegram-bot = "6.1.0"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
 shadow-plugin = "8.1.1"            # https://github.com/johnrengelman/shadow
 sqlite = "3.42.0.0"                # https://github.com/xerial/sqlite-jdbc
 clikt = "4.2.0"                    # https://ajalt.github.io/clikt/
 immutable = "0.3.5"                # https://github.com/Kotlin/kotlinx.collections.immutable
 protobuf-plugin = "0.9.4"          # https://github.com/google/protobuf-gradle-plugin
-protobuf = "3.23.4"
-grpc = "1.55.3"                    # https://github.com/grpc/grpc
-grpc-kotlin = "1.3.0"              # https://github.com/grpc/grpc-kotlin
+protobuf = "3.24.1"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+grpc = "1.57.0"                    # https://github.com/grpc/grpc
+grpc-kotlin = "1.3.1"              # https://github.com/grpc/grpc-kotlin
 dokka = "1.8.20"                   # https://github.com/Kotlin/dokka
+retrofit = "2.9.0"                 # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit/2.9.0
 
 [libraries]
 
@@ -59,7 +60,7 @@ exposed-jdbc = { version.ref = "exposed", group = "org.jetbrains.exposed", name 
 logback = { version.ref = "logback", group = "ch.qos.logback", name = "logback-classic" }
 
 telegram-bot = { version.ref = "telegram-bot", group = "io.github.kotlin-telegram-bot.kotlin-telegram-bot", name = "telegram" }
-
+retrofit = { version.ref = "retrofit", group = "com.squareup.retrofit2", name = "retrofit" }
 db-sqlite = { version.ref = "sqlite", group = "org.xerial", name = "sqlite-jdbc" }
 
 cli = { version.ref = "clikt", group = "com.github.ajalt.clikt", name = "clikt" }
