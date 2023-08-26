@@ -10,8 +10,9 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.*
 import java.awt.Color
+import java.io.InputStream
 import java.lang.Exception
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -183,4 +184,16 @@ fun defaultJsonSettings() = Json {
     prettyPrint = false
     useArrayPolymorphism = false
     explicitNulls = false
+}
+
+@OptIn(ExperimentalSerializationApi::class)
+inline fun <reified T> Json.decodeFromStreamIgnoringComments(stream: InputStream) : T = decodeFromJsonElement(decodeFromStream<JsonElement>(stream).cleanFromComments())
+inline fun <reified T> Json.decodeFromStringIgnoringComments(data: String) : T = decodeFromJsonElement(decodeFromString<JsonElement>(data).cleanFromComments())
+
+@PublishedApi internal fun JsonElement.cleanFromComments() : JsonElement {
+    return when (this) {
+        is JsonArray -> JsonArray(map { it.cleanFromComments() })
+        is JsonObject -> JsonObject(filter { !it.key.startsWith("#") }.mapValues { it.value.cleanFromComments() })
+        is JsonPrimitive, JsonNull -> this
+    }
 }

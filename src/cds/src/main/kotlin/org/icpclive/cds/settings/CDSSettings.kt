@@ -6,8 +6,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.*
 import kotlinx.serialization.properties.Properties
 import kotlinx.serialization.properties.decodeFromStringMap
 import org.icpclive.api.ContestResultType
@@ -26,6 +25,7 @@ import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.testsys.TestSysDataSource
 import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.*
+import java.io.InputStream
 import java.nio.file.Path
 
 // I'd like to have them in cds files, but then serializing would be much harder
@@ -267,8 +267,11 @@ fun parseFileToCdsSettings(path: Path) : CDSSettings {
         @Suppress("UNCHECKED_CAST")
         Properties.decodeFromStringMap<CDSSettings>(properties as Map<String, String>)
     } else if (file.name.endsWith(".json")) {
-        file.inputStream().use { Json.decodeFromStream<CDSSettings>(it) }
+        file.inputStream().use {
+            Json.decodeFromStreamIgnoringComments(it)
+        }
     } else {
         throw IllegalArgumentException("Unknown settings file extension: ${file.path}")
     }
 }
+

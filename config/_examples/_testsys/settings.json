@@ -1,4 +1,5 @@
 {
   "type": "testsys",
-  "url": "http://acm.math.spbu.ru/cgi-bin/view.pl/n201206.dat"
+  "url": "http://acm.math.spbu.ru/cgi-bin/view.pl/n201206.dat",
+  "#comment": "This line is ignored"
 }
