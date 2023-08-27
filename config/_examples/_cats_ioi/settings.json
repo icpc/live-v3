@@ -1,0 +1,9 @@
+{
+  "url":"https://imcs.dvfu.ru/cats",
+  "cid":"5974394",
+  "type":"cats",
+  "timeZone":"UTC+10",
+  "resultType":"IOI",
+  "login":"$creds.cats_login",
+  "password":"$creds.cats_password"
+}
