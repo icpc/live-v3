@@ -1,0 +1,7 @@
+{ 
+  "type":"PCMS",
+  "login":"admin",
+  "password":"adm1n",
+  "url":"http://10.10.0.3/standings/standings-live.xml",
+  "resultType":"ioi"
+}

@@ -6,8 +6,7 @@
   "#comment4":"    - Add permission «Manage contests and participants (contest:manage)»",
   "#comment5":"2. Get «debug» token: https://yandex.ru/dev/id/doc/dg/oauth/tasks/get-oauth-token.html",
   "apiKey":"$creds.yandex",
-  "contestId":"2121",
-  "resultType":"IOI",
-  "loginRegex":"(^roi16-.*)"
+  "contestId":"45822",
+  "loginRegex":"(^karelia23w.*)"
 }
 
