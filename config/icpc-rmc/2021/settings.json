@@ -1,0 +1,9 @@
+{
+  "type":"clics",
+  "login":"$creds.kattis_login",
+  "password":"$creds.kattis_token",
+  "url":"https://open.kattis.com/clics-api/contests/rmc21",
+  "feedVersion":"2020_03",
+
+  "emulation":{"speed":"5","startTime":"2022-05-11 22:40"}
+}

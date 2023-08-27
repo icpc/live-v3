@@ -1,0 +1,7 @@
+{
+  "type":"clics",
+  "login":"live",
+  "password":"SECRET"
+  "url":"https://cds.swerc.eu/api/contests/demo",
+  "feedVersion":"2020_03"
+}
