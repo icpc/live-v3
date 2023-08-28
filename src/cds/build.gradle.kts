@@ -56,6 +56,10 @@ tasks.dokkaHtml {
     }
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 tasks.create<Copy>("doc") {
     from(tasks.dokkaHtml)
     destinationDir = rootProject.rootDir.resolve("_site/cds")

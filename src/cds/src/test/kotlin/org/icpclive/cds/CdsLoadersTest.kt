@@ -1,3 +1,5 @@
+package org.icpclive.cds
+
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
@@ -12,7 +14,7 @@ import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.settings.*
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.text.Regex
 
 class CdsLoadersTest {

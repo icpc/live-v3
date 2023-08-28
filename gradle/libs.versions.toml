@@ -51,7 +51,7 @@ kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbra
 
 kotlin-serialization-plugin = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-serialization" }
 kotlin-gradle-plugin        = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin" }
-kotlin-junit                = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit" }
+kotlin-junit                = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
 
 exposed-core = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-core"}
 exposed-dao = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-dao"}

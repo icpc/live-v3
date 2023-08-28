@@ -1,9 +1,9 @@
-package org.icpclive.cds.clics
+package org.icpclive.cds
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.scoreboard.getScoreboardCalculator
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes

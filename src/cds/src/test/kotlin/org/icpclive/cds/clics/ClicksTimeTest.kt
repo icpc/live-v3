@@ -3,18 +3,17 @@ package org.icpclive.cds.clics
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.junit.Assert
-import org.junit.Test
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToLong
+import kotlin.test.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 
-class ClicksTimeTest {
+object ClicksTimeTest {
     var years = arrayOf(arrayOf("2001", 2001), arrayOf("2345", 2345))
     var months = arrayOf(
         arrayOf("1", 1),
@@ -79,7 +78,7 @@ class ClicksTimeTest {
             val zdt = ZonedDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
             val expect = zdt.toInstant().toEpochMilli()
             val result: Long = ClicsTime.parseTime(testTime).toEpochMilliseconds()
-            Assert.assertEquals("$testTime vs $isoDateTime", expect, result)
+            assertEquals(expect, result)
         }
     }
 
@@ -134,7 +133,7 @@ class ClicksTimeTest {
                 if (pp.second == 1) "+" else "-", hh.second, mm.second, `is`, ns
             )
             val result: Long = ClicsTime.parseRelativeTime(testRelTime).toDouble(DurationUnit.MILLISECONDS).roundToLong()
-            Assert.assertEquals("$testRelTime vs $isoInstant", expect, result)
+            assertEquals(expect, result, "$testRelTime vs $isoInstant")
         }
     }
 
@@ -154,8 +153,8 @@ class ClicksTimeTest {
             ClicsTime.parseRelativeTime(durationString)
             val obj = ObjectWithDuration(duration)
             val encodedString = Json.encodeToString(obj)
-            Assert.assertEquals("{\"dur\":\"$durationString\"}", encodedString)
-            Assert.assertEquals(obj, Json.decodeFromString<ObjectWithDuration>(encodedString))
+            assertEquals("{\"dur\":\"$durationString\"}", encodedString)
+            assertEquals(obj, Json.decodeFromString<ObjectWithDuration>(encodedString))
         }
     }
 }
