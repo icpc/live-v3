@@ -71,12 +71,29 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
                 )
             }.flowOn(Dispatchers.IO)
                 .stateIn(this)
-            emit(InfoUpdate(rawContestInfoFlow.value.toApi()))
+            val info = rawContestInfoFlow.value.toApi()
+            if (info.status == ContestStatus.OVER) {
+                emit(InfoUpdate(info.copy(status = ContestStatus.RUNNING)))
+            } else {
+                emit(InfoUpdate(info))
+            }
+            val allSubmissions = allSubmissionsLoader.load()
+            with (rawContestInfoFlow.value) {
+                emitAll(
+                    allSubmissions.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
+                        .map { RunUpdate(submissionToRun(it)) }
+                        .asFlow()
+                )
+            }
+            if (info.status == ContestStatus.OVER) {
+                emit(InfoUpdate(info))
+            }
             val newSubmissionsFlow = newSubmissionsFlow(1.seconds)
             val allSubmissionsFlow = loopFlow(
                 120.seconds,
                 onError = { getLogger(YandexDataSource::class).error("Failed to reload data, retrying", it) }
             ) { allSubmissionsLoader.load() }
+                .onStart { delay(120.seconds) }
                 .flowOn(Dispatchers.IO)
             val allRunsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
@@ -90,6 +107,7 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
             emit(it.event)
             if (it.infoAfterEvent?.status == ContestStatus.OVER  && it.runs[false].isNullOrEmpty()) {
                 emit(InfoUpdate(it.infoAfterEvent!!.copy(status = ContestStatus.FINALIZED)))
+                log.info("Contest finished. Finalizing.")
                 false
             } else {
                 true
@@ -101,9 +119,10 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
         const val API_BASE = "https://api.contest.yandex.net/api/public/v2"
     }
 
-    private suspend fun newSubmissionsFlow(
+    private fun newSubmissionsFlow(
         period: Duration
     ) : Flow<List<Submission>> {
+        log.info("HERE!!!")
         val formatter = Json { ignoreUnknownKeys = true }
         var pendingRunId = 0L
 
@@ -114,8 +133,11 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
             buildList {
                 var page = 1
                 while (true) {
+                    log.info("Plan to load: submissions?locale=ru&page=$page&pageSize=100")
                     val response = httpClient.request("submissions?locale=ru&page=$page&pageSize=100") {}
+                    log.info("Loaded")
                     val pageSubmissions = formatter.decodeFromString<Submissions>(response.body()).submissions
+                    log.info(pageSubmissions.toString())
                     addAll(pageSubmissions)
                     if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunId) {
                         break
