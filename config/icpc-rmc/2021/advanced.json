@@ -65,9 +65,11 @@
 "O":{"color":"#000075"},
 "P":{"color":"#a9a9a9"}
   },
-  "medals": [
-    {"name": "gold", "count": 4},
-    {"name": "silver", "count": 4},
-    {"name": "bronze", "count": 4}
-  ]
+  "scoreboardOverrides": {
+    "medals": [
+      {"name": "gold", "count": 4},
+      {"name": "silver", "count": 4},
+      {"name": "bronze", "count": 4}
+    ]
+  }
 }

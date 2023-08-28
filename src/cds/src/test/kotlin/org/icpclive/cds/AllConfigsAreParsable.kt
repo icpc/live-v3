@@ -1,24 +1,40 @@
 package org.icpclive.cds
 
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.settings.parseFileToCdsSettings
 import org.junit.jupiter.api.*
-import java.nio.file.Path
 import kotlin.io.path.*
 
 class AllConfigsAreParsable {
     @OptIn(ExperimentalPathApi::class)
     @TestFactory
-    fun test() : List<DynamicTest> {
+    fun testSettings() : List<DynamicTest> {
         val configDir = Path("").absolute().parent.parent.resolve("config")
         return configDir.walk().filter {
             it.name == "settings.json" || it.name == "settings.json5"
         }.map {
             DynamicTest.dynamicTest(it.relativeTo(configDir).toString()) {
-                checkFile(it)
+                parseFileToCdsSettings(it)
             }
         }.toList()
     }
-    fun checkFile(path: Path) {
-        parseFileToCdsSettings(path)
+
+    @OptIn(ExperimentalPathApi::class, ExperimentalSerializationApi::class)
+    @TestFactory
+    fun testAdvancedJson() : List<DynamicTest> {
+        val configDir = Path("").absolute().parent.parent.resolve("config")
+        return configDir.walk().filter {
+            it.name == "advanced.json"
+        }.map { path ->
+            DynamicTest.dynamicTest(path.relativeTo(configDir).toString()) {
+                path.toFile().inputStream().use {
+                    Json.decodeFromStream<AdvancedProperties>(it)
+                }
+            }
+        }.toList()
     }
+
 }
