@@ -43,6 +43,7 @@ tasks {
         destinationDir = rootProject.rootDir.resolve("artifacts")
     }
     val jsBuildPath = project.buildDir.resolve("js")
+    val schemasBuildPath = project.buildDir.resolve("schemas")
     val copyJsAdmin = register<Copy>("copyJsAdmin") {
         from(project(":frontend").tasks["npm_run_buildAdmin"])
         destinationDir = jsBuildPath.resolve("admin")
@@ -51,9 +52,19 @@ tasks {
         from(project(":frontend").tasks["npm_run_buildOverlay"])
         destinationDir = jsBuildPath.resolve("overlay")
     }
+    val copySchema = register<Copy>("copySchema") {
+        val genTask = project(":schema-generator").tasks["gen"]
+        dependsOn(genTask)
+        from(genTask.dependsOn)
+        destinationDir = schemasBuildPath.resolve("schemas")
+    }
     register("buildJs") {
         dependsOn(copyJsAdmin, copyJsOverlay)
         outputs.dir(jsBuildPath)
+    }
+    register("buildSchema") {
+        dependsOn(copySchema)
+        outputs.dir(schemasBuildPath)
     }
 }
 
@@ -65,6 +76,7 @@ sourceSets {
             if (project.properties["live.dev.embedFrontend"] == "true") {
                 srcDirs(tasks["buildJs"].outputs)
             }
+            srcDirs(tasks["buildSchema"].outputs)
         }
     }
 }

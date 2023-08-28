@@ -94,6 +94,7 @@ fun Application.module() {
 
     routing {
         staticFiles("/media", Config.mediaDirectory.toFile())
+        staticResources("/schemas", "schemas")
         singlePageApplication {
             useResources = true
             applicationRoute = "admin"
