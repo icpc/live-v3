@@ -175,6 +175,7 @@ private fun getFlow(advancedProperties: Flow<AdvancedProperties>, log: Logger) :
     val path = CommonOptions.configDirectory.resolve("events.properties")
         .takeIf { it.exists() }
         ?.also { log.warn("Using events.properties is deprecated, use settings.json instead.") }
+        ?: CommonOptions.configDirectory.resolve("settings.json5").takeIf { it.exists() }
         ?: CommonOptions.configDirectory.resolve("settings.json")
     val creds: Map<String, String> = CommonOptions.credsFile?.let {
         Json.decodeFromStream(it.toFile().inputStream())

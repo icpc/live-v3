@@ -2,6 +2,7 @@
 package org.icpclive.cds.settings
 
 
+import io.github.xn32.json5k.Json5
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -26,7 +27,6 @@ import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.testsys.TestSysDataSource
 import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.*
-import java.io.InputStream
 import java.nio.file.Path
 import kotlin.time.Duration
 
@@ -286,6 +286,10 @@ fun parseFileToCdsSettings(path: Path) : CDSSettings {
     } else if (file.name.endsWith(".json")) {
         file.inputStream().use {
             Json.decodeFromStreamIgnoringComments(it)
+        }
+    } else if (file.name.endsWith(".json5")) {
+        file.inputStream().use {
+            Json5.decodeFromString<CDSSettings>(String(it.readAllBytes()))
         }
     } else {
         throw IllegalArgumentException("Unknown settings file extension: ${file.path}")

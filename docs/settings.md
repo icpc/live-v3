@@ -8,7 +8,7 @@
 
 ## Config file
 
-Main config should be stored within config directory in `settings.json` file.
+Main config should be stored within config directory in `settings.json` or `settings.json5` file.
 In some outdated examples legacy `events.properties` format is used instead.
 
 Settings should specify the contest system used and parameters of the contest.

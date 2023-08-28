@@ -119,6 +119,7 @@ fun Application.module() {
         Config.configDirectory.resolve("events.properties")
             .takeIf { it.exists() }
             ?.also { environment.log.warn("Using events.properties is deprecated, use settings.json instead.") }
+            ?: Config.configDirectory.resolve("settings.json5").takeIf { it.exists() }
             ?: Config.configDirectory.resolve("settings.json")
 
     launch(handler) {

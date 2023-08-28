@@ -78,6 +78,8 @@ dependencies {
     implementation(libs.protobuf)
     implementation(kotlin("reflect"))
 
+    implementation("io.github.xn32:json5k:0.3.0")
+
     implementation(projects.common)
 
     testImplementation(libs.kotlin.junit)
