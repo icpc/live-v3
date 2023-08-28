@@ -1,7 +1,7 @@
 {
- "contestId":"abc317",
- "type":"atcoder",
- "startTime":"2023-08-26 08:00",
- "contestLengthSeconds":"6000",
- "sessionCookie":"$creds.atcoder_cookie"
+ "contestId": "abc317",
+ "type": "atcoder",
+ "startTime": "2023-08-26 08:00",
+ "contestLengthSeconds": 6000,
+ "sessionCookie": "$creds.atcoder_cookie"
 }

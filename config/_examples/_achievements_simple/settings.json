@@ -2,5 +2,5 @@
   "url":"http://nerc.itmo.ru/archive/2020/standings.xml",
   "type":"pcms",
 
-  "emulation":{"speed":"1", "startTime":"now"}
+  "emulation":{"speed":1, "startTime":"now"}
 }

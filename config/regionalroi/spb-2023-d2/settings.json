@@ -1,6 +1,6 @@
 {
-  "type":"PCMS",
-  "url":"http://nerc.itmo.ru/school/archive/2022-2023/ru-olymp-spb-2023-standings-day2.xml"
+  "type":"pcms",
+  "url":"http://nerc.itmo.ru/school/archive/2022-2023/ru-olymp-spb-2023-standings-day2.xml",
   "resultType":"IOI"
 }
 

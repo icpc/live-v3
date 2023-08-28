@@ -1,10 +1,10 @@
 {
-  "type":"krsu"
+  "type":"krsu",
 
-  "submissions-url":"https://olymp.krsu.edu.kg/web/api/contestsubmissions/submissions?apiKey=a1f4d25se3&size=1000000&lowerBound=-1&upperBound=2000000000&contest=772&probe=0&isAdmin=1",
-  "contest-url":"https://olymp.krsu.edu.kg/web/api/contestsubmissions/contestinfo?apiKey=a1f4d25se3&id=772",
+  "submissionsUrl":"https://olymp.krsu.edu.kg/web/api/contestsubmissions/submissions?apiKey=a1f4d25se3&size=1000000&lowerBound=-1&upperBound=2000000000&contest=772&probe=0&isAdmin=1",
+  "contestUrl":"https://olymp.krsu.edu.kg/web/api/contestsubmissions/contestinfo?apiKey=a1f4d25se3&id=772",
 
-  "emulation":{"speed":"5","startTime":"now"}
+  "emulation":{"speed":5,"startTime":"now"}
 }
 
 

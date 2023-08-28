@@ -1,5 +1,5 @@
 {
-  "type":"PCMS",
-  "url":"regionalroi/spb-2022-d1/ru-olymp-spb-2022-standings-day1-groups.xml"
-  "resultType":"IOI"
+  "type": "pcms",
+  "url": "regionalroi/spb-2022-d1/ru-olymp-spb-2022-standings-day1-groups.xml",
+  "resultType": "IOI"
 }

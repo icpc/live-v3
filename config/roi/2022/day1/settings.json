@@ -1,7 +1,7 @@
-{ 
-  "type":"PCMS",
-  "login":"admin",
-  "password":"adm1n",
-  "url":"roi-2022-day1/standings-live-day1.xml",
-  "resultType":"ioi"
+{
+  "type": "pcms",
+  "login": "admin",
+  "password": "adm1n",
+  "url": "roi-2022-day1/standings-live-day1.xml",
+  "resultType": "IOI"
 }

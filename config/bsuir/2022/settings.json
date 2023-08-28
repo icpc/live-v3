@@ -1,14 +1,8 @@
 {
-  "type":"yandex",
-  "#comment1":"1. Register an application here: https://oauth.yandex.ru/client/new",
-  "#comment2":"    - Choose «Web services»",
-  "#comment3":"    - Tap «Set URL for development»",
-  "#comment4":"    - Add permission «Manage contests and participants (contest:manage)»",
-  "#comment5":"2. Get «debug» token: https://yandex.ru/dev/id/doc/dg/oauth/tasks/get-oauth-token.html",
-
-  "apiKey":"$creds.yandex",
-  "contestId":"37013",
-  "loginRegex":"^open-x-reload-.*"
+  "type": "yandex",
+  "apiKey": "$creds.yandex",
+  "contestId": 37013,
+  "loginRegex": "^open-x-reload-.*"
 }
 
 

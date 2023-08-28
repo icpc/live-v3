@@ -7,6 +7,61 @@
             "type": "object",
             "properties": {
                 "type": {
+                    "const": "atcoder"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "sessionCookie": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "contestLengthSeconds": {
+                    "type": "integer"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "sessionCookie",
+                "startTime",
+                "contestLengthSeconds"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
                     "const": "cf"
                 },
                 "contestId": {
