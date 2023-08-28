@@ -17,6 +17,11 @@
                     <option name="path" value="advanced.json" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
+                  <Item>
+                    <option name="pattern" value="true" />
+                    <option name="path" value="advanced.json5" />
+                    <option name="mappingKind" value="Pattern" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>
@@ -34,6 +39,11 @@
                   <Item>
                     <option name="pattern" value="true" />
                     <option name="path" value="settings.json" />
+                    <option name="mappingKind" value="Pattern" />
+                  </Item>
+                  <Item>
+                    <option name="pattern" value="true" />
+                    <option name="path" value="settings.json5" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
                 </list>
