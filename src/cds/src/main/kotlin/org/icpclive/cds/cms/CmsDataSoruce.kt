@@ -1,6 +1,7 @@
 package org.icpclive.cds.cms
 
 import org.icpclive.api.*
+import org.icpclive.cds.clics.api.Media
 import org.icpclive.cds.cms.model.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
@@ -70,7 +71,9 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 contestSystemId = k,
                 groups = emptyList(),
                 hashTag = null,
-                medias = emptyMap(),
+                medias = mapOf(
+                    TeamMediaType.PHOTO to MediaType.Photo("${settings.url}/faces/$k", true)
+                ),
                 isHidden = false,
                 isOutOfContest = false,
                 organizationId = v.team,
@@ -78,7 +81,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                     "country" to v.team,
                     "first_name" to v.f_name,
                     "last_name" to v.l_name
-                )
+                ),
             )
         }
         val info = ContestInfo(
