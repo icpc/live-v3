@@ -9,7 +9,6 @@ import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.settings.AtcoderSettings
 import org.icpclive.util.*
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.nanoseconds
@@ -86,8 +85,8 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         val data = loader.load()
         val problems = data.TaskInfo.mapIndexed { index, task ->
             ProblemInfo(
-                letter = task.Assignment,
-                name = task.TaskName,
+                displayName = task.Assignment,
+                fullName = task.TaskName,
                 id = problemIds[task.TaskScreenName],
                 ordinal = index,
                 contestSystemId = task.TaskScreenName,

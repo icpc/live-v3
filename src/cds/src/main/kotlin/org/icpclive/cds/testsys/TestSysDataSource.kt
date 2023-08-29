@@ -32,8 +32,8 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
-                letter = letter,
-                name = name,
+                displayName = letter,
+                fullName = name,
                 id = index,
                 ordinal = index,
                 contestSystemId = letter,

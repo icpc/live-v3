@@ -30,8 +30,8 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             val problems = tasksLoader.load().entries.groupBy { it.value.contest }.mapValues {
                 it.value.map { (k, v) ->
                     ProblemInfo(
-                        letter = v.short_name,
-                        name = v.name,
+                        displayName = v.short_name,
+                        fullName = v.name,
                         id = problemId[k],
                         contestSystemId = k,
                         ordinal = 0,

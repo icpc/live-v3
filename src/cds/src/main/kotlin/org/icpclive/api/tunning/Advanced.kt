@@ -35,16 +35,19 @@ data class TeamInfoOverride(
 )
 
 /**
- * @param name Problem name.
+ * @param displayName Name to show in scoreboard and queue.
+ * @param fullName Problem name.
  * @param color Color of a problem balloon. It would be shown in queue and scoreboard in places related to the problem
  * @param ordinal Number to sort problems in the scoreboard
  * @param minScore In ioi mode minimal possible value of points in this problem
  * @param maxScore In ioi mode maximal possible value of points in this problem
- * @param scoreMergeMode In ioi mode, select the ruleset to calculate final score based on the scores for each submission.
+ * @param scoreMergeMode In ioi mode, select the ruleset to calculate the final score based on the scores for each submission.
  */
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
 data class ProblemInfoOverride(
-    val name: String? = null,
+    val displayName: String? = null,
+    val fullName: String? = null,
     @Serializable(ColorSerializer::class) val color: Color? = null,
     val ordinal: Int? = null,
     val minScore: Double? = null,
@@ -208,8 +211,9 @@ fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
             )
         },
         problemOverrides = problemList.associate {
-            it.letter to ProblemInfoOverride(
-                name = it.name.takeIfAsked("problemName"),
+            it.contestSystemId to ProblemInfoOverride(
+                displayName = it.displayName.takeIfAsked("problemDisplayName"),
+                fullName = it.fullName.takeIfAsked("problemFullName"),
                 color = it.color.takeIfAsked("color"),
                 ordinal = it.ordinal.takeIfAsked("ordinal"),
                 minScore = it.minScore.takeIfAsked("minScore"),

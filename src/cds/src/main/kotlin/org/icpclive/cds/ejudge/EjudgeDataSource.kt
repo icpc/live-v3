@@ -21,8 +21,8 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         .child("problems")
         .children().mapIndexed { index, element ->
             ProblemInfo(
-                letter = element.getAttribute("short_name"),
-                name = element.getAttribute("long_name"),
+                displayName = element.getAttribute("short_name"),
+                fullName = element.getAttribute("long_name"),
                 id = element.getAttribute("id").toInt(),
                 ordinal = index,
                 contestSystemId = element.getAttribute("id"),

@@ -7,8 +7,8 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInfo(
-    letter = alias,
-    name = name,
+    displayName = alias,
+    fullName = name,
     id = index,
     ordinal = index,
     contestSystemId = id,
@@ -46,7 +46,7 @@ internal class YandexContestInfo private constructor(
     )
 
     fun submissionToRun(submission: Submission): RunInfo {
-        val problemId = problems.indexOfFirst { it.letter == submission.problemAlias }
+        val problemId = problems.indexOfFirst { it.displayName == submission.problemAlias }
         if (problemId == -1) {
             throw IllegalStateException("Problem not found: ${submission.problemAlias}")
         }

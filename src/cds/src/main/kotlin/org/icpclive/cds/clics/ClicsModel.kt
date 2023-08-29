@@ -86,8 +86,8 @@ internal class ClicsModel(
     }
 
     private fun Problem.toApi() = ProblemInfo(
-        letter = label,
-        name = name,
+        displayName = label,
+        fullName = name,
         id = problemToId[id],
         ordinal = ordinal,
         contestSystemId = id,

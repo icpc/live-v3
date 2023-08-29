@@ -11,7 +11,6 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
-import org.icpclive.util.getLogger
 import org.w3c.dom.Element
 import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilderFactory
@@ -58,8 +57,8 @@ object PCMSExporter {
     private fun Element.buildChallengeNode(info: ContestInfo) {
         info.scoreboardProblems.forEach { problem ->
             createChild("problem").also {
-                it.setAttribute("alias", problem.letter)
-                it.setAttribute("name", problem.name)
+                it.setAttribute("alias", problem.displayName)
+                it.setAttribute("name", problem.fullName)
             }
         }
     }
@@ -87,7 +86,7 @@ object PCMSExporter {
             probNode.setAttribute("accepted", isAcceptedInt.toString())
             probNode.setAttribute("attempts", (probResult.wrongAttempts + isAcceptedInt).toString())
             probNode.setAttribute("id", info.scoreboardProblems[index].contestSystemId)
-            probNode.setAttribute("alias", info.scoreboardProblems[index].letter)
+            probNode.setAttribute("alias", info.scoreboardProblems[index].displayName)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
             probNode.setAttribute("penalty", (if (probResult.isSolved) {
                 (probResult.lastSubmitTime!! + info.penaltyPerWrongAttempt * probResult.wrongAttempts).inWholeMinutes

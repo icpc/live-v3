@@ -134,8 +134,8 @@ internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, Str
             .asSequence()
             .mapIndexed { index, problem ->
                 ProblemInfo(
-                    letter = problem.code,
-                    name = problem.name,
+                    displayName = problem.code,
+                    fullName = problem.name,
                     color = null,
                     id = problem.id,
                     ordinal = index,

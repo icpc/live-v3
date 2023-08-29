@@ -22,8 +22,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
 
         val problemsList = contest.ProblemSet.mapIndexed { index, it ->
             ProblemInfo(
-                letter = "" + ('A' + index),
-                name = "" + ('A' + index),
+                displayName = "" + ('A' + index),
+                fullName = "" + ('A' + index),
                 id = it.Problem,
                 ordinal = index,
                 contestSystemId = index.toString(),

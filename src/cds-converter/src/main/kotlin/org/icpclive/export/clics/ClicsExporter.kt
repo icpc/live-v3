@@ -28,8 +28,8 @@ typealias EventProducer = (String) -> Event
 private fun ProblemInfo.toClicsProblem() = Problem(
     id = contestSystemId,
     ordinal = ordinal,
-    label = letter,
-    name = name,
+    label = displayName,
+    name = fullName,
     rgb = color,
     test_data_count = 1,
 )

@@ -2552,7 +2552,10 @@
                 ".*": {
                     "type": "object",
                     "properties": {
-                        "name": {
+                        "displayName": {
+                            "type": "string"
+                        },
+                        "fullName": {
                             "type": "string"
                         },
                         "color": {

@@ -87,8 +87,8 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings, creds: Map
         val contest = scoreboard.scoreboard.contest
         val problems = scoreboard.scoreboard.problemList.mapIndexed { index, problem ->
             ProblemInfo(
-                letter = problem.index,
-                name = problem.title,
+                displayName = problem.index,
+                fullName = problem.title,
                 id = problem.id,
                 contestSystemId = problem.id.toString(),
                 ordinal = index

@@ -47,8 +47,8 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
     private fun getMessage(analyse: RunAnalyse, team: TeamInfo, problem: ProblemInfo): String {
         val substitute = mapOf(
             "{team.shortName}" to team.displayName,
-            "{problem.letter}" to problem.letter,
-            "{problem.name}" to problem.name,
+            "{problem.letter}" to problem.displayName,
+            "{problem.name}" to problem.fullName,
             "{run.result}" to (analyse.run.result as? ICPCRunResult)?.verdict?.shortName.orEmpty(),
             "{result.rank}" to analyse.result.rank.toString(),
             "{result.solvedProblems}" to analyse.solvedProblems?.takeIf { it > 0 }?.toString().orEmpty(),

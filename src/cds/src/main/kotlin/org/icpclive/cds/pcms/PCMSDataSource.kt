@@ -55,8 +55,8 @@ internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, Str
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
-                    letter = it.getAttribute("alias"),
-                    name = it.getAttribute("name"),
+                    displayName = it.getAttribute("alias"),
+                    fullName = it.getAttribute("name"),
                     id = problemIds[it.getAttribute("alias")],
                     ordinal = index,
                     contestSystemId = it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias"),

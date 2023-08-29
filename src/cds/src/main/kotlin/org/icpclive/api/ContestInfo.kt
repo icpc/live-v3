@@ -56,8 +56,8 @@ enum class ScoreMergeMode {
 
 @Serializable
 data class ProblemInfo(
-    val letter: String,
-    val name: String,
+    @SerialName("letter") val displayName: String,
+    @SerialName("name") val fullName: String,
     val id: Int,
     val ordinal: Int,
     val contestSystemId: String,

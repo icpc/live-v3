@@ -41,8 +41,8 @@ internal class CFContestInfo {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(
-                    letter = problem.index,
-                    name = problem.name!!,
+                    displayName = problem.index,
+                    fullName = problem.name!!,
                     id = id,
                     ordinal = id,
                     contestSystemId = id.toString(),
@@ -59,8 +59,8 @@ internal class CFContestInfo {
             }
             if (contestType == CFContestType.CF) {
                 val hacksInfo = ProblemInfo(
-                    letter = "*",
-                    name = "Hacks",
+                    displayName = "*",
+                    fullName = "Hacks",
                     id = -1,
                     ordinal = -1,
                     contestSystemId = "hacks",
@@ -68,7 +68,7 @@ internal class CFContestInfo {
                     maxScore = null,
                     scoreMergeMode = ScoreMergeMode.SUM,
                 )
-                problemsMap[hacksInfo.letter] = hacksInfo
+                problemsMap[hacksInfo.displayName] = hacksInfo
                 problems.add(hacksInfo)
             }
         }
