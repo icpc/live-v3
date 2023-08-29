@@ -42,6 +42,12 @@ object PCMSExporter {
         Verdict.Rejected -> "wrong-answer"
     }
 
+    fun ContestStatus.toPcmsStatus() = when (this) {
+        ContestStatus.FINALIZED, ContestStatus.OVER -> "over"
+        ContestStatus.RUNNING -> "running"
+        ContestStatus.BEFORE -> "before"
+    }
+
 
     private fun Element.buildContestNode(info: ContestInfo) {
         setAttribute("name", info.name)
@@ -49,7 +55,7 @@ object PCMSExporter {
         setAttribute("start-time", info.startTime.toString())
         setAttribute("start-time-millis", info.startTime.toEpochMilliseconds().toString())
         setAttribute("length", info.contestLength.inWholeSeconds.toString())
-        setAttribute("status", info.status.name.lowercase())
+        setAttribute("status", info.status.toPcmsStatus())
         setAttribute("frozen", "no")
         setAttribute("freeze-time", info.freezeTime.toIsoString())
         setAttribute("freeze-time-millis", info.freezeTime.inWholeMilliseconds.toString())

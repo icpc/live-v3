@@ -17,7 +17,7 @@ internal abstract class FullReloadContestDataSource(val interval: Duration) : Co
 
     override fun getFlow() = loopFlow(
         interval,
-        { getLogger(ContestDataSource::class).error("Failed to reload data, retrying", it) }
+        { getLogger(FullReloadContestDataSource::class).error("Failed to reload data, retrying", it) }
     ) {
         loadOnce()
     }.flowOn(Dispatchers.IO)
@@ -25,6 +25,7 @@ internal abstract class FullReloadContestDataSource(val interval: Duration) : Co
         .transformWhile {
             val isFinal = it.contestInfo.status == ContestStatus.FINALIZED || (autoFinalize && it.isAutoFinal())
             if (isFinal) {
+                getLogger(FullReloadContestDataSource::class).info("Finalizing contest")
                 emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.OVER)))
             } else {
                 emit(InfoUpdate(it.contestInfo))
