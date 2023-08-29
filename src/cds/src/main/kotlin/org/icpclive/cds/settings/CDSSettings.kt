@@ -17,6 +17,7 @@ import org.icpclive.cds.atcoder.AtcoderDataSource
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
 import org.icpclive.cds.clics.FeedVersion
+import org.icpclive.cds.cms.CmsDataSource
 import org.icpclive.cds.codedrills.CodeDrillsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.ContestDataSource
@@ -238,6 +239,19 @@ class AtcoderSettings(
 ) : CDSSettings() {
     override fun toDataSource(creds: Map<String, String>) = AtcoderDataSource(this)
 }
+
+@SerialName("cms")
+@Serializable
+class CmsSettings(
+    val url: String,
+    val activeContest: String,
+    val otherContests: List<String>,
+    override val network: NetworkSettings? = null,
+    override val emulation: EmulationSettings? = null
+) : CDSSettings() {
+    override fun toDataSource(creds: Map<String, String>) = CmsDataSource(this)
+}
+
 
 @OptIn(ExperimentalSerializationApi::class)
 fun parseFileToCdsSettings(path: Path) : CDSSettings {

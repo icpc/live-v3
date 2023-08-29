@@ -271,6 +271,60 @@
             "type": "object",
             "properties": {
                 "type": {
+                    "const": "cms"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "activeContest": {
+                    "type": "string"
+                },
+                "otherContests": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "activeContest",
+                "otherContests"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
                     "const": "codedrills"
                 },
                 "url": {
