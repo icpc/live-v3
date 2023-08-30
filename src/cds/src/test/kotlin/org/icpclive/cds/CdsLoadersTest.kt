@@ -2,6 +2,7 @@ package org.icpclive.cds
 
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.approvaltests.Approvals
@@ -16,6 +17,7 @@ import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.settings.*
 import kotlin.test.Test
 import kotlin.text.Regex
+import kotlin.time.Duration.Companion.minutes
 
 class CdsLoadersTest {
     @Test
@@ -103,12 +105,14 @@ class CdsLoadersTest {
     private fun loaderTest(args: CDSSettings, advanced: AdvancedProperties? = null) {
         val loader = args.toFlow(emptyMap())
         val result = runBlocking {
-            val result = loader.contestState().first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }.let {
-                ContestParseResult(
-                    it.infoAfterEvent!!,
-                    it.runs.values.toList(),
-                    it.analyticsMessages.values.toList()
-                )
+            val result = withTimeout(1.minutes) {
+                loader.contestState().first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }.let {
+                    ContestParseResult(
+                        it.infoAfterEvent!!,
+                        it.runs.values.toList(),
+                        it.analyticsMessages.values.toList()
+                    )
+                }
             }
             if (advanced != null) {
                 result.copy(
