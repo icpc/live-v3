@@ -26,8 +26,8 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
 
     override suspend fun loadOnce(): ContestParseResult {
         val data = loader.load().groupBy(
-                keySelector = { it.split(" ", limit = 2)[0] },
-                valueTransform = { it.split(" ", limit = 2)[1] }
+                keySelector = { it.split(" ", limit = 2)[0].trim() },
+                valueTransform = { it.split(" ", limit = 2)[1].trim() }
             ).also {
                 println(it)
             }
