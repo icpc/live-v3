@@ -19,9 +19,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                 it,
                 eofPosition + 1, it.size - eofPosition - 1,
                 Charset.forName("windows-1251")
-            ).also {
-                println("Downlaoded data: $it")
-            }
+            )
         }.map {
             it.split("\r\n").filter(String::isNotEmpty)
         }
@@ -30,7 +28,9 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val data = loader.load().groupBy(
                 keySelector = { it.split(" ", limit = 2)[0] },
                 valueTransform = { it.split(" ", limit = 2)[1] }
-            )
+            ).also {
+                println(it)
+            }
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
