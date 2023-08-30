@@ -18,6 +18,8 @@ grpc = "1.57.0"                    # https://github.com/grpc/grpc
 grpc-kotlin = "1.3.1"              # https://github.com/grpc/grpc-kotlin
 dokka = "1.8.20"                   # https://github.com/Kotlin/dokka
 retrofit = "2.9.0"                 # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit/2.9.0
+json5 = "0.3.0"                    # https://github.com/xn32/json5k
+approvaltests = "18.7.1"           # https://github.com/approvals/ApprovalTests.Java
 
 [libraries]
 
@@ -48,6 +50,8 @@ kotlinx-serialization-properties = { version.ref = "serialization", group = "org
 kotlinx-coroutines-core    = { version.ref = "coroutines", group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
 kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable"}
 
+kotlinx-serialization-json5 = { version.ref = "json5", group = "io.github.xn32", name = "json5k" }
+
 
 kotlin-serialization-plugin = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-serialization" }
 kotlin-gradle-plugin        = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin" }
@@ -73,6 +77,9 @@ grpc-gen-kotlin = { version.ref = "grpc-kotlin", group = "io.grpc", name = "prot
 
 protobuf = { version.ref = "protobuf", group = "com.google.protobuf", name = "protobuf-kotlin" }
 protoc = { version.ref = "protobuf", group = "com.google.protobuf", name = "protoc" }
+
+approvaltests = { version.ref = "approvaltests", group = "com.approvaltests", name = "approvaltests" }
+
 [plugins]
 
 ktor = { id = "io.ktor.plugin",  version.ref = "ktor" }

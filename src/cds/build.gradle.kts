@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.ktor.client.websockets)
     implementation(libs.ktor.client.logging)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.json5)
     implementation(libs.kotlinx.serialization.properties)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
@@ -82,10 +83,9 @@ dependencies {
     implementation(libs.protobuf)
     implementation(kotlin("reflect"))
 
-    implementation("io.github.xn32:json5k:0.3.0")
 
     implementation(projects.common)
 
     testImplementation(libs.kotlin.junit)
-    testImplementation("com.approvaltests:approvaltests:18.6.0")
+    testImplementation(libs.approvaltests)
 }
