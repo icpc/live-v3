@@ -1,0 +1,38 @@
+{
+  "teamOverrides": {
+    "HUN5" : {"isOutOfContest": true },
+    "HUN6" : {"isOutOfContest": true },
+    "HUN7" : {"isOutOfContest": true },
+    "HUN8" : {"isOutOfContest": true }
+  },
+  "scoreboardOverrides": {
+    "medals": [
+      {
+        "name": "gold",
+        "count": 30,
+        "tiebreakMode": "ALL"
+      },
+      {
+        "name": "silver",
+        "count": 59,
+        "tiebreakMode": "ALL"
+      },
+      {
+        "name": "bronze",
+        "count": 89,
+        "tiebreakMode": "NONE"
+      }
+    ]
+  },
+  "problemOverrides": {
+    "closing": {
+      "displayName": "A1"
+    },
+    "longesttrip": {
+      "displayName": "B1"
+    },
+    "soccer": {
+      "displayName": "C1"
+    }
+  }
+}
