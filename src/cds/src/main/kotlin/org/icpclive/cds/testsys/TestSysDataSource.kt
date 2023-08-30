@@ -21,7 +21,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                 Charset.forName("windows-1251")
             )
         }.map {
-            it.split("\r\n").filter(String::isNotEmpty)
+            it.split("\r\n", "\n").filter(String::isNotEmpty)
         }
 
     override suspend fun loadOnce(): ContestParseResult {
