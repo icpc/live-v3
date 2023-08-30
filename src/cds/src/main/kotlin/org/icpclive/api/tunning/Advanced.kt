@@ -122,7 +122,7 @@ data class OrganizationInfoOverride(
  * @param teamRegexes Bunch of regexes to extract information cds doesn't provide from team name.
  * @param teamOverrides Overrides for a specific team. Team id from the contest system is key.
  * @param groupOverrides Overrides for specific groups. Group name is key.
- * @param problemOverrides Overrides for specific problems. Problem letter is key.
+ * @param problemOverrides Overrides for specific problems. Problem id from the contest system is key.
  * @param scoreboardOverrides Overrides of scoreboard calculation settings
  */
 @Serializable
