@@ -19,7 +19,9 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                 it,
                 eofPosition + 1, it.size - eofPosition - 1,
                 Charset.forName("windows-1251")
-            )
+            ).also {
+                println("Downlaoded data: $it")
+            }
         }.map {
             it.split("\r\n").filter(String::isNotEmpty)
         }
