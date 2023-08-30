@@ -54,7 +54,6 @@ tasks {
     }
     val copySchema = register<Copy>("copySchema") {
         val genTask = project(":schema-generator").tasks["gen"]
-        dependsOn(genTask)
         from(genTask.dependsOn)
         destinationDir = schemasBuildPath.resolve("schemas")
     }
