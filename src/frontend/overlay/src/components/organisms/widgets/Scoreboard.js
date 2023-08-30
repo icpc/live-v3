@@ -226,7 +226,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, rankWidth, nameWidth, sumPenW
             width={nameGrows ? undefined : (nameWidth ?? SCOREBOARD_NAME_WIDTH)}
             canGrow={nameGrows ?? false} canShrink={nameGrows ?? false}/>
         <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
-            {scoreboardData === null ? null : formatScore(scoreboardData.totalScore)}
+            <TextShrinkingCell text={scoreboardData === null ? null : formatScore(scoreboardData.totalScore)} align={"center"}/>
         </ScoreboardStatCell>
         {needPenalty(contestData) && <ScoreboardStatCell width={sumPenWidth ?? SCOREBOARD_SUM_PEN_WIDTH}>
             {scoreboardData === null ? null : formatPenalty(contestData, scoreboardData.penalty)}
