@@ -18,7 +18,7 @@ private object Trigger : AdvancedAdapterEvent
 
 internal object AdvancedPropertiesAdapter
 
-private val templateRegex = kotlin.text.Regex("\\{(.*)}")
+private val templateRegex = kotlin.text.Regex("\\{([a-z0-9A-Z_-]*)}")
 
 private fun String.applyTemplate(valueProvider: (String) -> String?) =
     replace(templateRegex) { valueProvider(it.groups[1]!!.value) ?: it.value }
