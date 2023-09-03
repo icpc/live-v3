@@ -1,0 +1,44 @@
+{
+    "problemOverrides": {
+      "SC2022CEOI13prize": {
+        "displayName": "A1"
+      },
+      "SC2022CEOI11abracadabra": {
+        "displayName": "B1"
+      },
+      "SC2022CEOI12homework": {
+        "displayName": "C1"
+      },
+      "SC2022CEOI22measures": {
+        "displayName": "A2"
+      },
+      "SC2022CEOI21drawing": {
+        "displayName": "B2"
+      },
+      "SC2022CEOI23parking": {
+        "displayName": "C2"
+      }
+    },
+    "scoreboardOverrides": {
+        "medals": [
+          {
+            "name": "gold",
+            "count": 5,
+            "tiebreakMode": "ALL"
+          },
+          {
+            "name": "silver",
+            "count": 8,
+            "tiebreakMode": "ALL"
+          },
+          {
+            "name": "bronze",
+            "count": 12,
+            "tiebreakMode": "NONE"
+          }
+        ]
+    },
+  "teamOverrideTemplate": {
+    "displayName": "[{country}] {first_name} {last_name}"
+  }
+}
