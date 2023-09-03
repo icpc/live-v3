@@ -114,7 +114,8 @@ internal class ClicsModel(
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             holdBeforeStartTime = holdBeforeStartTime,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
-            organizationList = organisations.values.map { it.toApi() }
+            organizationList = organisations.values.map { it.toApi() },
+            cdsSupportsFinalization = true
         )
 
     fun processContest(contest: Contest): List<RunInfo> {

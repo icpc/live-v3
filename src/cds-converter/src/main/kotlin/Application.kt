@@ -68,16 +68,16 @@ object PCMSDumpCommand : CliktCommand(name = "pcms", help = "Dump pcms xml", pri
         val flow = getFlow(
             fileJsonContentFlow<AdvancedProperties>(CommonOptions.advancedJsonPath, logger, AdvancedProperties()),
             logger
-        ).stateGroupedByTeam()
+        )
         val data = runBlocking {
             logger.info("Waiting till contest become finalized...")
-            val result = flow.first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }
+            val result = flow.finalContestState()
             logger.info("Loaded contest data")
             result
         }
         val dump = PCMSExporter.format(
             data.infoAfterEvent!!,
-            data.runs,
+            data.runs.values.groupBy { it.teamId },
         )
         output.toFile().printWriter().use {
             it.println(dump)

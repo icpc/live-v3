@@ -82,7 +82,7 @@ object PCMSExporter {
         setAttribute("id", teamInfo.contestSystemId)
         // setAttribute("time", "")
         setAttribute("alias", teamInfo.contestSystemId)
-        setAttribute("penalty", row.penalty.toString())
+        setAttribute("penalty", row.penalty.inWholeMinutes.toString())
         setAttribute("solved", row.totalScore.toInt().toString())
         val runsByProblem = runs.groupBy { it.problemId }
         row.problemResults.forEachIndexed { index, probResult ->

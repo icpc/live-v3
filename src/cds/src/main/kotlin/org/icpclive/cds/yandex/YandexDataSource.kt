@@ -102,17 +102,7 @@ internal class YandexDataSource(settings: YandexSettings, creds: Map<String, Str
             }.flatMapConcat { it.asFlow() }
             emitAll(merge(allRunsFlow, rawContestInfoFlow.map { InfoUpdate(it.toApi()) }))
         }
-    }.withGroupedRuns({ it.result != null })
-        .transformWhile {
-            emit(it.event)
-            if (it.infoAfterEvent?.status == ContestStatus.OVER  && it.runs[false].isNullOrEmpty()) {
-                emit(InfoUpdate(it.infoAfterEvent!!.copy(status = ContestStatus.FINALIZED)))
-                log.info("Contest finished. Finalizing.")
-                false
-            } else {
-                true
-            }
-        }
+    }
 
     companion object {
         private val log = getLogger(YandexDataSource::class)

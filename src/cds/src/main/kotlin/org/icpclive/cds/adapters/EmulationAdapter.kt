@@ -16,15 +16,14 @@ private val logger = getLogger(EmulationAdapter::class)
 
 internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSpeed: Double) = flow {
     val scope = CoroutineScope(currentCoroutineContext())
-    val stateFlow = contestState().stateIn(scope)
-    scope.launch {
-        delay(1.seconds)
-        while (stateFlow.value.infoAfterEvent?.status != ContestStatus.FINALIZED) {
-            logger.info("Waiting for contest to become Finalized to start emulation...")
+    val logJob = scope.launch {
+        while (true) {
             delay(1.seconds)
+            logger.info("Waiting for contest to become Finalized to start emulation...")
         }
     }
-    val state = stateFlow.first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }
+    val state = finalContestState()
+    logJob.cancel()
     val finalContestInfo = state.infoAfterEvent!!
     val runs = state.runs.values.toList()
     val analyticsMessages = state.analyticsMessages.values.toList()

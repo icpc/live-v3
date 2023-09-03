@@ -11,9 +11,7 @@ import kotlin.time.Duration
 internal abstract class FullReloadContestDataSource(val interval: Duration) : ContestDataSource {
     abstract suspend fun loadOnce(): ContestParseResult
 
-    open val autoFinalize = true
-    private fun ContestParseResult.isAutoFinal() =
-        contestInfo.status == ContestStatus.OVER && runs.all { it.result != null }
+    var isOver = false
 
     override fun getFlow() = loopFlow(
         interval,
@@ -22,21 +20,17 @@ internal abstract class FullReloadContestDataSource(val interval: Duration) : Co
         loadOnce()
     }.flowOn(Dispatchers.IO)
         .conflate()
-        .transformWhile {
-            val isFinal = it.contestInfo.status == ContestStatus.FINALIZED || (autoFinalize && it.isAutoFinal())
-            if (isFinal) {
-                getLogger(FullReloadContestDataSource::class).info("Finalizing contest")
-                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.OVER)))
+        .transform {
+            if (!isOver && it.contestInfo.status == ContestStatus.OVER) {
+                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.RUNNING)))
             } else {
                 emit(InfoUpdate(it.contestInfo))
             }
             it.runs.forEach { run -> emit(RunUpdate(run)) }
             it.analyticsMessages.forEach { msg -> emit(AnalyticsUpdate(msg)) }
-            if (isFinal) {
-                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.FINALIZED)))
-                false
-            } else {
-                true
+            if (!isOver && it.contestInfo.status == ContestStatus.OVER) {
+                isOver = true
+                emit(InfoUpdate(it.contestInfo))
             }
         }
 }

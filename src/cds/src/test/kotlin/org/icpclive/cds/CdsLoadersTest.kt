@@ -1,6 +1,5 @@
 package org.icpclive.cds
 
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.encodeToString
@@ -8,10 +7,9 @@ import kotlinx.serialization.json.Json
 import org.approvaltests.Approvals
 import org.approvaltests.core.Options
 import org.icpclive.api.ContestResultType
-import org.icpclive.api.ContestStatus
 import org.icpclive.api.tunning.*
 import org.icpclive.cds.adapters.applyAdvancedProperties
-import org.icpclive.cds.adapters.contestState
+import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.settings.*
@@ -106,7 +104,7 @@ class CdsLoadersTest {
         val loader = args.toFlow(emptyMap())
         val result = runBlocking {
             val result = withTimeout(1.minutes) {
-                loader.contestState().first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }.let {
+                loader.finalContestState().let {
                     ContestParseResult(
                         it.infoAfterEvent!!,
                         it.runs.values.toList(),

@@ -2,8 +2,7 @@ package org.icpclive.api
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 import org.icpclive.util.*
 import java.awt.Color
 import kotlin.time.Duration
@@ -257,13 +256,14 @@ data class ContestInfo(
     val emulationSpeed: Double = 1.0,
     val medals: List<MedalType> = emptyList(),
     val penaltyPerWrongAttempt: Duration = 20.minutes,
+    @Transient
+    val cdsSupportsFinalization: Boolean = false,
 ) {
     val currentContestTime
         get() = when (status) {
             ContestStatus.BEFORE -> Duration.ZERO
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
-            ContestStatus.OVER -> contestLength
-            ContestStatus.FINALIZED -> contestLength
+            ContestStatus.OVER, ContestStatus.FINALIZED -> contestLength
         }
     val groups by lazy { groupList.associateBy { it.name } }
     val teams by lazy { teamList.associateBy { it.id } }
