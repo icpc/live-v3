@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.run as runTask
+
 plugins {
     application
     alias(libs.plugins.kotlin.jvm)
@@ -5,30 +7,16 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-version = rootProject.findProperty("build_version")!!
-
 application {
-    mainClass.set("org.icpclive.reacbot.BotKt")
+    mainClass = "org.icpclive.reacbot.BotKt"
 }
 
-tasks {
-    jar {
-        archiveFileName.set("reactions-bot-${project.version}-part.jar")
-    }
-    shadowJar {
-        archiveFileName.set("reactions-bot-${project.version}.jar")
-    }
-    named<JavaExec>("run") {
-        val args = mutableListOf<String>()
-        project.properties["live.dev.token"]?.let { args += listOf("-token", it.toString()) }
-        project.properties["live.dev.video"]?.let { args += listOf("-video", it.toString()) }
-        this.args = args
-        this.workingDir(rootDir.resolve("reactions-bot"))
-    }
-    task<Copy>("release") {
-        from(shadowJar)
-        destinationDir = rootProject.rootDir.resolve("artifacts")
-    }
+tasks.runTask {
+    val args = mutableListOf<String>()
+    project.properties["live.dev.token"]?.let { args += listOf("-token", it.toString()) }
+    project.properties["live.dev.video"]?.let { args += listOf("-video", it.toString()) }
+    this.args = args
+    this.workingDir(rootDir.resolve("reactions-bot"))
 }
 
 repositories {

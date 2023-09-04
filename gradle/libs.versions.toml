@@ -79,7 +79,6 @@ protoc = { version.ref = "protobuf", group = "com.google.protobuf", name = "prot
 
 [plugins]
 
-ktor = { id = "io.ktor.plugin",  version.ref = "ktor" }
 node = { id = "com.github.node-gradle.node", version.ref = "node-plugin" }
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow-plugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

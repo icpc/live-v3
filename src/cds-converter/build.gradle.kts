@@ -1,19 +1,14 @@
+import org.gradle.kotlin.dsl.run as runTask
+
 plugins {
+    application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ktor)
+    alias(libs.plugins.shadow)
 }
 
-group = "org.icpclive"
-version = rootProject.findProperty("build_version")!!
 application {
-    mainClass.set("org.icpclive.ApplicationKt")
-}
-
-ktor {
-    fatJar {
-        archiveFileName.set("${project.name}-${project.version}.jar")
-    }
+    mainClass = "org.icpclive.ApplicationKt"
 }
 
 kotlin {
@@ -24,26 +19,13 @@ kotlin {
     }
 }
 
-tasks {
-    jar {
-        archiveFileName.set("${project.name}-${project.version}-part.jar")
+tasks.runTask {
+    this.args = buildList {
+        add("server")
+        project.properties["live.dev.credsFile"]?.let { add("--creds=${it}") }
+        project.properties["live.dev.contest"]?.let { add("--config-directory=${it}") }
     }
-    named<JavaExec>("run") {
-        this.args = buildList {
-            add("server")
-            project.properties["live.dev.credsFile"]?.let { add("--creds=${it}") }
-            project.properties["live.dev.contest"]?.let { add("--config-directory=${it}") }
-        }
-        this.workingDir(rootDir.resolve("config"))
-    }
-    task<Copy>("release") {
-        from(shadowJar)
-        destinationDir = rootProject.rootDir.resolve("artifacts")
-    }
-}
-
-repositories {
-    mavenCentral()
+    this.workingDir(rootDir.resolve("config"))
 }
 
 dependencies {
@@ -64,6 +46,7 @@ dependencies {
     implementation(libs.cli)
     implementation(projects.cds)
     implementation(projects.common)
+
     testImplementation(libs.kotlin.junit)
     testImplementation(libs.ktor.server.tests)
 }

@@ -6,8 +6,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.protobuf)
-    base
-    idea
 }
 
 protobuf {
@@ -33,7 +31,6 @@ protobuf {
             }
         }
     }
-    base
 }
 
 tasks.dokkaHtml {
@@ -56,15 +53,6 @@ tasks.dokkaHtml {
     }
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.create<Copy>("doc") {
-    from(tasks.dokkaHtml)
-    destinationDir = rootProject.rootDir.resolve("_site/cds")
-}
-
 dependencies {
     implementation(libs.logback)
     implementation(libs.ktor.client.cio)
@@ -82,8 +70,6 @@ dependencies {
     implementation(libs.grpc.stub)
     implementation(libs.protobuf)
     implementation(kotlin("reflect"))
-
-
     implementation(projects.common)
 
     testImplementation(libs.kotlin.junit)

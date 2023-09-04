@@ -1,19 +1,18 @@
+import org.gradle.kotlin.dsl.run as runTask
+
 plugins {
+    application
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ktor)
+    alias(libs.plugins.shadow)
 }
 
-group = "org.icpclive"
-version = rootProject.findProperty("build_version")!!
+base {
+    archivesName = rootProject.name
+}
+
 application {
-    mainClass.set("org.icpclive.ApplicationKt")
-}
-
-ktor {
-    fatJar {
-        archiveFileName.set("${rootProject.name}-${project.version}.jar")
-    }
+    mainClass = "org.icpclive.ApplicationKt"
 }
 
 kotlin {
@@ -25,65 +24,32 @@ kotlin {
 }
 
 tasks {
-    shadowJar {
-        mergeServiceFiles()
-    }
-    named<JavaExec>("run") {
+    runTask {
         this.args = listOfNotNull(
             "--no-auth",
-            project.properties["live.dev.credsFile"]?.let { "--creds=$it"},
-            project.properties["live.dev.widgetPositionsFile"]?.let { "--widget-positions=$it"},
+            project.properties["live.dev.credsFile"]?.let { "--creds=$it" },
+            project.properties["live.dev.widgetPositionsFile"]?.let { "--widget-positions=$it" },
             project.properties["live.dev.contest"]?.let { "--config-directory=$it" },
             project.properties["live.dev.analyticsTemplatesFile"]?.let { "--analytics-template=$it" },
         )
-        this.workingDir(rootDir.resolve("config"))
+        this.workingDir = rootDir.resolve("config")
     }
-    task<Copy>("release") {
-        from(shadowJar)
-        destinationDir = rootProject.rootDir.resolve("artifacts")
-    }
-    val jsBuildPath = project.buildDir.resolve("js")
-    val schemasBuildPath = project.buildDir.resolve("schemas")
-    val copyJsAdmin = register<Copy>("copyJsAdmin") {
-        from(project(":frontend").tasks["npm_run_buildAdmin"])
-        destinationDir = jsBuildPath.resolve("admin")
-    }
-    val copyJsOverlay = register<Copy>("copyJsOverlay") {
-        from(project(":frontend").tasks["npm_run_buildOverlay"])
-        destinationDir = jsBuildPath.resolve("overlay")
-    }
-    val copySchema = register<Copy>("copySchema") {
-        val genTask = project(":schema-generator").tasks["gen"]
-        from(genTask.dependsOn)
-        destinationDir = schemasBuildPath.resolve("schemas")
-    }
-    register("buildJs") {
-        dependsOn(copyJsAdmin, copyJsOverlay)
-        outputs.dir(jsBuildPath)
-    }
-    register("buildSchema") {
-        dependsOn(copySchema)
-        outputs.dir(schemasBuildPath)
-    }
-}
 
-
-
-sourceSets {
-    main {
-        resources {
-            if (project.properties["live.dev.embedFrontend"] == "true") {
-                srcDirs(tasks["buildJs"].outputs)
+    // Not the best way of doing this, but should work out.
+    processResources {
+        into("schemas") {
+            from(project(":schema-generator").tasks.named("gen"))
+        }
+        if (project.properties["live.dev.embedFrontend"] == "true") {
+            into("admin") {
+                from(project(":frontend").tasks.named("npm_run_buildAdmin"))
             }
-            srcDirs(tasks["buildSchema"].outputs)
+            into("overlay") {
+                from(project(":frontend").tasks.named("npm_run_buildOverlay"))
+            }
         }
     }
 }
-
-repositories {
-    mavenCentral()
-}
-
 
 dependencies {
     implementation(libs.logback)
@@ -104,6 +70,7 @@ dependencies {
     implementation(libs.cli)
     implementation(projects.cds)
     implementation(projects.common)
+
     testImplementation(libs.kotlin.junit)
     testImplementation(libs.ktor.server.tests)
 }

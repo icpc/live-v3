@@ -1,3 +1,7 @@
+plugins {
+    `gradle-enterprise`
+}
+
 rootProject.name = "live-v3"
 
 dependencyResolutionManagement {
@@ -20,3 +24,8 @@ project(":frontend").projectDir = file("src/frontend")
 project(":backend").projectDir = file("src/backend")
 project(":cds-converter").projectDir = file("src/cds-converter")
 project(":schema-generator").projectDir = file("src/schema-generator")
+
+gradleEnterprise.buildScan {
+    termsOfServiceUrl = "https://gradle.com/terms-of-service"
+    termsOfServiceAgree = "yes"
+}
