@@ -1,14 +1,8 @@
 import org.gradle.configurationcache.extensions.capitalized
-import org.jetbrains.kotlin.cli.jvm.main
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
-}
-
-
-repositories {
-    mavenCentral()
 }
 
 val schemaLocation = rootProject.rootDir.resolve("schemas")
@@ -63,6 +57,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(projects.cds)
     implementation(libs.cli)
-    kotlin("reflect")
+    implementation(kotlin("reflect"))
+
     testImplementation(libs.kotlin.junit)
 }

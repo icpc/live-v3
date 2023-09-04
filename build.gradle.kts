@@ -1,28 +1,67 @@
+import com.github.jengelman.gradle.plugins.shadow.ShadowJavaPlugin
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     // versions are set in dependencies block for build.gradle.kts
-    java
+    // apply false brings the plugins into the Gradle script classpath (see import above)
     alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.shadow) apply false
 }
 
+tasks {
+    register<Sync>("release") {
+        destinationDir = rootDir.resolve("artifacts/")
 
-allprojects {
-    tasks {
-        withType<JavaCompile>().all {
-            sourceCompatibility = "11"
-            targetCompatibility = "11"
+        listOf(
+            ":backend",
+            ":cds-converter",
+            ":reactions-bot",
+            ":sniper-tools",
+        ).forEach { projectId ->
+            from(project(projectId).tasks.named("shadowJar"))
         }
-        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
-            kotlinOptions {
-                jvmTarget = "11"
-                kotlinOptions.allWarningsAsErrors = true
-            }
-        }
+    }
+
+    register<Sync>("doc") {
+        destinationDir = rootDir.resolve("_site/cds/")
+
+        from(project(":cds").tasks.named("dokkaHtml"))
     }
 }
 
+subprojects {
+    group = "org.icpclive"
+    version = rootProject.findProperty("build_version")!!
 
-extensions.findByName("buildScan")?.withGroovyBuilder {
-    setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")
-    setProperty("termsOfServiceAgree", "yes")
+    plugins.withType<JavaPlugin> {
+        configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(11)
+            }
+        }
+
+        tasks.named<Jar>("jar") {
+            archiveClassifier = "just"
+        }
+
+        tasks.named<Test>("test") {
+            useJUnitPlatform()
+        }
+    }
+
+    // Technically, Ktor pulls this too, but reconfigures...
+    plugins.withType<ShadowJavaPlugin> {
+        tasks.named<ShadowJar>("shadowJar") {
+            mergeServiceFiles()
+
+            archiveClassifier = null
+        }
+    }
+
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            allWarningsAsErrors = true
+        }
+    }
 }
