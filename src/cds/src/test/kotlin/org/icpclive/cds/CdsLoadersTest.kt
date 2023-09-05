@@ -153,9 +153,7 @@ object CdsLoadersTest {
                 }
             }
             throw AssertionFailedError(
-                "Actual result doesn't match expected in file ${expectedFile}\n" +
-                        "Expected: $expected\n" +
-                        "Actual: $actual\n",
+                "Actual result doesn't match expected in file ${expectedFile}\n",
                 expected,
                 actual,
             )

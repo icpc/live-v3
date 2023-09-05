@@ -137,6 +137,7 @@ class KRSUSettings(
 class EjudgeSettings(
     val url: String,
     val resultType: ContestResultType = ContestResultType.ICPC,
+    val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {

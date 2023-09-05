@@ -3,7 +3,7 @@
         "name": "МКОШП 2022",
         "status": "FINALIZED",
         "resultType": "ICPC",
-        "startTimeUnixMs": 1666515600000,
+        "startTimeUnixMs": 1666512000000,
         "contestLengthMs": 18000000,
         "freezeTimeMs": 14400000,
         "problems": [

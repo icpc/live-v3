@@ -1,11 +1,12 @@
 package org.icpclive.cds.ejudge
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.EjudgeSettings
 import org.icpclive.util.*
 import org.w3c.dom.Element
+import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
@@ -51,10 +52,9 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         }.toList()
 
     private fun parseEjudgeTime(time: String): Instant {
-        val formattedTime = time
-            .replace("/", "-")
-            .replace(" ", "T")
-        return guessDatetimeFormat(formattedTime)
+        return java.time.LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            .toKotlinLocalDateTime()
+            .toInstant(settings.timeZone)
     }
 
     private fun parseContestInfo(element: Element): ContestParseResult {
