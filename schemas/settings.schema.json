@@ -391,6 +391,9 @@
                         "IOI"
                     ]
                 },
+                "timeZone": {
+                    "type": "string"
+                },
                 "emulation": {
                     "type": "object",
                     "properties": {
