@@ -50,10 +50,13 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 organizationId = null
             )
         }.toList()
+    val timePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     private fun parseEjudgeTime(time: String): Instant {
-        return java.time.LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-            .toKotlinLocalDateTime()
+        return java.time.LocalDateTime.parse(
+            time.replace("/", "-"), // snark's ejudge uses '/' instead of '-'
+            timePattern
+        ).toKotlinLocalDateTime()
             .toInstant(settings.timeZone)
     }
 
