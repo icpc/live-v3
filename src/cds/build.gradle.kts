@@ -87,5 +87,4 @@ dependencies {
     implementation(projects.common)
 
     testImplementation(libs.kotlin.junit)
-    testImplementation(libs.approvaltests)
 }

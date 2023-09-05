@@ -4,8 +4,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.approvaltests.Approvals
-import org.approvaltests.core.Options
 import org.icpclive.api.ContestResultType
 import org.icpclive.api.tunning.*
 import org.icpclive.cds.adapters.applyAdvancedProperties
@@ -13,14 +11,20 @@ import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.settings.*
+import org.opentest4j.AssertionFailedError
+import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.text.Regex
 import kotlin.time.Duration.Companion.minutes
 
-class CdsLoadersTest {
+object CdsLoadersTest {
+    private val goldenDataDir = Path.of("").toAbsolutePath().resolve("testData").resolve("loaders").resolve("goldenData")
+    private val updateTestData = false
+
     @Test
-    fun pcmsTest() {
+    fun pcms() {
         loaderTest(
+            goldenDataDir.resolve("pcms.txt"),
             PCMSSettings(
                 url = "testData/loaders/pcms.xml"
             )
@@ -28,8 +32,9 @@ class CdsLoadersTest {
     }
 
     @Test
-    fun pcmsIOITest() {
+    fun pcmsIOI() {
         loaderTest(
+            goldenDataDir.resolve("pcmsIOI.txt"),
             PCMSSettings(
                 resultType = ContestResultType.IOI,
                 url = "testData/loaders/pcms-ioi.xml"
@@ -37,10 +42,21 @@ class CdsLoadersTest {
         )
     }
 
+    @Test
+    fun ejudge() {
+        loaderTest(
+            goldenDataDir.resolve("ejudge.txt"),
+            EjudgeSettings(
+                url = "testData/loaders/ejudge.xml"
+            )
+        )
+    }
+
 
     @Test
-    fun clics202003Test() {
+    fun clics202003() {
         loaderTest(
+            goldenDataDir.resolve("clics202003.txt"),
             ClicsSettings(
                 url = "testData/loaders/clics-2020-03",
                 feedVersion = FeedVersion.`2020_03`
@@ -49,8 +65,9 @@ class CdsLoadersTest {
     }
 
     @Test
-    fun clics202207Test() {
+    fun clics202207() {
         loaderTest(
+            goldenDataDir.resolve("clics202207.txt"),
             ClicsSettings(
                 url = "testData/loaders/clics-2022-07",
                 feedVersion = FeedVersion.`2022_07`
@@ -61,6 +78,7 @@ class CdsLoadersTest {
     @Test
     fun testSys() {
         loaderTest(
+            goldenDataDir.resolve("testSys.txt"),
             TestSysSettings(
                 url = "testData/loaders/testsys.dat"
             )
@@ -70,6 +88,7 @@ class CdsLoadersTest {
     @Test
     fun testSysWithAdvancedOverride() {
         loaderTest(
+            goldenDataDir.resolve("testSysWithAdvancedOverride.txt"),
             TestSysSettings(
                 url = "testData/loaders/testsys.dat"
             ),
@@ -100,7 +119,7 @@ class CdsLoadersTest {
         prettyPrint = true
     }
 
-    private fun loaderTest(args: CDSSettings, advanced: AdvancedProperties? = null) {
+    private fun loaderTest(expectedFile: Path, args: CDSSettings, advanced: AdvancedProperties? = null) {
         val loader = args.toFlow(emptyMap())
         val result = runBlocking {
             val result = withTimeout(1.minutes) {
@@ -124,7 +143,19 @@ class CdsLoadersTest {
                 result
             }
         }
-        val options = Options()
-        Approvals.verify(json.encodeToString(result), options)
+        val actual = json.encodeToString(result)
+        val expected = expectedFile.toFile().takeIf { it.exists() }?.readText() ?: ""
+        if (actual != expected) {
+            if (updateTestData) {
+                expectedFile.toFile().printWriter().use {
+                    it.print(actual)
+                }
+            }
+            throw AssertionFailedError(
+                "Actual result doesn't match expected in file ${expectedFile}",
+                expected,
+                actual,
+            )
+        }
     }
 }
