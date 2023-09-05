@@ -143,16 +143,19 @@ object CdsLoadersTest {
                 result
             }
         }
-        val actual = json.encodeToString(result)
-        val expected = expectedFile.toFile().takeIf { it.exists() }?.readText() ?: ""
+        fun sanitize(s: String) = s.trim().replace(" +$", "").replace(System.lineSeparator(), "\n")
+        val actual = sanitize(json.encodeToString(result))
+        val expected = sanitize(expectedFile.toFile().takeIf { it.exists() }?.readText() ?: "")
         if (actual != expected) {
             if (updateTestData) {
                 expectedFile.toFile().printWriter().use {
-                    it.print(actual)
+                    it.print(actual.replace("\n", System.lineSeparator()))
                 }
             }
             throw AssertionFailedError(
-                "Actual result doesn't match expected in file ${expectedFile}",
+                "Actual result doesn't match expected in file ${expectedFile}\n" +
+                        "Expected: $expected\n" +
+                        "Actual: $actual\n",
                 expected,
                 actual,
             )
