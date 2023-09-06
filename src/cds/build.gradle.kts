@@ -33,23 +33,29 @@ protobuf {
     }
 }
 
-tasks.dokkaHtml {
-    moduleName.set("ICPC-live contest data parser")
-    dokkaSourceSets.configureEach {
-        // should be moved to another package, as reused by exporter
-        perPackageOption {
-            matchingRegex.set("org.icpclive.cds.clics.*")
-            suppress.set(true)
-        }
-        perPackageOption {
-            matchingRegex.set(".*")
-            reportUndocumented.set(true)
-            sourceLink {
-                localDirectory.set(projectDir)
-                remoteUrl.set(URI("https://github.com/icpc/live-v3/tree/main/src/cds").toURL())
-                remoteLineSuffix.set("#L")
+tasks {
+    dokkaHtml {
+        moduleName.set("ICPC-live contest data parser")
+        dokkaSourceSets.configureEach {
+            // should be moved to another package, as reused by exporter
+            perPackageOption {
+                matchingRegex.set("org.icpclive.cds.clics.*")
+                suppress.set(true)
+            }
+            perPackageOption {
+                matchingRegex.set(".*")
+                reportUndocumented.set(true)
+                sourceLink {
+                    localDirectory.set(projectDir)
+                    remoteUrl.set(URI("https://github.com/icpc/live-v3/tree/main/src/cds").toURL())
+                    remoteLineSuffix.set("#L")
+                }
             }
         }
+    }
+
+    test {
+        inputs.dir("testData/")
     }
 }
 
