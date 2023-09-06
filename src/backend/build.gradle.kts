@@ -38,7 +38,7 @@ tasks {
     // Not the best way of doing this, but should work out.
     processResources {
         into("schemas") {
-            from(project(":schema-generator").tasks.named("gen"))
+            from(project(":schema-generator").tasks.named("generateAllSchemas"))
         }
         if (project.properties["live.dev.embedFrontend"] == "true") {
             into("admin") {
