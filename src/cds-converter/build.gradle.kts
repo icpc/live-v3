@@ -29,7 +29,9 @@ tasks.runTask {
 }
 
 dependencies {
-    implementation(libs.logback)
+    implementation(projects.cds)
+    implementation(projects.common)
+    implementation(libs.cli)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.autoHeadResponse)
     implementation(libs.ktor.server.callLogging)
@@ -40,12 +42,6 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.server.websockets)
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.cli)
-    implementation(projects.cds)
-    implementation(projects.common)
 
     testImplementation(libs.kotlin.junit)
     testImplementation(libs.ktor.server.tests)

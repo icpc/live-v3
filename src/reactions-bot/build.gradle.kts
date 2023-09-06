@@ -20,20 +20,26 @@ tasks.runTask {
 }
 
 repositories {
+    // Since we're declaring this, we are overriding repositories in the settings.gradle.kts
     mavenCentral()
-    maven { setUrl("https://jitpack.io") }
+    maven {
+        name = "jitpack"
+        url = uri("https://jitpack.io")
+        content {
+            // This limits this repo to this group
+            includeGroup("io.github.kotlin-telegram-bot.kotlin-telegram-bot")
+        }
+    }
 }
 
 dependencies {
     implementation(projects.cds)
     implementation(projects.common)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.cli)
-    implementation(libs.db.sqlite)
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
-    implementation(libs.telegram.bot)
     implementation(libs.retrofit)
+    implementation(libs.telegram.bot)
+    runtimeOnly(libs.db.sqlite)
 }

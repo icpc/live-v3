@@ -54,10 +54,9 @@ tasks {
 
 
 dependencies {
-    implementation(libs.kotlinx.serialization.json)
-    implementation(projects.cds)
+    implementation(projects.common)
     implementation(libs.cli)
-    implementation(kotlin("reflect"))
+    runtimeOnly(projects.cds)
 
     testImplementation(libs.kotlin.junit)
 }

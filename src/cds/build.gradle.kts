@@ -60,23 +60,17 @@ tasks {
 }
 
 dependencies {
-    implementation(libs.logback)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.ktor.client.auth)
-    implementation(libs.ktor.client.websockets)
-    implementation(libs.ktor.client.logging)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.serialization.json5)
-    implementation(libs.kotlinx.serialization.properties)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.grpc.netty)
+    api(libs.kotlinx.collections.immutable)
+    implementation(projects.common)
     implementation(libs.grpc.protobuf)
     implementation(libs.grpc.stub)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.serialization.json5)
+    implementation(libs.kotlinx.serialization.properties)
+    implementation(libs.ktor.client.auth)
+    implementation(libs.ktor.client.cio)
     implementation(libs.protobuf)
-    implementation(kotlin("reflect"))
-    implementation(projects.common)
+    runtimeOnly(libs.grpc.netty)
 
     testImplementation(libs.kotlin.junit)
 }

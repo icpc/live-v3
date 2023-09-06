@@ -4,10 +4,11 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.ktor.client.cio)
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.coroutines.core)
+    api(libs.kotlinx.coroutines.core)
+    api(libs.kotlinx.datetime)
+    api(libs.kotlinx.serialization.json)
+    api(libs.slf4j)
+    runtimeOnly(libs.logback)
 
     testImplementation(libs.kotlin.junit)
 }
