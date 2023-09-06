@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.icpclive.api.*
 import org.icpclive.api.tunning.AdvancedProperties
+import org.icpclive.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.util.completeOrThrow
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
@@ -23,7 +24,8 @@ object DataBus {
     // flow of run ids that need to be braking news
     val queueFeaturedRunsFlow = CompletableDeferred<FlowCollector<FeaturedRunAction>>()
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()
-    private val scoreboardFlow = Array(OptimismLevel.values().size) { CompletableDeferred<Flow<Scoreboard>>() }
+    private val legacyScoreboardFlow = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<LegacyScoreboard>>() }
+    private val scoreboardFlow = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<ScoreboardAndContestInfo>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
     val advancedPropertiesFlow = CompletableDeferred<Flow<AdvancedProperties>>()
     val analyticsActionsFlow = CompletableDeferred<Flow<AnalyticsAction>>()
@@ -43,9 +45,6 @@ object DataBus {
     val teamInterestingFlow = CompletableDeferred<Flow<List<CurrentTeamState>>>()
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
 
-    fun setScoreboardEvents(level: OptimismLevel, flow: Flow<Scoreboard>) {
-        scoreboardFlow[level.ordinal].completeOrThrow(flow)
-    }
-
+    fun setScoreboardEvents(level: OptimismLevel, flow: Flow<ScoreboardAndContestInfo>) { scoreboardFlow[level.ordinal].completeOrThrow(flow) }
     suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].await()
 }

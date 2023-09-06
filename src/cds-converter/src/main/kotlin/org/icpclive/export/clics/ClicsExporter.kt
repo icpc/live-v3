@@ -10,15 +10,15 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.cds.adapters.stateGroupedByTeam
 import org.icpclive.cds.adapters.withContestInfoBefore
 import org.icpclive.clics.*
 import org.icpclive.clics.Scoreboard
 import org.icpclive.clics.ScoreboardRow
-import org.icpclive.scoreboard.calculateScoreboardWithInfo
+import org.icpclive.scoreboard.calculateScoreboard
 import org.icpclive.util.defaultJsonSettings
 import org.icpclive.util.intervalFlow
 import java.nio.ByteBuffer
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
 typealias EventProducer = (String) -> Event
@@ -359,21 +359,26 @@ object ClicsExporter  {
         //val accountsFlow = eventFeed.filterIdEvent<Account, Event.AccountEvent>(scope)
         //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)
         //val awardsFlow = eventFeed.filterIdEvent<Award, Event.AwardsEvent>(scope)
-        val scoreboardFlow = updates.stateGroupedByTeam()
-            .calculateScoreboardWithInfo(OptimismLevel.NORMAL).map {(info, scorboard) ->
+        val scoreboardFlow = updates
+            .calculateScoreboard(OptimismLevel.NORMAL)
+            .map {
+                val lastSubmitTime = it.scoreboardSnapshot.rows.maxOfOrNull { (_, row) ->
+                    row.problemResults.maxOfOrNull { it.lastSubmitTime ?: Duration.ZERO } ?: Duration.ZERO
+                } ?: Duration.ZERO
                 Scoreboard(
-                    time = info.startTime + scorboard.lastSubmitTime,
-                    contest_time = scorboard.lastSubmitTime,
-                    state = getState(info),
-                    rows = scorboard.rows.map {
+                    time = it.info.startTime + lastSubmitTime,
+                    contest_time = lastSubmitTime,
+                    state = getState(it.info),
+                    rows = it.scoreboardSnapshot.order.zip(it.scoreboardSnapshot.ranks).map { (teamId, rank) ->
+                        val row = it.scoreboardSnapshot.rows[teamId]!!
                         ScoreboardRow(
-                            it.rank,
-                            info.teams[it.teamId]!!.contestSystemId,
-                            ScoreboardRowScore(it.totalScore.toInt(), it.penalty.inWholeMinutes),
-                            it.problemResults.mapIndexed { index, v ->
+                            rank,
+                            it.info.teams[teamId]!!.contestSystemId,
+                            ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
+                            row.problemResults.mapIndexed { index, v ->
                                 val iv = v as ICPCProblemResult
                                 ScoreboardRowProblem(
-                                    info.scoreboardProblems[index].contestSystemId,
+                                    it.info.scoreboardProblems[index].contestSystemId,
                                     iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
                                     iv.pendingAttempts,
                                     iv.isSolved,

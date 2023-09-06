@@ -85,14 +85,14 @@ private fun PersistentList<RunInfo>.setAndResort(index: Int, info: RunInfo) = se
 
 internal inline fun <K, V> PersistentMap<K, V>.update(k: K, block: (V?) -> V) = put(k, block(get(k)))
 
-private fun <K> PersistentMap<K, PersistentList<RunInfo>>.addAndResort(k: K, info: RunInfo) = update(k) {
+internal fun <K> PersistentMap<K, PersistentList<RunInfo>>.addAndResort(k: K, info: RunInfo) = update(k) {
     (it ?: persistentListOf()).addAndResort(info)
 }
-private fun <K> PersistentMap<K, PersistentList<RunInfo>>.updateAndResort(k: K, info: RunInfo) = update(k) {
+internal fun <K> PersistentMap<K, PersistentList<RunInfo>>.updateAndResort(k: K, info: RunInfo) = update(k) {
     val index = it!!.indexOfFirst { run -> run.id == info.id }
     it.setAndResort(index, info)
 }
-private fun <K> PersistentMap<K, PersistentList<RunInfo>>.removeRun(k: K, info: RunInfo) = update(k) {
+internal fun <K> PersistentMap<K, PersistentList<RunInfo>>.removeRun(k: K, info: RunInfo) = update(k) {
     val index = it!!.indexOfFirst { run -> run.id == info.id }
     it.removeAt(index)
 }
@@ -176,4 +176,4 @@ public fun <K: Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.with
 }
 
 public fun Flow<ContestUpdate>.stateGroupedByTeam(): Flow<ContestStateWithRunsByTeam> =
-    withGroupedRuns({ it.teamId }, ::ContestStateWithRunsByTeam).conflate()
+    withGroupedRuns({ it.teamId }, ::ContestStateWithRunsByTeam)

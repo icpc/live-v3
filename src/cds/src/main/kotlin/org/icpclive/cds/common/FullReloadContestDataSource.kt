@@ -26,7 +26,7 @@ internal abstract class FullReloadContestDataSource(val interval: Duration) : Co
             } else {
                 emit(InfoUpdate(it.contestInfo))
             }
-            it.runs.forEach { run -> emit(RunUpdate(run)) }
+            it.runs.sortedBy { it.time }.forEach { run -> emit(RunUpdate(run)) }
             it.analyticsMessages.forEach { msg -> emit(AnalyticsUpdate(msg)) }
             if (!isOver && it.contestInfo.status == ContestStatus.OVER) {
                 isOver = true
