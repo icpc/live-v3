@@ -1,5 +1,6 @@
 package org.icpclive.service
 
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
@@ -7,6 +8,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.data.DataBus
+import org.icpclive.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.util.getLogger
 import org.icpclive.util.intervalFlow
 import kotlin.time.Duration.Companion.seconds
@@ -119,47 +121,50 @@ class TeamSpotlightService(
     suspend fun run(
         info: StateFlow<ContestInfo>,
         runs: Flow<RunInfo>,
-        scoreboard: Flow<Scoreboard>,
+        scoreboard: Flow<ScoreboardAndContestInfo>,
         // analyticsMessage: Flow<AnalyticsMessage>
         addScoreRequests: Flow<AddTeamScoreRequest>? = null,
     ) {
         val runIds = mutableSetOf<Int>()
-        merge(
-            intervalFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
-            runs.filter { !it.isHidden },
-            addScoreRequests ?: emptyFlow(),
-            DataBus.socialEvents.await(),
-        ).collect { update ->
-            when (update) {
-                is RunInfo -> {
-                    if (update.time + 60.seconds > info.value.currentContestTime) {
-                        if (update.isJudged || update.id !in runIds) {
-                            runIds += update.id
-                            mutex.withLock {
-                                getTeamInQueue(update.teamId).addAccent(TeamRunAccent(update))
+        coroutineScope {
+            val scoreboardState = scoreboard.map { it.scoreboardSnapshot }.stateIn(this)
+            merge(
+                intervalFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
+                runs.filter { !it.isHidden },
+                addScoreRequests ?: emptyFlow(),
+                DataBus.socialEvents.await(),
+            ).collect { update ->
+                when (update) {
+                    is RunInfo -> {
+                        if (update.time + 60.seconds > info.value.currentContestTime) {
+                            if (update.isJudged || update.id !in runIds) {
+                                runIds += update.id
+                                mutex.withLock {
+                                    getTeamInQueue(update.teamId).addAccent(TeamRunAccent(update))
+                                }
                             }
                         }
                     }
-                }
 
-                is ScoreboardPushTrigger -> {
-                    scoreboard.first().rows.filter { it.rank <= settings.scoreboardLowestRank }.forEach {
-                        mutex.withLock {
-                            getTeamInQueue(it.teamId).addAccent(TeamScoreboardPlace(it.rank))
+                    is ScoreboardPushTrigger -> {
+                        scoreboardState.value.order.zip(scoreboardState.value.ranks).takeWhile { it.second <= settings.scoreboardLowestRank }.forEach {
+                            mutex.withLock {
+                                getTeamInQueue(it.first).addAccent(TeamScoreboardPlace(it.second))
+                            }
                         }
                     }
-                }
 
-                is AddTeamScoreRequest -> {
-                    mutex.withLock {
-                        getTeamInQueue(update.teamId).addAccent(ExternalScoreAddAccent(update.score))
-                    }
-                }
-
-                is SocialEvent -> {
-                    update.teamIds.forEach { teamId ->
+                    is AddTeamScoreRequest -> {
                         mutex.withLock {
-                            getTeamInQueue(teamId).addAccent(SocialEventAccent)
+                            getTeamInQueue(update.teamId).addAccent(ExternalScoreAddAccent(update.score))
+                        }
+                    }
+
+                    is SocialEvent -> {
+                        update.teamIds.forEach { teamId ->
+                            mutex.withLock {
+                                getTeamInQueue(teamId).addAccent(SocialEventAccent)
+                            }
                         }
                     }
                 }

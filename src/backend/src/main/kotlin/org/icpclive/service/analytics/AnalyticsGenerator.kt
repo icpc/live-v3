@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.*
+import org.icpclive.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.inputStream
@@ -17,7 +18,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
     suspend fun getFlow(
         contestInfoFlow: StateFlow<ContestInfo>,
         runsFlow: Flow<RunInfo>,
-        scoreboardFlow: Flow<Scoreboard>,
+        scoreboardFlow: Flow<ScoreboardAndContestInfo>,
     ) = flow {
         logger.info("Analytics generator service is started")
         val runs = mutableMapOf<Int, RunAnalyse>()
@@ -26,7 +27,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
                 runs.remove(run.id)
                 return@collect
             }
-            val analysis = runs.processRun(run, scoreboard) ?: return@collect
+            val analysis = runs.processRun(run, scoreboard.scoreboardSnapshot) ?: return@collect
 
             val team = contestInfo.teams[run.teamId] ?: return@collect
             val problem = contestInfo.problems[run.problemId] ?: return@collect
@@ -50,7 +51,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             "{problem.letter}" to problem.displayName,
             "{problem.name}" to problem.fullName,
             "{run.result}" to (analyse.run.result as? ICPCRunResult)?.verdict?.shortName.orEmpty(),
-            "{result.rank}" to analyse.result.rank.toString(),
+            "{result.rank}" to analyse.rank.toString(),
             "{result.solvedProblems}" to analyse.solvedProblems?.takeIf { it > 0 }?.toString().orEmpty(),
             "{result.ioiDifference}" to (analyse.run.result as? IOIRunResult)?.difference?.toString().orEmpty(),
             "{result.ioiScore}" to (analyse.run.result as? IOIRunResult)?.scoreAfter?.toString().orEmpty(),
@@ -105,23 +106,31 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         if (runResult.isFirstToSolveRun) {
             add("accepted-first-to-solve")
         }
-        if (analyse.result.rank == 1) {
+        if (analyse.rank == 1) {
             add("accepted-winner")
         }
-        if (analyse.result.medalType != null) {
+        if (analyse.medalType != null) {
             add("accepted-medal")
-            add("accepted-${analyse.result.medalType}-medal")
+            add("accepted-${analyse.medalType}-medal")
         }
     }
 
     private fun MutableMap<Int, RunAnalyse>.processRun(run: RunInfo, scoreboard: Scoreboard): RunAnalyse? {
-        val result = scoreboard.rows.firstOrNull { it.teamId == run.teamId }
+        val result = scoreboard.rows[run.teamId]
         if (result == null) {
             remove(run.id)
             return null
         }
+        val index = scoreboard.order.indexOf(run.teamId)
 
-        val analyse = getOrPut(run.id) { RunAnalyse(run, Clock.System.now(), result, result) }
+        val analyse = getOrPut(run.id) {
+            val medal = scoreboard.awards.entries.firstOrNull { it.key is Award.Medal && run.teamId in it.value }?.key as? Award.Medal
+            RunAnalyse(
+                run, Clock.System.now(), result,
+                scoreboard.ranks[index],
+                medal?.medalType
+            )
+        }
         analyse.run = run
         analyse.solvedProblems = result.problemResults.count { it is ICPCProblemResult && it.isSolved }
         analyse.result = result
@@ -131,8 +140,9 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
     class RunAnalyse(
         var run: RunInfo,
         val creationTime: Instant,
-        var resultBefore: ScoreboardRow,
-        var result: ScoreboardRow
+        var result: ScoreboardRow,
+        val rank: Int,
+        val medalType: String?,
     ) {
         var solvedProblems: Int? = null
 //        val rankDelta: Int

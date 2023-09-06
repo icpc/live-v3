@@ -25,30 +25,15 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
                 launch { ScoreboardService(OptimismLevel.OPTIMISTIC).run(loaded) }
                 launch { ScoreboardService(OptimismLevel.PESSIMISTIC).run(loaded) }
                 launch { ScoreboardService(OptimismLevel.NORMAL).run(loaded) }
-                launch {
-                    ICPCStatisticsService().run(
-                        DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
-                        DataBus.contestInfoFlow.await()
-                    )
-                }
+                launch { ICPCStatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
             }
 
             ContestResultType.IOI -> {
                 launch { ScoreboardService(OptimismLevel.NORMAL).run(loaded) }
                 DataBus.setScoreboardEvents(OptimismLevel.OPTIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
-                DataBus.setScoreboardEvents(
-                    OptimismLevel.PESSIMISTIC,
-                    DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
-                )
+                DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
 
-                //DataBus.statisticFlow.completeOrThrow(emptyFlow())
-                launch {
-                    IOIStatisticsService().run(
-                        DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
-                        DataBus.contestInfoFlow.await()
-                    )
-                }
-
+                launch { IOIStatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
             }
         }
         val generatedAnalyticsMessages = Config.analyticsTemplatesFile?.let {

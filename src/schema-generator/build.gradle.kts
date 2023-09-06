@@ -92,6 +92,7 @@ tasks {
                 "org.icpclive.api.ContestInfo",
                 "org.icpclive.api.RunInfo",
                 "org.icpclive.api.Scoreboard",
+                "org.icpclive.api.LegacyScoreboard",
                 "org.icpclive.api.MainScreenEvent",
                 "org.icpclive.api.QueueEvent",
                 "org.icpclive.api.AnalyticsEvent",

@@ -208,11 +208,46 @@ export interface Verdict {
 }
 
 export interface Scoreboard {
-  lastSubmitTime: number;
-  rows: ScoreboardRow[];
+  type: ScoreboardUpdateType;
+  rows: PersistentMap;
+  order: number[];
+  ranks: number[];
+  awards: Map<Award, number[]>;
 }
 
-export interface ScoreboardRow {
+export enum ScoreboardUpdateType {
+  DIFF = "DIFF",
+  SNAPSHOT = "SNAPSHOT",
+}
+
+export type PersistentMap = any;
+
+export type Award =
+  | Award.group_champion
+  | Award.medal;
+
+export namespace Award {
+  export enum Type {
+    group_champion = "group_champion",
+    medal = "medal",
+  }
+  
+  export interface group_champion {
+    type: Award.Type.group_champion;
+    group: string;
+  }
+  
+  export interface medal {
+    type: Award.Type.medal;
+    medalType: string;
+  }
+}
+
+export interface LegacyScoreboard {
+  rows: LegacyScoreboardRow[];
+}
+
+export interface LegacyScoreboardRow {
   teamId: number;
   rank: number;
   totalScore: number;

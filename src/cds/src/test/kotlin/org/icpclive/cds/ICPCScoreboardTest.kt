@@ -39,9 +39,11 @@ class ICPCScoreboardTest {
             RunInfo(4, ICPCRunResult(Verdict.Accepted, false), 1.0, 1, 3, 30.minutes),
             RunInfo(5, ICPCRunResult(Verdict.Accepted, false), 1.0, 1, 2, 40.minutes),
         )
-        val scoreboard = getScoreboardCalculator(info, OptimismLevel.NORMAL).getScoreboard(info, runs.groupBy { it.teamId })
-        assertEquals(scoreboard.rows.map { it.rank }, listOf(1, 2, 2, 4))
-        assertEquals(scoreboard.rows.map { it.teamId }, listOf(4, 1, 3, 2))
+        val calculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
+        val scoreboardRows = runs.groupBy { it.teamId }.mapValues { calculator.getScoreboardRow(info, it.value) }
+        val ranking = calculator.getRanking(info, scoreboardRows)
+        assertEquals(ranking.ranks, listOf(1, 2, 2, 4))
+        assertEquals(ranking.order, listOf(4, 1, 3, 2))
     }
 
 }
