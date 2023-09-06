@@ -2,6 +2,7 @@ import com.google.protobuf.gradle.*
 import java.net.URI
 
 plugins {
+    `java-library`
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
