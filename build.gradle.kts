@@ -28,6 +28,9 @@ tasks {
 
         from(project(":cds").tasks.named("dokkaHtml"))
     }
+
+    // If you invoke gen task, :schema-generator:gen will be invoked. It's defined in :schema-generator project
+    // since that project is already aware of global location for schema testing purposes.
 }
 
 subprojects {

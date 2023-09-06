@@ -1,36 +1,48 @@
-import org.gradle.configurationcache.extensions.capitalized
-
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
 }
 
-val schemaLocation = rootProject.rootDir.resolve("schemas")
+val schemasExportLocation = rootProject.rootDir.resolve("schemas/")
+val tmpLocation = buildDir.resolve("tmp/")
+val schemasGenerationLocation = tmpLocation.resolve("schemas/")
+val schemasGatherLocation = buildDir.resolve("schemas/")
 
-fun TaskContainerScope.genTask(classPackage: String, className: String, fileName: String, title: String): Pair<TaskProvider<out Task>, TaskProvider<out Task>>  {
-    val file = buildDir.resolve("schemas").resolve("$fileName.schema.json")
-    val genTask = register<JavaExec>("gen${className.capitalized()}") {
+fun String.capitalize(): String = replaceFirstChar { it.uppercaseChar() }
+
+fun TaskContainerScope.genTask(
+    classPackage: String,
+    className: String,
+    fileName: String,
+    title: String
+): Pair<TaskProvider<out Task>, TaskProvider<out Task>>  {
+    val fullFileName = "$fileName.schema.json"
+    val generatedSchemaFile = schemasGenerationLocation.resolve(fullFileName)
+    val repositorySchemaFile = schemasExportLocation.resolve(fullFileName)
+
+    val genTask = register<JavaExec>("generateSchema${className.capitalize()}") {
         dependsOn(assemble)
         classpath = sourceSets.main.get().runtimeClasspath
         mainClass = "org.icpclive.generator.schema.GenKt"
-        workingDir = buildDir
-        outputs.file(file)
+        workingDir = tmpLocation
+        outputs.file(generatedSchemaFile)
         args = listOf(
             "$classPackage.$className",
-            "--output", file.relativeTo(workingDir).path,
+            "--output", generatedSchemaFile.relativeTo(workingDir).path,
             "--title", title
         )
     }
-    val checkTask = register<Task>("test${className.capitalized()}") {
-       dependsOn(genTask)
-       doLast {
-           fun sanitize(s: String) = s.filter { it.isWhitespace() }
-           val newContent = file.readText()
-           val oldContent = schemaLocation.resolve(file.name).readText()
-           if (newContent != oldContent) {
-               throw IllegalStateException("Json schema for ${className} is outdated. Run `./gradlew :${project.name}:gen` to fix it.")
-           }
-       }
+    val checkTask = register<Task>("testSchema${className.capitalize()}") {
+        group = "verification"
+        dependsOn(genTask)
+        inputs.files(generatedSchemaFile, repositorySchemaFile)
+        doLast {
+            val newContent = generatedSchemaFile.readText()
+            val oldContent = repositorySchemaFile.readText()
+            if (newContent != oldContent) {
+                throw IllegalStateException("Json schema for $className is outdated. Run `./gradlew :${project.name}:gen` to fix it.")
+            }
+        }
     }
     return genTask to checkTask
 }
@@ -38,15 +50,30 @@ fun TaskContainerScope.genTask(classPackage: String, className: String, fileName
 
 tasks {
     val genAndCheckTasks = listOf(
-        genTask("org.icpclive.api.tunning", "AdvancedProperties", "advanced","ICPC live advanced settings"),
-        genTask("org.icpclive.cds.settings", "CDSSettings", "settings","ICPC live settings")
+        genTask("org.icpclive.api.tunning", "AdvancedProperties", "advanced", "ICPC live advanced settings"),
+        genTask("org.icpclive.cds.settings", "CDSSettings", "settings", "ICPC live settings"),
     )
     val genTasks = genAndCheckTasks.map { it.first }
     val checkTasks = genAndCheckTasks.map { it.second }
-    register<Copy>("gen") {
+
+    // Gradle for inter-project dependencies uses outgoing variants. Those are a bit hard to properly set up, so this
+    // project just uses cross-project tasks dependencies (that from the looks of configuration cache aren't welcome,
+    // but they do work and IMHO they aren't going to be deprecated anytime soon). However, I've not found a way to
+    // create a pseudo-task that just combines the output of two other tasks, so let's just copy those two files one
+    // more time.
+    val generateSchemas = register<Sync>("generateAllSchemas") {
+        group = "build"
+        destinationDir = schemasGatherLocation
+
         from(genTasks)
-        destinationDir = schemaLocation
     }
+
+    register<Sync>("gen") {
+        destinationDir = schemasExportLocation
+
+        from(generateSchemas)
+    }
+
     check {
         dependsOn(checkTasks)
     }
