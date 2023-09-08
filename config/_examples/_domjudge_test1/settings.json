@@ -1,6 +1,10 @@
-{ 
-  "login":"live",
-  "password":"$creds.cds_password_pretest_dhaka",
-  "url":"https://cds.storm.vu/api/contests/pretest_dhaka",
-  "type":"clics"
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "login":"live",
+      "password":"$creds.cds_password_pretest_dhaka",
+      "url":"https://cds.storm.vu/api/contests/pretest_dhaka"
+    }
+  ]
 }

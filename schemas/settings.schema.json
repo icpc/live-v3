@@ -182,50 +182,35 @@
                 "type": {
                     "const": "clics"
                 },
-                "url": {
-                    "type": "string"
-                },
-                "login": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "eventFeedName": {
-                    "type": "string"
-                },
-                "feedVersion": {
-                    "enum": [
-                        "2020_03",
-                        "2022_07"
-                    ]
-                },
-                "additionalFeed": {
-                    "type": "object",
-                    "properties": {
-                        "url": {
-                            "type": "string"
+                "feeds": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            },
+                            "login": {
+                                "type": "string"
+                            },
+                            "password": {
+                                "type": "string"
+                            },
+                            "eventFeedName": {
+                                "type": "string"
+                            },
+                            "feedVersion": {
+                                "enum": [
+                                    "2020_03",
+                                    "2022_07"
+                                ]
+                            }
                         },
-                        "login": {
-                            "type": "string"
-                        },
-                        "password": {
-                            "type": "string"
-                        },
-                        "eventFeedName": {
-                            "type": "string"
-                        },
-                        "feedVersion": {
-                            "enum": [
-                                "2020_03",
-                                "2022_07"
-                            ]
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "url"
-                    ]
+                        "additionalProperties": false,
+                        "required": [
+                            "url"
+                        ]
+                    }
                 },
                 "useTeamNames": {
                     "type": "boolean"
@@ -264,7 +249,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url"
+                "feeds"
             ]
         },
         {

@@ -1,0 +1,10 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "login": "live",
+      "password": "secret",
+      "url": "https://cds.swerc.eu/api/contests/swerc2021"
+    }
+  ]
+}

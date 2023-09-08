@@ -1,0 +1,20 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": "icpc-wf/2021/finals",
+      "login": "live",
+      "password": "landed-wafer-state-diner"
+    },
+    {
+      "url": "icpc-wf/2021/finals",
+      "eventFeedName": "commentary-messages",
+      "feedVersion": "2020_03"
+    }
+  ],
+  "useTeamNames": false,
+  "emulation": {
+    "startTime": "now",
+    "speed": 5
+  }
+}

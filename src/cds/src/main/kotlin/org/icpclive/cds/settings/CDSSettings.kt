@@ -185,7 +185,7 @@ public class PCMSSettings(
 }
 
 @Serializable
-public class ClicsLoaderSettings(
+public class ClicsFeed(
     public val url: String,
     public val login: Credential? = null,
     public val password: Credential? = null,
@@ -196,12 +196,7 @@ public class ClicsLoaderSettings(
 @SerialName("clics")
 @Serializable
 public class ClicsSettings(
-    private val url: String,
-    private val login: Credential? = null,
-    private val password: Credential? = null,
-    private val eventFeedName: String = "event-feed",
-    private val feedVersion: FeedVersion = FeedVersion.`2022_07`,
-    public val additionalFeed: ClicsLoaderSettings? = null,
+    public val feeds: List<ClicsFeed>,
     public val useTeamNames: Boolean = true,
     public val mediaBaseUrl: String = "",
     override val emulation: EmulationSettings? = null,
@@ -211,8 +206,6 @@ public class ClicsSettings(
         `2020_03`,
         `2022_07`
     }
-
-    public val mainFeed: ClicsLoaderSettings get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
 
     override fun toDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
 }
