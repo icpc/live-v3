@@ -199,11 +199,11 @@ export const TeamInfo = ({ teamId }) => {
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
-            {scoreboardData ? null : formatScore(scoreboardData?.totalScore, 1)}
+            {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
         {needPenalty(contestInfo) &&
             <ScoreboardStatCell>
-                {scoreboardData ? null : formatPenalty(contestInfo, scoreboardData?.penalty)}
+                {scoreboardData === null ? null : formatPenalty(contestInfo, scoreboardData?.penalty)}
             </ScoreboardStatCell>}
 
     </TeamInfoWrapper>;
