@@ -1,5 +1,7 @@
 package org.icpclive.overlay
 
+import io.ktor.server.application.call
+import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.*
@@ -35,4 +37,5 @@ fun Route.configureOverlayRouting() {
     route("/svgAchievement"){
         configureSvgAtchievementRouting(Config.mediaDirectory)
     }
+    get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
 }

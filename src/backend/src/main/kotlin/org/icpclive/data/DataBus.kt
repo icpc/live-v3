@@ -44,6 +44,7 @@ object DataBus {
     val teamInterestingScoreRequestFlow = CompletableDeferred<Flow<AddTeamScoreRequest>>()
     val teamInterestingFlow = CompletableDeferred<Flow<List<CurrentTeamState>>>()
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
+    val visualConfigFlow = CompletableDeferred<StateFlow<Map<String, String>>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<ScoreboardAndContestInfo>) { scoreboardFlow[level.ordinal].completeOrThrow(flow) }
     suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].await()
