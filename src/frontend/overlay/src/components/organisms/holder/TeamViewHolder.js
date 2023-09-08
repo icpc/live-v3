@@ -199,11 +199,11 @@ export const TeamInfo = ({ teamId }) => {
         <RankCell rank={scoreboardData?.rank} width={NUMWIDTH + "px"} medal={scoreboardData?.medalType}/>
         <TextShrinkingCell text={teamData?.shortName ?? ""} width={NAMEWIDTH + "px"} canGrow={false} canShrink={false}/>
         <ScoreboardStatCell>
-            {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
+            {scoreboardData ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
         {needPenalty(contestInfo) &&
             <ScoreboardStatCell>
-                {scoreboardData === null ? null : formatPenalty(contestInfo, scoreboardData.penalty)}
+                {scoreboardData ? null : formatPenalty(contestInfo, scoreboardData?.penalty)}
             </ScoreboardStatCell>}
 
     </TeamInfoWrapper>;
@@ -279,9 +279,11 @@ export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url,
         client.on("initialized", () => {
             console.log(`Connecting to grabber peer ${peerName} for stream ${streamType}`);
             client.connect({ peerName: peerName }, streamType, (track) => {
-                videoRef.current.srcObject = null;
-                videoRef.current.srcObject = track;
-                videoRef.current.play();
+                if (videoRef.current) {
+                    videoRef.current.srcObject = null;
+                    videoRef.current.srcObject = track;
+                    videoRef.current.play();
+                }
                 console.log(`WebRTCSocket pc2 received remote stream (${peerName}, ${streamType})`);
             });
         });

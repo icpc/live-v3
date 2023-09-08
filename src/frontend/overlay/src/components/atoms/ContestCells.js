@@ -25,7 +25,7 @@ export const formatScore = (score, digits = 2) => {
 };
 
 export const formatPenalty = (contestInfo, penalty) => {
-    if (penalty === undefined) {
+    if (penalty === undefined || penalty === null) {
         return "";
     }
     let mode = contestInfo.penaltyRoundingMode;
