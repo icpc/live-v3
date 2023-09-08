@@ -1,12 +1,10 @@
 @file:Suppress("UNUSED")
 
-package org.icpclive.cds.clics.api
+package org.icpclive.clics
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.clics.ClicsTime
-import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.util.ColorSerializer
 import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
@@ -21,7 +19,7 @@ data class ApiProvider(
 
 @Serializable
 data class ApiInfo(
-    val version: FeedVersion,
+    val version: String,
     val versionUrl: String,
     val provider: ApiProvider
 )

@@ -1,8 +1,8 @@
-package org.icpclive.cds.clics.api
+package org.icpclive.clics
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.clics.api.v1.Event as EventV1
+import org.icpclive.clics.v1.Event as EventV1
 
 interface IdEvent<T> {
     val id: String
@@ -53,7 +53,8 @@ sealed class Event {
 
     @Serializable
     @SerialName("state")
-    data class StateEvent(override val token: String, override val data: State?) : UpdateContestEvent(), GlobalEvent<State>
+    data class StateEvent(override val token: String, override val data: State?) : UpdateContestEvent(),
+        GlobalEvent<State>
 
     @Serializable
     @SerialName("judgement-types")
@@ -63,7 +64,7 @@ sealed class Event {
     @Serializable
     @SerialName("groups")
     data class GroupsEvent(override val id: String, override val token: String, override val data: Group?) :
-        UpdateContestEvent(),IdEvent<Group>
+        UpdateContestEvent(), IdEvent<Group>
 
     @Serializable
     @SerialName("submissions")
@@ -107,7 +108,8 @@ sealed class Event {
 
     @Serializable
     @SerialName("persons")
-    data class PersonEvent(override val id: String, override val token: String, override val data: Person) : IgnoredEvent(), IdEvent<Person>
+    data class PersonEvent(override val id: String, override val token: String, override val data: Person) : IgnoredEvent(),
+        IdEvent<Person>
 
     @Serializable
     @SerialName("map-info")

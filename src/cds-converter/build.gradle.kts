@@ -31,6 +31,7 @@ tasks.runTask {
 dependencies {
     implementation(projects.cds)
     implementation(projects.common)
+    implementation(projects.clicsApi)
     implementation(libs.cli)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.autoHeadResponse)

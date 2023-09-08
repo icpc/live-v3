@@ -16,7 +16,6 @@ import org.icpclive.cds.adapters.toEmulationFlow
 import org.icpclive.cds.atcoder.AtcoderDataSource
 import org.icpclive.cds.cats.CATSDataSource
 import org.icpclive.cds.clics.ClicsDataSource
-import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.cds.cms.CmsDataSource
 import org.icpclive.cds.codedrills.CodeDrillsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
@@ -191,7 +190,7 @@ class ClicsLoaderSettings(
     val login: Credential? = null,
     val password: Credential? = null,
     val eventFeedName: String = "event-feed",
-    val feedVersion: FeedVersion = FeedVersion.`2022_07`
+    val feedVersion: ClicsSettings.FeedVersion = ClicsSettings.FeedVersion.`2022_07`
 )
 
 @SerialName("clics")
@@ -208,6 +207,11 @@ class ClicsSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
+    public enum class FeedVersion {
+        `2020_03`,
+        `2022_07`
+    }
+
     val mainFeed get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
 
     override fun toDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)

@@ -2,7 +2,7 @@ package org.icpclive.cds.clics.model
 
 import org.icpclive.api.MediaType
 import org.icpclive.api.Verdict
-import org.icpclive.cds.clics.api.Problem
+import org.icpclive.clics.Problem
 import kotlin.time.Duration
 
 internal class ClicsRunInfo(
@@ -27,9 +27,9 @@ internal class ClicsRunInfo(
         },
         problemId = liveProblemId,
         teamId = teamId,
-        percentage = when (problem.test_data_count) {
+        percentage = when (val count = problem.test_data_count) {
             null, 0 -> if (judgementType != null) 1.0 else 0.0
-            else -> minOf(passedCaseRun.size.toDouble() / problem.test_data_count, 1.0)
+            else -> minOf(passedCaseRun.size.toDouble() / count, 1.0)
         },
         time = submissionTime,
         reactionVideos = reactionVideos,

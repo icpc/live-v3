@@ -8,7 +8,6 @@ import org.icpclive.api.ContestResultType
 import org.icpclive.api.tunning.*
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.adapters.finalContestState
-import org.icpclive.cds.clics.FeedVersion
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.settings.*
 import org.opentest4j.AssertionFailedError
@@ -59,7 +58,7 @@ object CdsLoadersTest {
             goldenDataDir.resolve("clics202003.txt"),
             ClicsSettings(
                 url = "testData/loaders/clics-2020-03",
-                feedVersion = FeedVersion.`2020_03`
+                feedVersion = ClicsSettings.FeedVersion.`2020_03`
             )
         )
     }
@@ -70,7 +69,7 @@ object CdsLoadersTest {
             goldenDataDir.resolve("clics202207.txt"),
             ClicsSettings(
                 url = "testData/loaders/clics-2022-07",
-                feedVersion = FeedVersion.`2022_07`
+                feedVersion = ClicsSettings.FeedVersion.`2022_07`
             )
         )
     }

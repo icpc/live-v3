@@ -2,7 +2,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.collections.immutable.persistentMapOf
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
@@ -12,11 +12,9 @@ import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.stateGroupedByTeam
 import org.icpclive.cds.adapters.withContestInfoBefore
-import org.icpclive.cds.clics.FeedVersion
-
-import org.icpclive.cds.clics.api.*
-import org.icpclive.cds.clics.api.Scoreboard
-import org.icpclive.cds.clics.api.ScoreboardRow
+import org.icpclive.clics.*
+import org.icpclive.clics.Scoreboard
+import org.icpclive.clics.ScoreboardRow
 import org.icpclive.scoreboard.calculateScoreboardWithInfo
 import org.icpclive.util.defaultJsonSettings
 import org.icpclive.util.intervalFlow
@@ -393,7 +391,7 @@ object ClicsExporter  {
             get {
                 call.respond(
                     ApiInfo(
-                        FeedVersion.`2022_07`,
+                        "2022_07",
                         "https://ccs-specs.icpc.io/2022-07/contest_api",
                         ApiProvider("icpc live")
                     )

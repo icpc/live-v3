@@ -1,7 +1,6 @@
 package org.icpclive.cds.cms
 
 import org.icpclive.api.*
-import org.icpclive.cds.clics.api.Media
 import org.icpclive.cds.cms.model.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource

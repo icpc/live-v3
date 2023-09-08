@@ -7,18 +7,13 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.cds.clics.api.Event
-import org.icpclive.cds.clics.api.Event.*
+import org.icpclive.clics.Event
+import org.icpclive.clics.Event.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
-
-enum class FeedVersion {
-    `2020_03`,
-    `2022_07`
-}
 
 private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Map<String, String>) {
     private val url = settings.url
@@ -137,9 +132,9 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
                 }
 
                 is CommentaryEvent -> {
-                    if (it.data != null) {
+                    it.data?.let { comment ->
                         onComment(
-                            model.processCommentary(it.data)
+                            model.processCommentary(comment)
                         )
                     }
                 }
@@ -193,8 +188,8 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
                     .mapNotNull { data ->
                         try {
                             when (settings.feedVersion) {
-                                FeedVersion.`2020_03` -> Event.fromV1(jsonDecoder.decodeFromString(data))
-                                FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
+                                ClicsSettings.FeedVersion.`2020_03` -> Event.fromV1(jsonDecoder.decodeFromString(data))
+                                ClicsSettings.FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
                             }
                         } catch (e: SerializationException) {
                             logger.error("Failed to deserialize: $data", e)

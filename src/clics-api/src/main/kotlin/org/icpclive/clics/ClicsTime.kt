@@ -1,4 +1,4 @@
-package org.icpclive.cds.clics
+package org.icpclive.clics
 
 import kotlinx.datetime.*
 import kotlinx.serialization.KSerializer
@@ -93,7 +93,9 @@ internal object ClicsTime {
         }
 
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
-    fun formatIso(instant: Instant) = Instant.fromEpochMilliseconds(instant.toEpochMilliseconds()).toJavaInstant().atZone(ZoneId.systemDefault()).format(formatter)
+    fun formatIso(instant: Instant) = Instant.fromEpochMilliseconds(instant.toEpochMilliseconds()).toJavaInstant().atZone(ZoneId.systemDefault()).format(
+        formatter
+    )
 
     object DurationSerializer : KSerializer<Duration> {
         override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ClicsDuration", PrimitiveKind.STRING)

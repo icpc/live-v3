@@ -1,8 +1,8 @@
-package org.icpclive.cds.clics.api.v1
+package org.icpclive.clics.v1
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.clics.api.*
+import org.icpclive.clics.*
 
 @Serializable
 sealed class Event {

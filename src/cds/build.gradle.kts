@@ -38,11 +38,6 @@ tasks {
     dokkaHtml {
         moduleName.set("ICPC-live contest data parser")
         dokkaSourceSets.configureEach {
-            // should be moved to another package, as reused by exporter
-            perPackageOption {
-                matchingRegex.set("org.icpclive.cds.clics.*")
-                suppress.set(true)
-            }
             perPackageOption {
                 matchingRegex.set(".*")
                 reportUndocumented.set(true)
@@ -63,6 +58,7 @@ tasks {
 dependencies {
     api(libs.kotlinx.collections.immutable)
     implementation(projects.common)
+    implementation(projects.clicsApi)
     implementation(libs.grpc.protobuf)
     implementation(libs.grpc.stub)
     implementation(libs.kotlin.reflect)

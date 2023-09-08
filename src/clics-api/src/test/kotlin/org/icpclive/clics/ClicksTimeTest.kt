@@ -1,4 +1,4 @@
-package org.icpclive.cds.clics
+package org.icpclive.clics
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
