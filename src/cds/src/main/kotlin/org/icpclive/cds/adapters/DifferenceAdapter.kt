@@ -49,7 +49,7 @@ private class SumScoreAccumulator : ScoreAccumulator {
     override fun add(score: IOIRunResult) { total += score.score.sum() }
 }
 
-fun Flow<ContestUpdate>.calculateScoreDifferences() = withGroupedRuns(
+public fun Flow<ContestUpdate>.calculateScoreDifferences(): Flow<ContestUpdate> = withGroupedRuns(
     selector = { it.problemId to it.teamId },
     needUpdateGroup = { new, old, key ->
         new.problems[key.first]?.scoreMergeMode != old?.problems?.get(key.first)?.scoreMergeMode

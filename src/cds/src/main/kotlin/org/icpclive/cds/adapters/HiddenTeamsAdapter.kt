@@ -16,7 +16,7 @@ private fun TeamInfo.updateHidden(isHidden: Boolean, isOutOfContest: Boolean) = 
 }
 
 
-fun Flow<ContestUpdate>.processHiddenTeamsAndGroups() =
+public fun Flow<ContestUpdate>.processHiddenTeamsAndGroups(): Flow<ContestUpdate> =
     map {
         if (it is InfoUpdate) {
             InfoUpdate(

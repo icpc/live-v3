@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.icpclive.util.UnixSecondsSerializer
 
 @Serializable
-data class Contest(
+internal data class Contest(
     val name: String,
     @Serializable(with = UnixSecondsSerializer::class)
     val begin: Instant,

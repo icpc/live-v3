@@ -12,8 +12,8 @@ import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
 
 private sealed interface AdvancedAdapterEvent
-private class Update(val update: ContestUpdate) : AdvancedAdapterEvent
-private object Trigger : AdvancedAdapterEvent
+private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent
+private data object Trigger : AdvancedAdapterEvent
 
 
 internal object AdvancedPropertiesAdapter
@@ -38,7 +38,7 @@ private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (
 }
 
 
-fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>) = flow {
+public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> = flow {
     val triggerFlow = Channel<Trigger>()
     val submittedTeams = mutableSetOf<Int>()
     val triggers = mutableSetOf<Instant>()

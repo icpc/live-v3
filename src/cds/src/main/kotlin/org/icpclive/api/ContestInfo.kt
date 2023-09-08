@@ -8,13 +8,13 @@ import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
-enum class MedalTiebreakMode {
+public enum class MedalTiebreakMode {
     NONE,
     ALL
 }
 
 @Serializable
-data class MedalType(
+public data class MedalType(
     val name: String,
     val count: Int,
     val minScore: Double = Double.MIN_VALUE,
@@ -22,11 +22,11 @@ data class MedalType(
 )
 
 @Serializable
-enum class ContestResultType {
+public enum class ContestResultType {
     ICPC, IOI
 }
 
-enum class ScoreMergeMode {
+public enum class ScoreMergeMode {
     /**
      * For each tests group in the problem, get maximum score over all submissions.
      */
@@ -54,7 +54,7 @@ enum class ScoreMergeMode {
 }
 
 @Serializable
-data class ProblemInfo(
+public data class ProblemInfo(
     @SerialName("letter") val displayName: String,
     @SerialName("name") val fullName: String,
     val id: Int,
@@ -65,13 +65,13 @@ data class ProblemInfo(
     @Serializable(ColorSerializer::class) val color: Color? = null,
     val scoreMergeMode: ScoreMergeMode? = null,
 ) {
-    companion object {
+    internal companion object {
         val logger = getLogger(ProblemInfo::class)
     }
 }
 
 @Serializable
-enum class ContestStatus {
+public enum class ContestStatus {
     BEFORE, RUNNING, OVER, FINALIZED;
 
     internal companion object {
@@ -88,20 +88,20 @@ enum class ContestStatus {
 
 
 @Serializable
-sealed class MediaType {
-    abstract val isMedia: Boolean
+public sealed class MediaType {
+    public abstract val isMedia: Boolean
 
     @Serializable
     @SerialName("Photo")
-    data class Photo(val url: String, override val isMedia: Boolean = true) : MediaType()
+    public data class Photo(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("Object")
-    data class Object(val url: String, override val isMedia: Boolean = true) : MediaType()
+    public data class Object(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("Video")
-    data class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
+    public data class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     /**
      * WebRTC proxy connection
@@ -109,7 +109,7 @@ sealed class MediaType {
      */
     @Serializable
     @SerialName("WebRTCProxyConnection")
-    data class WebRTCProxyConnection(val url: String, val audioUrl: String? = null, override val isMedia: Boolean = true) : MediaType()
+    public data class WebRTCProxyConnection(val url: String, val audioUrl: String? = null, override val isMedia: Boolean = true) : MediaType()
 
     /**
      * WebRTC grabber connection
@@ -117,7 +117,7 @@ sealed class MediaType {
      */
     @Serializable
     @SerialName("WebRTCGrabberConnection")
-    data class WebRTCGrabberConnection(
+    public data class WebRTCGrabberConnection(
         val url: String,
         val peerName: String,
         val streamType: String,
@@ -128,11 +128,11 @@ sealed class MediaType {
 
     @Serializable
     @SerialName("TaskStatus")
-    data class TaskStatus(val teamId: Int) : MediaType() {
-        override val isMedia = false
+    public data class TaskStatus(val teamId: Int) : MediaType() {
+        override val isMedia: Boolean = false
     }
 
-    fun noMedia(): MediaType = when (this) {
+    public fun noMedia(): MediaType = when (this) {
         is Photo -> copy(isMedia = false)
         is Video -> copy(isMedia = false)
         is Object -> copy(isMedia = false)
@@ -143,7 +143,7 @@ sealed class MediaType {
 }
 
 @Serializable
-enum class TeamMediaType {
+public enum class TeamMediaType {
     @SerialName("camera")
     CAMERA,
 
@@ -164,7 +164,7 @@ enum class TeamMediaType {
 }
 
 @Serializable
-data class TeamInfo(
+public data class TeamInfo(
     val id: Int,
     @SerialName("name") val fullName: String,
     @SerialName("shortName") val displayName: String,
@@ -179,21 +179,21 @@ data class TeamInfo(
 )
 
 @Serializable
-data class GroupInfo(
+public data class GroupInfo(
     val name: String,
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
 )
 
 @Serializable
-data class OrganizationInfo(
+public data class OrganizationInfo(
     val cdsId: String,
     val displayName: String,
     val fullName: String,
 )
 
 @Serializable
-enum class PenaltyRoundingMode {
+public enum class PenaltyRoundingMode {
     @SerialName("each_submission_down_to_minute")
     /**
      * Round time of all submissions from the beginning of the contest down to whole minute, and then sum them
@@ -228,11 +228,11 @@ enum class PenaltyRoundingMode {
 
 @Target(AnnotationTarget.PROPERTY)
 @RequiresOptIn(level = RequiresOptIn.Level.ERROR, message = "This api is not efficient in most cases, consider using corresponding map instead")
-annotation class InefficientContestInfoApi
+public annotation class InefficientContestInfoApi
 
 @Serializable
 @OptIn(InefficientContestInfoApi::class)
-data class ContestInfo(
+public data class ContestInfo(
     val name: String,
     val status: ContestStatus,
     val resultType: ContestResultType,
@@ -259,16 +259,16 @@ data class ContestInfo(
     @Transient
     val cdsSupportsFinalization: Boolean = false,
 ) {
-    val currentContestTime
+    public val currentContestTime: Duration
         get() = when (status) {
             ContestStatus.BEFORE -> Duration.ZERO
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER, ContestStatus.FINALIZED -> contestLength
         }
-    val groups by lazy { groupList.associateBy { it.name } }
-    val teams by lazy { teamList.associateBy { it.id } }
-    val cdsTeams by lazy { teamList.associateBy { it.contestSystemId } }
-    val organizations by lazy { organizationList.associateBy { it.cdsId } }
-    val problems by lazy { problemList.associateBy { it.id } }
-    val scoreboardProblems by lazy { problemList.sortedBy { it.ordinal } }
+    val groups: Map<String, GroupInfo> by lazy { groupList.associateBy { it.name } }
+    val teams: Map<Int, TeamInfo> by lazy { teamList.associateBy { it.id } }
+    val cdsTeams: Map<String, TeamInfo> by lazy { teamList.associateBy { it.contestSystemId } }
+    val organizations: Map<String, OrganizationInfo> by lazy { organizationList.associateBy { it.cdsId } }
+    val problems: Map<Int, ProblemInfo> by lazy { problemList.associateBy { it.id } }
+    val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal } }
 }

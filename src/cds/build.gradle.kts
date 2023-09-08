@@ -55,6 +55,10 @@ tasks {
     }
 }
 
+kotlin {
+    explicitApi()
+}
+
 dependencies {
     api(libs.kotlinx.collections.immutable)
     implementation(projects.common)

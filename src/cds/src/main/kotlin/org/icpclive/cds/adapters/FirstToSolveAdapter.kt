@@ -8,7 +8,7 @@ import org.icpclive.cds.ContestUpdate
 private fun RunInfo.setICPC(value: Boolean) = copy(result = (result as? ICPCRunResult)?.copy(isFirstToSolveRun = value))
 private fun RunInfo.setIOI(value: Boolean) = copy(result = (result as? IOIRunResult)?.copy(isFirstBestRun = value))
 
-fun Flow<ContestUpdate>.addFirstToSolves() = withGroupedRuns(
+public fun Flow<ContestUpdate>.addFirstToSolves(): Flow<ContestUpdate> = withGroupedRuns(
     selector = {
 
         when (it.result) {

@@ -6,8 +6,8 @@ import org.icpclive.cds.adapters.ContestStateWithRunsByTeam
 import org.icpclive.util.getLogger
 import kotlin.time.Duration
 
-interface ScoreboardCalculator {
-    fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>) : Scoreboard
+public interface ScoreboardCalculator {
+    public fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>) : Scoreboard
 }
 
 internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
@@ -79,7 +79,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
     }
 }
 
-fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel) : ScoreboardCalculator = when (info.resultType) {
+public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel) : ScoreboardCalculator = when (info.resultType) {
     ContestResultType.ICPC -> when (optimismLevel) {
         OptimismLevel.NORMAL -> ICPCNormalScoreboardCalculator()
         OptimismLevel.OPTIMISTIC -> ICPCOptimisticScoreboardCalculator()
@@ -88,7 +88,7 @@ fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel) : S
     ContestResultType.IOI -> IOIScoreboardCalculator()
 }
 
-fun Flow<ContestStateWithRunsByTeam>.calculateScoreboardWithInfo(optimismLevel: OptimismLevel) =
+public fun Flow<ContestStateWithRunsByTeam>.calculateScoreboardWithInfo(optimismLevel: OptimismLevel): Flow<Pair<ContestInfo, Scoreboard>> =
     filter { it.infoAfterEvent != null }
     .conflate()
     .map {
@@ -96,5 +96,5 @@ fun Flow<ContestStateWithRunsByTeam>.calculateScoreboardWithInfo(optimismLevel: 
     }
 
 
-fun Flow<ContestStateWithRunsByTeam>.calculateScoreboard(optimismLevel: OptimismLevel) =
+public fun Flow<ContestStateWithRunsByTeam>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<Scoreboard> =
     calculateScoreboardWithInfo(optimismLevel).map { it.second }

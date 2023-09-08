@@ -34,8 +34,8 @@ import kotlin.time.Duration
 
 @JvmInline
 @Serializable
-value class Credential(private val raw: String) {
-    fun get(creds: Map<String, String>) : String {
+public value class Credential(private val raw: String) {
+    public fun get(creds: Map<String, String>) : String {
         val prefix = "\$creds."
         return if (raw.startsWith(prefix)) {
             val name = raw.substring(prefix.length)
@@ -47,27 +47,27 @@ value class Credential(private val raw: String) {
 }
 
 @Serializable
-class EmulationSettings(
-    val speed: Double,
+public class EmulationSettings(
+    public val speed: Double,
     @Serializable(with = HumanTimeSerializer::class)
-    val startTime: Instant
+    public val startTime: Instant
 )
 
 @Serializable
-class NetworkSettings(
-    val allowUnsecureConnections: Boolean = true
+public class NetworkSettings(
+    public val allowUnsecureConnections: Boolean = true
 )
 
 @Serializable
-sealed class CDSSettings {
-    abstract val emulation: EmulationSettings?
-    abstract val network: NetworkSettings?
+public sealed class CDSSettings {
+    public abstract val emulation: EmulationSettings?
+    public abstract val network: NetworkSettings?
 
     override fun toString(): String {
         return json.encodeToString(this)
     }
 
-    fun toFlow(creds: Map<String, String>) : Flow<ContestUpdate> {
+    public fun toFlow(creds: Map<String, String>) : Flow<ContestUpdate> {
         val raw = toDataSource(creds)
         return when (val emulationSettings = emulation) {
             null -> raw.getFlow()
@@ -83,7 +83,7 @@ sealed class CDSSettings {
 
 @Serializable
 @SerialName("noop")
-class NoopSettings(
+public class NoopSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
@@ -92,10 +92,10 @@ class NoopSettings(
 
 @Serializable
 @SerialName("testsys")
-class TestSysSettings(
-    val url: String,
+public class TestSysSettings(
+    public val url: String,
     @Serializable(with = TimeZoneSerializer::class)
-    val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
+    public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
@@ -104,14 +104,14 @@ class TestSysSettings(
 
 @Serializable
 @SerialName("cats")
-class CatsSettings(
-    val login: Credential,
-    val password: Credential,
-    val url: String,
+public class CatsSettings(
+    public val login: Credential,
+    public val password: Credential,
+    public val url: String,
     @Serializable(with = TimeZoneSerializer::class)
-    val timeZone: TimeZone = TimeZone.of("Asia/Vladivostok"),
-    val resultType: ContestResultType = ContestResultType.ICPC,
-    val cid: String,
+    public val timeZone: TimeZone = TimeZone.of("Asia/Vladivostok"),
+    public val resultType: ContestResultType = ContestResultType.ICPC,
+    public val cid: String,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
@@ -120,11 +120,11 @@ class CatsSettings(
 
 @Serializable
 @SerialName("krsu")
-class KRSUSettings(
-    val submissionsUrl: String,
-    val contestUrl: String,
+public class KRSUSettings(
+    public val submissionsUrl: String,
+    public val contestUrl: String,
     @Serializable(with = TimeZoneSerializer::class)
-    val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
+    public val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
@@ -133,10 +133,10 @@ class KRSUSettings(
 
 @Serializable
 @SerialName("ejudge")
-class EjudgeSettings(
-    val url: String,
-    val resultType: ContestResultType = ContestResultType.ICPC,
-    val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
+public class EjudgeSettings(
+    public val url: String,
+    public val resultType: ContestResultType = ContestResultType.ICPC,
+    public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
@@ -146,11 +146,11 @@ class EjudgeSettings(
 
 @Serializable
 @SerialName("yandex")
-class YandexSettings(
-    val apiKey: Credential,
-    @Serializable(with = RegexSerializer::class) val loginRegex: Regex,
-    val contestId: Int,
-    val resultType: ContestResultType = ContestResultType.ICPC,
+public class YandexSettings(
+    public val apiKey: Credential,
+    @Serializable(with = RegexSerializer::class) public val loginRegex: Regex,
+    public val contestId: Int,
+    public val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
@@ -159,11 +159,11 @@ class YandexSettings(
 
 @Serializable
 @SerialName("cf")
-class CFSettings(
-    val contestId: Int,
-    val apiKey: Credential,
-    val apiSecret: Credential,
-    val asManager: Boolean = true,
+public class CFSettings(
+    public val contestId: Int,
+    public val apiKey: Credential,
+    public val apiSecret: Credential,
+    public val asManager: Boolean = true,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
@@ -172,12 +172,12 @@ class CFSettings(
 
 @Serializable
 @SerialName("pcms")
-class PCMSSettings(
-    val url: String,
-    val login: Credential? = null,
-    val password: Credential? = null,
-    val problemsUrl: String? = null,
-    val resultType: ContestResultType = ContestResultType.ICPC,
+public class PCMSSettings(
+    public val url: String,
+    public val login: Credential? = null,
+    public val password: Credential? = null,
+    public val problemsUrl: String? = null,
+    public val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
@@ -185,25 +185,25 @@ class PCMSSettings(
 }
 
 @Serializable
-class ClicsLoaderSettings(
-    val url: String,
-    val login: Credential? = null,
-    val password: Credential? = null,
-    val eventFeedName: String = "event-feed",
-    val feedVersion: ClicsSettings.FeedVersion = ClicsSettings.FeedVersion.`2022_07`
+public class ClicsLoaderSettings(
+    public val url: String,
+    public val login: Credential? = null,
+    public val password: Credential? = null,
+    public val eventFeedName: String = "event-feed",
+    public val feedVersion: ClicsSettings.FeedVersion = ClicsSettings.FeedVersion.`2022_07`
 )
 
 @SerialName("clics")
 @Serializable
-class ClicsSettings(
+public class ClicsSettings(
     private val url: String,
     private val login: Credential? = null,
     private val password: Credential? = null,
     private val eventFeedName: String = "event-feed",
     private val feedVersion: FeedVersion = FeedVersion.`2022_07`,
-    val additionalFeed: ClicsLoaderSettings? = null,
-    val useTeamNames: Boolean = true,
-    val mediaBaseUrl: String = "",
+    public val additionalFeed: ClicsLoaderSettings? = null,
+    public val useTeamNames: Boolean = true,
+    public val mediaBaseUrl: String = "",
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
@@ -212,18 +212,18 @@ class ClicsSettings(
         `2022_07`
     }
 
-    val mainFeed get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
+    public val mainFeed: ClicsLoaderSettings get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
 
     override fun toDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
 }
 
 @SerialName("codedrills")
 @Serializable
-class CodeDrillsSettings(
-    val url: String,
-    val port: Int,
-    val contestId: String,
-    val authKey: Credential,
+public class CodeDrillsSettings(
+    public val url: String,
+    public val port: Int,
+    public val contestId: String,
+    public val authKey: Credential,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
@@ -232,13 +232,13 @@ class CodeDrillsSettings(
 
 @SerialName("atcoder")
 @Serializable
-class AtcoderSettings(
-    val contestId: String,
-    val sessionCookie: Credential,
+public class AtcoderSettings(
+    public val contestId: String,
+    public val sessionCookie: Credential,
     @Serializable(with = HumanTimeSerializer::class)
-    val startTime: Instant,
+    public val startTime: Instant,
     @Serializable(with = DurationInSecondsSerializer::class)
-    @SerialName("contestLengthSeconds") val contestLength: Duration,
+    @SerialName("contestLengthSeconds") public val contestLength: Duration,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
@@ -247,10 +247,10 @@ class AtcoderSettings(
 
 @SerialName("cms")
 @Serializable
-class CmsSettings(
-    val url: String,
-    val activeContest: String,
-    val otherContests: List<String>,
+public class CmsSettings(
+    public val url: String,
+    public val activeContest: String,
+    public val otherContests: List<String>,
     override val network: NetworkSettings? = null,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
@@ -259,7 +259,7 @@ class CmsSettings(
 
 
 @OptIn(ExperimentalSerializationApi::class)
-fun parseFileToCdsSettings(path: Path) : CDSSettings {
+public fun parseFileToCdsSettings(path: Path) : CDSSettings {
     val file = path.toFile()
     return if (!file.exists()) {
         throw java.lang.IllegalArgumentException("File ${file.absolutePath} does not exist")

@@ -22,7 +22,7 @@ import kotlin.time.Duration
  */
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
-data class TeamInfoOverride(
+public data class TeamInfoOverride(
     @JsonNames("name") val fullName: String? = null,
     @JsonNames("shortname") val displayName: String? = null,
     val groups: List<String>? = null,
@@ -43,9 +43,8 @@ data class TeamInfoOverride(
  * @param maxScore In ioi mode maximal possible value of points in this problem
  * @param scoreMergeMode In ioi mode, select the ruleset to calculate the final score based on the scores for each submission.
  */
-@OptIn(ExperimentalSerializationApi::class)
 @Serializable
-data class ProblemInfoOverride(
+public data class ProblemInfoOverride(
     val displayName: String? = null,
     val fullName: String? = null,
     @Serializable(ColorSerializer::class) val color: Color? = null,
@@ -57,10 +56,10 @@ data class ProblemInfoOverride(
 
 /**
  * @param isHidden Totally hide all teams from this group
- * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in leaderboard
+ * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in the leaderboard
  */
 @Serializable
-data class GroupInfoOverride(
+public data class GroupInfoOverride(
     val isHidden: Boolean? = null,
     val isOutOfContest: Boolean? = null
 )
@@ -72,16 +71,16 @@ data class GroupInfoOverride(
  * @param penaltyRoundingMode Specify rules of how total penalty is calculated based on many submissions
  */
 @Serializable
-class RankingSettings(
-    val medals: List<MedalType>? = null,
+public data class RankingSettings(
+    public val medals: List<MedalType>? = null,
     @Serializable(with = DurationInMinutesSerializer::class)
-    val penaltyPerWrongAttempt: Duration? = null,
-    val showTeamsWithoutSubmissions: Boolean? = null,
-    val penaltyRoundingMode: PenaltyRoundingMode? = null
+    public val penaltyPerWrongAttempt: Duration? = null,
+    public val showTeamsWithoutSubmissions: Boolean? = null,
+    public val penaltyRoundingMode: PenaltyRoundingMode? = null
 )
 
 @Serializable
-data class OrganizationInfoOverride(
+public data class OrganizationInfoOverride(
     val displayName: String? = null,
     val fullName: String? = null
 )
@@ -126,7 +125,7 @@ data class OrganizationInfoOverride(
  * @param scoreboardOverrides Overrides of scoreboard calculation settings
  */
 @Serializable
-data class AdvancedProperties(
+public data class AdvancedProperties(
     @Serializable(with = HumanTimeSerializer::class)
     val startTime: Instant? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
@@ -146,7 +145,7 @@ data class AdvancedProperties(
     val scoreboardOverrides: RankingSettings? = null
 )
 
-typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
+internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
 
 /**
  * In some cases, the contest system provides some useful information as part of team name.
@@ -161,7 +160,7 @@ typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
  * @property groupRegex The group is added if the name matches regex.
  */
 @Serializable
-data class TeamRegexOverrides(
+public data class TeamRegexOverrides(
     val organizationRegex: Regex? = null,
     val customFields: Map<String, Regex>? = null,
     val groupRegex: Map<String, Regex>? = null,
@@ -179,7 +178,7 @@ data class TeamRegexOverrides(
  * @property medias Templates for team medias. Check [TeamInfoOverride.medias] for details.
  */
 @Serializable
-data class TeamOverrideTemplate(
+public data class TeamOverrideTemplate(
     val displayName: String? = null,
     val fullName: String? = null,
     val medias: Map<TeamMediaType, MediaType?>? = null,
@@ -191,7 +190,7 @@ data class TeamOverrideTemplate(
  * @param fields set of fields to include in returned value. Other would be set to null
  */
 @OptIn(InefficientContestInfoApi::class)
-fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
+public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
     fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
     return AdvancedProperties(
         startTime = startTime.takeIfAsked("startTime"),

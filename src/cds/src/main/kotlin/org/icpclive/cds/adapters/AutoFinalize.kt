@@ -8,7 +8,7 @@ import org.icpclive.util.getLogger
 
 internal object AutoFinalize
 
-fun Flow<ContestUpdate>.autoFinalize() = withGroupedRuns({ it.result != null })
+public fun Flow<ContestUpdate>.autoFinalize(): Flow<ContestUpdate> = withGroupedRuns({ it.result != null })
     .transformWhile {
         emit(it.event)
         val info = it.infoAfterEvent
@@ -21,4 +21,6 @@ fun Flow<ContestUpdate>.autoFinalize() = withGroupedRuns({ it.result != null })
         }
     }
 
-suspend fun Flow<ContestUpdate>.finalContestState() = autoFinalize().contestState().first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }
+public suspend fun Flow<ContestUpdate>.finalContestState(): ContestState = autoFinalize()
+    .contestState()
+    .first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }

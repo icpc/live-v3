@@ -6,7 +6,7 @@ import org.icpclive.cds.*
 import kotlin.time.Duration
 
 
-fun Flow<ContestState>.removeFrozenSubmissions() = transform {
+public fun Flow<ContestState>.removeFrozenSubmissions(): Flow<ContestUpdate> = transform {
     when (it.event) {
         is RunUpdate -> {
             if (it.infoBeforeEvent != null && it.event.newInfo.time >= it.infoBeforeEvent.freezeTime) {

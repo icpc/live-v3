@@ -2,13 +2,13 @@ package org.icpclive.cds.cms.model
 
 import kotlinx.serialization.Serializable
 
-enum class ScoreMode {
+internal enum class ScoreMode {
     max,
     max_subtask,
 }
 
 @Serializable
-data class Task(
+internal data class Task(
     val name: String,
     val short_name: String,
     val contest: String,
