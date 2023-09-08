@@ -15,7 +15,7 @@ import org.icpclive.util.getLogger
 import org.icpclive.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
 
-private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Map<String, String>) {
+private class ParsedClicsLoaderSettings(settings: ClicsFeed, creds: Map<String, String>) {
     private val url = settings.url
 
     val auth = ClientAuth.BasicOrNull(
@@ -30,8 +30,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Ma
 }
 
 internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : ContestDataSource {
-    private val mainLoaderSettings = ParsedClicsLoaderSettings(settings.mainFeed, creds)
-    private val additionalLoaderSettings = settings.additionalFeed?.let { ParsedClicsLoaderSettings(it, creds) }
+    private val feeds = settings.feeds.map { ParsedClicsLoaderSettings(it, creds) }
 
     private val model = ClicsModel(
         settings.useTeamNames,
@@ -45,8 +44,7 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
     ) {
-        val eventsLoader = getEventFeedLoader(mainLoaderSettings, settings.network)
-        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it, settings.network) }
+        val loaders = feeds.map { getEventFeedLoader(it, settings.network) }
 
         fun priority(event: UpdateContestEvent) = when (event) {
             is ContestEvent -> 0
@@ -144,7 +142,8 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
         }
 
         val idSet = mutableSetOf<String>()
-        merge(eventsLoader, additionalEventsLoader ?: emptyFlow())
+        loaders
+            .merge()
             .logAndRetryWithDelay(5.seconds) {
                 logger.error("Exception caught in CLICS loader. Will restart in 5 seconds.", it)
                 preloadFinished = false

@@ -1,0 +1,10 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "login": "live",
+      "password": "$creds.swerc22",
+      "url": "https://cds.swerc.eu/api/contests/practice"
+    }
+  ]
+}

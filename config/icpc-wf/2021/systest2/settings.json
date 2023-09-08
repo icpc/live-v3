@@ -1,0 +1,9 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": "2021/systest2"
+    }
+  ],
+  "useTeamNames": false
+}

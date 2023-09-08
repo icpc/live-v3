@@ -57,8 +57,12 @@ object CdsLoadersTest {
         loaderTest(
             goldenDataDir.resolve("clics202003.txt"),
             ClicsSettings(
-                url = "testData/loaders/clics-2020-03",
-                feedVersion = ClicsSettings.FeedVersion.`2020_03`
+                feeds = listOf(
+                    ClicsFeed(
+                        url = "testData/loaders/clics-2020-03",
+                        feedVersion = ClicsSettings.FeedVersion.`2020_03`
+                    )
+                )
             )
         )
     }
@@ -68,8 +72,12 @@ object CdsLoadersTest {
         loaderTest(
             goldenDataDir.resolve("clics202207.txt"),
             ClicsSettings(
-                url = "testData/loaders/clics-2022-07",
-                feedVersion = ClicsSettings.FeedVersion.`2022_07`
+                feeds = listOf(
+                    ClicsFeed(
+                        url = "testData/loaders/clics-2022-07",
+                        feedVersion = ClicsSettings.FeedVersion.`2022_07`
+                    )
+                )
             )
         )
     }

@@ -1,8 +1,12 @@
 {
   "type": "clics",
-  "url": "icpc-wf/2020",
+  "feeds": [
+    {
+      "url": "icpc-wf/2020",
+      "feedVersion": "2020_03"
+    }
+  ],
   "useTeamNames": false,
-  "feedVersion": "2020_03",
   "emulation": {
     "speed": 10,
     "startTime": "now"

@@ -1,0 +1,11 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": "2021/dress",
+      "login": "live",
+      "password": "landed-wafer-state-diner"
+    }
+  ],
+  "useTeamNames": false
+}

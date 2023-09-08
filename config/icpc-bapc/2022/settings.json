@@ -1,6 +1,10 @@
 {
-  "type":"clics",
-  "login":"$creds.login",
-  "password":"$creds.password",
-  "url":"https://cds.gehack.nl/api/contests/bapc2022"
+  "type": "clics",
+  "feeds": [
+    {
+      "login": "$creds.login",
+      "password": "$creds.password",
+      "url": "https://cds.gehack.nl/api/contests/bapc2022"
+    }
+  ]
 }
