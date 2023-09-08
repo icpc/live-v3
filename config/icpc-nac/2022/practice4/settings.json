@@ -2,7 +2,8 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "https://open.kattis.com/clics-api/contests/nac22practice4",
+      "url": "https://open.kattis.com/clics-api",
+      "contestId": "nac22practice4",
       "feedVersion": "2020_03",
       "login":"$creds.kattis_login",
       "password":"$creds.kattis_token"

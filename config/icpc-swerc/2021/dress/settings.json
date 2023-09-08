@@ -4,7 +4,8 @@
     {
       "login": "live",
       "password": "SECRET",
-      "url": "https://cds.swerc.eu/api/contests/demo",
+      "url": "https://cds.swerc.eu/api",
+      "contestId": "demo",
       "feedVersion": "2020_03"
     }
   ]

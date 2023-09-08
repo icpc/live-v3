@@ -141,7 +141,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/1/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/1/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -163,7 +163,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/10/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/10/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -203,7 +203,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/101/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/101/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -225,7 +225,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/102/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/102/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -247,7 +247,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/103/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/103/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -269,7 +269,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/104/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/104/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -291,7 +291,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/105/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/105/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -313,7 +313,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/106/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/106/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -335,7 +335,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/107/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/107/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -357,7 +357,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/108/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/108/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -379,7 +379,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/109/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/109/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -401,7 +401,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/11/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/11/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -441,7 +441,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/111/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/111/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -463,7 +463,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/112/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/112/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -485,7 +485,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/113/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/113/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -507,7 +507,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/114/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/114/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -529,7 +529,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/115/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/115/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -551,7 +551,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/116/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/116/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -573,7 +573,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/117/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/117/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -595,7 +595,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/118/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/118/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -617,7 +617,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/119/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/119/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -639,7 +639,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/12/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/12/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -661,7 +661,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/13/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/13/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -683,7 +683,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/14/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/14/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -705,7 +705,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/16/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/16/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -727,7 +727,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/17/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/17/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -749,7 +749,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/18/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/18/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -771,7 +771,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/19/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/19/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -793,7 +793,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/2/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/2/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -815,7 +815,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/20/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/20/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -837,7 +837,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/21/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/21/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -859,7 +859,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/22/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/22/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -881,7 +881,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/23/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/23/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -903,7 +903,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/24/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/24/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -925,7 +925,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/25/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/25/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -947,7 +947,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/26/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/26/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -987,7 +987,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/28/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/28/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1009,7 +1009,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/29/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/29/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1031,7 +1031,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/3/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/3/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1053,7 +1053,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/30/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/30/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1075,7 +1075,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/31/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/31/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1097,7 +1097,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/32/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/32/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1119,7 +1119,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/33/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/33/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1141,7 +1141,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/34/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/34/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1163,7 +1163,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/35/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/35/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1185,7 +1185,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/36/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/36/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1207,7 +1207,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/37/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/37/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1229,7 +1229,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/38/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/38/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1251,7 +1251,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/39/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/39/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1273,7 +1273,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/4/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/4/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1295,7 +1295,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/40/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/40/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1317,7 +1317,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/41/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/41/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1339,7 +1339,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/42/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/42/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1361,7 +1361,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/43/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/43/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1383,7 +1383,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/44/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/44/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1405,7 +1405,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/45/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/45/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1427,7 +1427,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/46/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/46/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1449,7 +1449,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/47/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/47/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1471,7 +1471,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/48/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/48/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1493,7 +1493,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/49/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/49/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1515,7 +1515,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/5/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/5/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1537,7 +1537,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/50/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/50/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1559,7 +1559,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/51/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/51/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1581,7 +1581,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/52/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/52/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1603,7 +1603,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/53/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/53/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1625,7 +1625,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/54/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/54/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1647,7 +1647,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/55/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/55/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1669,7 +1669,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/56/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/56/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1691,7 +1691,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/58/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/58/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1713,7 +1713,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/59/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/59/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1735,7 +1735,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/6/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/6/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1775,7 +1775,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/61/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/61/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1797,7 +1797,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/62/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/62/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1819,7 +1819,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/63/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/63/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1841,7 +1841,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/64/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/64/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1863,7 +1863,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/65/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/65/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1885,7 +1885,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/66/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/66/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1907,7 +1907,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/67/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/67/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1929,7 +1929,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/68/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/68/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1951,7 +1951,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/69/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/69/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1973,7 +1973,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/7/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/7/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -1995,7 +1995,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/70/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/70/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2017,7 +2017,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/71/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/71/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2039,7 +2039,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/72/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/72/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2061,7 +2061,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/73/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/73/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2083,7 +2083,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/74/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/74/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2105,7 +2105,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/75/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/75/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2127,7 +2127,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/76/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/76/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2149,7 +2149,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/77/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/77/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2171,7 +2171,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/78/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/78/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2193,7 +2193,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/79/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/79/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2215,7 +2215,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/8/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/8/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2273,7 +2273,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/82/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/82/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2295,7 +2295,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/83/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/83/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2317,7 +2317,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/84/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/84/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2339,7 +2339,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/85/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/85/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2361,7 +2361,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/86/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/86/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2383,7 +2383,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/87/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/87/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2405,7 +2405,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/88/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/88/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2427,7 +2427,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/89/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/89/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2485,7 +2485,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/91/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/91/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2507,7 +2507,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/92/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/92/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2529,7 +2529,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/93/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/93/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2551,7 +2551,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/94/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/94/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2573,7 +2573,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/95/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/95/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2595,7 +2595,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/96/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/96/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2617,7 +2617,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/97/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/97/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2639,7 +2639,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/98/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/98/photo.jpg"
                     }
                 },
                 "isHidden": false,
@@ -2661,7 +2661,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/finals/teams/99/photo.jpg"
+                        "url": "testData/loaders/clics-2020-03/contests/finals/teams/99/photo.jpg"
                     }
                 },
                 "isHidden": false,

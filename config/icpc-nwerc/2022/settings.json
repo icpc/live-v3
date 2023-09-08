@@ -4,8 +4,8 @@
     {
       "login": "$creds.login",
       "password": "$creds.password",
-      "url": "https://cds.chipcie.ch.tudelft.nl/api/contests/nwerc2022"
+      "url": "https://cds.chipcie.ch.tudelft.nl/api",
+      "contestId": "nwerc2022"
     }
-  ],
-  "mediaBaseUrl":"https://cds.chipcie.ch.tudelft.nl/api"
+  ]
 }

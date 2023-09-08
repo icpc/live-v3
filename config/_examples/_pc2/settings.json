@@ -3,6 +3,8 @@
   "feeds": [
     {
       "url": "_examples/_pc2",
+      "contestId": "",
+      "eventFeedPath": "",
       "feedVersion": "2020_03"
     }
   ],

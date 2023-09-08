@@ -4,7 +4,8 @@
     {
       "login": "live",
       "password": "$creds.swerc22",
-      "url": "https://cds.swerc.eu/api/contests/practice"
+      "url": "https://cds.swerc.eu/api",
+      "contestId": "practice"
     }
   ]
 }

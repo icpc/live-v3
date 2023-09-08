@@ -190,6 +190,9 @@
                             "url": {
                                 "type": "string"
                             },
+                            "contestId": {
+                                "type": "string"
+                            },
                             "login": {
                                 "type": "string"
                             },
@@ -197,6 +200,9 @@
                                 "type": "string"
                             },
                             "eventFeedName": {
+                                "type": "string"
+                            },
+                            "eventFeedPath": {
                                 "type": "string"
                             },
                             "feedVersion": {
@@ -208,15 +214,13 @@
                         },
                         "additionalProperties": false,
                         "required": [
-                            "url"
+                            "url",
+                            "contestId"
                         ]
                     }
                 },
                 "useTeamNames": {
                     "type": "boolean"
-                },
-                "mediaBaseUrl": {
-                    "type": "string"
                 },
                 "emulation": {
                     "type": "object",

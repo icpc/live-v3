@@ -60,6 +60,8 @@ object CdsLoadersTest {
                 feeds = listOf(
                     ClicsFeed(
                         url = "testData/loaders/clics-2020-03",
+                        contestId = "",
+                        eventFeedPath = "",
                         feedVersion = ClicsSettings.FeedVersion.`2020_03`
                     )
                 )
@@ -75,6 +77,8 @@ object CdsLoadersTest {
                 feeds = listOf(
                     ClicsFeed(
                         url = "testData/loaders/clics-2022-07",
+                        contestId = "",
+                        eventFeedPath = "",
                         feedVersion = ClicsSettings.FeedVersion.`2022_07`
                     )
                 )

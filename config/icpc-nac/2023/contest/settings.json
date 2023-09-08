@@ -4,9 +4,9 @@
     {
       "login": "$creds.cds_login",
       "password": "$creds.cds_password",
-      "url": "https://10.3.3.207/api/contests/NAC-2023-real"
+      "url": "https://10.3.3.207/api",
+      "contestId": "NAC-2023-real"
     }
   ],
-  "useTeamNames": false,
-  "mediaBaseUrl": "http://10.3.3.207/api"
+  "useTeamNames": false
 }
