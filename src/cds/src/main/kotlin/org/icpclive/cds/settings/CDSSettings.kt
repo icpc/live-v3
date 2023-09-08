@@ -230,7 +230,7 @@ class CodeDrillsSettings(
 @Serializable
 class AtcoderSettings(
     val contestId: String,
-    val sessionCookie: String,
+    val sessionCookie: Credential,
     @Serializable(with = HumanTimeSerializer::class)
     val startTime: Instant,
     @Serializable(with = DurationInSecondsSerializer::class)
@@ -238,7 +238,7 @@ class AtcoderSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = AtcoderDataSource(this)
+    override fun toDataSource(creds: Map<String, String>) = AtcoderDataSource(this, creds)
 }
 
 @SerialName("cms")

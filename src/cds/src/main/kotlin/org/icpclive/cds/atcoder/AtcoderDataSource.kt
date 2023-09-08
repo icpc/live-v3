@@ -43,10 +43,10 @@ internal class ContestData(
     val StandingsData: List<AtcoderTeam>
 )
 
-internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {
+internal class AtcoderDataSource(val settings: AtcoderSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
     val teamIds = Enumerator<String>()
     val problemIds = Enumerator<String>()
-    private val loader = jsonLoader<ContestData>(settings.network, ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie)) { "https://atcoder.jp/contests/${settings.contestId}/standings/json" }
+    private val loader = jsonLoader<ContestData>(settings.network, ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.get(creds))) { "https://atcoder.jp/contests/${settings.contestId}/standings/json" }
 
     var submissionId: Int = 1
     val runs = mutableMapOf<Pair<Int, Int>, List<RunInfo>>()
