@@ -10,26 +10,13 @@ plugins {
 }
 
 tasks {
-    register<Sync>("release") {
-        destinationDir = rootDir.resolve("artifacts/")
-
-        listOf(
-            ":backend",
-            ":cds-converter",
-            ":reactions-bot",
-            ":sniper-tools",
-        ).forEach { projectId ->
-            from(project(projectId).tasks.named("shadowJar"))
-        }
-    }
-
     register<Sync>("doc") {
         destinationDir = rootDir.resolve("_site/cds/")
 
         from(project(":cds").tasks.named("dokkaHtml"))
     }
 
-    // If you invoke gen task, :schema-generator:gen will be invoked. It's defined in :schema-generator project
+    // If you invoke a gen task, :schema-generator:gen will be invoked. It's defined in :schema-generator project
     // since that project is already aware of global location for schema testing purposes.
 }
 
@@ -55,6 +42,11 @@ subprojects {
 
     // Technically, Ktor pulls this too, but reconfigures...
     plugins.withType<ShadowJavaPlugin> {
+        tasks.register<Sync>("release") {
+            destinationDir = rootDir.resolve("artifacts/")
+            preserve { include("*") }
+            from(tasks.named("shadowJar"))
+        }
         tasks.named<ShadowJar>("shadowJar") {
             mergeServiceFiles()
 
