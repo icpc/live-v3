@@ -5,27 +5,23 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.clics.Event
 import org.icpclive.clics.Event.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.*
-import org.icpclive.util.getLogger
-import org.icpclive.util.logAndRetryWithDelay
+import org.icpclive.clics.*
+import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed, creds: Map<String, String>) {
-    private val url = settings.url
-
     val auth = ClientAuth.BasicOrNull(
         settings.login?.get(creds),
         settings.password?.get(creds)
     )
-    val eventFeedUrl = apiRequestUrl(settings.eventFeedName)
-
-    private fun apiRequestUrl(method: String) = "$url/$method"
-
+    val baseUrl = settings.url
+    val eventFeedUrl = "$baseUrl/${settings.eventFeedPath ?: "contests/${settings.contestId}"}/${settings.eventFeedName}"
     val feedVersion = settings.feedVersion
 }
 
@@ -33,8 +29,7 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
     private val feeds = settings.feeds.map { ParsedClicsLoaderSettings(it, creds) }
 
     private val model = ClicsModel(
-        settings.useTeamNames,
-        settings.mediaBaseUrl
+        settings.useTeamNames
     )
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
@@ -179,6 +174,14 @@ internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, S
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
                 explicitNulls = false
+                serializersModule = SerializersModule {
+                    postProcess(onEncode = { it: Media ->
+                        if (it.href.startsWith("http://") || it.href.startsWith("https://"))
+                            it
+                        else
+                            it.copy(href = "${settings.baseUrl}/${it.href}")
+                    })
+                }
             }
 
             while (true) {

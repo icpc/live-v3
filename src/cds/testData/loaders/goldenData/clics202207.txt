@@ -117,7 +117,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/1/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/1/photo"
                     }
                 },
                 "isHidden": false,
@@ -139,7 +139,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/2/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/2/photo"
                     }
                 },
                 "isHidden": false,
@@ -161,7 +161,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/3/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/3/photo"
                     }
                 },
                 "isHidden": false,
@@ -183,7 +183,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/4/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/4/photo"
                     }
                 },
                 "isHidden": false,
@@ -205,7 +205,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/5/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/5/photo"
                     }
                 },
                 "isHidden": false,
@@ -227,7 +227,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/6/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/6/photo"
                     }
                 },
                 "isHidden": false,
@@ -249,7 +249,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/7/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/7/photo"
                     }
                 },
                 "isHidden": false,
@@ -271,7 +271,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/8/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/8/photo"
                     }
                 },
                 "isHidden": false,
@@ -293,7 +293,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/9/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/9/photo"
                     }
                 },
                 "isHidden": false,
@@ -315,7 +315,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/10/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/10/photo"
                     }
                 },
                 "isHidden": false,
@@ -337,7 +337,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/11/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/11/photo"
                     }
                 },
                 "isHidden": false,
@@ -359,7 +359,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/13/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/13/photo"
                     }
                 },
                 "isHidden": false,
@@ -381,7 +381,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/14/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/14/photo"
                     }
                 },
                 "isHidden": false,
@@ -403,7 +403,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/15/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/15/photo"
                     }
                 },
                 "isHidden": false,
@@ -425,7 +425,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/16/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/16/photo"
                     }
                 },
                 "isHidden": false,
@@ -447,7 +447,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/17/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/17/photo"
                     }
                 },
                 "isHidden": false,
@@ -469,7 +469,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/18/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/18/photo"
                     }
                 },
                 "isHidden": false,
@@ -491,7 +491,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/19/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/19/photo"
                     }
                 },
                 "isHidden": false,
@@ -513,7 +513,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/20/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/20/photo"
                     }
                 },
                 "isHidden": false,
@@ -535,7 +535,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/21/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/21/photo"
                     }
                 },
                 "isHidden": false,
@@ -557,7 +557,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/22/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/22/photo"
                     }
                 },
                 "isHidden": false,
@@ -579,7 +579,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/23/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/23/photo"
                     }
                 },
                 "isHidden": false,
@@ -601,7 +601,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/24/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/24/photo"
                     }
                 },
                 "isHidden": false,
@@ -623,7 +623,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/25/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/25/photo"
                     }
                 },
                 "isHidden": false,
@@ -645,7 +645,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/26/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/26/photo"
                     }
                 },
                 "isHidden": false,
@@ -667,7 +667,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/27/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/27/photo"
                     }
                 },
                 "isHidden": false,
@@ -689,7 +689,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/28/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/28/photo"
                     }
                 },
                 "isHidden": false,
@@ -711,7 +711,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/29/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/29/photo"
                     }
                 },
                 "isHidden": false,
@@ -733,7 +733,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/30/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/30/photo"
                     }
                 },
                 "isHidden": false,
@@ -755,7 +755,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/31/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/31/photo"
                     }
                 },
                 "isHidden": false,
@@ -777,7 +777,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/32/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/32/photo"
                     }
                 },
                 "isHidden": false,
@@ -799,7 +799,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/33/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/33/photo"
                     }
                 },
                 "isHidden": false,
@@ -821,7 +821,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/34/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/34/photo"
                     }
                 },
                 "isHidden": false,
@@ -843,7 +843,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/35/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/35/photo"
                     }
                 },
                 "isHidden": false,
@@ -865,7 +865,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/36/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/36/photo"
                     }
                 },
                 "isHidden": false,
@@ -887,7 +887,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/37/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/37/photo"
                     }
                 },
                 "isHidden": false,
@@ -909,7 +909,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/38/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/38/photo"
                     }
                 },
                 "isHidden": false,
@@ -931,7 +931,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/39/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/39/photo"
                     }
                 },
                 "isHidden": false,
@@ -953,7 +953,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/40/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/40/photo"
                     }
                 },
                 "isHidden": false,
@@ -975,7 +975,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/41/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/41/photo"
                     }
                 },
                 "isHidden": false,
@@ -997,7 +997,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/42/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/42/photo"
                     }
                 },
                 "isHidden": false,
@@ -1019,7 +1019,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/43/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/43/photo"
                     }
                 },
                 "isHidden": false,
@@ -1041,7 +1041,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/44/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/44/photo"
                     }
                 },
                 "isHidden": false,
@@ -1063,7 +1063,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/45/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/45/photo"
                     }
                 },
                 "isHidden": false,
@@ -1085,7 +1085,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/46/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/46/photo"
                     }
                 },
                 "isHidden": false,
@@ -1107,7 +1107,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/47/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/47/photo"
                     }
                 },
                 "isHidden": false,
@@ -1129,7 +1129,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/48/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/48/photo"
                     }
                 },
                 "isHidden": false,
@@ -1151,7 +1151,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/49/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/49/photo"
                     }
                 },
                 "isHidden": false,
@@ -1173,7 +1173,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/50/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/50/photo"
                     }
                 },
                 "isHidden": false,
@@ -1195,7 +1195,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/51/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/51/photo"
                     }
                 },
                 "isHidden": false,
@@ -1217,7 +1217,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/52/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/52/photo"
                     }
                 },
                 "isHidden": false,
@@ -1239,7 +1239,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/53/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/53/photo"
                     }
                 },
                 "isHidden": false,
@@ -1261,7 +1261,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/54/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/54/photo"
                     }
                 },
                 "isHidden": false,
@@ -1283,7 +1283,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/55/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/55/photo"
                     }
                 },
                 "isHidden": false,
@@ -1305,7 +1305,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/56/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/56/photo"
                     }
                 },
                 "isHidden": false,
@@ -1327,7 +1327,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/57/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/57/photo"
                     }
                 },
                 "isHidden": false,
@@ -1349,7 +1349,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/58/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/58/photo"
                     }
                 },
                 "isHidden": false,
@@ -1371,7 +1371,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/59/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/59/photo"
                     }
                 },
                 "isHidden": false,
@@ -1393,7 +1393,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/60/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/60/photo"
                     }
                 },
                 "isHidden": false,
@@ -1415,7 +1415,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/61/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/61/photo"
                     }
                 },
                 "isHidden": false,
@@ -1437,7 +1437,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/62/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/62/photo"
                     }
                 },
                 "isHidden": false,
@@ -1459,7 +1459,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/63/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/63/photo"
                     }
                 },
                 "isHidden": false,
@@ -1481,7 +1481,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/64/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/64/photo"
                     }
                 },
                 "isHidden": false,
@@ -1503,7 +1503,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/65/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/65/photo"
                     }
                 },
                 "isHidden": false,
@@ -1525,7 +1525,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/66/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/66/photo"
                     }
                 },
                 "isHidden": false,
@@ -1547,7 +1547,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/67/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/67/photo"
                     }
                 },
                 "isHidden": false,
@@ -1569,7 +1569,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/68/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/68/photo"
                     }
                 },
                 "isHidden": false,
@@ -1591,7 +1591,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/69/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/69/photo"
                     }
                 },
                 "isHidden": false,
@@ -1613,7 +1613,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/70/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/70/photo"
                     }
                 },
                 "isHidden": false,
@@ -1635,7 +1635,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/71/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/71/photo"
                     }
                 },
                 "isHidden": false,
@@ -1657,7 +1657,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/72/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/72/photo"
                     }
                 },
                 "isHidden": false,
@@ -1679,7 +1679,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/73/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/73/photo"
                     }
                 },
                 "isHidden": false,
@@ -1701,7 +1701,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/74/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/74/photo"
                     }
                 },
                 "isHidden": false,
@@ -1723,7 +1723,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/75/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/75/photo"
                     }
                 },
                 "isHidden": false,
@@ -1745,7 +1745,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/76/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/76/photo"
                     }
                 },
                 "isHidden": false,
@@ -1767,7 +1767,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/77/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/77/photo"
                     }
                 },
                 "isHidden": false,
@@ -1789,7 +1789,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/78/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/78/photo"
                     }
                 },
                 "isHidden": false,
@@ -1811,7 +1811,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/79/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/79/photo"
                     }
                 },
                 "isHidden": false,
@@ -1833,7 +1833,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/80/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/80/photo"
                     }
                 },
                 "isHidden": false,
@@ -1855,7 +1855,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/81/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/81/photo"
                     }
                 },
                 "isHidden": false,
@@ -1877,7 +1877,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/82/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/82/photo"
                     }
                 },
                 "isHidden": false,
@@ -1899,7 +1899,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/83/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/83/photo"
                     }
                 },
                 "isHidden": false,
@@ -1921,7 +1921,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/84/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/84/photo"
                     }
                 },
                 "isHidden": false,
@@ -1943,7 +1943,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/85/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/85/photo"
                     }
                 },
                 "isHidden": false,
@@ -1965,7 +1965,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/86/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/86/photo"
                     }
                 },
                 "isHidden": false,
@@ -1987,7 +1987,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/87/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/87/photo"
                     }
                 },
                 "isHidden": false,
@@ -2009,7 +2009,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/88/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/88/photo"
                     }
                 },
                 "isHidden": false,
@@ -2031,7 +2031,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/89/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/89/photo"
                     }
                 },
                 "isHidden": false,
@@ -2053,7 +2053,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/90/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/90/photo"
                     }
                 },
                 "isHidden": false,
@@ -2075,7 +2075,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/91/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/91/photo"
                     }
                 },
                 "isHidden": false,
@@ -2097,7 +2097,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/92/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/92/photo"
                     }
                 },
                 "isHidden": false,
@@ -2119,7 +2119,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/93/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/93/photo"
                     }
                 },
                 "isHidden": false,
@@ -2141,7 +2141,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/94/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/94/photo"
                     }
                 },
                 "isHidden": false,
@@ -2163,7 +2163,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/95/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/95/photo"
                     }
                 },
                 "isHidden": false,
@@ -2185,7 +2185,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/96/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/96/photo"
                     }
                 },
                 "isHidden": false,
@@ -2207,7 +2207,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/97/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/97/photo"
                     }
                 },
                 "isHidden": false,
@@ -2229,7 +2229,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/98/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/98/photo"
                     }
                 },
                 "isHidden": false,
@@ -2251,7 +2251,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/99/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/99/photo"
                     }
                 },
                 "isHidden": false,
@@ -2273,7 +2273,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/100/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/100/photo"
                     }
                 },
                 "isHidden": false,
@@ -2295,7 +2295,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/101/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/101/photo"
                     }
                 },
                 "isHidden": false,
@@ -2317,7 +2317,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/102/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/102/photo"
                     }
                 },
                 "isHidden": false,
@@ -2339,7 +2339,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/103/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/103/photo"
                     }
                 },
                 "isHidden": false,
@@ -2361,7 +2361,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/104/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/104/photo"
                     }
                 },
                 "isHidden": false,
@@ -2383,7 +2383,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/105/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/105/photo"
                     }
                 },
                 "isHidden": false,
@@ -2405,7 +2405,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/106/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/106/photo"
                     }
                 },
                 "isHidden": false,
@@ -2427,7 +2427,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/107/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/107/photo"
                     }
                 },
                 "isHidden": false,
@@ -2449,7 +2449,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/108/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/108/photo"
                     }
                 },
                 "isHidden": false,
@@ -2471,7 +2471,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/109/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/109/photo"
                     }
                 },
                 "isHidden": false,
@@ -2493,7 +2493,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/110/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/110/photo"
                     }
                 },
                 "isHidden": false,
@@ -2515,7 +2515,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/111/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/111/photo"
                     }
                 },
                 "isHidden": false,
@@ -2537,7 +2537,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/112/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/112/photo"
                     }
                 },
                 "isHidden": false,
@@ -2559,7 +2559,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/113/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/113/photo"
                     }
                 },
                 "isHidden": false,
@@ -2581,7 +2581,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/114/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/114/photo"
                     }
                 },
                 "isHidden": false,
@@ -2603,7 +2603,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/115/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/115/photo"
                     }
                 },
                 "isHidden": false,
@@ -2625,7 +2625,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/116/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/116/photo"
                     }
                 },
                 "isHidden": false,
@@ -2647,7 +2647,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/117/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/117/photo"
                     }
                 },
                 "isHidden": false,
@@ -2669,7 +2669,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/118/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/118/photo"
                     }
                 },
                 "isHidden": false,
@@ -2691,7 +2691,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/119/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/119/photo"
                     }
                 },
                 "isHidden": false,
@@ -2713,7 +2713,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/120/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/120/photo"
                     }
                 },
                 "isHidden": false,
@@ -2735,7 +2735,7 @@
                 "medias": {
                     "photo": {
                         "type": "Photo",
-                        "url": "/contests/swerc2022/teams/121/photo"
+                        "url": "testData/loaders/clics-2022-07/contests/swerc2022/teams/121/photo"
                     }
                 },
                 "isHidden": false,

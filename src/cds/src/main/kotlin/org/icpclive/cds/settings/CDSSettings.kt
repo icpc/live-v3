@@ -187,9 +187,11 @@ public class PCMSSettings(
 @Serializable
 public class ClicsFeed(
     public val url: String,
+    public val contestId: String,
     public val login: Credential? = null,
     public val password: Credential? = null,
     public val eventFeedName: String = "event-feed",
+    public val eventFeedPath: String? = null,
     public val feedVersion: ClicsSettings.FeedVersion = ClicsSettings.FeedVersion.`2022_07`
 )
 
@@ -198,7 +200,6 @@ public class ClicsFeed(
 public class ClicsSettings(
     public val feeds: List<ClicsFeed>,
     public val useTeamNames: Boolean = true,
-    public val mediaBaseUrl: String = "",
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {

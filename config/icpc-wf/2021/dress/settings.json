@@ -3,6 +3,8 @@
   "feeds": [
     {
       "url": "2021/dress",
+      "contestId": "",
+      "eventFeedPath": "",
       "login": "live",
       "password": "landed-wafer-state-diner"
     }

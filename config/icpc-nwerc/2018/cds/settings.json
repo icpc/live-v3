@@ -4,7 +4,8 @@
     {
       "login": "$creds.nwerc18_login_cds",
       "password": "$creds.nwerc18_password_cds",
-      "url": "https://cds.gehack.nl/api/contests/nwerc18"
+      "url": "https://cds.gehack.nl/api",
+      "contestId": "nwerc18"
     }
   ]
 }

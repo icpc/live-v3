@@ -4,7 +4,8 @@
     {
       "login": "$creds.kattis_login",
       "password": "$creds.kattis_token",
-      "url": "https://open.kattis.com/clics-api/contests/rmc21",
+      "url": "https://open.kattis.com/clics-api",
+      "contestId": "rmc21",
       "feedVersion": "2020_03"
     }
   ],

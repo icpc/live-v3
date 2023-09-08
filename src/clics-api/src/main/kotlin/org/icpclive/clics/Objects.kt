@@ -1,10 +1,11 @@
 @file:Suppress("UNUSED")
-
+@file:UseContextualSerialization(Media::class)
 package org.icpclive.clics
 
 import kotlinx.datetime.Instant
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import org.icpclive.util.ColorSerializer
 import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
@@ -121,6 +122,7 @@ data class Organization(
     val id: String,
     val name: String = "",
     val formal_name: String? = null,
+    val country_flag: List<Media> = emptyList(),
     val logo: List<Media> = emptyList(),
     val twitter_hashtag: String? = null
 )
