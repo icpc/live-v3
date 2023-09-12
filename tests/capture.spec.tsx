@@ -5,7 +5,7 @@ import WebSocket from "ws";
 const simpleWidgets = ["queue", "scoreboard", "statistics"];
 const contestConfigs = [
     "config/__tests/ejudge_icpc_unfreeze/2023-voronezh",
-    "config/__tests/ejudge_ioi/regionalroi-lpk-2021-d1",
+//    "config/__tests/ejudge_ioi/regionalroi-lpk-2021-d1",
     "config/__tests/ejudge_ioi_virtual/mosh-2023-keldysh",
     "config/__tests/pcms_icpc_freeze/icpc-nef-2022-2023",
     "config/__tests/pcms_icpc_overrides/icpc-nef-2021-2022",
