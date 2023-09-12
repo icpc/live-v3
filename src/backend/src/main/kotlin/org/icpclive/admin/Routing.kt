@@ -3,6 +3,8 @@ package org.icpclive.admin
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.http.content.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
@@ -92,6 +94,20 @@ fun Route.configureAdminApiRouting() {
                 }
             }
         }
+
+        route("/advancedJson") {
+            get {
+                call.respondFile(Config.advancedJsonPath.toFile())
+            }
+            post {
+                call.adminApiAction {
+                    val text = call.receiveText()
+                    Config.advancedJsonPath.toFile().writeText(text)
+                    call.respond(HttpStatusCode.OK)
+                }
+            }
+        }
+
         webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
