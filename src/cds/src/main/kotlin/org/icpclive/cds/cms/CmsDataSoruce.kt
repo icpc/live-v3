@@ -8,6 +8,7 @@ import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.settings.CmsSettings
 import org.icpclive.util.Enumerator
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
@@ -89,7 +90,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             resultType = ContestResultType.IOI,
             startTime = mainContest.begin,
             contestLength = mainContest.end - mainContest.begin,
-            freezeTime = mainContest.end - mainContest.begin,
+            freezeTime = INFINITE,
             problemList = problems,
             teamList = teams,
             groupList = emptyList(),
