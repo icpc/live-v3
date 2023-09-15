@@ -1,13 +1,39 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/icpc/live-v3/blob/main/schemas/settings.schema.json",
-    "title": "ICPC live settings",
-    "oneOf": [
-        {
+    "$ref": "#/$defs/ICPC live settings",
+    "$defs": {
+        "org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>": {
+            "type": "object",
+            "properties": {
+                "speed": {
+                    "type": "number"
+                },
+                "startTime": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "speed",
+                "startTime"
+            ]
+        },
+        "org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>": {
+            "type": "object",
+            "properties": {
+                "allowUnsecureConnections": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+            ]
+        },
+        "atcoder": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "atcoder"
+                    "const": "atcoder",
+                    "default": "atcoder"
                 },
                 "contestId": {
                     "type": "string"
@@ -19,34 +45,13 @@
                     "type": "string"
                 },
                 "contestLengthSeconds": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
@@ -56,67 +61,21 @@
                 "sessionCookie",
                 "startTime",
                 "contestLengthSeconds"
+            ],
+            "title": "atcoder"
+        },
+        "org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>": {
+            "enum": [
+                "ICPC",
+                "IOI"
             ]
         },
-        {
+        "cats": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "cf"
-                },
-                "contestId": {
-                    "type": "integer"
-                },
-                "apiKey": {
-                    "type": "string"
-                },
-                "apiSecret": {
-                    "type": "string"
-                },
-                "asManager": {
-                    "type": "boolean"
-                },
-                "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
-                },
-                "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "contestId",
-                "apiKey",
-                "apiSecret"
-            ]
-        },
-        {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "cats"
+                    "const": "cats",
+                    "default": "cats"
                 },
                 "login": {
                     "type": "string"
@@ -131,40 +90,16 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "enum": [
-                        "ICPC",
-                        "IOI"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
                 },
                 "cid": {
                     "type": "string"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
@@ -174,93 +109,126 @@
                 "password",
                 "url",
                 "cid"
-            ]
+            ],
+            "title": "cats"
         },
-        {
+        "cf": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "clics"
+                    "const": "cf",
+                    "default": "cf"
+                },
+                "contestId": {
+                    "type": "number"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "apiSecret": {
+                    "type": "string"
+                },
+                "asManager": {
+                    "type": "boolean"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "apiKey",
+                "apiSecret"
+            ],
+            "title": "cf"
+        },
+        "org.icpclive.cds.settings.ClicsSettings.FeedVersion<org.icpclive.cds.settings.ClicsSettings.FeedVersion.2020_03,org.icpclive.cds.settings.ClicsSettings.FeedVersion.2022_07>": {
+            "enum": [
+                "2020_03",
+                "2022_07"
+            ]
+        },
+        "org.icpclive.cds.settings.ClicsFeed<kotlin.String,kotlin.String,org.icpclive.cds.settings.Credential?,org.icpclive.cds.settings.Credential?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "eventFeedName": {
+                    "type": "string"
+                },
+                "eventFeedPath": {
+                    "type": "string"
+                },
+                "feedVersion": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.ClicsSettings.FeedVersion<org.icpclive.cds.settings.ClicsSettings.FeedVersion.2020_03,org.icpclive.cds.settings.ClicsSettings.FeedVersion.2022_07>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "url",
+                "contestId"
+            ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.cds.settings.ClicsFeed>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.settings.ClicsFeed<kotlin.String,kotlin.String,org.icpclive.cds.settings.Credential?,org.icpclive.cds.settings.Credential?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>"
+            }
+        },
+        "clics": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "clics",
+                    "default": "clics"
                 },
                 "feeds": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "url": {
-                                "type": "string"
-                            },
-                            "contestId": {
-                                "type": "string"
-                            },
-                            "login": {
-                                "type": "string"
-                            },
-                            "password": {
-                                "type": "string"
-                            },
-                            "eventFeedName": {
-                                "type": "string"
-                            },
-                            "eventFeedPath": {
-                                "type": "string"
-                            },
-                            "feedVersion": {
-                                "enum": [
-                                    "2020_03",
-                                    "2022_07"
-                                ]
-                            }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                            "url",
-                            "contestId"
-                        ]
-                    }
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.ClicsFeed>"
                 },
                 "useTeamNames": {
                     "type": "boolean"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "type",
                 "feeds"
-            ]
+            ],
+            "title": "clics"
         },
-        {
+        "kotlin.collections.ArrayList<kotlin.String>": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "cms": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "cms"
+                    "const": "cms",
+                    "default": "cms"
                 },
                 "url": {
                     "type": "string"
@@ -269,37 +237,13 @@
                     "type": "string"
                 },
                 "otherContests": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 }
             },
             "additionalProperties": false,
@@ -308,19 +252,21 @@
                 "url",
                 "activeContest",
                 "otherContests"
-            ]
+            ],
+            "title": "cms"
         },
-        {
+        "codedrills": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "codedrills"
+                    "const": "codedrills",
+                    "default": "codedrills"
                 },
                 "url": {
                     "type": "string"
                 },
                 "port": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "contestId": {
                     "type": "string"
@@ -329,31 +275,10 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
@@ -363,65 +288,45 @@
                 "port",
                 "contestId",
                 "authKey"
-            ]
+            ],
+            "title": "codedrills"
         },
-        {
+        "ejudge": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "ejudge"
+                    "const": "ejudge",
+                    "default": "ejudge"
                 },
                 "url": {
                     "type": "string"
                 },
                 "resultType": {
-                    "enum": [
-                        "ICPC",
-                        "IOI"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
                 },
                 "timeZone": {
                     "type": "string"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "type",
                 "url"
-            ]
+            ],
+            "title": "ejudge"
         },
-        {
+        "krsu": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "krsu"
+                    "const": "krsu",
+                    "default": "krsu"
                 },
                 "submissionsUrl": {
                     "type": "string"
@@ -433,31 +338,10 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
@@ -465,52 +349,35 @@
                 "type",
                 "submissionsUrl",
                 "contestUrl"
-            ]
+            ],
+            "title": "krsu"
         },
-        {
+        "noop": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "noop"
+                    "const": "noop",
+                    "default": "noop"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "type"
-            ]
+            ],
+            "title": "noop"
         },
-        {
+        "pcms": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "pcms"
+                    "const": "pcms",
+                    "default": "pcms"
                 },
                 "url": {
                     "type": "string"
@@ -525,50 +392,28 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "enum": [
-                        "ICPC",
-                        "IOI"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "type",
                 "url"
-            ]
+            ],
+            "title": "pcms"
         },
-        {
+        "testsys": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "testsys"
+                    "const": "testsys",
+                    "default": "testsys"
                 },
                 "url": {
                     "type": "string"
@@ -577,44 +422,25 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
             "required": [
                 "type",
                 "url"
-            ]
+            ],
+            "title": "testsys"
         },
-        {
+        "yandex": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "yandex"
+                    "const": "yandex",
+                    "default": "yandex"
                 },
                 "apiKey": {
                     "type": "string"
@@ -623,40 +449,16 @@
                     "type": "string"
                 },
                 "contestId": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "resultType": {
-                    "enum": [
-                        "ICPC",
-                        "IOI"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
                 },
                 "emulation": {
-                    "type": "object",
-                    "properties": {
-                        "speed": {
-                            "type": "number"
-                        },
-                        "startTime": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "speed",
-                        "startTime"
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                    ]
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 }
             },
             "additionalProperties": false,
@@ -665,7 +467,49 @@
                 "apiKey",
                 "loginRegex",
                 "contestId"
-            ]
+            ],
+            "title": "yandex"
+        },
+        "ICPC live settings": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/atcoder"
+                },
+                {
+                    "$ref": "#/$defs/cats"
+                },
+                {
+                    "$ref": "#/$defs/cf"
+                },
+                {
+                    "$ref": "#/$defs/clics"
+                },
+                {
+                    "$ref": "#/$defs/cms"
+                },
+                {
+                    "$ref": "#/$defs/codedrills"
+                },
+                {
+                    "$ref": "#/$defs/ejudge"
+                },
+                {
+                    "$ref": "#/$defs/krsu"
+                },
+                {
+                    "$ref": "#/$defs/noop"
+                },
+                {
+                    "$ref": "#/$defs/pcms"
+                },
+                {
+                    "$ref": "#/$defs/testsys"
+                },
+                {
+                    "$ref": "#/$defs/yandex"
+                }
+            ],
+            "title": "ICPC live settings"
         }
-    ]
+    }
 }
