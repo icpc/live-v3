@@ -3,10 +3,15 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-val schemasExportLocation = rootProject.rootDir.resolve("schemas/")
-val tmpLocation = buildDir.resolve("tmp/")
-val schemasGenerationLocation = tmpLocation.resolve("schemas/")
-val schemasGatherLocation = buildDir.resolve("schemas/")
+val tmpLocation = buildDir.resolve("tmp")
+val schemasExportLocation = rootProject.rootDir.resolve("schemas")
+val schemasGenerationLocation = tmpLocation.resolve("schemas")
+val schemasGatherLocation = buildDir.resolve("schemas")
+
+val tsExportLocation = rootProject.rootDir.resolve("src").resolve("frontend").resolve("common")
+val tsGenerationLocation = tmpLocation.resolve("ts")
+val tsGatherLocation = buildDir.resolve("ts")
+
 
 fun String.capitalize(): String = replaceFirstChar { it.uppercaseChar() }
 
@@ -15,10 +20,12 @@ fun TaskContainerScope.genTask(
     classFqNames: List<String>,
     taskSuffix: String,
     fullFileName: String,
-    title: String?
+    title: String?,
+    exportLocation: File,
+    generationLocation: File,
 ): Pair<TaskProvider<out Task>, TaskProvider<out Task>>  {
-    val generatedSchemaFile = schemasGenerationLocation.resolve(fullFileName)
-    val repositorySchemaFile = schemasExportLocation.resolve(fullFileName)
+    val generatedSchemaFile = generationLocation.resolve(fullFileName)
+    val repositorySchemaFile = exportLocation.resolve(fullFileName)
 
     val genTask = register<JavaExec>("generateSchema${taskSuffix}") {
         dependsOn(assemble)
@@ -54,14 +61,20 @@ fun TaskContainerScope.genTask(
 }
 
 fun TaskContainerScope.genJsonTask(classFqName: String, fileName: String, title: String) =
-    genTask("json", listOf(classFqName), fileName.capitalize(), "${fileName}.schema.json", title)
+    genTask(
+        "json", listOf(classFqName), fileName.capitalize(),
+        "${fileName}.schema.json", title,
+        schemasExportLocation, schemasGenerationLocation)
 
 fun TaskContainerScope.genTsTask(classFqNames: List<String>, fileName: String) =
-    genTask("type-script", classFqNames, fileName.capitalize(), "${fileName}.ts", null)
+    genTask("type-script", classFqNames, fileName.capitalize(),
+        "${fileName}.ts", null,
+        tsExportLocation, tsGenerationLocation,
+        )
 
 
 tasks {
-    val genAndCheckTasks = listOf(
+    val schemaAllTasks = listOf(
         genJsonTask(
             "org.icpclive.api.tunning.AdvancedProperties",
             "advanced",
@@ -71,7 +84,9 @@ tasks {
             "org.icpclive.cds.settings.CDSSettings",
             "settings",
             "ICPC live settings"
-        ),
+        )
+    )
+    val tsAllTasks = listOf(
         genTsTask(
             listOf(
                 "org.icpclive.api.ContestInfo",
@@ -85,8 +100,9 @@ tasks {
             "api",
         ),
     )
-    val genTasks = genAndCheckTasks.map { it.first }
-    val checkTasks = genAndCheckTasks.map { it.second }
+    val schemasGenTasks = schemaAllTasks.map { it.first }
+    val tsGenTasks = tsAllTasks.map { it.first }
+    val checkTasks = schemaAllTasks.map { it.second } + tsAllTasks.map { it.second }
 
     // Gradle for inter-project dependencies uses outgoing variants. Those are a bit hard to properly set up, so this
     // project just uses cross-project tasks dependencies (that from the looks of configuration cache aren't welcome,
@@ -97,13 +113,27 @@ tasks {
         group = "build"
         destinationDir = schemasGatherLocation
 
-        from(genTasks)
+        from(schemasGenTasks)
+    }
+    val generateTs = register<Sync>("generateAllTs") {
+        group = "build"
+        destinationDir = tsGatherLocation
+
+        from(tsGenTasks)
     }
 
-    register<Sync>("gen") {
+    val exportSchemas = register<Sync>("exportSchemas") {
         destinationDir = schemasExportLocation
 
         from(generateSchemas)
+    }
+    val exportTs = register<Sync>("exportTs") {
+        destinationDir = tsExportLocation
+
+        from(generateTs)
+    }
+    register("gen") {
+        dependsOn(exportSchemas, exportTs)
     }
 
     check {
