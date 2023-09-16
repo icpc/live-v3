@@ -1,13 +1,8 @@
-@file:OptIn(ExperimentalSerializationApi::class)
-
 package org.icpclive.generator.schema
 
-
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.subcommands
-import com.github.ajalt.clikt.parameters.options.*
-import dev.adamko.kxstsgen.KxsTsGenerator
-import dev.adamko.kxstsgen.core.TsDeclaration
+import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.required
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.json.*
@@ -118,7 +113,15 @@ fun SerialDescriptor.toJsonSchemaType(
                     PrimitiveKind.STRING -> {
                         JsonObject(
                             mapOf(
-                                "type" to JsonPrimitive("object")
+                                "type" to JsonPrimitive("object"),
+                                "patternProperties" to JsonObject(
+                                    mapOf(
+                                        ".*" to valuesSerializer.toJsonSchemaType(
+                                            processed,
+                                            definitions
+                                        )
+                                    )
+                                )
                             )
                         )
                     }
@@ -185,47 +188,4 @@ class JsonCommand : CliktCommand(name = "json") {
             it.println(schema)
         }
     }
-}
-
-// This is a copy-pasted generating method to work around a bug.
-fun KxsTsGenerator.patchedGenerate(vararg serializers: KSerializer<*>) : String {
-        return serializers
-            .toSet()
-            .flatMap { serializer -> descriptorsExtractor(serializer) }
-            .toSet()
-            .flatMap { descriptor -> elementConverter(descriptor) }
-            .toSet()
-            .groupBy { element -> sourceCodeGenerator.groupElementsBy(element) }
-            .mapValues { (_, elements) ->
-                elements
-                    .filterIsInstance<TsDeclaration>()
-                    .map { element -> sourceCodeGenerator.generateDeclaration(element) }
-                    .filter { it.isNotBlank() }
-                    .toSet() // workaround for https://github.com/adamko-dev/kotlinx-serialization-typescript-generator/issues/110
-                    .joinToString(config.declarationSeparator)
-            }
-            .values
-            .joinToString(config.declarationSeparator)
-}
-
-class TSCommand : CliktCommand(name = "type-script") {
-    private val className by option(help = "Class name for which schema should be generated").multiple()
-    private val output by option("--output", "-o", help = "File to print output").required()
-
-    override fun run() {
-        val tsGenerator = KxsTsGenerator()
-        val things = className.map { serializer(Class.forName(it)) }
-        File(output).printWriter().use {
-            it.println(tsGenerator.patchedGenerate(*things.toTypedArray()))
-        }
-    }
-}
-
-
-class MainCommand : CliktCommand() {
-    override fun run() {}
-}
-
-fun main(args: Array<String>) {
-    MainCommand().subcommands(JsonCommand(), TSCommand()).main(args)
 }
