@@ -4,7 +4,7 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.admin.ApiActionException
+import java.lang.IllegalArgumentException
 
 interface ObjectSettings
 
@@ -81,13 +81,7 @@ data class TeamLocatorExternalCircleSettings(
     val radius: Int,
     val teamId: Int? = null,
     val cdsTeamId: String? = null,
-) {
-    init {
-        if ((teamId == null) == (cdsTeamId == null)) {
-            throw ApiActionException("Only one of of teamId and cdsTeamsId can be specified")
-        }
-    }
-}
+)
 
 @Serializable
 data class ExternalTeamLocatorSettings(

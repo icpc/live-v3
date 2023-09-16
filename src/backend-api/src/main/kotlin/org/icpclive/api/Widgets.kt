@@ -4,9 +4,10 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.Config
 import kotlin.random.Random
 import kotlin.random.nextUInt
+
+var defaultWidgetPositions: Map<String, LocationRectangle> = emptyMap()
 
 fun generateId(widgetPrefix: String): String = "$widgetPrefix-${Random.nextUInt()}"
 
@@ -19,7 +20,7 @@ class LocationRectangle(
 )
 
 fun getLocationOrDefault(widgetPrefix: String, defaultLocationRectangle: LocationRectangle) =
-    Config.widgetPositions.getOrDefault(widgetPrefix, defaultLocationRectangle)
+    defaultWidgetPositions.getOrDefault(widgetPrefix, defaultLocationRectangle)
 
 @Serializable
 sealed class Widget(

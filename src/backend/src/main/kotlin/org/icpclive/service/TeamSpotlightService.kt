@@ -105,7 +105,7 @@ class TeamSpotlightService(
                     continue
                 }
                 emit(KeyTeam(element.teamId, element.caused))
-                val teams = mutex.withLock { queue.map(::CurrentTeamState) }
+                val teams = mutex.withLock { queue.map { CurrentTeamState(it.teamId, it.score) } }
                 teamInteresting?.emit(teams)
             }
         }
@@ -113,7 +113,7 @@ class TeamSpotlightService(
 
     private suspend fun TeamState.addAccent(accent: TeamAccent) {
         addAccent(accent, settings)
-        teamInteresting?.emit(queue.map(::CurrentTeamState))
+        teamInteresting?.emit(queue.map { CurrentTeamState(it.teamId, it.score) } )
     }
 
     suspend fun run(

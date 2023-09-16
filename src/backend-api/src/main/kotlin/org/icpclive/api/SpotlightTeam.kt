@@ -1,7 +1,6 @@
 package org.icpclive.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.service.TeamState
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -10,9 +9,7 @@ class RunCause(val runId: Int) : KeyTeamCause()
 object ScoreSumCause : KeyTeamCause()
 
 data class KeyTeam(val teamId: Int, val cause: KeyTeamCause)
-data class CurrentTeamState(val teamId: Int, val score: Double) {
-    constructor(state: TeamState) : this(state.teamId, state.score)
-}
+data class CurrentTeamState(val teamId: Int, val score: Double)
 
 @Serializable
 data class InterestingTeam(val teamId: Int, val teamName: String, val score: Double)

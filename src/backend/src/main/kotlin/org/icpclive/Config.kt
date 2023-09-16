@@ -8,6 +8,7 @@ import com.github.ajalt.clikt.parameters.types.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
+import org.icpclive.api.defaultWidgetPositions
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
     val configDirectory by option(
@@ -50,12 +51,14 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
             path.toFile().inputStream().use { Json.decodeFromStream<Map<String, LocationRectangle>>(it) }
         }.default(emptyMap(), "none")
 
+
     val analyticsTemplatesFile by option(
         "--analytics-template",
         help = "File with localization of analytics messages"
     ).path(canBeFile = true, canBeDir = false, mustExist = true)
 
     override fun run() {
+        defaultWidgetPositions = widgetPositions
         presetsDirectory.toFile().mkdirs()
         mediaDirectory.toFile().mkdirs()
         io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
