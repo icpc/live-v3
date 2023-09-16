@@ -4,9 +4,10 @@ package org.icpclive.generator.schema
 
 
 import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.options.required
+import com.github.ajalt.clikt.core.subcommands
+import com.github.ajalt.clikt.parameters.options.*
+import dev.adamko.kxstsgen.KxsTsGenerator
+import dev.adamko.kxstsgen.core.TsDeclaration
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.json.*
@@ -171,8 +172,8 @@ private val json = Json {
     prettyPrint = true
 }
 
-class GenCommand : CliktCommand() {
-    private val className by argument(help = "Class name for which schema should be generated")
+class JsonCommand : CliktCommand(name = "json") {
+    private val className by option(help = "Class name for which schema should be generated")
     private val output by option("--output", "-o", help = "File to print output").required()
     private val title by option("--title", "-t", help = "Title inside schema file").required()
 
@@ -186,6 +187,45 @@ class GenCommand : CliktCommand() {
     }
 }
 
+// This is a copy-pasted generating method to work around a bug.
+fun KxsTsGenerator.patchedGenerate(vararg serializers: KSerializer<*>) : String {
+        return serializers
+            .toSet()
+            .flatMap { serializer -> descriptorsExtractor(serializer) }
+            .toSet()
+            .flatMap { descriptor -> elementConverter(descriptor) }
+            .toSet()
+            .groupBy { element -> sourceCodeGenerator.groupElementsBy(element) }
+            .mapValues { (_, elements) ->
+                elements
+                    .filterIsInstance<TsDeclaration>()
+                    .map { element -> sourceCodeGenerator.generateDeclaration(element) }
+                    .filter { it.isNotBlank() }
+                    .toSet() // workaround for https://github.com/adamko-dev/kotlinx-serialization-typescript-generator/issues/110
+                    .joinToString(config.declarationSeparator)
+            }
+            .values
+            .joinToString(config.declarationSeparator)
+}
+
+class TSCommand : CliktCommand(name = "type-script") {
+    private val className by option(help = "Class name for which schema should be generated").multiple()
+    private val output by option("--output", "-o", help = "File to print output").required()
+
+    override fun run() {
+        val tsGenerator = KxsTsGenerator()
+        val things = className.map { serializer(Class.forName(it)) }
+        File(output).printWriter().use {
+            it.println(tsGenerator.patchedGenerate(*things.toTypedArray()))
+        }
+    }
+}
+
+
+class MainCommand : CliktCommand() {
+    override fun run() {}
+}
+
 fun main(args: Array<String>) {
-    GenCommand().main(args)
+    MainCommand().subcommands(JsonCommand(), TSCommand()).main(args)
 }
