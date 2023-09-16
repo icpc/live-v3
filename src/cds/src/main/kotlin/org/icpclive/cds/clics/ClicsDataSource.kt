@@ -15,18 +15,18 @@ import org.icpclive.clics.*
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
-private class ParsedClicsLoaderSettings(settings: ClicsFeed, creds: Map<String, String>) {
+private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
     val auth = ClientAuth.BasicOrNull(
-        settings.login?.get(creds),
-        settings.password?.get(creds)
+        settings.login?.value,
+        settings.password?.value
     )
     val baseUrl = settings.url
     val eventFeedUrl = "$baseUrl/${settings.eventFeedPath ?: "contests/${settings.contestId}"}/${settings.eventFeedName}"
     val feedVersion = settings.feedVersion
 }
 
-internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : ContestDataSource {
-    private val feeds = settings.feeds.map { ParsedClicsLoaderSettings(it, creds) }
+internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource {
+    private val feeds = settings.feeds.map { ParsedClicsLoaderSettings(it) }
 
     private val model = ClicsModel(
         settings.useTeamNames

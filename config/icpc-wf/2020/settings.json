@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "icpc-wf/2020",
+      "url": ".",
       "contestId": "",
       "eventFeedPath": "",
       "feedVersion": "2020_03"

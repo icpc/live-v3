@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "2021/test0",
+      "url": ".",
       "contestId": "",
       "eventFeedPath": ""
     }

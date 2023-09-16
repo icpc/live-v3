@@ -153,7 +153,7 @@
                 "2022_07"
             ]
         },
-        "org.icpclive.cds.settings.ClicsFeed<kotlin.String,kotlin.String,org.icpclive.cds.settings.Credential?,org.icpclive.cds.settings.Credential?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>": {
+        "org.icpclive.cds.settings.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>": {
             "type": "object",
             "properties": {
                 "url": {
@@ -187,7 +187,7 @@
         "kotlin.collections.ArrayList<org.icpclive.cds.settings.ClicsFeed>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/org.icpclive.cds.settings.ClicsFeed<kotlin.String,kotlin.String,org.icpclive.cds.settings.Credential?,org.icpclive.cds.settings.Credential?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>"
+                "$ref": "#/$defs/org.icpclive.cds.settings.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>"
             }
         },
         "clics": {

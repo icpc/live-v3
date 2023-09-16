@@ -33,7 +33,8 @@ class Bot(private val config: Config) {
     private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
     private val cds = parseFileToCdsSettings(
         Path.of(config.settingsFile),
-    ).toFlow(emptyMap())
+        emptyMap()
+    ).toFlow()
         .contestState()
         .filterUseless()
         .removeFrozenSubmissions()

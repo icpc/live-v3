@@ -57,11 +57,12 @@ internal class CodeDrillsClient(url: String, port: Int, authKey: String) : AutoC
 }
 
 
-internal class CodeDrillsDataSource(val settings: CodeDrillsSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullReloadContestDataSource(5.seconds) {
     val client = CodeDrillsClient(
-        settings.url,
+        settings.
+        url,
         settings.port,
-        settings.authKey.get(creds)
+        settings.authKey.value,
     )
 
     private fun SubmissionVerdict.toInfoVerdict() = when (this) {

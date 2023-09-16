@@ -25,7 +25,7 @@ object CdsLoadersTest {
         loaderTest(
             goldenDataDir.resolve("pcms.txt"),
             PCMSSettings(
-                url = "testData/loaders/pcms.xml"
+                url = UrlOrLocalPath("testData/loaders/pcms.xml")
             )
         )
     }
@@ -36,7 +36,7 @@ object CdsLoadersTest {
             goldenDataDir.resolve("pcmsIOI.txt"),
             PCMSSettings(
                 resultType = ContestResultType.IOI,
-                url = "testData/loaders/pcms-ioi.xml"
+                url = UrlOrLocalPath("testData/loaders/pcms-ioi.xml")
             )
         )
     }
@@ -46,7 +46,7 @@ object CdsLoadersTest {
         loaderTest(
             goldenDataDir.resolve("ejudge.txt"),
             EjudgeSettings(
-                url = "testData/loaders/ejudge.xml"
+                url = UrlOrLocalPath("testData/loaders/ejudge.xml")
             )
         )
     }
@@ -59,7 +59,7 @@ object CdsLoadersTest {
             ClicsSettings(
                 feeds = listOf(
                     ClicsFeed(
-                        url = "testData/loaders/clics-2020-03",
+                        url = UrlOrLocalPath("testData/loaders/clics-2020-03"),
                         contestId = "",
                         eventFeedPath = "",
                         feedVersion = ClicsSettings.FeedVersion.`2020_03`
@@ -76,7 +76,7 @@ object CdsLoadersTest {
             ClicsSettings(
                 feeds = listOf(
                     ClicsFeed(
-                        url = "testData/loaders/clics-2022-07",
+                        url = UrlOrLocalPath("testData/loaders/clics-2022-07"),
                         contestId = "",
                         eventFeedPath = "",
                         feedVersion = ClicsSettings.FeedVersion.`2022_07`
@@ -91,7 +91,7 @@ object CdsLoadersTest {
         loaderTest(
             goldenDataDir.resolve("testSys.txt"),
             TestSysSettings(
-                url = "testData/loaders/testsys.dat"
+                url = UrlOrLocalPath("testData/loaders/testsys.dat")
             )
         )
     }
@@ -101,7 +101,7 @@ object CdsLoadersTest {
         loaderTest(
             goldenDataDir.resolve("testSysWithAdvancedOverride.txt"),
             TestSysSettings(
-                url = "testData/loaders/testsys.dat"
+                url = UrlOrLocalPath("testData/loaders/testsys.dat")
             ),
             AdvancedProperties(
                 teamRegexes = TeamRegexOverrides(
@@ -131,7 +131,7 @@ object CdsLoadersTest {
     }
 
     private fun loaderTest(expectedFile: Path, args: CDSSettings, advanced: AdvancedProperties? = null) {
-        val loader = args.toFlow(emptyMap())
+        val loader = args.toFlow()
         val result = runBlocking {
             val result = withTimeout(1.minutes) {
                 loader.finalContestState().let {

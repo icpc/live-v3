@@ -13,10 +13,10 @@ import java.util.*
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 
-internal class CFDataSource(val settings: CFSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSource(5.seconds) {
     private val contestInfo = CFContestInfo()
-    private val apiKey = settings.apiKey.get(creds)
-    private val apiSecret = settings.apiSecret.get(creds)
+    private val apiKey = settings.apiKey.value
+    private val apiSecret = settings.apiSecret.value
 
     private fun apiRequestUrl(
         method: String,

@@ -1,5 +1,5 @@
 {
-  "type":"pcms",
-  "url":"roi/2023/test/standings-live.xml",
-  "resultType":"IOI"
+  "type": "pcms",
+  "url": "standings-live.xml",
+  "resultType": "IOI"
 }

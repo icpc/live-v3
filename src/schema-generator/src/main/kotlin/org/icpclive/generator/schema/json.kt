@@ -6,7 +6,9 @@ import com.github.ajalt.clikt.parameters.options.required
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.json.*
+import kotlinx.serialization.modules.EmptySerializersModule
 import java.io.File
+import kotlin.reflect.KClass
 
 fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.BOOLEAN -> "boolean"
@@ -20,7 +22,7 @@ fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.STRING -> "string"
 }
 
-@OptIn(ExperimentalSerializationApi::class)
+@OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
 fun SerialDescriptor.toJsonSchemaType(
     processed: MutableSet<String>,
     definitions: MutableMap<String, JsonElement>,
@@ -31,6 +33,11 @@ fun SerialDescriptor.toJsonSchemaType(
     if (kind is PrimitiveKind) {
         require(extraTypeProperty == null)
         return JsonObject(mapOf("type" to JsonPrimitive((kind as PrimitiveKind).toJsonTypeName())))
+    }
+    if (kind == SerialKind.CONTEXTUAL) {
+        val kclass = capturedKClass ?: error("Contextual serializer $serialName doesn't have class")
+        val defaultSerializer = serializer(kclass, emptyList(), isNullable)
+        return defaultSerializer.descriptor.toJsonSchemaType(processed, definitions, extras, extraTypeProperty)
     }
     if (isInline) {
         return getElementDescriptor(0).toJsonSchemaType(processed, definitions, extras, extraTypeProperty)
@@ -43,7 +50,7 @@ fun SerialDescriptor.toJsonSchemaType(
         processed.add(id)
         val data = when (kind) {
             PolymorphicKind.OPEN -> TODO("Open polymorphic types are not supported")
-            SerialKind.CONTEXTUAL -> TODO("Contextual types are not supported")
+            is PrimitiveKind, SerialKind.CONTEXTUAL -> error("Already handled")
             PolymorphicKind.SEALED -> {
                 require(extraTypeProperty == null)
                 val typeFieldName = getElementName(0)
@@ -64,7 +71,6 @@ fun SerialDescriptor.toJsonSchemaType(
                 )
             }
 
-            is PrimitiveKind -> error("Already handled")
 
             SerialKind.ENUM -> {
                 require(extraTypeProperty == null)

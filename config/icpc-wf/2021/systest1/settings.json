@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "2021/systest1",
+      "url": ".",
       "contestId": "",
       "eventFeedPath": ""
     }

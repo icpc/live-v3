@@ -128,8 +128,8 @@ fun Application.module() {
             .stateIn(this)
         DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
 
-        val loader = parseFileToCdsSettings(path)
-            .toFlow(config.creds)
+        val loader = parseFileToCdsSettings(path, config.creds)
+            .toFlow()
             .applyAdvancedProperties(advancedPropertiesFlow)
             .contestState()
             .filterUseless()

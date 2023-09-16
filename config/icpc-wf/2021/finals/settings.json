@@ -2,14 +2,14 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "icpc-wf/2021/finals",
+      "url": ".",
       "login": "live",
       "contestId": "",
       "eventFeedPath": "",
       "password": "landed-wafer-state-diner"
     },
     {
-      "url": "icpc-wf/2021/finals",
+      "url": ".",
       "eventFeedName": "commentary-messages",
       "contestId": "",
       "eventFeedPath": "",
