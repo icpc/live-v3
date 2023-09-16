@@ -77,6 +77,10 @@ tasks {
                 "org.icpclive.api.ContestInfo",
                 "org.icpclive.api.RunInfo",
                 "org.icpclive.api.Scoreboard",
+                "org.icpclive.api.MainScreenEvent",
+                "org.icpclive.api.QueueEvent",
+                "org.icpclive.api.AnalyticsEvent",
+                "org.icpclive.api.TickerEvent"
             ),
             "api",
         ),
@@ -113,6 +117,7 @@ dependencies {
     implementation(libs.cli)
     implementation(libs.kxs.ts.gen.core)
     runtimeOnly(projects.cds)
+    runtimeOnly(projects.backendApi)
 
     testImplementation(libs.kotlin.junit)
 }
