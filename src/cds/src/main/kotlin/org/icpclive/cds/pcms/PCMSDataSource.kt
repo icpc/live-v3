@@ -145,47 +145,53 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     ): RunInfo {
         val time = element.getAttribute("time").toLong().milliseconds
         val id = runIds[element.getAttribute("run-id")]
-        val percentage = when {
-            "undefined" == element.getAttribute("outcome") -> 0.0
-            else -> 1.0
-        }
+        val verdict = getVerdict(element)
 
         return RunInfo(
             id = id,
             when (resultType) {
                 ContestResultType.IOI -> {
-                    val score = element.getAttribute("score").toDouble()
-                    val groupsScore = element.children("group").map { it.getAttribute("score").toDouble() }.toList().takeIf { it.isNotEmpty() }
-                    IOIRunResult(
-                        score = groupsScore ?: listOf(score),
-                    )
+                    when (verdict) {
+                        null -> null
+                        Verdict.Accepted -> {
+                            val score = element.getAttribute("score").toDouble()
+                            val groupsScore =
+                                element.children("group").map { it.getAttribute("score").toDouble() }.toList()
+                                    .takeIf { it.isNotEmpty() }
+
+                            IOIRunResult(score = groupsScore ?: listOf(score))
+                        }
+                        else -> IOIRunResult(score = emptyList(), wrongVerdict = verdict)
+                    }
                 }
                 ContestResultType.ICPC -> {
-                    when {
-                        "yes" == element.getAttribute("accepted") -> Verdict.Accepted
-                        else -> when (element.getAttribute("outcome")) {
-                            "fail" -> Verdict.Fail
-                            "unknown" -> null
-                            "accepted" -> Verdict.Accepted
-                            "compilation-error" -> Verdict.CompilationError
-                            "wrong-answer" -> Verdict.WrongAnswer
-                            "presentation-error" -> Verdict.PresentationError
-                            "runtime-error" -> Verdict.RuntimeError
-                            "time-limit-exceeded" -> Verdict.TimeLimitExceeded
-                            "memory-limit-exceeded" -> Verdict.MemoryLimitExceeded
-                            "output-limit-exceeded" -> Verdict.OutputLimitExceeded
-                            "idleness-limit-exceeded" -> Verdict.IdlenessLimitExceeded
-                            "security-violation" -> Verdict.SecurityViolation
-                            else -> Verdict.WrongAnswer
-                        }
-                    }?.toRunResult()
+                    verdict?.toRunResult()
                 }
             },
             problemId = problemId,
             teamId = teamId,
-            percentage = percentage,
+            percentage = if (verdict == null) 0.0 else 1.0,
             time = time,
         )
+    }
+
+    private fun getVerdict(element: Element) = when {
+        "yes" == element.getAttribute("accepted") -> Verdict.Accepted
+        else -> when (element.getAttribute("outcome")) {
+            "fail" -> Verdict.Fail
+            "unknown" -> null
+            "accepted" -> Verdict.Accepted
+            "compilation-error" -> Verdict.CompilationError
+            "wrong-answer" -> Verdict.WrongAnswer
+            "presentation-error" -> Verdict.PresentationError
+            "runtime-error" -> Verdict.RuntimeError
+            "time-limit-exceeded" -> Verdict.TimeLimitExceeded
+            "memory-limit-exceeded" -> Verdict.MemoryLimitExceeded
+            "output-limit-exceeded" -> Verdict.OutputLimitExceeded
+            "idleness-limit-exceeded" -> Verdict.IdlenessLimitExceeded
+            "security-violation" -> Verdict.SecurityViolation
+            else -> Verdict.WrongAnswer
+        }
     }
 
     companion object {
