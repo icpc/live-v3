@@ -1,0 +1,38 @@
+syntax = "proto3";
+package io.codedrills.proto.external;
+
+option java_multiple_files = true;
+
+import "io/codedrills/proto/external/common.proto";
+
+message Submission {
+  int32 id = 1;
+  int32 time_taken_in_ms = 2;
+  int32 memory_taken_in_kb = 3;
+  ProgrammingLanguage programming_language = 4;
+  SubmissionVerdict verdict = 5;
+  int64 submitted_on = 6;
+  double score = 7;
+  string submitted_by = 8;
+  int32 problem_id = 9;
+}
+
+enum SubmissionVerdict {
+  WAITING = 0;
+  COMPILING = 1;
+  COMPILED = 2;
+  RUNNING = 3;
+
+  // Keep incomplete statuses < 10
+  COMPILE_ERROR = 10;
+  RUNTIME_ERROR = 11;
+  TIME_LIMIT_EXCEEDED = 12;
+  CORRECT_ANSWER = 13;
+  WRONG_ANSWER = 14;
+  SOURCE_LIMIT_EXCEEDED = 15;
+  MEMORY_LIMIT_EXCEEDED = 16;
+  SKIPPED = 17;
+  OUTPUT_LIMIT_EXCEEDED = 18;
+
+  JUDGE_ERROR = 30;
+}

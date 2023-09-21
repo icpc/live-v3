@@ -1,23 +1,15 @@
 package org.icpclive.cds.cats
 
 import kotlinx.datetime.*
-import kotlinx.datetime.TimeZone
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonLoader
-import org.icpclive.util.getCredentials
+import org.icpclive.cds.common.*
+import org.icpclive.cds.settings.CatsSettings
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 private object ContestTimeSerializer : KSerializer<LocalDateTime> {
@@ -46,13 +38,9 @@ private object SubmissionTimeSerializer : KSerializer<Instant> {
     }
 }
 
-class CATSDataSource(val properties: Properties, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
-    private val login = properties.getCredentials("login", creds)
-    private val password = properties.getCredentials("password", creds)
-    private val url = properties.getProperty("url")
-    private val timezone = TimeZone.of(properties.getProperty("timezone") ?: throw IllegalStateException("Cats requires timezone property to be set"))
-    val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
-    private val cid = properties.getProperty("cid")
+internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+    private val login = settings.login.get(creds)
+    private val password = settings.password.get(creds)
 
     private var sid: String? = null
 
@@ -60,7 +48,7 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
     data class Auth(val status: String, val sid: String, val cid: Long)
 
     @Serializable
-    data class Problem(val id: Int, val name: String, val code: String, val max_points: String = "0.0")
+    data class Problem(val id: Int, val name: String, val code: String, val max_points: Double = 0.0)
 
     @Serializable
     data class Problems(val problems: List<Problem>)
@@ -120,11 +108,11 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
         val contest_start: Int
     ) : Run()
 
-    private val authLoader = jsonLoader<Auth> { "$url/?f=login&login=$login&passwd=$password&json=1" }
-    private val problemsLoader = jsonLoader<Problems> { "$url/problems?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
-    private val usersLoader = jsonLoader<Users> { "$url/users?cid=$cid&sid=${sid!!}&rows=1000&json=1" }
-    private val contestLoader = jsonLoader<Contest> { "$url/contest_params?cid=$cid&sid=${sid!!}&json=1" }
-    private val runsLoader = jsonLoader<List<Run>> { "$url/console?cid=$cid&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1" }
+    private val authLoader = jsonLoader<Auth>(networkSettings = settings.network) { "${settings.url}/?f=login&login=$login&passwd=$password&json=1" }
+    private val problemsLoader = jsonLoader<Problems>(networkSettings = settings.network) { "${settings.url}/problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
+    private val usersLoader = jsonLoader<Users>(networkSettings = settings.network) { "${settings.url}/users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
+    private val contestLoader = jsonLoader<Contest>(networkSettings = settings.network) { "${settings.url}/contest_params?cid=${settings.cid}&sid=${sid!!}&json=1" }
+    private val runsLoader = jsonLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1" }
 
     override suspend fun loadOnce(): ContestParseResult {
         sid = authLoader.load().sid
@@ -146,15 +134,15 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
             .asSequence()
             .mapIndexed { index, problem ->
                 ProblemInfo(
-                    letter = problem.code,
-                    name = problem.name,
+                    displayName = problem.code,
+                    fullName = problem.name,
                     color = null,
                     id = problem.id,
                     ordinal = index,
                     contestSystemId = problem.id.toString(),
-                    minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
-                    maxScore = if (resultType == ContestResultType.IOI) problem.max_points.toDoubleOrNull() else null,
-                    scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
+                    minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
+                    maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points else null,
+                    scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
                 )
             }
             .toList()
@@ -165,29 +153,37 @@ class CATSDataSource(val properties: Properties, creds: Map<String, String>) : F
             .map { team ->
                 TeamInfo(
                     id = team.account_id,
-                    name = team.name,
-                    shortName = team.name,
+                    fullName = team.name,
+                    displayName = team.name,
                     contestSystemId = team.account_id.toString(),
                     groups = listOf(),
                     hashTag = null,
-                    medias = mapOf()
+                    medias = mapOf(),
+                    isHidden = false,
+                    isOutOfContest = false,
+                    organizationId = null
                 )
             }.toList()
 
-        val startTime = contest.start_date.toInstant(timezone)
-        val contestLength = contest.finish_date.toInstant(timezone) - startTime
-        val freezeTime = contest.freeze_date.toInstant(timezone) - startTime
+        val startTime = contest.start_date.toInstant(settings.timeZone)
+        val contestLength = contest.finish_date.toInstant(settings.timeZone) - startTime
+        val freezeTime = contest.freeze_date.toInstant(settings.timeZone) - startTime
 
         val contestInfo = ContestInfo(
             name = contest.title,
-            status = ContestStatus.OVER,
-            resultType = resultType,
+            status = ContestStatus.byCurrentTime(startTime, contestLength),
+            resultType = settings.resultType,
             startTime = startTime,
             contestLength = contestLength,
             freezeTime = freezeTime,
-            problems = problemsList,
-            teams = teamList,
-            groups = emptyList()
+            problemList = problemsList,
+            teamList = teamList,
+            groupList = emptyList(),
+            organizationList = emptyList(),
+            penaltyRoundingMode = when (settings.resultType) {
+                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+            }
         )
 
         val resultRuns = runs

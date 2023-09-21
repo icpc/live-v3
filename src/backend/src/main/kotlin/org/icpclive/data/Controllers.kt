@@ -1,8 +1,8 @@
 package org.icpclive.data
 
+import org.icpclive.Config
 import org.icpclive.admin.createUsersController
 import org.icpclive.api.*
-import org.icpclive.config
 import org.icpclive.controllers.*
 import org.icpclive.util.Svg
 import org.icpclive.util.toBase64SVG
@@ -20,15 +20,15 @@ object Controllers {
 
     val locator = LocatorWidgetController(WidgetManager)
 
-    private fun presetsPath(name: String) = config.presetsDirectory.resolve("$name.json")
+    private fun presetsPath(name: String) = Config.presetsDirectory.resolve("$name.json")
 
     val advertisement = PresetsController(presetsPath("advertisements"), WidgetManager, ::AdvertisementWidget)
     val picture = PresetsController(presetsPath("pictures"), WidgetManager, ::PictureWidget)
     val title = PresetsController(presetsPath("title"), WidgetManager) { titleSettings: TitleSettings ->
         SvgWidget(
-            Svg.loadAndSubstitute(config.mediaDirectory.resolve(titleSettings.preset), titleSettings.data).toBase64SVG()
+            Svg.loadAndSubstitute(Config.mediaDirectory.resolve(titleSettings.preset), titleSettings.data).toBase64SVG()
         )
     }
     val tickerMessage = PresetsController(presetsPath("ticker"), TickerManager, TickerMessageSettings::toMessage)
-    val userController = config.createUsersController()
+    val userController = Config.createUsersController()
 }

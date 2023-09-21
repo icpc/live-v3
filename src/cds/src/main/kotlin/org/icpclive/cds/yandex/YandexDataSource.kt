@@ -6,26 +6,19 @@ import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import org.icpclive.api.ContestResultType
+import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
-import org.icpclive.cds.RawContestDataSource
+import org.icpclive.cds.adapters.withGroupedRuns
 import org.icpclive.cds.common.*
-import org.icpclive.cds.yandex.YandexConstants.API_BASE
-import org.icpclive.cds.yandex.YandexConstants.CONTEST_ID_PROPERTY_NAME
-import org.icpclive.cds.yandex.YandexConstants.LOGIN_PREFIX_PROPERTY_NAME
-import org.icpclive.cds.yandex.YandexConstants.TOKEN_PROPERTY_NAME
+import org.icpclive.cds.settings.YandexSettings
 import org.icpclive.cds.yandex.api.*
 import org.icpclive.util.*
-import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class YandexDataSource(props: Properties, creds: Map<String, String>) : RawContestDataSource {
-    private val apiKey: String
-    private val loginPrefix: String
-    private val contestId: Long
+internal class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : ContestDataSource {
+    private val apiKey = settings.apiKey.get(creds)
     private val httpClient: HttpClient
 
     private val contestDescriptionLoader: DataLoader<ContestDescription>
@@ -33,18 +26,14 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
     private val participantLoader: DataLoader<List<Participant>>
     private val allSubmissionsLoader: DataLoader<List<Submission>>
 
-    val resultType = ContestResultType.valueOf(props.getProperty("standings.resultType", "ICPC").uppercase())
+    val resultType = settings.resultType
 
 
     init {
-        apiKey = props.getCredentials(TOKEN_PROPERTY_NAME, creds) ?: throw IllegalStateException("YC api key is not defined")
-        contestId = props.getProperty(CONTEST_ID_PROPERTY_NAME).toLong()
-        loginPrefix = props.getProperty(LOGIN_PREFIX_PROPERTY_NAME)
-
         val auth = ClientAuth.OAuth(apiKey)
-        httpClient = defaultHttpClient(auth) {
+        httpClient = defaultHttpClient(auth, settings.network) {
             defaultRequest {
-                url("$API_BASE/contests/$contestId/")
+                url("$API_BASE/contests/${settings.contestId}/")
             }
             engine {
                 requestTimeout = 40000
@@ -52,22 +41,22 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
         }
 
 
-        contestDescriptionLoader = jsonLoader(auth) { "$API_BASE/contests/$contestId" }
-        problemLoader = jsonLoader<Problems>(auth) { "$API_BASE/contests/$contestId/problems" }.map {
+        contestDescriptionLoader = jsonLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
+        problemLoader = jsonLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
-            val participantRegex = Regex(loginPrefix)
-            jsonLoader<List<Participant>>(auth) { "$API_BASE/contests/$contestId/participants" }.map {
+            val participantRegex = settings.loginRegex
+            jsonLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
         }
-        allSubmissionsLoader = jsonLoader<Submissions>(auth) {
-            "$API_BASE/contests/$contestId/submissions?locale=ru&page=1&pageSize=100000"
+        allSubmissionsLoader = jsonLoader<Submissions>(settings.network, auth) {
+            "$API_BASE/contests/${settings.contestId}/submissions?locale=ru&page=1&pageSize=100000"
         }.map { it.submissions.reversed() }
     }
 
-    @OptIn(FlowPreview::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getFlow() = flow {
         coroutineScope {
             val rawContestInfoFlow = loopFlow(
@@ -82,12 +71,29 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
                 )
             }.flowOn(Dispatchers.IO)
                 .stateIn(this)
-            emit(InfoUpdate(rawContestInfoFlow.value.toApi()))
+            val info = rawContestInfoFlow.value.toApi()
+            if (info.status == ContestStatus.OVER) {
+                emit(InfoUpdate(info.copy(status = ContestStatus.RUNNING)))
+            } else {
+                emit(InfoUpdate(info))
+            }
+            val allSubmissions = allSubmissionsLoader.load()
+            with (rawContestInfoFlow.value) {
+                emitAll(
+                    allSubmissions.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
+                        .map { RunUpdate(submissionToRun(it)) }
+                        .asFlow()
+                )
+            }
+            if (info.status == ContestStatus.OVER) {
+                emit(InfoUpdate(info))
+            }
             val newSubmissionsFlow = newSubmissionsFlow(1.seconds)
             val allSubmissionsFlow = loopFlow(
                 120.seconds,
                 onError = { getLogger(YandexDataSource::class).error("Failed to reload data, retrying", it) }
             ) { allSubmissionsLoader.load() }
+                .onStart { delay(120.seconds) }
                 .flowOn(Dispatchers.IO)
             val allRunsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
@@ -97,31 +103,16 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
             emitAll(merge(allRunsFlow, rawContestInfoFlow.map { InfoUpdate(it.toApi()) }))
         }
     }
-    override suspend fun loadOnce(): ContestParseResult {
-        val rawContestInfo = YandexContestInfo(
-            contestDescriptionLoader.load(),
-            problemLoader.load(),
-            participantLoader.load(),
-            resultType
-        )
-        val contestInfo = rawContestInfo.toApi()
-
-        log.info("Loading all contest submissions")
-        val submissions = allSubmissionsLoader.load()
-            .filter(rawContestInfo::isTeamSubmission)
-            .map(rawContestInfo::submissionToRun)
-        log.info("Loaded all submissions for emulation")
-        return ContestParseResult(contestInfo, submissions, emptyList())
-    }
-
 
     companion object {
         private val log = getLogger(YandexDataSource::class)
+        const val API_BASE = "https://api.contest.yandex.net/api/public/v2"
     }
 
-    private suspend fun newSubmissionsFlow(
+    private fun newSubmissionsFlow(
         period: Duration
     ) : Flow<List<Submission>> {
+        log.info("HERE!!!")
         val formatter = Json { ignoreUnknownKeys = true }
         var pendingRunId = 0L
 
@@ -132,8 +123,11 @@ class YandexDataSource(props: Properties, creds: Map<String, String>) : RawConte
             buildList {
                 var page = 1
                 while (true) {
+                    log.info("Plan to load: submissions?locale=ru&page=$page&pageSize=100")
                     val response = httpClient.request("submissions?locale=ru&page=$page&pageSize=100") {}
+                    log.info("Loaded")
                     val pageSubmissions = formatter.decodeFromString<Submissions>(response.body()).submissions
+                    log.info(pageSubmissions.toString())
                     addAll(pageSubmissions)
                     if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunId) {
                         break

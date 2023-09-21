@@ -1,0 +1,23 @@
+{
+  "teamRegexes": {
+    "groupRegex": {
+      "outOfContest": "^\\(вк\\).*",
+      "firstGrade": "^\\(1к\\).*",
+      "school": "^\\(шк\\).*"
+    },
+    "customFields": {
+      "funnyName": "^(?:\\(..\\) )?(.*) \\([^)]*\\)"
+    }
+  },
+  "groupOverrides": {
+    "outOfContest": {
+      "isOutOfContest": true
+    }
+  },
+  "teamOverrideTemplate": {
+    "displayName": "{funnyName}"
+  },
+  "problemOverrides": {
+    "A": { "ordinal": 100 }
+  }
+}

@@ -1,50 +1,72 @@
 package org.icpclive
 
-import io.ktor.server.application.*
-import io.ktor.server.config.*
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.context
+import com.github.ajalt.clikt.output.MordantHelpFormatter
+import com.github.ajalt.clikt.parameters.options.*
+import com.github.ajalt.clikt.parameters.types.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
-import org.icpclive.cds.common.setAllowUnsecureConnections
-import org.icpclive.util.getCredentials
-import java.io.File
-import java.nio.file.Path
-import java.nio.file.Paths
-import java.util.*
-import kotlin.io.path.exists
 
-class Config(environment: ApplicationEnvironment) {
-    private fun ApplicationConfig.stringOrNull(name: String) = propertyOrNull(name)?.getString()
-    private fun ApplicationConfig.string(name: String) = property(name).getString()
-    private fun ApplicationConfig.bool(name: String) = stringOrNull(name) == "true"
+object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
+    val configDirectory by option(
+        "-c", "--config-directory",
+        help = "Path to config directory"
+    ).path(mustExist = true, canBeFile = false, canBeDir = true).required()
 
-    val configDirectory: Path = environment.config.stringOrNull("live.configDirectory")
-        ?.let { Paths.get(it).toAbsolutePath() }
-        ?.also {
-            if (!it.exists()) throw IllegalStateException("Config directory $it does not exist")
-            environment.log.info("Using config directory $it")
-            environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
-        } ?: throw IllegalStateException("Config directory should be set")
+    val port: Int by option("-p", "--port", help = "Port to listen").int().default(8080)
+    val authDisabled by option(
+        "--no-auth",
+        help = "Disable http basic auth in admin"
+    ).flag()
 
-    private fun ApplicationConfig.directory(name: String) =
-        configDirectory.resolve(string(name)).also { it.toFile().mkdirs() }
 
-    val presetsDirectory: Path = environment.config.directory("live.presetsDirectory")
-    val mediaDirectory: Path = environment.config.directory("live.mediaDirectory")
-    val creds: Map<String, String> = environment.config.stringOrNull("live.credsFile")?.let {
-        Json.decodeFromStream(File(it).inputStream())
-    } ?: emptyMap()
-    val widgetPositions: Map<String, LocationRectangle> =
-        environment.config.stringOrNull("live.widgetPositionsFile")?.let {
-            Json.decodeFromStream(File(it).inputStream())
-        } ?: emptyMap()
-    val allowUnsecureConnections = environment.config.bool("live.allowUnsecureConnections").also {
-        setAllowUnsecureConnections(it)
+    val creds by option(
+        "--creds",
+        help = "Path to file with credentials"
+    ).path(mustExist = true, canBeFile = true, canBeDir = false)
+        .convert { path ->
+            path.toFile().inputStream().use { Json.decodeFromStream<Map<String, String>>(it) }
+        }.default(emptyMap(), "none")
+
+    val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
+
+    val advancedJsonPath by option("--advanced-json", help = "Path to advanced.json")
+        .path(mustExist = true, canBeFile = true, canBeDir = false)
+        .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
+
+    val presetsDirectory by option("--presets-dir", help = "Directory to store presets")
+        .path(canBeFile = false, canBeDir = true)
+        .defaultLazy("configDirectory/presets") { configDirectory.resolve("presets") }
+    val mediaDirectory by option("--media-dir", help = "Directory to store media")
+        .path(canBeFile = false, canBeDir = true)
+        .defaultLazy("configDirectory/media") { configDirectory.resolve("media") }
+
+    val widgetPositions by option(
+        "--widget-positions",
+        help = "File with custom widget positions"
+    ).path(canBeDir = false, mustExist = true, canBeFile = true).convert { path->
+            path.toFile().inputStream().use { Json.decodeFromStream<Map<String, LocationRectangle>>(it) }
+        }.default(emptyMap(), "none")
+
+    val analyticsTemplatesFile by option(
+        "--analytics-template",
+        help = "File with localization of analytics messages"
+    ).path(canBeFile = true, canBeDir = false, mustExist = true)
+
+    override fun run() {
+        presetsDirectory.toFile().mkdirs()
+        mediaDirectory.toFile().mkdirs()
+        io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
     }
-    val authDisabled = environment.config.bool("auth.disabled")
-    val analyticsTemplatesFile = environment.config.stringOrNull("live.analyticsTemplatesFile")?.let { Path.of(it) }
+
+    init {
+        context {
+            helpFormatter = { MordantHelpFormatter(it, showRequiredTag = true, showDefaultValues = true) }
+        }
+    }
+
 }
 
-lateinit var config: Config
-
-fun Properties.getCredentials(key: String) = getCredentials(key, config.creds)
+val config: Config get() = Config

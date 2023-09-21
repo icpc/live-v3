@@ -2,8 +2,8 @@ package org.icpclive.overlay
 
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import org.icpclive.Config
 import org.icpclive.api.OptimismLevel
-import org.icpclive.config
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendJsonFlow
 
@@ -19,6 +19,6 @@ fun Route.configureOverlayRouting() {
         webSocket("/pessimistic") { sendJsonFlow(DataBus.getScoreboardEvents(OptimismLevel.PESSIMISTIC)) }
     }
     route("/svgAchievement"){
-        configureSvgAtchievementRouting(config.mediaDirectory)
+        configureSvgAtchievementRouting(Config.mediaDirectory)
     }
 }

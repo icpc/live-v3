@@ -11,7 +11,7 @@ import {
 } from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
-import { formatScore, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
+import { formatPenalty, formatScore, needPenalty, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
 import { TeamWebRTCGrabberVideoWrapper, TeamWebRTCProxyVideoWrapper } from "../holder/TeamViewHolder";
 // import { ScoreboardIOITaskCell } from "./Scoreboard";
@@ -232,9 +232,9 @@ const TeamInfo = ({ teamId }) => {
         <ScoreboardStatCell>
             {scoreboardData === null ? null : formatScore(scoreboardData?.totalScore, 1)}
         </ScoreboardStatCell>
-        {contestData.resultType !== "IOI" &&
+        {needPenalty(contestData) &&
             <ScoreboardStatCell>
-                {scoreboardData?.penalty}
+                {scoreboardData === null ? null : formatPenalty(contestData, scoreboardData.penalty)}
             </ScoreboardStatCell>}
 
     </TeamInfoWrapper>;

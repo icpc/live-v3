@@ -2,11 +2,11 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.util.DurationInMillisecondsSerializer
+import org.icpclive.util.*
 import kotlin.time.Duration
 
 @Serializable
-enum class OptimismLevel {
+public enum class OptimismLevel {
     @SerialName("normal")
     NORMAL,
 
@@ -18,14 +18,15 @@ enum class OptimismLevel {
 }
 
 @Serializable
-sealed class ProblemResult
+public sealed class ProblemResult
 
 @Serializable
-data class ScoreboardRow(
+public data class ScoreboardRow(
     val teamId: Int,
     val rank: Int,
     val totalScore: Double,
-    val penalty: Long,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    val penalty: Duration,
     val lastAccepted: Long,
     val medalType: String?,
     val problemResults: List<ProblemResult>,
@@ -36,7 +37,7 @@ data class ScoreboardRow(
 //TODO: custom string, maybe something else
 @Serializable
 @SerialName("ICPC")
-data class ICPCProblemResult(
+public data class ICPCProblemResult(
     val wrongAttempts: Int,
     val pendingAttempts: Int,
     val isSolved: Boolean,
@@ -48,7 +49,7 @@ data class ICPCProblemResult(
 
 @Serializable
 @SerialName("IOI")
-data class IOIProblemResult(
+public data class IOIProblemResult(
     val score: Double?,
     @SerialName("lastSubmitTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
@@ -57,4 +58,8 @@ data class IOIProblemResult(
 ) : ProblemResult()
 
 @Serializable
-data class Scoreboard(val rows: List<ScoreboardRow>)
+public data class Scoreboard(
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val lastSubmitTime: Duration,
+    val rows: List<ScoreboardRow>
+)

@@ -1,6 +1,11 @@
 package org.icpclive
 
 import ClicsExporter
+import com.github.ajalt.clikt.core.*
+import com.github.ajalt.clikt.output.MordantHelpFormatter
+import com.github.ajalt.clikt.parameters.groups.*
+import com.github.ajalt.clikt.parameters.options.*
+import com.github.ajalt.clikt.parameters.types.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -14,30 +19,94 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.api.AdvancedProperties
-import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.RunUpdate
+import org.icpclive.api.ContestStatus
+import org.icpclive.api.tunning.AdvancedProperties
+import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
+import org.icpclive.cds.settings.parseFileToCdsSettings
 import org.icpclive.util.*
-import org.icpclive.cds.getContestDataSourceAsFlow
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
+import org.slf4j.Logger
 import org.slf4j.event.Level
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.nio.file.Files
 import java.nio.file.Paths
 import java.time.Duration
-import java.util.*
+import kotlin.io.path.*
 import kotlin.system.exitProcess
 
-fun main(args: Array<String>): Unit =
-    io.ktor.server.netty.EngineMain.main(args)
+object CommonOptions : OptionGroup("Common options") {
+    val configDirectory by option(
+        "-c", "--config-directory",
+        help = "Path to config directory"
+    ).path(mustExist = true, canBeFile = false, canBeDir = true).required()
+    val credsFile by option(
+        "--creds",
+        help = "Path to file with credentials"
+    ).path(mustExist = true, canBeFile = true, canBeDir = false)
+    val advancedJsonPath by option("--advanced-json", help = "Path to advanced.json")
+        .path(mustExist = true, canBeFile = true, canBeDir = false)
+        .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
+}
+
+object PCMSDumpCommand : CliktCommand(name = "pcms", help = "Dump pcms xml", printHelpOnEmptyArgs = true) {
+    val commonOptions by CommonOptions
+    val output by option("-o", "--output", help = "Path to new xml file").path().convert {
+        if (it.isDirectory()) {
+            it.resolve("standings.xml")
+        } else {
+            it
+        }
+    }.required()
+        .check({ "Directory ${it.parent} doesn't exist"}) { it.parent.isDirectory() }
+
+    override fun run() {
+        val logger = getLogger(PCMSDumpCommand::class)
+        logger.info("Would save result to $output")
+        val flow = getFlow(
+            fileJsonContentFlow<AdvancedProperties>(CommonOptions.advancedJsonPath, logger, AdvancedProperties()),
+            logger
+        )
+        val data = runBlocking {
+            logger.info("Waiting till contest become finalized...")
+            val result = flow.finalContestState()
+            logger.info("Loaded contest data")
+            result
+        }
+        val dump = PCMSExporter.format(
+            data.infoAfterEvent!!,
+            data.runs.values.groupBy { it.teamId },
+        )
+        output.toFile().printWriter().use {
+            it.println(dump)
+        }
+    }
+}
+
+object ServerCommand : CliktCommand(name = "server", help = "Start as http server", printHelpOnEmptyArgs = true) {
+    val commonOptions by CommonOptions
+    val port: Int by option("-p", "--port", help = "Port to listen").int().default(8080)
+    val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
+
+    override fun run() {
+        io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
+    }
+}
+
+object MainCommand : CliktCommand(name = "java -jar cds-converter.jar") {
+    init {
+        context {
+            helpFormatter = { MordantHelpFormatter(it, showRequiredTag = true, showDefaultValues = true)}
+        }
+    }
+    override fun run() {
+    }
+}
+
+fun main(args: Array<String>): Unit = MainCommand.subcommands(PCMSDumpCommand, ServerCommand).main(args)
+
 
 private fun Application.setupKtorPlugins() {
     install(DefaultHeaders)
@@ -78,53 +147,44 @@ fun Application.module() {
         environment.log.error("Uncaught exception in coroutine context $coroutineContext", throwable)
         exitProcess(1)
     }
-    val configDirectory = environment.config.property("live.configDirectory").getString().let {
-        Paths.get(it).toAbsolutePath()
-    }
-    environment.log.info("Using config directory $configDirectory")
-    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
-    val path = configDirectory.resolve("events.properties")
-    if (!Files.exists(path)) throw FileNotFoundException("events.properties not found in $configDirectory")
-    val properties = Properties()
-    FileInputStream(path.toString()).use { properties.load(it) }
 
-    val advancedProperties = fileJsonContentFlow<AdvancedProperties>(configDirectory.resolve("advanced.json"), environment.log)
-        .stateIn(this + handler, SharingStarted.Eagerly, AdvancedProperties())
-
-
-    val loaded = getContestDataSourceAsFlow(
-        properties,
-        environment.config.propertyOrNull("live.credsFile")?.getString()?.let {
-            Json.decodeFromStream(File(it).inputStream())
-        } ?: emptyMap(),
-    )
-        .applyAdvancedProperties(advancedProperties)
-        .filterUseless()
-        .processHiddenTeamsAndGroups()
-        .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
-
-    val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
-    val contestState = loaded
-        .stateWithGroupedRuns { it.teamId }
-        .stateIn(this + handler, SharingStarted.Eagerly, ContestStateWithGroupedRuns(null, persistentMapOf()))
-    val contestInfo = loaded
-        .filterIsInstance<InfoUpdate>()
-        .map { it.newInfo }
-        .distinctUntilChanged()
-        .shareIn(this + handler, SharingStarted.Eagerly, 1)
+    val loaded = getFlow(
+        fileJsonContentFlow<AdvancedProperties>(CommonOptions.advancedJsonPath, environment.log, AdvancedProperties()),
+        environment.log
+    ).shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     routing {
         with (ClicsExporter) {
             route("/clics") {
-                setUp(application + handler, contestInfo, runs)
+                setUp(application + handler, loaded)
             }
         }
         with (PCMSExporter) {
             route("/pcms") {
-                setUp(contestState)
+                setUp(application + handler, loaded)
             }
         }
     }
 
     log.info("Configuration is done")
+}
+
+private fun getFlow(advancedProperties: Flow<AdvancedProperties>, log: Logger) : Flow<ContestUpdate> {
+    log.info("Using config directory ${CommonOptions.configDirectory}")
+    log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
+    val path = CommonOptions.configDirectory.resolve("events.properties")
+        .takeIf { it.exists() }
+        ?.also { log.warn("Using events.properties is deprecated, use settings.json instead.") }
+        ?: CommonOptions.configDirectory.resolve("settings.json5").takeIf { it.exists() }
+        ?: CommonOptions.configDirectory.resolve("settings.json")
+    val creds: Map<String, String> = CommonOptions.credsFile?.let {
+        Json.decodeFromStream(it.toFile().inputStream())
+    } ?: emptyMap()
+    return parseFileToCdsSettings(path)
+        .toFlow(creds)
+        .applyAdvancedProperties(advancedProperties)
+        .contestState()
+        .filterUseless()
+        .map { it.event }
+        .processHiddenTeamsAndGroups()
 }

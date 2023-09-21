@@ -1,15 +1,13 @@
 package org.icpclive.api
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable
-data class RunInfo(
+public data class RunInfo(
     val id: Int,
     val result: RunResult?,
     val percentage: Double,
@@ -23,39 +21,37 @@ data class RunInfo(
 )
 
 @Serializable
-sealed class RunResult
+public sealed class RunResult
 
 @Serializable(with = VerdictSerializer::class)
-sealed class Verdict(val shortName: String, val isAddingPenalty: Boolean, val isAccepted: Boolean) {
-    object Accepted: Verdict("AC", false, true)
-    object Rejected: Verdict("RJ", true, false)
-    object Fail: Verdict("FL", false, true)
-    object CompilationError: Verdict("CE", false, false)
-    object CompilationErrorWithPenalty: Verdict("CE", true, false)
-    object PresentationError: Verdict("PE", true, false)
-    object RuntimeError: Verdict("RE", true, false)
-    object TimeLimitExceeded: Verdict("TL", true, false)
-    object MemoryLimitExceeded: Verdict("ML", true, false)
-    object OutputLimitExceeded: Verdict("OL", true, false)
-    object IdlenessLimitExceeded: Verdict("IL", true, false)
-    object SecurityViolation: Verdict("SV", true, false)
-    object Ignored: Verdict("IG", false, false)
-    object Challenged: Verdict("CH", true, false)
-    object WrongAnswer: Verdict("WA", true, false)
+public sealed class Verdict(public val shortName: String, public val isAddingPenalty: Boolean, public val isAccepted: Boolean) {
+    public data object Accepted: Verdict("AC", false, true)
+    public data object Rejected: Verdict("RJ", true, false)
+    public data object Fail: Verdict("FL", false, true)
+    public data object CompilationError: Verdict("CE", false, false)
+    public data object CompilationErrorWithPenalty: Verdict("CE", true, false)
+    public data object PresentationError: Verdict("PE", true, false)
+    public data object RuntimeError: Verdict("RE", true, false)
+    public data object TimeLimitExceeded: Verdict("TL", true, false)
+    public data object MemoryLimitExceeded: Verdict("ML", true, false)
+    public data object OutputLimitExceeded: Verdict("OL", true, false)
+    public data object IdlenessLimitExceeded: Verdict("IL", true, false)
+    public data object SecurityViolation: Verdict("SV", true, false)
+    public data object Ignored: Verdict("IG", false, false)
+    public data object Challenged: Verdict("CH", true, false)
+    public data object WrongAnswer: Verdict("WA", true, false)
 
-    // We have a separate object here to delay initialization until the function call.
-    // This allows first fully initialize Verdict subclasses, which is required by LookupHolder constructor
-    companion object {
-        val all get() = LookupHolder.all
-        fun lookup(shortName: String, isAddingPenalty: Boolean, isAccepted: Boolean) =
+    public companion object {
+        public val all: List<Verdict> get() = LookupHolder.all
+        public fun lookup(shortName: String, isAddingPenalty: Boolean, isAccepted: Boolean): Verdict =
             LookupHolder.lookup(shortName, isAddingPenalty, isAccepted)
     }
 
-    fun toRunResult() = ICPCRunResult(this, false)
+    internal fun toRunResult() = ICPCRunResult(this, false)
 }
 
 
-class VerdictSerializer : KSerializer<Verdict> {
+internal class VerdictSerializer : KSerializer<Verdict> {
     @Serializable
     @SerialName("Verdict")
     private class VerdictSurrogate(val shortName: String, val isAddingPenalty: Boolean, val isAccepted: Boolean)
@@ -72,6 +68,8 @@ class VerdictSerializer : KSerializer<Verdict> {
     }
 }
 
+// We have a separate object here to delay initialization until the function call.
+// This allows first fully initializing Verdict subclasses, which is required by LookupHolder constructor
 private object LookupHolder {
     val all = Verdict::class.sealedSubclasses.map { it.objectInstance!! }
 
@@ -108,14 +106,14 @@ private object LookupHolder {
 
 @Serializable
 @SerialName("ICPC")
-data class ICPCRunResult(
+public data class ICPCRunResult(
     val verdict: Verdict,
     val isFirstToSolveRun: Boolean,
 ) : RunResult()
 
 @Serializable
 @SerialName("IOI")
-data class IOIRunResult(
+public data class IOIRunResult(
     val score: List<Double>,
     val wrongVerdict: Verdict? = null,
     val difference: Double = 0.0,

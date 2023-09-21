@@ -1,16 +1,68 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Tooltip, ButtonGroup } from "@mui/material";
+import { Box, Button, Tooltip, ButtonGroup, Grid } from "@mui/material";
 import { lightBlue, grey } from "@mui/material/colors";
-import { Team, TEAM_FIELD_STRUCTURE } from "./Team";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import TaskStatusIcon from "@mui/icons-material/Segment";
 import TeamAchievementIcon from "@mui/icons-material/StarHalf";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import AutoModeIcon from "@mui/icons-material/AutoMode";
 
 const gridButton = {
     mx: "2px",
+};
+
+export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    contestSystemId: PropTypes.string,
+    shown: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    medias: PropTypes.shape({
+        screen: PropTypes.object,
+        camera: PropTypes.object,
+    }).isRequired,
+});
+
+const TeamTableRow = ({ rowData, onClick, tStyle }) => {
+    return (<Grid sx={{ display: "flex", width: "100%", height: "100%" }}>
+        <Box
+            key={rowData.id}
+            sx={{
+                backgroundColor:
+                    (rowData.shown?
+                        tStyle.activeColor :
+                        (rowData.selected?
+                            tStyle.selectedColor :
+                            tStyle.inactiveColor)),
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                height: "100%",
+                cursor: "pointer",
+                margin: "4px",
+                borderBottom: "1px solid rgba(224, 224, 224, 1)",
+                color: (rowData.selected || rowData.shown ? grey[900] : grey[700]) }}
+            onClick={() => onClick(rowData.id)}
+        >
+            {rowData.contestSystemId && `${rowData.contestSystemId} :`}
+            {rowData.contestSystemId === null && <AutoModeIcon sx={{ mr: 1 }} />}
+            {" " + rowData.name}
+        </Box>
+    </Grid>);
+};
+
+TeamTableRow.propTypes = {
+    tStyle: PropTypes.shape({
+        activeColor: PropTypes.string,
+        inactiveColor: PropTypes.string,
+        selectedColor: PropTypes.string,
+    }).isRequired,
+    rowData: TEAM_FIELD_STRUCTURE,
+    createErrorHandler: PropTypes.func,
+    isImmutable: PropTypes.bool,
+    onClick: PropTypes.func.isRequired
 };
 
 const CompactSwitchIconButton = ({ propertyName, disabled, isShown, onClick, children, sx, noVisibilityIcon }) =>
@@ -32,10 +84,32 @@ CompactSwitchIconButton.propTypes = {
     noVisibilityIcon: PropTypes.bool,
 };
 
-export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, isSomethingSelected, canHide, isPossibleToHide,
-    onShowTeam, onHideTeam, isStatusShown, setIsStatusShown, isAchievementShown, setIsAchievementShown, offerMultiple }) {
+const isMediaTypeChoosen = (mediaType, selectedMediaTypes) => {
+    if (!selectedMediaTypes) {
+        return false;
+    }
+    return selectedMediaTypes.includes(mediaType) || mediaType === null && selectedMediaTypes.length === 0;
+};
+
+export const TeamViewSettingsPanel = ({
+    mediaTypes,
+    selectedMediaTypes,
+    canShow,
+    isSomethingSelected,
+    canHide,
+    isPossibleToHide,
+    showHideButton,
+    onShowTeam,
+    onHideTeam,
+    isStatusShown,
+    setIsStatusShown,
+    isAchievementShown,
+    setIsAchievementShown,
+    offerMultiple
+}) => {
     canShow = canShow ?? isSomethingSelected;
     canHide = canHide ?? isPossibleToHide;
+    showHideButton = showHideButton ?? true;
     const [isMultipleMode, setIsMultipleMode] = useState(false);
     const [secondaryMediaType, setSecondaryMediaType] = useState(undefined);
     const onShow = (mediaType) => {
@@ -57,10 +131,9 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, 
         {mediaTypes.map((elem) => (
             <Button
                 disabled={!canShow}
-                color={selectedMediaType === elem.mediaType ? "#1976d2" :
-                    (secondaryMediaType === elem.mediaType ? "success" : "primary")}
+                color={secondaryMediaType === elem.mediaType ? "warning" : "primary"}
                 sx={gridButton}
-                variant={(selectedMediaType === elem.mediaType || secondaryMediaType === elem.mediaType)
+                variant={(isMediaTypeChoosen(elem.mediaType, selectedMediaTypes) || secondaryMediaType === elem.mediaType)
                     ? "contained" : "outlined"}
                 key={elem.text}
                 onClick={() => onShow(elem.mediaType)}>{elem.text}</Button>
@@ -71,23 +144,30 @@ export function TeamViewSettingsPanel({ mediaTypes, selectedMediaType, canShow, 
         {isAchievementShown !== undefined && <CompactSwitchIconButton propertyName={"Team achievement"} disabled={!canShow}
             isShown={isAchievementShown} buttonSx={gridButton}
             onClick={() => setIsAchievementShown(s => !s)}><TeamAchievementIcon/></CompactSwitchIconButton>}
-        <Button
-            sx={gridButton}
-            disabled={!canHide}
-            variant={!canHide ? "outlined" : "contained"}
-            color="error"
-            onClick={() => onHideTeam()}>hide</Button>
+        {showHideButton && (
+            <Button
+                sx={gridButton}
+                disabled={!canHide}
+                variant={!canHide ? "outlined" : "contained"}
+                color="error"
+                onClick={() => onHideTeam()}
+            >
+                hide
+            </Button>
+        )}
     </ButtonGroup>);
-}
+};
+
 TeamViewSettingsPanel.propTypes = {
     mediaTypes: PropTypes.arrayOf(PropTypes.shape({ "text":PropTypes.string.isRequired, "mediaType":PropTypes.any })),
-    selectedMediaType: PropTypes.any,
+    selectedMediaTypes: PropTypes.arrayOf(PropTypes.string),
     isSomethingSelected: PropTypes.bool,
     canShow: PropTypes.bool, // todo: make req
     isPossibleToHide: PropTypes.bool,
+    showHideButton: PropTypes.bool,
     canHide: PropTypes.bool,  // todo: make req
     onShowTeam: PropTypes.func.isRequired,
-    onHideTeam: PropTypes.func.isRequired,
+    onHideTeam: PropTypes.func,
     isStatusShown: PropTypes.bool,
     setIsStatusShown: PropTypes.func,
     isAchievementShown: PropTypes.bool,
@@ -133,5 +213,5 @@ SelectTeamTable.defaultProps = {
         activeColor: lightBlue[100],
         inactiveColor: "white",
     },
-    RowComponent: Team,
+    RowComponent: TeamTableRow,
 };

@@ -1,12 +1,10 @@
 package org.icpclive.cds.codeforces.api.results
 
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.codeforces.api.data.CFContest
-import org.icpclive.cds.codeforces.api.data.CFProblem
-import org.icpclive.cds.codeforces.api.data.CFRankListRow
+import org.icpclive.cds.codeforces.api.data.*
 
 @Serializable
-data class CFStandings(
+internal data class CFStandings(
     val contest: CFContest,
     val problems: List<CFProblem>,
     val rows: List<CFRankListRow>,

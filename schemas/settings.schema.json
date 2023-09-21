@@ -1,0 +1,682 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/icpc/live-v3/blob/main/schemas/settings.schema.json",
+    "title": "ICPC live settings",
+    "oneOf": [
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "atcoder"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "sessionCookie": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "contestLengthSeconds": {
+                    "type": "integer"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "sessionCookie",
+                "startTime",
+                "contestLengthSeconds"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "cf"
+                },
+                "contestId": {
+                    "type": "integer"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "apiSecret": {
+                    "type": "string"
+                },
+                "asManager": {
+                    "type": "boolean"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "apiKey",
+                "apiSecret"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "cats"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "resultType": {
+                    "enum": [
+                        "ICPC",
+                        "IOI"
+                    ]
+                },
+                "cid": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "login",
+                "password",
+                "url",
+                "cid"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "clics"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "eventFeedName": {
+                    "type": "string"
+                },
+                "feedVersion": {
+                    "enum": [
+                        "2020_03",
+                        "2022_07"
+                    ]
+                },
+                "additionalFeed": {
+                    "type": "object",
+                    "properties": {
+                        "url": {
+                            "type": "string"
+                        },
+                        "login": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        },
+                        "eventFeedName": {
+                            "type": "string"
+                        },
+                        "feedVersion": {
+                            "enum": [
+                                "2020_03",
+                                "2022_07"
+                            ]
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "url"
+                    ]
+                },
+                "useTeamNames": {
+                    "type": "boolean"
+                },
+                "mediaBaseUrl": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "cms"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "activeContest": {
+                    "type": "string"
+                },
+                "otherContests": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "activeContest",
+                "otherContests"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "codedrills"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "authKey": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "port",
+                "contestId",
+                "authKey"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "ejudge"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "resultType": {
+                    "enum": [
+                        "ICPC",
+                        "IOI"
+                    ]
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "krsu"
+                },
+                "submissionsUrl": {
+                    "type": "string"
+                },
+                "contestUrl": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "submissionsUrl",
+                "contestUrl"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "noop"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "pcms"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "problemsUrl": {
+                    "type": "string"
+                },
+                "resultType": {
+                    "enum": [
+                        "ICPC",
+                        "IOI"
+                    ]
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "testsys"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ]
+        },
+        {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "yandex"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "loginRegex": {
+                    "type": "string"
+                },
+                "contestId": {
+                    "type": "integer"
+                },
+                "resultType": {
+                    "enum": [
+                        "ICPC",
+                        "IOI"
+                    ]
+                },
+                "emulation": {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
+                },
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "apiKey",
+                "loginRegex",
+                "contestId"
+            ]
+        }
+    ]
+}

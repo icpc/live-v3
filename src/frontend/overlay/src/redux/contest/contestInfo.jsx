@@ -25,12 +25,14 @@ export function contestInfoReducer(state = initialState, action) {
     switch (action.type) {
     case ActionTypes.CONTEST_INFO_SET:
         _.forEach(action.payload.info.teams, (team) => getTextWidth(team.shortName, GLOBAL_DEFAULT_FONT));
+        let sortedProblems = action.payload.info.problems.sort((a, b) => a.ordinal - b.ordinal);
         return {
             ...state,
             info: {
                 ...action.payload.info,
+                problems: sortedProblems,
                 teamsId: _.keyBy(action.payload.info.teams, "id"),
-                problemsId: _.keyBy(action.payload.info.problems, "id")
+                problemsId: _.keyBy(sortedProblems, "id")
             }
         };
     default:

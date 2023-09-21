@@ -2,34 +2,9 @@ package org.icpclive.scoreboard
 
 import org.icpclive.api.*
 import kotlin.math.max
-import kotlin.time.Duration
 
-interface PenaltyCalculator {
-    fun addSolvedProblem(time: Duration, wrongAttempts: Int)
-    val penalty: Long
-}
 
-class EachSubmissionDownToMinutePenaltyCalculator(val penaltyPerWrongAttempt: Int) : PenaltyCalculator {
-    override fun addSolvedProblem(time: Duration, wrongAttempts: Int) {
-        penalty += time.inWholeMinutes + wrongAttempts * penaltyPerWrongAttempt
-    }
-
-    override var penalty = 0L
-        private set
-
-}
-
-class SumDownToMinutePenaltyCalculator(val penaltyPerWrongAttempt: Int) : PenaltyCalculator {
-    var penaltySeconds = 0L
-    override fun addSolvedProblem(time: Duration, wrongAttempts: Int) {
-        penaltySeconds += time.inWholeSeconds + wrongAttempts * penaltyPerWrongAttempt * 60L
-    }
-
-    override val penalty: Long
-        get() = penaltySeconds / 60
-}
-
-abstract class ICPCScoreboardCalculator : ScoreboardCalculator() {
+internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator() {
     abstract fun isAccepted(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isPending(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
@@ -47,10 +22,7 @@ abstract class ICPCScoreboardCalculator : ScoreboardCalculator() {
         problems: List<ProblemInfo>
     ): ScoreboardRow {
         require(resultType == ContestResultType.ICPC)
-        val penaltyCalculator = when (penaltyRoundingMode) {
-            PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE -> EachSubmissionDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
-            PenaltyRoundingMode.SUM_DOWN_TO_MINUTE -> SumDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
-        }
+        val penaltyCalculator = PenaltyCalculator.get(penaltyRoundingMode, penaltyPerWrongAttempt)
         var solved = 0
         var lastAccepted = 0L
         val runsByProblem = runs.groupBy { it.problemId }
@@ -100,19 +72,19 @@ private val RunInfo.isAddingPenalty get() = (result as? ICPCRunResult)?.verdict?
 private val RunInfo.isJudged get() = result != null
 
 
-class ICPCNormalScoreboardCalculator : ICPCScoreboardCalculator() {
+internal class ICPCNormalScoreboardCalculator : ICPCScoreboardCalculator() {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
 }
 
-class ICPCPessimisticScoreboardCalculator : ICPCScoreboardCalculator() {
+internal class ICPCPessimisticScoreboardCalculator : ICPCScoreboardCalculator() {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged || runInfo.isAddingPenalty
 }
 
-class ICPCOptimisticScoreboardCalculator : ICPCScoreboardCalculator() {
+internal class ICPCOptimisticScoreboardCalculator : ICPCScoreboardCalculator() {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) =
         runInfo.isAccepted || (!runInfo.isJudged && index == count - 1)
 

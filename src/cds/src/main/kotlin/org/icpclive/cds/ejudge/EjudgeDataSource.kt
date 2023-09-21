@@ -1,24 +1,18 @@
 package org.icpclive.cds.ejudge
 
-import kotlinx.datetime.Instant
+import kotlinx.datetime.*
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.xmlLoader
-import org.icpclive.util.child
-import org.icpclive.util.children
-import org.icpclive.util.guessDatetimeFormat
+import org.icpclive.cds.common.*
+import org.icpclive.cds.settings.EjudgeSettings
+import org.icpclive.util.*
 import org.w3c.dom.Element
-import java.util.*
+import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
-class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-    val resultType =
-        ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
-
+internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce(): ContestParseResult {
         val element = xmlLoader.load()
         return parseContestInfo(element.documentElement)
@@ -28,14 +22,14 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         .child("problems")
         .children().mapIndexed { index, element ->
             ProblemInfo(
-                letter = element.getAttribute("short_name"),
-                name = element.getAttribute("long_name"),
+                displayName = element.getAttribute("short_name"),
+                fullName = element.getAttribute("long_name"),
                 id = element.getAttribute("id").toInt(),
                 ordinal = index,
                 contestSystemId = element.getAttribute("id"),
-                minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
-                maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
-                scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
+                minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
+                maxScore = if (settings.resultType == ContestResultType.IOI) 100.0 else null,
+                scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
             )
         }.toList()
 
@@ -45,20 +39,25 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
             val participantName = participant.getAttribute("name")
             TeamInfo(
                 id = index,
-                name = participantName,
-                shortName = participantName,
+                fullName = participantName,
+                displayName = participantName,
                 contestSystemId = participant.getAttribute("id"),
                 groups = listOf(),
                 hashTag = null,
-                medias = emptyMap()
+                medias = emptyMap(),
+                isOutOfContest = false,
+                isHidden = false,
+                organizationId = null
             )
         }.toList()
+    val timePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     private fun parseEjudgeTime(time: String): Instant {
-        val formattedTime = time
-            .replace("/", "-")
-            .replace(" ", "T")
-        return guessDatetimeFormat(formattedTime)
+        return java.time.LocalDateTime.parse(
+            time.replace("/", "-"), // snark's ejudge uses '/' instead of '-'
+            timePattern
+        ).toKotlinLocalDateTime()
+            .toInstant(settings.timeZone)
     }
 
     private fun parseContestInfo(element: Element): ContestParseResult {
@@ -69,13 +68,9 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         val currentTime = parseEjudgeTime(element.getAttribute("current_time"))
         val name = element.child("name").textContent
 
-        val status = when {
-            currentTime >= startTime + contestLength -> ContestStatus.OVER
-            currentTime < startTime -> ContestStatus.BEFORE
-            else -> ContestStatus.RUNNING
-        }
+        val status = ContestStatus.byCurrentTime(startTime, contestLength)
 
-        var freezeTime = if (resultType == ContestResultType.ICPC) 4.hours else contestLength
+        var freezeTime = if (settings.resultType == ContestResultType.ICPC) 4.hours else contestLength
         if (element.hasAttribute("fog_time")) {
             freezeTime = contestLength - element.getAttribute("fog_time").toLong().seconds
         }
@@ -87,18 +82,23 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
             contestInfo = ContestInfo(
                 name = name,
                 status = status,
-                resultType = resultType,
+                resultType = settings.resultType,
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,
-                problems = parseProblemsInfo(element),
-                teams = teams,
-                groups = emptyList()
+                problemList = parseProblemsInfo(element),
+                teamList = teams,
+                groupList = emptyList(),
+                organizationList = emptyList(),
+                penaltyRoundingMode = when (settings.resultType) {
+                    ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                    ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+                }
             ),
             runs = element.child("runs").children().mapNotNull { run ->
                 parseRunInfo(run, currentTime - startTime, teamIdMapping)
             }.toList(),
-            emptyList()
+            emptyList(),
         )
     }
 
@@ -137,7 +137,7 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
 
         return RunInfo(
             id = runId,
-            when (resultType) {
+            when (settings.resultType) {
                 ContestResultType.ICPC -> result?.toRunResult()
 
                 ContestResultType.IOI -> {
@@ -154,5 +154,5 @@ class EjudgeDataSource(val properties: Properties) : FullReloadContestDataSource
         )
     }
 
-    private val xmlLoader = xmlLoader { properties.getProperty("url") }
+    private val xmlLoader = xmlLoader(networkSettings = settings.network) { settings.url }
 }

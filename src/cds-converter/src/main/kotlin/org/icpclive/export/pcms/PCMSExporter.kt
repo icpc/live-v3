@@ -4,10 +4,11 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
-import org.icpclive.cds.adapters.ContestStateWithGroupedRuns
+import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.adapters.*
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
 import org.w3c.dom.Element
@@ -41,6 +42,12 @@ object PCMSExporter {
         Verdict.Rejected -> "wrong-answer"
     }
 
+    fun ContestStatus.toPcmsStatus() = when (this) {
+        ContestStatus.FINALIZED, ContestStatus.OVER -> "over"
+        ContestStatus.RUNNING -> "running"
+        ContestStatus.BEFORE -> "before"
+    }
+
 
     private fun Element.buildContestNode(info: ContestInfo) {
         setAttribute("name", info.name)
@@ -48,16 +55,16 @@ object PCMSExporter {
         setAttribute("start-time", info.startTime.toString())
         setAttribute("start-time-millis", info.startTime.toEpochMilliseconds().toString())
         setAttribute("length", info.contestLength.inWholeSeconds.toString())
-        setAttribute("status", info.status.name.lowercase())
+        setAttribute("status", info.status.toPcmsStatus())
         setAttribute("frozen", "no")
         setAttribute("freeze-time", info.freezeTime.toIsoString())
         setAttribute("freeze-time-millis", info.freezeTime.inWholeMilliseconds.toString())
     }
     private fun Element.buildChallengeNode(info: ContestInfo) {
-        info.problems.forEach { problem ->
+        info.scoreboardProblems.forEach { problem ->
             createChild("problem").also {
-                it.setAttribute("alias", problem.letter)
-                it.setAttribute("name", problem.name)
+                it.setAttribute("alias", problem.displayName)
+                it.setAttribute("name", problem.fullName)
             }
         }
     }
@@ -71,11 +78,11 @@ object PCMSExporter {
     }
 
     private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>) {
-        setAttribute("party", teamInfo.name)
+        setAttribute("party", teamInfo.fullName)
         setAttribute("id", teamInfo.contestSystemId)
         // setAttribute("time", "")
         setAttribute("alias", teamInfo.contestSystemId)
-        setAttribute("penalty", row.penalty.toString())
+        setAttribute("penalty", row.penalty.inWholeMinutes.toString())
         setAttribute("solved", row.totalScore.toInt().toString())
         val runsByProblem = runs.groupBy { it.problemId }
         row.problemResults.forEachIndexed { index, probResult ->
@@ -84,11 +91,11 @@ object PCMSExporter {
             val isAcceptedInt = if ((probResult as ICPCProblemResult).isSolved) 1 else 0
             probNode.setAttribute("accepted", isAcceptedInt.toString())
             probNode.setAttribute("attempts", (probResult.wrongAttempts + isAcceptedInt).toString())
-            probNode.setAttribute("id", info.problems[index].contestSystemId)
-            probNode.setAttribute("alias", info.problems[index].letter)
+            probNode.setAttribute("id", info.scoreboardProblems[index].contestSystemId)
+            probNode.setAttribute("alias", info.scoreboardProblems[index].displayName)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
             probNode.setAttribute("penalty", (if (probResult.isSolved) {
-                probResult.lastSubmitTime!!.inWholeMinutes + probResult.wrongAttempts * info.penaltyPerWrongAttempt
+                (probResult.lastSubmitTime!! + info.penaltyPerWrongAttempt * probResult.wrongAttempts).inWholeMinutes
             } else 0).toString())
             problemRuns.forEach {
                 probNode.createChild("run").apply {
@@ -112,10 +119,9 @@ object PCMSExporter {
         val challenge = contest.createChild("challenge")
         challenge.buildChallengeNode(info)
         val scoreboard = getScoreboardCalculator(info, OptimismLevel.NORMAL).getScoreboard(info, runsByTeam)
-        val teamById = info.teams.associateBy { it.id }
         scoreboard.rows.forEach {
             contest.createChild("session").also { session ->
-                session.buildSessionNode(info, teamById[it.teamId]!!, it, runsByTeam[it.teamId] ?: emptyList())
+                session.buildSessionNode(info, info.teams[it.teamId]!!, it, runsByTeam[it.teamId] ?: emptyList())
             }
         }
 
@@ -131,15 +137,20 @@ object PCMSExporter {
         return output.toString()
     }
 
-    fun Route.setUp(contestInfo: Flow<ContestStateWithGroupedRuns<Int>>) {
+    fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
+        val stateFlow = contestUpdates
+            .stateGroupedByTeam()
+            .stateIn(scope, SharingStarted.Eagerly, null)
+            .filterNotNull()
+            .filter { it.infoAfterEvent != null }
         get {
             call.respondRedirect("/pcms/standings.xml", permanent = true)
         }
         get("standings.xml") {
             call.respondText(contentType = ContentType.Text.Xml) {
-                val state = contestInfo.first { it.info != null }
+                val state = stateFlow.first()
                 format(
-                    state.info!!,
+                    state.infoAfterEvent!!,
                     state.runs
                 )
             }

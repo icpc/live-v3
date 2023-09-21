@@ -76,9 +76,17 @@ ParamsLine.propTypes = { pKey: PropTypes.string.isRequired, pValue: PropTypes.an
 const paramsDataToString = (value) =>
     Object.entries(value).map(([k, v]) => k + ": " + v).join("\n");
 
+const splitKeyValue = (string) => {
+    const splitIndex = string.indexOf(":");
+    const k = string.substring(0, splitIndex);
+    const rest = string.substring(splitIndex + 1);
+    const v = rest.startsWith(" ") ? rest.substring(1) : rest;
+    return [k, v];
+};
+
 const parseParamsData = input =>
     input.split("\n")
-        .map(line => line.split(/:\W?/, 2))
+        .map(line => splitKeyValue(line))
         .filter(r => r.length >= 2)
         .reduce((ac, [ k, v ]) => ({ ...ac, [k]: v }), {});
 

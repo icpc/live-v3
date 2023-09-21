@@ -1,28 +1,62 @@
+import com.github.jengelman.gradle.plugins.shadow.ShadowJavaPlugin
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     // versions are set in dependencies block for build.gradle.kts
-    java
+    // apply false brings the plugins into the Gradle script classpath (see import above)
     alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.shadow) apply false
 }
 
+tasks {
+    register<Sync>("doc") {
+        destinationDir = rootDir.resolve("_site/cds/")
 
-allprojects {
-    tasks {
-        withType<JavaCompile>().all {
-            sourceCompatibility = "11"
-            targetCompatibility = "11"
-        }
-        withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {
-            kotlinOptions {
-                jvmTarget = "11"
-                kotlinOptions.allWarningsAsErrors = true
+        from(project(":cds").tasks.named("dokkaHtml"))
+    }
+
+    // If you invoke a gen task, :schema-generator:gen will be invoked. It's defined in :schema-generator project
+    // since that project is already aware of global location for schema testing purposes.
+}
+
+subprojects {
+    group = "org.icpclive"
+    version = rootProject.findProperty("build_version")!!
+
+    plugins.withType<JavaPlugin> {
+        configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(11)
             }
         }
+
+        tasks.named<Jar>("jar") {
+            archiveClassifier = "just"
+        }
+
+        tasks.named<Test>("test") {
+            useJUnitPlatform()
+        }
     }
-}
 
+    // Technically, Ktor pulls this too, but reconfigures...
+    plugins.withType<ShadowJavaPlugin> {
+        tasks.register<Sync>("release") {
+            destinationDir = rootDir.resolve("artifacts/")
+            preserve { include("*") }
+            from(tasks.named("shadowJar"))
+        }
+        tasks.named<ShadowJar>("shadowJar") {
+            mergeServiceFiles()
 
-extensions.findByName("buildScan")?.withGroovyBuilder {
-    setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")
-    setProperty("termsOfServiceAgree", "yes")
+            archiveClassifier = null
+        }
+    }
+
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions {
+            allWarningsAsErrors = true
+        }
+    }
 }

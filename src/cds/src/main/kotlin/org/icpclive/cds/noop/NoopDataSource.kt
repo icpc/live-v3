@@ -1,12 +1,15 @@
 package org.icpclive.cds.noop
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.*
+import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ContestDataSource
 import kotlin.time.Duration
 
-class NoopDataSource : RawContestDataSource {
+internal class NoopDataSource : ContestDataSource {
 
     override fun getFlow() = flowOf(
         InfoUpdate(ContestInfo(
@@ -15,16 +18,12 @@ class NoopDataSource : RawContestDataSource {
             startTime = Instant.DISTANT_FUTURE,
             contestLength = Duration.ZERO,
             freezeTime = Duration.ZERO,
-            problems = emptyList(),
-            teams = emptyList(),
+            problemList = emptyList(),
+            teamList = emptyList(),
             resultType = ContestResultType.ICPC,
-            groups = emptyList()
+            groupList = emptyList(),
+            organizationList = emptyList(),
+            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
         ))
-    )
-
-    override suspend fun loadOnce() = ContestParseResult(
-        getFlow().first().newInfo,
-        emptyList(),
-        emptyList()
     )
 }

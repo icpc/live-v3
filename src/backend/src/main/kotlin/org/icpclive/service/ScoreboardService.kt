@@ -8,6 +8,7 @@ import org.icpclive.cds.adapters.stateGroupedByTeam
 import org.icpclive.data.DataBus
 import org.icpclive.scoreboard.calculateScoreboard
 import org.icpclive.util.getLogger
+import kotlin.time.Duration
 
 
 class ScoreboardService(val optimismLevel: OptimismLevel) {
@@ -19,7 +20,7 @@ class ScoreboardService(val optimismLevel: OptimismLevel) {
         coroutineScope {
             updates.stateGroupedByTeam()
                 .calculateScoreboard(optimismLevel)
-                .stateIn(this, SharingStarted.Eagerly, Scoreboard(emptyList()))
+                .stateIn(this, SharingStarted.Eagerly, Scoreboard(Duration.ZERO, emptyList()))
                 .let { DataBus.setScoreboardEvents(optimismLevel, it) }
         }
     }

@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.run as runTask
+
 plugins {
     application
     alias(libs.plugins.kotlin.jvm)
@@ -5,46 +7,39 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-version = rootProject.findProperty("build_version")!!
-
 application {
-    mainClass.set("org.icpclive.reacbot.BotKt")
+    mainClass = "org.icpclive.reacbot.BotKt"
 }
 
-tasks {
-    jar {
-        archiveFileName.set("reactions-bot-${project.version}-part.jar")
-    }
-    shadowJar {
-        archiveFileName.set("reactions-bot-${project.version}.jar")
-    }
-    named<JavaExec>("run") {
-        val args = mutableListOf<String>()
-        project.properties["live.dev.token"]?.let { args += listOf("-token", it.toString()) }
-        project.properties["live.dev.video"]?.let { args += listOf("-video", it.toString()) }
-        this.args = args
-        this.workingDir(rootDir.resolve("reactions-bot"))
-    }
-    task<Copy>("release") {
-        from(shadowJar)
-        destinationDir = rootProject.rootDir.resolve("artifacts")
-    }
+tasks.runTask {
+    val args = mutableListOf<String>()
+    project.properties["live.dev.token"]?.let { args += listOf("-token", it.toString()) }
+    project.properties["live.dev.video"]?.let { args += listOf("-video", it.toString()) }
+    this.args = args
+    this.workingDir(rootDir.resolve("reactions-bot"))
 }
 
 repositories {
+    // Since we're declaring this, we are overriding repositories in the settings.gradle.kts
     mavenCentral()
-    maven { setUrl("https://jitpack.io") }
+    maven {
+        name = "jitpack"
+        url = uri("https://jitpack.io")
+        content {
+            // This limits this repo to this group
+            includeGroup("io.github.kotlin-telegram-bot.kotlin-telegram-bot")
+        }
+    }
 }
 
 dependencies {
     implementation(projects.cds)
     implementation(projects.common)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.cli)
-    implementation(libs.db.sqlite)
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
+    implementation(libs.retrofit)
     implementation(libs.telegram.bot)
+    runtimeOnly(libs.db.sqlite)
 }

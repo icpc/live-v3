@@ -1,0 +1,6 @@
+{
+  "type": "cms",
+  "activeContest": "day2",
+  "otherContests": ["day1"],
+  "url": "https://ranking.cmsioi2023.hu/live"
+}

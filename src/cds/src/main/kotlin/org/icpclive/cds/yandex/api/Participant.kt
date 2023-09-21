@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import org.icpclive.api.TeamInfo
 
 @Serializable
-data class Participant(
+internal data class Participant(
     val id: Int,
     val name: String,
     val login: String,
@@ -12,11 +12,14 @@ data class Participant(
 ) {
     fun toTeamInfo() = TeamInfo(
         id = id,
-        name = name,
-        shortName = name,
+        fullName = name,
+        displayName = name,
         contestSystemId = login,
         groups = emptyList(),
         hashTag = null,
-        medias = emptyMap()
+        medias = emptyMap(),
+        isOutOfContest = false,
+        isHidden = false,
+        organizationId = null
     )
 }

@@ -8,7 +8,6 @@ import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.int
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.io.FileInputStream
 import java.util.*
 import com.github.kotlintelegrambot.bot
 import com.github.kotlintelegrambot.Bot
@@ -24,21 +23,18 @@ import com.github.kotlintelegrambot.logging.LogLevel
 import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
-import org.icpclive.cds.adapters.filterUseless
-import org.icpclive.cds.adapters.processHiddenTeamsAndGroups
-import org.icpclive.cds.adapters.removeFrozenSubmissions
-import org.icpclive.cds.adapters.withRunsBefore
-import org.icpclive.cds.common.setAllowUnsecureConnections
-import org.icpclive.cds.getContestDataSourceAsFlow
+import org.icpclive.cds.adapters.*
+import org.icpclive.cds.settings.parseFileToCdsSettings
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 
 class Bot(private val config: Config) {
     @OptIn(DelicateCoroutinesApi::class)
     private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
-    private val cds = getContestDataSourceAsFlow(
-        getProperties(config.eventPropertiesFile),
-    ).withRunsBefore()
+    private val cds = parseFileToCdsSettings(
+        Path.of(config.settingsFile),
+    ).toFlow(emptyMap())
+        .contestState()
         .filterUseless()
         .removeFrozenSubmissions()
         .processHiddenTeamsAndGroups()
@@ -69,9 +65,9 @@ class Bot(private val config: Config) {
                     var caption: String? = null
                     if (sendAdditionalInfo) {
                         val ci = runBlocking { contestInfo.await().value }
-                        ci.teams.find { it.id == reaction.teamId }?.let { team ->
-                            ci.problems.find { it.id == reaction.problemId }?.let { problem ->
-                                caption = team.name + ", problem " + problem.letter
+                        ci.teams[reaction.teamId]?.let { team ->
+                            ci.problems[reaction.problemId]?.let { problem ->
+                                caption = "${team.fullName}, problem ${problem.displayName}"
                             }
                         }
                     }
@@ -132,7 +128,6 @@ class Bot(private val config: Config) {
     }
 
     fun run(scope: CoroutineScope) {
-        setAllowUnsecureConnections(true)
         val loaded = if (config.disableCdsLoader) emptyFlow() else cds.shareIn(scope, SharingStarted.Eagerly, Int.MAX_VALUE)
         val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
         scope.launch {
@@ -153,14 +148,8 @@ class Bot(private val config: Config) {
     }
 }
 
-private fun getProperties(fileName: String): Properties {
-    val properties = Properties()
-    FileInputStream(fileName).use { properties.load(it) }
-    return properties
-}
-
 class BotCommand : CliktCommand() {
-    private val events by option(help = "Event.properties file path").default("./events.properties")
+    private val settings by option(help = "settings file path").default("./settings.json")
     private val disableCds by option(help = "Enable loading events from cds").flag()
     private val token by option(help = "Telegram bot token").required()
     private val threads by option("--threads", "-t", help = "Count of video converter and loader threads").int().default(8)
@@ -171,7 +160,7 @@ class BotCommand : CliktCommand() {
         runBlocking {
             Bot(
                 Config(
-                    eventPropertiesFile = events,
+                    settingsFile = settings,
                     disableCdsLoader = disableCds,
                     telegramToken = token,
                     loaderThreads = threads,

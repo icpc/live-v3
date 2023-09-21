@@ -1,23 +1,18 @@
 package org.icpclive.cds.testsys
 
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.ByteArrayLoader
-import org.icpclive.cds.common.map
+import org.icpclive.cds.common.*
+import org.icpclive.cds.settings.TestSysSettings
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
-import java.util.Properties
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 
-class TestSysDataSource(val properties: Properties) : FullReloadContestDataSource(5.seconds) {
-    val url = properties.getProperty("url")
-    val loader = ByteArrayLoader(null) { url }
+internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {
+    val loader = ByteArrayLoader(settings.network, null) { settings.url }
         .map {
             val eofPosition = it.indexOf(EOF)
             String(
@@ -26,10 +21,8 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
                 Charset.forName("windows-1251")
             )
         }.map {
-            it.split("\r\n").filter(String::isNotEmpty)
+            it.split("\r\n", "\n").filter(String::isNotEmpty)
         }
-
-    val timeZone = properties.getProperty("timezone") ?: "Europe/Moscow"
 
     override suspend fun loadOnce(): ContestParseResult {
         val data = loader.load().groupBy(
@@ -39,8 +32,8 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
-                letter = letter,
-                name = name,
+                displayName = letter,
+                fullName = name,
                 id = index,
                 ordinal = index,
                 contestSystemId = letter,
@@ -52,12 +45,15 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
             val (id, _, _, name) = team.splitCommas()
             TeamInfo(
                 id = index,
-                name = name,
-                shortName = name,
+                fullName = name,
+                displayName = name,
                 contestSystemId = id,
                 groups = listOf(),
                 hashTag = null,
-                medias = emptyMap()
+                medias = emptyMap(),
+                isOutOfContest = false,
+                isHidden = false,
+                organizationId = null
             )
         }
         val isCEPenalty = data["@comment"]?.contains("@pragma IgnoreCE") != true
@@ -71,11 +67,12 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
             startTime = data["@startat"]!!.single().toDate(),
             contestLength = data["@contlen"]!!.single().toInt().minutes,
             freezeTime = data["@freeze"]!!.single().toInt().minutes,
-            teams = teams,
-            problems = problems,
-            penaltyPerWrongAttempt = (penalty.getOrNull(0) ?: 20),
+            teamList = teams,
+            problemList = problems,
+            penaltyPerWrongAttempt = (penalty.getOrNull(0) ?: 20).minutes,
             penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE,
-            groups = emptyList(),
+            groupList = emptyList(),
+            organizationList = emptyList(),
         )
         val runs = (data["@s"] ?: emptyList()).mapIndexed { index, subm ->
             val (teamId, problemId, _, time, verdict) = subm.splitCommas()
@@ -122,7 +119,7 @@ class TestSysDataSource(val properties: Properties) : FullReloadContestDataSourc
     private fun String.toDate() =
         java.time.LocalDateTime.parse(this, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))
             .toKotlinLocalDateTime()
-            .toInstant(TimeZone.of(timeZone))
+            .toInstant(settings.timeZone)
 
     private fun String.toStatus() = when (this) {
         "RESULTS" -> ContestStatus.OVER

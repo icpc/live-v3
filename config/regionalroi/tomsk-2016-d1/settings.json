@@ -1,0 +1,8 @@
+{
+  "type": "yandex",
+  "apiKey": "$creds.yandex",
+  "contestId": 2121,
+  "resultType": "IOI",
+  "loginRegex": "(^roi16-.*)"
+}
+

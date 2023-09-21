@@ -9,7 +9,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 
-class CFContestInfo {
+internal class CFContestInfo {
     private var contestLength: Duration = 5.hours
     private var startTime: Instant = Instant.fromEpochMilliseconds(0)
     var status = ContestStatus.BEFORE
@@ -17,8 +17,7 @@ class CFContestInfo {
     private val problems = mutableListOf<ProblemInfo>()
     private var cfStandings: CFStandings? = null
     private val problemsMap = mutableMapOf<String, ProblemInfo>()
-    private val participantsByName = mutableMapOf<String, CFTeamInfo>()
-    private val participantsById = mutableMapOf<Int, CFTeamInfo>()
+    private val participantsByCdsId = mutableMapOf<String, TeamInfo>()
     private var nextParticipantId = 1
     private var contestType: CFContestType = CFContestType.ICPC
     private var name: String = ""
@@ -26,12 +25,10 @@ class CFContestInfo {
     private fun updateContestInfo(contest: CFContest) {
         name = contest.name
         contestType = contest.type
-        contestLength = contest.durationSeconds!!
-        val phase = contest.phase
-        startTime = contest.startTimeSeconds
-            ?.let { Instant.fromEpochSeconds(it) }
+        contestLength = contest.duration!!
+        startTime = contest.startTime
             ?: Instant.DISTANT_FUTURE
-        status = when (phase) {
+        status = when (contest.phase) {
             CFContestPhase.BEFORE -> ContestStatus.BEFORE
             CFContestPhase.CODING -> ContestStatus.RUNNING
             else -> ContestStatus.OVER
@@ -44,8 +41,8 @@ class CFContestInfo {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(
-                    letter = problem.index,
-                    name = problem.name!!,
+                    displayName = problem.index,
+                    fullName = problem.name!!,
                     id = id,
                     ordinal = id,
                     contestSystemId = id.toString(),
@@ -62,8 +59,8 @@ class CFContestInfo {
             }
             if (contestType == CFContestType.CF) {
                 val hacksInfo = ProblemInfo(
-                    letter = "*",
-                    name = "Hacks",
+                    displayName = "*",
+                    fullName = "Hacks",
                     id = -1,
                     ordinal = -1,
                     contestSystemId = "hacks",
@@ -71,19 +68,26 @@ class CFContestInfo {
                     maxScore = null,
                     scoreMergeMode = ScoreMergeMode.SUM,
                 )
-                problemsMap[hacksInfo.letter] = hacksInfo
+                problemsMap[hacksInfo.displayName] = hacksInfo
                 problems.add(hacksInfo)
             }
         }
         for (row in standings.rows) {
-            val teamInfo = CFTeamInfo(row)
-            if (participantsByName.containsKey(getName(row.party))) {
-                teamInfo.id = participantsByName[getName(row.party)]!!.id
-            } else {
-                teamInfo.id = nextParticipantId++
-            }
-            participantsByName[getName(row.party)] = teamInfo
-            participantsById[teamInfo.id] = teamInfo
+            val cdsId = getTeamCdsId(row.party)
+            val id = participantsByCdsId[cdsId]?.id ?: nextParticipantId++
+            val party = row.party
+            participantsByCdsId[cdsId] = TeamInfo(
+                id = id,
+                fullName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
+                displayName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
+                contestSystemId = cdsId,
+                groups = emptyList(),
+                hashTag = null,
+                medias = emptyMap(),
+                organizationId = null,
+                isHidden = false,
+                isOutOfContest = false
+            )
         }
     }
 
@@ -107,7 +111,7 @@ class CFContestInfo {
         CFSubmissionVerdict.REJECTED -> Verdict.Rejected
         null -> null
     }?.let {
-        if (passedTestCount == 0 && it.isAddingPenalty && !it.isAccepted) {
+        if (contestType == CFContestType.CF && passedTestCount == 0 && it.isAddingPenalty && !it.isAccepted) {
             Verdict.lookup(it.shortName, isAddingPenalty = false, isAccepted = false)
         } else {
             it
@@ -162,7 +166,7 @@ class CFContestInfo {
         }
         return submissions.reversed().asSequence()
             .filter { it.author.participantType == CFPartyParticipantType.CONTESTANT }
-            .filter { participantsByName.containsKey(getName(it.author)) }
+            .filter { getTeamCdsId(it.author) in participantsByCdsId }
             .groupBy { it.author to it.problem }
             .mapValues {(_, submissions) ->
                 var wrongs = 0
@@ -174,7 +178,7 @@ class CFContestInfo {
                         id = it.id.toInt(),
                         result = result,
                         problemId = problemId,
-                        teamId = participantsByName[getName(it.author)]!!.id,
+                        teamId = participantsByCdsId[getTeamCdsId(it.author)]!!.id,
                         percentage = if (result != null) 1.0 else (it.passedTestCount.toDouble() / problemTests),
                         time = it.relativeTimeSeconds,
                     )
@@ -209,7 +213,7 @@ class CFContestInfo {
                             },
                             percentage = 0.0,
                             problemId = -1,
-                            teamId = participantsByName[getName(hack.hacker)]!!.id,
+                            teamId = participantsByCdsId[getTeamCdsId(hack.hacker)]!!.id,
                             time = hack.creationTimeSeconds - startTime
                         )
                     )
@@ -225,7 +229,7 @@ class CFContestInfo {
                             isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
                             percentage = 0.0,
                             problemId = problemsMap[hack.problem.index]!!.id,
-                            teamId = participantsByName[getName(hack.defender)]!!.id,
+                            teamId = participantsByCdsId[getTeamCdsId(hack.defender)]!!.id,
                             time = hack.creationTimeSeconds - startTime
                         )
                     )
@@ -235,24 +239,30 @@ class CFContestInfo {
     }
 
     fun toApi() = ContestInfo(
-        name,
-        status,
-        when (contestType) {
+        name = name,
+        status = status,
+        resultType = when (contestType) {
             CFContestType.CF -> ContestResultType.IOI
             CFContestType.IOI -> ContestResultType.IOI
             CFContestType.ICPC -> ContestResultType.ICPC
         },
-        startTime,
-        contestLength,
-        contestLength,
-        problems,
-        participantsById.values.map { it.toApi() }.sortedBy { it.id },
-        groups = emptyList()
+        startTime = startTime,
+        contestLength = contestLength,
+        freezeTime = contestLength,
+        problemList = problems,
+        teamList = participantsByCdsId.values.sortedBy { it.id },
+        groupList = emptyList(),
+        penaltyRoundingMode = when (contestType) {
+            CFContestType.CF -> PenaltyRoundingMode.ZERO
+            CFContestType.IOI -> PenaltyRoundingMode.ZERO
+            CFContestType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+        },
+        organizationList = emptyList()
     )
 
     companion object {
-        fun getName(party: CFParty): String {
-            return party.teamName ?: party.members[0].handle
+        fun getTeamCdsId(party: CFParty): String {
+            return party.teamId?.let { "team:${it}" } ?: party.members[0].handle
         }
     }
 }

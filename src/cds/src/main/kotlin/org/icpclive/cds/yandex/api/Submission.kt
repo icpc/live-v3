@@ -5,13 +5,13 @@ import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable
-data class Submissions(
+internal data class Submissions(
     val count: Long,
     val submissions: List<Submission>
 )
 
 @Serializable
-data class Submission(
+internal data class Submission(
     val id: Long,
     val authorId: Long,
     val author: String,

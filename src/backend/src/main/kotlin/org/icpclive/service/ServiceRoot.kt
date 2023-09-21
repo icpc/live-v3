@@ -3,9 +3,9 @@ package org.icpclive.service
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import org.icpclive.Config
 import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.config
 import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
@@ -14,7 +14,7 @@ import org.icpclive.service.analytics.AnalyticsGenerator
 fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     val loaded = loader.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
     val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
-    val analyticsFlow = loaded.filterIsInstance<Analytics>().map { it.message }
+    val analyticsFlow = loaded.filterIsInstance<AnalyticsUpdate>().map { it.message }
     launch {
         DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this))
     }
@@ -51,7 +51,7 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
 
             }
         }
-        val generatedAnalyticsMessages = config.analyticsTemplatesFile?.let {
+        val generatedAnalyticsMessages = Config.analyticsTemplatesFile?.let {
             AnalyticsGenerator(it).getFlow(
                 DataBus.contestInfoFlow.await(),
                 runsFlow,

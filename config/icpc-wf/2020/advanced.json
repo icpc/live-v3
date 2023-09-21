@@ -3,6 +3,10 @@
     "showTeamsWithoutSubmissions": true
   },
   "teamMediaTemplate": {
+    "photo": {
+      "type": "Photo",
+      "url": "http://localhost:8080/media/photos/{teamId}.jpg"
+    },
     "screen": {
       "type": "Photo",
       "url": "http://localhost:8080/media/screen/screen{teamId}.svg"

@@ -1,0 +1,8 @@
+{
+  "type":"clics",
+
+  "url":"_examples/_pc2",
+  "feedVersion":"2020_03",
+
+  "emulation":{"speed":5,"startTime":"now"}
+}

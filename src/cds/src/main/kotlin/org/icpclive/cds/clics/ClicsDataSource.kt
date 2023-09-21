@@ -5,48 +5,37 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import org.icpclive.api.AnalyticsCommentaryEvent
-import org.icpclive.api.AnalyticsMessage
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
+import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.cds.clics.api.Event
-import org.icpclive.cds.clics.api.Event.*
-import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.getLineStreamLoaderFlow
-import org.icpclive.cds.common.isHttpUrl
-import org.icpclive.util.*
-import java.util.*
+import org.icpclive.clics.Event
+import org.icpclive.clics.Event.*
+import org.icpclive.cds.common.*
+import org.icpclive.cds.settings.*
+import org.icpclive.util.getLogger
+import org.icpclive.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
 
-enum class FeedVersion {
-    V2020_03,
-    V2022_07
-}
-
-private class ClicsLoaderSettings(properties: Properties, prefix: String, creds: Map<String, String>) {
-    private val url = properties.getProperty("${prefix}url")
+private class ParsedClicsLoaderSettings(settings: ClicsLoaderSettings, creds: Map<String, String>) {
+    private val url = settings.url
 
     val auth = ClientAuth.BasicOrNull(
-        properties.getCredentials("${prefix}login", creds),
-        properties.getCredentials("${prefix}password", creds)
+        settings.login?.get(creds),
+        settings.password?.get(creds)
     )
-    val eventFeedUrl = apiRequestUrl(properties.getProperty("${prefix}event_feed_name", "event-feed"))
+    val eventFeedUrl = apiRequestUrl(settings.eventFeedName)
 
     private fun apiRequestUrl(method: String) = "$url/$method"
 
-    val feedVersion = FeedVersion.valueOf("V" + properties.getProperty("${prefix}feed_version", "2022_07"))
+    val feedVersion = settings.feedVersion
 }
 
-class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawContestDataSource {
-    private val mainLoaderSettings = ClicsLoaderSettings(properties, "", creds)
-    private val additionalLoaderSettings = properties.getProperty("additional_feed.url", null)?.let {
-        ClicsLoaderSettings(properties, "additional_feed.", creds)
-    }
+internal class ClicsDataSource(val settings: ClicsSettings, creds: Map<String, String>) : ContestDataSource {
+    private val mainLoaderSettings = ParsedClicsLoaderSettings(settings.mainFeed, creds)
+    private val additionalLoaderSettings = settings.additionalFeed?.let { ParsedClicsLoaderSettings(it, creds) }
 
     private val model = ClicsModel(
-        properties.getProperty("use_team_names", "true") == "true",
-        properties.getProperty("media_base_url", "")
+        settings.useTeamNames,
+        settings.mediaBaseUrl
     )
 
     val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
@@ -56,8 +45,8 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit
     ) {
-        val eventsLoader = getEventFeedLoader(mainLoaderSettings)
-        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it) }
+        val eventsLoader = getEventFeedLoader(mainLoaderSettings, settings.network)
+        val additionalEventsLoader = additionalLoaderSettings?.let { getEventFeedLoader(it, settings.network) }
 
         fun priority(event: UpdateContestEvent) = when (event) {
             is ContestEvent -> 0
@@ -78,7 +67,6 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
 
         fun Flow<Event>.sortedPrefix() = flow {
             coroutineScope {
-                @OptIn(FlowPreview::class)
                 val channel = produceIn(this)
                 val prefix = mutableListOf<Event>()
                 prefix.add(channel.receive())
@@ -144,9 +132,9 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
                 }
 
                 is CommentaryEvent -> {
-                    if (it.data != null) {
+                    it.data?.let { comment ->
                         onComment(
-                            model.processCommentary(it.data)
+                            model.processCommentary(comment)
                         )
                     }
                 }
@@ -177,46 +165,38 @@ class ClicsDataSource(properties: Properties, creds: Map<String, String>) : RawC
         runLoader(
             onRun = { emit(RunUpdate(it)) },
             onContestInfo = { emit(InfoUpdate(it)) },
-            onComment = { emit(Analytics(it)) }
+            onComment = { emit(AnalyticsUpdate(it)) }
         )
-    }
-
-    override suspend fun loadOnce(): ContestParseResult {
-        val analyticsMessages = mutableListOf<AnalyticsMessage>()
-        runLoader(
-            onRun = {},
-            onContestInfo = {},
-            onComment = { analyticsMessages.add(it) }
-        )
-        logger.info("Loaded data from CLICS")
-        val runs = model.getAllRuns()
-        return ContestParseResult(model.contestInfo, runs, analyticsMessages)
+        if (model.contestInfo.status != ContestStatus.FINALIZED) {
+            logger.info("Events are finished, while contest is not finalized. Enforce finalization.")
+            emit(InfoUpdate(model.contestInfo.copy(status = ContestStatus.FINALIZED)))
+        }
     }
 
     companion object {
         val logger = getLogger(ClicsDataSource::class)
         @OptIn(ExperimentalSerializationApi::class)
-        private fun getEventFeedLoader(settings: ClicsLoaderSettings) = flow {
+        private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings, networkSettings: NetworkSettings?) = flow {
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
                 explicitNulls = false
             }
 
             while (true) {
-                emitAll(getLineStreamLoaderFlow(settings.eventFeedUrl, settings.auth)
+                emitAll(getLineStreamLoaderFlow(networkSettings, settings.auth, settings.eventFeedUrl)
                     .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {
                             when (settings.feedVersion) {
-                                FeedVersion.V2020_03 -> Event.fromV1(jsonDecoder.decodeFromString(data))
-                                FeedVersion.V2022_07 -> jsonDecoder.decodeFromString<Event>(data)
+                                ClicsSettings.FeedVersion.`2020_03` -> Event.fromV1(jsonDecoder.decodeFromString(data))
+                                ClicsSettings.FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
                             }
                         } catch (e: SerializationException) {
                             logger.error("Failed to deserialize: $data", e)
                             null
                         }
                     })
-                if (!isHttpUrl(settings.eventFeedUrl)) break
+                if (!isHttpUrl(settings.eventFeedUrl)) { break }
                 delay(5.seconds)
                 logger.info("Connection ${settings.eventFeedUrl} is closed, retrying")
             }

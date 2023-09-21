@@ -24,6 +24,21 @@ export const formatScore = (score, digits = 2) => {
     return score?.toFixed((score - Math.floor(score)) > 0 ? digits : 0);
 };
 
+export const formatPenalty = (contestInfo, penalty) => {
+    if (penalty === undefined || penalty === null) {
+        return "";
+    }
+    let mode = contestInfo.penaltyRoundingMode;
+    if (mode === "sum_in_seconds" || mode === "last") {
+        return Math.floor(penalty / 60) + ":" + (penalty % 60 < 10 ? "0" : "") + (penalty % 60);
+    } else {
+        return Math.floor(penalty / 60);
+    }
+};
+
+export const needPenalty = (contestInfo) => contestInfo?.penaltyRoundingMode !== "zero";
+
+
 export const ProblemCellWrap = styled(Cell)`
   border-bottom: ${props => props.probColor} ${CELL_PROBLEM_LINE_WIDTH} solid;
 `;

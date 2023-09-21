@@ -1,6 +1,5 @@
 package org.icpclive.cds.yandex
 
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.yandex.api.*
@@ -8,8 +7,8 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInfo(
-    letter = alias,
-    name = name,
+    displayName = alias,
+    fullName = name,
     id = index,
     ordinal = index,
     contestSystemId = id,
@@ -18,7 +17,7 @@ private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInf
     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
 )
 
-class YandexContestInfo private constructor(
+internal class YandexContestInfo private constructor(
     private val name: String,
     private val startTime: Instant,
     private val duration: Duration,
@@ -47,7 +46,7 @@ class YandexContestInfo private constructor(
     )
 
     fun submissionToRun(submission: Submission): RunInfo {
-        val problemId = problems.indexOfFirst { it.letter == submission.problemAlias }
+        val problemId = problems.indexOfFirst { it.displayName == submission.problemAlias }
         if (problemId == -1) {
             throw IllegalStateException("Problem not found: ${submission.problemAlias}")
         }
@@ -81,28 +80,16 @@ class YandexContestInfo private constructor(
 
     fun toApi() = ContestInfo(
         name = name,
-        status = deduceStatus(startTime, duration),
+        status = ContestStatus.byCurrentTime(startTime, duration),
         resultType = resultType,
         startTime = startTime,
         contestLength = duration,
         freezeTime = freezeTime,
-        problems = problems,
-        teams = teams,
-        penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE,
-        groups = emptyList()
+        problemList = problems,
+        teamList = teams,
+        groupList = emptyList(),
+        organizationList = emptyList(),
+        penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE
     )
-
-    companion object {
-        // There is no way to fetch YC server time, so here we go
-        fun deduceStatus(startTime: Instant, duration: Duration): ContestStatus {
-            val now = Clock.System.now()
-
-            return when {
-                now < startTime -> ContestStatus.BEFORE
-                now < startTime + duration -> ContestStatus.RUNNING
-                else -> ContestStatus.OVER
-            }
-        }
-    }
 }
 

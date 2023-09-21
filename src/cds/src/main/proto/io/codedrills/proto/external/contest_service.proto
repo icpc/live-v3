@@ -1,0 +1,37 @@
+syntax = "proto3";
+package io.codedrills.proto.external;
+
+option java_multiple_files = true;
+
+import "io/codedrills/proto/external/common.proto";
+import "io/codedrills/proto/external/scoreboard.proto";
+import "io/codedrills/proto/external/submission.proto";
+
+message GetScoreboardRequest {
+  oneof id {
+    int32 contest_id = 1;
+    string contest_url = 2;
+  }
+}
+message GetScoreboardResponse {
+  Scoreboard scoreboard = 1;
+}
+
+message ListContestSubmissionsRequest {
+  ContestId contest_id = 1;
+  PaginationRequestParams pagination_params = 2;
+  FilterParams filter_params = 3;
+}
+
+message ListContestSubmissionsResponse {
+  repeated Submission submission = 1;
+  PaginationResponseParams pagination_params = 2;
+}
+
+service ContestService {
+  // Get contest scoreboard.
+  rpc GetScoreboard (GetScoreboardRequest) returns (GetScoreboardResponse);
+
+  // List contest submissions with pagination and filters.
+  rpc ListContestSubmissions (ListContestSubmissionsRequest) returns (ListContestSubmissionsResponse);
+}

@@ -355,3 +355,6 @@ gradle-app.setting
 
 .idea
 artifacts
+/test-results/
+/playwright-report/
+/playwright/.cache/

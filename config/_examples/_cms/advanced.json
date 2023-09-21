@@ -1,0 +1,22 @@
+{
+  "problemOverrides": {
+    "SC2022CEOI13prize": {
+      "displayName": "A1"
+    },
+    "SC2022CEOI11abracadabra": {
+      "displayName": "B1"
+    },
+    "SC2022CEOI12homework": {
+      "displayName": "C1"
+    },
+    "SC2022CEOI22measures": {
+      "displayName": "A2"
+    },
+    "SC2022CEOI21drawing": {
+      "displayName": "B2"
+    },
+    "SC2022CEOI23parking": {
+      "displayName": "C2"
+    }
+  }
+}

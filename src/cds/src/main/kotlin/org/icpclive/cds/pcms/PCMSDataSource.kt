@@ -3,10 +3,8 @@ package org.icpclive.cds.pcms
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.ContestParseResult
-import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.xmlLoader
+import org.icpclive.cds.common.*
+import org.icpclive.cds.settings.PCMSSettings
 import org.icpclive.util.*
 import org.w3c.dom.Element
 import java.util.*
@@ -15,34 +13,30 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
-    private val login = properties.getCredentials("login", creds)
-    private val password = properties.getCredentials("password", creds)
-    private val dataLoader = xmlLoader(login?.let { ClientAuth.Basic(login, password!!) }) {
-        properties.getProperty("url")
+internal class PCMSDataSource(val settings: PCMSSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
+    private val login = settings.login?.get(creds)
+    private val password = settings.password?.get(creds)
+    private val dataLoader = xmlLoader(
+        networkSettings = settings.network,
+        login?.let { ClientAuth.Basic(login, password!!) }) {
+        settings.url
     }
 
-    val resultType = ContestResultType.valueOf(properties.getProperty("standings.resultType", "ICPC").uppercase())
+    val resultType = settings.resultType
     val runIds = Enumerator<String>()
     val teamIds = Enumerator<String>()
     val problemIds = Enumerator<String>()
     var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce() : ContestParseResult {
-        val problemsOverride =  if(properties.containsKey("problems.url")) {
-            loadCustomProblems()
-        } else {
-            null
-        }
+        val problemsOverride =  settings.problemsUrl?.let { loadCustomProblems(it) }
 
         return parseAndUpdateStandings(dataLoader.load().documentElement, problemsOverride)
     }
     private fun parseAndUpdateStandings(element: Element, problemsOverride: Element?) = parseContestInfo(element.child("contest"), problemsOverride)
 
-    private suspend fun loadCustomProblems() : Element {
-        val problemsUrl = properties.getProperty("problems.url")
-        val problemsLoader = xmlLoader { problemsUrl }
-
+    private suspend fun loadCustomProblems(problemsUrl: String) : Element {
+        val problemsLoader = xmlLoader(networkSettings = settings.network) { problemsUrl }
         return problemsLoader.load().documentElement
     }
 
@@ -61,8 +55,8 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
-                    letter = it.getAttribute("alias"),
-                    name = it.getAttribute("name"),
+                    displayName = it.getAttribute("alias"),
+                    fullName = it.getAttribute("name"),
                     id = problemIds[it.getAttribute("alias")],
                     ordinal = index,
                     contestSystemId = it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias"),
@@ -82,15 +76,20 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         val teams = teamsAndRuns.map { it.first }.sortedBy { it.id }
         return ContestParseResult(
             ContestInfo(
-                element.getAttribute("name"),
-                status,
-                resultType,
-                startTime,
-                contestLength,
-                freezeTime,
-                problems,
-                teams,
-                teams.toGroupInfos()
+                name = element.getAttribute("name"),
+                status = status,
+                resultType = resultType,
+                startTime = startTime,
+                contestLength = contestLength,
+                freezeTime = freezeTime,
+                problemList = problems,
+                teamList = teams,
+                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
+                organizationList = emptyList(),
+                penaltyRoundingMode = when (resultType) {
+                    ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                    ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+                }
             ),
             teamsAndRuns.flatMap { it.second },
             emptyList()
@@ -102,8 +101,8 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
         val alias = attr("alias")!!
         val team = TeamInfo(
             id = teamIds[alias],
-            name = attr("party")!!,
-            shortName = attr("shortname") ?: attr("party")!!,
+            fullName = attr("party")!!,
+            displayName = attr("shortname") ?: attr("party")!!,
             hashTag = attr("hashtag"),
             groups = attr("region")?.split(",") ?: emptyList(),
             medias = listOfNotNull(
@@ -112,6 +111,9 @@ class PCMSDataSource(val properties: Properties, creds: Map<String, String>) : F
                 attr("record")?.let { TeamMediaType.RECORD to MediaType.Video(it) },
             ).associate { it },
             contestSystemId = alias,
+            isOutOfContest = false,
+            isHidden = false,
+            organizationId = null
         )
         val runs =
             element.children("problem").flatMap { problem ->

@@ -28,8 +28,8 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             }
             val analysis = runs.processRun(run, scoreboard) ?: return@collect
 
-            val team = contestInfo.teams.firstOrNull { it.id == run.teamId } ?: return@collect
-            val problem = contestInfo.problems.firstOrNull { it.id == run.problemId } ?: return@collect
+            val team = contestInfo.teams[run.teamId] ?: return@collect
+            val problem = contestInfo.problems[run.problemId] ?: return@collect
             emit(
                 AnalyticsCommentaryEvent(
                     "_analytics_by_run_${run.id}",
@@ -46,9 +46,9 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
 
     private fun getMessage(analyse: RunAnalyse, team: TeamInfo, problem: ProblemInfo): String {
         val substitute = mapOf(
-            "{team.shortName}" to team.shortName,
-            "{problem.letter}" to problem.letter,
-            "{problem.name}" to problem.name,
+            "{team.shortName}" to team.displayName,
+            "{problem.letter}" to problem.displayName,
+            "{problem.name}" to problem.fullName,
             "{run.result}" to (analyse.run.result as? ICPCRunResult)?.verdict?.shortName.orEmpty(),
             "{result.rank}" to analyse.result.rank.toString(),
             "{result.solvedProblems}" to analyse.solvedProblems?.takeIf { it > 0 }?.toString().orEmpty(),

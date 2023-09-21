@@ -2,8 +2,7 @@ package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.TeamInfo
+import org.icpclive.api.*
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 
@@ -16,15 +15,16 @@ private fun TeamInfo.updateHidden(isHidden: Boolean, isOutOfContest: Boolean) = 
     this
 }
 
-fun Flow<ContestUpdate>.processHiddenTeamsAndGroups() =
+
+public fun Flow<ContestUpdate>.processHiddenTeamsAndGroups(): Flow<ContestUpdate> =
     map {
         if (it is InfoUpdate) {
             InfoUpdate(
                 it.newInfo.copy(
-                    teams = it.newInfo.teams.map { team ->
+                    teamList = @OptIn(InefficientContestInfoApi::class) it.newInfo.teamList.map { team ->
                         team.updateHidden(
-                            isHidden = team.isHidden || team.groups.any { group -> it.newInfo.groupById(group)?.isHidden == true },
-                            isOutOfContest = team.isOutOfContest || team.groups.any { group -> it.newInfo.groupById(group)?.isOutOfContest == true },
+                            isHidden = team.isHidden || team.groups.any { group -> it.newInfo.groups[group]?.isHidden == true },
+                            isOutOfContest = team.isOutOfContest || team.groups.any { group -> it.newInfo.groups[group]?.isOutOfContest == true },
                         )
                     }
                 )
@@ -35,13 +35,13 @@ fun Flow<ContestUpdate>.processHiddenTeamsAndGroups() =
     }.withGroupedRuns(
         { it.teamId },
         { key, _, original, info ->
-            val team = info?.teams?.firstOrNull { it.id == key }
+            val team = info?.teams?.get(key)
             if (team?.isHidden == true)
                 original.map { it.copy(isHidden = true) }
             else
                 original
         },
         { new: ContestInfo, old: ContestInfo?, key: Int ->
-            new.teams.firstOrNull { it.id == key }?.isHidden != old?.teams?.firstOrNull { it.id == key }?.isHidden
+            new.teams[key]?.isHidden != old?.teams?.get(key)?.isHidden
         }
     ).map { it.event }

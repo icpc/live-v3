@@ -8,7 +8,7 @@ import org.icpclive.util.UnixMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable
-data class AnalyticsCompanionPreset(
+public data class AnalyticsCompanionPreset(
     val presetId: Int,
     @SerialName("expirationTimeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)
@@ -16,7 +16,7 @@ data class AnalyticsCompanionPreset(
 )
 
 @Serializable
-data class AnalyticsCompanionRun(
+public data class AnalyticsCompanionRun(
     @SerialName("expirationTimeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)
     val expirationTime: Instant?,
@@ -24,15 +24,15 @@ data class AnalyticsCompanionRun(
 )
 
 @Serializable
-sealed class AnalyticsMessage {
-    abstract val id: String
-    abstract val time: Instant
-    abstract val relativeTime: Duration
+public sealed class AnalyticsMessage {
+    public abstract val id: String
+    public abstract val time: Instant
+    public abstract val relativeTime: Duration
 }
 
 @Serializable
 @SerialName("commentary")
-data class AnalyticsCommentaryEvent(
+public data class AnalyticsCommentaryEvent(
     override val id: String,
     val message: String,
     @SerialName("timeUnixMs")

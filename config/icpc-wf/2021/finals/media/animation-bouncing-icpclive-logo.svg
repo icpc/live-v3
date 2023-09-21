@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080">
+    <style>
+        .fullscreen {
+        height: 1080px;
+        }
+        marquee {
+        height: 1080px;
+        }
+    </style>
+    <foreignObject x="0" y="0" width="1920" height="1080">
+        <div class="fullscreen" xmlns="http://www.w3.org/1999/xhtml">
+            <marquee behavior="alternate" scrollamount="30">
+                <marquee behavior="alternate" scrollamount="30" direction="down">
+                    <img src="{url}" width="150" height="150" />
+                </marquee>
+            </marquee>
+        </div>
+    </foreignObject>
+</svg>

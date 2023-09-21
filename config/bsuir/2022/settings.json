@@ -1,0 +1,8 @@
+{
+  "type": "yandex",
+  "apiKey": "$creds.yandex",
+  "contestId": 37013,
+  "loginRegex": "^open-x-reload-.*"
+}
+
+

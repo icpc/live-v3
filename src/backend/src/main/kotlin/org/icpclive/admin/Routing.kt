@@ -9,9 +9,9 @@ import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.icpclive.Config
 import org.icpclive.api.TeamViewPosition
-import org.icpclive.api.toAdvancedProperties
-import org.icpclive.config
+import org.icpclive.api.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow
@@ -35,7 +35,7 @@ fun Route.configureAdminApiRouting() {
             }
         }
         fun Route.setupTeamViews(positions: List<TeamViewPosition>) {
-            setupControllerGroup(positions.map { Controllers.teamView(it) })
+            setupControllerGroup(positions.associate { it.name to Controllers.teamView(it) })
             positions.forEach { position ->
                 route("/${position.name}") { setupController(Controllers.teamView(position)) }
             }
@@ -64,7 +64,7 @@ fun Route.configureAdminApiRouting() {
             setupController(Controllers.title)
             get("/templates") {
                 run {
-                    val mediaDirectoryFile = config.mediaDirectory.toFile()
+                    val mediaDirectoryFile = Config.mediaDirectory.toFile()
                     call.respond(mediaDirectoryFile.walkTopDown()
                         .filter { it.isFile && it.name.endsWith(".svg") }
                         .map { it.relativeTo(mediaDirectoryFile).path }.toList()

@@ -1,0 +1,45 @@
+syntax = "proto3";
+package io.codedrills.proto.external;
+
+option java_multiple_files = true;
+
+enum ProgrammingLanguage {
+  PROGRAMMING_LANGUAGE_UNKNOWN = 0;
+  JAVA = 1;
+  CPP = 2;
+  PYTHON = 3;
+  KOTLIN = 4;
+}
+
+enum ScoringStatus {
+  NOT_ATTEMPTED = 0;
+  SOLVED = 1;
+  PARTIALLY_SOLVED = 2;
+  PROCESSING = 3;
+}
+
+message LanguageRestriction {
+  repeated ProgrammingLanguage allowed_language = 1;
+  repeated ProgrammingLanguage disallowed_language = 2;
+}
+
+message ContestId {
+  oneof uid {
+    int32 id = 1;
+    string url = 2;
+  }
+}
+
+message PaginationRequestParams {
+  int32 page_index = 1;
+  int32 items_per_page = 2;
+}
+
+message PaginationResponseParams {
+  PaginationRequestParams request_params = 1;
+  int32 total = 2;
+}
+
+message FilterParams {
+  int32 after_submission = 1;
+}

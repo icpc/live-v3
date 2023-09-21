@@ -2,17 +2,16 @@ package org.icpclive.cds.clics
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.clics.api.*
-import org.icpclive.cds.clics.model.ClicsJudgementTypeInfo
-import org.icpclive.cds.clics.model.ClicsOrganisationInfo
-import org.icpclive.cds.clics.model.ClicsRunInfo
+import org.icpclive.clics.*
+import org.icpclive.cds.clics.model.*
 import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
 import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
 
-class ClicsModel(
+internal class ClicsModel(
     private val addTeamNames: Boolean,
     private val mediaBaseUrl: String
 ) {
@@ -31,7 +30,7 @@ class ClicsModel(
     var contestLength = 5.hours
     var freezeTime = 4.hours
     var status = ContestStatus.BEFORE
-    var penaltyPerWrongAttempt = 20
+    var penaltyPerWrongAttempt = 20.minutes
     var holdBeforeStartTime: Duration? = null
     var name: String = ""
 
@@ -59,14 +58,14 @@ class ClicsModel(
         return null
     }
 
-    fun Group.toApi() : GroupInfo = GroupInfo(name)
+    private fun Group.toApi() : GroupInfo = GroupInfo(name, isHidden = false, isOutOfContest = false)
 
-    fun Team.toApi(): TeamInfo {
+    private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
             id = teamId[id],
-            name = teamName(teamOrganization?.formalName, name),
-            shortName = teamName(teamOrganization?.name, name),
+            fullName = teamName(teamOrganization?.formalName, name),
+            displayName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
             isHidden = hidden,
             groups = group_ids.mapNotNull { groups[it]?.name },
@@ -76,17 +75,28 @@ class ClicsModel(
                 video.firstOrNull()?.mediaType()?.let { put(TeamMediaType.RECORD, it) }
                 webcam.firstOrNull()?.mediaType()?.let { put(TeamMediaType.CAMERA, it) }
                 desktop.firstOrNull()?.mediaType()?.let { put(TeamMediaType.SCREEN, it) }
-            }
+            },
+            organizationId = organization_id,
+            isOutOfContest = false,
+            customFields = mapOf(
+                "name" to name,
+            )
         )
     }
 
-    fun Problem.toApi() = ProblemInfo(
-        letter = label,
-        name = name,
+    private fun Problem.toApi() = ProblemInfo(
+        displayName = label,
+        fullName = name,
         id = problemToId[id],
         ordinal = ordinal,
         contestSystemId = id,
         color = rgb ?: Color.BLACK
+    )
+
+    private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(
+        cdsId = id,
+        displayName = name,
+        fullName = formalName,
     )
 
     val contestInfo: ContestInfo
@@ -97,11 +107,14 @@ class ClicsModel(
             startTime = startTime ?: Instant.fromEpochSeconds(0),
             contestLength = contestLength,
             freezeTime = freezeTime,
-            problems = problems.values.map { it.toApi() },
-            teams = teams.values.map { it.toApi() },
-            groups = groups.values.map { it.toApi() },
+            problemList = problems.values.map { it.toApi() },
+            teamList = teams.values.map { it.toApi() },
+            groupList = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
-            holdBeforeStartTime = holdBeforeStartTime
+            holdBeforeStartTime = holdBeforeStartTime,
+            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
+            organizationList = organisations.values.map { it.toApi() },
+            cdsSupportsFinalization = true
         )
 
     fun processContest(contest: Contest): List<RunInfo> {
@@ -110,7 +123,7 @@ class ClicsModel(
         contestLength = contest.duration
         freezeTime = contestLength - (contest.scoreboard_freeze_duration ?: Duration.ZERO)
         holdBeforeStartTime = contest.countdown_pause_time
-        penaltyPerWrongAttempt = contest.penalty_time ?: 20
+        penaltyPerWrongAttempt = contest.penalty_time ?: 20.minutes
         return emptyList()
     }
 
@@ -227,6 +240,7 @@ class ClicsModel(
 
     fun processState(state: State): List<RunInfo> {
         status = when {
+            state.finalized != null && (state.frozen == null || state.thawed != null) -> ContestStatus.FINALIZED
             state.ended != null -> ContestStatus.OVER
             state.started != null -> ContestStatus.RUNNING
             else -> ContestStatus.BEFORE

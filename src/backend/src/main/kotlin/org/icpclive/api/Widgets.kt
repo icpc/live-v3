@@ -4,7 +4,7 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.config
+import org.icpclive.Config
 import kotlin.random.Random
 import kotlin.random.nextUInt
 
@@ -19,7 +19,7 @@ class LocationRectangle(
 )
 
 fun getLocationOrDefault(widgetPrefix: String, defaultLocationRectangle: LocationRectangle) =
-    config.widgetPositions.getOrDefault(widgetPrefix, defaultLocationRectangle)
+    Config.widgetPositions.getOrDefault(widgetPrefix, defaultLocationRectangle)
 
 @Serializable
 sealed class Widget(

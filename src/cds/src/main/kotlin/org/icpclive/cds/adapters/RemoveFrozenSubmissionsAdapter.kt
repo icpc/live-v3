@@ -1,14 +1,12 @@
 package org.icpclive.cds.adapters
 
-import kotlinx.coroutines.flow.*
-import org.icpclive.cds.Analytics
-import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.RunUpdate
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.transform
+import org.icpclive.cds.*
 import kotlin.time.Duration
 
 
-fun Flow<ContestEventWithRunsBefore>.removeFrozenSubmissions() = transform {
+public fun Flow<ContestState>.removeFrozenSubmissions(): Flow<ContestUpdate> = transform {
     when (it.event) {
         is RunUpdate -> {
             if (it.infoBeforeEvent != null && it.event.newInfo.time >= it.infoBeforeEvent.freezeTime) {
@@ -33,9 +31,6 @@ fun Flow<ContestEventWithRunsBefore>.removeFrozenSubmissions() = transform {
                 }
             }
         }
-        is Analytics -> emit(it.event)
+        is AnalyticsUpdate -> emit(it.event)
     }
 }
-
-@JvmName("RemoveFrozenSubmissions2")
-fun Flow<ContestUpdate>.removeFrozenSubmissions() = withRunsBefore().removeFrozenSubmissions()
