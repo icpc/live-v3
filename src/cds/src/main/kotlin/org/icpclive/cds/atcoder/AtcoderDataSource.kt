@@ -108,7 +108,8 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
                 isOutOfContest = false,
                 organizationId = null,
             )
-        }
+        }.sortedBy { it.id }
+
         val info = ContestInfo(
             name = "",
             status = ContestStatus.byCurrentTime(settings.startTime, settings.contestLength),

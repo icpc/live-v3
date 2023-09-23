@@ -1,77 +1,80 @@
 package org.icpclive.scoreboard
 
+import kotlinx.collections.immutable.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
-import org.icpclive.cds.adapters.ContestStateWithRunsByTeam
+import org.icpclive.cds.*
+import org.icpclive.cds.adapters.*
 import org.icpclive.util.getLogger
-import kotlin.time.Duration
+
+public data class Ranking(
+    val order: List<Int>,
+    val ranks: List<Int>,
+    val awards: Map<Award, Set<Int>>
+)
 
 public interface ScoreboardCalculator {
-    public fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>) : Scoreboard
+    public fun getScoreboardRow(info: ContestInfo, runs: List<RunInfo>): ScoreboardRow
+    public fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking
 }
 
 internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
 
-    abstract fun ContestInfo.getScoreboardRow(
-        teamId: Int,
-        runs: List<RunInfo>,
-        teamGroups: List<String>,
-        problems: List<ProblemInfo>
-    ): ScoreboardRow
-
     abstract val comparator : Comparator<ScoreboardRow>
 
-    override fun getScoreboard(info: ContestInfo, runs: Map<Int, List<RunInfo>>): Scoreboard {
-        logger.info("Calculating scoreboard: runs count = ${runs.values.sumOf { it.size }}")
-        val teamsInfo = info.teams.filterValues { !it.isHidden }
-        fun ScoreboardRow.team() = teamsInfo[teamId]!!
-
+    @OptIn(InefficientContestInfoApi::class)
+    override fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking {
         val hasChampion = mutableSetOf<String>()
+        val order_ = info.teamList.filterNot { it.isHidden }.map { it.id to rows[it.id]!! }.sortedWith { a, b ->
+            comparator.compare(a.second, b.second)
+        }
+        val awards = buildMap<Award, MutableSet<Int>> {
+            info.medals.forEach { put(Award.Medal(it.name), mutableSetOf()) }
+            info.groupList.forEach { put(Award.GroupChampion(it.name), mutableSetOf()) }
+        }
+        val order = order_.map { it.first }
+        val ranks = MutableList(order.size) { 0 }
+        val orderedRows = order_.map { it.second }
 
-        val rows = teamsInfo.values
-            .map { info.getScoreboardRow(it.id, runs[it.id] ?: emptyList(), it.groups, info.scoreboardProblems) }
-            .sortedWith(comparator.thenComparing { it -> it.team().fullName })
-            .toMutableList()
         var right = 0
         var outOfContestTeams = 0
-        while (right < rows.size) {
+        while (right < order.size) {
             val left = right
-            while (right < rows.size && comparator.compare(rows[left], rows[right]) == 0) {
+            while (right < order.size && comparator.compare(orderedRows[left], orderedRows[right]) == 0) {
                 right++
             }
             val minRank = left + 1 - outOfContestTeams
-            val nextRank = minRank + rows.subList(left, right).count { !teamsInfo[it.teamId]!!.isOutOfContest }
-            val medal = run {
-                var skipped = 0
-                for (type in info.medals) {
-                    val canGetMedal = when (type.tiebreakMode) {
-                        MedalTiebreakMode.ALL -> minRank <= type.count + skipped
-                        MedalTiebreakMode.NONE -> nextRank <= type.count + skipped + 1
-                    } && rows[left].totalScore >= type.minScore
-                    if (canGetMedal) {
-                        return@run type.name
-                    }
-                    skipped += type.count
+            val nextRank = minRank + order.subList(left, right).count { !info.teams[it]!!.isOutOfContest }
+            var skipped = 0
+            val totalScore = orderedRows[left].totalScore
+            for (type in info.medals) {
+                val canGetMedal = when (type.tiebreakMode) {
+                    MedalTiebreakMode.ALL -> minRank <= type.count + skipped
+                    MedalTiebreakMode.NONE -> nextRank <= type.count + skipped + 1
+                } && totalScore >= type.minScore
+                if (canGetMedal) {
+                    awards[Award.Medal(type.name)]!!.addAll(order.subList(left, right).filterNot { info.teams[it]!!.isOutOfContest })
+                    break
                 }
-                null
+                skipped += type.count
             }
             for (i in left until right) {
-                val team = teamsInfo[rows[i].teamId]!!
+                val team = info.teams[order[i]]!!
                 if (team.isOutOfContest) {
                     outOfContestTeams++
                 } else {
-                    rows[i] = rows[i].copy(
-                        rank = minRank,
-                        medalType = medal,
-                        championInGroups = team.groups.filter { it !in hasChampion }
-                    )
+                    ranks[i] = minRank
+                    team.groups.filter { it !in hasChampion }.forEach {
+                        awards[Award.GroupChampion(it)]?.add(order[i])
+                    }
                 }
             }
             for (i in left until right) {
-                hasChampion.addAll(teamsInfo[rows[i].teamId]!!.groups)
+                hasChampion.addAll(info.teams[order[i]]!!.groups)
             }
         }
-        return Scoreboard(runs.values.maxOfOrNull { it.maxOfOrNull { it.time } ?: Duration.ZERO } ?: Duration.ZERO , rows)
+        return Ranking(order, ranks.toList(), awards.mapValues { (_, v) -> v.toSet() })
     }
 
     companion object {
@@ -88,13 +91,117 @@ public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLev
     ContestResultType.IOI -> IOIScoreboardCalculator()
 }
 
-public fun Flow<ContestStateWithRunsByTeam>.calculateScoreboardWithInfo(optimismLevel: OptimismLevel): Flow<Pair<ContestInfo, Scoreboard>> =
-    filter { it.infoAfterEvent != null }
-    .conflate()
-    .map {
-        it.infoAfterEvent!! to getScoreboardCalculator(it.infoAfterEvent!!, optimismLevel).getScoreboard(it.infoAfterEvent!!, it.runs)
+public fun Scoreboard.toLegacyScoreboard(info: ContestInfo): LegacyScoreboard = LegacyScoreboard(
+    order.zip(ranks).map { (teamId, rank) ->
+        val row = rows[teamId]!!
+        LegacyScoreboardRow(
+            teamId = teamId,
+            rank = rank,
+            totalScore = row.totalScore,
+            penalty = row.penalty,
+            lastAccepted = row.lastAccepted.inWholeMilliseconds,
+            medalType = awards.entries.firstNotNullOfOrNull { e -> (e.key as? Award.Medal)?.medalType?.takeIf { teamId in e.value } },
+            championInGroups = awards.entries.mapNotNull { e -> (e.key as? Award.GroupChampion)?.group?.takeIf { teamId in e.value } },
+            problemResults = row.problemResults,
+            teamGroups = info.teams[teamId]!!.groups
+        )
     }
+)
+
+private class RedoTask(val info: ContestInfo, val mode: ScoreboardUpdateType, val runs: PersistentMap<Int, PersistentList<RunInfo>>)
 
 
-public fun Flow<ContestStateWithRunsByTeam>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<Scoreboard> =
-    calculateScoreboardWithInfo(optimismLevel).map { it.second }
+private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
+    var curInfo: ContestInfo? = null
+    var curRuns = persistentMapOf<Int, PersistentList<RunInfo>>()
+    val oldKey = mutableMapOf<Int, Int>()
+    collect { update ->
+        suspend fun updateGroup(key: Int) {
+            val info = curInfo ?: return
+            emit(RedoTask(info, ScoreboardUpdateType.DIFF, persistentMapOf(key to (curRuns[key] ?: persistentListOf()))))
+        }
+        when (update) {
+            is RunUpdate -> {
+                val k = update.newInfo.teamId
+                val oldK = oldKey[update.newInfo.id]
+                oldKey[update.newInfo.id] = k
+                if (oldK != k) {
+                    if (oldK != null) {
+                        curRuns = curRuns.removeRun(oldK, update.newInfo)
+                        updateGroup(oldK)
+                    }
+                    curRuns = curRuns.addAndResort(k, update.newInfo)
+                    updateGroup(k)
+                } else {
+                    curRuns = curRuns.updateAndResort(k, update.newInfo)
+                    updateGroup(k)
+                }
+            }
+            is InfoUpdate -> {
+                curInfo = update.newInfo
+                emit(RedoTask(update.newInfo, ScoreboardUpdateType.SNAPSHOT, curRuns))
+            }
+            is AnalyticsUpdate -> {}
+        }
+    }
+}
+
+public data class ScoreboardAndContestInfo(
+    val info: ContestInfo,
+    val scoreboardSnapshot: Scoreboard,
+    val scoreboardDiff: Scoreboard,
+)
+
+public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ScoreboardAndContestInfo> = flow {
+    coroutineScope {
+        val s = MutableStateFlow<RedoTask?>(null)
+        launch {
+            teamRunsUpdates()
+                .collect {
+                    s.update { old ->
+                        if (it.mode == ScoreboardUpdateType.SNAPSHOT || old == null) {
+                            it
+                        } else {
+                            RedoTask(it.info, old.mode, old.runs.putAll(it.runs))
+                        }
+                    }
+                }
+        }
+
+        var rows = persistentMapOf<Int, ScoreboardRow>()
+        val logger = getLogger(AbstractScoreboardCalculator::class)
+        while (true) {
+            val task = s.getAndUpdate { null } ?: s.filterNotNull().first().let { s.getAndUpdate { null }!! }
+            logger.info("Recalculating scoreboard mode = ${task.mode}, patch_rows = ${task.runs.size}, teams = ${task.info.teams.size}")
+            val calculator = getScoreboardCalculator(task.info, optimismLevel)
+            val teams = when (task.mode) {
+                ScoreboardUpdateType.DIFF -> task.runs
+                ScoreboardUpdateType.SNAPSHOT -> task.info.teams
+            }.keys.toList()
+            val upd = teams.associateWithTo(persistentMapOf<Int, ScoreboardRow>().builder()) {
+                calculator.getScoreboardRow(
+                    task.info,
+                    task.runs[it] ?: emptyList()
+                )
+            }.build()
+            rows = if (task.mode == ScoreboardUpdateType.SNAPSHOT) {
+                upd
+            } else {
+                rows.putAll(upd)
+            }
+            task.info.teams.keys.firstOrNull { it !in rows }?.let {
+                require(false) { "team $it is not in rows" }
+            }
+            val ranking = getScoreboardCalculator(task.info, optimismLevel).getRanking(task.info, rows)
+            emit(
+                ScoreboardAndContestInfo(
+                    task.info,
+                    Scoreboard(ScoreboardUpdateType.SNAPSHOT, rows, ranking.order, ranking.ranks, ranking.awards),
+                    Scoreboard(task.mode, upd, ranking.order, ranking.ranks, ranking.awards)
+                )
+            )
+        }
+    }
+}
+
+

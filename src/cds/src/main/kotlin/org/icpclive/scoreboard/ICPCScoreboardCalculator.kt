@@ -1,7 +1,7 @@
 package org.icpclive.scoreboard
 
 import org.icpclive.api.*
-import kotlin.math.max
+import kotlin.time.Duration
 
 
 internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator() {
@@ -15,23 +15,24 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
         { it.lastAccepted }
     )
 
-    override fun ContestInfo.getScoreboardRow(
-        teamId: Int,
-        runs: List<RunInfo>,
-        teamGroups: List<String>,
-        problems: List<ProblemInfo>
+    override fun getScoreboardRow(
+        info: ContestInfo,
+        runs: List<RunInfo>
     ): ScoreboardRow {
-        require(resultType == ContestResultType.ICPC)
-        val penaltyCalculator = PenaltyCalculator.get(penaltyRoundingMode, penaltyPerWrongAttempt)
+        require(info.resultType == ContestResultType.ICPC)
+        val penaltyCalculator = PenaltyCalculator.get(
+            info.penaltyRoundingMode,
+            info.penaltyPerWrongAttempt
+        )
         var solved = 0
-        var lastAccepted = 0L
+        var lastAccepted = Duration.ZERO
         val runsByProblem = runs.groupBy { it.problemId }
-        val problemResults = problems.map { problem ->
+        val problemResults = info.scoreboardProblems.map { problem ->
             val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
-            val (runsBeforeFirstOk, okRun) = run {
+            val (runsBeforeFirstOk, okRun) = info.run {
                 val okRunIndex = problemRuns
                     .withIndex()
-                    .indexOfFirst { isAccepted(it.value, it.index, problemRuns.size) }
+                    .indexOfFirst { this@ICPCScoreboardCalculator.isAccepted(it.value, it.index, problemRuns.size) }
                 if (okRunIndex == -1) {
                     problemRuns to null
                 } else {
@@ -49,20 +50,15 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
                 if (it.isSolved) {
                     solved++
                     penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
-                    lastAccepted = max(lastAccepted, okRun.time.inWholeMilliseconds)
+                    lastAccepted = maxOf(lastAccepted, okRun.time)
                 }
             }
         }
         return ScoreboardRow(
-            teamId,
-            0,
             solved.toDouble(),
             penaltyCalculator.penalty,
             lastAccepted,
-            null,
             problemResults,
-            teamGroups,
-            emptyList()
         )
     }
 }

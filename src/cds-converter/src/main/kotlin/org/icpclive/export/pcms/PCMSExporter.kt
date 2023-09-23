@@ -118,10 +118,12 @@ object PCMSExporter {
         contest.buildContestNode(info)
         val challenge = contest.createChild("challenge")
         challenge.buildChallengeNode(info)
-        val scoreboard = getScoreboardCalculator(info, OptimismLevel.NORMAL).getScoreboard(info, runsByTeam)
-        scoreboard.rows.forEach {
+        val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
+        val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
+        val ranking = scoreboardCalculator.getRanking(info, rows)
+        ranking.order.forEach {
             contest.createChild("session").also { session ->
-                session.buildSessionNode(info, info.teams[it.teamId]!!, it, runsByTeam[it.teamId] ?: emptyList())
+                session.buildSessionNode(info, info.teams[it]!!, rows[it]!!, runsByTeam[it] ?: emptyList())
             }
         }
 
