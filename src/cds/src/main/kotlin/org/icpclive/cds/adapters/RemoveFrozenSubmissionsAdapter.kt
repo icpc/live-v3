@@ -10,7 +10,10 @@ public fun Flow<ContestState>.removeFrozenSubmissions(): Flow<ContestUpdate> = t
     when (it.event) {
         is RunUpdate -> {
             if (it.infoBeforeEvent != null && it.event.newInfo.time >= it.infoBeforeEvent.freezeTime) {
-                emit(RunUpdate(it.event.newInfo.copy(result = null)))
+                emit(RunUpdate(it.event.newInfo.copy(
+                    result = null,
+                    percentage = 0.0
+                )))
             } else {
                 emit(it.event)
             }
@@ -24,7 +27,10 @@ public fun Flow<ContestState>.removeFrozenSubmissions(): Flow<ContestUpdate> = t
                     (run.time < newFreeze) != (run.time < oldFreeze)
                 }.forEach { run ->
                     emit(RunUpdate(if (run.time >= newFreeze) {
-                        run.copy(result = null)
+                        run.copy(
+                            result = null,
+                            percentage = 0.0
+                        )
                     } else {
                         run
                     }))
