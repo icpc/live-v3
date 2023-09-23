@@ -1,0 +1,58 @@
+{
+  "freezeTimeSeconds": 18000,
+  "teamOverrides": {
+    "GEO5" : {"isOutOfContest": true },
+    "GEO6" : {"isOutOfContest": true },
+    "GEO7" : {"isOutOfContest": true },
+    "GEO8" : {"isOutOfContest": true }
+  },
+    "teamOverrideTemplate": {
+        "displayName": "[{country}] {first_name} {last_name}"
+    },
+    "teamMediaTemplate": {
+      "photo": {
+        "type": "Photo",
+        "url": "/media/photos/{teamId}.png"
+      }
+    },
+    "problemOverrides": {
+      "search": {
+        "displayName": "A1"
+      },
+      "teleport": {
+        "displayName": "B1"
+      },
+      "offices": {
+        "displayName": "C1"
+      },
+      "puzzle": {
+        "displayName": "A2"
+      },
+      "infection": {
+        "displayName": "B2"
+      },
+      "team": {
+        "displayName": "C2"
+      }
+    },    
+    "scoreboardOverrides": {
+        "medals": [
+          {
+            "name": "gold",
+            "count": 8,
+            "tiebreakMode": "ALL"
+          },
+          {
+            "name": "silver",
+            "count": 15,
+            "tiebreakMode": "ALL"
+          },
+          {
+            "name": "bronze",
+            "count": 23,
+            "tiebreakMode": "ALL"
+          }
+        ]
+      }
+    
+}

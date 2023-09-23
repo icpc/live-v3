@@ -1,0 +1,10 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": ".",
+      "contestId": "",
+      "eventFeedPath": ""
+    }
+  ]
+}

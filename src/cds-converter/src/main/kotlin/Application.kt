@@ -23,7 +23,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.api.ContestStatus
 import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
@@ -180,8 +179,8 @@ private fun getFlow(advancedProperties: Flow<AdvancedProperties>, log: Logger) :
     val creds: Map<String, String> = CommonOptions.credsFile?.let {
         Json.decodeFromStream(it.toFile().inputStream())
     } ?: emptyMap()
-    return parseFileToCdsSettings(path)
-        .toFlow(creds)
+    return parseFileToCdsSettings(path, creds)
+        .toFlow()
         .applyAdvancedProperties(advancedProperties)
         .contestState()
         .filterUseless()

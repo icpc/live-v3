@@ -1,0 +1,10 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": "https://172.29.1.207:8443/api",
+      "contestId": "mock"
+    }
+  ],
+  "useTeamNames": false
+}

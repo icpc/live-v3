@@ -18,6 +18,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(
     ":backend",
+    ":backend-api",
     ":cds",
     ":cds-converter",
     ":clics-api",
@@ -29,6 +30,7 @@ include(
     ":faker"
 )
 project(":backend").projectDir = file("src/backend")
+project(":backend-api").projectDir = file("src/backend-api")
 project(":cds").projectDir = file("src/cds")
 project(":cds-converter").projectDir = file("src/cds-converter")
 project(":clics-api").projectDir = file("src/clics-api")

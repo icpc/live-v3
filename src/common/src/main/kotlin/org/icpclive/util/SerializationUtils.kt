@@ -2,15 +2,14 @@ package org.icpclive.util
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerializationException
+import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
+import kotlinx.serialization.modules.SerializersModuleBuilder
 import java.awt.Color
 import java.io.InputStream
 import java.lang.Exception
@@ -196,4 +195,16 @@ inline fun <reified T> Json.decodeFromStringIgnoringComments(data: String) : T =
         is JsonObject -> JsonObject(filter { !it.key.startsWith("#") }.mapValues { it.value.cleanFromComments() })
         is JsonPrimitive, JsonNull -> this
     }
+}
+
+inline fun <reified T: Any> SerializersModuleBuilder.postProcess(
+    crossinline onEncode: (T) -> T = { it },
+    crossinline onDecode: (T) -> T = { it },
+) {
+    contextual(T::class, object : KSerializer<T> {
+        private val delegate = serializer<T>()
+        override val descriptor get() = delegate.descriptor
+        override fun deserialize(decoder: Decoder) = onEncode(delegate.deserialize(decoder))
+        override fun serialize(encoder: Encoder, value: T) = delegate.serialize(encoder, onDecode(value))
+    })
 }

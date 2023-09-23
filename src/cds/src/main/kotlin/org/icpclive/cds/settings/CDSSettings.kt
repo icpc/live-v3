@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED")
+@file:UseContextualSerialization(UrlOrLocalPath::class, Credential::class)
 package org.icpclive.cds.settings
 
 
@@ -7,7 +8,10 @@ import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.*
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
+import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.properties.Properties
 import kotlinx.serialization.properties.decodeFromStringMap
 import org.icpclive.api.ContestResultType
@@ -20,6 +24,7 @@ import org.icpclive.cds.cms.CmsDataSource
 import org.icpclive.cds.codedrills.CodeDrillsDataSource
 import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.noop.NoopDataSource
@@ -28,22 +33,36 @@ import org.icpclive.cds.testsys.TestSysDataSource
 import org.icpclive.cds.yandex.YandexDataSource
 import org.icpclive.util.*
 import java.nio.file.Path
+import kotlin.io.path.exists
 import kotlin.time.Duration
+
+@Serializable(with = UrlOrLocalPath.Serializer::class)
+public class UrlOrLocalPath(public val value: String) {
+    internal class Serializer : KSerializer<UrlOrLocalPath> {
+        private val delegate = serializer<String>()
+        override val descriptor = delegate.descriptor
+        override fun deserialize(decoder: Decoder) = UrlOrLocalPath(delegate.deserialize(decoder))
+        override fun serialize(encoder: Encoder, value: UrlOrLocalPath) = delegate.serialize(encoder, value.value)
+    }
+
+    public override fun toString(): String = value
+}
 
 // I'd like to have them in cds files, but then serializing would be much harder
 
-@JvmInline
-@Serializable
-public value class Credential(private val raw: String) {
-    public fun get(creds: Map<String, String>) : String {
-        val prefix = "\$creds."
-        return if (raw.startsWith(prefix)) {
-            val name = raw.substring(prefix.length)
-            creds[name] ?: throw IllegalStateException("Credential $name not found")
-        } else {
-            raw
+@Serializable(with = Credential.Serializer::class)
+public class Credential(public val displayValue: String, public val value: String) {
+    internal class Serializer : KSerializer<Credential> {
+        private val delegate = serializer<String>()
+        override val descriptor = delegate.descriptor
+        override fun deserialize(decoder: Decoder) : Credential {
+            val raw = delegate.deserialize(decoder)
+            return Credential(raw, raw)
         }
+        override fun serialize(encoder: Encoder, value: Credential) = delegate.serialize(encoder, value.displayValue)
     }
+
+    override fun toString(): String = displayValue
 }
 
 @Serializable
@@ -67,14 +86,14 @@ public sealed class CDSSettings {
         return json.encodeToString(this)
     }
 
-    public fun toFlow(creds: Map<String, String>) : Flow<ContestUpdate> {
-        val raw = toDataSource(creds)
+    public fun toFlow(): Flow<ContestUpdate> {
+        val raw = toDataSource()
         return when (val emulationSettings = emulation) {
             null -> raw.getFlow()
             else -> raw.getFlow().toEmulationFlow(emulationSettings.startTime, emulationSettings.speed)
         }
     }
-    internal abstract fun toDataSource(creds: Map<String, String>): ContestDataSource
+    internal abstract fun toDataSource(): ContestDataSource
 
     internal companion object {
         private val json = Json { prettyPrint = true }
@@ -87,19 +106,19 @@ public class NoopSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = NoopDataSource()
+    override fun toDataSource() = NoopDataSource()
 }
 
 @Serializable
 @SerialName("testsys")
 public class TestSysSettings(
-    public val url: String,
+    public val url: UrlOrLocalPath,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = TestSysDataSource(this)
+    override fun toDataSource() = TestSysDataSource(this)
 }
 
 @Serializable
@@ -107,7 +126,7 @@ public class TestSysSettings(
 public class CatsSettings(
     public val login: Credential,
     public val password: Credential,
-    public val url: String,
+    public val url: UrlOrLocalPath,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Asia/Vladivostok"),
     public val resultType: ContestResultType = ContestResultType.ICPC,
@@ -115,32 +134,32 @@ public class CatsSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = CATSDataSource(this, creds)
+    override fun toDataSource() = CATSDataSource(this)
 }
 
 @Serializable
 @SerialName("krsu")
 public class KRSUSettings(
-    public val submissionsUrl: String,
-    public val contestUrl: String,
+    public val submissionsUrl: UrlOrLocalPath,
+    public val contestUrl: UrlOrLocalPath,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = KRSUDataSource(this)
+    override fun toDataSource() = KRSUDataSource(this)
 }
 
 @Serializable
 @SerialName("ejudge")
 public class EjudgeSettings(
-    public val url: String,
+    public val url: UrlOrLocalPath,
     public val resultType: ContestResultType = ContestResultType.ICPC,
     public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = EjudgeDataSource(this)
+    override fun toDataSource() = EjudgeDataSource(this)
 }
 
 
@@ -154,7 +173,7 @@ public class YandexSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = YandexDataSource(this, creds)
+    override fun toDataSource() = YandexDataSource(this)
 }
 
 @Serializable
@@ -167,43 +186,39 @@ public class CFSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = CFDataSource(this, creds)
+    override fun toDataSource() = CFDataSource(this)
 }
 
 @Serializable
 @SerialName("pcms")
 public class PCMSSettings(
-    public val url: String,
+    public val url: UrlOrLocalPath,
     public val login: Credential? = null,
     public val password: Credential? = null,
-    public val problemsUrl: String? = null,
+    public val problemsUrl: UrlOrLocalPath? = null,
     public val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = PCMSDataSource(this, creds)
+    override fun toDataSource() = PCMSDataSource(this)
 }
 
 @Serializable
-public class ClicsLoaderSettings(
-    public val url: String,
+public class ClicsFeed(
+    public val url: UrlOrLocalPath,
+    public val contestId: String,
     public val login: Credential? = null,
     public val password: Credential? = null,
     public val eventFeedName: String = "event-feed",
+    public val eventFeedPath: String? = null,
     public val feedVersion: ClicsSettings.FeedVersion = ClicsSettings.FeedVersion.`2022_07`
 )
 
 @SerialName("clics")
 @Serializable
 public class ClicsSettings(
-    private val url: String,
-    private val login: Credential? = null,
-    private val password: Credential? = null,
-    private val eventFeedName: String = "event-feed",
-    private val feedVersion: FeedVersion = FeedVersion.`2022_07`,
-    public val additionalFeed: ClicsLoaderSettings? = null,
+    public val feeds: List<ClicsFeed>,
     public val useTeamNames: Boolean = true,
-    public val mediaBaseUrl: String = "",
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
@@ -212,9 +227,7 @@ public class ClicsSettings(
         `2022_07`
     }
 
-    public val mainFeed: ClicsLoaderSettings get() = ClicsLoaderSettings(url,login, password, eventFeedName, feedVersion)
-
-    override fun toDataSource(creds: Map<String, String>) = ClicsDataSource(this, creds)
+    override fun toDataSource() = ClicsDataSource(this)
 }
 
 @SerialName("codedrills")
@@ -227,7 +240,7 @@ public class CodeDrillsSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = CodeDrillsDataSource(this, creds)
+    override fun toDataSource() = CodeDrillsDataSource(this)
 }
 
 @SerialName("atcoder")
@@ -242,7 +255,7 @@ public class AtcoderSettings(
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = AtcoderDataSource(this, creds)
+    override fun toDataSource() = AtcoderDataSource(this)
 }
 
 @SerialName("cms")
@@ -254,13 +267,41 @@ public class CmsSettings(
     override val network: NetworkSettings? = null,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
-    override fun toDataSource(creds: Map<String, String>) = CmsDataSource(this)
+    override fun toDataSource() = CmsDataSource(this)
 }
 
+public fun interface CredsProvider {
+    public operator fun get(s: String) : String?
+}
+public fun parseFileToCdsSettings(path: Path, creds: Map<String, String>): CDSSettings = parseFileToCdsSettings(path) { creds[it] }
 
 @OptIn(ExperimentalSerializationApi::class)
-public fun parseFileToCdsSettings(path: Path) : CDSSettings {
+public fun parseFileToCdsSettings(path: Path, creds: CredsProvider) : CDSSettings {
     val file = path.toFile()
+    val module = SerializersModule {
+        postProcess<Credential>(
+            onEncode = {
+                val prefix = "\$creds."
+                if (it.displayValue.startsWith(prefix)) {
+                    val name = it.displayValue.substring(prefix.length)
+                    Credential(it.displayValue, creds[name] ?: throw IllegalStateException("Credential $name not found"))
+                } else {
+                    it
+                }
+            }
+        )
+        postProcess<UrlOrLocalPath>(
+            onEncode = {
+                if (isHttpUrl(it.value)) {
+                    it
+                } else {
+                    val fixedPath = path.parent.resolve(it.value).toAbsolutePath()
+                    require(fixedPath.exists()) { "File ${fixedPath} mentioned in settings doesn't exist"}
+                    UrlOrLocalPath(fixedPath.toString())
+                }
+            }
+        )
+    }
     return if (!file.exists()) {
         throw java.lang.IllegalArgumentException("File ${file.absolutePath} does not exist")
     } else if (file.name.endsWith(".properties")) {
@@ -304,11 +345,15 @@ public fun parseFileToCdsSettings(path: Path) : CDSSettings {
         Properties.decodeFromStringMap<CDSSettings>(properties as Map<String, String>)
     } else if (file.name.endsWith(".json")) {
         file.inputStream().use {
-            Json.decodeFromStreamIgnoringComments(it)
+            Json {
+                serializersModule = module
+            }.decodeFromStreamIgnoringComments(it)
         }
     } else if (file.name.endsWith(".json5")) {
         file.inputStream().use {
-            Json5.decodeFromString<CDSSettings>(String(it.readAllBytes()))
+            Json5 {
+                serializersModule = module
+            }.decodeFromString<CDSSettings>(String(it.readAllBytes()))
         }
     } else {
         throw IllegalArgumentException("Unknown settings file extension: ${file.path}")

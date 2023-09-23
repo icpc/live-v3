@@ -12,8 +12,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
 internal class ClicsModel(
-    private val addTeamNames: Boolean,
-    private val mediaBaseUrl: String
+    private val addTeamNames: Boolean
 ) {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
@@ -26,13 +25,13 @@ internal class ClicsModel(
     private val judgements = mutableMapOf<String, Judgement>()
     private val groups = mutableMapOf<String, Group>()
 
-    var startTime: Instant? = null
-    var contestLength = 5.hours
-    var freezeTime = 4.hours
-    var status = ContestStatus.BEFORE
-    var penaltyPerWrongAttempt = 20.minutes
-    var holdBeforeStartTime: Duration? = null
-    var name: String = ""
+    private var startTime: Instant? = null
+    private var contestLength = 5.hours
+    private var freezeTime = 4.hours
+    private var status = ContestStatus.BEFORE
+    private var penaltyPerWrongAttempt = 20.minutes
+    private var holdBeforeStartTime: Duration? = null
+    private var name: String = ""
 
     fun getAllRuns() = submissions.values.map { it.toApi() }
 
@@ -42,18 +41,12 @@ internal class ClicsModel(
         else -> org
     }
 
-    private fun String.maybeRelative() = when  {
-        startsWith("http://") -> this
-        startsWith("https://") -> this
-        else -> "$mediaBaseUrl/$this"
-    }
-
     private fun Media.mediaType(): MediaType? {
         if (mime.startsWith("image")) {
-            return MediaType.Photo(href.maybeRelative())
+            return MediaType.Photo(href)
         }
         if (mime.startsWith("video")) {
-            return MediaType.Video(href.maybeRelative())
+            return MediaType.Video(href)
         }
         return null
     }
@@ -146,7 +139,7 @@ internal class ClicsModel(
                 id = organization.id,
                 name = organization.name,
                 formalName = organization.formal_name ?: organization.name,
-                logo = organization.logo.lastOrNull()?.href?.maybeRelative(),
+                logo = organization.logo.lastOrNull()?.href?.let { it },
                 hashtag = organization.twitter_hashtag,
             )
         }

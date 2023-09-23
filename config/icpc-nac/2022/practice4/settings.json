@@ -1,8 +1,13 @@
 {
-  "login":"$creds.kattis_login",
-  "password":"$creds.kattis_token",
-  "url":"https://open.kattis.com/clics-api/contests/nac22practice4",
-  "type":"clics",
-  "feedVersion":"2020_03",
+  "type": "clics",
+  "feeds": [
+    {
+      "url": "https://open.kattis.com/clics-api",
+      "contestId": "nac22practice4",
+      "feedVersion": "2020_03",
+      "login":"$creds.kattis_login",
+      "password":"$creds.kattis_token"
+    }
+  ],
   "emulation": { "speed": 10, "startTime": "now"}
 }

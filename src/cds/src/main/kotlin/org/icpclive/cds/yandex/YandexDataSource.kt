@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
-import org.icpclive.cds.adapters.withGroupedRuns
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.YandexSettings
 import org.icpclive.cds.yandex.api.*
@@ -17,8 +16,8 @@ import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-internal class YandexDataSource(settings: YandexSettings, creds: Map<String, String>) : ContestDataSource {
-    private val apiKey = settings.apiKey.get(creds)
+internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
+    private val apiKey = settings.apiKey.value
     private val httpClient: HttpClient
 
     private val contestDescriptionLoader: DataLoader<ContestDescription>

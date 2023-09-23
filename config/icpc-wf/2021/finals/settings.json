@@ -1,0 +1,20 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": ".",
+      "login": "live",
+      "contestId": "",
+      "eventFeedPath": "",
+      "password": "landed-wafer-state-diner"
+    },
+    {
+      "url": ".",
+      "eventFeedName": "commentary-messages",
+      "contestId": "",
+      "eventFeedPath": "",
+      "feedVersion": "2020_03"
+    }
+  ],
+  "useTeamNames": false
+}

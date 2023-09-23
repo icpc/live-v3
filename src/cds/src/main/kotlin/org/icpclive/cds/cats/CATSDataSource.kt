@@ -38,9 +38,9 @@ private object SubmissionTimeSerializer : KSerializer<Instant> {
     }
 }
 
-internal class CATSDataSource(val settings: CatsSettings, creds: Map<String, String>) : FullReloadContestDataSource(5.seconds) {
-    private val login = settings.login.get(creds)
-    private val password = settings.password.get(creds)
+internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDataSource(5.seconds) {
+    private val login = settings.login.value
+    private val password = settings.password.value
 
     private var sid: String? = null
 

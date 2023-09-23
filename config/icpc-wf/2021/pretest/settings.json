@@ -1,0 +1,12 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": "https://cds.storm.vu/api",
+      "password": "$creds.pretest_dhaka_pass",
+      "login": "live",
+      "contestId": "pretest_dhaka"
+    }
+  ],
+  "useTeamNames": false
+}

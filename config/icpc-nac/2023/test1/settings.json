@@ -1,8 +1,12 @@
 {
   "type": "clics",
-  "login": "$creds.cds_login",
-  "password": "$creds.cds_password",
-  "url": "https://10.3.3.207/api/contests/NAC-2023-test1",
-  "useTeamNames": false,
-  "#media_base_url": "http://10.3.3.207/api"
+  "feeds": [
+    {
+      "login": "$creds.cds_login",
+      "password": "$creds.cds_password",
+      "url": "https://10.3.3.207/api",
+      "contestId": "NAC-2023-test1"
+    }
+  ],
+  "useTeamNames": false
 }

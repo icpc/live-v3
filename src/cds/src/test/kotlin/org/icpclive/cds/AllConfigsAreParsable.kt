@@ -14,10 +14,10 @@ class AllConfigsAreParsable {
     fun testSettings() : List<DynamicTest> {
         val configDir = Path("").absolute().parent.parent.resolve("config")
         return configDir.walk().filter {
-            it.name == "settings.json" || it.name == "settings.json5"
+            it.name == "settings.json" || it.name == "settings.json5" || it.name == "events.properties" && !it.pathString.contains("v2-configs")
         }.map {
             DynamicTest.dynamicTest(it.relativeTo(configDir).toString()) {
-                parseFileToCdsSettings(it)
+                parseFileToCdsSettings(it) { "" }
             }
         }.toList()
     }
