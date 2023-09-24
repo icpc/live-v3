@@ -66,6 +66,7 @@ export interface GroupInfo {
   name: string;
   isHidden: boolean;
   isOutOfContest: boolean;
+  awardsGroupChampion?: boolean;
 }
 
 export interface OrganizationInfo {
@@ -224,12 +225,14 @@ export type PersistentMap = any;
 
 export type Award =
   | Award.group_champion
-  | Award.medal;
+  | Award.medal
+  | Award.winner;
 
 export namespace Award {
   export enum Type {
     group_champion = "group_champion",
     medal = "medal",
+    winner = "winner",
   }
   
   export interface group_champion {
@@ -240,6 +243,10 @@ export namespace Award {
   export interface medal {
     type: Award.Type.medal;
     medalType: string;
+  }
+  
+  export interface winner {
+    type: Award.Type.winner;
   }
 }
 
