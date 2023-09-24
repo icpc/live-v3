@@ -183,6 +183,7 @@ public data class GroupInfo(
     val name: String,
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
+    val awardsGroupChampion: Boolean = !isHidden,
 )
 
 @Serializable

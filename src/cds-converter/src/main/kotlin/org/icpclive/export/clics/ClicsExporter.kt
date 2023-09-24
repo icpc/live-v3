@@ -10,10 +10,13 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.adapters.addFirstToSolves
 import org.icpclive.cds.adapters.withContestInfoBefore
 import org.icpclive.clics.*
+import org.icpclive.clics.Award
 import org.icpclive.clics.Scoreboard
 import org.icpclive.clics.ScoreboardRow
+import org.icpclive.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.scoreboard.calculateScoreboard
 import org.icpclive.util.defaultJsonSettings
 import org.icpclive.util.intervalFlow
@@ -99,10 +102,10 @@ object ClicsExporter  {
             name = info.name,
             formal_name = info.name,
             duration = info.contestLength,
-            scoreboard_freeze_duration = info.freezeTime,
+            scoreboard_freeze_duration = info.contestLength - info.freezeTime,
             countdown_pause_time = info.holdBeforeStartTime,
             penalty_time = info.penaltyPerWrongAttempt,
-            scoreboard_type = "pass-fail"
+            scoreboard_type = "pass-fail",
         )
 
     private suspend fun <T, CT> FlowCollector<EventProducer>.diffChange(
@@ -280,17 +283,15 @@ object ClicsExporter  {
     }
 
 
-    private suspend fun FlowCollector<Event>.generateEventFeed(updates: Flow<ContestUpdate>) {
+    private fun generateEventFeed(updates: Flow<ContestUpdate>) : Flow<Event> {
         var eventCounter = 1
-        updates.withContestInfoBefore().transform { (update, infoBefore) ->
+        return updates.withContestInfoBefore().transform { (update, infoBefore) ->
             when (update) {
                 is InfoUpdate -> calculateDiff(infoBefore, update.newInfo)
                 is RunUpdate -> processRun(infoBefore!!, update.newInfo)
                 is AnalyticsUpdate -> processAnalytics(update.message)
             }
-        }.collect {
-            emit(it("live-cds-${eventCounter++}"))
-        }
+        }.map { it("live-cds-${eventCounter++}") }
     }
 
     private inline fun <X, reified T: GlobalEvent<X>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
@@ -336,11 +337,33 @@ object ClicsExporter  {
         }
     }
 
+    private val awardsMap = mutableMapOf<String, Award>()
+    var awardEventId = 0
+
+    private fun generateAwardEvents(awards: Flow<List<Award>>) = awards.transform {
+        diff(
+            awardsMap,
+            it,
+            Award::id,
+            { it },
+            Event::AwardsEvent
+        )
+    }.map { it("live-cds-award-${awardEventId}") }
+
 
     fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
-        val eventFeed = flow {
-            generateEventFeed(updates)
-        }.shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+        val scoreboardFlow = updates
+            .addFirstToSolves()
+            .calculateScoreboard(OptimismLevel.NORMAL)
+            .stateIn(scope, SharingStarted.Eagerly, null)
+            .filterNotNull()
+
+        val eventFeed =
+            merge(
+                generateEventFeed(updates),
+                generateAwardEvents(scoreboardFlow.map { it.toClicsAwards() }.distinctUntilChanged())
+            ).onEach { println(it) }
+                .shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
         val contestFlow = eventFeed.filterGlobalEvent<Contest, Event.ContestEvent>(scope)
         val stateFlow = eventFeed.filterGlobalEvent<State, Event.StateEvent>(scope)
 
@@ -357,35 +380,7 @@ object ClicsExporter  {
         //val personsFlow = eventFeed.filterIdEvent<Person, Event.PersonEvent>(scope)
         //val accountsFlow = eventFeed.filterIdEvent<Account, Event.AccountEvent>(scope)
         //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)
-        //val awardsFlow = eventFeed.filterIdEvent<Award, Event.AwardsEvent>(scope)
-        val scoreboardFlow = updates
-            .calculateScoreboard(OptimismLevel.NORMAL)
-            .map {
-                Scoreboard(
-                    time = it.info.startTime + it.lastSubmissionTime,
-                    contest_time = it.lastSubmissionTime,
-                    state = getState(it.info),
-                    rows = it.scoreboardSnapshot.order.zip(it.scoreboardSnapshot.ranks).map { (teamId, rank) ->
-                        val row = it.scoreboardSnapshot.rows[teamId]!!
-                        ScoreboardRow(
-                            rank,
-                            it.info.teams[teamId]!!.contestSystemId,
-                            ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
-                            row.problemResults.mapIndexed { index, v ->
-                                val iv = v as ICPCProblemResult
-                                ScoreboardRowProblem(
-                                    it.info.scoreboardProblems[index].contestSystemId,
-                                    iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
-                                    iv.pendingAttempts,
-                                    iv.isSolved,
-                                    iv.lastSubmitTime?.inWholeMinutes.takeIf { iv.isSolved }
-                                )
-                            }
-                        )
-                    }
-                )
-            }.stateIn(scope, SharingStarted.Eagerly, null)
-            .filterNotNull()
+        val awardsFlow = eventFeed.filterIdEvent<Award, Event.AwardsEvent>(scope)
 
         val json = defaultJsonSettings()
         route("/api") {
@@ -416,11 +411,14 @@ object ClicsExporter  {
                     //getId("persons", personsFlow)
                     //getId("accounts", accountsFlow)
                     //getId("clarifications", clarificationsFlow)
-                    //getId("awards", awardsFlow)
-                    get("/scoreboard") { call.respond(scoreboardFlow.first()) }
+                    getId("awards", awardsFlow)
+                    get("/scoreboard") { call.respond(scoreboardFlow.first().toClicsScoreboard()) }
                     get("/event-feed") {
                         call.respondBytesWriter {
-                            merge(eventFeed.map { json.encodeToString(it) }, intervalFlow(2.minutes).map { "" }).collect {
+                            merge(
+                                eventFeed.map { json.encodeToString(it) },
+                                intervalFlow(2.minutes).map { "" }
+                            ).collect {
                                 writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
                                 flush()
                             }
@@ -441,6 +439,50 @@ object ClicsExporter  {
                     }
                 }
             }
+        }
+    }
+
+    private fun ScoreboardAndContestInfo.toClicsScoreboard() = Scoreboard(
+        time = info.startTime + lastSubmissionTime,
+        contest_time = lastSubmissionTime,
+        state = getState(info),
+        rows = scoreboardSnapshot.order.zip(scoreboardSnapshot.ranks).map { (teamId, rank) ->
+            val row = scoreboardSnapshot.rows[teamId]!!
+            ScoreboardRow(
+                rank,
+                info.teams[teamId]!!.contestSystemId,
+                ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
+                row.problemResults.mapIndexed { index, v ->
+                    val iv = v as ICPCProblemResult
+                    ScoreboardRowProblem(
+                        info.scoreboardProblems[index].contestSystemId,
+                        iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
+                        iv.pendingAttempts,
+                        iv.isSolved,
+                        iv.lastSubmitTime?.inWholeMinutes.takeIf { iv.isSolved }
+                    )
+                }
+            )
+        }
+    )
+
+    private fun ScoreboardAndContestInfo.toClicsAwards() = buildList {
+        for ((award, teams) in scoreboardSnapshot.awards) {
+            val (id, citation) = when (award) {
+                is org.icpclive.api.Award.Medal -> "${award.medalType}-medal" to "${award.medalType.replaceFirstChar { it.uppercase() }} medal"
+                is org.icpclive.api.Award.GroupChampion -> "group-winner-${award.group}" to "${info.groups[award.group]!!.name} champion"
+                is org.icpclive.api.Award.Winner -> "Winner" to "${info.name} champion"
+            }
+            add(Award(id, citation, teams.map { info.teams[it]!!.contestSystemId }))
+        }
+        for ((index, problem) in info.scoreboardProblems.withIndex()) {
+            add(Award(
+                "first-to-solve-${problem.contestSystemId}",
+                "First to solve problem ${problem.displayName}",
+                scoreboardSnapshot.rows.entries
+                    .filter { (it.value.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
+                    .map { info.teams[it.key]!!.contestSystemId }
+            ))
         }
     }
 }

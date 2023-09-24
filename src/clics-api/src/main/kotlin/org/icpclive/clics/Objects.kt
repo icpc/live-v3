@@ -4,8 +4,6 @@ package org.icpclive.clics
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import org.icpclive.util.ColorSerializer
 import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
@@ -237,7 +235,11 @@ data class Language(
 )
 
 @Serializable
-data class Award(val id: String)
+data class Award(
+    val id: String,
+    val citation: String,
+    val team_ids: List<String>
+)
 
 @Serializable
 data class Person(

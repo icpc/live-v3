@@ -31,8 +31,9 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
             comparator.compare(a.second, b.second)
         }
         val awards = buildMap<Award, MutableSet<Int>> {
+            put(Award.Winner, mutableSetOf())
             info.medals.forEach { put(Award.Medal(it.name), mutableSetOf()) }
-            info.groupList.forEach { put(Award.GroupChampion(it.name), mutableSetOf()) }
+            info.groupList.forEach { if (it.awardsGroupChampion) put(Award.GroupChampion(it.name), mutableSetOf()) }
         }
         val order = order_.map { it.first }
         val ranks = MutableList(order.size) { 0 }
@@ -65,9 +66,14 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                 if (team.isOutOfContest) {
                     outOfContestTeams++
                 } else {
+                    if (minRank == 1 && totalScore > 0) {
+                        awards[Award.Winner]?.add(order[i])
+                    }
                     ranks[i] = minRank
-                    team.groups.filter { it !in hasChampion }.forEach {
-                        awards[Award.GroupChampion(it)]?.add(order[i])
+                    for (it in team.groups) {
+                        if (it !in hasChampion) {
+                            awards[Award.GroupChampion(it)]?.add(order[i])
+                        }
                     }
                 }
             }

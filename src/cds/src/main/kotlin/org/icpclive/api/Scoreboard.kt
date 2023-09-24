@@ -78,6 +78,7 @@ public data class ScoreboardRow(
 
 @Serializable
 public sealed class Award {
+    @Serializable @SerialName("winner") public data object Winner : Award()
     @Serializable @SerialName("medal") public data class Medal(val medalType: String) : Award()
     @Serializable @SerialName("group_champion") public data class GroupChampion(val group: String): Award()
 }
