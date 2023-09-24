@@ -7,6 +7,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.util.getLogger
+import kotlin.time.Duration
 
 public data class Ranking(
     val order: List<Int>,
@@ -108,20 +109,34 @@ public fun Scoreboard.toLegacyScoreboard(info: ContestInfo): LegacyScoreboard = 
     }
 )
 
-private class RedoTask(val info: ContestInfo, val mode: ScoreboardUpdateType, val runs: PersistentMap<Int, PersistentList<RunInfo>>)
+private class RedoTask(
+    val info: ContestInfo,
+    val mode: ScoreboardUpdateType,
+    val runs: PersistentMap<Int, PersistentList<RunInfo>>,
+    val lastSubmissionTime: Duration
+)
 
 
 private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
     var curInfo: ContestInfo? = null
     var curRuns = persistentMapOf<Int, PersistentList<RunInfo>>()
+    var lastSubmissionTime = Duration.ZERO
     val oldKey = mutableMapOf<Int, Int>()
     collect { update ->
         suspend fun updateGroup(key: Int) {
             val info = curInfo ?: return
-            emit(RedoTask(info, ScoreboardUpdateType.DIFF, persistentMapOf(key to (curRuns[key] ?: persistentListOf()))))
+            emit(
+                RedoTask(
+                    info,
+                    ScoreboardUpdateType.DIFF,
+                    persistentMapOf(key to (curRuns[key] ?: persistentListOf())),
+                    lastSubmissionTime,
+                )
+            )
         }
         when (update) {
             is RunUpdate -> {
+                lastSubmissionTime = maxOf(lastSubmissionTime, update.newInfo.time)
                 val k = update.newInfo.teamId
                 val oldK = oldKey[update.newInfo.id]
                 oldKey[update.newInfo.id] = k
@@ -139,7 +154,12 @@ private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
             }
             is InfoUpdate -> {
                 curInfo = update.newInfo
-                emit(RedoTask(update.newInfo, ScoreboardUpdateType.SNAPSHOT, curRuns))
+                emit(RedoTask(
+                    update.newInfo,
+                    ScoreboardUpdateType.SNAPSHOT,
+                    curRuns,
+                    lastSubmissionTime
+                ))
             }
             is AnalyticsUpdate -> {}
         }
@@ -150,6 +170,7 @@ public data class ScoreboardAndContestInfo(
     val info: ContestInfo,
     val scoreboardSnapshot: Scoreboard,
     val scoreboardDiff: Scoreboard,
+    val lastSubmissionTime: Duration
 )
 
 public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ScoreboardAndContestInfo> = flow {
@@ -162,7 +183,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
                         if (it.mode == ScoreboardUpdateType.SNAPSHOT || old == null) {
                             it
                         } else {
-                            RedoTask(it.info, old.mode, old.runs.putAll(it.runs))
+                            RedoTask(it.info, old.mode, old.runs.putAll(it.runs), it.lastSubmissionTime)
                         }
                     }
                 }
@@ -172,7 +193,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
         val logger = getLogger(AbstractScoreboardCalculator::class)
         while (true) {
             val task = s.getAndUpdate { null } ?: s.filterNotNull().first().let { s.getAndUpdate { null }!! }
-            logger.info("Recalculating scoreboard mode = ${task.mode}, patch_rows = ${task.runs.size}, teams = ${task.info.teams.size}")
+            logger.info("Recalculating scoreboard mode = ${task.mode}, patch_rows = ${task.runs.size}, teams = ${task.info.teams.size}, lastSubmissionTime = ${task.lastSubmissionTime}")
             val calculator = getScoreboardCalculator(task.info, optimismLevel)
             val teams = when (task.mode) {
                 ScoreboardUpdateType.DIFF -> task.runs
@@ -197,7 +218,8 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
                 ScoreboardAndContestInfo(
                     task.info,
                     Scoreboard(ScoreboardUpdateType.SNAPSHOT, rows, ranking.order, ranking.ranks, ranking.awards),
-                    Scoreboard(task.mode, upd, ranking.order, ranking.ranks, ranking.awards)
+                    Scoreboard(task.mode, upd, ranking.order, ranking.ranks, ranking.awards),
+                    task.lastSubmissionTime,
                 )
             )
         }

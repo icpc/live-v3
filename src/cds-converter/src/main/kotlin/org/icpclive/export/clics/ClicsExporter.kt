@@ -18,7 +18,6 @@ import org.icpclive.scoreboard.calculateScoreboard
 import org.icpclive.util.defaultJsonSettings
 import org.icpclive.util.intervalFlow
 import java.nio.ByteBuffer
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
 typealias EventProducer = (String) -> Event
@@ -362,12 +361,9 @@ object ClicsExporter  {
         val scoreboardFlow = updates
             .calculateScoreboard(OptimismLevel.NORMAL)
             .map {
-                val lastSubmitTime = it.scoreboardSnapshot.rows.maxOfOrNull { (_, row) ->
-                    row.problemResults.maxOfOrNull { it.lastSubmitTime ?: Duration.ZERO } ?: Duration.ZERO
-                } ?: Duration.ZERO
                 Scoreboard(
-                    time = it.info.startTime + lastSubmitTime,
-                    contest_time = lastSubmitTime,
+                    time = it.info.startTime + it.lastSubmissionTime,
+                    contest_time = it.lastSubmissionTime,
                     state = getState(it.info),
                     rows = it.scoreboardSnapshot.order.zip(it.scoreboardSnapshot.ranks).map { (teamId, rank) ->
                         val row = it.scoreboardSnapshot.rows[teamId]!!
