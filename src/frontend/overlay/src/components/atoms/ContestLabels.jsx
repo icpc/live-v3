@@ -157,7 +157,6 @@ const TaskResultLabelWrapper2 = styled.div`
 const ICPCTaskResultLabel2 = ({ problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
-    console.log(r)
     return <>
         {/*{status === TeamTaskStatus.first && <StarIcon/>}*/}
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>

@@ -35,24 +35,48 @@ const TeamViewContainer = styled.div`
 `;
 
 const TeamViewPInPWrapper = styled.div`
-  position: absolute;
-  width: ${({ sizeX }) => `${sizeX * 0.4}px`};
-  height: ${({ sizeX }) => `${sizeX * 0.5625 * 0.4}px`};
-  right: 0;
-  top: ${({ sizeX }) => `${sizeX * 0.5625 * 0.6}px`};
+  width: 100%;
+  height: 100%;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 4;
+  position: relative;
+`;
+
+const TeamViewWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: end;
+  grid-template-columns: ${({ sizeX, sizeY }) => `${sizeX - 2 * (Math.max(sizeY - sizeX * 9 / 16, 100)) * 16 / 9}px`} 
+                          ${({ sizeX, sizeY }) => `${2 * (Math.max(sizeY - sizeX * 9 / 16, 100)) * 16 / 9}px`};
+  grid-template-rows: ${({ sizeX, sizeY }) => `${sizeY - 2 * Math.max(sizeY - sizeX * 9 / 16, 100)}px`} 
+                      ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`} 
+                      ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`};
+  
+}
 `;
 
 
-function TeamViewWrapper({ mediaContent, settings, setLoadedComponents, location, isSmall, Holder }) {
-    return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
-        const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
-        const component = <ContestantViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
-            isSmall={isSmall}/>;
-        if (c.pInP) {
-            return <TeamViewPInPWrapper key={c.type + index} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
-        }
-        return component;
-    });
+function TeamViewContent({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
+
+    console.log(Math.max(location.sizeY - location.sizeX * 9 / 16, 50))
+
+    const hasPInP = settings.content.filter(e => !e.isMedia).concat(mediaContent).filter((c) => c.pInP).length > 0;
+
+
+    return <TeamViewWrapper sizeX={location.sizeX} sizeY={location.sizeY}>
+        {settings.content.filter(e => !e.isMedia).concat(mediaContent).map((c, index) => {
+            const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
+            const component = <ContestantViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
+                                                                       isSmall={isSmall} hasPInP={hasPInP}/>;
+            if (c.pInP) {
+                return <TeamViewPInPWrapper key={c.type + index} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
+            }
+            return component;
+        })}
+    </TeamViewWrapper>;
 }
 
 export const TeamView = ({ widgetData: { settings, location }, transitionState }) => {
@@ -66,6 +90,7 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
         setLoadedComponents,
         location
     };
+    console.log(settings.content.length)
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
@@ -73,7 +98,7 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
     >
         {settings.position === "PVP_TOP" || settings.position === "PVP_BOTTOM" ?
             <PVP {...passedProps}/> :
-            <TeamViewWrapper isSmall={isSmall} {...passedProps}/>
+            <TeamViewContent isSmall={isSmall} {...passedProps}/>
         }
     </TeamViewContainer>;
 };

@@ -5,15 +5,21 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import { ContestantInfo } from "./ContestantInfo";
 import SubmissionRow from "./SubmissionRow";
 import styled from "styled-components";
-import { TEAMVIEW_SMALL_FACTOR } from "../../../config";
+import {QUEUE_ROW_HEIGHT2, TEAMVIEW_SMALL_FACTOR} from "../../../config";
 
 const ScoreboardColumnWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-auto-rows: 1fr;
-  position: absolute;
-  transform-origin: top right;
-  transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};
+  z-index: 1;
+  grid-template-columns: auto minmax(100px, 150px);
+  grid-auto-rows: ${QUEUE_ROW_HEIGHT2}px;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: ${props => props.hasPInP ? 2 : 3};
+  justify-self: end;
+  align-self: end;
+  width: auto;
+  transform-origin: bottom left;
+  /*transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};*/
   white-space: nowrap;
 `;
 const TeamInfoRow = styled.div`
@@ -27,7 +33,7 @@ const TaskRow = styled.div`
   grid-column-end: 3;
 `;
 
-export const ContestantViewCorner = ({ teamId, isSmall }) => {
+export const ContestantViewCorner = ({ teamId, isSmall, hasPInP }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
@@ -37,10 +43,7 @@ export const ContestantViewCorner = ({ teamId, isSmall }) => {
 
     const results = _.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs")
         .filter(result => result.lastSubmitTimeMs !== undefined);
-    return <ScoreboardColumnWrapper isSmall={isSmall}>
-        <TeamInfoRow >
-            <ContestantInfo teamId={teamId} roundBR={results.length === 0} />
-        </TeamInfoRow>
+    return <ScoreboardColumnWrapper isSmall={isSmall} hasPInP={hasPInP}>
         {results.map((result, i) =>
             <TaskRow key={i}>
                 <SubmissionRow
@@ -51,10 +54,14 @@ export const ContestantViewCorner = ({ teamId, isSmall }) => {
                     minScore={contestData?.problems[result.index]?.minScore}
                     maxScore={contestData?.problems[result.index]?.maxScore}
                     roundT={false}
-                    roundB={i + 1 === results.length}
+                    roundB={i === 0}
                 />
             </TaskRow>
         )}
+        <TeamInfoRow >
+            <ContestantInfo teamId={teamId} roundBR={results.length === 0} />
+        </TeamInfoRow>
+
     </ScoreboardColumnWrapper>;
 
 };

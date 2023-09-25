@@ -8,13 +8,15 @@ import {
     TeamWebRTCProxyVideoWrapper,
     TeamVideoAnimationWrapperWithFixForOldBrowsers,
 } from "./TeamViewHolder";
+import styled from "styled-components";
 
 
 const teamViewComponentRender = {
-    TaskStatus: ({ onLoadStatus, teamId, isSmall }) => {
+    TaskStatus: ({ onLoadStatus, teamId, isSmall, hasPInP }) => {
         useLayoutEffect(() => onLoadStatus(true),
             []);
-        return <ContestantViewCorner teamId={teamId} isSmall={isSmall}/>;
+        console.log(teamId);
+        return <ContestantViewCorner teamId={teamId} isSmall={isSmall} hasPInP={hasPInP}/>;
     },
     Photo: ({ onLoadStatus, url }) => {
         return <FullWidthWrapper>
@@ -52,12 +54,31 @@ const teamViewComponentRender = {
     },
 };
 
-export const ContestantViewHolder = ({ onLoadStatus, media, isSmall }) => {
+export const AchievementWrapper = styled.div`
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  border-radius: 16px;
+  height: 100%;
+`;
+
+export const Achievement = ({src, onLoadStatus}) => {
+    console.log(src)
+    return <AchievementWrapper>
+        <TeamImageWrapper src={src} onLoad={() => onLoadStatus(true)}/>
+    </AchievementWrapper>;
+};
+
+export const ContestantViewHolder = ({ onLoadStatus, media, isSmall, hasPInP }) => {
     const Component = teamViewComponentRender[media.type];
     if (Component === undefined) {
         useEffect(() => onLoadStatus(true),
             [media.teamId]);
         return undefined;
     }
-    return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} {...media}/>;
+    if (!media.isMedia && media.type === "Photo") {
+        return <Achievement src={media.url} onLoadStatus={onLoadStatus}/>
+    }
+    return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} hasPInP={hasPInP} {...media}/>;
 };

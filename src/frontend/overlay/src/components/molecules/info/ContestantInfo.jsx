@@ -99,7 +99,7 @@ const ContestantInfoWrap = styled.div`
   background-color: ${CONTESTER_BACKGROUND_COLOR};
   display: flex;
   align-items: center;
-  border-radius: 16px 16px ${props => props.round ? "16px" : "0px"} 16px ;
+  border-radius: 16px ${props => props.round ? "16px" : "0px"} 16px  16px ;
   overflow: hidden;
   gap: 5px;
   color: white;

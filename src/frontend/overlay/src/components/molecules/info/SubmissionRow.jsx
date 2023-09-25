@@ -29,8 +29,8 @@ const SubmissionRowWrap = styled.div`
   
   display: flex;
   align-items: center;
-  border-bottom-left-radius: ${props => props.roundB ? "16px" : "0px"};
-  border-bottom-right-radius: ${props => props.roundB ? "16px" : "0px"};
+  border-top-left-radius: ${props => props.roundB ? "16px" : "0px"};
+  border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
   overflow: hidden;
   color: white;
   font-size: 18px;
