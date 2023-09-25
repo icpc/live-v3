@@ -1,5 +1,7 @@
 package org.icpclive.overlay
 
+import io.ktor.server.application.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.*
@@ -10,18 +12,23 @@ import org.icpclive.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.scoreboard.toLegacyScoreboard
 import org.icpclive.util.sendJsonFlow
 
-private inline fun <reified T> Route.setUpScoreboard(crossinline process: (Flow<ScoreboardAndContestInfo>) -> Flow<T>) {
-    webSocket("/normal") { sendJsonFlow(process(DataBus.getScoreboardEvents(OptimismLevel.NORMAL))) }
-    webSocket("/optimistic") { sendJsonFlow(process(DataBus.getScoreboardEvents(OptimismLevel.OPTIMISTIC))) }
-    webSocket("/pessimistic") { sendJsonFlow(process(DataBus.getScoreboardEvents(OptimismLevel.PESSIMISTIC))) }
+inline fun <reified T: Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend () -> Flow<T>) {
+    webSocket(name) { sendJsonFlow(dataProvider()) }
+    get(name) { call.respond(dataProvider().first()) }
+}
+
+private inline fun <reified T : Any> Route.setUpScoreboard(crossinline process: (Flow<ScoreboardAndContestInfo>) -> Flow<T>) {
+    flowEndpoint("/normal") { process(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
+    flowEndpoint("/optimistic") { process(DataBus.getScoreboardEvents(OptimismLevel.OPTIMISTIC)) }
+    flowEndpoint("/pessimistic") { process(DataBus.getScoreboardEvents(OptimismLevel.PESSIMISTIC)) }
 }
 
 fun Route.configureOverlayRouting() {
-    webSocket("/mainScreen") { sendJsonFlow(DataBus.mainScreenFlow.await()) }
-    webSocket("/contestInfo") { sendJsonFlow(DataBus.contestInfoFlow.await()) }
-    webSocket("/queue") { sendJsonFlow(DataBus.queueFlow.await()) }
-    webSocket("/statistics") { sendJsonFlow(DataBus.statisticFlow.await()) }
-    webSocket("/ticker") { sendJsonFlow(DataBus.tickerFlow.await()) }
+    flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
+    flowEndpoint("/contestInfo") { DataBus.contestInfoFlow.await() }
+    flowEndpoint("/queue") { DataBus.queueFlow.await() }
+    flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
+    flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
     route("/scoreboard") {
         setUpScoreboard { flow -> flow.map { it.scoreboardSnapshot.toLegacyScoreboard(it.info) } }
         route("v2") {
