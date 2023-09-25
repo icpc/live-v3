@@ -448,17 +448,20 @@
         ],
         "groups": [
             {
-                "name": "firstGrade",
+                "cdsId": "firstGrade",
+                "displayName": "firstGrade",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "school",
+                "cdsId": "school",
+                "displayName": "school",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "outOfContest",
+                "cdsId": "outOfContest",
+                "displayName": "outOfContest",
                 "isHidden": false,
                 "isOutOfContest": true
             }

@@ -42,7 +42,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 fullName = participantName,
                 displayName = participantName,
                 contestSystemId = participant.getAttribute("id"),
-                groups = listOf(),
+                groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
                 isOutOfContest = false,

@@ -33,7 +33,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
         val awards = buildMap<Award, MutableSet<Int>> {
             put(Award.Winner, mutableSetOf())
             info.medals.forEach { put(Award.Medal(it.name), mutableSetOf()) }
-            info.groupList.forEach { if (it.awardsGroupChampion) put(Award.GroupChampion(it.name), mutableSetOf()) }
+            info.groupList.forEach { if (it.awardsGroupChampion) put(Award.GroupChampion(it.cdsId), mutableSetOf()) }
         }
         val order = order_.map { it.first }
         val ranks = MutableList(order.size) { 0 }

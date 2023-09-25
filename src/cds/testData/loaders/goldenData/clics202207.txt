@@ -111,7 +111,7 @@
                 "shortName": "ETH Zürich: gETHyped",
                 "contestSystemId": "1",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#ETH",
                 "medias": {
@@ -133,7 +133,7 @@
                 "shortName": "UAM: The Fan Team",
                 "contestSystemId": "2",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -155,7 +155,7 @@
                 "shortName": "Polito: Fallback Solutions",
                 "contestSystemId": "3",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -177,7 +177,7 @@
                 "shortName": "U of Haifa: Top Of The Mountain",
                 "contestSystemId": "4",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -199,7 +199,7 @@
                 "shortName": "U-ARTOIS: J'en perds deux",
                 "contestSystemId": "5",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -221,7 +221,7 @@
                 "shortName": "USI: WalkLike3Egyptians",
                 "contestSystemId": "6",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -243,7 +243,7 @@
                 "shortName": "UniPD: dQw4w9WgXcQ",
                 "contestSystemId": "7",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -265,7 +265,7 @@
                 "shortName": "UM: Greedy2SAES",
                 "contestSystemId": "8",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -287,7 +287,7 @@
                 "shortName": "UBI: UBIdé",
                 "contestSystemId": "9",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -309,7 +309,7 @@
                 "shortName": "ENS - Lyon: ENSLip",
                 "contestSystemId": "10",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -331,7 +331,7 @@
                 "shortName": "TAU: Jokers",
                 "contestSystemId": "11",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -353,7 +353,7 @@
                 "shortName": "UnivAQ: CPU",
                 "contestSystemId": "13",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -375,7 +375,7 @@
                 "shortName": "EP: X Gonna Code It to Ya",
                 "contestSystemId": "14",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#Polytechnique",
                 "medias": {
@@ -397,7 +397,7 @@
                 "shortName": "CUNEF: CUNEF-1",
                 "contestSystemId": "15",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -419,7 +419,7 @@
                 "shortName": "Genova: Genova 1",
                 "contestSystemId": "16",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -441,7 +441,7 @@
                 "shortName": "UdP: JIS",
                 "contestSystemId": "17",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -463,7 +463,7 @@
                 "shortName": "UBI: UBIk",
                 "contestSystemId": "18",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -485,7 +485,7 @@
                 "shortName": "TECHNION: SIGKILL",
                 "contestSystemId": "19",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -507,7 +507,7 @@
                 "shortName": "EC-Lyon: ECL 1",
                 "contestSystemId": "20",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -529,7 +529,7 @@
                 "shortName": "UNIPI: flag[11]",
                 "contestSystemId": "21",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -551,7 +551,7 @@
                 "shortName": "U Porto: Rated C++",
                 "contestSystemId": "22",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#UPorto",
                 "medias": {
@@ -573,7 +573,7 @@
                 "shortName": "INSA: INSA 1",
                 "contestSystemId": "23",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -595,7 +595,7 @@
                 "shortName": "UP Catalunya: UPC-3",
                 "contestSystemId": "24",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#UPC",
                 "medias": {
@@ -617,7 +617,7 @@
                 "shortName": "UNIPI: flag[10]",
                 "contestSystemId": "25",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -639,7 +639,7 @@
                 "shortName": "UR1: DROP TABLE",
                 "contestSystemId": "26",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -661,7 +661,7 @@
                 "shortName": "PPS: Polychotomy",
                 "contestSystemId": "27",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -683,7 +683,7 @@
                 "shortName": "TAU: Bestagons",
                 "contestSystemId": "28",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -705,7 +705,7 @@
                 "shortName": "UniPD: CoffeLimitExceeded",
                 "contestSystemId": "29",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -727,7 +727,7 @@
                 "shortName": "UCM: Un CE más",
                 "contestSystemId": "30",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -749,7 +749,7 @@
                 "shortName": "Sorbonne: Sorbonne Rouge",
                 "contestSystemId": "31",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -771,7 +771,7 @@
                 "shortName": "INSA: INSA 3",
                 "contestSystemId": "32",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -793,7 +793,7 @@
                 "shortName": "Polimi: team name goes here",
                 "contestSystemId": "33",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -815,7 +815,7 @@
                 "shortName": "CUNEF: CUNEF-A",
                 "contestSystemId": "34",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -837,7 +837,7 @@
                 "shortName": "TECHNION: Pr3s3nTati0n_3Rr0r",
                 "contestSystemId": "35",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -859,7 +859,7 @@
                 "shortName": "Polito: Toroidal Polihedrons",
                 "contestSystemId": "36",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -881,7 +881,7 @@
                 "shortName": "Sorbonne: Sorbonne Blanc",
                 "contestSystemId": "37",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -903,7 +903,7 @@
                 "shortName": "EP: In eXtremis",
                 "contestSystemId": "38",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#Polytechnique",
                 "medias": {
@@ -925,7 +925,7 @@
                 "shortName": "HS: x^3",
                 "contestSystemId": "39",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -947,7 +947,7 @@
                 "shortName": "TN: UniTN MindsHub",
                 "contestSystemId": "40",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -969,7 +969,7 @@
                 "shortName": "U. Rey Juan Carlos: Hackbulla",
                 "contestSystemId": "41",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -991,7 +991,7 @@
                 "shortName": "CentraleSupélec: Slippin' Jimmies",
                 "contestSystemId": "42",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1013,7 +1013,7 @@
                 "shortName": "ENSEEIHT: 7uring_net7",
                 "contestSystemId": "43",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1035,7 +1035,7 @@
                 "shortName": "Polimi: AFL",
                 "contestSystemId": "44",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1057,7 +1057,7 @@
                 "shortName": "UAM: de Morgan",
                 "contestSystemId": "45",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1079,7 +1079,7 @@
                 "shortName": "TAU: TempName",
                 "contestSystemId": "46",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1101,7 +1101,7 @@
                 "shortName": "TP: Télégendaire",
                 "contestSystemId": "47",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1123,7 +1123,7 @@
                 "shortName": "Universita' di Udine: Gli informagici",
                 "contestSystemId": "48",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1145,7 +1145,7 @@
                 "shortName": "UP Catalunya: UPC-1",
                 "contestSystemId": "49",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#UPC",
                 "medias": {
@@ -1167,7 +1167,7 @@
                 "shortName": "EPFL: EPFL 1",
                 "contestSystemId": "50",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1189,7 +1189,7 @@
                 "shortName": "UNIMI: LaStatale Blue",
                 "contestSystemId": "51",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#LaStatale",
                 "medias": {
@@ -1211,7 +1211,7 @@
                 "shortName": "IS Técnico: The Outlaws",
                 "contestSystemId": "52",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1233,7 +1233,7 @@
                 "shortName": "Sorbonne: Sorbonne Bleu",
                 "contestSystemId": "53",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1255,7 +1255,7 @@
                 "shortName": "UdP: Overflow",
                 "contestSystemId": "54",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1277,7 +1277,7 @@
                 "shortName": "Université Paris-Saclay: Javaman",
                 "contestSystemId": "55",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1299,7 +1299,7 @@
                 "shortName": "UPV: ETSINF-1",
                 "contestSystemId": "56",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1321,7 +1321,7 @@
                 "shortName": "TN: UniTN Fenwick Treento",
                 "contestSystemId": "57",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1343,7 +1343,7 @@
                 "shortName": "Universita' di Udine: MastersOfBreaks",
                 "contestSystemId": "58",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1365,7 +1365,7 @@
                 "shortName": "EHU: UPV-EHU-2",
                 "contestSystemId": "59",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1387,7 +1387,7 @@
                 "shortName": "ENS - Lyon: ENSheep",
                 "contestSystemId": "60",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1409,7 +1409,7 @@
                 "shortName": "EPFL: EPFL 2",
                 "contestSystemId": "61",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1431,7 +1431,7 @@
                 "shortName": "U. Rey Juan Carlos: pik2s",
                 "contestSystemId": "62",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1453,7 +1453,7 @@
                 "shortName": "Unive: Risi&&Bisi",
                 "contestSystemId": "63",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1475,7 +1475,7 @@
                 "shortName": "U-ARTOIS: Serge",
                 "contestSystemId": "64",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1497,7 +1497,7 @@
                 "shortName": "EC-Lyon: ECL 2",
                 "contestSystemId": "65",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1519,7 +1519,7 @@
                 "shortName": "Genova: Genova 2",
                 "contestSystemId": "66",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1541,7 +1541,7 @@
                 "shortName": "UP Catalunya: UPC-2",
                 "contestSystemId": "67",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#UPC",
                 "medias": {
@@ -1563,7 +1563,7 @@
                 "shortName": "UdP: SaintGermainDesPres1",
                 "contestSystemId": "68",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1585,7 +1585,7 @@
                 "shortName": "ETH Zürich: Save water - shower togETHer",
                 "contestSystemId": "69",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#ETH",
                 "medias": {
@@ -1607,7 +1607,7 @@
                 "shortName": "U Porto: Heroes of the C",
                 "contestSystemId": "70",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#UPorto",
                 "medias": {
@@ -1629,7 +1629,7 @@
                 "shortName": "UniVerona: Code Force One",
                 "contestSystemId": "71",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1651,7 +1651,7 @@
                 "shortName": "UniPD: bogosolving",
                 "contestSystemId": "72",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1673,7 +1673,7 @@
                 "shortName": "PPS: error 2F4U",
                 "contestSystemId": "73",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1695,7 +1695,7 @@
                 "shortName": "ENSIMAG: ensipc",
                 "contestSystemId": "74",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1717,7 +1717,7 @@
                 "shortName": "UBI: jUBIleu",
                 "contestSystemId": "75",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1739,7 +1739,7 @@
                 "shortName": "EHU: UPV-EHU-1",
                 "contestSystemId": "76",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1761,7 +1761,7 @@
                 "shortName": "Universita' di Udine: Quickbits",
                 "contestSystemId": "77",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1783,7 +1783,7 @@
                 "shortName": "ENS Paris: ENS Ulm 3",
                 "contestSystemId": "78",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#ENS_Ulm",
                 "medias": {
@@ -1805,7 +1805,7 @@
                 "shortName": "ENS - Lyon: E N S p a c e",
                 "contestSystemId": "79",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1827,7 +1827,7 @@
                 "shortName": "Polito: Overkill",
                 "contestSystemId": "80",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1849,7 +1849,7 @@
                 "shortName": "EILCO: Brogrammers",
                 "contestSystemId": "81",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1871,7 +1871,7 @@
                 "shortName": "UM: Don't you C?",
                 "contestSystemId": "82",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1893,7 +1893,7 @@
                 "shortName": "IS Técnico: FantasticoDebug",
                 "contestSystemId": "83",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1915,7 +1915,7 @@
                 "shortName": "UNIBO: UNIBOis",
                 "contestSystemId": "84",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1937,7 +1937,7 @@
                 "shortName": "Università di Roma 1: SapienzaWhite",
                 "contestSystemId": "85",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1959,7 +1959,7 @@
                 "shortName": "TP: Telecoders",
                 "contestSystemId": "86",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1981,7 +1981,7 @@
                 "shortName": "USI: USInchronous",
                 "contestSystemId": "87",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2003,7 +2003,7 @@
                 "shortName": "TNCY: C--",
                 "contestSystemId": "88",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2025,7 +2025,7 @@
                 "shortName": "INSA: INSA 2",
                 "contestSystemId": "89",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2047,7 +2047,7 @@
                 "shortName": "UNIMI: LaStatale Green",
                 "contestSystemId": "90",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#LaStatale",
                 "medias": {
@@ -2069,7 +2069,7 @@
                 "shortName": "HS: I eat PHP for breakfast",
                 "contestSystemId": "91",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2091,7 +2091,7 @@
                 "shortName": "UCM: Unidad Computacional de Macacos",
                 "contestSystemId": "92",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2113,7 +2113,7 @@
                 "shortName": "Polimi: C_aramba",
                 "contestSystemId": "93",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2135,7 +2135,7 @@
                 "shortName": "ENS de Paris-Saclay: Late submission",
                 "contestSystemId": "94",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2157,7 +2157,7 @@
                 "shortName": "U Montpellier: FDS-UM",
                 "contestSystemId": "95",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2179,7 +2179,7 @@
                 "shortName": "TN: UniTN Send Nodes",
                 "contestSystemId": "96",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2201,7 +2201,7 @@
                 "shortName": "UC: 0xC0FFEE++",
                 "contestSystemId": "97",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2223,7 +2223,7 @@
                 "shortName": "TP: Télécode of Duty",
                 "contestSystemId": "98",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2245,7 +2245,7 @@
                 "shortName": "Università di Roma 1: SapienzaBlack",
                 "contestSystemId": "99",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2267,7 +2267,7 @@
                 "shortName": "U. Rey Juan Carlos: Teamto de Verano",
                 "contestSystemId": "100",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2289,7 +2289,7 @@
                 "shortName": "ENSIMAG: ensipc2",
                 "contestSystemId": "101",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2311,7 +2311,7 @@
                 "shortName": "UNIBO: UNIBOiis",
                 "contestSystemId": "102",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2333,7 +2333,7 @@
                 "shortName": "UM: SWERC Chaos",
                 "contestSystemId": "103",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2355,7 +2355,7 @@
                 "shortName": "EC-Lyon: ECL 3",
                 "contestSystemId": "104",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2377,7 +2377,7 @@
                 "shortName": "UNIMI: LaStatale Red",
                 "contestSystemId": "105",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#LaStatale",
                 "medias": {
@@ -2399,7 +2399,7 @@
                 "shortName": "UR1: PBI",
                 "contestSystemId": "106",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2421,7 +2421,7 @@
                 "shortName": "UPV: ETSINF-2",
                 "contestSystemId": "107",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2443,7 +2443,7 @@
                 "shortName": "ETH Zürich: dETHerminant",
                 "contestSystemId": "108",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#ETH",
                 "medias": {
@@ -2465,7 +2465,7 @@
                 "shortName": "UniVerona: SigSegv Squad",
                 "contestSystemId": "109",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2487,7 +2487,7 @@
                 "shortName": "UPF: Boystdcouts",
                 "contestSystemId": "110",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2509,7 +2509,7 @@
                 "shortName": "ENS Paris: ENS Ulm 1",
                 "contestSystemId": "111",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#ENS_Ulm",
                 "medias": {
@@ -2531,7 +2531,7 @@
                 "shortName": "UNIBO: UNIBOiiis",
                 "contestSystemId": "112",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2553,7 +2553,7 @@
                 "shortName": "UPF: Venta de pantalones",
                 "contestSystemId": "113",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2575,7 +2575,7 @@
                 "shortName": "PPS: Polydata",
                 "contestSystemId": "114",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2597,7 +2597,7 @@
                 "shortName": "USI: fUSIlli",
                 "contestSystemId": "115",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2619,7 +2619,7 @@
                 "shortName": "HS: P+P+P",
                 "contestSystemId": "116",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2641,7 +2641,7 @@
                 "shortName": "Università di Roma 1: SapienzaRed",
                 "contestSystemId": "117",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2663,7 +2663,7 @@
                 "shortName": "SNS: Carovana Fighters",
                 "contestSystemId": "118",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#ScuolaNormale",
                 "medias": {
@@ -2685,7 +2685,7 @@
                 "shortName": "UPF: GetName",
                 "contestSystemId": "119",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2707,7 +2707,7 @@
                 "shortName": "ENS Paris: ENS Ulm 2",
                 "contestSystemId": "120",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": "#ENS_Ulm",
                 "medias": {
@@ -2729,7 +2729,7 @@
                 "shortName": "U-ARTOIS: Jean Perrin",
                 "contestSystemId": "121",
                 "groups": [
-                    "SWERC 2022-2023"
+                    "23737"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2748,12 +2748,14 @@
         ],
         "groups": [
             {
-                "name": "SWERC 2022-2023",
+                "cdsId": "23737",
+                "displayName": "SWERC 2022-2023",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Self-Registered",
+                "cdsId": "self-registered",
+                "displayName": "Self-Registered",
                 "isHidden": false,
                 "isOutOfContest": false
             }
@@ -2762,272 +2764,488 @@
             {
                 "cdsId": "366",
                 "displayName": "UC",
-                "fullName": "University of Coimbra"
+                "fullName": "University of Coimbra",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/366/logo.64"
+                }
             },
             {
                 "cdsId": "443",
                 "displayName": "EP",
-                "fullName": "Ecole Polytechnique"
+                "fullName": "Ecole Polytechnique",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/443/logo.64"
+                }
             },
             {
                 "cdsId": "444",
                 "displayName": "EPFL",
-                "fullName": "Ecole Polytechnique Fédérale de Lausanne"
+                "fullName": "Ecole Polytechnique Fédérale de Lausanne",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/444/logo.64"
+                }
             },
             {
                 "cdsId": "451",
                 "displayName": "ETH Zürich",
-                "fullName": "ETH Zürich"
+                "fullName": "ETH Zürich",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/451/logo.64"
+                }
             },
             {
                 "cdsId": "460",
                 "displayName": "ENSIMAG",
-                "fullName": "ENS d'Informatique et de Mathematiques Appliquees - Grenoble"
+                "fullName": "ENS d'Informatique et de Mathematiques Appliquees - Grenoble",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/460/logo.64"
+                }
             },
             {
                 "cdsId": "478",
                 "displayName": "U Porto",
-                "fullName": "Universidade do Porto"
+                "fullName": "Universidade do Porto",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/478/logo.64"
+                }
             },
             {
                 "cdsId": "742",
                 "displayName": "INSA",
-                "fullName": "INSA de Lyon"
+                "fullName": "INSA de Lyon",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/742/logo.64"
+                }
             },
             {
                 "cdsId": "789",
                 "displayName": "IS Técnico",
-                "fullName": "Instituto Superior Técnico"
+                "fullName": "Instituto Superior Técnico",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/789/logo.64"
+                }
             },
             {
                 "cdsId": "2079",
                 "displayName": "UAM",
-                "fullName": "Universidad Autónoma de Madrid"
+                "fullName": "Universidad Autónoma de Madrid",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2079/logo.64"
+                }
             },
             {
                 "cdsId": "2122",
                 "displayName": "UM",
-                "fullName": "Universidad de Murcia"
+                "fullName": "Universidad de Murcia",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2122/logo.64"
+                }
             },
             {
                 "cdsId": "2166",
                 "displayName": "UPV",
-                "fullName": "Universitat Politècnica de València"
+                "fullName": "Universitat Politècnica de València",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2166/logo.64"
+                }
             },
             {
                 "cdsId": "2170",
                 "displayName": "U. Rey Juan Carlos",
-                "fullName": "Universidad Rey Juan Carlos"
+                "fullName": "Universidad Rey Juan Carlos",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2170/logo.64"
+                }
             },
             {
                 "cdsId": "2257",
                 "displayName": "Genova",
-                "fullName": "Università degli Studi di Genova"
+                "fullName": "Università degli Studi di Genova",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2257/logo.64"
+                }
             },
             {
                 "cdsId": "2260",
                 "displayName": "Università di Roma 1",
-                "fullName": "Università di Roma - La Sapienza"
+                "fullName": "Università di Roma - La Sapienza",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2260/logo.64"
+                }
             },
             {
                 "cdsId": "2261",
                 "displayName": "TN",
-                "fullName": "Università di Trento"
+                "fullName": "Università di Trento",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2261/logo.64"
+                }
             },
             {
                 "cdsId": "2263",
                 "displayName": "Universita' di Udine",
-                "fullName": "Università Degli Studi di Udine"
+                "fullName": "Università Degli Studi di Udine",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2263/logo.64"
+                }
             },
             {
                 "cdsId": "2273",
                 "displayName": "UP Catalunya",
-                "fullName": "Universitat Politècnica de Catalunya"
+                "fullName": "Universitat Politècnica de Catalunya",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/2273/logo.64"
+                }
             },
             {
                 "cdsId": "3236",
                 "displayName": "TECHNION",
-                "fullName": "Technion - Israel Institute of Technology"
+                "fullName": "Technion - Israel Institute of Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/3236/logo.64"
+                }
             },
             {
                 "cdsId": "3409",
                 "displayName": "ENS - Lyon",
-                "fullName": "École Normale Supérieure de Lyon"
+                "fullName": "École Normale Supérieure de Lyon",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/3409/logo.64"
+                }
             },
             {
                 "cdsId": "3436",
                 "displayName": "ENS Paris",
-                "fullName": "École Normale Supérieure de Paris"
+                "fullName": "École Normale Supérieure de Paris",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/3436/logo.64"
+                }
             },
             {
                 "cdsId": "3545",
                 "displayName": "UPF",
-                "fullName": "Universitat Pompeu Fabra"
+                "fullName": "Universitat Pompeu Fabra",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/3545/logo"
+                }
             },
             {
                 "cdsId": "5282",
                 "displayName": "UBI",
-                "fullName": "Universidade da Beira Interior"
+                "fullName": "Universidade da Beira Interior",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/5282/logo.64"
+                }
             },
             {
                 "cdsId": "5687",
                 "displayName": "EC-Lyon",
-                "fullName": "Ecole Centrale de Lyon"
+                "fullName": "Ecole Centrale de Lyon",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/5687/logo.64"
+                }
             },
             {
                 "cdsId": "6369",
                 "displayName": "EHU",
-                "fullName": "University of the Basque Country"
+                "fullName": "University of the Basque Country",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/6369/logo"
+                }
             },
             {
                 "cdsId": "6379",
                 "displayName": "UCM",
-                "fullName": "Universidad Complutense de Madrid"
+                "fullName": "Universidad Complutense de Madrid",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/6379/logo.64"
+                }
             },
             {
                 "cdsId": "7032",
                 "displayName": "ENS de Paris-Saclay",
-                "fullName": "École Normale Supérieure de Paris-Saclay"
+                "fullName": "École Normale Supérieure de Paris-Saclay",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/7032/logo.64"
+                }
             },
             {
                 "cdsId": "7083",
                 "displayName": "Polito",
-                "fullName": "Politecnico di Torino"
+                "fullName": "Politecnico di Torino",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/7083/logo"
+                }
             },
             {
                 "cdsId": "7435",
                 "displayName": "UNIBO",
-                "fullName": "University of Bologna"
+                "fullName": "University of Bologna",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/7435/logo.64"
+                }
             },
             {
                 "cdsId": "7990",
                 "displayName": "UNIMI",
-                "fullName": "Università Degli Studi di Milano"
+                "fullName": "Università Degli Studi di Milano",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/7990/logo.64"
+                }
             },
             {
                 "cdsId": "8246",
                 "displayName": "Polimi",
-                "fullName": "Politecnico di Milano"
+                "fullName": "Politecnico di Milano",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8246/logo.64"
+                }
             },
             {
                 "cdsId": "8450",
                 "displayName": "USI",
-                "fullName": "Università della Svizzera italiana"
+                "fullName": "Università della Svizzera italiana",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8450/logo.64"
+                }
             },
             {
                 "cdsId": "8460",
                 "displayName": "CentraleSupélec",
-                "fullName": "CentraleSupélec"
+                "fullName": "CentraleSupélec",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8460/logo.64"
+                }
             },
             {
                 "cdsId": "8483",
                 "displayName": "U of Haifa",
-                "fullName": "University of Haifa"
+                "fullName": "University of Haifa",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8483/logo.64"
+                }
             },
             {
                 "cdsId": "8488",
                 "displayName": "UniVerona",
-                "fullName": "University of Verona"
+                "fullName": "University of Verona",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8488/logo.64"
+                }
             },
             {
                 "cdsId": "8818",
                 "displayName": "SNS",
-                "fullName": "Scuola Normale Superiore"
+                "fullName": "Scuola Normale Superiore",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8818/logo.64"
+                }
             },
             {
                 "cdsId": "8869",
                 "displayName": "UNIPI",
-                "fullName": "Università di Pisa"
+                "fullName": "Università di Pisa",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8869/logo.64"
+                }
             },
             {
                 "cdsId": "8886",
                 "displayName": "U-ARTOIS",
-                "fullName": "Artois University"
+                "fullName": "Artois University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/8886/logo.64"
+                }
             },
             {
                 "cdsId": "9009",
                 "displayName": "U Montpellier",
-                "fullName": "Université de Montpellier"
+                "fullName": "Université de Montpellier",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/9009/logo.64"
+                }
             },
             {
                 "cdsId": "9635",
                 "displayName": "ENSEEIHT",
-                "fullName": "École Nationale Supérieure d'électrotechnique, d'électronique, d'informatique, d'hydraulique et des Télécommunications"
+                "fullName": "École Nationale Supérieure d'électrotechnique, d'électronique, d'informatique, d'hydraulique et des Télécommunications",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/9635/logo.64"
+                }
             },
             {
                 "cdsId": "9745",
                 "displayName": "HS",
-                "fullName": "Harbour.Space University"
+                "fullName": "Harbour.Space University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/9745/logo.64"
+                }
             },
             {
                 "cdsId": "10640",
                 "displayName": "UR1",
-                "fullName": "University of Rennes 1"
+                "fullName": "University of Rennes 1",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/10640/logo.64"
+                }
             },
             {
                 "cdsId": "10678",
                 "displayName": "UniPD",
-                "fullName": "University of Padova"
+                "fullName": "University of Padova",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/10678/logo.64"
+                }
             },
             {
                 "cdsId": "10685",
                 "displayName": "TP",
-                "fullName": "Télécom Paris"
+                "fullName": "Télécom Paris",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/10685/logo.64"
+                }
             },
             {
                 "cdsId": "10689",
                 "displayName": "Sorbonne",
-                "fullName": "Sorbonne Université"
+                "fullName": "Sorbonne Université",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/10689/logo.64"
+                }
             },
             {
                 "cdsId": "10706",
                 "displayName": "Unive",
-                "fullName": "Ca' Foscari University of Venice"
+                "fullName": "Ca' Foscari University of Venice",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/10706/logo.64"
+                }
             },
             {
                 "cdsId": "11111",
                 "displayName": "TAU",
-                "fullName": "Tel Aviv University"
+                "fullName": "Tel Aviv University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/11111/logo.64"
+                }
             },
             {
                 "cdsId": "11205",
                 "displayName": "UdP",
-                "fullName": "Université de Paris"
+                "fullName": "Université de Paris",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/11205/logo.64"
+                }
             },
             {
                 "cdsId": "11538",
                 "displayName": "PPS",
-                "fullName": "Polytech Paris Saclay"
+                "fullName": "Polytech Paris Saclay",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/11538/logo.64"
+                }
             },
             {
                 "cdsId": "15696",
                 "displayName": "EILCO",
-                "fullName": "Ecole d'Ingénieurs Littoral Côte d'Opale"
+                "fullName": "Ecole d'Ingénieurs Littoral Côte d'Opale",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/15696/logo.64"
+                }
             },
             {
                 "cdsId": "16191",
                 "displayName": "UnivAQ",
-                "fullName": "University of L'Aquila"
+                "fullName": "University of L'Aquila",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/16191/logo.64"
+                }
             },
             {
                 "cdsId": "19561",
                 "displayName": "Université Paris-Saclay",
-                "fullName": "Université Paris-Saclay"
+                "fullName": "Université Paris-Saclay",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/19561/logo.64"
+                }
             },
             {
                 "cdsId": "20085",
                 "displayName": "CUNEF",
-                "fullName": "CUNEF Universidad"
+                "fullName": "CUNEF Universidad",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/20085/logo.64"
+                }
             },
             {
                 "cdsId": "20090",
                 "displayName": "TNCY",
-                "fullName": "TELECOM Nancy"
+                "fullName": "TELECOM Nancy",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/20090/logo.64"
+                }
             },
             {
                 "cdsId": "42424242",
                 "displayName": "Jane Street",
-                "fullName": "Jane Street"
+                "fullName": "Jane Street",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2022-07/contests/swerc2022/organizations/42424242/logo.64"
+                }
             }
         ],
         "penaltyRoundingMode": "each_submission_down_to_minute"

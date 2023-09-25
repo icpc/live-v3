@@ -84,7 +84,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 freezeTime = freezeTime,
                 problemList = problems,
                 teamList = teams,
-                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
+                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, it, isHidden = false, isOutOfContest = false, awardsGroupChampion = true) },
                 organizationList = emptyList(),
                 penaltyRoundingMode = when (resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO

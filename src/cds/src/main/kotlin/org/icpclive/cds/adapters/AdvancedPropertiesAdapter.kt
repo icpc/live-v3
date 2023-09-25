@@ -203,11 +203,11 @@ internal fun applyAdvancedProperties(
             override.groups?.let { addAll(it) }
         }
         for (group in info.groupList) {
-            remove(group.name)
+            remove(group.cdsId)
         }
     }
     val groups = mergeGroups(
-        info.groupList + newGroups.map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
+        info.groupList + newGroups.map { GroupInfo(it, it, isHidden = false, isOutOfContest = false) },
         overrides.groupOverrides
     )
     val newOrganizations = buildSet {
@@ -222,7 +222,7 @@ internal fun applyAdvancedProperties(
         }
     }
     val organizations = mergeOrganizations(
-        info.organizationList + newOrganizations.map { OrganizationInfo(it, it, it) },
+        info.organizationList + newOrganizations.map { OrganizationInfo(it, it, it, null) },
         overrides.organizationOverrides
     )
 
@@ -278,6 +278,7 @@ private fun mergeOrganizations(
         cdsId = org.cdsId,
         displayName = override.displayName ?: org.displayName,
         fullName = override.fullName ?: org.fullName,
+        logo = override.logo ?: org.logo
     )
 }
 
@@ -287,13 +288,15 @@ private fun mergeGroups(
 ) = mergeOverrides(
     groups,
     overrides,
-    GroupInfo::name,
+    GroupInfo::cdsId,
     unusedMessage = { "No group for override: $it" }
 ) { group, override ->
     GroupInfo(
-        name = group.name,
+        cdsId = group.cdsId,
+        displayName = override.displayName ?: group.displayName,
         isHidden = override.isHidden ?: group.isHidden,
-        isOutOfContest = override.isOutOfContest ?: group.isOutOfContest
+        isOutOfContest = override.isOutOfContest ?: group.isOutOfContest,
+        awardsGroupChampion = override.awardsGroupChampion ?: group.awardsGroupChampion
     )
 }
 

@@ -60,7 +60,8 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             OrganizationInfo(
                 cdsId = k,
                 displayName = v.name,
-                fullName = v.name
+                fullName = v.name,
+                logo = MediaType.Photo(settings.url)
             )
         }
         val teams = usersLoader.load().map {(k, v) ->

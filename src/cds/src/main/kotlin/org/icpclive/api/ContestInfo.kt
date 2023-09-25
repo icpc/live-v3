@@ -180,7 +180,8 @@ public data class TeamInfo(
 
 @Serializable
 public data class GroupInfo(
-    val name: String,
+    val cdsId: String,
+    val displayName: String,
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
     val awardsGroupChampion: Boolean = !isHidden,
@@ -191,6 +192,7 @@ public data class OrganizationInfo(
     val cdsId: String,
     val displayName: String,
     val fullName: String,
+    val logo: MediaType?,
 )
 
 @Serializable
@@ -266,7 +268,7 @@ public data class ContestInfo(
             ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER, ContestStatus.FINALIZED -> contestLength
         }
-    val groups: Map<String, GroupInfo> by lazy { groupList.associateBy { it.name } }
+    val groups: Map<String, GroupInfo> by lazy { groupList.associateBy { it.cdsId } }
     val teams: Map<Int, TeamInfo> by lazy { teamList.associateBy { it.id } }
     val cdsTeams: Map<String, TeamInfo> by lazy { teamList.associateBy { it.contestSystemId } }
     val organizations: Map<String, OrganizationInfo> by lazy { organizationList.associateBy { it.cdsId } }

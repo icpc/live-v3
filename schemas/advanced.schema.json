@@ -286,13 +286,19 @@
                 }
             }
         },
-        "org.icpclive.api.tunning.GroupInfoOverride<kotlin.Boolean?,kotlin.Boolean?>": {
+        "org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?,kotlin.Boolean?>": {
             "type": "object",
             "properties": {
+                "displayName": {
+                    "type": "string"
+                },
                 "isHidden": {
                     "type": "boolean"
                 },
                 "isOutOfContest": {
+                    "type": "boolean"
+                },
+                "awardsGroupChampion": {
                     "type": "boolean"
                 }
             },
@@ -304,11 +310,11 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.GroupInfoOverride<kotlin.Boolean?,kotlin.Boolean?>"
+                    "$ref": "#/$defs/org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?,kotlin.Boolean?>"
                 }
             }
         },
-        "org.icpclive.api.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?>": {
+        "org.icpclive.api.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?,org.icpclive.api.MediaType?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -316,6 +322,9 @@
                 },
                 "fullName": {
                     "type": "string"
+                },
+                "logo": {
+                    "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
                 }
             },
             "additionalProperties": false,
@@ -326,7 +335,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?>"
+                    "$ref": "#/$defs/org.icpclive.api.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?,org.icpclive.api.MediaType?>"
                 }
             }
         },

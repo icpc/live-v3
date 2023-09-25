@@ -35,22 +35,36 @@ private fun ProblemInfo.toClicsProblem() = Problem(
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
-    id = name,
-    name = name,
+    id = cdsId,
+    name = displayName,
 )
 
 private fun OrganizationInfo.toClicsOrg() = Organization(
     id = cdsId,
     name = displayName,
     formal_name = fullName,
+    logo = listOfNotNull(logo?.toClicsMedia())
 )
+
+private fun MediaType.toClicsMedia() = when (this) {
+    is MediaType.Object -> null
+    is MediaType.Photo -> Media("image", url)
+    is MediaType.TaskStatus -> null
+    is MediaType.Video -> Media("video", url)
+    is MediaType.WebRTCGrabberConnection -> null
+    is MediaType.WebRTCProxyConnection -> null
+}
 
 private fun TeamInfo.toClicsTeam() = Team(
     id = contestSystemId,
     name = fullName,
     hidden = isHidden,
     group_ids = groups,
-    organization_id = organizationId
+    organization_id = organizationId,
+    photo = listOfNotNull(medias[TeamMediaType.PHOTO]?.toClicsMedia()),
+    video = listOfNotNull(medias[TeamMediaType.RECORD]?.toClicsMedia()),
+    desktop = listOfNotNull(medias[TeamMediaType.SCREEN]?.toClicsMedia()),
+    webcam = listOfNotNull(medias[TeamMediaType.CAMERA]?.toClicsMedia()),
 )
 
 
@@ -256,12 +270,12 @@ object ClicsExporter  {
             }
         }
         diff(problemsMap, newInfo.problemList, ProblemInfo::contestSystemId, ProblemInfo::toClicsProblem, Event::ProblemEvent)
-        diffChange(groupsMap, newInfo.groupList, GroupInfo::name, GroupInfo::toClicsGroup, Event::GroupsEvent)
+        diffChange(groupsMap, newInfo.groupList, GroupInfo::cdsId, GroupInfo::toClicsGroup, Event::GroupsEvent)
         diffChange(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, OrganizationInfo::toClicsOrg, Event::OrganizationEvent)
 
         diff(teamsMap, newInfo.teamList, TeamInfo::contestSystemId, TeamInfo::toClicsTeam, Event::TeamEvent)
 
-        diffRemove(groupsMap, newInfo.groupList, GroupInfo::name, Event::GroupsEvent)
+        diffRemove(groupsMap, newInfo.groupList, GroupInfo::cdsId, Event::GroupsEvent)
         diffRemove(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, Event::OrganizationEvent)
     }
 
@@ -470,7 +484,7 @@ object ClicsExporter  {
         for ((award, teams) in scoreboardSnapshot.awards) {
             val (id, citation) = when (award) {
                 is org.icpclive.api.Award.Medal -> "${award.medalType}-medal" to "${award.medalType.replaceFirstChar { it.uppercase() }} medal"
-                is org.icpclive.api.Award.GroupChampion -> "group-winner-${award.group}" to "${info.groups[award.group]!!.name} champion"
+                is org.icpclive.api.Award.GroupChampion -> "group-winner-${award.group}" to "${info.groups[award.group]!!.displayName} champion"
                 is org.icpclive.api.Award.Winner -> "Winner" to "${info.name} champion"
             }
             add(Award(id, citation, teams.map { info.teams[it]!!.contestSystemId }))

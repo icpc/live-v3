@@ -63,7 +63,8 @@ export interface TeamInfo {
 }
 
 export interface GroupInfo {
-  name: string;
+  cdsId: string;
+  displayName: string;
   isHidden: boolean;
   isOutOfContest: boolean;
   awardsGroupChampion?: boolean;
@@ -73,6 +74,7 @@ export interface OrganizationInfo {
   cdsId: string;
   displayName: string;
   fullName: string;
+  logo: MediaType | null;
 }
 
 export interface MedalType {
@@ -88,20 +90,6 @@ export enum ScoreMergeMode {
   LAST = "LAST",
   LAST_OK = "LAST_OK",
   SUM = "SUM",
-}
-
-export enum MedalTiebreakMode {
-  NONE = "NONE",
-  ALL = "ALL",
-}
-
-export enum TeamMediaType {
-  camera = "camera",
-  screen = "screen",
-  record = "record",
-  photo = "photo",
-  reactionVideo = "reactionVideo",
-  achievement = "achievement",
 }
 
 export type MediaType =
@@ -161,6 +149,20 @@ export namespace MediaType {
     audioUrl?: string | null;
     isMedia?: boolean;
   }
+}
+
+export enum MedalTiebreakMode {
+  NONE = "NONE",
+  ALL = "ALL",
+}
+
+export enum TeamMediaType {
+  camera = "camera",
+  screen = "screen",
+  record = "record",
+  photo = "photo",
+  reactionVideo = "reactionVideo",
+  achievement = "achievement",
 }
 
 export interface RunInfo {

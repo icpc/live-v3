@@ -51,7 +51,7 @@ internal class ClicsModel(
         return null
     }
 
-    private fun Group.toApi() : GroupInfo = GroupInfo(name, isHidden = false, isOutOfContest = false)
+    private fun Group.toApi() : GroupInfo = GroupInfo(id, name, isHidden = false, isOutOfContest = false, awardsGroupChampion = true)
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
@@ -61,7 +61,7 @@ internal class ClicsModel(
             displayName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
             isHidden = hidden,
-            groups = group_ids.mapNotNull { groups[it]?.name },
+            groups = group_ids.mapNotNull { groups[it]?.id },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
                 photo.firstOrNull()?.mediaType()?.let { put(TeamMediaType.PHOTO, it) }
@@ -90,6 +90,7 @@ internal class ClicsModel(
         cdsId = id,
         displayName = name,
         fullName = formalName,
+        logo = logo
     )
 
     val contestInfo: ContestInfo
@@ -139,7 +140,7 @@ internal class ClicsModel(
                 id = organization.id,
                 name = organization.name,
                 formalName = organization.formal_name ?: organization.name,
-                logo = organization.logo.lastOrNull()?.href?.let { it },
+                logo = organization.logo.lastOrNull()?.mediaType(),
                 hashtag = organization.twitter_hashtag,
             )
         }

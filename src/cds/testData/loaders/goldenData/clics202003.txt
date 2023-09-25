@@ -135,7 +135,7 @@
                 "shortName": "ASU-FCIS: Ain Shams University - Faculty of Computer and Information Sciences",
                 "contestSystemId": "1",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -157,7 +157,7 @@
                 "shortName": "Belarusian SU: Belarusian State University",
                 "contestSystemId": "10",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -179,7 +179,7 @@
                 "shortName": "U Aizu: University of Aizu",
                 "contestSystemId": "100",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -197,7 +197,7 @@
                 "shortName": "U British Columbia: University of British Columbia",
                 "contestSystemId": "101",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -219,7 +219,7 @@
                 "shortName": "UniBuc: University of Bucharest",
                 "contestSystemId": "102",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -241,7 +241,7 @@
                 "shortName": "Cambridge: University of Cambridge",
                 "contestSystemId": "103",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -263,7 +263,7 @@
                 "shortName": "U Central Florida: University of Central Florida",
                 "contestSystemId": "104",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -285,7 +285,7 @@
                 "shortName": "U Dhaka: University of Dhaka",
                 "contestSystemId": "105",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -307,7 +307,7 @@
                 "shortName": "U Illinois at U-C: University of Illinois at Urbana-Champaign",
                 "contestSystemId": "106",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -329,7 +329,7 @@
                 "shortName": "Latvia: University of Latvia",
                 "contestSystemId": "107",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -351,7 +351,7 @@
                 "shortName": "U Rochester: University of Rochester",
                 "contestSystemId": "108",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -373,7 +373,7 @@
                 "shortName": "USC: University of Southern California",
                 "contestSystemId": "109",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -395,7 +395,7 @@
                 "shortName": "BSUIR: Belarusian State University of Informatics and Radioelectronics",
                 "contestSystemId": "11",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -417,7 +417,7 @@
                 "shortName": "UT: University of Tehran",
                 "contestSystemId": "110",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -435,7 +435,7 @@
                 "shortName": "Utah: University of Utah",
                 "contestSystemId": "111",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -457,7 +457,7 @@
                 "shortName": "U Warsaw: University of Warsaw",
                 "contestSystemId": "112",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -479,7 +479,7 @@
                 "shortName": "U Wisconsin - Madison: University of Wisconsin - Madison",
                 "contestSystemId": "113",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -501,7 +501,7 @@
                 "shortName": "U Wroclaw: University of Wroclaw",
                 "contestSystemId": "114",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -523,7 +523,7 @@
                 "shortName": "Utrecht - Leiden: Utrecht - Leiden University",
                 "contestSystemId": "115",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -545,7 +545,7 @@
                 "shortName": "Virginia Tech: Virginia Tech",
                 "contestSystemId": "116",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -567,7 +567,7 @@
                 "shortName": "Volgograd STU: Volgograd State Technical University",
                 "contestSystemId": "117",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -589,7 +589,7 @@
                 "shortName": "YSU: Yerevan State University",
                 "contestSystemId": "118",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -611,7 +611,7 @@
                 "shortName": "Yonsei U: Yonsei University",
                 "contestSystemId": "119",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -633,7 +633,7 @@
                 "shortName": "Bilkent U.: Bilkent University",
                 "contestSystemId": "12",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -655,7 +655,7 @@
                 "shortName": "BPHC: BITS-Pilani, Hyderabad Campus",
                 "contestSystemId": "13",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -677,7 +677,7 @@
                 "shortName": "CU-FCAI: Cairo University - Faculty of Computers and Artificial Intelligence",
                 "contestSystemId": "14",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -699,7 +699,7 @@
                 "shortName": "Damascus U: Damascus University",
                 "contestSystemId": "16",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -721,7 +721,7 @@
                 "shortName": "DA-IICT: Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar",
                 "contestSystemId": "17",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -743,7 +743,7 @@
                 "shortName": "Duke: Duke University",
                 "contestSystemId": "18",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -765,7 +765,7 @@
                 "shortName": "ENS Paris: École Normale Supérieure de Paris",
                 "contestSystemId": "19",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -787,7 +787,7 @@
                 "shortName": "Al-Baath: Al-Baath University",
                 "contestSystemId": "2",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -809,7 +809,7 @@
                 "shortName": "EP: Ecole Polytechnique",
                 "contestSystemId": "20",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -831,7 +831,7 @@
                 "shortName": "ETH Zürich: ETH Zürich",
                 "contestSystemId": "21",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -853,7 +853,7 @@
                 "shortName": "RAF: Faculty of Computer Science, Belgrade ",
                 "contestSystemId": "22",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -875,7 +875,7 @@
                 "shortName": "Free U of Tbilisi: Free University of Tbilisi",
                 "contestSystemId": "23",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -897,7 +897,7 @@
                 "shortName": "GUC: German University in Cairo",
                 "contestSystemId": "24",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -919,7 +919,7 @@
                 "shortName": "Harvard: Harvard University",
                 "contestSystemId": "25",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -941,7 +941,7 @@
                 "shortName": "HIAST: Higher Institute for Applied Sciences and Technology",
                 "contestSystemId": "26",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -963,7 +963,7 @@
                 "shortName": "IIT Bombay: Indian Institute of Technology - Bombay",
                 "contestSystemId": "27",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -981,7 +981,7 @@
                 "shortName": "IIT Delhi: Indian Institute of Technology - Delhi",
                 "contestSystemId": "28",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1003,7 +1003,7 @@
                 "shortName": "IIT Guwahati: Indian Institute of Technology - Guwahati",
                 "contestSystemId": "29",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1025,7 +1025,7 @@
                 "shortName": "Alex-FE: Alexandria University - Faculty of Engineering",
                 "contestSystemId": "3",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1047,7 +1047,7 @@
                 "shortName": "IIT Indore: Indian Institute of Technology - Indore",
                 "contestSystemId": "30",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1069,7 +1069,7 @@
                 "shortName": "IIT Kanpur: Indian Institute of Technology - Kanpur",
                 "contestSystemId": "31",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1091,7 +1091,7 @@
                 "shortName": "IIT Kharagpur: Indian Institute of Technology - Kharagpur",
                 "contestSystemId": "32",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1113,7 +1113,7 @@
                 "shortName": "IIT Patna: Indian Institute of Technology - Patna",
                 "contestSystemId": "33",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1135,7 +1135,7 @@
                 "shortName": "IIT Roorkee: Indian Institute of Technology - Roorkee",
                 "contestSystemId": "34",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1157,7 +1157,7 @@
                 "shortName": "IITBHU: Indian Institute of Technology - Varanasi",
                 "contestSystemId": "35",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1179,7 +1179,7 @@
                 "shortName": "IIT(ISM) Dhanbad: Indian Institute of Technology (ISM), Dhanbad",
                 "contestSystemId": "36",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1201,7 +1201,7 @@
                 "shortName": "IIIT DELHI: Indraprastha Institute of Information Technology",
                 "contestSystemId": "37",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1223,7 +1223,7 @@
                 "shortName": "Innopolis: Innopolis University",
                 "contestSystemId": "38",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1245,7 +1245,7 @@
                 "shortName": "INSAT: Institut National des Sciences Appliquées et de Technologie",
                 "contestSystemId": "39",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1267,7 +1267,7 @@
                 "shortName": "AUCA: American University - Central Asia",
                 "contestSystemId": "4",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1289,7 +1289,7 @@
                 "shortName": "IComp/UFAM: Institute of Computing - Federal University of Amazonas",
                 "contestSystemId": "40",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1311,7 +1311,7 @@
                 "shortName": "UFG: Instituto de Informática - UFG",
                 "contestSystemId": "41",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1333,7 +1333,7 @@
                 "shortName": "IIIT Hyderabad: International Institute of Information Technology - Hyderabad",
                 "contestSystemId": "42",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1355,7 +1355,7 @@
                 "shortName": "IITU: International IT University",
                 "contestSystemId": "43",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1377,7 +1377,7 @@
                 "shortName": "Izhevsk STU: Izhevsk State Technical University",
                 "contestSystemId": "44",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1399,7 +1399,7 @@
                 "shortName": "Jagiellonian: Jagiellonian University in Krakow",
                 "contestSystemId": "45",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1421,7 +1421,7 @@
                 "shortName": "Kazan FU: Kazan (Volga Region) Federal University",
                 "contestSystemId": "46",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1443,7 +1443,7 @@
                 "shortName": "KhNURE: Kharkiv National University of Radio Electronics",
                 "contestSystemId": "47",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1465,7 +1465,7 @@
                 "shortName": "Korea U: Korea University",
                 "contestSystemId": "48",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1487,7 +1487,7 @@
                 "shortName": "Kyungpook National U: Kyungpook National University",
                 "contestSystemId": "49",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1509,7 +1509,7 @@
                 "shortName": "AU Beirut: American University of Beirut",
                 "contestSystemId": "5",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1531,7 +1531,7 @@
                 "shortName": "MIT: Massachusetts Institute of Technology",
                 "contestSystemId": "50",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1553,7 +1553,7 @@
                 "shortName": "MAI: Moscow Aviation Institute",
                 "contestSystemId": "51",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1575,7 +1575,7 @@
                 "shortName": "MIPT: Moscow Institute of Physics and Technology",
                 "contestSystemId": "52",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1597,7 +1597,7 @@
                 "shortName": "Moscow SU: Moscow State University",
                 "contestSystemId": "53",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1619,7 +1619,7 @@
                 "shortName": "MEPhI: National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)",
                 "contestSystemId": "54",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1641,7 +1641,7 @@
                 "shortName": "HSE: National Research University Higher School of Economics",
                 "contestSystemId": "55",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1663,7 +1663,7 @@
                 "shortName": "National Taiwan U: National Taiwan University",
                 "contestSystemId": "56",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1685,7 +1685,7 @@
                 "shortName": "NSUT: Netaji Subhash University Of Technology",
                 "contestSystemId": "58",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1707,7 +1707,7 @@
                 "shortName": "UNN: Nizhny Novgorod State University",
                 "contestSystemId": "59",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1729,7 +1729,7 @@
                 "shortName": "Amirkabir UT: Amirkabir University of Technology",
                 "contestSystemId": "6",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1751,7 +1751,7 @@
                 "shortName": "NU-FAST-KHI: NU-FAST Karachi",
                 "contestSystemId": "60",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1769,7 +1769,7 @@
                 "shortName": "Perm SU: Perm State University",
                 "contestSystemId": "61",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1791,7 +1791,7 @@
                 "shortName": "PSUT: Princess Sumaya University for Technology",
                 "contestSystemId": "62",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1813,7 +1813,7 @@
                 "shortName": "Purdue: Purdue University",
                 "contestSystemId": "63",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1835,7 +1835,7 @@
                 "shortName": "Saratov State U: Saratov State University",
                 "contestSystemId": "64",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1857,7 +1857,7 @@
                 "shortName": "Seoul National U: Seoul National University",
                 "contestSystemId": "65",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1879,7 +1879,7 @@
                 "shortName": "Sharif UT: Sharif University of Technology",
                 "contestSystemId": "66",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1901,7 +1901,7 @@
                 "shortName": "Sogang U: Sogang University",
                 "contestSystemId": "67",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1923,7 +1923,7 @@
                 "shortName": "SPb HSE: St. Petersburg Campus of Higher School of Economics",
                 "contestSystemId": "68",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1945,7 +1945,7 @@
                 "shortName": "SPb ITMO: St. Petersburg ITMO University",
                 "contestSystemId": "69",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1967,7 +1967,7 @@
                 "shortName": "AAST-Alex: Arab Academy for Science and Technology - Alexandria",
                 "contestSystemId": "7",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1989,7 +1989,7 @@
                 "shortName": "St. Petersburg SU: St. Petersburg State University",
                 "contestSystemId": "70",
                 "groups": [
-                    "Northern Eurasia"
+                    "15692"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2011,7 +2011,7 @@
                 "shortName": "Stanford: Stanford University",
                 "contestSystemId": "71",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2033,7 +2033,7 @@
                 "shortName": "SVU: Syrian Virtual University",
                 "contestSystemId": "72",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2055,7 +2055,7 @@
                 "shortName": "TUM: Technische Universität München",
                 "contestSystemId": "73",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2077,7 +2077,7 @@
                 "shortName": "UAP: The University of Asia Pacific",
                 "contestSystemId": "74",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2099,7 +2099,7 @@
                 "shortName": "UJ: The University of Jordan",
                 "contestSystemId": "75",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2121,7 +2121,7 @@
                 "shortName": "UT Dallas: The University of Texas at Dallas",
                 "contestSystemId": "76",
                 "groups": [
-                    "North America"
+                    "15689"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2143,7 +2143,7 @@
                 "shortName": "Tishreen: Tishreen University",
                 "contestSystemId": "77",
                 "groups": [
-                    "Africa and the Middle East"
+                    "15708"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2165,7 +2165,7 @@
                 "shortName": "UNIST: Ulsan National Institute of Science and Technology",
                 "contestSystemId": "78",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2187,7 +2187,7 @@
                 "shortName": "UBA - FCEN: Universidad de Buenos Aires - FCEN",
                 "contestSystemId": "79",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2209,7 +2209,7 @@
                 "shortName": "AU: Avicenna University",
                 "contestSystemId": "8",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2231,7 +2231,7 @@
                 "shortName": "UChile: Universidad de Chile",
                 "contestSystemId": "80",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2249,7 +2249,7 @@
                 "shortName": "UCR: Universidad de Costa Rica",
                 "contestSystemId": "81",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2267,7 +2267,7 @@
                 "shortName": "UG-CIMAT: Universidad de Guanajuato - DCNE",
                 "contestSystemId": "82",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2289,7 +2289,7 @@
                 "shortName": "UH: Universidad de La Habana",
                 "contestSystemId": "83",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2311,7 +2311,7 @@
                 "shortName": "UO-SAM: Universidad de Oriente - Sede Antonio Maceo",
                 "contestSystemId": "84",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2333,7 +2333,7 @@
                 "shortName": "ICESI: Universidad Icesi",
                 "contestSystemId": "85",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2355,7 +2355,7 @@
                 "shortName": "UNAL Bogotá: Universidad Nacional de Colombia - Bogotá",
                 "contestSystemId": "86",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2377,7 +2377,7 @@
                 "shortName": "FAMAF - UNC: Universidad Nacional de Córdoba - FaMAF",
                 "contestSystemId": "87",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2399,7 +2399,7 @@
                 "shortName": "UN del Sur: Universidad Nacional del Sur",
                 "contestSystemId": "88",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2421,7 +2421,7 @@
                 "shortName": "UP Bonaterra: Universidad Panamericana Campus Bonaterra",
                 "contestSystemId": "89",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2443,7 +2443,7 @@
                 "shortName": "BUET: Bangladesh University of Engineering and Technology",
                 "contestSystemId": "9",
                 "groups": [
-                    "Asia West"
+                    "15693"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2461,7 +2461,7 @@
                 "shortName": "USB: Universidad Simón Bolívar",
                 "contestSystemId": "90",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2479,7 +2479,7 @@
                 "shortName": "UnB: Universidade de Brasília",
                 "contestSystemId": "91",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2501,7 +2501,7 @@
                 "shortName": "USP: Universidade de São Paulo",
                 "contestSystemId": "92",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2523,7 +2523,7 @@
                 "shortName": "USP - São Carlos: Universidade de São Paulo - Campus de São Carlos",
                 "contestSystemId": "93",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2545,7 +2545,7 @@
                 "shortName": "UNICAMP: Universidade Estadual de Campinas",
                 "contestSystemId": "94",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2567,7 +2567,7 @@
                 "shortName": "UFMG: Universidade Federal de Minas Gerais",
                 "contestSystemId": "95",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2589,7 +2589,7 @@
                 "shortName": "UFPE: Universidade Federal de Pernambuco",
                 "contestSystemId": "96",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2611,7 +2611,7 @@
                 "shortName": "UFC-Quixadá: Universidade Federal do Ceará - Campus Quixadá",
                 "contestSystemId": "97",
                 "groups": [
-                    "Latin America"
+                    "15706"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2633,7 +2633,7 @@
                 "shortName": "UNIMI: Università Degli Studi di Milano",
                 "contestSystemId": "98",
                 "groups": [
-                    "Europe"
+                    "15705"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2655,7 +2655,7 @@
                 "shortName": "UI: Universitas Indonesia",
                 "contestSystemId": "99",
                 "groups": [
-                    "Asia Pacific"
+                    "15709"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2674,47 +2674,56 @@
         ],
         "groups": [
             {
-                "name": "System",
+                "cdsId": "1",
+                "displayName": "System",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "North America",
+                "cdsId": "15689",
+                "displayName": "North America",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Northern Eurasia",
+                "cdsId": "15692",
+                "displayName": "Northern Eurasia",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Asia West",
+                "cdsId": "15693",
+                "displayName": "Asia West",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Europe",
+                "cdsId": "15705",
+                "displayName": "Europe",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Latin America",
+                "cdsId": "15706",
+                "displayName": "Latin America",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Africa and the Middle East",
+                "cdsId": "15708",
+                "displayName": "Africa and the Middle East",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Asia Pacific",
+                "cdsId": "15709",
+                "displayName": "Asia Pacific",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "name": "Jury",
+                "cdsId": "15710",
+                "displayName": "Jury",
                 "isHidden": false,
                 "isOutOfContest": false
             }
@@ -2723,592 +2732,1064 @@
             {
                 "cdsId": "0061",
                 "displayName": "AUCA",
-                "fullName": "American University - Central Asia"
+                "fullName": "American University - Central Asia",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0061/logo.png"
+                }
             },
             {
                 "cdsId": "0065",
                 "displayName": "AU Beirut",
-                "fullName": "American University of Beirut"
+                "fullName": "American University of Beirut",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0065/logo.png"
+                }
             },
             {
                 "cdsId": "0068",
                 "displayName": "Amirkabir UT",
-                "fullName": "Amirkabir University of Technology"
+                "fullName": "Amirkabir University of Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0068/logo.png"
+                }
             },
             {
                 "cdsId": "0081",
                 "displayName": "AAST-Alex",
-                "fullName": "Arab Academy for Science and Technology - Alexandria"
+                "fullName": "Arab Academy for Science and Technology - Alexandria",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0081/logo.png"
+                }
             },
             {
                 "cdsId": "0114",
                 "displayName": "BUET",
-                "fullName": "Bangladesh University of Engineering and Technology"
+                "fullName": "Bangladesh University of Engineering and Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0114/logo.png"
+                }
             },
             {
                 "cdsId": "0140",
                 "displayName": "BSUIR",
-                "fullName": "Belarusian State University of Informatics and Radioelectronics"
+                "fullName": "Belarusian State University of Informatics and Radioelectronics",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0140/logo.png"
+                }
             },
             {
                 "cdsId": "0144",
                 "displayName": "Belarusian SU",
-                "fullName": "Belarusian State University"
+                "fullName": "Belarusian State University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0144/logo.png"
+                }
             },
             {
                 "cdsId": "0160",
                 "displayName": "Bilkent U.",
-                "fullName": "Bilkent University"
+                "fullName": "Bilkent University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0160/logo.png"
+                }
             },
             {
                 "cdsId": "0196",
                 "displayName": "UniBuc",
-                "fullName": "University of Bucharest"
+                "fullName": "University of Bucharest",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0196/logo.png"
+                }
             },
             {
                 "cdsId": "0232",
                 "displayName": "Carnegie Mellon",
-                "fullName": "Carnegie Mellon University"
+                "fullName": "Carnegie Mellon University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0232/logo.png"
+                }
             },
             {
                 "cdsId": "0358",
                 "displayName": "Damascus U",
-                "fullName": "Damascus University"
+                "fullName": "Damascus University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0358/logo.png"
+                }
             },
             {
                 "cdsId": "0413",
                 "displayName": "Duke",
-                "fullName": "Duke University"
+                "fullName": "Duke University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0413/logo.png"
+                }
             },
             {
                 "cdsId": "0443",
                 "displayName": "EP",
-                "fullName": "Ecole Polytechnique"
+                "fullName": "Ecole Polytechnique",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0443/logo.png"
+                }
             },
             {
                 "cdsId": "0451",
                 "displayName": "ETH Zürich",
-                "fullName": "ETH Zürich"
+                "fullName": "ETH Zürich",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0451/logo.png"
+                }
             },
             {
                 "cdsId": "0492",
                 "displayName": "FAMAF - UNC",
-                "fullName": "Universidad Nacional de Córdoba - FaMAF"
+                "fullName": "Universidad Nacional de Córdoba - FaMAF",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0492/logo.png"
+                }
             },
             {
                 "cdsId": "0502",
                 "displayName": "Alex-FE",
-                "fullName": "Alexandria University - Faculty of Engineering"
+                "fullName": "Alexandria University - Faculty of Engineering",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0502/logo.png"
+                }
             },
             {
                 "cdsId": "0642",
                 "displayName": "Harvard",
-                "fullName": "Harvard University"
+                "fullName": "Harvard University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0642/logo.png"
+                }
             },
             {
                 "cdsId": "0695",
                 "displayName": "USP - São Carlos",
-                "fullName": "Universidade de São Paulo - Campus de São Carlos"
+                "fullName": "Universidade de São Paulo - Campus de São Carlos",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0695/logo.png"
+                }
             },
             {
                 "cdsId": "0718",
                 "displayName": "IIT Guwahati",
-                "fullName": "Indian Institute of Technology - Guwahati"
+                "fullName": "Indian Institute of Technology - Guwahati",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0718/logo.png"
+                }
             },
             {
                 "cdsId": "0722",
                 "displayName": "IIT Roorkee",
-                "fullName": "Indian Institute of Technology - Roorkee"
+                "fullName": "Indian Institute of Technology - Roorkee",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0722/logo.png"
+                }
             },
             {
                 "cdsId": "0724",
                 "displayName": "IIT Bombay",
-                "fullName": "Indian Institute of Technology - Bombay"
+                "fullName": "Indian Institute of Technology - Bombay",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0724/logo.png"
+                }
             },
             {
                 "cdsId": "0725",
                 "displayName": "IIT Delhi",
-                "fullName": "Indian Institute of Technology - Delhi"
+                "fullName": "Indian Institute of Technology - Delhi",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0725/logo.png"
+                }
             },
             {
                 "cdsId": "0727",
                 "displayName": "IIT Kanpur",
-                "fullName": "Indian Institute of Technology - Kanpur"
+                "fullName": "Indian Institute of Technology - Kanpur",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0727/logo.png"
+                }
             },
             {
                 "cdsId": "0728",
                 "displayName": "IIT Kharagpur",
-                "fullName": "Indian Institute of Technology - Kharagpur"
+                "fullName": "Indian Institute of Technology - Kharagpur",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0728/logo.png"
+                }
             },
             {
                 "cdsId": "0846",
                 "displayName": "IIIT Hyderabad",
-                "fullName": "International Institute of Information Technology - Hyderabad"
+                "fullName": "International Institute of Information Technology - Hyderabad",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0846/logo.png"
+                }
             },
             {
                 "cdsId": "0923",
                 "displayName": "Izhevsk STU",
-                "fullName": "Izhevsk State Technical University"
+                "fullName": "Izhevsk State Technical University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0923/logo.png"
+                }
             },
             {
                 "cdsId": "0931",
                 "displayName": "Jagiellonian",
-                "fullName": "Jagiellonian University in Krakow"
+                "fullName": "Jagiellonian University in Krakow",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0931/logo.png"
+                }
             },
             {
                 "cdsId": "0993",
                 "displayName": "Kazan FU",
-                "fullName": "Kazan (Volga Region) Federal University"
+                "fullName": "Kazan (Volga Region) Federal University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/0993/logo.png"
+                }
             },
             {
                 "cdsId": "1008",
                 "displayName": "KhNURE",
-                "fullName": "Kharkiv National University of Radio Electronics"
+                "fullName": "Kharkiv National University of Radio Electronics",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1008/logo.png"
+                }
             },
             {
                 "cdsId": "1026",
                 "displayName": "Korea U",
-                "fullName": "Korea University"
+                "fullName": "Korea University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1026/logo.png"
+                }
             },
             {
                 "cdsId": "1145",
                 "displayName": "MIT",
-                "fullName": "Massachusetts Institute of Technology"
+                "fullName": "Massachusetts Institute of Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1145/logo.png"
+                }
             },
             {
                 "cdsId": "1214",
                 "displayName": "MAI",
-                "fullName": "Moscow Aviation Institute"
+                "fullName": "Moscow Aviation Institute",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1214/logo.png"
+                }
             },
             {
                 "cdsId": "1215",
                 "displayName": "MEPhI",
-                "fullName": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)"
+                "fullName": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1215/logo.png"
+                }
             },
             {
                 "cdsId": "1220",
                 "displayName": "MIPT",
-                "fullName": "Moscow Institute of Physics and Technology"
+                "fullName": "Moscow Institute of Physics and Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1220/logo.png"
+                }
             },
             {
                 "cdsId": "1237",
                 "displayName": "Moscow SU",
-                "fullName": "Moscow State University"
+                "fullName": "Moscow State University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1237/logo.png"
+                }
             },
             {
                 "cdsId": "12694",
                 "displayName": "Utrecht - Leiden",
-                "fullName": "Utrecht - Leiden University"
+                "fullName": "Utrecht - Leiden University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/12694/logo.png"
+                }
             },
             {
                 "cdsId": "1303",
                 "displayName": "National Taiwan U",
-                "fullName": "National Taiwan University"
+                "fullName": "National Taiwan University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1303/logo.png"
+                }
             },
             {
                 "cdsId": "1338",
                 "displayName": "UNN",
-                "fullName": "Nizhny Novgorod State University"
+                "fullName": "Nizhny Novgorod State University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1338/logo.png"
+                }
             },
             {
                 "cdsId": "1452",
                 "displayName": "Perm SU",
-                "fullName": "Perm State University"
+                "fullName": "Perm State University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1452/logo.png"
+                }
             },
             {
                 "cdsId": "1623",
                 "displayName": "Saratov State U",
-                "fullName": "Saratov State University"
+                "fullName": "Saratov State University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1623/logo.png"
+                }
             },
             {
                 "cdsId": "1636",
                 "displayName": "Seoul National U",
-                "fullName": "Seoul National University"
+                "fullName": "Seoul National University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1636/logo.png"
+                }
             },
             {
                 "cdsId": "1677",
                 "displayName": "Sharif UT",
-                "fullName": "Sharif University of Technology"
+                "fullName": "Sharif University of Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1677/logo.png"
+                }
             },
             {
                 "cdsId": "1730",
                 "displayName": "Sogang U",
-                "fullName": "Sogang University"
+                "fullName": "Sogang University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1730/logo.png"
+                }
             },
             {
                 "cdsId": "1802",
                 "displayName": "St. Petersburg SU",
-                "fullName": "St. Petersburg State University"
+                "fullName": "St. Petersburg State University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1802/logo.png"
+                }
             },
             {
                 "cdsId": "1822",
                 "displayName": "Stanford",
-                "fullName": "Stanford University"
+                "fullName": "Stanford University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1822/logo.png"
+                }
             },
             {
                 "cdsId": "1917",
                 "displayName": "TUM",
-                "fullName": "Technische Universität München"
+                "fullName": "Technische Universität München",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1917/logo.png"
+                }
             },
             {
                 "cdsId": "1962",
                 "displayName": "U Aizu",
-                "fullName": "University of Aizu"
+                "fullName": "University of Aizu",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1962/logo.png"
+                }
             },
             {
                 "cdsId": "1966",
                 "displayName": "UAP",
-                "fullName": "The University of Asia Pacific"
+                "fullName": "The University of Asia Pacific",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1966/logo.png"
+                }
             },
             {
                 "cdsId": "1977",
                 "displayName": "UJ",
-                "fullName": "The University of Jordan"
+                "fullName": "The University of Jordan",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/1977/logo.png"
+                }
             },
             {
                 "cdsId": "2107",
                 "displayName": "UChile",
-                "fullName": "Universidad de Chile"
+                "fullName": "Universidad de Chile",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2107/logo.png"
+                }
             },
             {
                 "cdsId": "2112",
                 "displayName": "UH",
-                "fullName": "Universidad de La Habana"
+                "fullName": "Universidad de La Habana",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2112/logo.png"
+                }
             },
             {
                 "cdsId": "2172",
                 "displayName": "USB",
-                "fullName": "Universidad Simón Bolívar"
+                "fullName": "Universidad Simón Bolívar",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2172/logo.png"
+                }
             },
             {
                 "cdsId": "2195",
                 "displayName": "UnB",
-                "fullName": "Universidade de Brasília"
+                "fullName": "Universidade de Brasília",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2195/logo.png"
+                }
             },
             {
                 "cdsId": "2204",
                 "displayName": "USP",
-                "fullName": "Universidade de São Paulo"
+                "fullName": "Universidade de São Paulo",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2204/logo.png"
+                }
             },
             {
                 "cdsId": "2216",
                 "displayName": "UNICAMP",
-                "fullName": "Universidade Estadual de Campinas"
+                "fullName": "Universidade Estadual de Campinas",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2216/logo.png"
+                }
             },
             {
                 "cdsId": "2230",
                 "displayName": "UFMG",
-                "fullName": "Universidade Federal de Minas Gerais"
+                "fullName": "Universidade Federal de Minas Gerais",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2230/logo.png"
+                }
             },
             {
                 "cdsId": "2232",
                 "displayName": "UFPE",
-                "fullName": "Universidade Federal de Pernambuco"
+                "fullName": "Universidade Federal de Pernambuco",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2232/logo.png"
+                }
             },
             {
                 "cdsId": "2324",
                 "displayName": "U British Columbia",
-                "fullName": "University of British Columbia"
+                "fullName": "University of British Columbia",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2324/logo.png"
+                }
             },
             {
                 "cdsId": "2343",
                 "displayName": "Cambridge",
-                "fullName": "University of Cambridge"
+                "fullName": "University of Cambridge",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2343/logo.png"
+                }
             },
             {
                 "cdsId": "2349",
                 "displayName": "U Central Florida",
-                "fullName": "University of Central Florida"
+                "fullName": "University of Central Florida",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2349/logo.png"
+                }
             },
             {
                 "cdsId": "2366",
                 "displayName": "U Dhaka",
-                "fullName": "University of Dhaka"
+                "fullName": "University of Dhaka",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2366/logo.png"
+                }
             },
             {
                 "cdsId": "2387",
                 "displayName": "U Illinois at U-C",
-                "fullName": "University of Illinois at Urbana-Champaign"
+                "fullName": "University of Illinois at Urbana-Champaign",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2387/logo.png"
+                }
             },
             {
                 "cdsId": "2390",
                 "displayName": "UI",
-                "fullName": "Universitas Indonesia"
+                "fullName": "Universitas Indonesia",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2390/logo.png"
+                }
             },
             {
                 "cdsId": "2400",
                 "displayName": "Latvia",
-                "fullName": "University of Latvia"
+                "fullName": "University of Latvia",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2400/logo.png"
+                }
             },
             {
                 "cdsId": "2493",
                 "displayName": "U Rochester",
-                "fullName": "University of Rochester"
+                "fullName": "University of Rochester",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2493/logo.png"
+                }
             },
             {
                 "cdsId": "2519",
                 "displayName": "USC",
-                "fullName": "University of Southern California"
+                "fullName": "University of Southern California",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2519/logo.png"
+                }
             },
             {
                 "cdsId": "2528",
                 "displayName": "UT",
-                "fullName": "University of Tehran"
+                "fullName": "University of Tehran",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2528/logo.png"
+                }
             },
             {
                 "cdsId": "2538",
                 "displayName": "UT Dallas",
-                "fullName": "The University of Texas at Dallas"
+                "fullName": "The University of Texas at Dallas",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2538/logo.png"
+                }
             },
             {
                 "cdsId": "2562",
                 "displayName": "Utah",
-                "fullName": "University of Utah"
+                "fullName": "University of Utah",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2562/logo.png"
+                }
             },
             {
                 "cdsId": "2574",
                 "displayName": "U Wisconsin - Madison",
-                "fullName": "University of Wisconsin - Madison"
+                "fullName": "University of Wisconsin - Madison",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2574/logo.png"
+                }
             },
             {
                 "cdsId": "2589",
                 "displayName": "U Wroclaw",
-                "fullName": "University of Wroclaw"
+                "fullName": "University of Wroclaw",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2589/logo.png"
+                }
             },
             {
                 "cdsId": "2648",
                 "displayName": "Virginia Tech",
-                "fullName": "Virginia Tech"
+                "fullName": "Virginia Tech",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2648/logo.png"
+                }
             },
             {
                 "cdsId": "2659",
                 "displayName": "Volgograd STU",
-                "fullName": "Volgograd State Technical University"
+                "fullName": "Volgograd State Technical University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2659/logo.png"
+                }
             },
             {
                 "cdsId": "2673",
                 "displayName": "U Warsaw",
-                "fullName": "University of Warsaw"
+                "fullName": "University of Warsaw",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2673/logo.png"
+                }
             },
             {
                 "cdsId": "2742",
                 "displayName": "YSU",
-                "fullName": "Yerevan State University"
+                "fullName": "Yerevan State University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2742/logo.png"
+                }
             },
             {
                 "cdsId": "2745",
                 "displayName": "Yonsei U",
-                "fullName": "Yonsei University"
+                "fullName": "Yonsei University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/2745/logo.png"
+                }
             },
             {
                 "cdsId": "3071",
                 "displayName": "UFG",
-                "fullName": "Instituto de Informática - UFG"
+                "fullName": "Instituto de Informática - UFG",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3071/logo.png"
+                }
             },
             {
                 "cdsId": "3098",
                 "displayName": "ICESI",
-                "fullName": "Universidad Icesi"
+                "fullName": "Universidad Icesi",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3098/logo.png"
+                }
             },
             {
                 "cdsId": "3272",
                 "displayName": "UNAL Bogotá",
-                "fullName": "Universidad Nacional de Colombia - Bogotá"
+                "fullName": "Universidad Nacional de Colombia - Bogotá",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3272/logo.png"
+                }
             },
             {
                 "cdsId": "3295",
                 "displayName": "SPb ITMO",
-                "fullName": "St. Petersburg ITMO University"
+                "fullName": "St. Petersburg ITMO University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3295/logo.png"
+                }
             },
             {
                 "cdsId": "3328",
                 "displayName": "Purdue",
-                "fullName": "Purdue University"
+                "fullName": "Purdue University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3328/logo.png"
+                }
             },
             {
                 "cdsId": "3348",
                 "displayName": "CU-FCAI",
-                "fullName": "Cairo University - Faculty of Computers and Artificial Intelligence"
+                "fullName": "Cairo University - Faculty of Computers and Artificial Intelligence",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3348/logo.png"
+                }
             },
             {
                 "cdsId": "3360",
                 "displayName": "RAF",
-                "fullName": "Faculty of Computer Science, Belgrade "
+                "fullName": "Faculty of Computer Science, Belgrade ",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3360/logo.png"
+                }
             },
             {
                 "cdsId": "3372",
                 "displayName": "UP Bonaterra",
-                "fullName": "Universidad Panamericana Campus Bonaterra"
+                "fullName": "Universidad Panamericana Campus Bonaterra",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3372/logo.png"
+                }
             },
             {
                 "cdsId": "3436",
                 "displayName": "ENS Paris",
-                "fullName": "École Normale Supérieure de Paris"
+                "fullName": "École Normale Supérieure de Paris",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3436/logo.png"
+                }
             },
             {
                 "cdsId": "3487",
                 "displayName": "UN del Sur",
-                "fullName": "Universidad Nacional del Sur"
+                "fullName": "Universidad Nacional del Sur",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3487/logo.png"
+                }
             },
             {
                 "cdsId": "3519",
                 "displayName": "GUC",
-                "fullName": "German University in Cairo"
+                "fullName": "German University in Cairo",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3519/logo.png"
+                }
             },
             {
                 "cdsId": "3534",
                 "displayName": "HSE",
-                "fullName": "National Research University Higher School of Economics"
+                "fullName": "National Research University Higher School of Economics",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3534/logo.png"
+                }
             },
             {
                 "cdsId": "3664",
                 "displayName": "ASU-FCIS",
-                "fullName": "Ain Shams University - Faculty of Computer and Information Sciences"
+                "fullName": "Ain Shams University - Faculty of Computer and Information Sciences",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3664/logo.png"
+                }
             },
             {
                 "cdsId": "3683",
                 "displayName": "UBA - FCEN",
-                "fullName": "Universidad de Buenos Aires - FCEN"
+                "fullName": "Universidad de Buenos Aires - FCEN",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3683/logo.png"
+                }
             },
             {
                 "cdsId": "3775",
                 "displayName": "Tishreen",
-                "fullName": "Tishreen University"
+                "fullName": "Tishreen University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3775/logo.png"
+                }
             },
             {
                 "cdsId": "3919",
                 "displayName": "IIT(ISM) Dhanbad",
-                "fullName": "Indian Institute of Technology (ISM), Dhanbad"
+                "fullName": "Indian Institute of Technology (ISM), Dhanbad",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3919/logo.png"
+                }
             },
             {
                 "cdsId": "3944",
                 "displayName": "DA-IICT",
-                "fullName": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar"
+                "fullName": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/3944/logo.png"
+                }
             },
             {
                 "cdsId": "4166",
                 "displayName": "UFC-Quixadá",
-                "fullName": "Universidade Federal do Ceará - Campus Quixadá"
+                "fullName": "Universidade Federal do Ceará - Campus Quixadá",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/4166/logo.png"
+                }
             },
             {
                 "cdsId": "4193",
                 "displayName": "UO-SAM",
-                "fullName": "Universidad de Oriente - Sede Antonio Maceo"
+                "fullName": "Universidad de Oriente - Sede Antonio Maceo",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/4193/logo.png"
+                }
             },
             {
                 "cdsId": "4330",
                 "displayName": "IITU",
-                "fullName": "International IT University"
+                "fullName": "International IT University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/4330/logo.png"
+                }
             },
             {
                 "cdsId": "4376",
                 "displayName": "PSUT",
-                "fullName": "Princess Sumaya University for Technology"
+                "fullName": "Princess Sumaya University for Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/4376/logo.png"
+                }
             },
             {
                 "cdsId": "4846",
                 "displayName": "UNIST",
-                "fullName": "Ulsan National Institute of Science and Technology"
+                "fullName": "Ulsan National Institute of Science and Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/4846/logo.png"
+                }
             },
             {
                 "cdsId": "5628",
                 "displayName": "BPHC",
-                "fullName": "BITS-Pilani, Hyderabad Campus"
+                "fullName": "BITS-Pilani, Hyderabad Campus",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/5628/logo.png"
+                }
             },
             {
                 "cdsId": "5640",
                 "displayName": "IIT Indore",
-                "fullName": "Indian Institute of Technology - Indore"
+                "fullName": "Indian Institute of Technology - Indore",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/5640/logo.png"
+                }
             },
             {
                 "cdsId": "5716",
                 "displayName": "UCR",
-                "fullName": "Universidad de Costa Rica"
+                "fullName": "Universidad de Costa Rica",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/5716/logo.png"
+                }
             },
             {
                 "cdsId": "5724",
                 "displayName": "Free U of Tbilisi",
-                "fullName": "Free University of Tbilisi"
+                "fullName": "Free University of Tbilisi",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/5724/logo.png"
+                }
             },
             {
                 "cdsId": "6581",
                 "displayName": "HIAST",
-                "fullName": "Higher Institute for Applied Sciences and Technology"
+                "fullName": "Higher Institute for Applied Sciences and Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/6581/logo.png"
+                }
             },
             {
                 "cdsId": "6908",
                 "displayName": "IIT Patna",
-                "fullName": "Indian Institute of Technology - Patna"
+                "fullName": "Indian Institute of Technology - Patna",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/6908/logo.png"
+                }
             },
             {
                 "cdsId": "6960",
                 "displayName": "INSAT",
-                "fullName": "Institut National des Sciences Appliquées et de Technologie"
+                "fullName": "Institut National des Sciences Appliquées et de Technologie",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/6960/logo.png"
+                }
             },
             {
                 "cdsId": "7113",
                 "displayName": "Al-Baath",
-                "fullName": "Al-Baath University"
+                "fullName": "Al-Baath University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/7113/logo.png"
+                }
             },
             {
                 "cdsId": "7325",
                 "displayName": "IComp/UFAM",
-                "fullName": "Institute of Computing - Federal University of Amazonas"
+                "fullName": "Institute of Computing - Federal University of Amazonas",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/7325/logo.png"
+                }
             },
             {
                 "cdsId": "7423",
                 "displayName": "Kyungpook National U",
-                "fullName": "Kyungpook National University"
+                "fullName": "Kyungpook National University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/7423/logo.png"
+                }
             },
             {
                 "cdsId": "7857",
                 "displayName": "Innopolis",
-                "fullName": "Innopolis University"
+                "fullName": "Innopolis University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/7857/logo.png"
+                }
             },
             {
                 "cdsId": "7898",
                 "displayName": "NU-FAST-KHI",
-                "fullName": "NU-FAST Karachi"
+                "fullName": "NU-FAST Karachi",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/7898/logo.png"
+                }
             },
             {
                 "cdsId": "7990",
                 "displayName": "UNIMI",
-                "fullName": "Università Degli Studi di Milano"
+                "fullName": "Università Degli Studi di Milano",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/7990/logo.png"
+                }
             },
             {
                 "cdsId": "8140",
                 "displayName": "UG-CIMAT",
-                "fullName": "Universidad de Guanajuato - DCNE"
+                "fullName": "Universidad de Guanajuato - DCNE",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/8140/logo.png"
+                }
             },
             {
                 "cdsId": "8162",
                 "displayName": "SVU",
-                "fullName": "Syrian Virtual University"
+                "fullName": "Syrian Virtual University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/8162/logo.png"
+                }
             },
             {
                 "cdsId": "8628",
                 "displayName": "AU",
-                "fullName": "Avicenna University"
+                "fullName": "Avicenna University",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/8628/logo.png"
+                }
             },
             {
                 "cdsId": "9406",
                 "displayName": "IITBHU",
-                "fullName": "Indian Institute of Technology - Varanasi"
+                "fullName": "Indian Institute of Technology - Varanasi",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/9406/logo.png"
+                }
             },
             {
                 "cdsId": "9574",
                 "displayName": "IIIT DELHI",
-                "fullName": "Indraprastha Institute of Information Technology"
+                "fullName": "Indraprastha Institute of Information Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/9574/logo.png"
+                }
             },
             {
                 "cdsId": "9606",
                 "displayName": "SPb HSE",
-                "fullName": "St. Petersburg Campus of Higher School of Economics"
+                "fullName": "St. Petersburg Campus of Higher School of Economics",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/9606/logo.png"
+                }
             },
             {
                 "cdsId": "9780",
                 "displayName": "NSUT",
-                "fullName": "Netaji Subhash University Of Technology"
+                "fullName": "Netaji Subhash University Of Technology",
+                "logo": {
+                    "type": "Photo",
+                    "url": "testData/loaders/clics-2020-03/contests/finals/organizations/9780/logo.png"
+                }
             }
         ],
         "penaltyRoundingMode": "each_submission_down_to_minute"

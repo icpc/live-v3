@@ -55,13 +55,17 @@ public data class ProblemInfoOverride(
 )
 
 /**
+ * @param displayName Name of the group to be displayed in admin and export
  * @param isHidden Totally hide all teams from this group
  * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in the leaderboard
+ * @param awardsGroupChampion If true, the group champion award would be generated for this group.
  */
 @Serializable
 public data class GroupInfoOverride(
+    val displayName: String? = null,
     val isHidden: Boolean? = null,
-    val isOutOfContest: Boolean? = null
+    val isOutOfContest: Boolean? = null,
+    val awardsGroupChampion: Boolean? = null
 )
 
 /**
@@ -79,10 +83,17 @@ public data class RankingSettings(
     public val penaltyRoundingMode: PenaltyRoundingMode? = null
 )
 
+
+/**
+ * @param displayName Name of the team shown in most places.
+ * @param fullName Full name of the organization. Will be mostly shown on admin pages.
+ * @param logo Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved.
+ */
 @Serializable
 public data class OrganizationInfoOverride(
     val displayName: String? = null,
-    val fullName: String? = null
+    val fullName: String? = null,
+    val logo: MediaType? = null
 )
 
 /**
@@ -221,15 +232,18 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedPrope
             )
         },
         groupOverrides = groupList.associate {
-            it.name to GroupInfoOverride(
+            it.cdsId to GroupInfoOverride(
+                displayName = it.displayName.takeIfAsked("groupDisplayName"),
                 isHidden = it.isHidden.takeIfAsked("isHidden"),
-                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
+                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest"),
+                awardsGroupChampion = it.awardsGroupChampion.takeIfAsked("awardGroupChampion")
             )
         },
         organizationOverrides = organizationList.associate {
             it.cdsId to OrganizationInfoOverride(
                 displayName = it.displayName.takeIfAsked("orgDisplayName"),
-                fullName = it.fullName.takeIfAsked("orgFullName")
+                fullName = it.fullName.takeIfAsked("orgFullName"),
+                logo = it.logo.takeIfAsked("logo")
             )
         },
         scoreboardOverrides = RankingSettings(
