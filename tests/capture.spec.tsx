@@ -20,7 +20,7 @@ const address = "127.0.0.1";
 const startingPort = 8090;
 
 for (const [index, contestConfig] of contestConfigs.entries()) {
-    test(`config ${contestConfig}`, async ({ page }) => {
+    test(`config ${contestConfig}`, async ({ page }, testInfo) => {
         console.log(`Starting contest ${contestConfig}`)
         const port = startingPort + index;
         const baseURL = `http://${address}:${port}`;
@@ -84,7 +84,12 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
         await page.waitForTimeout(overlayDisplayDelay);
 
         const contestName = contestConfig.replace(/\//g, "_");
-        await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
+        const screenshot = await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
+
+        await testInfo.attach('page', {
+            body: screenshot,
+            contentType: 'image/png',
+        });
 
         for (const widgetName of simpleWidgets) {
             const hideWidget = await adminApiContext.post(`./${widgetName}/hide`);
