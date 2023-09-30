@@ -11,7 +11,7 @@ import {
     SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR,
     SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR,
 } from "../../../config";
-import { formatScore } from "../../atoms/ContestCells";
+import { formatPenalty, formatScore, useNeedPenalty } from "../../atoms/ContestCells";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 // import { extractScoreboardRows, useScroller } from "./Scoreboard";
 import { TaskResultLabel, RankLabel } from "../../atoms/ContestLabels";
@@ -93,12 +93,15 @@ export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const contestData = useSelector((state) => state.contestInfo.info);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
+    const needPenalty = useNeedPenalty();
     return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1}>
         <RankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
         <ScoreboardRowName align={"center"} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={"center"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
-        {contestData?.resultType === "ICPC" && <ShrinkingBox align={"center"} text={scoreboardData?.penalty} />}
+        {needPenalty && <ShrinkingBox align={"center"} text={
+            formatPenalty(contestData, scoreboardData?.penalty)
+        } />}
         {!hideTasks && scoreboardData?.problemResults.map((result, i) =>
             <TaskResultLabel problemResult={result} key={i}
                 minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore}/>
@@ -205,11 +208,12 @@ const ScoreboardProblemLabel = styled(ProblemLabel)`
 
 const ScoreboardTableHeader = () => {
     const problems = useSelector((state) => state.contestInfo.info?.problems);
+    const needPenalty = useNeedPenalty();
     return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1}>
         <ScoreboardTableHeaderCell>Place</ScoreboardTableHeaderCell>
         <ScoreboardTableHeaderCell>Team name</ScoreboardTableHeaderCell>
         <ScoreboardTableHeaderCell>Points</ScoreboardTableHeaderCell>
-        <ScoreboardTableHeaderCell>Penalty</ScoreboardTableHeaderCell>
+        {needPenalty && <ScoreboardTableHeaderCell>Penalty</ScoreboardTableHeaderCell>}
         {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.name} letter={probData.letter}
             problemColor={probData.color}/>
         )}

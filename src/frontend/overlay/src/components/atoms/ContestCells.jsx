@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
     CELL_NAME_LEFT_PADDING,
@@ -36,6 +37,9 @@ export const formatPenalty = (contestInfo, penalty) => {
     }
 };
 
+export const useNeedPenalty = () => {
+    return useSelector((state) => state.contestInfo?.info?.penaltyRoundingMode !== "zero");
+}
 export const needPenalty = (contestInfo) => contestInfo?.penaltyRoundingMode !== "zero";
 
 

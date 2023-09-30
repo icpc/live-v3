@@ -1,0 +1,12 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+    "url": "http://localhost:8000",
+    "contestId": "",
+    "eventFeedPath": "",
+    "feedVersion": "2020_03"
+    }
+  ],
+  "useTeamNames": false
+}
