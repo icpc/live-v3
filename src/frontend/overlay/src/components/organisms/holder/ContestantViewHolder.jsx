@@ -6,7 +6,6 @@ import {
     TeamVideoWrapper,
     TeamWebRTCGrabberVideoWrapper,
     TeamWebRTCProxyVideoWrapper,
-    TeamVideoAnimationWrapperWithFixForOldBrowsers,
 } from "./TeamViewHolder";
 import styled from "styled-components";
 
