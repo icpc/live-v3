@@ -120,7 +120,7 @@ export const FullWidthWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
+/*export const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
   position: relative;
   width: 100%;
   display: flex;
@@ -129,7 +129,7 @@ export const TeamVideoAnimationWrapperWithFixForOldBrowsers = styled.div`
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
-`;
+`;*/
 
 
 const teamViewComponentRender = {
@@ -170,9 +170,9 @@ const teamViewComponentRender = {
         </FullWidthWrapper>;
     },
     WebRTCGrabberConnection: (props) => {
-        return <TeamVideoAnimationWrapperWithFixForOldBrowsers>
+        return <FullWidthWrapper>
             <TeamWebRTCGrabberVideoWrapper {...props}/>
-        </TeamVideoAnimationWrapperWithFixForOldBrowsers>;
+        </FullWidthWrapper>;
     },
 };
 
