@@ -2,7 +2,6 @@ import React, { useEffect, useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import {
-    CELL_QUEUE_VERDICT_WIDTH,
     PVP_APPEAR_TIME,
     STATISTICS_BG_COLOR,
     VERDICT_NOK,
@@ -13,7 +12,7 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { formatPenalty, formatScore, needPenalty, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
 import { StarIcon } from "../../atoms/Star";
-import { TeamWebRTCGrabberVideoWrapper, TeamWebRTCProxyVideoWrapper } from "../holder/TeamViewHolder";
+import { TeamWebRTCGrabberVideoWrapper, TeamWebRTCProxyVideoWrapper } from "../holder/ContestantViewHolder";
 // import { ScoreboardIOITaskCell } from "./Scoreboard";
 // import { TeamWebRTCProxyVideoWrapper, TeamWebRTCGrabberVideoWrapper } from "../holder/ContestantViewHolder";
 
