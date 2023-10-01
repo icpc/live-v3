@@ -1,0 +1,23 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="admin-start-local" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/src/frontend/admin/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="start" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs>
+      <env name="REACT_APP_BACKEND_URL" value="http://localhost:8080/api/admin" />
+      <env name="REACT_APP_WEBSOCKET_URL" value="ws://localhost:8080/api/admin" />
+      <env name="REACT_APP_OVERLAY_LOCATION" value="http://localhost:5173" />
+    </envs>
+    <method v="2">
+      <option name="NpmBeforeRunTask" enabled="true">
+        <package-json value="$PROJECT_DIR$/src/frontend/package.json" />
+        <command value="ci" />
+        <node-interpreter value="project" />
+        <envs />
+      </option>
+    </method>
+  </configuration>
+</component>
