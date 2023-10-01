@@ -281,6 +281,7 @@ const QueueTeamView = styled(ContestantViewHolder)`
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
+  position: relative; // fixme: ContestantViewHolder should be semantically relative and follow the flow.
 `;
 
 export const Featured = ({ runInfo }) => {
