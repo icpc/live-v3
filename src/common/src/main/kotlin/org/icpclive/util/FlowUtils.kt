@@ -1,8 +1,7 @@
 package org.icpclive.util
 
-import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -25,9 +24,13 @@ fun <T> reliableSharedFlow() = MutableSharedFlow<T>(
 )
 
 fun <T> Flow<T>.logAndRetryWithDelay(duration: Duration, log: (Throwable) -> Unit) = retryWhen { cause: Throwable, _: Long ->
-    log(cause)
-    delay(duration)
-    true
+    if (cause is CancellationException) {
+        false
+    } else {
+        log(cause)
+        delay(duration)
+        true
+    }
 }
 
 fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {

@@ -13,9 +13,10 @@ import org.icpclive.cds.*
 import org.icpclive.cds.adapters.addFirstToSolves
 import org.icpclive.cds.adapters.withContestInfoBefore
 import org.icpclive.clics.*
-import org.icpclive.clics.Award
-import org.icpclive.clics.Scoreboard
-import org.icpclive.clics.ScoreboardRow
+import org.icpclive.clics.v202207.*
+import org.icpclive.clics.v202207.Award
+import org.icpclive.clics.v202207.Scoreboard
+import org.icpclive.clics.v202207.ScoreboardRow
 import org.icpclive.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.scoreboard.calculateScoreboard
 import org.icpclive.util.defaultJsonSettings
@@ -111,16 +112,16 @@ object ClicsExporter  {
     private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block : (String, T?) -> Event) = emit { block(it, data) }
 
     private fun getContest(info: ContestInfo) = Contest(
-            id = "contest",
-            start_time = info.startTime.takeIf { it != Instant.fromEpochSeconds(0) },
-            name = info.name,
-            formal_name = info.name,
-            duration = info.contestLength,
-            scoreboard_freeze_duration = info.contestLength - info.freezeTime,
-            countdown_pause_time = info.holdBeforeStartTime,
-            penalty_time = info.penaltyPerWrongAttempt,
-            scoreboard_type = "pass-fail",
-        )
+        id = "contest",
+        name = info.name,
+        formal_name = info.name,
+        start_time = info.startTime.takeIf { it != Instant.fromEpochSeconds(0) },
+        countdown_pause_time = info.holdBeforeStartTime,
+        duration = info.contestLength,
+        scoreboard_freeze_duration = info.contestLength - info.freezeTime,
+        scoreboard_type = "pass-fail",
+        penalty_time = info.penaltyPerWrongAttempt,
+    )
 
     private suspend fun <T, CT> FlowCollector<EventProducer>.diffChange(
         old: MutableMap<String, T>,
@@ -259,7 +260,7 @@ object ClicsExporter  {
         problemIdToCdsId = newInfo.problemList.associate { it.id to it.contestSystemId }
         teamIdToCdsId = newInfo.teamList.associate { it.id to it.contestSystemId }
 
-        diff(oldInfo, newInfo, ::getContest, Event::ContestEventNamedWithSpec)
+        diff(oldInfo, newInfo, ::getContest, Event::ContestEvent)
         diff(oldInfo, newInfo, ::getState, Event::StateEvent)
         if (oldInfo == null) {
             for (type in judgmentTypes.values) {
@@ -401,9 +402,9 @@ object ClicsExporter  {
             get {
                 call.respond(
                     ApiInfo(
-                        "2022_07",
-                        "https://ccs-specs.icpc.io/2022-07/contest_api",
-                        ApiProvider("icpc live")
+                        version = "2022_07",
+                        versionUrl = "https://ccs-specs.icpc.io/2022-07/contest_api",
+                        name = "icpc live"
                     )
                 )
             }

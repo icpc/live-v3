@@ -1,26 +1,21 @@
 @file:Suppress("UNUSED")
 @file:UseContextualSerialization(Media::class)
-package org.icpclive.clics
+package org.icpclive.clics.v202207
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
+import org.icpclive.clics.ClicsTime
 import org.icpclive.util.ColorSerializer
 import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
 import kotlin.time.Duration
 
 @Serializable
-data class ApiProvider(
-    val name: String,
-    val version: String? = null,
-    val logo: List<Media> = emptyList(),
-)
-
-@Serializable
 data class ApiInfo(
     val version: String,
     val versionUrl: String,
-    val provider: ApiProvider
+    val name: String? = null,
+    val logo: List<Media> = emptyList(),
 )
 
 @Serializable
@@ -34,6 +29,43 @@ data class Access(
     val capabilities: List<String>,
     val endpoints: List<Endpoint>
 )
+
+@Serializable
+data class Contest(
+    val id: String,
+    val name: String? = null,
+    val formal_name: String? = null,
+    @Serializable(with = ClicsTime.InstantSerializer::class)
+    val start_time: Instant? = null,
+    @Serializable(with = ClicsTime.DurationSerializer::class)
+    val countdown_pause_time: Duration? = null,
+    @Serializable(with = ClicsTime.DurationSerializer::class)
+    val duration: Duration,
+    @Serializable(with = ClicsTime.DurationSerializer::class)
+    val scoreboard_freeze_duration: Duration?,
+    val scoreboard_type: String? = null,
+    @Serializable(with = DurationInMinutesSerializer::class)
+    val penalty_time: Duration? = null,
+    val banner: List<Media> = emptyList(),
+    val logo: List<Media> = emptyList(),
+)
+
+@Serializable
+data class JudgementType(
+    val id: String,
+    val name: String,
+    val penalty: Boolean,
+    val solved: Boolean,
+)
+
+@Serializable
+data class Language(
+    val id: String,
+    val name: String? = null,
+    val entry_point_required: Boolean? = null,
+    val extensions: List<String>? = null,
+)
+
 
 @Serializable
 data class Scoreboard(
@@ -69,36 +101,6 @@ data class ScoreboardRowProblem(
 )
 
 @Serializable
-enum class Operation {
-    @SerialName("create")
-    CREATE,
-
-    @SerialName("update")
-    UPDATE,
-
-    @SerialName("delete")
-    DELETE
-}
-
-@Serializable
-data class Contest(
-    val id: String,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
-    val start_time: Instant? = null,
-    val name: String? = null,
-    val formal_name: String? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
-    val duration: Duration,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
-    val scoreboard_freeze_duration: Duration?,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
-    val countdown_pause_time: Duration? = null,
-    @Serializable(with = DurationInMinutesSerializer::class)
-    val penalty_time: Duration? = null,
-    val scoreboard_type: String? = null
-)
-
-@Serializable
 data class Problem(
     val id: String,
     val ordinal: Int = 0,
@@ -113,6 +115,10 @@ data class Problem(
 data class Media(
     val mime: String,
     val href: String,
+    val fileName: String? = null,
+    val hash: String? = null,
+    val width: Int? = null,
+    val height: Int? = null
 )
 
 @Serializable
@@ -144,14 +150,6 @@ data class Group(
     val icpcId: String? = null,
     val name: String = "",
     val type: String? = null,
-)
-
-@Serializable
-data class JudgementType(
-    val id: String,
-    val name: String,
-    val solved: Boolean = false,
-    val penalty: Boolean = false
 )
 
 @Serializable
@@ -224,17 +222,6 @@ data class Commentary(
 )
 
 @Serializable
-data class Clarification(val id: String)
-
-@Serializable
-data class Language(
-    val id: String,
-    val name: String? = null,
-    val entry_point_required: Boolean? = null,
-    val extensions: List<String>? = null,
-)
-
-@Serializable
 data class Award(
     val id: String,
     val citation: String,
@@ -276,3 +263,8 @@ data class Account(
         STAFF
     }
 }
+
+@Serializable
+data class Clarification(
+    val id: String,
+)
