@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-    TICKER_SCOREBOARD_RANK_WIDTH,
-    TICKER_SCOREBOARD_REPEATS,
-    TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME,
-    TICKER_SCROLL_TRANSITION_TIME
-} from "../../../config";
+import c from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { ScoreboardRow } from "../widgets/Scoreboard";
 
@@ -20,7 +15,7 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
   height: 100%;
   width: 100%;
   position: absolute;
-  transition: top ${TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME}ms ease-in-out;
+  transition: top ${c.TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME}ms ease-in-out;
 `;
 
 export const Scoreboard = ({ tickerSettings, state }) => {
@@ -34,7 +29,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
                 if (state !== "exiting") {
                     setRow((row) => (row + 1) % nrows);
                 }
-            }, (periodMs - TICKER_SCROLL_TRANSITION_TIME) / nrows / TICKER_SCOREBOARD_REPEATS + 1);
+            }, (periodMs - c.TICKER_SCROLL_TRANSITION_TIME) / nrows / c.TICKER_SCOREBOARD_REPEATS + 1);
             return () => clearInterval(interval);
         }
     }, [nrows, periodMs, state]);
@@ -43,7 +38,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
             key={row.teamId}
             teamId={row.teamId}
             hideTasks={true}
-            rankWidth={TICKER_SCOREBOARD_RANK_WIDTH}
+            rankWidth={c.TICKER_SCOREBOARD_RANK_WIDTH}
             nameGrows={true}
             optimismLevel={SCOREBOARD_TYPES.normal}
         />)}

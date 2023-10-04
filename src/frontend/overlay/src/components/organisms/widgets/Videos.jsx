@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { pushLog } from "../../../redux/debug";
-import { VIDEO_APPEAR_TIME } from "../../../config";
+import c from "../../../config";
 
 const slideIn = keyframes`
   from {
@@ -31,7 +31,7 @@ const VideosContainerWrap = styled.div`
   display: ${props => props.show ? "flex" : "none"};
   justify-content: start;
   align-items: center;
-  animation: ${props => props.animation} ${VIDEO_APPEAR_TIME}ms ${props => props.animationStyle};
+  animation: ${props => props.animation} ${c.VIDEO_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
 
@@ -72,6 +72,6 @@ Videos.propTypes = {
 };
 
 Videos.ignoreAnimation = true;
-Videos.overrideTimeout = VIDEO_APPEAR_TIME;
+Videos.overrideTimeout = c.VIDEO_APPEAR_TIME;
 
 export default Videos;

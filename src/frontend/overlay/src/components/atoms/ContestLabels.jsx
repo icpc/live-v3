@@ -1,12 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import styled from "styled-components";
-import {
-    MEDAL_COLORS,
-    VERDICT_NOK2,
-    VERDICT_OK2,
-    VERDICT_UNKNOWN2,
-} from "../../config";
+import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 import { ShrinkingBox } from "./ShrinkingBox";
 import { formatScore, ICPCResult, IOIResult } from "./ContestCells";
@@ -38,10 +33,10 @@ const VerdictLabel = styled(ShrinkingBox)`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const ICPCVerdictLabel = ({ runResult, className }) => {
-    const color = runResult?.verdict.isAccepted ? VERDICT_OK2 : VERDICT_NOK2;
+    const color = runResult?.verdict.isAccepted ? c.VERDICT_OK2 : c.VERDICT_NOK2;
     return <VerdictLabel text={runResult?.verdict.shortName ?? "??"} color={color} align="center" className={className}/>;
 };
 
@@ -51,19 +46,19 @@ ICPCVerdictLabel.propTypes = {
 
 const getIOIScoreText = (difference) => {
     if (difference > 0) {
-        return [`+${formatScore(difference, 1)}`, VERDICT_OK2];
+        return [`+${formatScore(difference, 1)}`, c.VERDICT_OK2];
     }
     if (difference < 0) {
-        return [`-${formatScore(-difference, 1)}`, VERDICT_NOK2];
+        return [`-${formatScore(-difference, 1)}`, c.VERDICT_NOK2];
     }
-    return ["=", VERDICT_UNKNOWN2];
+    return ["=", c.VERDICT_UNKNOWN2];
 };
 
 const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
-        {wrongVerdict !== undefined && <ShrinkingBox text={wrongVerdict ?? "??"} color={VERDICT_NOK2} {...{ Wrapper: FlexedBox2, ...props }}/>}
-        {wrongVerdict === undefined && <ShrinkingBox text={diffText ?? "??"} color={diffColor} {...{ Wrapper: FlexedBox2, ...props }}/>}
+        {wrongVerdict !== undefined && <ShrinkingBox text={wrongVerdict ?? "??"} color={c.VERDICT_NOK2}/>}
+        {wrongVerdict === undefined && <ShrinkingBox text={diffText ?? "??"} color={diffColor}/>}
     </>;
 };
 IOIVerdictLabel.propTypes = {
@@ -95,21 +90,21 @@ const RankLabelWrap = styled.div`
 `;
 
 export const RankLabel = ({ rank, medal, className }) => {
-    const color = MEDAL_COLORS[medal];
+    const color = c.MEDAL_COLORS[medal];
     const dark = isShouldUseDarkColor(color);
     return <RankLabelWrap color={color} className={className} dark={dark}>
         {formatRank(rank)}
     </RankLabelWrap>;
 };
 
-const VerdictCellProgressBar2 = styled.div.attrs(({width}) => ({
+const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
     style: {
         width
     }
 }))`
   height: 100%;
   transition: width 250ms linear;
-  background-color: ${VERDICT_UNKNOWN2};
+  background-color: ${c.VERDICT_UNKNOWN2};
 `;
 
 
@@ -119,7 +114,7 @@ const VerdictCellInProgressWrap2 = styled.div`
   height: 100%;
   align-content: center;
   border-radius: 0 16px 16px 0;
-  border: 3px solid ${VERDICT_UNKNOWN2};
+  border: 3px solid ${c.VERDICT_UNKNOWN2};
   box-sizing: border-box;
 `;
 

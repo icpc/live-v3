@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { DateTime } from "luxon";
-import { LOG_LINES } from "../config";
+import c from "../config";
 import { DEBUG } from "../consts";
 
 const ActionTypes = {
@@ -45,7 +45,7 @@ export function debugReducer(state = initialState, action) {
             log: _.takeRight([
                 ...state.log,
                 action.payload
-            ], LOG_LINES)
+            ], c.LOG_LINES)
         };
     case ActionTypes.CLEAR_LOG:
         return {

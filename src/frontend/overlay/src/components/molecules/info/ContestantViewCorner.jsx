@@ -5,13 +5,13 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import { ContestantInfo } from "./ContestantInfo";
 import SubmissionRow from "./SubmissionRow";
 import styled from "styled-components";
-import {QUEUE_ROW_HEIGHT2, TEAMVIEW_SMALL_FACTOR} from "../../../config";
+import c from "../../../config";
 
 const ScoreboardColumnWrapper = styled.div`
   display: grid;
   z-index: 1;
   grid-template-columns: auto minmax(100px, 150px);
-  grid-auto-rows: ${QUEUE_ROW_HEIGHT2}px;
+  grid-auto-rows: ${c.QUEUE_ROW_HEIGHT2}px;
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: ${props => props.hasPInP ? 2 : 3};
@@ -19,7 +19,7 @@ const ScoreboardColumnWrapper = styled.div`
   align-self: end;
   width: auto;
   transform-origin: bottom left;
-  /*transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};*/
+  /*transform: ${props => props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};*/
   white-space: nowrap;
 `;
 const TeamInfoRow = styled.div`

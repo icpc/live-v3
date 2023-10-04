@@ -1,13 +1,7 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-    PVP_APPEAR_TIME,
-    STATISTICS_BG_COLOR,
-    VERDICT_NOK,
-    VERDICT_OK,
-    VERDICT_UNKNOWN
-} from "../../../config";
+import c from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { Cell } from "../../atoms/Cell";
 import { formatPenalty, formatScore, needPenalty, RankCell, TextShrinkingCell } from "../../atoms/ContestCells";
@@ -53,11 +47,11 @@ const TeamTaskStatus = Object.freeze({
     first: 5
 });
 const TeamTaskColor = Object.freeze({
-    [TeamTaskStatus.solved]: VERDICT_OK,
-    [TeamTaskStatus.failed]: VERDICT_NOK,
-    [TeamTaskStatus.untouched]: STATISTICS_BG_COLOR,
-    [TeamTaskStatus.unknown]: VERDICT_UNKNOWN,
-    [TeamTaskStatus.first]: VERDICT_OK,
+    [TeamTaskStatus.solved]: c.VERDICT_OK,
+    [TeamTaskStatus.failed]: c.VERDICT_NOK,
+    [TeamTaskStatus.untouched]: c.STATISTICS_BG_COLOR,
+    [TeamTaskStatus.unknown]: c.VERDICT_UNKNOWN,
+    [TeamTaskStatus.first]: c.VERDICT_OK,
 });
 
 const StatisticsProblemCellWithColorICPC = ({ probData, status }) => {
@@ -247,7 +241,7 @@ const ScoreboardWrapper = styled.div.attrs(({ align }) => ({ style: { justifyCon
   justify-content: start;
   position: relative;
   flex-direction: column;
-  animation: ${props => props.animation} ${PVP_APPEAR_TIME}ms ${props => props.animationStyle};
+  animation: ${props => props.animation} ${c.PVP_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
 
@@ -385,5 +379,5 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
     }
 };
 PVP.ignoreAnimation = true;
-PVP.overrideTimeout = PVP_APPEAR_TIME;
+PVP.overrideTimeout = c.PVP_APPEAR_TIME;
 export default PVP;

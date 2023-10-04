@@ -3,14 +3,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-    SCOREBOARD_ROW_TRANSITION_TIME,
-    SCOREBOARD_SCROLL_INTERVAL,
-    SCOREBOARD_BACKGROUND_COLOR,
-    SCOREBOARD_CAPTION,
-    SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR,
-    SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR,
-} from "../../../config";
+import c from "../../../config";
 import { formatPenalty, formatScore, useNeedPenalty } from "../../atoms/ContestCells";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 // import { extractScoreboardRows, useScroller } from "./Scoreboard";
@@ -27,7 +20,7 @@ const ScoreboardWrap = styled.div`
   padding: 7px 16px 0 16px;
   box-sizing: border-box;
   flex-direction: column;
-  background-color: ${SCOREBOARD_BACKGROUND_COLOR};
+  background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
   border-radius: 16px;
   overflow: hidden;
 `;
@@ -66,7 +59,7 @@ export const nameTable = {
 const ScoreboardTableRowWrap = styled.div`
   gap: 3px;
   box-sizing: border-box;
-  background-color: ${SCOREBOARD_BACKGROUND_COLOR};
+  background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
   display: grid;
   grid-template-columns: 73px 304px 81px 92px repeat(${props => props.nProblems}, 1fr);
 `;
@@ -75,8 +68,8 @@ const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
   height: 25px;
   overflow: hidden;
   box-sizing: content-box;
-  border-top: ${SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 3px;
-  border-bottom: ${SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 3px;
+  border-top: ${c.SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 1px;
+  border-bottom: ${c.SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 1px;
 
   text-align: center;
   font-size: 18px;
@@ -121,7 +114,7 @@ const PositionedScoreboardRow = styled.div.attrs(({ zIndex, pos }) => ({
     }
 }))`
   height: ${props => props.rowHeight + 2}px; /* FIXME lol */
-  transition: top ${SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
+  transition: top ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
   left: 0;
   right: 0;
   width: 100%;
@@ -185,7 +178,7 @@ export const ScoreboardRows = ({ settings }) => {
 };
 
 const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
-  // background-color: ${SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR};
+  /* background-color: ${c.SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR}; */
   border-radius: 16px 16px 0 0;
   overflow: hidden;
 
@@ -198,7 +191,7 @@ const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
 
 const ScoreboardTableHeaderCell = styled.div`
   text-align: center;
-  background-color: ${SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR};
+  background-color: ${c.SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR};
   padding: 0 8px;
 `;
 
@@ -232,7 +225,7 @@ export const Scoreboard = ({ widgetData: { settings } }) => {
                 {nameTable[settings.optimismLevel] ?? "??"} standings
             </ScoreboardTitle>
             <ScoreboardCaption>
-                {SCOREBOARD_CAPTION}
+                {c.SCOREBOARD_CAPTION}
             </ScoreboardCaption>
         </ScoreboardHeader>
         <ScoreboardContent>

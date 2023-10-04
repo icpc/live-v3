@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { TEAM_VIEW_APPEAR_TIME } from "../../../config";
+import c from "../../../config";
 import { ContestantViewHolder } from "../holder/ContestantViewHolder";
 import PVP from "./PVP";
 
@@ -30,7 +30,7 @@ const TeamViewContainer = styled.div`
   justify-content: start;
   align-items: flex-end;
   position: relative;
-  animation: ${props => props.animation} ${TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
+  animation: ${props => props.animation} ${c.TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
 
@@ -62,7 +62,7 @@ const TeamViewWrapper = styled.div`
 
 function TeamViewContent({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
 
-    console.log(Math.max(location.sizeY - location.sizeX * 9 / 16, 50))
+    console.log(Math.max(location.sizeY - location.sizeX * 9 / 16, 50));
 
     const hasPInP = settings.content.filter(e => !e.isMedia).concat(mediaContent).filter((c) => c.pInP).length > 0;
 
@@ -71,7 +71,7 @@ function TeamViewContent({ mediaContent, settings, setLoadedComponents, location
         {settings.content.filter(e => !e.isMedia).concat(mediaContent).map((c, index) => {
             const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
             const component = <ContestantViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
-                                                                       isSmall={isSmall} hasPInP={hasPInP}/>;
+                isSmall={isSmall} hasPInP={hasPInP}/>;
             if (c.pInP) {
                 return <TeamViewPInPWrapper key={c.type + index} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
             }
@@ -91,7 +91,7 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
         setLoadedComponents,
         location
     };
-    console.log(settings.content.length)
+    console.log(settings.content.length);
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
@@ -104,4 +104,4 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
     </TeamViewContainer>;
 };
 TeamView.ignoreAnimation = true;
-TeamView.overrideTimeout = TEAM_VIEW_APPEAR_TIME;
+TeamView.overrideTimeout = c.TEAM_VIEW_APPEAR_TIME;

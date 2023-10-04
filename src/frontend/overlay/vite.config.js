@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react";
 import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vitejs.dev/config/
+
+
 export default defineConfig({
     plugins: [
         react(),
@@ -15,6 +17,6 @@ export default defineConfig({
     ],
     base: process.env.PUBLIC_URL ?? "/",
     build: {
-        outDir: process.env.BUILD_PATH ?? "dist",
-    }
+        outDir: process.env.BUILD_PATH ?? "dist"
+    },
 });

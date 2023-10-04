@@ -1,5 +1,5 @@
 import React from "react";
-import { SVG_APPEAR_TIME } from "../../../config";
+import c from "../../../config";
 import PropTypes from "prop-types";
 
 export const Svg = ({ widgetData }) => {
@@ -15,6 +15,6 @@ Svg.propTypes = {
     })
 };
 
-Svg.overrideTimeout = SVG_APPEAR_TIME;
+Svg.overrideTimeout = c.SVG_APPEAR_TIME;
 
 export default Svg;

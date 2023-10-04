@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled, { keyframes } from "styled-components";
-import { PICTURES_APPEAR_TIME } from "../../../config";
+import c from "../../../config";
 import { pushLog } from "../../../redux/debug";
 
 
@@ -33,7 +33,7 @@ const PicturesContainerWrap = styled.div`
   justify-content: start;
   align-items: center;
   flex-direction: row;
-  animation: ${props => props.animation} ${PICTURES_APPEAR_TIME}ms ${props => props.animationStyle};
+  animation: ${props => props.animation} ${c.PICTURES_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
 
@@ -93,6 +93,6 @@ Pictures.propTypes = {
 };
 
 Pictures.ignoreAnimation = true;
-Pictures.overrideTimeout = PICTURES_APPEAR_TIME;
+Pictures.overrideTimeout = c.PICTURES_APPEAR_TIME;
 
 export default Pictures;

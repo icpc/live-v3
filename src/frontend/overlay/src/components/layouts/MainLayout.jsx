@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import bg from "../../assets/images/bg.png";
-import { WIDGET_TRANSITION_TIME } from "../../config";
+import c from "../../config";
 import { DEBUG } from "../../consts";
 import { useQueryParams } from "../../utils/query-params";
 import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
@@ -52,9 +52,9 @@ const WidgetWrap = styled.div.attrs(
 )`
   position: absolute;
   overflow: ${({ shouldCrop = true }) => shouldCrop ? "hidden" : ""};
-  animation: ${props => props.animation} ${WIDGET_TRANSITION_TIME}ms linear;
+  animation: ${props => props.animation} ${c.WIDGET_TRANSITION_TIME}ms linear;
   animation-fill-mode: forwards;
-  z-index: ${({zIndex}) => zIndex};
+  z-index: ${({ zIndex }) => zIndex};
 `;
 
 const MainLayoutWrap = styled.div`
@@ -100,7 +100,7 @@ export const MainLayout = () => {
                     // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
                     return null;
                 }
-                return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? WIDGET_TRANSITION_TIME}>
+                return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? c.WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
                             left={obj.location.positionX}

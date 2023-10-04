@@ -1,9 +1,5 @@
-import PropTypes from "prop-types";
 import styled from "styled-components";
-import {
-    GLOBAL_DEFAULT_FONT_FAMILY,
-    GLOBAL_DEFAULT_FONT_SIZE,
-} from "../../config";
+import c from "../../config";
 import React, { useCallback, useEffect, useRef } from "react";
 import { getTextWidth } from "./ContestCells";
 
@@ -15,8 +11,8 @@ const TextShrinkingWrap = styled.div`
 
 export const ShrinkingBox = ({
     text,
-    fontFamily = GLOBAL_DEFAULT_FONT_FAMILY,
-    fontSize = GLOBAL_DEFAULT_FONT_SIZE,
+    fontFamily = c.GLOBAL_DEFAULT_FONT_FAMILY,
+    fontSize = c.GLOBAL_DEFAULT_FONT_SIZE,
     align = "left",
     className
 }) => {
@@ -43,7 +39,7 @@ export const ShrinkingBox = ({
 };
 
 const TextShrinkingContainer = styled.div`
-  transform-origin: ${({align}) => align};
+  transform-origin: ${({ align }) => align};
   position: relative;
   text-align: ${({ align }) => align};
   color: ${({ color }) => color};

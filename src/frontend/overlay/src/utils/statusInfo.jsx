@@ -1,7 +1,4 @@
-import {
-    CELL_BG_COLOR,
-    VERDICT_NOK2, VERDICT_OK2, VERDICT_UNKNOWN2
-} from "../config";
+import c from "../config";
 
 export const TeamTaskStatus = Object.freeze({
     solved: 1,
@@ -34,16 +31,16 @@ export function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttemp
 }
 
 export const TeamTaskColor = Object.freeze({
-    [TeamTaskStatus.solved]: VERDICT_OK2,
-    [TeamTaskStatus.failed]: VERDICT_NOK2,
-    // [TeamTaskStatus.untouched]: STATISTICS_BG_COLOR,
-    [TeamTaskStatus.unknown]: VERDICT_UNKNOWN2,
-    [TeamTaskStatus.first]: VERDICT_OK2,
+    [TeamTaskStatus.solved]: c.VERDICT_OK2,
+    [TeamTaskStatus.failed]: c.VERDICT_NOK2,
+    // [TeamTaskStatus.untouched]: c.STATISTICS_BG_COLOR,
+    [TeamTaskStatus.unknown]: c.VERDICT_UNKNOWN2,
+    [TeamTaskStatus.first]: c.VERDICT_OK2,
 });
 
 export const getTeamTaskColor = (score, minScore, maxScore) => {
     if (score === undefined) {
-        return CELL_BG_COLOR;
+        return c.CELL_BG_COLOR;
     }
     if (minScore !== undefined && maxScore !== undefined) {
         const [minRed, minGreen, minBlue] = [203, 46, 40];

@@ -2,23 +2,13 @@ import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-    CELL_NAME_LEFT_PADDING,
-    CELL_NAME_RIGHT_PADDING,
-    CELL_PROBLEM_LINE_WIDTH,
-    GLOBAL_DEFAULT_FONT,
-    MEDAL_COLORS,
-    VERDICT_NOK,
-    VERDICT_OK,
-    VERDICT_UNKNOWN,
-    SCORE_NONE_TEXT
-} from "../../config";
+import c from "../../config";
 import { Cell } from "./Cell";
 import { StarIcon } from "./Star";
 
 export const formatScore = (score, digits = 2) => {
     if (score === undefined) {
-        return SCORE_NONE_TEXT;
+        return c.SCORE_NONE_TEXT;
     } else if (score === "*") {
         return score;
     }
@@ -39,12 +29,12 @@ export const formatPenalty = (contestInfo, penalty) => {
 
 export const useNeedPenalty = () => {
     return useSelector((state) => state.contestInfo?.info?.penaltyRoundingMode !== "zero");
-}
+};
 export const needPenalty = (contestInfo) => contestInfo?.penaltyRoundingMode !== "zero";
 
 
 export const ProblemCellWrap = styled(Cell)`
-  border-bottom: ${props => props.probColor} ${CELL_PROBLEM_LINE_WIDTH} solid;
+  border-bottom: ${props => props.probColor} ${c.CELL_PROBLEM_LINE_WIDTH} solid;
 `;
 
 export const ProblemCell = ({ probData, ...props }) => {
@@ -66,13 +56,13 @@ const VerdictCellProgressBar = styled.div.attrs(({ width }) => ({
   height: 100%;
   position: absolute;
   left: 0;
-  background-color: ${VERDICT_UNKNOWN};
+  background-color: ${c.VERDICT_UNKNOWN};
 `;
 
 
 const VerdictCellICPC = ({ result, ...props }) => {
     return <TextShrinkingCell
-        background={result.verdict.isAccepted ? VERDICT_OK : VERDICT_NOK}
+        background={result.verdict.isAccepted ? c.VERDICT_OK : c.VERDICT_NOK}
         align="center"
         text={result.verdict.shortName}
         canGrow={false}
@@ -227,13 +217,13 @@ const TextShrinkingWrap = styled(Cell)`
   flex-shrink: ${props => (props.canShrink ?? true) ? 1 : 0};
   overflow-x: hidden;
   justify-content: start;
-  padding-left: ${CELL_NAME_LEFT_PADDING};
-  padding-right: ${CELL_NAME_RIGHT_PADDING};
+  padding-left: ${c.CELL_NAME_LEFT_PADDING};
+  padding-right: ${c.CELL_NAME_RIGHT_PADDING};
 
   font: ${props => props.font};
 `;
 
-export const TextShrinkingCell = ({ text, font = GLOBAL_DEFAULT_FONT, align = "left", children, ...props }) => {
+export const TextShrinkingCell = ({ text, font = c.GLOBAL_DEFAULT_FONT, align = "left", children, ...props }) => {
     const textWidth = getTextWidth(text, font);
     const cellRef = useRef(null);
     const updateScale = useCallback((newCellRef) => {
@@ -275,7 +265,7 @@ export const formatRank = (rank) => {
 };
 
 export const RankCell = ({ rank, medal, ...props }) => {
-    return <Cell background={MEDAL_COLORS[medal]} {...props}>
+    return <Cell background={c.MEDAL_COLORS[medal]} {...props}>
         {formatRank(rank)}
     </Cell>;
 };

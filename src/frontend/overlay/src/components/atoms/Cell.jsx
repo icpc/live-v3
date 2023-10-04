@@ -1,13 +1,6 @@
 import PropTypes from "prop-types";
 import styled, { keyframes } from "styled-components";
-import {
-    CELL_BG_COLOR,
-    CELL_BG_COLOR_ODD,
-    CELL_FLASH_PERIOD,
-    CELL_FONT_FAMILY,
-    CELL_FONT_SIZE,
-    CELL_TEXT_COLOR
-} from "../../config";
+import c from "../../config";
 
 const flash = keyframes`
   from {
@@ -33,15 +26,15 @@ export const Cell = styled.div`
   flex-grow: ${props => (props.canGrow ?? false) ? 1 : 0};
   flex-basis: ${props => props.basis};
 
-  font-family: ${CELL_FONT_FAMILY};
-  font-size: ${CELL_FONT_SIZE};
+  font-family: ${c.CELL_FONT_FAMILY};
+  font-size: ${c.CELL_FONT_SIZE};
 
   box-sizing: border-box;
 
-  color: ${CELL_TEXT_COLOR};
-  background-color: ${(props) => props.background ?? ((props.isEven && CELL_BG_COLOR_ODD) || CELL_BG_COLOR)};
+  color: ${c.CELL_TEXT_COLOR};
+  background-color: ${(props) => props.background ?? ((props.isEven && c.CELL_BG_COLOR_ODD) || c.CELL_BG_COLOR)};
 
-  animation: ${props => props.flash ? flash : null} ${CELL_FLASH_PERIOD}ms linear infinite alternate-reverse;
+  animation: ${props => props.flash ? flash : null} ${c.CELL_FLASH_PERIOD}ms linear infinite alternate-reverse;
 `;
 
 Cell.propTypes = {

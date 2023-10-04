@@ -3,13 +3,7 @@ import { DateTime } from "luxon";
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-    CELL_QUEUE_VERDICT_WIDTH,
-    TEAMVIEW_SMALL_FACTOR,
-    VERDICT_NOK,
-    VERDICT_OK,
-    VERDICT_UNKNOWN
-} from "../../config";
+import c from "../../config";
 import { SCOREBOARD_TYPES } from "../../consts";
 import { Cell } from "../atoms/Cell";
 import { formatScore, ProblemCell, RankCell, TextShrinkingCell } from "../atoms/ContestCells";
@@ -50,11 +44,11 @@ const TeamTaskStatus = Object.freeze({
     first: 5
 });
 const TeamTaskColor = Object.freeze({
-    [TeamTaskStatus.solved]: VERDICT_OK,
-    [TeamTaskStatus.failed]: VERDICT_NOK,
+    [TeamTaskStatus.solved]: c.VERDICT_OK,
+    [TeamTaskStatus.failed]: c.VERDICT_NOK,
     [TeamTaskStatus.untouched]: undefined,
-    [TeamTaskStatus.unknown]: VERDICT_UNKNOWN,
-    [TeamTaskStatus.first]: VERDICT_OK,
+    [TeamTaskStatus.unknown]: c.VERDICT_UNKNOWN,
+    [TeamTaskStatus.first]: c.VERDICT_OK,
 });
 const TeamTaskSymbol = Object.freeze({
     [TeamTaskStatus.solved]: "+",
@@ -105,7 +99,7 @@ const ScoreboardColumnWrapper = styled.div`
   grid-auto-rows: 1fr;
   position: absolute;
   transform-origin: top right;
-  transform: ${props => props.isSmall ? `scale(${TEAMVIEW_SMALL_FACTOR})` : ""};
+  transform: ${props => props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};
   white-space: nowrap;
 `;
 const ScoreboardTeamInfoRow = styled.div`
@@ -137,20 +131,20 @@ export const ScoreboardColumn = ({ teamId, isSmall }) => {
                 <TeamInfo teamId={teamId}/>
             </ScoreboardTeamInfoRow>
             {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({
-                    wrongAttempts,
-                    pendingAttempts,
-                    isSolved,
-                    isFirstToSolve,
-                    lastSubmitTimeMs,
-                    index
-                }, i) =>
-                    getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null :
-                        <TaskRow key={i}>
-                            <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
-                            <StatisticsProblemCell probData={tasks[index]}/>
-                            <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
-                                                attempts={wrongAttempts + pendingAttempts}/>
-                        </TaskRow>
+                wrongAttempts,
+                pendingAttempts,
+                isSolved,
+                isFirstToSolve,
+                lastSubmitTimeMs,
+                index
+            }, i) =>
+                getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts) === TeamTaskStatus.untouched ? null :
+                    <TaskRow key={i}>
+                        <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
+                        <StatisticsProblemCell probData={tasks[index]}/>
+                        <ScoreboardTaskCell status={getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttempts)}
+                            attempts={wrongAttempts + pendingAttempts}/>
+                    </TaskRow>
             )}
         </ScoreboardColumnWrapper>;
     } else {
@@ -159,18 +153,18 @@ export const ScoreboardColumn = ({ teamId, isSmall }) => {
                 <TeamInfo teamId={teamId}/>
             </ScoreboardTeamInfoRow>
             {_.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs").flatMap(({
-                    score,
-                    lastSubmitTimeMs,
-                    index
-                }, i) =>
-                    (score === undefined || lastSubmitTimeMs === undefined) ? null :
-                        <TaskRow key={i}>
-                            <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
-                            <StatisticsProblemCell probData={tasks[index]}/>
-                            {/*<ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}*/}
-                            {/*                       minScore={contestData?.problems[index]?.minScore}*/}
-                            {/*                       maxScore={contestData?.problems[index]?.maxScore}/>*/}
-                        </TaskRow>
+                score,
+                lastSubmitTimeMs,
+                index
+            }, i) =>
+                (score === undefined || lastSubmitTimeMs === undefined) ? null :
+                    <TaskRow key={i}>
+                        <ScoreboardTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</ScoreboardTimeCell>
+                        <StatisticsProblemCell probData={tasks[index]}/>
+                        {/*<ScoreboardIOITaskCell width={CELL_QUEUE_VERDICT_WIDTH} score={score}*/}
+                        {/*                       minScore={contestData?.problems[index]?.minScore}*/}
+                        {/*                       maxScore={contestData?.problems[index]?.maxScore}/>*/}
+                    </TaskRow>
             )}
         </ScoreboardColumnWrapper>;
     }

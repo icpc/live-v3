@@ -1,18 +1,13 @@
 import React from "react";
 import ContestClock from "../../molecules/Clock";
 import styled from "styled-components";
-import {
-    FULL_SCREEN_CLOCK_COLOR,
-    FULL_SCREEN_CLOCK_FONT_FAMILY,
-    FULL_SCREEN_CLOCK_FONT_SIZE,
-    SVG_APPEAR_TIME
-} from "../../../config";
+import c from "../../../config";
 
 const ClockWrapper = styled.div`
-  color: ${FULL_SCREEN_CLOCK_COLOR};
-  font-size: ${FULL_SCREEN_CLOCK_FONT_SIZE};
+  color: ${c.FULL_SCREEN_CLOCK_COLOR};
+  font-size: ${c.FULL_SCREEN_CLOCK_FONT_SIZE};
   font-weight: bold;
-  font-family: ${FULL_SCREEN_CLOCK_FONT_FAMILY};
+  font-family: ${c.FULL_SCREEN_CLOCK_FONT_FAMILY};
 
   display: flex;
   justify-content: center;
@@ -26,6 +21,6 @@ export const FullScreenClock = ({ widgetData: { settings } }) => {
     </ClockWrapper>;
 };
 
-FullScreenClock.overrideTimeout = SVG_APPEAR_TIME;
+FullScreenClock.overrideTimeout = c.SVG_APPEAR_TIME;
 
 export default FullScreenClock;

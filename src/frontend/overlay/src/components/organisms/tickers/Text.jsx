@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { TICKER_FONT_FAMILY, TICKER_TEXT_FONT_SIZE, TICKER_TEXT_MARGIN_LEFT } from "../../../config";
+import c from "../../../config";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 
 export const TextWrap = styled.div`
     width: 100%;
     block-size: fit-content;
-    margin-left: ${props => props.part === "long" ? TICKER_TEXT_MARGIN_LEFT : undefined};
-    font-size: ${TICKER_TEXT_FONT_SIZE};
+    margin-left: ${props => props.part === "long" ? c.TICKER_TEXT_MARGIN_LEFT : undefined};
+    font-size: ${c.TICKER_TEXT_FONT_SIZE};
     display: flex;
     justify-content: ${props => props.part === "long" ? "flex-start" : "center"};
 `;
@@ -16,8 +16,8 @@ export const Text = ({ tickerSettings, part }) => {
     return <TextWrap part={part}>
         <ShrinkingBox
             text={tickerSettings.text}
-            fontSize={TICKER_TEXT_FONT_SIZE}
-            fontFamily={TICKER_FONT_FAMILY}
+            fontSize={c.TICKER_TEXT_FONT_SIZE}
+            fontFamily={c.TICKER_FONT_FAMILY}
             align={part === "long" ? "left" : "center"}
         />
     </TextWrap>;

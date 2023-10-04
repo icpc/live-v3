@@ -1,20 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import {
-    CELL_FONT_FAMILY,
-    STATISTICS_BG_COLOR,
-    STATISTICS_CELL_MORPH_TIME,
-    STATISTICS_OPACITY,
-    STATISTICS_STATS_VALUE_COLOR,
-    STATISTICS_STATS_VALUE_FONT_FAMILY,
-    STATISTICS_STATS_VALUE_FONT_SIZE,
-    STATISTICS_TITLE_COLOR,
-    STATISTICS_TITLE_FONT_SIZE,
-    VERDICT_NOK,
-    VERDICT_OK,
-    VERDICT_UNKNOWN
-} from "../../../config";
+import c from "../../../config";
 import { getTeamTaskColor } from "../../../utils/statusInfo";
 import { Cell } from "../../atoms/Cell";
 import { ProblemCell } from "../../atoms/ContestCells";
@@ -31,16 +18,16 @@ const StatisticsWrap = styled.div`
   bottom: 0;
   display: flex;
   flex-direction: column;
-  opacity: ${STATISTICS_OPACITY};
-  background: ${STATISTICS_BG_COLOR};
+  opacity: ${c.STATISTICS_OPACITY};
+  background: ${c.STATISTICS_BG_COLOR};
 `;
 
 const Title = styled.div`
-  background: ${VERDICT_NOK};
-  color: ${STATISTICS_TITLE_COLOR};
-  font-size: ${STATISTICS_TITLE_FONT_SIZE};
+  background: ${c.VERDICT_NOK};
+  color: ${c.STATISTICS_TITLE_COLOR};
+  font-size: ${c.STATISTICS_TITLE_FONT_SIZE};
   text-align: center;
-  font-family: ${CELL_FONT_FAMILY}
+  font-family: ${c.CELL_FONT_FAMILY}
 `;
 
 const Table = styled.div`
@@ -60,9 +47,9 @@ const SubmissionStats = styled.div`
   align-content: center;
   height: 100%;
   width: 100%;
-  font-size: ${STATISTICS_STATS_VALUE_FONT_SIZE};
-  font-family: ${STATISTICS_STATS_VALUE_FONT_FAMILY};
-  color: ${STATISTICS_STATS_VALUE_COLOR};
+  font-size: ${c.STATISTICS_STATS_VALUE_FONT_SIZE};
+  font-family: ${c.STATISTICS_STATS_VALUE_FONT_FAMILY};
+  color: ${c.STATISTICS_STATS_VALUE_COLOR};
 `;
 
 const StatEntry = styled(Cell).attrs(({ targetWidth }) => ({
@@ -71,13 +58,13 @@ const StatEntry = styled(Cell).attrs(({ targetWidth }) => ({
     }
 }))`
   background: ${props => props.color};
-  transition: width linear ${STATISTICS_CELL_MORPH_TIME}ms;
+  transition: width linear ${c.STATISTICS_CELL_MORPH_TIME}ms;
   height: 100%;
   overflow: hidden;
   float: left;
   box-sizing: border-box;
   text-align: center;
-  font-family: ${CELL_FONT_FAMILY};
+  font-family: ${c.CELL_FONT_FAMILY};
   &:before {
     content: '';
     display: inline-block;
@@ -115,13 +102,13 @@ export const Statistics = () => {
                         <StatisticsProblemCell probData={tasks[index]}/>
                         {resultType === "ICPC" &&
                         <SubmissionStats>
-                            <StatEntry targetWidth={calculator(success, true)} color={VERDICT_OK}>
+                            <StatEntry targetWidth={calculator(success, true)} color={c.VERDICT_OK}>
                                 {success}
                             </StatEntry>
-                            <StatEntry targetWidth={calculator(pending, true)} color={VERDICT_UNKNOWN}>
+                            <StatEntry targetWidth={calculator(pending, true)} color={c.VERDICT_UNKNOWN}>
                                 {pending}
                             </StatEntry>
-                            <StatEntry targetWidth={calculator(wrong, true)} color={VERDICT_NOK}>
+                            <StatEntry targetWidth={calculator(wrong, true)} color={c.VERDICT_NOK}>
                                 {wrong}
                             </StatEntry>
                         </SubmissionStats>

@@ -1,19 +1,11 @@
 import PropTypes from "prop-types";
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Transition, TransitionGroup} from "react-transition-group";
-import styled, {keyframes} from "styled-components";
-import {
-    GLOBAL_BORDER_RADIUS,
-    SCOREBOARD_BACKGROUND_COLOR,
-    TICKER_FONT_COLOR,
-    TICKER_FONT_FAMILY, TICKER_LIVE_ICON_SIZE,
-    TICKER_SCROLL_TRANSITION_TIME,
-    TICKER_SMALL_BACKGROUND,
-    TICKER_SMALL_SIZE
-} from "../../../config";
-import {pushLog} from "../../../redux/debug";
-import {startScrolling, stopScrolling} from "../../../redux/ticker";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Transition, TransitionGroup } from "react-transition-group";
+import styled, { keyframes } from "styled-components";
+import c from "../../../config";
+import { pushLog } from "../../../redux/debug";
+import { startScrolling, stopScrolling } from "../../../redux/ticker";
 import live from "../../../assets/icons/live.svg";
 import Clock from "../tickers/Clock";
 import Scoreboard from "../tickers/Scoreboard";
@@ -47,17 +39,17 @@ const TickerRowContainer = styled.div`
   overflow: hidden;
   height: 100%;
   width: 100%;
-  animation: ${props => props.animation} ease-in-out ${TICKER_SCROLL_TRANSITION_TIME}ms;
+  animation: ${props => props.animation} ease-in-out ${c.TICKER_SCROLL_TRANSITION_TIME}ms;
   animation-fill-mode: forwards;
 
   display: flex;
   justify-content: center;
   align-items: center;
   
-  font-family: ${TICKER_FONT_FAMILY};
+  font-family: ${c.TICKER_FONT_FAMILY};
 `;
 
-const TickerRow = ({children, state}) => {
+const TickerRow = ({ children, state }) => {
     return (
         <TickerRowContainer animation={transitionProps[state]}>
             {children}
@@ -70,7 +62,7 @@ const SingleTickerWrap = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-  border-radius: ${GLOBAL_BORDER_RADIUS};
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
   background-color: ${props => props.color};
   display: flex;
   justify-content: ${props => props.justify};
@@ -84,20 +76,20 @@ const widgetTypes = Object.freeze({
     scoreboard: Scoreboard
 });
 
-const DefaultTicker = ({tickerSettings}) => {
-    return <div style={{backgroundColor: "red", wordBreak: "break-all"}}>
+const DefaultTicker = ({ tickerSettings }) => {
+    return <div style={{ backgroundColor: "red", wordBreak: "break-all" }}>
         {JSON.stringify(tickerSettings)}
     </div>;
 };
 
-export const SingleTickerRows = ({part}) => {
+export const SingleTickerRows = ({ part }) => {
     const dispatch = useDispatch();
     const curMessage = useSelector((state) => state.ticker.tickers[part].curDisplaying);
     const isFirst = useSelector((state) => state.ticker.tickers[part].isFirst);
     return (
         <TransitionGroup component={null}>
             {curMessage &&
-                <Transition key={curMessage?.id} timeout={TICKER_SCROLL_TRANSITION_TIME}>
+                <Transition key={curMessage?.id} timeout={c.TICKER_SCROLL_TRANSITION_TIME}>
                     {(state) => {
                         const TickerComponent = widgetTypes[curMessage.type] ?? DefaultTicker;
                         if (TickerComponent === undefined) {
@@ -119,16 +111,16 @@ const ShortTickerGrid = styled.div`
   width: 100%;
   display: grid;
   margin: 0 8px;
-  grid-template-columns: ${TICKER_LIVE_ICON_SIZE} auto;
+  grid-template-columns: ${c.TICKER_LIVE_ICON_SIZE} auto;
   column-gap: 8px;
-`
+`;
 
 const LiveIcon = styled.img`
-  height: ${TICKER_LIVE_ICON_SIZE};
+  height: ${c.TICKER_LIVE_ICON_SIZE};
   padding: 8px 0;
-`
+`;
 
-export const SingleTicker = ({part, color}) => {
+export const SingleTicker = ({ part, color }) => {
     if (part === "short") {
         return (
             <SingleTickerWrap color={color}>
@@ -158,9 +150,9 @@ const TickerWrap = styled.div`
   height: 100%;
   position: absolute;
   z-index: 2147000000;
-  color: ${TICKER_FONT_COLOR};
+  color: ${c.TICKER_FONT_COLOR};
   display: grid;
-  grid-template-columns: ${TICKER_SMALL_SIZE} auto;
+  grid-template-columns: ${c.TICKER_SMALL_SIZE} auto;
   column-gap: 9px;
 `;
 
@@ -177,8 +169,8 @@ export const Ticker = () => {
     return <TickerWrap>
         {isLoaded &&
             <>
-                <SingleTicker part={"short"} color={TICKER_SMALL_BACKGROUND}/>
-                <SingleTicker part={"long"} color={SCOREBOARD_BACKGROUND_COLOR}/>
+                <SingleTicker part={"short"} color={c.TICKER_SMALL_BACKGROUND}/>
+                <SingleTicker part={"long"} color={c.SCOREBOARD_BACKGROUND_COLOR}/>
             </>
         }
     </TickerWrap>;
