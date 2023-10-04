@@ -72,20 +72,21 @@ const ScoreboardTableRowWrap = styled.div`
 `;
 
 const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
-  height: 44px;
+  height: 25px;
+  overflow: hidden;
   box-sizing: content-box;
   border-top: ${SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 3px;
   border-bottom: ${SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 3px;
 
   text-align: center;
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 300;
-  line-height: 44px; /* 183.333% */
+  line-height: 25px; /* 183.333% */
 `;
 
 const ScoreboardRowName = styled(ShrinkingBox)`
-  font-weight: 700;
+  //font-weight: 700;
   padding: 0 8px;
 `;
 
@@ -96,7 +97,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
     const needPenalty = useNeedPenalty();
     return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1}>
         <RankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
-        <ScoreboardRowName align={"center"} text={teamData?.shortName ?? "??"}/>
+        <ScoreboardRowName align={"left"} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={"center"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
         {needPenalty && <ShrinkingBox align={"center"} text={
@@ -172,11 +173,11 @@ export const ScoreboardRows = ({ settings }) => {
         useSelector((state) => state.scoreboard[settings.optimismLevel]),
         settings.group);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
-    const rowHeight = 44;
-    const scrollPos = useScroller(rows.length, settings.teamsOnPage, SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
+    const rowHeight = 25;
+    const scrollPos = useScroller(rows.length, settings.teamsOnPage, c.SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
     return <ScoreboardRowsWrap>
         {teams.map(([index, teamData]) =>
-            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * (rowHeight + 3) - 3}>
+            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * (rowHeight + 1) - 1}>
                 <ScoreboardRow teamId={teamData.teamId} optimismLevel={settings.optimismLevel}/>
             </PositionedScoreboardRow>
         )}
@@ -201,6 +202,10 @@ const ScoreboardTableHeaderCell = styled.div`
   padding: 0 8px;
 `;
 
+const ScoreboardTableHeaderNameCell = styled(ScoreboardTableHeaderCell)`
+  text-align: left;
+`;
+
 
 const ScoreboardProblemLabel = styled(ProblemLabel)`
   width: unset;
@@ -211,7 +216,7 @@ const ScoreboardTableHeader = () => {
     const needPenalty = useNeedPenalty();
     return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1}>
         <ScoreboardTableHeaderCell>Place</ScoreboardTableHeaderCell>
-        <ScoreboardTableHeaderCell>Team name</ScoreboardTableHeaderCell>
+        <ScoreboardTableHeaderNameCell>Team name</ScoreboardTableHeaderNameCell>
         <ScoreboardTableHeaderCell>Points</ScoreboardTableHeaderCell>
         {needPenalty && <ScoreboardTableHeaderCell>Penalty</ScoreboardTableHeaderCell>}
         {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.name} letter={probData.letter}
