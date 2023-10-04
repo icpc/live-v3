@@ -31,6 +31,7 @@ tasks {
             project.properties["live.dev.widgetPositionsFile"]?.let { "--widget-positions=$it" },
             project.properties["live.dev.contest"]?.let { "--config-directory=$it" },
             project.properties["live.dev.analyticsTemplatesFile"]?.let { "--analytics-template=$it" },
+            project.properties["live.dev.visualConfigFile"]?.let { "--visual-config=$it" },
         )
         this.workingDir = rootDir.resolve("config")
     }

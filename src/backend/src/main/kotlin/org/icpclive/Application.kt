@@ -16,6 +16,8 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.icpclive.admin.configureAdminApiRouting
@@ -144,6 +146,14 @@ fun Application.module() {
             .addFirstToSolves()
 
 
+        DataBus.visualConfigFlow.completeOrThrow(
+            config.visualConfigFile?.let {
+                fileJsonContentFlow<Map<String, String>>(it, logger).stateIn(this, SharingStarted.Eagerly, emptyMap())
+            } ?: MutableStateFlow(mutableMapOf("one" to "two"))
+        )
+
         launchServices(loader)
     }
 }
+
+private val logger = getLogger(Application::class)
