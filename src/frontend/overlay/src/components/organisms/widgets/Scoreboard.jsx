@@ -12,7 +12,7 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 
 
 const ScoreboardWrap = styled.div`
-  color: #FFF;
+  color: ${c.SCOREBOARD_TEXT_COLOR};
   height: 100%;
   width: 100%;
   display: flex;
@@ -21,7 +21,7 @@ const ScoreboardWrap = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
-  border-radius: 16px;
+  border-radius: ${c.SCOREBOARD_BORDER_RADIUS};
   overflow: hidden;
 `;
 
@@ -29,10 +29,10 @@ const ScoreboardHeader = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  font-size: 32px;
+  font-size: ${c.SCOREBOARD_CAPTION_FONT_SIZE};
   font-style: normal;
   font-weight: 700;
-  line-height: 44px; /* 137.5% */
+  padding-top: 0.3em;
 `;
 
 const ScoreboardTitle = styled.div`
@@ -46,7 +46,7 @@ const ScoreboardContent = styled.div`
   flex: 1 0 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: ${c.SCOREBOARD_TABLE_GAP}px;
 `;
 
 
@@ -57,30 +57,42 @@ export const nameTable = {
 };
 
 const ScoreboardTableRowWrap = styled.div`
-  gap: 3px;
+  gap: ${c.SCOREBOARD_TABLE_GAP}px;
   box-sizing: border-box;
   background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
   display: grid;
-  grid-template-columns: 73px 304px 81px 92px repeat(${props => props.nProblems}, 1fr);
+  grid-template-columns:
+          ${c.SCOREBOARD_TABLE_CELL_PLACE_SIZE}
+          ${c.SCOREBOARD_TABLE_CELL_TEAMNAME_SIZE} 
+          ${c.SCOREBOARD_TABLE_CELL_POINTS_SIZE} 
+          ${c.SCOREBOARD_TABLE_CELL_PENALTY_SIZE} 
+          repeat(${props => props.nProblems}, 1fr);
 `;
 
 const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
-  height: 25px;
+  height: ${c.SCOREBOARD_TABLE_ROW_HEIGHT}px;
   overflow: hidden;
   box-sizing: content-box;
   border-top: ${c.SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 1px;
   border-bottom: ${c.SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 1px;
-
-  text-align: center;
-  font-size: 18px;
+  
+  font-size: ${c.SCOREBOARD_TABLE_ROW_FONT_SIZE}px;
   font-style: normal;
   font-weight: 300;
-  line-height: 25px; /* 183.333% */
+
+  align-items: center;
 `;
 
 const ScoreboardRowName = styled(ShrinkingBox)`
   //font-weight: 700;
   padding: 0 8px;
+`;
+const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
+  align-self: stretch;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
@@ -90,14 +102,14 @@ export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
     const needPenalty = useNeedPenalty();
     return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1}>
         <RankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
-        <ScoreboardRowName align={"left"} text={teamData?.shortName ?? "??"}/>
-        <ShrinkingBox align={"center"}
+        <ScoreboardRowName align={c.SCOREBOARD_TABLE_CELL_TEAMNANE_ALIGN} text={teamData?.shortName ?? "??"}/>
+        <ShrinkingBox align={c.SCOREBOARD_TABLE_CELL_POINTS_ALIGN}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
-        {needPenalty && <ShrinkingBox align={"center"} text={
+        {needPenalty && <ShrinkingBox align={c.SCOREBOARD_TABLE_CELL_PENALTY_ALIGN} text={
             formatPenalty(contestData, scoreboardData?.penalty)
         } />}
         {!hideTasks && scoreboardData?.problemResults.map((result, i) =>
-            <TaskResultLabel problemResult={result} key={i}
+            <ScoreboardTaskResultLabel problemResult={result} key={i}
                 minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore}/>
         )}
     </ScoreboardRowWrap>;
@@ -113,7 +125,7 @@ const PositionedScoreboardRow = styled.div.attrs(({ zIndex, pos }) => ({
         top: pos + "px",
     }
 }))`
-  height: ${props => props.rowHeight + 2}px; /* FIXME lol */
+  height: ${c.SCOREBOARD_TABLE_ROW_HEIGHT}px;
   transition: top ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
   left: 0;
   right: 0;
@@ -166,11 +178,11 @@ export const ScoreboardRows = ({ settings }) => {
         useSelector((state) => state.scoreboard[settings.optimismLevel]),
         settings.group);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
-    const rowHeight = 25;
+    const rowHeight = c.SCOREBOARD_TABLE_ROW_HEIGHT;
     const scrollPos = useScroller(rows.length, settings.teamsOnPage, c.SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
     return <ScoreboardRowsWrap>
         {teams.map(([index, teamData]) =>
-            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * (rowHeight + 1) - 1}>
+            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * (rowHeight + c.SCOREBOARD_TABLE_ROW_GAP) - c.SCOREBOARD_TABLE_ROW_GAP}>
                 <ScoreboardRow teamId={teamData.teamId} optimismLevel={settings.optimismLevel}/>
             </PositionedScoreboardRow>
         )}
@@ -178,15 +190,14 @@ export const ScoreboardRows = ({ settings }) => {
 };
 
 const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
-  /* background-color: ${c.SCOREBOARD_TABLE_HEADER_BACKGROUND_COLOR}; */
   border-radius: 16px 16px 0 0;
   overflow: hidden;
+  height: ${c.SCOREBOARD_TABLE_HEADER_HEIGHT};
 
-  font-size: 21px;
+  font-size: ${c.SCOREBOARD_TABLE_HEADER_FONT_SIZE}px;
   font-style: normal;
   font-weight: 700;
-  line-height: 44px;
-  
+  line-height: ${c.SCOREBOARD_TABLE_HEADER_HEIGHT};
 `;
 
 const ScoreboardTableHeaderCell = styled.div`
