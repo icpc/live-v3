@@ -87,6 +87,14 @@ const ScoreboardRowName = styled(ShrinkingBox)`
   //font-weight: 700;
   padding: 0 8px;
 `;
+
+const ScoreboardRankLabel = styled(RankLabel)`
+  align-self: stretch;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
   align-self: stretch;
 
@@ -101,7 +109,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const needPenalty = useNeedPenalty();
     return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1}>
-        <RankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
+        <ScoreboardRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
         <ScoreboardRowName align={c.SCOREBOARD_TABLE_CELL_TEAMNANE_ALIGN} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={c.SCOREBOARD_TABLE_CELL_POINTS_ALIGN}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
