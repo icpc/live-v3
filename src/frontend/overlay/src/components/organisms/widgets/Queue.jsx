@@ -64,6 +64,15 @@ const slideInFromRight = () => keyframes`
   }
 `;
 
+const fadeOut = () => keyframes`
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+`;
+
 const appearStatesFeatured = {
     // entering: {},
     entering: css`
@@ -77,14 +86,15 @@ const appearStatesFeatured = {
     `,
 };
 
-const contractionStates = (fullHeight) => ({
+const queueRowContractionStates = (fullHeight) => ({
     entering: {
         animation: rowExpand(fullHeight),
         style: { alignItems: "flex-start" },
     },
     entered: {},
     exiting: {
-        animation: slideOutToRight(fullHeight),
+        animation: fadeOut(fullHeight),
+        // animation: slideOutToRight(fullHeight),
         // style: {alignItems: "flex-start"},
     },
     exited: {},
@@ -326,7 +336,7 @@ export const Queue = () => {
                                         bottom={row.bottom}
                                         zIndex={row.zIndex}
                                         fts={row.isFts}
-                                        {...contractionStates(c.QUEUE_ROW_HEIGHT2)[state]}
+                                        {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT2)[state]}
                                     >
                                         {/*<FeaturedRunRow2*/}
                                         {/*    isFeatured={row.isFeatured}*/}

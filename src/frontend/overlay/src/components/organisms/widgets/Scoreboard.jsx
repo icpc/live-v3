@@ -76,9 +76,9 @@ const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
   border-top: ${c.SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 1px;
   border-bottom: ${c.SCOREBOARD_TABLE_ROWS_DIVIDER_COLOR} solid 1px;
   
-  font-size: ${c.SCOREBOARD_TABLE_ROW_FONT_SIZE}px;
+  font-size: ${c.SCOREBOARD_TABLE_ROW_FONT_SIZE};
   font-style: normal;
-  font-weight: 300;
+  font-weight: ${c.SCOREBOARD_TABLE_ROW_FONT_WEIGHT};
 
   align-items: center;
 `;
