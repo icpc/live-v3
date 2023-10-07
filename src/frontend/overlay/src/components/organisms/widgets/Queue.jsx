@@ -272,6 +272,7 @@ const StyledFeatured = styled.div`
   
   background-color: ${c.QUEUE_BACKGROUND_COLOR};
   border-radius: 16px 0 0 16px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 3px;

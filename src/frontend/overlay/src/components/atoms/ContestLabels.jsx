@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, {memo} from "react";
 import styled from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
@@ -89,13 +89,13 @@ const RankLabelWrap = styled.div`
   color: ${props => props.dark ? "#000" : "#FFF"};
 `;
 
-export const RankLabel = ({ rank, medal, className }) => {
+export const RankLabel = memo(({ rank, medal, className }) => {
     const color = c.MEDAL_COLORS[medal];
     const dark = isShouldUseDarkColor(color);
     return <RankLabelWrap color={color} className={className} dark={dark}>
         {formatRank(rank)}
     </RankLabelWrap>;
-};
+});
 
 const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
     style: {
@@ -177,9 +177,9 @@ IOITaskResultLabel2.propTypes = {
     maxScore: PropTypes.number,
 };
 
-export const TaskResultLabel = ({ problemResult, minScore, maxScore, ...props }) => {
+export const TaskResultLabel = memo(({ problemResult, minScore, maxScore, ...props }) => {
     return <>
         {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}
         {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult} minScore={minScore} maxScore={maxScore} {...props}/>}
     </>;
-};
+});

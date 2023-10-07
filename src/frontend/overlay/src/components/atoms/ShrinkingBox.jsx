@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import c from "../../config";
-import React, {useCallback, useEffect, useRef} from "react";
+import React, {memo, useCallback, useEffect, useRef} from "react";
 
 const TextShrinkingWrap = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ export const getTextWidth = (text, font) => {
         return result;
     }
 };
-export const ShrinkingBox = ({
+export const ShrinkingBox = memo(({
     text,
     fontFamily = c.GLOBAL_DEFAULT_FONT_FAMILY,
     fontSize = c.GLOBAL_DEFAULT_FONT_SIZE,
@@ -56,7 +56,7 @@ export const ShrinkingBox = ({
             {text}
         </TextShrinkingContainer>
     </TextShrinkingWrap>;
-};
+});
 
 const TextShrinkingContainer = styled.div`
   transform-origin: ${({ align }) => align};
