@@ -2,6 +2,7 @@ package org.icpclive.cds
 
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
+import kotlinx.datetime.Instant
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestResultType
@@ -26,7 +27,8 @@ object CdsLoadersTest {
             goldenDataDir.resolve("pcms.txt"),
             PCMSSettings(
                 url = UrlOrLocalPath("testData/loaders/pcms.xml")
-            )
+            ),
+            AdvancedProperties(startTime = Instant.fromEpochSeconds(1670397300))
         )
     }
 
@@ -37,7 +39,8 @@ object CdsLoadersTest {
             PCMSSettings(
                 resultType = ContestResultType.IOI,
                 url = UrlOrLocalPath("testData/loaders/pcms-ioi.xml")
-            )
+            ),
+            AdvancedProperties(startTime = Instant.fromEpochSeconds(1670397300))
         )
     }
 
