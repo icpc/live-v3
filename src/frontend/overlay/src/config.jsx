@@ -10,6 +10,8 @@ const visualConfig = await fetch(VISUAL_CONFIG_URL)
 let config = {};
 
 config.CONTEST_COLOR = "#4C83C3";
+config.CONTEST_CAPTION = "46th";
+
 config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay");
 
 // Non Styling configs
@@ -17,8 +19,10 @@ config.WEBSOCKET_RECONNECT_TIME = 5000; // ms
 
 // Strings
 config.QUEUE_TITLE = "Queue";
-config.QUEUE_CAPTION = "46th";
-config.SCOREBOARD_CAPTION = "46th";
+config.QUEUE_CAPTION = config.CONTEST_CAPTION;
+config.SCOREBOARD_CAPTION = config.CONTEST_CAPTION;
+config.STATISTICS_TITLE = "Statistics";
+config.STATISTICS_CAPTION = config.CONTEST_CAPTION;
 
 // Behaviour
 config.TICKER_SCOREBOARD_REPEATS = 1;
@@ -44,7 +48,7 @@ config.STATISTICS_CELL_MORPH_TIME = 200; //ms
 config.CELL_FLASH_PERIOD = 500; //ms
 
 // Styles > Global
-config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica; serif", // css-property
+config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
 config.GLOBAL_DEFAULT_FONT_SIZE = "18px"; // css-property
 config.GLOBAL_DEFAULT_FONT = config.GLOBAL_DEFAULT_FONT_SIZE + " " + config.GLOBAL_DEFAULT_FONT_FAMILY; // css property MUST HAVE FONT SIZE
 config.GLOBAL_BACKGROUND_COLOR = "#242425";
@@ -82,7 +86,7 @@ config.SCOREBOARD_TABLE_GAP = 3; //px
 config.SCOREBOARD_TABLE_ROW_GAP = 1; // px
 
 
-
+config.QUEUE_ROW_BACKGROUND = "rgba(0, 0, 0, 0.08)";
 config.QUEUE_ROW_HEIGHT = 41; // px
 config.QUEUE_ROW_HEIGHT2 = 25; // px
 config.QUEUE_FTS_PADDING = config.QUEUE_ROW_HEIGHT / 2; // px
@@ -103,14 +107,17 @@ config.STATISTICS_TITLE_COLOR = "#FFFFFF";
 config.STATISTICS_STATS_VALUE_FONT_SIZE = "24pt";
 config.STATISTICS_STATS_VALUE_FONT_FAMILY = config.GLOBAL_DEFAULT_FONT_FAMILY;
 config.STATISTICS_STATS_VALUE_COLOR = "#FFFFFF";
-
+config.STATISTICS_BAR_HEIGHT_PX = 24;
+config.STATISTICS_BAR_HEIGHT = `${config.STATISTICS_BAR_HEIGHT_PX}px`;
+config.STATISTICS_BAR_GAP_PX = 16;
+config.STATISTICS_BAR_GAP = `${config.STATISTICS_BAR_GAP_PX}px`;
 
 config.CELL_FONT_FAMILY = config.GLOBAL_DEFAULT_FONT_FAMILY;
 config.CELL_FONT_SIZE = "18px";
 config.CELL_TEXT_COLOR = "#FFFFFF";
 config.CELL_TEXT_COLOR_INVERSE = "#000000";
 config.CELL_BG_COLOR = "#000000";
-config.CELL_BG_COLOR_ODD = "rgba(1; 1, 1, 0.9)",
+config.CELL_BG_COLOR_ODD = "rgba(1; 1, 1, 0.9)";
 config.CELL_BG_COLOR2 = "#1E1E1E";
 config.CELL_BG_COLOR_ODD2 = "#242424";
 
@@ -130,7 +137,7 @@ config.TICKER_SMALL_BACKGROUND = config.VERDICT_NOK;
 config.TICKER_BACKGROUND = config.CELL_BG_COLOR;
 config.TICKER_OPACITY = 0.95;
 config.TICKER_FONT_COLOR = "#FFFFFF";
-config.TICKER_FONT_FAMILY = "Helvetica; serif",
+config.TICKER_FONT_FAMILY = "Helvetica, serif";
 config.TICKER_TEXT_FONT_SIZE = "32px"; // css property
 config.TICKER_TEXT_MARGIN_LEFT = "16px"; // css property
 config.TICKER_CLOCK_FONT_SIZE = "32px"; // css property

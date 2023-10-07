@@ -11,6 +11,12 @@
     "sizeX": 1488,
     "sizeY": 984
   },
+  "statistics": {
+    "positionX": 16,
+    "positionY": 662,
+    "sizeX": 1488,
+    "sizeY": 338
+  },
   "ticker": {
     "positionX": 16,
     "positionY": 1016,

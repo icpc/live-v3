@@ -1,131 +1,106 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import c from "../../../config";
 import { getTeamTaskColor } from "../../../utils/statusInfo";
-import { Cell } from "../../atoms/Cell";
-import { ProblemCell } from "../../atoms/ContestCells";
-
-const AllDiv = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
-`;
+import { StackedBarsStatistics } from "../../molecules/statistics/StackedBarsStatistics";
 
 const StatisticsWrap = styled.div`
   width: 100%;
-  position: absolute;
-  bottom: 0;
+  height: 100%;
+  position: relative;
+  background-color: ${c.CONTEST_COLOR};
+  background-repeat: no-repeat;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
+  padding: 8px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  opacity: ${c.STATISTICS_OPACITY};
-  background: ${c.STATISTICS_BG_COLOR};
+  gap: 7px;
 `;
 
-const Title = styled.div`
-  background: ${c.VERDICT_NOK};
-  color: ${c.STATISTICS_TITLE_COLOR};
-  font-size: ${c.STATISTICS_TITLE_FONT_SIZE};
-  text-align: center;
-  font-family: ${c.CELL_FONT_FAMILY}
-`;
-
-const Table = styled.div`
-  height: 100%;
-  display: grid;
-  /* stylelint-disable-next-line */
-  grid-template-columns: auto 1fr;
-`;
-
-
-const SubmissionStats = styled.div`
-  grid-column: 2;
-  overflow: hidden;
-  text-align: end;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  height: 100%;
+const StatisticsHeader = styled.div`
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 44px;
+  color: white;
   width: 100%;
-  font-size: ${c.STATISTICS_STATS_VALUE_FONT_SIZE};
-  font-family: ${c.STATISTICS_STATS_VALUE_FONT_FAMILY};
-  color: ${c.STATISTICS_STATS_VALUE_COLOR};
+  display: flex;
 `;
 
-const StatEntry = styled(Cell).attrs(({ targetWidth }) => ({
-    style: {
-        width: targetWidth,
+const StatisticsHeaderTitle = styled.div`
+  flex: 1 0 0;
+`;
+
+const StatisticsHeaderCaption = styled.div``;
+
+
+const stackedBarsData = (resultType, tasks, statistics, count) => {
+    if (!tasks || !statistics || !count) {
+        return {
+            legend: [],
+            bars: [],
+        };
     }
-}))`
-  background: ${props => props.color};
-  transition: width linear ${c.STATISTICS_CELL_MORPH_TIME}ms;
-  height: 100%;
-  overflow: hidden;
-  float: left;
-  box-sizing: border-box;
-  text-align: center;
-  font-family: ${c.CELL_FONT_FAMILY};
-  &:before {
-    content: '';
-    display: inline-block;
-  }
-`;
 
-
-const StatisticsProblemCell = styled(ProblemCell)`
-  padding: 0 10px;
-  box-sizing: border-box;
-`;
-
-const getFormattedWidth = (count) => (val, fl) => {
-    if (fl) {
-        return `calc(max(${val / count * 100}%, ${val === 0 ? 0 : (val + "").length + 1}ch))`;
-    } else {
-        return `${val / count * 100}%`;
+    const bars = [];
+    if (resultType === "ICPC") {
+        bars.push(...statistics?.map(({result, success, pending, wrong}, index) => ({
+            name: tasks[index].letter,
+            color: tasks[index].color,
+            values: [
+                {
+                    color: c.VERDICT_OK2,
+                    caption: success ? success.toString() : "",
+                    value: count ? success / count : 0.0,
+                },
+                {
+                    color: c.VERDICT_UNKNOWN2,
+                    caption: pending ? pending.toString() : "",
+                    value: count ? pending / count : 0.0,
+                },
+                {
+                    color: c.VERDICT_NOK2,
+                    caption: wrong ? wrong.toString() : "",
+                    value: count ? wrong / count : 0.0,
+                },
+            ]
+        })));
+    } else if (resultType === "IOI") {
+        bars.push(...statistics?.map(({ result, success, pending, wrong }, index) => ({
+            name: tasks[index].letter,
+            color: tasks[index].color,
+            values: result.map(({ count: rCount, score }) => ({
+                color: getTeamTaskColor(score, tasks[index]?.minScore, tasks[index]?.maxScore),
+                value: count ? rCount / count : 0.0,
+            })),
+        })));
     }
-};
+    return {
+        legend: [],
+        bars: bars,
+    };
+}
 
-export const Statistics = () => {
-    const statistics = useSelector(state => state.statistics.statistics);
+export const Statistics = ({ widgetData: { location } }) => {
     const resultType = useSelector(state => state.contestInfo?.info?.resultType);
+    const statistics = useSelector(state => state.statistics.statistics);
     const count = useSelector(state => state.contestInfo?.info?.teams?.length);
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
-    const contestData = useSelector((state) => state.contestInfo?.info);
+    const rowsCount = Math.min(
+        tasks?.length ?? 0,
+        Math.floor((location.sizeY - 60) / (c.STATISTICS_BAR_HEIGHT_PX + c.STATISTICS_BAR_GAP_PX))
+    );
 
-    const calculator = getFormattedWidth(count);
-    return <AllDiv>
+    return (
         <StatisticsWrap>
-            <Title>Statistics</Title>
-            <Table>
-                {tasks && statistics?.map(({ result, success, pending, wrong }, index) => {
-                    return <Fragment key={index}>
-                        <StatisticsProblemCell probData={tasks[index]}/>
-                        {resultType === "ICPC" &&
-                        <SubmissionStats>
-                            <StatEntry targetWidth={calculator(success, true)} color={c.VERDICT_OK}>
-                                {success}
-                            </StatEntry>
-                            <StatEntry targetWidth={calculator(pending, true)} color={c.VERDICT_UNKNOWN}>
-                                {pending}
-                            </StatEntry>
-                            <StatEntry targetWidth={calculator(wrong, true)} color={c.VERDICT_NOK}>
-                                {wrong}
-                            </StatEntry>
-                        </SubmissionStats>
-                        }
-                        {resultType !== "ICPC" &&
-                            <SubmissionStats>
-                                {result.map(({ count, score }, i) => {
-                                    return <StatEntry targetWidth={calculator(count, false)} color={getTeamTaskColor(score, contestData?.problems[index]?.minScore, contestData?.problems[index]?.maxScore)} key={i}>
-                                    </StatEntry>;
-                                })}
-                            </SubmissionStats>
-                        }
+            <StatisticsHeader>
+                <StatisticsHeaderTitle>{c.STATISTICS_TITLE}</StatisticsHeaderTitle>
+                <StatisticsHeaderCaption>{c.STATISTICS_CAPTION}</StatisticsHeaderCaption>
+            </StatisticsHeader>
 
-                    </Fragment>;
-                })}
-            </Table>
+            <StackedBarsStatistics data={stackedBarsData(resultType, tasks, statistics, count)} rowsCount={rowsCount}/>
         </StatisticsWrap>
-    </AllDiv>;
+    )
 };
 export default Statistics;
