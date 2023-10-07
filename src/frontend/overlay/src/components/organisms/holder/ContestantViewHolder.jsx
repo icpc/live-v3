@@ -120,6 +120,7 @@ export const FullWidthWrapper = styled.div`
 `;
 
 const ContestantViewHolderCorner = styled(ContestantViewCorner)`
+  z-index: 1; // Fixme when there is a proper grid in TeamView
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: ${props => props.hasPInP ? 2 : 3};
@@ -191,7 +192,7 @@ export const ContestantViewHolder = ({ onLoadStatus, media, isSmall, hasPInP, cl
     if (Component === undefined) {
         useEffect(() => onLoadStatus(true),
             [media.teamId]);
-        return undefined;
+        return null;
     }
     if (!media.isMedia && media.type === "Photo") {
         return <Achievement src={media.url} onLoadStatus={onLoadStatus} className={className}/>
