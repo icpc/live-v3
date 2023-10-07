@@ -7,24 +7,16 @@ import SubmissionRow from "./SubmissionRow";
 import styled from "styled-components";
 import c from "../../../config";
 
-const ScoreboardColumnWrapper = styled.div`
+const ContestantViewCornerWrap = styled.div`
   display: grid;
-  z-index: 1;
+  
   grid-template-columns: auto minmax(100px, 150px);
   grid-auto-rows: ${c.QUEUE_ROW_HEIGHT2}px;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: ${props => props.hasPInP ? 2 : 3};
-  justify-self: end;
-  align-self: end;
+  
   width: auto;
-  transform-origin: bottom left;
+  //transform-origin: bottom left;
   /*transform: ${props => props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};*/
   white-space: nowrap;
-`;
-const TeamInfoRow = styled.div`
-  grid-column-start: 1;
-  grid-column-end: 3;
 `;
 const TaskRow = styled.div`
   display: flex;
@@ -33,7 +25,12 @@ const TaskRow = styled.div`
   grid-column-end: 3;
 `;
 
-export const ContestantViewCorner = ({ teamId, isSmall, hasPInP }) => {
+const CornerContestantInfo = styled(ContestantInfo)`
+  grid-column-start: 1;
+  grid-column-end: 3;
+`;
+
+export const ContestantViewCorner = ({ teamId, isSmall, className }) => {
     let scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
         scoreboardData.problemResults[i]["index"] = i;
@@ -43,7 +40,7 @@ export const ContestantViewCorner = ({ teamId, isSmall, hasPInP }) => {
 
     const results = _.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs")
         .filter(result => result.lastSubmitTimeMs !== undefined);
-    return <ScoreboardColumnWrapper isSmall={isSmall} hasPInP={hasPInP}>
+    return <ContestantViewCornerWrap isSmall={isSmall} className={className}>
         {results.map((result, i) =>
             <TaskRow key={i}>
                 <SubmissionRow
@@ -58,10 +55,7 @@ export const ContestantViewCorner = ({ teamId, isSmall, hasPInP }) => {
                 />
             </TaskRow>
         )}
-        <TeamInfoRow >
-            <ContestantInfo teamId={teamId} roundBR={results.length === 0} />
-        </TeamInfoRow>
-
-    </ScoreboardColumnWrapper>;
+        <CornerContestantInfo teamId={teamId} roundBR={results.length === 0} />
+    </ContestantViewCornerWrap>;
 
 };

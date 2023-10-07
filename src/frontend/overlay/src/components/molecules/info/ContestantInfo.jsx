@@ -6,7 +6,7 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import c from "../../../config";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel } from "../../atoms/ContestLabels";
-import { formatScore } from "../../atoms/ContestCells";
+import {formatPenalty, formatScore, useFormatPenalty} from "../../atoms/ContestCells";
 
 
 const rowFlashing = keyframes`
@@ -41,7 +41,9 @@ const borderRadius = ({
     const borderRadiusBR = (roundBR ?? roundB ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
     return `${borderRadiusTL} ${borderRadiusTR} ${borderRadiusBR} ${borderRadiusBL}`;
 };
-
+/**
+ * @deprecated Do not use this component or inherit from this component. This is old design
+ */
 export const ContestantRow = styled.div`
   background-color: ${({ background, medal, isEven }) => getContesterRowBackground(background, medal, isEven)};
   background-size: 34px 100%; /* TODO: 34 is a magic number for gradient medal color */
@@ -103,23 +105,21 @@ const ContestantInfoScoreLabel = styled(ShrinkingBox)`
   width: 51px;
   flex-shrink: 0;
   padding-right: 20px;
-  flex-direction: row-reverse;
+  box-sizing: content-box;
 `;
 
 
-export const ContestantInfo = ({ teamId, roundBR }) => {
+export const ContestantInfo = ({ teamId, roundBR= true, className }) => {
     const contestInfo = useSelector((state) => state.contestInfo.info);
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-
-    return <ContestantInfoWrap round={roundBR}>
+    const formatPenalty = useFormatPenalty();
+    return <ContestantInfoWrap round={roundBR} className={className}>
         <ContestantInfoLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
         <ContestantInfoTeamNameLabel text={teamData?.shortName ?? "??"}/>
         <ContestantInfoScoreLabel align={"right"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
         {contestInfo?.resultType !== "IOI" && <ContestantInfoScoreLabel align={"right"}
-            text={scoreboardData === null ? "??" : formatScore(scoreboardData?.penalty ?? 0.0, 1)}/>}
-
-
+            text={formatPenalty(scoreboardData?.penalty)}/>}
     </ContestantInfoWrap>;
 };

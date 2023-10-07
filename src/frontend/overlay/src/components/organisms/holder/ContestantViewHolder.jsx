@@ -119,12 +119,20 @@ export const FullWidthWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+const ContestantViewHolderCorner = styled(ContestantViewCorner)`
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: ${props => props.hasPInP ? 2 : 3};
+  justify-self: end;
+  align-self: end;
+`;
+
 const teamViewComponentRender = {
-    TaskStatus: ({ onLoadStatus, ...props }) => {
+    TaskStatus: ({ onLoadStatus, hasPInP, ...props }) => {
         useLayoutEffect(() => onLoadStatus(true),
             []);
         console.log(props.teamId);
-        return <ContestantViewCorner {...props}/>;
+        return <ContestantViewHolderCorner hasPInP={hasPInP} {...props}/>;
     },
     Photo: ({ onLoadStatus, url, className }) => {
         return <FullWidthWrapper className={className}>

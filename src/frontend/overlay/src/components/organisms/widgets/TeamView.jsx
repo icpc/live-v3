@@ -61,11 +61,7 @@ const TeamViewWrapper = styled.div`
 
 
 function TeamViewContent({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
-
-    console.log(Math.max(location.sizeY - location.sizeX * 9 / 16, 50));
-
     const hasPInP = settings.content.filter(e => !e.isMedia).concat(mediaContent).filter((c) => c.pInP).length > 0;
-
 
     return <TeamViewWrapper sizeX={location.sizeX} sizeY={location.sizeY}>
         {settings.content.filter(e => !e.isMedia).concat(mediaContent).map((c, index) => {
@@ -91,7 +87,6 @@ export const TeamView = ({ widgetData: { settings, location }, transitionState }
         setLoadedComponents,
         location
     };
-    console.log(settings.content.length);
     return <TeamViewContainer
         show={isLoaded}
         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}

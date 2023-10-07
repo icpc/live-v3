@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import React, {useCallback, useEffect, useRef} from "react";
+import {useSelector} from "react-redux";
 import styled from "styled-components";
 import c from "../../config";
-import { Cell } from "./Cell";
-import { StarIcon } from "./Star";
+import {Cell} from "./Cell";
+import {StarIcon} from "./Star";
+import {getTextWidth} from "./ShrinkingBox";
 
 export const formatScore = (score, digits = 2) => {
     if (score === undefined) {
@@ -14,6 +15,21 @@ export const formatScore = (score, digits = 2) => {
     }
     return score?.toFixed((score - Math.floor(score)) > 0 ? digits : 0);
 };
+const usePenaltyRoundingMode = () => useSelector((state) => state.contestInfo?.info?.penaltyRoundingMode);
+
+export const useFormatPenalty = () => {
+    const mode = usePenaltyRoundingMode();
+    return useCallback((penalty) => {
+        if (penalty === undefined || penalty === null) {
+            return "";
+        }
+        if (mode === "sum_in_seconds" || mode === "last") {
+            return Math.floor(penalty / 60) + ":" + (penalty % 60 < 10 ? "0" : "") + (penalty % 60);
+        } else {
+            return Math.floor(penalty / 60);
+        }
+    }, [mode]);
+}
 
 export const formatPenalty = (contestInfo, penalty) => {
     if (penalty === undefined || penalty === null) {
@@ -28,7 +44,7 @@ export const formatPenalty = (contestInfo, penalty) => {
 };
 
 export const useNeedPenalty = () => {
-    return useSelector((state) => state.contestInfo?.info?.penaltyRoundingMode !== "zero");
+    return usePenaltyRoundingMode() !== "zero";
 };
 export const needPenalty = (contestInfo) => contestInfo?.penaltyRoundingMode !== "zero";
 
@@ -185,24 +201,6 @@ VerdictCell.propTypes = {
     })
 };
 
-const storage = window.localStorage;
-export const getTextWidth = (text, font) => {
-    const key = text + ";" + font;
-    const cached = storage.getItem(key);
-    if (cached) {
-        return cached;
-    } else {
-        // re-use canvas object for better performance
-        const canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
-        const context = canvas.getContext("2d");
-        context.font = font;
-        const metrics = context.measureText(text);
-        const result = metrics.width;
-        storage.setItem(key, result);
-        return result;
-    }
-};
-
 
 const TextShrinkingContainer = styled.div`
   white-space: nowrap;
@@ -223,6 +221,16 @@ const TextShrinkingWrap = styled(Cell)`
   font: ${props => props.font};
 `;
 
+/**
+ * @deprecated Use {@link ShrinkingBox}
+ * @param text
+ * @param font
+ * @param align
+ * @param children
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const TextShrinkingCell = ({ text, font = c.GLOBAL_DEFAULT_FONT, align = "left", children, ...props }) => {
     const textWidth = getTextWidth(text, font);
     const cellRef = useRef(null);

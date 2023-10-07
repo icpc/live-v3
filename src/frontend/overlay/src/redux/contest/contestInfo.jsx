@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { getTextWidth } from "../../components/atoms/ContestCells";
 import c from "../../config";
+import {getTextWidth} from "../../components/atoms/ShrinkingBox";
 
 const ActionTypes = {
     CONTEST_INFO_SET: "CONTEST_INFO_SET",

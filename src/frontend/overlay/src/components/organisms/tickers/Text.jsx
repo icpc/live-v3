@@ -6,8 +6,9 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 export const TextWrap = styled.div`
     width: 100%;
     block-size: fit-content;
-    margin-left: ${props => props.part === "long" ? c.TICKER_TEXT_MARGIN_LEFT : undefined};
     font-size: ${c.TICKER_TEXT_FONT_SIZE};
+    padding: 0 16px;
+  box-sizing: border-box;
     display: flex;
     justify-content: ${props => props.part === "long" ? "flex-start" : "center"};
 `;

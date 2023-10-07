@@ -14,18 +14,13 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
 
-    height: 100vh;
-    width: 100vw;
+    //height: 100vh;
+    //width: 100vw;
 
     font-family: Helvetica, sans-serif;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  #root {
-    height: 100vh;
-    width: 100vw;
   }
 
   * {
