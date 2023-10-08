@@ -7,7 +7,7 @@ const BarsWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  gap: ${c.STATISTICS_BAR_GAP_PX}px;
+  gap: ${c.STATISTICS_BAR_GAP};
   grid-auto-flow: column;
   grid-template-rows: repeat(${({rowsCount}) => rowsCount}, 1fr);
 `

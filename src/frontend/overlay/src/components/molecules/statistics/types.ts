@@ -10,13 +10,12 @@ export interface BarData {
     readonly values: BarValue[];
 }
 
-export interface CriterionDescription {
-    readonly criterion: string;
+export interface LegendDescription {
     readonly caption: string;
     readonly color: string;
 }
 
 export interface StackedBarsData {
-    readonly criterions: CriterionDescription[];
+    readonly legends: LegendDescription[];
     readonly bars: BarData[];
 }

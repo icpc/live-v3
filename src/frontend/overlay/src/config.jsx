@@ -50,6 +50,7 @@ config.CELL_FLASH_PERIOD = 500; //ms
 // Styles > Global
 config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
 config.GLOBAL_DEFAULT_FONT_SIZE = "18px"; // css-property
+config.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD = 700; // css-property
 config.GLOBAL_DEFAULT_FONT = config.GLOBAL_DEFAULT_FONT_SIZE + " " + config.GLOBAL_DEFAULT_FONT_FAMILY; // css property MUST HAVE FONT SIZE
 config.GLOBAL_BACKGROUND_COLOR = "#242425";
 config.GLOBAL_TEXT_COLOR = "#FFF";
@@ -137,7 +138,7 @@ config.TICKER_SMALL_BACKGROUND = config.VERDICT_NOK;
 config.TICKER_BACKGROUND = config.CELL_BG_COLOR;
 config.TICKER_OPACITY = 0.95;
 config.TICKER_FONT_COLOR = "#FFFFFF";
-config.TICKER_FONT_FAMILY = "Helvetica, serif";
+config.TICKER_FONT_FAMILY = config.GLOBAL_DEFAULT_FONT_FAMILY;
 config.TICKER_TEXT_FONT_SIZE = "32px"; // css property
 config.TICKER_TEXT_MARGIN_LEFT = "16px"; // css property
 config.TICKER_CLOCK_FONT_SIZE = "32px"; // css property

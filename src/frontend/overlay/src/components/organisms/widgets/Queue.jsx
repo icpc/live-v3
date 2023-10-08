@@ -249,7 +249,7 @@ const RowsContainer = styled.div`
 
 const QueueHeader = styled.div`
   font-size: 32px;
-  font-weight: 700;
+  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   line-height: 44px;
   color: white;
   width: 100%;
