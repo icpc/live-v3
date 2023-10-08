@@ -69,14 +69,12 @@ public data class GroupInfoOverride(
 )
 
 /**
- * @param medals List of awarded medals. They would be allocated in given order, according to rules specified in [MedalType]
  * @param penaltyPerWrongAttempt How many penalty minutes should be added to a team for a wrong attempt
  * @param showTeamsWithoutSubmissions If true, teams without submissions would be automatically hidden
  * @param penaltyRoundingMode Specify rules of how total penalty is calculated based on many submissions
  */
 @Serializable
 public data class RankingSettings(
-    public val medals: List<MedalType>? = null,
     @Serializable(with = DurationInMinutesSerializer::class)
     public val penaltyPerWrongAttempt: Duration? = null,
     public val showTeamsWithoutSubmissions: Boolean? = null,
@@ -153,7 +151,8 @@ public data class AdvancedProperties(
     val groupOverrides: Map<String, GroupInfoOverride>? = null,
     val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
-    val scoreboardOverrides: RankingSettings? = null
+    val scoreboardOverrides: RankingSettings? = null,
+    val awardsSettings: AwardsSettings? = null
 )
 
 internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
@@ -247,9 +246,9 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedPrope
             )
         },
         scoreboardOverrides = RankingSettings(
-            medals = medals.takeIfAsked("medals"),
             penaltyPerWrongAttempt = penaltyPerWrongAttempt.takeIfAsked("penaltyPerWrongAttempt"),
             penaltyRoundingMode = penaltyRoundingMode.takeIfAsked("penaltyRoundingMode")
-        )
+        ),
+        awardsSettings = awardsSettings.takeIfAsked("awards")
     )
 }

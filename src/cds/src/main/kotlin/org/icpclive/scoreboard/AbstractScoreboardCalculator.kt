@@ -12,12 +12,25 @@ import kotlin.time.Duration
 public data class Ranking(
     val order: List<Int>,
     val ranks: List<Int>,
-    val awards: Map<Award, Set<Int>>
+    val awards: List<Award>
 )
 
 public interface ScoreboardCalculator {
     public fun getScoreboardRow(info: ContestInfo, runs: List<RunInfo>): ScoreboardRow
     public fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking
+}
+
+private fun ordinalText(x: Int) =  if (x in 11..13) {
+    "$x-th"
+} else {
+    val r = x % 10
+    val suffix = when (r) {
+        1 -> "st"
+        2 -> "nd"
+        3 -> "rd"
+        else -> "th"
+    }
+    "$x-$suffix"
 }
 
 internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
@@ -26,62 +39,90 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
 
     @OptIn(InefficientContestInfoApi::class)
     override fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking {
-        val hasChampion = mutableSetOf<String>()
         val order_ = info.teamList.filterNot { it.isHidden }.map { it.id to rows[it.id]!! }.sortedWith { a, b ->
             comparator.compare(a.second, b.second)
         }
-        val awards = buildMap<Award, MutableSet<Int>> {
-            put(Award.Winner, mutableSetOf())
-            info.medals.forEach { put(Award.Medal(it.name), mutableSetOf()) }
-            info.groupList.forEach { if (it.awardsGroupChampion) put(Award.GroupChampion(it.cdsId), mutableSetOf()) }
-        }
+
         val order = order_.map { it.first }
         val ranks = MutableList(order.size) { 0 }
         val orderedRows = order_.map { it.second }
 
+        val firstGroupRank = mutableMapOf<String, Int>()
+
+        var nextRank = 1
         var right = 0
-        var outOfContestTeams = 0
         while (right < order.size) {
             val left = right
             while (right < order.size && comparator.compare(orderedRows[left], orderedRows[right]) == 0) {
                 right++
             }
-            val minRank = left + 1 - outOfContestTeams
-            val nextRank = minRank + order.subList(left, right).count { !info.teams[it]!!.isOutOfContest }
-            var skipped = 0
-            val totalScore = orderedRows[left].totalScore
-            for (type in info.medals) {
-                val canGetMedal = when (type.tiebreakMode) {
-                    MedalTiebreakMode.ALL -> minRank <= type.count + skipped
-                    MedalTiebreakMode.NONE -> nextRank <= type.count + skipped + 1
-                } && totalScore >= type.minScore
-                if (canGetMedal) {
-                    awards[Award.Medal(type.name)]!!.addAll(order.subList(left, right).filterNot { info.teams[it]!!.isOutOfContest })
-                    break
-                }
-                skipped += type.count
-            }
+            val curRank = nextRank
             for (i in left until right) {
                 val team = info.teams[order[i]]!!
-                if (team.isOutOfContest) {
-                    outOfContestTeams++
-                } else {
-                    if (minRank == 1 && totalScore > 0) {
-                        awards[Award.Winner]?.add(order[i])
-                    }
-                    ranks[i] = minRank
-                    for (it in team.groups) {
-                        if (it !in hasChampion) {
-                            awards[Award.GroupChampion(it)]?.add(order[i])
-                        }
+                if (!team.isOutOfContest) {
+                    ranks[i] = curRank
+                    nextRank++
+                    for (group in team.groups) {
+                        firstGroupRank.putIfAbsent(group, curRank)
                     }
                 }
             }
-            for (i in left until right) {
-                hasChampion.addAll(info.teams[order[i]]!!.groups)
+        }
+
+        val awardsSettings = info.awardsSettings
+        val teamRanks = (0 until ranks.size).groupBy({ ranks[it] }, { order[it] })
+        val awards = buildList {
+            awardsSettings.championTitle?.let { title ->
+                add(Award.Winner("winner", title, teamRanks[1]?.toSet() ?: emptySet()))
+            }
+            for ((groupId, title) in awardsSettings.groupsChampionTitles) {
+                val groupBestRank = firstGroupRank[groupId]
+                add(
+                    Award.GroupChampion("group-winner-$groupId", title, groupId,
+                        teamRanks[groupBestRank]!!.filter { groupId in info.teams[it]!!.groups }.toSet()
+                    )
+                )
+            }
+            for (medalGroup in awardsSettings.medalSettings) {
+                var position = 1
+                for (medal in medalGroup) {
+                    val rankLimit = medal.maxRank ?: nextRank
+                    val teams = buildSet {
+                        while (position <= rankLimit) {
+                            val teams = teamRanks[position] ?: break
+                            if (rows[teams[0]]!!.totalScore < medal.minScore) break
+                            if (medal.tiebreakMode == AwardsSettings.MedalTiebreakMode.NONE && (position + teams.size - 1) > rankLimit) break
+                            position += teams.size
+                            addAll(teams)
+                        }
+                    }
+                    add(
+                        Award.Medal(
+                            medal.id,
+                            medal.citation,
+                            medal.color,
+                            teams
+                        )
+                    )
+                }
+            }
+            for (rank in 1 .. awardsSettings.rankAwardsMaxRank) {
+                add(Award.Custom(
+                    "rank-$rank",
+                    "${ordinalText(rank)} place",
+                    teamRanks[rank]?.toSet() ?: emptySet()
+                ))
+            }
+            for (manual in awardsSettings.manual) {
+                add(Award.Custom(
+                    manual.id,
+                    manual.citation,
+                    manual.teamCdsIds.mapNotNull { info.cdsTeams[it]?.id }.toSet()
+                ))
             }
         }
-        return Ranking(order, ranks.toList(), awards.mapValues { (_, v) -> v.toSet() })
+
+        return Ranking(order, ranks.toList(), awards)
     }
 
     companion object {
@@ -107,8 +148,8 @@ public fun Scoreboard.toLegacyScoreboard(info: ContestInfo): LegacyScoreboard = 
             totalScore = row.totalScore,
             penalty = row.penalty,
             lastAccepted = row.lastAccepted.inWholeMilliseconds,
-            medalType = awards.entries.firstNotNullOfOrNull { e -> (e.key as? Award.Medal)?.medalType?.takeIf { teamId in e.value } },
-            championInGroups = awards.entries.mapNotNull { e -> (e.key as? Award.GroupChampion)?.group?.takeIf { teamId in e.value } },
+            medalType = awards.firstNotNullOfOrNull { e -> (e as? Award.Medal)?.medalColor?.takeIf { teamId in e.teams }?.name?.lowercase() },
+            championInGroups = awards.mapNotNull { e -> (e as? Award.GroupChampion)?.groupId?.takeIf { teamId in e.teams } },
             problemResults = row.problemResults,
             teamGroups = info.teams[teamId]!!.groups
         )

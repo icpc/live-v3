@@ -44,14 +44,14 @@
 "361247": { "name": "8 VolgSTU: orz (Царенок, Олейников, Чупинин)", "shortname": "VolgSTU: orz", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "008", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "008", "streamType": "webcam", "credential": "password" }}},
 "361248": { "name": "51 Voronezh SU: Second phase (Шишко, Новоточинов, Бережнов)", "shortname": "Voronezh SU: Second phase", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "051", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "051", "streamType": "webcam", "credential": "password" }}}
 
-}
-    "scoreboardOverrides": {
-        "medals": [
-      {"name": "gold","count": 1},
-      {"name": "silver","count": 2},
-      {"name": "bronze","count": 3}
-        ]
-    },
+},
+  "awardsSettings": {
+    "medals": [
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 6}
+    ]
+  },
   "problemOverrides": {
     "A":{"color":"#e6194B"},
     "B":{"color":"#3cb44b"},

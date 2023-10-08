@@ -12,7 +12,7 @@ export interface ContestInfo {
   penaltyRoundingMode: PenaltyRoundingMode;
   holdBeforeStartTimeMs?: number | null;
   emulationSpeed?: number;
-  medals?: MedalType[];
+  awardsSettings?: AwardsSettings;
   penaltyPerWrongAttempt?: string;
 }
 
@@ -34,6 +34,15 @@ export enum PenaltyRoundingMode {
   sum_in_seconds = "sum_in_seconds",
   last = "last",
   zero = "zero",
+}
+
+export interface AwardsSettings {
+  championTitle?: string | null;
+  groupsChampionTitles?: { [key: string]: string };
+  rankAwardsMaxRank?: number;
+  medals?: MedalSettings[];
+  medalGroups?: MedalSettings[][];
+  manual?: ManualAwardSetting[];
 }
 
 export interface ProblemInfo {
@@ -75,13 +84,6 @@ export interface OrganizationInfo {
   displayName: string;
   fullName: string;
   logo: MediaType | null;
-}
-
-export interface MedalType {
-  name: string;
-  count: number;
-  minScore?: number;
-  tiebreakMode?: MedalTiebreakMode;
 }
 
 export enum ScoreMergeMode {
@@ -151,9 +153,19 @@ export namespace MediaType {
   }
 }
 
-export enum MedalTiebreakMode {
-  NONE = "NONE",
-  ALL = "ALL",
+export interface MedalSettings {
+  id: string;
+  citation: string;
+  color?: MedalColor | null;
+  maxRank?: number | null;
+  minScore?: number;
+  tiebreakMode?: MedalTiebreakMode;
+}
+
+export interface ManualAwardSetting {
+  id: string;
+  citation: string;
+  teamCdsIds: string[];
 }
 
 export enum TeamMediaType {
@@ -163,6 +175,17 @@ export enum TeamMediaType {
   photo = "photo",
   reactionVideo = "reactionVideo",
   achievement = "achievement",
+}
+
+export enum MedalColor {
+  GOLD = "GOLD",
+  SILVER = "SILVER",
+  BRONZE = "BRONZE",
+}
+
+export enum MedalTiebreakMode {
+  NONE = "NONE",
+  ALL = "ALL",
 }
 
 export interface RunInfo {
@@ -212,10 +235,10 @@ export interface Verdict {
 
 export interface Scoreboard {
   type: ScoreboardUpdateType;
-  rows: PersistentMap;
+  rows: { [key: number]: ScoreboardRow };
   order: number[];
   ranks: number[];
-  awards: Map<Award, number[]>;
+  awards: Award[];
 }
 
 export enum ScoreboardUpdateType {
@@ -223,49 +246,56 @@ export enum ScoreboardUpdateType {
   SNAPSHOT = "SNAPSHOT",
 }
 
-export type PersistentMap = any;
+export interface ScoreboardRow {
+  totalScore: number;
+  penalty: number;
+  lastAcceptedMs: number;
+  problemResults: ProblemResult[];
+}
 
 export type Award =
+  | Award.custom
   | Award.group_champion
   | Award.medal
   | Award.winner;
 
 export namespace Award {
   export enum Type {
+    custom = "custom",
     group_champion = "group_champion",
     medal = "medal",
     winner = "winner",
   }
   
+  export interface custom {
+    type: Award.Type.custom;
+    id: string;
+    citation: string;
+    teams: number[];
+  }
+  
   export interface group_champion {
     type: Award.Type.group_champion;
-    group: string;
+    id: string;
+    citation: string;
+    groupId: string;
+    teams: number[];
   }
   
   export interface medal {
     type: Award.Type.medal;
-    medalType: string;
+    id: string;
+    citation: string;
+    medalColor: MedalColor | null;
+    teams: number[];
   }
   
   export interface winner {
     type: Award.Type.winner;
+    id: string;
+    citation: string;
+    teams: number[];
   }
-}
-
-export interface LegacyScoreboard {
-  rows: LegacyScoreboardRow[];
-}
-
-export interface LegacyScoreboardRow {
-  teamId: number;
-  rank: number;
-  totalScore: number;
-  penalty: number;
-  lastAccepted: number;
-  medalType: string | null;
-  problemResults: ProblemResult[];
-  teamGroups: string[];
-  championInGroups: string[];
 }
 
 export type ProblemResult =
@@ -293,6 +323,22 @@ export namespace ProblemResult {
     lastSubmitTimeMs: number | null;
     isFirstBest: boolean;
   }
+}
+
+export interface LegacyScoreboard {
+  rows: LegacyScoreboardRow[];
+}
+
+export interface LegacyScoreboardRow {
+  teamId: number;
+  rank: number;
+  totalScore: number;
+  penalty: number;
+  lastAccepted: number;
+  medalType: string | null;
+  problemResults: ProblemResult[];
+  teamGroups: string[];
+  championInGroups: string[];
 }
 
 export type MainScreenEvent =

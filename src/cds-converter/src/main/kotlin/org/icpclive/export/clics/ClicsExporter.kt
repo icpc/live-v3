@@ -482,13 +482,8 @@ object ClicsExporter  {
     )
 
     private fun ScoreboardAndContestInfo.toClicsAwards() = buildList {
-        for ((award, teams) in scoreboardSnapshot.awards) {
-            val (id, citation) = when (award) {
-                is org.icpclive.api.Award.Medal -> "${award.medalType}-medal" to "${award.medalType.replaceFirstChar { it.uppercase() }} medal"
-                is org.icpclive.api.Award.GroupChampion -> "group-winner-${award.group}" to "${info.groups[award.group]!!.displayName} champion"
-                is org.icpclive.api.Award.Winner -> "Winner" to "${info.name} champion"
-            }
-            add(Award(id, citation, teams.map { info.teams[it]!!.contestSystemId }))
+        for (award in scoreboardSnapshot.awards) {
+            add(Award(award.id, award.citation, award.teams.map { info.teams[it]!!.contestSystemId }))
         }
         for ((index, problem) in info.scoreboardProblems.withIndex()) {
             add(Award(

@@ -385,40 +385,6 @@
                 }
             }
         },
-        "org.icpclive.api.MedalTiebreakMode<org.icpclive.api.MedalTiebreakMode.NONE,org.icpclive.api.MedalTiebreakMode.ALL>": {
-            "enum": [
-                "NONE",
-                "ALL"
-            ]
-        },
-        "org.icpclive.api.MedalType<kotlin.String,kotlin.Int,kotlin.Double,org.icpclive.api.MedalTiebreakMode>": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "count": {
-                    "type": "number"
-                },
-                "minScore": {
-                    "type": "number"
-                },
-                "tiebreakMode": {
-                    "$ref": "#/$defs/org.icpclive.api.MedalTiebreakMode<org.icpclive.api.MedalTiebreakMode.NONE,org.icpclive.api.MedalTiebreakMode.ALL>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "name",
-                "count"
-            ]
-        },
-        "kotlin.collections.ArrayList?<org.icpclive.api.MedalType>": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/org.icpclive.api.MedalType<kotlin.String,kotlin.Int,kotlin.Double,org.icpclive.api.MedalTiebreakMode>"
-            }
-        },
         "org.icpclive.api.PenaltyRoundingMode?<org.icpclive.api.PenaltyRoundingMode.each_submission_down_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_down_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_in_seconds,org.icpclive.api.PenaltyRoundingMode.last,org.icpclive.api.PenaltyRoundingMode.zero>": {
             "enum": [
                 "each_submission_down_to_minute",
@@ -428,12 +394,9 @@
                 "zero"
             ]
         },
-        "org.icpclive.api.tunning.RankingSettings?<kotlin.collections.ArrayList?,DurationM?,kotlin.Boolean?,org.icpclive.api.PenaltyRoundingMode?>": {
+        "org.icpclive.api.tunning.RankingSettings?<DurationM?,kotlin.Boolean?,org.icpclive.api.PenaltyRoundingMode?>": {
             "type": "object",
             "properties": {
-                "medals": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.api.MedalType>"
-                },
                 "penaltyPerWrongAttempt": {
                     "type": "number"
                 },
@@ -442,6 +405,125 @@
                 },
                 "penaltyRoundingMode": {
                     "$ref": "#/$defs/org.icpclive.api.PenaltyRoundingMode?<org.icpclive.api.PenaltyRoundingMode.each_submission_down_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_down_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_in_seconds,org.icpclive.api.PenaltyRoundingMode.last,org.icpclive.api.PenaltyRoundingMode.zero>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+            ]
+        },
+        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "string"
+                }
+            }
+        },
+        "org.icpclive.api.Award.Medal.MedalColor?<org.icpclive.api.Award.Medal.MedalColor.GOLD,org.icpclive.api.Award.Medal.MedalColor.SILVER,org.icpclive.api.Award.Medal.MedalColor.BRONZE>": {
+            "enum": [
+                "GOLD",
+                "SILVER",
+                "BRONZE"
+            ]
+        },
+        "org.icpclive.api.AwardsSettings.MedalTiebreakMode<org.icpclive.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.api.AwardsSettings.MedalTiebreakMode.ALL>": {
+            "enum": [
+                "NONE",
+                "ALL"
+            ]
+        },
+        "org.icpclive.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double,org.icpclive.api.AwardsSettings.MedalTiebreakMode>": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "citation": {
+                    "type": "string"
+                },
+                "color": {
+                    "$ref": "#/$defs/org.icpclive.api.Award.Medal.MedalColor?<org.icpclive.api.Award.Medal.MedalColor.GOLD,org.icpclive.api.Award.Medal.MedalColor.SILVER,org.icpclive.api.Award.Medal.MedalColor.BRONZE>"
+                },
+                "maxRank": {
+                    "type": "number"
+                },
+                "minScore": {
+                    "type": "number"
+                },
+                "tiebreakMode": {
+                    "$ref": "#/$defs/org.icpclive.api.AwardsSettings.MedalTiebreakMode<org.icpclive.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.api.AwardsSettings.MedalTiebreakMode.ALL>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "citation"
+            ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.MedalSettings>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double,org.icpclive.api.AwardsSettings.MedalTiebreakMode>"
+            }
+        },
+        "kotlin.collections.ArrayList<kotlin.collections.ArrayList>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.MedalSettings>"
+            }
+        },
+        "kotlin.collections.ArrayList<kotlin.String>": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "org.icpclive.api.AwardsSettings.ManualAwardSetting<kotlin.String,kotlin.String,kotlin.collections.ArrayList>": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "citation": {
+                    "type": "string"
+                },
+                "teamCdsIds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "citation",
+                "teamCdsIds"
+            ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.ManualAwardSetting>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.api.AwardsSettings.ManualAwardSetting<kotlin.String,kotlin.String,kotlin.collections.ArrayList>"
+            }
+        },
+        "org.icpclive.api.AwardsSettings?<kotlin.String?,kotlin.collections.LinkedHashMap,kotlin.Int,kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>": {
+            "type": "object",
+            "properties": {
+                "championTitle": {
+                    "type": "string"
+                },
+                "groupsChampionTitles": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
+                },
+                "rankAwardsMaxRank": {
+                    "type": "number"
+                },
+                "medals": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.MedalSettings>"
+                },
+                "medalGroups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.collections.ArrayList>"
+                },
+                "manual": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.ManualAwardSetting>"
                 }
             },
             "additionalProperties": false,
@@ -482,7 +564,10 @@
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.ProblemInfoOverride>"
                 },
                 "scoreboardOverrides": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.RankingSettings?<kotlin.collections.ArrayList?,DurationM?,kotlin.Boolean?,org.icpclive.api.PenaltyRoundingMode?>"
+                    "$ref": "#/$defs/org.icpclive.api.tunning.RankingSettings?<DurationM?,kotlin.Boolean?,org.icpclive.api.PenaltyRoundingMode?>"
+                },
+                "awardsSettings": {
+                    "$ref": "#/$defs/org.icpclive.api.AwardsSettings?<kotlin.String?,kotlin.collections.LinkedHashMap,kotlin.Int,kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>"
                 }
             },
             "additionalProperties": false,

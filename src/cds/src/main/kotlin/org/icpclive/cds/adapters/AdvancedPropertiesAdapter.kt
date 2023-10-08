@@ -259,9 +259,9 @@ internal fun applyAdvancedProperties(
         groupList = groups,
         organizationList = organizations,
         problemList = problemInfos,
-        medals = overrides.scoreboardOverrides?.medals ?: info.medals,
         penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt,
         penaltyRoundingMode = overrides.scoreboardOverrides?.penaltyRoundingMode ?: info.penaltyRoundingMode,
+        awardsSettings = overrides.awardsSettings ?: info.awardsSettings
     )
 }
 

@@ -378,7 +378,9 @@
         ],
         "organizations": [
         ],
-        "penaltyRoundingMode": "sum_down_to_minute"
+        "penaltyRoundingMode": "sum_down_to_minute",
+        "awardsSettings": {
+        }
     },
     "runs": [
         {

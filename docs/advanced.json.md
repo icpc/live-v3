@@ -79,11 +79,6 @@ Avaliable media types:
 ```
 {
   "scoreboardOverrides": {
-    "medals": [
-      {"name": "gold", "count": 4},
-      {"name": "silver", "count": 4},
-      {"name": "bronze", "count": 4}
-    ],
     "penaltyPerWrongAttempt": 20,
     "showTeamsWithoutSubmissions": true,
     "penaltyRoundingMode": "each_submission_down_to_minute"
@@ -93,6 +88,25 @@ Avaliable media types:
 
 Default ```penaltyRoundingMode``` is CDS-specific. But you are welcome to override them here between two options:
 ```each_submission_down_to_minute``` or ```sum_down_to_minute```. 
+
+# Customizing awards
+
+Typical awards setup includes only medals, and can be done like this
+
+```
+{
+  "awardsSettings": {
+    "medals": [
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
+    ]
+  }
+}
+```
+
+More different types of awards are supported for cds-converter. 
+Check [full awards settings doc](https://icpc.io/live-v3/cds/-i-c-p-c-live%20contest%20data%20parser/org.icpclive.api/-awards-settings/index.html) for details.
 
 # Change problem info
 ## Color

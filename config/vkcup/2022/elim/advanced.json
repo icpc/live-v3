@@ -1,9 +1,11 @@
 {
-  "scoreboardOverrides": {
+  "awardsSettings": {
     "medals": [
       {
-        "name": "gold",
-        "count": 16
+        "id": "qualified",
+        "color": "GOLD",
+        "citation": "Qualified to finals",
+        "maxRank": 16
       }
     ]
   },

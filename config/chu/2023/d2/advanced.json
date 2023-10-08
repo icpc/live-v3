@@ -31,14 +31,14 @@
 "361272": { "name": "69 Ufa UST: SolarWings (Сагидуллин, Боровикова, Мунасыпов)", "shortname": "Ufa UST: SolarWings", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "069", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "069", "streamType": "webcam", "credential": "password" }}},
 "361274": { "name": "70 UlSTU: antihype (Разживин, Карамушко, Кувшинов)", "shortname": "UlSTU: antihype", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "070", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "070", "streamType": "webcam", "credential": "password" }}},
 "361259": { "name": "71 MAI: IT-центр (Чеснов, Глушин, Ткаченко)", "shortname": "MAI: IT-центр", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "071", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "071", "streamType": "webcam", "credential": "password" }}}
-     }
-    "scoreboardOverrides": {
-        "medals": [
-      {"name": "gold","count": 1},
-      {"name": "silver","count": 2},
-      {"name": "bronze","count": 3}
-        ]
-    },
+     },
+  "awardsSettings": {
+    "medals": [
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 6}
+    ]
+  },
   "problemOverrides": {
     "A":{"color":"#e6194B"},
     "B":{"color":"#3cb44b"},

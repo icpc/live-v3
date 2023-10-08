@@ -31,7 +31,7 @@ fun Route.configureOverlayRouting() {
     flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
     route("/scoreboard") {
         setUpScoreboard { flow -> flow.map { it.scoreboardSnapshot.toLegacyScoreboard(it.info) } }
-        route("v2") {
+        route("/v2") {
             setUpScoreboard { flow ->
                 flow.withIndex().map {
                     if (it.index == 0) it.value.scoreboardSnapshot else it.value.scoreboardDiff

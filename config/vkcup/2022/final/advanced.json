@@ -102,11 +102,13 @@
 
   },
 
-  "scoreboardOverrides": {
+  "awardsSettings": {
     "medals": [
       {
-        "name": "gold",
-        "count": 4
+        "id": "top-4",
+        "citation": "Top 4",
+        "color": "GOLD",
+        "maxRank": 4
       }
     ]
   },

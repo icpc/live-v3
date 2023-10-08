@@ -3,6 +3,7 @@ package org.icpclive.api
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.*
 import org.icpclive.util.*
 import kotlin.time.Duration
 
@@ -78,9 +79,43 @@ public data class ScoreboardRow(
 
 @Serializable
 public sealed class Award {
-    @Serializable @SerialName("winner") public data object Winner : Award()
-    @Serializable @SerialName("medal") public data class Medal(val medalType: String) : Award()
-    @Serializable @SerialName("group_champion") public data class GroupChampion(val group: String): Award()
+    public abstract val id: String
+    public abstract val citation: String
+    public abstract val teams: Set<Int>
+
+    @Serializable @SerialName("winner")
+    public data class Winner(
+        override val id: String,
+        override val citation: String,
+        override val teams: Set<Int>
+    ) : Award()
+
+    @Serializable @SerialName("medal")
+    public data class Medal(
+        override val id: String,
+        override val citation: String,
+        val medalColor: MedalColor?,
+        override val teams: Set<Int>
+    ) : Award() {
+        public enum class MedalColor {
+            GOLD, SILVER, BRONZE;
+        }
+    }
+
+    @Serializable @SerialName("group_champion")
+    public data class GroupChampion(
+        override val id: String,
+        override val citation: String,
+        val groupId: String,
+        override val teams: Set<Int>
+    ): Award()
+
+    @Serializable @SerialName("custom")
+    public data class Custom(
+        override val id: String,
+        override val citation: String,
+        override val teams: Set<Int>
+    ) : Award()
 }
 
 public enum class ScoreboardUpdateType {
@@ -100,8 +135,8 @@ public enum class ScoreboardUpdateType {
 @Serializable
 public data class Scoreboard(
     val type: ScoreboardUpdateType,
-    val rows: PersistentMap<Int, ScoreboardRow>,
+    val rows: Map<Int, ScoreboardRow>,
     val order: List<Int>,
     val ranks: List<Int>,
-    val awards: Map<Award, Set<Int>>
+    val awards: List<Award>
 )
