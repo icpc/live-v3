@@ -23,10 +23,16 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.CSVParser
+import org.icpclive.api.ContestInfo
+import org.icpclive.api.RunInfo
 import org.icpclive.api.tunning.AdvancedProperties
+import org.icpclive.api.tunning.TeamInfoOverride
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.settings.parseFileToCdsSettings
+import org.icpclive.org.icpclive.export.pcms.IcpcCsvExporter
 import org.icpclive.util.*
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
 import org.slf4j.Logger
@@ -50,31 +56,41 @@ object CommonOptions : OptionGroup("Common options") {
         .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
 }
 
-object PCMSDumpCommand : CliktCommand(name = "pcms", help = "Dump pcms xml", printHelpOnEmptyArgs = true) {
+abstract class DumpFileCommand(
+    name: String,
+    help: String,
+    defaultFileName: String,
+    outputHelp: String
+) : CliktCommand(name = name, help = help, printHelpOnEmptyArgs = true) {
+    abstract fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>): String
+
     val commonOptions by CommonOptions
-    val output by option("-o", "--output", help = "Path to new xml file").path().convert {
+    val output by option("-o", "--output", help = outputHelp).path().convert {
         if (it.isDirectory()) {
-            it.resolve("standings.xml")
+            it.resolve(defaultFileName)
         } else {
             it
         }
     }.required()
         .check({ "Directory ${it.parent} doesn't exist"}) { it.parent.isDirectory() }
 
+    open fun Flow<ContestUpdate>.postprocess() = this
+
+
     override fun run() {
-        val logger = getLogger(PCMSDumpCommand::class)
-        logger.info("Would save result to $output")
+        val logger = getLogger(DumpFileCommand::class)
+        logger.info("Would save result to ${output}")
         val flow = getFlow(
             fileJsonContentFlow<AdvancedProperties>(CommonOptions.advancedJsonPath, logger, AdvancedProperties()),
             logger
         )
         val data = runBlocking {
             logger.info("Waiting till contest become finalized...")
-            val result = flow.finalContestState()
+            val result = flow.postprocess().finalContestState()
             logger.info("Loaded contest data")
             result
         }
-        val dump = PCMSExporter.format(
+        val dump = format(
             data.infoAfterEvent!!,
             data.runs.values.groupBy { it.teamId },
         )
@@ -83,6 +99,47 @@ object PCMSDumpCommand : CliktCommand(name = "pcms", help = "Dump pcms xml", pri
         }
     }
 }
+
+object PCMSDumpCommand : DumpFileCommand(
+    name = "pcms",
+    help = "Dump pcms xml",
+    outputHelp = "Path to new xml file",
+    defaultFileName = "standings.xml"
+) {
+    override fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>) = PCMSExporter.format(info, runs)
+}
+
+object IcpcCSVDumpCommand : DumpFileCommand(
+    name = "icpc-csv",
+    help = "Dump csv for icpc.global",
+    outputHelp = "Path to new csv file",
+    defaultFileName = "standings.csv"
+) {
+    val teamsMapping by option("--teams-map", help = "mapping from cds team id to icpc team id")
+        .file(canBeFile = true, canBeDir = false, mustExist = true)
+
+    override fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>) = IcpcCsvExporter.format(info, runs)
+    override fun Flow<ContestUpdate>.postprocess(): Flow<ContestUpdate> {
+        val mappingFile = teamsMapping
+        if (mappingFile == null) {
+            return this
+        } else {
+            val parser = CSVParser(mappingFile.inputStream().reader(), CSVFormat.TDF)
+            val map = parser.records.associate {
+                it[1]!! to it[0]!!
+            }
+            val advanced = AdvancedProperties(
+                teamOverrides = map.mapValues {
+                    TeamInfoOverride(
+                        customFields = mapOf("icpc_id" to it.value)
+                    )
+                }
+            )
+            return applyAdvancedProperties(flow { emit(advanced) })
+        }
+    }
+}
+
 
 object ServerCommand : CliktCommand(name = "server", help = "Start as http server", printHelpOnEmptyArgs = true) {
     val commonOptions by CommonOptions
@@ -104,7 +161,11 @@ object MainCommand : CliktCommand(name = "java -jar cds-converter.jar") {
     }
 }
 
-fun main(args: Array<String>): Unit = MainCommand.subcommands(PCMSDumpCommand, ServerCommand).main(args)
+fun main(args: Array<String>): Unit = MainCommand.subcommands(
+    PCMSDumpCommand,
+    ServerCommand,
+    IcpcCSVDumpCommand
+).main(args)
 
 
 private fun Application.setupKtorPlugins() {
