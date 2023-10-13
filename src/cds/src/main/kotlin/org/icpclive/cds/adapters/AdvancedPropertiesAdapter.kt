@@ -296,7 +296,6 @@ private fun mergeGroups(
         displayName = override.displayName ?: group.displayName,
         isHidden = override.isHidden ?: group.isHidden,
         isOutOfContest = override.isOutOfContest ?: group.isOutOfContest,
-        awardsGroupChampion = override.awardsGroupChampion ?: group.awardsGroupChampion
     )
 }
 

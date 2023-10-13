@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.icpclive
 
 import ClicsExporter

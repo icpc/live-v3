@@ -286,7 +286,7 @@
                 }
             }
         },
-        "org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?,kotlin.Boolean?>": {
+        "org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -296,9 +296,6 @@
                     "type": "boolean"
                 },
                 "isOutOfContest": {
-                    "type": "boolean"
-                },
-                "awardsGroupChampion": {
                     "type": "boolean"
                 }
             },
@@ -310,7 +307,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?,kotlin.Boolean?>"
+                    "$ref": "#/$defs/org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>"
                 }
             }
         },

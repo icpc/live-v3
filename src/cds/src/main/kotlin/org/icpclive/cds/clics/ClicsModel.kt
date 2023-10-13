@@ -53,7 +53,7 @@ internal class ClicsModel(
         return null
     }
 
-    private fun Group.toApi() : GroupInfo = GroupInfo(id, name, isHidden = false, isOutOfContest = false, awardsGroupChampion = true)
+    private fun Group.toApi() : GroupInfo = GroupInfo(id, name, isHidden = false, isOutOfContest = false)
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
