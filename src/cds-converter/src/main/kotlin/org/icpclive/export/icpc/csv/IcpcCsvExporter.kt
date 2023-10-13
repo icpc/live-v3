@@ -1,4 +1,4 @@
-package org.icpclive.org.icpclive.export.pcms
+package org.icpclive.export.icpc.csv
 
 import io.ktor.http.*
 import io.ktor.server.application.*
