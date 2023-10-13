@@ -7,7 +7,17 @@ const visualConfig = await fetch(VISUAL_CONFIG_URL)
     .then(r => r.json())
     .catch((e) => console.error("failed to load visual config: " + e)) ?? {};
 
-let config = {};
+let config_ = {};
+
+const config = new Proxy(config_, {
+    get(target, key) {
+        return visualConfig[key] ?? target[key];
+    },
+    set(target, key, value) {
+        target[key] = visualConfig[key] ?? value;
+        return true;
+    }
+});
 
 config.CONTEST_COLOR = "#4C83C3";
 config.CONTEST_CAPTION = "46th";
@@ -184,7 +194,6 @@ config.CIRCLE_PROBLEM_LINE_WIDTH = "3.5px";
 config.CELL_INFO_VERDICT_WIDTH= "100px"; // css property
 
 // layers (z-indexes)
-config.QUEUE_BASIC_ZINDEX=20;
-config = { ...config, ...visualConfig };
-export default config;
+config.QUEUE_BASIC_ZINDEX = 20;
 
+export default config_;

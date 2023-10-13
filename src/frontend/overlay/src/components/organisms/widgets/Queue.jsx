@@ -9,8 +9,9 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel, RunStatusLabel } from "../../atoms/ContestLabels";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ContestantViewHolder } from "../holder/ContestantViewHolder";
-// import { QueueRow } from "../../molecules/queue/QueueRow";
 import { useWithTimeoutAfterRender } from "../../../utils/hooks/withTimeoutAfterRender";
+import star from "../../../assets/icons/star_mask.svg";
+
 
 import {formatScore} from "../../../services/displayUtils";
 
@@ -202,6 +203,10 @@ const QueueProblemLabel = styled(ProblemLabel)`
   width: 28px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
   flex-shrink: 0;
+  mask: ${({isFTSRun}) => isFTSRun ? `url(${star}) 50% 50% no-repeat` : null};
+  mask-origin: content-box;
+  mask-clip: border-box;
+  mask-size: 25px;
 `;
 const QueueRightPart = styled.div`
   height: 100%;
@@ -209,10 +214,12 @@ const QueueRightPart = styled.div`
   display: flex;
   flex-wrap: nowrap;
 `;
+
 export const QueueRow = ({ runInfo, flashing }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[runInfo.teamId]);
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[runInfo.teamId]);
     const probData = useSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
+    const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun;
 
     return <StyledQueueRow medal={scoreboardData?.medalType} flashing={flashing}>
         <QueueRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
@@ -221,7 +228,7 @@ export const QueueRow = ({ runInfo, flashing }) => {
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
         />
         <QueueRightPart>
-            <QueueProblemLabel letter={probData?.letter} problemColor={probData?.color}/>
+            <QueueProblemLabel letter={probData?.letter} problemColor={probData?.color} isFts={isFTSRun}/>
             <QueueRunStatusLabel runInfo={runInfo}/>
         </QueueRightPart>
     </StyledQueueRow>;
