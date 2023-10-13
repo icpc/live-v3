@@ -20,6 +20,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.adapters.*
@@ -145,11 +147,11 @@ fun Application.module() {
             .calculateScoreDifferences()
             .addFirstToSolves()
 
-
+        val emptyVisualConfig = JsonObject(emptyMap())
         DataBus.visualConfigFlow.completeOrThrow(
             config.visualConfigFile?.let {
-                fileJsonContentFlow<Map<String, String>>(it, logger).stateIn(this, SharingStarted.Eagerly, emptyMap())
-            } ?: MutableStateFlow(mutableMapOf("one" to "two"))
+                fileJsonContentFlow<JsonObject>(it, logger).stateIn(this, SharingStarted.Eagerly, emptyVisualConfig)
+            } ?: MutableStateFlow(emptyVisualConfig)
         )
 
         launchServices(loader)

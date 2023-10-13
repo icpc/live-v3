@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.serialization.json.JsonObject
 import org.icpclive.api.*
 import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.scoreboard.ScoreboardAndContestInfo
@@ -44,7 +45,7 @@ object DataBus {
     val teamInterestingScoreRequestFlow = CompletableDeferred<Flow<AddTeamScoreRequest>>()
     val teamInterestingFlow = CompletableDeferred<Flow<List<CurrentTeamState>>>()
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
-    val visualConfigFlow = CompletableDeferred<StateFlow<Map<String, String>>>()
+    val visualConfigFlow = CompletableDeferred<StateFlow<JsonObject>>()
 
     fun setScoreboardEvents(level: OptimismLevel, flow: Flow<ScoreboardAndContestInfo>) { scoreboardFlow[level.ordinal].completeOrThrow(flow) }
     suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].await()

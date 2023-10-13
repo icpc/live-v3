@@ -20,7 +20,7 @@ const config = new Proxy(config_, {
 });
 
 config.CONTEST_COLOR = "#4C83C3";
-config.CONTEST_CAPTION = "46th";
+config.CONTEST_CAPTION = "";
 
 config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay");
 
