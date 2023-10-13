@@ -95,7 +95,7 @@ const ScoreboardRankLabel = styled(RankLabel)`
   align-items: center;
   justify-content: center;
 `;
-const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
+export const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
   align-self: stretch;
 
   display: flex;

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { DateTime } from "luxon";
-import { TaskResultLabel } from "../../atoms/ContestLabels";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
+import {ScoreboardTaskResultLabel} from "../../organisms/widgets/Scoreboard";
 
 
 const TimeCell = styled.div`
@@ -49,7 +49,7 @@ const SubmissionColumnWrap = styled.div`
   font-size: 18px;
 `;
 
-const SubmissionRowTaskResultLabel = styled(TaskResultLabel)`
+const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
   width: 40px;
   height: 100%;
   text-align: center;
@@ -70,8 +70,7 @@ const PVPProblemLabel = styled(QueueProblemLabel)`
   order: ${props => props.isTop ? 3 : 1};
 `
 
-const PVPResultLabel = styled(SubmissionRowTaskResultLabel)`
-  justify-content: center;
+const PVPResultLabel = styled(ScoreboardTaskResultLabel)`
   order: ${props => props.isTop ? 1 : 3};
   
 `
