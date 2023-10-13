@@ -19,26 +19,26 @@ const PVPViewHolder = styled(ContestantViewHolder)`
 `
 
 export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) => {
-    return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((c, index) => {
+    return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((cc, index) => {
         const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
         const [positionLeft, positionRight] = index === 0 ? ["0", "auto"] : ["auto", "0"]
         const height = index === 0 ? "50%" : "auto"
         const width = index === 0 ? location.sizeY / 2 * 16 / 9 + "px" : location.sizeX - location.sizeY / 2 * 16 / 9 + "px"
 
-        const top = c.QUEUE_ROW_HEIGHT2;
+        const top = location.sizeY / 2 + 2.3 * c.PVP_TABLE_ROW_HEIGHT;
         console.log(top);
 
         const [positionTop, positionBottom] =
-            settings.position === "PVP_TOP" ? (index === 0 ? ["auto", "50%"] : ["auto", "50%"])
-               :  (index === 0 ? ["50%", "auto"] : ["50%", "auto"])
+            settings.position === "PVP_TOP" ? (index === 0 ? ["auto", "50%"] : ["auto", top + "px"])
+               :  (index === 0 ? ["50%", "auto"] : [top + "px", "auto"])
 
         useLayoutEffect(() => onLoadStatus(true), []);
 
-        if (c.isMedia) {
-            return <PVPViewHolder key={index} onLoadStatus={onLoadStatus} media={c} top={positionTop} bottom={positionBottom}
+        if (cc.isMedia) {
+            return <PVPViewHolder key={index} onLoadStatus={onLoadStatus} media={cc} top={positionTop} bottom={positionBottom}
                         left={positionLeft} right={positionRight} height={height} width={width}/>;
         } else {
-            return <ContestantViewLine key={index} onLoadStatus={onLoadStatus} teamId={c.teamId} isTop={settings.position === "PVP_TOP"}/>;
+            return <ContestantViewLine key={index} onLoadStatus={onLoadStatus} teamId={cc.teamId} isTop={settings.position === "PVP_TOP"}/>;
         }
     });
 };

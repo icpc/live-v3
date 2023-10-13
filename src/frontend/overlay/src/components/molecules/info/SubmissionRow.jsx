@@ -71,7 +71,6 @@ const PVPProblemLabel = styled(QueueProblemLabel)`
 `
 
 const PVPResultLabel = styled(SubmissionRowTaskResultLabel)`
-  width: 100%;
   justify-content: center;
   order: ${props => props.isTop ? 1 : 3};
   

@@ -14,7 +14,7 @@ const ContestantViewVerticalWrap = styled.div`
   top: ${props => props.top};
 
   grid-template-columns: auto repeat(${props => props.tasks}, 50px);
-  grid-auto-rows: ${c.QUEUE_ROW_HEIGHT2}px;
+  grid-auto-rows: ${c.PVP_TABLE_ROW_HEIGHT}px;
 
   
   width: auto;
@@ -49,7 +49,7 @@ export const ContestantViewLine = ({ teamId, isSmall, className, isTop }) => {
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     const contestData = useSelector((state) => state.contestInfo.info);
 
-    const [top, bottom] = isTop ? ["auto", `calc(50% - 0.5 * ${c.QUEUE_ROW_HEIGHT2}px)`] : [`calc(50% - 0.5 * ${c.QUEUE_ROW_HEIGHT2}px)`, "auto"];
+    const [top, bottom] = isTop ? ["auto", `calc(50% - 0.5 * ${c.PVP_TABLE_ROW_HEIGHT}px)`] : [`calc(50% - 0.5 * ${c.PVP_TABLE_ROW_HEIGHT}px)`, "auto"];
 
     return <ContestantViewVerticalWrap isSmall={isSmall} className={className} tasks={scoreboardData?.problemResults.length} top={top} bottom={bottom}>
         <CornerContestantInfo teamId={teamId} />

@@ -44,7 +44,7 @@ config.STATISTICS_CELL_MORPH_TIME = 200; //ms
 config.CELL_FLASH_PERIOD = 500; //ms
 
 // Styles > Global
-config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica; serif", // css-property
+config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica; serif"; // css-property
 config.GLOBAL_DEFAULT_FONT_SIZE = "18px"; // css-property
 config.GLOBAL_DEFAULT_FONT = config.GLOBAL_DEFAULT_FONT_SIZE + " " + config.GLOBAL_DEFAULT_FONT_FAMILY; // css property MUST HAVE FONT SIZE
 config.GLOBAL_BACKGROUND_COLOR = "#242425";
@@ -95,6 +95,7 @@ config.SCORE_NONE_TEXT = ".";
 
 // config.PVP_OPACITY = 0.95;
 // config.TEAM_VIEW_OPACITY = 0.95;
+config.PVP_TABLE_ROW_HEIGHT = 25
 
 config.STATISTICS_TITLE_FONT_SIZE = "30px";
 config.STATISTICS_OPACITY = 0.95;
@@ -110,7 +111,7 @@ config.CELL_FONT_SIZE = "18px";
 config.CELL_TEXT_COLOR = "#FFFFFF";
 config.CELL_TEXT_COLOR_INVERSE = "#000000";
 config.CELL_BG_COLOR = "#000000";
-config.CELL_BG_COLOR_ODD = "rgba(1; 1, 1, 0.9)",
+config.CELL_BG_COLOR_ODD = "rgba(1; 1, 1, 0.9)";
 config.CELL_BG_COLOR2 = "#1E1E1E";
 config.CELL_BG_COLOR_ODD2 = "#242424";
 
@@ -130,7 +131,7 @@ config.TICKER_SMALL_BACKGROUND = config.VERDICT_NOK;
 config.TICKER_BACKGROUND = config.CELL_BG_COLOR;
 config.TICKER_OPACITY = 0.95;
 config.TICKER_FONT_COLOR = "#FFFFFF";
-config.TICKER_FONT_FAMILY = "Helvetica; serif",
+config.TICKER_FONT_FAMILY = "Helvetica; serif";
 config.TICKER_TEXT_FONT_SIZE = "32px"; // css property
 config.TICKER_TEXT_MARGIN_LEFT = "16px"; // css property
 config.TICKER_CLOCK_FONT_SIZE = "32px"; // css property
@@ -143,7 +144,7 @@ config.TEAMVIEW_SMALL_FACTOR = "50%"; // css property
 
 config.FULL_SCREEN_CLOCK_FONT_SIZE = "400px";
 config.FULL_SCREEN_CLOCK_COLOR = "#eeeeee";
-config.FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica; monospace",
+config.FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica; monospace";
 
 config.STAR_SIZE = 20; // px
 
