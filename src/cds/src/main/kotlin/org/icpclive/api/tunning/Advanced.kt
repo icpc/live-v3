@@ -122,6 +122,7 @@ public data class OrganizationInfoOverride(
  * @param startTime Override for contest start time.
  *        The preferred format is `yyyy-mm-dd hh:mm:ss`, but some others would be accepted too.
  *        startTime override also can affect contest state.
+ * @param contestLength Length of the contest. Also, can affect contest state.
  * @param freezeTime Time from the start of the contest before scoreboard freezing.
  * @param holdTime Fixed time to show as time before the contest start
  * @param teamMediaTemplate Template medias for all teams.
@@ -137,6 +138,8 @@ public data class OrganizationInfoOverride(
 public data class AdvancedProperties(
     @Serializable(with = HumanTimeSerializer::class)
     val startTime: Instant? = null,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    val contestLength: Duration? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("freezeTimeSeconds")
     val freezeTime: Duration? = null,
@@ -203,6 +206,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedPrope
     fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
     return AdvancedProperties(
         startTime = startTime.takeIfAsked("startTime"),
+        contestLength = contestLength.takeIfAsked("contestLength"),
         freezeTime = freezeTime.takeIfAsked("freezeTime"),
         holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teamList.associate {

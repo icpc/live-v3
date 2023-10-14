@@ -533,6 +533,9 @@
                 "startTime": {
                     "type": "string"
                 },
+                "contestLength": {
+                    "type": "number"
+                },
                 "freezeTimeSeconds": {
                     "type": "number"
                 },

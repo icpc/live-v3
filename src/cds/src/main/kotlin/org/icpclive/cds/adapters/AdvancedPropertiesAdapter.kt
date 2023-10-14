@@ -185,6 +185,15 @@ private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides
     }
 }
 
+private fun AdvancedProperties.status(info: ContestInfo) : ContestStatus {
+    if (startTime == null && contestLength == null) return info.status
+    val status = ContestStatus.byCurrentTime(startTime ?: info.startTime, contestLength ?: info.contestLength)
+    if (status == ContestStatus.OVER && info.status == ContestStatus.FINALIZED) return info.status
+    if (status == info.status) return info.status
+    logger.info("Contest status is overridden to ${status}, startTime = ${(startTime ?: info.startTime).humanReadable}, contestLength = ${(contestLength ?: info.contestLength)}")
+    return status
+}
+
 @OptIn(InefficientContestInfoApi::class)
 internal fun applyAdvancedProperties(
     info: ContestInfo,
@@ -249,16 +258,12 @@ internal fun applyAdvancedProperties(
         .mergeTeams(overrides.teamOverrides)
     val problemInfos = mergeProblems(info.problemList, overrides.problemOverrides)
 
-    val (startTime, status) = overrides.startTime
-        ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
-        ?.let { it to ContestStatus.byCurrentTime(it, info.contestLength) }
-        ?: (info.startTime to info.status)
-
     logger.info("Team and problem overrides are reloaded")
     return info.copy(
-        startTime = startTime,
+        startTime = overrides.startTime ?: info.startTime,
+        contestLength = overrides.contestLength ?: info.contestLength,
         freezeTime = overrides.freezeTime ?: info.freezeTime,
-        status = status,
+        status = overrides.status(info),
         holdBeforeStartTime = overrides.holdTime ?: info.holdBeforeStartTime,
         teamList = teamInfos,
         groupList = groups,
