@@ -1,0 +1,94 @@
+{
+  "teamRegexes": {
+    "customFields": {
+      "funnyName": "[^:]*: (.*) \\([^)]*\\)"
+    }
+    "organizationRegex": "^([^:]*).*"
+  },
+  "organizationOverrides": {
+    "Moscow State University": {
+      "displayName": "MSU"
+    },
+    "Moscow Aviation Institute": {
+      "displayName": "MAI"
+    },
+    "* Moscow Aviation Institute": {
+      "displayName": "* MAI"
+    },
+    "Moscow Pedagogical State University": {
+      "displayName": "MPSU"
+    },
+    "Moscow Institute of Physics and Technology": {
+      "displayName": "MIPT"
+    },
+    "Moscow Technological University - MIREA": {
+      "displayName": "MIREA"
+    },
+    "National Research University Higher School of Economics": {
+      "displayName": "HSE"
+    },
+    "Peoples’ Friendship University of Russia": {
+      "displayName": "RUDN"
+    },
+    "National University of Science and Technology \"MISiS\"": {
+      "displayName": "MISiS"
+    },
+    "Moscow Technical University": {
+      "displayName": "MTU"
+    },
+    "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)": {
+      "displayName": "MEPhI"
+    },
+    "NRU HSE Moscow State Institute of Electronics and Mathematics": {
+      "displayName": "MIEM"
+    },
+    "Bauman Moscow State Technical University": {
+      "displayName": "Bauman MSTU"
+    },
+    "National Research University Moscow State University of Civil Engineering": {
+      "displayName": "MGSU"
+    },
+    "Moscow State Technical University of Civil Aviation": {
+      "displayName": "MSTUCA"
+    },
+    "Moscow Technical University of Communications and Informatics": {
+      "displayName": "MTUCI"
+    },
+    "Moscow Institute of Electronic Technology": {
+      "displayName": "MIET"
+    },
+    "* Moscow Institute of Electronic Technology": {
+      "displayName": "* MIET"
+    },
+    "St. Tikhon Orthodox University": {
+      "displayName": "PSTGU"
+    },
+    "Financial University Under the Government of the Russian Federation": {
+      "displayName": "FinU"
+    },
+    "Skolkovo Institute of Science and Technology": {
+      "displayName": "Skolkovo IST"
+    }
+  },
+  "teamOverrideTemplate": {
+    "displayName": "{orgDisplayName}: {funnyName}"
+  },
+	"scoreboardOverrides": {
+		"showTeamsWithoutSubmissions": false
+	},
+	"problemOverrides": {
+		"7/2023_10_08/UfqtArsDig":{"color":"#ffebee"},
+		"7/2023_10_08/9rP4PKPpX1":{"color":"#dc143c"},
+		"7/2023_10_08/dkhxx8x9do":{"color":"#ffa500"},
+		"7/2023_10_08/XgUHAocBoh":{"color":"#120a8f"},
+		"7/2023_10_08/7OkUhGykAR":{"color":"#808080"},
+		"7/2023_10_08/B2JbJmg48g":{"color":"#000000"},
+		"7/2023_10_08/WOgiWhR0qT":{"color":"#8b4513"},
+		"7/2023_10_08/j89CK8UcNC":{"color":"#8b0000"},
+		"7/2023_10_08/85k59vi2G8":{"color":"#ffff00"},
+		"7/2023_10_08/v1YltEU5XF":{"color":"#ffb6c1"},
+		"7/2023_10_08/ilUTg3oBV2":{"color":"#008000"},
+		"7/2023_10_06/K2hmViwR9N":{"color":"#42aaff"},
+		"7/2023_10_06/SpSv4W4hZZ":{"color":"#800000"}
+	}
+}
