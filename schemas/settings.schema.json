@@ -1,28 +1,14 @@
 {
     "$ref": "#/$defs/ICPC live settings",
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/icpc/live-v3/blob/main/schemas/settings.schema.json",
     "$defs": {
-        "kotlin.String": {
-            "type": "string"
-        },
-        "InstantH": {
-            "type": "string"
-        },
-        "DurationS": {
-            "type": "number"
-        },
-        "kotlin.Double": {
-            "type": "number"
-        },
         "org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>": {
             "type": "object",
             "properties": {
                 "speed": {
-                    "$ref": "#/$defs/kotlin.Double"
+                    "type": "number"
                 },
                 "startTime": {
-                    "$ref": "#/$defs/InstantH"
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -31,14 +17,11 @@
                 "startTime"
             ]
         },
-        "kotlin.Boolean": {
-            "type": "boolean"
-        },
         "org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>": {
             "type": "object",
             "properties": {
                 "allowUnsecureConnections": {
-                    "$ref": "#/$defs/kotlin.Boolean"
+                    "type": "boolean"
                 }
             },
             "additionalProperties": false,
@@ -53,16 +36,16 @@
                     "default": "atcoder"
                 },
                 "contestId": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "sessionCookie": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "startTime": {
-                    "$ref": "#/$defs/InstantH"
+                    "type": "string"
                 },
                 "contestLengthSeconds": {
-                    "$ref": "#/$defs/DurationS"
+                    "type": "number"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -81,9 +64,6 @@
             ],
             "title": "atcoder"
         },
-        "TimeZone": {
-            "type": "string"
-        },
         "org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>": {
             "enum": [
                 "ICPC",
@@ -98,22 +78,22 @@
                     "default": "cats"
                 },
                 "login": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "password": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential<kotlin.String>"
+                    "type": "string"
                 },
                 "url": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "timeZone": {
-                    "$ref": "#/$defs/TimeZone"
+                    "type": "string"
                 },
                 "resultType": {
                     "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
                 },
                 "cid": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -132,9 +112,6 @@
             ],
             "title": "cats"
         },
-        "kotlin.Int": {
-            "type": "number"
-        },
         "cf": {
             "type": "object",
             "properties": {
@@ -143,16 +120,16 @@
                     "default": "cf"
                 },
                 "contestId": {
-                    "$ref": "#/$defs/kotlin.Int"
+                    "type": "number"
                 },
                 "apiKey": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential<kotlin.String>"
+                    "type": "string"
                 },
                 "apiSecret": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential<kotlin.String>"
+                    "type": "string"
                 },
                 "asManager": {
-                    "$ref": "#/$defs/kotlin.Boolean"
+                    "type": "boolean"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -170,35 +147,48 @@
             ],
             "title": "cf"
         },
-        "org.icpclive.cds.clics.FeedVersion<org.icpclive.cds.clics.FeedVersion.2020_03,org.icpclive.cds.clics.FeedVersion.2022_07>": {
+        "org.icpclive.cds.settings.ClicsSettings.FeedVersion<org.icpclive.cds.settings.ClicsSettings.FeedVersion.2020_03,org.icpclive.cds.settings.ClicsSettings.FeedVersion.2022_07>": {
             "enum": [
                 "2020_03",
                 "2022_07"
             ]
         },
-        "org.icpclive.cds.settings.ClicsLoaderSettings?<kotlin.String,org.icpclive.cds.settings.Credential?,org.icpclive.cds.settings.Credential?,kotlin.String,org.icpclive.cds.clics.FeedVersion>": {
+        "org.icpclive.cds.settings.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>": {
             "type": "object",
             "properties": {
                 "url": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
+                },
+                "contestId": {
+                    "type": "string"
                 },
                 "login": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential?<kotlin.String>"
+                    "type": "string"
                 },
                 "password": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential?<kotlin.String>"
+                    "type": "string"
                 },
                 "eventFeedName": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
+                },
+                "eventFeedPath": {
+                    "type": "string"
                 },
                 "feedVersion": {
-                    "$ref": "#/$defs/org.icpclive.cds.clics.FeedVersion<org.icpclive.cds.clics.FeedVersion.2020_03,org.icpclive.cds.clics.FeedVersion.2022_07>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.ClicsSettings.FeedVersion<org.icpclive.cds.settings.ClicsSettings.FeedVersion.2020_03,org.icpclive.cds.settings.ClicsSettings.FeedVersion.2022_07>"
                 }
             },
             "additionalProperties": false,
             "required": [
-                "url"
+                "url",
+                "contestId"
             ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.cds.settings.ClicsFeed>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.settings.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>"
+            }
         },
         "clics": {
             "type": "object",
@@ -207,29 +197,11 @@
                     "const": "clics",
                     "default": "clics"
                 },
-                "url": {
-                    "$ref": "#/$defs/kotlin.String"
-                },
-                "login": {
-                    "$ref": "#/$defs/kotlin.String"
-                },
-                "password": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential?<kotlin.String>"
-                },
-                "eventFeedName": {
-                    "$ref": "#/$defs/kotlin.String"
-                },
-                "feedVersion": {
-                    "$ref": "#/$defs/org.icpclive.cds.clics.FeedVersion<org.icpclive.cds.clics.FeedVersion.2020_03,org.icpclive.cds.clics.FeedVersion.2022_07>"
-                },
-                "additionalFeed": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.ClicsLoaderSettings?<kotlin.String,org.icpclive.cds.settings.Credential?,org.icpclive.cds.settings.Credential?,kotlin.String,org.icpclive.cds.clics.FeedVersion>"
+                "feeds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.ClicsFeed>"
                 },
                 "useTeamNames": {
-                    "$ref": "#/$defs/kotlin.Boolean"
-                },
-                "mediaBaseUrl": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "boolean"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -241,9 +213,47 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url"
+                "feeds"
             ],
             "title": "clics"
+        },
+        "kotlin.collections.ArrayList<kotlin.String>": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "cms": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "cms",
+                    "default": "cms"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "activeContest": {
+                    "type": "string"
+                },
+                "otherContests": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "activeContest",
+                "otherContests"
+            ],
+            "title": "cms"
         },
         "codedrills": {
             "type": "object",
@@ -253,16 +263,16 @@
                     "default": "codedrills"
                 },
                 "url": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "port": {
-                    "$ref": "#/$defs/kotlin.Int"
+                    "type": "number"
                 },
                 "contestId": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "authKey": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential<kotlin.String>"
+                    "type": "string"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -289,10 +299,13 @@
                     "default": "ejudge"
                 },
                 "url": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "resultType": {
                     "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
+                },
+                "timeZone": {
+                    "type": "string"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -316,13 +329,13 @@
                     "default": "krsu"
                 },
                 "submissionsUrl": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "contestUrl": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "timeZone": {
-                    "$ref": "#/$defs/TimeZone"
+                    "type": "string"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -359,9 +372,6 @@
             ],
             "title": "noop"
         },
-        "kotlin.String?": {
-            "type": "string"
-        },
         "pcms": {
             "type": "object",
             "properties": {
@@ -370,16 +380,16 @@
                     "default": "pcms"
                 },
                 "url": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "login": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential?<kotlin.String>"
+                    "type": "string"
                 },
                 "password": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential?<kotlin.String>"
+                    "type": "string"
                 },
                 "problemsUrl": {
-                    "$ref": "#/$defs/kotlin.String?"
+                    "type": "string"
                 },
                 "resultType": {
                     "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
@@ -406,10 +416,10 @@
                     "default": "testsys"
                 },
                 "url": {
-                    "$ref": "#/$defs/kotlin.String"
+                    "type": "string"
                 },
                 "timeZone": {
-                    "$ref": "#/$defs/TimeZone"
+                    "type": "string"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -425,9 +435,6 @@
             ],
             "title": "testsys"
         },
-        "Regex": {
-            "type": "string"
-        },
         "yandex": {
             "type": "object",
             "properties": {
@@ -436,13 +443,13 @@
                     "default": "yandex"
                 },
                 "apiKey": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Credential<kotlin.String>"
+                    "type": "string"
                 },
                 "loginRegex": {
-                    "$ref": "#/$defs/Regex"
+                    "type": "string"
                 },
                 "contestId": {
-                    "$ref": "#/$defs/kotlin.Int"
+                    "type": "number"
                 },
                 "resultType": {
                     "$ref": "#/$defs/org.icpclive.api.ContestResultType<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
@@ -476,6 +483,9 @@
                 },
                 {
                     "$ref": "#/$defs/clics"
+                },
+                {
+                    "$ref": "#/$defs/cms"
                 },
                 {
                     "$ref": "#/$defs/codedrills"
