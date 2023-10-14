@@ -6,6 +6,7 @@ import { BASE_URL_BACKEND, SCHEMAS_LOCATION } from "../config";
 import Typography from "@mui/material/Typography";
 import { createApiGet, createApiPost } from "../utils";
 
+// TODO: Use https://github.com/josdejong/svelte-jsoneditor
 function AdvancedJson() {
     const { enqueueSnackbar } = useSnackbar();
     const errorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
