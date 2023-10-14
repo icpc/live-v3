@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Container from "@mui/material/Container";
+import { Button, Container, TextField } from "@mui/material";
 import { errorHandlerWithSnackbar } from "../errors";
 import { useSnackbar } from "notistack";
 import { BASE_URL_BACKEND, SCHEMAS_LOCATION } from "../config";
-import { Form } from "@rjsf/mui";
-import validator from "@rjsf/validator-ajv8";
 import Typography from "@mui/material/Typography";
 import { createApiGet, createApiPost } from "../utils";
 
@@ -30,16 +28,14 @@ function AdvancedJson() {
 
     useEffect(() => {
         apiGet("")
-            .then(data => setData(data))
+            .then(data => setData(JSON.stringify(data, null, 2)))
             .catch(errorHandler("Failed to load advanced json data"));
     }, [apiUrl]);
 
-    const uiSchema = {
-
-    };
-
-    const onSubmit = ({ formData }) => {
-        apiPost("", formData)
+    const onSubmit = () => {
+        const dataJson = JSON.parse(data);
+        console.log(dataJson);
+        apiPost("", dataJson)
             .catch(errorHandler("Failed to save advanced json data"));
     };
 
@@ -53,13 +49,15 @@ function AdvancedJson() {
 
     return (
         <Container maxWidth="md" sx={{ pt: 2 }}>
-            <Form
-                schema={schema}
-                validator={validator}
-                formData={data}
-                uiSchema={uiSchema}
-                onSubmit={onSubmit}
+            <TextField
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+                fullWidth
+                multiline
             />
+            <Button type="submit" onClick={onSubmit}>
+                Save
+            </Button>
         </Container>
     );
 }
