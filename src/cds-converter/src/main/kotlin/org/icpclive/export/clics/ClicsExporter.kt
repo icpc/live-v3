@@ -377,8 +377,7 @@ object ClicsExporter  {
             merge(
                 generateEventFeed(updates),
                 generateAwardEvents(scoreboardFlow.map { it.toClicsAwards() }.distinctUntilChanged())
-            ).onEach { println(it) }
-                .shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+            ).shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
         val contestFlow = eventFeed.filterGlobalEvent<Contest, Event.ContestEvent>(scope)
         val stateFlow = eventFeed.filterGlobalEvent<State, Event.StateEvent>(scope)
 
