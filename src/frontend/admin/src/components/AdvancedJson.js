@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Button, Container, TextField } from "@mui/material";
+import React, { useState, useEffect, useMemo } from "react";
+import { Button, Container } from "@mui/material";
 import { errorHandlerWithSnackbar } from "../errors";
 import { useSnackbar } from "notistack";
 import { BASE_URL_BACKEND, SCHEMAS_LOCATION } from "../config";
 import Typography from "@mui/material/Typography";
 import { createApiGet, createApiPost } from "../utils";
+import VanillaJSONEditor from "./atoms/VanillaJSONEditor";
+import { createAjvValidator } from "vanilla-jsoneditor";
 
-// TODO: Use https://github.com/josdejong/svelte-jsoneditor
 function AdvancedJson() {
     const { enqueueSnackbar } = useSnackbar();
     const errorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
@@ -19,7 +20,9 @@ function AdvancedJson() {
     const apiPost = createApiPost(apiUrl);
 
     const [schema, setSchema] = useState();
-    const [data, setData] = useState();
+    const validator = useMemo(() => schema && createAjvValidator({ schema }),
+        [schema]);
+    const [content, setContent] = useState();
 
     useEffect(() => {
         schemaGet("")
@@ -29,18 +32,19 @@ function AdvancedJson() {
 
     useEffect(() => {
         apiGet("")
-            .then(data => setData(JSON.stringify(data, null, 2)))
+            .then(data => setContent({
+                json: data,
+                text: undefined
+            }))
             .catch(errorHandler("Failed to load advanced json data"));
     }, [apiUrl]);
 
     const onSubmit = () => {
-        const dataJson = JSON.parse(data);
-        console.log(dataJson);
-        apiPost("", dataJson)
+        apiPost("", content.json)
             .catch(errorHandler("Failed to save advanced json data"));
     };
 
-    if (schema === undefined || data === undefined) {
+    if (schema === undefined || content === undefined) {
         return (
             <Container maxWidth="md" sx={{ pt: 2 }}>
                 <Typography variant="h6">Loading...</Typography>
@@ -50,11 +54,10 @@ function AdvancedJson() {
 
     return (
         <Container maxWidth="md" sx={{ pt: 2 }}>
-            <TextField
-                value={data}
-                onChange={(e) => setData(e.target.value)}
-                fullWidth
-                multiline
+            <VanillaJSONEditor
+                content={content}
+                onChange={setContent}
+                validator={validator}
             />
             <Button type="submit" onClick={onSubmit}>
                 Save
