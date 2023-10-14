@@ -1,5 +1,5 @@
 {
-  "teamRegexes": {
+  "teamNameRegexes": {
     "groupRegex": {
       "outOfContest": "^\\(вк\\).*",
       "firstGrade": "^\\(1к\\).*",

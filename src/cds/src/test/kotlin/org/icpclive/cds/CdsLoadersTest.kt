@@ -107,7 +107,7 @@ object CdsLoadersTest {
                 url = UrlOrLocalPath("testData/loaders/testsys.dat")
             ),
             AdvancedProperties(
-                teamRegexes = TeamRegexOverrides(
+                teamNameRegexes = TeamRegexOverrides(
                     groupRegex = mapOf(
                         "outOfContest" to Regex("^\\(вк\\).*"),
                         "firstGrade" to Regex("^\\(1к\\).*"),

@@ -27,6 +27,11 @@
       }
     ]
   },
+  "teamIdRegexes": {
+    "customFields": {
+      "icpc_id": "^nef([0-9]*)$"
+    }
+  },
   "scoreboardOverrides": {
     "showTeamsWithoutSubmissions": true
   },

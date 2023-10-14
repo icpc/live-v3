@@ -545,7 +545,10 @@
                 "teamOverrideTemplate": {
                     "$ref": "#/$defs/org.icpclive.api.tunning.TeamOverrideTemplate?<kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?>"
                 },
-                "teamRegexes": {
+                "teamNameRegexes": {
+                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamRegexOverrides?<Regex?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
+                },
+                "teamIdRegexes": {
                     "$ref": "#/$defs/org.icpclive.api.tunning.TeamRegexOverrides?<Regex?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
                 },
                 "teamOverrides": {

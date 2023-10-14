@@ -104,7 +104,8 @@ public data class OrganizationInfoOverride(
  * The order in which overrides applied:
  *   * Time and scoreboard related (they don't interact with others)
  *   * Filtering out non-submitted teams if requested
- *   * Regexp overrides (so values provided by them can be used in templated)
+ *   * Regexp overrides by team name (so values provided by them can be used in templated)
+ *   * Regexp overrides by team id (so values provided by them can be used in templated)
  *   * Creating new groups mentioned in teams or overrides and group overrides
  *   * Creating new organizations mentioned in teams or overrides and organization overrides
  *   * (Deprecated) Team media template
@@ -125,7 +126,8 @@ public data class OrganizationInfoOverride(
  * @param holdTime Fixed time to show as time before the contest start
  * @param teamMediaTemplate Template medias for all teams.
  * @param teamOverrideTemplate Template for team overrides
- * @param teamRegexes Bunch of regexes to extract information cds doesn't provide from team name.
+ * @param teamNameRegexes Bunch of regexes to extract information cds doesn't provide from team name.
+ * @param teamIdRegexes Bunch of regexes to extract information cds doesn't provide from team's ID.
  * @param teamOverrides Overrides for a specific team. Team id from the contest system is key.
  * @param groupOverrides Overrides for specific groups. Group name is key.
  * @param problemOverrides Overrides for specific problems. Problem id from the contest system is key.
@@ -144,7 +146,8 @@ public data class AdvancedProperties(
     @Deprecated(level = DeprecationLevel.WARNING, message = "Use teamOverrideTemplate instead")
     val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
     val teamOverrideTemplate: TeamOverrideTemplate? = null,
-    val teamRegexes: TeamRegexOverrides? = null,
+    val teamNameRegexes: TeamRegexOverrides? = null,
+    val teamIdRegexes: TeamRegexOverrides? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val groupOverrides: Map<String, GroupInfoOverride>? = null,
     val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
@@ -160,8 +163,6 @@ internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.t
  * This can be used to extract this information to something more structured.
  *
  * All regexes are java regex.
- *
- * Regexes are matched against team full name from cds.
  *
  * @property organizationRegex The only matched group would be equal to new organization id for the team.
  * @property customFields The only group would be set as custom field value for the corresponding key

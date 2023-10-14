@@ -166,15 +166,15 @@ private fun String.matchSingleGroupRegex(regex: Regex?, name: String) : String? 
     }
 }
 
-private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides?) : List<TeamInfo> {
+private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides?, key: TeamInfo.() -> String) : List<TeamInfo> {
     if (regexOverrides == null) return teams
     return teams.map { team ->
-        val newOrg = team.fullName.matchSingleGroupRegex(regexOverrides.organizationRegex, "organization regex")
+        val newOrg = team.key().matchSingleGroupRegex(regexOverrides.organizationRegex, "organization regex")
         val newGroups = regexOverrides.groupRegex?.entries?.filter { (_, regex) ->
-            regex.matches(team.fullName)
+            regex.matches(team.key())
         }?.map { it.key }.orEmpty()
         val newCustomFields = regexOverrides.customFields?.mapValues { (name, regex) ->
-            team.fullName.matchSingleGroupRegex(regex, "$name regex")
+            team.key().matchSingleGroupRegex(regex, "$name regex")
         }?.filterValues { it != null }?.mapValues { it.value!! }.orEmpty()
 
         team.copy(
@@ -192,8 +192,13 @@ internal fun applyAdvancedProperties(
     submittedTeams: Set<Int>
 ): ContestInfo {
     val teamInfosPrelim = applyRegex(
-        info.teamList.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
-        overrides.teamRegexes
+        applyRegex(
+            info.teamList.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
+            overrides.teamNameRegexes,
+            TeamInfo::fullName
+        ),
+        overrides.teamIdRegexes,
+        TeamInfo::contestSystemId
     )
     val newGroups = buildSet {
         for (team in teamInfosPrelim) {
