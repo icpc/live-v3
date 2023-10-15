@@ -19,6 +19,7 @@ export interface ContestInfo {
 export enum ContestStatus {
   BEFORE = "BEFORE",
   RUNNING = "RUNNING",
+  FAKE_RUNNING = "FAKE_RUNNING",
   OVER = "OVER",
   FINALIZED = "FINALIZED",
 }
