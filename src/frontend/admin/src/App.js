@@ -60,7 +60,6 @@ function App() {
                         <Route path="/analytics" element={<Analytics/>}/>
                         <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
                         <Route path="/advancedJson" element={<AdvancedJson/>}/>
-                        {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
                 </div>
