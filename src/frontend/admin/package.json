@@ -16,7 +16,7 @@
     "react-rnd": "^10.3.7",
     "react-router-dom": "^6.2.2",
     "react-scripts": "^5.0.1",
-    "vanilla-jsoneditor":  "^0.18.9"
+    "@monaco-editor/react": "^4.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
