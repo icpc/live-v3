@@ -44,7 +44,7 @@ object PCMSExporter {
 
     fun ContestStatus.toPcmsStatus() = when (this) {
         ContestStatus.FINALIZED, ContestStatus.OVER -> "over"
-        ContestStatus.RUNNING -> "running"
+        ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> "running"
         ContestStatus.BEFORE -> "before"
     }
 

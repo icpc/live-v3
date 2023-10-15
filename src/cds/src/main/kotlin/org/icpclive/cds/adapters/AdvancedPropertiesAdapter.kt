@@ -188,7 +188,7 @@ private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides
 private fun AdvancedProperties.status(info: ContestInfo) : ContestStatus {
     if (startTime == null && contestLength == null) return info.status
     val status = ContestStatus.byCurrentTime(startTime ?: info.startTime, contestLength ?: info.contestLength)
-    if (status == ContestStatus.OVER && info.status == ContestStatus.FINALIZED) return info.status
+    if (status == ContestStatus.OVER && (info.status == ContestStatus.FINALIZED || info.status == ContestStatus.FAKE_RUNNING)) return info.status
     if (status == info.status) return info.status
     logger.info("Contest status is overridden to ${status}, startTime = ${(startTime ?: info.startTime).humanReadable}, contestLength = ${(contestLength ?: info.contestLength)}")
     return status

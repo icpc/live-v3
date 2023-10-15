@@ -174,7 +174,7 @@ object ClicsExporter  {
             end_of_updates = null
         )
 
-        ContestStatus.RUNNING -> State(
+        ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> State(
             ended = null,
             frozen = if (info.currentContestTime >= info.freezeTime) info.startTime + info.freezeTime else null,
             started = info.startTime,

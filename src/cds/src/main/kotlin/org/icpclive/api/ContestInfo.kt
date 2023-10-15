@@ -60,7 +60,7 @@ public data class ProblemInfo(
 
 @Serializable
 public enum class ContestStatus {
-    BEFORE, RUNNING, OVER, FINALIZED;
+    BEFORE, RUNNING, FAKE_RUNNING, OVER, FINALIZED;
 
     internal companion object {
         fun byCurrentTime(startTime: Instant, contestLength: Duration): ContestStatus {
@@ -309,7 +309,7 @@ public data class ContestInfo(
     public val currentContestTime: Duration
         get() = when (status) {
             ContestStatus.BEFORE -> Duration.ZERO
-            ContestStatus.RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
+            ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
             ContestStatus.OVER, ContestStatus.FINALIZED -> contestLength
         }
     val groups: Map<String, GroupInfo> by lazy { groupList.associateBy { it.cdsId } }

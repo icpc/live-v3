@@ -67,14 +67,14 @@ abstract class DumpFileCommand(
     abstract fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>): String
 
     val commonOptions by CommonOptions
-    val output by option("-o", "--output", help = outputHelp).path().convert {
+    private val output by option("-o", "--output", help = outputHelp).path().convert {
         if (it.isDirectory()) {
             it.resolve(defaultFileName)
         } else {
             it
         }
     }.required()
-        .check({ "Directory ${it.parent} doesn't exist"}) { it.parent.isDirectory() }
+        .check({ "Directory ${it.absolute().parent} doesn't exist"}) { it.absolute().parent.isDirectory() }
 
     open fun Flow<ContestUpdate>.postprocess() = this
 
