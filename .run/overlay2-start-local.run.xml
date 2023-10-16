@@ -9,13 +9,6 @@
     <envs>
       <env name="VITE_WEBSOCKET_URL" value="ws://localhost:8080/api/overlay" />
     </envs>
-    <method v="2">
-      <option name="NpmBeforeRunTask" enabled="true">
-        <package-json value="$PROJECT_DIR$/src/frontend/package.json" />
-        <command value="ci" />
-        <node-interpreter value="project" />
-        <envs />
-      </option>
-    </method>
+    <method v="2" />
   </configuration>
 </component>

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import c from "../../../config";
-import {formatPenalty, formatScore, useFormatPenalty, useNeedPenalty} from "../../atoms/ContestCells";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 // import { extractScoreboardRows, useScroller } from "./Scoreboard";
 import { TaskResultLabel, RankLabel } from "../../atoms/ContestLabels";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
+
+import {formatScore, useFormatPenalty, useNeedPenalty} from "../../../services/displayUtils";
 
 
 const ScoreboardWrap = styled.div`

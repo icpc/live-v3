@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import {useSelector} from "react-redux";
 import c from "../../../config";
-import {StackedBars} from "../../molecules/statistics/StackedBars";
-import {StatisticsLegend} from "../../molecules/statistics/StatisticsLegend";
 import {stackedBarsData} from "../../../statistics/barData";
+import {StatisticsLegend} from "../../molecules/statistics/StatisticsLegend";
+import {StackedBars} from "../../molecules/statistics/StackedBars";
 
 const StatisticsWrap = styled.div`
   width: 100%;
@@ -34,7 +34,7 @@ const Title = styled.div`
 const Caption = styled.div``;
 
 
-export const Statistics = ({ }) => {
+export const Statistics = () => {
     // @ts-ignore-start
     const resultType = useSelector(state => state.contestInfo?.info?.resultType);
     // @ts-ignore

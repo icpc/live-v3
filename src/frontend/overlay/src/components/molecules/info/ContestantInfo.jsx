@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
@@ -6,74 +5,33 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import c from "../../../config";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel } from "../../atoms/ContestLabels";
-import {formatPenalty, formatScore, useFormatPenalty} from "../../atoms/ContestCells";
+
+import {formatScore, useFormatPenalty} from "../../../services/displayUtils";
 
 
-const rowFlashing = keyframes`
-  from {
-    filter: brightness(0.3);
-  }
-  to {
-    filter: brightness(1);
-  }
-`;
-
-const getContesterRowBackground = (background, medal, isEven) => {
-    const base = background ?? ((isEven && c.CELL_BG_COLOR_ODD) || c.CELL_BG_COLOR2);
-    if (c.MEDAL_COLORS[medal]) {
-        return `linear-gradient(270deg, rgba(253, 141, 105, 0) 0, ${c.MEDAL_COLORS[medal]} 100%)` + base;
-    }
-    return base;
-};
-
-const borderRadius = ({
-    round,
-    roundT,
-    roundB,
-    roundTL,
-    roundTR,
-    roundBL,
-    roundBR,
-}) => {
-    const borderRadiusTL = (roundTL ?? roundT ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
-    const borderRadiusTR = (roundTR ?? roundT ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
-    const borderRadiusBL = (roundBL ?? roundB ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
-    const borderRadiusBR = (roundBR ?? roundB ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
-    return `${borderRadiusTL} ${borderRadiusTR} ${borderRadiusBR} ${borderRadiusBL}`;
-};
-/**
- * @deprecated Do not use this component or inherit from this component. This is old design
- */
-export const ContestantRow = styled.div`
-  background-color: ${({ background, medal, isEven }) => getContesterRowBackground(background, medal, isEven)};
-  background-size: 34px 100%; /* TODO: 34 is a magic number for gradient medal color */
-  background-repeat: no-repeat;
-  border-radius: ${props => borderRadius(props)};
-
-  height: ${c.QUEUE_ROW_HEIGHT2}px;
-  display: flex;
-  flex-wrap: nowrap;
-  max-width: 100%;
-  opacity: ${c.CONTESTER_ROW_OPACITY};
-  padding: 0 10px;
-
-  animation: ${props => props.flashing ? rowFlashing : null} ${c.CELL_FLASH_PERIOD}ms linear infinite alternate-reverse;
-`;
-
-ContestantRow.propTypes = {
-    background: PropTypes.string,
-    medal: PropTypes.string,
-    isEven: PropTypes.bool,
-    flashing: PropTypes.bool,
-    round : PropTypes.bool,
-    roundT : PropTypes.bool,
-    roundB : PropTypes.bool,
-    roundTL : PropTypes.bool,
-    roundTR : PropTypes.bool,
-    roundBL : PropTypes.bool,
-    roundBR : PropTypes.bool,
-};
-
+// const rowFlashing = keyframes`
+//   from {
+//     filter: brightness(0.3);
+//   }
+//   to {
+//     filter: brightness(1);
+//   }
+// `;
+// const borderRadius = ({
+//     round,
+//     roundT,
+//     roundB,
+//     roundTL,
+//     roundTR,
+//     roundBL,
+//     roundBR,
+// }) => {
+//     const borderRadiusTL = (roundTL ?? roundT ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
+//     const borderRadiusTR = (roundTR ?? roundT ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
+//     const borderRadiusBL = (roundBL ?? roundB ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
+//     const borderRadiusBR = (roundBR ?? roundB ?? round ?? true) ? c.CONTESTER_ROW_BORDER_RADIUS : 0;
+//     return `${borderRadiusTL} ${borderRadiusTR} ${borderRadiusBR} ${borderRadiusBL}`;
+// };
 const ContestantInfoLabel = styled(RankLabel)`
   width: 32px;
   align-self: stretch;

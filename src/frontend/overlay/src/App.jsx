@@ -8,6 +8,7 @@ import { WEBSOCKETS } from "./consts";
 import { pushLog } from "./redux/debug";
 import { setWebsocketStatus, WebsocketStatus } from "./redux/status";
 import { WEBSOCKET_HANDLERS } from "./services/ws/ws";
+import {useMountEffect} from "./utils/hooks/useMountEffect";
 
 const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
     const openSocket = () => {
@@ -34,20 +35,22 @@ function App() {
     const dispatch = useDispatch();
     const makeWebsocket = useMakeWebsocket(dispatch);
     const wss = Object.fromEntries(Object.keys(WEBSOCKETS).map((key) => {
+        // since WEBSOCKETS is static.
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         return [key, useRef(null)];
     }));
 
-    useEffect(() => {
+    useMountEffect(() => {
         _.forEach(wss, (v, k) => {
             makeWebsocket(v, k, WEBSOCKET_HANDLERS[k](dispatch));
         });
-    }, []);
+    });
 
     useEffect(() => {
         document.addEventListener("error", (message) => {
             dispatch(pushLog(`Global error on document: ${message}`));
         });
-    }, []);
+    }, [dispatch]);
 
     const noStatus = window.location.search.includes("noStatus");
 

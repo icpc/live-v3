@@ -40,8 +40,11 @@ export const Scoreboard = ({ tickerSettings, state }) => {
             }, (periodMs - c.TICKER_SCROLL_TRANSITION_TIME) / nrows / c.TICKER_SCOREBOARD_REPEATS + 1);
             return () => clearInterval(interval);
         }
-    }, [nrows, periodMs, state]);
-    return <ScoreboardWrap nrows={nrows*2} top={`calc(${-row * 100 }% - ${row * 2}px)`}>
+    }, [nrows, periodMs, state, rows.length]);
+    return <ScoreboardWrap
+        nrows={nrows*2}
+        top={`calc(${-row * 100 }% - ${row * 2}px)`} // This fugliness is needed to scroll the scoreboard
+    >
         {rows.map((row) => <TickerScoreboardContestantInfo
             key={row.teamId}
             teamId={row.teamId}

@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
 import React, {memo} from "react";
 import styled from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 import { ShrinkingBox } from "./ShrinkingBox";
-import { formatScore, ICPCResult, IOIResult } from "./ContestCells";
 import {
     TeamTaskColor,
     TeamTaskSymbol,
@@ -12,19 +10,7 @@ import {
     getStatus,
     getTeamTaskColor,
 } from "../../utils/statusInfo";
-
-export const ICPCTaskResult = PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    pendingAttempts: PropTypes.number.isRequired,
-    wrongAttempts: PropTypes.number.isRequired,
-    isSolved: PropTypes.bool.isRequired,
-    isFirstToSolve: PropTypes.bool.isRequired,
-});
-
-export const IOITaskResult = PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    score: PropTypes.number,
-});
+import {formatScore} from "../../services/displayUtils";
 
 const VerdictLabel = styled(ShrinkingBox)`
   background-color: ${({ color }) => color};
@@ -40,10 +26,6 @@ const ICPCVerdictLabel = ({ runResult, className }) => {
     return <VerdictLabel text={runResult?.verdict.shortName ?? "??"} color={color} align="center" className={className}/>;
 };
 
-ICPCVerdictLabel.propTypes = {
-    runResult: ICPCResult,
-};
-
 const getIOIScoreText = (difference) => {
     if (difference > 0) {
         return [`+${formatScore(difference, 1)}`, c.VERDICT_OK2];
@@ -54,18 +36,15 @@ const getIOIScoreText = (difference) => {
     return ["=", c.VERDICT_UNKNOWN2];
 };
 
-const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) => {
+const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }}) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
         {wrongVerdict !== undefined && <ShrinkingBox text={wrongVerdict ?? "??"} color={c.VERDICT_NOK2}/>}
         {wrongVerdict === undefined && <ShrinkingBox text={diffText ?? "??"} color={diffColor}/>}
     </>;
 };
-IOIVerdictLabel.propTypes = {
-    runResult: IOIResult,
-};
 
-export const VerdictLabel2 = ({ runResult, ...props }) => {
+const VerdictLabel2 = ({ runResult, ...props }) => {
     return <>
         {runResult.type === "ICPC" && <ICPCVerdictLabel runResult={runResult} {...props}/>}
         {runResult.type === "IOI" && <IOIVerdictLabel runResult={runResult} {...props}/>}
@@ -73,7 +52,7 @@ export const VerdictLabel2 = ({ runResult, ...props }) => {
 };
 
 
-export const formatRank = (rank) => {
+const formatRank = (rank) => {
     if (rank === undefined || rank == null)
         return "??";
     else if (rank === 0)
@@ -124,22 +103,11 @@ const VerdictCellInProgress2 = ({ percentage, className }) => {
     </VerdictCellInProgressWrap2>;
 };
 
-VerdictCellInProgress2.propTypes = {
-    percentage: PropTypes.number.isRequired
-};
-
 export const RunStatusLabel = ({ runInfo, className }) => {
     return <>
         {runInfo.result === undefined && <VerdictCellInProgress2 percentage={runInfo.percentage} className={className}/>}
         {runInfo.result !== undefined && <VerdictLabel2 runResult={runInfo.result} score={runInfo.result.result} className={className}/>}
     </>;
-};
-
-RunStatusLabel.propTypes = {
-    runInfo: PropTypes.shape({
-        result: PropTypes.oneOf([IOIResult, IOIResult]),
-        percentage: PropTypes.number.isRequired,
-    }),
 };
 
 const TaskResultLabelWrapper2 = styled.div`
@@ -161,22 +129,11 @@ const ICPCTaskResultLabel2 = ({ problemResult: r, ...props }) => {
     </>;
 };
 
-ICPCTaskResultLabel2.propTypes = {
-    problemResult: ICPCTaskResult,
-};
-
 const IOITaskResultLabel2 = ({ problemResult: r, minScore, maxScore,  ...props }) => {
     return <TaskResultLabelWrapper2 color={getTeamTaskColor(r.score, minScore, maxScore)} { ...props}>
         {formatScore(r?.score)}
     </TaskResultLabelWrapper2>;
 };
-
-IOITaskResultLabel2.propTypes = {
-    problemResult: IOITaskResult,
-    minScore: PropTypes.number,
-    maxScore: PropTypes.number,
-};
-
 export const TaskResultLabel = memo(({ problemResult, minScore, maxScore, ...props }) => {
     return <>
         {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}

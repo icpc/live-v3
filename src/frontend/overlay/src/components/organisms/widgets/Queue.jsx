@@ -6,12 +6,13 @@ import styled, { css, keyframes } from "styled-components";
 import c from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
-import { formatScore } from "../../atoms/ContestCells";
 import { RankLabel, RunStatusLabel } from "../../atoms/ContestLabels";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ContestantViewHolder } from "../holder/ContestantViewHolder";
 // import { QueueRow } from "../../molecules/queue/QueueRow";
 import { useWithTimeoutAfterRender } from "../../../utils/hooks/withTimeoutAfterRender";
+
+import {formatScore} from "../../../services/displayUtils";
 
 // const MAX_QUEUE_ROWS_COUNT = 20;
 

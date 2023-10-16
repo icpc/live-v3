@@ -11,13 +11,6 @@
       <env name="REACT_APP_WEBSOCKET_URL" value="ws://localhost:8080/api/admin" />
       <env name="REACT_APP_OVERLAY_LOCATION" value="http://localhost:5173" />
     </envs>
-    <method v="2">
-      <option name="NpmBeforeRunTask" enabled="true">
-        <package-json value="$PROJECT_DIR$/src/frontend/package.json" />
-        <command value="ci" />
-        <node-interpreter value="project" />
-        <envs />
-      </option>
-    </method>
+    <method v="2" />
   </configuration>
 </component>
