@@ -36,7 +36,7 @@ class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID_PREFIX = "advertisement"
-        val location = LocationRectangle(0, 860, 1920, 90)
+        val location = LocationRectangle(16, 16, 1488, 984)
     }
 }
 
@@ -48,7 +48,7 @@ class PictureWidget(val picture: PictureSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID_PREFIX = "picture"
-        val location = LocationRectangle(550, 40, 1350, 970)
+        val location = LocationRectangle(16, 16, 1488, 984)
     }
 }
 
@@ -72,7 +72,7 @@ class QueueWidget(val settings: QueueSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID = "queue"
-        val location = LocationRectangle(20, 310, 515, 695)
+        val location = LocationRectangle(1520, 248, 384, 752)
     }
 }
 
@@ -84,7 +84,7 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID = "scoreboard"
-        val location = LocationRectangle(550, 20, 1350, 985)
+        val location = LocationRectangle(16, 16, 1488, 984)
     }
 }
 
@@ -96,7 +96,7 @@ class StatisticsWidget(val settings: StatisticsSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID = "statistics"
-        val location = LocationRectangle(550, 40, 1350, 970)
+        val location = LocationRectangle(16, 662, 1488, 338)
     }
 }
 
@@ -108,7 +108,7 @@ class TickerWidget(val settings: TickerSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID = "ticker"
-        val location = LocationRectangle(0, 1025, 1920, 50)
+        val location = LocationRectangle(16, 1016, 1888, 48)
     }
 }
 
@@ -128,13 +128,13 @@ class TeamViewWidget(
     companion object {
         fun getWidgetId(position: TeamViewPosition) = "teamview." + position.name
         fun getLocation(position: TeamViewPosition) = when (position) {
-            TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(550, 40, 1350, 970)
-            TeamViewPosition.PVP_TOP -> LocationRectangle(550, 40, 1350, 970 / 2)
-            TeamViewPosition.PVP_BOTTOM -> LocationRectangle(550, 40 + 970 / 2, 1350, 970 / 2)
-            TeamViewPosition.TOP_LEFT -> LocationRectangle(550, 40, 672, 378)
-            TeamViewPosition.TOP_RIGHT -> LocationRectangle(550 + 672, 40, 672, 378)
-            TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(550, 40 + 378, 672, 378)
-            TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(550 + 672, 40 + 378, 672, 378)
+            TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(16, 16, 1488, 984)
+            TeamViewPosition.PVP_TOP -> LocationRectangle(16, 16, 1488, 984 / 2 + 12)
+            TeamViewPosition.PVP_BOTTOM -> LocationRectangle(16, 16 + 984 / 2 - 13, 1488, 984 / 2 + 13)
+            TeamViewPosition.TOP_LEFT -> LocationRectangle(16, 16, 1488 / 2, 837 / 2)
+            TeamViewPosition.TOP_RIGHT -> LocationRectangle(16 + 1488 / 2, 16, 1488 / 2, 837 / 2)
+            TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(16, 16 + 837 / 2, 1488 / 2, 837 / 2)
+            TeamViewPosition.BOTTOM_RIGHT -> LocationRectangle(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2)
         }
     }
 }
@@ -147,7 +147,7 @@ class FullScreenClockWidget(val settings: FullScreenClockSettings) : Widget(
 ) {
     companion object {
         const val WIDGET_ID = "fullScreenClock"
-        val location = LocationRectangle(0, 0, 1920, 1080)
+        val location = LocationRectangle(16, 16, 1488, 984)
     }
 }
 
