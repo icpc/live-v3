@@ -203,7 +203,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   width: 28px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
   flex-shrink: 0;
-  mask: ${({isFTSRun}) => isFTSRun ? `url(${star}) 50% 50% no-repeat` : null};
+  mask: ${({isFts}) => isFts ? `url(${star}) 50% 50% no-repeat` : null};
   mask-origin: content-box;
   mask-clip: border-box;
   mask-size: 25px;

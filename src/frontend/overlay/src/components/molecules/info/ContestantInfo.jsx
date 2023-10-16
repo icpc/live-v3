@@ -56,7 +56,7 @@ const ContestantInfoWrap = styled.div`
   overflow: hidden;
   gap: 5px;
   color: white;
-  font-size: 18px;
+  font-size: ${c.CONTESTER_FONT_SIZE};
 `;
 
 const ContestantInfoScoreLabel = styled(ShrinkingBox)`
