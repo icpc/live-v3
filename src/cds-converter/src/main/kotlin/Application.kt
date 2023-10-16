@@ -5,9 +5,11 @@ package org.icpclive
 import ClicsExporter
 import com.github.ajalt.clikt.core.*
 import com.github.ajalt.clikt.output.MordantHelpFormatter
+import com.github.ajalt.clikt.parameters.arguments.*
 import com.github.ajalt.clikt.parameters.groups.*
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.*
+import com.github.ajalt.mordant.rendering.TextColors
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -153,13 +155,21 @@ object ServerCommand : CliktCommand(name = "server", help = "Start as http serve
     }
 }
 
-object MainCommand : CliktCommand(name = "java -jar cds-converter.jar") {
+object MainCommand : CliktCommand(name = "java -jar cds-converter.jar", invokeWithoutSubcommand = true, treatUnknownOptionsAsArgs = true) {
     init {
         context {
             helpFormatter = { MordantHelpFormatter(it, showRequiredTag = true, showDefaultValues = true)}
         }
     }
+    val unused by argument().multiple()
     override fun run() {
+        if (currentContext.invokedSubcommand == null) {
+            if (unused.isNotEmpty()) {
+                currentContext.terminal.danger("Unknown command ${unused.firstOrNull()}")
+                currentContext.terminal.info("")
+            }
+            throw PrintHelpMessage(currentContext, true)
+        }
     }
 }
 
