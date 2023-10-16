@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { SCOREBOARD_TYPES } from "../../../consts";
 import c from "../../../config";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
