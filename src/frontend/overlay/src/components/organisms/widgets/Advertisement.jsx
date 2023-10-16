@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import c from "../../../config";
 
 const AdvertisementContainer = styled.div`
   width: 100%;
@@ -15,7 +16,7 @@ const AdvertisementWrap = styled.div`
   background-color: white;
   border-radius: 12px;
   font-size: 24pt;
-  font-weight: 700;
+  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   font-family: Urbanist, Passageway, serif;
   color: black;
 `;

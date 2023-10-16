@@ -29,7 +29,7 @@ export const IOITaskResult = PropTypes.shape({
 const VerdictLabel = styled(ShrinkingBox)`
   background-color: ${({ color }) => color};
   font-size: 14px;
-  font-weight: 700;
+  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   display: flex;
   justify-content: center;
   align-items: center;

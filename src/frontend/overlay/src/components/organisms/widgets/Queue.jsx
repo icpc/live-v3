@@ -69,7 +69,7 @@ const fadeOut = () => keyframes`
     opacity: 100%;
   }
   to {
-    opacity: 0%;
+    opacity: 0;
   }
 `;
 
@@ -189,7 +189,7 @@ const StyledQueueRow = styled.div`
   gap: 5px;
   color: white;
   font-size: 18px;
-  background: rgba(0, 0, 0, 0.08);
+  background: ${c.QUEUE_ROW_BACKGROUND};
 `;
 
 const QueueScoreLabel = styled(ShrinkingBox)`
@@ -232,7 +232,7 @@ const QueueWrap = styled.div`
   position: relative;
   background-color: ${c.QUEUE_BACKGROUND_COLOR};
   background-repeat: no-repeat;
-  border-radius: 16px;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
   padding: 8px;
   box-sizing: border-box;
   display: flex;
@@ -249,7 +249,7 @@ const RowsContainer = styled.div`
 
 const QueueHeader = styled.div`
   font-size: 32px;
-  font-weight: 700;
+  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   line-height: 44px;
   color: white;
   width: 100%;

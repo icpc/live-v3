@@ -31,7 +31,7 @@ const ScoreboardHeader = styled.div`
   flex-direction: row;
   font-size: ${c.SCOREBOARD_CAPTION_FONT_SIZE};
   font-style: normal;
-  font-weight: 700;
+  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   padding-top: 0.3em;
 `;
 
@@ -205,7 +205,7 @@ const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
 
   font-size: ${c.SCOREBOARD_TABLE_HEADER_FONT_SIZE}px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   line-height: ${c.SCOREBOARD_TABLE_HEADER_HEIGHT};
 `;
 
