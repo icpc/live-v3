@@ -37,12 +37,12 @@ object IcpcCsvExporter {
         val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
         val ranking = scoreboardCalculator.getRanking(info, rows)
         val ranks = ranking.order.zip(ranking.ranks).toMap()
-        val icpcTeamIds = info.teams.values.map { it.icpcId() to it.id }.sortedByDescending { ranks[it.second] }
+        val icpcTeamIds = info.teams.values.associate { it.id to it.icpcId() }
 
         return buildString {
             val printer = CSVPrinter(this, CSVFormat.DEFAULT.builder().setHeader(*fields.toTypedArray()).build())
-            for ((icpc_id, team_id) in icpcTeamIds) {
-                printer.printRecord(getFields(icpc_id, ranks[team_id]!!, rows[team_id]!!, ranking.awards.filter { team_id in it.teams }))
+            for (teamId in ranking.order.reversed()) {
+                printer.printRecord(getFields(icpcTeamIds[teamId]!!, ranks[teamId]!!, rows[teamId]!!, ranking.awards.filter { teamId in it.teams }))
             }
         }
     }
