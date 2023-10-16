@@ -1,4 +1,4 @@
-import { StackedBarsData } from "./types";
+import {Legend, StackedBarsData} from "./types";
 import styled from "styled-components";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
@@ -58,12 +58,15 @@ const BarValue = styled.div.attrs(({ value, caption }) => ({
   text-align: center;
 `
 
-type StackedBarsStatisticsProps = { data: StackedBarsData, rowsCount: number };
-
-export const StackedBarsStatistics = ({data, rowsCount}: StackedBarsStatisticsProps) => {
+interface StackedBarsProps {
+    data: StackedBarsData;
+    legend: Legend;
+}
+export const StackedBars = ({data}: StackedBarsProps) => {
+    const rowsCount = data.length
     return (
         <BarsWrapper rowsCount={rowsCount}>
-            {data.bars.map((b) => {
+            {data.map((b) => {
                 return (
                     <BarWrapper key={b.name}>
                         <BarName problemColor={b.color} letter={b.name}/>

@@ -1,4 +1,4 @@
-import { LegendDescription } from "./types";
+import {Legend} from "./types";
 import styled from "styled-components";
 import c from "../../../config";
 
@@ -40,12 +40,12 @@ export const LegendCard = ({ color, caption }: LegendCardProps) => {
     );
 }
 
-type StatisticsLegendsProps = { legends: LegendDescription[] };
+type StatisticsLegendsProps = { legend: Legend };
 
-export const StatisticsLegends = ({legends}: StatisticsLegendsProps) => {
+export const StatisticsLegend = ({legend}: StatisticsLegendsProps) => {
     return (
         <LegendsWrapper>
-            {legends?.map((l) => (
+            {legend?.map((l) => (
                 <LegendCard caption={l.caption} color={l.color}></LegendCard>
             ))}
         </LegendsWrapper>

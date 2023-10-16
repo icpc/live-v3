@@ -15,7 +15,11 @@ export interface LegendDescription {
     readonly color: string;
 }
 
-export interface StackedBarsData {
-    readonly legends: LegendDescription[];
-    readonly bars: BarData[];
+export type Legend = LegendDescription[];
+
+export type StackedBarsData = BarData[];
+
+export interface StatisticsData {
+    readonly data: StackedBarsData; // | other statistics data
+    readonly legend: Legend;
 }
