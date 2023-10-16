@@ -100,6 +100,7 @@ config.SCORE_NONE_TEXT = ".";
 
 // config.PVP_OPACITY = 0.95;
 // config.TEAM_VIEW_OPACITY = 0.95;
+config.PVP_TABLE_ROW_HEIGHT = 25
 
 config.STATISTICS_TITLE_FONT_SIZE = "30px";
 config.STATISTICS_OPACITY = 0.95;
@@ -151,7 +152,7 @@ config.TEAMVIEW_SMALL_FACTOR = "50%"; // css property
 
 config.FULL_SCREEN_CLOCK_FONT_SIZE = "400px";
 config.FULL_SCREEN_CLOCK_COLOR = "#eeeeee";
-config.FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica; monospace",
+config.FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica; monospace";
 
 config.STAR_SIZE = 20; // px
 

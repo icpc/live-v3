@@ -1,0 +1,17 @@
+{
+  "groupOverrides": {
+    "Companies": {
+      "isOutOfContest": true
+    },
+    "Spectators": {
+      "isOutOfContest": true
+    }
+  },
+  "scoreboardOverrides": {
+    "medals": [
+      {"count": 1, "name": "gold"},
+      {"count": 1, "name": "silver"},
+      {"count": 1, "name": "bronze"}
+    ]
+  }
+}
