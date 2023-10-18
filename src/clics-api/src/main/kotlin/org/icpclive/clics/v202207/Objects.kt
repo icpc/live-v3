@@ -113,7 +113,7 @@ data class Problem(
 
 @Serializable
 data class Media(
-    val mime: String,
+    val mime: String = "", // not by spec
     val href: String,
     val fileName: String? = null,
     val hash: String? = null,
