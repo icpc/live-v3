@@ -39,13 +39,16 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
 
     @OptIn(InefficientContestInfoApi::class)
     override fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking {
-        val order_ = info.teamList.filterNot { it.isHidden }.map { it.id to rows[it.id]!! }.sortedWith { a, b ->
-            comparator.compare(a.second, b.second)
-        }
+        val comparatorWithName = compareBy(comparator) { it: Pair<Int, ScoreboardRow> -> it.second }
+                .thenBy { info.teams[it.first]!!.displayName }
+        val orderList = info.teamList
+            .filterNot { it.isHidden }
+            .map { it.id to rows[it.id]!! }
+            .sortedWith(comparatorWithName)
 
-        val order = order_.map { it.first }
+        val order = orderList.map { it.first }
         val ranks = MutableList(order.size) { 0 }
-        val orderedRows = order_.map { it.second }
+        val orderedRows = orderList.map { it.second }
 
         val firstGroupRank = mutableMapOf<String, Int>()
 
