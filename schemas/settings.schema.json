@@ -321,6 +321,38 @@
             ],
             "title": "ejudge"
         },
+        "eolymp": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "eolymp",
+                    "default": "eolymp"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "token",
+                "contestId"
+            ],
+            "title": "eolymp"
+        },
         "krsu": {
             "type": "object",
             "properties": {
@@ -492,6 +524,9 @@
                 },
                 {
                     "$ref": "#/$defs/ejudge"
+                },
+                {
+                    "$ref": "#/$defs/eolymp"
                 },
                 {
                     "$ref": "#/$defs/krsu"

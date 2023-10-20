@@ -22,6 +22,7 @@ retrofit = "2.9.0"                 # https://mvnrepository.com/artifact/com.squa
 json5 = "0.3.0"                    # https://github.com/xn32/json5k
 kxs-ts-gen = "0.2.1"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.10.0"      # https://commons.apache.org/proper/commons-csv/
+graphql = "7.0.1"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
 
 [libraries]
 
@@ -80,6 +81,8 @@ kxs-ts-gen-core = { version.ref = "kxs-ts-gen" , group = "dev.adamko.kxstsgen", 
 
 apache-commons-csv = { version.ref = "apache-commons-csv", group = "org.apache.commons", name = "commons-csv"}
 
+graphql-ktor-client = { version.ref = "graphql", group = "com.expediagroup", name = "graphql-kotlin-ktor-client"}
+
 [plugins]
 
 node = { id = "com.github.node-gradle.node", version.ref = "node-plugin" }
@@ -88,3 +91,4 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+graphql = { id = "com.expediagroup.graphql", version.ref = "graphql"}

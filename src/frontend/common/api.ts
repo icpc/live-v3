@@ -31,6 +31,7 @@ export enum ContestResultType {
 
 export enum PenaltyRoundingMode {
   each_submission_down_to_minute = "each_submission_down_to_minute",
+  each_submission_up_to_minute = "each_submission_up_to_minute",
   sum_down_to_minute = "sum_down_to_minute",
   sum_in_seconds = "sum_in_seconds",
   last = "last",

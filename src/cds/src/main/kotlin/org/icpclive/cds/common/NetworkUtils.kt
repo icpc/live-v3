@@ -17,6 +17,8 @@ internal sealed class ClientAuth {
 
     class OAuth(val token: String) : ClientAuth()
 
+    class Bearer(val token: String) : ClientAuth()
+
     class CookieAuth(val name: String, val value: String): ClientAuth()
 
     companion object {
@@ -42,6 +44,12 @@ internal fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
         is ClientAuth.OAuth -> {
             defaultRequest {
                 header(HttpHeaders.Authorization, "OAuth ${auth.token}")
+            }
+        }
+
+        is ClientAuth.Bearer -> {
+            defaultRequest {
+                header(HttpHeaders.Authorization, "Bearer ${auth.token}")
             }
         }
 

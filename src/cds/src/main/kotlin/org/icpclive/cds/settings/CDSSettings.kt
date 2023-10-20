@@ -26,6 +26,7 @@ import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.ContestDataSource
 import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.cds.ejudge.EjudgeDataSource
+import org.icpclive.cds.eolymp.EOlympDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
 import org.icpclive.cds.noop.NoopDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
@@ -268,6 +269,18 @@ public class CmsSettings(
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = CmsDataSource(this)
+}
+
+@SerialName("eolymp")
+@Serializable
+public class EOlympSettings(
+    public val url: String,
+    public val token: Credential,
+    public val contestId: String,
+    override val network: NetworkSettings? = null,
+    override val emulation: EmulationSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = EOlympDataSource(this)
 }
 
 public fun interface CredsProvider {
