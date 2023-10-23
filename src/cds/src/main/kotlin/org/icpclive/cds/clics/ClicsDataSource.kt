@@ -23,7 +23,18 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
         settings.password?.value
     )
     val baseUrl = settings.url
-    val eventFeedUrl = "$baseUrl/${settings.eventFeedPath ?: "contests/${settings.contestId}"}/${settings.eventFeedName}"
+    val eventFeedUrl = buildList {
+        add(baseUrl)
+        if (settings.eventFeedPath != null) {
+            if (settings.eventFeedPath.isNotEmpty()) {
+                add(settings.eventFeedPath)
+            }
+        } else {
+            add("contests")
+            add(settings.contestId)
+        }
+        add(settings.eventFeedName)
+    }.joinToString("/")
     val feedVersion = settings.feedVersion
 }
 
