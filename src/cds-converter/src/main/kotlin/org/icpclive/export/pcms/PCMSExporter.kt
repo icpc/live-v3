@@ -44,7 +44,7 @@ object PCMSExporter {
 
     fun ContestStatus.toPcmsStatus() = when (this) {
         ContestStatus.FINALIZED, ContestStatus.OVER -> "over"
-        ContestStatus.RUNNING -> "running"
+        ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> "running"
         ContestStatus.BEFORE -> "before"
     }
 
@@ -54,7 +54,7 @@ object PCMSExporter {
         setAttribute("time", info.currentContestTime.inWholeMilliseconds.toString())
         setAttribute("start-time", info.startTime.toString())
         setAttribute("start-time-millis", info.startTime.toEpochMilliseconds().toString())
-        setAttribute("length", info.contestLength.inWholeSeconds.toString())
+        setAttribute("length", info.contestLength.inWholeMilliseconds.toString())
         setAttribute("status", info.status.toPcmsStatus())
         setAttribute("frozen", "no")
         setAttribute("freeze-time", info.freezeTime.toIsoString())
@@ -77,13 +77,24 @@ object PCMSExporter {
         setAttribute("outcome", convertOutcome((info.result as? ICPCRunResult)?.verdict))
     }
 
-    private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>) {
+    private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>, awards: List<Award>) {
         setAttribute("party", teamInfo.fullName)
         setAttribute("id", teamInfo.contestSystemId)
         // setAttribute("time", "")
         setAttribute("alias", teamInfo.contestSystemId)
         setAttribute("penalty", row.penalty.inWholeMinutes.toString())
         setAttribute("solved", row.totalScore.toInt().toString())
+        for (award in awards) {
+            when (award.id) {
+                "gold-medal" -> setAttribute("gold", "1")
+                "silver-medal" -> setAttribute("silver", "1")
+                "bronze-medal" -> setAttribute("bronze", "1")
+                "qualified" -> setAttribute("qual", "1")
+                "first-diploma" -> setAttribute("first", "1")
+                "second-diploma" -> setAttribute("second", "1")
+                "third-diploma" -> setAttribute("third", "1")
+            }
+        }
         val runsByProblem = runs.groupBy { it.problemId }
         row.problemResults.forEachIndexed { index, probResult ->
             val probNode = createChild("problem")
@@ -123,7 +134,13 @@ object PCMSExporter {
         val ranking = scoreboardCalculator.getRanking(info, rows)
         ranking.order.forEach {
             contest.createChild("session").also { session ->
-                session.buildSessionNode(info, info.teams[it]!!, rows[it]!!, runsByTeam[it] ?: emptyList())
+                session.buildSessionNode(
+                    info = info,
+                    teamInfo = info.teams[it]!!,
+                    row = rows[it]!!,
+                    runs = runsByTeam[it] ?: emptyList(),
+                    awards = ranking.awards.filter { award -> it in award.teams }
+                )
             }
         }
 

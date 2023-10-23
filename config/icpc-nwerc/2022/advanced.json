@@ -4,11 +4,11 @@
             "shortname": "UvA: \uD83C\uDDFA\uD83C\uDDF3\uD83C\uDDEE\uD83C\uDDE8\uD83C\uDDF4\u200B\uD83C\uDDE9\uD83C\uDDEA"
         }
     },
-    "scoreboardOverrides": {
+    "awardsSettings": {
         "medals": [
-            {"name": "gold", "count": 4},
-            {"name": "silver", "count": 4},
-            {"name": "bronze", "count": 4}
+            {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
+            {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
+            {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
         ]
     }
 }

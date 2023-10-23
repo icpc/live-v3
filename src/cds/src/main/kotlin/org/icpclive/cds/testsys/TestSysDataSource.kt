@@ -48,7 +48,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                 fullName = name,
                 displayName = name,
                 contestSystemId = id,
-                groups = listOf(),
+                groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
                 isOutOfContest = false,

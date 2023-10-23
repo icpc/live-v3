@@ -73,12 +73,14 @@
 "361157": { "name": "MAI: IT-центр (Чеснов, Глушин, Ткаченко)", "shortname": "MAI: IT-центр", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "071", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru/admin", "peerName": "071", "streamType": "webcam", "credential": "password" }}}
   }
   "scoreboardOverrides": {
-    "medals": [
-      {"name": "gold", "count": 4},
-      {"name": "silver", "count": 4},
-      {"name": "bronze", "count": 4}
-    ],
     "showTeamsWithoutSubmissions": true
+  },
+  "awardsSettings": {
+    "medals": [
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 6}
+    ]
   },
   "problemOverrides": {
     "A":{"color":"#e6194B"},

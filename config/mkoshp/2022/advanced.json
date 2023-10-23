@@ -1,20 +1,10 @@
 {
-    "scoreboardOverrides": {
+    "awardsSettings": {
         "medals": [
-            {
-                "name": "gold",
-                "count": 3
-            },
-            {
-                "name": "silver",
-                "count": 4
-            },
-            {
-                "name": "bronze",
-                "count": 5
-            }
-        ],
-        "penaltyPerWrongAttempt": 20
+            {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 3},
+            {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 7},
+            {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
+        ]
     },
     "problemOverrides": {
         "A": {

@@ -7,12 +7,18 @@
     "4":{"color":"#4363d8"}
   },
 
-    "scoreboardOverrides": {
-     "medals": [
-       {"name":  "gold", "count": 28, "tiebreakMode": "NONE"},
-       {"name":  "silver", "count": 132, "tiebreakMode": "NONE"}
-     ]
-   },
+  "awardsSettings": {
+    "medals": [
+      {"id": "first-diploma", "citation": "Победитель","color": "GOLD", "maxRank": 28, "minScore": 400, "tiebreakMode": "NONE"},
+      {"id": "second-diploma", "citation": "Призер","color": "SILVER", "maxRank": 160, "minScore": 400, "tiebreakMode": "NONE"}
+    ],
+    "groupsChampionTitles": {
+      "9" : "Победитель среди 9 классов",
+      "10" : "Победитель среди 10 классов",
+      "11" : "Победитель среди 11 классов"
+    }
+  },
+
   "teamMediaTemplate": {
     "achievement": {
       "type": "Photo",

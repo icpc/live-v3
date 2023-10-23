@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.server.websockets)
+    implementation(libs.apache.commons.csv)
 
     testImplementation(libs.kotlin.junit)
     testImplementation(libs.ktor.server.tests)

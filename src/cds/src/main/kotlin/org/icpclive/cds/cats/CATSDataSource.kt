@@ -156,7 +156,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     fullName = team.name,
                     displayName = team.name,
                     contestSystemId = team.account_id.toString(),
-                    groups = listOf(),
+                    groups = emptyList(),
                     hashTag = null,
                     medias = mapOf(),
                     isHidden = false,

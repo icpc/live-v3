@@ -1,19 +1,12 @@
 {
-  "scoreboardOverrides": {
+  "awardsSettings": {
     "medals": [
-      {
-        "name": "gold",
-        "count": 4
-      },
-      {
-        "name": "silver",
-        "count": 4
-      },
-      {
-        "name": "bronze",
-        "count": 4
-      }
-    ],
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
+    ]
+  },
+  "scoreboardOverrides": {
     "showTeamsWithoutSubmissions": false
   },
   "teamMediaTemplate": {

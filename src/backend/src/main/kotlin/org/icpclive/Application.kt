@@ -135,7 +135,6 @@ fun Application.module() {
         val advancedPropertiesFlow =
             fileJsonContentFlow<AdvancedProperties>(Config.advancedJsonPath, environment.log, AdvancedProperties())
             .stateIn(this)
-        DataBus.advancedPropertiesFlow.completeOrThrow(advancedPropertiesFlow)
 
         val loader = parseFileToCdsSettings(path, config.creds)
             .toFlow()

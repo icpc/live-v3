@@ -5,23 +5,11 @@
     "HUN7" : {"isOutOfContest": true },
     "HUN8" : {"isOutOfContest": true }
   },
-  "scoreboardOverrides": {
+  "awardsSettings": {
     "medals": [
-      {
-        "name": "gold",
-        "count": 30,
-        "tiebreakMode": "ALL"
-      },
-      {
-        "name": "silver",
-        "count": 59,
-        "tiebreakMode": "ALL"
-      },
-      {
-        "name": "bronze",
-        "count": 89,
-        "tiebreakMode": "NONE"
-      }
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 30, "tiebreakMode": "ALL"},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 89, "tiebreakMode": "ALL"},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 178, "tiebreakMode": "NONE"}
     ]
   },
   "problemOverrides": {

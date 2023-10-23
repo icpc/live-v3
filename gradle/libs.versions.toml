@@ -21,6 +21,7 @@ dokka = "1.8.20"                   # https://github.com/Kotlin/dokka
 retrofit = "2.9.0"                 # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit/2.9.0
 json5 = "0.3.0"                    # https://github.com/xn32/json5k
 kxs-ts-gen = "0.2.1"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
+apache-commons-csv = "1.10.0"      # https://commons.apache.org/proper/commons-csv/
 
 [libraries]
 
@@ -76,6 +77,8 @@ grpc-gen-kotlin = { version.ref = "grpc-kotlin", group = "io.grpc", name = "prot
 protobuf = { version.ref = "protobuf", group = "com.google.protobuf", name = "protobuf-kotlin" }
 protoc = { version.ref = "protobuf", group = "com.google.protobuf", name = "protoc" }
 kxs-ts-gen-core = { version.ref = "kxs-ts-gen" , group = "dev.adamko.kxstsgen", name = "kxs-ts-gen-core" }
+
+apache-commons-csv = { version.ref = "apache-commons-csv", group = "org.apache.commons", name = "commons-csv"}
 
 [plugins]
 

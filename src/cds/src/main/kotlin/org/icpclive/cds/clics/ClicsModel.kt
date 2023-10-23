@@ -2,10 +2,9 @@ package org.icpclive.cds.clics
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.clics.*
+import org.icpclive.clics.v202207.*
 import org.icpclive.cds.clics.model.*
 import org.icpclive.util.Enumerator
-import org.icpclive.util.getLogger
 import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -18,11 +17,14 @@ internal class ClicsModel(
     private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
     private val teams = mutableMapOf<String, Team>()
-    private val submissionId = Enumerator<String>()
-    private val teamId = Enumerator<String>()
+    private val submissionToId = Enumerator<String>()
+    private val teamToId = Enumerator<String>()
     private val problemToId = Enumerator<String>()
-    private val submissions = mutableMapOf<String, ClicsRunInfo>()
+    private val submissions = mutableMapOf<String, Submission>()
+    private val submissionJudgmentIds = mutableMapOf<String, MutableSet<String>>()
     private val judgements = mutableMapOf<String, Judgement>()
+    private val runs = mutableMapOf<String, Run>()
+    private val judgmentRunIds = mutableMapOf<String, MutableSet<String>>()
     private val groups = mutableMapOf<String, Group>()
 
     private var startTime: Instant? = null
@@ -35,7 +37,7 @@ internal class ClicsModel(
 
     fun getAllRuns() = submissions.values.map { it.toApi() }
 
-    fun teamName(org: String?, name: String) = when {
+    private fun teamName(org: String?, name: String) = when {
         org == null -> name
         addTeamNames -> "$org: $name"
         else -> org
@@ -51,17 +53,17 @@ internal class ClicsModel(
         return null
     }
 
-    private fun Group.toApi() : GroupInfo = GroupInfo(name, isHidden = false, isOutOfContest = false)
+    private fun Group.toApi() : GroupInfo = GroupInfo(id, name, isHidden = false, isOutOfContest = false)
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
-            id = teamId[id],
+            id = teamToId[id],
             fullName = teamName(teamOrganization?.formalName, name),
             displayName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
             isHidden = hidden,
-            groups = group_ids.mapNotNull { groups[it]?.name },
+            groups = group_ids.mapNotNull { groups[it]?.id },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
                 photo.firstOrNull()?.mediaType()?.let { put(TeamMediaType.PHOTO, it) }
@@ -74,6 +76,31 @@ internal class ClicsModel(
             customFields = mapOf(
                 "name" to name,
             )
+        )
+    }
+
+    private fun Submission.toApi() : RunInfo {
+        val judgment = submissionJudgmentIds[id]?.mapNotNull { judgements[it] }?.maxByOrNull { it.start_contest_time }
+        val problem = problems[problem_id]
+        val passedTests = judgment?.id?.let { judgmentRunIds[it] }?.size ?: 0
+        val judgementType = judgementTypes[judgment?.judgement_type_id]
+        return RunInfo(
+            id = submissionToId[id],
+            judgementType?.let {
+                Verdict.lookup(
+                    shortName = it.id,
+                    isAccepted = it.isAccepted,
+                    isAddingPenalty = it.isAddingPenalty,
+                ).toRunResult()
+            },
+            problemId = problemToId[problem_id],
+            teamId = teamToId[team_id],
+            percentage = when (val count = problem?.test_data_count) {
+                null, 0 -> if (judgementType != null) 1.0 else 0.0
+                else -> if (judgementType != null) 1.0 else minOf(passedTests.toDouble() / count, 1.0)
+            },
+            time = contest_time,
+            reactionVideos = reaction?.mapNotNull { it.mediaType() } ?: emptyList(),
         )
     }
 
@@ -90,6 +117,7 @@ internal class ClicsModel(
         cdsId = id,
         displayName = name,
         fullName = formalName,
+        logo = logo
     )
 
     val contestInfo: ContestInfo
@@ -110,27 +138,25 @@ internal class ClicsModel(
             cdsSupportsFinalization = true
         )
 
-    fun processContest(contest: Contest): List<RunInfo> {
+    fun processContest(contest: Contest) {
         name = contest.formal_name ?: ""
         startTime = contest.start_time
         contestLength = contest.duration
         freezeTime = contestLength - (contest.scoreboard_freeze_duration ?: Duration.ZERO)
         holdBeforeStartTime = contest.countdown_pause_time
         penaltyPerWrongAttempt = contest.penalty_time ?: 20.minutes
-        return emptyList()
     }
 
-    fun processProblem(id: String, problem: Problem?): List<RunInfo> {
+    fun processProblem(id: String, problem: Problem?) {
         if (problem == null) {
             problems.remove(id)
         } else {
             require(id == problem.id)
             problems[problem.id] = problem
         }
-        return emptyList()
     }
 
-    fun processOrganization(id: String, organization: Organization?): List<RunInfo> {
+    fun processOrganization(id: String, organization: Organization?) {
         if (organization == null) {
             organisations.remove(id)
         } else {
@@ -139,24 +165,22 @@ internal class ClicsModel(
                 id = organization.id,
                 name = organization.name,
                 formalName = organization.formal_name ?: organization.name,
-                logo = organization.logo.lastOrNull()?.href?.let { it },
+                logo = organization.logo.lastOrNull()?.mediaType(),
                 hashtag = organization.twitter_hashtag,
             )
         }
-        return emptyList()
     }
 
-    fun processTeam(id: String, team: Team?): List<RunInfo> {
+    fun processTeam(id: String, team: Team?) {
         if (team == null) {
             teams.remove(id)
         } else {
             require(id == team.id)
             teams[id] = team
         }
-        return emptyList()
     }
 
-    fun processJudgementType(id: String, judgementType: JudgementType?): List<RunInfo> {
+    fun processJudgementType(id: String, judgementType: JudgementType?) {
         if (judgementType == null) {
             judgementTypes.remove(id)
         } else {
@@ -167,57 +191,55 @@ internal class ClicsModel(
                 isAddingPenalty = judgementType.penalty,
             )
         }
-        return emptyList()
     }
 
-    fun processGroup(id: String, group: Group?): List<RunInfo> {
+    fun processGroup(id: String, group: Group?) {
         if (group == null) {
             groups.remove(id)
         } else {
             require(id == group.id)
             groups[id] = group
         }
-        return emptyList()
     }
 
-    fun processSubmission(submission: Submission): ClicsRunInfo {
-        val id = submissionId[submission.id]
-        val problem = problems[submission.problem_id]
-            ?: throw IllegalStateException("Failed to load submission with problem_id ${submission.problem_id}")
-        val team = teams[submission.team_id]
-            ?: throw IllegalStateException("Failed to load submission with team_id ${submission.team_id}")
-        val run = ClicsRunInfo(
-            id = id,
-            problem = problem,
-            liveProblemId = problemToId[problem.id],
-            teamId = teamId[team.id],
-            submissionTime = submission.contest_time,
-            reactionVideos = submission.reaction?.mapNotNull { it.mediaType() } ?: emptyList()
-        )
-        submissions[submission.id] = run
-        return run
+    fun processSubmission(submission: Submission): RunInfo {
+        submissions[submission.id] = submission
+        return submission.toApi()
     }
 
-    fun processJudgement(judgement: Judgement): ClicsRunInfo {
-        val run = submissions[judgement.submission_id]
-            ?: throw IllegalStateException("Failed to load judgment with submission_id ${judgement.submission_id}")
-        judgements[judgement.id] = judgement
-        judgement.judgement_type_id?.let { run.judgementType = judgementTypes[it] }
-        logger.debug("Process $judgement")
-        return run
-    }
-
-    fun processRun(casesRun: Run): ClicsRunInfo {
-        val judgement = judgements[casesRun.judgement_id]
-            ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}")
-        val run = submissions[judgement.submission_id]
-            ?: throw IllegalStateException("Failed to load run with judgment_id ${casesRun.judgement_id}, submission_id ${judgement.submission_id}")
-        val judgementType = judgementTypes[casesRun.judgement_type_id]
-        if (judgementType?.isAccepted == true) { // may be WA runs also need to add
-            run.passedCaseRun.add(casesRun.ordinal)
+    fun processJudgement(id: String, judgement: Judgement?): RunInfo? {
+        val oldJudgment = judgements[id]
+        if (judgement == oldJudgment) return null
+        val submissionId = (judgement ?: oldJudgment)!!.submission_id
+        if (judgement != null && oldJudgment != null) require(judgement.submission_id == oldJudgment.submission_id) { "Judgment ${judgement.id} submission id changed from ${oldJudgment.submission_id} to ${judgement.submission_id}"}
+        val submission = submissions[submissionId]
+        if (judgement == null) {
+            judgements.remove(id)
+            submissionJudgmentIds[submissionId]?.remove(id)
+        } else {
+            judgements[judgement.id] = judgement
+            submissionJudgmentIds.getOrPut(submissionId) { mutableSetOf() }.add(judgement.id)
         }
-        logger.debug("$casesRun with verdict $judgementType")
-        return run
+        return submission?.toApi()
+    }
+
+    fun processRun(id: String, run: Run?): RunInfo? {
+        val oldRun = runs[id]
+        if (oldRun == run) {
+            return null
+        }
+        val judgementId = (run ?: oldRun)!!.judgement_id
+        if (oldRun != null && run != null) require(run.judgement_id == oldRun.judgement_id) { "Run $id judgment id changed from ${oldRun.id} to ${run.id}"}
+        val judgement = judgements[judgementId]
+        val submission = submissions[judgement?.submission_id]
+        if (run == null) {
+            judgmentRunIds[judgementId]?.remove(id)
+            runs.remove(id)
+        } else {
+            runs[id] = run
+            judgmentRunIds.getOrPut(judgementId) { mutableSetOf() }.add(id)
+        }
+        return submission?.toApi()
     }
 
     fun processCommentary(commentary: Commentary) =
@@ -226,22 +248,18 @@ internal class ClicsModel(
             commentary.message,
             commentary.time,
             commentary.contest_time,
-            commentary.team_ids?.map { teamId[it] } ?: emptyList(),
-            commentary.submission_ids?.map { submissionId[it] } ?: emptyList(),
+            commentary.team_ids?.map { teamToId[it] } ?: emptyList(),
+            commentary.submission_ids?.map { submissionToId[it] } ?: emptyList(),
         )
 
 
-    fun processState(state: State): List<RunInfo> {
+    fun processState(state: State) {
         status = when {
-            state.finalized != null && (state.frozen == null || state.thawed != null) -> ContestStatus.FINALIZED
+            state.end_of_updates != null -> ContestStatus.FINALIZED
             state.ended != null -> ContestStatus.OVER
             state.started != null -> ContestStatus.RUNNING
             else -> ContestStatus.BEFORE
         }
-        return emptyList()
     }
 
-    companion object {
-        val logger = getLogger(ClicsModel::class)
-    }
 }

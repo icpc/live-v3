@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import org.icpclive.data.DataBus
 
-class ApiActionException(message: String) : Exception(message)
+class ApiActionException(message: String, cause: Throwable? = null) : Exception(message, cause)
 
 @Serializable
 @Suppress("unused")
@@ -47,5 +47,5 @@ suspend inline fun <reified T> ApplicationCall.adminApiAction(block: Application
 suspend inline fun <reified T> ApplicationCall.safeReceive(): T = try {
     receive()
 } catch (e: SerializationException) {
-    throw ApiActionException("Failed to deserialize data")
+    throw ApiActionException("Failed to deserialize data: ${e.message}", e)
 }

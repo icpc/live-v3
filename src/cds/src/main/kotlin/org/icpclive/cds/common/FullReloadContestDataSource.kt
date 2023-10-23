@@ -22,7 +22,7 @@ internal abstract class FullReloadContestDataSource(val interval: Duration) : Co
         .conflate()
         .transform {
             if (!isOver && it.contestInfo.status == ContestStatus.OVER) {
-                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.RUNNING)))
+                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.FAKE_RUNNING)))
             } else {
                 emit(InfoUpdate(it.contestInfo))
             }

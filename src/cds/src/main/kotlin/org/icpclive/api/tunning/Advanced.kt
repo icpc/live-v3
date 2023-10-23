@@ -55,34 +55,41 @@ public data class ProblemInfoOverride(
 )
 
 /**
+ * @param displayName Name of the group to be displayed in admin and export
  * @param isHidden Totally hide all teams from this group
  * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in the leaderboard
  */
 @Serializable
 public data class GroupInfoOverride(
+    val displayName: String? = null,
     val isHidden: Boolean? = null,
-    val isOutOfContest: Boolean? = null
+    val isOutOfContest: Boolean? = null,
 )
 
 /**
- * @param medals List of awarded medals. They would be allocated in given order, according to rules specified in [MedalType]
  * @param penaltyPerWrongAttempt How many penalty minutes should be added to a team for a wrong attempt
  * @param showTeamsWithoutSubmissions If true, teams without submissions would be automatically hidden
  * @param penaltyRoundingMode Specify rules of how total penalty is calculated based on many submissions
  */
 @Serializable
 public data class RankingSettings(
-    public val medals: List<MedalType>? = null,
     @Serializable(with = DurationInMinutesSerializer::class)
     public val penaltyPerWrongAttempt: Duration? = null,
     public val showTeamsWithoutSubmissions: Boolean? = null,
     public val penaltyRoundingMode: PenaltyRoundingMode? = null
 )
 
+
+/**
+ * @param displayName Name of the team shown in most places.
+ * @param fullName Full name of the organization. Will be mostly shown on admin pages.
+ * @param logo Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved.
+ */
 @Serializable
 public data class OrganizationInfoOverride(
     val displayName: String? = null,
-    val fullName: String? = null
+    val fullName: String? = null,
+    val logo: MediaType? = null
 )
 
 /**
@@ -97,7 +104,8 @@ public data class OrganizationInfoOverride(
  * The order in which overrides applied:
  *   * Time and scoreboard related (they don't interact with others)
  *   * Filtering out non-submitted teams if requested
- *   * Regexp overrides (so values provided by them can be used in templated)
+ *   * Regexp overrides by team name (so values provided by them can be used in templated)
+ *   * Regexp overrides by team id (so values provided by them can be used in templated)
  *   * Creating new groups mentioned in teams or overrides and group overrides
  *   * Creating new organizations mentioned in teams or overrides and organization overrides
  *   * (Deprecated) Team media template
@@ -114,11 +122,13 @@ public data class OrganizationInfoOverride(
  * @param startTime Override for contest start time.
  *        The preferred format is `yyyy-mm-dd hh:mm:ss`, but some others would be accepted too.
  *        startTime override also can affect contest state.
+ * @param contestLength Length of the contest. Also, can affect contest state.
  * @param freezeTime Time from the start of the contest before scoreboard freezing.
  * @param holdTime Fixed time to show as time before the contest start
  * @param teamMediaTemplate Template medias for all teams.
  * @param teamOverrideTemplate Template for team overrides
- * @param teamRegexes Bunch of regexes to extract information cds doesn't provide from team name.
+ * @param teamNameRegexes Bunch of regexes to extract information cds doesn't provide from team name.
+ * @param teamIdRegexes Bunch of regexes to extract information cds doesn't provide from team's ID.
  * @param teamOverrides Overrides for a specific team. Team id from the contest system is key.
  * @param groupOverrides Overrides for specific groups. Group name is key.
  * @param problemOverrides Overrides for specific problems. Problem id from the contest system is key.
@@ -129,6 +139,8 @@ public data class AdvancedProperties(
     @Serializable(with = HumanTimeSerializer::class)
     val startTime: Instant? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
+    val contestLength: Duration? = null,
+    @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("freezeTimeSeconds")
     val freezeTime: Duration? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
@@ -137,12 +149,14 @@ public data class AdvancedProperties(
     @Deprecated(level = DeprecationLevel.WARNING, message = "Use teamOverrideTemplate instead")
     val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
     val teamOverrideTemplate: TeamOverrideTemplate? = null,
-    val teamRegexes: TeamRegexOverrides? = null,
+    val teamNameRegexes: TeamRegexOverrides? = null,
+    val teamIdRegexes: TeamRegexOverrides? = null,
     val teamOverrides: Map<String, TeamInfoOverride>? = null,
     val groupOverrides: Map<String, GroupInfoOverride>? = null,
     val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
     val problemOverrides: Map<String, ProblemInfoOverride>? = null,
-    val scoreboardOverrides: RankingSettings? = null
+    val scoreboardOverrides: RankingSettings? = null,
+    val awardsSettings: AwardsSettings? = null
 )
 
 internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
@@ -152,8 +166,6 @@ internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.t
  * This can be used to extract this information to something more structured.
  *
  * All regexes are java regex.
- *
- * Regexes are matched against team full name from cds.
  *
  * @property organizationRegex The only matched group would be equal to new organization id for the team.
  * @property customFields The only group would be set as custom field value for the corresponding key
@@ -194,6 +206,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedPrope
     fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
     return AdvancedProperties(
         startTime = startTime.takeIfAsked("startTime"),
+        contestLength = contestLength.takeIfAsked("contestLength"),
         freezeTime = freezeTime.takeIfAsked("freezeTime"),
         holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teamList.associate {
@@ -221,21 +234,23 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedPrope
             )
         },
         groupOverrides = groupList.associate {
-            it.name to GroupInfoOverride(
+            it.cdsId to GroupInfoOverride(
+                displayName = it.displayName.takeIfAsked("groupDisplayName"),
                 isHidden = it.isHidden.takeIfAsked("isHidden"),
-                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
+                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest"),
             )
         },
         organizationOverrides = organizationList.associate {
             it.cdsId to OrganizationInfoOverride(
                 displayName = it.displayName.takeIfAsked("orgDisplayName"),
-                fullName = it.fullName.takeIfAsked("orgFullName")
+                fullName = it.fullName.takeIfAsked("orgFullName"),
+                logo = it.logo.takeIfAsked("logo")
             )
         },
         scoreboardOverrides = RankingSettings(
-            medals = medals.takeIfAsked("medals"),
             penaltyPerWrongAttempt = penaltyPerWrongAttempt.takeIfAsked("penaltyPerWrongAttempt"),
             penaltyRoundingMode = penaltyRoundingMode.takeIfAsked("penaltyRoundingMode")
-        )
+        ),
+        awardsSettings = awardsSettings.takeIfAsked("awards")
     )
 }

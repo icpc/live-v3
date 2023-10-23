@@ -246,8 +246,6 @@
         }
     },
     "scoreboardOverrides": {
-        "medals": [
-        ],
         "penaltyPerWrongAttempt": 20,
         "penaltyRoundingMode": "each_submission_down_to_minute"
     }

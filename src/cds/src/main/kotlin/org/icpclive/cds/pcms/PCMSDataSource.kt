@@ -44,7 +44,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         val status = ContestStatus.valueOf(element.getAttribute("status").uppercase(Locale.getDefault()))
         val contestTime = element.getAttribute("time").toLong().milliseconds
         val contestLength = element.getAttribute("length").toInt().milliseconds
-        if (status == ContestStatus.RUNNING && startTime.epochSeconds == 0L) {
+        if (status != ContestStatus.BEFORE && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
         val freezeTime = if (resultType == ContestResultType.ICPC) contestLength - 1.hours else contestLength
@@ -84,7 +84,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 freezeTime = freezeTime,
                 problemList = problems,
                 teamList = teams,
-                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
+                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, it, isHidden = false, isOutOfContest = false) },
                 organizationList = emptyList(),
                 penaltyRoundingMode = when (resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO

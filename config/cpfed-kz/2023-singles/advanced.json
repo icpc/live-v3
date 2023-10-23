@@ -11,11 +11,11 @@
     "H":{"color":"#fabed4"},
     "I":{"color":"#469990"}
   },
-  "scoreboardOverrides": {
+  "awardsSettings": {
     "medals": [
-      {"name": "gold", "count": 1},
-      {"name": "silver", "count": 3},
-      {"name": "bronze", "count": 11}
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 4},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 15}
     ]
   },
   "teamOverrides": {

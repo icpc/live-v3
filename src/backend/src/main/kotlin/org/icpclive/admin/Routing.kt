@@ -3,14 +3,18 @@ package org.icpclive.admin
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.ktor.util.Identity.decode
 import kotlinx.coroutines.flow.first
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.Config
 import org.icpclive.api.TeamViewPosition
+import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.api.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
@@ -78,7 +82,6 @@ fun Route.configureAdminApiRouting() {
         route("/teamSpotlight") { setupSpotlight() }
 
         route("/users") { setupUserRouting(Controllers.userController) }
-        get("/advancedProperties") { run { call.respond(DataBus.advancedPropertiesFlow.await().first()) } }
         get("/advancedJsonPreview") {
             val formatter = Json {
                 prettyPrint = true
@@ -92,7 +95,24 @@ fun Route.configureAdminApiRouting() {
                 }
             }
         }
-        webSocket("/advancedProperties") { sendJsonFlow(DataBus.advancedPropertiesFlow.await()) }
+
+        route("/advancedJson") {
+            get {
+                call.respondFile(Config.advancedJsonPath.toFile())
+            }
+            post {
+                call.adminApiAction {
+                    val text = call.receiveText()
+                    try {
+                        Json.decodeFromString<AdvancedProperties>(text)
+                    } catch (e: SerializationException) {
+                        throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
+                    }
+                    Config.advancedJsonPath.toFile().writeText(text)
+                }
+            }
+        }
+
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
     }

@@ -12,13 +12,14 @@ export interface ContestInfo {
   penaltyRoundingMode: PenaltyRoundingMode;
   holdBeforeStartTimeMs?: number | null;
   emulationSpeed?: number;
-  medals?: MedalType[];
+  awardsSettings?: AwardsSettings;
   penaltyPerWrongAttempt?: string;
 }
 
 export enum ContestStatus {
   BEFORE = "BEFORE",
   RUNNING = "RUNNING",
+  FAKE_RUNNING = "FAKE_RUNNING",
   OVER = "OVER",
   FINALIZED = "FINALIZED",
 }
@@ -34,6 +35,15 @@ export enum PenaltyRoundingMode {
   sum_in_seconds = "sum_in_seconds",
   last = "last",
   zero = "zero",
+}
+
+export interface AwardsSettings {
+  championTitle?: string | null;
+  groupsChampionTitles?: { [key: string]: string };
+  rankAwardsMaxRank?: number;
+  medals?: MedalSettings[];
+  medalGroups?: MedalSettings[][];
+  manual?: ManualAwardSetting[];
 }
 
 export interface ProblemInfo {
@@ -63,22 +73,18 @@ export interface TeamInfo {
 }
 
 export interface GroupInfo {
-  name: string;
+  cdsId: string;
+  displayName: string;
   isHidden: boolean;
   isOutOfContest: boolean;
+  awardsGroupChampion?: boolean;
 }
 
 export interface OrganizationInfo {
   cdsId: string;
   displayName: string;
   fullName: string;
-}
-
-export interface MedalType {
-  name: string;
-  count: number;
-  minScore?: number;
-  tiebreakMode?: MedalTiebreakMode;
+  logo: MediaType | null;
 }
 
 export enum ScoreMergeMode {
@@ -87,20 +93,6 @@ export enum ScoreMergeMode {
   LAST = "LAST",
   LAST_OK = "LAST_OK",
   SUM = "SUM",
-}
-
-export enum MedalTiebreakMode {
-  NONE = "NONE",
-  ALL = "ALL",
-}
-
-export enum TeamMediaType {
-  camera = "camera",
-  screen = "screen",
-  record = "record",
-  photo = "photo",
-  reactionVideo = "reactionVideo",
-  achievement = "achievement",
 }
 
 export type MediaType =
@@ -162,6 +154,41 @@ export namespace MediaType {
   }
 }
 
+export interface MedalSettings {
+  id: string;
+  citation: string;
+  color?: MedalColor | null;
+  maxRank?: number | null;
+  minScore?: number;
+  tiebreakMode?: MedalTiebreakMode;
+}
+
+export interface ManualAwardSetting {
+  id: string;
+  citation: string;
+  teamCdsIds: string[];
+}
+
+export enum TeamMediaType {
+  camera = "camera",
+  screen = "screen",
+  record = "record",
+  photo = "photo",
+  reactionVideo = "reactionVideo",
+  achievement = "achievement",
+}
+
+export enum MedalColor {
+  GOLD = "GOLD",
+  SILVER = "SILVER",
+  BRONZE = "BRONZE",
+}
+
+export enum MedalTiebreakMode {
+  NONE = "NONE",
+  ALL = "ALL",
+}
+
 export interface RunInfo {
   id: number;
   result: RunResult | null;
@@ -209,10 +236,10 @@ export interface Verdict {
 
 export interface Scoreboard {
   type: ScoreboardUpdateType;
-  rows: PersistentMap;
+  rows: { [key: number]: ScoreboardRow };
   order: number[];
   ranks: number[];
-  awards: Map<Award, number[]>;
+  awards: Award[];
 }
 
 export enum ScoreboardUpdateType {
@@ -220,43 +247,56 @@ export enum ScoreboardUpdateType {
   SNAPSHOT = "SNAPSHOT",
 }
 
-export type PersistentMap = any;
+export interface ScoreboardRow {
+  totalScore: number;
+  penalty: number;
+  lastAcceptedMs: number;
+  problemResults: ProblemResult[];
+}
 
 export type Award =
+  | Award.custom
   | Award.group_champion
-  | Award.medal;
+  | Award.medal
+  | Award.winner;
 
 export namespace Award {
   export enum Type {
+    custom = "custom",
     group_champion = "group_champion",
     medal = "medal",
+    winner = "winner",
+  }
+  
+  export interface custom {
+    type: Award.Type.custom;
+    id: string;
+    citation: string;
+    teams: number[];
   }
   
   export interface group_champion {
     type: Award.Type.group_champion;
-    group: string;
+    id: string;
+    citation: string;
+    groupId: string;
+    teams: number[];
   }
   
   export interface medal {
     type: Award.Type.medal;
-    medalType: string;
+    id: string;
+    citation: string;
+    medalColor: MedalColor | null;
+    teams: number[];
   }
-}
-
-export interface LegacyScoreboard {
-  rows: LegacyScoreboardRow[];
-}
-
-export interface LegacyScoreboardRow {
-  teamId: number;
-  rank: number;
-  totalScore: number;
-  penalty: number;
-  lastAccepted: number;
-  medalType: string | null;
-  problemResults: ProblemResult[];
-  teamGroups: string[];
-  championInGroups: string[];
+  
+  export interface winner {
+    type: Award.Type.winner;
+    id: string;
+    citation: string;
+    teams: number[];
+  }
 }
 
 export type ProblemResult =
@@ -284,6 +324,22 @@ export namespace ProblemResult {
     lastSubmitTimeMs: number | null;
     isFirstBest: boolean;
   }
+}
+
+export interface LegacyScoreboard {
+  rows: LegacyScoreboardRow[];
+}
+
+export interface LegacyScoreboardRow {
+  teamId: number;
+  rank: number;
+  totalScore: number;
+  penalty: number;
+  lastAccepted: number;
+  medalType: string | null;
+  problemResults: ProblemResult[];
+  teamGroups: string[];
+  championInGroups: string[];
 }
 
 export type MainScreenEvent =

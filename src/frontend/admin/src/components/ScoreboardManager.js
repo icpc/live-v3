@@ -156,11 +156,11 @@ function ScoreboardGroupSetting({ settings, setSettings, groupsList }) {
                 <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={"all"}/>
             </TableRow>
             {isGroupsExpand && groupsList.map(group =>
-                <TableRow key={group}>
+                <TableRow key={group.cdsId}>
                     <TableCell>
-                        {group}
+                        {group.displayName}
                     </TableCell>
-                    <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={group}/>
+                    <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={group.cdsId}/>
                 </TableRow>
             )}
         </TableBody>
@@ -173,7 +173,10 @@ ScoreboardGroupSetting.propTypes = {
         optimismLevel: PropTypes.string.isRequired,
     }).isRequired,
     setSettings: PropTypes.func.isRequired,
-    groupsList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    groupsList: PropTypes.arrayOf(PropTypes.shape({
+        displayName: PropTypes.string.isRequired,
+        cdsId: PropTypes.string.isRequired,
+    })).isRequired,
 };
 
 const apiPost = createApiPost(BASE_URL_BACKEND + "/scoreboard");

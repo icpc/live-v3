@@ -17,6 +17,7 @@ import Analytics from "./components/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight";
 import { useLocalStorageState } from "./utils";
 import FullScreenClockManager from "./components/FullScreenClockManager";
+import AdvancedJson from "./components/AdvancedJson";
 
 const dashboard_elements = {
     "Controls": <Controls/>,
@@ -58,7 +59,7 @@ function App() {
                         <Route path="/log" element={<BackendLog/>}/>
                         <Route path="/analytics" element={<Analytics/>}/>
                         <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
-                        {/* <Route path="/advancedproperties" element={<AdvancedProperties/>}/> */}
+                        <Route path="/advancedJson" element={<AdvancedJson/>}/>
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
                 </div>

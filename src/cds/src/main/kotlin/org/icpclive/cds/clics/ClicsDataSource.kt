@@ -8,10 +8,12 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.clics.Event.*
+import org.icpclive.clics.v202207.Event.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.*
-import org.icpclive.clics.*
+import org.icpclive.clics.clicsEventsSerializersModule
+import org.icpclive.clics.v202003.upgrade
+import org.icpclive.clics.v202207.Event
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -21,7 +23,18 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
         settings.password?.value
     )
     val baseUrl = settings.url
-    val eventFeedUrl = "$baseUrl/${settings.eventFeedPath ?: "contests/${settings.contestId}"}/${settings.eventFeedName}"
+    val eventFeedUrl = buildList {
+        add(baseUrl)
+        if (settings.eventFeedPath != null) {
+            if (settings.eventFeedPath.isNotEmpty()) {
+                add(settings.eventFeedPath)
+            }
+        } else {
+            add("contests")
+            add(settings.contestId)
+        }
+        add(settings.eventFeedName)
+    }.joinToString("/")
     val feedVersion = settings.feedVersion
 }
 
@@ -41,7 +54,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
     ) {
         val loaders = feeds.map { getEventFeedLoader(it, settings.network) }
 
-        fun priority(event: UpdateContestEvent) = when (event) {
+        fun priority(event: UpdateContestEvent) = if (event.isFinalEvent) Int.MAX_VALUE else when (event) {
             is ContestEvent -> 0
             is StateEvent -> 1
             is JudgementTypeEvent -> 2
@@ -50,12 +63,19 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             is TeamEvent -> 5
             is ProblemEvent -> 6
             is PreloadFinishedEvent -> throw IllegalStateException()
+            is AccountEvent -> 7
+            is AwardsEvent -> 8
+            is ClarificationEvent -> 9
+            is LanguageEvent -> 10
+            is MapEvent -> 11
+            is PersonEvent -> 12
+            is StartStatusEvent -> 13
         }
 
         fun priority(event: UpdateRunEvent) = when (event) {
             is SubmissionEvent -> 0
             is JudgementEvent -> 1
-            is RunsEvent -> 2
+            is RunEvent -> 2
         }
 
         fun Flow<Event>.sortedPrefix() = flow {
@@ -91,7 +111,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         suspend fun processEvent(it: Event) {
             when (it) {
                 is UpdateContestEvent -> {
-                    val changedRuns = when (it) {
+                    when (it) {
                         is ContestEvent -> model.processContest(it.data!!)
                         is ProblemEvent -> model.processProblem(it.id, it.data)
                         is OrganizationEvent -> model.processOrganization(it.id, it.data)
@@ -99,15 +119,16 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         is StateEvent -> model.processState(it.data!!)
                         is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
                         is GroupsEvent -> model.processGroup(it.id, it.data)
-                        is PreloadFinishedEvent -> {
-                            preloadFinished = true
-                            model.getAllRuns()
-                        }
+                        is PreloadFinishedEvent -> { preloadFinished = true }
+                        is AccountEvent, is AwardsEvent, is ClarificationEvent, is LanguageEvent,
+                        is MapEvent, is PersonEvent, is StartStatusEvent -> {}
                     }
                     if (preloadFinished) {
                         onContestInfo(model.contestInfo)
-                        for (run in changedRuns) {
-                            onRun(run)
+                        if (it is PreloadFinishedEvent) {
+                            for (run in model.getAllRuns()) {
+                                onRun(run)
+                            }
                         }
                     }
                 }
@@ -115,11 +136,11 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                 is UpdateRunEvent -> {
                     when (it) {
                         is SubmissionEvent -> model.processSubmission(it.data!!)
-                        is JudgementEvent -> model.processJudgement(it.data!!)
-                        is RunsEvent -> model.processRun(it.data!!)
+                        is JudgementEvent -> model.processJudgement(it.id, it.data)
+                        is RunEvent -> model.processRun(it.id, it.data)
                     }.also { run ->
-                        if (preloadFinished) {
-                            onRun(run.toApi())
+                        if (preloadFinished && run != null) {
+                            onRun(run)
                         }
                     }
                 }
@@ -131,8 +152,6 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         )
                     }
                 }
-
-                is IgnoredEvent -> {}
             }
         }
 
@@ -175,12 +194,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                 ignoreUnknownKeys = true
                 explicitNulls = false
                 serializersModule = SerializersModule {
-                    postProcess(onEncode = { it: Media ->
-                        if (it.href.startsWith("http://") || it.href.startsWith("https://"))
-                            it
-                        else
-                            it.copy(href = "${settings.baseUrl}/${it.href}")
-                    })
+                    include(clicsEventsSerializersModule { "${settings.baseUrl}/${it}" })
                 }
             }
 
@@ -190,7 +204,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                     .mapNotNull { data ->
                         try {
                             when (settings.feedVersion) {
-                                ClicsSettings.FeedVersion.`2020_03` -> Event.fromV1(jsonDecoder.decodeFromString(data))
+                                ClicsSettings.FeedVersion.`2020_03` -> jsonDecoder.decodeFromString<org.icpclive.clics.v202003.Event>(data).upgrade()
                                 ClicsSettings.FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
                             }
                         } catch (e: SerializationException) {

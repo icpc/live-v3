@@ -166,15 +166,15 @@ private fun String.matchSingleGroupRegex(regex: Regex?, name: String) : String? 
     }
 }
 
-private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides?) : List<TeamInfo> {
+private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides?, key: TeamInfo.() -> String) : List<TeamInfo> {
     if (regexOverrides == null) return teams
     return teams.map { team ->
-        val newOrg = team.fullName.matchSingleGroupRegex(regexOverrides.organizationRegex, "organization regex")
+        val newOrg = team.key().matchSingleGroupRegex(regexOverrides.organizationRegex, "organization regex")
         val newGroups = regexOverrides.groupRegex?.entries?.filter { (_, regex) ->
-            regex.matches(team.fullName)
+            regex.matches(team.key())
         }?.map { it.key }.orEmpty()
         val newCustomFields = regexOverrides.customFields?.mapValues { (name, regex) ->
-            team.fullName.matchSingleGroupRegex(regex, "$name regex")
+            team.key().matchSingleGroupRegex(regex, "$name regex")
         }?.filterValues { it != null }?.mapValues { it.value!! }.orEmpty()
 
         team.copy(
@@ -185,6 +185,15 @@ private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides
     }
 }
 
+private fun AdvancedProperties.status(info: ContestInfo) : ContestStatus {
+    if (startTime == null && contestLength == null) return info.status
+    val status = ContestStatus.byCurrentTime(startTime ?: info.startTime, contestLength ?: info.contestLength)
+    if (status == ContestStatus.OVER && (info.status == ContestStatus.FINALIZED || info.status == ContestStatus.FAKE_RUNNING)) return info.status
+    if (status == info.status) return info.status
+    logger.info("Contest status is overridden to ${status}, startTime = ${(startTime ?: info.startTime).humanReadable}, contestLength = ${(contestLength ?: info.contestLength)}")
+    return status
+}
+
 @OptIn(InefficientContestInfoApi::class)
 internal fun applyAdvancedProperties(
     info: ContestInfo,
@@ -192,8 +201,13 @@ internal fun applyAdvancedProperties(
     submittedTeams: Set<Int>
 ): ContestInfo {
     val teamInfosPrelim = applyRegex(
-        info.teamList.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
-        overrides.teamRegexes
+        applyRegex(
+            info.teamList.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
+            overrides.teamNameRegexes,
+            TeamInfo::fullName
+        ),
+        overrides.teamIdRegexes,
+        TeamInfo::contestSystemId
     )
     val newGroups = buildSet {
         for (team in teamInfosPrelim) {
@@ -203,11 +217,11 @@ internal fun applyAdvancedProperties(
             override.groups?.let { addAll(it) }
         }
         for (group in info.groupList) {
-            remove(group.name)
+            remove(group.cdsId)
         }
     }
     val groups = mergeGroups(
-        info.groupList + newGroups.map { GroupInfo(it, isHidden = false, isOutOfContest = false) },
+        info.groupList + newGroups.map { GroupInfo(it, it, isHidden = false, isOutOfContest = false) },
         overrides.groupOverrides
     )
     val newOrganizations = buildSet {
@@ -222,7 +236,7 @@ internal fun applyAdvancedProperties(
         }
     }
     val organizations = mergeOrganizations(
-        info.organizationList + newOrganizations.map { OrganizationInfo(it, it, it) },
+        info.organizationList + newOrganizations.map { OrganizationInfo(it, it, it, null) },
         overrides.organizationOverrides
     )
 
@@ -244,24 +258,20 @@ internal fun applyAdvancedProperties(
         .mergeTeams(overrides.teamOverrides)
     val problemInfos = mergeProblems(info.problemList, overrides.problemOverrides)
 
-    val (startTime, status) = overrides.startTime
-        ?.also { logger.info("Contest start time overridden to ${it.humanReadable}") }
-        ?.let { it to ContestStatus.byCurrentTime(it, info.contestLength) }
-        ?: (info.startTime to info.status)
-
     logger.info("Team and problem overrides are reloaded")
     return info.copy(
-        startTime = startTime,
+        startTime = overrides.startTime ?: info.startTime,
+        contestLength = overrides.contestLength ?: info.contestLength,
         freezeTime = overrides.freezeTime ?: info.freezeTime,
-        status = status,
+        status = overrides.status(info),
         holdBeforeStartTime = overrides.holdTime ?: info.holdBeforeStartTime,
         teamList = teamInfos,
         groupList = groups,
         organizationList = organizations,
         problemList = problemInfos,
-        medals = overrides.scoreboardOverrides?.medals ?: info.medals,
         penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt,
         penaltyRoundingMode = overrides.scoreboardOverrides?.penaltyRoundingMode ?: info.penaltyRoundingMode,
+        awardsSettings = overrides.awardsSettings ?: info.awardsSettings
     )
 }
 
@@ -278,6 +288,7 @@ private fun mergeOrganizations(
         cdsId = org.cdsId,
         displayName = override.displayName ?: org.displayName,
         fullName = override.fullName ?: org.fullName,
+        logo = override.logo ?: org.logo
     )
 }
 
@@ -287,13 +298,14 @@ private fun mergeGroups(
 ) = mergeOverrides(
     groups,
     overrides,
-    GroupInfo::name,
+    GroupInfo::cdsId,
     unusedMessage = { "No group for override: $it" }
 ) { group, override ->
     GroupInfo(
-        name = group.name,
+        cdsId = group.cdsId,
+        displayName = override.displayName ?: group.displayName,
         isHidden = override.isHidden ?: group.isHidden,
-        isOutOfContest = override.isOutOfContest ?: group.isOutOfContest
+        isOutOfContest = override.isOutOfContest ?: group.isOutOfContest,
     )
 }
 

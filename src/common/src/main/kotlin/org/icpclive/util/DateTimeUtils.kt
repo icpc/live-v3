@@ -12,6 +12,7 @@ fun guessDatetimeFormat(time: String): Instant =
     Clock.System.now().takeIf { time == "now" }
         ?: catchToNull { Instant.fromEpochMilliseconds(time.toLong() * 1000L) }
         ?: catchToNull { Instant.parse(time) }
+        ?: catchToNull { Instant.parse(time.trim().replaceFirst(" ", "T").replace(" ", "")) }
         ?: guessDatetimeFormatLocal(time)?.toInstant(TimeZone.currentSystemDefault())
         ?: throw IllegalArgumentException("Failed to parse date: $time")
 

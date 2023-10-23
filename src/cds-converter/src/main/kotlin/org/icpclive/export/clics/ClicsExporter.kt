@@ -10,15 +10,18 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.adapters.addFirstToSolves
 import org.icpclive.cds.adapters.withContestInfoBefore
 import org.icpclive.clics.*
-import org.icpclive.clics.Scoreboard
-import org.icpclive.clics.ScoreboardRow
+import org.icpclive.clics.v202207.*
+import org.icpclive.clics.v202207.Award
+import org.icpclive.clics.v202207.Scoreboard
+import org.icpclive.clics.v202207.ScoreboardRow
+import org.icpclive.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.scoreboard.calculateScoreboard
 import org.icpclive.util.defaultJsonSettings
 import org.icpclive.util.intervalFlow
 import java.nio.ByteBuffer
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
 typealias EventProducer = (String) -> Event
@@ -33,22 +36,36 @@ private fun ProblemInfo.toClicsProblem() = Problem(
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
-    id = name,
-    name = name,
+    id = cdsId,
+    name = displayName,
 )
 
 private fun OrganizationInfo.toClicsOrg() = Organization(
     id = cdsId,
     name = displayName,
     formal_name = fullName,
+    logo = listOfNotNull(logo?.toClicsMedia())
 )
+
+private fun MediaType.toClicsMedia() = when (this) {
+    is MediaType.Object -> null
+    is MediaType.Photo -> Media("image", url)
+    is MediaType.TaskStatus -> null
+    is MediaType.Video -> Media("video", url)
+    is MediaType.WebRTCGrabberConnection -> null
+    is MediaType.WebRTCProxyConnection -> null
+}
 
 private fun TeamInfo.toClicsTeam() = Team(
     id = contestSystemId,
     name = fullName,
     hidden = isHidden,
     group_ids = groups,
-    organization_id = organizationId
+    organization_id = organizationId,
+    photo = listOfNotNull(medias[TeamMediaType.PHOTO]?.toClicsMedia()),
+    video = listOfNotNull(medias[TeamMediaType.RECORD]?.toClicsMedia()),
+    desktop = listOfNotNull(medias[TeamMediaType.SCREEN]?.toClicsMedia()),
+    webcam = listOfNotNull(medias[TeamMediaType.CAMERA]?.toClicsMedia()),
 )
 
 
@@ -95,16 +112,16 @@ object ClicsExporter  {
     private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block : (String, T?) -> Event) = emit { block(it, data) }
 
     private fun getContest(info: ContestInfo) = Contest(
-            id = "contest",
-            start_time = info.startTime.takeIf { it != Instant.fromEpochSeconds(0) },
-            name = info.name,
-            formal_name = info.name,
-            duration = info.contestLength,
-            scoreboard_freeze_duration = info.freezeTime,
-            countdown_pause_time = info.holdBeforeStartTime,
-            penalty_time = info.penaltyPerWrongAttempt,
-            scoreboard_type = "pass-fail"
-        )
+        id = "contest",
+        name = info.name,
+        formal_name = info.name,
+        start_time = info.startTime.takeIf { it != Instant.fromEpochSeconds(0) },
+        countdown_pause_time = info.holdBeforeStartTime,
+        duration = info.contestLength,
+        scoreboard_freeze_duration = info.contestLength - info.freezeTime,
+        scoreboard_type = "pass-fail",
+        penalty_time = info.penaltyPerWrongAttempt,
+    )
 
     private suspend fun <T, CT> FlowCollector<EventProducer>.diffChange(
         old: MutableMap<String, T>,
@@ -157,7 +174,7 @@ object ClicsExporter  {
             end_of_updates = null
         )
 
-        ContestStatus.RUNNING -> State(
+        ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> State(
             ended = null,
             frozen = if (info.currentContestTime >= info.freezeTime) info.startTime + info.freezeTime else null,
             started = info.startTime,
@@ -243,7 +260,7 @@ object ClicsExporter  {
         problemIdToCdsId = newInfo.problemList.associate { it.id to it.contestSystemId }
         teamIdToCdsId = newInfo.teamList.associate { it.id to it.contestSystemId }
 
-        diff(oldInfo, newInfo, ::getContest, Event::ContestEventNamedWithSpec)
+        diff(oldInfo, newInfo, ::getContest, Event::ContestEvent)
         diff(oldInfo, newInfo, ::getState, Event::StateEvent)
         if (oldInfo == null) {
             for (type in judgmentTypes.values) {
@@ -254,12 +271,12 @@ object ClicsExporter  {
             }
         }
         diff(problemsMap, newInfo.problemList, ProblemInfo::contestSystemId, ProblemInfo::toClicsProblem, Event::ProblemEvent)
-        diffChange(groupsMap, newInfo.groupList, GroupInfo::name, GroupInfo::toClicsGroup, Event::GroupsEvent)
+        diffChange(groupsMap, newInfo.groupList, GroupInfo::cdsId, GroupInfo::toClicsGroup, Event::GroupsEvent)
         diffChange(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, OrganizationInfo::toClicsOrg, Event::OrganizationEvent)
 
         diff(teamsMap, newInfo.teamList, TeamInfo::contestSystemId, TeamInfo::toClicsTeam, Event::TeamEvent)
 
-        diffRemove(groupsMap, newInfo.groupList, GroupInfo::name, Event::GroupsEvent)
+        diffRemove(groupsMap, newInfo.groupList, GroupInfo::cdsId, Event::GroupsEvent)
         diffRemove(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, Event::OrganizationEvent)
     }
 
@@ -281,17 +298,15 @@ object ClicsExporter  {
     }
 
 
-    private suspend fun FlowCollector<Event>.generateEventFeed(updates: Flow<ContestUpdate>) {
+    private fun generateEventFeed(updates: Flow<ContestUpdate>) : Flow<Event> {
         var eventCounter = 1
-        updates.withContestInfoBefore().transform { (update, infoBefore) ->
+        return updates.withContestInfoBefore().transform { (update, infoBefore) ->
             when (update) {
                 is InfoUpdate -> calculateDiff(infoBefore, update.newInfo)
                 is RunUpdate -> processRun(infoBefore!!, update.newInfo)
                 is AnalyticsUpdate -> processAnalytics(update.message)
             }
-        }.collect {
-            emit(it("live-cds-${eventCounter++}"))
-        }
+        }.map { it("live-cds-${eventCounter++}") }
     }
 
     private inline fun <X, reified T: GlobalEvent<X>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
@@ -337,11 +352,32 @@ object ClicsExporter  {
         }
     }
 
+    private val awardsMap = mutableMapOf<String, Award>()
+    var awardEventId = 0
+
+    private fun generateAwardEvents(awards: Flow<List<Award>>) = awards.transform {
+        diff(
+            awardsMap,
+            it,
+            Award::id,
+            { it },
+            Event::AwardsEvent
+        )
+    }.map { it("live-cds-award-${awardEventId}") }
+
 
     fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
-        val eventFeed = flow {
-            generateEventFeed(updates)
-        }.shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+        val scoreboardFlow = updates
+            .addFirstToSolves()
+            .calculateScoreboard(OptimismLevel.NORMAL)
+            .stateIn(scope, SharingStarted.Eagerly, null)
+            .filterNotNull()
+
+        val eventFeed =
+            merge(
+                generateEventFeed(updates),
+                generateAwardEvents(scoreboardFlow.map { it.toClicsAwards() }.distinctUntilChanged())
+            ).shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
         val contestFlow = eventFeed.filterGlobalEvent<Contest, Event.ContestEvent>(scope)
         val stateFlow = eventFeed.filterGlobalEvent<State, Event.StateEvent>(scope)
 
@@ -358,47 +394,16 @@ object ClicsExporter  {
         //val personsFlow = eventFeed.filterIdEvent<Person, Event.PersonEvent>(scope)
         //val accountsFlow = eventFeed.filterIdEvent<Account, Event.AccountEvent>(scope)
         //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)
-        //val awardsFlow = eventFeed.filterIdEvent<Award, Event.AwardsEvent>(scope)
-        val scoreboardFlow = updates
-            .calculateScoreboard(OptimismLevel.NORMAL)
-            .map {
-                val lastSubmitTime = it.scoreboardSnapshot.rows.maxOfOrNull { (_, row) ->
-                    row.problemResults.maxOfOrNull { it.lastSubmitTime ?: Duration.ZERO } ?: Duration.ZERO
-                } ?: Duration.ZERO
-                Scoreboard(
-                    time = it.info.startTime + lastSubmitTime,
-                    contest_time = lastSubmitTime,
-                    state = getState(it.info),
-                    rows = it.scoreboardSnapshot.order.zip(it.scoreboardSnapshot.ranks).map { (teamId, rank) ->
-                        val row = it.scoreboardSnapshot.rows[teamId]!!
-                        ScoreboardRow(
-                            rank,
-                            it.info.teams[teamId]!!.contestSystemId,
-                            ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
-                            row.problemResults.mapIndexed { index, v ->
-                                val iv = v as ICPCProblemResult
-                                ScoreboardRowProblem(
-                                    it.info.scoreboardProblems[index].contestSystemId,
-                                    iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
-                                    iv.pendingAttempts,
-                                    iv.isSolved,
-                                    iv.lastSubmitTime?.inWholeMinutes.takeIf { iv.isSolved }
-                                )
-                            }
-                        )
-                    }
-                )
-            }.stateIn(scope, SharingStarted.Eagerly, null)
-            .filterNotNull()
+        val awardsFlow = eventFeed.filterIdEvent<Award, Event.AwardsEvent>(scope)
 
         val json = defaultJsonSettings()
         route("/api") {
             get {
                 call.respond(
                     ApiInfo(
-                        "2022_07",
-                        "https://ccs-specs.icpc.io/2022-07/contest_api",
-                        ApiProvider("icpc live")
+                        version = "2022_07",
+                        versionUrl = "https://ccs-specs.icpc.io/2022-07/contest_api",
+                        name = "icpc live"
                     )
                 )
             }
@@ -420,11 +425,14 @@ object ClicsExporter  {
                     //getId("persons", personsFlow)
                     //getId("accounts", accountsFlow)
                     //getId("clarifications", clarificationsFlow)
-                    //getId("awards", awardsFlow)
-                    get("/scoreboard") { call.respond(scoreboardFlow.first()) }
+                    getId("awards", awardsFlow)
+                    get("/scoreboard") { call.respond(scoreboardFlow.first().toClicsScoreboard()) }
                     get("/event-feed") {
                         call.respondBytesWriter {
-                            merge(eventFeed.map { json.encodeToString(it) }, intervalFlow(2.minutes).map { "" }).collect {
+                            merge(
+                                eventFeed.map { json.encodeToString(it) },
+                                intervalFlow(2.minutes).map { "" }
+                            ).collect {
                                 writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
                                 flush()
                             }
@@ -445,6 +453,45 @@ object ClicsExporter  {
                     }
                 }
             }
+        }
+    }
+
+    private fun ScoreboardAndContestInfo.toClicsScoreboard() = Scoreboard(
+        time = info.startTime + lastSubmissionTime,
+        contest_time = lastSubmissionTime,
+        state = getState(info),
+        rows = scoreboardSnapshot.order.zip(scoreboardSnapshot.ranks).map { (teamId, rank) ->
+            val row = scoreboardSnapshot.rows[teamId]!!
+            ScoreboardRow(
+                rank,
+                info.teams[teamId]!!.contestSystemId,
+                ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
+                row.problemResults.mapIndexed { index, v ->
+                    val iv = v as ICPCProblemResult
+                    ScoreboardRowProblem(
+                        info.scoreboardProblems[index].contestSystemId,
+                        iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
+                        iv.pendingAttempts,
+                        iv.isSolved,
+                        iv.lastSubmitTime?.inWholeMinutes.takeIf { iv.isSolved }
+                    )
+                }
+            )
+        }
+    )
+
+    private fun ScoreboardAndContestInfo.toClicsAwards() = buildList {
+        for (award in scoreboardSnapshot.awards) {
+            add(Award(award.id, award.citation, award.teams.map { info.teams[it]!!.contestSystemId }))
+        }
+        for ((index, problem) in info.scoreboardProblems.withIndex()) {
+            add(Award(
+                "first-to-solve-${problem.contestSystemId}",
+                "First to solve problem ${problem.displayName}",
+                scoreboardSnapshot.rows.entries
+                    .filter { (it.value.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
+                    .map { info.teams[it.key]!!.contestSystemId }
+            ))
         }
     }
 }

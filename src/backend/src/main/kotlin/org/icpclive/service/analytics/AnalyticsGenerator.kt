@@ -109,9 +109,9 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         if (analyse.rank == 1) {
             add("accepted-winner")
         }
-        if (analyse.medalType != null) {
+        if (analyse.medalColor != null) {
             add("accepted-medal")
-            add("accepted-${analyse.medalType}-medal")
+            add("accepted-${analyse.medalColor.name.lowercase()}-medal")
         }
     }
 
@@ -124,11 +124,11 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         val index = scoreboard.order.indexOf(run.teamId)
 
         val analyse = getOrPut(run.id) {
-            val medal = scoreboard.awards.entries.firstOrNull { it.key is Award.Medal && run.teamId in it.value }?.key as? Award.Medal
+            val medal = scoreboard.awards.firstOrNull { it is Award.Medal && run.teamId in it.teams} as? Award.Medal
             RunAnalyse(
                 run, Clock.System.now(), result,
                 scoreboard.ranks[index],
-                medal?.medalType
+                medal?.medalColor
             )
         }
         analyse.run = run
@@ -142,7 +142,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         val creationTime: Instant,
         var result: ScoreboardRow,
         val rank: Int,
-        val medalType: String?,
+        val medalColor: Award.Medal.MedalColor?,
     ) {
         var solvedProblems: Int? = null
 //        val rankDelta: Int

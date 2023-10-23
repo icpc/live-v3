@@ -1,0 +1,14 @@
+{
+  "type": "clics",
+  "network": { "allowUnsecureConnections": true },
+  "feeds": [
+    {
+      "url": "https://alphacds.icpc-vcss.org:7443/api",
+      "login": "live",
+      "contestId": "wf46_finals",
+      "feedVersion": "2022_07",
+      "password": "$creds.alpha_cds"
+    }
+  ],
+  "useTeamNames": false
+}
