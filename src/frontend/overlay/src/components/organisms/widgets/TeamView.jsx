@@ -42,7 +42,7 @@ const TeamViewPInPWrapper = styled.div`
   grid-row-start: 2;
   grid-row-end: 4;
   position: relative;
-  border-radius: 16px 16px 16px;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const TeamViewWrapper = styled.div`

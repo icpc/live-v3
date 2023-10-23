@@ -1,10 +1,8 @@
 import React, { useLayoutEffect } from "react";
 import styled from "styled-components";
 import c from "../../../config";
-import {
-    ContestantViewHolder
-} from "../holder/ContestantViewHolder";
-import {ContestantViewLine} from "../../molecules/info/ContestantViewLine";
+import { ContestantViewHolder } from "../holder/ContestantViewHolder";
+import { ContestantViewLine } from "../../molecules/info/ContestantViewLine";
 
 
 const PVPViewHolder = styled(ContestantViewHolder)`
@@ -18,19 +16,23 @@ const PVPViewHolder = styled(ContestantViewHolder)`
   width: ${props => props.width};
 `
 
+const MEDIAN_OFFSET = c.PVP_TABLE_ROW_HEIGHT * 0.5;
+
 export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) => {
+    const mediaHeight = location.sizeY - MEDIAN_OFFSET;
+
     return mediaContent.concat(settings.content.filter(e => !e.isMedia)).map((cc, index) => {
         const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
         const [positionLeft, positionRight] = index === 0 ? ["0", "auto"] : ["auto", "0"]
-        const height = index === 0 ? "50%" : "auto"
-        const width = index === 0 ? location.sizeY / 2 * 16 / 9 + "px" : location.sizeX - location.sizeY / 2 * 16 / 9 + "px"
+        const height = index === 0 ? "auto" : "auto"
+        const width = index === 0 ? mediaHeight * 16 / 9 + "px" : location.sizeX - mediaHeight * 16 / 9 + "px"
 
-        const top = location.sizeY / 2 + 2.3 * c.PVP_TABLE_ROW_HEIGHT;
-        console.log(top);
+        const top = location.sizeY + 2.3 * c.PVP_TABLE_ROW_HEIGHT;
 
         const [positionTop, positionBottom] =
-            settings.position === "PVP_TOP" ? (index === 0 ? ["auto", "50%"] : ["auto", top + "px"])
-               :  (index === 0 ? ["50%", "auto"] : [top + "px", "auto"])
+            settings.position === "PVP_TOP" ?
+                (index === 0 ? ["0", c.PVP_TABLE_ROW_HEIGHT / 2 + "px"] : [null, 3.0 * c.PVP_TABLE_ROW_HEIGHT + "px"]) :
+                (index === 0 ? [c.PVP_TABLE_ROW_HEIGHT / 2 + "px", "0"] : [3.0 * c.PVP_TABLE_ROW_HEIGHT + "px", null])
 
         useLayoutEffect(() => onLoadStatus(true), []);
 

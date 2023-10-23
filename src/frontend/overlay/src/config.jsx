@@ -7,10 +7,20 @@ const visualConfig = await fetch(VISUAL_CONFIG_URL)
     .then(r => r.json())
     .catch((e) => console.error("failed to load visual config: " + e)) ?? {};
 
-let config = {};
+let config_ = {};
+
+const config = new Proxy(config_, {
+    get(target, key) {
+        return visualConfig[key] ?? target[key];
+    },
+    set(target, key, value) {
+        target[key] = visualConfig[key] ?? value;
+        return true;
+    }
+});
 
 config.CONTEST_COLOR = "#4C83C3";
-config.CONTEST_CAPTION = "46th";
+config.CONTEST_CAPTION = "";
 
 config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay");
 
@@ -26,7 +36,7 @@ config.STATISTICS_CAPTION = config.CONTEST_CAPTION;
 
 // Behaviour
 config.TICKER_SCOREBOARD_REPEATS = 1;
-config.QUEUE_MAX_ROWS = 12;
+config.QUEUE_MAX_ROWS = 20;
 
 // Timings
 config.WIDGET_TRANSITION_TIME = 300; // ms
@@ -55,6 +65,7 @@ config.GLOBAL_DEFAULT_FONT = config.GLOBAL_DEFAULT_FONT_SIZE + " " + config.GLOB
 config.GLOBAL_BACKGROUND_COLOR = "#242425";
 config.GLOBAL_TEXT_COLOR = "#FFF";
 config.GLOBAL_BORDER_RADIUS = "16px";
+
 config.VERDICT_OK = "#1b8041";
 config.VERDICT_NOK = "#881f1b";
 config.VERDICT_UNKNOWN = "#a59e0c";
@@ -87,6 +98,7 @@ config.SCOREBOARD_TABLE_GAP = 3; //px
 config.SCOREBOARD_TABLE_ROW_GAP = 1; // px
 
 
+config.QUEUE_ROW_FONT_SIZE = config.GLOBAL_DEFAULT_FONT_SIZE;
 config.QUEUE_ROW_BACKGROUND = "rgba(0, 0, 0, 0.08)";
 config.QUEUE_ROW_HEIGHT = 41; // px
 config.QUEUE_ROW_HEIGHT2 = 25; // px
@@ -94,7 +106,8 @@ config.QUEUE_FTS_PADDING = config.QUEUE_ROW_HEIGHT / 2; // px
 config.QUEUE_OPACITY = 0.95;
 config.QUEUE_FEATURED_RUN_ASPECT = 16 / 9;
 config.QUEUE_BACKGROUND_COLOR = config.CONTEST_COLOR;
-
+config.QUEUE_HEADER_FONT_SIZE = "32px";
+config.QUEUE_HEADER_LINE_HEIGHT = "44px";
 
 config.SCORE_NONE_TEXT = ".";
 
@@ -169,7 +182,9 @@ config.MEDAL_COLORS = Object.freeze({
 config.LOG_LINES = 300;
 
 config.CONTESTER_ROW_OPACITY = 0.95;
-config.CONTESTER_BACKGROUND_COLOR = "#4C83C3";
+
+config.CONTESTER_FONT_SIZE = "18px";
+config.CONTESTER_BACKGROUND_COLOR = config.CONTEST_COLOR;
 
 config.CONTESTER_ROW_BORDER_RADIUS = "16px";
 config.CONTESTER_ROW_HEIGHT = "25px";
@@ -184,7 +199,6 @@ config.CIRCLE_PROBLEM_LINE_WIDTH = "3.5px";
 config.CELL_INFO_VERDICT_WIDTH= "100px"; // css property
 
 // layers (z-indexes)
-config.QUEUE_BASIC_ZINDEX=20;
-config = { ...config, ...visualConfig };
-export default config;
+config.QUEUE_BASIC_ZINDEX = 20;
 
+export default config_;

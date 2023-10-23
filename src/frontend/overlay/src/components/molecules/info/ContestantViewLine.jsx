@@ -36,8 +36,7 @@ const TaskRow = styled.div`
 
 const CornerContestantInfo = styled(ContestantInfo)`
   grid-row: 2 / 3;
-  border-radius: 16px 0 0  16px ;
-
+  border-radius: ${c.GLOBAL_BORDER_RADIUS} 0 0  ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 export const ContestantViewLine = ({ teamId, isSmall, className, isTop }) => {
@@ -49,7 +48,7 @@ export const ContestantViewLine = ({ teamId, isSmall, className, isTop }) => {
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     const contestData = useSelector((state) => state.contestInfo.info);
 
-    const [top, bottom] = isTop ? ["auto", `calc(50% - 0.5 * ${c.PVP_TABLE_ROW_HEIGHT}px)`] : [`calc(50% - 0.5 * ${c.PVP_TABLE_ROW_HEIGHT}px)`, "auto"];
+    const [top, bottom] = isTop ? [null, "0"] : ["0", null];
 
     return <ContestantViewVerticalWrap isSmall={isSmall} className={className} tasks={scoreboardData?.problemResults.length} top={top} bottom={bottom}>
         <CornerContestantInfo teamId={teamId} />

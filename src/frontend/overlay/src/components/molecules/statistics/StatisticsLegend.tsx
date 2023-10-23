@@ -46,7 +46,7 @@ export const StatisticsLegend = ({legend}: StatisticsLegendsProps) => {
     return (
         <LegendsWrapper>
             {legend?.map((l) => (
-                <LegendCard caption={l.caption} color={l.color}></LegendCard>
+                <LegendCard key={l.caption} caption={l.caption} color={l.color}></LegendCard>
             ))}
         </LegendsWrapper>
     );

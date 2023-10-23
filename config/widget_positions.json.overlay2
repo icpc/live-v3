@@ -5,64 +5,10 @@
     "sizeX": 384,
     "sizeY": 400
   },
-  "scoreboard": {
-    "positionX": 16,
-    "positionY": 16,
-    "sizeX": 1488,
-    "sizeY": 984
-  },
-  "statistics": {
-    "positionX": 16,
-    "positionY": 662,
-    "sizeX": 1488,
-    "sizeY": 338
-  },
   "ticker": {
     "positionX": 16,
     "positionY": 1016,
     "sizeX": 1488,
     "sizeY": 48
-  },
-  "teamview.SINGLE_TOP_RIGHT": {
-    "positionX": 16,
-    "positionY": 16,
-    "sizeX": 1488,
-    "sizeY": 984
-  },
-  "teamview.PVP_TOP": {
-    "positionX": 16,
-    "positionY": 16,
-    "sizeX": 1488,
-    "sizeY": 984
-  },
-  "teamview.PVP_BOTTOM": {
-    "positionX": 16,
-    "positionY": 16,
-    "sizeX": 1488,
-    "sizeY": 984
-  },
-  "teamview.TOP_LEFT": {
-    "positionX": 0,
-    "positionY": 0,
-    "sizeX": 960,
-    "sizeY": 540
-  },
-  "teamview.TOP_RIGHT": {
-    "positionX": 960,
-    "positionY": 0,
-    "sizeX": 960,
-    "sizeY": 540
-  },
-  "teamview.BOTTOM_LEFT": {
-    "positionX": 0,
-    "positionY": 540,
-    "sizeX": 960,
-    "sizeY": 540
-  },
-  "teamview.BOTTOM_RIGHT": {
-    "positionX": 960,
-    "positionY": 540,
-    "sizeX": 960,
-    "sizeY": 540
   }
 }
