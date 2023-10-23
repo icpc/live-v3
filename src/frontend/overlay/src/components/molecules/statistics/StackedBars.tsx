@@ -1,4 +1,5 @@
-import {Legend, StackedBarsData} from "./types";
+import {useLayoutEffect, useRef, useState} from "react";
+import { StackedBarsData } from "./types";
 import styled from "styled-components";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
@@ -60,12 +61,21 @@ const BarValue = styled.div.attrs(({ value, caption }) => ({
 
 interface StackedBarsProps {
     data: StackedBarsData;
-    legend: Legend;
 }
 export const StackedBars = ({data}: StackedBarsProps) => {
-    const rowsCount = data.length
+    const [rowsCount, setRowsCount] = useState(data.length);
+    const componentRef = useRef(null);
+
+    useLayoutEffect(() => {
+        setRowsCount(Math.min(
+            data.length,
+            Math.floor(componentRef.current.offsetHeight /
+                (c.STATISTICS_BAR_HEIGHT_PX + c.STATISTICS_BAR_GAP_PX))
+        ));
+    }, [data.length]);
+
     return (
-        <BarsWrapper rowsCount={rowsCount}>
+        <BarsWrapper rowsCount={rowsCount} ref={componentRef}>
             {data.map((b) => {
                 return (
                     <BarWrapper key={b.name}>

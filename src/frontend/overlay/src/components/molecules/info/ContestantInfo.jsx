@@ -5,8 +5,7 @@ import { SCOREBOARD_TYPES } from "../../../consts";
 import c from "../../../config";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel } from "../../atoms/ContestLabels";
-
-import {formatScore, useFormatPenalty} from "../../../services/displayUtils";
+import { formatScore, useFormatPenalty } from "../../../services/displayUtils";
 
 
 // const rowFlashing = keyframes`
@@ -52,7 +51,7 @@ const ContestantInfoWrap = styled.div`
   background-color: ${c.CONTESTER_BACKGROUND_COLOR};
   display: flex;
   align-items: center;
-  border-radius: 16px ${props => props.round ? "16px" : "0px"} 16px  16px ;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS} ${props => props.round ? c.GLOBAL_BORDER_RADIUS : "0px"} ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS};
   overflow: hidden;
   gap: 5px;
   color: white;

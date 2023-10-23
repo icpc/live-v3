@@ -53,7 +53,7 @@ export const Statistics = () => {
                 <StatisticsLegend legend={data.legend}></StatisticsLegend>
             </Header>
 
-            <StackedBars {...data}/>
+            {data.data && data.data.length > 0 && <StackedBars data={data.data}/>}
         </StatisticsWrap>
     )
 };

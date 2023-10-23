@@ -36,8 +36,7 @@ const TaskRow = styled.div`
 
 const CornerContestantInfo = styled(ContestantInfo)`
   grid-row: 2 / 3;
-  border-radius: 16px 0 0  16px ;
-
+  border-radius: ${c.GLOBAL_BORDER_RADIUS} 0 0  ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 export const ContestantViewLine = ({ teamId, isSmall, className, isTop }) => {

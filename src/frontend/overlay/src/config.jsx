@@ -36,7 +36,7 @@ config.STATISTICS_CAPTION = config.CONTEST_CAPTION;
 
 // Behaviour
 config.TICKER_SCOREBOARD_REPEATS = 1;
-config.QUEUE_MAX_ROWS = 12;
+config.QUEUE_MAX_ROWS = 20;
 
 // Timings
 config.WIDGET_TRANSITION_TIME = 300; // ms
@@ -65,6 +65,7 @@ config.GLOBAL_DEFAULT_FONT = config.GLOBAL_DEFAULT_FONT_SIZE + " " + config.GLOB
 config.GLOBAL_BACKGROUND_COLOR = "#242425";
 config.GLOBAL_TEXT_COLOR = "#FFF";
 config.GLOBAL_BORDER_RADIUS = "16px";
+
 config.VERDICT_OK = "#1b8041";
 config.VERDICT_NOK = "#881f1b";
 config.VERDICT_UNKNOWN = "#a59e0c";
@@ -97,6 +98,7 @@ config.SCOREBOARD_TABLE_GAP = 3; //px
 config.SCOREBOARD_TABLE_ROW_GAP = 1; // px
 
 
+config.QUEUE_ROW_FONT_SIZE = config.GLOBAL_DEFAULT_FONT_SIZE;
 config.QUEUE_ROW_BACKGROUND = "rgba(0, 0, 0, 0.08)";
 config.QUEUE_ROW_HEIGHT = 41; // px
 config.QUEUE_ROW_HEIGHT2 = 25; // px
@@ -104,7 +106,8 @@ config.QUEUE_FTS_PADDING = config.QUEUE_ROW_HEIGHT / 2; // px
 config.QUEUE_OPACITY = 0.95;
 config.QUEUE_FEATURED_RUN_ASPECT = 16 / 9;
 config.QUEUE_BACKGROUND_COLOR = config.CONTEST_COLOR;
-
+config.QUEUE_HEADER_FONT_SIZE = "32px";
+config.QUEUE_HEADER_LINE_HEIGHT = "44px";
 
 config.SCORE_NONE_TEXT = ".";
 

@@ -10,7 +10,8 @@ import { RankLabel, RunStatusLabel } from "../../atoms/ContestLabels";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ContestantViewHolder } from "../holder/ContestantViewHolder";
 import { useWithTimeoutAfterRender } from "../../../utils/hooks/withTimeoutAfterRender";
-import star from "../../../assets/icons/star_mask.svg";
+import star from "../../../assets/icons/star.svg";
+import star_mask from "../../../assets/icons/star_mask.svg";
 
 
 import {formatScore} from "../../../services/displayUtils";
@@ -183,14 +184,14 @@ const QueueRunStatusLabel = styled(RunStatusLabel)`
 
 const StyledQueueRow = styled.div`
   width: 100%;
-  height: 25px;
+  height: ${c.QUEUE_ROW_HEIGHT2}px;
   display: flex;
   align-items: center;
-  border-radius: 16px;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
   overflow: hidden;
   gap: 5px;
   color: white;
-  font-size: 18px;
+  font-size: ${c.QUEUE_ROW_FONT_SIZE};
   background: ${c.QUEUE_ROW_BACKGROUND};
 `;
 
@@ -202,11 +203,16 @@ const QueueScoreLabel = styled(ShrinkingBox)`
 const QueueProblemLabel = styled(ProblemLabel)`
   width: 28px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
+  line-height: ${c.QUEUE_ROW_HEIGHT2}px;
   flex-shrink: 0;
-  mask: ${({isFts}) => isFts ? `url(${star}) 50% 50% no-repeat` : null};
-  mask-origin: content-box;
-  mask-clip: border-box;
-  mask-size: 25px;
+  background-image: ${({isFts}) => isFts ? `url(${star})` : null};
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: contain;
+  
+  mask: ${({isFts}) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
+  mask-position: 50%;
+  mask-size: contain;
 `;
 const QueueRightPart = styled.div`
   height: 100%;
@@ -214,6 +220,23 @@ const QueueRightPart = styled.div`
   display: flex;
   flex-wrap: nowrap;
 `;
+// const QueueFTSStartProblemWrap = styled.div`
+//   width: 28px;
+//   height: 100%;
+//   position: relative;
+//   background: ${props => "black"};
+//
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//
+//   flex-shrink: 0;
+//   mask: url(${star}) 50% 50% no-repeat;
+//   mask-origin: content-box;
+//   mask-clip: border-box;
+//   mask-size: 25px;
+//   padding: 2px;
+// `;
 
 export const QueueRow = ({ runInfo, flashing }) => {
     const scoreboardData = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[runInfo.teamId]);
@@ -256,9 +279,9 @@ const RowsContainer = styled.div`
 `;
 
 const QueueHeader = styled.div`
-  font-size: 32px;
+  font-size: ${c.QUEUE_HEADER_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
-  line-height: 44px;
+  line-height: ${c.QUEUE_HEADER_LINE_HEIGHT};
   color: white;
   width: 100%;
   display: flex;
