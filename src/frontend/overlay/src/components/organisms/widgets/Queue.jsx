@@ -150,12 +150,12 @@ const useQueueRowsData = ({
     let regularRowCount = 0;
     rows.forEach((row) => {
         if (row.isFts) {
-            row.bottom = (height - (c.QUEUE_ROW_HEIGHT2 + 3) * (totalFts - ftsRowCount)) + 3;
+            row.bottom = (height - (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * (totalFts - ftsRowCount)) + 3;
             // console.log(row.bottom);
             // console.log(height);
             ftsRowCount++;
         } else {
-            row.bottom = (c.QUEUE_ROW_HEIGHT2 + 3) * regularRowCount;
+            row.bottom = (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * regularRowCount;
             regularRowCount++;
         }
     });
@@ -169,7 +169,7 @@ const useQueueRowsData = ({
 const QueueRankLabel = styled(RankLabel)`
   width: 32px;
   align-self: stretch;
-  padding-left: 4px;
+  padding-left: 12px;
   flex-shrink: 0;
 `;
 
@@ -184,7 +184,7 @@ const QueueRunStatusLabel = styled(RunStatusLabel)`
 
 const StyledQueueRow = styled.div`
   width: 100%;
-  height: ${c.QUEUE_ROW_HEIGHT2}px;
+  height: ${c.QUEUE_ROW_HEIGHT}px;
   display: flex;
   align-items: center;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
@@ -203,7 +203,7 @@ const QueueScoreLabel = styled(ShrinkingBox)`
 const QueueProblemLabel = styled(ProblemLabel)`
   width: 28px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
-  line-height: ${c.QUEUE_ROW_HEIGHT2}px;
+  line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
   background-image: ${({isFts}) => isFts ? `url(${star})` : null};
   background-repeat: no-repeat;
@@ -306,7 +306,7 @@ const StyledFeatured = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: ${c.QUEUE_ROW_FEATURED_RUN_PADDING}px;
 
   ${({ additional }) => additional}
 `;
@@ -368,7 +368,7 @@ export const Queue = () => {
                                         bottom={row.bottom}
                                         zIndex={row.zIndex}
                                         fts={row.isFts}
-                                        {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT2)[state]}
+                                        {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
                                     >
                                         {/*<FeaturedRunRow2*/}
                                         {/*    isFeatured={row.isFeatured}*/}

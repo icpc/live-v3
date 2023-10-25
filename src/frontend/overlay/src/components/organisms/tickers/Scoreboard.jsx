@@ -12,7 +12,7 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
   display: grid;
   //align-items: center;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(${props => props.nrows}, calc(50% - 1px));
+  grid-template-rows: repeat(${props => props.nrows}, 1fr);
   height: 100%;
   width: 100%;
   gap: 2px;
@@ -21,14 +21,14 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
 `;
 
 const TickerScoreboardContestantInfo = styled(ContestantInfo)`
-    height: unset;  
+    height: 48px;
 `;
 
 export const Scoreboard = ({ tickerSettings, state }) => {
     const { from, to, periodMs } = tickerSettings;
     const [row, setRow] = useState(0);
     const rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
-    const nrows = Math.ceil(rows.length / 8);
+    const nrows = Math.ceil(rows.length / 4);
     useEffect(() => {
         if(state !== "entering" && rows.length > 0) {
             const interval = setInterval(() => {
@@ -41,15 +41,15 @@ export const Scoreboard = ({ tickerSettings, state }) => {
             return () => clearInterval(interval);
         }
     }, [nrows, periodMs, state, rows.length]);
-    return <ScoreboardWrap
-        nrows={nrows*2}
-        top={`calc(${-row * 100 }% - ${row * 2}px)`} // This fugliness is needed to scroll the scoreboard
-    >
-        {rows.map((row) => <TickerScoreboardContestantInfo
-            key={row.teamId}
-            teamId={row.teamId}
-        />)}
-    </ScoreboardWrap>;
+
+    // This fugliness is needed to scroll the scoreboard
+    return (
+        <ScoreboardWrap nrows={nrows*2} top={`calc(${-row * 100 }% - ${row * 2}px)`}>
+            {rows.map((row) => (
+                <TickerScoreboardContestantInfo key={row.teamId} teamId={row.teamId}/>
+            ))}
+        </ScoreboardWrap>
+    );
 };
 
 export default Scoreboard;

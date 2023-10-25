@@ -22,24 +22,24 @@ const VerdictLabel = styled(ShrinkingBox)`
 `;
 
 const ICPCVerdictLabel = ({ runResult, className }) => {
-    const color = runResult?.verdict.isAccepted ? c.VERDICT_OK2 : c.VERDICT_NOK2;
+    const color = runResult?.verdict.isAccepted ? c.VERDICT_OK : c.VERDICT_NOK;
     return <VerdictLabel text={runResult?.verdict.shortName ?? "??"} color={color} align="center" className={className}/>;
 };
 
 const getIOIScoreText = (difference) => {
     if (difference > 0) {
-        return [`+${formatScore(difference, 1)}`, c.VERDICT_OK2];
+        return [`+${formatScore(difference, 1)}`, c.VERDICT_OK];
     }
     if (difference < 0) {
-        return [`-${formatScore(-difference, 1)}`, c.VERDICT_NOK2];
+        return [`-${formatScore(-difference, 1)}`, c.VERDICT_NOK];
     }
-    return ["=", c.VERDICT_UNKNOWN2];
+    return ["=", c.VERDICT_UNKNOWN];
 };
 
 const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }}) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
-        {wrongVerdict !== undefined && <ShrinkingBox text={wrongVerdict ?? "??"} color={c.VERDICT_NOK2}/>}
+        {wrongVerdict !== undefined && <ShrinkingBox text={wrongVerdict ?? "??"} color={c.VERDICT_NOK}/>}
         {wrongVerdict === undefined && <ShrinkingBox text={diffText ?? "??"} color={diffColor}/>}
     </>;
 };
@@ -60,7 +60,7 @@ const formatRank = (rank) => {
     return rank.toString();
 };
 
-const RankLabelWrap = styled.div`
+const RankLabelWrap = styled(ShrinkingBox)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,9 +71,7 @@ const RankLabelWrap = styled.div`
 export const RankLabel = memo(({ rank, medal, className }) => {
     const color = c.MEDAL_COLORS[medal];
     const dark = isShouldUseDarkColor(color);
-    return <RankLabelWrap color={color} className={className} dark={dark}>
-        {formatRank(rank)}
-    </RankLabelWrap>;
+    return <RankLabelWrap color={color} className={className} dark={dark} text={formatRank(rank)} />;
 });
 
 const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
@@ -83,7 +81,7 @@ const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
 }))`
   height: 100%;
   transition: width 250ms linear;
-  background-color: ${c.VERDICT_UNKNOWN2};
+  background-color: ${c.VERDICT_UNKNOWN};
 `;
 
 
@@ -93,7 +91,7 @@ const VerdictCellInProgressWrap2 = styled.div`
   height: 100%;
   align-content: center;
   border-radius: 0 16px 16px 0;
-  border: 3px solid ${c.VERDICT_UNKNOWN2};
+  border: 3px solid ${c.VERDICT_UNKNOWN};
   box-sizing: border-box;
 `;
 

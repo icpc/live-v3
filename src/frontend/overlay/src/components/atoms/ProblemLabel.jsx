@@ -7,7 +7,6 @@ const StyledProblemLabel = styled.div`
   height: 100%;
   position: relative;
   color: ${({darkText}) => darkText ? "#000" : "#FFF"};
-  font-weight: bold;
   background: ${props => props.backgroundColor};
   
   display: flex;

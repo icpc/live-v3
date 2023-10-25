@@ -31,11 +31,11 @@ export function getStatus(isFirstToSolve, isSolved, pendingAttempts, wrongAttemp
 }
 
 export const TeamTaskColor = Object.freeze({
-    [TeamTaskStatus.solved]: c.VERDICT_OK2,
-    [TeamTaskStatus.failed]: c.VERDICT_NOK2,
+    [TeamTaskStatus.solved]: c.VERDICT_OK,
+    [TeamTaskStatus.failed]: c.VERDICT_NOK,
     // [TeamTaskStatus.untouched]: c.STATISTICS_BG_COLOR,
-    [TeamTaskStatus.unknown]: c.VERDICT_UNKNOWN2,
-    [TeamTaskStatus.first]: c.VERDICT_OK2,
+    [TeamTaskStatus.unknown]: c.VERDICT_UNKNOWN,
+    [TeamTaskStatus.first]: c.VERDICT_OK,
 });
 
 export const getTeamTaskColor = (score, minScore, maxScore) => {

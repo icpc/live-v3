@@ -129,8 +129,8 @@ class TeamViewWidget(
         fun getWidgetId(position: TeamViewPosition) = "teamview." + position.name
         fun getLocation(position: TeamViewPosition) = when (position) {
             TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(16, 16, 1488, 984)
-            TeamViewPosition.PVP_TOP -> LocationRectangle(16, 16, 1488, 984 / 2 + 12)
-            TeamViewPosition.PVP_BOTTOM -> LocationRectangle(16, 16 + 984 / 2 - 13, 1488, 984 / 2 + 13)
+            TeamViewPosition.PVP_TOP -> LocationRectangle(16, 16, 1488, 984 / 2 + 16)
+            TeamViewPosition.PVP_BOTTOM -> LocationRectangle(16, 16 + 984 / 2 - 16, 1488, 984 / 2 + 16)
             TeamViewPosition.TOP_LEFT -> LocationRectangle(16, 16, 1488 / 2, 837 / 2)
             TeamViewPosition.TOP_RIGHT -> LocationRectangle(16 + 1488 / 2, 16, 1488 / 2, 837 / 2)
             TeamViewPosition.BOTTOM_LEFT -> LocationRectangle(16, 16 + 837 / 2, 1488 / 2, 837 / 2)

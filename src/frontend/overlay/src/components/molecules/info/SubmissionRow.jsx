@@ -29,7 +29,7 @@ const SubmissionRowWrap = styled.div`
   border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
   overflow: hidden;
   color: white;
-  font-size: 18px;
+  font-size: ${c.CONTESTER_FONT_SIZE};
 `;
 
 const SubmissionColumnWrap = styled.div`
@@ -46,7 +46,7 @@ const SubmissionColumnWrap = styled.div`
 
   grid-auto-flow: row;
   color: white;
-  font-size: 18px;
+  font-size: ${c.CONTESTER_FONT_SIZE};
 `;
 
 const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`

@@ -11,7 +11,7 @@ const ContestantViewCornerWrap = styled.div`
   display: grid;
   
   grid-template-columns: auto minmax(100px, 150px);
-  grid-auto-rows: ${c.QUEUE_ROW_HEIGHT2}px;
+  grid-auto-rows: ${c.QUEUE_ROW_HEIGHT}px;
   
   width: auto;
   //transform-origin: bottom left;
