@@ -1,3 +1,5 @@
+import { useSnackbar } from "notistack";
+
 export const errorHandlerWithSnackbar = (snackBarEnqueue) =>
     (cause) => {
         return (error) => {
@@ -5,3 +7,8 @@ export const errorHandlerWithSnackbar = (snackBarEnqueue) =>
             snackBarEnqueue(cause, { variant: "error" });
         };
     };
+
+export const useErrorHandlerWithSnackbar = () => {
+    const { enqueueSnackbar } = useSnackbar();
+    return errorHandlerWithSnackbar(enqueueSnackbar);
+};
