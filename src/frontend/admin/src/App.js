@@ -18,6 +18,7 @@ import TeamSpotlight from "./components/TeamSpotlight";
 import { createApiGet, dynamicFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
 import FullScreenClockManager from "./components/FullScreenClockManager";
 import AdvancedJson from "./components/AdvancedJson";
+import MediaFiles from "./components/MediaFiles";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
 import { faviconTemplate } from "./styles";
@@ -109,6 +110,7 @@ function App() {
                         <Route path="/analytics" element={<Analytics/>}/>
                         <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
                         <Route path="/advancedJson" element={<AdvancedJson/>}/>
+                        <Route path="/media" element={<MediaFiles/>}/>
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
                 </div>

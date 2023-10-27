@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -19,16 +19,14 @@ const pages = {
     // "Title": "title",
     // "Picture": "picture",
     "TeamView": "teamview",
-    // "TeamPVP": "teampvp",
-    // "SplitScreen": "splitscreen",
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
     "Dashboard": "dashboard",
     "Analytics": "analytics",
     "Spotlight": "teamSpotlight",
     "Advanced": "advancedJson",
+    "Media": "media",
     "Backend Log": "log",
-    // "Advanced Properties": "AdvancedProperties",
 };
 
 

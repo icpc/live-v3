@@ -4,3 +4,7 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.media-files-uploader {
+    max-width: 100% !important;
+}
