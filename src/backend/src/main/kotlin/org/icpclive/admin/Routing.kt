@@ -1,6 +1,7 @@
 package org.icpclive.admin
 
 import io.ktor.http.*
+import io.ktor.http.content.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
@@ -18,7 +19,8 @@ import org.icpclive.cds.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow
-
+import org.icpclive.util.sendJsonFlow
+import java.nio.file.Files
 
 fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {
@@ -114,8 +116,42 @@ fun Route.configureAdminApiRouting() {
 
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
+
+        route("/media") {
+            get {
+                run {
+                    val mediaDirectoryFile = Config.mediaDirectory.toFile()
+                    call.respond(
+                        mediaDirectoryFile.walkTopDown()
+                            .filter { it.isFile }.map { it.relativeTo(mediaDirectoryFile).path }.toList()
+                    )
+                }
+            }
+
+            post("/upload") {
+                call.adminApiAction {
+                    var uploadedFileUrl: String? = null
+                    val multipart = call.receiveMultipart()
+                    multipart.forEachPart { partData ->
+                        if (partData is PartData.FileItem) {
+                            Files.write(
+                                Config.mediaDirectory.resolve(partData.storeName),
+                                partData.streamProvider().readBytes()
+                            )
+                            uploadedFileUrl = partData.storeName
+                        }
+                    }
+                    uploadedFileUrl
+                }
+            }
+        }
     }
     route("/social") {
         setupSocial()
     }
 }
+
+private val PartData.FileItem.storeName: String
+    get() {
+        return this.originalFileName!!.replace("[^\\w.]".toRegex(), "_")
+    }
