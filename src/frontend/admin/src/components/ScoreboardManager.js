@@ -71,11 +71,11 @@ function ScoreboardSettings({ isShown, onClickShow, onClickHide, settings, setSe
                     </ButtonGroup>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
-                    <NumericField value={settings.startFromRow} minValue={1} arrowsDelta={settings.teamsOnPage}
+                    <NumericField value={settings.startFromRow} minValue={1} arrowsDelta={settings.startFromRow}
                         onChange={v => setSettings(s => ({ ...s, startFromRow: v }))}/>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
-                    <NumericField value={settings.numRows} minValue={0} arrowsDelta={settings.teamsOnPage}
+                    <NumericField value={settings.numRows} minValue={0} arrowsDelta={settings.numRows}
                         onChange={v => setSettings(s => ({ ...s, numRows: v }))}/>
                 </SlimTableCell>
                 <SlimTableCell align={"center"}>
@@ -94,7 +94,6 @@ ScoreboardSettings.propTypes = {
     settings: PropTypes.shape({
         startFromRow: PropTypes.number.isRequired,
         numRows: PropTypes.number.isRequired,
-        teamsOnPage: PropTypes.number.isRequired,
         isInfinite: PropTypes.bool.isRequired,
     }).isRequired,
     setSettings: PropTypes.func.isRequired,
@@ -193,7 +192,6 @@ function ScoreboardManager() {
         group: "all",
         startFromRow: 1,
         numRows: 0,
-        teamsOnPage: 23,
     });
     const [groupsList, setGroupsList] = useState([]);
 

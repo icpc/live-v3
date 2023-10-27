@@ -1,8 +1,9 @@
-import {useLayoutEffect, useRef, useState} from "react";
+import {useLayoutEffect, useMemo, useRef, useState} from "react";
 import { StackedBarsData } from "./types";
 import styled from "styled-components";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
+import {useElementSize} from "usehooks-ts";
 
 const BarsWrapper = styled.div`
   width: 100%;
@@ -57,25 +58,23 @@ const BarValue = styled.div.attrs(({ value, caption }) => ({
   background-color: ${({color}) => color};
   color: ${c.STATISTICS_TITLE_COLOR};
   text-align: center;
-`
+`;
 
 interface StackedBarsProps {
     data: StackedBarsData;
+    height?: number;
 }
-export const StackedBars = ({data}: StackedBarsProps) => {
-    const [rowsCount, setRowsCount] = useState(data.length);
-    const componentRef = useRef(null);
 
-    useLayoutEffect(() => {
-        setRowsCount(Math.min(
-            data.length,
-            Math.floor(componentRef.current.offsetHeight /
-                (c.STATISTICS_BAR_HEIGHT_PX + c.STATISTICS_BAR_GAP_PX))
-        ));
-    }, [data.length]);
+const oneBarHeight = c.STATISTICS_BAR_HEIGHT_PX + c.STATISTICS_BAR_GAP_PX;
+
+export const StackedBars = ({ data, height }: StackedBarsProps) => {
+    const rowsCount = useMemo(() => {
+        const columns = Math.ceil(data.length / Math.floor(height / oneBarHeight));
+        return height ? Math.min(data.length, Math.ceil(data.length / columns)) : data.length;
+    }, [data.length, height]);
 
     return (
-        <BarsWrapper rowsCount={rowsCount} ref={componentRef}>
+        <BarsWrapper rowsCount={rowsCount}>
             {data.map((b) => {
                 return (
                     <BarWrapper key={b.name}>

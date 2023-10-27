@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import c from "../../../config";
-import {stackedBarsData} from "../../../statistics/barData";
-import {StatisticsLegend} from "../../molecules/statistics/StatisticsLegend";
-import {StackedBars} from "../../molecules/statistics/StackedBars";
+import { stackedBarsData } from "../../../statistics/barData";
+import { StatisticsLegend } from "../../molecules/statistics/StatisticsLegend";
+import { StackedBars } from "../../molecules/statistics/StackedBars";
+import { useElementSize } from "usehooks-ts";
 
 const StatisticsWrap = styled.div`
   width: 100%;
@@ -45,16 +46,19 @@ export const Statistics = () => {
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     const data = stackedBarsData(resultType, tasks, statistics, count);
 
+    const [componentRef, { height }] = useElementSize();
+    const [headerRef, { height: headerHeight }] = useElementSize();
+
     return (
-        <StatisticsWrap>
-            <Header>
+        <StatisticsWrap ref={componentRef}>
+            <Header ref={headerRef}>
                 <Title>{c.STATISTICS_TITLE}</Title>
                 <Caption>{c.STATISTICS_CAPTION}</Caption>
                 <StatisticsLegend legend={data.legend}></StatisticsLegend>
             </Header>
 
-            {data.data && data.data.length > 0 && <StackedBars data={data.data}/>}
+            {data.data && data.data.length > 0 && <StackedBars data={data.data} height={height - headerHeight - 8} />}
         </StatisticsWrap>
-    )
+    );
 };
 export default Statistics;

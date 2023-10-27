@@ -9,7 +9,8 @@ import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { TaskResultLabel, RankLabel } from "../../atoms/ContestLabels";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 
-import {formatScore, useFormatPenalty, useNeedPenalty} from "../../../services/displayUtils";
+import { formatScore, useFormatPenalty, useNeedPenalty } from "../../../services/displayUtils";
+import { useElementSize } from "usehooks-ts";
 
 
 const ScoreboardWrap = styled.div`
@@ -147,6 +148,8 @@ const ScoreboardRowsWrap = styled.div`
   position: relative;
   flex: 1 0 0;
   overflow: hidden;
+  height: auto;
+  max-height: ${({ maxHeight }) => `${maxHeight}px`};
 `;
 
 export const extractScoreboardRows = (data, selectedGroup) =>
@@ -183,16 +186,16 @@ export const useScroller = (
     return Math.max(startFromRow, pageEndRow - singleScreenRowCount);
 };
 
-export const ScoreboardRows = ({ settings }) => {
+export const ScoreboardRows = ({ settings, onPage }) => {
     const rows = extractScoreboardRows(
         useSelector((state) => state.scoreboard[settings.optimismLevel]),
         settings.group);
     const teams = _(rows).toPairs().sortBy("[1].teamId").value();
-    const rowHeight = c.SCOREBOARD_ROW_HEIGHT;
-    const scrollPos = useScroller(rows.length, settings.teamsOnPage, c.SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
-    return <ScoreboardRowsWrap>
+    const rowHeight = c.SCOREBOARD_ROW_HEIGHT + c.SCOREBOARD_ROW_PADDING;
+    const scrollPos = useScroller(rows.length, onPage, c.SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
+    return <ScoreboardRowsWrap maxHeight={onPage * rowHeight}>
         {teams.map(([index, teamData]) =>
-            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * (rowHeight + c.SCOREBOARD_ROW_PADDING) - c.SCOREBOARD_ROW_PADDING}>
+            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * rowHeight - c.SCOREBOARD_ROW_PADDING}>
                 <ScoreboardRow teamId={teamData.teamId} optimismLevel={settings.optimismLevel}/>
             </PositionedScoreboardRow>
         )}
@@ -202,12 +205,12 @@ export const ScoreboardRows = ({ settings }) => {
 const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-  height: ${c.SCOREBOARD_HEADER_HEIGHT};
+  height: ${c.SCOREBOARD_HEADER_HEIGHT}px;
 
   font-size: ${c.SCOREBOARD_HEADER_FONT_SIZE};
   font-style: normal;
   font-weight: ${c.SCOREBOARD_HEADER_FONT_WEIGHT};
-  line-height: ${c.SCOREBOARD_HEADER_HEIGHT};
+  line-height: ${c.SCOREBOARD_HEADER_HEIGHT}px;
 `;
 
 const ScoreboardTableHeaderCell = styled.div`
@@ -240,6 +243,9 @@ const ScoreboardTableHeader = () => {
 };
 
 export const Scoreboard = ({ widgetData: { settings } }) => {
+    const [rowsRef, { height }] = useElementSize();
+    const onPage = Math.floor((height - c.SCOREBOARD_HEADER_HEIGHT) / (c.SCOREBOARD_ROW_HEIGHT + c.SCOREBOARD_ROW_PADDING));
+
     return <ScoreboardWrap>
         <ScoreboardHeader>
             <ScoreboardTitle>
@@ -249,9 +255,9 @@ export const Scoreboard = ({ widgetData: { settings } }) => {
                 {c.SCOREBOARD_CAPTION}
             </ScoreboardCaption>
         </ScoreboardHeader>
-        <ScoreboardContent>
+        <ScoreboardContent ref={rowsRef}>
             <ScoreboardTableHeader/>
-            <ScoreboardRows settings={settings}/>
+            <ScoreboardRows settings={settings} onPage={onPage} />
         </ScoreboardContent>
     </ScoreboardWrap>;
 };
