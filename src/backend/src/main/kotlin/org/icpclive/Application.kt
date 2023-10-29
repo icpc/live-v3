@@ -16,8 +16,12 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.adapters.*
@@ -105,6 +109,11 @@ fun Application.module() {
             applicationRoute = "overlay"
             react("overlay")
         }
+        singlePageApplication {
+            useResources = true
+            applicationRoute = "overlay2"
+            react("overlay2")
+        }
         route("/api") {
             route("/admin") { configureAdminApiRouting() }
             route("/overlay") { configureOverlayRouting() }
@@ -137,7 +146,15 @@ fun Application.module() {
             .calculateScoreDifferences()
             .addFirstToSolves()
 
+        val emptyVisualConfig = JsonObject(emptyMap())
+        DataBus.visualConfigFlow.completeOrThrow(
+            config.visualConfigFile?.let {
+                fileJsonContentFlow<JsonObject>(it, logger).stateIn(this, SharingStarted.Eagerly, emptyVisualConfig)
+            } ?: MutableStateFlow(emptyVisualConfig)
+        )
 
         launchServices(loader)
     }
 }
+
+private val logger = getLogger(Application::class)

@@ -1,0 +1,11 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": "https://cds.chipcie.ch.tudelft.nl/api",
+      "contestId": "DAPC-2023",
+      "login": "live",
+      "password": "password"
+    }
+  ]
+}

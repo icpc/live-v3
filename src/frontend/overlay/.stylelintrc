@@ -4,7 +4,8 @@
   ],
   "extends": [
     "stylelint-config-recommended",
-    "stylelint-config-styled-components"
+    "stylelint-config-styled-components",
+    "stylelint-config-idiomatic-order"
   ],
   "plugins": [
     "stylelint-no-unsupported-browser-features"
@@ -18,5 +19,6 @@
       }
     ],
     "block-no-empty": null
-  }
+  },
+  "customSyntax": "postcss-scss"
 }

@@ -63,7 +63,7 @@ If you are running locally replace `<ip>` with `localhost`
 
 #### overlay
 
-Overlay takes base url from environment variable `REACT_APP_WEBSOCKET_URL`  
+Overlay takes base url from environment variable `VITE_WEBSOCKET_URL`  
 A path to backend's path for websocket connection.  
 Exposed on /api/overlay path
 
@@ -71,13 +71,13 @@ Run this in `overlay` directory to start the development server:
 Linux:
 
 ```
-REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/overlay npm run start
+VITE_WEBSOCKET_URL=ws://<IP>:8080/api/overlay npm run start
 ```
 
 Windows:
 
 ```
-set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/overlay  
+set VITE_WEBSOCKET_URL=ws://<IP>:8080/api/overlay  
 npm run start
 ```
 
@@ -85,21 +85,21 @@ npm run start
 
 Admin panel takes two urls:
 
-* `REACT_APP_BACKEND_URL` - for updating data and talking to the backend (exposed in /api/admin)
-* `REACT_APP_WEBSOCKET_URL` - for real time updates of presets and settings (exposed in /api/admin)
+* `VITE_BACKEND_URL` - for updating data and talking to the backend (exposed in /api/admin)
+* `VITE_WEBSOCKET_URL` - for real time updates of presets and settings (exposed in /api/admin)
 
 Run this in `admin` directory to start the development server:  
 Linux:
 
 ```
-REACT_APP_BACKEND_URL=http://<IP>:8080/api/admin;REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/admin npm run start
+VITE_BACKEND_URL=http://<IP>:8080/api/admin;VITE_WEBSOCKET_URL=ws://<IP>:8080/api/admin npm run start
 ```
 
 Windows:
 
 ```
-set REACT_APP_BACKEND_URL=http://<IP>:8080/api/admin  
-set REACT_APP_WEBSOCKET_URL=ws://<IP>:8080/api/admin
+set VITE_BACKEND_URL=http://<IP>:8080/api/admin  
+set VITE_WEBSOCKET_URL=ws://<IP>:8080/api/admin
 npm run start
 ```
 
