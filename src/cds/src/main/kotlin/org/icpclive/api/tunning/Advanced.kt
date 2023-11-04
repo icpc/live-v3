@@ -104,10 +104,11 @@ public data class OrganizationInfoOverride(
  * The order in which overrides applied:
  *   * Time and scoreboard related (they don't interact with others)
  *   * Filtering out non-submitted teams if requested
- *   * Regexp overrides by team name (so values provided by them can be used in templated)
- *   * Regexp overrides by team id (so values provided by them can be used in templated)
+ *   * Regexp overrides by team name (so values provided by them can be used in templates)
+ *   * Regexp overrides by team id (so values provided by them can be used in templates)
  *   * Creating new groups mentioned in teams or overrides and group overrides
  *   * Creating new organizations mentioned in teams or overrides and organization overrides
+ *   * Custom fields from team overrides (so values provided by them can be used in templates)
  *   * (Deprecated) Team media template
  *   * Team override template
  *   * Normal team overrides
