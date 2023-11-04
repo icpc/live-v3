@@ -3223,20 +3223,11 @@
    }
   }
  },
- "scoreboardOverrides": {
+ "awardsSettings": {
   "medals": [
-   {
-    "name": "gold",
-    "count": 4
-   },
-   {
-    "name": "silver",
-    "count": 4
-   },
-   {
-    "name": "bronze",
-    "count": 4
-   }
+   {"maxRank": 4, "id": "gold-medal", "citation": "Gold medal", "color": "GOLD"},
+   {"maxRank": 8, "id": "silver-medal", "citation": "Solver medal", "color": "SILVER"},
+   {"maxRank": 12, "id": "bronze-medal", "citation": "Bronze medal", "color": "BRONZE"}
   ]
  }
 }
