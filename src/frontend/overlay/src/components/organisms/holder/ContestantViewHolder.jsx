@@ -1,9 +1,9 @@
-import React, {useEffect, useLayoutEffect, useRef} from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { ContestantViewCorner } from "../../molecules/info/ContestantViewCorner";
 import styled from "styled-components";
-import {useDispatch} from "react-redux";
-import {pushLog} from "../../../redux/debug";
-import {GrabberPlayerClient} from "../../../utils/grabber/grabber_player";
+import { useDispatch } from "react-redux";
+import { pushLog } from "../../../redux/debug";
+import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
 
 export const TeamImageWrapper = styled.img`
   border-radius: ${({ borderRadius }) => borderRadius};
@@ -12,7 +12,7 @@ export const TeamImageWrapper = styled.img`
 export const TeamVideoWrapper = styled.video`
   position: absolute;
   width: 100%;
-  height: 100%;
+  //height: 100%;
   bottom: 0;
   aspect-ratio: 16/9;
   object-fit: cover;
@@ -107,7 +107,7 @@ export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url,
 export const FullWidthWrapper = styled.div`
   width: 100%;
   border-radius: 16px;
-  position: absolute;
+  //position: absolute;
   // this is how you make aspect ratio before aspect-ratio. 
   // Do not remove until the whole world starts using modern VMix
   // Sadly this hack will cut off the bottom of the picture
@@ -180,8 +180,8 @@ export const AchievementWrapper = styled.div`
   height: 100%;
 `;
 
-export const Achievement = ({src, onLoadStatus, className}) => {
-    console.log(src)
+export const Achievement = ({ src, onLoadStatus, className }) => {
+    console.log(src);
     return <AchievementWrapper className={className}>
         <TeamImageWrapper src={src} onLoad={() => onLoadStatus(true)}/>
     </AchievementWrapper>;
@@ -195,7 +195,7 @@ export const ContestantViewHolder = ({ onLoadStatus, media, isSmall, hasPInP, cl
         return null;
     }
     if (!media.isMedia && media.type === "Photo") {
-        return <Achievement src={media.url} onLoadStatus={onLoadStatus} className={className}/>
+        return <Achievement src={media.url} onLoadStatus={onLoadStatus} className={className}/>;
     }
     return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} hasPInP={hasPInP} {...media} className={className}/>;
 };
