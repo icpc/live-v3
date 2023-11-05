@@ -60,13 +60,17 @@ const TeamViewWrapper = styled.div`
 `;
 
 
+const TeamViewContestantViewHolder = styled(ContestantViewHolder)`
+    top: 0; // # FIXME: fuck this.
+`;
+
 function TeamViewContent({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
     const hasPInP = settings.content.filter(e => !e.isMedia).concat(mediaContent).filter((c) => c.pInP).length > 0;
 
     return <TeamViewWrapper sizeX={location.sizeX} sizeY={location.sizeY}>
         {settings.content.filter(e => !e.isMedia).concat(mediaContent).map((c, index) => {
             const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
-            const component = <ContestantViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
+            const component = <TeamViewContestantViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
                 isSmall={isSmall} hasPInP={hasPInP}/>;
             if (c.pInP) {
                 return <TeamViewPInPWrapper key={c.type + index} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
