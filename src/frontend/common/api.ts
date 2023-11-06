@@ -497,7 +497,6 @@ export interface ScoreboardSettings {
   numRows?: number | null;
   startFromRow?: number;
   optimismLevel?: OptimismLevel;
-  teamsOnPage?: number;
   group?: string;
 }
 
