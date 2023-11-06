@@ -1,11 +1,20 @@
 {
-  "teamMediaTemplate": {
-    "screen": {
-      "type": "WebRTCGrabberConnection",
-      "peerName": "{comp}",
-      "url": "http://192.168.1.79:3000/admin",
-      "streamType": "desktop",
-      "credential": "live"
+  "teamOverrideTemplate": {
+    "medias": {
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "peerName": "{comp}",
+        "url": "http://192.168.1.41:13478",
+        "streamType": "desktop",
+        "credential": "nwrrc-live-secret"
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "http://192.168.1.41:13478",
+        "peerName": "{comp}",
+        "streamType": "webcam",
+        "credential": "nwrrc-live-secret"
+      }
     }
   },
   "teamOverrides": {
