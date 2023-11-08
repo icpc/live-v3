@@ -44,11 +44,15 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
 
     private var sid: String? = null
 
+//    variables for parsing runs
+    private var page = 0
+    private val MAX_PAGE = 100
+
     @Serializable
     data class Auth(val status: String, val sid: String, val cid: Long)
 
     @Serializable
-    data class Problem(val id: Int, val name: String, val code: String, val max_points: Double = 0.0)
+    data class Problem(val id: Int, val name: String, val code: String, val max_points: String = "0.0")
 
     @Serializable
     data class Problems(val problems: List<Problem>)
@@ -112,7 +116,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     private val problemsLoader = jsonLoader<Problems>(networkSettings = settings.network) { "${settings.url}/problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
     private val usersLoader = jsonLoader<Users>(networkSettings = settings.network) { "${settings.url}/users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
     private val contestLoader = jsonLoader<Contest>(networkSettings = settings.network) { "${settings.url}/contest_params?cid=${settings.cid}&sid=${sid!!}&json=1" }
-    private val runsLoader = jsonLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1" }
+    private val runsLoader = jsonLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1&page=$page" }
 
     override suspend fun loadOnce(): ContestParseResult {
         sid = authLoader.load().sid
@@ -120,9 +124,36 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             problemsLoader.load(),
             usersLoader.load(),
             contestLoader.load(),
-            runsLoader.load()
+            parseSubmitPages()
         )
     }
+
+    private suspend fun parseSubmitPages(): List<Run> {
+        val runs = mutableSetOf<Int>()
+        val result = mutableListOf<Run>()
+        for (currentPage in 0 until MAX_PAGE) {
+            page = currentPage
+            val pageSubmits = runsLoader.load().filterIsInstance<Submit>()
+
+            if (runs.intersect(pageSubmits.map(Submit::id).toSet()).size == pageSubmits.size) {
+                break
+            } else {
+                addNewSubmits(runs, result, pageSubmits)
+            }
+        }
+        return result
+    }
+
+    private fun addNewSubmits(
+        runs: MutableSet<Int>,
+        result: MutableList<Run>,
+        pageSubmits: List<Submit>
+    ) {
+        val newSubmits = pageSubmits.filter { it.id !in runs }
+        result.addAll(newSubmits)
+        runs.addAll(newSubmits.map(Submit::id))
+    }
+
 
     private fun parseAndUpdateStandings(
         problems: Problems,
@@ -141,7 +172,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     ordinal = index,
                     contestSystemId = problem.id.toString(),
                     minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
-                    maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points else null,
+                    maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points.toDouble() else null,
                     scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
                 )
             }
