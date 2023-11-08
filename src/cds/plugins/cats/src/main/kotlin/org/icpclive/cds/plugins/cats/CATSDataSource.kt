@@ -61,11 +61,15 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
 
     private var sid: String? = null
 
+    //    variables for parsing runs
+    private var page = 0
+    private val MAX_PAGE = 100
+
     @Serializable
     data class Auth(val status: String, val sid: String, val cid: Long)
 
     @Serializable
-    data class Problem(val id: Int, val name: String, val code: String, val max_points: Double = 0.0)
+    data class Problem(val id: Int, val name: String, val code: String, val max_points: String = "0.0")
 
     @Serializable
     data class Problems(val problems: List<Problem>)
@@ -78,14 +82,14 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
 
     @Serializable
     data class Contest(
-        val title: String,
-        @Serializable(with = ContestTimeSerializer::class)
-        val start_date: LocalDateTime,
-        @Serializable(with = ContestTimeSerializer::class)
-        val freeze_date: LocalDateTime,
-        @Serializable(with = ContestTimeSerializer::class)
-        val finish_date: LocalDateTime,
-        val rules: String,
+            val title: String,
+            @Serializable(with = ContestTimeSerializer::class)
+            val start_date: LocalDateTime,
+            @Serializable(with = ContestTimeSerializer::class)
+            val freeze_date: LocalDateTime,
+            @Serializable(with = ContestTimeSerializer::class)
+            val finish_date: LocalDateTime,
+            val rules: String,
     )
 
     @Serializable
@@ -94,20 +98,20 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     @Serializable
     @SerialName("submit")
     data class Submit(
-        val id: Int,
-        val state_text: String,
-        val problem_id: Int,
-        val team_id: Int,
-        @Serializable(with = SubmissionTimeSerializer::class)
-        val submit_time: Instant,
-        val points: Double = 0.0,
+            val id: Int,
+            val state_text: String,
+            val problem_id: Int,
+            val team_id: Int,
+            @Serializable(with = SubmissionTimeSerializer::class)
+            val submit_time: Instant,
+            val points: Double = 0.0,
     ) : Run()
 
     @Serializable
     @SerialName("broadcast")
     @Suppress("unused")
     data class Broadcast(
-        val text: String,
+            val text: String,
     ) : Run()
 
     // NOTICE: May it
@@ -115,14 +119,14 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     @SerialName("c.question")
     @Suppress("unused")
     data class Question(
-        val text: String,
+            val text: String,
     ) : Run()
 
     @Serializable
     @SerialName("contest")
     @Suppress("unused")
     data class ContestStart(
-        val contest_start: Int,
+            val contest_start: Int,
     ) : Run()
 
     private val authLoader = jsonUrlLoader<Auth>(networkSettings = settings.network) { "${settings.url}/?f=login&login=$login&passwd=$password&json=1" }
@@ -136,103 +140,130 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     override suspend fun loadOnce(): ContestParseResult {
         sid = authLoader.load().sid
         return parseAndUpdateStandings(
-            problemsLoader.load(),
-            usersLoader.load(),
-            contestLoader.load(),
-            runsLoader.load()
+                problemsLoader.load(),
+                usersLoader.load(),
+                contestLoader.load(),
+                parseSubmitPages()
         )
     }
 
+    private suspend fun parseSubmitPages(): List<Run> {
+        val runs = mutableSetOf<Int>()
+        val result = mutableListOf<Run>()
+        for (currentPage in 0 until MAX_PAGE) {
+            page = currentPage
+            val pageSubmits = runsLoader.load().filterIsInstance<Submit>()
+
+            if (runs.intersect(pageSubmits.map(Submit::id).toSet()).size == pageSubmits.size) {
+                break
+            } else {
+                addNewSubmits(runs, result, pageSubmits)
+            }
+        }
+        return result
+    }
+
+    private fun addNewSubmits(
+            runs: MutableSet<Int>,
+            result: MutableList<Run>,
+            pageSubmits: List<Submit>
+    ) {
+        val newSubmits = pageSubmits.filter { it.id !in runs }
+        result.addAll(newSubmits)
+        runs.addAll(newSubmits.map(Submit::id))
+    }
+
+
     private fun parseAndUpdateStandings(
-        problems: Problems,
-        users: Users,
-        contest: Contest,
-        runs: List<Run>,
+            problems: Problems,
+            users: Users,
+            contest: Contest,
+            runs: List<Run>,
     ): ContestParseResult {
         val problemsList: List<ProblemInfo> = problems.problems
-            .asSequence()
-            .mapIndexed { index, problem ->
-                ProblemInfo(
-                    id = problem.id.toProblemId(),
-                    displayName = problem.code,
-                    fullName = problem.name,
-                    ordinal = index,
-                    minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
-                    maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points else null,
-                    color = null,
-                    scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
-                )
-            }
-            .toList()
+                .asSequence()
+                .mapIndexed { index, problem ->
+                    ProblemInfo(
+                            id = problem.id.toProblemId(),
+                            displayName = problem.code,
+                            fullName = problem.name,
+                            ordinal = index,
+                            minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
+                            maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points.toDouble() else null,
+                            color = null,
+                            scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
+                    )
+                }
+                .toList()
 
         val teamList: List<TeamInfo> = users.users
-            .asSequence()
-            .filter { team -> team.role == "in_contest" }
-            .map { team ->
-                TeamInfo(
-                    id = team.account_id.toTeamId(),
-                    fullName = team.name,
-                    displayName = team.name,
-                    groups = emptyList(),
-                    hashTag = null,
-                    medias = mapOf(),
-                    isHidden = false,
-                    isOutOfContest = false,
-                    organizationId = null
-                )
-            }.toList()
+                .asSequence()
+                .filter { team -> team.role == "in_contest" }
+                .map { team ->
+                    TeamInfo(
+                            id = team.account_id.toTeamId(),
+                            fullName = team.name,
+                            displayName = team.name,
+                            groups = emptyList(),
+                            hashTag = null,
+                            medias = mapOf(),
+                            isHidden = false,
+                            isOutOfContest = false,
+                            organizationId = null
+                    )
+                }.toList()
 
         val startTime = contest.start_date.toInstant(settings.timeZone)
         val contestLength = contest.finish_date.toInstant(settings.timeZone) - startTime
         val freezeTime = contest.freeze_date.toInstant(settings.timeZone) - startTime
 
         val contestInfo = ContestInfo(
-            name = contest.title,
-            status = ContestStatus.byCurrentTime(startTime, contestLength),
-            resultType = settings.resultType,
-            startTime = startTime,
-            contestLength = contestLength,
-            freezeTime = freezeTime,
-            problemList = problemsList,
-            teamList = teamList,
-            groupList = emptyList(),
-            organizationList = emptyList(),
-            penaltyRoundingMode = when (settings.resultType) {
-                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
-                ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
-            }
+                name = contest.title,
+                status = ContestStatus.byCurrentTime(startTime, contestLength),
+                resultType = settings.resultType,
+                startTime = startTime,
+                contestLength = contestLength,
+                freezeTime = freezeTime,
+                problemList = problemsList,
+                teamList = teamList,
+                groupList = emptyList(),
+                organizationList = emptyList(),
+                penaltyRoundingMode = when (settings.resultType) {
+                    ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                    ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+                }
         )
 
         val resultRuns = runs
-            .asSequence()
-            .filterIsInstance<Submit>()
-            .map {
-                val result = if (it.state_text.isNotEmpty()) {
-                    when (contestInfo.resultType) {
-                        ContestResultType.ICPC -> Verdict.lookup(
-                            shortName = it.state_text,
-                            isAccepted = ("OK" == it.state_text),
-                            isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
-                        ).toICPCRunResult()
+                .asSequence()
+                .filterIsInstance<Submit>()
+                .map {
+                    val result = if (it.state_text.isNotEmpty()) {
+                        when (contestInfo.resultType) {
+                            ContestResultType.ICPC -> Verdict.lookup(
+                                    shortName = it.state_text,
+                                    isAccepted = ("OK" == it.state_text),
+                                    isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
+                            ).toICPCRunResult()
 
-                        ContestResultType.IOI -> RunResult.IOI(score = listOf(it.points))
-                    }
-                } else RunResult.InProgress(0.0)
-                RunInfo(
-                    id = it.id.toRunId(),
-                    result = result,
-                    problemId = it.problem_id.toProblemId(),
-                    teamId = it.team_id.toTeamId(),
-                    time = it.submit_time - startTime
-                )
-            }
-            .toList()
-            .sortedBy { it.time }
+                            ContestResultType.IOI -> RunResult.IOI(score = listOf(it.points))
+                        }
+                    } else RunResult.InProgress(0.0)
+                    RunInfo(
+                            id = it.id.toRunId(),
+                            result = result,
+                            problemId = it.problem_id.toProblemId(),
+                            teamId = it.team_id.toTeamId(),
+                            time = it.submit_time - startTime
+                    )
+                }
+                .toList()
+                .sortedBy { it.time }
 
         return ContestParseResult(
-            contestInfo,
-            resultRuns,
-            emptyList()
+                contestInfo,
+                resultRuns,
+                emptyList()
         )
     }
 }
