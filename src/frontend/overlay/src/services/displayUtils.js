@@ -1,6 +1,6 @@
 import c from "../config";
-import {useSelector} from "react-redux";
-import {useCallback} from "react";
+import { useSelector } from "react-redux";
+import { useCallback } from "react";
 
 export const formatScore = (score, digits = 2) => {
     if (score === undefined) {
@@ -23,7 +23,7 @@ export const useFormatPenalty = () => {
             return Math.floor(penalty / 60);
         }
     }, [mode]);
-}
+};
 export const useNeedPenalty = () => {
     return usePenaltyRoundingMode() !== "zero";
 };
