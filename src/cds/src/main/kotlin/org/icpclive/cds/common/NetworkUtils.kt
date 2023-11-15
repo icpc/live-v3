@@ -71,7 +71,6 @@ internal fun defaultHttpClient(
         setupAuth(auth)
     }
     engine {
-        threadsCount = 2
         https {
             if (networkSettings?.allowUnsecureConnections == true) {
                 trustManager = object : X509TrustManager {
