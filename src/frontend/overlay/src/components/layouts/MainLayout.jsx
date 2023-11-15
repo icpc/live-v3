@@ -85,8 +85,17 @@ const WIDGETS = {
     TeamLocatorWidget: Locator
 };
 
+const useWidgets = () => {
+    const queryParams = useQueryParams();
+    if(queryParams.has("forceWidgets")) {
+        return JSON.parse(queryParams.get("forceWidgets"));
+    } else {
+        return useSelector(state => state.widgets.widgets);
+    }
+};
+
 export const MainLayout = () => {
-    const widgets = useSelector(state => state.widgets.widgets);
+    const widgets = useWidgets();
     const params = useQueryParams();
     return <MainLayoutWrap>
         <StatusLightbulbs compact={true}/>
