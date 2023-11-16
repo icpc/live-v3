@@ -2,7 +2,7 @@ module.exports = {
     "ignorePatterns": [
         "build/**"
     ],
-    // parser: '@typescript-eslint/parser',
+    "parser": "@typescript-eslint/parser",
     "env": {
         "node": true,
         "browser": true,
@@ -27,7 +27,8 @@ module.exports = {
     },
     "plugins": [
         "@typescript-eslint",
-        "react"
+        "react",
+        "react-hooks"
     ],
     "rules": {
         "indent": [
@@ -35,24 +36,24 @@ module.exports = {
             4
         ],
         "linebreak-style": [
-            "error",
+            "warn",
             "unix"
         ],
         "quotes": [
-            "error",
+            "warn",
             "double"
         ],
         "semi": [
-            "error",
+            "warn",
             "always"
         ],
         "eol-last": [
-            "error",
+            "warn",
             "always"
         ],
         "no-case-declarations": "off",
         "object-curly-spacing": [
-            "error",
+            "warn",
             "always"
         ],
         "no-unused-vars": [

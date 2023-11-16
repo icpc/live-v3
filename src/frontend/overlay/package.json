@@ -37,14 +37,8 @@
     "start": "vite",
     "build": "vite build",
     "lint:css": "stylelint -f verbose './src/**/*.{js,jsx,ts,tsx,css,scss}'",
-    "lint:js": "eslint '**/*.js'",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx,css,scss}'",
     "lint": "npm run lint:css && npm run lint:js"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
