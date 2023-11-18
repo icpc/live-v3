@@ -29,7 +29,7 @@ internal class StringLoader(
             is UrlOrLocalPath.Url -> try {
                 httpClient.request(url.value).bodyAsText()
             } catch (e: Throwable) {
-                throw wrapIsSSLError(e)
+                throw wrapIfSSLError(e)
             }
         }
         return content
@@ -48,9 +48,9 @@ internal class ByteArrayLoader(
         val content = when (url) {
             is UrlOrLocalPath.Local -> url.value.toFile().readBytes()
             is UrlOrLocalPath.Url -> try {
-                httpClient.request(url.value).bodyAsText()
+                httpClient.request(url.value).body<ByteArray>()
             } catch (e: Throwable) {
-                throw wrapIsSSLError(e)
+                throw wrapIfSSLError(e)
             }
         }
         return content

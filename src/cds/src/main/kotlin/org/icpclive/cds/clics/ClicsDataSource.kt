@@ -2,8 +2,7 @@ package org.icpclive.cds.clics
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.SerializationException
+import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import org.icpclive.api.*
@@ -16,6 +15,34 @@ import org.icpclive.clics.v202003.upgrade
 import org.icpclive.clics.v202207.Event
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
+
+@Serializable
+public class ClicsFeed(
+    @Contextual public val url: UrlOrLocalPath,
+    public val contestId: String,
+    @Contextual public val login: Credential? = null,
+    @Contextual public val password: Credential? = null,
+    public val eventFeedName: String = "event-feed",
+    public val eventFeedPath: String? = null,
+    public val feedVersion: ClicsSettings.FeedVersion = ClicsSettings.FeedVersion.`2022_07`
+)
+
+@SerialName("clics")
+@Serializable
+public class ClicsSettings(
+    public val feeds: List<ClicsFeed>,
+    public val useTeamNames: Boolean = true,
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
+) : CDSSettings() {
+    public enum class FeedVersion {
+        `2020_03`,
+        `2022_07`
+    }
+
+    override fun toDataSource() = ClicsDataSource(this)
+}
+
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
     val auth = ClientAuth.BasicOrNull(

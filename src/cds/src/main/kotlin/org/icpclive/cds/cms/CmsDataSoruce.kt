@@ -1,15 +1,29 @@
 package org.icpclive.cds.cms
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.cds.cms.model.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.settings.CmsSettings
+import org.icpclive.cds.settings.*
 import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
+
+@SerialName("cms")
+@Serializable
+public class CmsSettings(
+    public val url: String,
+    public val activeContest: String,
+    public val otherContests: List<String>,
+    override val network: NetworkSettings? = null,
+    override val emulation: EmulationSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = CmsDataSource(this)
+}
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
     private val contestsLoader = jsonUrlLoader<Map<String, Contest>>(settings.network, null) { "${settings.url}/contests/" }

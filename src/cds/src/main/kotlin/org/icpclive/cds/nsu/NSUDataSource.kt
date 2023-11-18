@@ -8,20 +8,36 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toKotlinLocalDateTime
-import kotlinx.serialization.Serializable
+import kotlinx.datetime.*
+import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.defaultHttpClient
-import org.icpclive.cds.settings.NSUSettings
+import org.icpclive.cds.settings.*
+import org.icpclive.util.TimeZoneSerializer
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
+
+
+@Serializable
+@SerialName("nsu")
+public class NSUSettings(
+    public val url: String,
+    public val olympiadId: Int,
+    public val tourId: Int,
+    @Contextual public val email: Credential,
+    @Contextual public val password: Credential,
+    @Serializable(with = TimeZoneSerializer::class)
+    public val timeZone: TimeZone = TimeZone.of("Asia/Novosibirsk"),
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = NSUDataSource(this)
+}
 
 internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataSource(5.seconds) {
 

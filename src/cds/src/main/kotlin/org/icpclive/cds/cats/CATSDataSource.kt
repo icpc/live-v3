@@ -7,10 +7,27 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.CatsSettings
+import org.icpclive.cds.settings.*
+import org.icpclive.util.TimeZoneSerializer
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.seconds
+
+@Serializable
+@SerialName("cats")
+public class CatsSettings(
+    @Contextual public val login: Credential,
+    @Contextual public val password: Credential,
+    public val url: String,
+    @Serializable(with = TimeZoneSerializer::class)
+    public val timeZone: TimeZone = TimeZone.of("Asia/Vladivostok"),
+    public val resultType: ContestResultType = ContestResultType.ICPC,
+    public val cid: String,
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = CATSDataSource(this)
+}
 
 private object ContestTimeSerializer : KSerializer<LocalDateTime> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantConstand", PrimitiveKind.STRING)

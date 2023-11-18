@@ -1,13 +1,28 @@
 package org.icpclive.cds.krsu
 
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toInstant
-import kotlinx.serialization.Serializable
+import kotlinx.datetime.*
+import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.KRSUSettings
+import org.icpclive.cds.settings.*
+import org.icpclive.util.TimeZoneSerializer
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
+
+
+@Serializable
+@SerialName("krsu")
+public class KRSUSettings(
+    @Contextual public val submissionsUrl: UrlOrLocalPath,
+    @Contextual public val contestUrl: UrlOrLocalPath,
+    @Serializable(with = TimeZoneSerializer::class)
+    public val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = KRSUDataSource(this)
+}
+
 
 internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce() = parseAndUpdateStandings(

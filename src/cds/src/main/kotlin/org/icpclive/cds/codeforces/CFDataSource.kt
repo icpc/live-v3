@@ -1,17 +1,31 @@
 package org.icpclive.cds.codeforces
 
 import kotlinx.datetime.Clock
+import kotlinx.serialization.*
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.codeforces.api.data.CFHack
 import org.icpclive.cds.codeforces.api.data.CFSubmission
 import org.icpclive.cds.codeforces.api.results.CFStandings
 import org.icpclive.cds.codeforces.api.results.CFStatusWrapper
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.CFSettings
+import org.icpclive.cds.settings.*
 import java.security.MessageDigest
 import java.util.*
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
+
+@Serializable
+@SerialName("cf")
+public class CFSettings(
+    public val contestId: Int,
+    @Contextual public val apiKey: Credential,
+    @Contextual public val apiSecret: Credential,
+    public val asManager: Boolean = true,
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
+) : CDSSettings() {
+    override fun toDataSource() = CFDataSource(this)
+}
 
 internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSource(5.seconds) {
     private val contestInfo = CFContestInfo()

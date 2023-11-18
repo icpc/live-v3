@@ -1,9 +1,10 @@
 package org.icpclive.cds.ejudge
 
 import kotlinx.datetime.*
+import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.EjudgeSettings
+import org.icpclive.cds.settings.*
 import org.icpclive.util.*
 import org.w3c.dom.Element
 import java.time.format.DateTimeFormatter
@@ -11,6 +12,18 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
+
+@Serializable
+@SerialName("ejudge")
+public class EjudgeSettings(
+    @Contextual public val url: UrlOrLocalPath,
+    public val resultType: ContestResultType = ContestResultType.ICPC,
+    public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = EjudgeDataSource(this)
+}
 
 internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce(): ContestParseResult {

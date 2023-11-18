@@ -2,10 +2,10 @@ package org.icpclive.cds.pcms
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.PCMSSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.settings.*
 import org.icpclive.util.*
 import org.w3c.dom.Element
 import java.util.*
@@ -13,6 +13,20 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+
+@Serializable
+@SerialName("pcms")
+public class PCMSSettings(
+    @Contextual public val url: UrlOrLocalPath,
+    @Contextual public val login: Credential? = null,
+    @Contextual public val password: Credential? = null,
+    @Contextual public val problemsUrl: UrlOrLocalPath? = null,
+    public val resultType: ContestResultType = ContestResultType.ICPC,
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
+) : CDSSettings() {
+    override fun toDataSource() = PCMSDataSource(this)
+}
 
 internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {
     private val login = settings.login?.value

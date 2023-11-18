@@ -5,13 +5,28 @@ import io.grpc.ManagedChannelBuilder
 import io.grpc.Metadata
 import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
+import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.settings.CodeDrillsSettings
+import org.icpclive.cds.settings.*
 import org.icpclive.util.getLogger
 import java.util.concurrent.*
 import kotlin.time.Duration.Companion.seconds
+
+@SerialName("codedrills")
+@Serializable
+public class CodeDrillsSettings(
+    public val url: String,
+    public val port: Int,
+    public val contestId: String,
+    @Contextual public val authKey: Credential,
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null,
+) : CDSSettings() {
+    override fun toDataSource() = CodeDrillsDataSource(this)
+}
+
 
 internal class CodeDrillsClient(url: String, port: Int, authKey: String) : AutoCloseable {
     private val channel = ManagedChannelBuilder.forAddress(url, port).usePlaintext().build()

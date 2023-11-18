@@ -9,8 +9,13 @@ import org.icpclive.api.ContestResultType
 import org.icpclive.api.tunning.*
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.adapters.finalContestState
+import org.icpclive.cds.clics.ClicsFeed
+import org.icpclive.cds.clics.ClicsSettings
 import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.ejudge.EjudgeSettings
+import org.icpclive.cds.pcms.PCMSSettings
 import org.icpclive.cds.settings.*
+import org.icpclive.cds.testsys.TestSysSettings
 import org.opentest4j.AssertionFailedError
 import java.nio.file.Path
 import kotlin.test.Test

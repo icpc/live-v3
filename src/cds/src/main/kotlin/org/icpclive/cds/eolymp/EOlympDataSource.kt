@@ -5,9 +5,10 @@ import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
 import jdk.jfr.Percentage
 import kotlinx.datetime.toKotlinInstant
+import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.EOlympSettings
+import org.icpclive.cds.settings.*
 import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
 import java.net.URL
@@ -18,6 +19,17 @@ import java.time.temporal.ChronoField
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.seconds
 
+@SerialName("eolymp")
+@Serializable
+public class EOlympSettings(
+    public val url: String,
+    @Contextual public val token: Credential,
+    public val contestId: String,
+    override val network: NetworkSettings? = null,
+    override val emulation: EmulationSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = EOlympDataSource(this)
+}
 
 private suspend fun <T : Any> GraphQLKtorClient.checkedExecute(request: GraphQLClientRequest<T>) = execute(request).let {
     if (it.errors.isNullOrEmpty()) {

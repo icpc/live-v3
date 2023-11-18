@@ -6,15 +6,30 @@ import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
+import org.icpclive.api.ContestResultType
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.YandexSettings
+import org.icpclive.cds.settings.*
 import org.icpclive.cds.yandex.api.*
 import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+
+@Serializable
+@SerialName("yandex")
+public class YandexSettings(
+    @Contextual public val apiKey: Credential,
+    @Serializable(with = RegexSerializer::class) public val loginRegex: Regex,
+    public val contestId: Int,
+    public val resultType: ContestResultType = ContestResultType.ICPC,
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = YandexDataSource(this)
+}
 
 internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
     private val apiKey = settings.apiKey.value

@@ -1,15 +1,27 @@
 package org.icpclive.cds.testsys
 
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toKotlinLocalDateTime
+import kotlinx.datetime.*
+import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.TestSysSettings
+import org.icpclive.cds.settings.*
+import org.icpclive.util.TimeZoneSerializer
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
+@Serializable
+@SerialName("testsys")
+public class TestSysSettings(
+    @Contextual public val url: UrlOrLocalPath,
+    @Serializable(with = TimeZoneSerializer::class)
+    public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = TestSysDataSource(this)
+}
 
 internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {
     val loader = ByteArrayLoader(settings.network, null) { settings.url }
