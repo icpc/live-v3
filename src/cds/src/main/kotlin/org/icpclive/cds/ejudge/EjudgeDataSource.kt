@@ -154,5 +154,5 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         )
     }
 
-    private val xmlLoader = xmlLoader(networkSettings = settings.network) { settings.url.value }
+    private val xmlLoader = xmlLoader(networkSettings = settings.network) { settings.url }
 }

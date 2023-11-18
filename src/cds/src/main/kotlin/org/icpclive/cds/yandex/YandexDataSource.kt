@@ -40,17 +40,17 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
         }
 
 
-        contestDescriptionLoader = jsonLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
-        problemLoader = jsonLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
+        contestDescriptionLoader = jsonUrlLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
+        problemLoader = jsonUrlLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
             val participantRegex = settings.loginRegex
-            jsonLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
+            jsonUrlLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
         }
-        allSubmissionsLoader = jsonLoader<Submissions>(settings.network, auth) {
+        allSubmissionsLoader = jsonUrlLoader<Submissions>(settings.network, auth) {
             "$API_BASE/contests/${settings.contestId}/submissions?locale=ru&page=1&pageSize=100000"
         }.map { it.submissions.reversed() }
     }

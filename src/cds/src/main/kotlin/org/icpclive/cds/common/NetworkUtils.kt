@@ -83,6 +83,3 @@ internal fun defaultHttpClient(
     }
     block()
 }
-
-
-internal fun isHttpUrl(text: String) = text.startsWith("http://") || text.startsWith("https://")

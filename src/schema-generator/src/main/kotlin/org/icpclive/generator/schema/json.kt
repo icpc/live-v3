@@ -6,9 +6,11 @@ import com.github.ajalt.clikt.parameters.options.required
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.json.*
-import kotlinx.serialization.modules.EmptySerializersModule
+import kotlinx.serialization.modules.*
 import java.io.File
+import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
+import kotlin.reflect.jvm.kotlinFunction
 
 fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.BOOLEAN -> "boolean"
@@ -22,9 +24,10 @@ fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.STRING -> "string"
 }
 
-@OptIn(ExperimentalSerializationApi::class, InternalSerializationApi::class)
+@OptIn(ExperimentalSerializationApi::class)
 fun SerialDescriptor.toJsonSchemaType(
     processed: MutableSet<String>,
+    serializersModule: SerializersModule,
     definitions: MutableMap<String, JsonElement>,
     extras: Map<String, JsonElement> = emptyMap(),
     extraTypeProperty: String? = null,
@@ -36,11 +39,11 @@ fun SerialDescriptor.toJsonSchemaType(
     }
     if (kind == SerialKind.CONTEXTUAL) {
         val kclass = capturedKClass ?: error("Contextual serializer $serialName doesn't have class")
-        val defaultSerializer = serializer(kclass, emptyList(), isNullable)
-        return defaultSerializer.descriptor.toJsonSchemaType(processed, definitions, extras, extraTypeProperty)
+        val defaultSerializer = serializersModule.serializer(kclass.java)
+        return defaultSerializer.descriptor.toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
     }
     if (isInline) {
-        return getElementDescriptor(0).toJsonSchemaType(processed, definitions, extras, extraTypeProperty)
+        return getElementDescriptor(0).toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
     }
     // Before processing, check for recursion
     val paramNamesWithTypes = elementDescriptors.map { it.serialName }
@@ -49,7 +52,54 @@ fun SerialDescriptor.toJsonSchemaType(
     if (!processed.contains(id)) {
         processed.add(id)
         val data = when (kind) {
-            PolymorphicKind.OPEN -> TODO("Open polymorphic types are not supported")
+            PolymorphicKind.OPEN -> {
+                val subclasses = buildList {
+                    serializersModule.dumpTo(object : SerializersModuleCollector {
+                        override fun <T : Any> contextual(
+                            kClass: KClass<T>,
+                            provider: (typeArgumentsSerializers: List<KSerializer<*>>) -> KSerializer<*>
+                        ) {
+                        }
+
+                        override fun <Base : Any, Sub : Base> polymorphic(
+                            baseClass: KClass<Base>,
+                            actualClass: KClass<Sub>,
+                            actualSerializer: KSerializer<Sub>
+                        ) {
+                            if (baseClass == capturedKClass) {
+                                add(actualSerializer as KSerializer<*>)
+                            }
+                        }
+
+                        override fun <Base : Any> polymorphicDefaultDeserializer(
+                            baseClass: KClass<Base>,
+                            defaultDeserializerProvider: (className: String?) -> DeserializationStrategy<Base>?
+                        ) {
+                        }
+
+                        override fun <Base : Any> polymorphicDefaultSerializer(
+                            baseClass: KClass<Base>,
+                            defaultSerializerProvider: (value: Base) -> SerializationStrategy<Base>?
+                        ) {
+                        }
+                    })
+                }
+                val typeFieldName = getElementName(0)
+                mapOf(
+                    "oneOf" to JsonArray(
+                        subclasses.map { it.descriptor }
+                            .sortedBy { it.serialName }
+                            .map {
+                                it.toJsonSchemaType(
+                                    processed,
+                                    serializersModule,
+                                    definitions,
+                                    title = it.serialName.split(".").last(),
+                                    extraTypeProperty = typeFieldName
+                                )
+                            }
+                    )
+                )            }
             is PrimitiveKind, SerialKind.CONTEXTUAL -> error("Already handled")
             PolymorphicKind.SEALED -> {
                 require(extraTypeProperty == null)
@@ -62,6 +112,7 @@ fun SerialDescriptor.toJsonSchemaType(
                             .map {
                                 it.toJsonSchemaType(
                                     processed,
+                                    serializersModule,
                                     definitions,
                                     title = it.serialName.split(".").last(),
                                     extraTypeProperty = typeFieldName
@@ -92,7 +143,7 @@ fun SerialDescriptor.toJsonSchemaType(
                             } +
                                     (0 until elementsCount).associate {
                                         getElementName(it) to
-                                                getElementDescriptor(it).toJsonSchemaType(processed, definitions)
+                                                getElementDescriptor(it).toJsonSchemaType(processed, serializersModule, definitions)
                                     }
                         ),
                         "additionalProperties" to JsonPrimitive(false),
@@ -108,7 +159,7 @@ fun SerialDescriptor.toJsonSchemaType(
             StructureKind.LIST -> {
                 mapOf(
                     "type" to JsonPrimitive("array"),
-                    "items" to getElementDescriptor(0).toJsonSchemaType(processed, definitions)
+                    "items" to getElementDescriptor(0).toJsonSchemaType(processed, serializersModule, definitions)
                 )
             }
 
@@ -124,6 +175,7 @@ fun SerialDescriptor.toJsonSchemaType(
                                     mapOf(
                                         ".*" to valuesSerializer.toJsonSchemaType(
                                             processed,
+                                            serializersModule,
                                             definitions
                                         )
                                     )
@@ -139,6 +191,7 @@ fun SerialDescriptor.toJsonSchemaType(
                                 (0 until keysSerializer.elementsCount).associate {
                                     keysSerializer.getElementName(it) to valuesSerializer.toJsonSchemaType(
                                         processed,
+                                        serializersModule,
                                         definitions
                                     )
                                 }
@@ -173,12 +226,13 @@ fun SerialDescriptor.toJsonSchemaType(
     return JsonObject(mapOf("\$ref" to JsonPrimitive("#/\$defs/$id")))
 }
 
-fun SerialDescriptor.toJsonSchema(title: String): JsonElement {
+fun SerialDescriptor.toJsonSchema(title: String, serializersModule: SerializersModule): JsonElement {
     val definitions = mutableMapOf<String, JsonElement>()
     val mainSchema = toJsonSchemaType(
         title = title,
         processed = mutableSetOf(),
         definitions = definitions,
+        serializersModule = serializersModule,
     )
     return JsonObject(
         (mainSchema as JsonObject) +
@@ -199,9 +253,17 @@ class JsonCommand : CliktCommand(name = "json") {
     private val title by option("--title", "-t", help = "Title inside schema file").required()
 
     override fun run() {
-        val thing = serializer(Class.forName(className))
+        val clazz = Class.forName(className)
+        val companion = clazz.kotlin.nestedClasses.singleOrNull { it.isCompanion }?.java
+        @Suppress("UNCHECKED_CAST") val moduleMethod = companion?.methods?.filter { it.parameters.isEmpty() }?.singleOrNull {
+            it.returnType.canonicalName == "kotlinx.serialization.modules.SerializersModule"
+        }?.kotlinFunction as KCallable<SerializersModule>?
+
+
+        val serializersModule = moduleMethod?.call(companion?.kotlin?.objectInstance)
+        val thing = serializer(clazz)
         val serializer = thing.descriptor
-        val schema = json.encodeToString(serializer.toJsonSchema(title))
+        val schema = json.encodeToString(serializer.toJsonSchema(title, serializersModule ?: EmptySerializersModule()))
         File(output).printWriter().use {
             it.println(schema)
         }
