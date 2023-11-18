@@ -8,37 +8,41 @@ import io.ktor.utils.io.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.settings.NetworkSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.util.getLogger
 import java.io.IOException
 import java.nio.file.Paths
 import java.security.GeneralSecurityException
 import javax.net.ssl.SSLException
 
-internal fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: String) = flow {
-    val httpClient = defaultHttpClient(auth, networkSettings)
-    if (!isHttpUrl(url)) {
-        Paths.get(url).toFile().useLines { lines ->
-            lines.forEach { emit(it) }
+internal fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: UrlOrLocalPath) = flow {
+    when (url) {
+        is UrlOrLocalPath.Local -> {
+            url.value.toFile().useLines { lines ->
+                emitAll(lines.asFlow())
+            }
         }
-        return@flow
-    }
 
-    logger.debug("Requesting $url")
-    httpClient.prepareGet(url) {
-        timeout {
-            socketTimeoutMillis = Long.MAX_VALUE
-            requestTimeoutMillis = Long.MAX_VALUE
-        }
-    }.execute { httpResponse ->
-        if (httpResponse.status != HttpStatusCode.OK) {
-            logger.warn("Got ${httpResponse.status} from $url")
-            return@execute
-        }
-        val channel = httpResponse.bodyAsChannel()
-        while (!channel.isClosedForRead) {
-            val line = channel.readUTF8Line() ?: continue
-            if (line.isEmpty()) continue
-            emit(line)
+        is UrlOrLocalPath.Url -> {
+            val httpClient = defaultHttpClient(auth, networkSettings)
+            logger.debug("Requesting $url")
+            httpClient.prepareGet(url.value) {
+                timeout {
+                    socketTimeoutMillis = Long.MAX_VALUE
+                    requestTimeoutMillis = Long.MAX_VALUE
+                }
+            }.execute { httpResponse ->
+                if (httpResponse.status != HttpStatusCode.OK) {
+                    logger.warn("Got ${httpResponse.status} from $url")
+                    return@execute
+                }
+                val channel = httpResponse.bodyAsChannel()
+                while (!channel.isClosedForRead) {
+                    val line = channel.readUTF8Line() ?: continue
+                    if (line.isEmpty()) continue
+                    emit(line)
+                }
+            }
         }
     }
 }.flowOn(Dispatchers.IO)

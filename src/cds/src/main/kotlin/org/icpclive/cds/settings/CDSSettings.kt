@@ -1,5 +1,4 @@
 @file:Suppress("UNUSED")
-@file:UseContextualSerialization(UrlOrLocalPath::class, Credential::class)
 package org.icpclive.cds.settings
 
 
@@ -8,8 +7,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.serialization.*
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.SerializersModule
 import org.icpclive.api.ContestResultType
@@ -36,32 +33,21 @@ import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.time.Duration
 
-@Serializable(with = UrlOrLocalPath.Serializer::class)
-public class UrlOrLocalPath(public val value: String) {
-    internal class Serializer : KSerializer<UrlOrLocalPath> {
-        private val delegate = serializer<String>()
-        override val descriptor = delegate.descriptor
-        override fun deserialize(decoder: Decoder) = UrlOrLocalPath(delegate.deserialize(decoder))
-        override fun serialize(encoder: Encoder, value: UrlOrLocalPath) = delegate.serialize(encoder, value.value)
+public sealed class UrlOrLocalPath {
+    public abstract fun subDir(s: String): UrlOrLocalPath
+    public data class Url(public val value: String) : UrlOrLocalPath() {
+        public override fun subDir(s: String): UrlOrLocalPath = Url("$value/$s")
+        override fun toString(): String = value
     }
-
-    public override fun toString(): String = value
+    public data class Local(public val value: Path) : UrlOrLocalPath() {
+        public override fun subDir(s: String): UrlOrLocalPath = Local(value.resolve(s))
+        override fun toString(): String = value.toString()
+    }
 }
 
 // I'd like to have them in cds files, but then serializing would be much harder
 
-@Serializable(with = Credential.Serializer::class)
 public class Credential(public val displayValue: String, public val value: String) {
-    internal class Serializer : KSerializer<Credential> {
-        private val delegate = serializer<String>()
-        override val descriptor = delegate.descriptor
-        override fun deserialize(decoder: Decoder) : Credential {
-            val raw = delegate.deserialize(decoder)
-            return Credential(raw, raw)
-        }
-        override fun serialize(encoder: Encoder, value: Credential) = delegate.serialize(encoder, value.displayValue)
-    }
-
     override fun toString(): String = displayValue
 }
 
@@ -112,7 +98,7 @@ public class NoopSettings(
 @Serializable
 @SerialName("testsys")
 public class TestSysSettings(
-    public val url: UrlOrLocalPath,
+    @Contextual public val url: UrlOrLocalPath,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
@@ -124,9 +110,9 @@ public class TestSysSettings(
 @Serializable
 @SerialName("cats")
 public class CatsSettings(
-    public val login: Credential,
-    public val password: Credential,
-    public val url: UrlOrLocalPath,
+    @Contextual public val login: Credential,
+    @Contextual public val password: Credential,
+    public val url: String,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Asia/Vladivostok"),
     public val resultType: ContestResultType = ContestResultType.ICPC,
@@ -140,8 +126,8 @@ public class CatsSettings(
 @Serializable
 @SerialName("krsu")
 public class KRSUSettings(
-    public val submissionsUrl: UrlOrLocalPath,
-    public val contestUrl: UrlOrLocalPath,
+    @Contextual public val submissionsUrl: UrlOrLocalPath,
+    @Contextual public val contestUrl: UrlOrLocalPath,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
     override val emulation: EmulationSettings? = null,
@@ -169,7 +155,7 @@ public class NSUSettings(
 @Serializable
 @SerialName("ejudge")
 public class EjudgeSettings(
-    public val url: UrlOrLocalPath,
+    @Contextual public val url: UrlOrLocalPath,
     public val resultType: ContestResultType = ContestResultType.ICPC,
     public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
     override val emulation: EmulationSettings? = null,
@@ -182,7 +168,7 @@ public class EjudgeSettings(
 @Serializable
 @SerialName("yandex")
 public class YandexSettings(
-    public val apiKey: Credential,
+    @Contextual public val apiKey: Credential,
     @Serializable(with = RegexSerializer::class) public val loginRegex: Regex,
     public val contestId: Int,
     public val resultType: ContestResultType = ContestResultType.ICPC,
@@ -196,8 +182,8 @@ public class YandexSettings(
 @SerialName("cf")
 public class CFSettings(
     public val contestId: Int,
-    public val apiKey: Credential,
-    public val apiSecret: Credential,
+    @Contextual public val apiKey: Credential,
+    @Contextual public val apiSecret: Credential,
     public val asManager: Boolean = true,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
@@ -208,10 +194,10 @@ public class CFSettings(
 @Serializable
 @SerialName("pcms")
 public class PCMSSettings(
-    public val url: UrlOrLocalPath,
-    public val login: Credential? = null,
-    public val password: Credential? = null,
-    public val problemsUrl: UrlOrLocalPath? = null,
+    @Contextual public val url: UrlOrLocalPath,
+    @Contextual public val login: Credential? = null,
+    @Contextual public val password: Credential? = null,
+    @Contextual public val problemsUrl: UrlOrLocalPath? = null,
     public val resultType: ContestResultType = ContestResultType.ICPC,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
@@ -221,10 +207,10 @@ public class PCMSSettings(
 
 @Serializable
 public class ClicsFeed(
-    public val url: UrlOrLocalPath,
+    @Contextual public val url: UrlOrLocalPath,
     public val contestId: String,
-    public val login: Credential? = null,
-    public val password: Credential? = null,
+    @Contextual public val login: Credential? = null,
+    @Contextual public val password: Credential? = null,
     public val eventFeedName: String = "event-feed",
     public val eventFeedPath: String? = null,
     public val feedVersion: ClicsSettings.FeedVersion = ClicsSettings.FeedVersion.`2022_07`
@@ -252,7 +238,7 @@ public class CodeDrillsSettings(
     public val url: String,
     public val port: Int,
     public val contestId: String,
-    public val authKey: Credential,
+    @Contextual public val authKey: Credential,
     override val emulation: EmulationSettings? = null,
     override val network: NetworkSettings? = null,
 ) : CDSSettings() {
@@ -263,7 +249,7 @@ public class CodeDrillsSettings(
 @Serializable
 public class AtcoderSettings(
     public val contestId: String,
-    public val sessionCookie: Credential,
+    @Contextual public val sessionCookie: Credential,
     @Serializable(with = HumanTimeSerializer::class)
     public val startTime: Instant,
     @Serializable(with = DurationInSecondsSerializer::class)
@@ -290,7 +276,7 @@ public class CmsSettings(
 @Serializable
 public class EOlympSettings(
     public val url: String,
-    public val token: Credential,
+    @Contextual public val token: Credential,
     public val contestId: String,
     override val network: NetworkSettings? = null,
     override val emulation: EmulationSettings? = null
@@ -298,55 +284,59 @@ public class EOlympSettings(
     override fun toDataSource() = EOlympDataSource(this)
 }
 
-public fun interface CredsProvider {
+public fun interface CredentialProvider {
     public operator fun get(s: String) : String?
 }
-public fun parseFileToCdsSettings(path: Path, creds: Map<String, String>): CDSSettings = parseFileToCdsSettings(path) { creds[it] }
 
-public fun parseFileToCdsSettings(path: Path, creds: CredsProvider) : CDSSettings {
+public fun parseFileToCdsSettings(path: Path, credentialProvider: Map<String, String>): CDSSettings = parseFileToCdsSettings(path) { credentialProvider[it] }
+
+public fun parseFileToCdsSettings(path: Path, credentialProvider: CredentialProvider) : CDSSettings {
     val file = path.toFile()
     val module = SerializersModule {
-        postProcess<Credential>(
-            onEncode = {
+        postProcess<Credential, String>(
+            onDeserialize = {
                 val prefix = "\$creds."
-                if (it.displayValue.startsWith(prefix)) {
-                    val name = it.displayValue.substring(prefix.length)
-                    Credential(it.displayValue, creds[name] ?: throw IllegalStateException("Credential $name not found"))
+                if (it.startsWith(prefix)) {
+                    val name = it.substring(prefix.length)
+                    Credential(it, credentialProvider[name] ?: throw IllegalStateException("Credential $name not found"))
                 } else {
-                    it
+                    Credential(it, it)
                 }
-            }
+            },
+            onSerialize = { it.displayValue }
         )
-        postProcess<UrlOrLocalPath>(
-            onEncode = {
-                if (isHttpUrl(it.value)) {
-                    it
+        postProcess<UrlOrLocalPath, String>(
+            onDeserialize = {
+                if (isHttpUrl(it)) {
+                    UrlOrLocalPath.Url(it)
                 } else {
-                    val fixedPath = path.parent.resolve(it.value).toAbsolutePath()
-                    require(fixedPath.exists()) { "File ${fixedPath} mentioned in settings doesn't exist"}
-                    UrlOrLocalPath(fixedPath.toString())
+                    val fixedPath = path.parent.resolve(it).toAbsolutePath()
+                    require(fixedPath.exists()) { "File $fixedPath mentioned in settings doesn't exist"}
+                    UrlOrLocalPath.Local(fixedPath)
+                }
+            },
+            onSerialize = {
+                when (it) {
+                    is UrlOrLocalPath.Url -> it.value
+                    is UrlOrLocalPath.Local -> it.value.toString()
                 }
             }
         )
     }
-    return if (!file.exists()) {
-        throw IllegalArgumentException("File ${file.absolutePath} does not exist")
-    } else if (file.name.endsWith(".properties")) {
-        throw IllegalStateException("Properties format is not supported anymore, use settings.json instead")
-    } else if (file.name.endsWith(".json")) {
-        file.inputStream().use {
-            Json {
-                serializersModule = module
-            }.decodeFromStreamIgnoringComments(it)
+    return when {
+        !file.exists() -> throw IllegalArgumentException("File ${file.absolutePath} does not exist")
+        file.name.endsWith(".properties") -> throw IllegalStateException("Properties format is not supported anymore, use settings.json instead")
+        file.name.endsWith(".json") -> {
+            file.inputStream().use {
+                Json { serializersModule = module }.decodeFromStreamIgnoringComments(it)
+            }
         }
-    } else if (file.name.endsWith(".json5")) {
-        file.inputStream().use {
-            Json5 {
-                serializersModule = module
-            }.decodeFromString<CDSSettings>(String(it.readAllBytes()))
+        file.name.endsWith(".json5") -> {
+            file.inputStream().use {
+                Json5 { serializersModule = module }.decodeFromString<CDSSettings>(String(it.readAllBytes()))
+            }
         }
-    } else {
-        throw IllegalArgumentException("Unknown settings file extension: ${file.path}")
+        else -> throw IllegalArgumentException("Unknown settings file extension: ${file.path}")
     }
 }
 
