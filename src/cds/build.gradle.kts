@@ -88,7 +88,6 @@ dependencies {
     implementation(libs.grpc.stub)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.serialization.json5)
-    implementation(libs.kotlinx.serialization.properties)
     implementation(libs.ktor.client.auth)
     implementation(libs.ktor.client.cio)
     implementation(libs.protobuf)
