@@ -12,7 +12,7 @@ import kotlin.time.Duration.Companion.seconds
 
 
 internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {
-    val loader = ByteArrayLoader(settings.network, null) { settings.url }
+    val loader = ByteArrayLoader(settings.network, null) { settings.url.value }
         .map {
             val eofPosition = it.indexOf(EOF)
             String(

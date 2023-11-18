@@ -24,6 +24,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
     )
     val baseUrl = settings.url
     val eventFeedUrl = buildList {
+        add(baseUrl)
         if (settings.eventFeedPath != null) {
             if (settings.eventFeedPath.isNotEmpty()) {
                 add(settings.eventFeedPath)
@@ -33,7 +34,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
             add(settings.contestId)
         }
         add(settings.eventFeedName)
-    }.fold(baseUrl, UrlOrLocalPath::subDir)
+    }.joinToString("/")
     val feedVersion = settings.feedVersion
 }
 
@@ -211,7 +212,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                             null
                         }
                     })
-                if (settings.eventFeedUrl is UrlOrLocalPath.Local) { break }
+                if (!isHttpUrl(settings.eventFeedUrl)) { break }
                 delay(5.seconds)
                 logger.info("Connection ${settings.eventFeedUrl} is closed, retrying")
             }

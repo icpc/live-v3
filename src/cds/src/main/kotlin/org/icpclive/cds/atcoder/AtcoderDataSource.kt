@@ -8,7 +8,6 @@ import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.settings.AtcoderSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.minutes
@@ -47,9 +46,7 @@ internal class ContestData(
 internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {
     val teamIds = Enumerator<String>()
     val problemIds = Enumerator<String>()
-    private val loader = jsonLoader<ContestData>(settings.network, ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)) {
-        UrlOrLocalPath.Url("https://atcoder.jp/contests/${settings.contestId}/standings/json")
-    }
+    private val loader = jsonLoader<ContestData>(settings.network, ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)) { "https://atcoder.jp/contests/${settings.contestId}/standings/json" }
 
     var submissionId: Int = 1
     val runs = mutableMapOf<Pair<Int, Int>, List<RunInfo>>()
