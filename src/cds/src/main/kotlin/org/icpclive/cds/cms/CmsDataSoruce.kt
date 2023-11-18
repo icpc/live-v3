@@ -2,9 +2,9 @@ package org.icpclive.cds.cms
 
 import org.icpclive.api.*
 import org.icpclive.cds.cms.model.*
+import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.settings.CmsSettings
 import org.icpclive.util.Enumerator
 import kotlin.time.Duration
@@ -12,12 +12,12 @@ import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
-    private val contestsLoader = jsonLoader<Map<String, Contest>>(settings.network, null) { "${settings.url}/contests/" }
-    private val tasksLoader = jsonLoader<Map<String, Task>>(settings.network, null) { "${settings.url}/tasks/"}
-    private val teamsLoader = jsonLoader<Map<String, Team>>(settings.network, null) { "${settings.url}/teams/"}
-    private val usersLoader = jsonLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/"}
-    private val submissionsLoader = jsonLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/"}
-    private val subchangesLoader = jsonLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/"}
+    private val contestsLoader = jsonUrlLoader<Map<String, Contest>>(settings.network, null) { "${settings.url}/contests/" }
+    private val tasksLoader = jsonUrlLoader<Map<String, Task>>(settings.network, null) { "${settings.url}/tasks/"}
+    private val teamsLoader = jsonUrlLoader<Map<String, Team>>(settings.network, null) { "${settings.url}/teams/"}
+    private val usersLoader = jsonUrlLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/"}
+    private val submissionsLoader = jsonUrlLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/"}
+    private val subchangesLoader = jsonUrlLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/"}
     private val problemId = Enumerator<String>()
     private val teamId = Enumerator<String>()
     private val submissionId = Enumerator<String>()

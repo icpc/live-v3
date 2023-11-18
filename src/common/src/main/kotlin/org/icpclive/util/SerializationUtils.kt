@@ -198,13 +198,19 @@ inline fun <reified T> Json.decodeFromStringIgnoringComments(data: String) : T =
 }
 
 inline fun <reified T: Any> SerializersModuleBuilder.postProcess(
-    crossinline onEncode: (T) -> T = { it },
-    crossinline onDecode: (T) -> T = { it },
+    crossinline onDeserialize: (T) -> T = { it },
+    crossinline onSerialize: (T) -> T = { it },
+) = postProcess(serializer<T>(), onDeserialize, onSerialize)
+
+inline fun <reified T: Any, reified S: Any> SerializersModuleBuilder.postProcess(
+    serializer: KSerializer<S> = serializer<S>(),
+    crossinline onDeserialize: (S) -> T,
+    crossinline onSerialize: (T) -> S,
 ) {
     contextual(T::class, object : KSerializer<T> {
-        private val delegate = serializer<T>()
+        private val delegate = serializer
         override val descriptor get() = delegate.descriptor
-        override fun deserialize(decoder: Decoder) = onEncode(delegate.deserialize(decoder))
-        override fun serialize(encoder: Encoder, value: T) = delegate.serialize(encoder, onDecode(value))
+        override fun deserialize(decoder: Decoder) = onDeserialize(delegate.deserialize(decoder))
+        override fun serialize(encoder: Encoder, value: T) = delegate.serialize(encoder, onSerialize(value))
     })
 }
