@@ -1,12 +1,18 @@
 package org.icpclive.cds.cats
 
 import kotlinx.datetime.*
-import kotlinx.serialization.*
-import kotlinx.serialization.descriptors.*
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
-import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.settings.CatsSettings
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -52,7 +58,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     data class Auth(val status: String, val sid: String, val cid: Long)
 
     @Serializable
-    data class Problem(val id: Int, val name: String, val code: String, val max_points: String = "0.0")
+    data class Problem(val id: Int, val name: String, val code: String, val max_points: Int = 1)
 
     @Serializable
     data class Problems(val problems: List<Problem>)
