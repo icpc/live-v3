@@ -52,7 +52,6 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
 
 //    variables for parsing runs
     private var page = 0
-    private val MAX_PAGE = 100
 
     @Serializable
     data class Auth(val status: String, val sid: String, val cid: Long)
@@ -137,8 +136,8 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     private suspend fun parseSubmitPages(): List<Run> {
         val runs = mutableSetOf<Int>()
         val result = mutableListOf<Run>()
-        for (currentPage in 0 until MAX_PAGE) {
-            page = currentPage
+
+        while (true) {
             val pageSubmits = runsLoader.load().filterIsInstance<Submit>()
 
             if (runs.intersect(pageSubmits.map(Submit::id).toSet()).size == pageSubmits.size) {
@@ -146,6 +145,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             } else {
                 addNewSubmits(runs, result, pageSubmits)
             }
+            page++
         }
         return result
     }
