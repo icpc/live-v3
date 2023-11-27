@@ -70,8 +70,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            type=raw,value=latest
             type=semver,pattern={{version}},value=${{ github.event.inputs.version }}
-            type=schedule,pattern={{date 'YYYYMMDD-hhmmss'}}
+            type=schedule,pattern={{date 'YYYYMMDD'}}
             
       - name: Copy live.jar into cloud overlayer
         run: cp artifacts/live-v3-*.jar ./src/cloud-instance-docker/live.jar
