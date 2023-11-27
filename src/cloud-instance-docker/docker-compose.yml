@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   code-server:
-    image: ghcr.io/azat-ismagilov/cloud-overlayer-instance:main
+    image: ghcr.io/azat-ismagilov/cloud-overlayer-instance:latest
     container_name: "live-${ID}"
     environment:
       - PUID=0
