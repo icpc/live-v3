@@ -1,11 +1,11 @@
 version: "2.1"
 services:
   code-server:
-    image: ghcr.io/azat-ismagilov/cloud-overlayer-instance:latest
+    image: ghcr.io/icpc/live-v3-instance:latest
     container_name: "live-${ID}"
     environment:
       - PUID=0
-      - GUID=0
+      - PGID=0
       - TZ=Etc/UTC
       - PASSWORD=${PASSWORD}
       - SUDO_PASSWORD=${PASSWORD}
@@ -13,6 +13,9 @@ services:
     volumes:
       - ./config:/config
       - ./workspace:/workspace
+      - ./supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./init.sh:/init.sh
+      - ./.env:/.env
     restart: unless-stopped
     networks:
       - web
@@ -24,12 +27,19 @@ services:
       - "traefik.http.routers.live-${ID}-codeserver.service=svc_live-${ID}-codeserver"
       - "traefik.http.services.svc_live-${ID}-codeserver.loadbalancer.server.port=8443"
 
-      - "traefik.http.routers.live-${ID}-overlay.rule=Host(`o${ID}.live.ismagilov.de`)"
+      - "traefik.http.routers.live-${ID}-overlay.rule=Host(`overlay.${ID}.live.ismagilov.de`)"
       - "traefik.http.routers.live-${ID}-overlay.entrypoints=websecure"
       - "traefik.http.routers.live-${ID}-overlay.tls.certresolver=letsencrypt"
       - "traefik.http.routers.live-${ID}-overlay.service=svc_live-${ID}-overlay"
       - "traefik.http.services.svc_live-${ID}-overlay.loadbalancer.server.port=8080"
 
+      - "traefik.http.routers.live-${ID}-control.rule=Host(`control.${ID}.live.ismagilov.de`)"
+      - "traefik.http.routers.live-${ID}-control.entrypoints=websecure"
+      - "traefik.http.routers.live-${ID}-control.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.live-${ID}-control.service=svc_live-${ID}-control"
+      - "traefik.http.services.svc_live-${ID}-control.loadbalancer.server.port=9001"
+
 networks:
   web:
     external: true
+

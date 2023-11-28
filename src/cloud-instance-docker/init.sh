@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 rsync -av --ignore-existing /app/workspace/ /workspace/
 
-export PASSWORD=$PASSWORD
+set -a
+source .env
+set +a
 
 exec /usr/bin/supervisord
