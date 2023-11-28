@@ -13,8 +13,6 @@ services:
     volumes:
       - ./config:/config
       - ./workspace:/workspace
-      - ./supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
-      - ./init.sh:/init.sh
       - ./.env:/.env
     restart: unless-stopped
     networks:
