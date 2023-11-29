@@ -126,6 +126,7 @@ data class Organization(
     val id: String,
     val name: String = "",
     val formal_name: String? = null,
+    val country: String? = null,
     val country_flag: List<Media> = emptyList(),
     val logo: List<Media> = emptyList(),
     val twitter_hashtag: String? = null
