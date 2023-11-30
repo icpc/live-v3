@@ -132,7 +132,6 @@ const teamViewComponentRender = {
     TaskStatus: ({ onLoadStatus, hasPInP, ...props }) => {
         useLayoutEffect(() => onLoadStatus(true),
             []);
-        console.log(props.teamId);
         return <ContestantViewHolderCorner hasPInP={hasPInP} {...props}/>;
     },
     Photo: ({ onLoadStatus, url, className }) => {
@@ -181,7 +180,6 @@ export const AchievementWrapper = styled.div`
 `;
 
 export const Achievement = ({ src, onLoadStatus, className }) => {
-    console.log(src);
     return <AchievementWrapper className={className}>
         <TeamImageWrapper src={src} onLoad={() => onLoadStatus(true)}/>
     </AchievementWrapper>;
