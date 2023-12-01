@@ -90,6 +90,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json5)
     implementation(libs.ktor.client.auth)
     implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.contentNegotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.protobuf)
     implementation(libs.graphql.ktor.client)
     runtimeOnly(libs.grpc.netty)

@@ -28,6 +28,7 @@ graphql = "7.0.2"                  # https://github.com/ExpediaGroup/graphql-kot
 
 ktor-client-cio        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-cio" }
 ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-auth" }
+ktor-client-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-content-negotiation" }
 
 ktor-serialization-kotlinx-json = { version.ref = "ktor", group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 
