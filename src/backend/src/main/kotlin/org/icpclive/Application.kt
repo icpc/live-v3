@@ -142,7 +142,6 @@ fun Application.module() {
             .applyAdvancedProperties(advancedPropertiesFlow)
             .contestState()
             .filterUseless()
-            .onEach { println(it.event) }
             .removeFrozenSubmissions()
             .processHiddenTeamsAndGroups()
             .calculateScoreDifferences()
