@@ -1,21 +1,22 @@
 package org.icpclive.cds.nsu
 
+
 import io.ktor.client.call.*
-import io.ktor.client.plugins.cookies.*
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import kotlinx.datetime.toInstant
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.datetime.Instant
+import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
-
-
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import org.icpclive.api.*
-import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.common.defaultHttpClient
 import org.icpclive.cds.settings.NSUSettings
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
@@ -53,8 +54,6 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
     )
 
     override suspend fun loadOnce(): ContestParseResult {
-
-        // TODO: redo
         val queueLimit = 999999
         val loginUrl = "${settings.url}/api/login"
         val selectOlympiadUrl = "${settings.url}/api/olympiads/enter"
