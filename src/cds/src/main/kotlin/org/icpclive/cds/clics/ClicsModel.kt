@@ -63,7 +63,7 @@ internal class ClicsModel(
             displayName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
             isHidden = hidden,
-            groups = group_ids.mapNotNull { groups[it]?.id },
+            groups = group_ids.mapNotNull { groups[it]?.id } + listOfNotNull(teamOrganization?.country),
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
                 photo.firstOrNull()?.mediaType()?.let { put(TeamMediaType.PHOTO, it) }
@@ -167,6 +167,7 @@ internal class ClicsModel(
                 formalName = organization.formal_name ?: organization.name,
                 logo = organization.logo.lastOrNull()?.mediaType(),
                 hashtag = organization.twitter_hashtag,
+                country = organization.country
             )
         }
     }

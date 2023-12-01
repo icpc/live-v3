@@ -1,0 +1,21 @@
+query JudgeContestDetails($id: ID!, $locale: String!) {
+    contest(id: $id) {
+        id
+        name
+        format
+        status
+        startsAt
+        duration
+        problems {
+            nodes {
+                id
+                index
+                score
+                statement(preferredLocales: [$locale]) { title }
+            }
+        }
+        scoreboard {
+            freezingTime
+        }
+    }
+}

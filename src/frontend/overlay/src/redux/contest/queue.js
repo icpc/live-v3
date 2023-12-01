@@ -10,7 +10,6 @@ const ActionTypes = {
 const initialState = {
     queue: [],
     totalQueueItems: 0,
-    breakingNews: undefined
 };
 
 export const addRun = (runData) => {

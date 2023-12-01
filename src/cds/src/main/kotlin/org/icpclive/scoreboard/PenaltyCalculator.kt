@@ -12,6 +12,7 @@ internal sealed interface PenaltyCalculator {
     companion object {
         fun get(penaltyRoundingMode: PenaltyRoundingMode, penaltyPerWrongAttempt: Duration) = when (penaltyRoundingMode) {
             PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE -> EachSubmissionDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
+            PenaltyRoundingMode.EACH_SUBMISSION_UP_TO_MINUTE -> EachSubmissionUpToMinutePenaltyCalculator(penaltyPerWrongAttempt)
             PenaltyRoundingMode.SUM_DOWN_TO_MINUTE -> SumDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
             PenaltyRoundingMode.SUM_IN_SECONDS -> SumInSecondsPenaltyCalculator(penaltyPerWrongAttempt)
             PenaltyRoundingMode.LAST -> LastPenaltyCalculator(penaltyPerWrongAttempt)
@@ -32,6 +33,17 @@ private class EachSubmissionDownToMinutePenaltyCalculator(private val penaltyPer
 
     override var penalty = Duration.ZERO
 }
+
+private class EachSubmissionUpToMinutePenaltyCalculator(private val penaltyPerWrongAttempt: Duration) : PenaltyCalculator {
+    override fun addSolvedProblem(time: Duration, wrongAttempts: Int) {
+        val wholeMinutes = time.inWholeMinutes.minutes
+        val extra = if (time != wholeMinutes) 1.minutes else 0.minutes
+        penalty += (wholeMinutes + extra) + penaltyPerWrongAttempt * wrongAttempts
+    }
+
+    override var penalty = Duration.ZERO
+}
+
 
 private class SumDownToMinutePenaltyCalculator(private val penaltyPerWrongAttempt: Duration) : PenaltyCalculator {
     override fun addSolvedProblem(time: Duration, wrongAttempts: Int) {

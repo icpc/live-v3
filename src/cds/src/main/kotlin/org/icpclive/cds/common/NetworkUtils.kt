@@ -17,6 +17,8 @@ internal sealed class ClientAuth {
 
     class OAuth(val token: String) : ClientAuth()
 
+    class Bearer(val token: String) : ClientAuth()
+
     class CookieAuth(val name: String, val value: String): ClientAuth()
 
     companion object {
@@ -45,6 +47,12 @@ internal fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
             }
         }
 
+        is ClientAuth.Bearer -> {
+            defaultRequest {
+                header(HttpHeaders.Authorization, "Bearer ${auth.token}")
+            }
+        }
+
         is ClientAuth.CookieAuth -> {
             defaultRequest {
                 header(HttpHeaders.Cookie, "${auth.name}=${auth.value}")
@@ -63,7 +71,6 @@ internal fun defaultHttpClient(
         setupAuth(auth)
     }
     engine {
-        threadsCount = 2
         https {
             if (networkSettings?.allowUnsecureConnections == true) {
                 trustManager = object : X509TrustManager {

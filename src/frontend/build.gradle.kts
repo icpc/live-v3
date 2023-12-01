@@ -18,9 +18,9 @@ tasks {
     }
     named<NpmTask>("npm_run_buildOverlay") {
         outputs.cacheIf { true }
-        environment.set(mapOf("PUBLIC_URL" to "/overlay"))
+        environment.set(mapOf("PUBLIC_URL" to "/overlay", "BUILD_PATH" to "build"))
         inputs.dir("overlay/src")
-        inputs.dir("overlay/public")
+        inputs.file("overlay/index.html")
         inputs.dir("common")
         inputs.file("package.json")
         inputs.file("package-lock.json")

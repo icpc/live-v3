@@ -17,6 +17,10 @@ on:
         required: true
         default: true
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-instance
+
 jobs:
   build:
     name: Create artifacts from master
@@ -31,7 +35,7 @@ jobs:
       - uses: actions/setup-java@master
         with:
           distribution: adopt
-          java-version: 11
+          java-version: 17
 
       - uses: gradle/gradle-build-action@v2
         with:
@@ -52,4 +56,32 @@ jobs:
           draft: ${{ github.event.inputs.draft }}
           files: |
             artifacts/*.jar
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=semver,pattern={{version}},value=${{ github.event.inputs.version }}
+            type=schedule,pattern={{date 'YYYYMMDD'}}
+            
+      - name: Copy live.jar into cloud overlayer
+        run: cp artifacts/live-v3-*.jar ./src/cloud-instance-docker/live.jar
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./src/cloud-instance-docker/
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 

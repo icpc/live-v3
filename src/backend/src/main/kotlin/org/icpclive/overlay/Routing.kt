@@ -42,4 +42,5 @@ fun Route.configureOverlayRouting() {
     route("/svgAchievement"){
         configureSvgAtchievementRouting(Config.mediaDirectory)
     }
+    get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
 }

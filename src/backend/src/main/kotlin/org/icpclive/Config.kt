@@ -57,6 +57,11 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         help = "File with localization of analytics messages"
     ).path(canBeFile = true, canBeDir = false, mustExist = true)
 
+    val visualConfigFile by option(
+        "--visual-config",
+        help = "File with localization of analytics messages"
+    ).path(canBeFile = true, canBeDir = false, mustExist = true)
+
     override fun run() {
         defaultWidgetPositions = widgetPositions
         presetsDirectory.toFile().mkdirs()

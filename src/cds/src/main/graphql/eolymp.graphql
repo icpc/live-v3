@@ -1,0 +1,1960 @@
+schema {
+  query: Query
+  subscription: Subscription
+}
+
+"Marks the field, argument, input field or enum value as deprecated"
+directive @deprecated(
+    "The reason for the deprecation"
+    reason: String = "No longer supported"
+  ) on FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION
+
+"Directs the executor to include this field or fragment only when the `if` argument is true"
+directive @include(
+    "Included when true."
+    if: Boolean!
+  ) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"Directs the executor to skip this field or fragment when the `if` argument is true."
+directive @skip(
+    "Skipped when true."
+    if: Boolean!
+  ) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"Exposes a URL that specifies the behaviour of this scalar."
+directive @specifiedBy(
+    "The URL that specifies the behaviour of this scalar."
+    url: String!
+  ) on SCALAR
+
+union CommunityMemberAccount = CommunityGhost | CommunityTeam | CommunityUser
+
+union Content = ECM | HTML | Latex | Markdown
+
+union CourseEntryContent = CourseEntryDocument | CourseEntrySection
+
+union IdentityProvider = IdentityProviderEolymp | IdentityProviderLocal | IdentityProviderOIDC
+
+union RankerScoreboardColumnTarget = CommunityAttribute | JudgeContest | JudgeProblem
+
+union RankerScoreboardRowValue = RankerScoreboardRowValueCountry | RankerScoreboardRowValueNumber | RankerScoreboardRowValueRegion | RankerScoreboardRowValueScore | RankerScoreboardRowValueString
+
+type ACL {
+  introspect: ACLPermission
+  permission(userId: ID!): ACLPermission
+  permissions(after: String, filters: ACLPermissionFilter, first: Int): ACLPermissionConnection
+}
+
+type ACLPermission {
+  entitlements: [String!]!
+  id: ID!
+  role: String!
+  user: CognitoUser
+  userId: ID!
+}
+
+type ACLPermissionConnection {
+  edges: [ACLPermissionEdge!]!
+  nodes: [CognitoUser!]!
+  totalCount: Int!
+}
+
+type ACLPermissionEdge {
+  cursor: String!
+  entitlements: [String!]!
+  node: CognitoUser
+  role: String!
+}
+
+type Atlas {
+  problem(id: ID!, version: Int): AtlasProblem
+  problems(after: String, filters: AtlasProblemFilter, first: Int, order: Direction, sort: AtlasProblemSort): AtlasProblemConnection
+  submission(id: ID!): AtlasSubmission
+  submissions(after: String, filters: AtlasSubmissionFilter, first: Int): AtlasSubmissionConnection
+}
+
+type AtlasAttachment {
+  id: ID!
+  link: String!
+  name: String!
+}
+
+type AtlasAttachmentConnection {
+  edges: [AtlasAttachmentEdge!]!
+  nodes: [AtlasAttachment!]!
+  totalCount: Int!
+}
+
+type AtlasAttachmentEdge {
+  cursor: String!
+  node: AtlasAttachment!
+}
+
+type AtlasDiscussion {
+  messages(after: String, filters: DiscussionMessageFilter, first: Int, order: Direction, render: Boolean, sort: DiscussionMessageSort): DiscussionMessageConnection
+  subscription: DiscussionSubscription
+}
+
+type AtlasEditorial {
+  content: Content!
+  downloadLink: String!
+  id: ID!
+  locale: String!
+}
+
+type AtlasGradingBoundary {
+  grade: Int!
+  upperBound: Float!
+}
+
+type AtlasInteractor {
+  runtime: ExecutorRuntime
+  source: String!
+  type: String!
+}
+
+type AtlasProblem {
+  "Permissions"
+  acl: ACL!
+  "Problem's attachments"
+  attachments: AtlasAttachmentConnection
+  bookmark: Boolean!
+  cpuLimit: Range!
+  "Difficulty 1 (very easy) to 5 (very hard)"
+  difficulty: Int!
+  discussion: AtlasDiscussion!
+  "Problem editorial by locale preference"
+  editorial(locale: String, render: Boolean): AtlasEditorial
+  "All problem's editorials"
+  editorials(render: Boolean): [AtlasEditorial!]
+  entitlements: [String!]
+  "Problem's examples"
+  examples: [AtlasTest!]
+  """
+  Grade ranges from highest grade to lowest
+  to grade a submission, iterate over grade ranges and compare resource_usage value with upper_bound,
+  first grade which has upper_bound higher or equal to resource usage is the grade for submission.
+  
+  for _, range := range grading {
+     if range.GetUpperBound() >= submission.GetResourceUsage() {
+         return range.GetGrade()
+     }
+  }
+  """
+  grading: [AtlasGradingBoundary!]
+  "Unique identifier"
+  id: ID!
+  "Interactor configuration"
+  interactor: AtlasInteractor
+  memoryLimit: Range!
+  "Unique identifier"
+  number: Int!
+  origin: String!
+  "Problem belongs to private catalog."
+  private: Boolean!
+  "Score for a given user"
+  score(memberId: ID, userId: ID): AtlasScore
+  "Problem's solutions"
+  solutions(after: String, filters: AtlasSolutionFilter, first: Int, order: Direction, sort: AtlasSolutionSort): AtlasSolutionConnection
+  "Problem statement by locale preference"
+  statement(locale: String, preferredLocales: [String!], render: Boolean): AtlasStatement
+  "All problem's statements"
+  statements(render: Boolean): [AtlasStatement!]
+  "Problem's code templates"
+  templates: AtlasTemplateConnection
+  "Problem's testset by ID"
+  testset(id: ID!): AtlasTestset
+  "All problem's testsets"
+  testsets: [AtlasTestset!]
+  timeLimit: Range!
+  """
+  Problem's top submissions.
+  Top submissions based on resource usage, one submission per user is added.
+  """
+  top: AtlasSubmissionConnection
+  topics(locale: String): [TaxonomyValue!]!
+  url: String!
+  "Verifier configuration"
+  verifier: AtlasVerifier
+  "Problem's changelog"
+  versions(after: String, filters: AtlasVersionFilter, first: Int): AtlasVersionConnection
+  "Problem is shown in the public catalog."
+  visible: Boolean!
+  "Worker"
+  worker: Worker!
+}
+
+type AtlasProblemConnection {
+  edges: [AtlasProblemEdge!]!
+  nodes: [AtlasProblem!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AtlasProblemEdge {
+  cursor: String!
+  node: AtlasProblem!
+}
+
+type AtlasScore {
+  acceptedAt: Time!
+  percentage: Float!
+}
+
+type AtlasSolution {
+  id: ID!
+  name: String!
+  runtime: ExecutorRuntime
+  runtimeId: ID!
+  source: String!
+  type: String!
+}
+
+type AtlasSolutionConnection {
+  edges: [AtlasSolutionEdge!]!
+  nodes: [AtlasSolution!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AtlasSolutionEdge {
+  cursor: String!
+  node: AtlasSolution!
+}
+
+type AtlasStatement {
+  author: String!
+  content: Content!
+  contentRaw: String! @deprecated(reason : "use content instead")
+  contentRich: ECMNode @deprecated(reason : "use content instead")
+  downloadLink: String!
+  format: String! @deprecated(reason : "use content instead")
+  id: ID!
+  locale: String!
+  render: ECMNode @deprecated(reason : "request statement with render flag set to true")
+  source: String!
+  title: String!
+}
+
+type AtlasSubmission {
+  cost: Float!
+  cpuTimeUsage: Int!
+  error: String!
+  groups: [AtlasSubmissionGroup!]!
+  id: ID!
+  memoryUsage: Int!
+  percentage: Float!
+  problem: AtlasProblem
+  resourceUsage: Float!
+  runtime: ExecutorRuntime
+  score: Float!
+  signature: String!
+  source: String!
+  status: String!
+  submittedAt: Time!
+  user: CognitoUser
+  wallTimeUsage: Int!
+}
+
+type AtlasSubmissionConnection {
+  edges: [AtlasSubmissionEdge!]!
+  nodes: [AtlasSubmission!]!
+  totalCount: Int!
+}
+
+type AtlasSubmissionEdge {
+  cursor: String!
+  node: AtlasSubmission!
+}
+
+type AtlasSubmissionGroup {
+  cost: Float!
+  cpuTimeUsage: Int!
+  dependencies: [Int!]!
+  feedbackPolicy: String!
+  index: Int!
+  memoryUsage: Int!
+  resourceUsage: Float!
+  runs: [AtlasSubmissionRun!]!
+  score: Float!
+  scoringMode: String!
+  status: String!
+  wallTimeUsage: Int!
+}
+
+type AtlasSubmissionRun {
+  cost: Float!
+  cpuTimeUsage: Int!
+  id: ID!
+  index: Int!
+  memoryUsage: Int!
+  resourceUsage: Float!
+  score: Float!
+  status: String!
+  wallTimeUsage: Int!
+}
+
+type AtlasTemplate {
+  footer: String
+  header: String
+  id: ID!
+  runtime: ExecutorRuntime
+  source: String!
+}
+
+type AtlasTemplateConnection {
+  edges: [AtlasTemplateEdge!]!
+  nodes: [AtlasTemplate!]!
+  totalCount: Int!
+}
+
+type AtlasTemplateEdge {
+  cursor: String!
+  node: AtlasTemplate!
+}
+
+type AtlasTest {
+  answer(offset: Int, size: Int): KeeperObject
+  answerObjectId: String!
+  example: Boolean!
+  id: ID!
+  index: Int!
+  input(offset: Int, size: Int): KeeperObject
+  inputObjectId: String!
+  score: Float!
+}
+
+type AtlasTestset {
+  cpuLimit: Int!
+  dependencies: [Int!]!
+  feedbackPolicy: String!
+  fileSizeLimit: Int!
+  id: ID!
+  index: Int!
+  memoryLimit: Int!
+  scoringMode: String!
+  tests: [AtlasTest!]!
+  timeLimit: Int!
+}
+
+type AtlasVerifier {
+  caseSensitive: Boolean!
+  lang: String!
+  precision: Int!
+  runtime: ExecutorRuntime
+  source: String!
+  type: String!
+}
+
+type AtlasVersion {
+  changeOp: String!
+  changePath: String!
+  createdAt: Time!
+  createdBy: CognitoUser
+  number: Int!
+}
+
+type AtlasVersionConnection {
+  edges: [AtlasVersionEdge!]!
+  nodes: [AtlasVersion!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AtlasVersionEdge {
+  cursor: String!
+  node: AtlasVersion!
+}
+
+type AuthConfig {
+  authorizeEndpoint: String!
+  signoutEndpoint: String!
+  tokenEndpoint: String!
+  userinfoEndpoint: String!
+}
+
+type Claims {
+  businessTitle: String!
+  city: String!
+  company: String!
+  country: GeographyCountry
+  email: String!
+  emailVerified: Boolean!
+  issuer: String!
+  locale: String!
+  minor: Boolean!
+  name: String!
+  nickname: String!
+  picture: String!
+  scope: String!
+  subject: String!
+}
+
+type Cognito {
+  introspect: CognitoUser
+  user(id: ID!): CognitoUser!
+}
+
+type CognitoUser {
+  active: Boolean!
+  birthday: String!
+  city: String!
+  company: String!
+  country: GeographyCountry
+  email: String!
+  emailStatus: String!
+  id: ID!
+  lastActivity: Time
+  locale: String!
+  name: String!
+  occupation: String!
+  passwordChangedOn: Time
+  picture: String!
+  rank: Int!
+  rankTrend: String!
+  registeredOn: Time
+  username: String!
+  usernameChangedOn: Time
+}
+
+type CommunityAttribute {
+  choices: [String!]!
+  description(locale: String, preferredLocales: [String!]): CommunityAttributeDescription!
+  hidden: Boolean!
+  index: Int!
+  key: String!
+  max: Int!
+  min: Int!
+  regexp: String!
+  required: Boolean!
+  type: String!
+}
+
+type CommunityAttributeConnection {
+  edges: [CommunityAttributeEdge!]!
+  nodes: [CommunityAttribute!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type CommunityAttributeDescription {
+  choices: [String!]!
+  help: String!
+  label: String!
+  locale: String!
+}
+
+type CommunityAttributeEdge {
+  cursor: String!
+  node: CommunityAttribute!
+}
+
+type CommunityAttributeValue {
+  attributeKey: String!
+  attributeType: String!
+  valueCountry: GeographyCountry
+  valueNumber: Float!
+  valueRegion: GeographyRegion
+  valueString: String!
+}
+
+type CommunityGhost {
+  name: String!
+}
+
+type CommunityMember {
+  account: CommunityMemberAccount!
+  active: Boolean!
+  attributes: [CommunityAttributeValue!]!
+  disabled: Boolean! @deprecated(reason : "use active instead")
+  ghost: Boolean! @deprecated(reason : "use account instead")
+  id: ID!
+  incomplete: Boolean!
+  name: String!
+  outOfCompetition: Boolean! @deprecated(reason : "use unofficial instead")
+  picture: String! @deprecated(reason : "use account instead")
+  registered: Boolean! @deprecated(reason : "use incomplete instead")
+  staffed: Boolean! @deprecated(reason : "use account instead")
+  status: String! @deprecated(reason : "use active, unofficial and account flags instead")
+  unofficial: Boolean!
+  users: [CommunityMember!]! @deprecated(reason : "use account instead")
+}
+
+type CommunityMemberConnection {
+  edges: [CommunityMemberEdge!]!
+  nodes: [CommunityMember!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type CommunityMemberEdge {
+  cursor: String!
+  node: CommunityMember!
+}
+
+type CommunityTeam {
+  members: [CommunityMember!]!
+  name: String!
+  staffed: Boolean!
+}
+
+type CommunityUser {
+  birthday: Time!
+  city: String!
+  country: GeographyCountry
+  email: String!
+  emailVerified: Boolean!
+  issuer: String!
+  name: String!
+  nickname: String!
+  nicknameChangeTimeout: Int!
+  password: String!
+  passwordAge: Int!
+  picture: String!
+  preferences: CommunityUserPreferences!
+  subject: String!
+  team: CommunityMember
+}
+
+type CommunityUserPreferences {
+  locale: String!
+  runtime: String!
+  timezone: String!
+}
+
+type Config {
+  attribute(key: String!): CommunityAttribute
+  attributes: CommunityAttributeConnection
+  auth: AuthConfig
+  identityProvider: IdentityProvider
+  visibility: String!
+}
+
+type ContentFragment {
+  content: Content
+  id: ID!
+  labels: [String!]!
+  locale: String!
+  path: String!
+  title: String!
+}
+
+type ContentFragmentConnection {
+  edges: [ContentFragmentEdge!]!
+  nodes: [ContentFragment!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ContentFragmentEdge {
+  cursor: String!
+  node: ContentFragment!
+}
+
+type Course {
+  acl: ACL!
+  description: Content
+  duration: Int
+  entitlements: [String!]
+  entries(after: String, filters: CourseEntryFilter, first: Int, render: Boolean): CourseEntryConnection
+  entry(id: ID!, render: Boolean): CourseEntry
+  estimate: Int!
+  id: ID!
+  image: String!
+  locale: String!
+  name: String!
+  student(id: ID!): CourseStudent
+  students(after: String, filters: CourseStudentFilter, first: Int): CourseStudentConnection
+  toc(depth: Int, draft: Boolean): CourseEntryConnection
+  topics(locale: String): [TaxonomyValue!]!
+  url: String!
+  viewer: CourseStudent
+  visibility: String!
+}
+
+type CourseConnection {
+  edges: [CourseEdge!]!
+  nodes: [Course!]!
+  totalCount: Int!
+}
+
+type CourseEdge {
+  cursor: String!
+  node: Course
+}
+
+type CourseEntry {
+  content: CourseEntryContent!
+  entries(after: String, filters: CourseEntryFilter, first: Int, render: Boolean): CourseEntryConnection
+  estimate: Int!
+  id: ID!
+  index: Int!
+  parentId: String
+  progress: Float
+  title: String!
+  toc(depth: Int, draft: Boolean): CourseEntryConnection
+}
+
+type CourseEntryConnection {
+  edges: [CourseEntryEdge!]!
+  nodes: [CourseEntry!]!
+  totalCount: Int!
+}
+
+type CourseEntryDocument {
+  document: Content
+}
+
+type CourseEntryEdge {
+  cursor: String!
+  node: CourseEntry
+}
+
+type CourseEntrySection {
+  description: Content
+  image: String!
+}
+
+type CourseStudent {
+  bonusTime: Int!
+  completeAt: Time
+  completeIn: Int!
+  endAt: Time
+  endIn: Int!
+  id: ID!
+  member: CommunityMember
+  memberId: ID!
+  name: String!
+  startedAt: Time
+  startedIn: Int!
+  status: String!
+}
+
+type CourseStudentConnection {
+  edges: [CourseStudentEdge!]!
+  nodes: [CourseStudent!]!
+  totalCount: Int!
+}
+
+type CourseStudentEdge {
+  cursor: String!
+  node: CourseStudent
+}
+
+type DiscussionMessage {
+  editedAt: Time!
+  id: ID!
+  member: CommunityMember
+  message: Content
+  postedAt: Time!
+  replies(after: String, filters: DiscussionMessageFilter, first: Int, order: Direction, render: Boolean, sort: DiscussionMessageSort): DiscussionMessageConnection
+  replyCount: Int!
+  replyTo: ID!
+  vote: Int!
+  voteCount: Int!
+}
+
+type DiscussionMessageConnection {
+  edges: [DiscussionMessageEdge!]!
+  nodes: [DiscussionMessage!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type DiscussionMessageEdge {
+  cursor: String!
+  node: DiscussionMessage!
+}
+
+type DiscussionSubscription {
+  type: String!
+}
+
+type ECM {
+  document: ECMNode
+}
+
+type Executor {
+  language(id: ID!): ExecutorLanguage
+  languages(filters: ExecutorLanguageFilter): [ExecutorLanguage!]!
+  runtime(id: ID!): ExecutorRuntime
+  runtimes(filters: ExecutorRuntimeFilter): [ExecutorRuntime!]!
+}
+
+type ExecutorLanguage {
+  deprecated: Boolean!
+  id: ID!
+  name: String!
+  runtimes: [ExecutorRuntime!]!
+}
+
+type ExecutorRuntime {
+  deprecated: Boolean!
+  id: ID!
+  language: ExecutorLanguage
+  name: String!
+  template: String!
+  version: String!
+}
+
+type Geography {
+  countries: GeographyCountryConnection
+  country(id: ID!): GeographyCountry
+  region(id: ID!): GeographyRegion
+}
+
+type GeographyCountry {
+  flag: String!
+  id: ID!
+  name: String!
+  regions: GeographyRegionConnection
+}
+
+type GeographyCountryConnection {
+  edges: [GeographyCountryEdge!]!
+  nodes: [GeographyCountry!]!
+  totalCount: Int!
+}
+
+type GeographyCountryEdge {
+  cursor: String!
+  node: GeographyCountry!
+}
+
+type GeographyRegion {
+  country: GeographyCountry
+  flag: String!
+  id: ID!
+  name: String!
+}
+
+type GeographyRegionConnection {
+  edges: [GeographyRegionEdge!]!
+  nodes: [GeographyRegion!]!
+  totalCount: Int!
+}
+
+type GeographyRegionEdge {
+  cursor: String!
+  node: GeographyRegion!
+}
+
+type HTML {
+  html: String!
+}
+
+type IdentityProviderEolymp {
+  issuer: String!
+}
+
+type IdentityProviderLocal {
+  issuer: String!
+}
+
+type IdentityProviderOIDC {
+  authorizeEndpoint: String!
+  issuer: String!
+  keysEndpoint: String!
+  tokenEndpoint: String!
+  userinfoEndpoint: String!
+}
+
+type Judge {
+  contest(id: ID!): JudgeContest!
+  contests(after: String, filters: JudgeContestFilter, first: Int): JudgeContestConnection
+  ticket(id: ID!): JudgeTicket
+  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+}
+
+type JudgeActivity {
+  completeAt: Time
+  contest: JudgeContest
+  createdAt: Time!
+  error: String!
+  id: ID!
+  problem: JudgeProblem
+  progress: Int!
+  progressAt: Time
+  startedAt: Time
+  status: String!
+  total: Int!
+  type: String!
+}
+
+type JudgeActivityConnection {
+  edges: [JudgeActivityEdge!]!
+  nodes: [JudgeActivity!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeActivityEdge {
+  cursor: String!
+  node: JudgeActivity!
+}
+
+type JudgeAnnouncement {
+  contest: JudgeContest
+  id: ID!
+  isRead: Boolean!
+  message: String!
+  subject: String!
+}
+
+type JudgeAnnouncementConnection {
+  edges: [JudgeAnnouncementEdge!]!
+  nodes: [JudgeAnnouncement!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeAnnouncementEdge {
+  cursor: String!
+  node: JudgeAnnouncement!
+}
+
+type JudgeContest {
+  acl: ACL!
+  activities(after: String, first: Int): JudgeActivityConnection
+  announcement(id: ID!): JudgeAnnouncement
+  announcements(after: String, filters: JudgeAnnouncementFilter, first: Int): JudgeAnnouncementConnection
+  appearance: JudgeContestAppearance
+  domain: String
+  duration: Int!
+  endsAt: Time!
+  endsIn: Int!
+  entitlements: [String!]
+  format: String!
+  id: ID!
+  introspect: JudgeParticipant @deprecated(reason : "use viewer instead")
+  joinUnofficially: Boolean!
+  name: String!
+  participant(id: ID!): JudgeParticipant
+  participants(after: String, filters: JudgeParticipantFilter, first: Int): JudgeParticipantConnection
+  participationMode: String!
+  passcode: JudgePasscode
+  problem(id: ID!): JudgeProblem
+  problems(after: String, first: Int): JudgeProblemConnection
+  result(after: String, first: Int, mode: String): JudgeResultConnection
+  runtime: [ExecutorRuntime!]
+  scoreboard: JudgeContestScoreboard
+  scoring: JudgeContestScoring
+  startsAt: Time!
+  startsIn: Int!
+  status: String!
+  submission(id: ID!): JudgeSubmission
+  submissions(after: String, filters: JudgeSubmissionFilter, first: Int): JudgeSubmissionConnection
+  taxonomy: JudgeContestTaxonomy
+  ticket(id: ID!): JudgeTicket
+  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  upsolve: JudgeContestUpsolve
+  url: String!
+  viewer: JudgeParticipant
+  visibility: String!
+}
+
+type JudgeContestAppearance {
+  description: String!
+  logoImage: String!
+  primaryColor: String!
+  secondaryColor: String!
+  tagline: String!
+  title: String!
+}
+
+type JudgeContestConnection {
+  edges: [JudgeContestEdge!]!
+  nodes: [JudgeContest!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeContestEdge {
+  cursor: String!
+  node: JudgeContest!
+}
+
+type JudgeContestScoreboard {
+  attemptPenalty: Int!
+  freezingTime: Int!
+  unfreezeDelay: Int!
+  useNameInScoreboard: Boolean!
+  visibility: String!
+}
+
+type JudgeContestScoring {
+  allowUpsolving: Boolean!
+  attemptPenalty: Int!
+  freezingTime: Int!
+  showScoreboard: Boolean!
+  useNameInScoreboard: Boolean!
+}
+
+type JudgeContestTaxonomy {
+  city: String
+  country: GeographyCountry
+  difficulty: Int
+  region: GeographyRegion
+  scale: String
+  series(locale: String): TaxonomyValue
+  year: Int
+}
+
+type JudgeContestUpsolve {
+  freeUpsolve: Boolean!
+  virtualUpsolve: Boolean!
+}
+
+type JudgeIdentity {
+  name: String!
+  picture: String!
+}
+
+type JudgeParticipant {
+  active: Boolean!
+  bonusTime: Int!
+  completeAt: Time @deprecated(reason : "use endAt instead")
+  completeIn: Int @deprecated(reason : "use endIn instead")
+  endAt: Time
+  endIn: Int
+  id: ID!
+  medal: String!
+  member: CommunityMember
+  name: String!
+  outOfCompetition: Boolean! @deprecated(reason : "use unofficial instead")
+  passcode: String!
+  score(mode: String, timeOffset: Int): JudgeScore!
+  startAt: Time
+  startIn: Int
+  status: String!
+  submits: [JudgeParticipantSubmit!]!
+  unofficial: Boolean!
+}
+
+type JudgeParticipantConnection {
+  edges: [JudgeParticipantEdge!]!
+  nodes: [JudgeParticipant!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeParticipantEdge {
+  cursor: String!
+  node: JudgeParticipant!
+}
+
+type JudgeParticipantSubmit {
+  counter: Int!
+  problemId: ID!
+}
+
+type JudgeParticipantUserConnection {
+  edges: [JudgeParticipantUserEdge!]!
+  nodes: [CognitoUser!]!
+}
+
+type JudgeParticipantUserEdge {
+  node: CognitoUser!
+}
+
+type JudgePasscode {
+  required: Boolean!
+  valid: Boolean!
+}
+
+type JudgePermission {
+  id: ID!
+  role: String!
+  user: CognitoUser
+}
+
+type JudgePermissionConnection {
+  edges: [JudgePermissionEdge!]!
+  nodes: [CognitoUser!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgePermissionEdge {
+  cursor: String!
+  node: CognitoUser
+  role: String!
+}
+
+type JudgeProblem {
+  attachments: [JudgeProblemAttachment!]!
+  cpuLimit: Int!
+  examples: [JudgeProblemTest!]!
+  fileSizeLimit: Int!
+  id: ID!
+  index: Int!
+  memoryLimit: Int!
+  score: Float!
+  statement(locale: String, preferredLocales: [String!]): JudgeProblemStatement
+  statements: [JudgeProblemStatement!]!
+  submitLimit: Int!
+  template(id: ID, runtime: ID): JudgeProblemTemplate
+  timeLimit: Int!
+  url: String!
+}
+
+type JudgeProblemAttachment {
+  id: ID!
+  link: String!
+  name: String!
+}
+
+type JudgeProblemConnection {
+  edges: [JudgeProblemEdge!]!
+  nodes: [JudgeProblem!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeProblemEdge {
+  cursor: String!
+  node: JudgeProblem!
+}
+
+type JudgeProblemStatement {
+  content: String!
+  contentTree: ECMNode
+  default: Boolean!
+  downloadLink: String!
+  format: String!
+  locale: String!
+  title: String!
+}
+
+type JudgeProblemTemplate {
+  ern: ID!
+  footer_ern: String!
+  header_ern: String!
+  id: ID!
+  runtime: String!
+  source_ern: String!
+}
+
+type JudgeProblemTest {
+  answer(offset: Int, size: Int): KeeperObject
+  example: Boolean!
+  index: Int!
+  input(offset: Int, size: Int): KeeperObject
+}
+
+type JudgeReply {
+  author: JudgeIdentity
+  createdAt: Time!
+  id: ID!
+  member: CommunityMember
+  message: String!
+  user: CognitoUser
+}
+
+type JudgeReplyConnection {
+  edges: [JudgeReplyEdge!]!
+  nodes: [JudgeReply!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeReplyEdge {
+  cursor: String!
+  node: JudgeReply!
+}
+
+type JudgeResult {
+  ghost: Boolean!
+  medal: String!
+  member: CommunityMember
+  name: String!
+  participant: JudgeParticipant
+  participantId: ID!
+  rank: Int!
+  rankLower: Int!
+  score: JudgeScore
+  unofficial: Boolean!
+}
+
+type JudgeResultConnection {
+  edges: [JudgeResultEdge!]!
+  nodes: [JudgeResult!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeResultEdge {
+  cursor: String!
+  node: JudgeResult!
+}
+
+type JudgeScore {
+  breakdown: [JudgeScoreProblem!]!
+  penalty: Float!
+  score: Float!
+}
+
+type JudgeScoreProblem {
+  attempts: Int!
+  breakdown: [JudgeScoreTestset!]!
+  changed: Boolean!
+  penalty: Float!
+  percentage: Float!
+  problem: JudgeProblem
+  problemId: ID!
+  score: Float!
+  solved: Boolean!
+  solvedAt: Time!
+  solvedIn: Int!
+}
+
+type JudgeScoreTestset {
+  cost: Float!
+  index: Int!
+  score: Float!
+  testsetId: ID!
+}
+
+type JudgeSubmission {
+  cost: Float!
+  deleted: Boolean!
+  error: String
+  "deprecated use groups"
+  groups: [JudgeSubmissionGroup!]!
+  id: ID!
+  lang: String!
+  participant: JudgeParticipant
+  percentage: Float!
+  problem: JudgeProblem
+  runs: [JudgeSubmissionRun!]!
+  runtime: ExecutorRuntime
+  score: Float!
+  signature: String!
+  similar(after: String, first: Int): JudgeSubmissionConnection
+  source: String!
+  status: String!
+  submittedAt: Time!
+}
+
+type JudgeSubmissionConnection {
+  edges: [JudgeSubmissionEdge!]!
+  nodes: [JudgeSubmission!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeSubmissionEdge {
+  cursor: String!
+  node: JudgeSubmission!
+}
+
+type JudgeSubmissionGroup {
+  cost: Float!
+  cpuTimeUsage: Int!
+  index: Int!
+  memoryUsage: Int!
+  runs: [JudgeSubmissionRun!]!
+  score: Float!
+  status: String!
+  wallTimeUsage: Int!
+}
+
+type JudgeSubmissionRun {
+  "deprecated, use cost"
+  cost: Float!
+  cpuTimeUsage: Int!
+  id: ID!
+  "deprecated, use index"
+  index: Int!
+  memoryUsage: Int!
+  score: Float!
+  status: String!
+  testId: ID!
+  "deprecated, don't use"
+  testIndex: Int!
+  testScore: Float!
+  wallTimeUsage: Int!
+}
+
+type JudgeTicket {
+  author: JudgeIdentity
+  contest: JudgeContest
+  createdAt: Time!
+  id: ID!
+  isOpen: Boolean!
+  isRead: Boolean!
+  member: CommunityMember
+  message: String!
+  needsReply: Boolean!
+  participant: JudgeParticipant
+  replies(after: String, first: Int): JudgeReplyConnection
+  subject: String!
+}
+
+type JudgeTicketConnection {
+  edges: [JudgeTicketEdge!]!
+  nodes: [JudgeTicket!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type JudgeTicketEdge {
+  cursor: String!
+  node: JudgeTicket!
+}
+
+type Keeper {
+  "Fetches keeper object and returns it's data. It's possible to get data partially by passing optional offset and size limits (in bytes)."
+  object(id: ID!, offset: Int, size: Int): KeeperObject
+}
+
+type KeeperObject {
+  "Object data, use offset and size to request partial data"
+  data: String
+  "Total size"
+  size: Int
+}
+
+type Latex {
+  latex: String!
+}
+
+type Markdown {
+  markdown: String!
+}
+
+type Meta {
+  id: ID!
+  image: String!
+  key: String!
+  maxTeamSize: Int!
+  membership: String!
+  minTeamSize: Int!
+  name: String!
+  plan: String!
+  quota: UniverseSpaceQuota
+  type: String!
+  url: String!
+  usage: UniverseSpaceUsage
+  visibility: String!
+}
+
+"Page info provides additional context for pagination"
+type PageInfo {
+  "Cursor pointing to the last element of the page"
+  endCursor: String!
+  "True if next page exists"
+  hasNextPage: Boolean!
+  "True if previous page exists"
+  hasPreviousPage: Boolean!
+  "Cursor pointing to the first element of the page"
+  startCursor: String!
+}
+
+type Query {
+  config: Config!
+  contest(id: ID!): JudgeContest!
+  contests(after: String, filters: JudgeContestFilter, first: Int): JudgeContestConnection
+  course(id: ID!, render: Boolean): Course
+  courses(after: String, filters: CourseFilter, first: Int, order: Direction, render: Boolean, sort: CourseSort): CourseConnection
+  entitlements: [String!]
+  enum(id: ID!): TaxonomyEnum
+  executor: Executor!
+  fragment(id: ID!, render: Boolean): ContentFragment
+  fragments(after: String, filters: ContentFragmentFilter, first: Int, render: Boolean): ContentFragmentConnection
+  geography: Geography!
+  keeper: Keeper!
+  member(id: ID!): CommunityMember!
+  members(after: String, filters: CommunityMemberFilter, first: Int): CommunityMemberConnection
+  meta: Meta!
+  parents(locale: String, locales: [String!], path: String!, render: Boolean): [ContentFragment!]!
+  path(locale: String, locales: [String!], path: String!, render: Boolean): ContentFragment
+  paths(after: String, filters: ContentPathFilter, first: Int, locale: String, locales: [String!], render: Boolean): ContentFragmentConnection
+  problem(id: ID!, version: Int): AtlasProblem
+  problems(after: String, filters: AtlasProblemFilter, first: Int, order: Direction, sort: AtlasProblemSort): AtlasProblemConnection
+  scoreboard(id: ID, key: String): RankerScoreboard
+  scoreboards(after: String, filters: RankerScoreboardFilter, first: Int): RankerScoreboardConnection
+  self: Self! @deprecated(reason : "use viewer instead")
+  space: UniverseSpace! @deprecated(reason : "use meta and other root nodes instead")
+  submission(id: ID!): AtlasSubmission
+  submissions(after: String, filters: AtlasSubmissionFilter, first: Int): AtlasSubmissionConnection
+  taxonomy: Taxonomy!
+  ticket(id: ID!): JudgeTicket!
+  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  viewer: Claims
+}
+
+type Range {
+  max: Int!
+  min: Int!
+}
+
+type Ranker {
+  scoreboard(id: ID, key: String): RankerScoreboard
+  scoreboards(after: String, filters: RankerScoreboardFilter, first: Int): RankerScoreboardConnection
+}
+
+type RankerActivity {
+  completeAt: Time
+  createdAt: Time!
+  error: String!
+  id: ID!
+  progress: Int!
+  progressAt: Time
+  scoreboard: RankerScoreboard
+  startedAt: Time
+  status: String!
+  total: Int!
+  type: String!
+}
+
+type RankerActivityConnection {
+  edges: [RankerActivityEdge!]!
+  nodes: [RankerActivity!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RankerActivityEdge {
+  cursor: String!
+  node: RankerActivity!
+}
+
+type RankerScheduledAction {
+  executeAt: Time!
+  id: ID!
+  type: String!
+}
+
+type RankerScheduledActionConnection {
+  nodes: [RankerScheduledAction!]!
+  totalCount: Int!
+}
+
+type RankerScoreboard {
+  activities(after: String, first: Int): RankerActivityConnection
+  column(id: ID!): RankerScoreboardColumn
+  columns: RankerScoreboardColumnConnection
+  defaultSortColumn: RankerScoreboardColumn
+  defaultSortOrder: Direction!
+  format: String!
+  historical: Boolean!
+  id: ID!
+  key: String!
+  name: String!
+  rows(after: String, filter: RankerScoreboardRowFilter, first: Int, mode: String, order: Direction, punctualTime: Int, sort: String): RankerScoreboardRowConnection
+  scheduledActions: RankerScheduledActionConnection
+}
+
+type RankerScoreboardColumn {
+  attribute: CommunityAttribute
+  children: RankerScoreboardColumnConnection
+  contest: JudgeContest
+  filterable: Boolean!
+  id: ID!
+  index: Int!
+  key: String!
+  name: String!
+  parentId: ID!
+  shortName: String!
+  sortable: Boolean!
+  target: RankerScoreboardColumnTarget
+  type: String!
+  visible: Boolean!
+}
+
+type RankerScoreboardColumnConnection {
+  nodes: [RankerScoreboardColumn!]!
+}
+
+type RankerScoreboardColumnEdge {
+  cursor: String!
+  node: RankerScoreboardColumn!
+}
+
+type RankerScoreboardConnection {
+  edges: [RankerScoreboardEdge!]!
+  nodes: [RankerScoreboard!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RankerScoreboardEdge {
+  cursor: String!
+  node: RankerScoreboard!
+}
+
+type RankerScoreboardRow {
+  id: ID!
+  member: CommunityMember
+  memberId: ID!
+  name: String!
+  penalty: Float!
+  rank: Int!
+  rankLower: Int!
+  score: Float!
+  values: RankerScoreboardRowValueConnection
+}
+
+type RankerScoreboardRowConnection {
+  edges: [RankerScoreboardRowEdge!]!
+  frozen: Boolean!
+  nodes: [RankerScoreboardRow!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RankerScoreboardRowEdge {
+  cursor: String!
+  node: RankerScoreboardRow!
+}
+
+type RankerScoreboardRowValueConnection {
+  edges: [RankerScoreboardRowValueEdge!]!
+}
+
+type RankerScoreboardRowValueCountry {
+  country: GeographyCountry
+}
+
+type RankerScoreboardRowValueEdge {
+  columnId: ID!
+  node: RankerScoreboardRowValue
+  validAfter: Int!
+  validUntil: Int!
+}
+
+type RankerScoreboardRowValueNumber {
+  number: Float!
+}
+
+type RankerScoreboardRowValueRegion {
+  region: GeographyRegion
+}
+
+type RankerScoreboardRowValueScore {
+  attempts: Int!
+  penalty: Float!
+  percentage: Float!
+  score: Float!
+  solvedIn: Int!
+}
+
+type RankerScoreboardRowValueString {
+  string: String!
+}
+
+type Self {
+  user: CognitoUser
+}
+
+type Subscription {
+  watchContestSubmission(contestId: ID!, submissionId: ID!): JudgeSubmission
+  watchSubmission(id: ID!): AtlasSubmission
+}
+
+type Taxonomy {
+  enum(id: ID!): TaxonomyEnum
+  topic(id: ID!, locale: String): TaxonomyValue
+  topics(after: String, filters: TaxonomyValueFilter, first: Int, locale: String): TaxonomyValueConnection
+}
+
+type TaxonomyEnum {
+  id: ID!
+  value(id: ID!, locale: String): TaxonomyValue
+  values(after: String, filters: TaxonomyValueFilter, first: Int, locale: String): TaxonomyValueConnection
+}
+
+type TaxonomyValue {
+  abbr: String!
+  id: ID!
+  image: String!
+  keywords: [String!]!
+  name: String!
+  summary: String!
+}
+
+type TaxonomyValueConnection {
+  edges: [TaxonomyValueEdge!]!
+  nodes: [TaxonomyValue!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TaxonomyValueEdge {
+  cursor: String!
+  node: TaxonomyValue!
+}
+
+type UniverseSpace {
+  acl: ACL!
+  attribute(key: String!): CommunityAttribute!
+  attributes: CommunityAttributeConnection
+  contest(id: ID!): JudgeContest!
+  contests(after: String, filters: JudgeContestFilter, first: Int): JudgeContestConnection
+  entitlements: [String!]
+  fragment(id: ID!, render: Boolean): ContentFragment
+  fragments(after: String, filters: ContentFragmentFilter, first: Int, render: Boolean): ContentFragmentConnection
+  id: ID!
+  image: String!
+  introspect: CommunityMember
+  key: String!
+  maxTeamSize: Int!
+  member(id: ID!): CommunityMember!
+  members(after: String, filters: CommunityMemberFilter, first: Int): CommunityMemberConnection
+  membership: String!
+  minTeamSize: Int!
+  name: String!
+  parents(locale: String, locales: [String!], path: String!, render: Boolean): [ContentFragment!]!
+  path(locale: String, locales: [String!], path: String!, render: Boolean): ContentFragment
+  paths(after: String, filters: ContentPathFilter, first: Int, locale: String, locales: [String!], render: Boolean): ContentFragmentConnection
+  plan: String!
+  problem(id: ID!, version: Int): AtlasProblem
+  problems(after: String, filters: AtlasProblemFilter, first: Int, order: Direction, sort: AtlasProblemSort): AtlasProblemConnection
+  quota: UniverseSpaceQuota
+  scoreboard(id: ID, key: String): RankerScoreboard
+  scoreboards(after: String, filters: RankerScoreboardFilter, first: Int): RankerScoreboardConnection
+  submission(id: ID!): AtlasSubmission
+  submissions(after: String, filters: AtlasSubmissionFilter, first: Int): AtlasSubmissionConnection
+  ticket(id: ID!): JudgeTicket!
+  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  type: String!
+  url: String!
+  usage: UniverseSpaceUsage
+  visibility: String!
+}
+
+type UniverseSpaceConnection {
+  edges: [UniverseSpaceEdge!]!
+  nodes: [UniverseSpace!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UniverseSpaceEdge {
+  cursor: String!
+  node: UniverseSpace!
+}
+
+type UniverseSpaceQuota {
+  activeContestsPerSpace: Int!
+  attributesPerSpace: Int!
+  contestsPerSpace: Int!
+  membersPerSpace: Int!
+  participantsPerContest: Int!
+  permissionsPerSpace: Int!
+  problemsPerContest: Int!
+  problemsPerSpace: Int!
+  scoreboardsPerSpace: Int!
+}
+
+type UniverseSpaceUsage {
+  activeContestsPerSpace: Int!
+  attributesPerSpace: Int!
+  contestsPerSpace: Int!
+  membersPerSpace: Int!
+  permissionsPerSpace: Int!
+  problemsPerSpace: Int!
+  scoreboardsPerSpace: Int!
+}
+
+type Worker {
+  job(id: ID!): WorkerJob
+  jobs(after: String, filters: WorkerJobFilter, first: Int): WorkerJobConnection
+}
+
+type WorkerJob {
+  completeAt: Time
+  createdAt: Time!
+  id: ID!
+  inputs: Attributes!
+  logs: String!
+  outputs: Attributes!
+  progress: Int!
+  progressAt: Time
+  startedAt: Time
+  status: String!
+  total: Int!
+  type: String!
+}
+
+type WorkerJobConnection {
+  edges: [WorkerJobEdge!]!
+  nodes: [WorkerJob!]!
+  totalCount: Int!
+}
+
+type WorkerJobEdge {
+  cursor: String!
+  node: WorkerJob
+}
+
+type _Service {
+  sdl: String!
+}
+
+enum AtlasProblemSort {
+  default
+  popular
+  recent
+}
+
+enum AtlasSolutionSort {
+  name
+  type
+}
+
+enum CourseSort {
+  default
+}
+
+"Sort direction"
+enum Direction {
+  asc
+  "Ascending"
+  desc
+}
+
+enum DiscussionMessageSort {
+  default
+  postedAt
+  replyCount
+  voteCount
+}
+
+enum JudgeTicketSort {
+  createdAt
+  readByOwner
+  readByParticipant
+}
+
+scalar Attributes
+
+scalar ECMNode
+
+"Date and time encoded in RFC3339 format"
+scalar Time
+
+input ACLPermissionFilter {
+  id: IDExpression
+  role: EnumExpression
+  userId: IDExpression
+}
+
+input AtlasProblemFilter {
+  bookmark: BooleanExpression
+  difficulty: IntExpression
+  id: IDExpression
+  number: IntExpression
+  private: BooleanExpression
+  query: String
+  score: FloatExpression
+  status: EnumExpression
+  topicId: IDExpression
+  visible: BooleanExpression
+}
+
+input AtlasSolutionFilter {
+  id: IDExpression
+  name: StringExpression
+  query: String
+  runtime: EnumExpression
+  type: EnumExpression
+}
+
+input AtlasSubmissionFilter {
+  id: IDExpression
+  memberId: IDExpression
+  percentage: FloatExpression
+  problemId: IDExpression
+  runtime: EnumExpression
+  score: FloatExpression
+  status: EnumExpression
+  submittedAt: TimeExpression
+  userId: IDExpression
+}
+
+input AtlasVersionFilter {
+  changeOp: EnumExpression
+  changePath: StringExpression
+  createdAt: TimeExpression
+  createdBy: IDExpression
+  number: IntExpression
+}
+
+"Filter expression for Boolean type"
+input BooleanExpression {
+  "Equals"
+  eq: Boolean
+}
+
+input CommunityMemberFilter {
+  active: BooleanExpression
+  id: IDExpression
+  incomplete: BooleanExpression
+  name: StringExpression
+  teamId: IDExpression
+  type: EnumExpression
+  unofficial: BooleanExpression
+  userEmail: StringExpression
+  userIssuer: StringExpression
+  userName: StringExpression
+  userSubject: StringExpression
+}
+
+input ContentFragmentFilter {
+  id: IDExpression
+  locale: EnumExpression
+  path: StringExpression
+  query: String
+}
+
+input ContentPathFilter {
+  label: EnumExpression
+  path: StringExpression
+  query: String
+}
+
+input CourseEntryFilter {
+  id: IDExpression
+  parentId: IDExpression
+  query: String
+}
+
+input CourseFilter {
+  id: IDExpression
+  locale: EnumExpression
+  query: String
+  topicId: IDExpression
+}
+
+input CourseStudentFilter {
+  id: IDExpression
+  memberId: IDExpression
+  name: StringExpression
+  query: String
+  status: EnumExpression
+}
+
+input DiscussionMessageFilter {
+  id: IDExpression
+  memberId: IDExpression
+  postedAt: TimeExpression
+  query: String
+  replyCount: IntExpression
+  replyTo: IDExpression
+  voteCount: IntExpression
+}
+
+"Filter expression for enumeration"
+input EnumExpression {
+  "Equals"
+  eq: String
+  "One of given values"
+  in: [String!]
+  "Not equals"
+  neq: String
+}
+
+input ExecutorLanguageFilter {
+  deprecated: BooleanExpression
+  id: IDExpression
+  name: StringExpression
+}
+
+input ExecutorRuntimeFilter {
+  deprecated: BooleanExpression
+  id: IDExpression
+  lang: IDExpression
+  name: StringExpression
+  version: IDExpression
+}
+
+"Filter expression for Float type"
+input FloatExpression {
+  "Equals"
+  eq: Float
+  "Greater than"
+  gt: Float
+  "Greater than or equals"
+  gte: Float
+  "One of given values"
+  in: [Float!]
+  "Lesser than"
+  lt: Float
+  "Lesser than or equals"
+  lte: Float
+  "Not equals"
+  neq: Float
+}
+
+"Filter expression for ID type"
+input IDExpression {
+  "Equals"
+  eq: ID
+  "One of given values"
+  in: [ID!]
+  "Not equals"
+  neq: ID
+}
+
+"Filter expression for Int type"
+input IntExpression {
+  "Equals"
+  eq: Int
+  "Greater than"
+  gt: Int
+  "Greater than or equals"
+  gte: Int
+  "One of given values"
+  in: [Int!]
+  "Lesser than"
+  lt: Int
+  "Lesser than or equals"
+  lte: Int
+  "Not equals"
+  neq: Int
+}
+
+input JudgeAnnouncementFilter {
+  id: IDExpression
+  isRead: BooleanExpression
+}
+
+input JudgeContestFilter {
+  city: StringExpression
+  country: EnumExpression
+  difficulty: IntExpression
+  endsAt: TimeExpression
+  format: EnumExpression
+  id: IDExpression
+  name: StringExpression
+  own: BooleanExpression
+  public: BooleanExpression
+  query: String
+  region: EnumExpression
+  scale: EnumExpression
+  series: EnumExpression
+  startsAt: TimeExpression
+  visibility: EnumExpression
+  year: IntExpression
+}
+
+input JudgeParticipantFilter {
+  completeAt: TimeExpression
+  id: IDExpression
+  memberId: IDExpression
+  name: StringExpression
+  penalty: FloatExpression
+  score: FloatExpression
+  startedAt: TimeExpression
+  status: EnumExpression
+}
+
+input JudgePermissionFilter {
+  id: IDExpression
+  role: EnumExpression
+  userId: IDExpression
+}
+
+input JudgeSubmissionFilter {
+  id: IDExpression
+  lang: EnumExpression
+  participantId: IDExpression
+  percentage: FloatExpression
+  problemId: IDExpression
+  score: FloatExpression
+  signature: EnumExpression
+  status: EnumExpression
+  submittedAt: TimeExpression
+}
+
+input JudgeTicketFilter {
+  contestId: IDExpression
+  isOpen: BooleanExpression
+  isReadByOwner: BooleanExpression
+  isReadByParticipant: BooleanExpression
+  memberId: IDExpression
+  own: BooleanExpression
+  participantId: IDExpression
+}
+
+input RankerColumnFilterExpression {
+  enum: EnumExpression
+  key: String!
+  number: IntExpression
+  string: StringExpression
+}
+
+input RankerScoreboardFilter {
+  id: IDExpression
+}
+
+input RankerScoreboardRowFilter {
+  columns: [RankerColumnFilterExpression!]
+  memberId: IDExpression
+}
+
+"Full-text search query"
+input SearchQuery {
+  """
+  Locale for query string
+  
+  Search engine will analyze query differently based on locale you provide in this field. This parameter affects
+  how to search rather than where.
+  """
+  locale: String
+  "Query string"
+  query: String!
+}
+
+"Filter expression for String type"
+input StringExpression {
+  "Contains"
+  contains: String
+  "Equals"
+  eq: String
+  "One of given values"
+  in: [String!]
+  "Not equals"
+  neq: String
+  "Starts"
+  starts: String
+}
+
+input TaxonomyValueFilter {
+  id: IDExpression
+  name: StringExpression
+  query: String
+}
+
+"Filter expression for Time type"
+input TimeExpression {
+  "Equals"
+  eq: Time
+  "Greater than"
+  gt: Time
+  "Greater than or equals"
+  gte: Time
+  "One of given values"
+  in: [Time!]
+  "Lesser than"
+  lt: Time
+  "Lesser than or equals"
+  lte: Time
+  "Not equals"
+  neq: Time
+}
+
+input UniverseSpaceFilter {
+  id: IDExpression
+  key: IDExpression
+  name: StringExpression
+  own: BooleanExpression
+}
+
+input WorkerJobFilter {
+  id: IDExpression
+  status: EnumExpression
+  type: EnumExpression
+}

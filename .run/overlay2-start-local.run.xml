@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="overlay2-start-local" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/src/frontend/overlay/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="start" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs>
+      <env name="VITE_WEBSOCKET_URL" value="ws://localhost:8080/api/overlay" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>

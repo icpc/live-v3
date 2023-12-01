@@ -98,12 +98,13 @@ object PCMSExporter {
         val runsByProblem = runs.groupBy { it.problemId }
         row.problemResults.forEachIndexed { index, probResult ->
             val probNode = createChild("problem")
-            val problemRuns = (runsByProblem[index] ?: emptyList())
+            val problemInfo = info.scoreboardProblems[index]
+            val problemRuns = (runsByProblem[problemInfo.id] ?: emptyList())
             val isAcceptedInt = if ((probResult as ICPCProblemResult).isSolved) 1 else 0
             probNode.setAttribute("accepted", isAcceptedInt.toString())
             probNode.setAttribute("attempts", (probResult.wrongAttempts + isAcceptedInt).toString())
-            probNode.setAttribute("id", info.scoreboardProblems[index].contestSystemId)
-            probNode.setAttribute("alias", info.scoreboardProblems[index].displayName)
+            probNode.setAttribute("id", problemInfo.contestSystemId)
+            probNode.setAttribute("alias", problemInfo.displayName)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
             probNode.setAttribute("penalty", (if (probResult.isSolved) {
                 (probResult.lastSubmitTime!! + info.penaltyPerWrongAttempt * probResult.wrongAttempts).inWholeMinutes

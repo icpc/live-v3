@@ -251,10 +251,12 @@ internal fun applyAdvancedProperties(
         }
     }
 
+    val teamInfoWithCustomFields = teamInfosPrelim
+        .mergeTeams(overrides.teamOverrides?.filterValues { it.customFields != null }?.mapValues { TeamInfoOverride(customFields = it.value.customFields) })
 
-    @Suppress("DEPRECATION") val teamInfos = teamInfosPrelim
-        .mergeTeams(overrides.teamMediaTemplate?.instantiateTemplate(teamInfosPrelim, TeamInfo::templateValueGetter))
-        .mergeTeams(overrides.teamOverrideTemplate?.instantiateTemplate(teamInfosPrelim, TeamInfo::templateValueGetter))
+    @Suppress("DEPRECATION") val teamInfos = teamInfoWithCustomFields
+        .mergeTeams(overrides.teamMediaTemplate?.instantiateTemplate(teamInfoWithCustomFields, TeamInfo::templateValueGetter))
+        .mergeTeams(overrides.teamOverrideTemplate?.instantiateTemplate(teamInfoWithCustomFields, TeamInfo::templateValueGetter))
         .mergeTeams(overrides.teamOverrides)
     val problemInfos = mergeProblems(info.problemList, overrides.problemOverrides)
 

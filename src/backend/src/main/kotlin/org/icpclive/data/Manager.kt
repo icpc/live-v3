@@ -26,6 +26,7 @@ abstract class ManagerWithEvents<in T : TypeWithId, E> : Manager<T>() {
     protected abstract fun createSnapshotEvent(items: List<T>): E
 
     override suspend fun add(item: T) = mutex.withLock {
+        items.removeIf { it.id == item.id } // We don't need the remove event, as create considered as the set on frontend.
         items.add(item)
         sendEvent(createAddEvent(item))
     }
