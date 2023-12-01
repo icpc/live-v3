@@ -111,7 +111,8 @@
                 "shortName": "ETH Zürich: gETHyped",
                 "contestSystemId": "1",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": "#ETH",
                 "medias": {
@@ -133,7 +134,8 @@
                 "shortName": "UAM: The Fan Team",
                 "contestSystemId": "2",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -155,7 +157,8 @@
                 "shortName": "Polito: Fallback Solutions",
                 "contestSystemId": "3",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -177,7 +180,8 @@
                 "shortName": "U of Haifa: Top Of The Mountain",
                 "contestSystemId": "4",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ISR"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -199,7 +203,8 @@
                 "shortName": "U-ARTOIS: J'en perds deux",
                 "contestSystemId": "5",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -221,7 +226,8 @@
                 "shortName": "USI: WalkLike3Egyptians",
                 "contestSystemId": "6",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -243,7 +249,8 @@
                 "shortName": "UniPD: dQw4w9WgXcQ",
                 "contestSystemId": "7",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -265,7 +272,8 @@
                 "shortName": "UM: Greedy2SAES",
                 "contestSystemId": "8",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -287,7 +295,8 @@
                 "shortName": "UBI: UBIdé",
                 "contestSystemId": "9",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -309,7 +318,8 @@
                 "shortName": "ENS - Lyon: ENSLip",
                 "contestSystemId": "10",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -331,7 +341,8 @@
                 "shortName": "TAU: Jokers",
                 "contestSystemId": "11",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ISR"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -353,7 +364,8 @@
                 "shortName": "UnivAQ: CPU",
                 "contestSystemId": "13",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -375,7 +387,8 @@
                 "shortName": "EP: X Gonna Code It to Ya",
                 "contestSystemId": "14",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": "#Polytechnique",
                 "medias": {
@@ -397,7 +410,8 @@
                 "shortName": "CUNEF: CUNEF-1",
                 "contestSystemId": "15",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -419,7 +433,8 @@
                 "shortName": "Genova: Genova 1",
                 "contestSystemId": "16",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -441,7 +456,8 @@
                 "shortName": "UdP: JIS",
                 "contestSystemId": "17",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -463,7 +479,8 @@
                 "shortName": "UBI: UBIk",
                 "contestSystemId": "18",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -485,7 +502,8 @@
                 "shortName": "TECHNION: SIGKILL",
                 "contestSystemId": "19",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ISR"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -507,7 +525,8 @@
                 "shortName": "EC-Lyon: ECL 1",
                 "contestSystemId": "20",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -529,7 +548,8 @@
                 "shortName": "UNIPI: flag[11]",
                 "contestSystemId": "21",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -551,7 +571,8 @@
                 "shortName": "U Porto: Rated C++",
                 "contestSystemId": "22",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": "#UPorto",
                 "medias": {
@@ -573,7 +594,8 @@
                 "shortName": "INSA: INSA 1",
                 "contestSystemId": "23",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -595,7 +617,8 @@
                 "shortName": "UP Catalunya: UPC-3",
                 "contestSystemId": "24",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": "#UPC",
                 "medias": {
@@ -617,7 +640,8 @@
                 "shortName": "UNIPI: flag[10]",
                 "contestSystemId": "25",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -639,7 +663,8 @@
                 "shortName": "UR1: DROP TABLE",
                 "contestSystemId": "26",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -661,7 +686,8 @@
                 "shortName": "PPS: Polychotomy",
                 "contestSystemId": "27",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -683,7 +709,8 @@
                 "shortName": "TAU: Bestagons",
                 "contestSystemId": "28",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ISR"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -705,7 +732,8 @@
                 "shortName": "UniPD: CoffeLimitExceeded",
                 "contestSystemId": "29",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -727,7 +755,8 @@
                 "shortName": "UCM: Un CE más",
                 "contestSystemId": "30",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -749,7 +778,8 @@
                 "shortName": "Sorbonne: Sorbonne Rouge",
                 "contestSystemId": "31",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -771,7 +801,8 @@
                 "shortName": "INSA: INSA 3",
                 "contestSystemId": "32",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -793,7 +824,8 @@
                 "shortName": "Polimi: team name goes here",
                 "contestSystemId": "33",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -815,7 +847,8 @@
                 "shortName": "CUNEF: CUNEF-A",
                 "contestSystemId": "34",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -837,7 +870,8 @@
                 "shortName": "TECHNION: Pr3s3nTati0n_3Rr0r",
                 "contestSystemId": "35",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ISR"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -859,7 +893,8 @@
                 "shortName": "Polito: Toroidal Polihedrons",
                 "contestSystemId": "36",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -881,7 +916,8 @@
                 "shortName": "Sorbonne: Sorbonne Blanc",
                 "contestSystemId": "37",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -903,7 +939,8 @@
                 "shortName": "EP: In eXtremis",
                 "contestSystemId": "38",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": "#Polytechnique",
                 "medias": {
@@ -925,7 +962,8 @@
                 "shortName": "HS: x^3",
                 "contestSystemId": "39",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -947,7 +985,8 @@
                 "shortName": "TN: UniTN MindsHub",
                 "contestSystemId": "40",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -969,7 +1008,8 @@
                 "shortName": "U. Rey Juan Carlos: Hackbulla",
                 "contestSystemId": "41",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -991,7 +1031,8 @@
                 "shortName": "CentraleSupélec: Slippin' Jimmies",
                 "contestSystemId": "42",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1013,7 +1054,8 @@
                 "shortName": "ENSEEIHT: 7uring_net7",
                 "contestSystemId": "43",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1035,7 +1077,8 @@
                 "shortName": "Polimi: AFL",
                 "contestSystemId": "44",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1057,7 +1100,8 @@
                 "shortName": "UAM: de Morgan",
                 "contestSystemId": "45",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1079,7 +1123,8 @@
                 "shortName": "TAU: TempName",
                 "contestSystemId": "46",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ISR"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1101,7 +1146,8 @@
                 "shortName": "TP: Télégendaire",
                 "contestSystemId": "47",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1123,7 +1169,8 @@
                 "shortName": "Universita' di Udine: Gli informagici",
                 "contestSystemId": "48",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1145,7 +1192,8 @@
                 "shortName": "UP Catalunya: UPC-1",
                 "contestSystemId": "49",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": "#UPC",
                 "medias": {
@@ -1167,7 +1215,8 @@
                 "shortName": "EPFL: EPFL 1",
                 "contestSystemId": "50",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1189,7 +1238,8 @@
                 "shortName": "UNIMI: LaStatale Blue",
                 "contestSystemId": "51",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": "#LaStatale",
                 "medias": {
@@ -1211,7 +1261,8 @@
                 "shortName": "IS Técnico: The Outlaws",
                 "contestSystemId": "52",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1233,7 +1284,8 @@
                 "shortName": "Sorbonne: Sorbonne Bleu",
                 "contestSystemId": "53",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1255,7 +1307,8 @@
                 "shortName": "UdP: Overflow",
                 "contestSystemId": "54",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1277,7 +1330,8 @@
                 "shortName": "Université Paris-Saclay: Javaman",
                 "contestSystemId": "55",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1299,7 +1353,8 @@
                 "shortName": "UPV: ETSINF-1",
                 "contestSystemId": "56",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1321,7 +1376,8 @@
                 "shortName": "TN: UniTN Fenwick Treento",
                 "contestSystemId": "57",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1343,7 +1399,8 @@
                 "shortName": "Universita' di Udine: MastersOfBreaks",
                 "contestSystemId": "58",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1365,7 +1422,8 @@
                 "shortName": "EHU: UPV-EHU-2",
                 "contestSystemId": "59",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1387,7 +1445,8 @@
                 "shortName": "ENS - Lyon: ENSheep",
                 "contestSystemId": "60",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1409,7 +1468,8 @@
                 "shortName": "EPFL: EPFL 2",
                 "contestSystemId": "61",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1431,7 +1491,8 @@
                 "shortName": "U. Rey Juan Carlos: pik2s",
                 "contestSystemId": "62",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1453,7 +1514,8 @@
                 "shortName": "Unive: Risi&&Bisi",
                 "contestSystemId": "63",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1475,7 +1537,8 @@
                 "shortName": "U-ARTOIS: Serge",
                 "contestSystemId": "64",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1497,7 +1560,8 @@
                 "shortName": "EC-Lyon: ECL 2",
                 "contestSystemId": "65",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1519,7 +1583,8 @@
                 "shortName": "Genova: Genova 2",
                 "contestSystemId": "66",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1541,7 +1606,8 @@
                 "shortName": "UP Catalunya: UPC-2",
                 "contestSystemId": "67",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": "#UPC",
                 "medias": {
@@ -1563,7 +1629,8 @@
                 "shortName": "UdP: SaintGermainDesPres1",
                 "contestSystemId": "68",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1585,7 +1652,8 @@
                 "shortName": "ETH Zürich: Save water - shower togETHer",
                 "contestSystemId": "69",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": "#ETH",
                 "medias": {
@@ -1607,7 +1675,8 @@
                 "shortName": "U Porto: Heroes of the C",
                 "contestSystemId": "70",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": "#UPorto",
                 "medias": {
@@ -1629,7 +1698,8 @@
                 "shortName": "UniVerona: Code Force One",
                 "contestSystemId": "71",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1651,7 +1721,8 @@
                 "shortName": "UniPD: bogosolving",
                 "contestSystemId": "72",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1673,7 +1744,8 @@
                 "shortName": "PPS: error 2F4U",
                 "contestSystemId": "73",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1695,7 +1767,8 @@
                 "shortName": "ENSIMAG: ensipc",
                 "contestSystemId": "74",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1717,7 +1790,8 @@
                 "shortName": "UBI: jUBIleu",
                 "contestSystemId": "75",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1739,7 +1813,8 @@
                 "shortName": "EHU: UPV-EHU-1",
                 "contestSystemId": "76",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1761,7 +1836,8 @@
                 "shortName": "Universita' di Udine: Quickbits",
                 "contestSystemId": "77",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1783,7 +1859,8 @@
                 "shortName": "ENS Paris: ENS Ulm 3",
                 "contestSystemId": "78",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": "#ENS_Ulm",
                 "medias": {
@@ -1805,7 +1882,8 @@
                 "shortName": "ENS - Lyon: E N S p a c e",
                 "contestSystemId": "79",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1827,7 +1905,8 @@
                 "shortName": "Polito: Overkill",
                 "contestSystemId": "80",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1849,7 +1928,8 @@
                 "shortName": "EILCO: Brogrammers",
                 "contestSystemId": "81",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1871,7 +1951,8 @@
                 "shortName": "UM: Don't you C?",
                 "contestSystemId": "82",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1893,7 +1974,8 @@
                 "shortName": "IS Técnico: FantasticoDebug",
                 "contestSystemId": "83",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1915,7 +1997,8 @@
                 "shortName": "UNIBO: UNIBOis",
                 "contestSystemId": "84",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1937,7 +2020,8 @@
                 "shortName": "Università di Roma 1: SapienzaWhite",
                 "contestSystemId": "85",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1959,7 +2043,8 @@
                 "shortName": "TP: Telecoders",
                 "contestSystemId": "86",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -1981,7 +2066,8 @@
                 "shortName": "USI: USInchronous",
                 "contestSystemId": "87",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2003,7 +2089,8 @@
                 "shortName": "TNCY: C--",
                 "contestSystemId": "88",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2025,7 +2112,8 @@
                 "shortName": "INSA: INSA 2",
                 "contestSystemId": "89",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2047,7 +2135,8 @@
                 "shortName": "UNIMI: LaStatale Green",
                 "contestSystemId": "90",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": "#LaStatale",
                 "medias": {
@@ -2069,7 +2158,8 @@
                 "shortName": "HS: I eat PHP for breakfast",
                 "contestSystemId": "91",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2091,7 +2181,8 @@
                 "shortName": "UCM: Unidad Computacional de Macacos",
                 "contestSystemId": "92",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2113,7 +2204,8 @@
                 "shortName": "Polimi: C_aramba",
                 "contestSystemId": "93",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2135,7 +2227,8 @@
                 "shortName": "ENS de Paris-Saclay: Late submission",
                 "contestSystemId": "94",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2157,7 +2250,8 @@
                 "shortName": "U Montpellier: FDS-UM",
                 "contestSystemId": "95",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2179,7 +2273,8 @@
                 "shortName": "TN: UniTN Send Nodes",
                 "contestSystemId": "96",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2201,7 +2296,8 @@
                 "shortName": "UC: 0xC0FFEE++",
                 "contestSystemId": "97",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "PRT"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2223,7 +2319,8 @@
                 "shortName": "TP: Télécode of Duty",
                 "contestSystemId": "98",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2245,7 +2342,8 @@
                 "shortName": "Università di Roma 1: SapienzaBlack",
                 "contestSystemId": "99",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2267,7 +2365,8 @@
                 "shortName": "U. Rey Juan Carlos: Teamto de Verano",
                 "contestSystemId": "100",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2289,7 +2388,8 @@
                 "shortName": "ENSIMAG: ensipc2",
                 "contestSystemId": "101",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2311,7 +2411,8 @@
                 "shortName": "UNIBO: UNIBOiis",
                 "contestSystemId": "102",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2333,7 +2434,8 @@
                 "shortName": "UM: SWERC Chaos",
                 "contestSystemId": "103",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2355,7 +2457,8 @@
                 "shortName": "EC-Lyon: ECL 3",
                 "contestSystemId": "104",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2377,7 +2480,8 @@
                 "shortName": "UNIMI: LaStatale Red",
                 "contestSystemId": "105",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": "#LaStatale",
                 "medias": {
@@ -2399,7 +2503,8 @@
                 "shortName": "UR1: PBI",
                 "contestSystemId": "106",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2421,7 +2526,8 @@
                 "shortName": "UPV: ETSINF-2",
                 "contestSystemId": "107",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2443,7 +2549,8 @@
                 "shortName": "ETH Zürich: dETHerminant",
                 "contestSystemId": "108",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": "#ETH",
                 "medias": {
@@ -2465,7 +2572,8 @@
                 "shortName": "UniVerona: SigSegv Squad",
                 "contestSystemId": "109",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2487,7 +2595,8 @@
                 "shortName": "UPF: Boystdcouts",
                 "contestSystemId": "110",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2509,7 +2618,8 @@
                 "shortName": "ENS Paris: ENS Ulm 1",
                 "contestSystemId": "111",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": "#ENS_Ulm",
                 "medias": {
@@ -2531,7 +2641,8 @@
                 "shortName": "UNIBO: UNIBOiiis",
                 "contestSystemId": "112",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2553,7 +2664,8 @@
                 "shortName": "UPF: Venta de pantalones",
                 "contestSystemId": "113",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2575,7 +2687,8 @@
                 "shortName": "PPS: Polydata",
                 "contestSystemId": "114",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2597,7 +2710,8 @@
                 "shortName": "USI: fUSIlli",
                 "contestSystemId": "115",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "CHE"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2619,7 +2733,8 @@
                 "shortName": "HS: P+P+P",
                 "contestSystemId": "116",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2641,7 +2756,8 @@
                 "shortName": "Università di Roma 1: SapienzaRed",
                 "contestSystemId": "117",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2663,7 +2779,8 @@
                 "shortName": "SNS: Carovana Fighters",
                 "contestSystemId": "118",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ITA"
                 ],
                 "hashTag": "#ScuolaNormale",
                 "medias": {
@@ -2685,7 +2802,8 @@
                 "shortName": "UPF: GetName",
                 "contestSystemId": "119",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "ESP"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -2707,7 +2825,8 @@
                 "shortName": "ENS Paris: ENS Ulm 2",
                 "contestSystemId": "120",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": "#ENS_Ulm",
                 "medias": {
@@ -2729,7 +2848,8 @@
                 "shortName": "U-ARTOIS: Jean Perrin",
                 "contestSystemId": "121",
                 "groups": [
-                    "23737"
+                    "23737",
+                    "FRA"
                 ],
                 "hashTag": null,
                 "medias": {
@@ -3248,9 +3368,7 @@
                 }
             }
         ],
-        "penaltyRoundingMode": "each_submission_down_to_minute",
-        "awardsSettings": {
-        }
+        "penaltyRoundingMode": "each_submission_down_to_minute"
     },
     "runs": [
         {

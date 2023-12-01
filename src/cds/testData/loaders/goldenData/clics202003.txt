@@ -3792,9 +3792,7 @@
                 }
             }
         ],
-        "penaltyRoundingMode": "each_submission_down_to_minute",
-        "awardsSettings": {
-        }
+        "penaltyRoundingMode": "each_submission_down_to_minute"
     },
     "runs": [
         {
