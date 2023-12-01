@@ -231,7 +231,7 @@ public enum class PenaltyRoundingMode {
  * @param manual List of awards with a manual team list.
  */
 @Serializable
-public class AwardsSettings(
+public data class AwardsSettings(
     public val championTitle: String? = null,
     public val groupsChampionTitles: Map<String, String> = emptyMap(),
     public val rankAwardsMaxRank: Int = 0,
