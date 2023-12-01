@@ -372,6 +372,49 @@
             ],
             "title": "noop"
         },
+        "nsu": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "nsu",
+                    "default": "nsu"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "olumpiadId": {
+                    "type": "number"
+                },
+                "tourId": {
+                    "type": "number"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "olumpiadId",
+                "tourId",
+                "email",
+                "password"
+            ],
+            "title": "nsu"
+        },
         "pcms": {
             "type": "object",
             "properties": {
@@ -498,6 +541,9 @@
                 },
                 {
                     "$ref": "#/$defs/noop"
+                },
+                {
+                    "$ref": "#/$defs/nsu"
                 },
                 {
                     "$ref": "#/$defs/pcms"

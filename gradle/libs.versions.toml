@@ -27,6 +27,7 @@ apache-commons-csv = "1.10.0"      # https://commons.apache.org/proper/commons-c
 
 ktor-client-cio        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-cio" }
 ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-auth" }
+ktor-client-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-content-negotiation" }
 
 ktor-serialization-kotlinx-json = { version.ref = "ktor", group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 

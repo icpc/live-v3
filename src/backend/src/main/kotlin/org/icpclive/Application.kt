@@ -16,6 +16,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.icpclive.admin.configureAdminApiRouting
@@ -132,6 +133,7 @@ fun Application.module() {
             .applyAdvancedProperties(advancedPropertiesFlow)
             .contestState()
             .filterUseless()
+            .onEach { println(it.event) }
             .removeFrozenSubmissions()
             .processHiddenTeamsAndGroups()
             .calculateScoreDifferences()

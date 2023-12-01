@@ -27,6 +27,7 @@ import org.icpclive.cds.common.ContestDataSource
 import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.cds.ejudge.EjudgeDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
+import org.icpclive.cds.nsu.NSUDataSource
 import org.icpclive.cds.noop.NoopDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.testsys.TestSysDataSource
@@ -148,6 +149,22 @@ public class KRSUSettings(
     override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = KRSUDataSource(this)
+}
+
+@Serializable
+@SerialName("nsu")
+public class NSUSettings(
+    public val url: String,
+    public val olympiadId: Int,
+    public val tourId: Int,
+    public val email: Credential,
+    public val password: Credential,
+    @Serializable(with = TimeZoneSerializer::class)
+    public val timeZone: TimeZone = TimeZone.of("Asia/Novosibirsk"),
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = NSUDataSource(this)
 }
 
 @Serializable
