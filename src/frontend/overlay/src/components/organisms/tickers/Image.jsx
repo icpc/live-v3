@@ -16,7 +16,7 @@ export const ImageWrap = styled.div`
 export const Image = ({tickerSettings, part}) => {
     return <TextWrap part={part}>
         <ImageWrap
-            path={"/media/" + tickerSettings.path}
+            path={tickerSettings.path}
         />
     </TextWrap>;
 };
