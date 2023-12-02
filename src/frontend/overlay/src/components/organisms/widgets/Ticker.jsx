@@ -10,6 +10,7 @@ import live from "../../../assets/icons/live.svg";
 import Clock from "../tickers/Clock";
 import Scoreboard from "../tickers/Scoreboard";
 import Text from "../tickers/Text";
+import Image from "../tickers/Image";
 
 const rowAppear = keyframes`
   from {
@@ -73,7 +74,8 @@ const SingleTickerWrap = styled.div`
 const widgetTypes = Object.freeze({
     text: Text,
     clock: Clock,
-    scoreboard: Scoreboard
+    scoreboard: Scoreboard,
+    image: Image,
 });
 
 const DefaultTicker = ({ tickerSettings }) => {
