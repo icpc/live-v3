@@ -8,6 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
+import ImageIcon from "@mui/icons-material/Image";
 import { TickerTableRow } from "./TickerTableRow";
 import Dashboard from "./Dashboard";
 import { usePresetWidgetService } from "../services/presetWidget";
@@ -28,6 +29,11 @@ const addPresetButtons = [
         type: "text",
         component: TextIcon,
         settings: { text: "", periodMs: 30000 },
+    },
+    {
+        type: "image",
+        component: ImageIcon,
+        settings: { path: "", periodMs: 30000 },
     },
 ];
 
