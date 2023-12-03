@@ -1,8 +1,10 @@
 module.exports = {
     "ignorePatterns": [
-        "build/**"
+        "dist/**",
+        "build/**",
+        "node_modules/**"
     ],
-    "parser": "@typescript-eslint/parser",
+    // "parser": "@typescript-eslint/parser",
     "env": {
         "node": true,
         "browser": true,
@@ -11,7 +13,7 @@ module.exports = {
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        // "plugin:@typescript-eslint/recommended"
     ],
     "settings": {
         "react": {
@@ -26,7 +28,7 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint",
+        // "@typescript-eslint",
         "react",
         "react-hooks"
     ],
@@ -62,10 +64,31 @@ module.exports = {
         "react/prop-types": [
             "off"
         ],
+        "react/display-name": [
+            "off"
+        ],
         // suppress errors for missing 'import React' in files
         "react/react-in-jsx-scope": "off",
         // allow jsx syntax in js files (for next.js project)
         "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }], //should add ".ts" if typescript project
     },
+    "overrides": [
+        {
+            "files": ["*.{ts,tsx}"],
+            "rules": {
+                "@typescript-eslint/switch-exhaustiveness-check": "error",
+            },
+            "parser": "@typescript-eslint/parser",
+            "plugins": [
+                "@typescript-eslint"
+            ],
+            "extends": [
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "parserOptions": {
+                "project": "./tsconfig.json"
+            }
+        }
+    ],
     root: true
 };

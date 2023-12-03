@@ -9,25 +9,25 @@ import c from "../../../config";
 
 const ContestantViewCornerWrap = styled.div`
   display: grid;
-  
-  grid-template-columns: auto minmax(100px, 150px);
   grid-auto-rows: ${c.QUEUE_ROW_HEIGHT}px;
+  grid-template-columns: auto minmax(100px, 150px);
   
   width: auto;
-  //transform-origin: bottom left;
   /*transform: ${props => props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};*/
   white-space: nowrap;
+
+  /* transform-origin: bottom left; */
 `;
 const TaskRow = styled.div`
   display: flex;
-  width: 100%;
-  grid-column-start: 2;
   grid-column-end: 3;
+  grid-column-start: 2;
+  width: 100%;
 `;
 
 const CornerContestantInfo = styled(ContestantInfo)`
-  grid-column-start: 1;
   grid-column-end: 3;
+  grid-column-start: 1;
 `;
 
 export const ContestantViewCorner = ({ teamId, isSmall, className }) => {

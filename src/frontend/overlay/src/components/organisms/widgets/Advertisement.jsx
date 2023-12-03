@@ -3,22 +3,25 @@ import styled from "styled-components";
 import c from "../../../config";
 
 const AdvertisementContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 // TODO: move this to constants.js
 const AdvertisementWrap = styled.div`
   padding: 13px 20px;
-  background-color: white;
-  border-radius: 12px;
+
+  font-family: Urbanist, Passageway, serif;
   font-size: 24pt;
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
-  font-family: Urbanist, Passageway, serif;
   color: black;
+
+  background-color: white;
+  border-radius: 12px;
 `;
 
 

@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
-import styled, { keyframes } from "styled-components";
+import styled, { Keyframes, keyframes } from "styled-components";
 import bg from "../../assets/images/bg.png";
 import c from "../../config";
 import { DEBUG } from "../../consts";
+import { useAppSelector } from "../../redux/hooks";
 import { useQueryParams } from "../../utils/query-params";
 import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
 import Advertisement from "../organisms/widgets/Advertisement";
@@ -19,6 +20,7 @@ import Videos from "../organisms/widgets/Videos";
 // import PVP from "../organisms/widgets/PVP";
 import FullScreenClock from "../organisms/widgets/FullScreenClock";
 import Locator from "../organisms/widgets/Locator";
+import { Widget } from "@shared/api";
 
 const fadeIn = keyframes`
   from {
@@ -40,7 +42,17 @@ const fadeOut = keyframes`
   }
 `;
 
-const WidgetWrap = styled.div.attrs(
+type WidgetWrapProps = {
+    left: number | string,
+    top: number | string,
+    width: number | string,
+    height: number | string,
+    shouldCrop?: boolean,
+    zIndex: number,
+    animation: Keyframes
+}
+
+const WidgetWrap = styled.div.attrs<WidgetWrapProps>(
     ({ left, top, width, height }) => {
         return { style: {
             left: left+"px",
@@ -49,12 +61,14 @@ const WidgetWrap = styled.div.attrs(
             height: height+"px",
         } };
     }
-)`
+)<WidgetWrapProps>`
   position: absolute;
+  z-index: ${({ zIndex }) => zIndex};
+
   overflow: ${({ shouldCrop = true }) => shouldCrop ? "hidden" : ""};
+
   animation: ${props => props.animation} ${c.WIDGET_TRANSITION_TIME}ms linear;
   animation-fill-mode: forwards;
-  z-index: ${({ zIndex }) => zIndex};
 `;
 
 const MainLayoutWrap = styled.div`
@@ -85,12 +99,12 @@ const WIDGETS = {
     TeamLocatorWidget: Locator
 };
 
-const useWidgets = () => {
+const useWidgets = (): Widget[] => {
     const queryParams = useQueryParams();
     if(queryParams.has("forceWidgets")) {
         return JSON.parse(queryParams.get("forceWidgets"));
     } else {
-        return useSelector(state => state.widgets.widgets);
+        return useAppSelector(state => state.widgets.widgets);
     }
 };
 
@@ -105,7 +119,7 @@ export const MainLayout = () => {
                 if (Widget === undefined) {
                     return null;
                 }
-                if (obj.settings?.scene !== (params.get("scene") || undefined)) {
+                if (obj.type === "TeamLocatorWidget" && obj.settings?.scene !== (params.get("scene") || undefined)) {
                     // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
                     return null;
                 }

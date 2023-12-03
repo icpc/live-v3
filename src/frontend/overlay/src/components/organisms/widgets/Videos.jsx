@@ -26,11 +26,14 @@ const slideOut = keyframes`
 
 const VideosContainerWrap = styled.div`
   position: absolute;
+
+  display: ${props => props.show ? "flex" : "none"};
+  align-items: center;
+  justify-content: start;
+
   width: 100%;
   height: 100%;
-  display: ${props => props.show ? "flex" : "none"};
-  justify-content: start;
-  align-items: center;
+
   animation: ${props => props.animation} ${c.VIDEO_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
@@ -39,9 +42,11 @@ const VideosContainerWrap = styled.div`
 const VideosContainer = styled.video`
   display: grid;
   justify-content: center;
-  text-align: center;
+
   width: 100%;
   height: 100%;
+
+  text-align: center;
 `;
 
 export const Videos = ({ widgetData, transitionState }) => {

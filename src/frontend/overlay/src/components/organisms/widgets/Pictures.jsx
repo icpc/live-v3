@@ -27,12 +27,15 @@ const slideOut = keyframes`
 
 const PicturesContainerWrap = styled.div`
   position: relative;
+
+  display: ${props => props.show ? "flex" : "none"};
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+
   width: 100%;
   height: 100%;
-  display: ${props => props.show ? "flex" : "none"};
-  justify-content: start;
-  align-items: center;
-  flex-direction: row;
+
   animation: ${props => props.animation} ${c.PICTURES_APPEAR_TIME}ms ${props => props.animationStyle};
   animation-fill-mode: forwards;
 `;
@@ -40,26 +43,29 @@ const PicturesContainerWrap = styled.div`
 
 const PicturesContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
+
   text-align: center;
 `;
 
 
 const PicturesCaptionWrap = styled.div`
-  background-color: rgb(136, 31, 27);
-  font-size: 24pt;
-  font-family: Passageway, serif;
-  color: white;
   align-self: stretch;
+
+  font-family: Passageway, serif;
+  font-size: 24pt;
+  color: white;
+
+  background-color: rgb(136, 31, 27);
 `;
 
 const PicturesImg = styled.img`
-  object-fit: contain;
-  flex-shrink: 1;
   flex-grow: 1;
+  flex-shrink: 1;
   max-width: 100%;
+  object-fit: contain;
 `;
 
 export const Pictures = ({ widgetData, transitionState }) => {

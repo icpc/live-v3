@@ -1,0 +1,9 @@
+# We support browsers for vmix, which uses
+chrome 86
+
+# We also want to support 2 years old OBS browsers which is roughly
+chrome > 0 and last 2 years
+
+# We also want to support development in the browser which is rougly
+last 2 major versions and not dead and not op_mini all
+

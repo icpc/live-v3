@@ -1,3 +1,4 @@
+import { Widget } from "@shared/api";
 import _ from "lodash";
 
 const ActionTypes = {
@@ -10,7 +11,7 @@ const initialState = {
     widgets: {}
 };
 
-export const showWidget = (widgetData) => {
+export const showWidget = (widgetData: Widget) => {
     return async dispatch => {
         dispatch({
             type: ActionTypes.SHOW_WIDGET,
@@ -21,7 +22,7 @@ export const showWidget = (widgetData) => {
     };
 };
 
-export const hideWidget = (widgetId) => {
+export const hideWidget = (widgetId: string) => {
     return async dispatch => {
         dispatch({
             type: ActionTypes.HIDE_WIDGET,
@@ -32,7 +33,7 @@ export const hideWidget = (widgetId) => {
     };
 };
 
-export const setWidgets = (widgets) => {
+export const setWidgets = (widgets: Widget[]) => {
     return async dispatch => {
         dispatch({
             type: ActionTypes.SET_WIDGETS,

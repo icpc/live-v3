@@ -1,6 +1,7 @@
 import _ from "lodash";
 import c from "../../config";
-import {getTextWidth} from "../../components/atoms/ShrinkingBox";
+import { getTextWidth } from "../../components/atoms/ShrinkingBox";
+import { ContestInfo } from "@shared/api";
 
 const ActionTypes = {
     CONTEST_INFO_SET: "CONTEST_INFO_SET",
@@ -10,7 +11,11 @@ const initialState = {
     info: undefined
 };
 
-export const setInfo = (info) => {
+type ContestState = {
+    info: ContestInfo | undefined
+}
+
+export const setInfo = (info: ContestInfo) => {
     return async dispatch => {
         dispatch({
             type: ActionTypes.CONTEST_INFO_SET,
@@ -21,11 +26,11 @@ export const setInfo = (info) => {
     };
 };
 
-export function contestInfoReducer(state = initialState, action) {
+export function contestInfoReducer(state = initialState, action): ContestState {
     switch (action.type) {
     case ActionTypes.CONTEST_INFO_SET:
         _.forEach(action.payload.info.teams, (team) => getTextWidth(team.shortName, c.GLOBAL_DEFAULT_FONT));
-        let sortedProblems = action.payload.info.problems.sort((a, b) => a.ordinal - b.ordinal).filter( a => !a.isHidden);
+        const sortedProblems = action.payload.info.problems.sort((a, b) => a.ordinal - b.ordinal).filter( a => !a.isHidden);
         return {
             ...state,
             info: {

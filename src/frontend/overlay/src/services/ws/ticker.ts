@@ -1,8 +1,9 @@
 import { pushLog } from "../../redux/debug";
 import { addMessage, removeMessage, setMessages } from "../../redux/ticker";
+import { TickerEvent } from "@shared/api";
 
 export const handleMessage = (dispatch, e) => {
-    const message = JSON.parse(e.data);
+    const message = JSON.parse(e.data) as TickerEvent;
     switch (message.type) {
     case "AddMessage":
         dispatch(addMessage(message.message));

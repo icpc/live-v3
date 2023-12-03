@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
+// import { PersistGate } from "redux-persist/integration/react";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
 import "./assets/fonts/fonts.scss";
 
-import { persistor, store } from "./redux/store";
+import { store } from "./redux/store";
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -14,18 +14,19 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
 
-    //height: 100vh;
-    //width: 100vw;
-
     font-family: Helvetica, sans-serif;
+
+    /* height: 100vh;
+    width: 100vw; */
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   * {
-    -ms-overflow-style: none;
     scrollbar-width: none;
+
+    -ms-overflow-style: none;
   }
 
   *::-webkit-scrollbar {
@@ -36,10 +37,10 @@ export const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <GlobalStyle/>
-                <App/>
-            </PersistGate>
+            {/*<PersistGate loading={null} persistor={persistor}>*/}
+            <GlobalStyle/>
+            <App/>
+            {/*</PersistGate>*/}
         </Provider>
     </React.StrictMode>,
     document.getElementById("root")

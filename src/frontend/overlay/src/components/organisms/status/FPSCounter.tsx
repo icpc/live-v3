@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 export const FPSCounter = () => {
     const [fps, setFps] = useState<string>();
@@ -15,11 +15,11 @@ export const FPSCounter = () => {
                 frame = 0;
             }
             handle = window.requestAnimationFrame(tick);
-        }
+        };
         tick(null);
         return () => window.cancelAnimationFrame(handle);
     }, []);
     return (
         <div>Frames made last second: {fps}</div>
-    )
-}
+    );
+};

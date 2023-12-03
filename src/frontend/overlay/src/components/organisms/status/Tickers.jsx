@@ -12,10 +12,13 @@ const TickerContainer = styled.div`
 `;
 
 const JSTickerContainer = styled.div`
+  position: relative;
+
   display: inline-block;
+
   width: ${TOTALWIDTH}px;
   height: 30px;
-  position: relative;
+
   background-color: red;
 `;
 
@@ -24,10 +27,10 @@ const JSTickerBody = styled.div.attrs(({ pos }) => ({
         left: pos
     }
 }))`
-  height: 100%;
-  width: ${TICKER_WIDTH}px;
-  background-color: blue;
   position: absolute;
+  width: ${TICKER_WIDTH}px;
+  height: 100%;
+  background-color: blue;
 `;
 
 export const JSTicker = () => {
@@ -59,10 +62,13 @@ const animation = keyframes`
 `;
 
 const CSSTickerBody = styled.div`
-  height: 100%;
-  width: ${TICKER_WIDTH}px;
-  background-color: blue;
   position: absolute;
+
+  width: ${TICKER_WIDTH}px;
+  height: 100%;
+
+  background-color: blue;
+
   animation: ${animation} linear infinite ${(TOTALWIDTH - TICKER_WIDTH + INCREMENT) / INCREMENT * INTERVAL}ms;
 `;
 

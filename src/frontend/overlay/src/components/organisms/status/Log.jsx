@@ -4,11 +4,13 @@ import styled from "styled-components";
 import { clearLog } from "../../../redux/debug";
 
 const LogWrap = styled.pre`
-  height: 600px;
   overflow-y: scroll;
-  border: black 1px solid;
+
   box-sizing: border-box;
+  height: 600px;
   margin: 0;
+
+  border: black 1px solid;
 `;
 
 const DebugLogContainer = styled.div`

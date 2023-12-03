@@ -37,17 +37,19 @@ const transitionProps = {
 
 const TickerRowContainer = styled.div`
   position: absolute;
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-  animation: ${props => props.animation} ease-in-out ${c.TICKER_SCROLL_TRANSITION_TIME}ms;
-  animation-fill-mode: forwards;
 
+  overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
   
   font-family: ${c.TICKER_FONT_FAMILY};
+
+  animation: ${props => props.animation} ease-in-out ${c.TICKER_SCROLL_TRANSITION_TIME}ms;
+  animation-fill-mode: forwards;
 `;
 
 const TickerRow = ({ children, state }) => {
@@ -61,14 +63,17 @@ const TickerRow = ({ children, state }) => {
 
 const SingleTickerWrap = styled.div`
   position: relative;
-  height: 100%;
-  width: 100%;
-  border-radius: ${c.GLOBAL_BORDER_RADIUS};
-  background-color: ${props => props.color};
+
   display: flex;
   justify-content: ${props => props.justify};
-  padding-left: ${props => props.padding};
+
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding-left: ${props => props.padding};
+
+  background-color: ${props => props.color};
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const widgetTypes = Object.freeze({
@@ -110,11 +115,12 @@ export const SingleTickerRows = ({ part }) => {
 
 
 const ShortTickerGrid = styled.div`
-  width: 100%;
   display: grid;
-  margin: 0 8px;
   grid-template-columns: ${c.TICKER_LIVE_ICON_SIZE} auto;
   column-gap: 8px;
+
+  width: 100%;
+  margin: 0 8px;
 `;
 
 const LiveIcon = styled.img`
@@ -148,14 +154,17 @@ SingleTicker.propTypes = {
 };
 
 const TickerWrap = styled.div`
-  width: 100%;
-  height: 100%;
   position: absolute;
   z-index: 2147000000;
-  color: ${c.TICKER_FONT_COLOR};
+
   display: grid;
   grid-template-columns: ${c.TICKER_SMALL_SIZE} auto;
   column-gap: 9px;
+
+  width: 100%;
+  height: 100%;
+
+  color: ${c.TICKER_FONT_COLOR};
 `;
 
 export const Ticker = () => {

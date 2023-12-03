@@ -13,27 +13,32 @@ import { useElementSize } from "usehooks-ts";
 
 
 const ScoreboardWrap = styled.div`
-  color: ${c.SCOREBOARD_TEXT_COLOR};
-  height: 100%;
-  width: 100%;
+  overflow: hidden;
   display: flex;
-  gap: 14px;
-  padding: 7px 16px 0 16px;
-  box-sizing: border-box;
   flex-direction: column;
+  gap: 14px;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 7px 16px 0 16px;
+
+  color: ${c.SCOREBOARD_TEXT_COLOR};
+
   background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
   border-radius: ${c.SCOREBOARD_BORDER_RADIUS};
-  overflow: hidden;
 `;
 
 const ScoreboardHeader = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: row;
-  font-size: ${c.SCOREBOARD_CAPTION_FONT_SIZE};
-  font-style: normal;
-  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
+
+  width: 100%;
   padding-top: 0.3em;
+
+  font-size: ${c.SCOREBOARD_CAPTION_FONT_SIZE};
+  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
+  font-style: normal;
 `;
 
 const ScoreboardTitle = styled.div`
@@ -44,8 +49,8 @@ const ScoreboardCaption = styled.div`
 `;
 
 const ScoreboardContent = styled.div`
-  flex: 1 0 0;
   display: flex;
+  flex: 1 0 0;
   flex-direction: column;
   gap: ${c.SCOREBOARD_BETWIN_HEADER_PADDING}px;
 `;
@@ -58,9 +63,6 @@ export const nameTable = {
 };
 
 const ScoreboardTableRowWrap = styled.div`
-  gap: ${c.SCOREBOARD_BETWIN_HEADER_PADDING}px;
-  box-sizing: border-box;
-  background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
   display: grid;
   grid-template-columns:
           ${c.SCOREBOARD_CELL_PLACE_SIZE}
@@ -68,39 +70,44 @@ const ScoreboardTableRowWrap = styled.div`
           ${c.SCOREBOARD_CELL_POINTS_SIZE} 
           ${({ needPenalty }) => needPenalty ? c.SCOREBOARD_CELL_PENALTY_SIZE : ""} 
           repeat(${props => props.nProblems}, 1fr);
+  gap: ${c.SCOREBOARD_BETWIN_HEADER_PADDING}px;
+
+  box-sizing: border-box;
+
+  background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
 `;
 
 const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
-  height: ${c.SCOREBOARD_ROW_HEIGHT}px;
   overflow: hidden;
+  align-items: center;
+
   box-sizing: content-box;
-  border-top: ${c.SCOREBOARD_ROWS_DIVIDER_COLOR} solid 1px;
-  border-bottom: ${c.SCOREBOARD_ROWS_DIVIDER_COLOR} solid 1px;
+  height: ${c.SCOREBOARD_ROW_HEIGHT}px;
   
   font-size: ${c.SCOREBOARD_ROW_FONT_SIZE};
-  font-style: normal;
   font-weight: ${c.SCOREBOARD_TABLE_ROW_FONT_WEIGHT};
+  font-style: normal;
 
-  align-items: center;
+  border-top: ${c.SCOREBOARD_ROWS_DIVIDER_COLOR} solid 1px;
+  border-bottom: ${c.SCOREBOARD_ROWS_DIVIDER_COLOR} solid 1px;
 `;
 
 const ScoreboardRowName = styled(ShrinkingBox)`
-  //font-weight: 700;
   padding: 0 8px;
+
+  /* font-weight: 700; */
 `;
 
 const ScoreboardRankLabel = styled(RankLabel)`
-  align-self: stretch;
-  
   display: flex;
   align-items: center;
+  align-self: stretch;
   justify-content: center;
 `;
 export const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
-  align-self: stretch;
-
   display: flex;
   align-items: center;
+  align-self: stretch;
   justify-content: center;
 `;
 
@@ -135,18 +142,22 @@ const PositionedScoreboardRow = styled.div.attrs(({ zIndex, pos }) => ({
         top: pos + "px",
     }
 }))`
-  height: ${c.SCOREBOARD_ROW_HEIGHT}px;
-  transition: top ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
-  left: 0;
-  right: 0;
-  width: 100%;
   position: absolute;
+  right: 0;
+  left: 0;
+
+  width: 100%;
+  height: ${c.SCOREBOARD_ROW_HEIGHT}px;
+
+  transition: top ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
 `;
 
 const ScoreboardRowsWrap = styled.div`
   position: relative;
-  flex: 1 0 0;
+
   overflow: hidden;
+  flex: 1 0 0;
+
   height: auto;
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
 `;
@@ -202,20 +213,22 @@ export const ScoreboardRows = ({ settings, onPage }) => {
 };
 
 const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
-  border-radius: 16px 16px 0 0;
   overflow: hidden;
+
   height: ${c.SCOREBOARD_HEADER_HEIGHT}px;
 
   font-size: ${c.SCOREBOARD_HEADER_FONT_SIZE};
-  font-style: normal;
   font-weight: ${c.SCOREBOARD_HEADER_FONT_WEIGHT};
+  font-style: normal;
   line-height: ${c.SCOREBOARD_HEADER_HEIGHT}px;
+
+  border-radius: 16px 16px 0 0;
 `;
 
 const ScoreboardTableHeaderCell = styled.div`
+  padding: 0 8px;
   text-align: center;
   background-color: ${c.SCOREBOARD_HEADER_BACKGROUND_COLOR};
-  padding: 0 8px;
 `;
 
 const ScoreboardTableHeaderNameCell = styled(ScoreboardTableHeaderCell)`

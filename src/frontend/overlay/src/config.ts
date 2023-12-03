@@ -7,14 +7,16 @@ const visualConfig = await fetch(VISUAL_CONFIG_URL)
     .then(r => r.json())
     .catch((e) => console.error("failed to load visual config: " + e)) ?? {};
 
-let config_ = {};
+const config_: typeof config = {};
 
-const config = new Proxy(config_, {
+// No known way to infer types from assignment yet.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const config: Record<string, any> = new Proxy(config_, {
     get(target, key) {
-        return visualConfig[key] ?? target[key];
+        return visualConfig[key] ?? target[key as string];
     },
     set(target, key, value) {
-        target[key] = visualConfig[key] ?? value;
+        target[key as string] = visualConfig[key] ?? value;
         return true;
     }
 });

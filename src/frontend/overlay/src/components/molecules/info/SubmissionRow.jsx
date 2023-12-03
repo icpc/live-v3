@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { DateTime } from "luxon";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
-import {ScoreboardTaskResultLabel} from "../../organisms/widgets/Scoreboard";
+import { ScoreboardTaskResultLabel } from "../../organisms/widgets/Scoreboard";
 
 
 const TimeCell = styled.div`
@@ -13,47 +13,50 @@ const TimeCell = styled.div`
 `;
 
 const QueueProblemLabel = styled(ProblemLabel)`
+  flex-shrink: 0;
   width: 28px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
-  flex-shrink: 0;
 `;
 
 const SubmissionRowWrap = styled.div`
-  width: 100%;
-  height: ${c.CONTESTER_ROW_HEIGHT};
-  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
-  
+  overflow: hidden;
   display: flex;
   align-items: center;
+
+  width: 100%;
+  height: ${c.CONTESTER_ROW_HEIGHT};
+
+  font-size: ${c.CONTESTER_FONT_SIZE};
+  color: white;
+
+  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
   border-top-left-radius: ${props => props.roundB ? "16px" : "0px"};
   border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
-  overflow: hidden;
-  color: white;
-  font-size: ${c.CONTESTER_FONT_SIZE};
 `;
 
 const SubmissionColumnWrap = styled.div`
-  width: 100%;
-  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
-  
-  display: grid;
-  align-items: center;
-  border-top-left-radius: ${props => props.roundB ? "16px" : "0px"};
-  border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
   overflow: hidden;
+  display: grid;
+  grid-auto-flow: row;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
 
-  grid-auto-flow: row;
-  color: white;
+  width: 100%;
+
   font-size: ${c.CONTESTER_FONT_SIZE};
+  color: white;
+
+  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
+  border-top-left-radius: ${props => props.roundB ? "16px" : "0px"};
+  border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
 `;
 
 const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
+  flex-shrink: 0;
   width: 40px;
   height: 100%;
   text-align: center;
-  flex-shrink: 0;
 `;
 
 export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, roundB }) => {
@@ -66,24 +69,24 @@ export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, pr
 };
 
 const PVPProblemLabel = styled(QueueProblemLabel)`
-  width: 100%;
   order: ${props => props.isTop ? 3 : 1};
-`
+  width: 100%;
+`;
 
 const PVPResultLabel = styled(ScoreboardTaskResultLabel)`
   order: ${props => props.isTop ? 1 : 3};
   
-`
+`;
 
 const PVPTimeCell = styled(TimeCell)`
   order: 2;
-`
+`;
 
 export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }) => {
     if (result.lastSubmitTimeMs === undefined) {
         return <SubmissionColumnWrap>
-            <div style={{order:2}}/>
-            <div style={{order:2}}/>
+            <div style={{ order:2 }}/>
+            <div style={{ order:2 }}/>
 
             <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
         </SubmissionColumnWrap>;

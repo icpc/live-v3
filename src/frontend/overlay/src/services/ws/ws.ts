@@ -9,7 +9,7 @@ import { handleMessage as statisticsHandler } from "./statistics";
 import { handleMessage as tickerHandler } from "./ticker";
 
 
-let handler = {
+const handler = {
     get: function(target, name) {
         if (Object.getOwnPropertyDescriptor(target, name)) {
             return (dispatch) => (e) => {

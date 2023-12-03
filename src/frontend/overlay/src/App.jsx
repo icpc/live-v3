@@ -8,7 +8,7 @@ import { WEBSOCKETS } from "./consts";
 import { pushLog } from "./redux/debug";
 import { setWebsocketStatus, WebsocketStatus } from "./redux/status";
 import { WEBSOCKET_HANDLERS } from "./services/ws/ws";
-import {useMountEffect} from "./utils/hooks/useMountEffect";
+import { useMountEffect } from "./utils/hooks/useMountEffect";
 
 const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
     const openSocket = () => {

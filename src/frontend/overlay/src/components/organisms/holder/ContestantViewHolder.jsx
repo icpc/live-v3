@@ -12,7 +12,7 @@ export const TeamImageWrapper = styled.img`
 export const TeamVideoWrapper = styled.video`
   position: absolute;
   width: 100%;
-  //height: 100%;
+  /* height: 100%; */
   bottom: 0;
   aspect-ratio: 16/9;
   object-fit: cover;
@@ -107,12 +107,14 @@ export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url,
 export const FullWidthWrapper = styled.div`
   width: 100%;
   border-radius: 16px;
-  //position: absolute;
-  // this is how you make aspect ratio before aspect-ratio. 
-  // Do not remove until the whole world starts using modern VMix
-  // Sadly this hack will cut off the bottom of the picture
-  // But since all we show here is 16/9 images - it's ok.
-  // Have to deal with it.
+  /* position: absolute; */
+  
+  /* this is how you make aspect ratio before aspect-ratio. 
+     Do not remove until the whole world starts using modern VMix
+     Sadly this hack will cut off the bottom of the picture
+     But since all we show here is 16/9 images - it's ok.
+     Have to deal with it.
+  */
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
@@ -120,7 +122,7 @@ export const FullWidthWrapper = styled.div`
 `;
 
 const ContestantViewHolderCorner = styled(ContestantViewCorner)`
-  z-index: 1; // Fixme when there is a proper grid in TeamView
+  z-index: 1; /* Fixme when there is a proper grid in TeamView */
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: ${props => props.hasPInP ? 2 : 3};

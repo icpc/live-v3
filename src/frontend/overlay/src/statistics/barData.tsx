@@ -1,6 +1,6 @@
-import {StatisticsData} from "../components/molecules/statistics/types";
-import {getTeamTaskColor} from "../utils/statusInfo"
-import c from "../config"
+import { StatisticsData } from "../components/molecules/statistics/types";
+import { getTeamTaskColor } from "../utils/statusInfo";
+import c from "../config";
 
 export const stackedBarsData = (resultType: string, tasks: any[], statistics: any[], count: number): StatisticsData => {
     if (!tasks || !statistics || !count) {
@@ -25,7 +25,7 @@ export const stackedBarsData = (resultType: string, tasks: any[], statistics: an
             caption: "incorrect",
             color: c.VERDICT_NOK,
         });
-        bars.push(...statistics?.map(({result, success, pending, wrong}, index) => ({
+        bars.push(...statistics?.map(({ result, success, pending, wrong }, index) => ({
             name: tasks[index].letter,
             color: tasks[index].color,
             values: [
@@ -55,10 +55,10 @@ export const stackedBarsData = (resultType: string, tasks: any[], statistics: an
             caption: "min score",
             color: c.VERDICT_NOK2,
         });
-        bars.push(...statistics?.map(({result, success, pending, wrong}, index) => ({
+        bars.push(...statistics?.map(({ result, success, pending, wrong }, index) => ({
             name: tasks[index].letter,
             color: tasks[index].color,
-            values: result.map(({count: rCount, score}) => ({
+            values: result.map(({ count: rCount, score }) => ({
                 color: getTeamTaskColor(score, tasks[index]?.minScore, tasks[index]?.maxScore),
                 value: count ? rCount / count : 0.0,
             })),
@@ -68,4 +68,4 @@ export const stackedBarsData = (resultType: string, tasks: any[], statistics: an
         legend,
         data: bars
     };
-}
+};

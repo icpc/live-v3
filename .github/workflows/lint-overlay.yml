@@ -17,15 +17,12 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '21'
           cache: 'npm'
           cache-dependency-path: 'src/frontend/package-lock.json'
       - name: "Install dependencies"
         run: npm ci
         working-directory: "src/frontend"
-      - name: "Lint overlay js"
+      - name: "Lint overlay"
         working-directory: "src/frontend/overlay"
-        run: npm run lint:js
-      - name: "Lint overlay css"
-        working-directory: "src/frontend/overlay"
-        run: npm run lint:css
+        run: npm run lint

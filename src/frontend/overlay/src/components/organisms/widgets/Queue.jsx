@@ -14,7 +14,7 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 
 
-import {formatScore} from "../../../services/displayUtils";
+import { formatScore } from "../../../services/displayUtils";
 
 // const MAX_QUEUE_ROWS_COUNT = 20;
 
@@ -30,7 +30,7 @@ const QueueRowAnimator = styled.div.attrs(({ bottom, zIndex }) => ({
 
   position: absolute;
   transition: bottom linear ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
-  animation: ${({ animation }) => animation} ${c.QUEUE_ROW_APPEAR_TIME}ms linear; // dissapear is also linear for now. FIXME
+  animation: ${({ animation }) => animation} ${c.QUEUE_ROW_APPEAR_TIME}ms linear; /* dissapear is also linear for now. FIXME */
   animation-fill-mode: forwards;
 `;
 
@@ -175,7 +175,7 @@ const QueueRankLabel = styled(RankLabel)`
 
 const QueueTeamNameLabel = styled(ShrinkingBox)`
   flex-grow: 1;
-  //flex-shrink: 0;
+  /* flex-shrink: 0; */
 `;
 const QueueRunStatusLabel = styled(RunStatusLabel)`
   width: 46px;
@@ -205,12 +205,16 @@ const QueueProblemLabel = styled(ProblemLabel)`
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
   line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
-  background-image: ${({isFts}) => isFts ? `url(${star})` : null};
+  background-image: ${({ isFts }) => isFts ? `url(${star})` : null};
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: contain;
   
-  mask: ${({isFts}) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
+  /* 
+  These three lines trigger plugin/no-unsupported-browser-features.
+  I don't belive it, but we have to check.
+   */
+  mask: ${({ isFts }) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
   mask-position: 50%;
   mask-size: contain;
 `;
@@ -298,7 +302,7 @@ const StyledFeatured = styled.div`
   width: 334px;
   position: absolute;
   
-  right: calc(100% - 16px); // this with padding is a hack to hide the rounded corner of the widget
+  right: calc(100% - 16px); /* this with padding is a hack to hide the rounded corner of the widget */
   padding: 3px 16px 3px 3px;
   
   background-color: ${c.QUEUE_BACKGROUND_COLOR};
@@ -315,7 +319,7 @@ const QueueTeamView = styled(ContestantViewHolder)`
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
-  position: relative; // fixme: ContestantViewHolder should be semantically relative and follow the flow.
+  position: relative; /* fixme: ContestantViewHolder should be semantically relative and follow the flow. */
 `;
 
 export const Featured = ({ runInfo }) => {

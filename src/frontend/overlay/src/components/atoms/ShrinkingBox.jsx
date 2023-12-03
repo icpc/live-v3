@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import c from "../../config";
-import React, {memo, useCallback, useEffect, useRef} from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 
 const TextShrinkingWrap = styled.div`
-  display: flex;
   overflow: hidden;
+  display: flex;
   justify-content: ${props => props.align};
-  font-kerning: none; // Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed.
+
   font-family: Arial, sans-serif;
+  font-kerning: none; /* Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed. */
 `;
 
 const storage = window.localStorage;
@@ -22,7 +23,7 @@ export const getTextWidth = (text, font) => {
         let canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
         const context = canvas.getContext("2d");
         context.font = font;
-        context.fontKerning = 'none'; // Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed.
+        context.fontKerning = "none"; // Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed.
         const metrics = context.measureText(stringText);
         const result = metrics.width;
         storage.setItem(key, result);
@@ -59,9 +60,10 @@ export const ShrinkingBox = memo(({
 });
 
 const TextShrinkingContainer = styled.div`
-  transform-origin: ${({ align }) => align};
   position: relative;
-  text-align: ${({ align }) => align};
+  transform-origin: ${({ align }) => align};
+
   color: ${({ color }) => color};
+  text-align: ${({ align }) => align};
   white-space: nowrap;
 `;

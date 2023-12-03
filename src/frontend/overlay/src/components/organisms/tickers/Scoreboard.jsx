@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 import c from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import {ContestantInfo} from "../../molecules/info/ContestantInfo";
+import { useAppSelector } from "../../../redux/hooks";
+import { ContestantInfo } from "../../molecules/info/ContestantInfo";
 
 
 const ScoreboardWrap = styled.div.attrs(({ top }) => (
     { style: { top } }
 ))`
+  position: absolute;
+
   display: grid;
-  //align-items: center;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(${props => props.nrows}, 1fr);
-  height: 100%;
-  width: 100%;
   gap: 2px;
-  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
   transition: top ${c.TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME}ms ease-in-out;
+
+  /* align-items: center; */
 `;
 
 const TickerScoreboardContestantInfo = styled(ContestantInfo)`
@@ -27,7 +31,7 @@ const TickerScoreboardContestantInfo = styled(ContestantInfo)`
 export const Scoreboard = ({ tickerSettings, state }) => {
     const { from, to, periodMs } = tickerSettings;
     const [row, setRow] = useState(0);
-    const rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
+    const rows = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
     const nrows = Math.ceil(rows.length / 4);
     useEffect(() => {
         if(state !== "entering" && rows.length > 0) {

@@ -16,12 +16,15 @@ const compactcolors = {
 };
 
 const Lightbulb = styled.div`
+  display: inline-block;
+
   width: ${props => props.compact ? "10px" : "30px"};
   height: ${props => props.compact ? "10px" : "30px"};
-  display: inline-block;
-  border-radius: 30px;
-  background-color: ${props => props.color};
+
   vertical-align: top;
+
+  background-color: ${props => props.color};
+  border-radius: 30px;
 `;
 
 const LightbulbWrap = styled.div`

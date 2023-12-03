@@ -32,37 +32,41 @@ import { formatScore, useFormatPenalty } from "../../../services/displayUtils";
 //     return `${borderRadiusTL} ${borderRadiusTR} ${borderRadiusBR} ${borderRadiusBL}`;
 // };
 const ContestantInfoLabel = styled(RankLabel)`
-  width: 32px;
-  align-self: stretch;
-  padding-left: 4px;
   flex-shrink: 0;
+  align-self: stretch;
+  width: 32px;
+  padding-left: 4px;
 `;
 
 const ContestantInfoTeamNameLabel = styled(ShrinkingBox)`
   flex-grow: 1;
   width: ${c.CONTESTER_NAME_WIDTH};
-  //flex-shrink: 0;
+
+  /* flex-shrink: 0; */
 `;
 
 
 const ContestantInfoWrap = styled.div`
+  overflow: hidden;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
   width: 100%;
   height: ${c.CONTESTER_ROW_HEIGHT};
-  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
-  display: flex;
-  align-items: center;
-  border-radius: ${c.GLOBAL_BORDER_RADIUS} ${props => props.round ? c.GLOBAL_BORDER_RADIUS : "0px"} ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS};
-  overflow: hidden;
-  gap: 5px;
-  color: white;
+
   font-size: ${c.CONTESTER_FONT_SIZE};
+  color: white;
+
+  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
+  border-radius: ${c.GLOBAL_BORDER_RADIUS} ${props => props.round ? c.GLOBAL_BORDER_RADIUS : "0px"} ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const ContestantInfoScoreLabel = styled(ShrinkingBox)`
-  width: 51px;
   flex-shrink: 0;
-  padding-right: 20px;
   box-sizing: content-box;
+  width: 51px;
+  padding-right: 20px;
 `;
 
 
