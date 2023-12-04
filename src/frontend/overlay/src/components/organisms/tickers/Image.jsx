@@ -1,24 +1,25 @@
-import {memo, React, useCallback, useEffect, useRef, useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import c from "../../../config";
-import {TextWrap} from "./Text";
-import {getTextWidth} from "../../atoms/ShrinkingBox";
- 
- 
+
+
 export const ImageWrap = styled.div`
-    background: url(${(props) => props.path});
-    width: 153px;
-    height: 30px;
-    margin: 0 -16px;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  background: url(${(props) => props.path}) no-repeat;
+  display: flex;
+  padding: 0 16px;
+  box-sizing: border-box;
+  background-size: contain;
+  background-position: center;
 `;
- 
+
 
 export const Image = ({tickerSettings, part}) => {
-    return <TextWrap part={part}>
-        <ImageWrap
-            path={tickerSettings.path}
-        />
-    </TextWrap>;
+    return <ImageWrap
+        path={tickerSettings.path}
+    />;
 };
 
 export default Image;
