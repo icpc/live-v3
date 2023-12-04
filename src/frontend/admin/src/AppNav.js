@@ -11,7 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PreviewIcon from "@mui/icons-material/Preview";
 import PropTypes from "prop-types";
 
-const pages = {
+const mainPages = {
     "Controls": "controls",
     // "Advertisement": "advertisement",
     "Titles": "titles",
@@ -29,6 +29,11 @@ const pages = {
     "Advanced": "advancedJson",
     // "Advanced Properties": "AdvancedProperties",
 };
+const locatorPages = {
+    "Locator": "locator",
+};
+
+const pages = process.env.REACT_APP_MODE === "locator" ? locatorPages : mainPages;
 
 
 const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {

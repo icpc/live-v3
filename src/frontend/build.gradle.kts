@@ -38,4 +38,15 @@ tasks {
         inputs.file("admin/package.json")
         outputs.dir("admin/build")
     }
+    named<NpmTask>("npm_run_buildLocatorAdmin") {
+        outputs.cacheIf { true }
+        environment.set(mapOf("PUBLIC_URL" to "/admin", "BUILD_PATH" to "build_locator", "REACT_APP_MODE" to "locator"))
+        inputs.dir("admin/src")
+        inputs.dir("admin/public")
+        inputs.dir("common")
+        inputs.file("package.json")
+        inputs.file("package-lock.json")
+        inputs.file("admin/package.json")
+        outputs.dir("admin/build_locator")
+    }
 }
