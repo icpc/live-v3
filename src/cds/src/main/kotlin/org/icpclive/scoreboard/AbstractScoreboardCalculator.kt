@@ -248,7 +248,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
             val teams = when (task.mode) {
                 ScoreboardUpdateType.DIFF -> task.runs
                 ScoreboardUpdateType.SNAPSHOT -> task.info.teams
-            }.keys.toList()
+            }.keys.filterNot { task.info.teams[it]!!.isHidden }
             val upd = teams.associateWithTo(persistentMapOf<Int, ScoreboardRow>().builder()) {
                 calculator.getScoreboardRow(
                     task.info,
@@ -260,8 +260,8 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
             } else {
                 rows.putAll(upd)
             }
-            task.info.teams.keys.firstOrNull { it !in rows }?.let {
-                require(false) { "team $it is not in rows" }
+            for (team in teams) {
+                require(team in rows) { "team $team is not in rows" }
             }
             val ranking = getScoreboardCalculator(task.info, optimismLevel).getRanking(task.info, rows)
             emit(

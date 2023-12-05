@@ -1,3 +1,4 @@
+import com.expediagroup.graphql.plugin.gradle.config.GraphQLSerializer
 import com.google.protobuf.gradle.*
 import java.net.URI
 
@@ -7,6 +8,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.dokka)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.graphql)
 }
 
 protobuf {
@@ -59,6 +61,25 @@ kotlin {
     explicitApi()
 }
 
+val graphQlDirectory = project.projectDir.resolve("src").resolve("main").resolve("graphql")
+val graphQlSchemaFile = graphQlDirectory.resolve("eolymp.graphql")
+
+graphql {
+    client {
+        packageName = "com.eolymp.graphql"
+        schemaFile = graphQlSchemaFile
+        queryFileDirectory = graphQlDirectory.resolve("queries").absolutePath
+        serializer = GraphQLSerializer.KOTLINX
+    }
+}
+
+tasks {
+    graphqlIntrospectSchema {
+        endpoint = "https://api.eolymp.com/spaces/00000000-0000-0000-0000-000000000000/graphql"
+        outputFile = graphQlSchemaFile
+    }
+}
+
 dependencies {
     api(libs.kotlinx.collections.immutable)
     implementation(projects.common)
@@ -67,10 +88,12 @@ dependencies {
     implementation(libs.grpc.stub)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.serialization.json5)
-    implementation(libs.kotlinx.serialization.properties)
     implementation(libs.ktor.client.auth)
     implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.contentNegotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.protobuf)
+    implementation(libs.graphql.ktor.client)
     runtimeOnly(libs.grpc.netty)
 
     testImplementation(libs.kotlin.junit)

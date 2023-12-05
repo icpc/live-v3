@@ -40,7 +40,7 @@ export const TeamTaskColor = Object.freeze({
 
 export const getTeamTaskColor = (score, minScore, maxScore) => {
     if (score === undefined) {
-        return c.CELL_BG_COLOR;
+        return undefined;
     }
     if (minScore !== undefined && maxScore !== undefined) {
         const [minRed, minGreen, minBlue] = [203, 46, 40];

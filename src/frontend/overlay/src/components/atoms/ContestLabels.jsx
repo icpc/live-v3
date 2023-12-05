@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
@@ -10,7 +10,7 @@ import {
     getStatus,
     getTeamTaskColor,
 } from "../../utils/statusInfo";
-import {formatScore} from "../../services/displayUtils";
+import { formatScore } from "../../services/displayUtils";
 
 const VerdictLabel = styled(ShrinkingBox)`
   background-color: ${({ color }) => color};
@@ -36,11 +36,11 @@ const getIOIScoreText = (difference) => {
     return ["=", c.VERDICT_UNKNOWN];
 };
 
-const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }}) => {
+const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
-        {wrongVerdict !== undefined && <ShrinkingBox text={wrongVerdict ?? "??"} color={c.VERDICT_NOK}/>}
-        {wrongVerdict === undefined && <ShrinkingBox text={diffText ?? "??"} color={diffColor}/>}
+        {wrongVerdict !== undefined && <VerdictLabel text={wrongVerdict ?? "??"} color={c.VERDICT_NOK} align="center" {...props}/>}
+        {wrongVerdict === undefined && <VerdictLabel text={diffText ?? "??"} color={diffColor} align="center" {...props}/>}
     </>;
 };
 
@@ -48,6 +48,7 @@ const VerdictLabel2 = ({ runResult, ...props }) => {
     return <>
         {runResult.type === "ICPC" && <ICPCVerdictLabel runResult={runResult} {...props}/>}
         {runResult.type === "IOI" && <IOIVerdictLabel runResult={runResult} {...props}/>}
+        {/*{runResult.type === "IOI" && <VerdictLabel text={"AA" ?? "??"} color="red" align="center" {...props}/>}*/}
     </>;
 };
 

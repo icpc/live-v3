@@ -185,11 +185,17 @@ public data class OrganizationInfo(
 
 @Serializable
 public enum class PenaltyRoundingMode {
-    @SerialName("each_submission_down_to_minute")
     /**
      * Round time of all submissions from the beginning of the contest down to whole minute, and then sum them
      */
+    @SerialName("each_submission_down_to_minute")
     EACH_SUBMISSION_DOWN_TO_MINUTE,
+
+    /**
+     * Round time of all submissions from the beginning of the contest up to whole minute, and then sum them
+     */
+    @SerialName("each_submission_up_to_minute")
+    EACH_SUBMISSION_UP_TO_MINUTE,
 
     /**
      * Sum time of all submissions from the beginning of the contest and then round it down to whole minute
@@ -225,7 +231,7 @@ public enum class PenaltyRoundingMode {
  * @param manual List of awards with a manual team list.
  */
 @Serializable
-public class AwardsSettings(
+public data class AwardsSettings(
     public val championTitle: String? = null,
     public val groupsChampionTitles: Map<String, String> = emptyMap(),
     public val rankAwardsMaxRank: Int = 0,

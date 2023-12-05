@@ -3,14 +3,14 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-val tmpLocation = buildDir.resolve("tmp")
-val schemasExportLocation = rootProject.rootDir.resolve("schemas")
-val schemasGenerationLocation = tmpLocation.resolve("schemas")
-val schemasGatherLocation = buildDir.resolve("schemas")
+val tmpLocation = layout.buildDirectory.dir("tmp")
+val schemasExportLocation = rootProject.layout.projectDirectory.dir("schemas")
+val schemasGenerationLocation = tmpLocation.map { it.dir("schemas") }
+val schemasGatherLocation = layout.buildDirectory.dir("schemas")
 
-val tsExportLocation = rootProject.rootDir.resolve("src").resolve("frontend").resolve("common")
-val tsGenerationLocation = tmpLocation.resolve("ts")
-val tsGatherLocation = buildDir.resolve("ts")
+val tsExportLocation = rootProject.layout.projectDirectory.dir("src").dir("frontend").dir("common")
+val tsGenerationLocation = tmpLocation.map { it.dir("ts") }
+val tsGatherLocation = layout.buildDirectory.dir("ts")
 
 
 fun String.capitalize(): String = replaceFirstChar { it.uppercaseChar() }
@@ -21,24 +21,24 @@ fun TaskContainerScope.genTask(
     taskSuffix: String,
     fullFileName: String,
     title: String?,
-    exportLocation: File,
-    generationLocation: File,
+    exportLocation: Directory,
+    generationLocation: Provider<Directory>,
 ): Pair<TaskProvider<out Task>, TaskProvider<out Task>>  {
-    val generatedSchemaFile = generationLocation.resolve(fullFileName)
-    val repositorySchemaFile = exportLocation.resolve(fullFileName)
+    val generatedSchemaFile = generationLocation.map { it.file(fullFileName) }
+    val repositorySchemaFile = exportLocation.file(fullFileName)
 
     val genTask = register<JavaExec>("generateSchema${taskSuffix}") {
         dependsOn(assemble)
         classpath = sourceSets.main.get().runtimeClasspath
         mainClass = "org.icpclive.generator.schema.GenKt"
-        workingDir = tmpLocation
+        workingDir = tmpLocation.get().asFile
         outputs.file(generatedSchemaFile)
         args = buildList {
             add(command)
             classFqNames.forEach {
                 add("--class-name"); add(it)
             }
-            add("--output"); add(generatedSchemaFile.relativeTo(workingDir).path)
+            add("--output"); add(generatedSchemaFile.get().asFile.relativeTo(workingDir).path)
             if (title != null) {
                 add("--title"); add(title)
             }
@@ -50,8 +50,8 @@ fun TaskContainerScope.genTask(
         dependsOn(genTask)
         inputs.files(generatedSchemaFile, repositorySchemaFile)
         doLast {
-            val newContent = generatedSchemaFile.readText()
-            val oldContent = repositorySchemaFile.readText()
+            val newContent = generatedSchemaFile.get().asFile.readText()
+            val oldContent = repositorySchemaFile.asFile.readText()
             if (newContent != oldContent) {
                 throw IllegalStateException("File $fullFileName is outdated. Run `./gradlew :${project.name}:gen` to fix it.")
             }
@@ -112,25 +112,21 @@ tasks {
     // more time.
     val generateSchemas = register<Sync>("generateAllSchemas") {
         group = "build"
-        destinationDir = schemasGatherLocation
-
+        into(schemasGatherLocation)
         from(schemasGenTasks)
     }
     val generateTs = register<Sync>("generateAllTs") {
         group = "build"
-        destinationDir = tsGatherLocation
-
+        into(tsGatherLocation)
         from(tsGenTasks)
     }
 
     val exportSchemas = register<Sync>("exportSchemas") {
-        destinationDir = schemasExportLocation
-
+        into(schemasExportLocation)
         from(generateSchemas)
     }
     val exportTs = register<Sync>("exportTs") {
-        destinationDir = tsExportLocation
-
+        into(tsExportLocation)
         from(generateTs)
     }
     register("gen") {

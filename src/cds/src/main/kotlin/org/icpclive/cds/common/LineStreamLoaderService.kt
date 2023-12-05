@@ -6,11 +6,13 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import org.icpclive.cds.settings.NetworkSettings
 import org.icpclive.util.getLogger
+import java.io.IOException
 import java.nio.file.Paths
+import java.security.GeneralSecurityException
+import javax.net.ssl.SSLException
 
 internal fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: String) = flow {
     val httpClient = defaultHttpClient(auth, networkSettings)
@@ -40,6 +42,13 @@ internal fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: Cl
         }
     }
 }.flowOn(Dispatchers.IO)
+    .catch { throw wrapIfSSLError(it) }
+
+internal class LiveSSLException(message: String, cause: Throwable?) : IOException(message, cause)
+
+internal fun wrapIfSSLError(e: Throwable) = if (e is SSLException || e is GeneralSecurityException) {
+        LiveSSLException("There are some https related errors. If you don't care, add \"network\": {\"allowUnsecureConnections\": true} to your config.", e)
+    } else e
 
 private object LineStreamLoaderService
 private val logger = getLogger(LineStreamLoaderService::class)

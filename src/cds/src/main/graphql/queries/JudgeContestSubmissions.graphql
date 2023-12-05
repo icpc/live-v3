@@ -1,0 +1,18 @@
+query JudgeContestSubmissions($id: ID!, $after: String, $count: Int!) {
+    contest(id: $id) {
+        submissions(after: $after, first: $count) {
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                id
+                deleted
+                percentage
+                problem { id }
+                participant { id }
+                submittedAt
+            }
+        }
+    }
+}

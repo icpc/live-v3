@@ -1,0 +1,8 @@
+{
+  "type": "nsu",
+  "email": "$creds.nsu_login",
+  "password": "$creds.nsu_password",
+  "olympiadId": 228,
+  "tourId": 11881,
+  "url": "https://olympic.nsu.ru/nsuts-new"
+}

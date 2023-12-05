@@ -1,0 +1,7 @@
+{
+    "type": "cf",
+    "#comment":"Insert api key and secret from https://codeforces.com/settings/api below",
+    "apiKey": "$creds.codeforces_key",
+    "apiSecret": "$creds.codeforces_secret",
+    "contestId": 489164
+  }

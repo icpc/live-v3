@@ -5,6 +5,12 @@
     "sizeX": 1920,
     "sizeY": 1080
   },
+  "fullScreenClock": {
+    "positionX": 0,
+    "positionY": 0,
+    "sizeX": 1920,
+    "sizeY": 1080
+  }, 
   "statistics": {
     "positionX": 0,
     "positionY": 0,

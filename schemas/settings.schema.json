@@ -321,6 +321,38 @@
             ],
             "title": "ejudge"
         },
+        "eolymp": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "eolymp",
+                    "default": "eolymp"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "token",
+                "contestId"
+            ],
+            "title": "eolymp"
+        },
         "krsu": {
             "type": "object",
             "properties": {
@@ -371,6 +403,49 @@
                 "type"
             ],
             "title": "noop"
+        },
+        "nsu": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "nsu",
+                    "default": "nsu"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "olympiadId": {
+                    "type": "number"
+                },
+                "tourId": {
+                    "type": "number"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "olympiadId",
+                "tourId",
+                "email",
+                "password"
+            ],
+            "title": "nsu"
         },
         "pcms": {
             "type": "object",
@@ -494,10 +569,16 @@
                     "$ref": "#/$defs/ejudge"
                 },
                 {
+                    "$ref": "#/$defs/eolymp"
+                },
+                {
                     "$ref": "#/$defs/krsu"
                 },
                 {
                     "$ref": "#/$defs/noop"
+                },
+                {
+                    "$ref": "#/$defs/nsu"
                 },
                 {
                     "$ref": "#/$defs/pcms"

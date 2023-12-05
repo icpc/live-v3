@@ -12,8 +12,6 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.properties.Properties
-import kotlinx.serialization.properties.decodeFromStringMap
 import org.icpclive.api.ContestResultType
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.toEmulationFlow
@@ -26,7 +24,9 @@ import org.icpclive.cds.codeforces.CFDataSource
 import org.icpclive.cds.common.ContestDataSource
 import org.icpclive.cds.common.isHttpUrl
 import org.icpclive.cds.ejudge.EjudgeDataSource
+import org.icpclive.cds.eolymp.EOlympDataSource
 import org.icpclive.cds.krsu.KRSUDataSource
+import org.icpclive.cds.nsu.NSUDataSource
 import org.icpclive.cds.noop.NoopDataSource
 import org.icpclive.cds.pcms.PCMSDataSource
 import org.icpclive.cds.testsys.TestSysDataSource
@@ -151,6 +151,22 @@ public class KRSUSettings(
 }
 
 @Serializable
+@SerialName("nsu")
+public class NSUSettings(
+    public val url: String,
+    public val olympiadId: Int,
+    public val tourId: Int,
+    public val email: Credential,
+    public val password: Credential,
+    @Serializable(with = TimeZoneSerializer::class)
+    public val timeZone: TimeZone = TimeZone.of("Asia/Novosibirsk"),
+    override val emulation: EmulationSettings? = null,
+    override val network: NetworkSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = NSUDataSource(this)
+}
+
+@Serializable
 @SerialName("ejudge")
 public class EjudgeSettings(
     public val url: UrlOrLocalPath,
@@ -270,12 +286,23 @@ public class CmsSettings(
     override fun toDataSource() = CmsDataSource(this)
 }
 
+@SerialName("eolymp")
+@Serializable
+public class EOlympSettings(
+    public val url: String,
+    public val token: Credential,
+    public val contestId: String,
+    override val network: NetworkSettings? = null,
+    override val emulation: EmulationSettings? = null
+) : CDSSettings() {
+    override fun toDataSource() = EOlympDataSource(this)
+}
+
 public fun interface CredsProvider {
     public operator fun get(s: String) : String?
 }
 public fun parseFileToCdsSettings(path: Path, creds: Map<String, String>): CDSSettings = parseFileToCdsSettings(path) { creds[it] }
 
-@OptIn(ExperimentalSerializationApi::class)
 public fun parseFileToCdsSettings(path: Path, creds: CredsProvider) : CDSSettings {
     val file = path.toFile()
     val module = SerializersModule {
@@ -303,46 +330,9 @@ public fun parseFileToCdsSettings(path: Path, creds: CredsProvider) : CDSSetting
         )
     }
     return if (!file.exists()) {
-        throw java.lang.IllegalArgumentException("File ${file.absolutePath} does not exist")
+        throw IllegalArgumentException("File ${file.absolutePath} does not exist")
     } else if (file.name.endsWith(".properties")) {
-        val properties = java.util.Properties()
-        file.inputStream().use { properties.load(it) }
-        val legacyMap = mapOf(
-            "standings.type" to "type",
-            "standings.resultType" to "resultType",
-            "yandex.token" to "apiKey",
-            "yandex.login_prefix" to "loginRegex",
-            "yandex.contest_id" to "contestId",
-            "cf.api.key" to "apiKey",
-            "cf.api.secret" to "apiSecret",
-            "problems.url" to "problemsUrl",
-            "submissions-url" to "submissionsUrl",
-            "contest_id" to "contestId",
-            "contest-url" to "contestUrl",
-            "timezone" to "timeZone",
-            "event_feed_name" to "eventFeedName",
-            "feed_version" to "feedVersion",
-            "use_team_names" to "useTeamNames",
-            "media_base_url" to "mediaBaseUrl",
-            "additional_feed.url" to "additionalFeed.url",
-            "additional_feed.login" to "additionalFeed.login",
-            "additional_feed.password" to "additionalFeed.password",
-            "additional_feed.event_feed_name" to "additionalFeed.eventFeedName",
-            "additional_feed.feed_version" to "additionalFeed.feedVersion",
-        )
-        for ((k, v) in legacyMap) {
-            properties.getProperty(k)?.let {
-                getLogger(CDSSettings::class).info(
-                    "Deprecated event.properties key $k is used. Use $v instead."
-                )
-                properties.setProperty(v, it)
-                properties.remove(k)
-            }
-        }
-        properties.getProperty("type")?.let { properties.setProperty("type", it.lowercase()) }
-        properties.getProperty("resultType")?.let { properties.setProperty("resultType", it.uppercase()) }
-        @Suppress("UNCHECKED_CAST")
-        Properties.decodeFromStringMap<CDSSettings>(properties as Map<String, String>)
+        throw IllegalStateException("Properties format is not supported anymore, use settings.json instead")
     } else if (file.name.endsWith(".json")) {
         file.inputStream().use {
             Json {

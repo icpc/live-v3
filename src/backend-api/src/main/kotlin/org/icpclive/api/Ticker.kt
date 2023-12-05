@@ -23,6 +23,17 @@ class TextTickerMessage(val settings: TextTickerSettings) :
 }
 
 @Serializable
+@SerialName("image")
+class ImageTickerMessage(val settings: ImageTickerSettings)
+    : TickerMessage(generateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
+        companion object {
+            const val TICKER_ID_PREFIX: String = "ticker_image"
+        }
+    }
+
+
+
+@Serializable
 @SerialName("clock")
 class ClockTickerMessage(val settings: ClockTickerSettings) :
     TickerMessage(generateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {

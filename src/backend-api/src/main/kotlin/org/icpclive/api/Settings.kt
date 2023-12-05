@@ -114,6 +114,15 @@ data class TextTickerSettings(
 }
 
 @Serializable
+@SerialName("image")
+data class ImageTickerSettings(
+    override val part: TickerPart, override val periodMs: Long, val path: String
+) : TickerMessageSettings() {
+    override fun toMessage() = ImageTickerMessage(this)
+}
+
+
+@Serializable
 @SerialName("clock")
 data class ClockTickerSettings(override val part: TickerPart, override val periodMs: Long) : TickerMessageSettings() {
     override fun toMessage() = ClockTickerMessage(this)

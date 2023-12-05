@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
+import ImageIcon from "@mui/icons-material/Image";
 import ShowPresetButton from "./ShowPresetButton";
 import { activeRowColor } from "../styles";
 import PropTypes from "prop-types";
@@ -37,6 +38,7 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
                 {data.settings.type === "clock" && <ClockIcon/>}
                 {data.settings.type === "scoreboard" && <ScoreboardIcon/>}
                 {data.settings.type === "text" && <TextIcon/>}
+                {data.settings.type === "image" && <ImageIcon/>}
             </TableCell>
             <TableCell component="th" scope="row">
                 {data.settings.type === "text" &&
@@ -45,6 +47,14 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
                             <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.text}
                                 id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
                                 onChange={onChangeFieldEventHandler(setEditData, "text")}/>
+                        </Box>)
+                    )}
+                {data.settings.type === "image" &&
+                    (editData === undefined ? data.settings.text : (
+                        <Box onSubmit={onSubmitEdit} component="form" type="submit">
+                            <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.path}
+                                id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
+                                onChange={onChangeFieldEventHandler(setEditData, "path")}/>
                         </Box>)
                     )}
                 {data.settings.type === "scoreboard" &&

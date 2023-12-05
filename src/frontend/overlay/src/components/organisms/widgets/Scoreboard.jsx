@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
-// import { extractScoreboardRows, useScroller } from "./Scoreboard";
 import { TaskResultLabel, RankLabel } from "../../atoms/ContestLabels";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 
@@ -67,7 +66,7 @@ const ScoreboardTableRowWrap = styled.div`
           ${c.SCOREBOARD_CELL_PLACE_SIZE}
           ${c.SCOREBOARD_CELL_TEAMNAME_SIZE} 
           ${c.SCOREBOARD_CELL_POINTS_SIZE} 
-          ${c.SCOREBOARD_CELL_PENALTY_SIZE} 
+          ${({ needPenalty }) => needPenalty ? c.SCOREBOARD_CELL_PENALTY_SIZE : ""} 
           repeat(${props => props.nProblems}, 1fr);
 `;
 
@@ -111,7 +110,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
     const teamData = useSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const needPenalty = useNeedPenalty();
     const formatPenalty = useFormatPenalty();
-    return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1}>
+    return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1} needPenalty={needPenalty}>
         <ScoreboardRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
         <ScoreboardRowName align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={c.SCOREBOARD_CELL_POINTS_ALIGN}
@@ -231,7 +230,7 @@ const ScoreboardProblemLabel = styled(ProblemLabel)`
 const ScoreboardTableHeader = () => {
     const problems = useSelector((state) => state.contestInfo.info?.problems);
     const needPenalty = useNeedPenalty();
-    return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1}>
+    return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1} needPenalty={needPenalty}>
         <ScoreboardTableHeaderCell>#</ScoreboardTableHeaderCell>
         <ScoreboardTableHeaderNameCell>Name</ScoreboardTableHeaderNameCell>
         <ScoreboardTableHeaderCell>Σ</ScoreboardTableHeaderCell>

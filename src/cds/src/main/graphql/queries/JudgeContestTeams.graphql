@@ -1,0 +1,15 @@
+query JudgeContestTeams($id: ID!, $after: String, $count: Int!) {
+    contest(id: $id) {
+        participants(after: $after, first: $count) {
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            nodes {
+                id
+                name
+                unofficial
+            }
+        }
+    }
+}
