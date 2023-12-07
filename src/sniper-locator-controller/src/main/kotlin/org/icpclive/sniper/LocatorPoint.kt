@@ -1,8 +1,10 @@
 package org.icpclive.sniper
 
-import kotlin.math.*
-class LocatorPoint(var id: Int, var x: Double, var y: Double, var z: Double, var r: Double = 0.0) {
+import kotlin.math.cos
+import kotlin.math.hypot
+import kotlin.math.sin
 
+class LocatorPoint(var id: Int, var x: Double, var y: Double, var z: Double, var r: Double = 0.0) {
     constructor(x: Double, y: Double, z: Double, r: Double = 0.0) : this(-1, x, y, z, r)
 
     fun move(d: LocatorPoint): LocatorPoint {
@@ -31,12 +33,12 @@ class LocatorPoint(var id: Int, var x: Double, var y: Double, var z: Double, var
         return LocatorPoint(
             id, x,
             y * cos(a) - z * sin(a),
-            y * sin(a) + z * cos(a), r
+            y * sin(a) + z * cos(a), a
         )
     }
 
     fun distTo(o: LocatorPoint): Double {
-        return hypot(x - o.x, hypot(y - o.y, z - o.z))
+        return hypot(x - o.x, hypot(y - o.y, z - o.x))
     }
 
     fun dist(): Double {

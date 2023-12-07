@@ -1,18 +1,21 @@
 package org.icpclive.sniper
 
-import java.io.*
+import org.icpclive.sniper.Config.coordinatesTxtPath
+import org.icpclive.sniper.Config.snipersTxtPath
+import java.io.File
 import java.net.HttpURLConnection
 import java.net.URI
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 object Util {
     val snipers: MutableList<SniperInfo> = ArrayList()
     const val ANGLE = 1.28
+
     fun sendGet(url: String): String {
-    println("send get $url" +
-            "")
+        println("send get $url")
         val obj = URI(url).toURL()
         val con = obj.openConnection() as HttpURLConnection
         con.requestMethod = "GET"
@@ -33,9 +36,9 @@ object Util {
     }
 
     fun parseCameraConfiguration(ss: String): LocatorConfig {
-        val s = ss.trim { it <= ' ' }
+        val s = ss.trim() { it <= ' ' }
         var l: Int
-        var r = 0
+        var r: Int = 0
         var newPan: Double? = null
         var newTilt: Double? = null
         var newAngle: Double? = null
@@ -48,7 +51,7 @@ object Util {
             val key = s.substring(l, r)
             l = r + 1
             r = l + 1
-            while (r < s.length && !Character.isAlphabetic(s[r].code)) {
+            while (r < s.length && Character.isAlphabetic(s[r].code)) {
                 r++
             }
             val value = s.substring(l, r).toDoubleOrNull() ?: continue
@@ -69,15 +72,15 @@ object Util {
     }
 
     fun init() {
-        val inp = Scanner(File("snipers.txt"))
-        val m = inp.nextInt()
+        val inp = Scanner(snipersTxtPath.toFile())
+        val m = inp.nextInt();
         val urls = Array(m) { inp.next() }
         inp.close()
         for (i in urls.indices) {
             snipers.add(
                 SniperInfo(
                     urls[i],
-                    File("coordinates-${i + 1}.txt"),
+                    File(coordinatesTxtPath + "-${i + 1}.txt"),
                     i + 1
                 )
             )
@@ -86,16 +89,15 @@ object Util {
 
     fun sendPost(urlString: String, contentType: String?, data: String) {
         val url = URI(urlString).toURL()
-        val con = url.openConnection()
-        val http = con as HttpURLConnection
-        http.requestMethod = "POST"
-        http.setRequestProperty("Content-Type", contentType)
-        http.doOutput = true
+        val con = url.openConnection() as HttpURLConnection
+        con.requestMethod = "POST"
+        con.setRequestProperty("Content-Type", contentType)
+        con.doOutput = true
         val out = data.toByteArray(StandardCharsets.UTF_8)
         val length = out.size
-        http.setFixedLengthStreamingMode(length)
-        http.connect()
-        http.outputStream.use {
+        con.setFixedLengthStreamingMode(length)
+        con.connect()
+        con.outputStream.use {
             it.write(out)
         }
     }
