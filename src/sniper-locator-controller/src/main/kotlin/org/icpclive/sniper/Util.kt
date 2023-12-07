@@ -1,6 +1,5 @@
 package org.icpclive.sniper
 
-import org.icpclive.sniper.Config.coordinatesTxtPath
 import org.icpclive.sniper.Config.snipersTxtPath
 import java.io.File
 import java.net.HttpURLConnection
@@ -8,17 +7,21 @@ import java.net.URI
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 object Util {
     val snipers: MutableList<SniperInfo> = ArrayList()
     const val ANGLE = 1.28
+    private var inited: Boolean = false
 
     fun sendGet(url: String): String {
         println("send get $url")
         val obj = URI(url).toURL()
         val con = obj.openConnection() as HttpURLConnection
         con.requestMethod = "GET"
+        val auth: String = "admin" + ":" + "admin"
+        val encodedAuth: ByteArray = Base64.getEncoder().encode(auth.toByteArray(StandardCharsets.UTF_8))
+        val authHeaderValue = "Basic " + String(encodedAuth)
+        con.setRequestProperty("Authorization", authHeaderValue)
         return con.inputStream.reader().buffered().use {
             buildString {
                 while (true) {
@@ -72,15 +75,25 @@ object Util {
     }
 
     fun init() {
+        if (inited) return;
+        inited = true
         val inp = Scanner(snipersTxtPath.toFile())
         val m = inp.nextInt();
         val urls = Array(m) { inp.next() }
         inp.close()
         for (i in urls.indices) {
+            var file: File? = null
+            try {
+                file = File((Config.configDirectory.toAbsolutePath().toString() + "/coordinates-${i + 1}.txt"))
+            } catch (e: Exception) {
+                println(e.message);
+            }
+            require(file != null)
+
             snipers.add(
                 SniperInfo(
                     urls[i],
-                    File(coordinatesTxtPath + "-${i + 1}.txt"),
+                    file,
                     i + 1
                 )
             )

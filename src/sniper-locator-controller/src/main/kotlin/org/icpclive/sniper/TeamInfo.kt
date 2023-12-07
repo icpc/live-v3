@@ -16,6 +16,6 @@ data class TeamInfo(
     val medias: Map<TeamMediaType, MediaType>,
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
-    val organizationId: String?,
+    val organizationId: String? = null,
     val customFields: Map<String, String> = emptyMap(),
 )

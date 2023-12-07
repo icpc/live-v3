@@ -8,7 +8,6 @@ import kotlin.math.hypot
 object SniperMover {
     @JvmStatic
     fun main(args: Array<String>) {
-        Util.init()
         Locale.setDefault(Locale.US)
         val `in` = Scanner(System.`in`)
         while (true) {

@@ -22,9 +22,8 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/snipers.txt") { configDirectory.resolve("snipers.txt") }
 
-    val coordinatesTxtPath: String = configDirectory.toAbsolutePath().toString() + "/coordinates";
 
-    val overlayURL = "127.0.0.1:8080"
+    val overlayURL = "http://127.0.0.1:8080"
 
     override fun run() {
         println("Fdsfdsfds")
