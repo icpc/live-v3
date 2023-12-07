@@ -7,6 +7,5 @@ object LocatorController {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        Util.init();
     }
 }

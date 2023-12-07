@@ -3,6 +3,7 @@ package org.icpclive.sniper
 import java.io.File
 import java.util.*
 
+
 class SniperInfo(val hostName: String, val coordinatesFile: File, val cameraID: Int) {
     var coordinates = load()
 
