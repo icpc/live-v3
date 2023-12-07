@@ -1,12 +1,14 @@
 package org.icpclive.sniper
 
-import java.io.*
+import java.io.File
 import java.util.*
 
 class SniperInfo(val hostName: String, val coordinatesFile: File, val cameraID: Int) {
     var coordinates = load()
 
-    fun update() { coordinates = load() }
+    fun update() {
+        coordinates = load()
+    }
 
     private fun load() : Array<LocatorPoint> {
         return Scanner(coordinatesFile).use { inp ->
@@ -17,7 +19,7 @@ class SniperInfo(val hostName: String, val coordinatesFile: File, val cameraID: 
         }
     }
 
-    override fun toString(): String {
-        return "Sniper ${cameraID + 1}"
+    override fun toString() : String {
+        return "Sniper ${cameraID + 1}";
     }
 }

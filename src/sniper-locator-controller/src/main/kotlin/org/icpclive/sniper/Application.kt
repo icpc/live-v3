@@ -15,6 +15,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
 import org.icpclive.util.defaultJsonSettings
 import org.slf4j.event.Level
 import java.time.Duration
@@ -68,6 +70,27 @@ fun Application.module() {
         }
 
         route("/api") {
+            post("/move") {
+                val text = call.receiveText();
+                try {
+                    val request = Json.decodeFromString<MoveRequest>(text)
+                    SniperMover.moveToTeam(request.sniperID, request.teamID);
+                } catch (e: SerializationException) {
+                    throw e;
+                }
+            }
+            get("/snipers") {
+                val ids = SnipersID(ArrayList());
+                for (sniper in Util.snipers) {
+                    ids.ids.add(sniper.cameraID + 1);
+                }
+                call.respond(ids);
+            }
+            get("/teams") {
+                val hostName = Config.overlayURL + "api/admin/teamView/teams";
+                val teams = Json.decodeFromString<TeamsResponse>(Util.sendGet(hostName))
+                call.respond(teams)
+            }
         }
     }
 }

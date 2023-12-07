@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.server.websockets)
     implementation(libs.logback)
+    implementation(project(mapOf("path" to ":cds")))
 
     testImplementation(libs.kotlin.junit)
     testImplementation(libs.ktor.server.tests)
