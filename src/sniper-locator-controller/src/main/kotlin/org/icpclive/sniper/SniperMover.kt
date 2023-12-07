@@ -1,6 +1,6 @@
 package org.icpclive.sniper
 
-import java.io.*
+import java.io.File
 import java.util.*
 import kotlin.math.atan2
 import kotlin.math.hypot
@@ -50,7 +50,7 @@ object SniperMover {
         while (scanner.hasNextInt()) {
             val id = scanner.nextInt()
             if (id == teamId) {
-                 return LocatorPoint(
+                return LocatorPoint(
                     scanner.nextDouble(),
                     scanner.nextDouble(),
                     scanner.nextDouble()

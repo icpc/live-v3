@@ -28,6 +28,7 @@ const mainPages = {
     "Spotlight": "teamSpotlight",
     "Advanced": "advancedJson",
     // "Advanced Properties": "AdvancedProperties",
+    "Sniper Locator": "sniperLocator"
 };
 const locatorPages = {
     "Locator": "locator",
