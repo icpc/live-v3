@@ -313,7 +313,6 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         @Throws(FileNotFoundException::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            Util.init()
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
             SniperCalibrator(Util.snipers[sniper - 1].hostName).run()
