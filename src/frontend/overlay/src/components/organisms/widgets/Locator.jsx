@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { ContestantViewCorner } from "../../molecules/info/ContestantViewCorner";
 
 const slideIn = keyframes`
   from {
@@ -87,7 +88,7 @@ export const Locator = ({ widgetData, transitionState }) => {
                     animation={transitionState === "exiting" ? slideOut : slideIn}
                     animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
                     duration={(index + 1) * 1500}>
-                    <TeamInfo key={index + "teamInfo"} teamId={circle.teamId}/>
+                    <ContestantViewCorner key={index + "teamInfo"} teamId={circle.teamId}/>
 
                 </TeamViewWrapper>
 

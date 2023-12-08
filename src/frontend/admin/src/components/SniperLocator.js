@@ -92,23 +92,21 @@ const VariantSelect = ({ variants, variant, setVariant }) => {
 };
 
 VariantSelect.propTypes = {
-    variant: PropTypes.oneOf(["single"]).isRequired,
+    variant: PropTypes.oneOf(["1", ]).isRequired,
     setVariant: PropTypes.func.isRequired,
 };
 
 const InstanceStatus = ({ selectedInstance, onShow, onHide }) => {
     const isShowButtonDisabled = !(selectedInstance || selectedInstance === undefined);
     return (
-        <Paper>
-            <Stack sx={{ mb: 1 }} spacing={1} direction="row" flexWrap="wrap" alignItems={"center"}>
-                <ButtonGroup variant="contained" sx={{ m: 2 }}>
-                    <Button color="primary" disabled={isShowButtonDisabled} onClick={onShow(true)}>
-                        {selectedInstance ? "Selected" : "Show here"}
-                    </Button>
-                    <Button color="error" onClick={onHide}>Hide</Button>
-                </ButtonGroup>
-            </Stack>
-        </Paper>
+        <Stack sx={{ mb: 1 }} spacing={1} direction="row" flexWrap="wrap" alignItems={"center"}>
+            <ButtonGroup variant="contained" sx={{ m: 0 }}>
+                <Button color="primary" disabled={isShowButtonDisabled} onClick={onShow(true)}>
+                    {selectedInstance ? "Selected" : "Show here"}
+                </Button>
+                <Button color="error" onClick={onHide}>Hide</Button>
+            </ButtonGroup>
+        </Stack>
     );
 };
 

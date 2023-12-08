@@ -5,6 +5,8 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.icpclive.sniper.Config.snipersTxtPath
 import java.io.File
 import java.nio.file.Path
@@ -69,6 +71,23 @@ object Util {
         require(newTilt != null)
         require(newAngle != null)
         return LocatorConfig(newPan, newTilt, newAngle)
+    }
+
+     fun loadLocatorPoints(sniperNumber: Int): List<LocatorPoint> {
+        val scanner = Scanner(Config.configDirectory.resolve("/coordinates-$sniperNumber.txt"))
+        val n = scanner.nextInt()
+
+        val allPoints = mutableListOf<LocatorPoint>()
+        for (i in 1..n) {
+            val point = LocatorPoint(
+                scanner.next(),
+                scanner.nextDouble(),
+                scanner.nextDouble(),
+                scanner.nextDouble()
+            )
+            allPoints.add(point)
+        }
+        return allPoints
     }
 
     private fun init(snipersPath: String, configDir: Path) {

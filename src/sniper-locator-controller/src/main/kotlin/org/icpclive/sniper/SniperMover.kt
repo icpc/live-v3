@@ -4,7 +4,6 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import org.icpclive.util.getLogger
-import java.io.File
 import java.util.*
 import kotlin.math.atan2
 import kotlin.math.hypot
@@ -18,7 +17,7 @@ object SniperMover {
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
             println("Select team")
-            val teamId = `in`.nextInt()
+            val teamId = `in`.next()
             if (moveToTeam(sniper, teamId) == null) {
                 println("No such team $teamId location for sniper $sniper")
             }
@@ -27,7 +26,7 @@ object SniperMover {
 
     private const val DEFAULT_SPEED = "0.52"
 
-    suspend fun moveToTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
+    suspend fun moveToTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
         val point = getLocationPointByTeam(sniperNumber, teamId) ?: return null
 
         if (point.y > 0) {
@@ -48,21 +47,8 @@ object SniperMover {
         return point
     }
 
-    private fun getLocationPointByTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
-        val scanner =
-            Scanner(File(Config.configDirectory.toAbsolutePath().toString() + "/coordinates-$sniperNumber.txt"))
-        scanner.nextInt() // count of teams in coordinates file (we can ignore this number)
-        while (scanner.hasNextInt()) {
-            val id = scanner.nextInt()
-            if (id == teamId) {
-                return LocatorPoint(
-                    scanner.nextDouble(),
-                    scanner.nextDouble(),
-                    scanner.nextDouble()
-                )
-            }
-        }
-        return null
+    private fun getLocationPointByTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
+        return Util.loadLocatorPoints(sniperNumber).find { it.id == teamId }
     }
 
     @Throws(Exception::class)

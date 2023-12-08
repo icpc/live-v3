@@ -3,14 +3,14 @@ package org.icpclive.sniper
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SniperRequest(val sniperId: Int, val teamId: Int)
+data class SniperRequest(val sniperId: Int, val teamId: String)
 
 @Serializable
 data class TeamLocatorCircleSettings(
     val x: Int,
     val y: Int,
     val radius: Int,
-    val cdsTeamId: Int,
+    val cdsTeamId: String,
 )
 
 @Serializable

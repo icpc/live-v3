@@ -22,7 +22,10 @@ kotlin {
 tasks {
     runTask {
         this.workingDir(rootDir.resolve("."))
-        this.args = listOfNotNull(project.properties["live.configDirectory"]?.let { "--config-directory=$it" })
+        this.args = listOfNotNull(
+            project.properties["live.configDirectory"]?.let { "--config-directory=$it" },
+            project.properties["live.overlayUrl"]?.let { "--overlay=$it" },
+        )
     }
     processResources {
         into("admin") {
