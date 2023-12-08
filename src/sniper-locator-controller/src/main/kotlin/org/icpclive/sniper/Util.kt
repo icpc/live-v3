@@ -1,37 +1,32 @@
 package org.icpclive.sniper
 
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import org.icpclive.sniper.Config.snipersTxtPath
 import java.io.File
-import java.net.HttpURLConnection
-import java.net.URI
-import java.nio.charset.StandardCharsets
+import java.nio.file.Path
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.max
-import kotlin.math.min
 
 object Util {
+    val httpClient = HttpClient(CIO) {
+        install(HttpTimeout)
+    }
+
+    suspend fun sniperRequest(sniperHostName: String, parameters: Map<String, Any?>): String {
+        return httpClient.get("$sniperHostName/axis-cgi/com/ptz.cgi") {
+            for (parameter in parameters) {
+                parameter(parameter.key, parameter.value)
+            }
+        }.bodyAsText()
+    }
+
     val snipers: MutableList<SniperInfo> = ArrayList()
     const val ANGLE = 1.28
     private var inited: Boolean = false
-
-    fun sendGet(url: String): String {
-        println("send get $url")
-        val obj = URI(url).toURL()
-        val con = obj.openConnection() as HttpURLConnection
-        con.requestMethod = "GET"
-//        val auth: String = "admin" + ":" + "admin"
-//        val encodedAuth: ByteArray = Base64.getEncoder().encode(auth.toByteArray(StandardCharsets.UTF_8))
-//        val authHeaderValue = "Basic " + String(encodedAuth)
-//        con.setRequestProperty("Authorization", authHeaderValue)
-        return con.inputStream.reader().buffered().use {
-            buildString {
-                while (true) {
-                    append(it.readLine() ?: break)
-                }
-            }
-        }
-    }
 
     fun getUTCTime(): String {
         val sdf = SimpleDateFormat("yyyy-MM-d'T'HH:mm:ss'Z'")
@@ -76,19 +71,19 @@ object Util {
         return LocatorConfig(newPan, newTilt, newAngle)
     }
 
-    private fun init(snipersPath: String, configDir: String) {
+    private fun init(snipersPath: String, configDir: Path) {
         val inp = Scanner(File(snipersPath))
-        val m = inp.nextInt();
+        val m = inp.nextInt()
         val urls = Array(m) { inp.next() }
         inp.close()
         for (i in urls.indices) {
-            var file: File? = null
+            val file: File
             try {
-                file = File((configDir + "/coordinates-${i + 1}.txt"))
+                file = configDir.resolve("coordinates-${i + 1}.txt").toFile()
             } catch (e: Exception) {
-                println(e.message);
+                println(e.message)
+                throw e
             }
-            require(file != null)
 
             snipers.add(
                 SniperInfo(
@@ -100,28 +95,13 @@ object Util {
         }
     }
 
-    fun initForCalibrator(snipersPath: String, configDir: String) {
+    fun initForCalibrator(snipersPath: String, configDir: Path) {
         init(snipersPath, configDir)
     }
 
     fun initForServer() {
-        if (inited) return;
+        if (inited) return
         inited = true
-        init(snipersTxtPath.toString(), Config.configDirectory.toAbsolutePath().toString())
-    }
-
-    fun sendPost(urlString: String, contentType: String?, data: String) {
-        val url = URI(urlString).toURL()
-        val con = url.openConnection() as HttpURLConnection
-        con.requestMethod = "POST"
-        con.setRequestProperty("Content-Type", contentType)
-        con.doOutput = true
-        val out = data.toByteArray(StandardCharsets.UTF_8)
-        val length = out.size
-        con.setFixedLengthStreamingMode(length)
-        con.connect()
-        con.outputStream.use {
-            it.write(out)
-        }
+        init(snipersTxtPath.toString(), Config.configDirectory.toAbsolutePath())
     }
 }

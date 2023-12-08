@@ -1,5 +1,6 @@
 package org.icpclive.sniper
 
+import kotlinx.coroutines.runBlocking
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Image
@@ -10,6 +11,7 @@ import java.awt.event.MouseListener
 import java.awt.image.BufferedImage
 import java.io.*
 import java.net.URI
+import java.nio.file.Path
 import java.util.*
 import javax.swing.ImageIcon
 import javax.swing.JFrame
@@ -20,7 +22,7 @@ import kotlin.math.sign
 import kotlin.math.sqrt
 import kotlin.system.exitProcess
 
-class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, KeyListener {
+class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, KeyListener {
     private var image: Image? = null
     var pan = 0.0
     var tilt = 0.0
@@ -81,14 +83,17 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         frame!!.isVisible = true
     }
 
-    @Synchronized
     @Throws(Exception::class)
-    private fun updateState() {
+    private suspend fun updateState() {
         val conf = Util.parseCameraConfiguration(
-            Util.sendGet(
-                url +
-                        "/axis-cgi/com/ptz.cgi?query=position,limits&camera=1&html=no&timestamp=" +
-                        Util.getUTCTime()
+            Util.sniperRequest(
+                url,
+                mapOf(
+                    "query" to "position,limits",
+                    "camera" to 1,
+                    "html" to "no",
+                    "timestamp" to Util.getUTCTime()
+                )
             )
         )
         tilt = conf.tilt
@@ -101,7 +106,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         val g = this.image!!.graphics as Graphics2D
         g.drawImage(image, 0, 0, WIDTH, HEIGHT, null)
         try {
-            updateState()
+            runBlocking { updateState() }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -162,6 +167,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
 
     var input: MutableList<Position> = ArrayList()
     var locations: MutableList<Position> = ArrayList()
+
     @Throws(IOException::class)
     fun readInput() {
         val reader = BufferedReader(FileReader("config/icpc-nef/2022-2023/input.txt"))
@@ -310,10 +316,11 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         private const val COMPENSATION_X = 1.0
         private const val COMPENSATION_Y = 1.0
         private val `in` = Scanner(System.`in`)
+
         @Throws(FileNotFoundException::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            Util.initForCalibrator("config/icpc-nef/2022-2023/snipers.txt", "config/icpc-nef/2022-2023")
+            Util.initForCalibrator("config/icpc-nef/2022-2023/snipers.txt", Path.of("config/icpc-nef/2022-2023"))
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
             SniperCalibrator(Util.snipers[sniper - 1].hostName).run()

@@ -15,8 +15,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
 import org.icpclive.util.defaultJsonSettings
 import org.slf4j.event.Level
 import java.time.Duration
@@ -59,6 +57,7 @@ fun Application.module() {
 //    environment.log.info("Using config directory ${Config.configDirectory.toAbsolutePath()}")
 //    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     setupKtorPlugins()
+    Util.initForServer()
     routing {
         singlePageApplication {
             useResources = true
@@ -71,24 +70,17 @@ fun Application.module() {
 
         route("/api") {
             post("/move") {
-                Util.initForServer()
-                val text = call.receiveText();
-                try {
-                    val request = Json.decodeFromString<MoveRequest>(text)
-                    SniperMover.moveToTeam(request.sniperID, request.teamID);
-                    call.respond("OK")
-                } catch (e: SerializationException) {
-                    throw e;
-                }
-                call.respond("Failed")
+                val request = call.receive<Api>()
+                SniperMover.moveToTeam(request.sniperID, request.teamID)
+                call.respond("OK")
             }
+
             get("/snipers") {
-                Util.initForServer()
-                val ids = SnipersID(ArrayList());
+                val ids = SnipersID(ArrayList())
                 for (sniper in Util.snipers) {
-                    ids.ids.add(sniper.cameraID);
+                    ids.ids.add(sniper.cameraID)
                 }
-                call.respond(ids);
+                call.respond(ids)
             }
         }
     }
