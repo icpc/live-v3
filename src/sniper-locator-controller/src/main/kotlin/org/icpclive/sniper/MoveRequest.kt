@@ -1,3 +1,6 @@
 package org.icpclive.sniper
 
-class MoveRequest(val sniperID: Int, val teamID: Int)
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class MoveRequest(val sniperID: Int, val teamID: Int)

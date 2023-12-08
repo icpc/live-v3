@@ -71,34 +71,24 @@ fun Application.module() {
 
         route("/api") {
             post("/move") {
-                Util.init()
+                Util.initForServer()
                 val text = call.receiveText();
                 try {
                     val request = Json.decodeFromString<MoveRequest>(text)
                     SniperMover.moveToTeam(request.sniperID, request.teamID);
+                    call.respond("OK")
                 } catch (e: SerializationException) {
                     throw e;
                 }
+                call.respond("Failed")
             }
             get("/snipers") {
-                Util.init()
+                Util.initForServer()
                 val ids = SnipersID(ArrayList());
                 for (sniper in Util.snipers) {
                     ids.ids.add(sniper.cameraID);
                 }
                 call.respond(ids);
-            }
-            get("/teams") {
-                Util.init()
-                val hostName = Config.overlayURL + "/api/admin/teamView/teams"
-                val content = "{\"teams\":" + Util.sendGet(hostName) + "}"
-
-                try {
-                    val teams = Json.decodeFromString<TeamsResponse>(content)
-                    call.respond(teams)
-                } catch (e: SerializationException) {
-                    println(e.message)
-                }
             }
         }
     }
