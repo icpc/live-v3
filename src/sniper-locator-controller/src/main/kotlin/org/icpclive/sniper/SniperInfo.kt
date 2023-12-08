@@ -4,12 +4,8 @@ import java.io.File
 import java.util.*
 
 
-class SniperInfo(val hostName: String, val coordinatesFile: File, val cameraID: Int) {
-    var coordinates = load()
-
-    fun update() {
-        coordinates = load()
-    }
+class SniperInfo(val hostName: String, private val coordinatesFile: File, val cameraID: Int) {
+    private var coordinates = load()
 
     private fun load() : Array<LocatorPoint> {
         return Scanner(coordinatesFile).use { inp ->

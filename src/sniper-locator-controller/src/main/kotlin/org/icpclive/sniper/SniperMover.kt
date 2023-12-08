@@ -1,5 +1,9 @@
 package org.icpclive.sniper
 
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import org.icpclive.util.getLogger
 import java.io.File
 import java.util.*
 import kotlin.math.atan2
@@ -7,7 +11,7 @@ import kotlin.math.hypot
 
 object SniperMover {
     @JvmStatic
-    fun main(args: Array<String>) {
+    suspend fun main(args: Array<String>) {
         Locale.setDefault(Locale.US)
         val `in` = Scanner(System.`in`)
         while (true) {
@@ -23,7 +27,7 @@ object SniperMover {
 
     private const val DEFAULT_SPEED = "0.52"
 
-    fun moveToTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
+    suspend fun moveToTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
         val point = getLocationPointByTeam(sniperNumber, teamId) ?: return null
 
         if (point.y > 0) {
@@ -45,7 +49,8 @@ object SniperMover {
     }
 
     private fun getLocationPointByTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
-        val scanner = Scanner(File(Config.configDirectory.toAbsolutePath().toString() +  "/coordinates-$sniperNumber.txt"))
+        val scanner =
+            Scanner(File(Config.configDirectory.toAbsolutePath().toString() + "/coordinates-$sniperNumber.txt"))
         scanner.nextInt() // count of teams in coordinates file (we can ignore this number)
         while (scanner.hasNextInt()) {
             val id = scanner.nextInt()
@@ -61,20 +66,25 @@ object SniperMover {
     }
 
     @Throws(Exception::class)
-    private fun move(sniper: Int, pan: Double, tilt: Double, zoom: Int) {
+    private suspend fun move(sniper: Int, pan: Double, tilt: Double, zoom: Int) {
         val hostName = Util.snipers[sniper - 1].hostName
-        Util.sendGet(
-            hostName + "/axis-cgi/com/ptz.cgi?camera=1" +
-                    "&tilt=" + tilt +
-                    "&pan=" + pan +
-                    "&zoom=" + zoom +
-                    "&speed=100" +
-                    "&timestamp=" + Util.getUTCTime()
+        val setPositionResponse = Util.sniperRequest(
+            hostName, mapOf(
+                "camera" to 1,
+                "tilt" to tilt,
+                "pan" to pan,
+                "zoom" to zoom,
+                "speed" to 100,
+                "timestamp" to Util.getUTCTime()
+            )
         )
-        Util.sendGet(
-            hostName + "/axis-cgi/com/ptz.cgi?camera=1" +
-                    "&speed=" + DEFAULT_SPEED +
-                    "&timestamp=" + Util.getUTCTime()
+        logger.info("Set sniper $sniper position: $setPositionResponse")
+
+        val setSpeedResponse = Util.sniperRequest(
+            hostName, mapOf("camera" to 1, "speed" to DEFAULT_SPEED, "timestamp" to Util.getUTCTime())
         )
+        logger.info("Set sniper $sniper speed: $setSpeedResponse")
     }
+
+    private val logger = getLogger(this::class)
 }
