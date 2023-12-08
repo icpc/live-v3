@@ -45,7 +45,7 @@ function App() {
                 <div className="App">
                     <AppNav showOrHideOverlayPerview={() => setIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
                     <Routes>
-                        <Route path="/" element={<Controls/>}/>
+                        <Route path="/" element={process.env.REACT_APP_MODE === "locator" ? <SniperLocator/> : <Controls/>}/>
                         <Route path="/controls" element={<Controls/>}/>
                         {/* <Route path="/advertisement" element={<Advertisement/>}/> */}
                         {/* <Route path="/title" element={<Title/>}/> */}

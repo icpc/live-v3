@@ -69,19 +69,7 @@ fun Application.module() {
         }
 
         route("/api") {
-            post("/move") {
-                val request = call.receive<Api>()
-                SniperMover.moveToTeam(request.sniperID, request.teamID)
-                call.respond("OK")
-            }
-
-            get("/snipers") {
-                val ids = SnipersID(ArrayList())
-                for (sniper in Util.snipers) {
-                    ids.ids.add(sniper.cameraID)
-                }
-                call.respond(ids)
-            }
+            route("/admin") { setupRouting() }
         }
     }
 }

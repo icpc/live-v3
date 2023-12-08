@@ -1,10 +1,11 @@
 import { createApiPost } from "../utils";
+import { BASE_URL_BACKEND } from "../config";
 
 const WEBSOCKET_RECONNECT_TIME = 3000;
 const BACKEND_PORT = 8080;
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const BASE_URL_WS = process.env.REACT_APP_WEBSOCKET_URL ?? (WS_PROTO + window.location.hostname + ":" + BACKEND_PORT + "/api/admin");
-const BASE_URL_BACKEND = "http://127.0.0.1:8080/api/admin";
+// const BASE_URL_BACKEND = "http://127.0.0.1:8080/api/admin";
 const ADMIN_ACTIONS_WS_URL = BASE_URL_WS + "/adminActions";
 
 const createApiGet = (apiUrl) =>
@@ -21,8 +22,9 @@ export class AbstractWidgetServiceForSniper {
     constructor(apiPath, errorHandler, listenWS) {
         this.apiPath = apiPath;
         this.apiUrl = BASE_URL_BACKEND + apiPath;
+        console.log(this.apiUrl);
         this.apiGet = createApiGet(this.apiUrl);
-        this.apiPost = createApiPost("http://127.0.0.1:8083/api");
+        this.apiPost = createApiPost(this.apiUrl);
         this.errorHandler = cause => e => this.handleError(cause, e);
         if (listenWS) {
             this.openWS();

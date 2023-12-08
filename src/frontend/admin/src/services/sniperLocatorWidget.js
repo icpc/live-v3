@@ -1,24 +1,11 @@
-import { AbstractWidgetService } from "./abstractWidget";
 import { useMemo } from "react";
-import { AbstractWidgetServiceForSniper } from "./abstractWidgetForSniper";
+import { AbstractWidgetService } from "./abstractWidget";
 
-const getTeamViewVariantParams = (variant) => {
-    switch (variant) {
-    case "splitScreen":
-        return [["TOP_LEFT", "TOP_RIGHT", "BOTTOM_LEFT", "BOTTOM_RIGHT"], "splitScreen"];
-    case "pvp":
-        return [["PVP_TOP", "PVP_BOTTOM"], "teamPVP"];
-    default:
-        return [[null], "teamView"];
-    }
-};
-
-export class TeamViewService extends AbstractWidgetServiceForSniper {
-    constructor(variant, errorHandler, listenWS = true) {
-        const [instances, apiPath] = getTeamViewVariantParams(variant);
-        super("/" + apiPath, errorHandler, listenWS);
+export class TeamViewService extends AbstractWidgetService {
+    constructor(variant, errorHandler, listenWS = false) {
+        super("", errorHandler, listenWS);
         this.variant = variant;
-        this.instances = instances;
+        this.instances = [];
     }
 
     isMessageRequireReload(data) {
@@ -51,9 +38,26 @@ export class TeamViewService extends AbstractWidgetServiceForSniper {
     teams() {
         return this.apiGet("/teams").catch(this.errorHandler("Failed to load team list"));
     }
+
+    snipers() {
+        return this.apiGet("/snipers").catch(this.errorHandler("Failed to load snipers list"));
+    }
+
+    moveWithSettings(settings) {
+        console.log(settings);
+        return this.apiPost(this.presetSubPath() + "/move", settings).catch(this.errorHandler("Failed to move sniper"));
+    }
+
+    showWithSettings(settings) {
+        return this.apiPost(this.presetSubPath() + "/show_with_settings", settings).catch(this.errorHandler("Failed to show locator"));
+    }
+
+    hide() {
+        return this.apiPost(this.presetSubPath() + "/hide").catch(this.errorHandler("Failed to hide locator"));
+    }
 }
 
-export const useTeamViewService = (variant, errorHandler, listenWS) =>
+export const useLocatorService = (errorHandler, listenWS) =>
     useMemo(
-        () => new TeamViewService(variant, errorHandler, listenWS),
-        [variant, errorHandler, listenWS]);
+        () => new TeamViewService("single", errorHandler, listenWS),
+        [errorHandler, listenWS]);

@@ -7,6 +7,8 @@ import java.util.*
 class SniperInfo(val hostName: String, private val coordinatesFile: File, val cameraID: Int) {
     private var coordinates = load()
 
+    fun update() { coordinates = load() }
+
     private fun load() : Array<LocatorPoint> {
         return Scanner(coordinatesFile).use { inp ->
             inp.useLocale(Locale.US)
@@ -17,6 +19,6 @@ class SniperInfo(val hostName: String, private val coordinatesFile: File, val ca
     }
 
     override fun toString() : String {
-        return "Sniper ${cameraID + 1}";
+        return "Sniper ${cameraID + 1}"
     }
 }
