@@ -1,62 +1,26 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
     Container,
     Box,
     ToggleButtonGroup,
     ToggleButton,
-    Grid,
     Paper,
     Stack,
     Button,
     ButtonGroup,
-    Tooltip,
-    Switch,
     TextField,
     InputAdornment,
     FormLabel,
     FormControl,
-    FormControlLabel,
     ThemeProvider,
     createTheme,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "../errors";
-import { TeamViewService, useTeamViewService } from "../services/sniperLocatorWidget";
-import SingleTeamViewIcon from "@mui/icons-material/WebAsset";
-import PVPTeamViewIcon from "@mui/icons-material/Splitscreen";
-import SplitTeamViewIcon from "@mui/icons-material/GridView";
-import TopIcon from "@mui/icons-material/VerticalAlignTop";
-import BottomIcon from "@mui/icons-material/VerticalAlignBottom";
-import TopLeftIcon from "@mui/icons-material/NorthWest";
-import TopRightIcon from "@mui/icons-material/NorthEast";
-import BottomLeftIcon from "@mui/icons-material/SouthWest";
-import BottomRightIcon from "@mui/icons-material/SouthEast";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { TeamViewService, useLocatorService } from "../services/sniperLocatorWidget";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
-import { SelectTeamTable, TEAM_FIELD_STRUCTURE, TeamViewSettingsPanel } from "./TeamTable";
+import { SelectTeamTable } from "./TeamTable";
 import PropTypes from "prop-types";
-
-const AUTOMODE_TEAM = {
-    "id": null,
-    "name": "Automode",
-    "shortName": "Automode",
-    "contestSystemId": null,
-    "groups": [],
-    "medias": {},
-    "shown": false,
-};
-
-const useTeamviewService = (service, setStatus) => {
-    const loadStatus = useMemo(() => {
-        return () => service.loadElements().then(s => setStatus(st => ({ ...st, ...s })));
-    }, [service, setStatus]);
-    useEffect(() => loadStatus(), []);
-    useEffect(() => {
-        service.addReloadDataHandler(loadStatus);
-        return () => service.deleteReloadDataHandler(loadStatus);
-    }, [service, loadStatus]);
-};
 
 const isTeamSatisfiesSearch = (team, searchValue) => {
     if (searchValue === "" || team.id === null) {
@@ -113,7 +77,7 @@ const teamViewTheme = createTheme({
     },
 });
 
-const VariantSelect = ({ variant, setVariant }) => {
+const VariantSelect = ({ variants, variant, setVariant }) => {
     return (
         <ToggleButtonGroup
             value={variant}
@@ -122,7 +86,7 @@ const VariantSelect = ({ variant, setVariant }) => {
             exclusive
             onChange={(_, v) => v && setVariant(v)}
         >
-            <ToggleButton value={"single"}><SingleTeamViewIcon />Single</ToggleButton>
+            {variants.ids.map(v => <ToggleButton key={v} value={v}>Sniper {v}</ToggleButton>)}
         </ToggleButtonGroup>
     );
 };
@@ -132,170 +96,47 @@ VariantSelect.propTypes = {
     setVariant: PropTypes.func.isRequired,
 };
 
-const InstanceStatus = ({ instanceId, Icon, status, teams, selectedInstance, onShow, onHide }) => {
-    const iStatus = status[instanceId];
-    const shownTeam = useMemo(
-        () => teams.find(t => t.id === iStatus?.settings?.teamId),
-        [teams, status]);
-    const isShowButtonDisabled = !(selectedInstance === instanceId || selectedInstance === undefined);
+const InstanceStatus = ({ selectedInstance, onShow, onHide }) => {
+    const isShowButtonDisabled = !(selectedInstance || selectedInstance === undefined);
     return (
         <Paper>
             <Stack sx={{ mb: 1 }} spacing={1} direction="row" flexWrap="wrap" alignItems={"center"}>
-                {Icon && <Icon fontSize={"large"} color={iStatus?.shown ? "primary" : "disabled"} />}
                 <ButtonGroup variant="contained" sx={{ m: 2 }}>
-                    <Button color="primary" disabled={isShowButtonDisabled} onClick={onShow(instanceId)}>
-                        {selectedInstance === instanceId ? "Selected" : (!iStatus?.shown ? "Show here" : "Replace here")}
+                    <Button color="primary" disabled={isShowButtonDisabled} onClick={onShow(true)}>
+                        {selectedInstance ? "Selected" : "Show here"}
                     </Button>
-                    <Button color="error" disabled={!iStatus?.shown} onClick={onHide(instanceId)}>Hide</Button>
+                    <Button color="error" onClick={onHide}>Hide</Button>
                 </ButtonGroup>
             </Stack>
-            <Box>Team: {shownTeam?.name ?? "Auto"}</Box>
-            <Box>Media: {iStatus?.settings?.mediaTypes?.join(", ")}</Box>
         </Paper>
     );
 };
 
 InstanceStatus.propTypes = {
-    instanceId: PropTypes.string,
-    Icon: PropTypes.elementType.isRequired,
-    status: PropTypes.object.isRequired,
-    teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE).isRequired,
     selectedInstance: PropTypes.string,
     onShow: PropTypes.func.isRequired,
     onHide: PropTypes.func.isRequired,
 };
 
-const InstancesManager = ({ variant, ...props }) => {
-    return (
-        <>
-            {variant === "single" && (
-                <InstanceStatus instanceId={null} Icon={SingleTeamViewIcon} {...props} />
-            )}
-        </>
-    );
-};
-
-InstancesManager.propTypes = {
-    variant: PropTypes.string,
-    instanceId: PropTypes.string,
-    Icon: PropTypes.node,
-    status: PropTypes.object.isRequired,
-    teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE).isRequired,
-    selectedInstance: PropTypes.string,
-    onShow: PropTypes.func.isRequired,
-    onHide: PropTypes.func.isRequired,
-};
-
-const TeamViewInstanceStatus = ({ instanceName, status, teams }) => {
-    const shownTeam = useMemo(
-        () => teams.find(t => t.id === status.settings.teamId),
-        [teams, status]);
-    return (
-        <Box>
-            <Box><b>Instance {instanceName ?? "SINGLE"}</b> {status.shown && "shown"}</Box>
-            <Box>Team: {shownTeam?.name ?? "Auto"}</Box>
-            <Box>Media: {status.settings.mediaTypes?.join(", ")}</Box>
-        </Box>
-    );
-};
-
-TeamViewInstanceStatus.propTypes = {
-    instanceName: PropTypes.any,
-    status: PropTypes.shape({
-        shown: PropTypes.bool.isRequired,
-        settings: PropTypes.shape({
-            teamId: PropTypes.number,
-            mediaTypes: PropTypes.arrayOf(PropTypes.string.isRequired),
-        }).isRequired,
-    }).isRequired,
-    teams: PropTypes.arrayOf(TEAM_FIELD_STRUCTURE).isRequired,
-};
-
-const MultipleModeSwitch = ({ currentService, setIsMultipleMode }) => {
-    return (
-        <Tooltip
-            sx={{ display: "flex", alignContent: "center" }}
-            title="When enabled any modifications to the team instances will be applied after you press Show all"
-        >
-            <Box>
-                <Box sx={{ p: 1 }}>
-                    Mulitple mode
-                </Box>
-                <Switch onChange={(_, newV) => setIsMultipleMode(newV)} />
-                <ButtonGroup>
-                    <Button
-                        variant="contained"
-                        onClick={() => currentService?.showAll()}
-                        startIcon={<VisibilityIcon />}
-                    >
-                        All
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => currentService?.hideAll()}
-                        startIcon={<VisibilityOffIcon />}
-                    >
-                        All
-                    </Button>
-                </ButtonGroup>
-            </Box>
-        </Tooltip>
-    );
-};
-
-MultipleModeSwitch.propTypes = {
-    currentService: PropTypes.instanceOf(TeamViewService).isRequired,
-    setIsMultipleMode: PropTypes.func.isRequired,
-};
-
-const SniperViewManager = ({ singleService }) => {
-    const [status, setStatus] = useState({});
-    useTeamviewService(singleService, setStatus);
-
-    const [variant, setVariant] = useState("single");
+const useSniperList = (sniperLocatorService) => {
+    const [snipers, setSnipers] = useState({ ids: [] });
     useEffect(() => {
-        if (Object.values(status).length === 7 && variant === undefined) {
-            const shownInstance = Object.entries(status).find(([, i]) => i.shown);
-            if (!shownInstance || shownInstance[0] === null) {
-                setVariant("single");
-            }
-        }
-    }, [status]);
+        sniperLocatorService.snipers().then(s => setSnipers(s));
+    }, []);
+    return snipers;
+};
+
+const SniperViewManager = ({ service }) => {
+    const snipers = useSniperList(service);
+    const [sniper, setSniper] = useState(1);
 
     const [rawTeams, setRawTeams] = useState([]);
-    const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, status);
+    const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, {});
     useEffect(() => {
-        singleService.teams().then((ts) => setRawTeams([AUTOMODE_TEAM, ...ts]));
-    }, [singleService]);
-
-    const [isMultipleMode, setIsMultipleMode] = useState(false);
+        service.teams().then((ts) => setRawTeams([...ts]));
+    }, [service]);
 
     const [selectedInstance, setSelectedInstance] = useState(undefined);
-    const [mediaTypes1, setMediaTypes1] = useState(undefined);
-    const [mediaTypes2, setMediaTypes2] = useState(undefined);
-    const [statusShown, setStatusShown] = useState(true);
-    const [achievementShown, setAchievementShown] = useState(false);
-    const [selectedSniperID, setSelectedSniperID] = useState(undefined);
-    const SniperIDRef = useRef("");
-
-    const onShow = useCallback(() => {
-        const settings = {
-            mediaTypes: [mediaTypes1 && mediaTypes1[0], mediaTypes2 && mediaTypes2[0]].filter(i => i),
-            teamId: selectedTeamId,
-            sniperID: SniperIDRef.current.value,
-            showTaskStatus: statusShown,
-            showAchievement: achievementShown,
-        };
-        if (isMultipleMode) {
-            singleService.editPreset(selectedInstance, settings);
-        } else {
-            singleService.showPresetWithSettings(selectedInstance, settings);
-        }
-        setSelectedInstance(undefined);
-        setSelectedTeamId(undefined);
-    }, [selectedInstance, singleService, isMultipleMode, mediaTypes1,
-        mediaTypes2, selectedTeamId, statusShown, achievementShown]);
 
     const onInstanceSelect = useCallback((instance) => () => {
         if (instance === selectedInstance) {
@@ -305,9 +146,30 @@ const SniperViewManager = ({ singleService }) => {
         }
     }, [selectedInstance]);
 
-    const onInstanceHide = useCallback((instance) => () => {
-        singleService.hidePreset(instance);
-    }, [singleService]);
+    const onMove = useCallback(() => {
+        const settings = {
+            sniperId: sniper,
+            teamId: selectedTeamId,
+        };
+        console.log(settings);
+        service.moveWithSettings(settings);
+        setSelectedInstance(undefined);
+        setSelectedTeamId(undefined);
+    }, [selectedInstance, selectedTeamId, service]);
+
+    const onShow = useCallback(() => {
+        const settings = {
+            sniperId: sniper,
+            teamId: selectedTeamId,
+        };
+        service.showWithSettings(settings);
+        setSelectedInstance(undefined);
+        setSelectedTeamId(undefined);
+    }, [selectedInstance, selectedTeamId, service]);
+
+    const onHide = useCallback(() => {
+        service.hide();
+    }, [service]);
 
     const selectedTeamName = useMemo(() => {
         if (selectedTeamId === undefined) {
@@ -319,17 +181,9 @@ const SniperViewManager = ({ singleService }) => {
     return (
         <Box>
             <Box sx={{ mb: 1 }} display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center">
-                <VariantSelect variant={variant} setVariant={setVariant} />
-                <MultipleModeSwitch currentService={singleService} setIsMultipleMode={setIsMultipleMode} />
+                <VariantSelect variants={snipers} variant={sniper} setVariant={setSniper} />
             </Box>
-            <InstancesManager
-                variant={variant}
-                status={status}
-                teams={teams}
-                selectedInstance={selectedInstance}
-                onShow={onInstanceSelect}
-                onHide={onInstanceHide}
-            />
+            <InstanceStatus onShow={onInstanceSelect} onHide={onHide} selectedInstance={selectedInstance} />
 
             {selectedInstance !== undefined &&
                 <Paper>
@@ -348,43 +202,35 @@ const SniperViewManager = ({ singleService }) => {
                         </Box>
                     )}
                     {selectedTeamId !== undefined && (
-                        <FormControl fullWidth sx={{ mb: 1 }}>
-                            <FormLabel component="legend">Team name</FormLabel>
-                            <TextField
-                                defaultValue={selectedTeamName}
-                                variant="standard"
-                                fullWidth
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <ArrowDropDown />
-                                        </InputAdornment>
-                                    ),
-                                    onClick: () => setSelectedTeamId(undefined),
-                                }}
-                            />
-                        </FormControl>
-                    )}
-
-                    {selectedTeamId !== undefined && (
                         <>
                             <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Choose sniper</FormLabel>
-                                {/*<TeamViewSettingsPanel*/}
-                                {/*    canShow={true}*/}
-                                {/*    onShowTeam={ts => setMediaTypes1(ts)}*/}
-                                {/*    showHideButton={false}*/}
-                                {/*    selectedMediaTypes={mediaTypes1}*/}
-                                {/*/>*/}
-                                <TextField inputRef={ SniperIDRef }></TextField>
+                                <FormLabel component="legend">Team name</FormLabel>
+                                <TextField
+                                    defaultValue={selectedTeamName}
+                                    variant="standard"
+                                    fullWidth
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <ArrowDropDown />
+                                            </InputAdornment>
+                                        ),
+                                        onClick: () => setSelectedTeamId(undefined),
+                                    }}
+                                />
                             </FormControl>
-                            <Button
-                                color="primary"
-                                variant="contained"
-                                onClick={onShow}
-                            >
-                                Show
-                            </Button>
+                            <ButtonGroup variant="contained">
+                                <Button
+                                    color="secondary"
+                                    variant="contained"
+                                    onClick={onMove}>Move sniper
+                                </Button>
+                                <Button
+                                    color="primary"
+                                    variant="contained"
+                                    onClick={onShow}>Show locator
+                                </Button>
+                            </ButtonGroup>
                         </>
                     )}
                 </Paper>
@@ -394,20 +240,18 @@ const SniperViewManager = ({ singleService }) => {
 };
 
 SniperViewManager.propTypes = {
-    singleService: PropTypes.instanceOf(TeamViewService).isRequired,
-    pvpService: PropTypes.instanceOf(TeamViewService).isRequired,
-    splitService: PropTypes.instanceOf(TeamViewService).isRequired,
+    service: PropTypes.instanceOf(TeamViewService).isRequired,
 };
 
 
 function SniperLocator() {
     const { enqueueSnackbar, } = useSnackbar();
-    const service = useTeamViewService("single", errorHandlerWithSnackbar(enqueueSnackbar));
+    const service = useLocatorService(errorHandlerWithSnackbar(enqueueSnackbar));
 
     return (
         <Container sx={{ pt: 2 }}>
             <ThemeProvider theme={teamViewTheme}>
-                <SniperViewManager singleService={service}/>
+                <SniperViewManager service={service}/>
             </ThemeProvider>
         </Container>
     );

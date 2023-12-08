@@ -21,7 +21,7 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/snipers.txt") { configDirectory.resolve("snipers.txt") }
 
-    private val overlayURL: String by option("-o", "--overlay", help = "Main overlay url").default("http://127.0.0.1:8080")
+     val overlayURL: String by option("-o", "--overlay", help = "Main overlay url").default("http://127.0.0.1:8080")
 
     override fun run() {
         io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
