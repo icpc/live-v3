@@ -29,7 +29,7 @@ tasks {
     }
     named<NpmTask>("npm_run_buildAdmin") {
         outputs.cacheIf { true }
-        environment.set(mapOf("PUBLIC_URL" to "/admin"))
+        environment.set(mapOf("PUBLIC_URL" to "/admin", "BUILD_PATH" to "build", "REACT_APP_MODE" to "main"))
         inputs.dir("admin/src")
         inputs.dir("admin/public")
         inputs.dir("common")

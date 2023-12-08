@@ -1,10 +1,5 @@
 package org.icpclive.sniper
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.io.*
-import java.util.*
-
 object LocatorController {
     private const val WIDTH = 1920
     private const val HEIGHT = 1080
@@ -35,22 +30,8 @@ object LocatorController {
 //        }
 //    }
 
-    suspend fun getLocatorWidgetConfig(sniperNumber: Int, teamIds: Set<Int>): TeamLocatorSettings {
-        val scanner = withContext(Dispatchers.IO) {
-            Scanner(File(Config.configDirectory.toAbsolutePath().toString() + "/coordinates-$sniperNumber.txt"))
-        }
-        val n = scanner.nextInt()
-
-        val allPoints = mutableListOf<LocatorPoint>()
-        for (i in 1..n) {
-            val point = LocatorPoint(
-                scanner.nextInt(),
-                scanner.nextDouble(),
-                scanner.nextDouble(),
-                scanner.nextDouble()
-            )
-            allPoints.add(point)
-        }
+    suspend fun getLocatorWidgetConfig(sniperNumber: Int, teamIds: Set<String>): TeamLocatorSettings {
+        val allPoints = Util.loadLocatorPoints(sniperNumber)
         var d = 1e100
         for (p1 in allPoints) {
             for (p2 in allPoints) {
