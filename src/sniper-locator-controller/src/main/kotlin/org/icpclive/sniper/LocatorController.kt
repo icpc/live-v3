@@ -37,7 +37,7 @@ object LocatorController {
 
     suspend fun getLocatorWidgetConfig(sniperNumber: Int, teamIds: Set<Int>): TeamLocatorSettings {
         val scanner = withContext(Dispatchers.IO) {
-            Scanner(File("coordinates-$sniperNumber.txt"))
+            Scanner(File(Config.configDirectory.toAbsolutePath().toString() + "/coordinates-$sniperNumber.txt"))
         }
         val n = scanner.nextInt()
 
@@ -69,7 +69,7 @@ object LocatorController {
                     x = it.x.toInt(),
                     y = it.y.toInt(),
                     radius = it.r.toInt(),
-                    teamId = it.id,
+                    cdsTeamId = it.id,
                 )
             }
         )
