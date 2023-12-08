@@ -40,11 +40,12 @@ object SniperMover {
         val maxmag = 35.0
         val zoom = (mag * 9999 - 1) / (maxmag - 1)
         move(sniperNumber, pan, tilt, zoom.toInt())
+        println(point)
         return point
     }
 
     private fun getLocationPointByTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
-        val scanner = Scanner(File("coordinates-$sniperNumber.txt"))
+        val scanner = Scanner(File(Config.configDirectory.toAbsolutePath().toString() +  "/coordinates-$sniperNumber.txt"))
         scanner.nextInt() // count of teams in coordinates file (we can ignore this number)
         while (scanner.hasNextInt()) {
             val id = scanner.nextInt()
