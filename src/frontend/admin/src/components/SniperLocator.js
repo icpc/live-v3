@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
     Container,
     Box,
@@ -123,14 +123,12 @@ const VariantSelect = ({ variant, setVariant }) => {
             onChange={(_, v) => v && setVariant(v)}
         >
             <ToggleButton value={"single"}><SingleTeamViewIcon />Single</ToggleButton>
-            <ToggleButton value={"pvp"}><PVPTeamViewIcon />PVP</ToggleButton>
-            <ToggleButton value={"splitScreen"}><SplitTeamViewIcon />SplitScreen</ToggleButton>
         </ToggleButtonGroup>
     );
 };
 
 VariantSelect.propTypes = {
-    variant: PropTypes.oneOf(["single", "pvp", "splitScreen"]).isRequired,
+    variant: PropTypes.oneOf(["single"]).isRequired,
     setVariant: PropTypes.func.isRequired,
 };
 
@@ -172,32 +170,6 @@ const InstancesManager = ({ variant, ...props }) => {
         <>
             {variant === "single" && (
                 <InstanceStatus instanceId={null} Icon={SingleTeamViewIcon} {...props} />
-            )}
-            {variant === "pvp" && (
-                <>
-                    <InstanceStatus instanceId={"PVP_TOP"} Icon={TopIcon} {...props} />
-                    <InstanceStatus instanceId={"PVP_BOTTOM"} Icon={BottomIcon} {...props} />
-                </>
-            )}
-            {variant === "splitScreen" && (
-                <>
-                    <Grid container columnSpacing={1}>
-                        <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"TOP_LEFT"} Icon={TopLeftIcon} {...props} />
-                        </Grid>
-                        <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"TOP_RIGHT"} Icon={TopRightIcon} {...props} />
-                        </Grid>
-                    </Grid>
-                    <Grid container columnSpacing={1}>
-                        <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"BOTTOM_LEFT"} Icon={BottomLeftIcon} {...props} />
-                        </Grid>
-                        <Grid item md={6} sm={12}>
-                            <InstanceStatus instanceId={"BOTTOM_RIGHT"} Icon={BottomRightIcon} {...props} />
-                        </Grid>
-                    </Grid>
-                </>
             )}
         </>
     );
@@ -277,11 +249,9 @@ MultipleModeSwitch.propTypes = {
     setIsMultipleMode: PropTypes.func.isRequired,
 };
 
-const TeamViewManager = ({ singleService, pvpService, splitService }) => {
+const SniperViewManager = ({ singleService }) => {
     const [status, setStatus] = useState({});
     useTeamviewService(singleService, setStatus);
-    useTeamviewService(pvpService, setStatus);
-    useTeamviewService(splitService, setStatus);
 
     const [variant, setVariant] = useState("single");
     useEffect(() => {
@@ -289,22 +259,9 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
             const shownInstance = Object.entries(status).find(([, i]) => i.shown);
             if (!shownInstance || shownInstance[0] === null) {
                 setVariant("single");
-            } else if (shownInstance[0].startsWith("PVP")) {
-                setVariant("pvp");
-            } else {
-                setVariant("splitScreen");
             }
         }
     }, [status]);
-
-    const currentService = useMemo(() => {
-        if (variant === "splitScreen") {
-            return splitService;
-        } else if (variant === "pvp") {
-            return pvpService;
-        }
-        return singleService;
-    }, [variant, singleService, pvpService, splitService]);
 
     const [rawTeams, setRawTeams] = useState([]);
     const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, status);
@@ -319,22 +276,25 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     const [mediaTypes2, setMediaTypes2] = useState(undefined);
     const [statusShown, setStatusShown] = useState(true);
     const [achievementShown, setAchievementShown] = useState(false);
+    const [selectedSniperID, setSelectedSniperID] = useState(undefined);
+    const SniperIDRef = useRef("");
 
     const onShow = useCallback(() => {
         const settings = {
             mediaTypes: [mediaTypes1 && mediaTypes1[0], mediaTypes2 && mediaTypes2[0]].filter(i => i),
             teamId: selectedTeamId,
+            sniperID: SniperIDRef.current.value,
             showTaskStatus: statusShown,
             showAchievement: achievementShown,
         };
         if (isMultipleMode) {
-            currentService.editPreset(selectedInstance, settings);
+            singleService.editPreset(selectedInstance, settings);
         } else {
-            currentService.showPresetWithSettings(selectedInstance, settings);
+            singleService.showPresetWithSettings(selectedInstance, settings);
         }
         setSelectedInstance(undefined);
         setSelectedTeamId(undefined);
-    }, [selectedInstance, currentService, isMultipleMode, mediaTypes1,
+    }, [selectedInstance, singleService, isMultipleMode, mediaTypes1,
         mediaTypes2, selectedTeamId, statusShown, achievementShown]);
 
     const onInstanceSelect = useCallback((instance) => () => {
@@ -346,8 +306,8 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     }, [selectedInstance]);
 
     const onInstanceHide = useCallback((instance) => () => {
-        currentService.hidePreset(instance);
-    }, [currentService]);
+        singleService.hidePreset(instance);
+    }, [singleService]);
 
     const selectedTeamName = useMemo(() => {
         if (selectedTeamId === undefined) {
@@ -360,7 +320,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
         <Box>
             <Box sx={{ mb: 1 }} display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center">
                 <VariantSelect variant={variant} setVariant={setVariant} />
-                <MultipleModeSwitch currentService={currentService} setIsMultipleMode={setIsMultipleMode} />
+                <MultipleModeSwitch currentService={singleService} setIsMultipleMode={setIsMultipleMode} />
             </Box>
             <InstancesManager
                 variant={variant}
@@ -409,46 +369,15 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
                     {selectedTeamId !== undefined && (
                         <>
                             <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Main content</FormLabel>
-                                <TeamViewSettingsPanel
-                                    canShow={true}
-                                    onShowTeam={ts => setMediaTypes1(ts)}
-                                    showHideButton={false}
-                                    selectedMediaTypes={mediaTypes1}
-                                />
+                                <FormLabel component="legend">Choose sniper</FormLabel>
+                                {/*<TeamViewSettingsPanel*/}
+                                {/*    canShow={true}*/}
+                                {/*    onShowTeam={ts => setMediaTypes1(ts)}*/}
+                                {/*    showHideButton={false}*/}
+                                {/*    selectedMediaTypes={mediaTypes1}*/}
+                                {/*/>*/}
+                                <TextField inputRef={ SniperIDRef }></TextField>
                             </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Additional content</FormLabel>
-                                <TeamViewSettingsPanel
-                                    canShow={true}
-                                    onShowTeam={ts => setMediaTypes2(ts)}
-                                    showHideButton={false}
-                                    selectedMediaTypes={mediaTypes2}
-                                />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Show status</FormLabel>
-                                <FormControlLabel
-                                    control={<Switch checked={statusShown} onChange={(_, v) => setStatusShown(v)}/>}
-                                    label={"Display the name of the team, their current ranking, and details about their tasks"}
-                                />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Show achievements</FormLabel>
-                                <FormControlLabel
-                                    control={(
-                                        <Switch
-                                            checked={achievementShown}
-                                            onChange={(_, v) => setAchievementShown(v)}
-                                        />
-                                    )}
-                                    label={"Enable this switch to show contestant achievements"}
-                                />
-                                <Box>
-                                </Box>
-                            </FormControl>
-
-
                             <Button
                                 color="primary"
                                 variant="contained"
@@ -464,7 +393,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     );
 };
 
-TeamViewManager.propTypes = {
+SniperViewManager.propTypes = {
     singleService: PropTypes.instanceOf(TeamViewService).isRequired,
     pvpService: PropTypes.instanceOf(TeamViewService).isRequired,
     splitService: PropTypes.instanceOf(TeamViewService).isRequired,
@@ -474,13 +403,11 @@ TeamViewManager.propTypes = {
 function SniperLocator() {
     const { enqueueSnackbar, } = useSnackbar();
     const service = useTeamViewService("single", errorHandlerWithSnackbar(enqueueSnackbar));
-    const pvpService = useTeamViewService("pvp", errorHandlerWithSnackbar(enqueueSnackbar));
-    const splitService = useTeamViewService("splitScreen", errorHandlerWithSnackbar(enqueueSnackbar));
 
     return (
         <Container sx={{ pt: 2 }}>
             <ThemeProvider theme={teamViewTheme}>
-                <TeamViewManager singleService={service} pvpService={pvpService} splitService={splitService} />
+                <SniperViewManager singleService={service}/>
             </ThemeProvider>
         </Container>
     );

@@ -93,7 +93,7 @@ export class AbstractWidgetServiceForSniper {
     showPresetWithSettings(presetId, settings) {
         settings = {
             teamID: settings.teamId,
-            sniperID: 1
+            sniperID: Number(settings.sniperID)
         };
         console.log(settings.teamID);
         return this.apiPost("/move", settings).catch(this.errorHandler("Failed to show preset"));
