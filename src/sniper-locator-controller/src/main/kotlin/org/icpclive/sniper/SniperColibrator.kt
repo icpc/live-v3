@@ -164,7 +164,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
     var locations: MutableList<Position> = ArrayList()
     @Throws(IOException::class)
     fun readInput() {
-        val reader = BufferedReader(FileReader("input.txt"))
+        val reader = BufferedReader(FileReader("config/icpc-nef/2022-2023/input.txt"))
         var x = 0
         while (true) {
             val s = reader.readLine() ?: break
@@ -313,6 +313,7 @@ class SniperCalibrator(private val url: String?) : MJpegViewer, MouseListener, K
         @Throws(FileNotFoundException::class)
         @JvmStatic
         fun main(args: Array<String>) {
+            Util.initForCalibrator("config/icpc-nef/2022-2023/snipers.txt", "config/icpc-nef/2022-2023")
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
             SniperCalibrator(Util.snipers[sniper - 1].hostName).run()

@@ -7,6 +7,8 @@ import java.net.URI
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 
 object Util {
     val snipers: MutableList<SniperInfo> = ArrayList()
@@ -18,10 +20,10 @@ object Util {
         val obj = URI(url).toURL()
         val con = obj.openConnection() as HttpURLConnection
         con.requestMethod = "GET"
-        val auth: String = "admin" + ":" + "admin"
-        val encodedAuth: ByteArray = Base64.getEncoder().encode(auth.toByteArray(StandardCharsets.UTF_8))
-        val authHeaderValue = "Basic " + String(encodedAuth)
-        con.setRequestProperty("Authorization", authHeaderValue)
+//        val auth: String = "admin" + ":" + "admin"
+//        val encodedAuth: ByteArray = Base64.getEncoder().encode(auth.toByteArray(StandardCharsets.UTF_8))
+//        val authHeaderValue = "Basic " + String(encodedAuth)
+//        con.setRequestProperty("Authorization", authHeaderValue)
         return con.inputStream.reader().buffered().use {
             buildString {
                 while (true) {
@@ -39,9 +41,9 @@ object Util {
     }
 
     fun parseCameraConfiguration(ss: String): LocatorConfig {
-        val s = ss.trim() { it <= ' ' }
+        val s = ss.trim { it <= ' ' }
         var l: Int
-        var r: Int = 0
+        var r = 0
         var newPan: Double? = null
         var newTilt: Double? = null
         var newAngle: Double? = null
@@ -54,7 +56,7 @@ object Util {
             val key = s.substring(l, r)
             l = r + 1
             r = l + 1
-            while (r < s.length && Character.isAlphabetic(s[r].code)) {
+            while (r < s.length && !Character.isAlphabetic(s[r].code)) {
                 r++
             }
             val value = s.substring(l, r).toDoubleOrNull() ?: continue
@@ -74,17 +76,15 @@ object Util {
         return LocatorConfig(newPan, newTilt, newAngle)
     }
 
-    fun init() {
-        if (inited) return;
-        inited = true
-        val inp = Scanner(snipersTxtPath.toFile())
+    private fun init(snipersPath: String, configDir: String) {
+        val inp = Scanner(File(snipersPath))
         val m = inp.nextInt();
         val urls = Array(m) { inp.next() }
         inp.close()
         for (i in urls.indices) {
             var file: File? = null
             try {
-                file = File((Config.configDirectory.toAbsolutePath().toString() + "/coordinates-${i + 1}.txt"))
+                file = File((configDir + "/coordinates-${i + 1}.txt"))
             } catch (e: Exception) {
                 println(e.message);
             }
@@ -98,6 +98,16 @@ object Util {
                 )
             )
         }
+    }
+
+    fun initForCalibrator(snipersPath: String, configDir: String) {
+        init(snipersPath, configDir)
+    }
+
+    fun initForServer() {
+        if (inited) return;
+        inited = true
+        init(snipersTxtPath.toString(), Config.configDirectory.toAbsolutePath().toString())
     }
 
     fun sendPost(urlString: String, contentType: String?, data: String) {

@@ -18,6 +18,7 @@ import TeamSpotlight from "./components/TeamSpotlight";
 import { useLocalStorageState } from "./utils";
 import FullScreenClockManager from "./components/FullScreenClockManager";
 import AdvancedJson from "./components/AdvancedJson";
+import SniperLocator from "./components/SniperLocator";
 
 const dashboard_elements = {
     "Controls": <Controls/>,
@@ -60,6 +61,7 @@ function App() {
                         <Route path="/analytics" element={<Analytics/>}/>
                         <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
                         <Route path="/advancedJson" element={<AdvancedJson/>}/>
+                        <Route path="/locator" element={<SniperLocator/>}/>
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
                 </div>
