@@ -3,11 +3,13 @@ package org.icpclive.cds.eolymp
 import com.eolymp.graphql.*
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
+import jdk.jfr.Percentage
 import kotlinx.datetime.toKotlinInstant
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.EOlympSettings
 import org.icpclive.util.Enumerator
+import org.icpclive.util.getLogger
 import java.net.URL
 import java.time.chrono.IsoChronology
 import java.time.format.DateTimeFormatterBuilder
@@ -56,18 +58,24 @@ private suspend fun GraphQLKtorClient.teams(contestId: String, after: String?, c
 
 
 internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContestDataSource(5.seconds) {
-    val graphQLClient = GraphQLKtorClient(
+    private val graphQLClient = GraphQLKtorClient(
         URL(settings.url),
         defaultHttpClient(ClientAuth.Bearer(settings.token.value), settings.network)
     )
 
-    fun converStatus(status: String) = ContestStatus.OVER.also { status.let { } }
-    fun convertResultType(format: String) = when (format) {
+    private fun convertStatus(status: String) = when (status) {
+        "STATUS_UNKNOWN" -> error("Doc said $status should not be used")
+        "SCHEDULED" -> ContestStatus.BEFORE
+        "OPEN", "SUSPENDED", "FROZEN" -> ContestStatus.RUNNING
+        "COMPLETE" -> ContestStatus.OVER
+        else -> error("Unknown status: $status")
+    }
+    private fun convertResultType(format: String) = when (format) {
         "ICPC" -> ContestResultType.ICPC
         else -> error("Unknown contest format: $format")
     }
 
-    val dateTimeFormatter = DateTimeFormatterBuilder()
+    private val dateTimeFormatter = DateTimeFormatterBuilder()
         .parseCaseInsensitive()
         .appendValue(ChronoField.YEAR, 4)
         .appendLiteral('-')
@@ -122,7 +130,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         }
         val contestInfo = ContestInfo(
             name = result.name,
-            status = converStatus(result.status),
+            status = convertStatus(result.status),
             resultType = convertResultType(result.format),
             startTime = parseTime(result.startsAt),
             contestLength = result.duration.seconds,
@@ -154,10 +162,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                 addAll(x.submissions!!.nodes.map {
                     RunInfo(
                         id = runIds[it.id],
-                        result = when {
-                            it.percentage == 1.0 -> Verdict.Accepted
-                            else -> Verdict.Rejected
-                        }.toRunResult(),
+                        result = parseVerdict(it.status, it.verdict, it.percentage)?.toRunResult(),
                         percentage = 0.0,
                         problemId = problemIds[it.problem!!.id],
                         teamId = teamIds[it.participant!!.id],
@@ -176,6 +181,38 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         )
     }
 
+    private fun parseVerdict(status: String, verdict: String, percentage: Double) : Verdict? {
+        return when (status) {
+            "ERROR" -> Verdict.CompilationError
+            "PENDING", "TESTING" -> null
+            "COMPLETE" -> {
+                when (verdict) {
+                    "NO_VERDICT" -> when {
+                        percentage == 1.0 -> Verdict.Accepted
+                        else -> Verdict.Rejected
+                    }
+                    "ACCEPTED" -> Verdict.Accepted
+                    "WRONG_ANSWER" -> Verdict.WrongAnswer
+                    "TIME_LIMIT_EXCEEDED" -> Verdict.IdlenessLimitExceeded
+                    "CPU_EXHAUSTED" -> Verdict.TimeLimitExceeded
+                    "MEMORY_OVERFLOW" -> Verdict.MemoryLimitExceeded
+                    "RUNTIME_ERROR" -> Verdict.RuntimeError
+                    else -> {
+                        log.info("Unknown verdict: $verdict, assuming rejected")
+                        Verdict.Rejected
+                    }
+                }
+            }
+            else -> {
+                log.info("Unexpected submission status: $status, assuming untested")
+                null
+            }
+        }
+    }
+
     private fun parseTime(s: String) = java.time.Instant.from(dateTimeFormatter.parse(s)).toKotlinInstant()
 
+    companion object {
+        val log = getLogger(EOlympDataSource::class)
+    }
 }
