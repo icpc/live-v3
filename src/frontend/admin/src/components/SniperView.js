@@ -324,7 +324,6 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
         const settings = {
             mediaTypes: [mediaTypes1 && mediaTypes1[0], mediaTypes2 && mediaTypes2[0]].filter(i => i),
             teamId: selectedTeamId,
-            sniperID: selectedSniperId,
             showTaskStatus: statusShown,
             showAchievement: achievementShown,
         };
