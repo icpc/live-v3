@@ -33,12 +33,12 @@ class LocatorPoint(var id: String, var x: Double, var y: Double, var z: Double, 
         return LocatorPoint(
             id, x,
             y * cos(a) - z * sin(a),
-            y * sin(a) + z * cos(a), a
+            y * sin(a) + z * cos(a), r
         )
     }
 
     fun distTo(o: LocatorPoint): Double {
-        return hypot(x - o.x, hypot(y - o.y, z - o.x))
+        return hypot(x - o.x, hypot(y - o.y, z - o.z))
     }
 
     fun dist(): Double {
