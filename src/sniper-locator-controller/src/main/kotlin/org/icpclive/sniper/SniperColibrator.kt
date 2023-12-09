@@ -17,12 +17,14 @@ import javax.swing.ImageIcon
 import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.WindowConstants
+import kotlin.io.path.bufferedReader
 import kotlin.math.abs
 import kotlin.math.sign
 import kotlin.math.sqrt
 import kotlin.system.exitProcess
 
-class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, KeyListener {
+class SniperCalibrator(private val url: String, private val configPath: Path) : MJpegViewer, MouseListener,
+    KeyListener {
     private var image: Image? = null
     var pan = 0.0
     var tilt = 0.0
@@ -30,7 +32,7 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
     private val points: MutableList<LocatorPoint?> = ArrayList()
     var frame: JFrame? = null
     var label: JLabel? = null
-    var currentTeam = -1
+    var currentTeam = ""
     var currentTeamMonitor = Object()
     private fun run() {
         try {
@@ -39,14 +41,14 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
             synchronized(currentTeamMonitor) {
                 while (true) {
                     println("Input team id:")
-                    currentTeam = `in`.nextInt()
-                    if (currentTeam == -1) {
+                    currentTeam = `in`.next()
+                    if (currentTeam == "") {
                         points.clear()
                         locations.clear()
                         continue
                     }
                     println("Now locate team $currentTeam")
-                    while (currentTeam != -1) {
+                    while (currentTeam != "") {
                         currentTeamMonitor.wait()
                     }
                 }
@@ -151,15 +153,15 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
     }
 
     class Position {
-        var id: Int
+        var id: String
         var p: LocatorPoint
 
-        constructor(id: Int, x: Int, y: Int) {
+        constructor(id: String, x: Int, y: Int) {
             this.id = id
             p = LocatorPoint(x.toDouble(), y.toDouble(), 0.0)
         }
 
-        constructor(id: Int, p: LocatorPoint) {
+        constructor(id: String, p: LocatorPoint) {
             this.id = id
             this.p = p
         }
@@ -170,14 +172,14 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
 
     @Throws(IOException::class)
     fun readInput() {
-        val reader = BufferedReader(FileReader("config/icpc-nef/2022-2023/input.txt"))
+        val reader = configPath.resolve("input.txt").bufferedReader()
         var x = 0
         while (true) {
             val s = reader.readLine() ?: break
             val ss = s.split("\\s+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             for (y in ss.indices) {
                 try {
-                    val id = ss[y].toInt()
+                    val id = ss[y]
                     input.add(Position(id, x, y))
                 } catch (ignored: NumberFormatException) {
                 }
@@ -190,7 +192,7 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
         if (locations.size < 4) return
         val from: MutableList<Position> = ArrayList()
         val to: MutableList<Position> = ArrayList()
-        val mp: MutableMap<Int, Position> = HashMap()
+        val mp: MutableMap<String, Position> = HashMap()
         for (position in input) {
             mp[position.id] = position
         }
@@ -265,7 +267,7 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
         }
         points.clear()
         try {
-            val out = PrintWriter("output.txt")
+            val out = PrintWriter(configPath.resolve("output.txt").toFile())
             out.println(input.size)
             for (i in input.indices) {
                 val xc = input[i].p.x
@@ -284,7 +286,7 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
 
     fun click(x: Int, y: Int) {
         synchronized(currentTeamMonitor) {
-            if (currentTeam == -1) return
+            if (currentTeam == "") return
             val p = LocatorPoint(x.toDouble(), y.toDouble(), WIDTH / angle)
                 .move(LocatorPoint((-WIDTH / 2).toDouble(), (-HEIGHT / 2).toDouble(), 0.0))
                 .multiply(angle / WIDTH)
@@ -294,7 +296,7 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
                 }
             points.add(p)
             locations.add(Position(currentTeam, p))
-            currentTeam = -1
+            currentTeam = ""
             recalculate()
             val g = image!!.graphics as Graphics2D
             draw(g)
@@ -320,10 +322,11 @@ class SniperCalibrator(private val url: String) : MJpegViewer, MouseListener, Ke
         @Throws(FileNotFoundException::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            Util.initForCalibrator("config/icpc-nef/2022-2023/snipers.txt", Path.of("config/icpc-nef/2022-2023"))
+            val configPath = Path.of("config/sniper-test")
+            Util.initForCalibrator(configPath.resolve("snipers.txt").toString(), configPath)
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
-            SniperCalibrator(Util.snipers[sniper - 1].hostName).run()
+            SniperCalibrator(Util.snipers[sniper - 1].hostName, configPath).run()
         }
     }
 }
