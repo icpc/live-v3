@@ -76,7 +76,6 @@ object Util {
 
     fun loadLocatorPoints(sniperNumber: Int): List<LocatorPoint> {
         val x = config.configDirectory.resolve("coordinates-$sniperNumber.txt")
-        println(x.readText())
         val scanner = Scanner(x)
         val n = scanner.nextInt()
 
@@ -89,9 +88,7 @@ object Util {
                     scanner.nextDouble(),
                     scanner.nextDouble()
                 )
-                println("$point")
                 allPoints.add(point)
-
             }  catch (e: Throwable) {
                 println("sooo bad $e")
             }
