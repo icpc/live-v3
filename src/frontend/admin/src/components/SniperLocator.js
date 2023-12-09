@@ -158,8 +158,6 @@ const SniperViewManager = ({ service }) => {
             teamId: selectedTeamCdsId,
         };
         service.moveWithSettings(settings);
-        setSelectedInstance(undefined);
-        setSelectedTeamId(undefined);
     }, [selectedInstance, selectedTeamId, service]);
 
     const onShow = useCallback(() => {
@@ -168,12 +166,12 @@ const SniperViewManager = ({ service }) => {
             teamId: selectedTeamCdsId,
         };
         service.showWithSettings(settings);
-        setSelectedInstance(undefined);
-        setSelectedTeamId(undefined);
     }, [selectedInstance, selectedTeamId, service]);
 
     const onHide = useCallback(() => {
         service.hide();
+        setSelectedInstance(undefined);
+        setSelectedTeamId(undefined);
     }, [service]);
 
     return (
@@ -227,6 +225,11 @@ const SniperViewManager = ({ service }) => {
                                     color="primary"
                                     variant="contained"
                                     onClick={onShow}>Show locator
+                                </Button>
+                                <Button
+                                    color="error"
+                                    variant="contained"
+                                    onClick={onHide}>Hide
                                 </Button>
                             </ButtonGroup>
                         </>
