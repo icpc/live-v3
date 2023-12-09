@@ -11,10 +11,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
+import org.icpclive.util.getLogger
 
 fun Route.setupRouting() {
     post("/move") {
         call.adminApiAction {
+            logger.info("hello!!!")
             val request = call.receive<SniperRequest>()
             SniperMover.moveToTeam(request.sniperId, request.teamId)
             Unit
@@ -25,7 +27,7 @@ fun Route.setupRouting() {
         call.adminApiAction {
             val request = call.receive<SniperRequest>()
             val locatorSettings = LocatorController.getLocatorWidgetConfig(request.sniperId, setOf(request.teamId))
-            println("request: " + "${config.overlayURL}api/admin/teamLocator/show_with_settings")
+            println("request: " + "${config.overlayURL}/api/admin/teamLocator/show_with_settings")
             val showRequest = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/show_with_settings") {
                 setBody(Json.encodeToString(locatorSettings))
                 contentType(ContentType.Application.Json)
@@ -78,5 +80,9 @@ suspend inline fun <reified T> ApplicationCall.adminApiAction(
         )
     }
 } catch (e: Exception) {
+    logger.info("Failed to run admin call $e")
+    println("Failed to run admin call ${e.message}")
     respond(HttpStatusCode.BadRequest, mapOf("status" to "error", "message" to e.message))
 }
+
+val logger = getLogger(ApplicationCall::class)

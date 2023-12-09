@@ -12,6 +12,7 @@ import java.io.File
 import java.nio.file.Path
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.io.path.readText
 
 object Util {
     val httpClient = HttpClient(CIO) {
@@ -73,24 +74,34 @@ object Util {
         return LocatorConfig(newPan, newTilt, newAngle)
     }
 
-     fun loadLocatorPoints(sniperNumber: Int): List<LocatorPoint> {
-        val scanner = Scanner(Config.configDirectory.resolve("coordinates-$sniperNumber.txt").toFile())
+    fun loadLocatorPoints(sniperNumber: Int): List<LocatorPoint> {
+        val x = config.configDirectory.resolve("coordinates-$sniperNumber.txt")
+        println(x.readText())
+        val scanner = Scanner(x)
         val n = scanner.nextInt()
 
         val allPoints = mutableListOf<LocatorPoint>()
         for (i in 1..n) {
-            val point = LocatorPoint(
-                scanner.next(),
-                scanner.nextDouble(),
-                scanner.nextDouble(),
-                scanner.nextDouble()
-            )
-            allPoints.add(point)
+            try {
+                val point = LocatorPoint(
+                    scanner.next(),
+                    scanner.nextDouble(),
+                    scanner.nextDouble(),
+                    scanner.nextDouble()
+                )
+                println("$point")
+                allPoints.add(point)
+
+            }  catch (e: Throwable) {
+                println("sooo bad $e")
+            }
+
         }
         return allPoints
     }
 
     private fun init(snipersPath: String, configDir: Path) {
+        Locale.setDefault(Locale.US)
         val inp = Scanner(File(snipersPath))
         val m = inp.nextInt()
         val urls = Array(m) { inp.next() }

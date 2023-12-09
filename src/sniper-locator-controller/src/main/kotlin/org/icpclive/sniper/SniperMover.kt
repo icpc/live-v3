@@ -27,6 +27,7 @@ object SniperMover {
     private const val DEFAULT_SPEED = "0.52"
 
     suspend fun moveToTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
+        println("moveToTeam $sniperNumber $teamId")
         val point = getLocationPointByTeam(sniperNumber, teamId) ?: return null
 
         if (point.y > 0) {
@@ -48,7 +49,8 @@ object SniperMover {
     }
 
     private fun getLocationPointByTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
-        return Util.loadLocatorPoints(sniperNumber).find { it.id == teamId }
+        val x = Util.loadLocatorPoints(sniperNumber).find { it.id == teamId }
+        return x
     }
 
     @Throws(Exception::class)
@@ -72,5 +74,5 @@ object SniperMover {
         logger.info("Set sniper $sniper speed: $setSpeedResponse")
     }
 
-    private val logger = getLogger(this::class)
+    private val logger = getLogger(SniperMover::class)
 }
