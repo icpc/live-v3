@@ -74,7 +74,7 @@ object Util {
     }
 
      fun loadLocatorPoints(sniperNumber: Int): List<LocatorPoint> {
-        val scanner = Scanner(Config.configDirectory.resolve("/coordinates-$sniperNumber.txt"))
+        val scanner = Scanner(Config.configDirectory.resolve("coordinates-$sniperNumber.txt").toFile())
         val n = scanner.nextInt()
 
         val allPoints = mutableListOf<LocatorPoint>()

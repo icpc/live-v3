@@ -144,12 +144,19 @@ const SniperViewManager = ({ service }) => {
         }
     }, [selectedInstance]);
 
+    const [selectedTeamName, selectedTeamCdsId] = useMemo(() => {
+        if (selectedTeamId === undefined) {
+            return ["", null];
+        }
+        const team = teams.find(team => team.id === selectedTeamId);
+        return [team?.name ?? "", team?.contestSystemId];
+    }, [teams, selectedTeamId]);
+
     const onMove = useCallback(() => {
         const settings = {
             sniperId: sniper,
-            teamId: selectedTeamId,
+            teamId: selectedTeamCdsId,
         };
-        console.log(settings);
         service.moveWithSettings(settings);
         setSelectedInstance(undefined);
         setSelectedTeamId(undefined);
@@ -158,7 +165,7 @@ const SniperViewManager = ({ service }) => {
     const onShow = useCallback(() => {
         const settings = {
             sniperId: sniper,
-            teamId: selectedTeamId,
+            teamId: selectedTeamCdsId,
         };
         service.showWithSettings(settings);
         setSelectedInstance(undefined);
@@ -168,13 +175,6 @@ const SniperViewManager = ({ service }) => {
     const onHide = useCallback(() => {
         service.hide();
     }, [service]);
-
-    const selectedTeamName = useMemo(() => {
-        if (selectedTeamId === undefined) {
-            return "";
-        }
-        return teams.find(team => team.id === selectedTeamId).name;
-    }, [teams, selectedTeamId]);
 
     return (
         <Box>
