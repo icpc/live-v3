@@ -19,7 +19,7 @@ const config = new Proxy(config_, {
     }
 });
 
-config.CONTEST_COLOR = "#4C83C3";
+config.CONTEST_COLOR = "#6F1DFB";
 config.CONTEST_CAPTION = "";
 
 config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay");
@@ -28,10 +28,10 @@ config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.lo
 config.WEBSOCKET_RECONNECT_TIME = 5000; // ms
 
 // Strings
-config.QUEUE_TITLE = "Queue";
+config.QUEUE_TITLE = "Очередь";
 config.QUEUE_CAPTION = config.CONTEST_CAPTION;
 config.SCOREBOARD_CAPTION = config.CONTEST_CAPTION;
-config.STATISTICS_TITLE = "Statistics";
+config.STATISTICS_TITLE = "Статистика";
 config.STATISTICS_CAPTION = config.CONTEST_CAPTION;
 
 // Behaviour
@@ -58,7 +58,7 @@ config.STATISTICS_CELL_MORPH_TIME = 200; //ms
 config.CELL_FLASH_PERIOD = 500; //ms
 
 // Styles > Global
-config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
+config.GLOBAL_DEFAULT_FONT_FAMILY = "JetBrains Mono, serif"; // css-property
 config.GLOBAL_DEFAULT_FONT_SIZE = "22px"; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT = 400; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD = 700; // css-property
@@ -99,7 +99,7 @@ config.SCOREBOARD_CELL_PENALTY_ALIGN = "center";
 
 config.QUEUE_ROW_FONT_SIZE = config.GLOBAL_DEFAULT_FONT_SIZE;
 config.QUEUE_ROW_BACKGROUND = "rgba(0, 0, 0, 0.08)";
-config.QUEUE_ROW_HEIGHT = 32; // px
+config.QUEUE_ROW_HEIGHT = 44; // px
 config.QUEUE_ROW_PADDING = 1; // px
 config.QUEUE_ROW_FEATURED_RUN_PADDING = 3; // px
 config.QUEUE_OPACITY = 0.95;

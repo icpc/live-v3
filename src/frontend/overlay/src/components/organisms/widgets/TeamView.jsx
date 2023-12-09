@@ -25,7 +25,7 @@ const slideOut = keyframes`
 const TeamViewContainer = styled.div`
   width: 100%;
   height: 100%;
-  display: ${props => props.show ? "flex" : "none"};
+  opacity: ${props => props.show ? "100%" : "0%"};
   flex-direction: column;
   justify-content: start;
   align-items: flex-end;

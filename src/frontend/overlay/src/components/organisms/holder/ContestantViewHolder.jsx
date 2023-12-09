@@ -181,7 +181,7 @@ export const AchievementWrapper = styled.div`
 
 export const Achievement = ({ src, onLoadStatus, className }) => {
     return <AchievementWrapper className={className}>
-        <TeamImageWrapper src={src} onLoad={() => onLoadStatus(true)}/>
+        <object data={src} type="image/svg+xml" onLoad={() => onLoadStatus(true)}></object>
     </AchievementWrapper>;
 };
 

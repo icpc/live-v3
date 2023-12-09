@@ -52,9 +52,9 @@ const ScoreboardContent = styled.div`
 
 
 export const nameTable = {
-    normal: "Current",
-    optimistic: "Optimistic",
-    pessimistic: "Pessimistic",
+    normal: "Текущее",
+    optimistic: "Оптимистичное",
+    pessimistic: "Пессимистичное",
 };
 
 const ScoreboardTableRowWrap = styled.div`
@@ -232,9 +232,9 @@ const ScoreboardTableHeader = () => {
     const needPenalty = useNeedPenalty();
     return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1} needPenalty={needPenalty}>
         <ScoreboardTableHeaderCell>#</ScoreboardTableHeaderCell>
-        <ScoreboardTableHeaderNameCell>Name</ScoreboardTableHeaderNameCell>
+        <ScoreboardTableHeaderNameCell>Название</ScoreboardTableHeaderNameCell>
         <ScoreboardTableHeaderCell>Σ</ScoreboardTableHeaderCell>
-        {needPenalty && <ScoreboardTableHeaderCell>Penalty</ScoreboardTableHeaderCell>}
+        {needPenalty && <ScoreboardTableHeaderCell>Штраф</ScoreboardTableHeaderCell>}
         {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.name} letter={probData.letter}
             problemColor={probData.color}/>
         )}
@@ -248,7 +248,7 @@ export const Scoreboard = ({ widgetData: { settings } }) => {
     return <ScoreboardWrap>
         <ScoreboardHeader>
             <ScoreboardTitle>
-                {nameTable[settings.optimismLevel] ?? "??"} standings
+                {nameTable[settings.optimismLevel] ?? "??"} положение
             </ScoreboardTitle>
             <ScoreboardCaption>
                 {c.SCOREBOARD_CAPTION}

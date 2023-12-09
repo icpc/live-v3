@@ -6,7 +6,7 @@ import styled, { keyframes } from "styled-components";
 import c from "../../../config";
 import { pushLog } from "../../../redux/debug";
 import { startScrolling, stopScrolling } from "../../../redux/ticker";
-import live from "../../../assets/icons/live.svg";
+import live from "../../../assets/icons/fsr_star.png";
 import Clock from "../tickers/Clock";
 import Scoreboard from "../tickers/Scoreboard";
 import Text from "../tickers/Text";

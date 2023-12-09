@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { createGlobalStyle } from "styled-components";
 import App from "./App";
+import c from "./config";
 import "./assets/fonts/fonts.scss";
 
 import { persistor, store } from "./redux/store";
@@ -17,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     //height: 100vh;
     //width: 100vw;
 
-    font-family: Helvetica, sans-serif;
+    font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
