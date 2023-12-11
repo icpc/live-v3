@@ -20,7 +20,7 @@ object Util {
     }
 
     suspend fun sniperRequest(sniperHostName: String, parameters: Map<String, Any?>): String {
-        return httpClient.get(sniperHostName + "axis-cgi/com/ptz.cgi") {
+        return httpClient.get(sniperHostName + "/axis-cgi/com/ptz.cgi") {
             for (parameter in parameters) {
                 parameter(parameter.key, parameter.value)
             }

@@ -322,7 +322,7 @@ class SniperCalibrator(private val url: String, private val configPath: Path) : 
         @Throws(FileNotFoundException::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            val configPath = Path.of("config/sniper-test")
+            val configPath = Path.of("config/icpc-nef/2022-2023")
             Util.initForCalibrator(configPath.resolve("snipers.txt").toString(), configPath)
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
