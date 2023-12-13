@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { pushLog } from "../../../redux/debug";
 import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
+import { useQueryParams } from "../../../utils/query-params";
 
 export const TeamImageWrapper = styled.img`
   border-radius: ${({ borderRadius }) => borderRadius};
@@ -95,11 +96,13 @@ export const TeamWebRTCGrabberVideoWrapper = ({ Wrapper = TeamVideoWrapper, url,
         };
     }, [url, peerName, streamType]);
 
+    const queryParams = useQueryParams();
+
     return (<Wrapper
         ref={videoRef}
         onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        muted
+        muted={!queryParams.has("grabber_audio")}
         {...props}/>);
 };
 
