@@ -54,8 +54,6 @@ private fun Application.setupKtorPlugins() {
 
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-//    environment.log.info("Using config directory ${Config.configDirectory.toAbsolutePath()}")
-//    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     setupKtorPlugins()
     Util.initForServer()
     routing {
@@ -73,5 +71,3 @@ fun Application.module() {
         }
     }
 }
-
-//private val logger = getLogger(Application::class)

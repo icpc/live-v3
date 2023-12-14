@@ -45,24 +45,10 @@ class MjpegRunner(private val viewer: MJpegViewer, url: URL) : Runnable {
     override fun run() {
         while (processing) {
             try {
-//                System.out.println("try");
                 val imageBytes = retrieveNextImage()
                 val bais = ByteArrayInputStream(imageBytes)
-                //
-//                ImageReader reader = ImageIO.getImageReadersByMIMEType("image/jpeg").next();
-//                ImageReadParam param = reader.getDefaultReadParam();
-//                ImageInputStream stream = ImageIO.createImageInputStream(bais);
-//                reader.setInput(stream, true, true);
-//                BufferedImage image;
-//                try {
-//                    image = reader.read(0, param);
-//                } finally {
-//                    reader.dispose();
-//                    stream.close();
-//                }
                 if (System.currentTimeMillis() > last + 1000) {
                     val image = ImageIO.read(bais)
-                    //                System.out.println(image);
                     if (image != null) {
                         viewer.setBufferedImage(image)
                         viewer.repaint()
@@ -102,7 +88,6 @@ class MjpegRunner(private val viewer: MJpegViewer, url: URL) : Runnable {
         // build headers
         // the DCS-930L stops it's headers
         while (urlStream.read().also { currByte = it } > -1 && !haveHeader) {
-//            System.out.println(Integer.toHexString(currByte & 255));
             stringWriter.write(currByte)
             val tempString = stringWriter.toString()
             if (tempString.endsWith("\r\n\r\n")) {
@@ -119,7 +104,6 @@ class MjpegRunner(private val viewer: MJpegViewer, url: URL) : Runnable {
             }
             lastByte = currByte
             currByte = urlStream.read()
-            //            System.out.println(Integer.toHexString(currByte & 255));
             // just skip extras
         }
 
@@ -137,9 +121,6 @@ class MjpegRunner(private val viewer: MJpegViewer, url: URL) : Runnable {
             offset += numRead
         }
 
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println(Integer.toHexString(imageBytes[i] & 255));
-//        }
         stringWriter = StringWriter(128)
         return imageBytes
     }
@@ -154,8 +135,6 @@ class MjpegRunner(private val viewer: MJpegViewer, url: URL) : Runnable {
             val valueStartPos = indexOfContentLength + CONTENT_LENGTH.length
             val indexOfEOL = header.indexOf('\n', indexOfContentLength)
 
-//        System.out.println(header);
-//        System.out.println(valueStartPos + " " + indexOfEOL);
             val lengthValStr = header.substring(valueStartPos, indexOfEOL).trim { it <= ' ' }
             return lengthValStr.toInt()
         }

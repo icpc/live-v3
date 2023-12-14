@@ -5,14 +5,11 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.icpclive.sniper.Config.snipersTxtPath
 import java.io.File
 import java.nio.file.Path
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.io.path.readText
 
 object Util {
     val httpClient = HttpClient(CIO) {

@@ -4,32 +4,6 @@ object LocatorController {
     private const val WIDTH = 1920
     private const val HEIGHT = 1080
 
-//    @JvmStatic
-//    fun main(args: Array<String>) {
-//        Util.init()
-//        val input = BufferedReader(InputStreamReader(System.`in`))
-//        while (true) {
-//            try {
-//                println("Select sniper (1-${Util.snipers.size})")
-//                val sniper = input.readLine().trim { it <= ' ' }.toInt()
-//                println("Select teams (space separated)")
-//                val teamIds = input.readLine()
-//                    .split("\\s+".toRegex())
-//                    .dropLastWhile { it.isEmpty() }
-//                    .map { it.toInt() }
-//                    .toSet()
-//
-//                showLocatorWidget(sniper, teamIds)
-//
-//                println("Press Enter to hide")
-//                input.readLine()
-//                hideLocatorWidget()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
-
     suspend fun getLocatorWidgetConfig(sniperNumber: Int, teamIds: Set<String>): TeamLocatorSettings {
         val allPoints = Util.loadLocatorPoints(sniperNumber)
         var d = 1e100
@@ -55,15 +29,6 @@ object LocatorController {
             }
         )
     }
-
-//    fun showLocatorWidget(sniperNumber: Int, teamIds: Set<Int>) {
-//        val config = getLocatorWidgetConfig(sniperNumber, teamIds)
-//        Util.sendPost(showUrl(), "application/json", Json.encodeToString(config))
-//    }
-
-//    fun hideLocatorWidget() {
-//        Util.sendPost(hideUrl(), "application/json", "")
-//    }
 
     private suspend fun translatePoints(points: List<LocatorPoint>, sniper: Int, d: Double): List<LocatorPoint> {
         val camera = Util.snipers[sniper - 1]
