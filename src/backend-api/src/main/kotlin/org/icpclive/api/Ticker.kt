@@ -32,7 +32,6 @@ class ImageTickerMessage(val settings: ImageTickerSettings)
     }
 
 
-
 @Serializable
 @SerialName("clock")
 class ClockTickerMessage(val settings: ClockTickerSettings) :

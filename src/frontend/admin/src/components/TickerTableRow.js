@@ -41,6 +41,14 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
                 {data.settings.type === "image" && <ImageIcon/>}
             </TableCell>
             <TableCell component="th" scope="row">
+                {data.settings.type === "clock" &&
+                    (editData === undefined ? data.settings.timeZone : (
+                        <Box onSubmit={onSubmitEdit} component="form" type="submit">
+                            <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.text}
+                                id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
+                                onChange={onChangeFieldEventHandler(setEditData, "timeZone")}/>
+                        </Box>)
+                    )}
                 {data.settings.type === "text" &&
                     (editData === undefined ? data.settings.text : (
                         <Box onSubmit={onSubmitEdit} component="form" type="submit">
