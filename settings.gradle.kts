@@ -26,7 +26,6 @@ include(
     ":frontend",
     ":reactions-bot",
     ":schema-generator",
-    ":sniper-tools",
     ":sniper-locator-controller",
     ":faker"
 )
@@ -39,7 +38,6 @@ project(":common").projectDir = file("src/common")
 project(":frontend").projectDir = file("src/frontend")
 project(":reactions-bot").projectDir = file("src/reactions-bot")
 project(":schema-generator").projectDir = file("src/schema-generator")
-project(":sniper-tools").projectDir = file("src/sniper-tools")
 project(":sniper-locator-controller").projectDir = file("src/sniper-locator-controller")
 project(":faker").projectDir = file("src/faker")
 
