@@ -36,7 +36,7 @@ public fun Flow<ContestUpdate>.processHiddenTeamsAndGroups(): Flow<ContestUpdate
         { it.teamId },
         { key, _, original, info ->
             val team = info?.teams?.get(key)
-            if (team?.isHidden == true)
+            if (team?.isHidden != false)
                 original.map { it.copy(isHidden = true) }
             else
                 original
