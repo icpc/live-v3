@@ -6,12 +6,16 @@
       "leti": "^SPb ETU:.*"
     },
     "customFields": {
-      "shortName": "^(?:\\(..\\) )?(.*) \\([^)]*\\)"
+      "shortName": {
+        "^(?:\\(..\\) )?(.*) \\([^)]*\\)": "$1"
+      }
     }
   },
   "teamIdRegexes": {
     "customFields": {
-      "icpc_id": "^([0-9]*)$"
+      "icpc_id": {
+        "^([0-9]*)$": "$1"
+      }
     }
   },
   "teamOverrideTemplate": {

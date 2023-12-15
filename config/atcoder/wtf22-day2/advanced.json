@@ -13,10 +13,12 @@
       {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 3}
     ]
   },
-  "teamMediaTemplate": {
-    "achievement": {
-      "type": "Photo",
-      "url": "/media/achievement/{teamId}.svg"
+  "teamOverrideTemplate": {
+    "medias": {
+      "achievement": {
+        "type": "Photo",
+        "url": "/media/achievement/{teamId}.svg"
+      }
     }
   },
   "teamOverrides": {

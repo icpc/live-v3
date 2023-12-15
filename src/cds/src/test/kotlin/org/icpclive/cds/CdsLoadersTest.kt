@@ -114,7 +114,7 @@ object CdsLoadersTest {
                         "school" to Regex("^\\(шк\\).*")
                     ),
                     customFields = mapOf(
-                        "funnyName" to Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)")
+                        "funnyName" to RegexSet(mapOf(Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)") to "$1"))
                     ),
                 ),
                 groupOverrides = mapOf(

@@ -23,7 +23,9 @@
   },
   "teamIdRegexes": {
     "customFields": {
-      "comp" : "spb(.*)"
+      "comp" : {
+        "spb(.*)": "$1"
+      }
     }
   },
   "freezeTimeSeconds":14400,

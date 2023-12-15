@@ -7,10 +7,10 @@
     "GEO8": {"isOutOfContest": true}
   },
   "teamOverrideTemplate": {
-    "displayName": "[{country}] {first_name} {last_name}"
-  },
-  "teamMediaTemplate": {
-    "photo": {"type": "Photo", "url": "/media/photos/{teamId}.png"}
+    "displayName": "[{country}] {first_name} {last_name}",
+    "medias": {
+      "photo": {"type": "Photo", "url": "/media/photos/{teamId}.png"}
+    }
   },
   "problemOverrides": {
     "search": {"displayName": "A1"},

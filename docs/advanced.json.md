@@ -46,22 +46,24 @@ You can adjust received participant information for each separate participant us
 Also, you can create a template rule for medias, and it would be applied to all teams.
 
 ```
-  "teamMediaTemplate": {
-    "record": {
-      "type": "Video",
-      "url": "http://localhost:8080/media/screen/record{teamId}.mp4"
-    },
-    "screen": {
-      "type": "Video",
-      "url": "http://localhost:8080/media/screen/screen{teamId}"
-    },
-    "camera": {
-      "type": "Video",
-      "url": "http://localhost:8080/media/camera/camera{teamId}"
-    },
-    "achievement": {
-      "type": "Photo",
-      "url": "http://localhost:8080/media/achievements/achievements{teamId}.svg"
+  "teamOverrideTemplate": {
+    "medias": {
+      "record": {
+        "type": "Video",
+        "url": "http://localhost:8080/media/screen/record{teamId}.mp4"
+      },
+      "screen": {
+        "type": "Video",
+        "url": "http://localhost:8080/media/screen/screen{teamId}"
+      },
+      "camera": {
+        "type": "Video",
+        "url": "http://localhost:8080/media/camera/camera{teamId}"
+      },
+      "achievement": {
+        "type": "Photo",
+        "url": "http://localhost:8080/media/achievements/achievements{teamId}.svg"
+      }
     }
   },
 ```

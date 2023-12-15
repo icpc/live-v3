@@ -224,6 +224,29 @@
                 }
             ]
         },
+        "kotlin.collections.LinkedHashMap<Regex,kotlin.String>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "string"
+                }
+            }
+        },
+        "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.RegexSet>": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "kotlin.collections.LinkedHashMap?<kotlin.String,Regex>": {
             "oneOf": [
                 {
@@ -239,16 +262,16 @@
                 }
             ]
         },
-        "org.icpclive.api.tunning.TeamRegexOverrides?<Regex?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>": {
+        "org.icpclive.api.tunning.TeamRegexOverrides?<org.icpclive.api.tunning.RegexSet?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>": {
             "oneOf": [
                 {
                     "type": "object",
                     "properties": {
                         "organizationRegex": {
-                            "type": "string"
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
                         },
                         "customFields": {
-                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,Regex>"
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.RegexSet>"
                         },
                         "groupRegex": {
                             "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,Regex>"
@@ -654,17 +677,14 @@
                 "holdTimeSeconds": {
                     "type": "number"
                 },
-                "teamMediaTemplate": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.api.TeamMediaType,org.icpclive.api.MediaType?>"
-                },
                 "teamOverrideTemplate": {
                     "$ref": "#/$defs/org.icpclive.api.tunning.TeamOverrideTemplate?<kotlin.String?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?>"
                 },
                 "teamNameRegexes": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamRegexOverrides?<Regex?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
+                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamRegexOverrides?<org.icpclive.api.tunning.RegexSet?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
                 },
                 "teamIdRegexes": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamRegexOverrides?<Regex?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
+                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamRegexOverrides?<org.icpclive.api.tunning.RegexSet?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
                 },
                 "teamOverrides": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.TeamInfoOverride>"

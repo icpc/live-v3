@@ -9,10 +9,12 @@
   "scoreboardOverrides": {
     "showTeamsWithoutSubmissions": false
   },
-  "teamMediaTemplate": {
-    "screen": {
-      "type": "Video",
-      "url": "http://localhost:9090"
+  "teamOverrideTemplate": {
+    "medias": {
+      "screen": {
+        "type": "Video",
+        "url": "http://localhost:9090"
+      }
     }
   },
   "teamOverrides": {
