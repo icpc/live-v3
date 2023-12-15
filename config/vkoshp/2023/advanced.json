@@ -1,0 +1,3791 @@
+{
+  "problemOverrides": {
+    "A": {
+      "color": "#FE0000"
+    },
+    "B": {
+      "color": "#761946"
+    },
+    "C": {
+      "color": "#45BEC6"
+    },
+    "D": {
+      "color": "#FFFF00"
+    },
+    "E": {
+      "color": "#FE9900"
+    },
+    "F": {
+      "color": "#FF00FE"
+    },
+    "G": {
+      "color": "#E9D1DE"
+    },
+    "H": {
+      "color": "#38771E"
+    },
+    "I": {
+      "color": "#FFFFFF"
+    },
+    "J": {
+      "color": "#9B01FF"
+    },
+    "K": {
+      "color": "#04FF00"
+    },
+    "L": {
+      "color": "#000000"
+    },
+    "M": {
+      "color": "0000FE"
+    },
+    "X": {
+      "color": "#808080"
+    },
+    "Y": {
+      "color": "#808080"
+    },
+    "Z": {
+      "color": "#808080"
+    }
+  },
+  "teamNameRegexes": {
+    "customFields": {
+      "funnyName": "[^:]*: (.*) \\([^)]*\\)",
+      "comp": ""
+    },
+    "organizationRegex": "^([^:]*).*"
+  },
+  "teamOverrideTemplate": {
+    "displayName": "{orgDisplayName} {funnyName}",
+    "medias": {
+      "achievement": {
+        "type": "Photo",
+        "url": "/media/ach/{teamId}.svg"
+      },
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "peerName": "{spbPlacement}",
+        "url": "http://192.168.0.112:8000",
+        "streamType": "desktop",
+        "credential": "live"
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "http://192.168.0.112:8000",
+        "peerName": "{spbPlacement}",
+        "streamType": "webcam",
+        "credential": "live"
+      }
+    }
+  },
+  "startTime": "2023-12-12T07:10:00Z",
+  "freezeTimeSeconds": 14400,
+  "awardsSettings": {
+    "medalGroups": [
+      [
+        {
+          "id": "gold-medal",
+          "citation": "Gold Medal",
+          "color": "GOLD",
+          "maxRank": 4
+        },
+        {
+          "id": "silver-medal",
+          "citation": "Silver Medal",
+          "color": "SILVER",
+          "maxRank": 9
+        },
+        {
+          "id": "bronze-medal",
+          "citation": "Bronze Medal",
+          "color": "BRONZE",
+          "maxRank": 15
+        }
+      ]
+    ],
+    "championTitle": "Northern Eurasia Finals Champions",
+    "rankAwardsMaxRank": 13,
+    "manual": [
+      {
+        "id": "qualified",
+        "citation": "Qualified to world finals",
+        "teamCdsIds": []
+      }
+    ]
+  },
+  "teamIdRegexes": {
+    "customFields": {
+      "spbPlacement": "spb(\\d\\d\\d)"
+    },
+    "groupRegex": {
+      "local": "spb(\\d\\d\\d)",
+      "remote": "[^s][^p][^b](\\d\\d\\d)"
+    }
+  },
+  "scoreboardOverrides": {
+    "showTeamsWithoutSubmissions": true
+  },
+  "teamMediaTemplate": {
+    "achievement": {
+      "type": "Photo",
+      "url": "/media/ach/{teamId}.svg"
+    }
+  },
+  "teamOverrides": {
+    "geo001": {
+      "hashTag": "geo001",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G001",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G001",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo002": {
+      "hashTag": "geo002",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G002",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G002",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo003": {
+      "hashTag": "geo003",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G003",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G003",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo004": {
+      "hashTag": "geo004",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G004",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G004",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo005": {
+      "hashTag": "geo005",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G005",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G005",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo006": {
+      "hashTag": "geo006",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G006",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G006",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo007": {
+      "hashTag": "geo007",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G007",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G007",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo008": {
+      "hashTag": "geo008",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G008",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G008",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo009": {
+      "hashTag": "geo009",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G009",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G009",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo010": {
+      "hashTag": "geo010",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G010",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G010",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo011": {
+      "hashTag": "geo011",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G011",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G011",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo012": {
+      "hashTag": "geo012",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G012",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G012",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo013": {
+      "hashTag": "geo013",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G013",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G013",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo014": {
+      "hashTag": "geo014",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G014",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G014",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo015": {
+      "hashTag": "geo015",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G015",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G015",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo016": {
+      "hashTag": "geo016",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G016",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G016",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo017": {
+      "hashTag": "geo017",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G017",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G017",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo018": {
+      "hashTag": "geo018",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G018",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G018",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo019": {
+      "hashTag": "geo019",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G019",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G019",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo020": {
+      "hashTag": "geo020",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G020",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G020",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo021": {
+      "hashTag": "geo021",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G021",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G021",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo022": {
+      "hashTag": "geo022",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G022",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G022",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo023": {
+      "hashTag": "geo023",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G023",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G023",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo024": {
+      "hashTag": "geo024",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G024",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G024",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo025": {
+      "hashTag": "geo025",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G025",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G025",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo026": {
+      "hashTag": "geo026",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G026",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G026",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo027": {
+      "hashTag": "geo027",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G027",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G027",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo028": {
+      "hashTag": "geo028",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G028",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G028",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo029": {
+      "hashTag": "geo029",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G029",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G029",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo030": {
+      "hashTag": "geo030",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G030",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G030",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo031": {
+      "hashTag": "geo031",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G031",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G031",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo032": {
+      "hashTag": "geo032",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G032",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G032",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo033": {
+      "hashTag": "geo033",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G033",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G033",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo034": {
+      "hashTag": "geo034",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G034",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G034",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo035": {
+      "hashTag": "geo035",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G035",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G035",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo036": {
+      "hashTag": "geo036",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G036",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G036",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo037": {
+      "hashTag": "geo037",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G037",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G037",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo038": {
+      "hashTag": "geo038",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G038",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G038",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo039": {
+      "hashTag": "geo039",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G039",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G039",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo040": {
+      "hashTag": "geo040",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G040",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G040",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo041": {
+      "hashTag": "geo041",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G041",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G041",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo042": {
+      "hashTag": "geo042",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G042",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G042",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo043": {
+      "hashTag": "geo043",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G043",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G043",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo044": {
+      "hashTag": "geo044",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G044",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G044",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo045": {
+      "hashTag": "geo045",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G045",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G045",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo046": {
+      "hashTag": "geo046",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G046",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G046",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo047": {
+      "hashTag": "geo047",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G047",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G047",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo048": {
+      "hashTag": "geo048",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G048",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G048",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo049": {
+      "hashTag": "geo049",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G049",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G049",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo050": {
+      "hashTag": "geo050",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G050",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G050",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo051": {
+      "hashTag": "geo051",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G051",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G051",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo052": {
+      "hashTag": "geo052",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G052",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G052",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo053": {
+      "hashTag": "geo053",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G053",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G053",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo054": {
+      "hashTag": "geo054",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G054",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G054",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "geo055": {
+      "hashTag": "geo055",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G055",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "G055",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz001": {
+      "hashTag": "kaz001",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K001",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K001",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz002": {
+      "hashTag": "kaz002",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K002",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K002",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz003": {
+      "hashTag": "kaz003",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K003",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K003",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz004": {
+      "hashTag": "kaz004",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K004",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K004",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz005": {
+      "hashTag": "kaz005",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K005",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K005",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz006": {
+      "hashTag": "kaz006",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K006",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K006",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz007": {
+      "hashTag": "kaz007",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K007",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K007",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz008": {
+      "hashTag": "kaz008",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K008",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K008",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz009": {
+      "hashTag": "kaz009",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K009",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K009",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz010": {
+      "hashTag": "kaz010",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K010",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K010",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz011": {
+      "hashTag": "kaz011",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K011",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K011",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz012": {
+      "hashTag": "kaz012",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K012",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K012",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz013": {
+      "hashTag": "kaz013",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K013",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K013",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz014": {
+      "hashTag": "kaz014",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K014",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K014",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz015": {
+      "hashTag": "kaz015",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K015",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K015",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz016": {
+      "hashTag": "kaz016",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K016",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K016",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz017": {
+      "hashTag": "kaz017",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K017",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K017",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz018": {
+      "hashTag": "kaz018",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K018",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K018",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz019": {
+      "hashTag": "kaz019",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K019",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K019",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz022": {
+      "hashTag": "kaz022",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K022",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K022",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz023": {
+      "hashTag": "kaz023",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K023",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K023",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz024": {
+      "hashTag": "kaz024",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K024",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K024",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz025": {
+      "hashTag": "kaz025",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K025",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K025",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz026": {
+      "hashTag": "kaz026",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K026",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K026",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz027": {
+      "hashTag": "kaz027",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K027",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K027",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz028": {
+      "hashTag": "kaz028",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K028",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K028",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz029": {
+      "hashTag": "kaz029",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K029",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K029",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz030": {
+      "hashTag": "kaz030",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K030",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K030",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz031": {
+      "hashTag": "kaz031",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K031",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K031",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz032": {
+      "hashTag": "kaz032",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K032",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K032",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz033": {
+      "hashTag": "kaz033",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K033",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K033",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz034": {
+      "hashTag": "kaz034",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K034",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K034",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz035": {
+      "hashTag": "kaz035",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K035",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K035",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz036": {
+      "hashTag": "kaz036",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K036",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K036",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz037": {
+      "hashTag": "kaz037",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K037",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K037",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz038": {
+      "hashTag": "kaz038",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K038",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K038",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz039": {
+      "hashTag": "kaz039",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K039",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K039",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz040": {
+      "hashTag": "kaz040",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K040",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K040",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz041": {
+      "hashTag": "kaz041",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K041",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K041",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz042": {
+      "hashTag": "kaz042",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K042",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K042",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz043": {
+      "hashTag": "kaz043",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K043",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K043",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz044": {
+      "hashTag": "kaz044",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K044",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K044",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz045": {
+      "hashTag": "kaz045",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K045",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K045",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz046": {
+      "hashTag": "kaz046",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K046",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K046",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz047": {
+      "hashTag": "kaz047",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K047",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K047",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz048": {
+      "hashTag": "kaz048",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K048",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K048",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz049": {
+      "hashTag": "kaz049",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K049",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K049",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz050": {
+      "hashTag": "kaz050",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K050",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K050",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz051": {
+      "hashTag": "kaz051",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K051",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K051",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz052": {
+      "hashTag": "kaz052",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K052",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K052",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz053": {
+      "hashTag": "kaz053",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K053",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K053",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz054": {
+      "hashTag": "kaz054",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K054",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K054",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz055": {
+      "hashTag": "kaz055",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K055",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K055",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz056": {
+      "hashTag": "kaz056",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K056",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K056",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz057": {
+      "hashTag": "kaz057",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K057",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K057",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz058": {
+      "hashTag": "kaz058",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K058",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K058",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz059": {
+      "hashTag": "kaz059",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K059",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K059",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz060": {
+      "hashTag": "kaz060",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K060",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K060",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz061": {
+      "hashTag": "kaz061",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K061",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K061",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz062": {
+      "hashTag": "kaz062",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K062",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K062",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz063": {
+      "hashTag": "kaz063",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K063",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K063",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz064": {
+      "hashTag": "kaz064",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K064",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K064",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz065": {
+      "hashTag": "kaz065",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K065",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K065",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz066": {
+      "hashTag": "kaz066",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K066",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K066",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz067": {
+      "hashTag": "kaz067",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K067",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K067",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz068": {
+      "hashTag": "kaz068",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K068",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K068",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz069": {
+      "hashTag": "kaz069",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K069",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K069",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz070": {
+      "hashTag": "kaz070",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K070",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K070",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz071": {
+      "hashTag": "kaz071",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K071",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K071",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz072": {
+      "hashTag": "kaz072",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K072",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K072",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz073": {
+      "hashTag": "kaz073",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K073",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K073",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz074": {
+      "hashTag": "kaz074",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K074",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K074",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz075": {
+      "hashTag": "kaz075",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K075",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K075",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz076": {
+      "hashTag": "kaz076",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K076",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K076",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz077": {
+      "hashTag": "kaz077",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K077",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K077",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz078": {
+      "hashTag": "kaz078",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K078",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K078",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz079": {
+      "hashTag": "kaz079",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K079",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K079",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz080": {
+      "hashTag": "kaz080",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K080",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K080",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz081": {
+      "hashTag": "kaz081",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K081",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K081",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz082": {
+      "hashTag": "kaz082",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K082",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K082",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz083": {
+      "hashTag": "kaz083",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K083",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K083",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz084": {
+      "hashTag": "kaz084",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K084",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K084",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz085": {
+      "hashTag": "kaz085",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K085",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K085",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz086": {
+      "hashTag": "kaz086",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K086",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K086",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz087": {
+      "hashTag": "kaz087",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K087",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K087",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz088": {
+      "hashTag": "kaz088",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K088",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K088",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz089": {
+      "hashTag": "kaz089",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K089",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K089",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "kaz090": {
+      "hashTag": "kaz090",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K090",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "K090",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "webcam",
+          "credential": "live"
+        }
+      }
+    },
+    "nsk001": {
+      "hashTag": "nsk001",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N001",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk002": {
+      "hashTag": "nsk002",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N002",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk003": {
+      "hashTag": "nsk003",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N003",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk004": {
+      "hashTag": "nsk004",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N004",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk005": {
+      "hashTag": "nsk005",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N005",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk006": {
+      "hashTag": "nsk006",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N006",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk007": {
+      "hashTag": "nsk007",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N007",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk008": {
+      "hashTag": "nsk008",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N008",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk009": {
+      "hashTag": "nsk009",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N009",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk010": {
+      "hashTag": "nsk010",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N010",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk011": {
+      "hashTag": "nsk011",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N011",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk012": {
+      "hashTag": "nsk012",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N012",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk013": {
+      "hashTag": "nsk013",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N013",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk014": {
+      "hashTag": "nsk014",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N014",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk015": {
+      "hashTag": "nsk015",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N015",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk016": {
+      "hashTag": "nsk016",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N016",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk017": {
+      "hashTag": "nsk017",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N017",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk018": {
+      "hashTag": "nsk018",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N018",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk019": {
+      "hashTag": "nsk019",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N019",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk020": {
+      "hashTag": "nsk020",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N020",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk021": {
+      "hashTag": "nsk021",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N021",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk022": {
+      "hashTag": "nsk022",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N022",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk023": {
+      "hashTag": "nsk023",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N023",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk024": {
+      "hashTag": "nsk024",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N024",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk025": {
+      "hashTag": "nsk025",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N025",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk026": {
+      "hashTag": "nsk026",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N026",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk027": {
+      "hashTag": "nsk027",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N027",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk028": {
+      "hashTag": "nsk028",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N028",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk029": {
+      "hashTag": "nsk029",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N035",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk030": {
+      "hashTag": "nsk030",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N030",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk031": {
+      "hashTag": "nsk031",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N031",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk032": {
+      "hashTag": "nsk032",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N032",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk033": {
+      "hashTag": "nsk033",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N033",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "nsk034": {
+      "hashTag": "nsk034",
+      "medias": {
+        "screen": {
+          "type": "WebRTCGrabberConnection",
+          "peerName": "N034",
+          "url": "http://192.168.0.175:8000",
+          "streamType": "desktop",
+          "credential": "live"
+        },
+        "camera": null
+      }
+    },
+    "spb001": {
+      "hashTag": "spb001"
+    },
+    "spb002": {
+      "hashTag": "spb002"
+    },
+    "spb003": {
+      "hashTag": "spb003"
+    },
+    "spb004": {
+      "hashTag": "spb004"
+    },
+    "spb005": {
+      "hashTag": "spb005"
+    },
+    "spb006": {
+      "hashTag": "spb006"
+    },
+    "spb007": {
+      "hashTag": "spb007"
+    },
+    "spb008": {
+      "hashTag": "spb008"
+    },
+    "spb009": {
+      "hashTag": "spb009"
+    },
+    "spb010": {
+      "hashTag": "spb010"
+    },
+    "spb011": {
+      "hashTag": "spb011"
+    },
+    "spb012": {
+      "hashTag": "spb012"
+    },
+    "spb013": {
+      "hashTag": "spb013"
+    },
+    "spb014": {
+      "hashTag": "spb014"
+    },
+    "spb015": {
+      "hashTag": "spb015"
+    },
+    "spb016": {
+      "hashTag": "spb016"
+    },
+    "spb017": {
+      "hashTag": "spb017"
+    },
+    "spb018": {
+      "hashTag": "spb018"
+    },
+    "spb019": {
+      "hashTag": "spb019"
+    },
+    "spb020": {
+      "hashTag": "spb020"
+    },
+    "spb021": {
+      "hashTag": "spb021"
+    },
+    "spb022": {
+      "hashTag": "spb022"
+    },
+    "spb023": {
+      "hashTag": "spb023"
+    },
+    "spb024": {
+      "hashTag": "spb024"
+    },
+    "spb025": {
+      "hashTag": "spb025"
+    },
+    "spb026": {
+      "hashTag": "spb026"
+    },
+    "spb027": {
+      "hashTag": "spb027"
+    },
+    "spb028": {
+      "hashTag": "spb028"
+    },
+    "spb029": {
+      "hashTag": "spb029"
+    },
+    "spb030": {
+      "hashTag": "spb030"
+    },
+    "spb031": {
+      "hashTag": "spb031"
+    },
+    "spb032": {
+      "hashTag": "spb032"
+    },
+    "spb033": {
+      "hashTag": "spb033"
+    },
+    "spb034": {
+      "hashTag": "spb034"
+    },
+    "spb035": {
+      "hashTag": "spb035"
+    },
+    "spb036": {
+      "hashTag": "spb036"
+    },
+    "spb037": {
+      "hashTag": "spb037"
+    },
+    "spb038": {
+      "hashTag": "spb038"
+    },
+    "spb039": {
+      "hashTag": "spb039"
+    },
+    "spb040": {
+      "hashTag": "spb040"
+    },
+    "spb041": {
+      "hashTag": "spb041"
+    },
+    "spb042": {
+      "hashTag": "spb042"
+    },
+    "spb043": {
+      "hashTag": "spb043"
+    },
+    "spb044": {
+      "hashTag": "spb044"
+    },
+    "spb045": {
+      "hashTag": "spb045"
+    },
+    "spb046": {
+      "hashTag": "spb046"
+    },
+    "spb047": {
+      "hashTag": "spb047"
+    },
+    "spb048": {
+      "hashTag": "spb048"
+    },
+    "spb049": {
+      "hashTag": "spb049"
+    },
+    "spb050": {
+      "hashTag": "spb050"
+    },
+    "spb051": {
+      "hashTag": "spb051"
+    },
+    "spb052": {
+      "hashTag": "spb052"
+    },
+    "spb053": {
+      "hashTag": "spb053"
+    },
+    "spb054": {
+      "hashTag": "spb054"
+    },
+    "spb055": {
+      "hashTag": "spb055"
+    },
+    "spb056": {
+      "hashTag": "spb056"
+    },
+    "spb057": {
+      "hashTag": "spb057"
+    },
+    "spb058": {
+      "hashTag": "spb058"
+    },
+    "spb059": {
+      "hashTag": "spb059"
+    },
+    "spb060": {
+      "hashTag": "spb060"
+    },
+    "spb061": {
+      "hashTag": "spb061"
+    },
+    "spb062": {
+      "hashTag": "spb062"
+    },
+    "spb063": {
+      "hashTag": "spb063"
+    },
+    "spb064": {
+      "hashTag": "spb064"
+    },
+    "spb065": {
+      "hashTag": "spb065"
+    },
+    "spb066": {
+      "hashTag": "spb066"
+    },
+    "spb067": {
+      "hashTag": "spb067"
+    },
+    "spb068": {
+      "hashTag": "spb068"
+    },
+    "spb069": {
+      "hashTag": "spb069"
+    },
+    "spb070": {
+      "hashTag": "spb070"
+    },
+    "spb071": {
+      "hashTag": "spb071"
+    },
+    "spb072": {
+      "hashTag": "spb072"
+    },
+    "spb073": {
+      "hashTag": "spb073"
+    },
+    "spb074": {
+      "hashTag": "spb074"
+    },
+    "spb075": {
+      "hashTag": "spb075"
+    },
+    "spb076": {
+      "hashTag": "spb076"
+    },
+    "spb077": {
+      "hashTag": "spb077"
+    },
+    "spb078": {
+      "hashTag": "spb078"
+    },
+    "spb079": {
+      "hashTag": "spb079"
+    },
+    "spb080": {
+      "hashTag": "spb080"
+    },
+    "spb081": {
+      "hashTag": "spb081"
+    },
+    "spb082": {
+      "hashTag": "spb082"
+    },
+    "spb083": {
+      "hashTag": "spb083"
+    },
+    "spb084": {
+      "hashTag": "spb084"
+    },
+    "spb085": {
+      "hashTag": "spb085"
+    },
+    "spb086": {
+      "hashTag": "spb086"
+    },
+    "spb087": {
+      "hashTag": "spb087"
+    },
+    "spb088": {
+      "hashTag": "spb088"
+    },
+    "spb089": {
+      "hashTag": "spb089"
+    },
+    "spb090": {
+      "hashTag": "spb090"
+    },
+    "spb091": {
+      "hashTag": "spb091"
+    },
+    "spb092": {
+      "hashTag": "spb092"
+    },
+    "spb093": {
+      "hashTag": "spb093"
+    },
+    "spb094": {
+      "hashTag": "spb094"
+    },
+    "spb095": {
+      "hashTag": "spb095"
+    },
+    "spb096": {
+      "hashTag": "spb096"
+    },
+    "spb097": {
+      "hashTag": "spb097"
+    },
+    "spb098": {
+      "hashTag": "spb098"
+    },
+    "spb099": {
+      "hashTag": "spb099"
+    },
+    "spb100": {
+      "hashTag": "spb100"
+    },
+    "spb101": {
+      "hashTag": "spb101"
+    },
+    "spb102": {
+      "hashTag": "spb102"
+    },
+    "spb103": {
+      "hashTag": "spb103"
+    },
+    "spb104": {
+      "hashTag": "spb104"
+    },
+    "spb105": {
+      "hashTag": "spb105"
+    },
+    "spb106": {
+      "hashTag": "spb106"
+    },
+    "spb107": {
+      "hashTag": "spb107"
+    },
+    "spb108": {
+      "hashTag": "spb108"
+    },
+    "spb109": {
+      "hashTag": "spb109"
+    },
+    "spb110": {
+      "hashTag": "spb110"
+    },
+    "spb111": {
+      "hashTag": "spb111"
+    },
+    "spb112": {
+      "hashTag": "spb112"
+    },
+    "spb113": {
+      "hashTag": "spb113"
+    },
+    "spb114": {
+      "hashTag": "spb114"
+    },
+    "spb115": {
+      "hashTag": "spb115"
+    },
+    "spb116": {
+      "hashTag": "spb116"
+    },
+    "spb117": {
+      "hashTag": "spb117"
+    },
+    "spb118": {
+      "hashTag": "spb118"
+    },
+    "spb119": {
+      "hashTag": "spb119"
+    },
+    "spb120": {
+      "hashTag": "spb120"
+    },
+    "spb121": {
+      "hashTag": "spb121"
+    },
+    "spb122": {
+      "hashTag": "spb122"
+    },
+    "spb123": {
+      "hashTag": "spb123"
+    },
+    "spb124": {
+      "hashTag": "spb124"
+    },
+    "spb125": {
+      "hashTag": "spb125"
+    },
+    "spb126": {
+      "hashTag": "spb126"
+    },
+    "spb127": {
+      "hashTag": "spb127"
+    },
+    "spb128": {
+      "hashTag": "spb128"
+    },
+    "spb129": {
+      "hashTag": "spb129"
+    },
+    "spb130": {
+      "hashTag": "spb130"
+    },
+    "spb131": {
+      "hashTag": "spb131"
+    },
+    "spb132": {
+      "hashTag": "spb132"
+    },
+    "spb133": {
+      "hashTag": "spb133"
+    },
+    "spb134": {
+      "hashTag": "spb134"
+    },
+    "spb135": {
+      "hashTag": "spb135"
+    },
+    "spb136": {
+      "hashTag": "spb136"
+    },
+    "spb137": {
+      "hashTag": "spb137"
+    },
+    "spb138": {
+      "hashTag": "spb138"
+    },
+    "spb139": {
+      "hashTag": "spb139"
+    },
+    "spb140": {
+      "hashTag": "spb140"
+    },
+    "spb141": {
+      "hashTag": "spb141"
+    },
+    "spb142": {
+      "hashTag": "spb142"
+    },
+    "spb143": {
+      "hashTag": "spb143"
+    },
+    "spb144": {
+      "hashTag": "spb144"
+    },
+    "spb145": {
+      "hashTag": "spb145"
+    },
+    "spb146": {
+      "hashTag": "spb146"
+    },
+    "spb147": {
+      "hashTag": "spb147"
+    },
+    "spb148": {
+      "hashTag": "spb148"
+    },
+    "spb149": {
+      "hashTag": "spb149"
+    },
+    "spb150": {
+      "hashTag": "spb150"
+    },
+    "spb151": {
+      "hashTag": "spb151"
+    },
+    "spb152": {
+      "hashTag": "spb152"
+    },
+    "spb153": {
+      "hashTag": "spb153"
+    },
+    "spb154": {
+      "hashTag": "spb154"
+    },
+    "spb155": {
+      "hashTag": "spb155"
+    },
+    "spb156": {
+      "hashTag": "spb156"
+    },
+    "spb157": {
+      "hashTag": "spb157"
+    },
+    "spb158": {
+      "hashTag": "spb158"
+    },
+    "spb159": {
+      "hashTag": "spb159"
+    },
+    "spb160": {
+      "hashTag": "spb160"
+    },
+    "spb161": {
+      "hashTag": "spb161"
+    },
+    "spb162": {
+      "hashTag": "spb162"
+    },
+    "spb163": {
+      "hashTag": "spb163"
+    },
+    "spb164": {
+      "hashTag": "spb164"
+    },
+    "spb165": {
+      "hashTag": "spb165"
+    }
+  }
+}
