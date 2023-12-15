@@ -2,30 +2,44 @@
     "$ref": "#/$defs/ICPC live settings",
     "$defs": {
         "org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>": {
-            "type": "object",
-            "properties": {
-                "speed": {
-                    "type": "number"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "speed": {
+                            "type": "number"
+                        },
+                        "startTime": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "speed",
+                        "startTime"
+                    ]
                 },
-                "startTime": {
-                    "type": "string"
+                {
+                    "type": "null"
                 }
-            },
-            "additionalProperties": false,
-            "required": [
-                "speed",
-                "startTime"
             ]
         },
         "org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>": {
-            "type": "object",
-            "properties": {
-                "allowUnsecureConnections": {
-                    "type": "boolean"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "allowUnsecureConnections": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
+                },
+                {
+                    "type": "null"
                 }
-            },
-            "additionalProperties": false,
-            "required": [
             ]
         },
         "atcoder": {

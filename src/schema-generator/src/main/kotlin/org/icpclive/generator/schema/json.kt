@@ -151,6 +151,18 @@ fun SerialDescriptor.toJsonSchemaType(
             }
 
             StructureKind.OBJECT -> TODO("Object types are not supported")
+        }.let {
+            if (isNullable) {
+                val schemaNull = JsonObject(mapOf("type" to JsonPrimitive("null")))
+                if (it.keys.singleOrNull() == "oneOf") {
+                    mapOf("oneOf" to JsonArray((it.values.single() as JsonArray).toList() + schemaNull))
+
+                } else {
+                    mapOf("oneOf" to JsonArray(listOf(JsonObject(it), schemaNull)))
+                }
+            } else {
+                it
+            }
         }
         val content = (extras + data).toMutableMap()
         if (title != null) {

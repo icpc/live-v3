@@ -161,90 +161,135 @@
                 },
                 {
                     "$ref": "#/$defs/WebRTCProxyConnection"
+                },
+                {
+                    "type": "null"
                 }
             ]
         },
         "kotlin.collections.LinkedHashMap?<org.icpclive.api.TeamMediaType,org.icpclive.api.MediaType?>": {
-            "type": "object",
-            "properties": {
-                "camera": {
-                    "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "camera": {
+                            "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "screen": {
+                            "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "record": {
+                            "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "photo": {
+                            "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "reactionVideo": {
+                            "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "achievement": {
+                            "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        }
+                    }
                 },
-                "screen": {
-                    "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
-                },
-                "record": {
-                    "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
-                },
-                "photo": {
-                    "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
-                },
-                "reactionVideo": {
-                    "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
-                },
-                "achievement": {
-                    "$ref": "#/$defs/org.icpclive.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                {
+                    "type": "null"
                 }
-            }
+            ]
         },
         "org.icpclive.api.tunning.TeamOverrideTemplate?<kotlin.String?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?>": {
-            "type": "object",
-            "properties": {
-                "displayName": {
-                    "type": "string"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "displayName": {
+                            "type": "string"
+                        },
+                        "fullName": {
+                            "type": "string"
+                        },
+                        "hashTag": {
+                            "type": "string"
+                        },
+                        "medias": {
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.api.TeamMediaType,org.icpclive.api.MediaType?>"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 },
-                "fullName": {
-                    "type": "string"
-                },
-                "hashTag": {
-                    "type": "string"
-                },
-                "medias": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.api.TeamMediaType,org.icpclive.api.MediaType?>"
+                {
+                    "type": "null"
                 }
-            },
-            "additionalProperties": false,
-            "required": [
             ]
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,Regex>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "type": "string"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
                 }
-            }
+            ]
         },
         "org.icpclive.api.tunning.TeamRegexOverrides?<Regex?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>": {
-            "type": "object",
-            "properties": {
-                "organizationRegex": {
-                    "type": "string"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "organizationRegex": {
+                            "type": "string"
+                        },
+                        "customFields": {
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,Regex>"
+                        },
+                        "groupRegex": {
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,Regex>"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 },
-                "customFields": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,Regex>"
-                },
-                "groupRegex": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,Regex>"
+                {
+                    "type": "null"
                 }
-            },
-            "additionalProperties": false,
-            "required": [
             ]
         },
         "kotlin.collections.ArrayList?<kotlin.String>": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "type": "string"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
                 }
-            }
+            ]
         },
         "org.icpclive.api.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?>": {
             "type": "object",
@@ -282,12 +327,19 @@
             ]
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.TeamInfoOverride>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?>"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "$ref": "#/$defs/org.icpclive.api.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?>"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
                 }
-            }
+            ]
         },
         "org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>": {
             "type": "object",
@@ -307,12 +359,19 @@
             ]
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.GroupInfoOverride>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "$ref": "#/$defs/org.icpclive.api.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
                 }
-            }
+            ]
         },
         "org.icpclive.api.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?,org.icpclive.api.MediaType?>": {
             "type": "object",
@@ -332,20 +391,34 @@
             ]
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.OrganizationInfoOverride>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?,org.icpclive.api.MediaType?>"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "$ref": "#/$defs/org.icpclive.api.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?,org.icpclive.api.MediaType?>"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
                 }
-            }
+            ]
         },
         "org.icpclive.api.ScoreMergeMode?<org.icpclive.api.ScoreMergeMode.MAX_PER_GROUP,org.icpclive.api.ScoreMergeMode.MAX_TOTAL,org.icpclive.api.ScoreMergeMode.LAST,org.icpclive.api.ScoreMergeMode.LAST_OK,org.icpclive.api.ScoreMergeMode.SUM>": {
-            "enum": [
-                "MAX_PER_GROUP",
-                "MAX_TOTAL",
-                "LAST",
-                "LAST_OK",
-                "SUM"
+            "oneOf": [
+                {
+                    "enum": [
+                        "MAX_PER_GROUP",
+                        "MAX_TOTAL",
+                        "LAST",
+                        "LAST_OK",
+                        "SUM"
+                    ]
+                },
+                {
+                    "type": "null"
+                }
             ]
         },
         "org.icpclive.api.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.api.ScoreMergeMode?>": {
@@ -378,38 +451,59 @@
             ]
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.api.tunning.ProblemInfoOverride>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.api.ScoreMergeMode?>"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "$ref": "#/$defs/org.icpclive.api.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.api.ScoreMergeMode?>"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
                 }
-            }
+            ]
         },
         "org.icpclive.api.PenaltyRoundingMode?<org.icpclive.api.PenaltyRoundingMode.each_submission_down_to_minute,org.icpclive.api.PenaltyRoundingMode.each_submission_up_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_down_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_in_seconds,org.icpclive.api.PenaltyRoundingMode.last,org.icpclive.api.PenaltyRoundingMode.zero>": {
-            "enum": [
-                "each_submission_down_to_minute",
-                "each_submission_up_to_minute",
-                "sum_down_to_minute",
-                "sum_in_seconds",
-                "last",
-                "zero"
+            "oneOf": [
+                {
+                    "enum": [
+                        "each_submission_down_to_minute",
+                        "each_submission_up_to_minute",
+                        "sum_down_to_minute",
+                        "sum_in_seconds",
+                        "last",
+                        "zero"
+                    ]
+                },
+                {
+                    "type": "null"
+                }
             ]
         },
         "org.icpclive.api.tunning.RankingSettings?<DurationM?,kotlin.Boolean?,org.icpclive.api.PenaltyRoundingMode?>": {
-            "type": "object",
-            "properties": {
-                "penaltyPerWrongAttempt": {
-                    "type": "number"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "penaltyPerWrongAttempt": {
+                            "type": "number"
+                        },
+                        "showTeamsWithoutSubmissions": {
+                            "type": "boolean"
+                        },
+                        "penaltyRoundingMode": {
+                            "$ref": "#/$defs/org.icpclive.api.PenaltyRoundingMode?<org.icpclive.api.PenaltyRoundingMode.each_submission_down_to_minute,org.icpclive.api.PenaltyRoundingMode.each_submission_up_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_down_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_in_seconds,org.icpclive.api.PenaltyRoundingMode.last,org.icpclive.api.PenaltyRoundingMode.zero>"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 },
-                "showTeamsWithoutSubmissions": {
-                    "type": "boolean"
-                },
-                "penaltyRoundingMode": {
-                    "$ref": "#/$defs/org.icpclive.api.PenaltyRoundingMode?<org.icpclive.api.PenaltyRoundingMode.each_submission_down_to_minute,org.icpclive.api.PenaltyRoundingMode.each_submission_up_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_down_to_minute,org.icpclive.api.PenaltyRoundingMode.sum_in_seconds,org.icpclive.api.PenaltyRoundingMode.last,org.icpclive.api.PenaltyRoundingMode.zero>"
+                {
+                    "type": "null"
                 }
-            },
-            "additionalProperties": false,
-            "required": [
             ]
         },
         "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>": {
@@ -421,10 +515,17 @@
             }
         },
         "org.icpclive.api.Award.Medal.MedalColor?<org.icpclive.api.Award.Medal.MedalColor.GOLD,org.icpclive.api.Award.Medal.MedalColor.SILVER,org.icpclive.api.Award.Medal.MedalColor.BRONZE>": {
-            "enum": [
-                "GOLD",
-                "SILVER",
-                "BRONZE"
+            "oneOf": [
+                {
+                    "enum": [
+                        "GOLD",
+                        "SILVER",
+                        "BRONZE"
+                    ]
+                },
+                {
+                    "type": "null"
+                }
             ]
         },
         "org.icpclive.api.AwardsSettings.MedalTiebreakMode<org.icpclive.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.api.AwardsSettings.MedalTiebreakMode.ALL>": {
@@ -506,29 +607,36 @@
             }
         },
         "org.icpclive.api.AwardsSettings?<kotlin.String?,kotlin.collections.LinkedHashMap,kotlin.Int,kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>": {
-            "type": "object",
-            "properties": {
-                "championTitle": {
-                    "type": "string"
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "championTitle": {
+                            "type": "string"
+                        },
+                        "groupsChampionTitles": {
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
+                        },
+                        "rankAwardsMaxRank": {
+                            "type": "number"
+                        },
+                        "medals": {
+                            "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.MedalSettings>"
+                        },
+                        "medalGroups": {
+                            "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.collections.ArrayList>"
+                        },
+                        "manual": {
+                            "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.ManualAwardSetting>"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                    ]
                 },
-                "groupsChampionTitles": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
-                },
-                "rankAwardsMaxRank": {
-                    "type": "number"
-                },
-                "medals": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.MedalSettings>"
-                },
-                "medalGroups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.collections.ArrayList>"
-                },
-                "manual": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.api.AwardsSettings.ManualAwardSetting>"
+                {
+                    "type": "null"
                 }
-            },
-            "additionalProperties": false,
-            "required": [
             ]
         },
         "ICPC live advanced settings": {
