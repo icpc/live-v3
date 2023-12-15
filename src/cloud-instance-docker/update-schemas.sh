@@ -1,0 +1,2 @@
+curl https://raw.githubusercontent.com/icpc/live-v3/main/schemas/advanced.schema.json >.vscode/schemas/advanced.schema.json
+curl https://raw.githubusercontent.com/icpc/live-v3/main/schemas/settings.schema.json >.vscode/schemas/settings.schema.json

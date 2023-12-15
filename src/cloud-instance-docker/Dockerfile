@@ -9,6 +9,10 @@ COPY run.sh /app/workspace/run.sh
 COPY stop.sh /app/workspace/stop.sh
 COPY creds.json /app/workspace/creds.json
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY vscode-settings.json /app/workspace/.vscode/settings.json
+COPY ../../schemas/advanced.schema.json /app/workspace/.vscode/schemas/advanced.schema.json
+COPY ../../schemas/settings.schema.json /app/workspace/.vscode/schemas/settings.schema.json
+COPY update-schemas.sh /app/workspace/.vscode/schemas/update-schemas.sh
 
 
 COPY init.sh /init.sh
