@@ -1,40 +1,43 @@
 {
   "problemOverrides": {
     "A": {
-      "color": "#FFFF00"
+      "color": "#FE0000"
     },
     "B": {
-      "color": "#FF00FE"
-    },
-    "C": {
       "color": "#761946"
     },
+    "C": {
+      "color": "#45BEC6"
+    },
     "D": {
-      "color": "#FE9900"
+      "color": "#FFFF00"
     },
     "E": {
-      "color": "#0000FE"
+      "color": "#FE9900"
     },
     "F": {
-      "color": "#000000"
+      "color": "#FF00FE"
     },
     "G": {
-      "color": "#04FF00"
+      "color": "#E9D1DE"
     },
     "H": {
       "color": "#38771E"
     },
     "I": {
-      "color": "#9B01FF"
-    },
-    "J": {
-      "color": "#E9D1DE"
-    },
-    "K": {
       "color": "#FFFFFF"
     },
+    "J": {
+      "color": "#9B01FF"
+    },
+    "K": {
+      "color": "#04FF00"
+    },
     "L": {
-      "color": "#FE0000"
+      "color": "#000000"
+    },
+    "M": {
+      "color": "0000FE"
     },
     "X": {
       "color": "#808080"
