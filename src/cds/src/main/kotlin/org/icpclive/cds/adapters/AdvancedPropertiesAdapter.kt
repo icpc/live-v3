@@ -136,6 +136,7 @@ private fun Map<TeamMediaType, MediaType?>.instantiateTemplate(teams: List<TeamI
 
 private fun TeamOverrideTemplate.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
     it.contestSystemId to TeamInfoOverride(
+        hashTag = hashTag?.applyTemplate { name -> it.valueProvider(name) },
         fullName = fullName?.applyTemplate { name -> it.valueProvider(name) },
         displayName = displayName?.applyTemplate { name -> it.valueProvider(name) },
         medias = medias?.mapValues { (_,v) -> v?.applyTemplate { name -> it.valueProvider(name) } }

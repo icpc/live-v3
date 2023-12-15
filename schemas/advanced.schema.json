@@ -187,13 +187,16 @@
                 }
             }
         },
-        "org.icpclive.api.tunning.TeamOverrideTemplate?<kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?>": {
+        "org.icpclive.api.tunning.TeamOverrideTemplate?<kotlin.String?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?>": {
             "type": "object",
             "properties": {
                 "displayName": {
                     "type": "string"
                 },
                 "fullName": {
+                    "type": "string"
+                },
+                "hashTag": {
                     "type": "string"
                 },
                 "medias": {
@@ -547,7 +550,7 @@
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.api.TeamMediaType,org.icpclive.api.MediaType?>"
                 },
                 "teamOverrideTemplate": {
-                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamOverrideTemplate?<kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?>"
+                    "$ref": "#/$defs/org.icpclive.api.tunning.TeamOverrideTemplate?<kotlin.String?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?>"
                 },
                 "teamNameRegexes": {
                     "$ref": "#/$defs/org.icpclive.api.tunning.TeamRegexOverrides?<Regex?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"

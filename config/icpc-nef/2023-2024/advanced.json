@@ -54,6 +54,7 @@
     "organizationRegex": "^([^:]*).*"
   },
   "teamOverrideTemplate": {
+    "hashTag": "{teamId}",
     "displayName": "{orgDisplayName} {funnyName}",
     "medias": {
       "achievement": {
@@ -131,7 +132,6 @@
   },
   "teamOverrides": {
     "geo001": {
-      "hashTag": "geo001",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -150,7 +150,6 @@
       }
     },
     "geo002": {
-      "hashTag": "geo002",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -169,7 +168,6 @@
       }
     },
     "geo003": {
-      "hashTag": "geo003",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -188,7 +186,6 @@
       }
     },
     "geo004": {
-      "hashTag": "geo004",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -207,7 +204,6 @@
       }
     },
     "geo005": {
-      "hashTag": "geo005",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -226,7 +222,6 @@
       }
     },
     "geo006": {
-      "hashTag": "geo006",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -245,7 +240,6 @@
       }
     },
     "geo007": {
-      "hashTag": "geo007",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -264,7 +258,6 @@
       }
     },
     "geo008": {
-      "hashTag": "geo008",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -283,7 +276,6 @@
       }
     },
     "geo009": {
-      "hashTag": "geo009",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -302,7 +294,6 @@
       }
     },
     "geo010": {
-      "hashTag": "geo010",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -321,7 +312,6 @@
       }
     },
     "geo011": {
-      "hashTag": "geo011",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -340,7 +330,6 @@
       }
     },
     "geo012": {
-      "hashTag": "geo012",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -359,7 +348,6 @@
       }
     },
     "geo013": {
-      "hashTag": "geo013",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -378,7 +366,6 @@
       }
     },
     "geo014": {
-      "hashTag": "geo014",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -397,7 +384,6 @@
       }
     },
     "geo015": {
-      "hashTag": "geo015",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -416,7 +402,6 @@
       }
     },
     "geo016": {
-      "hashTag": "geo016",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -435,7 +420,6 @@
       }
     },
     "geo017": {
-      "hashTag": "geo017",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -454,7 +438,6 @@
       }
     },
     "geo018": {
-      "hashTag": "geo018",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -473,7 +456,6 @@
       }
     },
     "geo019": {
-      "hashTag": "geo019",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -492,7 +474,6 @@
       }
     },
     "geo020": {
-      "hashTag": "geo020",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -511,7 +492,6 @@
       }
     },
     "geo021": {
-      "hashTag": "geo021",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -530,7 +510,6 @@
       }
     },
     "geo022": {
-      "hashTag": "geo022",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -549,7 +528,6 @@
       }
     },
     "geo023": {
-      "hashTag": "geo023",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -568,7 +546,6 @@
       }
     },
     "geo024": {
-      "hashTag": "geo024",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -587,7 +564,6 @@
       }
     },
     "geo025": {
-      "hashTag": "geo025",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -606,7 +582,6 @@
       }
     },
     "geo026": {
-      "hashTag": "geo026",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -625,7 +600,6 @@
       }
     },
     "geo027": {
-      "hashTag": "geo027",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -644,7 +618,6 @@
       }
     },
     "geo028": {
-      "hashTag": "geo028",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -663,7 +636,6 @@
       }
     },
     "geo029": {
-      "hashTag": "geo029",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -682,7 +654,6 @@
       }
     },
     "geo030": {
-      "hashTag": "geo030",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -701,7 +672,6 @@
       }
     },
     "geo031": {
-      "hashTag": "geo031",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -720,7 +690,6 @@
       }
     },
     "geo032": {
-      "hashTag": "geo032",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -739,7 +708,6 @@
       }
     },
     "geo033": {
-      "hashTag": "geo033",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -758,7 +726,6 @@
       }
     },
     "geo034": {
-      "hashTag": "geo034",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -777,7 +744,6 @@
       }
     },
     "geo035": {
-      "hashTag": "geo035",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -796,7 +762,6 @@
       }
     },
     "geo036": {
-      "hashTag": "geo036",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -815,7 +780,6 @@
       }
     },
     "geo037": {
-      "hashTag": "geo037",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -834,7 +798,6 @@
       }
     },
     "geo038": {
-      "hashTag": "geo038",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -853,7 +816,6 @@
       }
     },
     "geo039": {
-      "hashTag": "geo039",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -872,7 +834,6 @@
       }
     },
     "geo040": {
-      "hashTag": "geo040",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -891,7 +852,6 @@
       }
     },
     "geo041": {
-      "hashTag": "geo041",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -910,7 +870,6 @@
       }
     },
     "geo042": {
-      "hashTag": "geo042",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -929,7 +888,6 @@
       }
     },
     "geo043": {
-      "hashTag": "geo043",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -948,7 +906,6 @@
       }
     },
     "geo044": {
-      "hashTag": "geo044",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -967,7 +924,6 @@
       }
     },
     "geo045": {
-      "hashTag": "geo045",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -986,7 +942,6 @@
       }
     },
     "geo046": {
-      "hashTag": "geo046",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1005,7 +960,6 @@
       }
     },
     "geo047": {
-      "hashTag": "geo047",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1024,7 +978,6 @@
       }
     },
     "geo048": {
-      "hashTag": "geo048",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1043,7 +996,6 @@
       }
     },
     "geo049": {
-      "hashTag": "geo049",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1062,7 +1014,6 @@
       }
     },
     "geo050": {
-      "hashTag": "geo050",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1081,7 +1032,6 @@
       }
     },
     "geo051": {
-      "hashTag": "geo051",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1100,7 +1050,6 @@
       }
     },
     "geo052": {
-      "hashTag": "geo052",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1119,7 +1068,6 @@
       }
     },
     "geo053": {
-      "hashTag": "geo053",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1138,7 +1086,6 @@
       }
     },
     "geo054": {
-      "hashTag": "geo054",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1157,7 +1104,6 @@
       }
     },
     "geo055": {
-      "hashTag": "geo055",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1176,7 +1122,6 @@
       }
     },
     "kaz001": {
-      "hashTag": "kaz001",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1195,7 +1140,6 @@
       }
     },
     "kaz002": {
-      "hashTag": "kaz002",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1214,7 +1158,6 @@
       }
     },
     "kaz003": {
-      "hashTag": "kaz003",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1233,7 +1176,6 @@
       }
     },
     "kaz004": {
-      "hashTag": "kaz004",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1252,7 +1194,6 @@
       }
     },
     "kaz005": {
-      "hashTag": "kaz005",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1271,7 +1212,6 @@
       }
     },
     "kaz006": {
-      "hashTag": "kaz006",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1290,7 +1230,6 @@
       }
     },
     "kaz007": {
-      "hashTag": "kaz007",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1309,7 +1248,6 @@
       }
     },
     "kaz008": {
-      "hashTag": "kaz008",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1328,7 +1266,6 @@
       }
     },
     "kaz009": {
-      "hashTag": "kaz009",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1347,7 +1284,6 @@
       }
     },
     "kaz010": {
-      "hashTag": "kaz010",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1366,7 +1302,6 @@
       }
     },
     "kaz011": {
-      "hashTag": "kaz011",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1385,7 +1320,6 @@
       }
     },
     "kaz012": {
-      "hashTag": "kaz012",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1404,7 +1338,6 @@
       }
     },
     "kaz013": {
-      "hashTag": "kaz013",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1423,7 +1356,6 @@
       }
     },
     "kaz014": {
-      "hashTag": "kaz014",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1442,7 +1374,6 @@
       }
     },
     "kaz015": {
-      "hashTag": "kaz015",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1461,7 +1392,6 @@
       }
     },
     "kaz016": {
-      "hashTag": "kaz016",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1480,7 +1410,6 @@
       }
     },
     "kaz017": {
-      "hashTag": "kaz017",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1499,7 +1428,6 @@
       }
     },
     "kaz018": {
-      "hashTag": "kaz018",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1518,7 +1446,6 @@
       }
     },
     "kaz019": {
-      "hashTag": "kaz019",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1537,7 +1464,6 @@
       }
     },
     "kaz022": {
-      "hashTag": "kaz022",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1556,7 +1482,6 @@
       }
     },
     "kaz023": {
-      "hashTag": "kaz023",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1575,7 +1500,6 @@
       }
     },
     "kaz024": {
-      "hashTag": "kaz024",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1594,7 +1518,6 @@
       }
     },
     "kaz025": {
-      "hashTag": "kaz025",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1613,7 +1536,6 @@
       }
     },
     "kaz026": {
-      "hashTag": "kaz026",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1632,7 +1554,6 @@
       }
     },
     "kaz027": {
-      "hashTag": "kaz027",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1651,7 +1572,6 @@
       }
     },
     "kaz028": {
-      "hashTag": "kaz028",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1670,7 +1590,6 @@
       }
     },
     "kaz029": {
-      "hashTag": "kaz029",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1689,7 +1608,6 @@
       }
     },
     "kaz030": {
-      "hashTag": "kaz030",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1708,7 +1626,6 @@
       }
     },
     "kaz031": {
-      "hashTag": "kaz031",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1727,7 +1644,6 @@
       }
     },
     "kaz032": {
-      "hashTag": "kaz032",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1746,7 +1662,6 @@
       }
     },
     "kaz033": {
-      "hashTag": "kaz033",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1765,7 +1680,6 @@
       }
     },
     "kaz034": {
-      "hashTag": "kaz034",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1784,7 +1698,6 @@
       }
     },
     "kaz035": {
-      "hashTag": "kaz035",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1803,7 +1716,6 @@
       }
     },
     "kaz036": {
-      "hashTag": "kaz036",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1822,7 +1734,6 @@
       }
     },
     "kaz037": {
-      "hashTag": "kaz037",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1841,7 +1752,6 @@
       }
     },
     "kaz038": {
-      "hashTag": "kaz038",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1860,7 +1770,6 @@
       }
     },
     "kaz039": {
-      "hashTag": "kaz039",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1879,7 +1788,6 @@
       }
     },
     "kaz040": {
-      "hashTag": "kaz040",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1898,7 +1806,6 @@
       }
     },
     "kaz041": {
-      "hashTag": "kaz041",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1917,7 +1824,6 @@
       }
     },
     "kaz042": {
-      "hashTag": "kaz042",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1936,7 +1842,6 @@
       }
     },
     "kaz043": {
-      "hashTag": "kaz043",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1955,7 +1860,6 @@
       }
     },
     "kaz044": {
-      "hashTag": "kaz044",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1974,7 +1878,6 @@
       }
     },
     "kaz045": {
-      "hashTag": "kaz045",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -1993,7 +1896,6 @@
       }
     },
     "kaz046": {
-      "hashTag": "kaz046",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2012,7 +1914,6 @@
       }
     },
     "kaz047": {
-      "hashTag": "kaz047",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2031,7 +1932,6 @@
       }
     },
     "kaz048": {
-      "hashTag": "kaz048",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2050,7 +1950,6 @@
       }
     },
     "kaz049": {
-      "hashTag": "kaz049",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2069,7 +1968,6 @@
       }
     },
     "kaz050": {
-      "hashTag": "kaz050",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2088,7 +1986,6 @@
       }
     },
     "kaz051": {
-      "hashTag": "kaz051",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2107,7 +2004,6 @@
       }
     },
     "kaz052": {
-      "hashTag": "kaz052",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2126,7 +2022,6 @@
       }
     },
     "kaz053": {
-      "hashTag": "kaz053",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2145,7 +2040,6 @@
       }
     },
     "kaz054": {
-      "hashTag": "kaz054",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2164,7 +2058,6 @@
       }
     },
     "kaz055": {
-      "hashTag": "kaz055",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2183,7 +2076,6 @@
       }
     },
     "kaz056": {
-      "hashTag": "kaz056",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2202,7 +2094,6 @@
       }
     },
     "kaz057": {
-      "hashTag": "kaz057",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2221,7 +2112,6 @@
       }
     },
     "kaz058": {
-      "hashTag": "kaz058",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2240,7 +2130,6 @@
       }
     },
     "kaz059": {
-      "hashTag": "kaz059",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2259,7 +2148,6 @@
       }
     },
     "kaz060": {
-      "hashTag": "kaz060",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2278,7 +2166,6 @@
       }
     },
     "kaz061": {
-      "hashTag": "kaz061",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2297,7 +2184,6 @@
       }
     },
     "kaz062": {
-      "hashTag": "kaz062",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2316,7 +2202,6 @@
       }
     },
     "kaz063": {
-      "hashTag": "kaz063",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2335,7 +2220,6 @@
       }
     },
     "kaz064": {
-      "hashTag": "kaz064",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2354,7 +2238,6 @@
       }
     },
     "kaz065": {
-      "hashTag": "kaz065",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2373,7 +2256,6 @@
       }
     },
     "kaz066": {
-      "hashTag": "kaz066",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2392,7 +2274,6 @@
       }
     },
     "kaz067": {
-      "hashTag": "kaz067",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2411,7 +2292,6 @@
       }
     },
     "kaz068": {
-      "hashTag": "kaz068",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2430,7 +2310,6 @@
       }
     },
     "kaz069": {
-      "hashTag": "kaz069",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2449,7 +2328,6 @@
       }
     },
     "kaz070": {
-      "hashTag": "kaz070",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2468,7 +2346,6 @@
       }
     },
     "kaz071": {
-      "hashTag": "kaz071",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2487,7 +2364,6 @@
       }
     },
     "kaz072": {
-      "hashTag": "kaz072",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2506,7 +2382,6 @@
       }
     },
     "kaz073": {
-      "hashTag": "kaz073",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2525,7 +2400,6 @@
       }
     },
     "kaz074": {
-      "hashTag": "kaz074",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2544,7 +2418,6 @@
       }
     },
     "kaz075": {
-      "hashTag": "kaz075",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2563,7 +2436,6 @@
       }
     },
     "kaz076": {
-      "hashTag": "kaz076",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2582,7 +2454,6 @@
       }
     },
     "kaz077": {
-      "hashTag": "kaz077",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2601,7 +2472,6 @@
       }
     },
     "kaz078": {
-      "hashTag": "kaz078",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2620,7 +2490,6 @@
       }
     },
     "kaz079": {
-      "hashTag": "kaz079",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2639,7 +2508,6 @@
       }
     },
     "kaz080": {
-      "hashTag": "kaz080",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2658,7 +2526,6 @@
       }
     },
     "kaz081": {
-      "hashTag": "kaz081",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2677,7 +2544,6 @@
       }
     },
     "kaz082": {
-      "hashTag": "kaz082",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2696,7 +2562,6 @@
       }
     },
     "kaz083": {
-      "hashTag": "kaz083",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2715,7 +2580,6 @@
       }
     },
     "kaz084": {
-      "hashTag": "kaz084",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2734,7 +2598,6 @@
       }
     },
     "kaz085": {
-      "hashTag": "kaz085",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2753,7 +2616,6 @@
       }
     },
     "kaz086": {
-      "hashTag": "kaz086",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2772,7 +2634,6 @@
       }
     },
     "kaz087": {
-      "hashTag": "kaz087",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2791,7 +2652,6 @@
       }
     },
     "kaz088": {
-      "hashTag": "kaz088",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2810,7 +2670,6 @@
       }
     },
     "kaz089": {
-      "hashTag": "kaz089",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2829,7 +2688,6 @@
       }
     },
     "kaz090": {
-      "hashTag": "kaz090",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2848,7 +2706,6 @@
       }
     },
     "nsk001": {
-      "hashTag": "nsk001",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2861,7 +2718,6 @@
       }
     },
     "nsk002": {
-      "hashTag": "nsk002",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2874,7 +2730,6 @@
       }
     },
     "nsk003": {
-      "hashTag": "nsk003",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2887,7 +2742,6 @@
       }
     },
     "nsk004": {
-      "hashTag": "nsk004",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2900,7 +2754,6 @@
       }
     },
     "nsk005": {
-      "hashTag": "nsk005",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2913,7 +2766,6 @@
       }
     },
     "nsk006": {
-      "hashTag": "nsk006",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2926,7 +2778,6 @@
       }
     },
     "nsk007": {
-      "hashTag": "nsk007",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2939,7 +2790,6 @@
       }
     },
     "nsk008": {
-      "hashTag": "nsk008",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2952,7 +2802,6 @@
       }
     },
     "nsk009": {
-      "hashTag": "nsk009",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2965,7 +2814,6 @@
       }
     },
     "nsk010": {
-      "hashTag": "nsk010",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2978,7 +2826,6 @@
       }
     },
     "nsk011": {
-      "hashTag": "nsk011",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -2991,7 +2838,6 @@
       }
     },
     "nsk012": {
-      "hashTag": "nsk012",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3004,7 +2850,6 @@
       }
     },
     "nsk013": {
-      "hashTag": "nsk013",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3017,7 +2862,6 @@
       }
     },
     "nsk014": {
-      "hashTag": "nsk014",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3030,7 +2874,6 @@
       }
     },
     "nsk015": {
-      "hashTag": "nsk015",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3043,7 +2886,6 @@
       }
     },
     "nsk016": {
-      "hashTag": "nsk016",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3056,7 +2898,6 @@
       }
     },
     "nsk017": {
-      "hashTag": "nsk017",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3069,7 +2910,6 @@
       }
     },
     "nsk018": {
-      "hashTag": "nsk018",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3082,7 +2922,6 @@
       }
     },
     "nsk019": {
-      "hashTag": "nsk019",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3095,7 +2934,6 @@
       }
     },
     "nsk020": {
-      "hashTag": "nsk020",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3108,7 +2946,6 @@
       }
     },
     "nsk021": {
-      "hashTag": "nsk021",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3121,7 +2958,6 @@
       }
     },
     "nsk022": {
-      "hashTag": "nsk022",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3134,7 +2970,6 @@
       }
     },
     "nsk023": {
-      "hashTag": "nsk023",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3147,7 +2982,6 @@
       }
     },
     "nsk024": {
-      "hashTag": "nsk024",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3160,7 +2994,6 @@
       }
     },
     "nsk025": {
-      "hashTag": "nsk025",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3173,7 +3006,6 @@
       }
     },
     "nsk026": {
-      "hashTag": "nsk026",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3186,7 +3018,6 @@
       }
     },
     "nsk027": {
-      "hashTag": "nsk027",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3199,7 +3030,6 @@
       }
     },
     "nsk028": {
-      "hashTag": "nsk028",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3212,7 +3042,6 @@
       }
     },
     "nsk029": {
-      "hashTag": "nsk029",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3225,7 +3054,6 @@
       }
     },
     "nsk030": {
-      "hashTag": "nsk030",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3238,7 +3066,6 @@
       }
     },
     "nsk031": {
-      "hashTag": "nsk031",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3251,7 +3078,6 @@
       }
     },
     "nsk032": {
-      "hashTag": "nsk032",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3264,7 +3090,6 @@
       }
     },
     "nsk033": {
-      "hashTag": "nsk033",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3277,7 +3102,6 @@
       }
     },
     "nsk034": {
-      "hashTag": "nsk034",
       "medias": {
         "screen": {
           "type": "WebRTCGrabberConnection",
@@ -3288,501 +3112,6 @@
         },
         "camera": null
       }
-    },
-    "spb001": {
-      "hashTag": "spb001"
-    },
-    "spb002": {
-      "hashTag": "spb002"
-    },
-    "spb003": {
-      "hashTag": "spb003"
-    },
-    "spb004": {
-      "hashTag": "spb004"
-    },
-    "spb005": {
-      "hashTag": "spb005"
-    },
-    "spb006": {
-      "hashTag": "spb006"
-    },
-    "spb007": {
-      "hashTag": "spb007"
-    },
-    "spb008": {
-      "hashTag": "spb008"
-    },
-    "spb009": {
-      "hashTag": "spb009"
-    },
-    "spb010": {
-      "hashTag": "spb010"
-    },
-    "spb011": {
-      "hashTag": "spb011"
-    },
-    "spb012": {
-      "hashTag": "spb012"
-    },
-    "spb013": {
-      "hashTag": "spb013"
-    },
-    "spb014": {
-      "hashTag": "spb014"
-    },
-    "spb015": {
-      "hashTag": "spb015"
-    },
-    "spb016": {
-      "hashTag": "spb016"
-    },
-    "spb017": {
-      "hashTag": "spb017"
-    },
-    "spb018": {
-      "hashTag": "spb018"
-    },
-    "spb019": {
-      "hashTag": "spb019"
-    },
-    "spb020": {
-      "hashTag": "spb020"
-    },
-    "spb021": {
-      "hashTag": "spb021"
-    },
-    "spb022": {
-      "hashTag": "spb022"
-    },
-    "spb023": {
-      "hashTag": "spb023"
-    },
-    "spb024": {
-      "hashTag": "spb024"
-    },
-    "spb025": {
-      "hashTag": "spb025"
-    },
-    "spb026": {
-      "hashTag": "spb026"
-    },
-    "spb027": {
-      "hashTag": "spb027"
-    },
-    "spb028": {
-      "hashTag": "spb028"
-    },
-    "spb029": {
-      "hashTag": "spb029"
-    },
-    "spb030": {
-      "hashTag": "spb030"
-    },
-    "spb031": {
-      "hashTag": "spb031"
-    },
-    "spb032": {
-      "hashTag": "spb032"
-    },
-    "spb033": {
-      "hashTag": "spb033"
-    },
-    "spb034": {
-      "hashTag": "spb034"
-    },
-    "spb035": {
-      "hashTag": "spb035"
-    },
-    "spb036": {
-      "hashTag": "spb036"
-    },
-    "spb037": {
-      "hashTag": "spb037"
-    },
-    "spb038": {
-      "hashTag": "spb038"
-    },
-    "spb039": {
-      "hashTag": "spb039"
-    },
-    "spb040": {
-      "hashTag": "spb040"
-    },
-    "spb041": {
-      "hashTag": "spb041"
-    },
-    "spb042": {
-      "hashTag": "spb042"
-    },
-    "spb043": {
-      "hashTag": "spb043"
-    },
-    "spb044": {
-      "hashTag": "spb044"
-    },
-    "spb045": {
-      "hashTag": "spb045"
-    },
-    "spb046": {
-      "hashTag": "spb046"
-    },
-    "spb047": {
-      "hashTag": "spb047"
-    },
-    "spb048": {
-      "hashTag": "spb048"
-    },
-    "spb049": {
-      "hashTag": "spb049"
-    },
-    "spb050": {
-      "hashTag": "spb050"
-    },
-    "spb051": {
-      "hashTag": "spb051"
-    },
-    "spb052": {
-      "hashTag": "spb052"
-    },
-    "spb053": {
-      "hashTag": "spb053"
-    },
-    "spb054": {
-      "hashTag": "spb054"
-    },
-    "spb055": {
-      "hashTag": "spb055"
-    },
-    "spb056": {
-      "hashTag": "spb056"
-    },
-    "spb057": {
-      "hashTag": "spb057"
-    },
-    "spb058": {
-      "hashTag": "spb058"
-    },
-    "spb059": {
-      "hashTag": "spb059"
-    },
-    "spb060": {
-      "hashTag": "spb060"
-    },
-    "spb061": {
-      "hashTag": "spb061"
-    },
-    "spb062": {
-      "hashTag": "spb062"
-    },
-    "spb063": {
-      "hashTag": "spb063"
-    },
-    "spb064": {
-      "hashTag": "spb064"
-    },
-    "spb065": {
-      "hashTag": "spb065"
-    },
-    "spb066": {
-      "hashTag": "spb066"
-    },
-    "spb067": {
-      "hashTag": "spb067"
-    },
-    "spb068": {
-      "hashTag": "spb068"
-    },
-    "spb069": {
-      "hashTag": "spb069"
-    },
-    "spb070": {
-      "hashTag": "spb070"
-    },
-    "spb071": {
-      "hashTag": "spb071"
-    },
-    "spb072": {
-      "hashTag": "spb072"
-    },
-    "spb073": {
-      "hashTag": "spb073"
-    },
-    "spb074": {
-      "hashTag": "spb074"
-    },
-    "spb075": {
-      "hashTag": "spb075"
-    },
-    "spb076": {
-      "hashTag": "spb076"
-    },
-    "spb077": {
-      "hashTag": "spb077"
-    },
-    "spb078": {
-      "hashTag": "spb078"
-    },
-    "spb079": {
-      "hashTag": "spb079"
-    },
-    "spb080": {
-      "hashTag": "spb080"
-    },
-    "spb081": {
-      "hashTag": "spb081"
-    },
-    "spb082": {
-      "hashTag": "spb082"
-    },
-    "spb083": {
-      "hashTag": "spb083"
-    },
-    "spb084": {
-      "hashTag": "spb084"
-    },
-    "spb085": {
-      "hashTag": "spb085"
-    },
-    "spb086": {
-      "hashTag": "spb086"
-    },
-    "spb087": {
-      "hashTag": "spb087"
-    },
-    "spb088": {
-      "hashTag": "spb088"
-    },
-    "spb089": {
-      "hashTag": "spb089"
-    },
-    "spb090": {
-      "hashTag": "spb090"
-    },
-    "spb091": {
-      "hashTag": "spb091"
-    },
-    "spb092": {
-      "hashTag": "spb092"
-    },
-    "spb093": {
-      "hashTag": "spb093"
-    },
-    "spb094": {
-      "hashTag": "spb094"
-    },
-    "spb095": {
-      "hashTag": "spb095"
-    },
-    "spb096": {
-      "hashTag": "spb096"
-    },
-    "spb097": {
-      "hashTag": "spb097"
-    },
-    "spb098": {
-      "hashTag": "spb098"
-    },
-    "spb099": {
-      "hashTag": "spb099"
-    },
-    "spb100": {
-      "hashTag": "spb100"
-    },
-    "spb101": {
-      "hashTag": "spb101"
-    },
-    "spb102": {
-      "hashTag": "spb102"
-    },
-    "spb103": {
-      "hashTag": "spb103"
-    },
-    "spb104": {
-      "hashTag": "spb104"
-    },
-    "spb105": {
-      "hashTag": "spb105"
-    },
-    "spb106": {
-      "hashTag": "spb106"
-    },
-    "spb107": {
-      "hashTag": "spb107"
-    },
-    "spb108": {
-      "hashTag": "spb108"
-    },
-    "spb109": {
-      "hashTag": "spb109"
-    },
-    "spb110": {
-      "hashTag": "spb110"
-    },
-    "spb111": {
-      "hashTag": "spb111"
-    },
-    "spb112": {
-      "hashTag": "spb112"
-    },
-    "spb113": {
-      "hashTag": "spb113"
-    },
-    "spb114": {
-      "hashTag": "spb114"
-    },
-    "spb115": {
-      "hashTag": "spb115"
-    },
-    "spb116": {
-      "hashTag": "spb116"
-    },
-    "spb117": {
-      "hashTag": "spb117"
-    },
-    "spb118": {
-      "hashTag": "spb118"
-    },
-    "spb119": {
-      "hashTag": "spb119"
-    },
-    "spb120": {
-      "hashTag": "spb120"
-    },
-    "spb121": {
-      "hashTag": "spb121"
-    },
-    "spb122": {
-      "hashTag": "spb122"
-    },
-    "spb123": {
-      "hashTag": "spb123"
-    },
-    "spb124": {
-      "hashTag": "spb124"
-    },
-    "spb125": {
-      "hashTag": "spb125"
-    },
-    "spb126": {
-      "hashTag": "spb126"
-    },
-    "spb127": {
-      "hashTag": "spb127"
-    },
-    "spb128": {
-      "hashTag": "spb128"
-    },
-    "spb129": {
-      "hashTag": "spb129"
-    },
-    "spb130": {
-      "hashTag": "spb130"
-    },
-    "spb131": {
-      "hashTag": "spb131"
-    },
-    "spb132": {
-      "hashTag": "spb132"
-    },
-    "spb133": {
-      "hashTag": "spb133"
-    },
-    "spb134": {
-      "hashTag": "spb134"
-    },
-    "spb135": {
-      "hashTag": "spb135"
-    },
-    "spb136": {
-      "hashTag": "spb136"
-    },
-    "spb137": {
-      "hashTag": "spb137"
-    },
-    "spb138": {
-      "hashTag": "spb138"
-    },
-    "spb139": {
-      "hashTag": "spb139"
-    },
-    "spb140": {
-      "hashTag": "spb140"
-    },
-    "spb141": {
-      "hashTag": "spb141"
-    },
-    "spb142": {
-      "hashTag": "spb142"
-    },
-    "spb143": {
-      "hashTag": "spb143"
-    },
-    "spb144": {
-      "hashTag": "spb144"
-    },
-    "spb145": {
-      "hashTag": "spb145"
-    },
-    "spb146": {
-      "hashTag": "spb146"
-    },
-    "spb147": {
-      "hashTag": "spb147"
-    },
-    "spb148": {
-      "hashTag": "spb148"
-    },
-    "spb149": {
-      "hashTag": "spb149"
-    },
-    "spb150": {
-      "hashTag": "spb150"
-    },
-    "spb151": {
-      "hashTag": "spb151"
-    },
-    "spb152": {
-      "hashTag": "spb152"
-    },
-    "spb153": {
-      "hashTag": "spb153"
-    },
-    "spb154": {
-      "hashTag": "spb154"
-    },
-    "spb155": {
-      "hashTag": "spb155"
-    },
-    "spb156": {
-      "hashTag": "spb156"
-    },
-    "spb157": {
-      "hashTag": "spb157"
-    },
-    "spb158": {
-      "hashTag": "spb158"
-    },
-    "spb159": {
-      "hashTag": "spb159"
-    },
-    "spb160": {
-      "hashTag": "spb160"
-    },
-    "spb161": {
-      "hashTag": "spb161"
-    },
-    "spb162": {
-      "hashTag": "spb162"
-    },
-    "spb163": {
-      "hashTag": "spb163"
-    },
-    "spb164": {
-      "hashTag": "spb164"
-    },
-    "spb165": {
-      "hashTag": "spb165"
     }
   }
 }

@@ -194,6 +194,7 @@ public data class TeamRegexOverrides(
 public data class TeamOverrideTemplate(
     val displayName: String? = null,
     val fullName: String? = null,
+    val hashTag: String? = null,
     val medias: Map<TeamMediaType, MediaType?>? = null,
 )
 
