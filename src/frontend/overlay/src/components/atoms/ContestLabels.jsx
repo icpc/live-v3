@@ -39,7 +39,7 @@ const getIOIScoreText = (difference) => {
 const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
-        {wrongVerdict !== undefined && <VerdictLabel text={wrongVerdict ?? "??"} color={c.VERDICT_NOK} align="center" {...props}/>}
+        {wrongVerdict !== undefined && <VerdictLabel text={wrongVerdict.shortName ?? "??"} color={c.VERDICT_NOK} align="center" {...props}/>}
         {wrongVerdict === undefined && <VerdictLabel text={diffText ?? "??"} color={diffColor} align="center" {...props}/>}
     </>;
 };
