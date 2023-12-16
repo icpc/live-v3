@@ -9,7 +9,6 @@ import com.github.ajalt.clikt.parameters.arguments.*
 import com.github.ajalt.clikt.parameters.groups.*
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.*
-import com.github.ajalt.mordant.rendering.TextColors
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -25,8 +24,6 @@ import io.ktor.server.util.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.api.ContestInfo
@@ -35,30 +32,14 @@ import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.api.tunning.TeamInfoOverride
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.settings.parseFileToCdsSettings
+import org.icpclive.cds.settings.*
 import org.icpclive.export.icpc.csv.IcpcCsvExporter
 import org.icpclive.util.*
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
-import org.slf4j.Logger
 import org.slf4j.event.Level
-import java.nio.file.Paths
 import java.time.Duration
 import kotlin.io.path.*
 import kotlin.system.exitProcess
-
-object CommonOptions : OptionGroup("Common options") {
-    val configDirectory by option(
-        "-c", "--config-directory",
-        help = "Path to config directory"
-    ).path(mustExist = true, canBeFile = false, canBeDir = true).required()
-    val credsFile by option(
-        "--creds",
-        help = "Path to file with credentials"
-    ).path(mustExist = true, canBeFile = true, canBeDir = false)
-    val advancedJsonPath by option("--advanced-json", help = "Path to advanced.json")
-        .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
-}
 
 abstract class DumpFileCommand(
     name: String,
@@ -68,7 +49,7 @@ abstract class DumpFileCommand(
 ) : CliktCommand(name = name, help = help, printHelpOnEmptyArgs = true) {
     abstract fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>): String
 
-    val commonOptions by CommonOptions
+    val cdsOptions by CdsCommandLineOptions()
     private val output by option("-o", "--output", help = outputHelp).path().convert {
         if (it.isDirectory()) {
             it.resolve(defaultFileName)
@@ -84,10 +65,7 @@ abstract class DumpFileCommand(
     override fun run() {
         val logger = getLogger(DumpFileCommand::class)
         logger.info("Would save result to ${output}")
-        val flow = getFlow(
-            fileJsonContentFlow<AdvancedProperties>(CommonOptions.advancedJsonPath, logger, AdvancedProperties()),
-            logger
-        )
+        val flow = cdsOptions.toFlow(logger)
         val data = runBlocking {
             logger.info("Waiting till contest become finalized...")
             val result = flow.postprocess().finalContestState()
@@ -146,7 +124,7 @@ object IcpcCSVDumpCommand : DumpFileCommand(
 
 
 object ServerCommand : CliktCommand(name = "server", help = "Start as http server", printHelpOnEmptyArgs = true) {
-    val commonOptions by CommonOptions
+    val cdsOptions by CdsCommandLineOptions()
     val port: Int by option("-p", "--port", help = "Port to listen").int().default(8080)
     val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
 
@@ -220,10 +198,8 @@ fun Application.module() {
         exitProcess(1)
     }
 
-    val loaded = getFlow(
-        fileJsonContentFlow<AdvancedProperties>(CommonOptions.advancedJsonPath, environment.log, AdvancedProperties()),
-        environment.log
-    ).shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
+    val loaded = ServerCommand.cdsOptions.toFlow(environment.log)
+        .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     routing {
         with (ClicsExporter) {
@@ -239,24 +215,4 @@ fun Application.module() {
     }
 
     log.info("Configuration is done")
-}
-
-private fun getFlow(advancedProperties: Flow<AdvancedProperties>, log: Logger) : Flow<ContestUpdate> {
-    log.info("Using config directory ${CommonOptions.configDirectory}")
-    log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
-    val path = CommonOptions.configDirectory.resolve("events.properties")
-        .takeIf { it.exists() }
-        ?.also { log.warn("Using events.properties is deprecated, use settings.json instead.") }
-        ?: CommonOptions.configDirectory.resolve("settings.json5").takeIf { it.exists() }
-        ?: CommonOptions.configDirectory.resolve("settings.json")
-    val creds: Map<String, String> = CommonOptions.credsFile?.let {
-        Json.decodeFromStream(it.toFile().inputStream())
-    } ?: emptyMap()
-    return parseFileToCdsSettings(path, creds)
-        .toFlow()
-        .applyAdvancedProperties(advancedProperties)
-        .contestState()
-        .filterUseless()
-        .map { it.event }
-        .processHiddenTeamsAndGroups()
 }

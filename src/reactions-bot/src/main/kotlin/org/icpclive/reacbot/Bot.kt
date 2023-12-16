@@ -1,6 +1,7 @@
 package org.icpclive.reacbot
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
@@ -24,17 +25,22 @@ import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.settings.parseFileToCdsSettings
+import org.icpclive.cds.settings.*
+import org.icpclive.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 
-class Bot(private val config: Config) {
-    @OptIn(DelicateCoroutinesApi::class)
-    private val reactionsProcessingPool = newFixedThreadPoolContext(config.loaderThreads, "ReactionsProcessing")
-    private val cds = parseFileToCdsSettings(
-        Path.of(config.settingsFile),
-        emptyMap()
-    ).toFlow()
+class Bot(
+    val cdsOptions: CdsCommandLineOptions,
+    val disableCdsLoader: Boolean,
+    val telegramToken: String,
+    val loaderThreads: Int,
+    val videoPathPrefix: String,
+    val botSystemChat: Int,
+) {
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val reactionsProcessingPool = Dispatchers.IO.limitedParallelism(loaderThreads)
+    private val cds = cdsOptions.toFlow(getLogger(Bot::class))
         .contestState()
         .filterUseless()
         .removeFrozenSubmissions()
@@ -42,7 +48,7 @@ class Bot(private val config: Config) {
     private val storage = Storage()
     private val bot = bot {
         logLevel = LogLevel.Error
-        token = config.telegramToken
+        token = telegramToken
         setupDispatch()
     }
     private val alreadyProcessedReactionIds = TreeSet<Int>()
@@ -111,9 +117,9 @@ class Bot(private val config: Config) {
                 Path.of("converted").createDirectories()
                 val outputFileName = "converted/${reaction.id.value}.mp4"
                 try {
-                    convertVideo(config.videoPathPrefix + reactionUrl, outputFileName)
+                    convertVideo(videoPathPrefix + reactionUrl, outputFileName)
                     val message = bot.sendVideo(
-                        ChatId.fromId(config.botSystemChat.toLong()),
+                        ChatId.fromId(botSystemChat.toLong()),
                         TelegramFile.ByFile(Path.of(outputFileName).toFile()),
                         caption = "New reaction run=${run.id} team=${run.teamId} problem=${run.problemId} ${run.time}",
                         disableNotification = true,
@@ -129,7 +135,7 @@ class Bot(private val config: Config) {
     }
 
     fun run(scope: CoroutineScope) {
-        val loaded = if (config.disableCdsLoader) emptyFlow() else cds.shareIn(scope, SharingStarted.Eagerly, Int.MAX_VALUE)
+        val loaded = if (disableCdsLoader) emptyFlow() else cds.shareIn(scope, SharingStarted.Eagerly, Int.MAX_VALUE)
         val runs = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
         scope.launch {
             contestInfo.complete(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(scope))
@@ -150,7 +156,7 @@ class Bot(private val config: Config) {
 }
 
 class BotCommand : CliktCommand() {
-    private val settings by option(help = "settings file path").default("./settings.json")
+    private val cdsSettings by CdsCommandLineOptions()
     private val disableCds by option(help = "Enable loading events from cds").flag()
     private val token by option(help = "Telegram bot token").required()
     private val threads by option("--threads", "-t", help = "Count of video converter and loader threads").int().default(8)
@@ -160,14 +166,12 @@ class BotCommand : CliktCommand() {
     override fun run() {
         runBlocking {
             Bot(
-                Config(
-                    settingsFile = settings,
-                    disableCdsLoader = disableCds,
-                    telegramToken = token,
-                    loaderThreads = threads,
-                    videoPathPrefix = video,
-                    botSystemChat = chat,
-                )
+                cdsOptions = cdsSettings,
+                disableCdsLoader = disableCds,
+                telegramToken = token,
+                loaderThreads = threads,
+                videoPathPrefix = video,
+                botSystemChat = chat,
             ).run(this)
         }
     }

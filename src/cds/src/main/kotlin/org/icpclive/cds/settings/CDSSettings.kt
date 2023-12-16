@@ -2,7 +2,6 @@
 package org.icpclive.cds.settings
 
 
-import io.github.xn32.json5k.Json5
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -317,30 +316,5 @@ public class EOlympSettings(
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = EOlympDataSource(this)
-}
-
-public fun interface CredentialProvider {
-    public operator fun get(s: String) : String?
-}
-
-public fun parseFileToCdsSettings(path: Path, credentialProvider: Map<String, String>): CDSSettings = parseFileToCdsSettings(path) { credentialProvider[it] }
-
-public fun parseFileToCdsSettings(path: Path, credentialProvider: CredentialProvider) : CDSSettings {
-    val file = path.toFile()
-    return when {
-        !file.exists() -> throw IllegalArgumentException("File ${file.absolutePath} does not exist")
-        file.name.endsWith(".properties") -> throw IllegalStateException("Properties format is not supported anymore, use settings.json instead")
-        file.name.endsWith(".json") -> {
-            file.inputStream().use {
-                Json { serializersModule = CDSSettings.serializersModule(credentialProvider, path) }.decodeFromStreamIgnoringComments(it)
-            }
-        }
-        file.name.endsWith(".json5") -> {
-            file.inputStream().use {
-                Json5 { serializersModule = CDSSettings.serializersModule(credentialProvider, path) }.decodeFromString<CDSSettings>(String(it.readAllBytes()))
-            }
-        }
-        else -> throw IllegalArgumentException("Unknown settings file extension: ${file.path}")
-    }
 }
 

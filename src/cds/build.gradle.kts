@@ -94,6 +94,7 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.protobuf)
     implementation(libs.graphql.ktor.client)
+    implementation(libs.cli)
     runtimeOnly(libs.grpc.netty)
 
     testImplementation(libs.kotlin.junit)
