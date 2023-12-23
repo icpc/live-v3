@@ -73,7 +73,7 @@ object PCMSExporter {
         setAttribute("time", info.time.inWholeMilliseconds.toString())
         setAttribute("score", "0")
         //setAttribute("language-id", "")
-        //setAttribute("run-id", "")
+        setAttribute("run-id", info.id.toString())
         setAttribute("outcome", convertOutcome((info.result as? ICPCRunResult)?.verdict))
     }
 
