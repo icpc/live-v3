@@ -342,6 +342,7 @@ private fun mergeProblems(
         minScore = override.minScore ?: problem.minScore,
         maxScore = override.maxScore ?: problem.maxScore,
         color = override.color ?: problem.color,
+        unsolvedColor = override.unsolvedColor ?: problem.unsolvedColor,
         scoreMergeMode = override.scoreMergeMode ?: problem.scoreMergeMode
     )
 }

@@ -130,6 +130,7 @@ fun Application.module() {
             .processHiddenTeamsAndGroups()
             .calculateScoreDifferences()
             .addFirstToSolves()
+            .selectProblemColors()
 
         val emptyVisualConfig = JsonObject(emptyMap())
         DataBus.visualConfigFlow.completeOrThrow(
