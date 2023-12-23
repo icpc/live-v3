@@ -1,40 +1,52 @@
 {
   "problemOverrides": {
     "A": {
-      "color": "#FFFF00"
+      "color": "#FFFF00",
+      "unsolvedColor": "#808080"
     },
     "B": {
-      "color": "#FF00FE"
+      "color": "#FF00FE",
+      "unsolvedColor": "#808080"
     },
     "C": {
-      "color": "#761946"
+      "color": "#761946",
+      "unsolvedColor": "#808080"
     },
     "D": {
-      "color": "#FE9900"
+      "color": "#FE9900",
+      "unsolvedColor": "#808080"
     },
     "E": {
-      "color": "#0000FE"
+      "color": "#0000FE",
+      "unsolvedColor": "#808080"
     },
     "F": {
-      "color": "#000000"
+      "color": "#000000",
+      "unsolvedColor": "#808080"
     },
     "G": {
-      "color": "#04FF00"
+      "color": "#04FF00",
+      "unsolvedColor": "#808080"
     },
     "H": {
-      "color": "#38771E"
+      "color": "#38771E",
+      "unsolvedColor": "#808080"
     },
     "I": {
-      "color": "#9B01FF"
+      "color": "#9B01FF",
+      "unsolvedColor": "#808080"
     },
     "J": {
-      "color": "#E9D1DE"
+      "color": "#E9D1DE",
+      "unsolvedColor": "#808080"
     },
     "K": {
-      "color": "#FFFFFF"
+      "color": "#FFFFFF",
+      "unsolvedColor": "#808080"
     },
     "L": {
-      "color": "#FE0000"
+      "color": "#FE0000",
+      "unsolvedColor": "#808080"
     }
   },
   "teamNameRegexes": {
@@ -71,7 +83,6 @@
       }
     }
   },
-  "startTime": "2023-12-13T07:15:00Z",
   "freezeTimeSeconds": 14400,
   "awardsSettings": {
     "medalGroups": [

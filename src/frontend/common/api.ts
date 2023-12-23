@@ -56,6 +56,7 @@ export interface ProblemInfo {
   minScore?: number | null;
   maxScore?: number | null;
   color?: string | null;
+  unsolvedColor?: string | null;
   scoreMergeMode?: ScoreMergeMode | null;
 }
 

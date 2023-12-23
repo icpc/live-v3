@@ -51,6 +51,7 @@ public data class ProblemInfo(
     val minScore: Double? = null,
     val maxScore: Double? = null,
     @Serializable(ColorSerializer::class) val color: Color? = null,
+    @Serializable(ColorSerializer::class) val unsolvedColor: Color? = null,
     val scoreMergeMode: ScoreMergeMode? = null,
 ) {
     internal companion object {
