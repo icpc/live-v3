@@ -46,7 +46,11 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
                         <Box onSubmit={onSubmitEdit} component="form" type="submit">
                             <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.timeZone}
                                 id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
-                                onChange={onChangeFieldEventHandler(setEditData, "timeZone")}/>
+                                onChange={(event) => {
+                                    if (event.target.value.match(/^utc((\\+|-)\\d\\d?)?$/g) || event.target.value === "") {
+                                        onChangeFieldEventHandler(setEditData, "timeZone")(event);
+                                    }
+                                }}/>
                         </Box>)
                     )}
                 {data.settings.type === "text" &&

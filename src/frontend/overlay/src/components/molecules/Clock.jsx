@@ -13,7 +13,7 @@ export const ContestClock = ({
     globalTimeMode = false,
     contestCountdownMode = false,
     quietMode = false,
-    timeZone = ""
+    timeZone = null
 }) => {
     const formatTime = (time, fullFormat = false) => {
         if (!fullFormat && quietMode && time > 5 * 60 * 1000) {
@@ -34,13 +34,12 @@ export const ContestClock = ({
 
     const getDateTimeNowWithCustomTimeZone = (zone) =>
         DateTime.now().setZone(zone).toFormat(quietMode ? "HH:mm" : "HH:mm:ss");
-
     const getStatus = useCallback(() => {
-        if (globalTimeMode === true ) {
-            return getDateTimeNowWithCustomTimeZone(new SystemZone());
+        if (globalTimeMode === true) {
+            return getDateTimeNowWithCustomTimeZone(timeZone ?? new SystemZone());
         }
 
-        if (timeZone !== "") {
+        if (timeZone !== null) {
             return getDateTimeNowWithCustomTimeZone(timeZone);
         }
 
