@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DateTime } from "luxon";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +17,7 @@ import { onChangeFieldEventHandler } from "./PresetsTableRow";
 
 export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
     const [editData, setEditData] = useState();
+    const [errorText, setErrorText] = useState("");
 
     const onClickEdit = () => {
         if (editData === undefined) {
@@ -46,9 +48,15 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
                         <Box onSubmit={onSubmitEdit} component="form" type="submit">
                             <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.timeZone}
                                 id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
+                                error={errorText !== ""}
+                                helperText={errorText}
                                 onChange={(event) => {
-                                    if (event.target.value.match(/^utc((\\+|-)\\d\\d?)?$/g) || event.target.value === "") {
+                                    const dateTime = DateTime.now().setZone(event.target.value);
+                                    if (dateTime.isValid || event.target.value === "") {
+                                        setErrorText("");
                                         onChangeFieldEventHandler(setEditData, "timeZone")(event);
+                                    } else {
+                                        setErrorText(dateTime.invalidReason);
                                     }
                                 }}/>
                         </Box>)
