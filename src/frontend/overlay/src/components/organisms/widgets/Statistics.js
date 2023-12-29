@@ -105,7 +105,7 @@ export const Statistics = () => {
     const tasks = useSelector(state => state.contestInfo?.info?.problems);
     const contestData = useSelector((state) => state.contestInfo?.info);
 
-    const calculator = getFormattedWidth(count);
+    const calculator = count < 200 ? getFormattedWidth(count) : getFormattedWidth(count + 20); // add 20 to make sure that the bar is always visible
     return <AllDiv>
         <StatisticsWrap>
             <Title>Statistics</Title>

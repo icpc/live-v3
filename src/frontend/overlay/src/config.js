@@ -31,7 +31,7 @@ export const CELL_FLASH_PERIOD = 500; //ms
 
 // Styles
 
-export const GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
+export const GLOBAL_DEFAULT_FONT_FAMILY = '"PingFang SC", "Open Sans", "Seravek", "Segoe UI", "Verdana", "PingFang SC", "Hiragino Sans GB", "Lantinghei SC", "Microsoft Yahei", "WenQuanYi Micro Hei", Helvetica, serif'; // css-property
 export const GLOBAL_DEFAULT_FONT_SIZE = "22pt"; // css-property
 export const GLOBAL_DEFAULT_FONT = GLOBAL_DEFAULT_FONT_SIZE + " " + GLOBAL_DEFAULT_FONT_FAMILY; // css property MUST HAVE FONT SIZE
 

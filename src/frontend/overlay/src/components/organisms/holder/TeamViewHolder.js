@@ -3,6 +3,7 @@ import { DateTime } from "luxon";
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import mpegts from 'mpegts.js';
 import {
     CELL_QUEUE_VERDICT_WIDTH,
     TEAMVIEW_SMALL_FACTOR,
@@ -227,35 +228,22 @@ const TeamVideoWrapper = styled.video`
 
 
 export const TeamWebRTCProxyVideoWrapper = ({ Wrapper = TeamVideoWrapper, url, setIsLoaded }) => {
-    const dispatch = useDispatch();
     const videoRef = useRef();
-    const rtcRef = useRef();
     useEffect(() => {
         setIsLoaded(false);
-        rtcRef.current = new RTCPeerConnection();
-        rtcRef.current.ontrack = function (event) {
-            if (event.track.kind !== "video") {
-                return;
-            }
-            videoRef.current.srcObject = event.streams[0];
-            videoRef.current.play();
-        };
-        rtcRef.current.addTransceiver("video");
-        rtcRef.current.addTransceiver("audio");
-        rtcRef.current.createOffer()
-            .then(offer => {
-                rtcRef.current.setLocalDescription(offer);
-                return fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(offer),
-                });
-            })
-            .then(res => res.json())
-            .then(res => rtcRef.current.setRemoteDescription(res))
-            .catch(e => console.trace("ERROR featching  webrtc peer connection info: " + e));
-
-        return () => rtcRef.current?.close();
+        if (videoRef.current) {
+            const player = mpegts.createPlayer({
+              type: 'mpegts',
+              isLive: true,
+              url: src,
+            });
+            player.attachMediaElement(videoRef.current);
+            player.load();
+            return () => {
+              player.destroy();
+            };
+          }
+        return () => {};
     }, [url]);
     return (<Wrapper
         ref={videoRef}
