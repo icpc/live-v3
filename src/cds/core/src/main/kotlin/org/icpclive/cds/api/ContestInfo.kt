@@ -89,6 +89,10 @@ public sealed class MediaType {
     @SerialName("Video")
     public data class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
 
+    @Serializable
+    @SerialName("M2tsVideo")
+    public data class M2tsVideo(val url: String, override val isMedia: Boolean = true) : MediaType()
+
     /**
      * WebRTC proxy connection
      * @see <a href="https://github.com/kbats183/webrtc-proxy">https://github.com/kbats183/webrtc-proxy</a>
@@ -126,6 +130,7 @@ public sealed class MediaType {
         is Photo -> copy(isMedia = false)
         is Video -> copy(isMedia = false)
         is Object -> copy(isMedia = false)
+        is M2tsVideo -> copy(isMedia = false)
         is WebRTCProxyConnection -> copy(isMedia = false)
         is WebRTCGrabberConnection -> copy(isMedia = false)
         else -> this

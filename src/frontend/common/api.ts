@@ -102,6 +102,7 @@ export type MediaType =
   | MediaType.Photo
   | MediaType.TaskStatus
   | MediaType.Video
+  | MediaType.M2tsVideo
   | MediaType.WebRTCGrabberConnection
   | MediaType.WebRTCProxyConnection;
 
@@ -111,6 +112,7 @@ export namespace MediaType {
     Photo = "Photo",
     TaskStatus = "TaskStatus",
     Video = "Video",
+    M2tsVideo = "M2tsVideo",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
   }
@@ -135,6 +137,12 @@ export namespace MediaType {
   
   export interface Video {
     type: MediaType.Type.Video;
+    url: string;
+    isMedia?: boolean;
+  }
+
+  export interface M2tsVideo {
+    type: MediaType.Type.M2tsVideo;
     url: string;
     isMedia?: boolean;
   }
