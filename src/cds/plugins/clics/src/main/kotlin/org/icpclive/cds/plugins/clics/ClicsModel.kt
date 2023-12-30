@@ -46,6 +46,9 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         if (mime.startsWith("image")) {
             return MediaType.Photo(href)
         }
+        if (mime.startsWith("video/m2ts")) {
+            return MediaType.M2tsVideo(href)
+        }
         if (mime.startsWith("video")) {
             return MediaType.Video(href)
         }

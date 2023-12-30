@@ -6,6 +6,7 @@ import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
 import { useAppDispatch } from "@/redux/hooks";
 import { MediaType } from "@shared/api";
 import c from "../../../config";
+import mpegts from "mpegts.js";
 
 // export const TeamImageWrapper = styled.img /*`
 //   // border-radius: ${({ borderRadius }) => borderRadius};
@@ -27,6 +28,38 @@ export const VideoWrapper = styled.video`
   width: 100%;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
+
+export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
+    const dispatch = useAppDispatch();
+    const videoRef = useRef();
+    useEffect(() => {
+        setIsLoaded(false);
+        if (videoRef.current) {
+            const player = mpegts.createPlayer({
+                type: "mpegts",
+                isLive: true,
+                url: url,
+            });
+            player.attachMediaElement(videoRef.current);
+            player.load();
+            return () => {
+                player.destroy();
+            };
+        }
+        return () => {};
+    }, [url]);
+    return (<VideoWrapper
+        ref={videoRef}
+        onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
+        onLoadedData={() =>
+            // console.log("Loaded");
+            // console.log(videoRef.current.currentTime);
+            setIsLoaded(true)
+        }
+        autoPlay
+        muted/>);
+};
+
 
 export const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded, ...props }) => {
     const dispatch = useAppDispatch();
@@ -173,6 +206,11 @@ const teamViewComponentRender: {
                 autoPlay
                 loop
                 muted/>
+        </FullWidthWrapper>;
+    },
+    M2tsVideo: ({ onLoadStatus, className, media }) => {
+        return <FullWidthWrapper className={className}>
+            <TeamM2tsVideoWrapper url={media.url} setIsLoaded={onLoadStatus}/>
         </FullWidthWrapper>;
     },
     WebRTCProxyConnection: ({ onLoadStatus, className, media }) => {
