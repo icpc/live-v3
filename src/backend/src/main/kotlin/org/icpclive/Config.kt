@@ -3,18 +3,19 @@ package org.icpclive
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.output.MordantHelpFormatter
+import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.options.*
-import com.github.ajalt.clikt.parameters.types.*
+import com.github.ajalt.clikt.parameters.types.int
+import com.github.ajalt.clikt.parameters.types.path
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
 import org.icpclive.api.defaultWidgetPositions
+import org.icpclive.cds.settings.CdsCommandLineOptions
+import java.nio.file.Path
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
-    val configDirectory by option(
-        "-c", "--config-directory",
-        help = "Path to config directory"
-    ).path(mustExist = true, canBeFile = false, canBeDir = true).required()
+    val cdsSettings by CdsCommandLineOptions()
 
     val port: Int by option("-p", "--port", help = "Port to listen").int().default(8080)
     val authDisabled by option(
@@ -23,34 +24,28 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
     ).flag()
 
 
-    val creds by option(
-        "--creds",
-        help = "Path to file with credentials"
-    ).path(mustExist = true, canBeFile = true, canBeDir = false)
-        .convert { path ->
-            path.toFile().inputStream().use { Json.decodeFromStream<Map<String, String>>(it) }
-        }.default(emptyMap(), "none")
-
     val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
 
-    val advancedJsonPath by option("--advanced-json", help = "Path to advanced.json")
-        .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
-
-    val presetsDirectory by option("--presets-dir", help = "Directory to store presets")
+    // workaround of https://github.com/ajalt/clikt/issues/473
+    private val presetsDirectory_ by option("--presets-dir", help = "Directory to store presets")
         .path(canBeFile = false, canBeDir = true)
-        .defaultLazy("configDirectory/presets") { configDirectory.resolve("presets") }
-    val mediaDirectory by option("--media-dir", help = "Directory to store media")
+        .transformAll("configDirectory/presets") { it.lastOrNull() }
+    val presetsDirectory: Path get() = presetsDirectory_ ?: cdsSettings.configDirectory.resolve("presets")
+    private val mediaDirectory_ by option("--media-dir", help = "Directory to store media")
         .path(canBeFile = false, canBeDir = true)
-        .defaultLazy("configDirectory/media") { configDirectory.resolve("media") }
+        .transformAll("configDirectory/media") { it.lastOrNull() }
+    val mediaDirectory: Path get() = mediaDirectory_ ?: cdsSettings.configDirectory.resolve("media")
+    private val usersFile_ by option("--users-file", help = "Storage of users")
+        .path(canBeDir = false, canBeFile = true)
+        .transformAll("configDirectory/users.json") { it.lastOrNull() }
+    val usersFile: Path  get() = usersFile_ ?: cdsSettings.configDirectory.resolve("users.json")
 
     val widgetPositions by option(
         "--widget-positions",
         help = "File with custom widget positions"
-    ).path(canBeDir = false, mustExist = true, canBeFile = true).convert { path->
-            path.toFile().inputStream().use { Json.decodeFromStream<Map<String, LocationRectangle>>(it) }
-        }.default(emptyMap(), "none")
-
+    ).path(canBeDir = false, mustExist = true, canBeFile = true).convert { path ->
+        path.toFile().inputStream().use { Json.decodeFromStream<Map<String, LocationRectangle>>(it) }
+    }.default(emptyMap(), "none")
 
     val analyticsTemplatesFile by option(
         "--analytics-template",

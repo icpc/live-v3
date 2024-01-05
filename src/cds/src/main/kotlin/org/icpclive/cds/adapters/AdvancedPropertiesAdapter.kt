@@ -1,13 +1,17 @@
 package org.icpclive.cds.adapters
 
-import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.api.tunning.*
-import org.icpclive.cds.*
+import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.RunUpdate
 import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
 
@@ -136,6 +140,7 @@ private fun Map<TeamMediaType, MediaType?>.instantiateTemplate(teams: List<TeamI
 
 private fun TeamOverrideTemplate.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
     it.contestSystemId to TeamInfoOverride(
+        hashTag = hashTag?.applyTemplate { name -> it.valueProvider(name) },
         fullName = fullName?.applyTemplate { name -> it.valueProvider(name) },
         displayName = displayName?.applyTemplate { name -> it.valueProvider(name) },
         medias = medias?.mapValues { (_,v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
@@ -150,31 +155,39 @@ private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Se
     }
 }
 
-private fun String.matchSingleGroupRegex(regex: Regex?, name: String) : String? {
-    if (regex == null) return null
-    val match = regex.matchAt(this, 0)
-    return if (match != null) {
-        if (match.groups.size != 2) {
-            logger.warn("${name.replaceFirstChar { it.uppercase() }} should match single group for ${this}, but ${match.groups.size} matched")
+private fun String.matchRegexSet(regexes: RegexSet?) : String? {
+    if (regexes == null) return null
+    val matched = regexes.regexes.entries.filter { this.matches(it.key) }
+    return when (matched.size) {
+        0 -> {
+            logger.warn("None of regexes ${regexes.regexes.map { it.key }} didn't match $this")
             null
-        } else {
-            this.substring(match.groups[1]!!.range)
         }
-    } else {
-        logger.warn("$this didn't match $name")
-        null
+        1 -> {
+            val (regex, replace) = matched.single()
+            try {
+                this.replace(regex, replace)
+            } catch (e: RuntimeException) {
+                logger.warn("Failed to apply $regex -> $replace to ${this}: ${e.message}")
+                null
+            }
+        }
+        else -> {
+            logger.warn("Multiple regexes ${matched.map { it.key }} match $this")
+            null
+        }
     }
 }
 
 private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides?, key: TeamInfo.() -> String) : List<TeamInfo> {
     if (regexOverrides == null) return teams
     return teams.map { team ->
-        val newOrg = team.key().matchSingleGroupRegex(regexOverrides.organizationRegex, "organization regex")
+        val newOrg = team.key().matchRegexSet(regexOverrides.organizationRegex)
         val newGroups = regexOverrides.groupRegex?.entries?.filter { (_, regex) ->
             regex.matches(team.key())
         }?.map { it.key }.orEmpty()
-        val newCustomFields = regexOverrides.customFields?.mapValues { (name, regex) ->
-            team.key().matchSingleGroupRegex(regex, "$name regex")
+        val newCustomFields = regexOverrides.customFields?.mapValues { (_, regex) ->
+            team.key().matchRegexSet(regex)
         }?.filterValues { it != null }?.mapValues { it.value!! }.orEmpty()
 
         team.copy(
@@ -254,8 +267,7 @@ internal fun applyAdvancedProperties(
     val teamInfoWithCustomFields = teamInfosPrelim
         .mergeTeams(overrides.teamOverrides?.filterValues { it.customFields != null }?.mapValues { TeamInfoOverride(customFields = it.value.customFields) })
 
-    @Suppress("DEPRECATION") val teamInfos = teamInfoWithCustomFields
-        .mergeTeams(overrides.teamMediaTemplate?.instantiateTemplate(teamInfoWithCustomFields, TeamInfo::templateValueGetter))
+    val teamInfos = teamInfoWithCustomFields
         .mergeTeams(overrides.teamOverrideTemplate?.instantiateTemplate(teamInfoWithCustomFields, TeamInfo::templateValueGetter))
         .mergeTeams(overrides.teamOverrides)
     val problemInfos = mergeProblems(info.problemList, overrides.problemOverrides)

@@ -21,6 +21,6 @@ private fun String.processIfUrl(block: (String)-> String) =
 fun clicsEventsSerializersModule(
     mediaUrlPostprocessor: (String) -> String = { it },
 ) = SerializersModule {
-   postProcess(onEncode = { it: org.icpclive.clics.v202207.Media -> it.copy(href = it.href.processIfUrl(mediaUrlPostprocessor)) })
-   postProcess(onEncode = { it: org.icpclive.clics.v202003.Media -> it.copy(href = it.href.processIfUrl(mediaUrlPostprocessor)) })
+   postProcess(onDeserialize = { it: org.icpclive.clics.v202207.Media -> it.copy(href = it.href.processIfUrl(mediaUrlPostprocessor)) })
+   postProcess(onDeserialize = { it: org.icpclive.clics.v202003.Media -> it.copy(href = it.href.processIfUrl(mediaUrlPostprocessor)) })
 }

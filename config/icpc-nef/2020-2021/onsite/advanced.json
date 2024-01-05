@@ -1,14 +1,16 @@
 {
   "startTime": "2021-04-04 10:00:00 +03:00",
   "freezeTimeSeconds": 14400,
-  "teamMediaTemplate": {
-    "screen": {
-      "type": "Video",    
-      "url": "http://192.168.18.38:80{teamId}"
-    },
-    "camera": {
-      "type": "Video",    
-      "url": "http://192.168.18.38:81{teamId}"
+  "teamOverrideTemplate": {
+    "medias": {
+      "screen": {
+        "type": "Video",
+        "url": "http://192.168.18.38:80{teamId}"
+      },
+      "camera": {
+        "type": "Video",
+        "url": "http://192.168.18.38:81{teamId}"
+      }
     }
   },
   "teamOverrides": {

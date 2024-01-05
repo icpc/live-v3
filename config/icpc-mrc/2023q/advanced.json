@@ -1,9 +1,13 @@
 {
   "teamNameRegexes": {
     "customFields": {
-      "funnyName": "[^:]*: (.*) \\([^)]*\\)"
+      "funnyName": {
+        "[^:]*: (.*) \\([^)]*\\)": "$1"
+      }
     },
-    "organizationRegex": "^([^:]*).*"
+    "organizationRegex": {
+      "^([^:]*).*": "$1"
+    }
   },
   "organizationOverrides": {
     "Moscow State University": {

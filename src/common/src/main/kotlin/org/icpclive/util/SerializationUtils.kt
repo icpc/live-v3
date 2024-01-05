@@ -2,7 +2,9 @@ package org.icpclive.util
 
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
-import kotlinx.serialization.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -10,9 +12,9 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.SerializersModuleBuilder
+import kotlinx.serialization.serializer
 import java.awt.Color
 import java.io.InputStream
-import java.lang.Exception
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
@@ -198,13 +200,19 @@ inline fun <reified T> Json.decodeFromStringIgnoringComments(data: String) : T =
 }
 
 inline fun <reified T: Any> SerializersModuleBuilder.postProcess(
-    crossinline onEncode: (T) -> T = { it },
-    crossinline onDecode: (T) -> T = { it },
+    crossinline onDeserialize: (T) -> T = { it },
+    crossinline onSerialize: (T) -> T = { it },
+) = postProcess(serializer<T>(), onDeserialize, onSerialize)
+
+inline fun <reified T: Any, reified S: Any> SerializersModuleBuilder.postProcess(
+    serializer: KSerializer<S> = serializer<S>(),
+    crossinline onDeserialize: (S) -> T,
+    crossinline onSerialize: (T) -> S,
 ) {
     contextual(T::class, object : KSerializer<T> {
-        private val delegate = serializer<T>()
+        private val delegate = serializer
         override val descriptor get() = delegate.descriptor
-        override fun deserialize(decoder: Decoder) = onEncode(delegate.deserialize(decoder))
-        override fun serialize(encoder: Encoder, value: T) = delegate.serialize(encoder, onDecode(value))
+        override fun deserialize(decoder: Decoder) = onDeserialize(delegate.deserialize(decoder))
+        override fun serialize(encoder: Encoder, value: T) = delegate.serialize(encoder, onSerialize(value))
     })
 }

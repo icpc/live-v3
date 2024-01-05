@@ -12,7 +12,7 @@ import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonLoader
+import org.icpclive.cds.common.jsonUrlLoader
 import org.icpclive.cds.settings.CatsSettings
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -118,15 +118,15 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     ) : Run()
 
     private val authLoader =
-        jsonLoader<Auth>(networkSettings = settings.network) { "${settings.url}/?f=login&login=$login&passwd=$password&json=1" }
+        jsonUrlLoader<Auth>(networkSettings = settings.network) { "${settings.url}/?f=login&login=$login&passwd=$password&json=1" }
     private val problemsLoader =
-        jsonLoader<Problems>(networkSettings = settings.network) { "${settings.url}/problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
+        jsonUrlLoader<Problems>(networkSettings = settings.network) { "${settings.url}/problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
     private val usersLoader =
-        jsonLoader<Users>(networkSettings = settings.network) { "${settings.url}/users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
+        jsonUrlLoader<Users>(networkSettings = settings.network) { "${settings.url}/users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
     private val contestLoader =
-        jsonLoader<Contest>(networkSettings = settings.network) { "${settings.url}/contest_params?cid=${settings.cid}&sid=${sid!!}&json=1" }
+        jsonUrlLoader<Contest>(networkSettings = settings.network) { "${settings.url}/contest_params?cid=${settings.cid}&sid=${sid!!}&json=1" }
     private val runsLoader =
-        jsonLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1&page=$page" }
+        jsonUrlLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1&page=$page" }
 
     override suspend fun loadOnce(): ContestParseResult {
         sid = authLoader.load().sid

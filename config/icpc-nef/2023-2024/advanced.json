@@ -1,0 +1,132 @@
+{
+  "problemOverrides": {
+    "A": {
+      "color": "#FFFF00"
+    },
+    "B": {
+      "color": "#FF00FE"
+    },
+    "C": {
+      "color": "#761946"
+    },
+    "D": {
+      "color": "#FE9900"
+    },
+    "E": {
+      "color": "#0000FE"
+    },
+    "F": {
+      "color": "#000000"
+    },
+    "G": {
+      "color": "#04FF00"
+    },
+    "H": {
+      "color": "#38771E"
+    },
+    "I": {
+      "color": "#9B01FF"
+    },
+    "J": {
+      "color": "#E9D1DE"
+    },
+    "K": {
+      "color": "#FFFFFF"
+    },
+    "L": {
+      "color": "#FE0000"
+    }
+  },
+  "teamNameRegexes": {
+    "customFields": {
+      "funnyName": {
+        "[^:]*: (.*) \\([^)]*\\)" : "$1"
+      }
+    },
+    "organizationRegex": {
+      "^([^:]*).*": "$1"
+    }
+  },
+  "teamOverrideTemplate": {
+    "hashTag": "{teamId}",
+    "displayName": "{orgDisplayName} {funnyName}",
+    "medias": {
+      "achievement": {
+        "type": "Photo",
+        "url": "/media/ach/{teamId}.svg"
+      },
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "peerName": "{grabberPeerName}",
+        "url": "{grabberUrl}",
+        "streamType": "desktop",
+        "credential": "live"
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "{grabberUrl}",
+        "peerName": "{grabberPeerName}",
+        "streamType": "webcam",
+        "credential": "live"
+      }
+    }
+  },
+  "startTime": "2023-12-13T07:15:00Z",
+  "freezeTimeSeconds": 14400,
+  "awardsSettings": {
+    "medalGroups": [
+      [
+        {
+          "id": "gold-medal",
+          "citation": "Gold Medal",
+          "color": "GOLD",
+          "maxRank": 4
+        },
+        {
+          "id": "silver-medal",
+          "citation": "Silver Medal",
+          "color": "SILVER",
+          "maxRank": 8
+        },
+        {
+          "id": "bronze-medal",
+          "citation": "Bronze Medal",
+          "color": "BRONZE",
+          "maxRank": 12
+        }
+      ]
+    ],
+    "championTitle": "Northern Eurasia Finals Champions",
+    "rankAwardsMaxRank": 13,
+    "manual": [
+      {
+        "id": "qualified",
+        "citation": "Qualified to world finals",
+        "teamCdsIds": []
+      }
+    ]
+  },
+  "teamIdRegexes": {
+    "customFields": {
+      "grabberPeerName": {
+        "spb(\\d\\d\\d)": "$1",
+        "geo(\\d\\d\\d)": "G$1",
+        "nsk(\\d\\d\\d)": "N$1",
+        "kaz(\\d\\d\\d)": "K$1"
+      },
+      "grabberUrl": {
+        "spb(\\d\\d\\d)": "http://192.168.0.112:8000",
+        "geo(\\d\\d\\d)": "http://192.168.0.175:8000",
+        "nsk(\\d\\d\\d)": "http://192.168.0.175:8000",
+        "kaz(\\d\\d\\d)": "http://192.168.0.175:8000"
+      }
+    },
+    "groupRegex": {
+      "local": "spb(\\d\\d\\d)",
+      "remote": "[^s][^p][^b](\\d\\d\\d)"
+    }
+  },
+  "scoreboardOverrides": {
+    "showTeamsWithoutSubmissions": true
+  }
+}

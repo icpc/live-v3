@@ -30,16 +30,20 @@
   },
   "teamIdRegexes": {
     "customFields": {
-      "icpc_id": "^nef([0-9]*)$"
+      "icpc_id": {
+        "^nef([0-9]*)$": "$1"
+      }
     }
   },
   "scoreboardOverrides": {
     "showTeamsWithoutSubmissions": true
   },
-"teamMediaTemplate": {
-    "achievement": {
-      "type": "Photo",
-      "url": "/media/ach/{teamId}.svg"
+  "teamOverrideTemplate": {
+    "medias": {
+      "achievement": {
+        "type": "Photo",
+        "url": "/media/ach/{teamId}.svg"
+      }
     }
   },
    "problemOverrides": {

@@ -1,5 +1,5 @@
 import com.expediagroup.graphql.plugin.gradle.config.GraphQLSerializer
-import com.google.protobuf.gradle.*
+import com.google.protobuf.gradle.id
 import java.net.URI
 
 plugins {
@@ -94,6 +94,7 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.protobuf)
     implementation(libs.graphql.ktor.client)
+    implementation(libs.cli)
     runtimeOnly(libs.grpc.netty)
 
     testImplementation(libs.kotlin.junit)

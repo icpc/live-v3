@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.*
+import org.icpclive.cds.adapters.stateGroupedByTeam
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
 import org.w3c.dom.Element
@@ -73,7 +73,7 @@ object PCMSExporter {
         setAttribute("time", info.time.inWholeMilliseconds.toString())
         setAttribute("score", "0")
         //setAttribute("language-id", "")
-        //setAttribute("run-id", "")
+        setAttribute("run-id", info.id.toString())
         setAttribute("outcome", convertOutcome((info.result as? ICPCRunResult)?.verdict))
     }
 

@@ -7,7 +7,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
-import io.ktor.util.Identity.decode
 import kotlinx.coroutines.flow.first
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
@@ -19,7 +18,7 @@ import org.icpclive.api.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow
-import org.icpclive.util.sendJsonFlow
+
 
 fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {
@@ -98,7 +97,7 @@ fun Route.configureAdminApiRouting() {
 
         route("/advancedJson") {
             get {
-                call.respondFile(Config.advancedJsonPath.toFile())
+                call.respondFile(Config.cdsSettings.advancedJsonPath.toFile())
             }
             post {
                 call.adminApiAction {
@@ -108,7 +107,7 @@ fun Route.configureAdminApiRouting() {
                     } catch (e: SerializationException) {
                         throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
                     }
-                    Config.advancedJsonPath.toFile().writeText(text)
+                    Config.cdsSettings.advancedJsonPath.toFile().writeText(text)
                 }
             }
         }

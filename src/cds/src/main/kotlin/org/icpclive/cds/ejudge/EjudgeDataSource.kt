@@ -1,10 +1,15 @@
 package org.icpclive.cds.ejudge
 
-import kotlinx.datetime.*
+import kotlinx.datetime.Instant
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toKotlinLocalDateTime
 import org.icpclive.api.*
-import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.common.xmlLoader
 import org.icpclive.cds.settings.EjudgeSettings
-import org.icpclive.util.*
+import org.icpclive.util.child
+import org.icpclive.util.children
 import org.w3c.dom.Element
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
@@ -154,5 +159,5 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         )
     }
 
-    private val xmlLoader = xmlLoader(networkSettings = settings.network) { settings.url.value }
+    private val xmlLoader = xmlLoader(networkSettings = settings.network) { settings.url }
 }

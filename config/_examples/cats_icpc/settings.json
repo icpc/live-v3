@@ -5,5 +5,8 @@
   "timeZone":"UTC+10",
   "resultType":"ICPC",
   "login":"$creds.cats_login",
-  "password":"$creds.cats_password"
+  "password":"$creds.cats_password",
+  "network": {
+    "allowUnsecureConnections": true
+  }
 }

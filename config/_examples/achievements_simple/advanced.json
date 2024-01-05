@@ -1,8 +1,10 @@
 {
-  "teamMediaTemplate": {
-    "achievement": {
-      "type": "Photo",
-      "url": "http://localhost:8080/api/overlay/svgAchievement/easy-achivements.svg?teamId={teamId}"
+  "teamOverrideTemplate": {
+    "medias": {
+      "achievement": {
+        "type": "Photo",
+        "url": "http://localhost:8080/api/overlay/svgAchievement/easy-achivements.svg?teamId={teamId}"
+      }
     }
   },
   "teamOverrides": {

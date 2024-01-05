@@ -18,24 +18,22 @@ import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
-import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.settings.parseFileToCdsSettings
+import org.icpclive.cds.settings.toFlow
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.launchServices
-import org.icpclive.util.*
+import org.icpclive.util.completeOrThrow
+import org.icpclive.util.defaultJsonSettings
+import org.icpclive.util.fileJsonContentFlow
+import org.icpclive.util.getLogger
 import org.slf4j.event.Level
-import java.nio.file.Paths
 import java.time.Duration
-import kotlin.io.path.exists
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit = Config.main(args)
@@ -93,8 +91,6 @@ private fun Application.setupKtorPlugins() {
 
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-    environment.log.info("Using config directory ${Config.configDirectory.toAbsolutePath()}")
-    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     setupKtorPlugins()
 
     routing {
@@ -125,21 +121,9 @@ fun Application.module() {
         // TODO: understand why normal exception propagation doesn't work
         exitProcess(1)
     }
-    val path =
-        Config.configDirectory.resolve("events.properties")
-            .takeIf { it.exists() }
-            ?.also { environment.log.warn("Using events.properties is deprecated, use settings.json instead.") }
-            ?: Config.configDirectory.resolve("settings.json5").takeIf { it.exists() }
-            ?: Config.configDirectory.resolve("settings.json")
 
     launch(handler) {
-        val advancedPropertiesFlow =
-            fileJsonContentFlow<AdvancedProperties>(Config.advancedJsonPath, environment.log, AdvancedProperties())
-            .stateIn(this)
-
-        val loader = parseFileToCdsSettings(path, config.creds)
-            .toFlow()
-            .applyAdvancedProperties(advancedPropertiesFlow)
+        val loader = config.cdsSettings.toFlow(log)
             .contestState()
             .filterUseless()
             .removeFrozenSubmissions()

@@ -1,20 +1,34 @@
 package org.icpclive.cds.clics
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
-import org.icpclive.api.*
-import org.icpclive.cds.*
-import org.icpclive.clics.v202207.Event.*
-import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.*
+import org.icpclive.api.AnalyticsCommentaryEvent
+import org.icpclive.api.ContestInfo
+import org.icpclive.api.ContestStatus
+import org.icpclive.api.RunInfo
+import org.icpclive.cds.AnalyticsUpdate
+import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.common.ClientAuth
+import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.common.getLineStreamLoaderFlow
+import org.icpclive.cds.settings.ClicsFeed
+import org.icpclive.cds.settings.ClicsSettings
+import org.icpclive.cds.settings.NetworkSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.v202003.upgrade
 import org.icpclive.clics.v202207.Event
-import org.icpclive.util.*
+import org.icpclive.clics.v202207.Event.*
+import org.icpclive.util.getLogger
+import org.icpclive.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
@@ -24,7 +38,6 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
     )
     val baseUrl = settings.url
     val eventFeedUrl = buildList {
-        add(baseUrl)
         if (settings.eventFeedPath != null) {
             if (settings.eventFeedPath.isNotEmpty()) {
                 add(settings.eventFeedPath)
@@ -34,7 +47,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
             add(settings.contestId)
         }
         add(settings.eventFeedName)
-    }.joinToString("/")
+    }.fold(baseUrl, UrlOrLocalPath::subDir)
     val feedVersion = settings.feedVersion
 }
 
@@ -212,7 +225,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                             null
                         }
                     })
-                if (!isHttpUrl(settings.eventFeedUrl)) { break }
+                if (settings.eventFeedUrl is UrlOrLocalPath.Local) { break }
                 delay(5.seconds)
                 logger.info("Connection ${settings.eventFeedUrl} is closed, retrying")
             }

@@ -1,7 +1,9 @@
 package org.icpclive.api.tunning
 
 import kotlinx.datetime.Instant
-import kotlinx.serialization.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonNames
 import org.icpclive.api.*
 import org.icpclive.util.*
@@ -126,7 +128,6 @@ public data class OrganizationInfoOverride(
  * @param contestLength Length of the contest. Also, can affect contest state.
  * @param freezeTime Time from the start of the contest before scoreboard freezing.
  * @param holdTime Fixed time to show as time before the contest start
- * @param teamMediaTemplate Template medias for all teams.
  * @param teamOverrideTemplate Template for team overrides
  * @param teamNameRegexes Bunch of regexes to extract information cds doesn't provide from team name.
  * @param teamIdRegexes Bunch of regexes to extract information cds doesn't provide from team's ID.
@@ -147,8 +148,6 @@ public data class AdvancedProperties(
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("holdTimeSeconds")
     val holdTime: Duration? = null,
-    @Deprecated(level = DeprecationLevel.WARNING, message = "Use teamOverrideTemplate instead")
-    val teamMediaTemplate: Map<TeamMediaType, MediaType?>? = null,
     val teamOverrideTemplate: TeamOverrideTemplate? = null,
     val teamNameRegexes: TeamRegexOverrides? = null,
     val teamIdRegexes: TeamRegexOverrides? = null,
@@ -162,20 +161,23 @@ public data class AdvancedProperties(
 
 internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
 
+@Serializable @JvmInline
+public value class RegexSet(public val regexes: Map<Regex, String>)
+
 /**
- * In some cases, the contest system provides some useful information as part of team name.
+ * In some cases, the contest system provides some useful information as part of the team name.
  * This can be used to extract this information to something more structured.
  *
  * All regexes are java regex.
  *
- * @property organizationRegex The only matched group would be equal to new organization id for the team.
- * @property customFields The only group would be set as custom field value for the corresponding key
+ * @property organizationRegex The only matched regex replacement would be equal to new organization id for the team.
+ * @property customFields The only matched regex replacement would be set as custom field value for the corresponding key
  * @property groupRegex The group is added if the name matches regex.
  */
 @Serializable
 public data class TeamRegexOverrides(
-    val organizationRegex: Regex? = null,
-    val customFields: Map<String, Regex>? = null,
+    val organizationRegex: RegexSet? = null,
+    val customFields: Map<String, RegexSet>? = null,
     val groupRegex: Map<String, Regex>? = null,
 )
 
@@ -194,6 +196,7 @@ public data class TeamRegexOverrides(
 public data class TeamOverrideTemplate(
     val displayName: String? = null,
     val fullName: String? = null,
+    val hashTag: String? = null,
     val medias: Map<TeamMediaType, MediaType?>? = null,
 )
 

@@ -3,7 +3,10 @@ package org.icpclive.cds.testsys
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.icpclive.api.*
-import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ByteArrayLoader
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.common.map
 import org.icpclive.cds.settings.TestSysSettings
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
@@ -12,7 +15,7 @@ import kotlin.time.Duration.Companion.seconds
 
 
 internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {
-    val loader = ByteArrayLoader(settings.network, null) { settings.url.value }
+    val loader = ByteArrayLoader(settings.network, null) { settings.url }
         .map {
             val eofPosition = it.indexOf(EOF)
             String(

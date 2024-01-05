@@ -112,5 +112,5 @@ fun Route.setupUserRouting(manager: UsersController) {
 
 fun Config.createUsersController() = when {
     authDisabled -> FakeUsersController()
-    else -> FileBasedUsersController(configDirectory.resolve("users.json").toFile())
+    else -> FileBasedUsersController(usersFile.toFile())
 }

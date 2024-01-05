@@ -6,8 +6,8 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
-import org.icpclive.cds.settings.NetworkSettings
 import io.ktor.http.*
+import org.icpclive.cds.settings.NetworkSettings
 import java.security.cert.X509Certificate
 import javax.net.ssl.X509TrustManager
 
@@ -83,6 +83,3 @@ internal fun defaultHttpClient(
     }
     block()
 }
-
-
-internal fun isHttpUrl(text: String) = text.startsWith("http://") || text.startsWith("https://")

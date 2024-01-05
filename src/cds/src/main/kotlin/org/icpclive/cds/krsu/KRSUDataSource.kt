@@ -4,7 +4,9 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toInstant
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
-import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.common.jsonUrlLoader
 import org.icpclive.cds.settings.KRSUSettings
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
@@ -81,8 +83,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         )
     }
 
-    private val submissionsLoader = jsonLoader<List<Submission>>(networkSettings = settings.network) { settings.submissionsUrl.value }
-    private val contestInfoLoader = jsonLoader<Contest>(networkSettings = settings.network) { settings.contestUrl.value }
+    private val submissionsLoader = jsonUrlLoader<List<Submission>>(networkSettings = settings.network) { settings.submissionsUrl }
+    private val contestInfoLoader = jsonUrlLoader<Contest>(networkSettings = settings.network) { settings.contestUrl }
 
     companion object {
         private val outcomeMap = mapOf(

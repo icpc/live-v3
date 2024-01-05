@@ -3,9 +3,16 @@ package org.icpclive.cds.pcms
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
-import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ClientAuth
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.common.xmlLoader
 import org.icpclive.cds.settings.PCMSSettings
-import org.icpclive.util.*
+import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.util.Enumerator
+import org.icpclive.util.child
+import org.icpclive.util.children
+import org.icpclive.util.getLogger
 import org.w3c.dom.Element
 import java.util.*
 import kotlin.time.Duration
@@ -19,7 +26,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     private val dataLoader = xmlLoader(
         networkSettings = settings.network,
         login?.let { ClientAuth.Basic(login, password!!) }) {
-        settings.url.value
+        settings.url
     }
 
     val resultType = settings.resultType
@@ -29,13 +36,13 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce() : ContestParseResult {
-        val problemsOverride =  settings.problemsUrl?.let { loadCustomProblems(it.value) }
+        val problemsOverride =  settings.problemsUrl?.let { loadCustomProblems(it) }
 
         return parseAndUpdateStandings(dataLoader.load().documentElement, problemsOverride)
     }
     private fun parseAndUpdateStandings(element: Element, problemsOverride: Element?) = parseContestInfo(element.child("contest"), problemsOverride)
 
-    private suspend fun loadCustomProblems(problemsUrl: String) : Element {
+    private suspend fun loadCustomProblems(problemsUrl: UrlOrLocalPath) : Element {
         val problemsLoader = xmlLoader(networkSettings = settings.network) { problemsUrl }
         return problemsLoader.load().documentElement
     }

@@ -2,7 +2,9 @@ package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.icpclive.api.*
+import org.icpclive.api.ContestInfo
+import org.icpclive.api.InefficientContestInfoApi
+import org.icpclive.api.TeamInfo
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 
@@ -36,7 +38,7 @@ public fun Flow<ContestUpdate>.processHiddenTeamsAndGroups(): Flow<ContestUpdate
         { it.teamId },
         { key, _, original, info ->
             val team = info?.teams?.get(key)
-            if (team?.isHidden == true)
+            if (team?.isHidden != false)
                 original.map { it.copy(isHidden = true) }
             else
                 original

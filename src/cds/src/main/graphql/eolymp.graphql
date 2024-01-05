@@ -33,7 +33,7 @@ union Content = ECM | HTML | Latex | Markdown
 
 union CourseEntryContent = CourseEntryDocument | CourseEntrySection
 
-union IdentityProvider = IdentityProviderEolymp | IdentityProviderLocal | IdentityProviderOIDC
+union IdentityConfigProvider = IdentityConfigProviderBasecamp | IdentityConfigProviderLocal | IdentityConfigProviderOIDC
 
 union RankerScoreboardColumnTarget = CommunityAttribute | JudgeContest | JudgeProblem
 
@@ -154,12 +154,14 @@ type AtlasProblem {
   private: Boolean!
   "Score for a given user"
   score(memberId: ID, userId: ID): AtlasScore
-  "Problem's solutions"
+  solution(id: ID!): AtlasSolution
   solutions(after: String, filters: AtlasSolutionFilter, first: Int, order: Direction, sort: AtlasSolutionSort): AtlasSolutionConnection
   "Problem statement by locale preference"
   statement(locale: String, preferredLocales: [String!], render: Boolean): AtlasStatement
   "All problem's statements"
   statements(render: Boolean): [AtlasStatement!]
+  suggestion(id: ID!): AtlasSuggestion
+  suggestions(after: String, filters: AtlasSuggestionFilter, first: Int, order: Direction, sort: AtlasSuggestionSort): AtlasSuggestionConnection
   "Problem's code templates"
   templates: AtlasTemplateConnection
   "Problem's testset by ID"
@@ -253,6 +255,7 @@ type AtlasSubmission {
   status: String!
   submittedAt: Time!
   user: CognitoUser
+  verdict: String!
   wallTimeUsage: Int!
 }
 
@@ -279,6 +282,7 @@ type AtlasSubmissionGroup {
   score: Float!
   scoringMode: String!
   status: String!
+  verdict: String!
   wallTimeUsage: Int!
 }
 
@@ -291,7 +295,34 @@ type AtlasSubmissionRun {
   resourceUsage: Float!
   score: Float!
   status: String!
+  verdict: String!
   wallTimeUsage: Int!
+}
+
+type AtlasSuggestion {
+  createdAt: Time!
+  difficulty: Int!
+  editorial: Content!
+  id: ID!
+  locale: String
+  member: CommunityMember
+  statement: Content!
+  status: String!
+  title: String
+  topics(locale: String): [TaxonomyValue!]!
+  updatedAt: Time!
+}
+
+type AtlasSuggestionConnection {
+  edges: [AtlasSuggestionEdge!]!
+  nodes: [AtlasSuggestion!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AtlasSuggestionEdge {
+  cursor: String!
+  node: AtlasSuggestion!
 }
 
 type AtlasTemplate {
@@ -417,6 +448,13 @@ type CognitoUser {
   usernameChangedOn: Time
 }
 
+type CommercePrice {
+  currency: String!
+  id: ID!
+  recurrence: String!
+  unitAmount: Int!
+}
+
 type CommunityAttribute {
   choices: [String!]!
   description(locale: String, preferredLocales: [String!]): CommunityAttributeDescription!
@@ -462,12 +500,32 @@ type CommunityGhost {
   name: String!
 }
 
+type CommunityGroup {
+  description: String!
+  id: ID!
+  name: String!
+}
+
+type CommunityGroupConnection {
+  edges: [CommunityGroupEdge!]!
+  nodes: [CommunityGroup!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type CommunityGroupEdge {
+  cursor: String!
+  node: CommunityGroup!
+}
+
 type CommunityMember {
   account: CommunityMemberAccount!
   active: Boolean!
   attributes: [CommunityAttributeValue!]!
   disabled: Boolean! @deprecated(reason : "use active instead")
+  fallbackTier: CommunityTier
   ghost: Boolean! @deprecated(reason : "use account instead")
+  groups: [CommunityGroup!]!
   id: ID!
   incomplete: Boolean!
   name: String!
@@ -476,6 +534,7 @@ type CommunityMember {
   registered: Boolean! @deprecated(reason : "use incomplete instead")
   staffed: Boolean! @deprecated(reason : "use account instead")
   status: String! @deprecated(reason : "use active, unofficial and account flags instead")
+  tier: CommunityTier
   unofficial: Boolean!
   users: [CommunityMember!]! @deprecated(reason : "use account instead")
 }
@@ -496,6 +555,27 @@ type CommunityTeam {
   members: [CommunityMember!]!
   name: String!
   staffed: Boolean!
+}
+
+type CommunityTier {
+  description: Content
+  id: ID!
+  image: String!
+  name: String!
+  prices(currency: String): [CommercePrice!]
+  summary: String!
+}
+
+type CommunityTierConnection {
+  edges: [CommunityTierEdge!]!
+  nodes: [CommunityTier!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type CommunityTierEdge {
+  cursor: String!
+  node: CommunityTier!
 }
 
 type CommunityUser {
@@ -520,14 +600,6 @@ type CommunityUserPreferences {
   locale: String!
   runtime: String!
   timezone: String!
-}
-
-type Config {
-  attribute(key: String!): CommunityAttribute
-  attributes: CommunityAttributeConnection
-  auth: AuthConfig
-  identityProvider: IdentityProvider
-  visibility: String!
 }
 
 type ContentFragment {
@@ -698,9 +770,10 @@ type ExecutorRuntime {
 }
 
 type Geography {
-  countries: GeographyCountryConnection
+  countries(after: String, filters: GeographyCountryFilter, first: Int): GeographyCountryConnection
   country(id: ID!): GeographyCountry
   region(id: ID!): GeographyRegion
+  regions(after: String, filters: GeographyRegionFilter, first: Int): GeographyRegionConnection
 }
 
 type GeographyCountry {
@@ -743,18 +816,30 @@ type HTML {
   html: String!
 }
 
-type IdentityProviderEolymp {
-  issuer: String!
+type IdentityConfig {
+  displayNameAttribute: String!
+  displayNameType: String!
+  provider: IdentityConfigProvider
 }
 
-type IdentityProviderLocal {
-  issuer: String!
+type IdentityConfigProviderBasecamp {
+  basecamp: Boolean!
 }
 
-type IdentityProviderOIDC {
+type IdentityConfigProviderLocal {
+  allowModifyBasics: Boolean!
+  allowModifyEmail: Boolean!
+  allowModifyNickname: Boolean!
+  allowModifyPassword: Boolean!
+}
+
+type IdentityConfigProviderOIDC {
   authorizeEndpoint: String!
+  clientId: String!
+  clientSecret: String!
   issuer: String!
   keysEndpoint: String!
+  redirectUri: String!
   tokenEndpoint: String!
   userinfoEndpoint: String!
 }
@@ -1119,14 +1204,13 @@ type JudgeSubmission {
   cost: Float!
   deleted: Boolean!
   error: String
-  "deprecated use groups"
   groups: [JudgeSubmissionGroup!]!
   id: ID!
   lang: String!
   participant: JudgeParticipant
   percentage: Float!
   problem: JudgeProblem
-  runs: [JudgeSubmissionRun!]!
+  runs: [JudgeSubmissionRun!]! @deprecated(reason : "deprecated use groups")
   runtime: ExecutorRuntime
   score: Float!
   signature: String!
@@ -1134,6 +1218,7 @@ type JudgeSubmission {
   source: String!
   status: String!
   submittedAt: Time!
+  verdict: String!
 }
 
 type JudgeSubmissionConnection {
@@ -1156,23 +1241,22 @@ type JudgeSubmissionGroup {
   runs: [JudgeSubmissionRun!]!
   score: Float!
   status: String!
+  verdict: String!
   wallTimeUsage: Int!
 }
 
 type JudgeSubmissionRun {
-  "deprecated, use cost"
   cost: Float!
   cpuTimeUsage: Int!
   id: ID!
-  "deprecated, use index"
   index: Int!
   memoryUsage: Int!
   score: Float!
   status: String!
-  testId: ID!
-  "deprecated, don't use"
-  testIndex: Int!
-  testScore: Float!
+  testId: ID! @deprecated(reason : "don't use")
+  testIndex: Int! @deprecated(reason : "use index")
+  testScore: Float! @deprecated(reason : "use cost")
+  verdict: String!
   wallTimeUsage: Int!
 }
 
@@ -1224,12 +1308,11 @@ type Markdown {
 }
 
 type Meta {
+  homeUrl: String!
   id: ID!
   image: String!
+  issuerUrl: String!
   key: String!
-  maxTeamSize: Int!
-  membership: String!
-  minTeamSize: Int!
   name: String!
   plan: String!
   quota: UniverseSpaceQuota
@@ -1252,7 +1335,10 @@ type PageInfo {
 }
 
 type Query {
-  config: Config!
+  acl: ACL!
+  attribute(key: String!): CommunityAttribute
+  attributes: CommunityAttributeConnection
+  authConfig: AuthConfig
   contest(id: ID!): JudgeContest!
   contests(after: String, filters: JudgeContestFilter, first: Int): JudgeContestConnection
   course(id: ID!, render: Boolean): Course
@@ -1263,6 +1349,9 @@ type Query {
   fragment(id: ID!, render: Boolean): ContentFragment
   fragments(after: String, filters: ContentFragmentFilter, first: Int, render: Boolean): ContentFragmentConnection
   geography: Geography!
+  group(id: ID!): CommunityGroup!
+  groups(after: String, filters: CommunityGroupFilter, first: Int): CommunityGroupConnection
+  identityConfig: IdentityConfig
   keeper: Keeper!
   member(id: ID!): CommunityMember!
   members(after: String, filters: CommunityMemberFilter, first: Int): CommunityMemberConnection
@@ -1274,13 +1363,13 @@ type Query {
   problems(after: String, filters: AtlasProblemFilter, first: Int, order: Direction, sort: AtlasProblemSort): AtlasProblemConnection
   scoreboard(id: ID, key: String): RankerScoreboard
   scoreboards(after: String, filters: RankerScoreboardFilter, first: Int): RankerScoreboardConnection
-  self: Self! @deprecated(reason : "use viewer instead")
-  space: UniverseSpace! @deprecated(reason : "use meta and other root nodes instead")
   submission(id: ID!): AtlasSubmission
   submissions(after: String, filters: AtlasSubmissionFilter, first: Int): AtlasSubmissionConnection
   taxonomy: Taxonomy!
   ticket(id: ID!): JudgeTicket!
   tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  tier(id: ID!): CommunityTier!
+  tiers(after: String, first: Int): CommunityTierConnection
   viewer: Claims
 }
 
@@ -1444,10 +1533,6 @@ type RankerScoreboardRowValueString {
   string: String!
 }
 
-type Self {
-  user: CognitoUser
-}
-
 type Subscription {
   watchContestSubmission(contestId: ID!, submissionId: ID!): JudgeSubmission
   watchSubmission(id: ID!): AtlasSubmission
@@ -1495,15 +1580,14 @@ type UniverseSpace {
   entitlements: [String!]
   fragment(id: ID!, render: Boolean): ContentFragment
   fragments(after: String, filters: ContentFragmentFilter, first: Int, render: Boolean): ContentFragmentConnection
+  homeUrl: String!
   id: ID!
   image: String!
   introspect: CommunityMember
+  issuerUrl: String!
   key: String!
-  maxTeamSize: Int!
   member(id: ID!): CommunityMember!
   members(after: String, filters: CommunityMemberFilter, first: Int): CommunityMemberConnection
-  membership: String!
-  minTeamSize: Int!
   name: String!
   parents(locale: String, locales: [String!], path: String!, render: Boolean): [ContentFragment!]!
   path(locale: String, locales: [String!], path: String!, render: Boolean): ContentFragment
@@ -1604,6 +1688,11 @@ enum AtlasSolutionSort {
   type
 }
 
+enum AtlasSuggestionSort {
+  created_at
+  updated_at
+}
+
 enum CourseSort {
   default
 }
@@ -1674,6 +1763,12 @@ input AtlasSubmissionFilter {
   userId: IDExpression
 }
 
+input AtlasSuggestionFilter {
+  id: IDExpression
+  memberId: IDExpression
+  status: EnumExpression
+}
+
 input AtlasVersionFilter {
   changeOp: EnumExpression
   changePath: StringExpression
@@ -1688,8 +1783,15 @@ input BooleanExpression {
   eq: Boolean
 }
 
+input CommunityGroupFilter {
+  id: IDExpression
+  name: StringExpression
+  query: String
+}
+
 input CommunityMemberFilter {
   active: BooleanExpression
+  groupId: IDExpression
   id: IDExpression
   incomplete: BooleanExpression
   name: StringExpression
@@ -1788,6 +1890,19 @@ input FloatExpression {
   neq: Float
 }
 
+input GeographyCountryFilter {
+  id: IDExpression
+  name: StringExpression
+  query: String
+}
+
+input GeographyRegionFilter {
+  countryId: IDExpression
+  id: IDExpression
+  name: StringExpression
+  query: String
+}
+
 "Filter expression for ID type"
 input IDExpression {
   "Equals"
@@ -1826,6 +1941,7 @@ input JudgeContestFilter {
   country: EnumExpression
   difficulty: IntExpression
   endsAt: TimeExpression
+  featured: BooleanExpression
   format: EnumExpression
   id: IDExpression
   name: StringExpression
@@ -1836,6 +1952,7 @@ input JudgeContestFilter {
   scale: EnumExpression
   series: EnumExpression
   startsAt: TimeExpression
+  status: EnumExpression
   visibility: EnumExpression
   year: IntExpression
 }

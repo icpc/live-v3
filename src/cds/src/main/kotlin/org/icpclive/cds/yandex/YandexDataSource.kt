@@ -4,15 +4,20 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import org.icpclive.api.ContestStatus
-import org.icpclive.cds.*
+import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.YandexSettings
 import org.icpclive.cds.yandex.api.*
-import org.icpclive.util.*
+import org.icpclive.util.getLogger
+import org.icpclive.util.loopFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -40,17 +45,17 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
         }
 
 
-        contestDescriptionLoader = jsonLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
-        problemLoader = jsonLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
+        contestDescriptionLoader = jsonUrlLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
+        problemLoader = jsonUrlLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
             val participantRegex = settings.loginRegex
-            jsonLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
+            jsonUrlLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
         }
-        allSubmissionsLoader = jsonLoader<Submissions>(settings.network, auth) {
+        allSubmissionsLoader = jsonUrlLoader<Submissions>(settings.network, auth) {
             "$API_BASE/contests/${settings.contestId}/submissions?locale=ru&page=1&pageSize=100000"
         }.map { it.submissions.reversed() }
     }
