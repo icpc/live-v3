@@ -14,6 +14,7 @@ import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
+import java.lang.RuntimeException
 
 private sealed interface AdvancedAdapterEvent
 private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent

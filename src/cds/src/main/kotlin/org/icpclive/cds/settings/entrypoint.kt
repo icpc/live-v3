@@ -1,9 +1,7 @@
 package org.icpclive.cds.settings
 
 import com.github.ajalt.clikt.parameters.groups.OptionGroup
-import com.github.ajalt.clikt.parameters.options.defaultLazy
-import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.options.required
+import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
 import io.github.xn32.json5k.Json5
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +11,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.applyAdvancedProperties
+import org.icpclive.cds.adapters.*
 import org.icpclive.util.decodeFromStreamIgnoringComments
 import org.icpclive.util.fileJsonContentFlow
 import org.slf4j.Logger

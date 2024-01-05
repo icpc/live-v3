@@ -5,6 +5,7 @@ import com.eolymp.graphql.JudgeContestSubmissions
 import com.eolymp.graphql.JudgeContestTeams
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
+import jdk.jfr.Percentage
 import kotlinx.datetime.toKotlinInstant
 import org.icpclive.api.*
 import org.icpclive.cds.common.ClientAuth

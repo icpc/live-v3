@@ -1,18 +1,12 @@
 package org.icpclive.cds.cats
 
 import kotlinx.datetime.*
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.*
+import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonUrlLoader
+import org.icpclive.cds.common.*
 import org.icpclive.cds.settings.CatsSettings
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -50,14 +44,11 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
 
     private var sid: String? = null
 
-    //    variables for parsing runs
-    private var page = 0
-
     @Serializable
     data class Auth(val status: String, val sid: String, val cid: Long)
 
     @Serializable
-    data class Problem(val id: Int, val name: String, val code: String, val max_points: Int = 1)
+    data class Problem(val id: Int, val name: String, val code: String, val max_points: Double = 0.0)
 
     @Serializable
     data class Problems(val problems: List<Problem>)
@@ -117,16 +108,11 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
         val contest_start: Int
     ) : Run()
 
-    private val authLoader =
-        jsonUrlLoader<Auth>(networkSettings = settings.network) { "${settings.url}/?f=login&login=$login&passwd=$password&json=1" }
-    private val problemsLoader =
-        jsonUrlLoader<Problems>(networkSettings = settings.network) { "${settings.url}/problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
-    private val usersLoader =
-        jsonUrlLoader<Users>(networkSettings = settings.network) { "${settings.url}/users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
-    private val contestLoader =
-        jsonUrlLoader<Contest>(networkSettings = settings.network) { "${settings.url}/contest_params?cid=${settings.cid}&sid=${sid!!}&json=1" }
-    private val runsLoader =
-        jsonUrlLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1&page=$page" }
+    private val authLoader = jsonUrlLoader<Auth>(networkSettings = settings.network) { "${settings.url}/?f=login&login=$login&passwd=$password&json=1" }
+    private val problemsLoader = jsonUrlLoader<Problems>(networkSettings = settings.network) { "${settings.url}/problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
+    private val usersLoader = jsonUrlLoader<Users>(networkSettings = settings.network) { "${settings.url}/users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
+    private val contestLoader = jsonUrlLoader<Contest>(networkSettings = settings.network) { "${settings.url}/contest_params?cid=${settings.cid}&sid=${sid!!}&json=1" }
+    private val runsLoader = jsonUrlLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1" }
 
     override suspend fun loadOnce(): ContestParseResult {
         sid = authLoader.load().sid
@@ -134,33 +120,8 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             problemsLoader.load(),
             usersLoader.load(),
             contestLoader.load(),
-            parseSubmitPages()
+            runsLoader.load()
         )
-    }
-
-    /*
-        I hope that CATS ALWAYS return desc run by time. By this optimization I may get all runs with O(n)
-        like: +4:59, +4:58, ..., +3:25, ...
-        In another case it will be broken :(
-     */
-    private suspend fun parseSubmitPages(): List<Run> {
-        var lastRun: Int? = null
-        val result = mutableListOf<Run>()
-
-        while (true) {
-            val pageSubmits = runsLoader.load().filterIsInstance<Submit>()
-            val filteredRuns = if (pageSubmits.isNotEmpty()) {
-                if (pageSubmits.last().id == lastRun) break
-                else if (pageSubmits.any { it.id == lastRun }) pageSubmits.dropWhile { lastRun != it.id }.drop(1)
-                else pageSubmits
-            } else break
-
-            result.addAll(filteredRuns)
-            lastRun = filteredRuns.last().id
-            page++
-        }
-        page = 0
-        return result
     }
 
     private fun parseAndUpdateStandings(
@@ -180,7 +141,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     ordinal = index,
                     contestSystemId = problem.id.toString(),
                     minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
-                    maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points.toDouble() else null,
+                    maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points else null,
                     scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
                 )
             }
@@ -232,11 +193,10 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                 val result = if (it.state_text.isNotEmpty()) {
                     when (contestInfo.resultType) {
                         ContestResultType.ICPC -> Verdict.lookup(
-                            shortName = it.state_text,
-                            isAccepted = ("OK" == it.state_text),
-                            isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
-                        ).toRunResult()
-
+                                shortName = it.state_text,
+                                isAccepted = ("OK" == it.state_text),
+                                isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
+                            ).toRunResult()
                         ContestResultType.IOI -> IOIRunResult(score = listOf(it.points))
                     }
                 } else null

@@ -3,18 +3,12 @@
 package org.icpclive
 
 import ClicsExporter
-import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.PrintHelpMessage
-import com.github.ajalt.clikt.core.context
-import com.github.ajalt.clikt.core.subcommands
+import com.github.ajalt.clikt.core.*
 import com.github.ajalt.clikt.output.MordantHelpFormatter
-import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.ajalt.clikt.parameters.arguments.multiple
-import com.github.ajalt.clikt.parameters.groups.provideDelegate
+import com.github.ajalt.clikt.parameters.arguments.*
+import com.github.ajalt.clikt.parameters.groups.*
 import com.github.ajalt.clikt.parameters.options.*
-import com.github.ajalt.clikt.parameters.types.file
-import com.github.ajalt.clikt.parameters.types.int
-import com.github.ajalt.clikt.parameters.types.path
+import com.github.ajalt.clikt.parameters.types.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -28,13 +22,8 @@ import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.plus
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.api.ContestInfo
@@ -42,18 +31,14 @@ import org.icpclive.api.RunInfo
 import org.icpclive.api.tunning.AdvancedProperties
 import org.icpclive.api.tunning.TeamInfoOverride
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.applyAdvancedProperties
-import org.icpclive.cds.adapters.finalContestState
-import org.icpclive.cds.settings.CdsCommandLineOptions
-import org.icpclive.cds.settings.toFlow
+import org.icpclive.cds.adapters.*
+import org.icpclive.cds.settings.*
 import org.icpclive.export.icpc.csv.IcpcCsvExporter
+import org.icpclive.util.*
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
-import org.icpclive.util.defaultJsonSettings
-import org.icpclive.util.getLogger
 import org.slf4j.event.Level
 import java.time.Duration
-import kotlin.io.path.absolute
-import kotlin.io.path.isDirectory
+import kotlin.io.path.*
 import kotlin.system.exitProcess
 
 abstract class DumpFileCommand(

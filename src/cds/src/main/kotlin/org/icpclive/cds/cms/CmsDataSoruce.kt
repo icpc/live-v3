@@ -2,9 +2,9 @@ package org.icpclive.cds.cms
 
 import org.icpclive.api.*
 import org.icpclive.cds.cms.model.*
+import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonUrlLoader
 import org.icpclive.cds.settings.CmsSettings
 import org.icpclive.util.Enumerator
 import kotlin.time.Duration
