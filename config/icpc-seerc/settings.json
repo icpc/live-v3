@@ -1,0 +1,6 @@
+{
+  "type": "eolymp",
+  "url": "https://api.eolymp.com/spaces/123/graphql",
+  "contestId": "123",
+  "token": "ekey-123"
+}
