@@ -351,6 +351,9 @@
                 "contestId": {
                     "type": "string"
                 },
+                "previousDaysContestIds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
                 },
