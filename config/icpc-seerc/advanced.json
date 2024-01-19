@@ -66,9 +66,13 @@
         "displayName": "[{orgDisplayName}] {teamName}"
     },
     "teamNameRegexes": {
-        "organizationRegex": "\\[(.*)\\] .*",
+        "organizationRegex": {
+            "\\[(.*)\\] .*": "$1"
+        },
         "customFields": {
-            "teamName": "\\[.*\\] (.*)"
+            "teamName": {
+                "\\[.*\\] (.*)": "$1"
+            }
         }
     },
     "organizationOverrides": {
