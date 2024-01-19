@@ -1,0 +1,7 @@
+{
+  "type": "eolymp",
+  "url": "https://api.eolymp.com/spaces/5lu8moiul57qd46l1ao3pkedv8/graphql",
+  "contestId": "3e8lq1bv5t08pc331prnh361u4",
+  "previousDaysContestIds": ["30nfebpqc10p7f5cfnchr3u86g"],
+  "token": "$creds.eolymp"
+}

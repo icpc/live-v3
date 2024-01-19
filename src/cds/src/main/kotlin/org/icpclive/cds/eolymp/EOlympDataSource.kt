@@ -3,7 +3,7 @@ package org.icpclive.cds.eolymp
 import com.eolymp.graphql.*
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
-import jdk.jfr.Percentage
+import io.codedrills.proto.external.Contest
 import kotlinx.datetime.toKotlinInstant
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
@@ -15,6 +15,7 @@ import java.time.chrono.IsoChronology
 import java.time.format.DateTimeFormatterBuilder
 import java.time.format.ResolverStyle
 import java.time.temporal.ChronoField
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.seconds
 
@@ -72,6 +73,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
     }
     private fun convertResultType(format: String) = when (format) {
         "ICPC" -> ContestResultType.ICPC
+        "IOI" -> ContestResultType.IOI
         else -> error("Unknown contest format: $format")
     }
 
@@ -100,13 +102,41 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
     private val teamIds = Enumerator<String>()
     private val runIds = Enumerator<String>()
 
+    private var previousDays: List<ContestParseResult> = emptyList()
+
+    @OptIn(InefficientContestInfoApi::class)
     override suspend fun loadOnce(): ContestParseResult {
-        val result = graphQLClient.judgeContest(settings.contestId)
+        if (settings.previousDaysContestIds.isEmpty()) {
+            return loadContest(settings.contestId)
+        }
+        if (previousDays.isEmpty())
+            previousDays = settings.previousDaysContestIds.map { loadContest(it) }
+        val lastDay = loadContest(settings.contestId)
+        val teamIdToMemberIdMap = (previousDays.flatMap { it.contestInfo.teamList } + lastDay.contestInfo.teamList).associate {
+            it.id to it.fullName
+        }
+        val memberIdToTeamIdMap = lastDay.contestInfo.teamList.associate {
+            it.fullName to it.id
+        }
+        return ContestParseResult(
+            lastDay.contestInfo.copy(
+                problemList = (previousDays + lastDay).flatMap { it.contestInfo.problemList }
+            ),
+            previousDays.flatMap { it.runs.mapNotNull { it.copy(
+                time = ZERO,
+                teamId = memberIdToTeamIdMap[teamIdToMemberIdMap[it.teamId]!!] ?: return@mapNotNull null
+            ) } } + lastDay.runs,
+            emptyList()
+        )
+    }
+
+    private suspend fun loadContest(contestId: String) : ContestParseResult {
+        val result = graphQLClient.judgeContest(contestId)
         val teams = buildList {
             var cursor: String? = null
             while (true) {
                 val x = graphQLClient.teams(
-                    settings.contestId,
+                    contestId,
                     cursor,
                     100
                 )
@@ -128,10 +158,11 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                 cursor = x.participants.pageInfo.endCursor
             }
         }
+        val resultType = convertResultType(result.format)
         val contestInfo = ContestInfo(
             name = result.name,
             status = convertStatus(result.status),
-            resultType = convertResultType(result.format),
+            resultType = resultType,
             startTime = parseTime(result.startsAt),
             contestLength = result.duration.seconds,
             freezeTime = result.duration.seconds - (result.scoreboard?.freezingTime?.seconds ?: ZERO),
@@ -143,26 +174,32 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                     ordinal = it.index,
                     contestSystemId = it.id,
                     maxScore = it.score,
-                    scoreMergeMode = ScoreMergeMode.LAST_OK
+                    scoreMergeMode = ScoreMergeMode.MAX_TOTAL
                 )
             },
             teamList = teams,
             groupList = emptyList(),
             organizationList = emptyList(),
-            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_UP_TO_MINUTE
+            penaltyRoundingMode = when (resultType) {
+                ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_UP_TO_MINUTE
+                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+            }
         )
         val runs = buildList {
             var cursor: String? = null
             while (true) {
                 val x = graphQLClient.submissions(
-                    settings.contestId,
+                    contestId,
                     cursor,
                     100
                 )
                 addAll(x.submissions!!.nodes.map {
                     RunInfo(
                         id = runIds[it.id],
-                        result = parseVerdict(it.status, it.verdict, it.percentage)?.toRunResult(),
+                        result = when (resultType) {
+                            ContestResultType.ICPC -> parseVerdict(it.status, it.verdict, it.percentage)?.toRunResult()
+                            ContestResultType.IOI -> IOIRunResult(listOf(it.score))
+                        },
                         percentage = 0.0,
                         problemId = problemIds[it.problem!!.id],
                         teamId = teamIds[it.participant!!.id],

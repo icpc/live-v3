@@ -13,6 +13,7 @@ query JudgeContestSubmissions($id: ID!, $after: String, $count: Int!) {
                 participant { id }
                 submittedAt
                 verdict
+                score
                 status
             }
         }

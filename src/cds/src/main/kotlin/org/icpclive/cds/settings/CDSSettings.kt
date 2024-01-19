@@ -312,6 +312,7 @@ public class EOlympSettings(
     public val url: String,
     @Contextual public val token: Credential,
     public val contestId: String,
+    public val previousDaysContestIds: List<String> = emptyList(),
     override val network: NetworkSettings? = null,
     override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
