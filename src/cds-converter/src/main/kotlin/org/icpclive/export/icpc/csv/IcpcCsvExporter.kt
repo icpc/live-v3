@@ -4,6 +4,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.collections.immutable.PersistentMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import org.apache.commons.csv.CSVFormat
@@ -31,8 +32,9 @@ object IcpcCsvExporter {
 
     fun TeamInfo.icpcId() = customFields["icpc_id"] ?: contestSystemId
 
-    fun format(info: ContestInfo, runsByTeam: Map<Int, List<RunInfo>>) : String {
+    fun format(info: ContestInfo, runs: List<RunInfo>) : String {
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
+        val runsByTeam = runs.groupBy { it.teamId }
         val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
         val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
         val ranking = scoreboardCalculator.getRanking(info, rows)
@@ -65,7 +67,7 @@ object IcpcCsvExporter {
 
     fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
         val stateFlow = contestUpdates
-            .stateGroupedByTeam()
+            .contestState()
             .stateIn(scope, SharingStarted.Eagerly, null)
             .filterNotNull()
             .filter { it.infoAfterEvent != null }
@@ -77,7 +79,7 @@ object IcpcCsvExporter {
                 val state = stateFlow.first()
                 format(
                     state.infoAfterEvent!!,
-                    state.runs
+                    state.runs.values.toList()
                 )
             }
         }

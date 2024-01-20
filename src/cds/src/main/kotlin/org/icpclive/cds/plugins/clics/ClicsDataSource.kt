@@ -9,6 +9,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.clics.v202207.Event.*
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.v202003.upgrade
@@ -32,13 +33,12 @@ public class ClicsFeed(
     public val feedVersion: FeedVersion = FeedVersion.`2022_07`
 )
 
-@SerialName("clics")
-@Serializable
-public class ClicsSettings(
-    public val feeds: List<ClicsFeed>,
-    public val useTeamNames: Boolean = true,
-) : CDSSettings() {
-    override fun toDataSource() = ClicsDataSource(this)
+@GenerateSettings("clics")
+public interface ClicsSettings : CDSSettings {
+    public val feeds: List<ClicsFeed>
+    public val useTeamNames: Boolean
+        get() = true
+    override fun toDataSource() : ContestDataSource = ClicsDataSource(this)
 }
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed) {

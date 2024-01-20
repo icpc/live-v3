@@ -4,6 +4,7 @@ import kotlinx.datetime.Clock
 import kotlinx.serialization.*
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.plugins.codeforces.api.data.CFHack
 import org.icpclive.cds.plugins.codeforces.api.data.CFSubmission
 import org.icpclive.cds.plugins.codeforces.api.results.CFStandings
@@ -14,15 +15,15 @@ import java.util.*
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 
-@Serializable
-@SerialName("cf")
-public class CFSettings(
-    public val contestId: Int,
-    @Contextual public val apiKey: Credential,
-    @Contextual public val apiSecret: Credential,
-    public val asManager: Boolean = true,
-) : CDSSettings() {
-    override fun toDataSource() = CFDataSource(this)
+@GenerateSettings("cf")
+public interface CFSettings : CDSSettings {
+    public val contestId: Int
+    public val apiKey: Credential
+    public val apiSecret: Credential
+    public val asManager: Boolean
+        get() = true
+
+    override fun toDataSource(): ContestDataSource = CFDataSource(this)
 }
 
 internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSource(5.seconds) {

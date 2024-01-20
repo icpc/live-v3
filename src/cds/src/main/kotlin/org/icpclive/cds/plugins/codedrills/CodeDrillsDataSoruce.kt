@@ -7,23 +7,23 @@ import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import org.icpclive.api.*
+import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.getLogger
 import java.util.concurrent.*
 import kotlin.time.Duration.Companion.seconds
 
 
-@SerialName("codedrills")
-@Serializable
-public class CodeDrillsSettings(
-    public val url: String,
-    public val port: Int,
-    public val contestId: String,
-    @Contextual public val authKey: Credential,
-) : CDSSettings() {
-    override fun toDataSource() = CodeDrillsDataSource(this)
+@GenerateSettings("codedrills")
+public interface CodeDrillsSettings : CDSSettings {
+    public val url: String
+    public val port: Int
+    public val contestId: String
+    public val authKey: Credential
+    override fun toDataSource(): ContestDataSource = CodeDrillsDataSource(this)
 }
 
 internal class CodeDrillsClient(url: String, port: Int, authKey: String) : AutoCloseable {

@@ -9,10 +9,10 @@ import org.icpclive.cds.adapters.*
 import org.icpclive.util.getLogger
 import kotlin.time.Duration
 
-public data class Ranking(
-    val order: List<Int>,
-    val ranks: List<Int>,
-    val awards: List<Award>
+public class Ranking internal constructor(
+    public val order: List<Int>,
+    public val ranks: List<Int>,
+    public val awards: List<Award>
 )
 
 public interface ScoreboardCalculator {
@@ -216,11 +216,11 @@ private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
     }
 }
 
-public data class ScoreboardAndContestInfo(
-    val info: ContestInfo,
-    val scoreboardSnapshot: Scoreboard,
-    val scoreboardDiff: Scoreboard,
-    val lastSubmissionTime: Duration
+public class ScoreboardAndContestInfo internal constructor(
+    public val info: ContestInfo,
+    public val scoreboardSnapshot: Scoreboard,
+    public val scoreboardDiff: Scoreboard,
+    public val lastSubmissionTime: Duration
 )
 
 public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ScoreboardAndContestInfo> = flow {

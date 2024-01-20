@@ -7,14 +7,14 @@ import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import kotlin.time.Duration
 
 
-@Serializable
-@SerialName("noop")
-public class NoopSettings : CDSSettings() {
-    override fun toDataSource() = NoopDataSource()
+@GenerateSettings("noop")
+public interface NoopSettings : CDSSettings {
+    override fun toDataSource() : ContestDataSource = NoopDataSource()
 }
 
 internal class NoopDataSource : ContestDataSource {

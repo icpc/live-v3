@@ -118,7 +118,8 @@ object PCMSExporter {
     }
 
 
-    fun format(info: ContestInfo, runsByTeam: Map<Int, List<RunInfo>>) : String {
+    fun format(info: ContestInfo, runs: List<RunInfo>) : String {
+        val runsByTeam = runs.groupBy { it.teamId }
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
         val documentFactory = DocumentBuilderFactory.newInstance()!!
         val documentBuilder = documentFactory.newDocumentBuilder()!!
@@ -159,7 +160,7 @@ object PCMSExporter {
 
     fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
         val stateFlow = contestUpdates
-            .stateGroupedByTeam()
+            .contestState()
             .stateIn(scope, SharingStarted.Eagerly, null)
             .filterNotNull()
             .filter { it.infoAfterEvent != null }
@@ -171,7 +172,7 @@ object PCMSExporter {
                 val state = stateFlow.first()
                 format(
                     state.infoAfterEvent!!,
-                    state.runs
+                    state.runs.values.toList()
                 )
             }
         }

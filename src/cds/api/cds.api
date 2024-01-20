@@ -1,0 +1,1927 @@
+public final class org/icpclive/api/AnalyticsCommentaryEvent : org/icpclive/api/AnalyticsMessage {
+	public static final field Companion Lorg/icpclive/api/AnalyticsCommentaryEvent$Companion;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionRun;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionRun;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Lorg/icpclive/api/AnalyticsCompanionPreset;
+	public final fun component11 ()Lorg/icpclive/api/AnalyticsCompanionRun;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lkotlinx/datetime/Instant;
+	public final fun component4-UwyO8pc ()J
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()I
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Lorg/icpclive/api/AnalyticsCompanionPreset;
+	public final fun copy-Tp8oMn4 (Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionRun;)Lorg/icpclive/api/AnalyticsCommentaryEvent;
+	public static synthetic fun copy-Tp8oMn4$default (Lorg/icpclive/api/AnalyticsCommentaryEvent;Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionPreset;Lorg/icpclive/api/AnalyticsCompanionRun;ILjava/lang/Object;)Lorg/icpclive/api/AnalyticsCommentaryEvent;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAdvertisement ()Lorg/icpclive/api/AnalyticsCompanionPreset;
+	public final fun getFeaturedRun ()Lorg/icpclive/api/AnalyticsCompanionRun;
+	public fun getId ()Ljava/lang/String;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getPriority ()I
+	public fun getRelativeTime-UwyO8pc ()J
+	public final fun getRunIds ()Ljava/util/List;
+	public final fun getTags ()Ljava/util/List;
+	public final fun getTeamIds ()Ljava/util/List;
+	public final fun getTickerMessage ()Lorg/icpclive/api/AnalyticsCompanionPreset;
+	public fun getTime ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/AnalyticsCommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/AnalyticsCommentaryEvent$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/AnalyticsCommentaryEvent;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/AnalyticsCommentaryEvent;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AnalyticsCommentaryEvent$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AnalyticsCompanionPreset {
+	public static final field Companion Lorg/icpclive/api/AnalyticsCompanionPreset$Companion;
+	public fun <init> (ILkotlinx/datetime/Instant;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun copy (ILkotlinx/datetime/Instant;)Lorg/icpclive/api/AnalyticsCompanionPreset;
+	public static synthetic fun copy$default (Lorg/icpclive/api/AnalyticsCompanionPreset;ILkotlinx/datetime/Instant;ILjava/lang/Object;)Lorg/icpclive/api/AnalyticsCompanionPreset;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExpirationTime ()Lkotlinx/datetime/Instant;
+	public final fun getPresetId ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/AnalyticsCompanionPreset$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/AnalyticsCompanionPreset$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/AnalyticsCompanionPreset;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/AnalyticsCompanionPreset;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AnalyticsCompanionPreset$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AnalyticsCompanionRun {
+	public static final field Companion Lorg/icpclive/api/AnalyticsCompanionRun$Companion;
+	public fun <init> (Lkotlinx/datetime/Instant;Lorg/icpclive/api/MediaType;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lorg/icpclive/api/MediaType;
+	public final fun copy (Lkotlinx/datetime/Instant;Lorg/icpclive/api/MediaType;)Lorg/icpclive/api/AnalyticsCompanionRun;
+	public static synthetic fun copy$default (Lorg/icpclive/api/AnalyticsCompanionRun;Lkotlinx/datetime/Instant;Lorg/icpclive/api/MediaType;ILjava/lang/Object;)Lorg/icpclive/api/AnalyticsCompanionRun;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExpirationTime ()Lkotlinx/datetime/Instant;
+	public final fun getMediaType ()Lorg/icpclive/api/MediaType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/AnalyticsCompanionRun$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/AnalyticsCompanionRun$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/AnalyticsCompanionRun;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/AnalyticsCompanionRun;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AnalyticsCompanionRun$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class org/icpclive/api/AnalyticsMessage {
+	public static final field Companion Lorg/icpclive/api/AnalyticsMessage$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public abstract fun getId ()Ljava/lang/String;
+	public abstract fun getRelativeTime-UwyO8pc ()J
+	public abstract fun getTime ()Lkotlinx/datetime/Instant;
+	public static final synthetic fun write$Self (Lorg/icpclive/api/AnalyticsMessage;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class org/icpclive/api/AnalyticsMessage$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class org/icpclive/api/Award {
+	public static final field Companion Lorg/icpclive/api/Award$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public abstract fun getCitation ()Ljava/lang/String;
+	public abstract fun getId ()Ljava/lang/String;
+	public abstract fun getTeams ()Ljava/util/Set;
+	public static final synthetic fun write$Self (Lorg/icpclive/api/Award;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class org/icpclive/api/Award$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$Custom : org/icpclive/api/Award {
+	public static final field Companion Lorg/icpclive/api/Award$Custom$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/Set;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Lorg/icpclive/api/Award$Custom;
+	public static synthetic fun copy$default (Lorg/icpclive/api/Award$Custom;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;ILjava/lang/Object;)Lorg/icpclive/api/Award$Custom;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCitation ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getTeams ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Award$Custom$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/Award$Custom$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/Award$Custom;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/Award$Custom;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$Custom$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$GroupChampion : org/icpclive/api/Award {
+	public static final field Companion Lorg/icpclive/api/Award$GroupChampion$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/util/Set;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Lorg/icpclive/api/Award$GroupChampion;
+	public static synthetic fun copy$default (Lorg/icpclive/api/Award$GroupChampion;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;ILjava/lang/Object;)Lorg/icpclive/api/Award$GroupChampion;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCitation ()Ljava/lang/String;
+	public final fun getGroupId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getTeams ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Award$GroupChampion$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/Award$GroupChampion$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/Award$GroupChampion;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/Award$GroupChampion;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$GroupChampion$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$Medal : org/icpclive/api/Award {
+	public static final field Companion Lorg/icpclive/api/Award$Medal$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/Award$Medal$MedalColor;Ljava/util/Set;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lorg/icpclive/api/Award$Medal$MedalColor;
+	public final fun component4 ()Ljava/util/Set;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/Award$Medal$MedalColor;Ljava/util/Set;)Lorg/icpclive/api/Award$Medal;
+	public static synthetic fun copy$default (Lorg/icpclive/api/Award$Medal;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/Award$Medal$MedalColor;Ljava/util/Set;ILjava/lang/Object;)Lorg/icpclive/api/Award$Medal;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCitation ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public final fun getMedalColor ()Lorg/icpclive/api/Award$Medal$MedalColor;
+	public fun getTeams ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Award$Medal$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/Award$Medal$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/Award$Medal;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/Award$Medal;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$Medal$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$Medal$MedalColor : java/lang/Enum {
+	public static final field BRONZE Lorg/icpclive/api/Award$Medal$MedalColor;
+	public static final field GOLD Lorg/icpclive/api/Award$Medal$MedalColor;
+	public static final field SILVER Lorg/icpclive/api/Award$Medal$MedalColor;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/Award$Medal$MedalColor;
+	public static fun values ()[Lorg/icpclive/api/Award$Medal$MedalColor;
+}
+
+public final class org/icpclive/api/Award$Winner : org/icpclive/api/Award {
+	public static final field Companion Lorg/icpclive/api/Award$Winner$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/Set;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Lorg/icpclive/api/Award$Winner;
+	public static synthetic fun copy$default (Lorg/icpclive/api/Award$Winner;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;ILjava/lang/Object;)Lorg/icpclive/api/Award$Winner;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getCitation ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getTeams ()Ljava/util/Set;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Award$Winner$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/Award$Winner$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/Award$Winner;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/Award$Winner;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Award$Winner$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AwardsSettings {
+	public static final field Companion Lorg/icpclive/api/AwardsSettings$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()I
+	public final fun component6 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/api/AwardsSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/api/AwardsSettings;Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/api/AwardsSettings;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChampionTitle ()Ljava/lang/String;
+	public final fun getGroupsChampionTitles ()Ljava/util/Map;
+	public final fun getManual ()Ljava/util/List;
+	public final fun getMedalSettings ()Ljava/util/List;
+	public final fun getRankAwardsMaxRank ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/AwardsSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/AwardsSettings$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/AwardsSettings;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/AwardsSettings;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AwardsSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AwardsSettings$ManualAwardSetting {
+	public static final field Companion Lorg/icpclive/api/AwardsSettings$ManualAwardSetting$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lorg/icpclive/api/AwardsSettings$ManualAwardSetting;
+	public static synthetic fun copy$default (Lorg/icpclive/api/AwardsSettings$ManualAwardSetting;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/api/AwardsSettings$ManualAwardSetting;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCitation ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getTeamCdsIds ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/AwardsSettings$ManualAwardSetting$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/AwardsSettings$ManualAwardSetting$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/AwardsSettings$ManualAwardSetting;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/AwardsSettings$ManualAwardSetting;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AwardsSettings$ManualAwardSetting$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AwardsSettings$MedalSettings {
+	public static final field Companion Lorg/icpclive/api/AwardsSettings$MedalSettings$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/Award$Medal$MedalColor;Ljava/lang/Integer;DLorg/icpclive/api/AwardsSettings$MedalTiebreakMode;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/Award$Medal$MedalColor;Ljava/lang/Integer;DLorg/icpclive/api/AwardsSettings$MedalTiebreakMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lorg/icpclive/api/Award$Medal$MedalColor;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()D
+	public final fun component6 ()Lorg/icpclive/api/AwardsSettings$MedalTiebreakMode;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/Award$Medal$MedalColor;Ljava/lang/Integer;DLorg/icpclive/api/AwardsSettings$MedalTiebreakMode;)Lorg/icpclive/api/AwardsSettings$MedalSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/api/AwardsSettings$MedalSettings;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/Award$Medal$MedalColor;Ljava/lang/Integer;DLorg/icpclive/api/AwardsSettings$MedalTiebreakMode;ILjava/lang/Object;)Lorg/icpclive/api/AwardsSettings$MedalSettings;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCitation ()Ljava/lang/String;
+	public final fun getColor ()Lorg/icpclive/api/Award$Medal$MedalColor;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getMaxRank ()Ljava/lang/Integer;
+	public final fun getMinScore ()D
+	public final fun getTiebreakMode ()Lorg/icpclive/api/AwardsSettings$MedalTiebreakMode;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/AwardsSettings$MedalSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/AwardsSettings$MedalSettings$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/AwardsSettings$MedalSettings;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/AwardsSettings$MedalSettings;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AwardsSettings$MedalSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/AwardsSettings$MedalTiebreakMode : java/lang/Enum {
+	public static final field ALL Lorg/icpclive/api/AwardsSettings$MedalTiebreakMode;
+	public static final field NONE Lorg/icpclive/api/AwardsSettings$MedalTiebreakMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/AwardsSettings$MedalTiebreakMode;
+	public static fun values ()[Lorg/icpclive/api/AwardsSettings$MedalTiebreakMode;
+}
+
+public final class org/icpclive/api/ContestInfo {
+	public static final field Companion Lorg/icpclive/api/ContestInfo$Companion;
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/api/ContestStatus;Lorg/icpclive/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/api/AwardsSettings;JZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/api/ContestStatus;Lorg/icpclive/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/api/AwardsSettings;JZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/util/List;
+	public final fun component11 ()Lorg/icpclive/api/PenaltyRoundingMode;
+	public final fun component12-FghU774 ()Lkotlin/time/Duration;
+	public final fun component13 ()D
+	public final fun component14 ()Lorg/icpclive/api/AwardsSettings;
+	public final fun component15-UwyO8pc ()J
+	public final fun component16 ()Z
+	public final fun component2 ()Lorg/icpclive/api/ContestStatus;
+	public final fun component3 ()Lorg/icpclive/api/ContestResultType;
+	public final fun component4 ()Lkotlinx/datetime/Instant;
+	public final fun component5-UwyO8pc ()J
+	public final fun component6-UwyO8pc ()J
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy-9mTHwLo (Ljava/lang/String;Lorg/icpclive/api/ContestStatus;Lorg/icpclive/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/api/AwardsSettings;JZ)Lorg/icpclive/api/ContestInfo;
+	public static synthetic fun copy-9mTHwLo$default (Lorg/icpclive/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/api/ContestStatus;Lorg/icpclive/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/api/AwardsSettings;JZILjava/lang/Object;)Lorg/icpclive/api/ContestInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAwardsSettings ()Lorg/icpclive/api/AwardsSettings;
+	public final fun getCdsSupportsFinalization ()Z
+	public final fun getCdsTeams ()Ljava/util/Map;
+	public final fun getContestLength-UwyO8pc ()J
+	public final fun getCurrentContestTime-UwyO8pc ()J
+	public final fun getEmulationSpeed ()D
+	public final fun getFreezeTime-UwyO8pc ()J
+	public final fun getGroupList ()Ljava/util/List;
+	public final fun getGroups ()Ljava/util/Map;
+	public final fun getHoldBeforeStartTime-FghU774 ()Lkotlin/time/Duration;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getOrganizationList ()Ljava/util/List;
+	public final fun getOrganizations ()Ljava/util/Map;
+	public final fun getPenaltyPerWrongAttempt-UwyO8pc ()J
+	public final fun getPenaltyRoundingMode ()Lorg/icpclive/api/PenaltyRoundingMode;
+	public final fun getProblemList ()Ljava/util/List;
+	public final fun getProblems ()Ljava/util/Map;
+	public final fun getResultType ()Lorg/icpclive/api/ContestResultType;
+	public final fun getScoreboardProblems ()Ljava/util/List;
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStatus ()Lorg/icpclive/api/ContestStatus;
+	public final fun getTeamList ()Ljava/util/List;
+	public final fun getTeams ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/ContestInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/ContestInfo$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/ContestInfo;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/ContestInfo;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ContestInfo$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ContestResultType : java/lang/Enum {
+	public static final field Companion Lorg/icpclive/api/ContestResultType$Companion;
+	public static final field ICPC Lorg/icpclive/api/ContestResultType;
+	public static final field IOI Lorg/icpclive/api/ContestResultType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/ContestResultType;
+	public static fun values ()[Lorg/icpclive/api/ContestResultType;
+}
+
+public final class org/icpclive/api/ContestResultType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ContestStatus : java/lang/Enum {
+	public static final field BEFORE Lorg/icpclive/api/ContestStatus;
+	public static final field FAKE_RUNNING Lorg/icpclive/api/ContestStatus;
+	public static final field FINALIZED Lorg/icpclive/api/ContestStatus;
+	public static final field OVER Lorg/icpclive/api/ContestStatus;
+	public static final field RUNNING Lorg/icpclive/api/ContestStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/ContestStatus;
+	public static fun values ()[Lorg/icpclive/api/ContestStatus;
+}
+
+public final class org/icpclive/api/GroupInfo {
+	public static final field Companion Lorg/icpclive/api/GroupInfo$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZZ)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZZZ)Lorg/icpclive/api/GroupInfo;
+	public static synthetic fun copy$default (Lorg/icpclive/api/GroupInfo;Ljava/lang/String;Ljava/lang/String;ZZZILjava/lang/Object;)Lorg/icpclive/api/GroupInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAwardsGroupChampion ()Z
+	public final fun getCdsId ()Ljava/lang/String;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isHidden ()Z
+	public final fun isOutOfContest ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/GroupInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/GroupInfo$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/GroupInfo;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/GroupInfo;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/GroupInfo$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ICPCProblemResult : org/icpclive/api/ProblemResult {
+	public static final field Companion Lorg/icpclive/api/ICPCProblemResult$Companion;
+	public synthetic fun <init> (IIZZLkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()Z
+	public final fun component4 ()Z
+	public final fun component5-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-jSaE0eg (IIZZLkotlin/time/Duration;)Lorg/icpclive/api/ICPCProblemResult;
+	public static synthetic fun copy-jSaE0eg$default (Lorg/icpclive/api/ICPCProblemResult;IIZZLkotlin/time/Duration;ILjava/lang/Object;)Lorg/icpclive/api/ICPCProblemResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getLastSubmitTime-FghU774 ()Lkotlin/time/Duration;
+	public final fun getPendingAttempts ()I
+	public final fun getWrongAttempts ()I
+	public fun hashCode ()I
+	public final fun isFirstToSolve ()Z
+	public final fun isSolved ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/ICPCProblemResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/ICPCProblemResult$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/ICPCProblemResult;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/ICPCProblemResult;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ICPCProblemResult$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ICPCRunResult : org/icpclive/api/RunResult {
+	public static final field Companion Lorg/icpclive/api/ICPCRunResult$Companion;
+	public fun <init> (Lorg/icpclive/api/Verdict;Z)V
+	public final fun component1 ()Lorg/icpclive/api/Verdict;
+	public final fun component2 ()Z
+	public final fun copy (Lorg/icpclive/api/Verdict;Z)Lorg/icpclive/api/ICPCRunResult;
+	public static synthetic fun copy$default (Lorg/icpclive/api/ICPCRunResult;Lorg/icpclive/api/Verdict;ZILjava/lang/Object;)Lorg/icpclive/api/ICPCRunResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getVerdict ()Lorg/icpclive/api/Verdict;
+	public fun hashCode ()I
+	public final fun isFirstToSolveRun ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/ICPCRunResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/ICPCRunResult$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/ICPCRunResult;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/ICPCRunResult;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ICPCRunResult$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/IOIProblemResult : org/icpclive/api/ProblemResult {
+	public static final field Companion Lorg/icpclive/api/IOIProblemResult$Companion;
+	public synthetic fun <init> (Ljava/lang/Double;Lkotlin/time/Duration;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Double;
+	public final fun component2-FghU774 ()Lkotlin/time/Duration;
+	public final fun component3 ()Z
+	public final fun copy-Kx4hsE0 (Ljava/lang/Double;Lkotlin/time/Duration;Z)Lorg/icpclive/api/IOIProblemResult;
+	public static synthetic fun copy-Kx4hsE0$default (Lorg/icpclive/api/IOIProblemResult;Ljava/lang/Double;Lkotlin/time/Duration;ZILjava/lang/Object;)Lorg/icpclive/api/IOIProblemResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getLastSubmitTime-FghU774 ()Lkotlin/time/Duration;
+	public final fun getScore ()Ljava/lang/Double;
+	public fun hashCode ()I
+	public final fun isFirstBest ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/IOIProblemResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/IOIProblemResult$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/IOIProblemResult;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/IOIProblemResult;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/IOIProblemResult$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/IOIRunResult : org/icpclive/api/RunResult {
+	public static final field Companion Lorg/icpclive/api/IOIRunResult$Companion;
+	public fun <init> (Ljava/util/List;Lorg/icpclive/api/Verdict;DDZZ)V
+	public synthetic fun <init> (Ljava/util/List;Lorg/icpclive/api/Verdict;DDZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lorg/icpclive/api/Verdict;
+	public final fun component3 ()D
+	public final fun component4 ()D
+	public final fun component5 ()Z
+	public final fun component6 ()Z
+	public final fun copy (Ljava/util/List;Lorg/icpclive/api/Verdict;DDZZ)Lorg/icpclive/api/IOIRunResult;
+	public static synthetic fun copy$default (Lorg/icpclive/api/IOIRunResult;Ljava/util/List;Lorg/icpclive/api/Verdict;DDZZILjava/lang/Object;)Lorg/icpclive/api/IOIRunResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDifference ()D
+	public final fun getScore ()Ljava/util/List;
+	public final fun getScoreAfter ()D
+	public final fun getWrongVerdict ()Lorg/icpclive/api/Verdict;
+	public fun hashCode ()I
+	public final fun isFirstBestRun ()Z
+	public final fun isFirstBestTeamRun ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/IOIRunResult$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/IOIRunResult$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/IOIRunResult;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/IOIRunResult;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/IOIRunResult$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface annotation class org/icpclive/api/InefficientContestInfoApi : java/lang/annotation/Annotation {
+}
+
+public final class org/icpclive/api/LegacyScoreboard {
+	public static final field Companion Lorg/icpclive/api/LegacyScoreboard$Companion;
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lorg/icpclive/api/LegacyScoreboard;
+	public static synthetic fun copy$default (Lorg/icpclive/api/LegacyScoreboard;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/api/LegacyScoreboard;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRows ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/LegacyScoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/LegacyScoreboard$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/LegacyScoreboard;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/LegacyScoreboard;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/LegacyScoreboard$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/LegacyScoreboardRow {
+	public static final field Companion Lorg/icpclive/api/LegacyScoreboardRow$Companion;
+	public synthetic fun <init> (IIDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()I
+	public final fun component3 ()D
+	public final fun component4-UwyO8pc ()J
+	public final fun component5 ()J
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy-SBKQj6I (IIDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/api/LegacyScoreboardRow;
+	public static synthetic fun copy-SBKQj6I$default (Lorg/icpclive/api/LegacyScoreboardRow;IIDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/api/LegacyScoreboardRow;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChampionInGroups ()Ljava/util/List;
+	public final fun getLastAccepted ()J
+	public final fun getMedalType ()Ljava/lang/String;
+	public final fun getPenalty-UwyO8pc ()J
+	public final fun getProblemResults ()Ljava/util/List;
+	public final fun getRank ()I
+	public final fun getTeamGroups ()Ljava/util/List;
+	public final fun getTeamId ()I
+	public final fun getTotalScore ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/LegacyScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/LegacyScoreboardRow$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/LegacyScoreboardRow;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/LegacyScoreboardRow;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/LegacyScoreboardRow$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class org/icpclive/api/MediaType {
+	public static final field Companion Lorg/icpclive/api/MediaType$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public abstract fun isMedia ()Z
+	public final fun noMedia ()Lorg/icpclive/api/MediaType;
+	public static final synthetic fun write$Self (Lorg/icpclive/api/MediaType;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class org/icpclive/api/MediaType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$Object : org/icpclive/api/MediaType {
+	public static final field Companion Lorg/icpclive/api/MediaType$Object$Companion;
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/api/MediaType$Object;
+	public static synthetic fun copy$default (Lorg/icpclive/api/MediaType$Object;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/api/MediaType$Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun isMedia ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/MediaType$Object$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/MediaType$Object$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/MediaType$Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/MediaType$Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$Object$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$Photo : org/icpclive/api/MediaType {
+	public static final field Companion Lorg/icpclive/api/MediaType$Photo$Companion;
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/api/MediaType$Photo;
+	public static synthetic fun copy$default (Lorg/icpclive/api/MediaType$Photo;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/api/MediaType$Photo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun isMedia ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/MediaType$Photo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/MediaType$Photo$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/MediaType$Photo;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/MediaType$Photo;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$Photo$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$TaskStatus : org/icpclive/api/MediaType {
+	public static final field Companion Lorg/icpclive/api/MediaType$TaskStatus$Companion;
+	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lorg/icpclive/api/MediaType$TaskStatus;
+	public static synthetic fun copy$default (Lorg/icpclive/api/MediaType$TaskStatus;IILjava/lang/Object;)Lorg/icpclive/api/MediaType$TaskStatus;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getTeamId ()I
+	public fun hashCode ()I
+	public fun isMedia ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/MediaType$TaskStatus$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/MediaType$TaskStatus$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/MediaType$TaskStatus;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/MediaType$TaskStatus;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$TaskStatus$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$Video : org/icpclive/api/MediaType {
+	public static final field Companion Lorg/icpclive/api/MediaType$Video$Companion;
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/api/MediaType$Video;
+	public static synthetic fun copy$default (Lorg/icpclive/api/MediaType$Video;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/api/MediaType$Video;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun isMedia ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/MediaType$Video$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/MediaType$Video$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/MediaType$Video;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/MediaType$Video;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$Video$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$WebRTCGrabberConnection : org/icpclive/api/MediaType {
+	public static final field Companion Lorg/icpclive/api/MediaType$WebRTCGrabberConnection$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lorg/icpclive/api/MediaType$WebRTCGrabberConnection;
+	public static synthetic fun copy$default (Lorg/icpclive/api/MediaType$WebRTCGrabberConnection;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/api/MediaType$WebRTCGrabberConnection;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCredential ()Ljava/lang/String;
+	public final fun getPeerName ()Ljava/lang/String;
+	public final fun getStreamType ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun isMedia ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/MediaType$WebRTCGrabberConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/MediaType$WebRTCGrabberConnection$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/MediaType$WebRTCGrabberConnection;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/MediaType$WebRTCGrabberConnection;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$WebRTCGrabberConnection$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$WebRTCProxyConnection : org/icpclive/api/MediaType {
+	public static final field Companion Lorg/icpclive/api/MediaType$WebRTCProxyConnection$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Z)Lorg/icpclive/api/MediaType$WebRTCProxyConnection;
+	public static synthetic fun copy$default (Lorg/icpclive/api/MediaType$WebRTCProxyConnection;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/api/MediaType$WebRTCProxyConnection;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAudioUrl ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun isMedia ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/MediaType$WebRTCProxyConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/MediaType$WebRTCProxyConnection$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/MediaType$WebRTCProxyConnection;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/MediaType$WebRTCProxyConnection;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/MediaType$WebRTCProxyConnection$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/OptimismLevel : java/lang/Enum {
+	public static final field Companion Lorg/icpclive/api/OptimismLevel$Companion;
+	public static final field NORMAL Lorg/icpclive/api/OptimismLevel;
+	public static final field OPTIMISTIC Lorg/icpclive/api/OptimismLevel;
+	public static final field PESSIMISTIC Lorg/icpclive/api/OptimismLevel;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/OptimismLevel;
+	public static fun values ()[Lorg/icpclive/api/OptimismLevel;
+}
+
+public final class org/icpclive/api/OptimismLevel$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/OrganizationInfo {
+	public static final field Companion Lorg/icpclive/api/OrganizationInfo$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/MediaType;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lorg/icpclive/api/MediaType;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/MediaType;)Lorg/icpclive/api/OrganizationInfo;
+	public static synthetic fun copy$default (Lorg/icpclive/api/OrganizationInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/MediaType;ILjava/lang/Object;)Lorg/icpclive/api/OrganizationInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCdsId ()Ljava/lang/String;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getLogo ()Lorg/icpclive/api/MediaType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/OrganizationInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/OrganizationInfo$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/OrganizationInfo;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/OrganizationInfo;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/OrganizationInfo$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/PenaltyRoundingMode : java/lang/Enum {
+	public static final field Companion Lorg/icpclive/api/PenaltyRoundingMode$Companion;
+	public static final field EACH_SUBMISSION_DOWN_TO_MINUTE Lorg/icpclive/api/PenaltyRoundingMode;
+	public static final field EACH_SUBMISSION_UP_TO_MINUTE Lorg/icpclive/api/PenaltyRoundingMode;
+	public static final field LAST Lorg/icpclive/api/PenaltyRoundingMode;
+	public static final field SUM_DOWN_TO_MINUTE Lorg/icpclive/api/PenaltyRoundingMode;
+	public static final field SUM_IN_SECONDS Lorg/icpclive/api/PenaltyRoundingMode;
+	public static final field ZERO Lorg/icpclive/api/PenaltyRoundingMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/PenaltyRoundingMode;
+	public static fun values ()[Lorg/icpclive/api/PenaltyRoundingMode;
+}
+
+public final class org/icpclive/api/PenaltyRoundingMode$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ProblemInfo {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/api/ScoreMergeMode;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/api/ScoreMergeMode;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Lorg/icpclive/api/ScoreMergeMode;
+	public final fun component11 ()Z
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()I
+	public final fun component4 ()I
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Double;
+	public final fun component7 ()Ljava/lang/Double;
+	public final fun component8 ()Ljava/awt/Color;
+	public final fun component9 ()Ljava/awt/Color;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/api/ScoreMergeMode;Z)Lorg/icpclive/api/ProblemInfo;
+	public static synthetic fun copy$default (Lorg/icpclive/api/ProblemInfo;Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/api/ScoreMergeMode;ZILjava/lang/Object;)Lorg/icpclive/api/ProblemInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColor ()Ljava/awt/Color;
+	public final fun getContestSystemId ()Ljava/lang/String;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getId ()I
+	public final fun getMaxScore ()Ljava/lang/Double;
+	public final fun getMinScore ()Ljava/lang/Double;
+	public final fun getOrdinal ()I
+	public final fun getScoreMergeMode ()Lorg/icpclive/api/ScoreMergeMode;
+	public final fun getUnsolvedColor ()Ljava/awt/Color;
+	public fun hashCode ()I
+	public final fun isHidden ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/ProblemInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/ProblemInfo$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/ProblemInfo;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/ProblemInfo;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class org/icpclive/api/ProblemResult {
+	public static final field Companion Lorg/icpclive/api/ProblemResult$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public abstract fun getLastSubmitTime-FghU774 ()Lkotlin/time/Duration;
+	public static final synthetic fun write$Self (Lorg/icpclive/api/ProblemResult;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class org/icpclive/api/ProblemResult$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/RunInfo {
+	public static final field Companion Lorg/icpclive/api/RunInfo$Companion;
+	public synthetic fun <init> (ILorg/icpclive/api/RunResult;DIIJLorg/icpclive/api/MediaType;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILorg/icpclive/api/RunResult;DIIJLorg/icpclive/api/MediaType;Ljava/util/List;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component2 ()Lorg/icpclive/api/RunResult;
+	public final fun component3 ()D
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6-UwyO8pc ()J
+	public final fun component7 ()Lorg/icpclive/api/MediaType;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Z
+	public final fun copy-Tu6dINM (ILorg/icpclive/api/RunResult;DIIJLorg/icpclive/api/MediaType;Ljava/util/List;Z)Lorg/icpclive/api/RunInfo;
+	public static synthetic fun copy-Tu6dINM$default (Lorg/icpclive/api/RunInfo;ILorg/icpclive/api/RunResult;DIIJLorg/icpclive/api/MediaType;Ljava/util/List;ZILjava/lang/Object;)Lorg/icpclive/api/RunInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFeaturedRunMedia ()Lorg/icpclive/api/MediaType;
+	public final fun getId ()I
+	public final fun getPercentage ()D
+	public final fun getProblemId ()I
+	public final fun getReactionVideos ()Ljava/util/List;
+	public final fun getResult ()Lorg/icpclive/api/RunResult;
+	public final fun getTeamId ()I
+	public final fun getTime-UwyO8pc ()J
+	public fun hashCode ()I
+	public final fun isHidden ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/RunInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/RunInfo$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/RunInfo;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/RunInfo;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/RunInfo$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class org/icpclive/api/RunResult {
+	public static final field Companion Lorg/icpclive/api/RunResult$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public static final synthetic fun write$Self (Lorg/icpclive/api/RunResult;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class org/icpclive/api/RunResult$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ScoreMergeMode : java/lang/Enum {
+	public static final field LAST Lorg/icpclive/api/ScoreMergeMode;
+	public static final field LAST_OK Lorg/icpclive/api/ScoreMergeMode;
+	public static final field MAX_PER_GROUP Lorg/icpclive/api/ScoreMergeMode;
+	public static final field MAX_TOTAL Lorg/icpclive/api/ScoreMergeMode;
+	public static final field SUM Lorg/icpclive/api/ScoreMergeMode;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/ScoreMergeMode;
+	public static fun values ()[Lorg/icpclive/api/ScoreMergeMode;
+}
+
+public final class org/icpclive/api/Scoreboard {
+	public static final field Companion Lorg/icpclive/api/Scoreboard$Companion;
+	public fun <init> (Lorg/icpclive/api/ScoreboardUpdateType;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
+	public final fun component1 ()Lorg/icpclive/api/ScoreboardUpdateType;
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (Lorg/icpclive/api/ScoreboardUpdateType;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/api/Scoreboard;
+	public static synthetic fun copy$default (Lorg/icpclive/api/Scoreboard;Lorg/icpclive/api/ScoreboardUpdateType;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/api/Scoreboard;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAwards ()Ljava/util/List;
+	public final fun getOrder ()Ljava/util/List;
+	public final fun getRanks ()Ljava/util/List;
+	public final fun getRows ()Ljava/util/Map;
+	public final fun getType ()Lorg/icpclive/api/ScoreboardUpdateType;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/Scoreboard$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/Scoreboard;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/Scoreboard;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Scoreboard$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ScoreboardRow {
+	public static final field Companion Lorg/icpclive/api/ScoreboardRow$Companion;
+	public synthetic fun <init> (DJJLjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()D
+	public final fun component2-UwyO8pc ()J
+	public final fun component3-UwyO8pc ()J
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy-vLdBGDU (DJJLjava/util/List;)Lorg/icpclive/api/ScoreboardRow;
+	public static synthetic fun copy-vLdBGDU$default (Lorg/icpclive/api/ScoreboardRow;DJJLjava/util/List;ILjava/lang/Object;)Lorg/icpclive/api/ScoreboardRow;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLastAccepted-UwyO8pc ()J
+	public final fun getPenalty-UwyO8pc ()J
+	public final fun getProblemResults ()Ljava/util/List;
+	public final fun getTotalScore ()D
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/ScoreboardRow$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/ScoreboardRow;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/ScoreboardRow;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ScoreboardRow$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/ScoreboardUpdateType : java/lang/Enum {
+	public static final field DIFF Lorg/icpclive/api/ScoreboardUpdateType;
+	public static final field SNAPSHOT Lorg/icpclive/api/ScoreboardUpdateType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/ScoreboardUpdateType;
+	public static fun values ()[Lorg/icpclive/api/ScoreboardUpdateType;
+}
+
+public final class org/icpclive/api/TeamInfo {
+	public static final field Companion Lorg/icpclive/api/TeamInfo$Companion;
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()I
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/util/Map;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/util/Map;
+	public final fun component8 ()Z
+	public final fun component9 ()Z
+	public final fun copy (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;)Lorg/icpclive/api/TeamInfo;
+	public static synthetic fun copy$default (Lorg/icpclive/api/TeamInfo;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lorg/icpclive/api/TeamInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getContestSystemId ()Ljava/lang/String;
+	public final fun getCustomFields ()Ljava/util/Map;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getGroups ()Ljava/util/List;
+	public final fun getHashTag ()Ljava/lang/String;
+	public final fun getId ()I
+	public final fun getMedias ()Ljava/util/Map;
+	public final fun getOrganizationId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isHidden ()Z
+	public final fun isOutOfContest ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/TeamInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/TeamInfo$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/TeamInfo;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/TeamInfo;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/TeamInfo$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/TeamMediaType : java/lang/Enum {
+	public static final field ACHIEVEMENT Lorg/icpclive/api/TeamMediaType;
+	public static final field CAMERA Lorg/icpclive/api/TeamMediaType;
+	public static final field Companion Lorg/icpclive/api/TeamMediaType$Companion;
+	public static final field PHOTO Lorg/icpclive/api/TeamMediaType;
+	public static final field REACTION_VIDEO Lorg/icpclive/api/TeamMediaType;
+	public static final field RECORD Lorg/icpclive/api/TeamMediaType;
+	public static final field SCREEN Lorg/icpclive/api/TeamMediaType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/api/TeamMediaType;
+	public static fun values ()[Lorg/icpclive/api/TeamMediaType;
+}
+
+public final class org/icpclive/api/TeamMediaType$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class org/icpclive/api/Verdict {
+	public static final field Companion Lorg/icpclive/api/Verdict$Companion;
+	public synthetic fun <init> (Ljava/lang/String;ZZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getShortName ()Ljava/lang/String;
+	public final fun isAccepted ()Z
+	public final fun isAddingPenalty ()Z
+}
+
+public final class org/icpclive/api/Verdict$Accepted : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$Accepted;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$Challenged : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$Challenged;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$Companion {
+	public final fun getAll ()Ljava/util/List;
+	public final fun lookup (Ljava/lang/String;ZZ)Lorg/icpclive/api/Verdict;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/Verdict$CompilationError : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$CompilationError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$CompilationErrorWithPenalty : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$CompilationErrorWithPenalty;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$Fail : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$Fail;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$IdlenessLimitExceeded : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$IdlenessLimitExceeded;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$Ignored : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$Ignored;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$MemoryLimitExceeded : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$MemoryLimitExceeded;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$OutputLimitExceeded : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$OutputLimitExceeded;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$PresentationError : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$PresentationError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$Rejected : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$Rejected;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$RuntimeError : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$RuntimeError;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$SecurityViolation : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$SecurityViolation;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$TimeLimitExceeded : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$TimeLimitExceeded;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/Verdict$WrongAnswer : org/icpclive/api/Verdict {
+	public static final field INSTANCE Lorg/icpclive/api/Verdict$WrongAnswer;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/api/tunning/AdvancedKt {
+	public static final fun toAdvancedProperties (Lorg/icpclive/api/ContestInfo;Ljava/util/Set;)Lorg/icpclive/api/tunning/AdvancedProperties;
+}
+
+public final class org/icpclive/api/tunning/AdvancedProperties {
+	public static final field Companion Lorg/icpclive/api/tunning/AdvancedProperties$Companion;
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lorg/icpclive/api/tunning/TeamOverrideTemplate;Lorg/icpclive/api/tunning/TeamRegexOverrides;Lorg/icpclive/api/tunning/TeamRegexOverrides;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lorg/icpclive/api/tunning/RankingSettings;Lorg/icpclive/api/AwardsSettings;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lorg/icpclive/api/tunning/TeamOverrideTemplate;Lorg/icpclive/api/tunning/TeamRegexOverrides;Lorg/icpclive/api/tunning/TeamRegexOverrides;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lorg/icpclive/api/tunning/RankingSettings;Lorg/icpclive/api/AwardsSettings;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAwardsSettings ()Lorg/icpclive/api/AwardsSettings;
+	public final fun getContestLength-FghU774 ()Lkotlin/time/Duration;
+	public final fun getFreezeTime-FghU774 ()Lkotlin/time/Duration;
+	public final fun getGroupOverrides ()Ljava/util/Map;
+	public final fun getHoldTime-FghU774 ()Lkotlin/time/Duration;
+	public final fun getOrganizationOverrides ()Ljava/util/Map;
+	public final fun getProblemOverrides ()Ljava/util/Map;
+	public final fun getScoreboardOverrides ()Lorg/icpclive/api/tunning/RankingSettings;
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getTeamIdRegexes ()Lorg/icpclive/api/tunning/TeamRegexOverrides;
+	public final fun getTeamNameRegexes ()Lorg/icpclive/api/tunning/TeamRegexOverrides;
+	public final fun getTeamOverrideTemplate ()Lorg/icpclive/api/tunning/TeamOverrideTemplate;
+	public final fun getTeamOverrides ()Ljava/util/Map;
+}
+
+public final class org/icpclive/api/tunning/AdvancedProperties$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/AdvancedProperties$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/AdvancedProperties;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/AdvancedProperties;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/AdvancedProperties$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/GroupInfoOverride {
+	public static final field Companion Lorg/icpclive/api/tunning/GroupInfoOverride$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun isHidden ()Ljava/lang/Boolean;
+	public final fun isOutOfContest ()Ljava/lang/Boolean;
+}
+
+public final class org/icpclive/api/tunning/GroupInfoOverride$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/GroupInfoOverride$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/GroupInfoOverride;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/GroupInfoOverride;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/GroupInfoOverride$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/OrganizationInfoOverride {
+	public static final field Companion Lorg/icpclive/api/tunning/OrganizationInfoOverride$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/MediaType;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/api/MediaType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getLogo ()Lorg/icpclive/api/MediaType;
+}
+
+public final class org/icpclive/api/tunning/OrganizationInfoOverride$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/OrganizationInfoOverride$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/OrganizationInfoOverride;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/OrganizationInfoOverride;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/OrganizationInfoOverride$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/ProblemInfoOverride {
+	public static final field Companion Lorg/icpclive/api/tunning/ProblemInfoOverride$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/awt/Color;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/api/ScoreMergeMode;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/awt/Color;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/api/ScoreMergeMode;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getColor ()Ljava/awt/Color;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getMaxScore ()Ljava/lang/Double;
+	public final fun getMinScore ()Ljava/lang/Double;
+	public final fun getOrdinal ()Ljava/lang/Integer;
+	public final fun getScoreMergeMode ()Lorg/icpclive/api/ScoreMergeMode;
+	public final fun getUnsolvedColor ()Ljava/awt/Color;
+	public final fun isHidden ()Ljava/lang/Boolean;
+}
+
+public final class org/icpclive/api/tunning/ProblemInfoOverride$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/ProblemInfoOverride$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/ProblemInfoOverride;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/ProblemInfoOverride;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/ProblemInfoOverride$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/RankingSettings {
+	public static final field Companion Lorg/icpclive/api/tunning/RankingSettings$Companion;
+	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/api/PenaltyRoundingMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/api/PenaltyRoundingMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getPenaltyPerWrongAttempt-FghU774 ()Lkotlin/time/Duration;
+	public final fun getPenaltyRoundingMode ()Lorg/icpclive/api/PenaltyRoundingMode;
+	public final fun getShowTeamsWithoutSubmissions ()Ljava/lang/Boolean;
+}
+
+public final class org/icpclive/api/tunning/RankingSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/RankingSettings$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/RankingSettings;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/RankingSettings;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/RankingSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/RegexSet {
+	public static final field Companion Lorg/icpclive/api/tunning/RegexSet$Companion;
+	public static final synthetic fun box-impl (Ljava/util/Map;)Lorg/icpclive/api/tunning/RegexSet;
+	public static fun constructor-impl (Ljava/util/Map;)Ljava/util/Map;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/util/Map;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/util/Map;Ljava/util/Map;)Z
+	public final fun getRegexes ()Ljava/util/Map;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/util/Map;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/util/Map;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/util/Map;
+}
+
+public final class org/icpclive/api/tunning/RegexSet$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/RegexSet$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize-Xu51FUU (Lkotlinx/serialization/encoding/Decoder;)Ljava/util/Map;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize-jBnOx-4 (Lkotlinx/serialization/encoding/Encoder;Ljava/util/Map;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/RegexSet$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/TeamInfoOverride {
+	public static final field Companion Lorg/icpclive/api/tunning/TeamInfoOverride$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCustomFields ()Ljava/util/Map;
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getGroups ()Ljava/util/List;
+	public final fun getHashTag ()Ljava/lang/String;
+	public final fun getMedias ()Ljava/util/Map;
+	public final fun getOrganizationId ()Ljava/lang/String;
+	public final fun isHidden ()Ljava/lang/Boolean;
+	public final fun isOutOfContest ()Ljava/lang/Boolean;
+}
+
+public final class org/icpclive/api/tunning/TeamInfoOverride$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/TeamInfoOverride$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/TeamInfoOverride;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/TeamInfoOverride;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/TeamInfoOverride$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/TeamOverrideTemplate {
+	public static final field Companion Lorg/icpclive/api/tunning/TeamOverrideTemplate$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getHashTag ()Ljava/lang/String;
+	public final fun getMedias ()Ljava/util/Map;
+}
+
+public final class org/icpclive/api/tunning/TeamOverrideTemplate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/TeamOverrideTemplate$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/TeamOverrideTemplate;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/TeamOverrideTemplate;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/TeamOverrideTemplate$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/TeamRegexOverrides {
+	public static final field Companion Lorg/icpclive/api/tunning/TeamRegexOverrides$Companion;
+	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCustomFields ()Ljava/util/Map;
+	public final fun getGroupRegex ()Ljava/util/Map;
+	public final fun getOrganizationRegex-wmMMvW8 ()Ljava/util/Map;
+}
+
+public final class org/icpclive/api/tunning/TeamRegexOverrides$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/api/tunning/TeamRegexOverrides$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/api/tunning/TeamRegexOverrides;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/api/tunning/TeamRegexOverrides;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/api/tunning/TeamRegexOverrides$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/AnalyticsUpdate : org/icpclive/cds/ContestUpdate {
+	public fun <init> (Lorg/icpclive/api/AnalyticsMessage;)V
+	public final fun getMessage ()Lorg/icpclive/api/AnalyticsMessage;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class org/icpclive/cds/ContestUpdate {
+}
+
+public final class org/icpclive/cds/InfoUpdate : org/icpclive/cds/ContestUpdate {
+	public fun <init> (Lorg/icpclive/api/ContestInfo;)V
+	public final fun getNewInfo ()Lorg/icpclive/api/ContestInfo;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/RunUpdate : org/icpclive/cds/ContestUpdate {
+	public fun <init> (Lorg/icpclive/api/RunInfo;)V
+	public final fun getNewInfo ()Lorg/icpclive/api/RunInfo;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/adapters/Adapters {
+	public static final fun addFirstToSolves (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun applyAdvancedProperties (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun autoFinalize (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun calculateScoreDifferences (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun contestState (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun filterUseless (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun finalContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun processHiddenProblems (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun processHiddenTeamsAndGroups (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun removeFrozenSubmissions (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun selectProblemColors (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class org/icpclive/cds/adapters/ContestState {
+	public final fun getAnalyticsMessages ()Lkotlinx/collections/immutable/PersistentMap;
+	public final fun getEvent ()Lorg/icpclive/cds/ContestUpdate;
+	public final fun getInfoAfterEvent ()Lorg/icpclive/api/ContestInfo;
+	public final fun getInfoBeforeEvent ()Lorg/icpclive/api/ContestInfo;
+	public final fun getRuns ()Lkotlinx/collections/immutable/PersistentMap;
+}
+
+public abstract interface class org/icpclive/cds/common/ContestDataSource {
+	public abstract fun getFlow ()Lkotlinx/coroutines/flow/Flow;
+}
+
+public abstract interface class org/icpclive/cds/plugins/atcoder/AtcoderSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getContestId ()Ljava/lang/String;
+	public abstract fun getContestLength-UwyO8pc ()J
+	public abstract fun getSessionCookie ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/cats/CatsSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getCid ()Ljava/lang/String;
+	public abstract fun getLogin ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public fun getResultType ()Lorg/icpclive/api/ContestResultType;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public abstract fun getUrl ()Ljava/lang/String;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/clics/ClicsFeed {
+	public static final field Companion Lorg/icpclive/cds/plugins/clics/ClicsFeed$Companion;
+	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/plugins/clics/FeedVersion;)V
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/plugins/clics/FeedVersion;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getContestId ()Ljava/lang/String;
+	public final fun getEventFeedName ()Ljava/lang/String;
+	public final fun getEventFeedPath ()Ljava/lang/String;
+	public final fun getFeedVersion ()Lorg/icpclive/cds/plugins/clics/FeedVersion;
+	public final fun getLogin ()Lorg/icpclive/cds/settings/Credential;
+	public final fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public final fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+}
+
+public final class org/icpclive/cds/plugins/clics/ClicsFeed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/plugins/clics/ClicsFeed$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/plugins/clics/ClicsFeed;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/plugins/clics/ClicsFeed;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/plugins/clics/ClicsFeed$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract interface class org/icpclive/cds/plugins/clics/ClicsSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getFeeds ()Ljava/util/List;
+	public fun getUseTeamNames ()Z
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/clics/FeedVersion : java/lang/Enum {
+	public static final field 2020_03 Lorg/icpclive/cds/plugins/clics/FeedVersion;
+	public static final field 2022_07 Lorg/icpclive/cds/plugins/clics/FeedVersion;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/cds/plugins/clics/FeedVersion;
+	public static fun values ()[Lorg/icpclive/cds/plugins/clics/FeedVersion;
+}
+
+public abstract interface class org/icpclive/cds/plugins/cms/CmsSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getActiveContest ()Ljava/lang/String;
+	public abstract fun getOtherContests ()Ljava/util/List;
+	public abstract fun getUrl ()Ljava/lang/String;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/codedrills/CodeDrillsSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getAuthKey ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getContestId ()Ljava/lang/String;
+	public abstract fun getPort ()I
+	public abstract fun getUrl ()Ljava/lang/String;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/codeforces/CFSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getApiKey ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getApiSecret ()Lorg/icpclive/cds/settings/Credential;
+	public fun getAsManager ()Z
+	public abstract fun getContestId ()I
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/ejudge/EjudgeSettings : org/icpclive/cds/settings/CDSSettings {
+	public fun getResultType ()Lorg/icpclive/api/ContestResultType;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/eolymp/EOlympSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getContestId ()Ljava/lang/String;
+	public fun getPreviousDaysContestIds ()Ljava/util/List;
+	public abstract fun getToken ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getUrl ()Ljava/lang/String;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/krsu/KRSUSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getContestUrl ()Ljava/lang/String;
+	public abstract fun getSubmissionsUrl ()Ljava/lang/String;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/noop/NoopSettings : org/icpclive/cds/settings/CDSSettings {
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/nsu/NSUSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getEmail ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getOlympiadId ()I
+	public abstract fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public abstract fun getTourId ()I
+	public abstract fun getUrl ()Ljava/lang/String;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/pcms/PCMSSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getLogin ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getProblemsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun getResultType ()Lorg/icpclive/api/ContestResultType;
+	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/testsys/TestSysSettings : org/icpclive/cds/settings/CDSSettings {
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/plugins/yandex/YandexSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getApiKey ()Lorg/icpclive/cds/settings/Credential;
+	public abstract fun getContestId ()I
+	public abstract fun getLoginRegex ()Lkotlin/text/Regex;
+	public fun getResultType ()Lorg/icpclive/api/ContestResultType;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public abstract interface class org/icpclive/cds/settings/CDSSettings {
+	public static final field Companion Lorg/icpclive/cds/settings/CDSSettings$Companion;
+	public abstract fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public abstract fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public abstract fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/settings/CDSSettings$Companion {
+	public final fun serializersModule (Lorg/icpclive/cds/settings/CredentialProvider;Ljava/nio/file/Path;)Lkotlinx/serialization/modules/SerializersModule;
+}
+
+public final class org/icpclive/cds/settings/CDSSettingsKt {
+	public static final fun toFlow (Lorg/icpclive/cds/settings/CDSSettings;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public abstract interface class org/icpclive/cds/settings/CDSSettingsProvider {
+	public abstract fun getClazz ()Lkotlin/reflect/KClass;
+	public abstract fun getSerializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/CdsCommandLineOptions : com/github/ajalt/clikt/parameters/groups/OptionGroup {
+	public fun <init> ()V
+	public final fun getAdvancedJsonPath ()Ljava/nio/file/Path;
+	public final fun getConfigDirectory ()Ljava/nio/file/Path;
+	public final fun getCredentialFile ()Ljava/nio/file/Path;
+}
+
+public final class org/icpclive/cds/settings/Credential {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getDisplayValue ()Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class org/icpclive/cds/settings/CredentialProvider {
+	public abstract fun get (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/settings/EmulationSettings {
+	public static final field Companion Lorg/icpclive/cds/settings/EmulationSettings$Companion;
+	public fun <init> (DLkotlinx/datetime/Instant;)V
+	public final fun getSpeed ()D
+	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+}
+
+public final class org/icpclive/cds/settings/EmulationSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/settings/EmulationSettings$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/EmulationSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/EntrypointKt {
+	public static final fun parseFileToCdsSettings (Ljava/nio/file/Path;Lorg/icpclive/cds/settings/CredentialProvider;)Lorg/icpclive/cds/settings/CDSSettings;
+	public static final fun toFlow (Lorg/icpclive/cds/settings/CdsCommandLineOptions;Lorg/slf4j/Logger;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class org/icpclive/cds/settings/NetworkSettings {
+	public static final field Companion Lorg/icpclive/cds/settings/NetworkSettings$Companion;
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAllowUnsecureConnections ()Z
+}
+
+public final class org/icpclive/cds/settings/NetworkSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/settings/NetworkSettings$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/NetworkSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public abstract class org/icpclive/cds/settings/UrlOrLocalPath {
+	public abstract fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
+}
+
+public final class org/icpclive/cds/settings/UrlOrLocalPath$Local : org/icpclive/cds/settings/UrlOrLocalPath {
+	public fun <init> (Ljava/nio/file/Path;)V
+	public final fun getValue ()Ljava/nio/file/Path;
+	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/settings/UrlOrLocalPath$Url : org/icpclive/cds/settings/UrlOrLocalPath {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getValue ()Ljava/lang/String;
+	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/scoreboard/AbstractScoreboardCalculatorKt {
+	public static final fun calculateScoreboard (Lkotlinx/coroutines/flow/Flow;Lorg/icpclive/api/OptimismLevel;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun getScoreboardCalculator (Lorg/icpclive/api/ContestInfo;Lorg/icpclive/api/OptimismLevel;)Lorg/icpclive/scoreboard/ScoreboardCalculator;
+	public static final fun toLegacyScoreboard (Lorg/icpclive/api/Scoreboard;Lorg/icpclive/api/ContestInfo;)Lorg/icpclive/api/LegacyScoreboard;
+}
+
+public final class org/icpclive/scoreboard/Ranking {
+	public final fun getAwards ()Ljava/util/List;
+	public final fun getOrder ()Ljava/util/List;
+	public final fun getRanks ()Ljava/util/List;
+}
+
+public final class org/icpclive/scoreboard/ScoreboardAndContestInfo {
+	public final fun getInfo ()Lorg/icpclive/api/ContestInfo;
+	public final fun getLastSubmissionTime-UwyO8pc ()J
+	public final fun getScoreboardDiff ()Lorg/icpclive/api/Scoreboard;
+	public final fun getScoreboardSnapshot ()Lorg/icpclive/api/Scoreboard;
+}
+
+public abstract interface class org/icpclive/scoreboard/ScoreboardCalculator {
+	public abstract fun getRanking (Lorg/icpclive/api/ContestInfo;Ljava/util/Map;)Lorg/icpclive/scoreboard/Ranking;
+	public abstract fun getScoreboardRow (Lorg/icpclive/api/ContestInfo;Ljava/util/List;)Lorg/icpclive/api/ScoreboardRow;
+}
+

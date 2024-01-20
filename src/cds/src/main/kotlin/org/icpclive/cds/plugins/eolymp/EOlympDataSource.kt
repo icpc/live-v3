@@ -8,6 +8,7 @@ import kotlinx.datetime.toKotlinInstant
 import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
@@ -59,15 +60,14 @@ private suspend fun GraphQLKtorClient.teams(contestId: String, after: String?, c
 ).contest
 
 
-@SerialName("eolymp")
-@Serializable
-public class EOlympSettings(
-    public val url: String,
-    @Contextual public val token: Credential,
-    public val contestId: String,
-    public val previousDaysContestIds: List<String> = emptyList(),
-) : CDSSettings() {
-    override fun toDataSource() = EOlympDataSource(this)
+@GenerateSettings("eolymp")
+public interface EOlympSettings : CDSSettings {
+    public val url: String
+    public val token: Credential
+    public val contestId: String
+    public val previousDaysContestIds: List<String>
+        get() = emptyList()
+    override fun toDataSource() : ContestDataSource = EOlympDataSource(this)
 }
 
 internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContestDataSource(5.seconds) {

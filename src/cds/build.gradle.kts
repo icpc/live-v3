@@ -10,6 +10,15 @@ plugins {
     alias(libs.plugins.protobuf)
     alias(libs.plugins.graphql)
     alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
+}
+
+apiValidation {
+    ignoredPackages.addAll(listOf(
+        "com.eolymp.graphql",
+        "io.codedrills.proto",
+    ))
+    ignoredProjects.add("ksp")
 }
 
 protobuf {
@@ -55,6 +64,7 @@ tasks {
 
     test {
         inputs.dir("testData/")
+        dependsOn(apiCheck)
     }
 }
 
@@ -81,6 +91,12 @@ tasks {
     }
 }
 
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xjvm-default=all")
+    }
+}
+
 dependencies {
     api(libs.kotlinx.collections.immutable)
     implementation(projects.common)
@@ -98,6 +114,7 @@ dependencies {
     implementation(libs.cli)
     runtimeOnly(libs.grpc.netty)
     ksp(projects.cds.ksp)
+    compileOnly(projects.cds.ksp)
 
     testImplementation(libs.kotlin.junit)
 }

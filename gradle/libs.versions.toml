@@ -24,6 +24,7 @@ json5 = "0.3.0"                    # https://github.com/xn32/json5k
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.10.0"      # https://commons.apache.org/proper/commons-csv/
 graphql = "7.0.2"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
+bcv = "0.13.2"                     # https://github.com/Kotlin/binary-compatibility-validator
 
 [libraries]
 
@@ -96,3 +97,4 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 graphql = { id = "com.expediagroup.graphql", version.ref = "graphql"}
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
+bcv = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "bcv" }

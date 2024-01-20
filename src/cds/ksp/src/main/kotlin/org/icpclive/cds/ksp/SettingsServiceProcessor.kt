@@ -1,5 +1,6 @@
 package org.icpclive.cds.ksp
 
+import com.google.devtools.ksp.getAllSuperTypes
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
 import com.google.devtools.ksp.validate
@@ -11,12 +12,15 @@ class SettingsServiceProcessor(private val generator: CodeGenerator, val logger:
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val allSerializable = resolver
             .getSymbolsWithAnnotation("kotlinx.serialization.Serializable")
-        val ret = allSerializable.filter { !it.validate() }.toList()
+        val ret = allSerializable.filter { !it.validate()  }.toList()
         val subTypesOfSettings = allSerializable
             .filter { it.validate() }
             .filterIsInstance<KSClassDeclaration>()
-            .filter { it.validate() }
-            .filter { it.superTypes.any { it.resolve().declaration.qualifiedName?.asString() == "org.icpclive.cds.settings.CDSSettings" } }
+            .filter {
+                it.getAllSuperTypes().any { superClass ->
+                    superClass.declaration.qualifiedName?.asString() == "org.icpclive.cds.settings.CDSSettings"
+                }
+            }
         subTypesOfSettings.forEach {
             val packageName = it.packageName.asString()
             val className = it.simpleName.asString()

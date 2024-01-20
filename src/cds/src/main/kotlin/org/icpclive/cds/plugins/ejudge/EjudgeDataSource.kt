@@ -4,6 +4,7 @@ import kotlinx.datetime.*
 import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.*
 import org.w3c.dom.Element
@@ -13,14 +14,15 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
-@Serializable
-@SerialName("ejudge")
-public class EjudgeSettings(
-    @Contextual public val url: UrlOrLocalPath,
-    public val resultType: ContestResultType = ContestResultType.ICPC,
-    public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
-) : CDSSettings() {
-    override fun toDataSource() = EjudgeDataSource(this)
+@GenerateSettings("ejudge")
+public interface EjudgeSettings : CDSSettings {
+    public val url: UrlOrLocalPath
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
+    public val timeZone: TimeZone
+        get() = TimeZone.of("Europe/Moscow")
+
+    override fun toDataSource(): ContestDataSource = EjudgeDataSource(this)
 }
 
 internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {

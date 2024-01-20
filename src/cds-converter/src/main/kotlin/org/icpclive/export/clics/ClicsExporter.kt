@@ -10,8 +10,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.cds.adapters.addFirstToSolves
-import org.icpclive.cds.adapters.withContestInfoBefore
+import org.icpclive.cds.adapters.*
 import org.icpclive.clics.*
 import org.icpclive.clics.v202207.*
 import org.icpclive.clics.v202207.Award
@@ -300,11 +299,11 @@ object ClicsExporter  {
 
     private fun generateEventFeed(updates: Flow<ContestUpdate>) : Flow<Event> {
         var eventCounter = 1
-        return updates.withContestInfoBefore().transform { (update, infoBefore) ->
-            when (update) {
-                is InfoUpdate -> calculateDiff(infoBefore, update.newInfo)
-                is RunUpdate -> processRun(infoBefore!!, update.newInfo)
-                is AnalyticsUpdate -> processAnalytics(update.message)
+        return updates.contestState().transform {state ->
+            when (val event = state.event) {
+                is InfoUpdate -> calculateDiff(state.infoBeforeEvent, event.newInfo)
+                is RunUpdate -> processRun(state.infoBeforeEvent!!, event.newInfo)
+                is AnalyticsUpdate -> processAnalytics(event.message)
             }
         }.map { it("live-cds-${eventCounter++}") }
     }

@@ -12,21 +12,21 @@ import org.icpclive.api.ContestResultType
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.*
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.plugins.yandex.api.*
 import org.icpclive.cds.settings.*
 import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-@Serializable
-@SerialName("yandex")
-public class YandexSettings(
-    @Contextual public val apiKey: Credential,
-    @Serializable(with = RegexSerializer::class) public val loginRegex: Regex,
-    public val contestId: Int,
-    public val resultType: ContestResultType = ContestResultType.ICPC,
-) : CDSSettings() {
-    override fun toDataSource() = YandexDataSource(this)
+@GenerateSettings("yandex")
+public interface YandexSettings : CDSSettings {
+    public val apiKey: Credential
+    public val loginRegex: Regex
+    public val contestId: Int
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
+    override fun toDataSource() : ContestDataSource = YandexDataSource(this)
 }
 
 internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {

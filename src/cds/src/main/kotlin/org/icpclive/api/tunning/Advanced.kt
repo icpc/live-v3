@@ -2,12 +2,8 @@ package org.icpclive.api.tunning
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
 import org.icpclive.api.*
-import org.icpclive.api.tunning.Regex
 import org.icpclive.util.*
 import java.awt.Color
 import kotlin.time.Duration
@@ -26,16 +22,16 @@ import kotlin.time.Duration
  */
 @OptIn(ExperimentalSerializationApi::class)
 @Serializable
-public data class TeamInfoOverride(
-    @JsonNames("name") val fullName: String? = null,
-    @JsonNames("shortname") val displayName: String? = null,
-    val groups: List<String>? = null,
-    val organizationId: String? = null,
-    val hashTag: String? = null,
-    val medias: Map<TeamMediaType, MediaType?>? = null,
-    val customFields: Map<String, String>? = null,
-    val isHidden: Boolean? = null,
-    val isOutOfContest: Boolean? = null,
+public class TeamInfoOverride(
+    @JsonNames("name") public val fullName: String? = null,
+    @JsonNames("shortname") public val displayName: String? = null,
+    public val groups: List<String>? = null,
+    public val organizationId: String? = null,
+    public val hashTag: String? = null,
+    public val medias: Map<TeamMediaType, MediaType?>? = null,
+    public val customFields: Map<String, String>? = null,
+    public val isHidden: Boolean? = null,
+    public val isOutOfContest: Boolean? = null,
 )
 
 /**
@@ -49,16 +45,16 @@ public data class TeamInfoOverride(
  * @param isHidden If true, ignore all runs on that problem and remove it from scoreboard.
  */
 @Serializable
-public data class ProblemInfoOverride(
-    val displayName: String? = null,
-    val fullName: String? = null,
-    @Serializable(ColorSerializer::class) val color: Color? = null,
-    @Serializable(ColorSerializer::class) val unsolvedColor: Color? = null,
-    val ordinal: Int? = null,
-    val minScore: Double? = null,
-    val maxScore: Double? = null,
-    val scoreMergeMode: ScoreMergeMode? = null,
-    val isHidden: Boolean? = null
+public class ProblemInfoOverride(
+    public val displayName: String? = null,
+    public val fullName: String? = null,
+    @Serializable(ColorSerializer::class) public val color: Color? = null,
+    @Serializable(ColorSerializer::class) public val unsolvedColor: Color? = null,
+    public val ordinal: Int? = null,
+    public val minScore: Double? = null,
+    public val maxScore: Double? = null,
+    public val scoreMergeMode: ScoreMergeMode? = null,
+    public val isHidden: Boolean? = null
 )
 
 /**
@@ -67,10 +63,10 @@ public data class ProblemInfoOverride(
  * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in the leaderboard
  */
 @Serializable
-public data class GroupInfoOverride(
-    val displayName: String? = null,
-    val isHidden: Boolean? = null,
-    val isOutOfContest: Boolean? = null,
+public class GroupInfoOverride(
+    public val displayName: String? = null,
+    public val isHidden: Boolean? = null,
+    public val isOutOfContest: Boolean? = null,
 )
 
 /**
@@ -79,7 +75,7 @@ public data class GroupInfoOverride(
  * @param penaltyRoundingMode Specify rules of how total penalty is calculated based on many submissions
  */
 @Serializable
-public data class RankingSettings(
+public class RankingSettings(
     @Serializable(with = DurationInMinutesSerializer::class)
     public val penaltyPerWrongAttempt: Duration? = null,
     public val showTeamsWithoutSubmissions: Boolean? = null,
@@ -93,10 +89,10 @@ public data class RankingSettings(
  * @param logo Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved.
  */
 @Serializable
-public data class OrganizationInfoOverride(
-    val displayName: String? = null,
-    val fullName: String? = null,
-    val logo: MediaType? = null
+public class OrganizationInfoOverride(
+    public val displayName: String? = null,
+    public val fullName: String? = null,
+    public val logo: MediaType? = null
 )
 
 /**
@@ -142,26 +138,26 @@ public data class OrganizationInfoOverride(
  * @param scoreboardOverrides Overrides of scoreboard calculation settings
  */
 @Serializable
-public data class AdvancedProperties(
+public class AdvancedProperties(
     @Serializable(with = HumanTimeSerializer::class)
-    val startTime: Instant? = null,
+    public val startTime: Instant? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
-    val contestLength: Duration? = null,
+    public val contestLength: Duration? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("freezeTimeSeconds")
-    val freezeTime: Duration? = null,
+    public val freezeTime: Duration? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("holdTimeSeconds")
-    val holdTime: Duration? = null,
-    val teamOverrideTemplate: TeamOverrideTemplate? = null,
-    val teamNameRegexes: TeamRegexOverrides? = null,
-    val teamIdRegexes: TeamRegexOverrides? = null,
-    val teamOverrides: Map<String, TeamInfoOverride>? = null,
-    val groupOverrides: Map<String, GroupInfoOverride>? = null,
-    val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
-    val problemOverrides: Map<String, ProblemInfoOverride>? = null,
-    val scoreboardOverrides: RankingSettings? = null,
-    val awardsSettings: AwardsSettings? = null
+    public val holdTime: Duration? = null,
+    public val teamOverrideTemplate: TeamOverrideTemplate? = null,
+    public val teamNameRegexes: TeamRegexOverrides? = null,
+    public val teamIdRegexes: TeamRegexOverrides? = null,
+    public val teamOverrides: Map<String, TeamInfoOverride>? = null,
+    public val groupOverrides: Map<String, GroupInfoOverride>? = null,
+    public val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
+    public val problemOverrides: Map<String, ProblemInfoOverride>? = null,
+    public val scoreboardOverrides: RankingSettings? = null,
+    public val awardsSettings: AwardsSettings? = null
 )
 
 internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
@@ -180,10 +176,10 @@ public value class RegexSet(public val regexes: Map<Regex, String>)
  * @property groupRegex The group is added if the name matches regex.
  */
 @Serializable
-public data class TeamRegexOverrides(
-    val organizationRegex: RegexSet? = null,
-    val customFields: Map<String, RegexSet>? = null,
-    val groupRegex: Map<String, Regex>? = null,
+public class TeamRegexOverrides(
+    public val organizationRegex: RegexSet? = null,
+    public val customFields: Map<String, RegexSet>? = null,
+    public val groupRegex: Map<String, Regex>? = null,
 )
 
 /**
@@ -198,11 +194,11 @@ public data class TeamRegexOverrides(
  * @property medias Templates for team medias. Check [TeamInfoOverride.medias] for details.
  */
 @Serializable
-public data class TeamOverrideTemplate(
-    val displayName: String? = null,
-    val fullName: String? = null,
-    val hashTag: String? = null,
-    val medias: Map<TeamMediaType, MediaType?>? = null,
+public class TeamOverrideTemplate(
+    public val displayName: String? = null,
+    public val fullName: String? = null,
+    public val hashTag: String? = null,
+    public val medias: Map<TeamMediaType, MediaType?>? = null,
 )
 
 /**

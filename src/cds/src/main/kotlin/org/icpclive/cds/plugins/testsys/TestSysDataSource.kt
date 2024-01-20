@@ -4,6 +4,7 @@ import kotlinx.datetime.*
 import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.TimeZoneSerializer
 import java.nio.charset.Charset
@@ -11,14 +12,12 @@ import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-@Serializable
-@SerialName("testsys")
-public class TestSysSettings(
-    @Contextual public val url: UrlOrLocalPath,
-    @Serializable(with = TimeZoneSerializer::class)
-    public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
-) : CDSSettings() {
-    override fun toDataSource() = TestSysDataSource(this)
+@GenerateSettings("testsys")
+public interface TestSysSettings : CDSSettings {
+    public val url: UrlOrLocalPath
+    public val timeZone: TimeZone
+        get() = TimeZone.of("Europe/Moscow")
+    override fun toDataSource() : ContestDataSource = TestSysDataSource(this)
 }
 
 internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {

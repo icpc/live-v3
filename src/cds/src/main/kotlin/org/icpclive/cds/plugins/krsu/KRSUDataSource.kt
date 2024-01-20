@@ -5,20 +5,20 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.TimeZoneSerializer
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
-@Serializable
-@SerialName("krsu")
-public class KRSUSettings(
-    public val submissionsUrl: String,
-    public val contestUrl: String,
-    @Serializable(with = TimeZoneSerializer::class)
-    public val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
-) : CDSSettings() {
-    override fun toDataSource() = KRSUDataSource(this)
+@GenerateSettings("krsu")
+public interface KRSUSettings : CDSSettings {
+    public val submissionsUrl: String
+    public val contestUrl: String
+    public val timeZone: TimeZone
+        get() = TimeZone.of("Asia/Bishkek")
+
+    override fun toDataSource(): ContestDataSource = KRSUDataSource(this)
 }
 
 internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDataSource(5.seconds) {

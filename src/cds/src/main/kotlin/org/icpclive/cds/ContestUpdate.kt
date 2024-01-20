@@ -3,7 +3,19 @@ package org.icpclive.cds
 import org.icpclive.api.*
 
 public sealed interface ContestUpdate
-public data class InfoUpdate(val newInfo: ContestInfo) : ContestUpdate
-public data class RunUpdate(val newInfo: RunInfo) : ContestUpdate
-public data class AnalyticsUpdate(val message: AnalyticsMessage) : ContestUpdate
+public class InfoUpdate(public val newInfo: ContestInfo) : ContestUpdate {
+    override fun toString(): String {
+        return "InfoUpdate(newInfo=$newInfo)"
+    }
+}
+public class RunUpdate(public val newInfo: RunInfo) : ContestUpdate {
+    override fun toString(): String {
+        return "RunUpdate(newInfo=$newInfo)"
+    }
+}
+public class AnalyticsUpdate(public val message: AnalyticsMessage) : ContestUpdate {
+    override fun toString(): String {
+        return "AnalyticsUpdate(message=$message)"
+    }
+}
 

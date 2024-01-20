@@ -47,7 +47,7 @@ abstract class DumpFileCommand(
     defaultFileName: String,
     outputHelp: String
 ) : CliktCommand(name = name, help = help, printHelpOnEmptyArgs = true) {
-    abstract fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>): String
+    abstract fun format(info: ContestInfo, runs: List<RunInfo>): String
 
     val cdsOptions by CdsCommandLineOptions()
     private val output by option("-o", "--output", help = outputHelp).path().convert {
@@ -74,7 +74,7 @@ abstract class DumpFileCommand(
         }
         val dump = format(
             data.infoAfterEvent!!,
-            data.runs.values.groupBy { it.teamId },
+            data.runs.values.toList(),
         )
         output.toFile().printWriter().use {
             it.println(dump)
@@ -88,7 +88,7 @@ object PCMSDumpCommand : DumpFileCommand(
     outputHelp = "Path to new xml file",
     defaultFileName = "standings.xml"
 ) {
-    override fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>) = PCMSExporter.format(info, runs)
+    override fun format(info: ContestInfo, runs: List<RunInfo>) = PCMSExporter.format(info, runs)
 }
 
 object IcpcCSVDumpCommand : DumpFileCommand(
@@ -100,7 +100,7 @@ object IcpcCSVDumpCommand : DumpFileCommand(
     val teamsMapping by option("--teams-map", help = "mapping from cds team id to icpc team id")
         .file(canBeFile = true, canBeDir = false, mustExist = true)
 
-    override fun format(info: ContestInfo, runs: Map<Int, List<RunInfo>>) = IcpcCsvExporter.format(info, runs)
+    override fun format(info: ContestInfo, runs: List<RunInfo>) = IcpcCsvExporter.format(info, runs)
     override fun Flow<ContestUpdate>.postprocess(): Flow<ContestUpdate> {
         val mappingFile = teamsMapping
         if (mappingFile == null) {
