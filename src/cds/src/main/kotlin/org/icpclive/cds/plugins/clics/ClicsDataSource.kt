@@ -37,8 +37,6 @@ public class ClicsFeed(
 public class ClicsSettings(
     public val feeds: List<ClicsFeed>,
     public val useTeamNames: Boolean = true,
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource() = ClicsDataSource(this)
 }

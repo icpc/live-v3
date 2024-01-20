@@ -49,8 +49,6 @@ public class CatsSettings(
     public val timeZone: TimeZone = TimeZone.of("Asia/Vladivostok"),
     public val resultType: ContestResultType = ContestResultType.ICPC,
     public val cid: String,
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = CATSDataSource(this)
 }

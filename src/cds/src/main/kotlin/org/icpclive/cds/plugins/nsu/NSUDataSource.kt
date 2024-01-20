@@ -32,8 +32,6 @@ public class NSUSettings(
     @Contextual public val password: Credential,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Asia/Novosibirsk"),
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = NSUDataSource(this)
 }

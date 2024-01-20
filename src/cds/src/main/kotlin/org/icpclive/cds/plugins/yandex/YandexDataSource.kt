@@ -25,8 +25,6 @@ public class YandexSettings(
     @Serializable(with = RegexSerializer::class) public val loginRegex: Regex,
     public val contestId: Int,
     public val resultType: ContestResultType = ContestResultType.ICPC,
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = YandexDataSource(this)
 }

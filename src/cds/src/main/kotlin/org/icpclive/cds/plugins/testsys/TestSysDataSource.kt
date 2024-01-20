@@ -17,8 +17,6 @@ public class TestSysSettings(
     @Contextual public val url: UrlOrLocalPath,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = TestSysDataSource(this)
 }

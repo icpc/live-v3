@@ -17,8 +17,6 @@ public class KRSUSettings(
     public val contestUrl: String,
     @Serializable(with = TimeZoneSerializer::class)
     public val timeZone: TimeZone = TimeZone.of("Asia/Bishkek"),
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = KRSUDataSource(this)
 }

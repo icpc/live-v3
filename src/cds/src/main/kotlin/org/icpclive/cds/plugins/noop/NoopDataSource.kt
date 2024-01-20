@@ -13,10 +13,7 @@ import kotlin.time.Duration
 
 @Serializable
 @SerialName("noop")
-public class NoopSettings(
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
-) : CDSSettings() {
+public class NoopSettings : CDSSettings() {
     override fun toDataSource() = NoopDataSource()
 }
 

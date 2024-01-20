@@ -19,8 +19,6 @@ public class CmsSettings(
     public val url: String,
     public val activeContest: String,
     public val otherContests: List<String>,
-    override val network: NetworkSettings? = null,
-    override val emulation: EmulationSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = CmsDataSource(this)
 }

@@ -21,8 +21,6 @@ public class CFSettings(
     @Contextual public val apiKey: Credential,
     @Contextual public val apiSecret: Credential,
     public val asManager: Boolean = true,
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource() = CFDataSource(this)
 }

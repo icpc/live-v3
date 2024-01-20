@@ -19,10 +19,10 @@ import kotlin.reflect.KClass
 // I'd like to have them in cds files, but then serializing would be much harder
 
 @Serializable
-public abstract class CDSSettings {
-    public abstract val emulation: EmulationSettings?
-    public abstract val network: NetworkSettings?
-
+public abstract class CDSSettings(
+    public val emulation: EmulationSettings? = null,
+    public val network: NetworkSettings? = null
+) {
     override fun toString(): String {
         return json.encodeToString(this)
     }

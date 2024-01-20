@@ -19,8 +19,6 @@ public class EjudgeSettings(
     @Contextual public val url: UrlOrLocalPath,
     public val resultType: ContestResultType = ContestResultType.ICPC,
     public val timeZone: TimeZone = TimeZone.of("Europe/Moscow"),
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = EjudgeDataSource(this)
 }
