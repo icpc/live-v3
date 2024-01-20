@@ -133,12 +133,6 @@ private fun <K, V> mergeMaps(original: Map<K, V>, override: Map<K, V?>) = buildM
     }
 }
 
-private fun Map<TeamMediaType, MediaType?>.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
-    it.contestSystemId to TeamInfoOverride(
-        medias = mapValues { (_,v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
-    )
-}
-
 private fun TeamOverrideTemplate.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
     it.contestSystemId to TeamInfoOverride(
         hashTag = hashTag?.applyTemplate { name -> it.valueProvider(name) },
@@ -343,7 +337,8 @@ private fun mergeProblems(
         maxScore = override.maxScore ?: problem.maxScore,
         color = override.color ?: problem.color,
         unsolvedColor = override.unsolvedColor ?: problem.unsolvedColor,
-        scoreMergeMode = override.scoreMergeMode ?: problem.scoreMergeMode
+        scoreMergeMode = override.scoreMergeMode ?: problem.scoreMergeMode,
+        isHidden = override.isHidden ?: problem.isHidden,
     )
 }
 

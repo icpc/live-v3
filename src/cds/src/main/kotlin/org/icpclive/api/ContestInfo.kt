@@ -53,6 +53,7 @@ public data class ProblemInfo(
     @Serializable(ColorSerializer::class) val color: Color? = null,
     @Serializable(ColorSerializer::class) val unsolvedColor: Color? = null,
     val scoreMergeMode: ScoreMergeMode? = null,
+    val isHidden: Boolean = false,
 ) {
     internal companion object {
         val logger = getLogger(ProblemInfo::class)
@@ -324,5 +325,5 @@ public data class ContestInfo(
     val cdsTeams: Map<String, TeamInfo> by lazy { teamList.associateBy { it.contestSystemId } }
     val organizations: Map<String, OrganizationInfo> by lazy { organizationList.associateBy { it.cdsId } }
     val problems: Map<Int, ProblemInfo> by lazy { problemList.associateBy { it.id } }
-    val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal } }
+    val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
 }

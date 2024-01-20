@@ -11,7 +11,7 @@ class ICPCStatisticsService {
     suspend fun run(scoreboardFlow: Flow<ScoreboardAndContestInfo>) {
         coroutineScope {
             scoreboardFlow.conflate().map {
-                val problems = it.info.problems.size
+                val problems = it.info.scoreboardProblems.size
                 SolutionsStatistic(
                     List(problems) { problemId ->
                         var success = 0
