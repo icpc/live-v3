@@ -1,0 +1,31 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Пробный тур Чемпионата России ФСП"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 30000,
+        "text": "#ФСП"
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 30000,
+        "text": ""
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Чемпионат России ФСП"
+    }
+]
