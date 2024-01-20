@@ -1,0 +1,23 @@
+{
+  "name": "live-v3-tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "fsevents": "^2.3.2",
+    "playwright-core": "^1.32.3",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.3",
+    "@types/ws": "^8.5.5",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "install-browsers": "playwright install --with-deps",
+    "test": "playwright test"
+  }
+}
