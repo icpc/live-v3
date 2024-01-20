@@ -46,6 +46,7 @@ public data class TeamInfoOverride(
  * @param minScore In ioi mode minimal possible value of points in this problem
  * @param maxScore In ioi mode maximal possible value of points in this problem
  * @param scoreMergeMode In ioi mode, select the ruleset to calculate the final score based on the scores for each submission.
+ * @param isHidden If true, ignore all runs on that problem and remove it from scoreboard.
  */
 @Serializable
 public data class ProblemInfoOverride(
@@ -56,7 +57,8 @@ public data class ProblemInfoOverride(
     val ordinal: Int? = null,
     val minScore: Double? = null,
     val maxScore: Double? = null,
-    val scoreMergeMode: ScoreMergeMode? = null
+    val scoreMergeMode: ScoreMergeMode? = null,
+    val isHidden: Boolean? = null
 )
 
 /**
@@ -225,7 +227,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedPrope
                 hashTag = it.hashTag.takeIfAsked("hashTag"),
                 medias = it.medias.takeIfAsked("medias"),
                 customFields = it.customFields.takeIfAsked("customFields"),
-                isHidden = it.isHidden.takeIfAsked("isHidden"),
+                isHidden = it.isHidden.takeIfAsked("teamIsHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
             )
         },
@@ -238,13 +240,14 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedPrope
                 ordinal = it.ordinal.takeIfAsked("ordinal"),
                 minScore = it.minScore.takeIfAsked("minScore"),
                 maxScore = it.maxScore.takeIfAsked("maxScore"),
-                scoreMergeMode = it.scoreMergeMode.takeIfAsked("scoreMergeMode")
+                scoreMergeMode = it.scoreMergeMode.takeIfAsked("scoreMergeMode"),
+                isHidden = it.isHidden.takeIfAsked("problemIsHidden")
             )
         },
         groupOverrides = groupList.associate {
             it.cdsId to GroupInfoOverride(
                 displayName = it.displayName.takeIfAsked("groupDisplayName"),
-                isHidden = it.isHidden.takeIfAsked("isHidden"),
+                isHidden = it.isHidden.takeIfAsked("groupIsHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest"),
             )
         },

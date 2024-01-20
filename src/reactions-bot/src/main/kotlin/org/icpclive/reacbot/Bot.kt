@@ -45,6 +45,7 @@ class Bot(
         .filterUseless()
         .removeFrozenSubmissions()
         .processHiddenTeamsAndGroups()
+        .processHiddenProblems()
     private val storage = Storage()
     private val bot = bot {
         logLevel = LogLevel.Error

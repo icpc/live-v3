@@ -125,6 +125,7 @@ fun Application.module() {
             .filterUseless()
             .removeFrozenSubmissions()
             .processHiddenTeamsAndGroups()
+            .processHiddenProblems()
             .calculateScoreDifferences()
             .addFirstToSolves()
             .selectProblemColors()
