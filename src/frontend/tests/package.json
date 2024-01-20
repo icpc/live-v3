@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "fsevents": "^2.3.2",
     "playwright-core": "^1.32.3",
     "ws": "^8.13.0"
   },
