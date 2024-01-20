@@ -9,8 +9,12 @@ import org.icpclive.api.ContestResultType
 import org.icpclive.api.tunning.*
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.adapters.finalContestState
+import org.icpclive.cds.plugins.clics.*
 import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.plugins.ejudge.EjudgeSettings
+import org.icpclive.cds.plugins.pcms.PCMSSettings
 import org.icpclive.cds.settings.*
+import org.icpclive.cds.plugins.testsys.TestSysSettings
 import org.opentest4j.AssertionFailedError
 import java.nio.file.Path
 import kotlin.test.Test
@@ -66,7 +70,7 @@ object CdsLoadersTest {
                         url = UrlOrLocalPath.Local(testDataDir.resolve("clics-2020-03")),
                         contestId = "",
                         eventFeedPath = "",
-                        feedVersion = ClicsSettings.FeedVersion.`2020_03`
+                        feedVersion = FeedVersion.`2020_03`
                     )
                 )
             )
@@ -83,7 +87,7 @@ object CdsLoadersTest {
                         url = UrlOrLocalPath.Local(testDataDir.resolve("clics-2022-07")),
                         contestId = "",
                         eventFeedPath = "",
-                        feedVersion = ClicsSettings.FeedVersion.`2022_07`
+                        feedVersion = FeedVersion.`2022_07`
                     )
                 )
             )

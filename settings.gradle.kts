@@ -20,6 +20,7 @@ include(
     ":backend",
     ":backend-api",
     ":cds",
+    ":cds:ksp",
     ":cds-converter",
     ":clics-api",
     ":common",
@@ -32,6 +33,7 @@ include(
 project(":backend").projectDir = file("src/backend")
 project(":backend-api").projectDir = file("src/backend-api")
 project(":cds").projectDir = file("src/cds")
+project(":cds:ksp").projectDir = file("src/cds/ksp")
 project(":cds-converter").projectDir = file("src/cds-converter")
 project(":clics-api").projectDir = file("src/clics-api")
 project(":common").projectDir = file("src/common")

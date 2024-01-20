@@ -161,13 +161,13 @@
             ],
             "title": "cf"
         },
-        "org.icpclive.cds.settings.ClicsSettings.FeedVersion<org.icpclive.cds.settings.ClicsSettings.FeedVersion.2020_03,org.icpclive.cds.settings.ClicsSettings.FeedVersion.2022_07>": {
+        "org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07>": {
             "enum": [
                 "2020_03",
                 "2022_07"
             ]
         },
-        "org.icpclive.cds.settings.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>": {
+        "org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.plugins.clics.FeedVersion>": {
             "type": "object",
             "properties": {
                 "url": {
@@ -189,7 +189,7 @@
                     "type": "string"
                 },
                 "feedVersion": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.ClicsSettings.FeedVersion<org.icpclive.cds.settings.ClicsSettings.FeedVersion.2020_03,org.icpclive.cds.settings.ClicsSettings.FeedVersion.2022_07>"
+                    "$ref": "#/$defs/org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07>"
                 }
             },
             "additionalProperties": false,
@@ -198,10 +198,10 @@
                 "contestId"
             ]
         },
-        "kotlin.collections.ArrayList<org.icpclive.cds.settings.ClicsFeed>": {
+        "kotlin.collections.ArrayList<org.icpclive.cds.plugins.clics.ClicsFeed>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/org.icpclive.cds.settings.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.settings.ClicsSettings.FeedVersion>"
+                "$ref": "#/$defs/org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.plugins.clics.FeedVersion>"
             }
         },
         "clics": {
@@ -212,7 +212,7 @@
                     "default": "clics"
                 },
                 "feeds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.ClicsFeed>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.plugins.clics.ClicsFeed>"
                 },
                 "useTeamNames": {
                     "type": "boolean"
