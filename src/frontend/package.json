@@ -5,10 +5,12 @@
   "scripts": {
     "buildOverlay": "npm run build -w overlay",
     "buildAdmin": "npm run build -w admin",
-    "lint": "npm run lint -w overlay && npm run lint -w admin"
+    "lint": "npm run lint -w overlay && npm run lint -w admin",
+    "test": "npm run test -w tests"
   },
   "workspaces": [
     "overlay",
-    "admin"
+    "admin",
+    "tests"
   ]
 }

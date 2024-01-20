@@ -1,17 +1,35 @@
 import { test, expect, request } from "@playwright/test";
 import { spawn } from "child_process";
-import WebSocket from "ws";
+import { WebSocket } from "ws";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
+
+
+const getParents = (p: string): string[] => {
+    const res = [];
+    while (p) {
+        res.push(p);
+        p = p.split(path.sep).slice(0, -1).join(path.sep);
+    }
+    return res;
+};
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const parents = getParents(__dirname);
+const repoDir = parents[4];
 
 const simpleWidgets = ["queue", "scoreboard", "statistics"];
 const contestConfigs = [
     "config/__tests/ejudge_icpc_unfreeze/2023-voronezh",
-//    "config/__tests/ejudge_ioi/regionalroi-lpk-2021-d1",
+    //    "config/__tests/ejudge_ioi/regionalroi-lpk-2021-d1",
     "config/__tests/ejudge_ioi_virtual/mosh-2023-keldysh",
     "config/__tests/pcms_icpc_freeze/icpc-nef-2022-2023",
     "config/__tests/pcms_icpc_overrides/icpc-nef-2021-2022",
     "config/__tests/pcms_ioi/innopolis-open-2022-2023-final",
     "config/__tests/testsys_icpc/spbsu-2023-may"
-];
+].map((p) => path.join(repoDir, p));
 
 const backendStartCooldown = 3000;
 const backendFinishCooldown = 1000;
@@ -21,18 +39,18 @@ const startingPort = 8090;
 
 for (const [index, contestConfig] of contestConfigs.entries()) {
     test(`config ${contestConfig}`, async ({ page }, testInfo) => {
-        console.log(`Starting contest ${contestConfig}`)
+        console.log(`Starting contest ${contestConfig}`);
         const port = startingPort + index;
         const baseURL = `http://${address}:${port}`;
         const wsURL = `ws://${address}:${port}`;
 
         const childProcess = spawn("java", [
             "-jar",
-            "artifacts/live-v3-dev.jar",
+            path.join(repoDir, "artifacts/live-v3-dev.jar"),
             "-p",`${port}`,
             "--no-auth",
             "-c", `${contestConfig}`
-            ]);
+        ]);
 
         childProcess.stdout.on("data", (data) => {
             console.log(`${data}`);
@@ -46,11 +64,11 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
             console.log(`Child process exited with code ${code}`);
         });
 
-        process.on('exit', function () {
+        process.on("exit", function () {
             childProcess.kill();
         });
 
-        process.on('SIGINT', function () {
+        process.on("SIGINT", function () {
             childProcess.kill();
             process.exit();
         });
@@ -61,7 +79,7 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
 
         await page.waitForTimeout(backendStartCooldown);
 
-        let contestInfo = new WebSocket(`${wsURL}/api/overlay/contestInfo`);
+        const contestInfo = new WebSocket(`${wsURL}/api/overlay/contestInfo`);
 
         const contestOver = new Promise((resolve) => {
             contestInfo.onmessage = (event) => {
@@ -86,9 +104,9 @@ for (const [index, contestConfig] of contestConfigs.entries()) {
         const contestName = contestConfig.replace(/\//g, "_");
         const screenshot = await page.screenshot({ path: `tests/screenshots/${contestName}.png` });
 
-        await testInfo.attach('page', {
+        await testInfo.attach("page", {
             body: screenshot,
-            contentType: 'image/png',
+            contentType: "image/png",
         });
 
         for (const widgetName of simpleWidgets) {
