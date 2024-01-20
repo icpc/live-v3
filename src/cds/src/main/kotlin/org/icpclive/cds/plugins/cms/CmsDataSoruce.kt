@@ -7,20 +7,19 @@ import org.icpclive.cds.plugins.cms.model.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
 
-@SerialName("cms")
-@Serializable
-public class CmsSettings(
-    public val url: String,
-    public val activeContest: String,
-    public val otherContests: List<String>,
-) : CDSSettings() {
-    override fun toDataSource() = CmsDataSource(this)
+@GenerateSettings("cms")
+public interface CmsSettings : CDSSettings {
+    public val url: String
+    public val activeContest: String
+    public val otherContests: List<String>
+    override fun toDataSource(): ContestDataSource = CmsDataSource(this)
 }
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {

@@ -11,10 +11,10 @@ import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.plugins.clics.*
 import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.plugins.ejudge.EjudgeSettings
-import org.icpclive.cds.plugins.pcms.PCMSSettings
+import org.icpclive.cds.plugins.ejudge.EjudgeSettingsImpl
+import org.icpclive.cds.plugins.pcms.PCMSSettingsImpl
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.plugins.testsys.TestSysSettings
+import org.icpclive.cds.plugins.testsys.TestSysSettingsImpl
 import org.opentest4j.AssertionFailedError
 import java.nio.file.Path
 import kotlin.test.Test
@@ -30,7 +30,7 @@ object CdsLoadersTest {
     fun pcms() {
         loaderTest(
             goldenDataDir.resolve("pcms.txt"),
-            PCMSSettings(
+            PCMSSettingsImpl(
                 url = UrlOrLocalPath.Local(testDataDir.resolve("pcms.xml"))
             ),
             AdvancedProperties(startTime = Instant.fromEpochSeconds(1670397300))
@@ -41,8 +41,8 @@ object CdsLoadersTest {
     fun pcmsIOI() {
         loaderTest(
             goldenDataDir.resolve("pcmsIOI.txt"),
-            PCMSSettings(
-                resultType = ContestResultType.IOI,
+            PCMSSettingsImpl(
+                resultType_ = ContestResultType.IOI,
                 url = UrlOrLocalPath.Local(testDataDir.resolve("pcms-ioi.xml"))
             ),
             AdvancedProperties(startTime = Instant.fromEpochSeconds(1670397300))
@@ -53,7 +53,7 @@ object CdsLoadersTest {
     fun ejudge() {
         loaderTest(
             goldenDataDir.resolve("ejudge.txt"),
-            EjudgeSettings(
+            EjudgeSettingsImpl(
                 url = UrlOrLocalPath.Local(testDataDir.resolve("ejudge.xml"))
             )
         )
@@ -64,7 +64,7 @@ object CdsLoadersTest {
     fun clics202003() {
         loaderTest(
             goldenDataDir.resolve("clics202003.txt"),
-            ClicsSettings(
+            ClicsSettingsImpl(
                 feeds = listOf(
                     ClicsFeed(
                         url = UrlOrLocalPath.Local(testDataDir.resolve("clics-2020-03")),
@@ -81,7 +81,7 @@ object CdsLoadersTest {
     fun clics202207() {
         loaderTest(
             goldenDataDir.resolve("clics202207.txt"),
-            ClicsSettings(
+            ClicsSettingsImpl(
                 feeds = listOf(
                     ClicsFeed(
                         url = UrlOrLocalPath.Local(testDataDir.resolve("clics-2022-07")),
@@ -98,7 +98,7 @@ object CdsLoadersTest {
     fun testSys() {
         loaderTest(
             goldenDataDir.resolve("testSys.txt"),
-            TestSysSettings(
+            TestSysSettingsImpl(
                 url = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
             )
         )
@@ -108,7 +108,7 @@ object CdsLoadersTest {
     fun testSysWithAdvancedOverride() {
         loaderTest(
             goldenDataDir.resolve("testSysWithAdvancedOverride.txt"),
-            TestSysSettings(
+            TestSysSettingsImpl(
                 url = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
             ),
             AdvancedProperties(

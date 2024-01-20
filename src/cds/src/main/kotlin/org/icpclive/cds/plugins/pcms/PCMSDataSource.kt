@@ -5,6 +5,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.*
 import org.w3c.dom.Element
@@ -14,16 +15,15 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-@Serializable
-@SerialName("pcms")
-public class PCMSSettings(
-    @Contextual public val url: UrlOrLocalPath,
-    @Contextual public val login: Credential? = null,
-    @Contextual public val password: Credential? = null,
-    @Contextual public val problemsUrl: UrlOrLocalPath? = null,
-    public val resultType: ContestResultType = ContestResultType.ICPC,
-) : CDSSettings() {
-    override fun toDataSource() = PCMSDataSource(this)
+@GenerateSettings("pcms")
+public interface PCMSSettings : CDSSettings {
+    public val url: UrlOrLocalPath
+    public val login: Credential?
+    public val password: Credential?
+    public val problemsUrl: UrlOrLocalPath?
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
+    override fun toDataSource() : ContestDataSource = PCMSDataSource(this)
 }
 
 internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {

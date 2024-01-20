@@ -7,6 +7,8 @@ import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.jsonLoader
+import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.plugins.codeforces.CFDataSource
 import org.icpclive.cds.settings.*
 import org.icpclive.util.*
 import kotlin.time.Duration
@@ -44,17 +46,13 @@ internal class ContestData(
     val StandingsData: List<AtcoderTeam>
 )
 
-@SerialName("atcoder")
-@Serializable
-public class AtcoderSettings(
-    public val contestId: String,
-    @Contextual public val sessionCookie: Credential,
-    @Serializable(with = HumanTimeSerializer::class)
-    public val startTime: Instant,
-    @Serializable(with = DurationInSecondsSerializer::class)
-    @SerialName("contestLengthSeconds") public val contestLength: Duration,
-) : CDSSettings() {
-    override fun toDataSource() = AtcoderDataSource(this)
+@GenerateSettings("atcoder")
+public interface AtcoderSettings : CDSSettings {
+    public val contestId: String
+    public val sessionCookie: Credential
+    public val startTime: Instant
+    public val contestLength: Duration
+    override fun toDataSource(): ContestDataSource = AtcoderDataSource(this)
 }
 
 internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {

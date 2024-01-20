@@ -12,9 +12,11 @@ import kotlinx.datetime.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import org.icpclive.api.*
+import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.common.defaultHttpClient
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.TimeZoneSerializer
 import java.time.format.DateTimeFormatter
@@ -22,18 +24,16 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 
-@Serializable
-@SerialName("nsu")
-public class NSUSettings(
-    public val url: String,
-    public val olympiadId: Int,
-    public val tourId: Int,
-    @Contextual public val email: Credential,
-    @Contextual public val password: Credential,
-    @Serializable(with = TimeZoneSerializer::class)
-    public val timeZone: TimeZone = TimeZone.of("Asia/Novosibirsk"),
-) : CDSSettings() {
-    override fun toDataSource() = NSUDataSource(this)
+@GenerateSettings("nsu")
+public interface NSUSettings : CDSSettings {
+    public val url: String
+    public val olympiadId: Int
+    public val tourId: Int
+    public val email: Credential
+    public val password: Credential
+    public val timeZone: TimeZone
+        get() = TimeZone.of("Asia/Novosibirsk")
+    override fun toDataSource() : ContestDataSource = NSUDataSource(this)
 }
 
 internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataSource(5.seconds) {

@@ -1,12 +1,15 @@
 package org.icpclive.cds.plugins.cats
 
+import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.*
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
+import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*
 import org.icpclive.util.TimeZoneSerializer
 import java.time.ZonedDateTime
@@ -39,18 +42,18 @@ private object SubmissionTimeSerializer : KSerializer<Instant> {
     }
 }
 
-@Serializable
-@SerialName("cats")
-public class CatsSettings(
-    @Contextual public val login: Credential,
-    @Contextual public val password: Credential,
-    public val url: String,
-    @Serializable(with = TimeZoneSerializer::class)
-    public val timeZone: TimeZone = TimeZone.of("Asia/Vladivostok"),
-    public val resultType: ContestResultType = ContestResultType.ICPC,
-    public val cid: String,
-) : CDSSettings() {
-    override fun toDataSource() = CATSDataSource(this)
+@GenerateSettings("cats")
+public interface CatsSettings : CDSSettings {
+    public val login: Credential
+    public val password: Credential
+    public val url: String
+    public val cid: String
+    public val timeZone: TimeZone
+        get() = TimeZone.of("Asia/Vladivostok")
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
+
+    override fun toDataSource(): ContestDataSource = CATSDataSource(this)
 }
 
 internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDataSource(5.seconds) {

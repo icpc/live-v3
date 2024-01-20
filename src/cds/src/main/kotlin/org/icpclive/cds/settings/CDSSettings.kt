@@ -18,29 +18,25 @@ import kotlin.reflect.KClass
 
 // I'd like to have them in cds files, but then serializing would be much harder
 
-@Serializable
-public abstract class CDSSettings(
-    public val emulation: EmulationSettings? = null,
-    public val network: NetworkSettings? = null
-) {
-    override fun toString(): String {
-        return json.encodeToString(this)
+public fun CDSSettings.toFlow(): Flow<ContestUpdate> {
+    val raw = toDataSource()
+    return when (val emulationSettings = emulation) {
+        null -> raw.getFlow()
+        else -> raw.getFlow().toEmulationFlow(emulationSettings.startTime, emulationSettings.speed)
     }
+}
 
-    public fun toFlow(): Flow<ContestUpdate> {
-        val raw = toDataSource()
-        return when (val emulationSettings = emulation) {
-            null -> raw.getFlow()
-            else -> raw.getFlow().toEmulationFlow(emulationSettings.startTime, emulationSettings.speed)
-        }
-    }
-    internal abstract fun toDataSource(): ContestDataSource
+public interface CDSSettings {
+    public val emulation: EmulationSettings?
+    public val network: NetworkSettings?
 
-    internal companion object {
+    public fun toDataSource(): ContestDataSource
+
+    public companion object {
         private val json = Json { prettyPrint = true }
         internal fun serializersModule() = serializersModule({ it }, Path.of(""))
         private fun isHttpUrl(text: String) = text.startsWith("http://") || text.startsWith("https://")
-        fun serializersModule(credentialProvider: CredentialProvider, path: Path) = SerializersModule {
+        public fun serializersModule(credentialProvider: CredentialProvider, path: Path): SerializersModule = SerializersModule {
             postProcess<Credential, String>(
                 onDeserialize = {
                     val prefix = "\$creds."
