@@ -1,4 +1,7 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "root": true,
+  "plugins": ["@typescript-eslint"],
   "ignorePatterns": [
     "build/**"
   ],
@@ -8,12 +11,10 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
     "ecmaVersion": 12,
     "sourceType": "module"
   },
