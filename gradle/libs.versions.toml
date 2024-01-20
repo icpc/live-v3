@@ -3,6 +3,7 @@ ktor = "2.3.7"                     # https://ktor.io/
 datetime = "0.5.0"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.6.2"            # https://github.com/Kotlin/kotlinx.serialization
 kotlin = "1.9.21"
+ksp = "1.9.21-1.0.16"              # https://github.com/google/ksp
 slf4j = "2.0.11"                   # https://www.slf4j.org/download.html
 logback = "1.4.14"                 # https://logback.qos.ch/download.html
 node-plugin = "7.0.1"              # https://github.com/node-gradle/gradle-node-plugin
@@ -83,6 +84,8 @@ apache-commons-csv = { version.ref = "apache-commons-csv", group = "org.apache.c
 
 graphql-ktor-client = { version.ref = "graphql", group = "com.expediagroup", name = "graphql-kotlin-ktor-client"}
 
+ksp = { version.ref = "ksp", group = "com.google.devtools.ksp", name = "symbol-processing-api" }
+
 [plugins]
 
 node = { id = "com.github.node-gradle.node", version.ref = "node-plugin" }
@@ -92,3 +95,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 graphql = { id = "com.expediagroup.graphql", version.ref = "graphql"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
