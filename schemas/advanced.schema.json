@@ -444,7 +444,7 @@
                 }
             ]
         },
-        "org.icpclive.api.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.api.ScoreMergeMode?>": {
+        "org.icpclive.api.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.api.ScoreMergeMode?,kotlin.Boolean?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -470,6 +470,9 @@
                 },
                 "scoreMergeMode": {
                     "$ref": "#/$defs/org.icpclive.api.ScoreMergeMode?<org.icpclive.api.ScoreMergeMode.MAX_PER_GROUP,org.icpclive.api.ScoreMergeMode.MAX_TOTAL,org.icpclive.api.ScoreMergeMode.LAST,org.icpclive.api.ScoreMergeMode.LAST_OK,org.icpclive.api.ScoreMergeMode.SUM>"
+                },
+                "isHidden": {
+                    "type": "boolean"
                 }
             },
             "additionalProperties": false,
@@ -482,7 +485,7 @@
                     "type": "object",
                     "patternProperties": {
                         ".*": {
-                            "$ref": "#/$defs/org.icpclive.api.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.api.ScoreMergeMode?>"
+                            "$ref": "#/$defs/org.icpclive.api.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.api.ScoreMergeMode?,kotlin.Boolean?>"
                         }
                     }
                 },
