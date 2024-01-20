@@ -22,8 +22,6 @@ public class PCMSSettings(
     @Contextual public val password: Credential? = null,
     @Contextual public val problemsUrl: UrlOrLocalPath? = null,
     public val resultType: ContestResultType = ContestResultType.ICPC,
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource() = PCMSDataSource(this)
 }

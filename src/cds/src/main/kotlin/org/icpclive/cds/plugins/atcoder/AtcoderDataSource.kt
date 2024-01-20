@@ -53,8 +53,6 @@ public class AtcoderSettings(
     public val startTime: Instant,
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("contestLengthSeconds") public val contestLength: Duration,
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null
 ) : CDSSettings() {
     override fun toDataSource() = AtcoderDataSource(this)
 }

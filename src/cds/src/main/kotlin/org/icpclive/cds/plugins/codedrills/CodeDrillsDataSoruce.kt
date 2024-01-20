@@ -22,8 +22,6 @@ public class CodeDrillsSettings(
     public val port: Int,
     public val contestId: String,
     @Contextual public val authKey: Credential,
-    override val emulation: EmulationSettings? = null,
-    override val network: NetworkSettings? = null,
 ) : CDSSettings() {
     override fun toDataSource() = CodeDrillsDataSource(this)
 }
