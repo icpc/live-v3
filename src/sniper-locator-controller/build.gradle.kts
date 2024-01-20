@@ -22,18 +22,24 @@ kotlin {
 tasks {
     runTask {
         this.workingDir(rootDir.resolve("."))
-        this.args = listOfNotNull(project.properties["live.overlayUrl"].let { "-P:live.overlayUrl=$it" })
+        this.args = listOfNotNull(
+            project.properties["live.configDirectory"]?.let { "--config-directory=$it" },
+            project.properties["live.overlayUrl"]?.let { "--overlay=$it" },
+        )
     }
     processResources {
         into("admin") {
-            from(project(":frontend").tasks.named("npm_run_buildAdmin"))
+            from(project(":frontend").tasks.named("npm_run_buildLocatorAdmin"))
         }
     }
 }
 
 dependencies {
-    implementation(projects.cds)
     implementation(projects.common)
+    implementation(libs.cli)
+    implementation(libs.ktor.client.auth)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.contentNegotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.autoHeadResponse)
@@ -45,6 +51,8 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.server.websockets)
+    implementation(libs.logback)
+    implementation(project(mapOf("path" to ":cds")))
 
     testImplementation(libs.kotlin.junit)
     testImplementation(libs.ktor.server.tests)

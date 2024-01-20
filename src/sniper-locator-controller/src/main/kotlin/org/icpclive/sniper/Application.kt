@@ -3,7 +3,6 @@ package org.icpclive.sniper
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.callloging.*
@@ -16,22 +15,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import io.ktor.server.config.*
-import kotlinx.coroutines.*
-//import org.icpclive.admin.configureAdminApiRouting
-//import org.icpclive.data.Controllers
-//import org.icpclive.overlay.configureOverlayRouting
-import org.icpclive.util.*
-//import org.icpclive.cds.getContestDataSource
-//import org.icpclive.data.DataBus
-//import org.icpclive.service.AdvancedPropertiesService
-//import org.icpclive.service.launchServices
+import org.icpclive.util.defaultJsonSettings
 import org.slf4j.event.Level
 import java.time.Duration
-import java.util.*
 
-fun main(args: Array<String>): Unit =
-    io.ktor.server.netty.EngineMain.main(args)
+fun main(args: Array<String>): Unit = Config.main(args)
 
 private fun Application.setupKtorPlugins() {
     install(DefaultHeaders)
@@ -66,47 +54,24 @@ private fun Application.setupKtorPlugins() {
 
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-    LocatorController.overlayUrl = environment.config.property("live.overlayUrl").getString()
+//    environment.log.info("Using config directory ${Config.configDirectory.toAbsolutePath()}")
+//    environment.log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     setupKtorPlugins()
-
+    Util.initForServer()
     routing {
         singlePageApplication {
             useResources = true
             applicationRoute = "admin"
             react("admin")
         }
-        route("/api") {
-            get("/teams") {
-                call.respondText(
-                    Util.sendGet("${LocatorController.overlayUrl}/api/admin/teamView/teams"),
-                    ContentType.Application.Json
-                )
-            }
-            post("/move") {
-                val config = call.receive<MoveSniperConfig>()
-                val newPoint = SniperMover.moveToTeam(config.sniperNumber, config.teamId)
-                if (newPoint != null) {
-                    call.respondText("ok")
-                } else {
-                    call.respondText("no such team id")
-                }
-            }
-            route("/overlay") {
-                post("/show") {
-                    try {
-                        val config = call.receive<ShowLocatorConfig>()
-                        LocatorController.showLocatorWidget(config.sniperNumber, config.teamIds.toSet())
-                    } catch (e: Throwable) {
-                        println(e)
-                    }
-                }
-                post("/hide") {
-                    LocatorController.hideLocatorWidget()
-                }
-            }
-        }
         get {
-            call.respondRedirect("/admin/locator", false)
+            call.respondRedirect("/admin")
+        }
+
+        route("/api") {
+            route("/admin") { setupRouting() }
         }
     }
 }
+
+//private val logger = getLogger(Application::class)

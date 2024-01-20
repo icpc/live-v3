@@ -5,6 +5,7 @@
   "scripts": {
     "buildOverlay": "npm run build -w overlay",
     "buildAdmin": "npm run build -w admin",
+    "buildLocatorAdmin": "npm run build -w admin",
     "lint": "npm run lint -w overlay && npm run lint -w admin"
   },
   "workspaces": [

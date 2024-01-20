@@ -27,6 +27,7 @@ include(
     ":reactions-bot",
     ":schema-generator",
     ":sniper-tools",
+    ":sniper-locator-controller",
     ":faker"
 )
 project(":backend").projectDir = file("src/backend")
@@ -39,6 +40,7 @@ project(":frontend").projectDir = file("src/frontend")
 project(":reactions-bot").projectDir = file("src/reactions-bot")
 project(":schema-generator").projectDir = file("src/schema-generator")
 project(":sniper-tools").projectDir = file("src/sniper-tools")
+project(":sniper-locator-controller").projectDir = file("src/sniper-locator-controller")
 project(":faker").projectDir = file("src/faker")
 
 gradleEnterprise.buildScan {

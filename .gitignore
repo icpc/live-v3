@@ -350,6 +350,7 @@ gradle-app.setting
 
 ### Gradle Patch ###
 **/build/
+**/build_locator/
 
 # End of https://www.toptal.com/developers/gitignore/api/react,intellij+all,macos,linux,kotlin,java,gradle,node
 

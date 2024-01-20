@@ -18,6 +18,7 @@ import TeamSpotlight from "./components/TeamSpotlight";
 import { useLocalStorageState } from "./utils";
 import FullScreenClockManager from "./components/FullScreenClockManager";
 import AdvancedJson from "./components/AdvancedJson";
+import SniperLocator from "./components/SniperLocator";
 
 const dashboard_elements = {
     "Controls": <Controls/>,
@@ -44,7 +45,7 @@ function App() {
                 <div className="App">
                     <AppNav showOrHideOverlayPerview={() => setIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
                     <Routes>
-                        <Route path="/" element={<Controls/>}/>
+                        <Route path="/" element={process.env.REACT_APP_MODE === "locator" ? <SniperLocator/> : <Controls/>}/>
                         <Route path="/controls" element={<Controls/>}/>
                         {/* <Route path="/advertisement" element={<Advertisement/>}/> */}
                         {/* <Route path="/title" element={<Title/>}/> */}
@@ -60,6 +61,7 @@ function App() {
                         <Route path="/analytics" element={<Analytics/>}/>
                         <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
                         <Route path="/advancedJson" element={<AdvancedJson/>}/>
+                        <Route path="/locator" element={<SniperLocator/>}/>
                     </Routes>
                     <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
                 </div>

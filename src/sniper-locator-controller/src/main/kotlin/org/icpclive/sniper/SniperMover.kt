@@ -1,21 +1,23 @@
 package org.icpclive.sniper
 
-import java.io.*
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import org.icpclive.util.getLogger
 import java.util.*
 import kotlin.math.atan2
 import kotlin.math.hypot
 
 object SniperMover {
     @JvmStatic
-    fun main(args: Array<String>) {
-        Util.init()
+    suspend fun main(args: Array<String>) {
         Locale.setDefault(Locale.US)
         val `in` = Scanner(System.`in`)
         while (true) {
             println("Select sniper (1-" + Util.snipers.size + ")")
             val sniper = `in`.nextInt()
             println("Select team")
-            val teamId = `in`.nextInt()
+            val teamId = `in`.next()
             if (moveToTeam(sniper, teamId) == null) {
                 println("No such team $teamId location for sniper $sniper")
             }
@@ -24,7 +26,8 @@ object SniperMover {
 
     private const val DEFAULT_SPEED = "0.52"
 
-    fun moveToTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
+    suspend fun moveToTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
+        println("moveToTeam $sniperNumber $teamId")
         val point = getLocationPointByTeam(sniperNumber, teamId) ?: return null
 
         if (point.y > 0) {
@@ -41,40 +44,35 @@ object SniperMover {
         val maxmag = 35.0
         val zoom = (mag * 9999 - 1) / (maxmag - 1)
         move(sniperNumber, pan, tilt, zoom.toInt())
+        println(point)
         return point
     }
 
-    private fun getLocationPointByTeam(sniperNumber: Int, teamId: Int): LocatorPoint? {
-        val scanner = Scanner(File("coordinates-$sniperNumber.txt"))
-        scanner.nextInt() // count of teams in coordinates file (we can ignore this number)
-        while (scanner.hasNextInt()) {
-            val id = scanner.nextInt()
-            if (id == teamId) {
-                 return LocatorPoint(
-                    scanner.nextDouble(),
-                    scanner.nextDouble(),
-                    scanner.nextDouble()
-                )
-            }
-        }
-        return null
+    private fun getLocationPointByTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
+        val x = Util.loadLocatorPoints(sniperNumber).find { it.id == teamId }
+        return x
     }
 
     @Throws(Exception::class)
-    private fun move(sniper: Int, pan: Double, tilt: Double, zoom: Int) {
+    private suspend fun move(sniper: Int, pan: Double, tilt: Double, zoom: Int) {
         val hostName = Util.snipers[sniper - 1].hostName
-        Util.sendGet(
-            hostName + "/axis-cgi/com/ptz.cgi?camera=1" +
-                    "&tilt=" + tilt +
-                    "&pan=" + pan +
-                    "&zoom=" + zoom +
-                    "&speed=100" +
-                    "&timestamp=" + Util.getUTCTime()
+        val setPositionResponse = Util.sniperRequest(
+            hostName, mapOf(
+                "camera" to 1,
+                "tilt" to tilt,
+                "pan" to pan,
+                "zoom" to zoom,
+                "speed" to 100,
+                "timestamp" to Util.getUTCTime()
+            )
         )
-        Util.sendGet(
-            hostName + "/axis-cgi/com/ptz.cgi?camera=1" +
-                    "&speed=" + DEFAULT_SPEED +
-                    "&timestamp=" + Util.getUTCTime()
+        logger.info("Set sniper $sniper position: $setPositionResponse")
+
+        val setSpeedResponse = Util.sniperRequest(
+            hostName, mapOf("camera" to 1, "speed" to DEFAULT_SPEED, "timestamp" to Util.getUTCTime())
         )
+        logger.info("Set sniper $sniper speed: $setSpeedResponse")
     }
+
+    private val logger = getLogger(SniperMover::class)
 }
