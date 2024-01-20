@@ -58,6 +58,7 @@ export interface ProblemInfo {
   color?: string | null;
   unsolvedColor?: string | null;
   scoreMergeMode?: ScoreMergeMode | null;
+  isHidden?: boolean;
 }
 
 export interface TeamInfo {
