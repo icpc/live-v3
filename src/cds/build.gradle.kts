@@ -1,5 +1,5 @@
 import com.expediagroup.graphql.plugin.gradle.config.GraphQLSerializer
-import com.google.protobuf.gradle.*
+import com.google.protobuf.gradle.id
 import java.net.URI
 
 plugins {

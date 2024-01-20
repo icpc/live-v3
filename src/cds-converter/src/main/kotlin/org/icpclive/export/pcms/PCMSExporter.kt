@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.*
+import org.icpclive.cds.adapters.stateGroupedByTeam
 import org.icpclive.scoreboard.getScoreboardCalculator
 import org.icpclive.util.createChild
 import org.w3c.dom.Element

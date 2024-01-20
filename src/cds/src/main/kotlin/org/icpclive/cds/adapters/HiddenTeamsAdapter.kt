@@ -2,7 +2,9 @@ package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.icpclive.api.*
+import org.icpclive.api.ContestInfo
+import org.icpclive.api.InefficientContestInfoApi
+import org.icpclive.api.TeamInfo
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 

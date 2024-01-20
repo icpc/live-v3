@@ -1,12 +1,17 @@
 package org.icpclive.cds.eolymp
 
-import com.eolymp.graphql.*
+import com.eolymp.graphql.JudgeContestDetails
+import com.eolymp.graphql.JudgeContestSubmissions
+import com.eolymp.graphql.JudgeContestTeams
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
 import io.codedrills.proto.external.Contest
 import kotlinx.datetime.toKotlinInstant
 import org.icpclive.api.*
-import org.icpclive.cds.common.*
+import org.icpclive.cds.common.ClientAuth
+import org.icpclive.cds.common.ContestParseResult
+import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.common.defaultHttpClient
 import org.icpclive.cds.settings.EOlympSettings
 import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger

@@ -1,16 +1,10 @@
-import React, { memo } from "react";
+import React, {memo} from "react";
 import styled from "styled-components";
 import c from "../../config";
-import { isShouldUseDarkColor } from "../../utils/colors";
-import { ShrinkingBox } from "./ShrinkingBox";
-import {
-    TeamTaskColor,
-    TeamTaskSymbol,
-    TeamTaskStatus,
-    getStatus,
-    getTeamTaskColor,
-} from "../../utils/statusInfo";
-import { formatScore } from "../../services/displayUtils";
+import {isShouldUseDarkColor} from "../../utils/colors";
+import {ShrinkingBox} from "./ShrinkingBox";
+import {getStatus, getTeamTaskColor, TeamTaskColor, TeamTaskStatus, TeamTaskSymbol,} from "../../utils/statusInfo";
+import {formatScore} from "../../services/displayUtils";
 
 const VerdictLabel = styled(ShrinkingBox)`
   background-color: ${({ color }) => color};
