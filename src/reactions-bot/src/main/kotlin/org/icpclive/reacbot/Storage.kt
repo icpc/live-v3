@@ -16,14 +16,16 @@ class Storage {
 
     fun addReactions(teamId: Int, problemId: Int, runId: Int, isOk: Boolean, fileName: String): Reaction =
         transaction(connection) {
-            val reaction = Reactions.select { Reactions.fileName eq fileName }.singleOrNull() ?: Reactions.insert {
-                it[Reactions.teamId] = teamId
-                it[Reactions.problemId] = problemId
-                it[Reactions.runId] = runId
-                it[Reactions.isOk] = isOk
-                it[Reactions.fileName] = fileName
-            }.let { Reactions.select { Reactions.fileName eq fileName }.single() }
-            return@transaction Reaction.wrapRow(reaction)
+            return@transaction Reaction.wrapRow(
+                Reactions.selectAll().where { Reactions.fileName eq fileName }.singleOrNull<ResultRow>()
+                    ?: Reactions.insert {
+                        it[Reactions.teamId] = teamId
+                        it[Reactions.problemId] = problemId
+                        it[Reactions.runId] = runId
+                        it[Reactions.isOk] = isOk
+                        it[Reactions.fileName] = fileName
+                    }.resultedValues!!.first()
+            )
         }
 
     fun setReactionTelegramFileId(reactionId: Int, uploadedFileId: String) {
@@ -36,13 +38,17 @@ class Storage {
 
     fun getReactionForVote(chatId: Long): Reaction? {
         return transaction(connection) {
-            val reactions = Reactions.select { Reactions.telegramFileId neq null }
+            val reactions = Reactions.selectAll()
+                .where { Reactions.telegramFileId neq null }
                 .orderBy(
                     Reactions.voteCount to SortOrder.ASC,
                     Reactions.isOk to SortOrder.DESC,
                     Random() to SortOrder.ASC
                 )
-            val voted = Votes.select { Votes.chatId eq chatId }.map { Vote.wrapRow(it).id.value }.toSet()
+            val voted = Votes.selectAll()
+                .where { Votes.chatId eq chatId }
+                .map { Vote.wrapRow(it).id.value }
+                .toSet()
 
             return@transaction reactions.map { Reaction.wrapRow(it) }.firstOrNull { it.runId !in voted }
         }
