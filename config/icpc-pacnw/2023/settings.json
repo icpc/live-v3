@@ -1,0 +1,16 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": ".",
+      "contestId": "",
+      "feedVersion": "2020_03",
+      "eventFeedPath": ""
+    }
+  ],
+  "useTeamNames": false,
+  "emulation": {
+    "speed": 10,
+    "startTime": "now"
+  }
+}
