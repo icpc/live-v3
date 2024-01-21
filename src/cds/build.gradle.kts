@@ -64,6 +64,7 @@ tasks {
 
     test {
         inputs.dir("testData/")
+        inputs.dir("../../config/")
         dependsOn(apiCheck)
     }
 }
