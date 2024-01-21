@@ -17,15 +17,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'src/frontend/package-lock.json'
 
-      - uses: actions/setup-java@master
-        with:
-          distribution: adopt
-          java-version: 17
-
-      - uses: gradle/gradle-build-action@v2.4.2
-        with:
-          arguments: build release --scan -Pnpm.download=false -i
-
       - name: Install dependencies
         working-directory: ./src/frontend
         run: npm ci
@@ -48,16 +39,14 @@ jobs:
         working-directory: ./src/frontend/tests
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        working-directory: ./src/frontend/tests
-        run: npx playwright test 2>&1
-
-      - uses: actions/upload-artifact@v3
-        if: always()
+      - uses: actions/setup-java@master
         with:
-            name: screenshots
-            path: ./src/frontend/tests/tests/screenshots/
-            retention-days: 3
+          distribution: adopt
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v2.4.2
+        with:
+          arguments: build release --scan -Pnpm.download=false -i
 
       - uses: actions/upload-artifact@v3
         if: always()

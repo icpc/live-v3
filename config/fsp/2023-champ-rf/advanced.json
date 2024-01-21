@@ -24,7 +24,9 @@
     },
     "teamIdRegexes": {
       "customFields": {
-        "comp": "g27417=fsp(.*)"
+        "comp": {
+          "g27417=fsp(.*)": "$1"
+        }
       }
     },
     "teamOverrides": {
