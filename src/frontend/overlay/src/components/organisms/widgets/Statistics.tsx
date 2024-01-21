@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import c from "../../../config";
 import { stackedBarsData } from "../../../statistics/barData";
 import { StatisticsLegend } from "../../molecules/statistics/StatisticsLegend";

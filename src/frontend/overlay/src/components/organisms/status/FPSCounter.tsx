@@ -7,7 +7,7 @@ export const FPSCounter = () => {
         let frame = 0;
         let handle = null;
 
-        const tick = (time) => {
+        const tick: FrameRequestCallback = (time) => {
             frame++;
             if (time - startTime > 1000) {
                 setFps((frame / ((time - startTime) / 1000)).toFixed(1));

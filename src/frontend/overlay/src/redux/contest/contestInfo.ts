@@ -1,19 +1,22 @@
 import _ from "lodash";
 import c from "../../config";
 import { getTextWidth } from "../../components/atoms/ShrinkingBox";
-import { ContestInfo } from "@shared/api";
+import { ContestInfo, ProblemInfo, TeamInfo } from "@shared/api";
 
 const ActionTypes = {
     CONTEST_INFO_SET: "CONTEST_INFO_SET",
 };
 
-const initialState = {
+type ContestState = {
+    info: (ContestInfo & {
+        teamsId: Record<TeamInfo["id"], TeamInfo>,
+        problemsId: Record<ProblemInfo["id"], ProblemInfo>
+    }) | undefined
+}
+
+const initialState: ContestState = {
     info: undefined
 };
-
-type ContestState = {
-    info: ContestInfo | undefined
-}
 
 export const setInfo = (info: ContestInfo) => {
     return async dispatch => {

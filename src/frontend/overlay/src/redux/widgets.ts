@@ -7,7 +7,11 @@ const ActionTypes = {
     SET_WIDGETS: "SET_WIDGETS"
 };
 
-const initialState = {
+type WidgetsState = {
+    widgets: Record<Widget["widgetId"], Widget>
+};
+
+const initialState: WidgetsState = {
     widgets: {}
 };
 
@@ -44,7 +48,7 @@ export const setWidgets = (widgets: Widget[]) => {
     };
 };
 
-export function widgetsReducer(state = initialState, action) {
+export function widgetsReducer(state = initialState, action): WidgetsState {
     switch (action.type) {
     case ActionTypes.SHOW_WIDGET:
         return {

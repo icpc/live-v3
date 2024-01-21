@@ -10,7 +10,7 @@ import {
     TeamTaskSymbol,
     TeamTaskStatus,
     getStatus,
-    getTeamTaskColor,
+    getIOIColor,
 } from "../../utils/statusInfo";
 import { formatScore } from "../../services/displayUtils";
 
@@ -154,13 +154,14 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
 };
 
 const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore,  ...props }) => {
-    return <TaskResultLabelWrapper2 color={getTeamTaskColor(r.score, minScore, maxScore)} { ...props}>
+    return <TaskResultLabelWrapper2 color={getIOIColor(r.score, minScore, maxScore)} { ...props}>
         { r.isFirstBest && <StarIcon color={problemColor === undefined ? defaultColorForStar : problemColor}/>}
         <AttemptsOrScoreLabelWrapper>
             {formatScore(r?.score)}
         </AttemptsOrScoreLabelWrapper>
     </TaskResultLabelWrapper2>;
 };
+
 export const TaskResultLabel = memo(({ problemResult, ...props }) => {
     return <>
         {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}

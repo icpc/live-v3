@@ -71,6 +71,14 @@ module.exports = {
         "react/react-in-jsx-scope": "off",
         // allow jsx syntax in js files (for next.js project)
         "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }], //should add ".ts" if typescript project
+
+        "no-restricted-imports": ["error", {
+            "paths": [{
+                "name": "react-redux",
+                "importNames": ["useDispatch", "useSelector"],
+                "message": "You should use useAppDispatch and useAppSelector from \"@/redux/hooks\";"
+            }]
+        }]
     },
     "overrides": [
         {

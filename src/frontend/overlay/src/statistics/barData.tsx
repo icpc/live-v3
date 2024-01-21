@@ -1,5 +1,5 @@
-import { StatisticsData } from "../components/molecules/statistics/types";
-import { getTeamTaskColor } from "../utils/statusInfo";
+import { StatisticsData } from "@/components/molecules/statistics/types";
+import { getIOIColor } from "@/utils/statusInfo";
 import c from "../config";
 
 export const stackedBarsData = (resultType: string, tasks: any[], statistics: any[], count: number): StatisticsData => {
@@ -45,7 +45,7 @@ export const stackedBarsData = (resultType: string, tasks: any[], statistics: an
                     value: count ? wrong / count : 0.0,
                 },
             ]
-        })));
+        })) ?? []);
     } else if (resultType === "IOI") {
         legend.push({
             caption: "max score",
@@ -59,10 +59,10 @@ export const stackedBarsData = (resultType: string, tasks: any[], statistics: an
             name: tasks[index].letter,
             color: tasks[index].color,
             values: result.map(({ count: rCount, score }) => ({
-                color: getTeamTaskColor(score, tasks[index]?.minScore, tasks[index]?.maxScore),
+                color: getIOIColor(score, tasks[index]?.minScore, tasks[index]?.maxScore),
                 value: count ? rCount / count : 0.0,
             })),
-        })));
+        })) ?? []);
     }
     return {
         legend,

@@ -43,6 +43,8 @@
     "lint": "concurrently --group \"npm run lint:*\""
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "@types/luxon": "^3.4.2",
     "@types/styled-components": "^5.1.30",
     "concurrently": "^8.2.2",
     "postcss-styled-syntax": "^0.5.0",

@@ -1,13 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { Keyframes, keyframes } from "styled-components";
 import bg from "../../assets/images/bg.png";
 import c from "../../config";
-import { DEBUG } from "../../consts";
-import { useAppSelector } from "../../redux/hooks";
-import { useQueryParams } from "../../utils/query-params";
-import { StatusLightbulbs } from "../organisms/status/StatusLightbulbs";
+import { DEBUG } from "@/consts";
+import { useAppSelector } from "@/redux/hooks";
+import { useQueryParams } from "@/utils/query-params";
+import { StatusLightBulbs } from "../organisms/status/StatusLightBulbs";
 import Advertisement from "../organisms/widgets/Advertisement";
 import Pictures from "../organisms/widgets/Pictures";
 import Svg from "../organisms/widgets/Svg";
@@ -99,10 +98,10 @@ const WIDGETS = {
     TeamLocatorWidget: Locator
 };
 
-const useWidgets = (): Widget[] => {
+const useWidgets = () => {
     const queryParams = useQueryParams();
     if(queryParams.has("forceWidgets")) {
-        return JSON.parse(queryParams.get("forceWidgets"));
+        return JSON.parse(queryParams.get("forceWidgets")) as Record<Widget["widgetId"], Widget>;
     } else {
         return useAppSelector(state => state.widgets.widgets);
     }
@@ -112,7 +111,7 @@ export const MainLayout = () => {
     const widgets = useWidgets();
     const params = useQueryParams();
     return <MainLayoutWrap>
-        <StatusLightbulbs compact={true}/>
+        <StatusLightBulbs compact={true}/>
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
                 const Widget = WIDGETS[obj.type];
