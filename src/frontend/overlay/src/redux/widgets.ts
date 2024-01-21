@@ -11,6 +11,7 @@ type WidgetsState = {
     widgets: Record<Widget["widgetId"], Widget>
 };
 
+
 const initialState: WidgetsState = {
     widgets: {}
 };
