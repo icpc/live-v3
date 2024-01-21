@@ -16,7 +16,7 @@ tasks {
         inputs.file("admin/package.json")
         inputs.file("overlay/package.json")
     }
-    named<NpmTask>("npm_run_buildOverlay") {
+    val buildOverlay = named<NpmTask>("npm_run_buildOverlay") {
         outputs.cacheIf { true }
         environment.set(mapOf("PUBLIC_URL" to "/overlay", "BUILD_PATH" to "build"))
         inputs.dir("overlay/src")
@@ -27,7 +27,7 @@ tasks {
         inputs.file("overlay/package.json")
         outputs.dir("overlay/build")
     }
-    named<NpmTask>("npm_run_buildAdmin") {
+    val buildAdmin = named<NpmTask>("npm_run_buildAdmin") {
         outputs.cacheIf { true }
         environment.set(mapOf("PUBLIC_URL" to "/admin"))
         inputs.dir("admin/src")
@@ -38,4 +38,17 @@ tasks {
         inputs.file("admin/package.json")
         outputs.dir("admin/build")
     }
+    val runTests = named<NpmTask>("npm_run_test") {
+        dependsOn(":backend:release")
+    }
+    val test = register<Task>("test") {
+        dependsOn(runTests)
+    }
+    val assemble = register<Task>("assemble") {
+        dependsOn(buildOverlay, buildAdmin)
+    }
+    register<Task>("build") {
+        dependsOn(assemble, test)
+    }
 }
+

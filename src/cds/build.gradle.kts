@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.protobuf)
     alias(libs.plugins.graphql)
     alias(libs.plugins.ksp)
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
+    alias(libs.plugins.bcv)
 }
 
 apiValidation {
