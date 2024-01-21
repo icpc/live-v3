@@ -4,88 +4,88 @@
         "fullName":"{name}"
       } ,
     "groupOverrides": {
-        "330003": {
+        "330002": {
             "isHidden": true
         }
     },
     "problemOverrides": {
         "ThreeDice-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "Alchemy-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "ChampernowneCount-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "TriangleContainment-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "ColorTubes-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "FoodProcessor-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "DigitsofUnity-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "BranchManager-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "CountingSatellites-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "SunandMoon-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "AdvertisingICPC-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "ExponentExchange-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "LoneKnight-1": {
-            "unsolvedColor": "#808080ff"
+            "isHidden": true
         },
         "ThreeDice-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "Alchemy-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "ChampernowneCount-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "HunttheWumpus-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "ColorTubes-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "FoodProcessor-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "FadingWind-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "CreativeAccounting-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "ICouldHaveWon-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "SunandMoon-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "ChocolateChipFabrication-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "DistinctParityExcess-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "RestaurantOpening-2": {
-            "isHidden": true
+            "unsolvedColor": "#808080ff"
         },
         "BlueberryWaffle-3": {
             "isHidden": true
