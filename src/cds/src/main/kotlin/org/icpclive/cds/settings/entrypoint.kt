@@ -64,7 +64,7 @@ public class CdsCommandLineOptions : OptionGroup("CDS options") {
 
 @OptIn(ExperimentalSerializationApi::class)
 public fun CdsCommandLineOptions.toFlow(log: Logger): Flow<ContestUpdate> {
-    log.info("Using config directory ${configDirectory}")
+    log.info("Using config directory $configDirectory")
     log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
     val path = configDirectory.resolve("events.properties")
         .takeIf { it.exists() }

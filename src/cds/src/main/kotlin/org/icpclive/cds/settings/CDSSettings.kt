@@ -17,8 +17,6 @@ import java.util.*
 import kotlin.io.path.exists
 import kotlin.reflect.KClass
 
-// I'd like to have them in cds files, but then serializing would be much harder
-
 public fun CDSSettings.toFlow(): Flow<ContestUpdate> {
     val raw = toDataSource()
     return when (val emulationSettings = emulation) {

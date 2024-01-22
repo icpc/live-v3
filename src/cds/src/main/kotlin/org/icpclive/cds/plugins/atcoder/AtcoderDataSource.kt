@@ -53,8 +53,8 @@ public interface AtcoderSettings : CDSSettings {
 }
 
 internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {
-    val teamIds = Enumerator<String>()
-    val problemIds = Enumerator<String>()
+    private val teamIds = Enumerator<String>()
+    private val problemIds = Enumerator<String>()
     private val loader = jsonLoader<ContestData>(
         settings.network,
         ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)
@@ -62,10 +62,10 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         UrlOrLocalPath.Url("https://atcoder.jp/contests/${settings.contestId}/standings/json")
     }
 
-    var submissionId: Int = 1
+    private var submissionId: Int = 1
     val runs = mutableMapOf<Pair<Int, Int>, List<RunInfo>>()
 
-    fun addNewRuns(teamId: Int, problemId: Int, result: AtcoderTaskResult): List<RunInfo> {
+    private fun addNewRuns(teamId: Int, problemId: Int, result: AtcoderTaskResult): List<RunInfo> {
         val oldRuns = (runs[teamId to problemId] ?: emptyList()).toMutableList()
         repeat(result.Count - oldRuns.size) {
             oldRuns.add(

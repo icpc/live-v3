@@ -210,7 +210,6 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
     }
 
     @Serializable
-    @Suppress("unused")
     class Submission(
         val id: Int,
         val teamId: Int,

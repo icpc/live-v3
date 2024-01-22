@@ -71,9 +71,9 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         settings.useTeamNames
     )
 
-    val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
+    private val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
 
-    suspend fun runLoader(
+    private suspend fun runLoader(
         onRun: suspend (RunInfo) -> Unit,
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (AnalyticsCommentaryEvent) -> Unit,

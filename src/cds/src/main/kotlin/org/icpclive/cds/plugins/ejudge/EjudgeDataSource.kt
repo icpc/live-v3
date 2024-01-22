@@ -65,7 +65,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             )
         }.toList()
 
-    val timePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    private val timePattern: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     private fun parseEjudgeTime(time: String): Instant {
         return java.time.LocalDateTime.parse(

@@ -8,10 +8,10 @@ import org.icpclive.util.getLogger
 import org.icpclive.util.loopFlow
 import kotlin.time.Duration
 
-internal abstract class FullReloadContestDataSource(val interval: Duration) : ContestDataSource {
+internal abstract class FullReloadContestDataSource(private val interval: Duration) : ContestDataSource {
     abstract suspend fun loadOnce(): ContestParseResult
 
-    var isOver = false
+    private var isOver = false
 
     override fun getFlow() = loopFlow(
         interval,

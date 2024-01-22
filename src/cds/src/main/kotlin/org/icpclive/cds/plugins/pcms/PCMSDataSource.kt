@@ -35,11 +35,11 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         settings.url
     }
 
-    val resultType = settings.resultType
-    val runIds = Enumerator<String>()
-    val teamIds = Enumerator<String>()
-    val problemIds = Enumerator<String>()
-    var startTime = Instant.fromEpochMilliseconds(0)
+    private val resultType = settings.resultType
+    private val runIds = Enumerator<String>()
+    private val teamIds = Enumerator<String>()
+    private val problemIds = Enumerator<String>()
+    private var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce(): ContestParseResult {
         val problemsOverride = settings.problemsUrl?.let { loadCustomProblems(it) }
