@@ -1,7 +1,7 @@
 package org.icpclive.cds.plugins.codeforces
 
 import kotlinx.datetime.Instant
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.codeforces.api.data.*
 import org.icpclive.cds.plugins.codeforces.api.results.CFStandings
 import kotlin.math.ceil

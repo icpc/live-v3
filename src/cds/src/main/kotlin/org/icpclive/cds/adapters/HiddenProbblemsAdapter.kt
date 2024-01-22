@@ -5,7 +5,7 @@ package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.icpclive.api.ContestInfo
+import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.ContestUpdate
 
 public fun Flow<ContestUpdate>.processHiddenProblems(): Flow<ContestUpdate> =

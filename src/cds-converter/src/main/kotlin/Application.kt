@@ -27,10 +27,10 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.RunInfo
-import org.icpclive.api.tunning.AdvancedProperties
-import org.icpclive.api.tunning.TeamInfoOverride
+import org.icpclive.cds.api.ContestInfo
+import org.icpclive.cds.api.RunInfo
+import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.TeamInfoOverride
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.settings.*

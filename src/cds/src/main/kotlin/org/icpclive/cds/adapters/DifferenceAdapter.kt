@@ -5,8 +5,8 @@ package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.icpclive.api.*
 import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.api.*
 
 private interface ScoreAccumulator {
     fun add(score: IOIRunResult)

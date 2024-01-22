@@ -6,6 +6,8 @@ import kotlinx.coroutines.launch
 import org.icpclive.Config
 import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.api.ContestResultType
+import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator

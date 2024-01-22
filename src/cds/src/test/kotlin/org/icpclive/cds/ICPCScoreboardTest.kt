@@ -1,8 +1,8 @@
 package org.icpclive.cds
 
 import kotlinx.datetime.Instant
-import org.icpclive.api.*
-import org.icpclive.scoreboard.getScoreboardCalculator
+import org.icpclive.cds.api.*
+import org.icpclive.cds.scoreboard.getScoreboardCalculator
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.hours

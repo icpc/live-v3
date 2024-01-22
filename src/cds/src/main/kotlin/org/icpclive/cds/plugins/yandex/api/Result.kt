@@ -1,6 +1,6 @@
 package org.icpclive.cds.plugins.yandex.api
 
-import org.icpclive.api.Verdict
+import org.icpclive.cds.api.Verdict
 
 internal fun getResult(verdict: String) = when (verdict) {
     "OK" -> Verdict.Accepted

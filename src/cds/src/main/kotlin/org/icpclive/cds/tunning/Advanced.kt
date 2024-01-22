@@ -1,9 +1,9 @@
-package org.icpclive.api.tunning
+package org.icpclive.cds.tunning
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.json.JsonNames
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.util.*
 import java.awt.Color
 import kotlin.time.Duration

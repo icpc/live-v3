@@ -6,10 +6,10 @@ import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
-import org.icpclive.api.OptimismLevel
+import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.data.DataBus
-import org.icpclive.scoreboard.ScoreboardAndContestInfo
-import org.icpclive.scoreboard.toLegacyScoreboard
+import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.scoreboard.toLegacyScoreboard
 import org.icpclive.util.sendJsonFlow
 
 inline fun <reified T: Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend () -> Flow<T>) {

@@ -2,7 +2,7 @@ package org.icpclive.cds.common
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import org.icpclive.api.ContestStatus
+import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.loopFlow

@@ -1,6 +1,6 @@
 package org.icpclive.cds
 
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 
 public sealed interface ContestUpdate
 public class InfoUpdate(public val newInfo: ContestInfo) : ContestUpdate {

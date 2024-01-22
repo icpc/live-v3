@@ -4,9 +4,10 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
+import org.icpclive.cds.api.IOIProblemResult
 import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
-import org.icpclive.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import kotlin.time.Duration.Companion.milliseconds
 
 class IOIStatisticsService {

@@ -1,6 +1,6 @@
-package org.icpclive.scoreboard
+package org.icpclive.cds.scoreboard
 
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import kotlin.time.Duration
 
 

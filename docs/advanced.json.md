@@ -1,5 +1,5 @@
 This doc is a bit outdated, although it is still a good source of examples.
-Full description of all properties supported can be found [here](https://icpc.io/live-v3/cds/-i-c-p-c-live%20contest%20data%20parser/org.icpclive.api.tunning/-advanced-properties/index.html)
+Full description of all properties supported can be found [here](https://icpc.io/live-v3/cds/-i-c-p-c-live%20contest%20data%20parser/org.icpclive.cds.tunning/-advanced-properties/index.html)
 
 # How to setup advanced.json
 
@@ -108,7 +108,7 @@ Typical awards setup includes only medals, and can be done like this
 ```
 
 More different types of awards are supported for cds-converter. 
-Check [full awards settings doc](https://icpc.io/live-v3/cds/-i-c-p-c-live%20contest%20data%20parser/org.icpclive.api/-awards-settings/index.html) for details.
+Check [full awards settings doc](https://icpc.io/live-v3/cds/-i-c-p-c-live%20contest%20data%20parser/org.icpclive.cds.api/-awards-settings/index.html) for details.
 
 # Change problem info
 ## Color

@@ -1,7 +1,7 @@
 package org.icpclive.cds.plugins.clics
 
 import kotlinx.datetime.Instant
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.plugins.clics.model.ClicsOrganisationInfo
 import org.icpclive.clics.v202207.*

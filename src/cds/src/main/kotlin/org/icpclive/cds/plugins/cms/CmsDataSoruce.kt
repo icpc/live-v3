@@ -1,6 +1,6 @@
 package org.icpclive.cds.plugins.cms
 
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.plugins.cms.model.*

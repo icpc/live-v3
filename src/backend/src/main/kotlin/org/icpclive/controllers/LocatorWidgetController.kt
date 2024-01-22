@@ -3,6 +3,7 @@ package org.icpclive.controllers
 import kotlinx.coroutines.flow.first
 import org.icpclive.admin.ApiActionException
 import org.icpclive.api.*
+import org.icpclive.cds.api.ContestInfo
 import org.icpclive.data.DataBus
 import org.icpclive.data.Manager
 

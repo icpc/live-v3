@@ -4,7 +4,7 @@
 package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.*
-import org.icpclive.api.ContestStatus
+import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.util.getLogger
