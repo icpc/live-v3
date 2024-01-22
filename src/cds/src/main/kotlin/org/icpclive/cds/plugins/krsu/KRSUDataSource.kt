@@ -2,7 +2,7 @@ package org.icpclive.cds.plugins.krsu
 
 import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.CDSSettings

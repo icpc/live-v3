@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
-import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*

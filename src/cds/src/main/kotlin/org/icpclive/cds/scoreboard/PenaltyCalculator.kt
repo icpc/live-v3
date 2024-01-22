@@ -1,6 +1,6 @@
-package org.icpclive.scoreboard
+package org.icpclive.cds.scoreboard
 
-import org.icpclive.api.PenaltyRoundingMode
+import org.icpclive.cds.api.PenaltyRoundingMode
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.times

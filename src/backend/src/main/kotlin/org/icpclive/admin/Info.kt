@@ -1,8 +1,8 @@
 package org.icpclive.admin
 
 import kotlinx.coroutines.flow.first
-import org.icpclive.api.GroupInfo
-import org.icpclive.api.InefficientContestInfoApi
+import org.icpclive.cds.api.GroupInfo
+import org.icpclive.cds.api.InefficientContestInfoApi
 import org.icpclive.data.DataBus
 
 @OptIn(InefficientContestInfoApi::class)

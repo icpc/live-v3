@@ -1,4 +1,4 @@
-package org.icpclive.api
+package org.icpclive.cds.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

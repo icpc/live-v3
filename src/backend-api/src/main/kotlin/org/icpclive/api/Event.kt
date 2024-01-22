@@ -4,6 +4,8 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.cds.api.AnalyticsMessage
+import org.icpclive.cds.api.RunInfo
 
 @Serializable
 sealed class Event

@@ -3,7 +3,7 @@ package org.icpclive.cds.plugins.atcoder
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.*

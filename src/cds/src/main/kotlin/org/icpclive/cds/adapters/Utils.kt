@@ -3,8 +3,8 @@ package org.icpclive.cds.adapters
 import kotlinx.collections.immutable.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.api.*
 
 internal open class ContestStateWithGroupedRuns<K>(
     val event: ContestUpdate,

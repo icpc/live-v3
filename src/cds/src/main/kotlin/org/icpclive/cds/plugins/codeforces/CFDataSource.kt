@@ -1,7 +1,7 @@
 package org.icpclive.cds.plugins.codeforces
 
 import kotlinx.datetime.Clock
-import org.icpclive.api.ContestStatus
+import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.plugins.codeforces.api.data.CFHack

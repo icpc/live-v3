@@ -1,7 +1,7 @@
 package org.icpclive.cds.plugins.yandex
 
 import kotlinx.datetime.Instant
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.yandex.api.*
 import org.icpclive.cds.plugins.yandex.api.Participant
 import org.icpclive.cds.plugins.yandex.api.Problem

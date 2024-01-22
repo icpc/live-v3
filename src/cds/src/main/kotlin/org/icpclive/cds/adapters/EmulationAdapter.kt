@@ -6,7 +6,7 @@ package org.icpclive.cds.adapters
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
-import org.icpclive.api.ContestStatus
+import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.*
 import org.icpclive.util.*
 import kotlin.random.Random

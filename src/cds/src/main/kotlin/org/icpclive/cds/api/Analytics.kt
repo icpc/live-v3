@@ -1,4 +1,4 @@
-package org.icpclive.api
+package org.icpclive.cds.api
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName

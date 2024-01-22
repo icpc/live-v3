@@ -1,7 +1,7 @@
 package org.icpclive.cds.plugins.ejudge
 
 import kotlinx.datetime.*
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.CDSSettings

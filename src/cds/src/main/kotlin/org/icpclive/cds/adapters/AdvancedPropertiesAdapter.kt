@@ -8,9 +8,9 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.*
-import org.icpclive.api.tunning.*
 import org.icpclive.cds.*
+import org.icpclive.cds.api.*
+import org.icpclive.cds.tunning.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
 

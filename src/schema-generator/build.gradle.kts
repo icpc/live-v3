@@ -76,7 +76,7 @@ fun TaskContainerScope.genTsTask(classFqNames: List<String>, fileName: String) =
 tasks {
     val schemaAllTasks = listOf(
         genJsonTask(
-            "org.icpclive.api.tunning.AdvancedProperties",
+            "org.icpclive.cds.tunning.AdvancedProperties",
             "advanced",
             "ICPC live advanced settings"
         ),
@@ -89,10 +89,10 @@ tasks {
     val tsAllTasks = listOf(
         genTsTask(
             listOf(
-                "org.icpclive.api.ContestInfo",
-                "org.icpclive.api.RunInfo",
-                "org.icpclive.api.Scoreboard",
-                "org.icpclive.api.LegacyScoreboard",
+                "org.icpclive.cds.api.ContestInfo",
+                "org.icpclive.cds.api.RunInfo",
+                "org.icpclive.cds.api.Scoreboard",
+                "org.icpclive.cds.api.LegacyScoreboard",
                 "org.icpclive.api.MainScreenEvent",
                 "org.icpclive.api.QueueEvent",
                 "org.icpclive.api.AnalyticsEvent",

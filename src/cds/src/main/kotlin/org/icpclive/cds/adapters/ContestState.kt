@@ -7,8 +7,8 @@ import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.api.*
 
 public class ContestState internal constructor(
     public val event: ContestUpdate,

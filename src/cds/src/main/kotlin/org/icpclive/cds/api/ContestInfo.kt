@@ -1,4 +1,4 @@
-package org.icpclive.api
+package org.icpclive.cds.api
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant

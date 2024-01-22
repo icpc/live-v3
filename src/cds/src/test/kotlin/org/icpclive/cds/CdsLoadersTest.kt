@@ -5,8 +5,7 @@ import kotlinx.coroutines.withTimeout
 import kotlinx.datetime.Instant
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.api.ContestResultType
-import org.icpclive.api.tunning.*
+import org.icpclive.cds.api.ContestResultType
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.plugins.clics.*
@@ -15,6 +14,7 @@ import org.icpclive.cds.plugins.ejudge.EjudgeSettingsImpl
 import org.icpclive.cds.plugins.pcms.PCMSSettingsImpl
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.plugins.testsys.TestSysSettingsImpl
+import org.icpclive.cds.tunning.*
 import org.opentest4j.AssertionFailedError
 import java.nio.file.Path
 import kotlin.test.Test

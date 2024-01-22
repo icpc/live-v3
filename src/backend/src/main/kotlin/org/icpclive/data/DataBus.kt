@@ -8,8 +8,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.api.*
-import org.icpclive.api.tunning.AdvancedProperties
-import org.icpclive.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.api.*
+import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.util.completeOrThrow
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction

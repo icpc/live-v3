@@ -1,6 +1,6 @@
 package org.icpclive.cds.plugins.clics.model
 
-import org.icpclive.api.MediaType
+import org.icpclive.cds.api.MediaType
 
 internal data class ClicsOrganisationInfo(
     val id: String,

@@ -1,12 +1,12 @@
-package org.icpclive.scoreboard
+package org.icpclive.cds.scoreboard
 
 import kotlinx.collections.immutable.*
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
+import org.icpclive.cds.api.*
 import org.icpclive.util.getLogger
 import kotlin.time.Duration
 

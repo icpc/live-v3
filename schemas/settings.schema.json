@@ -78,7 +78,7 @@
             ],
             "title": "atcoder"
         },
-        "org.icpclive.api.ContestResultType?<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>": {
+        "org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>": {
             "oneOf": [
                 {
                     "enum": [
@@ -114,7 +114,7 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.api.ContestResultType?<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -323,7 +323,7 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.api.ContestResultType?<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "timeZone": {
                     "type": "string"
@@ -504,7 +504,7 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.api.ContestResultType?<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -564,7 +564,7 @@
                     "type": "number"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.api.ContestResultType?<org.icpclive.api.ContestResultType.ICPC,org.icpclive.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"

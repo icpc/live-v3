@@ -7,8 +7,8 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
-import org.icpclive.api.ContestResultType
-import org.icpclive.api.ContestStatus
+import org.icpclive.cds.api.ContestResultType
+import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.common.*

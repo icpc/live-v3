@@ -9,7 +9,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.api.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.util.decodeFromStreamIgnoringComments

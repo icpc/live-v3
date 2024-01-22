@@ -5,8 +5,8 @@ package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
-import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.api.*
 
 private fun RunInfo.shouldDiscloseColor() = (result as? ICPCRunResult)?.verdict?.isAccepted == true && !isHidden
 

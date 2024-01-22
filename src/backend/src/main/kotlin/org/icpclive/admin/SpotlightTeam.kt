@@ -5,6 +5,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.combine
 import org.icpclive.api.*
+import org.icpclive.cds.api.InefficientContestInfoApi
 import org.icpclive.data.DataBus
 import org.icpclive.util.completeOrThrow
 import org.icpclive.util.reliableSharedFlow

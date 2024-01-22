@@ -4,7 +4,7 @@ import com.eolymp.graphql.*
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
 import kotlinx.datetime.toKotlinInstant
-import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
 import org.icpclive.cds.settings.CDSSettings

@@ -6,8 +6,8 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.api.*
-import org.icpclive.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.api.*
+import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.inputStream

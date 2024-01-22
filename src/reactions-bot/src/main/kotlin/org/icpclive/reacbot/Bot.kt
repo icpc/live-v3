@@ -21,10 +21,10 @@ import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
 import com.github.kotlintelegrambot.entities.TelegramFile
 import com.github.kotlintelegrambot.entities.keyboard.InlineKeyboardButton
 import com.github.kotlintelegrambot.logging.LogLevel
-import org.icpclive.api.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.settings.*
 import org.icpclive.util.getLogger
 import java.nio.file.Path

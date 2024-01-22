@@ -7,8 +7,9 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
+import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
-import org.icpclive.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.util.getLogger
 import org.icpclive.util.intervalFlow
 import kotlin.time.Duration.Companion.seconds

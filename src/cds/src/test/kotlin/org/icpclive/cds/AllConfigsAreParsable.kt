@@ -3,7 +3,7 @@ package org.icpclive.cds
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.api.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.settings.parseFileToCdsSettings
 import org.junit.jupiter.api.*
 import kotlin.io.path.*

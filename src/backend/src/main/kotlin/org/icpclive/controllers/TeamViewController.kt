@@ -3,6 +3,8 @@ package org.icpclive.controllers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import org.icpclive.api.*
+import org.icpclive.cds.api.MediaType
+import org.icpclive.cds.api.TeamMediaType
 import org.icpclive.data.DataBus
 import org.icpclive.data.Manager
 import kotlin.time.Duration.Companion.seconds

@@ -13,8 +13,8 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.Config
 import org.icpclive.api.TeamViewPosition
-import org.icpclive.api.tunning.AdvancedProperties
-import org.icpclive.api.tunning.toAdvancedProperties
+import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow

@@ -4,7 +4,7 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.lang.IllegalArgumentException
+import org.icpclive.cds.api.*
 
 interface ObjectSettings
 
