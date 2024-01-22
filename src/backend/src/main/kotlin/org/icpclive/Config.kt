@@ -25,19 +25,15 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
 
     val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
 
-    // workaround of https://github.com/ajalt/clikt/issues/473
-    private val presetsDirectory_ by option("--presets-dir", help = "Directory to store presets")
+    val presetsDirectory by option("--presets-dir", help = "Directory to store presets")
         .path(canBeFile = false, canBeDir = true)
-        .transformAll("configDirectory/presets") { it.lastOrNull() }
-    val presetsDirectory: Path get() = presetsDirectory_ ?: cdsSettings.configDirectory.resolve("presets")
-    private val mediaDirectory_ by option("--media-dir", help = "Directory to store media")
+        .defaultLazy("configDirectory/presets") { cdsSettings.configDirectory.resolve("presets") }
+    val mediaDirectory by option("--media-dir", help = "Directory to store media")
         .path(canBeFile = false, canBeDir = true)
-        .transformAll("configDirectory/media") { it.lastOrNull() }
-    val mediaDirectory: Path get() = mediaDirectory_ ?: cdsSettings.configDirectory.resolve("media")
-    private val usersFile_ by option("--users-file", help = "Storage of users")
+        .defaultLazy("configDirectory/media") { cdsSettings.configDirectory.resolve("media") }
+    val usersFile by option("--users-file", help = "Storage of users")
         .path(canBeDir = false, canBeFile = true)
-        .transformAll("configDirectory/users.json") { it.lastOrNull() }
-    val usersFile: Path  get() = usersFile_ ?: cdsSettings.configDirectory.resolve("users.json")
+        .defaultLazy("configDirectory/users.json") { cdsSettings.configDirectory.resolve("users.json") }
 
     val widgetPositions by option(
         "--widget-positions",
