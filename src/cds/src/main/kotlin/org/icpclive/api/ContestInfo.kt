@@ -54,11 +54,7 @@ public data class ProblemInfo(
     @Serializable(ColorSerializer::class) val unsolvedColor: Color? = null,
     val scoreMergeMode: ScoreMergeMode? = null,
     val isHidden: Boolean = false,
-) {
-    internal companion object {
-        val logger = getLogger(ProblemInfo::class)
-    }
-}
+)
 
 @Serializable
 public enum class ContestStatus {

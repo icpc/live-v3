@@ -15,14 +15,6 @@ internal open class ContestStateWithGroupedRuns<K>(
     val infoAfterEvent: ContestInfo?
         get() = if (event is InfoUpdate) event.newInfo else infoBeforeEvent
 }
-
-internal class ContestStateWithRunsByTeam(
-    event: ContestUpdate,
-    infoBeforeEvent: ContestInfo?,
-    runs: PersistentMap<Int, PersistentList<RunInfo>>,
-    analyticsMessages: PersistentMap<String, AnalyticsMessage>,
-) : ContestStateWithGroupedRuns<Int>(event, infoBeforeEvent, runs, analyticsMessages)
-
 private fun PersistentList<RunInfo>.resort(index_: Int) = builder().apply {
     var index = index_
     val comparator = compareBy(RunInfo::time, RunInfo::id)
@@ -139,6 +131,3 @@ internal fun <K : Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.w
         }
     }
 }
-
-internal fun Flow<ContestUpdate>.stateGroupedByTeam(): Flow<ContestStateWithRunsByTeam> =
-    withGroupedRuns({ it.teamId }, ::ContestStateWithRunsByTeam)

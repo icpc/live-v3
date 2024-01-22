@@ -16,8 +16,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         contestInfoLoader.load(), submissionsLoader.load()
     )
 
-    val teams = mutableMapOf<String, TeamInfo>()
-    var lastTeamId: Int = 0
+    private val teams = mutableMapOf<String, TeamInfo>()
+    private var lastTeamId: Int = 0
 
     private fun parseAndUpdateStandings(contest: Contest, submissions: List<Submission>): ContestParseResult {
         val startTime = contest.StartTime.toInstant(settings.timeZone)
@@ -117,7 +117,6 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
     )
 
     @Serializable
-    @Suppress("unused")
     class Contest(
         val Id: Int,
         val ProblemSet: List<Problem>,
