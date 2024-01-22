@@ -15,6 +15,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 internal class EmulationAdapter
+
 private val logger = getLogger(EmulationAdapter::class)
 
 internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSpeed: Double) = flow {

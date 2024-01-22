@@ -18,13 +18,12 @@ internal interface DataLoader<out T> {
 internal class StringLoader(
     networkSettings: NetworkSettings?,
     auth: ClientAuth?,
-    val computeURL: () -> UrlOrLocalPath
+    val computeURL: () -> UrlOrLocalPath,
 ) : DataLoader<String> {
     private val httpClient = defaultHttpClient(auth, networkSettings)
 
     override suspend fun load(): String {
-        val url = computeURL()
-        val content = when (url) {
+        val content = when (val url = computeURL()) {
             is UrlOrLocalPath.Local -> url.value.toFile().readText()
             is UrlOrLocalPath.Url -> wrapIfSSLError {
                 httpClient.request(url.value).bodyAsText()
@@ -37,13 +36,12 @@ internal class StringLoader(
 internal class ByteArrayLoader(
     networkSettings: NetworkSettings?,
     auth: ClientAuth?,
-    val computeURL: () -> UrlOrLocalPath
+    val computeURL: () -> UrlOrLocalPath,
 ) : DataLoader<ByteArray> {
     private val httpClient = defaultHttpClient(auth, networkSettings)
 
     override suspend fun load(): ByteArray {
-        val url = computeURL()
-        val content = when (url) {
+        val content = when (val url = computeURL()) {
             is UrlOrLocalPath.Local -> url.value.toFile().readBytes()
             is UrlOrLocalPath.Url -> wrapIfSSLError {
                 httpClient.request(url.value).body<ByteArray>()
@@ -54,7 +52,11 @@ internal class ByteArrayLoader(
 }
 
 
-internal fun xmlLoader(networkSettings: NetworkSettings?, auth: ClientAuth? = null, url: () -> UrlOrLocalPath): DataLoader<Document> {
+internal fun xmlLoader(
+    networkSettings: NetworkSettings?,
+    auth: ClientAuth? = null,
+    url: () -> UrlOrLocalPath,
+): DataLoader<Document> {
     val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
     return StringLoader(networkSettings, auth, url)
         .map { builder.parse(it.byteInputStream()) }
@@ -64,8 +66,8 @@ internal fun xmlLoader(networkSettings: NetworkSettings?, auth: ClientAuth? = nu
 internal inline fun <reified T> jsonLoader(
     networkSettings: NetworkSettings?,
     auth: ClientAuth? = null,
-    noinline url: () -> UrlOrLocalPath
-) : DataLoader<T> {
+    noinline url: () -> UrlOrLocalPath,
+): DataLoader<T> {
     val json = Json { ignoreUnknownKeys = true }
     return StringLoader(networkSettings, auth, url)
         .map { json.decodeFromString(it) }
@@ -74,8 +76,8 @@ internal inline fun <reified T> jsonLoader(
 internal inline fun <reified T> jsonUrlLoader(
     networkSettings: NetworkSettings?,
     auth: ClientAuth? = null,
-    noinline url: () -> String
-) = jsonLoader<T>(networkSettings, auth) { UrlOrLocalPath.Url(url())}
+    noinline url: () -> String,
+) = jsonLoader<T>(networkSettings, auth) { UrlOrLocalPath.Url(url()) }
 
 
 internal fun <T, R> DataLoader<T>.map(f: suspend (T) -> R) = object : DataLoader<R> {

@@ -8,5 +8,5 @@ internal data class ContestDescription(
     val freezeTime: Long?,
     val name: String,
     val startTime: String,
-    val type: String
+    val type: String,
 )

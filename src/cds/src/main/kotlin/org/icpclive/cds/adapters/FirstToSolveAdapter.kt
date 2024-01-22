@@ -19,10 +19,12 @@ public fun Flow<ContestUpdate>.addFirstToSolves(): Flow<ContestUpdate> = withGro
                 it.result.verdict.isAccepted && !it.isHidden -> it.problemId * 2
                 else -> Int.MIN_VALUE
             }
+
             is IOIRunResult -> when {
                 it.result.isFirstBestTeamRun && !it.isHidden -> it.problemId * 2 + 1
                 else -> Int.MIN_VALUE
             }
+
             else -> Int.MIN_VALUE
         }
     },
@@ -32,10 +34,12 @@ public fun Flow<ContestUpdate>.addFirstToSolves(): Flow<ContestUpdate> = withGro
             k % 2 == 0 -> runs.mapIndexed { index, run ->
                 run.setICPC(index == 0)
             }
+
             k % 2 != 0 -> {
                 val bestRun = runs.maxByOrNull { (it.result as IOIRunResult).scoreAfter }
                 runs.map { it.setIOI(it == bestRun) }
             }
+
             else -> TODO()
         }
     }

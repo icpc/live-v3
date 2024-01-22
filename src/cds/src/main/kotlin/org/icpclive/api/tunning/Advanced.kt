@@ -2,7 +2,7 @@ package org.icpclive.api.tunning
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.JsonNames
 import org.icpclive.api.*
 import org.icpclive.util.*
 import java.awt.Color
@@ -54,7 +54,7 @@ public class ProblemInfoOverride(
     public val minScore: Double? = null,
     public val maxScore: Double? = null,
     public val scoreMergeMode: ScoreMergeMode? = null,
-    public val isHidden: Boolean? = null
+    public val isHidden: Boolean? = null,
 )
 
 /**
@@ -79,7 +79,7 @@ public class RankingSettings(
     @Serializable(with = DurationInMinutesSerializer::class)
     public val penaltyPerWrongAttempt: Duration? = null,
     public val showTeamsWithoutSubmissions: Boolean? = null,
-    public val penaltyRoundingMode: PenaltyRoundingMode? = null
+    public val penaltyRoundingMode: PenaltyRoundingMode? = null,
 )
 
 
@@ -92,7 +92,7 @@ public class RankingSettings(
 public class OrganizationInfoOverride(
     public val displayName: String? = null,
     public val fullName: String? = null,
-    public val logo: MediaType? = null
+    public val logo: MediaType? = null,
 )
 
 /**
@@ -157,12 +157,13 @@ public class AdvancedProperties(
     public val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
     public val problemOverrides: Map<String, ProblemInfoOverride>? = null,
     public val scoreboardOverrides: RankingSettings? = null,
-    public val awardsSettings: AwardsSettings? = null
+    public val awardsSettings: AwardsSettings? = null,
 )
 
 internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
 
-@Serializable @JvmInline
+@Serializable
+@JvmInline
 public value class RegexSet(public val regexes: Map<Regex, String>)
 
 /**
@@ -207,7 +208,7 @@ public class TeamOverrideTemplate(
  * @param fields set of fields to include in returned value. Other would be set to null
  */
 @OptIn(InefficientContestInfoApi::class)
-public fun ContestInfo.toAdvancedProperties(fields: Set<String>) : AdvancedProperties {
+public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProperties {
     fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
     return AdvancedProperties(
         startTime = startTime.takeIfAsked("startTime"),

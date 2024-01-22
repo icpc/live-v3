@@ -1,16 +1,13 @@
 package org.icpclive.cds.plugins.atcoder
 
-import kotlinx.datetime.*
-import kotlinx.serialization.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonLoader
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.plugins.codeforces.CFDataSource
 import org.icpclive.cds.settings.*
-import org.icpclive.util.*
+import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.minutes
@@ -37,13 +34,13 @@ internal class AtcoderTaskResult(
 @Serializable
 internal class AtcoderTeam(
     val UserScreenName: String,
-    val TaskResults: Map<String, AtcoderTaskResult>
+    val TaskResults: Map<String, AtcoderTaskResult>,
 )
 
 @Serializable
 internal class ContestData(
     val TaskInfo: List<AtcoderTask>,
-    val StandingsData: List<AtcoderTeam>
+    val StandingsData: List<AtcoderTeam>,
 )
 
 @GenerateSettings("atcoder")
@@ -58,14 +55,17 @@ public interface AtcoderSettings : CDSSettings {
 internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {
     val teamIds = Enumerator<String>()
     val problemIds = Enumerator<String>()
-    private val loader = jsonLoader<ContestData>(settings.network, ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)) {
+    private val loader = jsonLoader<ContestData>(
+        settings.network,
+        ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)
+    ) {
         UrlOrLocalPath.Url("https://atcoder.jp/contests/${settings.contestId}/standings/json")
     }
 
     var submissionId: Int = 1
     val runs = mutableMapOf<Pair<Int, Int>, List<RunInfo>>()
 
-    fun addNewRuns(teamId: Int, problemId: Int, result: AtcoderTaskResult) : List<RunInfo> {
+    fun addNewRuns(teamId: Int, problemId: Int, result: AtcoderTaskResult): List<RunInfo> {
         val oldRuns = (runs[teamId to problemId] ?: emptyList()).toMutableList()
         repeat(result.Count - oldRuns.size) {
             oldRuns.add(
@@ -89,7 +89,10 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         if (result.Score > 0) {
             if (oldRuns.mapNotNull { it.result as? IOIRunResult }.maxOfOrNull { it.score[0] }?.toInt() != result.Score / 100 && !result.Pending) {
                 val fst = oldRuns.indexOfFirst { it.result == null }
-                oldRuns[fst] = oldRuns[fst].copy(result = IOIRunResult(score = listOf(result.Score / 100.0)), time = result.Elapsed.nanoseconds)
+                oldRuns[fst] = oldRuns[fst].copy(
+                    result = IOIRunResult(score = listOf(result.Score / 100.0)),
+                    time = result.Elapsed.nanoseconds
+                )
             }
         }
         return oldRuns

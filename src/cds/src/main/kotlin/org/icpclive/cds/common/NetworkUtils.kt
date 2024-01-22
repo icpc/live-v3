@@ -19,7 +19,7 @@ internal sealed class ClientAuth {
 
     class Bearer(val token: String) : ClientAuth()
 
-    class CookieAuth(val name: String, val value: String): ClientAuth()
+    class CookieAuth(val name: String, val value: String) : ClientAuth()
 
     companion object {
         fun BasicOrNull(login: String?, password: String?) = if (login != null && password != null) {
@@ -64,7 +64,7 @@ internal fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
 internal fun defaultHttpClient(
     auth: ClientAuth?,
     networkSettings: NetworkSettings?,
-    block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {}
+    block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {},
 ) = HttpClient(CIO) {
     install(HttpTimeout)
     if (auth != null) {

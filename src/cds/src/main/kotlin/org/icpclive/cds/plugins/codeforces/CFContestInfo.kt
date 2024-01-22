@@ -91,34 +91,35 @@ internal class CFContestInfo {
         }
     }
 
-    private val CFSubmission.processedVerdict get() = when (verdict) {
-        CFSubmissionVerdict.FAILED -> Verdict.Fail
-        CFSubmissionVerdict.OK -> Verdict.Accepted
-        CFSubmissionVerdict.PARTIAL -> null
-        CFSubmissionVerdict.COMPILATION_ERROR -> Verdict.CompilationError
-        CFSubmissionVerdict.RUNTIME_ERROR -> Verdict.RuntimeError
-        CFSubmissionVerdict.WRONG_ANSWER -> Verdict.WrongAnswer
-        CFSubmissionVerdict.PRESENTATION_ERROR -> Verdict.PresentationError
-        CFSubmissionVerdict.TIME_LIMIT_EXCEEDED -> Verdict.TimeLimitExceeded
-        CFSubmissionVerdict.MEMORY_LIMIT_EXCEEDED -> Verdict.MemoryLimitExceeded
-        CFSubmissionVerdict.IDLENESS_LIMIT_EXCEEDED -> Verdict.IdlenessLimitExceeded
-        CFSubmissionVerdict.SECURITY_VIOLATED -> Verdict.SecurityViolation
-        CFSubmissionVerdict.CRASHED -> Verdict.Fail
-        CFSubmissionVerdict.INPUT_PREPARATION_CRASHED -> Verdict.Fail
-        CFSubmissionVerdict.CHALLENGED -> Verdict.Challenged
-        CFSubmissionVerdict.SKIPPED -> Verdict.Ignored
-        CFSubmissionVerdict.TESTING -> null
-        CFSubmissionVerdict.REJECTED -> Verdict.Rejected
-        null -> null
-    }?.let {
-        if (contestType == CFContestType.CF && passedTestCount == 0 && it.isAddingPenalty && !it.isAccepted) {
-            Verdict.lookup(it.shortName, isAddingPenalty = false, isAccepted = false)
-        } else {
-            it
+    private val CFSubmission.processedVerdict
+        get() = when (verdict) {
+            CFSubmissionVerdict.FAILED -> Verdict.Fail
+            CFSubmissionVerdict.OK -> Verdict.Accepted
+            CFSubmissionVerdict.PARTIAL -> null
+            CFSubmissionVerdict.COMPILATION_ERROR -> Verdict.CompilationError
+            CFSubmissionVerdict.RUNTIME_ERROR -> Verdict.RuntimeError
+            CFSubmissionVerdict.WRONG_ANSWER -> Verdict.WrongAnswer
+            CFSubmissionVerdict.PRESENTATION_ERROR -> Verdict.PresentationError
+            CFSubmissionVerdict.TIME_LIMIT_EXCEEDED -> Verdict.TimeLimitExceeded
+            CFSubmissionVerdict.MEMORY_LIMIT_EXCEEDED -> Verdict.MemoryLimitExceeded
+            CFSubmissionVerdict.IDLENESS_LIMIT_EXCEEDED -> Verdict.IdlenessLimitExceeded
+            CFSubmissionVerdict.SECURITY_VIOLATED -> Verdict.SecurityViolation
+            CFSubmissionVerdict.CRASHED -> Verdict.Fail
+            CFSubmissionVerdict.INPUT_PREPARATION_CRASHED -> Verdict.Fail
+            CFSubmissionVerdict.CHALLENGED -> Verdict.Challenged
+            CFSubmissionVerdict.SKIPPED -> Verdict.Ignored
+            CFSubmissionVerdict.TESTING -> null
+            CFSubmissionVerdict.REJECTED -> Verdict.Rejected
+            null -> null
+        }?.let {
+            if (contestType == CFContestType.CF && passedTestCount == 0 && it.isAddingPenalty && !it.isAccepted) {
+                Verdict.lookup(it.shortName, isAddingPenalty = false, isAccepted = false)
+            } else {
+                it
+            }
         }
-    }
 
-    private fun submissionToResult(submission: CFSubmission, wrongAttempts: Int) : RunResult? {
+    private fun submissionToResult(submission: CFSubmission, wrongAttempts: Int): RunResult? {
         if (submission.verdict == null || submission.verdict == CFSubmissionVerdict.TESTING) return null
         return when (contestType) {
             CFContestType.ICPC -> {
@@ -127,21 +128,35 @@ internal class CFContestInfo {
 
             CFContestType.IOI -> {
                 // TODO: is CFSubmissionVerdict.SKIPPED not wrong
-                val isWrong = submission.verdict !in listOf(CFSubmissionVerdict.OK, CFSubmissionVerdict.CHALLENGED, CFSubmissionVerdict.PARTIAL)
+                val isWrong = submission.verdict !in listOf(
+                    CFSubmissionVerdict.OK,
+                    CFSubmissionVerdict.CHALLENGED,
+                    CFSubmissionVerdict.PARTIAL
+                )
                 val score = submission.points?.takeIf { !isWrong } ?: 0.0
                 IOIRunResult(
                     score = listOf(score),
                     wrongVerdict = submission.processedVerdict.takeIf { isWrong },
                 )
             }
+
             CFContestType.CF -> {
                 // TODO: this should come from API
                 val maxScore = submission.problem.points!!
-                val isWrong = submission.verdict !in listOf(CFSubmissionVerdict.OK, CFSubmissionVerdict.CHALLENGED, CFSubmissionVerdict.SKIPPED)
+                val isWrong = submission.verdict !in listOf(
+                    CFSubmissionVerdict.OK,
+                    CFSubmissionVerdict.CHALLENGED,
+                    CFSubmissionVerdict.SKIPPED
+                )
                 val score = if (!isWrong) {
                     maxOf(
                         maxScore * 3 / 10,
-                        ceil(maxScore - submission.relativeTimeSeconds.inWholeMinutes * getProblemLooseScorePerMinute(maxScore, contestLength.inWholeMinutes) - 50 * wrongAttempts)
+                        ceil(
+                            maxScore - submission.relativeTimeSeconds.inWholeMinutes * getProblemLooseScorePerMinute(
+                                maxScore,
+                                contestLength.inWholeMinutes
+                            ) - 50 * wrongAttempts
+                        )
                     )
                 } else {
                     0.0
@@ -168,7 +183,7 @@ internal class CFContestInfo {
             .filter { it.author.participantType == CFPartyParticipantType.CONTESTANT }
             .filter { getTeamCdsId(it.author) in participantsByCdsId }
             .groupBy { it.author to it.problem }
-            .mapValues {(_, submissions) ->
+            .mapValues { (_, submissions) ->
                 var wrongs = 0
                 submissions.sortedBy { it.id }.map {
                     val problemId = problemsMap[it.problem.index]!!.id
@@ -188,7 +203,7 @@ internal class CFContestInfo {
             }.values.flatten()
     }
 
-    fun parseHacks(hacks: List<CFHack>) : List<RunInfo> {
+    fun parseHacks(hacks: List<CFHack>): List<RunInfo> {
         return buildList {
             for (hack in hacks) {
                 if (hack.creationTimeSeconds - startTime > contestLength) continue

@@ -14,7 +14,7 @@ public class ContestState internal constructor(
     public val event: ContestUpdate,
     public val infoBeforeEvent: ContestInfo?,
     public val runs: PersistentMap<Int, RunInfo>,
-    public val analyticsMessages: PersistentMap<String, AnalyticsMessage>
+    public val analyticsMessages: PersistentMap<String, AnalyticsMessage>,
 ) {
     public val infoAfterEvent: ContestInfo?
         get() = if (event is InfoUpdate) event.newInfo else infoBeforeEvent

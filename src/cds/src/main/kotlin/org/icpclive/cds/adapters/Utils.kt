@@ -1,17 +1,18 @@
 package org.icpclive.cds.adapters
 
 import kotlinx.collections.immutable.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.icpclive.api.*
 import org.icpclive.cds.*
 
 internal open class ContestStateWithGroupedRuns<K>(
-    public val event: ContestUpdate,
-    public val infoBeforeEvent: ContestInfo?,
-    public val runs: PersistentMap<K, PersistentList<RunInfo>>,
-    public val analyticsMessages: PersistentMap<String, AnalyticsMessage>
+    val event: ContestUpdate,
+    val infoBeforeEvent: ContestInfo?,
+    val runs: PersistentMap<K, PersistentList<RunInfo>>,
+    val analyticsMessages: PersistentMap<String, AnalyticsMessage>,
 ) {
-    public val infoAfterEvent: ContestInfo?
+    val infoAfterEvent: ContestInfo?
         get() = if (event is InfoUpdate) event.newInfo else infoBeforeEvent
 }
 
@@ -19,7 +20,7 @@ internal class ContestStateWithRunsByTeam(
     event: ContestUpdate,
     infoBeforeEvent: ContestInfo?,
     runs: PersistentMap<Int, PersistentList<RunInfo>>,
-    analyticsMessages: PersistentMap<String, AnalyticsMessage>
+    analyticsMessages: PersistentMap<String, AnalyticsMessage>,
 ) : ContestStateWithGroupedRuns<Int>(event, infoBeforeEvent, runs, analyticsMessages)
 
 private fun PersistentList<RunInfo>.resort(index_: Int) = builder().apply {
@@ -38,6 +39,7 @@ private fun PersistentList<RunInfo>.resort(index_: Int) = builder().apply {
         index++
     }
 }.build()
+
 private fun PersistentList<RunInfo>.addAndResort(info: RunInfo) = add(info).resort(size)
 private fun PersistentList<RunInfo>.setAndResort(index: Int, info: RunInfo) = set(index, info).resort(index)
 
@@ -46,26 +48,29 @@ internal inline fun <K, V> PersistentMap<K, V>.update(k: K, block: (V?) -> V) = 
 internal fun <K> PersistentMap<K, PersistentList<RunInfo>>.addAndResort(k: K, info: RunInfo) = update(k) {
     (it ?: persistentListOf()).addAndResort(info)
 }
+
 internal fun <K> PersistentMap<K, PersistentList<RunInfo>>.updateAndResort(k: K, info: RunInfo) = update(k) {
     val index = it!!.indexOfFirst { run -> run.id == info.id }
     it.setAndResort(index, info)
 }
+
 internal fun <K> PersistentMap<K, PersistentList<RunInfo>>.removeRun(k: K, info: RunInfo) = update(k) {
     val index = it!!.indexOfFirst { run -> run.id == info.id }
     it.removeAt(index)
 }
 
-internal fun <K: Any> Flow<ContestUpdate>.withGroupedRuns(
+internal fun <K : Any> Flow<ContestUpdate>.withGroupedRuns(
     selector: (RunInfo) -> K,
     transformGroup: ((key: K, cur: PersistentList<RunInfo>, original: PersistentList<RunInfo>, info: ContestInfo?) -> List<RunInfo>)? = null,
     needUpdateGroup: ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null,
-): Flow<ContestStateWithGroupedRuns<K>> = withGroupedRuns(selector, ::ContestStateWithGroupedRuns, transformGroup, needUpdateGroup)
+): Flow<ContestStateWithGroupedRuns<K>> =
+    withGroupedRuns(selector, ::ContestStateWithGroupedRuns, transformGroup, needUpdateGroup)
 
-internal fun <K: Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.withGroupedRuns(
+internal fun <K : Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.withGroupedRuns(
     selector: (RunInfo) -> K,
     provider: (ContestUpdate, ContestInfo?, PersistentMap<K, PersistentList<RunInfo>>, PersistentMap<String, AnalyticsMessage>) -> S,
     transformGroup: ((key: K, cur: PersistentList<RunInfo>, original: PersistentList<RunInfo>, info: ContestInfo?) -> List<RunInfo>)? = null,
-    needUpdateGroup: ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null
+    needUpdateGroup: ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null,
 ): Flow<S> = flow {
     var curInfo: ContestInfo? = null
     var curRuns = persistentMapOf<K, PersistentList<RunInfo>>()
@@ -113,6 +118,7 @@ internal fun <K: Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.wi
                     updateGroup(k, update.newInfo)
                 }
             }
+
             is InfoUpdate -> {
                 emit(update)
                 val oldInfo = curInfo
@@ -125,6 +131,7 @@ internal fun <K: Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.wi
                     }
                 }
             }
+
             is AnalyticsUpdate -> {
                 curMessages = curMessages.put(update.message.id, update.message)
                 emit(update)

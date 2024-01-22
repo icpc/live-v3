@@ -99,7 +99,11 @@ public sealed class MediaType {
      */
     @Serializable
     @SerialName("WebRTCProxyConnection")
-    public data class WebRTCProxyConnection(val url: String, val audioUrl: String? = null, override val isMedia: Boolean = true) : MediaType()
+    public data class WebRTCProxyConnection(
+        val url: String,
+        val audioUrl: String? = null,
+        override val isMedia: Boolean = true,
+    ) : MediaType()
 
     /**
      * WebRTC grabber connection
@@ -112,7 +116,7 @@ public sealed class MediaType {
         val peerName: String,
         val streamType: String,
         val credential: String?,
-        override val isMedia: Boolean = true
+        override val isMedia: Boolean = true,
     ) :
         MediaType()
 
@@ -228,7 +232,7 @@ public enum class PenaltyRoundingMode {
  * @param championTitle If not null, the winner award with the corresponding title would be generated
  * @param groupsChampionTitles For group ids used as keys, a group champion award with corresponding value as title would be generated
  * @param rankAwardsMaxRank For first [rankAwardsMaxRank] places award stating "this place" would be awarded
- * @param extraMedalGroup An extra element in the [medalGroups] list for more convenient config in case of a single group.
+ * @param medals An extra element in the [medalGroups] list for more convenient config in case of a single group.
  * @param medalGroups List of rank and score-based awards. Only the first applicable in each list is awarded to a team.
  * @param manual List of awards with a manual team list.
  */
@@ -239,10 +243,16 @@ public data class AwardsSettings(
     public val rankAwardsMaxRank: Int = 0,
     private val medals: List<MedalSettings> = emptyList(),
     private val medalGroups: List<List<MedalSettings>> = emptyList(),
-    public val manual: List<ManualAwardSetting> = emptyList()
+    public val manual: List<ManualAwardSetting> = emptyList(),
 ) {
     @Transient
-    public val medalSettings: List<List<MedalSettings>> = if (medals.isEmpty()) medalGroups else medalGroups.plus<List<MedalSettings>>(medals)
+    public val medalSettings: List<List<MedalSettings>> = buildList {
+        addAll(medalGroups)
+        if (medals.isNotEmpty()) {
+            add(medals)
+        }
+    }
+
     public enum class MedalTiebreakMode { NONE, ALL; }
 
     /**
@@ -263,7 +273,7 @@ public data class AwardsSettings(
         val color: Award.Medal.MedalColor? = null,
         val maxRank: Int? = null,
         val minScore: Double = Double.MIN_VALUE,
-        val tiebreakMode: MedalTiebreakMode = MedalTiebreakMode.ALL
+        val tiebreakMode: MedalTiebreakMode = MedalTiebreakMode.ALL,
     )
 
     /**
@@ -277,12 +287,15 @@ public data class AwardsSettings(
     public data class ManualAwardSetting(
         val id: String,
         val citation: String,
-        val teamCdsIds: List<String>
+        val teamCdsIds: List<String>,
     )
 }
 
 @Target(AnnotationTarget.PROPERTY)
-@RequiresOptIn(level = RequiresOptIn.Level.ERROR, message = "This api is not efficient in most cases, consider using corresponding map instead")
+@RequiresOptIn(
+    level = RequiresOptIn.Level.ERROR,
+    message = "This api is not efficient in most cases, consider using corresponding map instead"
+)
 public annotation class InefficientContestInfoApi
 
 @Serializable

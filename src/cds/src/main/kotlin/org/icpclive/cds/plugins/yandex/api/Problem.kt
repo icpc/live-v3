@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class Problems(
-    val problems: List<Problem>
+    val problems: List<Problem>,
 )
 
 @Serializable
@@ -15,7 +15,7 @@ internal data class Problem(
     val limits: List<CompilerLimit>,
     val name: String,
     val statements: List<Statement>,
-    val testCount: Int?
+    val testCount: Int?,
 )
 
 @Serializable
@@ -24,11 +24,11 @@ internal data class CompilerLimit(
     val idlenessLimit: Long?,
     val memoryLimit: Long?,
     val outputLimit: Long?,
-    val timeLimit: Long?
+    val timeLimit: Long?,
 )
 
 @Serializable
 internal data class Statement(
     val path: String?,
-    val type: String?
+    val type: String?,
 )

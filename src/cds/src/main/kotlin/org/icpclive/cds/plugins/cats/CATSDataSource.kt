@@ -1,17 +1,15 @@
 package org.icpclive.cds.plugins.cats
 
-import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.*
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.api.*
-import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
-import org.icpclive.util.TimeZoneSerializer
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.seconds
@@ -86,7 +84,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
         val freeze_date: LocalDateTime,
         @Serializable(with = ContestTimeSerializer::class)
         val finish_date: LocalDateTime,
-        val rules: String
+        val rules: String,
     )
 
     @Serializable
@@ -101,14 +99,14 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
         val team_id: Int,
         @Serializable(with = SubmissionTimeSerializer::class)
         val submit_time: Instant,
-        val points: Double = 0.0
+        val points: Double = 0.0,
     ) : Run()
 
     @Serializable
     @SerialName("broadcast")
     @Suppress("unused")
     data class Broadcast(
-        val text: String
+        val text: String,
     ) : Run()
 
     // NOTICE: May it
@@ -116,21 +114,23 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
     @SerialName("c.question")
     @Suppress("unused")
     data class Question(
-        val text: String
+        val text: String,
     ) : Run()
 
     @Serializable
     @SerialName("contest")
     @Suppress("unused")
     data class ContestStart(
-        val contest_start: Int
+        val contest_start: Int,
     ) : Run()
 
     private val authLoader = jsonUrlLoader<Auth>(networkSettings = settings.network) { "${settings.url}/?f=login&login=$login&passwd=$password&json=1" }
     private val problemsLoader = jsonUrlLoader<Problems>(networkSettings = settings.network) { "${settings.url}/problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
     private val usersLoader = jsonUrlLoader<Users>(networkSettings = settings.network) { "${settings.url}/users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1" }
     private val contestLoader = jsonUrlLoader<Contest>(networkSettings = settings.network) { "${settings.url}/contest_params?cid=${settings.cid}&sid=${sid!!}&json=1" }
-    private val runsLoader = jsonUrlLoader<List<Run>>(networkSettings = settings.network) { "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1" }
+    private val runsLoader = jsonUrlLoader<List<Run>>(networkSettings = settings.network) {
+        "${settings.url}/console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1"
+    }
 
     override suspend fun loadOnce(): ContestParseResult {
         sid = authLoader.load().sid
@@ -146,7 +146,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
         problems: Problems,
         users: Users,
         contest: Contest,
-        runs: List<Run>
+        runs: List<Run>,
     ): ContestParseResult {
         val problemsList: List<ProblemInfo> = problems.problems
             .asSequence()
@@ -211,10 +211,11 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                 val result = if (it.state_text.isNotEmpty()) {
                     when (contestInfo.resultType) {
                         ContestResultType.ICPC -> Verdict.lookup(
-                                shortName = it.state_text,
-                                isAccepted = ("OK" == it.state_text),
-                                isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
-                            ).toRunResult()
+                            shortName = it.state_text,
+                            isAccepted = ("OK" == it.state_text),
+                            isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
+                        ).toRunResult()
+
                         ContestResultType.IOI -> IOIRunResult(score = listOf(it.points))
                     }
                 } else null

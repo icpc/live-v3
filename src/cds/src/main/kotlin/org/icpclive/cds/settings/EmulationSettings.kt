@@ -8,5 +8,5 @@ import org.icpclive.util.HumanTimeSerializer
 public class EmulationSettings(
     public val speed: Double,
     @Serializable(with = HumanTimeSerializer::class)
-    public val startTime: Instant
+    public val startTime: Instant,
 )

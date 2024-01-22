@@ -11,14 +11,15 @@ import org.icpclive.api.TeamInfo
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 
-private fun TeamInfo.updateHidden(isHidden: Boolean, isOutOfContest: Boolean) = if (isHidden != this.isHidden || isOutOfContest != this.isOutOfContest) {
-    copy(
-        isHidden = isHidden,
-        isOutOfContest = isOutOfContest
-    )
-} else {
-    this
-}
+private fun TeamInfo.updateHidden(isHidden: Boolean, isOutOfContest: Boolean) =
+    if (isHidden != this.isHidden || isOutOfContest != this.isOutOfContest) {
+        copy(
+            isHidden = isHidden,
+            isOutOfContest = isOutOfContest
+        )
+    } else {
+        this
+    }
 
 
 public fun Flow<ContestUpdate>.processHiddenTeamsAndGroups(): Flow<ContestUpdate> =

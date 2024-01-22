@@ -10,7 +10,7 @@ import org.icpclive.cds.ContestUpdate
 
 private interface ScoreAccumulator {
     fun add(score: IOIRunResult)
-    val total : Double
+    val total: Double
 }
 
 private class MaxByGroupScoreAccumulator : ScoreAccumulator {
@@ -31,25 +31,35 @@ private class MaxByGroupScoreAccumulator : ScoreAccumulator {
 private class MaxTotalScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) { total = maxOf(total, score.score.sum()) }
+    override fun add(score: IOIRunResult) {
+        total = maxOf(total, score.score.sum())
+    }
 }
 
 private class LastScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) { total = score.score.sum() }
+    override fun add(score: IOIRunResult) {
+        total = score.score.sum()
+    }
 }
 
 private class LastOKScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) { if (score.wrongVerdict == null) total = score.score.sum() }
+    override fun add(score: IOIRunResult) {
+        if (score.wrongVerdict == null) {
+            total = score.score.sum()
+        }
+    }
 }
 
 private class SumScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) { total += score.score.sum() }
+    override fun add(score: IOIRunResult) {
+        total += score.score.sum()
+    }
 }
 
 public fun Flow<ContestUpdate>.calculateScoreDifferences(): Flow<ContestUpdate> = withGroupedRuns(

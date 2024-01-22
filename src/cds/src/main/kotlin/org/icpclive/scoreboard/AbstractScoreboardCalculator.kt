@@ -1,8 +1,9 @@
 package org.icpclive.scoreboard
 
 import kotlinx.collections.immutable.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
@@ -12,7 +13,7 @@ import kotlin.time.Duration
 public class Ranking internal constructor(
     public val order: List<Int>,
     public val ranks: List<Int>,
-    public val awards: List<Award>
+    public val awards: List<Award>,
 )
 
 public interface ScoreboardCalculator {
@@ -20,7 +21,7 @@ public interface ScoreboardCalculator {
     public fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking
 }
 
-private fun ordinalText(x: Int) =  if (x in 11..13) {
+private fun ordinalText(x: Int) = if (x in 11..13) {
     "$x-th"
 } else {
     val r = x % 10
@@ -35,12 +36,12 @@ private fun ordinalText(x: Int) =  if (x in 11..13) {
 
 internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
 
-    abstract val comparator : Comparator<ScoreboardRow>
+    abstract val comparator: Comparator<ScoreboardRow>
 
     @OptIn(InefficientContestInfoApi::class)
     override fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking {
         val comparatorWithName = compareBy(comparator) { it: Pair<Int, ScoreboardRow> -> it.second }
-                .thenBy { info.teams[it.first]!!.displayName }
+            .thenBy { info.teams[it.first]!!.displayName }
         val orderList = info.teamList
             .filterNot { it.isHidden }
             .map { it.id to rows[it.id]!! }
@@ -81,8 +82,11 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
             for ((groupId, title) in awardsSettings.groupsChampionTitles) {
                 val groupBestRank = firstGroupRank[groupId]
                 add(
-                    Award.GroupChampion("group-winner-$groupId", title, groupId,
-                        teamRanks[groupBestRank]!!.filter { groupId in info.teams[it]!!.groups }.toSet()
+                    Award.GroupChampion(
+                        id = "group-winner-$groupId",
+                        citation = title,
+                        groupId = groupId,
+                        teams = teamRanks[groupBestRank]!!.filter { groupId in info.teams[it]!!.groups }.toSet()
                     )
                 )
             }
@@ -109,19 +113,23 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                     )
                 }
             }
-            for (rank in 1 .. awardsSettings.rankAwardsMaxRank) {
-                add(Award.Custom(
-                    "rank-$rank",
-                    "${ordinalText(rank)} place",
-                    teamRanks[rank]?.toSet() ?: emptySet()
-                ))
+            for (rank in 1..awardsSettings.rankAwardsMaxRank) {
+                add(
+                    Award.Custom(
+                        "rank-$rank",
+                        "${ordinalText(rank)} place",
+                        teamRanks[rank]?.toSet() ?: emptySet()
+                    )
+                )
             }
             for (manual in awardsSettings.manual) {
-                add(Award.Custom(
-                    manual.id,
-                    manual.citation,
-                    manual.teamCdsIds.mapNotNull { info.cdsTeams[it]?.id }.toSet()
-                ))
+                add(
+                    Award.Custom(
+                        manual.id,
+                        manual.citation,
+                        manual.teamCdsIds.mapNotNull { info.cdsTeams[it]?.id }.toSet()
+                    )
+                )
             }
         }
 
@@ -133,14 +141,16 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
     }
 }
 
-public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel) : ScoreboardCalculator = when (info.resultType) {
-    ContestResultType.ICPC -> when (optimismLevel) {
-        OptimismLevel.NORMAL -> ICPCNormalScoreboardCalculator()
-        OptimismLevel.OPTIMISTIC -> ICPCOptimisticScoreboardCalculator()
-        OptimismLevel.PESSIMISTIC -> ICPCPessimisticScoreboardCalculator()
+public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel): ScoreboardCalculator =
+    when (info.resultType) {
+        ContestResultType.ICPC -> when (optimismLevel) {
+            OptimismLevel.NORMAL -> ICPCNormalScoreboardCalculator()
+            OptimismLevel.OPTIMISTIC -> ICPCOptimisticScoreboardCalculator()
+            OptimismLevel.PESSIMISTIC -> ICPCPessimisticScoreboardCalculator()
+        }
+
+        ContestResultType.IOI -> IOIScoreboardCalculator()
     }
-    ContestResultType.IOI -> IOIScoreboardCalculator()
-}
 
 public fun Scoreboard.toLegacyScoreboard(info: ContestInfo): LegacyScoreboard = LegacyScoreboard(
     order.zip(ranks).map { (teamId, rank) ->
@@ -163,7 +173,7 @@ private class RedoTask(
     val info: ContestInfo,
     val mode: ScoreboardUpdateType,
     val runs: PersistentMap<Int, PersistentList<RunInfo>>,
-    val lastSubmissionTime: Duration
+    val lastSubmissionTime: Duration,
 )
 
 
@@ -202,15 +212,19 @@ private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
                     updateGroup(k)
                 }
             }
+
             is InfoUpdate -> {
                 curInfo = update.newInfo
-                emit(RedoTask(
-                    update.newInfo,
-                    ScoreboardUpdateType.SNAPSHOT,
-                    curRuns,
-                    lastSubmissionTime
-                ))
+                emit(
+                    RedoTask(
+                        update.newInfo,
+                        ScoreboardUpdateType.SNAPSHOT,
+                        curRuns,
+                        lastSubmissionTime
+                    )
+                )
             }
+
             is AnalyticsUpdate -> {}
         }
     }
@@ -220,60 +234,61 @@ public class ScoreboardAndContestInfo internal constructor(
     public val info: ContestInfo,
     public val scoreboardSnapshot: Scoreboard,
     public val scoreboardDiff: Scoreboard,
-    public val lastSubmissionTime: Duration
+    public val lastSubmissionTime: Duration,
 )
 
-public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ScoreboardAndContestInfo> = flow {
-    coroutineScope {
-        val s = MutableStateFlow<RedoTask?>(null)
-        launch {
-            teamRunsUpdates()
-                .collect {
-                    s.update { old ->
-                        if (it.mode == ScoreboardUpdateType.SNAPSHOT || old == null) {
-                            it
-                        } else {
-                            RedoTask(it.info, old.mode, old.runs.putAll(it.runs), it.lastSubmissionTime)
+public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ScoreboardAndContestInfo> =
+    flow {
+        coroutineScope {
+            val s = MutableStateFlow<RedoTask?>(null)
+            launch {
+                teamRunsUpdates()
+                    .collect {
+                        s.update { old ->
+                            if (it.mode == ScoreboardUpdateType.SNAPSHOT || old == null) {
+                                it
+                            } else {
+                                RedoTask(it.info, old.mode, old.runs.putAll(it.runs), it.lastSubmissionTime)
+                            }
                         }
                     }
-                }
-        }
+            }
 
-        var rows = persistentMapOf<Int, ScoreboardRow>()
-        val logger = getLogger(AbstractScoreboardCalculator::class)
-        while (true) {
-            val task = s.getAndUpdate { null } ?: s.filterNotNull().first().let { s.getAndUpdate { null }!! }
-            logger.info("Recalculating scoreboard mode = ${task.mode}, patch_rows = ${task.runs.size}, teams = ${task.info.teams.size}, lastSubmissionTime = ${task.lastSubmissionTime}")
-            val calculator = getScoreboardCalculator(task.info, optimismLevel)
-            val teams = when (task.mode) {
-                ScoreboardUpdateType.DIFF -> task.runs
-                ScoreboardUpdateType.SNAPSHOT -> task.info.teams
-            }.keys.filterNot { task.info.teams[it]!!.isHidden }
-            val upd = teams.associateWithTo(persistentMapOf<Int, ScoreboardRow>().builder()) {
-                calculator.getScoreboardRow(
-                    task.info,
-                    task.runs[it] ?: emptyList()
+            var rows = persistentMapOf<Int, ScoreboardRow>()
+            val logger = getLogger(AbstractScoreboardCalculator::class)
+            while (true) {
+                val task = s.getAndUpdate { null } ?: s.filterNotNull().first().let { s.getAndUpdate { null }!! }
+                logger.info("Recalculating scoreboard mode = ${task.mode}, patch_rows = ${task.runs.size}, teams = ${task.info.teams.size}, lastSubmissionTime = ${task.lastSubmissionTime}")
+                val calculator = getScoreboardCalculator(task.info, optimismLevel)
+                val teams = when (task.mode) {
+                    ScoreboardUpdateType.DIFF -> task.runs
+                    ScoreboardUpdateType.SNAPSHOT -> task.info.teams
+                }.keys.filterNot { task.info.teams[it]!!.isHidden }
+                val upd = teams.associateWithTo(persistentMapOf<Int, ScoreboardRow>().builder()) {
+                    calculator.getScoreboardRow(
+                        task.info,
+                        task.runs[it] ?: emptyList()
+                    )
+                }.build()
+                rows = if (task.mode == ScoreboardUpdateType.SNAPSHOT) {
+                    upd
+                } else {
+                    rows.putAll(upd)
+                }
+                for (team in teams) {
+                    require(team in rows) { "team $team is not in rows" }
+                }
+                val ranking = getScoreboardCalculator(task.info, optimismLevel).getRanking(task.info, rows)
+                emit(
+                    ScoreboardAndContestInfo(
+                        task.info,
+                        Scoreboard(ScoreboardUpdateType.SNAPSHOT, rows, ranking.order, ranking.ranks, ranking.awards),
+                        Scoreboard(task.mode, upd, ranking.order, ranking.ranks, ranking.awards),
+                        task.lastSubmissionTime,
+                    )
                 )
-            }.build()
-            rows = if (task.mode == ScoreboardUpdateType.SNAPSHOT) {
-                upd
-            } else {
-                rows.putAll(upd)
             }
-            for (team in teams) {
-                require(team in rows) { "team $team is not in rows" }
-            }
-            val ranking = getScoreboardCalculator(task.info, optimismLevel).getRanking(task.info, rows)
-            emit(
-                ScoreboardAndContestInfo(
-                    task.info,
-                    Scoreboard(ScoreboardUpdateType.SNAPSHOT, rows, ranking.order, ranking.ranks, ranking.awards),
-                    Scoreboard(task.mode, upd, ranking.order, ranking.ranks, ranking.awards),
-                    task.lastSubmissionTime,
-                )
-            )
         }
     }
-}
 
 

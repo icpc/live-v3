@@ -5,13 +5,11 @@ import io.grpc.ManagedChannelBuilder
 import io.grpc.Metadata
 import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
-import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import org.icpclive.util.getLogger
 import java.util.concurrent.*
 import kotlin.time.Duration.Companion.seconds
@@ -34,7 +32,7 @@ internal class CodeDrillsClient(url: String, port: Int, authKey: String) : AutoC
         it.withInterceptors(MetadataUtils.newAttachHeadersInterceptor(metadata))
     }
 
-    suspend fun getScoreboard(id: String) : GetScoreboardResponse {
+    suspend fun getScoreboard(id: String): GetScoreboardResponse {
         val request = getScoreboardRequest {
             val idInt = id.toIntOrNull()
             if (idInt != null) {
@@ -46,7 +44,7 @@ internal class CodeDrillsClient(url: String, port: Int, authKey: String) : AutoC
         return stub.getScoreboard(request)
     }
 
-    suspend fun getSubmissions(id: String, page: Int, itemsPerPage: Int) : ListContestSubmissionsResponse {
+    suspend fun getSubmissions(id: String, page: Int, itemsPerPage: Int): ListContestSubmissionsResponse {
         val request = listContestSubmissionsRequest {
             contestId = contestId {
                 val idInt = id.toIntOrNull()
@@ -72,8 +70,7 @@ internal class CodeDrillsClient(url: String, port: Int, authKey: String) : AutoC
 
 internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullReloadContestDataSource(5.seconds) {
     val client = CodeDrillsClient(
-        settings.
-        url,
+        settings.url,
         settings.port,
         settings.authKey.value,
     )
@@ -126,7 +123,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
 
         val memberIdToTeam = scoreboard.scoreboard.rowList
             .map { it.team }
-            .flatMap { it.memberList.map { member ->  member.id to it.id } }
+            .flatMap { it.memberList.map { member -> member.id to it.id } }
             .toMap()
 
         val startTime = Instant.fromEpochMilliseconds(contest.startTimeMilliSeconds)
@@ -136,7 +133,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
         val submissionsRaw = buildList {
             val page0 = client.getSubmissions(settings.contestId, 0, itemsPerPage)
             addAll(page0.submissionList)
-            for (i in itemsPerPage .. page0.paginationParams.total step itemsPerPage) {
+            for (i in itemsPerPage..page0.paginationParams.total step itemsPerPage) {
                 val page = client.getSubmissions(settings.contestId, i / itemsPerPage, itemsPerPage)
                 addAll(page.submissionList)
             }

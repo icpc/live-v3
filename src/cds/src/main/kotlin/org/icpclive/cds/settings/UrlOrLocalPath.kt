@@ -8,6 +8,7 @@ public sealed class UrlOrLocalPath {
         public override fun subDir(s: String): UrlOrLocalPath = Url("$value/$s")
         override fun toString(): String = value
     }
+
     public class Local(public val value: Path) : UrlOrLocalPath() {
         public override fun subDir(s: String): UrlOrLocalPath = Local(value.resolve(s))
         override fun toString(): String = value.toString()

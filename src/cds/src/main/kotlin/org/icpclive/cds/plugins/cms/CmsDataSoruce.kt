@@ -1,14 +1,10 @@
 package org.icpclive.cds.plugins.cms
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import org.icpclive.api.*
-import org.icpclive.cds.plugins.cms.model.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.plugins.cms.model.*
+import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.INFINITE
@@ -24,11 +20,11 @@ public interface CmsSettings : CDSSettings {
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
     private val contestsLoader = jsonUrlLoader<Map<String, Contest>>(settings.network, null) { "${settings.url}/contests/" }
-    private val tasksLoader = jsonUrlLoader<Map<String, Task>>(settings.network, null) { "${settings.url}/tasks/"}
-    private val teamsLoader = jsonUrlLoader<Map<String, Team>>(settings.network, null) { "${settings.url}/teams/"}
-    private val usersLoader = jsonUrlLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/"}
-    private val submissionsLoader = jsonUrlLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/"}
-    private val subchangesLoader = jsonUrlLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/"}
+    private val tasksLoader = jsonUrlLoader<Map<String, Task>>(settings.network, null) { "${settings.url}/tasks/" }
+    private val teamsLoader = jsonUrlLoader<Map<String, Team>>(settings.network, null) { "${settings.url}/teams/" }
+    private val usersLoader = jsonUrlLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/" }
+    private val submissionsLoader = jsonUrlLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/" }
+    private val subchangesLoader = jsonUrlLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/" }
     private val problemId = Enumerator<String>()
     private val teamId = Enumerator<String>()
     private val submissionId = Enumerator<String>()
@@ -75,7 +71,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 logo = MediaType.Photo(settings.url)
             )
         }
-        val teams = usersLoader.load().map {(k, v) ->
+        val teams = usersLoader.load().map { (k, v) ->
             TeamInfo(
                 id = teamId[k],
                 fullName = "[${v.team}] ${v.f_name} ${v.l_name}",
@@ -122,7 +118,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO
             )
         }.associateBy { it.id }.toMutableMap()
-        subchangesLoader.load().entries.sortedBy { it.value.time }.forEach {(_, it) ->
+        subchangesLoader.load().entries.sortedBy { it.value.time }.forEach { (_, it) ->
             val r = submissions[submissionId[it.submission]] ?: return@forEach
             val scores = if (it.extra.isEmpty()) listOf(it.score) else it.extra.map { it.toDouble() }
             submissions[r.id] = r.copy(result = IOIRunResult(scores))

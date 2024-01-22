@@ -17,7 +17,6 @@ import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
-import java.lang.RuntimeException
 
 private sealed interface AdvancedAdapterEvent
 private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent
@@ -46,69 +45,74 @@ private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (
 }
 
 
-public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> = flow {
-    val triggerFlow = Channel<Trigger>()
-    val submittedTeams = mutableSetOf<Int>()
-    val triggers = mutableSetOf<Instant>()
-    coroutineScope {
-        val advancedPropsStateFlow = advancedPropsFlow.stateIn(this)
-        var contestInfo: ContestInfo? = null
-        suspend fun triggerAt(time: Instant) {
-            if (time < Clock.System.now()) return
-            if (triggers.add(time)) {
-                launch {
-                    delay(time - Clock.System.now())
-                    triggerFlow.send(Trigger)
+public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> =
+    flow {
+        val triggerFlow = Channel<Trigger>()
+        val submittedTeams = mutableSetOf<Int>()
+        val triggers = mutableSetOf<Instant>()
+        coroutineScope {
+            val advancedPropsStateFlow = advancedPropsFlow.stateIn(this)
+            var contestInfo: ContestInfo? = null
+            suspend fun triggerAt(time: Instant) {
+                if (time < Clock.System.now()) return
+                if (triggers.add(time)) {
+                    launch {
+                        delay(time - Clock.System.now())
+                        triggerFlow.send(Trigger)
+                    }
                 }
             }
-        }
-        suspend fun apply() {
-            val ci = contestInfo ?: return
-            val ap = advancedPropsStateFlow.value
-            emit(InfoUpdate(applyAdvancedProperties(ci, ap, submittedTeams)))
-            val startOverride = ap.startTime ?: return
-            triggerAt(startOverride)
-            triggerAt(startOverride + ci.contestLength)
-        }
-        merge(
-            this@applyAdvancedProperties.map { Update(it) },
-            triggerFlow.receiveAsFlow().conflate(),
-            advancedPropsStateFlow.map { Trigger },
-        ).collect {
-            when (it) {
-                is Trigger -> {
-                    apply()
-                }
-                is Update -> {
-                    when (it.update) {
-                        is InfoUpdate -> {
-                            if (contestInfo != it.update.newInfo) {
-                                contestInfo = it.update.newInfo
-                                apply()
+
+            suspend fun apply() {
+                val ci = contestInfo ?: return
+                val ap = advancedPropsStateFlow.value
+                emit(InfoUpdate(applyAdvancedProperties(ci, ap, submittedTeams)))
+                val startOverride = ap.startTime ?: return
+                triggerAt(startOverride)
+                triggerAt(startOverride + ci.contestLength)
+            }
+            merge(
+                this@applyAdvancedProperties.map { Update(it) },
+                triggerFlow.receiveAsFlow().conflate(),
+                advancedPropsStateFlow.map { Trigger },
+            ).collect {
+                when (it) {
+                    is Trigger -> {
+                        apply()
+                    }
+
+                    is Update -> {
+                        when (it.update) {
+                            is InfoUpdate -> {
+                                if (contestInfo != it.update.newInfo) {
+                                    contestInfo = it.update.newInfo
+                                    apply()
+                                }
                             }
-                        }
-                        is RunUpdate -> {
-                            if (submittedTeams.add(it.update.newInfo.teamId) && advancedPropsStateFlow.value.scoreboardOverrides?.showTeamsWithoutSubmissions == false) {
-                                apply()
+
+                            is RunUpdate -> {
+                                if (submittedTeams.add(it.update.newInfo.teamId) && advancedPropsStateFlow.value.scoreboardOverrides?.showTeamsWithoutSubmissions == false) {
+                                    apply()
+                                }
+                                emit(it.update)
                             }
-                            emit(it.update)
-                        }
-                        else -> {
-                            emit(it.update)
+
+                            else -> {
+                                emit(it.update)
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
 
 private fun <T, O> mergeOverrides(
     infos: List<T>,
     overrides: Map<String, O>?,
     id: T.() -> String,
     unusedMessage: (Set<String>) -> String? = { null },
-    merge: (T, O) -> T
+    merge: (T, O) -> T,
 ): List<T> {
     return if (overrides == null) {
         infos
@@ -136,12 +140,15 @@ private fun <K, V> mergeMaps(original: Map<K, V>, override: Map<K, V?>) = buildM
     }
 }
 
-private fun TeamOverrideTemplate.instantiateTemplate(teams: List<TeamInfo>, valueProvider: TeamInfo.(String) -> String?) = teams.associate {
+private fun TeamOverrideTemplate.instantiateTemplate(
+    teams: List<TeamInfo>,
+    valueProvider: TeamInfo.(String) -> String?,
+) = teams.associate {
     it.contestSystemId to TeamInfoOverride(
         hashTag = hashTag?.applyTemplate { name -> it.valueProvider(name) },
         fullName = fullName?.applyTemplate { name -> it.valueProvider(name) },
         displayName = displayName?.applyTemplate { name -> it.valueProvider(name) },
-        medias = medias?.mapValues { (_,v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
+        medias = medias?.mapValues { (_, v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
     )
 }
 
@@ -153,7 +160,7 @@ private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Se
     }
 }
 
-private fun String.matchRegexSet(regexes: RegexSet?) : String? {
+private fun String.matchRegexSet(regexes: RegexSet?): String? {
     if (regexes == null) return null
     val matched = regexes.regexes.entries.filter { this.matches(it.key) }
     return when (matched.size) {
@@ -161,6 +168,7 @@ private fun String.matchRegexSet(regexes: RegexSet?) : String? {
             logger.warn("None of regexes ${regexes.regexes.map { it.key }} didn't match $this")
             null
         }
+
         1 -> {
             val (regex, replace) = matched.single()
             try {
@@ -170,6 +178,7 @@ private fun String.matchRegexSet(regexes: RegexSet?) : String? {
                 null
             }
         }
+
         else -> {
             logger.warn("Multiple regexes ${matched.map { it.key }} match $this")
             null
@@ -177,7 +186,11 @@ private fun String.matchRegexSet(regexes: RegexSet?) : String? {
     }
 }
 
-private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides?, key: TeamInfo.() -> String) : List<TeamInfo> {
+private fun applyRegex(
+    teams: List<TeamInfo>,
+    regexOverrides: TeamRegexOverrides?,
+    key: TeamInfo.() -> String,
+): List<TeamInfo> {
     if (regexOverrides == null) return teams
     return teams.map { team ->
         val newOrg = team.key().matchRegexSet(regexOverrides.organizationRegex)
@@ -196,7 +209,7 @@ private fun applyRegex(teams: List<TeamInfo>, regexOverrides: TeamRegexOverrides
     }
 }
 
-private fun AdvancedProperties.status(info: ContestInfo) : ContestStatus {
+private fun AdvancedProperties.status(info: ContestInfo): ContestStatus {
     if (startTime == null && contestLength == null) return info.status
     val status = ContestStatus.byCurrentTime(startTime ?: info.startTime, contestLength ?: info.contestLength)
     if (status == ContestStatus.OVER && (info.status == ContestStatus.FINALIZED || info.status == ContestStatus.FAKE_RUNNING)) return info.status
@@ -209,11 +222,14 @@ private fun AdvancedProperties.status(info: ContestInfo) : ContestStatus {
 internal fun applyAdvancedProperties(
     info: ContestInfo,
     overrides: AdvancedProperties,
-    submittedTeams: Set<Int>
+    submittedTeams: Set<Int>,
 ): ContestInfo {
     val teamInfosPrelim = applyRegex(
         applyRegex(
-            info.teamList.filterNotSubmitted(overrides.scoreboardOverrides?.showTeamsWithoutSubmissions, submittedTeams),
+            info.teamList.filterNotSubmitted(
+                overrides.scoreboardOverrides?.showTeamsWithoutSubmissions,
+                submittedTeams
+            ),
             overrides.teamNameRegexes,
             TeamInfo::fullName
         ),
@@ -253,7 +269,7 @@ internal fun applyAdvancedProperties(
 
     val orgsById = organizations.associateBy { it.cdsId }
 
-    fun TeamInfo.templateValueGetter(name: String) : String? {
+    fun TeamInfo.templateValueGetter(name: String): String? {
         return when (name) {
             "teamId" -> contestSystemId
             "orgFullName" -> organizationId?.let { orgsById[it]?.fullName }
@@ -263,10 +279,16 @@ internal fun applyAdvancedProperties(
     }
 
     val teamInfoWithCustomFields = teamInfosPrelim
-        .mergeTeams(overrides.teamOverrides?.filterValues { it.customFields != null }?.mapValues { TeamInfoOverride(customFields = it.value.customFields) })
+        .mergeTeams(overrides.teamOverrides?.filterValues { it.customFields != null }
+            ?.mapValues { TeamInfoOverride(customFields = it.value.customFields) })
 
     val teamInfos = teamInfoWithCustomFields
-        .mergeTeams(overrides.teamOverrideTemplate?.instantiateTemplate(teamInfoWithCustomFields, TeamInfo::templateValueGetter))
+        .mergeTeams(
+            overrides.teamOverrideTemplate?.instantiateTemplate(
+                teamInfoWithCustomFields,
+                TeamInfo::templateValueGetter
+            )
+        )
         .mergeTeams(overrides.teamOverrides)
     val problemInfos = mergeProblems(info.problemList, overrides.problemOverrides)
 
@@ -289,7 +311,7 @@ internal fun applyAdvancedProperties(
 
 private fun mergeOrganizations(
     organizationInfos: List<OrganizationInfo>,
-    overrides1: Map<String, OrganizationInfoOverride>?
+    overrides1: Map<String, OrganizationInfoOverride>?,
 ) = mergeOverrides(
     organizationInfos,
     overrides1,
@@ -306,7 +328,7 @@ private fun mergeOrganizations(
 
 private fun mergeGroups(
     groups: List<GroupInfo>,
-    overrides: Map<String, GroupInfoOverride>?
+    overrides: Map<String, GroupInfoOverride>?,
 ) = mergeOverrides(
     groups,
     overrides,
@@ -323,7 +345,7 @@ private fun mergeGroups(
 
 private fun mergeProblems(
     problems: List<ProblemInfo>,
-    overrides: Map<String, ProblemInfoOverride>?
+    overrides: Map<String, ProblemInfoOverride>?,
 ) = mergeOverrides(
     problems,
     overrides,

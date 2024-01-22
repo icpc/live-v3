@@ -10,14 +10,21 @@ internal sealed interface PenaltyCalculator {
     val penalty: Duration
 
     companion object {
-        fun get(penaltyRoundingMode: PenaltyRoundingMode, penaltyPerWrongAttempt: Duration) = when (penaltyRoundingMode) {
-            PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE -> EachSubmissionDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
-            PenaltyRoundingMode.EACH_SUBMISSION_UP_TO_MINUTE -> EachSubmissionUpToMinutePenaltyCalculator(penaltyPerWrongAttempt)
-            PenaltyRoundingMode.SUM_DOWN_TO_MINUTE -> SumDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
-            PenaltyRoundingMode.SUM_IN_SECONDS -> SumInSecondsPenaltyCalculator(penaltyPerWrongAttempt)
-            PenaltyRoundingMode.LAST -> LastPenaltyCalculator(penaltyPerWrongAttempt)
-            PenaltyRoundingMode.ZERO -> ZeroPenaltyCalculator()
-        }
+        fun get(penaltyRoundingMode: PenaltyRoundingMode, penaltyPerWrongAttempt: Duration) =
+            when (penaltyRoundingMode) {
+                PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE -> EachSubmissionDownToMinutePenaltyCalculator(
+                    penaltyPerWrongAttempt
+                )
+
+                PenaltyRoundingMode.EACH_SUBMISSION_UP_TO_MINUTE -> EachSubmissionUpToMinutePenaltyCalculator(
+                    penaltyPerWrongAttempt
+                )
+
+                PenaltyRoundingMode.SUM_DOWN_TO_MINUTE -> SumDownToMinutePenaltyCalculator(penaltyPerWrongAttempt)
+                PenaltyRoundingMode.SUM_IN_SECONDS -> SumInSecondsPenaltyCalculator(penaltyPerWrongAttempt)
+                PenaltyRoundingMode.LAST -> LastPenaltyCalculator(penaltyPerWrongAttempt)
+                PenaltyRoundingMode.ZERO -> ZeroPenaltyCalculator()
+            }
     }
 }
 

@@ -8,11 +8,13 @@ public class InfoUpdate(public val newInfo: ContestInfo) : ContestUpdate {
         return "InfoUpdate(newInfo=$newInfo)"
     }
 }
+
 public class RunUpdate(public val newInfo: RunInfo) : ContestUpdate {
     override fun toString(): String {
         return "RunUpdate(newInfo=$newInfo)"
     }
 }
+
 public class AnalyticsUpdate(public val message: AnalyticsMessage) : ContestUpdate {
     override fun toString(): String {
         return "AnalyticsUpdate(message=$message)"
