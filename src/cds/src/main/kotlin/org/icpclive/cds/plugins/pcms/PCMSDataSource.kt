@@ -2,7 +2,6 @@ package org.icpclive.cds.plugins.pcms
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
@@ -23,7 +22,8 @@ public interface PCMSSettings : CDSSettings {
     public val problemsUrl: UrlOrLocalPath?
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC
-    override fun toDataSource() : ContestDataSource = PCMSDataSource(this)
+
+    override fun toDataSource(): ContestDataSource = PCMSDataSource(this)
 }
 
 internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {
@@ -41,19 +41,21 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     val problemIds = Enumerator<String>()
     var startTime = Instant.fromEpochMilliseconds(0)
 
-    override suspend fun loadOnce() : ContestParseResult {
-        val problemsOverride =  settings.problemsUrl?.let { loadCustomProblems(it) }
+    override suspend fun loadOnce(): ContestParseResult {
+        val problemsOverride = settings.problemsUrl?.let { loadCustomProblems(it) }
 
         return parseAndUpdateStandings(dataLoader.load().documentElement, problemsOverride)
     }
-    private fun parseAndUpdateStandings(element: Element, problemsOverride: Element?) = parseContestInfo(element.child("contest"), problemsOverride)
 
-    private suspend fun loadCustomProblems(problemsUrl: UrlOrLocalPath) : Element {
+    private fun parseAndUpdateStandings(element: Element, problemsOverride: Element?) =
+        parseContestInfo(element.child("contest"), problemsOverride)
+
+    private suspend fun loadCustomProblems(problemsUrl: UrlOrLocalPath): Element {
         val problemsLoader = xmlLoader(networkSettings = settings.network) { problemsUrl }
         return problemsLoader.load().documentElement
     }
 
-    private fun parseContestInfo(element: Element, problemsOverride: Element?) : ContestParseResult {
+    private fun parseContestInfo(element: Element, problemsOverride: Element?): ContestParseResult {
         val status = ContestStatus.valueOf(element.getAttribute("status").uppercase(Locale.getDefault()))
         val contestTime = element.getAttribute("time").toLong().milliseconds
         val contestLength = element.getAttribute("length").toInt().milliseconds
@@ -109,7 +111,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         )
     }
 
-    private fun parseTeamInfo(element: Element, contestTime: Duration) : Pair<TeamInfo, List<RunInfo>> {
+    private fun parseTeamInfo(element: Element, contestTime: Duration): Pair<TeamInfo, List<RunInfo>> {
         fun attr(name: String) = element.getAttribute(name).takeIf { it.isNotEmpty() }
         val alias = attr("alias")!!
         val team = TeamInfo(
@@ -174,9 +176,11 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
 
                             IOIRunResult(score = groupsScore ?: listOf(score))
                         }
+
                         else -> IOIRunResult(score = emptyList(), wrongVerdict = verdict)
                     }
                 }
+
                 ContestResultType.ICPC -> {
                     verdict?.toRunResult()
                 }

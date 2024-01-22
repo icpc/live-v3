@@ -3,13 +3,12 @@ package org.icpclive.cds.plugins.yandex
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
 import org.icpclive.cds.plugins.yandex.api.*
-import org.icpclive.cds.plugins.yandex.api.ContestDescription
 import org.icpclive.cds.plugins.yandex.api.Participant
 import org.icpclive.cds.plugins.yandex.api.Problem
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-private fun Problem.toApi(index:Int, resultType: ContestResultType) = ProblemInfo(
+private fun Problem.toApi(index: Int, resultType: ContestResultType) = ProblemInfo(
     displayName = alias,
     fullName = name,
     id = index,
@@ -36,7 +35,7 @@ internal class YandexContestInfo private constructor(
         contestDescription: ContestDescription,
         problems: List<Problem>,
         participants: List<Participant>,
-        resultType: ContestResultType
+        resultType: ContestResultType,
     ) : this(
         contestDescription.name,
         Instant.parse(contestDescription.startTime),

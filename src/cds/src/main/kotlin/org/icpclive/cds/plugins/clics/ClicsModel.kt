@@ -2,17 +2,16 @@ package org.icpclive.cds.plugins.clics
 
 import kotlinx.datetime.Instant
 import org.icpclive.api.*
+import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
+import org.icpclive.cds.plugins.clics.model.ClicsOrganisationInfo
 import org.icpclive.clics.v202207.*
-import org.icpclive.cds.plugins.clics.model.*
 import org.icpclive.util.Enumerator
 import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
-internal class ClicsModel(
-    private val addTeamNames: Boolean
-) {
+internal class ClicsModel(private val addTeamNames: Boolean) {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
@@ -53,7 +52,7 @@ internal class ClicsModel(
         return null
     }
 
-    private fun Group.toApi() : GroupInfo = GroupInfo(id, name, isHidden = false, isOutOfContest = false)
+    private fun Group.toApi(): GroupInfo = GroupInfo(id, name, isHidden = false, isOutOfContest = false)
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
@@ -79,7 +78,7 @@ internal class ClicsModel(
         )
     }
 
-    private fun Submission.toApi() : RunInfo {
+    private fun Submission.toApi(): RunInfo {
         val judgment = submissionJudgmentIds[id]?.mapNotNull { judgements[it] }?.maxByOrNull { it.start_contest_time }
         val problem = problems[problem_id]
         val passedTests = judgment?.id?.let { judgmentRunIds[it] }?.size ?: 0
@@ -212,7 +211,7 @@ internal class ClicsModel(
         val oldJudgment = judgements[id]
         if (judgement == oldJudgment) return null
         val submissionId = (judgement ?: oldJudgment)!!.submission_id
-        if (judgement != null && oldJudgment != null) require(judgement.submission_id == oldJudgment.submission_id) { "Judgment ${judgement.id} submission id changed from ${oldJudgment.submission_id} to ${judgement.submission_id}"}
+        if (judgement != null && oldJudgment != null) require(judgement.submission_id == oldJudgment.submission_id) { "Judgment ${judgement.id} submission id changed from ${oldJudgment.submission_id} to ${judgement.submission_id}" }
         val submission = submissions[submissionId]
         if (judgement == null) {
             judgements.remove(id)
@@ -230,7 +229,7 @@ internal class ClicsModel(
             return null
         }
         val judgementId = (run ?: oldRun)!!.judgement_id
-        if (oldRun != null && run != null) require(run.judgement_id == oldRun.judgement_id) { "Run $id judgment id changed from ${oldRun.id} to ${run.id}"}
+        if (oldRun != null && run != null) require(run.judgement_id == oldRun.judgement_id) { "Run $id judgment id changed from ${oldRun.id} to ${run.id}" }
         val judgement = judgements[judgementId]
         val submission = submissions[judgement?.submission_id]
         if (run == null) {

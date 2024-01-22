@@ -24,22 +24,26 @@ public data class RunInfo(
 public sealed class RunResult
 
 @Serializable(with = VerdictSerializer::class)
-public sealed class Verdict(public val shortName: String, public val isAddingPenalty: Boolean, public val isAccepted: Boolean) {
-    public data object Accepted: Verdict("AC", false, true)
-    public data object Rejected: Verdict("RJ", true, false)
-    public data object Fail: Verdict("FL", false, true)
-    public data object CompilationError: Verdict("CE", false, false)
-    public data object CompilationErrorWithPenalty: Verdict("CE", true, false)
-    public data object PresentationError: Verdict("PE", true, false)
-    public data object RuntimeError: Verdict("RE", true, false)
-    public data object TimeLimitExceeded: Verdict("TL", true, false)
-    public data object MemoryLimitExceeded: Verdict("ML", true, false)
-    public data object OutputLimitExceeded: Verdict("OL", true, false)
-    public data object IdlenessLimitExceeded: Verdict("IL", true, false)
-    public data object SecurityViolation: Verdict("SV", true, false)
-    public data object Ignored: Verdict("IG", false, false)
-    public data object Challenged: Verdict("CH", true, false)
-    public data object WrongAnswer: Verdict("WA", true, false)
+public sealed class Verdict(
+    public val shortName: String,
+    public val isAddingPenalty: Boolean,
+    public val isAccepted: Boolean,
+) {
+    public data object Accepted : Verdict("AC", false, true)
+    public data object Rejected : Verdict("RJ", true, false)
+    public data object Fail : Verdict("FL", false, true)
+    public data object CompilationError : Verdict("CE", false, false)
+    public data object CompilationErrorWithPenalty : Verdict("CE", true, false)
+    public data object PresentationError : Verdict("PE", true, false)
+    public data object RuntimeError : Verdict("RE", true, false)
+    public data object TimeLimitExceeded : Verdict("TL", true, false)
+    public data object MemoryLimitExceeded : Verdict("ML", true, false)
+    public data object OutputLimitExceeded : Verdict("OL", true, false)
+    public data object IdlenessLimitExceeded : Verdict("IL", true, false)
+    public data object SecurityViolation : Verdict("SV", true, false)
+    public data object Ignored : Verdict("IG", false, false)
+    public data object Challenged : Verdict("CH", true, false)
+    public data object WrongAnswer : Verdict("WA", true, false)
 
     public companion object {
         public val all: List<Verdict> get() = LookupHolder.all
@@ -92,7 +96,7 @@ private object LookupHolder {
     private val allNames = (alternativeNames + mainNames).groupBy({ it.first }, { it.second })
 
 
-    fun lookup(shortName: String, isAddingPenalty: Boolean, isAccepted: Boolean) : Verdict {
+    fun lookup(shortName: String, isAddingPenalty: Boolean, isAccepted: Boolean): Verdict {
         val found = allNames[shortName]?.singleOrNull { it.isAddingPenalty == isAddingPenalty && it.isAccepted == isAccepted }
         return when {
             found != null -> found
@@ -119,5 +123,5 @@ public data class IOIRunResult(
     val difference: Double = 0.0,
     val scoreAfter: Double = 0.0,
     val isFirstBestRun: Boolean = false,
-    val isFirstBestTeamRun: Boolean = false
+    val isFirstBestTeamRun: Boolean = false,
 ) : RunResult()

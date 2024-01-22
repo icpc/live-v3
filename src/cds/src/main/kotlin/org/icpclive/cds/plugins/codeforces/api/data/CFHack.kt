@@ -10,7 +10,7 @@ internal enum class CFHackVerdict {
 
 @Serializable
 internal data class CFHack(
-    val id:Int,
+    val id: Int,
     @Serializable(UnixSecondsSerializer::class)
     val creationTimeSeconds: Instant,
     val hacker: CFParty,

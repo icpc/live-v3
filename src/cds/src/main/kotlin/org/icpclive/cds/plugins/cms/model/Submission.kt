@@ -9,5 +9,5 @@ internal class Submission(
     val user: String,
     val task: String,
     @Serializable(with = UnixSecondsSerializer::class)
-    val time: Instant
+    val time: Instant,
 )

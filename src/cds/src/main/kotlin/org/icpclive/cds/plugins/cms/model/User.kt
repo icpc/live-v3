@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 internal class User(
     val f_name: String,
     val l_name: String,
-    val team: String
+    val team: String,
 )

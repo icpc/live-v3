@@ -26,7 +26,8 @@ public interface YandexSettings : CDSSettings {
     public val contestId: Int
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC
-    override fun toDataSource() : ContestDataSource = YandexDataSource(this)
+
+    override fun toDataSource(): ContestDataSource = YandexDataSource(this)
 }
 
 internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
@@ -54,12 +55,18 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
 
 
         contestDescriptionLoader = jsonUrlLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
-        problemLoader = jsonUrlLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
+        problemLoader = jsonUrlLoader<Problems>(
+            settings.network,
+            auth
+        ) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
             val participantRegex = settings.loginRegex
-            jsonUrlLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
+            jsonUrlLoader<List<Participant>>(
+                settings.network,
+                auth
+            ) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
         }
@@ -90,7 +97,7 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
                 emit(InfoUpdate(info))
             }
             val allSubmissions = allSubmissionsLoader.load()
-            with (rawContestInfoFlow.value) {
+            with(rawContestInfoFlow.value) {
                 emitAll(
                     allSubmissions.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
                         .map { RunUpdate(submissionToRun(it)) }
@@ -109,7 +116,8 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
                 .flowOn(Dispatchers.IO)
             val allRunsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
-                    it.sortedWith(compareBy({it.time}, { it.id })).filter(this::isTeamSubmission).map { RunUpdate(submissionToRun(it)) }
+                    it.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
+                        .map { RunUpdate(submissionToRun(it)) }
                 }
             }.flatMapConcat { it.asFlow() }
             emitAll(merge(allRunsFlow, rawContestInfoFlow.map { InfoUpdate(it.toApi()) }))
@@ -122,8 +130,8 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
     }
 
     private fun newSubmissionsFlow(
-        period: Duration
-    ) : Flow<List<Submission>> {
+        period: Duration,
+    ): Flow<List<Submission>> {
         log.info("HERE!!!")
         val formatter = Json { ignoreUnknownKeys = true }
         var pendingRunId = 0L

@@ -17,7 +17,7 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
 
     override fun getScoreboardRow(
         info: ContestInfo,
-        runs: List<RunInfo>
+        runs: List<RunInfo>,
     ): ScoreboardRow {
         require(info.resultType == ContestResultType.ICPC)
         val penaltyCalculator = PenaltyCalculator.get(

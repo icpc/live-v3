@@ -3,13 +3,12 @@ package org.icpclive.cds.plugins.eolymp
 import com.eolymp.graphql.*
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
-import io.codedrills.proto.external.Contest
 import kotlinx.datetime.toKotlinInstant
-import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
 import java.net.URL
@@ -17,18 +16,18 @@ import java.time.chrono.IsoChronology
 import java.time.format.DateTimeFormatterBuilder
 import java.time.format.ResolverStyle
 import java.time.temporal.ChronoField
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.seconds
 
 
-private suspend fun <T : Any> GraphQLKtorClient.checkedExecute(request: GraphQLClientRequest<T>) = execute(request).let {
-    if (it.errors.isNullOrEmpty()) {
-        it.data!!
-    } else {
-        throw IllegalStateException("Error in graphql query: ${it.errors}")
+private suspend fun <T : Any> GraphQLKtorClient.checkedExecute(request: GraphQLClientRequest<T>) =
+    execute(request).let {
+        if (it.errors.isNullOrEmpty()) {
+            it.data!!
+        } else {
+            throw IllegalStateException("Error in graphql query: ${it.errors}")
+        }
     }
-}
 
 private suspend fun GraphQLKtorClient.judgeContest(id: String) = checkedExecute(
     JudgeContestDetails(
@@ -67,7 +66,8 @@ public interface EOlympSettings : CDSSettings {
     public val contestId: String
     public val previousDaysContestIds: List<String>
         get() = emptyList()
-    override fun toDataSource() : ContestDataSource = EOlympDataSource(this)
+
+    override fun toDataSource(): ContestDataSource = EOlympDataSource(this)
 }
 
 internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContestDataSource(5.seconds) {
@@ -83,6 +83,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         "COMPLETE" -> ContestStatus.OVER
         else -> error("Unknown status: $status")
     }
+
     private fun convertResultType(format: String) = when (format) {
         "ICPC" -> ContestResultType.ICPC
         "IOI" -> ContestResultType.IOI
@@ -108,7 +109,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         .appendOffset("+HH:MM", "Z")
         .toFormatter()
         .withResolverStyle(ResolverStyle.STRICT)
-        .withChronology(IsoChronology.INSTANCE);
+        .withChronology(IsoChronology.INSTANCE)
 
     private val problemIds = Enumerator<String>()
     private val teamIds = Enumerator<String>()
@@ -124,9 +125,10 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         if (previousDays.isEmpty())
             previousDays = settings.previousDaysContestIds.map { loadContest(it) }
         val lastDay = loadContest(settings.contestId)
-        val teamIdToMemberIdMap = (previousDays.flatMap { it.contestInfo.teamList } + lastDay.contestInfo.teamList).associate {
-            it.id to it.fullName
-        }
+        val teamIdToMemberIdMap =
+            (previousDays.flatMap { it.contestInfo.teamList } + lastDay.contestInfo.teamList).associate {
+                it.id to it.fullName
+            }
         val memberIdToTeamIdMap = lastDay.contestInfo.teamList.associate {
             it.fullName to it.id
         }
@@ -134,15 +136,19 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
             lastDay.contestInfo.copy(
                 problemList = (previousDays + lastDay).flatMap { it.contestInfo.problemList }
             ),
-            previousDays.flatMap { it.runs.mapNotNull { it.copy(
-                time = ZERO,
-                teamId = memberIdToTeamIdMap[teamIdToMemberIdMap[it.teamId]!!] ?: return@mapNotNull null
-            ) } } + lastDay.runs,
+            previousDays.flatMap {
+                it.runs.mapNotNull {
+                    it.copy(
+                        time = ZERO,
+                        teamId = memberIdToTeamIdMap[teamIdToMemberIdMap[it.teamId]!!] ?: return@mapNotNull null
+                    )
+                }
+            } + lastDay.runs,
             emptyList()
         )
     }
 
-    private suspend fun loadContest(contestId: String) : ContestParseResult {
+    private suspend fun loadContest(contestId: String): ContestParseResult {
         val result = graphQLClient.judgeContest(contestId)
         val teams = buildList {
             var cursor: String? = null
@@ -230,7 +236,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         )
     }
 
-    private fun parseVerdict(status: String, verdict: String, percentage: Double) : Verdict? {
+    private fun parseVerdict(status: String, verdict: String, percentage: Double): Verdict? {
         return when (status) {
             "ERROR" -> Verdict.CompilationError
             "PENDING", "TESTING" -> null
@@ -240,6 +246,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                         percentage == 1.0 -> Verdict.Accepted
                         else -> Verdict.Rejected
                     }
+
                     "ACCEPTED" -> Verdict.Accepted
                     "WRONG_ANSWER" -> Verdict.WrongAnswer
                     "TIME_LIMIT_EXCEEDED" -> Verdict.IdlenessLimitExceeded
@@ -252,6 +259,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                     }
                 }
             }
+
             else -> {
                 log.info("Unexpected submission status: $status, assuming untested")
                 null

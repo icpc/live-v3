@@ -1,10 +1,9 @@
 package org.icpclive.api
 
-import kotlinx.collections.immutable.PersistentMap
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.*
-import org.icpclive.util.*
+import org.icpclive.util.DurationInMillisecondsSerializer
+import org.icpclive.util.DurationInSecondsSerializer
 import kotlin.time.Duration
 
 @Serializable
@@ -35,7 +34,7 @@ public data class LegacyScoreboardRow(
     val medalType: String?,
     val problemResults: List<ProblemResult>,
     val teamGroups: List<String>,
-    val championInGroups: List<String>
+    val championInGroups: List<String>,
 )
 
 //TODO: custom string, maybe something else
@@ -58,12 +57,12 @@ public data class IOIProblemResult(
     @SerialName("lastSubmitTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     override val lastSubmitTime: Duration?,
-    val isFirstBest: Boolean
+    val isFirstBest: Boolean,
 ) : ProblemResult()
 
 @Serializable
 public data class LegacyScoreboard(
-    val rows: List<LegacyScoreboardRow>
+    val rows: List<LegacyScoreboardRow>,
 )
 
 @Serializable
@@ -83,38 +82,42 @@ public sealed class Award {
     public abstract val citation: String
     public abstract val teams: Set<Int>
 
-    @Serializable @SerialName("winner")
+    @Serializable
+    @SerialName("winner")
     public data class Winner(
         override val id: String,
         override val citation: String,
-        override val teams: Set<Int>
+        override val teams: Set<Int>,
     ) : Award()
 
-    @Serializable @SerialName("medal")
+    @Serializable
+    @SerialName("medal")
     public data class Medal(
         override val id: String,
         override val citation: String,
         val medalColor: MedalColor?,
-        override val teams: Set<Int>
+        override val teams: Set<Int>,
     ) : Award() {
         public enum class MedalColor {
             GOLD, SILVER, BRONZE;
         }
     }
 
-    @Serializable @SerialName("group_champion")
+    @Serializable
+    @SerialName("group_champion")
     public data class GroupChampion(
         override val id: String,
         override val citation: String,
         val groupId: String,
-        override val teams: Set<Int>
-    ): Award()
+        override val teams: Set<Int>,
+    ) : Award()
 
-    @Serializable @SerialName("custom")
+    @Serializable
+    @SerialName("custom")
     public data class Custom(
         override val id: String,
         override val citation: String,
-        override val teams: Set<Int>
+        override val teams: Set<Int>,
     ) : Award()
 }
 
@@ -138,5 +141,5 @@ public data class Scoreboard(
     val rows: Map<Int, ScoreboardRow>,
     val order: List<Int>,
     val ranks: List<Int>,
-    val awards: List<Award>
+    val awards: List<Award>,
 )

@@ -15,6 +15,6 @@ internal data class Task(
     val max_score: Double,
     val score_precision: Int,
     val extra_headers: List<String>,
-    val order:Int,
-    val score_mode: ScoreMode
+    val order: Int,
+    val score_mode: ScoreMode,
 )

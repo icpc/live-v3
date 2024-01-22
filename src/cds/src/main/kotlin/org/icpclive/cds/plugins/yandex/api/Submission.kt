@@ -7,7 +7,7 @@ import kotlin.time.Duration
 @Serializable
 internal data class Submissions(
     val count: Long,
-    val submissions: List<Submission>
+    val submissions: List<Submission>,
 )
 
 @Serializable
@@ -24,5 +24,5 @@ internal data class Submission(
     val time: Long,
     val memory: Long,
     @Serializable(with = DurationInMillisecondsSerializer::class)
-    val timeFromStart: Duration
+    val timeFromStart: Duration,
 )

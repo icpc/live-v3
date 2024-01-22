@@ -8,7 +8,7 @@ internal data class Participant(
     val id: Int,
     val name: String,
     val login: String,
-    val uid: String?
+    val uid: String?,
 ) {
     fun toTeamInfo() = TeamInfo(
         id = id,

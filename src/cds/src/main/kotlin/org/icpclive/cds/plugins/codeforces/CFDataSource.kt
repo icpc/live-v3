@@ -1,7 +1,6 @@
 package org.icpclive.cds.plugins.codeforces
 
 import kotlinx.datetime.Clock
-import kotlinx.serialization.*
 import org.icpclive.api.ContestStatus
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
@@ -9,7 +8,8 @@ import org.icpclive.cds.plugins.codeforces.api.data.CFHack
 import org.icpclive.cds.plugins.codeforces.api.data.CFSubmission
 import org.icpclive.cds.plugins.codeforces.api.results.CFStandings
 import org.icpclive.cds.plugins.codeforces.api.results.CFStatusWrapper
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import java.security.MessageDigest
 import java.util.*
 import kotlin.random.Random
@@ -33,7 +33,7 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
 
     private fun apiRequestUrl(
         method: String,
-        params: Map<String, String>
+        params: Map<String, String>,
     ): String {
         val sortedParams = params.toSortedMap()
         sortedParams["time"] = Clock.System.now().epochSeconds.toString()
@@ -83,8 +83,14 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
     override suspend fun loadOnce(): ContestParseResult {
         // can change inside previous if, so we do recheck, not else.
         contestInfo.updateStandings(standingsLoader.load())
-        val runs = if (contestInfo.status == ContestStatus.BEFORE) emptyList() else contestInfo.parseSubmissions(statusLoader.load())
-        val hacks = if (contestInfo.status == ContestStatus.BEFORE) emptyList() else contestInfo.parseHacks(hacksLoader.load())
+        val runs = when (contestInfo.status) {
+            ContestStatus.BEFORE -> emptyList()
+            else -> contestInfo.parseSubmissions(statusLoader.load())
+        }
+        val hacks = when (contestInfo.status) {
+            ContestStatus.BEFORE -> emptyList()
+            else -> contestInfo.parseHacks(hacksLoader.load())
+        }
         return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
     }
 
@@ -94,7 +100,8 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
             MessageDigest.getInstance("SHA-512")
                 .digest(s.toByteArray())
                 .toHexString()
-        private fun SortedMap<String, String>.toQuery(prefix: String, postfix: String="") =
+
+        private fun SortedMap<String, String>.toQuery(prefix: String, postfix: String = "") =
             entries.joinToString(prefix = prefix, postfix = postfix, separator = "&") {
                 "${it.key}=${it.value}"
             }

@@ -1,12 +1,13 @@
 package org.icpclive.cds.plugins.ejudge
 
 import kotlinx.datetime.*
-import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
-import org.icpclive.util.*
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.util.child
+import org.icpclive.util.children
 import org.w3c.dom.Element
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
@@ -63,6 +64,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 organizationId = null
             )
         }.toList()
+
     val timePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     private fun parseEjudgeTime(time: String): Instant {
@@ -118,7 +120,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
     private fun parseRunInfo(
         element: Element,
         currentTime: Duration,
-        teamIdMapping: Map<String, Int>
+        teamIdMapping: Map<String, Int>,
     ): RunInfo? {
         val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
         if (time > currentTime) {

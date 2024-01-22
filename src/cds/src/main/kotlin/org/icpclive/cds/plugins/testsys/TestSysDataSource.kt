@@ -1,12 +1,11 @@
 package org.icpclive.cds.plugins.testsys
 
 import kotlinx.datetime.*
-import kotlinx.serialization.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
-import org.icpclive.util.TimeZoneSerializer
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import java.nio.charset.Charset
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.minutes
@@ -17,7 +16,8 @@ public interface TestSysSettings : CDSSettings {
     public val url: UrlOrLocalPath
     public val timeZone: TimeZone
         get() = TimeZone.of("Europe/Moscow")
-    override fun toDataSource() : ContestDataSource = TestSysDataSource(this)
+
+    override fun toDataSource(): ContestDataSource = TestSysDataSource(this)
 }
 
 internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {
@@ -35,9 +35,9 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
 
     override suspend fun loadOnce(): ContestParseResult {
         val data = loader.load().groupBy(
-                keySelector = { it.split(" ", limit = 2)[0] },
-                valueTransform = { it.split(" ", limit = 2)[1] }
-            )
+            keySelector = { it.split(" ", limit = 2)[0] },
+            valueTransform = { it.split(" ", limit = 2)[1] }
+        )
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
@@ -118,6 +118,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                     add(builder.toString())
                     builder.clear()
                 }
+
                 c == '"' -> inEsc = !inEsc
                 else -> builder.append(c)
             }

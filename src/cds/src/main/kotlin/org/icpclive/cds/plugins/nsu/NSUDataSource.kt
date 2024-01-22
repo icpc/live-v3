@@ -9,16 +9,13 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.datetime.*
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.defaultHttpClient
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
-import org.icpclive.util.TimeZoneSerializer
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -33,7 +30,8 @@ public interface NSUSettings : CDSSettings {
     public val password: Credential
     public val timeZone: TimeZone
         get() = TimeZone.of("Asia/Novosibirsk")
-    override fun toDataSource() : ContestDataSource = NSUDataSource(this)
+
+    override fun toDataSource(): ContestDataSource = NSUDataSource(this)
 }
 
 internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataSource(5.seconds) {
@@ -44,26 +42,26 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
     class Credentials(
         val email: String,
         val password: String,
-        val method: String = "internal"
+        val method: String = "internal",
     )
 
     @Serializable
     class Team(
         val id: Int,
-        val title: String
+        val title: String,
     )
 
     @Serializable
     class Task(
         val id: Int,
-        val title: String
+        val title: String,
     )
 
     @Serializable
     class TourTimes(
         val tour_start_time: String,
         val tour_end_time: String,
-        val rating_freeze_time: String?
+        val rating_freeze_time: String?,
     )
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -219,7 +217,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
         val smtime: String,
         val status: Int,
         val res: String?,
-        val taskId: Int
+        val taskId: Int,
     )
 }
 

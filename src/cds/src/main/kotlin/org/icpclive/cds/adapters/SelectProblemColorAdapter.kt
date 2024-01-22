@@ -3,13 +3,15 @@
 
 package org.icpclive.cds.adapters
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.transform
 import org.icpclive.api.*
 import org.icpclive.cds.*
 
 private fun RunInfo.shouldDiscloseColor() = (result as? ICPCRunResult)?.verdict?.isAccepted == true && !isHidden
+
 @OptIn(InefficientContestInfoApi::class)
-private fun ContestInfo.applyColors(problems: Set<Pair<Int, Boolean?>>) : ContestInfo {
+private fun ContestInfo.applyColors(problems: Set<Pair<Int, Boolean?>>): ContestInfo {
     val newProblemList = problemList.map {
         if ((it.id to true) in problems || it.unsolvedColor == null) {
             it
@@ -26,8 +28,8 @@ private fun ContestInfo.applyColors(problems: Set<Pair<Int, Boolean?>>) : Contes
     }
 }
 
-public fun Flow<ContestUpdate>.selectProblemColors() : Flow<ContestUpdate> = withGroupedRuns({
-    run: RunInfo -> run.problemId to run.shouldDiscloseColor()
+public fun Flow<ContestUpdate>.selectProblemColors(): Flow<ContestUpdate> = withGroupedRuns({ run: RunInfo ->
+    run.problemId to run.shouldDiscloseColor()
 }).transform {
     when (it.event) {
         is InfoUpdate -> emit(InfoUpdate(it.event.newInfo.applyColors(it.runs.keys)))
@@ -41,6 +43,7 @@ public fun Flow<ContestUpdate>.selectProblemColors() : Flow<ContestUpdate> = wit
             }
             emit(it.event)
         }
+
         is AnalyticsUpdate -> emit(it.event)
     }
 }

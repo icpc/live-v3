@@ -1,13 +1,11 @@
 package org.icpclive.cds.plugins.krsu
 
 import kotlinx.datetime.*
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.GenerateSettings
-import org.icpclive.cds.settings.*
-import org.icpclive.util.TimeZoneSerializer
+import org.icpclive.cds.settings.CDSSettings
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
@@ -132,14 +130,14 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         val Id: Int,
         val ProblemSet: List<Problem>,
         val StartTime: LocalDateTime,
-        val Length: Int
+        val Length: Int,
     )
 
     @Serializable
     @Suppress("unused")
     class Problem(
         val Letter: Int,
-        val Problem: Int
+        val Problem: Int,
     )
 }
 

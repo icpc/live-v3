@@ -11,7 +11,7 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
 
     override fun getScoreboardRow(
         info: ContestInfo,
-        runs: List<RunInfo>
+        runs: List<RunInfo>,
     ): ScoreboardRow {
         require(info.resultType == ContestResultType.IOI)
         val penaltyCalculator = PenaltyCalculator.get(
@@ -24,7 +24,9 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
             val finalRunIndex = problemRuns.indexOfLast { it.result != null && (it.result as IOIRunResult).difference != 0.0 }
             val finalRun = if (finalRunIndex == -1) null else problemRuns[finalRunIndex]
             if (finalRun != null) {
-                penaltyCalculator.addSolvedProblem(finalRun.time, problemRuns.subList(0, finalRunIndex).count { (it.result as? IOIRunResult)?.wrongVerdict?.isAddingPenalty == true })
+                penaltyCalculator.addSolvedProblem(
+                    finalRun.time,
+                    problemRuns.subList(0, finalRunIndex).count { (it.result as? IOIRunResult)?.wrongVerdict?.isAddingPenalty == true })
             }
             IOIProblemResult(
                 (finalRun?.result as? IOIRunResult?)?.scoreAfter,
