@@ -19,6 +19,7 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
@@ -202,6 +203,26 @@ fun Application.module() {
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     routing {
+        get {
+            call.respondText(
+                """
+                    <html>
+                    <body>
+                    <a href="/pcms/standings.xml">PCMS xml</a> <br/>
+                    <a href="/clics/api/contests/contest">CLICS api root</a> <br/>
+                    <a href="/clics/api/contests/contest/event-feed">CLICS event feed</a> <br/>
+                    <a href="/icpc/standings.csv">ICPC global csv</a> <br/>
+                    </body>
+                    </html>
+                """.trimIndent(),
+                ContentType.Text.Html
+            )
+        }
+        with (IcpcCsvExporter) {
+            route("/icpc") {
+                setUp(application + handler, loaded)
+            }
+        }
         with (ClicsExporter) {
             route("/clics") {
                 setUp(application + handler, loaded)
