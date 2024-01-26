@@ -1,6 +1,12 @@
 {
     "$ref": "#/$defs/ICPC live settings",
     "$defs": {
+        "kotlin.collections.ArrayList<kotlin.Int>": {
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
+        },
         "org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>": {
             "oneOf": [
                 {
@@ -41,6 +47,58 @@
                     "type": "null"
                 }
             ]
+        },
+        "allcups": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "allcups",
+                    "default": "allcups"
+                },
+                "contestId": {
+                    "type": "number"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "contestName": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "contestLengthSeconds": {
+                    "type": "number"
+                },
+                "freezeTimeSeconds": {
+                    "type": "number"
+                },
+                "problemIds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
+                },
+                "teamIds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "token",
+                "contestName",
+                "startTime",
+                "contestLengthSeconds",
+                "freezeTimeSeconds",
+                "problemIds",
+                "teamIds"
+            ],
+            "title": "allcups"
         },
         "atcoder": {
             "type": "object",
@@ -584,6 +642,9 @@
         },
         "ICPC live settings": {
             "oneOf": [
+                {
+                    "$ref": "#/$defs/allcups"
+                },
                 {
                     "$ref": "#/$defs/atcoder"
                 },
