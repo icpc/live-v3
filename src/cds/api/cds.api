@@ -1404,6 +1404,18 @@ public abstract interface class org/icpclive/cds/common/ContestDataSource {
 	public abstract fun getFlow ()Lkotlinx/coroutines/flow/Flow;
 }
 
+public abstract interface class org/icpclive/cds/plugins/allcups/AllCupsSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getContestId ()I
+	public abstract fun getContestLength-UwyO8pc ()J
+	public abstract fun getContestName ()Ljava/lang/String;
+	public abstract fun getFreezeTime-UwyO8pc ()J
+	public abstract fun getProblemIds ()Ljava/util/List;
+	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
+	public abstract fun getTeamIds ()Ljava/util/List;
+	public abstract fun getToken ()Lorg/icpclive/cds/settings/Credential;
+	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
 public abstract interface class org/icpclive/cds/plugins/atcoder/AtcoderSettings : org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getContestId ()Ljava/lang/String;
 	public abstract fun getContestLength-UwyO8pc ()J
