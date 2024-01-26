@@ -1,0 +1,13 @@
+{
+  "freezeTimeSeconds": 10800,
+    "teamOverrides": {
+    },
+ "problemOverrides": {
+  "1799": { "displayName": "A", "ordinal": 0},
+  "1800": { "displayName": "B", "ordinal": 1},
+  "1801": { "displayName": "C", "ordinal": 2},
+  "1804": { "displayName": "D", "ordinal": 3},
+  "1805": { "displayName": "E", "ordinal": 4},
+  "1806": { "displayName": "F", "ordinal": 5}
+ }
+}
