@@ -1,0 +1,7 @@
+{
+    "type": "codedrills",
+    "url": "site.api.prod.codedrills.io",
+    "port": 6565,
+    "authKey": "$creds.codedrills_key",
+    "contestId": "icpc-amritapuri-2023-mock-round"
+}
