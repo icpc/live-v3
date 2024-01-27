@@ -3,7 +3,7 @@ import styled from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 import { ShrinkingBox } from "./ShrinkingBox";
-import star from "../../assets/icons/star.svg";
+import star from "../../assets/icons/scoreboard_star.svg";
 
 import {
     TeamTaskColor,
@@ -117,14 +117,14 @@ const TaskResultLabelWrapper2 = styled.div`
   color: #fff;
 `;
 
+
 const StarIconWrap = styled.div`
     position: absolute;
     width: 33px;
     height: 33px;
-    background-color: ${({ color }) => color};
     mask: url(${star});
-    -webkit-mask-image: url(${star});
-    mask-repeat: no-repeat;
+    background-position: center;
+    background-color: ${({ color }) => color};
 `;
 
 const StarIcon = ({ color }) => {
@@ -138,11 +138,11 @@ const AttemptsLabelWrapper = styled.div`
 const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
-    const defaultColor = "#ffd200";
+    const defaultColorForStar = "#000";
     const greenColor = "#3bba6b";
     return <>
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
-            { status === TeamTaskStatus.first && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColor : problemColor}/> }
+            { status === TeamTaskStatus.first && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/> }
             <AttemptsLabelWrapper>
                 {TeamTaskSymbol[status]}
                 {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
