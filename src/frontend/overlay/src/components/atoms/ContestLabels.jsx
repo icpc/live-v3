@@ -3,6 +3,8 @@ import styled from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 import { ShrinkingBox } from "./ShrinkingBox";
+import star from "../../assets/icons/star.svg";
+
 import {
     TeamTaskColor,
     TeamTaskSymbol,
@@ -115,15 +117,33 @@ const TaskResultLabelWrapper2 = styled.div`
   color: #fff;
 `;
 
-// TODO: fts start
+const StarIconWrap = styled.div`
+    position: absolute;
+    width: 33px;
+    height: 33px;
+    background-color: #ffd200;
+    mask-image: url(${star}) no-repeat;
+    -webkit-mask-image: url(${star});
+`;
+
+const StarIcon = () => {
+    return <StarIconWrap/>;
+};
+
+const AttemptsLabelWrapper = styled.div`
+    position: relative;
+`;
+
 const ICPCTaskResultLabel2 = ({ problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
     return <>
-        {/*{status === TeamTaskStatus.first && <StarIcon/>}*/}
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
-            {TeamTaskSymbol[status]}
-            {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
+            { status === TeamTaskStatus.first && <StarIcon/> }
+            <AttemptsLabelWrapper>
+                {TeamTaskSymbol[status]}
+                {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
+            </AttemptsLabelWrapper>
         </TaskResultLabelWrapper2>
     </>;
 };
