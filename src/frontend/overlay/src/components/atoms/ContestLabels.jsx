@@ -1,10 +1,18 @@
-import React, {memo} from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import c from "../../config";
-import {isShouldUseDarkColor} from "../../utils/colors";
-import {ShrinkingBox} from "./ShrinkingBox";
-import {getStatus, getTeamTaskColor, TeamTaskColor, TeamTaskStatus, TeamTaskSymbol,} from "../../utils/statusInfo";
-import {formatScore} from "../../services/displayUtils";
+import { isShouldUseDarkColor } from "../../utils/colors";
+import { ShrinkingBox } from "./ShrinkingBox";
+import star from "../../assets/icons/scoreboard_star.svg";
+
+import {
+    TeamTaskColor,
+    TeamTaskSymbol,
+    TeamTaskStatus,
+    getStatus,
+    getTeamTaskColor,
+} from "../../utils/statusInfo";
+import { formatScore } from "../../services/displayUtils";
 
 const VerdictLabel = styled(ShrinkingBox)`
   background-color: ${({ color }) => color};
@@ -109,27 +117,52 @@ const TaskResultLabelWrapper2 = styled.div`
   color: #fff;
 `;
 
-// TODO: fts start
-const ICPCTaskResultLabel2 = ({ problemResult: r, ...props }) => {
+
+const StarIconWrap = styled.div`
+    position: absolute;
+    width: 33px;
+    height: 33px;
+    mask: url(${star});
+    background-position: center;
+    background-color: ${({ color }) => color};
+`;
+
+const StarIcon = ({ color }) => {
+    return <StarIconWrap color={color}/>;
+};
+
+const AttemptsOrScoreLabelWrapper = styled.div`
+    position: relative;
+`;
+
+const defaultColorForStar = "#000";
+const greenColor = "#3bba6b";
+
+const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
     return <>
-        {/*{status === TeamTaskStatus.first && <StarIcon/>}*/}
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
-            {TeamTaskSymbol[status]}
-            {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
+            { status === TeamTaskStatus.first && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/> }
+            <AttemptsOrScoreLabelWrapper>
+                {TeamTaskSymbol[status]}
+                {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
+            </AttemptsOrScoreLabelWrapper>
         </TaskResultLabelWrapper2>
     </>;
 };
 
-const IOITaskResultLabel2 = ({ problemResult: r, minScore, maxScore,  ...props }) => {
+const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore,  ...props }) => {
     return <TaskResultLabelWrapper2 color={getTeamTaskColor(r.score, minScore, maxScore)} { ...props}>
-        {formatScore(r?.score)}
+        { r.isFirstBest && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/>}
+        <AttemptsOrScoreLabelWrapper>
+            {formatScore(r?.score)}
+        </AttemptsOrScoreLabelWrapper>
     </TaskResultLabelWrapper2>;
 };
-export const TaskResultLabel = memo(({ problemResult, minScore, maxScore, ...props }) => {
+export const TaskResultLabel = memo(({ problemColor, problemResult, minScore, maxScore, ...props }) => {
     return <>
-        {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}
-        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult} minScore={minScore} maxScore={maxScore} {...props}/>}
+        {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemColor={problemColor} problemResult={problemResult} {...props}/>}
+        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemColor={problemColor} problemResult={problemResult} minScore={minScore} maxScore={maxScore} {...props}/>}
     </>;
 });
