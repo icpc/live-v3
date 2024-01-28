@@ -1,0 +1,14 @@
+{
+    "type": "clics",
+    "network": { "allowUnsecureConnections": true },
+    "feeds": [
+      {
+        "url": "https://domjudge.lip6.fr:9443/api",
+        "contestId": "swerc2023",
+        "feedVersion": "2022_07",
+        "login": "live",
+        "password": "password"
+      }
+    ],
+    "useTeamNames": true
+  }

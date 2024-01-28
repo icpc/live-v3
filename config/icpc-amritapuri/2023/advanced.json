@@ -1,0 +1,477 @@
+{
+  "problemOverrides": {
+    "3071":{"color":"#e6194B","unsolvedColor": "#808080"},
+    "3140":{"color":"#3cb44b","unsolvedColor": "#808080"},
+    "3133":{"color":"#ffe119","unsolvedColor": "#808080"},
+    "3007":{"color":"#4363d8","unsolvedColor": "#808080"},
+    "3074":{"color":"#f58231","unsolvedColor": "#808080"},
+    "3124":{"color":"#42d4f4","unsolvedColor": "#808080"},
+    "3127":{"color":"#f032e6","unsolvedColor": "#808080"},
+    "3125":{"color":"#fabed4","unsolvedColor": "#808080"},
+    "3128":{"color":"#469990","unsolvedColor": "#808080"},
+    "3122":{"color":"#dcbeff","unsolvedColor": "#808080"},
+    "3072":{"color":"#9A6324","unsolvedColor": "#808080"},
+    "3075":{"color":"#fffac8","unsolvedColor": "#808080"}
+  },
+  "teamNameRegexes": {
+    "customFields": {
+      "funnyName": {
+        "(.*)" : "$1"
+      }
+    }    
+  },
+  "teamOverrideTemplate": {
+    "displayName": "{orgDisplayName}: {funnyName}"
+  },
+  "organizationOverrides": {
+        "Indian Institute of Technology - Kanpur": {"displayName": "IIT Kanpur"},
+        "Indian Institute of Technology - Varanasi": {"displayName": "IITBHU"},
+        "Indian Institute of Technology - Delhi": {"displayName": "IIT Delhi"},
+        "Indian Institute of Technology - Kharagpur": {"displayName": "IIT Kharagpur"},
+        "International Institute of Information Technology - Hyderabad": {"displayName": "IIIT Hyderabad"},
+        "Indian Institute of Technology - Bombay": {"displayName": "IIT Bombay"},
+        "Indian Institute of Technology - Madras": {"displayName": "IIT Madras"},
+        "Indian Institute of Technology - Patna": {"displayName": "IIT Patna"},
+        "Birla Institute of Technology and Science, Pilani Campus": {"displayName": "BITS Pilani"},
+        "Indian Institute of Technology - Roorkee": {"displayName": "IIT Roorkee"},
+        "Indian Institute of Technology - Guwahati": {"displayName": "IIT Guwahati"},
+        "BITS-Pilani, Hyderabad Campus": {"displayName": "BITS-Pilani Hyderabad"},
+        "Indian Institute of Technology (ISM), Dhanbad": {"displayName": "IIT(ISM) Dhanbad"},
+        "Indian Institute of Information Technology Allahabad": {"displayName": "IIITA"},
+        "National Institute of Technology Karnataka, Surathkul": {"displayName": "NITK Surathkul"},
+        "Manipal Institute of Technology": {"displayName": "MIT"},
+        "Walchand College of Engineering, Sangli": {"displayName": "Walchand College of Engineering, Sangli"},
+        "Jadavpur University": {"displayName": "JU"},
+        "Army Institute of Technology": {"displayName": "AIT"},
+        "Indian Institute of Technology - Ropar": {"displayName": "IIT Ropar"},
+        "Delhi Technological University(Formerly DCE)": {"displayName": "DTU"},
+        "Institute of Engineering & Technology, Lucknow": {"displayName": "IET Lucknow"},
+        "Pandit Deendayal Petroleum University": {"displayName": "PDPU"},
+        "Indian Institute of Technology - Indore": {"displayName": "IIT Indore"},
+        "International Institute of Information Technology - Bangalore": {"displayName": "IIITB"},
+        "Indian Institute of Information Technology Tiruchirappalli": {"displayName": "IIITT"},
+        "Jadavpur University, Kolkata": {"displayName": "JU"},
+        "Indian Institute of Technology - Hyderabad": {"displayName": "IIT - Hyderabad"},
+        "Graphic Era University": {"displayName": "GEU"},
+        "Delhi Skill and Entrepreneurship University Okhla-1": {"displayName": "DSEU"},
+        "National Institute of Technology, Rourkela": {"displayName": "NITRKL"},
+        "Pune Institute of Computer Technology": {"displayName": "Pune Institute of Computer Technology"},
+        "Dr. B R Ambedkar National Institute of Technology, Jalandhar": {"displayName": "DBRA-NITJ"},
+        "Indian Institute of Information Technology, Surat": {"displayName": "IIIT Surat"},
+        "Chennai Mathematical Institute": {"displayName": "CMI"},
+        "Indian Institute of Information Technology, Lucknow": {"displayName": "IIIT Lucknow"},
+        "Indian Institute of Information Technology Design and Manufacturing, Kurnool": {"displayName": "IIITD-M, Kurnool"},
+        "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar": {"displayName": "DA-IICT"},
+        "National Institute of Technology, Calicut": {"displayName": "NIT Calicut"},
+        "Motilal Nehru National Institute of Technology - Allahabad": {"displayName": "Motilal Nehru National Institute of Technology - Allahabad"},
+        "PDPM Indian Institute of Information Technology Design & Manufacturing, Jabalpur": {"displayName": "PDPM IIITD-M, Jabalpur"},
+        "New Horizon College of Engineering": {"displayName": "New Horizon College of Engineering"},
+        "BMS College of Engineering": {"displayName": "BMSCE"},
+        "Thadomal Shahani Engineering College": {"displayName": "TSEC"},
+        "Vignan's Institute of Information Technology": {"displayName": "Vignan's Institute of Information Technology"},
+        "University Institute of Engineering and Technology, Panjab University": {"displayName": "UIET Panjab"},
+        "Malviya National Institute of Technology Jaipur": {"displayName": "Malviya National Institute of Technology Jaipur"},
+        "Birla Institute of Technology, Mesra": {"displayName": "BITS Mesra"},
+        "MANAV RACHNA UNIVERSITY": {"displayName": "MRU"},
+        "Visvesvaraya National Institute of Technology, Nagpur": {"displayName": "VNIT"},
+        "Rajasthan Technical University Kota": {"displayName": "RTU"},
+        "Indian Institute of Information Technology Guwahati": {"displayName": "IIIT Guwahati"},
+        "Indian Institute of Technology - Mandi": {"displayName": "IIT Mandi"},
+        "Indian Institute of Information Technology,  Dharwad": {
+"displayName": "IIIT Dharwad"
+},
+        "Chitkara University": {
+"displayName": "CU"
+},
+        "Oriental College of Technology Bhopal": {
+"displayName": "OCT Bhopal"
+},
+        "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY BHAGALPUR": {
+"displayName": "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY BHAGALPUR"
+},
+        "University Institute of Engineering and Technology, Kurukshetra University": {
+"displayName": "UIETKUK"
+},
+        "Indian Institute of Information Technology, Tiruchirappalli": {
+"displayName": "IIIT Trichy"
+},
+        "National Institute of Technology, Meghalaya": {
+"displayName": "NIT-M"
+},
+        "KLE Technological University": {
+"displayName": "KLE TECH"
+},
+        "INDIAN INSTITUTE OF INFORMATION TECHNOLOGY RANCHI": {
+"displayName": "IIIT RANCHI"
+},
+        "Indian I of IT Nagpur": {
+"displayName": "IIIT Nagpur"
+},
+        "Madhav I of T and S, Gwalior": {
+"displayName": "MITS"
+},
+        "K L University": {
+"displayName": "KLU"
+},
+        "Marathwada Mitra Mandal's College of Engineering": {
+"displayName": "MMCOE"
+},
+        "Ajay Kumar Garg Engineering College, Ghaziabad": {
+"displayName": "AKGEC"
+},
+        "National Institute of Technology Goa": {
+"displayName": "NIT Goa"
+},
+        "Bangalore Institute of Technology": {
+"displayName": "Bangalore Institute of Technology"
+},
+        "Atharva College of Engineering": {
+"displayName": "ACOE"
+},
+        "University Institute of Engineering & Technology, CSJMU, Kanpur": {
+"displayName": "UIET, Kanpur"
+},
+        "Birla Institute of Technology, Jaipur": {
+"displayName": "BITJ"
+},
+        "Sant Longowal Institute of Engineering and Technology": {
+"displayName": "SLIET"
+},
+        "PSG College of Technology": {
+"displayName": "PSGCT"
+},
+        "Rashtreeya Vidyalaya College of Engineering": {
+"displayName": "RVCE"
+},
+        "Nutan Maharashtra Institute of Engineering and Technology, Pune": {
+"displayName": "NMIET"
+},
+        "Ganeshi Lal Bajaj Institute Of Technology And Management": {
+"displayName": "GLBITM"
+},
+        "Indian Institute of Technology - Gandhinagar": {
+"displayName": "IITGn"
+},
+        "Dayananda Sagar College of Engineering": {
+"displayName": "DSCE"
+},
+        "GLA University, Mathura": {
+"displayName": "GLA"
+},
+        "Shri Ramdeobaba College of Engineering and Management, Nagpur": {
+"displayName": "RCOEM"
+},
+        "VNR Vignana Jyothi Institute of Engineering & Technology": {
+"displayName": "VNRVJIET"
+},
+        "Narula Institute of Technology": {
+"displayName": "Narula Institute of Technology"
+},
+        "Kalinga Institute Of Industrial Technology,Bhubaneswar": {
+"displayName": "KIIT"
+},
+        "Madhav Institute of Technology & Science, Gwalior": {
+"displayName": "Madhav Institute of Technology & Science, Gwalior"
+},
+        "Deogiri Institute of Engineering and Management Studies": {
+"displayName": "DIEMS"
+},
+        "Mahindra University Ecole Centrale": {
+"displayName": "MU"
+},
+        "SRM Institute Of Science and Technology": {
+"displayName": "SRMIST"
+},
+        "Rajiv Gandhi Institute Of Petroleum Technology": {
+"displayName": "RGIPT"
+},
+        "Indian Institute of Information Technology Kota": {
+"displayName": "IIIT Kota"
+},
+        "Sri Eshwar College of Engineering": {
+"displayName": "SECE"
+},
+        "Jabalpur Engineering College": {
+"displayName": "Jabalpur Engineering College"
+},
+        "D. Y. Patil College of Engineering Akurdi": {
+"displayName": "DYPCOEAK"
+},
+        "Government College of Engineering, Amravati": {
+"displayName": "Government College of Engineering, Amravati"
+},
+        "Shah & Anchor Kutchhi Engineering College": {
+"displayName": "SAKEC"
+},
+        "Netaji Subhash Engineering College, Kolkata": {
+"displayName": "Netaji Subhash Engineering College, Kolkata"
+},
+        "BIT Sindri": {
+"displayName": "BIT Sindri"
+},
+        "G H Patel College of Engineering & Technology": {
+"displayName": "GCET"
+},
+        "Dr. Vishwanath Karad MIT World Peace University": {
+"displayName": "MIT-WPU"
+},
+        "MBM University, Jodhpur": {
+"displayName": "MBMU"
+},
+        "University School of Information Technology": {
+"displayName": "USIT"
+},
+        "Dr Vishwanath Karad MIT World Peace University": {
+"displayName": "MIT-WPU"
+},
+        "Vellore Institute of Technology, Bhopal": {
+"displayName": "VIT Bhopal"
+},
+        "Amrita School of Engineering, Kollam": {
+"displayName": "Amrita SE Kollam"
+},
+        "RV Institute of Technology and Management, Bangalore": {
+"displayName": "RVITMB"
+},
+        "Indian Institute of Information Technology Kalyani": {
+"displayName": "IIITK"
+},
+        "University of Calcutta": {
+"displayName": "CU"
+},
+        "Sardar Patel Institute of Technology": {
+"displayName": "SPIT"
+},
+        "RCC Institute of Information Technology, Beliaghata, Kolkata, West Bengal": {
+"displayName": "RCC Institute of Information Technology, Beliaghata, Kolkata, West Bengal"
+},
+        "Devang Patel Institute of Advance Technology and Research": {
+"displayName": "DEPSTAR"
+},
+        "Sreenidhi Institute of Science and Technology": {
+"displayName": "Sreenidhi Institute of Science and Technology"
+},
+        "Rishihood University": {
+"displayName": "RU"
+},
+        "Bundelkhand Institute of Engineering & Technology, Jhansi": {
+"displayName": "BU-IET"
+},
+        "Indore Institute of Science and Technology": {
+"displayName": "IIST"
+},
+        "SRM-IST DELHI NCR Campus Modinagar, Ghaziabad, U.P.": {
+"displayName": "SRM NCR Campus"
+},
+        "Sri Ramachandra Institute of Higher Education and Research": {
+"displayName": "SRIHER"
+},
+        "Terna Engineering College": {
+"displayName": "Terna Engineering College"
+},
+        "Yeshwantrao Chavan College of Engineering": {
+"displayName": "YCCE"
+},
+        "Techno India university": {
+"displayName": "TIU"
+},
+        "Dronacharya College of Engineering": {
+"displayName": "DCEG"
+},
+        "B. M. S. College of Engineering": {
+"displayName": "B. M. S. College of Engineering"
+},
+        "CMR Institute of Technology, Bangalore": {
+"displayName": "CMR Institute of Technology, Bangalore"
+},
+        "CMR INSTITUTE OF TECHNOLOGY, HYDERABAD": {
+"displayName": "CMRIT-H"
+},
+        "Jamia Millia Islamia": {
+"displayName": "JMI"
+},
+        "BVRIT Hyderabad College of Engineering for Women": {
+"displayName": "BVRIT Hyderabad"
+},
+        "Techno International New Town": {
+"displayName": "TINT"
+},
+        "Faculty of Engineering and Technology Jain University": {
+"displayName": "FETJU"
+},
+        "Vishwakarma Institute of Information Technology": {
+"displayName": "Vishwakarma Institute of Information Technology"
+},
+        "Amrita School of Engineering, Coimbatore": {
+"displayName": "Amrita School of Engineering, Coimbatore"
+},
+        "Kumaraguru College of Technology": {
+"displayName": "Kumaraguru College of Technology"
+},
+        "Karunya Institute of Technology and Sciences, Coimbatore": {
+"displayName": "Karunya"
+},
+        "YMCA University of Science and Technology, Faridabad": {
+"displayName": "YMCA UST"
+},
+        "Gandhi Institute of Engineering & Technology, Gunupur": {
+"displayName": "Gandhi Institute of Engineering & Technology, Gunupur"
+},
+        "Maharaja Surajmal Institute of Technology": {
+"displayName": "MSIT"
+},
+        "Dr. Babasaheb Ambedkar Technological University": {
+"displayName": "BATU"
+},
+        "RNS Institute of Technology": {
+"displayName": "RNSIT"
+},
+        "Government College of Engineering, Nagpur": {
+"displayName": "GCOE, Nagpur"
+},
+        "Indian Institute of Information Technology and Management, Gwalior": {
+"displayName": "Indian Institute of Information Technology and Management, Gwalior"
+},
+        "National I of T, Silchar": {
+"displayName": "National Institute of Technology, Silchar"
+},
+        "Pimpri Chinchwad College of Engineering": {
+"displayName": "PCCOE"
+},
+        "Gayatri Vidya Parishad College of Engineering, Visakhapatnam": {
+"displayName": "Gayatri Vidya Parishad College of Engineering, Visakhapatnam"
+},
+        "Indian Institute of Information Technology Pune": {
+"displayName": "IIT Pune"
+},
+        "K. J. Somaiya College of Engineering, Vidyavihar, Mumbai": {
+"displayName": "K. J. Somaiya College of Engineering, Vidyavihar, Mumbai"
+},
+        "Techno Main Salt Lake (formerly known as Techno India Salt Lake)": {
+"displayName": "TMSL"
+},
+        "IIIT-Delhi": {
+"displayName": "IIIT-Delhi"
+},
+        "Netaji Subhas University Of Technology": {
+"displayName": "NSUT"
+},
+        "Jaypee Institute of Information Technology": {
+"displayName": "JIIT"
+},
+        "National Institute of Technology, Patna": {
+"displayName": "NIT Patna"
+},
+        "National Institute of Technology Delhi": {
+"displayName": "NIT Delhi"
+},
+        "National Institute of Technology, Jamshedpur": {
+"displayName": "NIT JSR"
+},
+        "Kamla Nehru Institute of Technology": {
+"displayName": "KNIT"
+},
+        "Thapar Institute of Engineering & Technology": {
+"displayName": "TIET"
+},
+        "School of Engineering and Applied Science, Ahmedabad University": {"displayName": "SEAS-AU"},
+        "Keshav Memorial Institute of Technology": {"displayName": "KMIT"},
+        "Nirma University": {"displayName": "Nirma University"},
+        "Bhagwan Parshuram Institute of Technology": {"displayName": "BPIT"},
+        "BITS-Pilani, Goa Campus": {"displayName": "BITS-Pilani, Goa Campus"},
+        "NATIONAL INSTITUTE OF TECHNOLOGY TIRUCHIRAPPALLI": {"displayName": "NITT"},
+        "Indian Institute of Technology, Palakkad": {"displayName": "IIPKD"},
+        "M.S. Ramaiah Institute of Technology": {"displayName": "MSRIT"},
+        "VIT-AP University": {"displayName": "VIT-AP"},
+        "International Institute of Information Technology - Naya Raipur": {"displayName": "IIIT Naya Raipur"},
+        "Sri Sivasubramaniya Nadar College of Engineering": {"displayName": "SSNCE"},
+        "Maulana Azad National Institute of Technology Bhopal": {"displayName": "Maulana Azad National Institute of Technology Bhopal"},
+        "Goa Engineering College": {"displayName": "Goa Engineering College"},
+        "Institute of Engineering & Management, Kolkata": {"displayName": "IEM, Kolkata"},
+        "IIIT Vadodara-International Campus Diu": {"displayName": "IIITV-ICD"},
+        "Amrita Vishwa Vidyapeetham": {"displayName": "AVV"},
+        "Indian Institute of Information Technology, Sri City, Chittoor": {"displayName": "IIITSriC."},
+        "Indian Institute of Technology, Tirupati": {"displayName": "IITTP"},
+        "University Institute of Technology - RGPV": {"displayName": "UIT, RGPV"},
+        "Kalyani Government Engineering College": {"displayName": "KGEC"},
+        "JSS Academy Of Technical Education": {"displayName": "JSSATE"},
+        "Scaler School of Technology": {"displayName": "SST"},
+        "National Institute of Technology - Agartala": {"displayName": "NIT Argatala"},
+        "ABES Engineering College": {"displayName": "ABESEC"},
+        "DJ Sanghvi College of Engineering": {"displayName": "DJ Sanghvi"},
+        "Indian Institute of Technology Goa": {"displayName": "IIT Goa"},
+        "Sir M. Visvesvaraya Institute of Technology": {"displayName": "Sir M. Visvesvaraya I of T"},
+        "Indian Institute Of Technology Jodhpur": {"displayName": "IITJ"},
+        "National Institute of Technology, Kurukshetra": {"displayName": "National Institute of Technology, Kurukshetra"},
+        "L.D. College of Engineering": {"displayName": "LDCE"},
+        "National Institute of Technology, Warangal": {"displayName": "NITW"},
+        "Madan Mohan Malaviya University of Technology": {"displayName": "MMMUT"},
+        "Jaipur Engineering College &amp; Research Centre": {"displayName": "Jaipur Engineering College & Research Centre"},
+        "Sardar Vallabhbhai National Institute of Technology": {"displayName": "Sardar Vallabhbhai National Institute of Technology"},
+        "Lovely Professional University": {"displayName": "LPU"},
+        "National Institute of Technology, Durgapur": {"displayName": "National Institute of Technology, Durgapur"},
+        "Fr. Conceicao Rodrigues Institute of Technology": {"displayName": "Fr. CRIT"},
+        "National Institute of Technology, Srinagar": {"displayName": "NIT Srinagar"},
+        "Indian Institute of Technology Bhilai": {"displayName": "IIT Bhilai"},
+        "Jaypee University of Engineering and Technology, Guna": {"displayName": "JUET, Guna"},
+        "Indian Institute of Information Technology,Una": {"displayName": "IIITU"},
+        "Indian Institute of Information Technology Kottayam": {"displayName": "IIITK"},
+        "Pranveer Singh Institute of Technology": {"displayName": "PSIT"},
+        "Indian Institute of Engineering Science and Technology, Shibpur": {"displayName": "IIEST, Shibpur"},
+        "Punjab Engineering College Chandigarh": {"displayName": "PEC"},
+        "Chandigarh University": {"displayName": "CU"},
+        "Vellore Institute of Technology, Chennai": {"displayName": "VIT Chennai"},
+        "Vellore Institute of Technology": {"displayName": "VIT"},
+        "Harcourt Butler Technical University, Kanpur": {"displayName": "HBTUK"},
+        "Jawaharlal Nehru University": {"displayName": "JNU"},
+        "Vishwakarma Institute of Technology": {"displayName": "VIT"},
+        "Vidyalankar Institute of Technology": {"displayName": "VIT"},
+        "JSS Academy of Technical Education Noida": {"displayName": "JSS"},
+        "MLR Institute of Technology": {"displayName": "MLR Institute of Technology"},
+        "Shambhunath Institute of Engineering and Technology": {"displayName": "SIET"},
+        "Indian Institute of Information Technology Bhopal": {"displayName": "IIIT Bhopal"},
+        "The LNM Institute of Information Technology": {"displayName": "LNMIIT"},
+        "National institute of Technology, Uttarakhand": {"displayName": "NIT UK"},
+        "Institute of Engineering and Technology - Devi Ahilya Univ.": {"displayName": "I.E.T., D.A.V.V."},
+        "Veermata Jijabai Technological Institute": {"displayName": "VJTI"},
+        "National Institute of Technology, Raipur": {"displayName": "NIT Raipur"},
+        "Pimpri Chinchwad College Of Engineering and Research, Pune": {"displayName": "PCCOER"},
+        "KIET GROUP OF INSTITUTIONS": {"displayName": "KIET"},
+        "Thakur College of Engineering and Technology": {"displayName": "Thakur College of Engineering and Technology"},
+        "National Institute of Technology, Hamirpur": {"displayName": "NIT Hamirpur"},
+        "Deenbandhu Chhotu Ram University of Science and Technology Murthal Sonipat": {"displayName": "DCRUST Sonipat"},
+        "Prof. Ram Meghe Institute of Technology and Research, Amravati": {"displayName": "PRMIT&R"},
+        "IIT Bhubaneswar": {"displayName": "IIT BBS"},
+        "Maharaja Agrasen Institute of Technology": {"displayName": "Maharaja Agrasen Institute of Technology"},
+        "MIT Academy of Engineering, Alandi": {"displayName": "MITAOE"},
+        "Jalpaiguri Government Engineering College- Maulana Abul Kalam Azad University of Technology": {"displayName": "JGEC"},
+        "Ambalika Institute of Management and Technology": {"displayName": "AIMT"},
+        "Veer Surendra Sai University of Technology": {"displayName": "Veer Surendra Sai University of Technology"},
+        "Chandubhai S. Patel Institute of Technology": {"displayName": "CSPIT"},
+        "Heritage Institute of Technology, Kolkata": {"displayName": "Heritage I of T, Kolkata"},
+        "Bhilai Institute of Technology, Durg": {"displayName": "Bhilai I of T, Durg"},
+        "HALDIA INSTITUTE OF TECHNOLOGY": {"displayName": "HIT HALDIA"},
+        "Neil Gogte Institute of Technology": {"displayName": "NGIT"},
+        "Gokaraju Rangaraju Institute of Engineering and Technology, Hyderabad": {"displayName": "Gokaraju Rangaraju Institute of Engineering and Technology, Hyderabad"},
+        "Manipal University Jaipur": {"displayName": "MUJ"},
+        "Indira Gandhi Delhi Technical University for Women": {"displayName": "IGDTUW"},
+        "Thiagarajar College of Engineering": {"displayName": "TCE"},
+        "Sharda University": {"displayName": "Sharda"},
+        "St. Xavier's College, Kolkata": {"displayName": "SXC"},
+        "Indian Institute of Petroleum and Energy": {"displayName": "IIPE"},
+        "Bengal Institute of Technology, Tech Town": {"displayName": "Bengal Institute of Technology, Tech Town"},
+        "ITS Engineering College": {"displayName": "ITS"},
+        "Indian Institute of Technology, Madras": {"displayName": "IIT-Madras"},
+        "Indian Institute of Information Technology Senapati, Manipur": {"displayName": "IIIT M"},
+        "Shri Shankaracharya Technical Campus": {"displayName": "sstc"},
+        "Amity University": {"displayName": "Amity University"},
+        "Amrita School of Engineering, Bangalore": {"displayName": "Amrita School of Engineering, Bangalore"},
+        "International Institute of Information Technology Bhubaneswar": {"displayName": "IIIT Bhubaneswar"},
+        "Parul Institute of Engineering &amp;amp; Technology": {"displayName": "Parul Institute of Engineering & Technology"},
+        "Dr. D.Y. Patil Institute of Technology": {"displayName": "DIT"},
+        "Shri Vishnu Engineering College for Women": {"displayName": "Shri Vishnu Engineering College for Women"},
+        "SNS College of Technology": {"displayName": "SNS College of Technology"},
+        "NITRA Technical Campus": {"displayName": "NTC"},
+        "National Institute of Technology Rourkela": {"displayName": "NIT Rourkela"}
+  }
+}
