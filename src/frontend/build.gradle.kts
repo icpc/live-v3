@@ -38,7 +38,9 @@ tasks {
         inputs.file("admin/package.json")
         outputs.dir("admin/build")
     }
+    //val installBrowsers = named<NpmTask>("npm_run_install-browsers") // probably want to cache it somehow
     val runTests = named<NpmTask>("npm_run_test") {
+        //dependsOn(installBrowsers)
         dependsOn(":backend:release")
     }
     val test = register<Task>("test") {
