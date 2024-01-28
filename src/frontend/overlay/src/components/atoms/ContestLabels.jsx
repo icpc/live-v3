@@ -131,34 +131,38 @@ const StarIcon = ({ color }) => {
     return <StarIconWrap color={color}/>;
 };
 
-const AttemptsLabelWrapper = styled.div`
+const AttemptsOrScoreLabelWrapper = styled.div`
     position: relative;
 `;
+
+const defaultColorForStar = "#000";
+const greenColor = "#3bba6b";
 
 const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
-    const defaultColorForStar = "#000";
-    const greenColor = "#3bba6b";
     return <>
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
             { status === TeamTaskStatus.first && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/> }
-            <AttemptsLabelWrapper>
+            <AttemptsOrScoreLabelWrapper>
                 {TeamTaskSymbol[status]}
                 {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
-            </AttemptsLabelWrapper>
+            </AttemptsOrScoreLabelWrapper>
         </TaskResultLabelWrapper2>
     </>;
 };
 
-const IOITaskResultLabel2 = ({ problemResult: r, minScore, maxScore,  ...props }) => {
+const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore,  ...props }) => {
     return <TaskResultLabelWrapper2 color={getTeamTaskColor(r.score, minScore, maxScore)} { ...props}>
-        {formatScore(r?.score)}
+        { r.isFirstBest && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/>}
+        <AttemptsOrScoreLabelWrapper>
+            {formatScore(r?.score)}
+        </AttemptsOrScoreLabelWrapper>
     </TaskResultLabelWrapper2>;
 };
 export const TaskResultLabel = memo(({ problemColor, problemResult, minScore, maxScore, ...props }) => {
     return <>
         {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemColor={problemColor} problemResult={problemResult} {...props}/>}
-        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult} minScore={minScore} maxScore={maxScore} {...props}/>}
+        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemColor={problemColor} problemResult={problemResult} minScore={minScore} maxScore={maxScore} {...props}/>}
     </>;
 });
