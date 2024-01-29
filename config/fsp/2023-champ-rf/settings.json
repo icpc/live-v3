@@ -2,5 +2,9 @@
     "type": "cf",
     "apiKey": "$creds.codeforces_key",
     "apiSecret": "$creds.codeforces_secret",
-    "contestId": 491392
+    "contestId": 491392,
+    "emulation": {
+        "speed": 2,
+        "startTime": "now"
+    }
 }

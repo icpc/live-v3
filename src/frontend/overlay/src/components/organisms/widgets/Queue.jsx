@@ -14,7 +14,7 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 
 
-import {formatScore} from "../../../services/displayUtils";
+import { formatScore } from "../../../services/displayUtils";
 
 // const MAX_QUEUE_ROWS_COUNT = 20;
 
@@ -180,6 +180,9 @@ const QueueTeamNameLabel = styled(ShrinkingBox)`
 const QueueRunStatusLabel = styled(RunStatusLabel)`
   width: 46px;
   flex-shrink: 0;
+    font-weight: bolder;
+    font-size: 16pt;
+    height: 100%;
 `;
 
 const StyledQueueRow = styled.div`
@@ -189,9 +192,11 @@ const StyledQueueRow = styled.div`
   align-items: center;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
   overflow: hidden;
-  gap: 5px;
+  gap: 3px;
   color: white;
   font-size: ${c.QUEUE_ROW_FONT_SIZE};
+    font-family: TTFors, sans-serif;
+    font-weight: bold;
   background: ${c.QUEUE_ROW_BACKGROUND};
 `;
 
@@ -205,12 +210,12 @@ const QueueProblemLabel = styled(ProblemLabel)`
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
   line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
-  background-image: ${({isFts}) => isFts ? `url(${star})` : null};
+  background-image: ${({ isFts }) => isFts ? `url(${star})` : null};
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: contain;
   
-  mask: ${({isFts}) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
+  mask: ${({ isFts }) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
   mask-position: 50%;
   mask-size: contain;
 `;
@@ -250,10 +255,10 @@ export const QueueRow = ({ runInfo, flashing }) => {
         <QueueScoreLabel align={"right"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}
         />
-        <QueueRightPart>
-            <QueueProblemLabel letter={probData?.letter} problemColor={probData?.color} isFts={isFTSRun}/>
-            <QueueRunStatusLabel runInfo={runInfo}/>
-        </QueueRightPart>
+        {/*<QueueRightPart>*/}
+        <QueueProblemLabel letter={probData?.letter} problemColor={probData?.color} isFts={isFTSRun}/>
+        <QueueRunStatusLabel runInfo={runInfo}/>
+        {/*</QueueRightPart>*/}
     </StyledQueueRow>;
 };
 
@@ -269,6 +274,7 @@ const QueueWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
+    border-top: 10px solid ${c.CONTEST_COLOR};
 `;
 
 const RowsContainer = styled.div`

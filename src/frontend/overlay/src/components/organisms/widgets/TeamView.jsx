@@ -50,18 +50,14 @@ const TeamViewWrapper = styled.div`
   height: 100%;
   display: grid;
   justify-content: end;
-  grid-template-columns: ${({ sizeX, sizeY }) => `${sizeX - 2 * (Math.max(sizeY - sizeX * 9 / 16, 100)) * 16 / 9}px`} 
-                          ${({ sizeX, sizeY }) => `${2 * (Math.max(sizeY - sizeX * 9 / 16, 100)) * 16 / 9}px`};
-  grid-template-rows: ${({ sizeX, sizeY }) => `${sizeY - 2 * Math.max(sizeY - sizeX * 9 / 16, 100)}px`} 
-                      ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`} 
-                      ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`};
-  
-}
+  grid-template-columns: 889px 1fr;
+  grid-template-rows: 1fr 117px 103px;
 `;
 
 
 const TeamViewContestantViewHolder = styled(ContestantViewHolder)`
     top: 0; // # FIXME: fuck this.
+    grid-area: 1 / 1 / 3 / 3;
 `;
 
 function TeamViewContent({ mediaContent, settings, setLoadedComponents, location, isSmall }) {

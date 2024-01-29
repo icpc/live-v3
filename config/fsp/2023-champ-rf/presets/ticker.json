@@ -2,7 +2,7 @@
     {
         "type": "clock",
         "part": "short",
-        "periodMs": 30000
+        "periodMs": 10000
     },
     {
         "type": "text",
@@ -13,19 +13,37 @@
     {
         "type": "text",
         "part": "short",
-        "periodMs": 30000,
-        "text": "#ФСП"
+        "periodMs": 10000,
+        "text": "GOF"
     },
     {
         "type": "text",
         "part": "short",
         "periodMs": 30000,
-        "text": ""
+        "text": "SPORTS PROGRAMMING"
     },
     {
         "type": "text",
         "part": "long",
         "periodMs": 30000,
         "text": "Чемпионат России ФСП"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Games Of Future - Sports Programming"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Russia – 3 solves Task C and moves to first place"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Another analytics message"
     }
 ]

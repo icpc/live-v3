@@ -91,7 +91,7 @@ const VerdictCellInProgressWrap2 = styled.div`
   justify-content: flex-start;
   height: 100%;
   align-content: center;
-  border-radius: 0 16px 16px 0;
+  //border-radius: 0 16px 16px 0;
   border: 3px solid ${c.VERDICT_UNKNOWN};
   box-sizing: border-box;
 `;

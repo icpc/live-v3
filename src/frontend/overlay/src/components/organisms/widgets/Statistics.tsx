@@ -30,6 +30,8 @@ const Header = styled.div`
 `;
 const Title = styled.div`
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
+    display: flex;
+    align-items: center;
 `;
 
 const Caption = styled.div``;

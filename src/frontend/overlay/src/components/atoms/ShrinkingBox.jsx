@@ -6,8 +6,8 @@ const TextShrinkingWrap = styled.div`
   display: flex;
   overflow: hidden;
   justify-content: ${props => props.align};
-  font-kerning: none; // Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed.
-  font-family: ${c.GLOBAL_DEFAULT_FONT}, sans-serif;
+  //font-kerning: none; // Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed.
+  font-family: ${c.GLOBAL_DEFAULT_FONT};
 `;
 
 const storage = window.localStorage;
@@ -24,7 +24,7 @@ export const getTextWidth = (text, font) => {
         context.font = font;
         context.fontKerning = "none"; // Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed.
         const metrics = context.measureText(stringText);
-        const result = metrics.width;
+        let result = metrics.width;
         storage.setItem(key, result);
         return result;
     }
@@ -42,9 +42,11 @@ export const ShrinkingBox = memo(({
             boxRef.current = newCellRef;
             newCellRef.children[0].style.transform = "";
             const styles = getComputedStyle(newCellRef);
-            const textWidth = getTextWidth(text, `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`);
+            const font = `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+            const textWidth = getTextWidth(text, font);
             const haveWidth = (parseFloat(styles.width));
             const scaleFactor = Math.min(1, haveWidth / textWidth);
+            console.log(`Shrinking, ${text}, font=${font}, width=${textWidth}, have=${haveWidth}, scale=${scaleFactor}`);
             newCellRef.children[0].style.transform = `scaleX(${scaleFactor})`;
         }
     }, [align, fontFamily, fontSize, text]);
@@ -60,6 +62,7 @@ export const ShrinkingBox = memo(({
 
 const TextShrinkingContainer = styled.div`
   transform-origin: ${({ align }) => align};
+    //font-kerning: none;
   position: relative;
   text-align: ${({ align }) => align};
   color: ${({ color }) => color};

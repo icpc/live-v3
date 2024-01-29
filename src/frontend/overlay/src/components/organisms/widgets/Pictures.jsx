@@ -48,9 +48,9 @@ const PicturesContainer = styled.div`
 
 
 const PicturesCaptionWrap = styled.div`
-  background-color: rgb(136, 31, 27);
+  background-color: ${c.CONTEST_COLOR};
   font-size: 24pt;
-  font-family: Passageway, serif;
+  //font-family: Passageway, serif;
   color: white;
   align-self: stretch;
 `;

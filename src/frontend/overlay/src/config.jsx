@@ -19,7 +19,7 @@ const config = new Proxy(config_, {
     }
 });
 
-config.CONTEST_COLOR = "#6F1DFB";
+config.CONTEST_COLOR = "#00A3EA";
 config.CONTEST_CAPTION = "";
 
 config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay");
@@ -28,10 +28,10 @@ config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.lo
 config.WEBSOCKET_RECONNECT_TIME = 5000; // ms
 
 // Strings
-config.QUEUE_TITLE = "Очередь";
+config.QUEUE_TITLE = "Queue";
 config.QUEUE_CAPTION = config.CONTEST_CAPTION;
 config.SCOREBOARD_CAPTION = config.CONTEST_CAPTION;
-config.STATISTICS_TITLE = "Статистика";
+config.STATISTICS_TITLE = "Statistics";
 config.STATISTICS_CAPTION = config.CONTEST_CAPTION;
 
 // Behaviour
@@ -58,14 +58,14 @@ config.STATISTICS_CELL_MORPH_TIME = 200; //ms
 config.CELL_FLASH_PERIOD = 500; //ms
 
 // Styles > Global
-config.GLOBAL_DEFAULT_FONT_FAMILY = "JetBrains Mono, serif"; // css-property
+config.GLOBAL_DEFAULT_FONT_FAMILY = "PHGTL, serif"; // css-property
 config.GLOBAL_DEFAULT_FONT_SIZE = "22px"; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT = 400; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD = 700; // css-property
 config.GLOBAL_DEFAULT_FONT = config.GLOBAL_DEFAULT_FONT_SIZE + " " + config.GLOBAL_DEFAULT_FONT_FAMILY; // css property MUST HAVE FONT SIZE
-config.GLOBAL_BACKGROUND_COLOR = "#242425";
+config.GLOBAL_BACKGROUND_COLOR = "#040622";
 config.GLOBAL_TEXT_COLOR = "#FFF";
-config.GLOBAL_BORDER_RADIUS = "16px";
+config.GLOBAL_BORDER_RADIUS = "0px";
 
 config.VERDICT_OK = "#3bba6b";
 config.VERDICT_NOK = "#CB2E28";
@@ -73,7 +73,7 @@ config.VERDICT_UNKNOWN = "#F3BE4B";
 
 // Styles > Scoreboard
 config.SCOREBOARD_BACKGROUND_COLOR = config.GLOBAL_BACKGROUND_COLOR;
-config.SCOREBOARD_BORDER_RADIUS = config.GLOBAL_BORDER_RADIUS;
+config.SCOREBOARD_BORDER_RADIUS = 0;
 config.SCOREBOARD_TEXT_COLOR = config.GLOBAL_TEXT_COLOR;
 config.SCOREBOARD_CAPTION_FONT_SIZE = "32px"; // css value
 config.SCOREBOARD_HEADER_BACKGROUND_COLOR = config.CONTEST_COLOR;
@@ -91,7 +91,7 @@ config.SCOREBOARD_ROW_FONT_SIZE = config.GLOBAL_DEFAULT_FONT_SIZE;
 config.SCOREBOARD_CELL_PLACE_SIZE = "73px";
 config.SCOREBOARD_CELL_TEAMNAME_SIZE = "304px";
 config.SCOREBOARD_CELL_TEAMNANE_ALIGN = "left";
-config.SCOREBOARD_CELL_POINTS_SIZE = "81px";
+config.SCOREBOARD_CELL_POINTS_SIZE = "94px";
 config.SCOREBOARD_CELL_POINTS_ALIGN = "center";
 config.SCOREBOARD_CELL_PENALTY_SIZE = "92px";
 config.SCOREBOARD_CELL_PENALTY_ALIGN = "center";
@@ -99,12 +99,12 @@ config.SCOREBOARD_CELL_PENALTY_ALIGN = "center";
 
 config.QUEUE_ROW_FONT_SIZE = config.GLOBAL_DEFAULT_FONT_SIZE;
 config.QUEUE_ROW_BACKGROUND = "rgba(0, 0, 0, 0.08)";
-config.QUEUE_ROW_HEIGHT = 44; // px
-config.QUEUE_ROW_PADDING = 1; // px
+config.QUEUE_ROW_HEIGHT = 33; // px
+config.QUEUE_ROW_PADDING = 3; // px
 config.QUEUE_ROW_FEATURED_RUN_PADDING = 3; // px
 config.QUEUE_OPACITY = 0.95;
 config.QUEUE_FEATURED_RUN_ASPECT = 16 / 9;
-config.QUEUE_BACKGROUND_COLOR = config.CONTEST_COLOR;
+config.QUEUE_BACKGROUND_COLOR = config.GLOBAL_BACKGROUND_COLOR;
 config.QUEUE_HEADER_FONT_SIZE = "32px";
 config.QUEUE_HEADER_LINE_HEIGHT = "44px";
 
@@ -112,12 +112,12 @@ config.SCORE_NONE_TEXT = ".";
 
 config.STATISTICS_TITLE_FONT_SIZE = "30px";
 config.STATISTICS_OPACITY = 0.95;
-config.STATISTICS_BG_COLOR = "#000000";
+config.STATISTICS_BG_COLOR = "#040622";
 config.STATISTICS_TITLE_COLOR = "#FFFFFF";
 config.STATISTICS_STATS_VALUE_FONT_SIZE = config.GLOBAL_DEFAULT_FONT_SIZE;
 config.STATISTICS_STATS_VALUE_FONT_FAMILY = config.GLOBAL_DEFAULT_FONT_FAMILY;
 config.STATISTICS_STATS_VALUE_COLOR = "#FFFFFF";
-config.STATISTICS_BAR_HEIGHT_PX = 24;
+config.STATISTICS_BAR_HEIGHT_PX = 40;
 config.STATISTICS_BAR_HEIGHT = `${config.STATISTICS_BAR_HEIGHT_PX}px`;
 config.STATISTICS_BAR_GAP_PX = 9;
 config.STATISTICS_BAR_GAP = `${config.STATISTICS_BAR_GAP_PX}px`;
@@ -145,7 +145,7 @@ config.CELL_NAME_LEFT_PADDING = "5px"; // css property
 config.CELL_NAME_RIGHT_PADDING = config.CELL_NAME_LEFT_PADDING; // css property
 
 config.TICKER_SMALL_SIZE = "12%"; // css property
-config.TICKER_SMALL_BACKGROUND = config.VERDICT_NOK;
+config.TICKER_SMALL_BACKGROUND = "#6F00DB";
 config.TICKER_BACKGROUND = config.CELL_BG_COLOR;
 config.TICKER_OPACITY = 0.95;
 config.TICKER_FONT_COLOR = "#FFFFFF";
@@ -155,7 +155,7 @@ config.TICKER_TEXT_MARGIN_LEFT = "16px"; // css property
 config.TICKER_CLOCK_FONT_SIZE = "32px"; // css property
 config.TICKER_CLOCK_MARGIN_LEFT = "10px"; // css property
 config.TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
-config.TICKER_LIVE_ICON_SIZE = "32px";
+config.TICKER_LIVE_ICON_SIZE = "0";
 
 
 // not used

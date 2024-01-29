@@ -17,6 +17,8 @@ const ContestantViewCornerWrap = styled.div`
   //transform-origin: bottom left;
   /*transform: ${props => props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};*/
   white-space: nowrap;
+  font-family: TTFors, sans-serif;
+  font-weight: bold;
 `;
 const TaskRow = styled.div`
   display: flex;

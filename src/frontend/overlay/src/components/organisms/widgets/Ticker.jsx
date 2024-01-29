@@ -69,6 +69,7 @@ const SingleTickerWrap = styled.div`
   justify-content: ${props => props.justify};
   padding-left: ${props => props.padding};
   box-sizing: border-box;
+  //border-top: 10px solid #6F00DB; 
 `;
 
 const widgetTypes = Object.freeze({
@@ -112,8 +113,8 @@ export const SingleTickerRows = ({ part }) => {
 const ShortTickerGrid = styled.div`
   width: 100%;
   display: grid;
-  margin: 0 8px;
-  grid-template-columns: ${c.TICKER_LIVE_ICON_SIZE} auto;
+  //margin: 0 8px;
+  grid-template-columns: auto;
   column-gap: 8px;
 `;
 
@@ -127,10 +128,8 @@ export const SingleTicker = ({ part, color }) => {
         return (
             <SingleTickerWrap color={color}>
                 <ShortTickerGrid>
-                    <LiveIcon src={live}/>
-                    <SingleTickerWrap>
-                        <SingleTickerRows part={part}/>
-                    </SingleTickerWrap>
+                    {/*<LiveIcon src={live}/>*/}
+                    <SingleTickerRows part={part}/>
                 </ShortTickerGrid>
             </SingleTickerWrap>
         );
@@ -172,7 +171,7 @@ export const Ticker = () => {
         {isLoaded &&
             <>
                 <SingleTicker part={"short"} color={c.TICKER_SMALL_BACKGROUND}/>
-                <SingleTicker part={"long"} color={c.SCOREBOARD_BACKGROUND_COLOR}/>
+                <SingleTicker part={"long"} color={"#3a0092"}/>
             </>
         }
     </TickerWrap>;

@@ -54,3 +54,15 @@
   font-weight: 1 999;
 }
 
+
+@font-face {
+  font-family: 'PHGTL';
+  font-style: normal;
+  src: local('PHGTL-Regular'), url('./PHGTL.woff') format("woff");
+}
+
+@font-face {
+  font-family: 'TTFors';
+  font-style: normal;
+  src: url('./ttfors/TT Fors Trial Variable.ttf') format("truetype-variations");
+}

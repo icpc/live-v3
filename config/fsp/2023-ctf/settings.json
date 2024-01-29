@@ -1,0 +1,5 @@
+{
+  "type" : "ejudge",
+  "resultType": "IOI",
+  "url": "https://remote.vdi.mipt.ru:44367/external.xml"
+}

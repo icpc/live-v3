@@ -47,7 +47,7 @@ const ContestantInfoTeamNameLabel = styled(ShrinkingBox)`
 
 const ContestantInfoWrap = styled.div`
   width: 100%;
-  height: ${c.CONTESTER_ROW_HEIGHT};
+  // height: ${c.CONTESTER_ROW_HEIGHT};
   background-color: ${c.CONTESTER_BACKGROUND_COLOR};
   display: flex;
   align-items: center;

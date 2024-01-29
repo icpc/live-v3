@@ -12,13 +12,14 @@ const AdvertisementContainer = styled.div`
 
 // TODO: move this to constants.js
 const AdvertisementWrap = styled.div`
-  padding: 13px 20px;
-  background-color: white;
-  border-radius: 12px;
+  padding: 10px 20px;
+  background-color: ${c.CONTEST_COLOR};
+  //border-radius: 12px;
   font-size: 24pt;
-  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
-  font-family: Urbanist, Passageway, serif;
-  color: black;
+  // font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
+  font-family: TTFors, sans-serif;
+    font-weight: bold;
+  color: white;
 `;
 
 

@@ -3,16 +3,22 @@
     "teamOverrideTemplate": {
       "medias": {
         "screen": {
-          "type": "Photo",
-          "url": "https://www.ixbt.com/img/n1/news/2023/3/5/8c2133bc59b7dea5a6fb40725fe9e4dc_large.jpg"
+          "type": "WebRTCGrabberConnection",
+          "peerName": "{comp}",
+          "url": "https://grabber.kbats.ru",
+          "streamType": "desktop",
+          "credential": "federationchempionatlive"
         },
         "camera": {
-          "type": "Photo",
-          "url": "https://sm.ign.com/ign_nordic/gallery/e/elgato-fac/elgato-facecam-stock-settings_bxgw.jpg"
+          "type": "WebRTCGrabberConnection",
+          "url": "https://grabber.kbats.ru",
+          "peerName": "{comp}",
+          "streamType": "webcam",
+          "credential": "federationchempionatlive"
         },
         "achievement": {
           "type": "Photo",
-          "url": "http://localhost:8080/media/test.svg"
+          "url": "/media/ach/fsp{comp}.svg"
         }
       }
     },

@@ -2,6 +2,7 @@ import { DateTime, Settings, SystemZone } from "luxon";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { ShrinkingBox } from "../atoms/ShrinkingBox";
 // import SystemZone from "luxon/src/zones/systemZone";
 
 Settings.defaultZone = "utc";
@@ -61,7 +62,7 @@ export const ContestClock = ({
         const interval = setInterval(() => setStatus(getStatus()), 200);
         return () => clearInterval(interval);
     }, [getStatus]);
-    return status;
+    return <ShrinkingBox text={status}/>;
 };
 
 ContestClock.propTypes = {

@@ -1,0 +1,32 @@
+{
+  "queue": {
+    "positionX": 30,
+    "positionY": 248,
+    "sizeX": 384,
+    "sizeY": 645
+  },
+  "ticker": {
+    "positionX": 163,
+    "positionY": 976,
+    "sizeX": 1558,
+    "sizeY": 86
+  },
+  "scoreboard": {
+    "positionX": 424,
+    "positionY": 16,
+    "sizeX": 1488,
+    "sizeY": 877
+  },
+  "advertisement": {
+    "positionX": 165,
+    "positionY": 910,
+    "sizeX": 1558,
+    "sizeY": 52
+  },
+  "teamview.SINGLE_TOP_RIGHT": {
+    "positionX": 424,
+    "positionY": 16,
+    "sizeX": 1488,
+    "sizeY": 877
+  }
+}

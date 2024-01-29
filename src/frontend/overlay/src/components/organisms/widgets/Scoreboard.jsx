@@ -52,9 +52,9 @@ const ScoreboardContent = styled.div`
 
 
 export const nameTable = {
-    normal: "Текущее",
-    optimistic: "Оптимистичное",
-    pessimistic: "Пессимистичное",
+    normal: "Current",
+    optimistic: "Optimistic",
+    pessimistic: "Pessimistic",
 };
 
 const ScoreboardTableRowWrap = styled.div`
@@ -148,6 +148,8 @@ const ScoreboardRowsWrap = styled.div`
   flex: 1 0 0;
   overflow: hidden;
   height: auto;
+    font-family: TTFors, sans-serif;
+    font-weight: bold;
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
 `;
 
@@ -202,7 +204,7 @@ export const ScoreboardRows = ({ settings, onPage }) => {
 };
 
 const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
-  border-radius: 16px 16px 0 0;
+  //border-radius: 16px 16px 0 0;
   overflow: hidden;
   height: ${c.SCOREBOARD_HEADER_HEIGHT}px;
 
@@ -232,9 +234,9 @@ const ScoreboardTableHeader = () => {
     const needPenalty = useNeedPenalty();
     return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1} needPenalty={needPenalty}>
         <ScoreboardTableHeaderCell>#</ScoreboardTableHeaderCell>
-        <ScoreboardTableHeaderNameCell>Название</ScoreboardTableHeaderNameCell>
-        <ScoreboardTableHeaderCell>Σ</ScoreboardTableHeaderCell>
-        {needPenalty && <ScoreboardTableHeaderCell>Штраф</ScoreboardTableHeaderCell>}
+        <ScoreboardTableHeaderNameCell>Team</ScoreboardTableHeaderNameCell>
+        <ScoreboardTableHeaderCell>SUM</ScoreboardTableHeaderCell>
+        {needPenalty && <ScoreboardTableHeaderCell>PEN</ScoreboardTableHeaderCell>}
         {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.name} letter={probData.letter}
             problemColor={probData.color}/>
         )}
@@ -248,7 +250,7 @@ export const Scoreboard = ({ widgetData: { settings } }) => {
     return <ScoreboardWrap>
         <ScoreboardHeader>
             <ScoreboardTitle>
-                {nameTable[settings.optimismLevel] ?? "??"} положение
+                {nameTable[settings.optimismLevel] ?? "??"} standings
             </ScoreboardTitle>
             <ScoreboardCaption>
                 {c.SCOREBOARD_CAPTION}
