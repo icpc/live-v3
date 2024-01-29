@@ -119,7 +119,7 @@ export const ScoreboardRow = ({ teamId, hideTasks, optimismLevel }) => {
             formatPenalty(scoreboardData?.penalty)
         } />}
         {!hideTasks && scoreboardData?.problemResults.map((result, i) =>
-            <ScoreboardTaskResultLabel problemResult={result} key={i} problemColor={contestData.problems[i].color}
+            <ScoreboardTaskResultLabel problemResult={result} key={i} problemColor={contestData?.problems[i]?.color}
                 minScore={contestData?.problems[i]?.minScore} maxScore={contestData?.problems[i]?.maxScore}/>
         )}
     </ScoreboardRowWrap>;
