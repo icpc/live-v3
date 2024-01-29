@@ -118,18 +118,14 @@ const TaskResultLabelWrapper2 = styled.div`
 `;
 
 
-const StarIconWrap = styled.div`
+const StarIcon = styled.div`
     position: absolute;
-    width: 33px;
-    height: 33px;
+    width: ${c.STAR_SIZE}px;
+    height: ${c.STAR_SIZE}px;
     mask: url(${star});
     background-position: center;
     background-color: ${({ color }) => color};
 `;
-
-const StarIcon = ({ color }) => {
-    return <StarIconWrap color={color}/>;
-};
 
 const AttemptsOrScoreLabelWrapper = styled.div`
     position: relative;
@@ -160,9 +156,9 @@ const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScor
         </AttemptsOrScoreLabelWrapper>
     </TaskResultLabelWrapper2>;
 };
-export const TaskResultLabel = memo(({ problemColor, problemResult, minScore, maxScore, ...props }) => {
+export const TaskResultLabel = memo(({ problemResult, ...props }) => {
     return <>
-        {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemColor={problemColor} problemResult={problemResult} {...props}/>}
-        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemColor={problemColor} problemResult={problemResult} minScore={minScore} maxScore={maxScore} {...props}/>}
+        {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}
+        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult}  {...props}/>}
     </>;
 });

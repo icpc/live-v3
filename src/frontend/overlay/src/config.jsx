@@ -165,7 +165,7 @@ config.FULL_SCREEN_CLOCK_FONT_SIZE = "400px";
 config.FULL_SCREEN_CLOCK_COLOR = "#eeeeee";
 config.FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica; monospace";
 
-config.STAR_SIZE = 20; // px
+config.STAR_SIZE = 33; // px
 
 config.QUEUE_PROBLEM_LABEL_FONT_SIZE = config.GLOBAL_DEFAULT_FONT_SIZE;
 
