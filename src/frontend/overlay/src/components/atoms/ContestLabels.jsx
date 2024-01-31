@@ -130,8 +130,7 @@ const AttemptsOrScoreLabelWrapper = styled.div`
     position: absolute;
 `;
 
-const defaultColorForStar = "#000";
-const greenColor = "#3bba6b";
+const defaultColorForStar = "#F9A80D";
 
 const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
@@ -139,7 +138,7 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     return <>
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
             { status === TeamTaskStatus.first &&
-                <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/> }
+                <StarIcon color={problemColor === undefined ? defaultColorForStar : problemColor}/> }
             <AttemptsOrScoreLabelWrapper>
                 {TeamTaskSymbol[status]}
                 {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
@@ -150,7 +149,7 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
 
 const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore,  ...props }) => {
     return <TaskResultLabelWrapper2 color={getTeamTaskColor(r.score, minScore, maxScore)} { ...props}>
-        { r.isFirstBest && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/>}
+        { r.isFirstBest && <StarIcon color={problemColor === undefined ? defaultColorForStar : problemColor}/>}
         <AttemptsOrScoreLabelWrapper>
             {formatScore(r?.score)}
         </AttemptsOrScoreLabelWrapper>
