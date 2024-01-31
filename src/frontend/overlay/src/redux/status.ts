@@ -21,14 +21,26 @@ export const statusSlice = createSlice({
     name: "status",
     initialState,
     reducers: {
-        setWebsocketStatus: (state, action: PayloadAction<{socket: string, newStatus: WebsocketStatus}>) => {
-            state[action.payload.socket] = action.payload.newStatus;
+        setWebsocketStatus: {
+            reducer(state, action: PayloadAction<{socket: string, newStatus: WebsocketStatus}>) {
+                state.websockets[action.payload.socket] = action.payload.newStatus;
+            },
+            prepare(wsName, newStatus){
+                return {
+                    payload: {
+                        socket: wsName,
+                        newStatus
+                    }
+                };
+            }
         }
     }
 });
 
-export const setWebsocketStatus = (wsName: string, newStatus: WebsocketStatus) => {
-    return statusSlice.actions.setWebsocketStatus({ socket: wsName, newStatus });
-};
+// export const setWebsocketStatus = (wsName: string, newStatus: WebsocketStatus) => {
+//     return statusSlice.actions.setWebsocketStatus({ socket: wsName, newStatus });
+// };
+
+export const { setWebsocketStatus } = statusSlice.actions;
 
 export default statusSlice.reducer;

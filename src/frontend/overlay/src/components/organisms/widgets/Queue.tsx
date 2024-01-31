@@ -14,6 +14,7 @@ import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
 import { RunInfo } from "@shared/api";
+import { isFTS } from "@/utils/statusInfo";
 
 // const MAX_QUEUE_ROWS_COUNT = 20;
 
@@ -24,12 +25,14 @@ interface QueueRowAnimatorProps {
     animation: Keyframes,
     fts: boolean
 }
-const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(({ bottom, zIndex }) => ({
-    style: {
-        bottom: bottom + "px",
-        zIndex: zIndex,
-    }
-}))<QueueRowAnimatorProps>`
+const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(({ bottom, zIndex }) => {
+    return ({
+        style: {
+            bottom: bottom + "px",
+            zIndex: zIndex,
+        }
+    });
+})<QueueRowAnimatorProps>`
   overflow: hidden;
   width: 100%;
 
@@ -115,15 +118,18 @@ interface QueueRow extends RunInfo {
     isFeatured: boolean,
     isFeaturedRunMediaLoaded: boolean,
     isFts: boolean,
-    setIsFeaturedRunMediaLoaded: (state: boolean) => void,
+    setIsFeaturedRunMediaLoaded: (state: boolean) => void | null,
 }
 
 const useQueueRowsData = ({
     // width,
     height,
     basicZIndex = c.QUEUE_BASIC_ZINDEX,
+}: {
+    height: number,
+    basicZIndex?: number
 }): [QueueRow | null, QueueRow[]] => {
-    const isNotShownYet = useDelayedBoolean(300);
+    const shouldShow = useDelayedBoolean(300);
 
     const { queue, totalQueueItems } = useAppSelector(state => state.queue);
 
@@ -140,7 +146,7 @@ const useQueueRowsData = ({
             bottom: 0,
             isFeatured: false,
             isFeaturedRunMediaLoaded: false,
-            isFts: run.result !== null && run.result.type === "ICPC" && run.result?.isFirstToSolveRun,
+            isFts: isFTS(run),
             setIsFeaturedRunMediaLoaded: null,
         };
         if (row.isFts) {
@@ -157,9 +163,8 @@ const useQueueRowsData = ({
         } else {
             rows.push(row);
         }
-        // console.log(row);
     });
-    if (isNotShownYet) {
+    if (!shouldShow) {
         return [null, rows];
     }
     let ftsRowCount = 0;
@@ -167,8 +172,6 @@ const useQueueRowsData = ({
     rows.forEach((row) => {
         if (row.isFts) {
             row.bottom = (height - (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * (totalFts - ftsRowCount)) + 3;
-            // console.log(row.bottom);
-            // console.log(height);
             ftsRowCount++;
         } else {
             row.bottom = (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * regularRowCount;
@@ -362,9 +365,8 @@ export const Featured = ({ runInfo }) => {
 
 export const Queue = () => {
     // const [width, setWidth] = useState(null);
-    const [height, setHeight] = useState(null);
+    const [height, setHeight] = useState<number>(null);
     const [featured, queueRows] = useQueueRowsData({ height });
-    // console.log(featured);
     return <>
         <Featured runInfo={featured}/>
         <QueueWrap>

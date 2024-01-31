@@ -1,4 +1,5 @@
 import c from "../config";
+import { RunInfo } from "@shared/api";
 
 export enum TeamTaskStatus {
     solved = 1,
@@ -78,5 +79,13 @@ export const getIOIColor = (score?: number, minScore?: number, maxScore?: number
 const scaleNumber = (value: number, oldMin: number, oldMax: number, newMin: number, newMax: number): number => {
     const result = (value - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
     return Math.min(Math.max(result, newMin), newMax);
+};
+
+
+export const isFTS = (run: RunInfo): boolean => {
+    return run.result !== undefined && (
+        (run.result.type === "ICPC" && run.result.isFirstToSolveRun) ||
+        (run.result.type === "IOI" && run.result.isFirstBestRun)
+    );
 };
 
