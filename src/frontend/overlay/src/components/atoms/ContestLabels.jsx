@@ -119,7 +119,6 @@ const TaskResultLabelWrapper2 = styled.div`
 
 
 const StarIcon = styled.div`
-    position: absolute;
     width: ${c.STAR_SIZE}px;
     height: ${c.STAR_SIZE}px;
     mask: url(${star});
@@ -128,7 +127,7 @@ const StarIcon = styled.div`
 `;
 
 const AttemptsOrScoreLabelWrapper = styled.div`
-    position: relative;
+    position: absolute;
 `;
 
 const defaultColorForStar = "#000";
@@ -139,7 +138,8 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     const attempts = r.wrongAttempts + r.pendingAttempts;
     return <>
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
-            { status === TeamTaskStatus.first && <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/> }
+            { status === TeamTaskStatus.first &&
+                <StarIcon color={(problemColor === undefined || problemColor === greenColor) ? defaultColorForStar : problemColor}/> }
             <AttemptsOrScoreLabelWrapper>
                 {TeamTaskSymbol[status]}
                 {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
