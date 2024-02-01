@@ -1,4 +1,4 @@
-import _, { now } from "lodash";
+import _ from "lodash";
 import React, { useEffect, useRef } from "react";
 import MainLayout from "./components/layouts/MainLayout";
 import { StatusLayout } from "./components/layouts/StatusLayout";

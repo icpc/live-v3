@@ -233,9 +233,11 @@ const QueueProblemLabel = styled(ProblemLabel)`
   These three lines trigger plugin/no-unsupported-browser-features.
   I don't belive it, but we have to check.
    */
+    /* stylelint-disable plugin/no-unsupported-browser-features */
   mask: ${({ isFts }) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
   mask-position: 50%;
   mask-size: contain;
+    /* stylelint-enable plugin/no-unsupported-browser-features */
 `;
 const QueueRightPart = styled.div`
   height: 100%;

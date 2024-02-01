@@ -127,6 +127,7 @@ const TaskResultLabelWrapper2 = styled.div`
 const StarIcon = styled.div`
     width: ${c.STAR_SIZE}px;
     height: ${c.STAR_SIZE}px;
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     mask: url(${star});
     background-position: center;
     background-color: ${({ color }) => color};

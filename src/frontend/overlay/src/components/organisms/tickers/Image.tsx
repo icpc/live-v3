@@ -11,8 +11,7 @@ export const ImageWrap = styled.div<{path: string}>`
     display: flex;
     padding: 0 16px;
     box-sizing: border-box;
-    background-size: contain;
-    background: url(${(props) => props.path}) no-repeat center;
+    background: center / contain no-repeat url(${(props) => props.path});
 `;
 
 type ImageProps = {tickerSettings: image}

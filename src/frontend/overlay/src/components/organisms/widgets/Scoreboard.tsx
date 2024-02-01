@@ -128,7 +128,7 @@ export const ScoreboardRow = ({ teamId,
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const needPenalty = useNeedPenalty();
     const formatPenalty = useFormatPenalty();
-    return <ScoreboardRowWrap medal={scoreboardData?.medalType} nProblems={contestData?.problems?.length ?? 1} needPenalty={needPenalty}>
+    return <ScoreboardRowWrap nProblems={contestData?.problems?.length ?? 1} needPenalty={needPenalty}>
         <ScoreboardRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
         <ScoreboardRowName align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={c.SCOREBOARD_CELL_POINTS_ALIGN}
