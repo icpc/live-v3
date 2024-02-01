@@ -5,6 +5,7 @@ import { VerticalSubmissionRow } from "./SubmissionRow";
 import styled from "styled-components";
 import c from "../../../config";
 import { useAppSelector } from "@/redux/hooks";
+import { LegacyScoreboardRow } from "@shared/api";
 
 type ContestantViewVerticalWrapProps = {
     top: string,
@@ -32,8 +33,8 @@ const ContestantViewVerticalWrap = styled.div<ContestantViewVerticalWrapProps>`
 `;
 
 type TaskRowProps = {
-    end?: string,
-    start?: string,
+    end?: number,
+    start?: number,
     index: number,
     roundTop: boolean,
     problems: number,
@@ -65,10 +66,10 @@ interface ContestantViewLineProps {
 }
 
 export const ContestantViewLine = ({ teamId, isSmall, className, isTop }: ContestantViewLineProps) => {
-    const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
-        scoreboardData.problemResults[i]["index"] = i;
-    }
+    const scoreboardData: LegacyScoreboardRow = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
+    // for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
+    //     scoreboardData.problemResults[i]["index"] = i;
+    // }
     const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
     const contestData = useAppSelector((state) => state.contestInfo.info);
 
@@ -81,11 +82,11 @@ export const ContestantViewLine = ({ teamId, isSmall, className, isTop }: Contes
                 <VerticalSubmissionRow
                     isTop={isTop}
                     result={result}
-                    problemLetter={tasks[result?.index]?.letter}
-                    problemColor={tasks[result?.index]?.color}
+                    problemLetter={tasks[i]?.letter}
+                    problemColor={tasks[i]?.color}
                     lastSubmitTimeMs={result?.lastSubmitTimeMs}
-                    minScore={contestData?.problems[result.index]?.minScore}
-                    maxScore={contestData?.problems[result.index]?.maxScore}
+                    minScore={contestData?.problems[i]?.minScore}
+                    maxScore={contestData?.problems[i]?.maxScore}
 
                 />
             </TaskRow>

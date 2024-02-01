@@ -45,11 +45,11 @@ export const ContestantViewCorner = ({ teamId, isSmall = false, className = null
             <TaskRow key={i}>
                 <SubmissionRow
                     result={result}
-                    problemLetter={tasks[result?.index]?.letter}
-                    problemColor={tasks[result?.index]?.color}
+                    problemLetter={tasks[i]?.letter}
+                    problemColor={tasks[i]?.color}
                     lastSubmitTimeMs={result?.lastSubmitTimeMs}
-                    minScore={contestData?.problems[result.index]?.minScore}
-                    maxScore={contestData?.problems[result.index]?.maxScore}
+                    minScore={contestData?.problems[i]?.minScore}
+                    maxScore={contestData?.problems[i]?.maxScore}
                     // roundT={false}
                     roundB={i === 0}
                 />
