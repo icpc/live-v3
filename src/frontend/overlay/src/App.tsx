@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { now } from "lodash";
 import React, { useEffect, useRef } from "react";
 import MainLayout from "./components/layouts/MainLayout";
 import { StatusLayout } from "./components/layouts/StatusLayout";
@@ -9,6 +9,27 @@ import { setWebsocketStatus, WebsocketStatus } from "./redux/status";
 import { WEBSOCKET_HANDLERS } from "./services/ws/ws";
 import { useMountEffect } from "./utils/hooks/useMountEffect";
 import { useAppDispatch } from "@/redux/hooks";
+
+const safeHandleMessage = <H extends (...args: unknown[]) => unknown,>(ws: WebSocket, wsName: string, handler: H): H => {
+    let messagesMadeLastSecond = 0;
+    const getEpochSecond = () => Math.floor((new Date()).getTime() / 1000);
+    messagesMadeLastSecond++;
+    let lastSecond = getEpochSecond();
+    return ((...args) => {
+        const nowSecond = getEpochSecond();
+        if(nowSecond != lastSecond) {
+            messagesMadeLastSecond = 0;
+            lastSecond = nowSecond;
+        }
+        messagesMadeLastSecond++;
+        if(messagesMadeLastSecond > 50) {
+            console.error(`Backend is overloading us with data on ${wsName}. Closing socket.`);
+            ws.close();
+            return;
+        }
+        return handler(...args);
+    }) as H;
+};
 
 const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
     const openSocket = () => {
@@ -24,7 +45,7 @@ const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
             ws.current = null;
             setTimeout(openSocket, c.WEBSOCKET_RECONNECT_TIME);
         };
-        ws.current.onmessage = handleMessage;
+        ws.current.onmessage = safeHandleMessage(ws.current, wsName, handleMessage);
     };
     openSocket();
     return () => ws.current.close();

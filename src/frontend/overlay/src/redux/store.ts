@@ -34,9 +34,12 @@ export const store = configureStore({
         ticker: tickerReducer,
         statistics: statisticsReducer
     },
-    // middleware: getDefaultMiddleware => {
-    //
-    // }
+    middleware: (getDefaultMiddleware) => {
+        return getDefaultMiddleware({
+            immutableCheck: false,
+            serializableCheck: false
+        });
+    },
     devTools: import.meta.env.DEV,
 });
 // export const persistor = persistStore(store);

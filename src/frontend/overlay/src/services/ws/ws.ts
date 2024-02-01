@@ -10,18 +10,21 @@ import { handleMessage as tickerHandler } from "./ticker";
 
 
 const handler = {
-    get: function(target, name) {
+    get: function (target, name) {
         if (Object.getOwnPropertyDescriptor(target, name)) {
-            return (dispatch) => (e) => {
-                dispatch(pushLog(`${name} - ${e.data}`));
-                target[name](dispatch, e);
+            return (dispatch) => {
+                return (e) => {
+                    dispatch(pushLog(`${name} - ${e.data}`));
+                    target[name](dispatch, e);
+                };
             };
         } else {
-            return (dispatch) => (e) => {
-                const m = `NO HANDLER FOR WEBSOCKET ${name}. GOT EVENT ${_.truncate(e.data, { length: 100 })}`;
-                console.error(m);
-                dispatch(pushLog(m));
-            };
+            return (dispatch) =>
+                (e) => {
+                    const m = `NO HANDLER FOR WEBSOCKET ${name}. GOT EVENT ${_.truncate(e.data, { length: 100 })}`;
+                    console.error(m);
+                    dispatch(pushLog(m));
+                };
         }
     }
 };
