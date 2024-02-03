@@ -96,7 +96,8 @@ tasks {
                 "org.icpclive.api.MainScreenEvent",
                 "org.icpclive.api.QueueEvent",
                 "org.icpclive.api.AnalyticsEvent",
-                "org.icpclive.api.TickerEvent"
+                "org.icpclive.api.TickerEvent",
+                "org.icpclive.api.SolutionsStatistic"
             ),
             "api",
         ),

@@ -3,6 +3,7 @@
   "version": "3.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "@vitejs/plugin-react": "^4.0.3",
     "lodash": "^4.17.21",
@@ -22,8 +23,8 @@
     "sass": "^1.58.0",
     "socket.io-client": "^4.5.2",
     "styled-components": "^5.3.3",
-    "stylelint": "^14.8.2",
-    "stylelint-config-idiomatic-order": "^9.0.0",
+    "stylelint": "^15.11.0",
+    "stylelint-config-clean-order": "^5.2.0",
     "stylelint-config-recommended": "^7.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-no-unsupported-browser-features": "^5.0.3",
@@ -37,26 +38,16 @@
     "start": "vite",
     "build": "vite build",
     "lint:css": "stylelint -f verbose './src/**/*.{js,jsx,ts,tsx,css,scss}'",
-    "lint:js": "eslint '**/*.js'",
-    "lint": "npm run lint:css && npm run lint:js"
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}'",
+    "lint:typecheck": "tsc --noEmit",
+    "lint": "concurrently --group \"npm run lint:*\""
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      "last 1000 chrome versions and last 2 years",
-      "defaults",
-      "not op_mini all",
-      "not IE >= 0"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "@types/luxon": "^3.4.2",
+    "@types/styled-components": "^5.1.30",
+    "concurrently": "^8.2.2",
+    "postcss-styled-syntax": "^0.5.0",
+    "vite-tsconfig-paths": "^4.2.1"
   }
 }

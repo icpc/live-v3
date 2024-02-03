@@ -742,3 +742,36 @@ export interface text {
   periodMs: number;
   text: string;
 }
+
+export interface SolutionsStatistic {
+  stats: ProblemSolutionStatistic[];
+}
+
+export type ProblemSolutionStatistic =
+  | ProblemSolutionStatistic.ICPC
+  | ProblemSolutionStatistic.IOI;
+
+export namespace ProblemSolutionStatistic {
+  export enum Type {
+    ICPC = "ICPC",
+    IOI = "IOI",
+  }
+  
+  export interface ICPC {
+    type: ProblemSolutionStatistic.Type.ICPC;
+    success: number;
+    wrong: number;
+    pending: number;
+  }
+  
+  export interface IOI {
+    type: ProblemSolutionStatistic.Type.IOI;
+    result: IOIProblemEntity[];
+    pending: number;
+  }
+}
+
+export interface IOIProblemEntity {
+  count: number;
+  score: number;
+}

@@ -55,13 +55,11 @@ const TeamViewWrapper = styled.div`
   grid-template-rows: ${({ sizeX, sizeY }) => `${sizeY - 2 * Math.max(sizeY - sizeX * 9 / 16, 100)}px`} 
                       ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`} 
                       ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`};
-  
-}
 `;
 
 
 const TeamViewContestantViewHolder = styled(ContestantViewHolder)`
-    top: 0; // # FIXME: fuck this.
+    top: 0; /* # FIXME: fuck this. */
 `;
 
 function TeamViewContent({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
