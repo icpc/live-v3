@@ -87,7 +87,8 @@ export const Locator = ({ widgetData, transitionState }) => {
                     animation={transitionState === "exiting" ? slideOut : slideIn}
                     animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
                     duration={(index + 1) * 1500}>
-                    <TeamInfo key={index + "teamInfo"} teamId={circle.teamId}/>
+                    {/* FIXME: This needs readdressing for overlay2 */}
+                    {/*<TeamInfo key={index + "teamInfo"} teamId={circle.teamId}/>*/}
 
                 </TeamViewWrapper>
 

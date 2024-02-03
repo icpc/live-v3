@@ -10,17 +10,19 @@ import {
     TeamTaskSymbol,
     TeamTaskStatus,
     getStatus,
-    getTeamTaskColor,
+    getIOIColor,
 } from "../../utils/statusInfo";
 import { formatScore } from "../../services/displayUtils";
 
 const VerdictLabel = styled(ShrinkingBox)`
-  background-color: ${({ color }) => color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   font-size: 14px;
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+  background-color: ${({ color }) => color};
 `;
 
 const ICPCVerdictLabel = ({ runResult, className }) => {
@@ -67,8 +69,10 @@ const RankLabelWrap = styled(ShrinkingBox)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ color }) => color};
+
   color: ${props => props.dark ? "#000" : "#FFF"};
+
+  background-color: ${({ color }) => color};
 `;
 
 export const RankLabel = memo(({ rank, medal, className }) => {
@@ -83,19 +87,21 @@ const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
     }
 }))`
   height: 100%;
-  transition: width 250ms linear;
   background-color: ${c.VERDICT_UNKNOWN};
+  transition: width 250ms linear;
 `;
 
 
 const VerdictCellInProgressWrap2 = styled.div`
   flex-direction: row;
-  justify-content: flex-start;
-  height: 100%;
   align-content: center;
-  border-radius: 0 16px 16px 0;
-  border: 3px solid ${c.VERDICT_UNKNOWN};
+  justify-content: flex-start;
+
   box-sizing: border-box;
+  height: 100%;
+
+  border: 3px solid ${c.VERDICT_UNKNOWN};
+  border-radius: 0 16px 16px 0;
 `;
 
 const VerdictCellInProgress2 = ({ percentage, className }) => {
@@ -113,14 +119,15 @@ export const RunStatusLabel = ({ runInfo, className }) => {
 
 const TaskResultLabelWrapper2 = styled.div`
   font-weight: bold;
-  background-color: ${({ color }) => color};
   color: #fff;
+  background-color: ${({ color }) => color};
 `;
 
 
 const StarIcon = styled.div`
     width: ${c.STAR_SIZE}px;
     height: ${c.STAR_SIZE}px;
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     mask: url(${star});
     background-position: center;
     background-color: ${({ color }) => color};
@@ -148,13 +155,14 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
 };
 
 const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore,  ...props }) => {
-    return <TaskResultLabelWrapper2 color={getTeamTaskColor(r.score, minScore, maxScore)} { ...props}>
+    return <TaskResultLabelWrapper2 color={getIOIColor(r.score, minScore, maxScore)} { ...props}>
         { r.isFirstBest && <StarIcon color={problemColor === undefined ? defaultColorForStar : problemColor}/>}
         <AttemptsOrScoreLabelWrapper>
             {formatScore(r?.score)}
         </AttemptsOrScoreLabelWrapper>
     </TaskResultLabelWrapper2>;
 };
+
 export const TaskResultLabel = memo(({ problemResult, ...props }) => {
     return <>
         {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}
