@@ -223,22 +223,20 @@ object ClicsExporter  {
                 Event::SubmissionEvent
             )
         }
-        val result = run.result
-        if (result is ICPCRunResult) {
-            updateEvent(
-                run.id.toString(),
-                Judgement(
-                    id = run.id.toString(),
-                    submission_id = run.id.toString(),
-                    judgement_type_id = judgmentTypes[result.verdict]?.id,
-                    start_time = info.startTime + run.time,
-                    start_contest_time = run.time,
-                    end_time = info.startTime + run.time,
-                    end_contest_time = run.time
-                ),
-                Event::JudgementEvent
-            )
-        }
+        val result = run.result as? RunResult.ICPC ?: return
+        updateEvent(
+            run.id.toString(),
+            Judgement(
+                id = run.id.toString(),
+                submission_id = run.id.toString(),
+                judgement_type_id = judgmentTypes[result.verdict]?.id,
+                start_time = info.startTime + run.time,
+                start_contest_time = run.time,
+                end_time = info.startTime + run.time,
+                end_contest_time = run.time
+            ),
+            Event::JudgementEvent
+        )
     }
 
     private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event : (String, T?) -> Event) {

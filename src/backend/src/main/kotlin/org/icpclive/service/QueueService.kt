@@ -85,7 +85,7 @@ class QueueService {
     private val RunInfo.timeInQueue
         get() = when {
             featuredRunMedia != null -> FEATURED_WAIT_TIME
-            (result as? ICPCRunResult)?.isFirstToSolveRun == true -> FIRST_TO_SOLVE_WAIT_TIME
+            (result as? RunResult.ICPC)?.isFirstToSolveRun == true -> FIRST_TO_SOLVE_WAIT_TIME
             else -> WAIT_TIME
         }
 
@@ -164,7 +164,7 @@ class QueueService {
             }
             while (runs.size >= MAX_QUEUE_SIZE) {
                 runs.values.asSequence()
-                    .filterNot { (it.result as? ICPCRunResult)?.isFirstToSolveRun == true || it.featuredRunMedia != null }
+                    .filterNot { (it.result as? RunResult.ICPC)?.isFirstToSolveRun == true || it.featuredRunMedia != null }
                     .minByOrNull { it.id }
                     ?.run { removeRun(this) }
                     ?: break

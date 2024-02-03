@@ -216,15 +216,14 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                             isAddingPenalty = ("OK" != it.state_text && "CE" != it.state_text),
                         ).toRunResult()
 
-                        ContestResultType.IOI -> IOIRunResult(score = listOf(it.points))
+                        ContestResultType.IOI -> RunResult.IOI(score = listOf(it.points))
                     }
-                } else null
+                } else RunResult.InProgress(0.0)
                 RunInfo(
                     id = it.id,
                     result = result,
                     problemId = it.problem_id,
                     teamId = it.team_id,
-                    percentage = if (result == null) 0.0 else 1.0,
                     time = it.submit_time - startTime
                 )
             }

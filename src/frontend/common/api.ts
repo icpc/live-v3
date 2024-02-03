@@ -194,8 +194,7 @@ export enum MedalTiebreakMode {
 
 export interface RunInfo {
   id: number;
-  result: RunResult | null;
-  percentage: number;
+  result: RunResult;
   problemId: number;
   teamId: number;
   time: number;
@@ -206,12 +205,14 @@ export interface RunInfo {
 
 export type RunResult =
   | RunResult.ICPC
+  | RunResult.IN_PROGRESS
   | RunResult.IOI;
 
 export namespace RunResult {
   export enum Type {
     ICPC = "ICPC",
     IOI = "IOI",
+    IN_PROGRESS = "IN_PROGRESS",
   }
   
   export interface ICPC {
@@ -228,6 +229,11 @@ export namespace RunResult {
     scoreAfter?: number;
     isFirstBestRun?: boolean;
     isFirstBestTeamRun?: boolean;
+  }
+  
+  export interface IN_PROGRESS {
+    type: RunResult.Type.IN_PROGRESS;
+    testedPart: number;
   }
 }
 

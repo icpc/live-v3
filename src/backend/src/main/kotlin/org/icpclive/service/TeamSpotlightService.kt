@@ -22,9 +22,17 @@ class ExternalScoreAddAccent(val score: Double) : TeamAccent()
 object SocialEventAccent : TeamAccent()
 
 
-private val RunInfo.isFirstSolvedRun get() = (result as? ICPCRunResult)?.isFirstToSolveRun == true
-private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.verdict?.isAccepted == true
-private val RunInfo.isJudged get() = result != null
+private val RunInfo.isFirstSolvedRun get() = when (val result = this.result)  {
+    is RunResult.ICPC -> result.isFirstToSolveRun
+    is RunResult.IOI -> result.isFirstBestRun
+    is RunResult.InProgress -> false
+}
+private val RunInfo.isAccepted get() = when (val result = this.result) {
+    is RunResult.ICPC -> result.verdict.isAccepted
+    is RunResult.IOI -> false
+    is RunResult.InProgress -> false
+}
+private val RunInfo.isJudged get() = result !is RunResult.InProgress
 
 private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
     if (interesting() <= other.interesting()) {
@@ -36,7 +44,7 @@ private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
 private fun RunInfo.interesting() = when {
     isFirstSolvedRun -> 3
     isAccepted -> 2
-    result != null -> 1
+    isJudged -> 1
     else -> 0
 }
 
@@ -45,20 +53,20 @@ private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = 
     is TeamScoreboardPlace -> flowSettings.rankScore(rank)
     is TeamRunAccent -> {
         when (val result = run.result) {
-            is ICPCRunResult -> {
+            is RunResult.ICPC -> {
                 flowSettings.firstToSolvedRunScore.takeIf(result.isFirstToSolveRun) +
                         flowSettings.acceptedRunScore.takeIf(result.verdict.isAccepted) +
                         flowSettings.judgedRunScore.takeIf(run.isFirstSolvedRun) +
                         flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
             }
 
-            is IOIRunResult -> {
+            is RunResult.IOI -> {
                 flowSettings.acceptedRunScore.takeIf(result.difference != 0.0) +
                         flowSettings.judgedRunScore.takeIf(run.isFirstSolvedRun) +
                         flowSettings.notJudgedRunScore.takeIf(!run.isJudged)
             }
 
-            else -> 0.0
+            is RunResult.InProgress -> 0.0
         }
     }
 

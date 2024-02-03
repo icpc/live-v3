@@ -44,7 +44,7 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
                 runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
                 runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
                 okRun != null,
-                (okRun?.result as? ICPCRunResult)?.isFirstToSolveRun == true,
+                (okRun?.result as? RunResult.ICPC)?.isFirstToSolveRun == true,
                 (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
             ).also {
                 if (it.isSolved) {
@@ -63,9 +63,9 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
     }
 }
 
-private val RunInfo.isAccepted get() = (result as? ICPCRunResult)?.verdict?.isAccepted == true
-private val RunInfo.isAddingPenalty get() = (result as? ICPCRunResult)?.verdict?.isAddingPenalty == true
-private val RunInfo.isJudged get() = result != null
+private val RunInfo.isAccepted get() = (result as? RunResult.ICPC)?.verdict?.isAccepted == true
+private val RunInfo.isAddingPenalty get() = (result as? RunResult.ICPC)?.verdict?.isAddingPenalty == true
+private val RunInfo.isJudged get() = result is RunResult.ICPC
 
 
 internal class ICPCNormalScoreboardCalculator : ICPCScoreboardCalculator() {

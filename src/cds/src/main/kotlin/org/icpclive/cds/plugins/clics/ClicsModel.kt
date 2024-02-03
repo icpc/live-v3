@@ -85,19 +85,21 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         val judgementType = judgementTypes[judgment?.judgement_type_id]
         return RunInfo(
             id = submissionToId[id],
-            judgementType?.let {
+            result = if (judgementType == null) {
+                val part = when (val count = problem?.test_data_count) {
+                    null, 0 -> 0.0
+                    else -> minOf(passedTests.toDouble() / count, 1.0)
+                }
+                RunResult.InProgress(part)
+            } else {
                 Verdict.lookup(
-                    shortName = it.id,
-                    isAccepted = it.isAccepted,
-                    isAddingPenalty = it.isAddingPenalty,
+                    shortName = judgementType.id,
+                    isAccepted = judgementType.isAccepted,
+                    isAddingPenalty = judgementType.isAddingPenalty,
                 ).toRunResult()
             },
             problemId = problemToId[problem_id],
             teamId = teamToId[team_id],
-            percentage = when (val count = problem?.test_data_count) {
-                null, 0 -> if (judgementType != null) 1.0 else 0.0
-                else -> if (judgementType != null) 1.0 else minOf(passedTests.toDouble() / count, 1.0)
-            },
             time = contest_time,
             reactionVideos = reaction?.mapNotNull { it.mediaType() } ?: emptyList(),
         )

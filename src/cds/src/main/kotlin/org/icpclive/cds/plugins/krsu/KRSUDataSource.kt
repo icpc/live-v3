@@ -56,10 +56,9 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             val result = outcomeMap[it.StatusName]
             RunInfo(
                 id = it.Id,
-                result?.toRunResult(),
+                result?.toRunResult() ?: RunResult.InProgress(0.0),
                 problemId = it.Problem,
                 teamId = teams[it.Login]?.id ?: -1,
-                percentage = if (result == null) 0.0 else 1.0,
                 time = (it.ReceivedTime.toInstant(settings.timeZone)) - startTime,
             )
         }.toList()

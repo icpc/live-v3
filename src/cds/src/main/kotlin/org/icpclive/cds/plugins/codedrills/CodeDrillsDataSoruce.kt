@@ -139,7 +139,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
             }
         }
         val submissions = submissionsRaw.mapNotNull {
-            val verdict = it.verdict.toInfoVerdict()?.toRunResult()
+            val verdict = it.verdict.toInfoVerdict()?.toRunResult() ?: RunResult.InProgress(0.0)
             val time = Instant.fromEpochMilliseconds(it.submittedOn) - startTime
             if (time >= contestLength) return@mapNotNull null
             if (it.submittedBy !in memberIdToTeam) {
@@ -149,7 +149,6 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
             RunInfo(
                 id = it.id,
                 result = verdict,
-                percentage = if (verdict == null) 0.0 else 1.0,
                 problemId = it.problemId,
                 teamId = memberIdToTeam[it.submittedBy]!!,
                 time = time,

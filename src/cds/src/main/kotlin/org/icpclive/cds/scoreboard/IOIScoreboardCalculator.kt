@@ -21,17 +21,17 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
         val runsByProblem = runs.groupBy { it.problemId }
         val problemResults = info.scoreboardProblems.map { problem ->
             val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
-            val finalRunIndex = problemRuns.indexOfLast { it.result != null && (it.result as IOIRunResult).difference != 0.0 }
+            val finalRunIndex = problemRuns.indexOfLast { it.result is RunResult.IOI && it.result.difference != 0.0 }
             val finalRun = if (finalRunIndex == -1) null else problemRuns[finalRunIndex]
             if (finalRun != null) {
                 penaltyCalculator.addSolvedProblem(
                     finalRun.time,
-                    problemRuns.subList(0, finalRunIndex).count { (it.result as? IOIRunResult)?.wrongVerdict?.isAddingPenalty == true })
+                    problemRuns.subList(0, finalRunIndex).count { (it.result as? RunResult.IOI)?.wrongVerdict?.isAddingPenalty == true })
             }
             IOIProblemResult(
-                (finalRun?.result as? IOIRunResult?)?.scoreAfter,
+                (finalRun?.result as? RunResult.IOI?)?.scoreAfter,
                 finalRun?.time,
-                (finalRun?.result as? IOIRunResult?)?.isFirstBestRun == true
+                (finalRun?.result as? RunResult.IOI?)?.isFirstBestRun == true
             )
         }
         return ScoreboardRow(

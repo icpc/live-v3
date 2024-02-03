@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.transform
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 
-private fun RunInfo.shouldDiscloseColor() = (result as? ICPCRunResult)?.verdict?.isAccepted == true && !isHidden
+private fun RunInfo.shouldDiscloseColor() = (result as? RunResult.ICPC)?.verdict?.isAccepted == true && !isHidden
 
 @OptIn(InefficientContestInfoApi::class)
 private fun ContestInfo.applyColors(problems: Set<Pair<Int, Boolean?>>): ContestInfo {

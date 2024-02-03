@@ -83,7 +83,7 @@ const scaleNumber = (value: number, oldMin: number, oldMax: number, newMin: numb
 
 
 export const isFTS = (run: RunInfo): boolean => {
-    return run.result !== undefined && (
+    return (
         (run.result.type === "ICPC" && run.result.isFirstToSolveRun) ||
         (run.result.type === "IOI" && run.result.isFirstBestRun)
     );

@@ -9,7 +9,7 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.api.*
 
 private interface ScoreAccumulator {
-    fun add(score: IOIRunResult)
+    fun add(score: RunResult.IOI)
     val total: Double
 }
 
@@ -17,7 +17,7 @@ private class MaxByGroupScoreAccumulator : ScoreAccumulator {
     private val bestByGroup = mutableMapOf<Int, Double>()
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) {
+    override fun add(score: RunResult.IOI) {
         val byGroup = score.score
         for (g in byGroup.indices) {
             if (bestByGroup.getOrDefault(g, 0.0) < byGroup[g]) {
@@ -31,7 +31,7 @@ private class MaxByGroupScoreAccumulator : ScoreAccumulator {
 private class MaxTotalScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) {
+    override fun add(score: RunResult.IOI) {
         total = maxOf(total, score.score.sum())
     }
 }
@@ -39,7 +39,7 @@ private class MaxTotalScoreAccumulator : ScoreAccumulator {
 private class LastScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) {
+    override fun add(score: RunResult.IOI) {
         total = score.score.sum()
     }
 }
@@ -47,7 +47,7 @@ private class LastScoreAccumulator : ScoreAccumulator {
 private class LastOKScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) {
+    override fun add(score: RunResult.IOI) {
         if (score.wrongVerdict == null) {
             total = score.score.sum()
         }
@@ -57,7 +57,7 @@ private class LastOKScoreAccumulator : ScoreAccumulator {
 private class SumScoreAccumulator : ScoreAccumulator {
     override var total = 0.0
 
-    override fun add(score: IOIRunResult) {
+    override fun add(score: RunResult.IOI) {
         total += score.score.sum()
     }
 }
@@ -78,7 +78,7 @@ public fun Flow<ContestUpdate>.calculateScoreDifferences(): Flow<ContestUpdate> 
         }
 
         val results = runs.map {
-            if (it.result !is IOIRunResult) {
+            if (it.result !is RunResult.IOI) {
                 it.result
             } else {
                 val before = accumulator.total
@@ -91,11 +91,11 @@ public fun Flow<ContestUpdate>.calculateScoreDifferences(): Flow<ContestUpdate> 
                 )
             }
         }
-        val bestIndex = results.indexOfLast { (it as? IOIRunResult)?.difference != null && it.difference > 0 }
+        val bestIndex = results.indexOfLast { (it as? RunResult.IOI)?.difference != null && it.difference > 0 }
 
         runs.zip(results).mapIndexed { index, (run, result) ->
             if (index == bestIndex)
-                run.copy(result = (result as IOIRunResult).copy(isFirstBestTeamRun = true))
+                run.copy(result = (result as RunResult.IOI).copy(isFirstBestTeamRun = true))
             else
                 run.copy(result = result)
         }
