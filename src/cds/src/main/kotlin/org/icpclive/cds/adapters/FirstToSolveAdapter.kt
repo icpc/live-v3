@@ -8,36 +8,39 @@ import kotlinx.coroutines.flow.map
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.api.*
 
-private fun RunInfo.setICPC(value: Boolean) = copy(result = (result as? ICPCRunResult)?.copy(isFirstToSolveRun = value))
-private fun RunInfo.setIOI(value: Boolean) = copy(result = (result as? IOIRunResult)?.copy(isFirstBestRun = value))
+private fun RunInfo.setFTS(value: Boolean) = when (result) {
+    is RunResult.ICPC -> copy(result = result.copy(isFirstToSolveRun = value))
+    is RunResult.IOI -> copy(result = result.copy(isFirstBestRun = value))
+    is RunResult.InProgress -> this
+}
 
 public fun Flow<ContestUpdate>.addFirstToSolves(): Flow<ContestUpdate> = withGroupedRuns(
     selector = {
 
         when (it.result) {
-            is ICPCRunResult -> when {
+            is RunResult.ICPC -> when {
                 it.result.verdict.isAccepted && !it.isHidden -> it.problemId * 2
                 else -> Int.MIN_VALUE
             }
 
-            is IOIRunResult -> when {
+            is RunResult.IOI -> when {
                 it.result.isFirstBestTeamRun && !it.isHidden -> it.problemId * 2 + 1
                 else -> Int.MIN_VALUE
             }
 
-            else -> Int.MIN_VALUE
+            is RunResult.InProgress -> Int.MIN_VALUE
         }
     },
     transformGroup = { k, runs, _, _ ->
         when {
             k == Int.MIN_VALUE -> runs
             k % 2 == 0 -> runs.mapIndexed { index, run ->
-                run.setICPC(index == 0)
+                run.setFTS(index == 0)
             }
 
             k % 2 != 0 -> {
-                val bestRun = runs.maxByOrNull { (it.result as IOIRunResult).scoreAfter }
-                runs.map { it.setIOI(it == bestRun) }
+                val bestRun = runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
+                runs.map { it.setFTS(it == bestRun) }
             }
 
             else -> TODO()

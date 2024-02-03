@@ -111,8 +111,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             }
             RunInfo(
                 id = submissionId[k],
-                result = null,
-                percentage = 0.0,
+                result = RunResult.InProgress(0.0),
                 problemId = problemId[v.task],
                 teamId = teamId[v.user],
                 time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO
@@ -121,7 +120,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
         subchangesLoader.load().entries.sortedBy { it.value.time }.forEach { (_, it) ->
             val r = submissions[submissionId[it.submission]] ?: return@forEach
             val scores = if (it.extra.isEmpty()) listOf(it.score) else it.extra.map { it.toDouble() }
-            submissions[r.id] = r.copy(result = IOIRunResult(scores))
+            submissions[r.id] = r.copy(result = RunResult.IOI(scores))
         }
         return ContestParseResult(info, submissions.values.sortedBy { it.id }, emptyList())
     }

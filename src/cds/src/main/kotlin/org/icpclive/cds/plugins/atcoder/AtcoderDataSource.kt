@@ -71,26 +71,25 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
             oldRuns.add(
                 RunInfo(
                     id = submissionId++,
-                    result = null,
-                    percentage = 0.0,
+                    result = RunResult.InProgress(0.0),
                     problemId = problemId,
                     teamId = teamId,
                     time = minOf(settings.contestLength, Clock.System.now() - settings.startTime)
                 )
             )
         }
-        while (oldRuns.count { (it.result as? IOIRunResult)?.wrongVerdict != null } < result.Penalty) {
-            val fst = oldRuns.indexOfFirst { it.result == null }
-            oldRuns[fst] = oldRuns[fst].copy(result = IOIRunResult(score = listOf(0.0), wrongVerdict = Verdict.Rejected))
+        while (oldRuns.count { (it.result as? RunResult.IOI)?.wrongVerdict != null } < result.Penalty) {
+            val fst = oldRuns.indexOfFirst { it.result is RunResult.InProgress }
+            oldRuns[fst] = oldRuns[fst].copy(result = RunResult.IOI(score = listOf(0.0), wrongVerdict = Verdict.Rejected))
             if (result.Elapsed.nanoseconds != ZERO && oldRuns[fst].time > result.Elapsed.nanoseconds) {
                 oldRuns[fst] = oldRuns[fst].copy(time = result.Elapsed.nanoseconds)
             }
         }
         if (result.Score > 0) {
-            if (oldRuns.mapNotNull { it.result as? IOIRunResult }.maxOfOrNull { it.score[0] }?.toInt() != result.Score / 100 && !result.Pending) {
-                val fst = oldRuns.indexOfFirst { it.result == null }
+            if (oldRuns.mapNotNull { it.result as? RunResult.IOI }.maxOfOrNull { it.score[0] }?.toInt() != result.Score / 100 && !result.Pending) {
+                val fst = oldRuns.indexOfFirst { it.result is RunResult.InProgress }
                 oldRuns[fst] = oldRuns[fst].copy(
-                    result = IOIRunResult(score = listOf(result.Score / 100.0)),
+                    result = RunResult.IOI(score = listOf(result.Score / 100.0)),
                     time = result.Elapsed.nanoseconds
                 )
             }

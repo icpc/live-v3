@@ -134,7 +134,7 @@ internal class CFContestInfo {
                     CFSubmissionVerdict.PARTIAL
                 )
                 val score = submission.points?.takeIf { !isWrong } ?: 0.0
-                IOIRunResult(
+                RunResult.IOI(
                     score = listOf(score),
                     wrongVerdict = submission.processedVerdict.takeIf { isWrong },
                 )
@@ -161,7 +161,7 @@ internal class CFContestInfo {
                 } else {
                     0.0
                 }
-                IOIRunResult(
+                RunResult.IOI(
                     score = listOf(score),
                     wrongVerdict = submission.processedVerdict.takeIf { isWrong },
                 )
@@ -191,10 +191,9 @@ internal class CFContestInfo {
                     val result = submissionToResult(it, wrongs)
                     val run = RunInfo(
                         id = it.id.toInt(),
-                        result = result,
+                        result = result ?: RunResult.InProgress(it.passedTestCount.toDouble() / problemTests),
                         problemId = problemId,
                         teamId = participantsByCdsId[getTeamCdsId(it.author)]!!.id,
-                        percentage = if (result != null) 1.0 else (it.passedTestCount.toDouble() / problemTests),
                         time = it.relativeTimeSeconds,
                     )
                     wrongs += if (it.processedVerdict?.isAddingPenalty == true) 1 else 0
@@ -212,21 +211,20 @@ internal class CFContestInfo {
                         RunInfo(
                             id = (hack.id * 2).inv(),
                             result = when (hack.verdict) {
-                                CFHackVerdict.HACK_SUCCESSFUL -> IOIRunResult(
+                                CFHackVerdict.HACK_SUCCESSFUL -> RunResult.IOI(
                                     score = listOf(100.0),
                                 )
 
-                                CFHackVerdict.HACK_UNSUCCESSFUL -> IOIRunResult(
+                                CFHackVerdict.HACK_UNSUCCESSFUL -> RunResult.IOI(
                                     score = listOf(-50.0),
                                 )
 
-                                CFHackVerdict.TESTING -> null
-                                else -> IOIRunResult(
+                                CFHackVerdict.TESTING -> RunResult.InProgress(0.0)
+                                else -> RunResult.IOI(
                                     score = emptyList(),
                                     wrongVerdict = Verdict.CompilationError,
                                 )
                             },
-                            percentage = 0.0,
                             problemId = -1,
                             teamId = participantsByCdsId[getTeamCdsId(hack.hacker)]!!.id,
                             time = hack.creationTimeSeconds - startTime
@@ -237,12 +235,11 @@ internal class CFContestInfo {
                     add(
                         RunInfo(
                             id = (hack.id * 2 + 1).inv(),
-                            result = IOIRunResult(
+                            result = RunResult.IOI(
                                 score = listOf(0.0),
                                 wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else Verdict.Accepted,
                             ),
                             isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
-                            percentage = 0.0,
                             problemId = problemsMap[hack.problem.index]!!.id,
                             teamId = participantsByCdsId[getTeamCdsId(hack.defender)]!!.id,
                             time = hack.creationTimeSeconds - startTime

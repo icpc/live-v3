@@ -69,12 +69,12 @@ object PCMSExporter {
         }
     }
     private fun Element.buildRunNode(info: RunInfo) {
-        setAttribute("accepted", if ((info.result as? ICPCRunResult)?.verdict?.isAccepted == true) "yes" else "no")
+        setAttribute("accepted", if ((info.result as? RunResult.ICPC)?.verdict?.isAccepted == true) "yes" else "no")
         setAttribute("time", info.time.inWholeMilliseconds.toString())
         setAttribute("score", "0")
         //setAttribute("language-id", "")
         setAttribute("run-id", info.id.toString())
-        setAttribute("outcome", convertOutcome((info.result as? ICPCRunResult)?.verdict))
+        setAttribute("outcome", convertOutcome((info.result as? RunResult.ICPC)?.verdict))
     }
 
     private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>, awards: List<Award>) {

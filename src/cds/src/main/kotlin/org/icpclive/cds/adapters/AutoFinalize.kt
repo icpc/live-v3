@@ -7,11 +7,12 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.api.RunResult
 import org.icpclive.util.getLogger
 
 internal object AutoFinalize
 
-public fun Flow<ContestUpdate>.autoFinalize(): Flow<ContestUpdate> = withGroupedRuns({ it.result != null })
+public fun Flow<ContestUpdate>.autoFinalize(): Flow<ContestUpdate> = withGroupedRuns({ it.result !is RunResult.InProgress })
     .transformWhile {
         emit(it.event)
         val info = it.infoAfterEvent

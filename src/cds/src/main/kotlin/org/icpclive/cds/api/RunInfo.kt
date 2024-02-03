@@ -9,8 +9,7 @@ import kotlin.time.Duration
 @Serializable
 public data class RunInfo(
     val id: Int,
-    val result: RunResult?,
-    val percentage: Double,
+    val result: RunResult,
     val problemId: Int,
     val teamId: Int,
     @Serializable(with = DurationInMillisecondsSerializer::class)
@@ -19,9 +18,6 @@ public data class RunInfo(
     val reactionVideos: List<MediaType> = emptyList(),
     val isHidden: Boolean = false,
 )
-
-@Serializable
-public sealed class RunResult
 
 @Serializable(with = VerdictSerializer::class)
 public sealed class Verdict(
@@ -51,7 +47,7 @@ public sealed class Verdict(
             LookupHolder.lookup(shortName, isAddingPenalty, isAccepted)
     }
 
-    internal fun toRunResult() = ICPCRunResult(this, false)
+    internal fun toRunResult() = RunResult.ICPC(this, false)
 }
 
 
@@ -109,19 +105,27 @@ private object LookupHolder {
 
 
 @Serializable
-@SerialName("ICPC")
-public data class ICPCRunResult(
-    val verdict: Verdict,
-    val isFirstToSolveRun: Boolean,
-) : RunResult()
+public sealed class RunResult {
+    @Serializable
+    @SerialName("ICPC")
+    public data class ICPC(
+        val verdict: Verdict,
+        val isFirstToSolveRun: Boolean,
+    ) : RunResult()
 
-@Serializable
-@SerialName("IOI")
-public data class IOIRunResult(
-    val score: List<Double>,
-    val wrongVerdict: Verdict? = null,
-    val difference: Double = 0.0,
-    val scoreAfter: Double = 0.0,
-    val isFirstBestRun: Boolean = false,
-    val isFirstBestTeamRun: Boolean = false,
-) : RunResult()
+    @Serializable
+    @SerialName("IOI")
+    public data class IOI(
+        val score: List<Double>,
+        val wrongVerdict: Verdict? = null,
+        val difference: Double = 0.0,
+        val scoreAfter: Double = 0.0,
+        val isFirstBestRun: Boolean = false,
+        val isFirstBestTeamRun: Boolean = false,
+    ) : RunResult()
+
+    @Serializable
+    @SerialName("IN_PROGRESS")
+    public data class InProgress(val testedPart: Double): RunResult()
+}
+

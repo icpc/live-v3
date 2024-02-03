@@ -50,23 +50,23 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
             "{team.shortName}" to team.displayName,
             "{problem.letter}" to problem.displayName,
             "{problem.name}" to problem.fullName,
-            "{run.result}" to (analyse.run.result as? ICPCRunResult)?.verdict?.shortName.orEmpty(),
+            "{run.result}" to (analyse.run.result as? RunResult.ICPC)?.verdict?.shortName.orEmpty(),
             "{result.rank}" to analyse.rank.toString(),
             "{result.solvedProblems}" to analyse.solvedProblems?.takeIf { it > 0 }?.toString().orEmpty(),
-            "{result.ioiDifference}" to (analyse.run.result as? IOIRunResult)?.difference?.toString().orEmpty(),
-            "{result.ioiScore}" to (analyse.run.result as? IOIRunResult)?.scoreAfter?.toString().orEmpty(),
+            "{result.ioiDifference}" to (analyse.run.result as? RunResult.IOI)?.difference?.toString().orEmpty(),
+            "{result.ioiScore}" to (analyse.run.result as? RunResult.IOI)?.scoreAfter?.toString().orEmpty(),
         )
         return when (val runResult = analyse.run.result) {
-            is IOIRunResult -> {
+            is RunResult.IOI -> {
                 if (runResult.difference > 0) {
                     return messagesTemplates.ioiJudgedPositiveDiffRun.applyTemplate(substitute)
                 } else {
                     return messagesTemplates.ioiJudgedRun.applyTemplate(substitute)
                 }
             }
-            is ICPCRunResult -> {
+            is RunResult.ICPC -> {
                 if (runResult.isFirstToSolveRun) {
-                     messagesTemplates.firstToSolveRun.applyTemplate(substitute)
+                    messagesTemplates.firstToSolveRun.applyTemplate(substitute)
                 } else if (runResult.verdict.isAccepted) {
                     return if (substitute["{result.solvedProblems}"] != "") {
                         messagesTemplates.acceptedWithSolvedProblemsRun.applyTemplate(substitute)
@@ -76,42 +76,46 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
                 }
                 return messagesTemplates.rejectedRun.applyTemplate(substitute)
             }
-            else -> messagesTemplates.submittedRun.applyTemplate(substitute)
+            is RunResult.InProgress -> messagesTemplates.submittedRun.applyTemplate(substitute)
         }
     }
 
     private fun getTags(
         analyse: RunAnalyse
     ): List<String> = buildList {
-        val runResult = analyse.run.result
-        if (runResult is IOIRunResult) {
-            add("submission")
-            if (runResult.difference > 0) {
-                add("accepted")
+        when (val runResult = analyse.run.result) {
+            is RunResult.IOI -> {
+                add("submission")
+                if (runResult.difference > 0) {
+                    add("accepted")
+                }
+                if (runResult.isFirstBestRun) {
+                    add("accepted-first-to-solve")
+                }
             }
-            if (runResult.isFirstBestRun) {
-                add("accepted-first-to-solve")
+
+            is RunResult.InProgress -> {
+                add("submission")
             }
-            return@buildList
-        }
-        if (runResult !is ICPCRunResult) {
-            add("submission")
-            return@buildList
-        }
-        if (!runResult.verdict.isAccepted) {
-            add("rejected")
-            return@buildList
-        }
-        add("accepted")
-        if (runResult.isFirstToSolveRun) {
-            add("accepted-first-to-solve")
-        }
-        if (analyse.rank == 1) {
-            add("accepted-winner")
-        }
-        if (analyse.medalColor != null) {
-            add("accepted-medal")
-            add("accepted-${analyse.medalColor.name.lowercase()}-medal")
+
+            is RunResult.ICPC -> {
+                if (!runResult.verdict.isAccepted) {
+                    add("rejected")
+                } else {
+                    add("accepted")
+                    if (runResult.isFirstToSolveRun) {
+                        add("accepted-first-to-solve")
+                    }
+
+                    if (analyse.rank == 1) {
+                        add("accepted-winner")
+                    }
+                    if (analyse.medalColor != null) {
+                        add("accepted-medal")
+                        add("accepted-${analyse.medalColor.name.lowercase()}-medal")
+                    }
+                }
+            }
         }
     }
 

@@ -95,8 +95,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                         "CE" -> isCEPenalty
                         else -> true
                     }
-                ).takeIf { verdict != "FZ" }?.toRunResult(),
-                percentage = if (verdict == "FZ") 0.0 else 1.0,
+                ).takeIf { verdict != "FZ" }?.toRunResult() ?: RunResult.InProgress(0.0),
                 problemId = problemIdMap[problemId]!!,
                 teamId = teamIdMap[teamId]!!,
                 time = time.toInt().seconds,

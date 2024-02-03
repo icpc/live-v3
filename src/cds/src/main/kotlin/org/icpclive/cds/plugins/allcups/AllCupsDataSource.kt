@@ -55,7 +55,6 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
     private fun Submission.toRun() = RunInfo(
         id = id,
         result = code.toVerdict().toRunResult(),
-        percentage = 1.0,
         problemId = task_id,
         teamId = user_id,
         time = elapsed_seconds.seconds

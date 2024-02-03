@@ -212,13 +212,13 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                     100
                 )
                 addAll(x.submissions!!.nodes.map {
+                    val verdict = parseVerdict(it.status, it.verdict, it.percentage)
                     RunInfo(
                         id = runIds[it.id],
                         result = when (resultType) {
-                            ContestResultType.ICPC -> parseVerdict(it.status, it.verdict, it.percentage)?.toRunResult()
-                            ContestResultType.IOI -> IOIRunResult(listOf(it.score))
-                        },
-                        percentage = 0.0,
+                            ContestResultType.ICPC -> verdict?.toRunResult()
+                            ContestResultType.IOI -> RunResult.IOI(listOf(it.score)).takeIf { verdict != null }
+                        } ?: RunResult.InProgress(0.0),
                         problemId = problemIds[it.problem!!.id],
                         teamId = teamIds[it.participant!!.id],
                         time = parseTime(it.submittedAt) - contestInfo.startTime,
