@@ -148,23 +148,25 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             "SK" -> Verdict.Ignored
             else -> null
         }
-        val percentage = if (result == null) 0.0 else 1.0
 
         return RunInfo(
             id = runId,
             when (settings.resultType) {
-                ContestResultType.ICPC -> result?.toRunResult()
+                ContestResultType.ICPC -> result?.toRunResult() ?: RunResult.InProgress(0.0)
 
                 ContestResultType.IOI -> {
-                    val score = element.getAttribute("score").ifEmpty { "0" }.toDouble()
-                    IOIRunResult(
-                        score = listOf(score),
-                    )
+                    val score = element.getAttribute("score").ifEmpty { null }?.toDouble()
+                    if (score != null) {
+                        RunResult.IOI(
+                            score = listOf(score),
+                        )
+                    } else {
+                        RunResult.InProgress(0.0)
+                    }
                 }
             },
             problemId = element.getAttribute("prob_id").toInt(),
             teamId = teamId,
-            percentage = percentage,
             time = time,
         )
     }

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Instant
 import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.*
+import org.icpclive.cds.api.RunResult
 import org.icpclive.util.*
 import kotlin.random.Random
 import kotlin.time.Duration
@@ -44,11 +45,10 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0
-            if (run.result != null) {
+            if (run.result !is RunResult.InProgress) {
                 do {
                     val submittedRun = run.copy(
-                        percentage = percentage,
-                        result = null
+                        result = RunResult.InProgress(percentage)
                     )
                     add((run.time + timeShift.milliseconds) to RunUpdate(submittedRun))
                     percentage += Random.nextDouble(1.0)

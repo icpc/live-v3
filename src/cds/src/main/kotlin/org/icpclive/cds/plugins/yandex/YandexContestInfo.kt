@@ -54,24 +54,29 @@ internal class YandexContestInfo private constructor(
         }
         val testCount = testCountByProblem[problemId]
 
-        val result = getResult(submission.verdict)
-        return RunInfo(
-            id = submission.id.toInt(),
-            result = when (resultType) {
-                ContestResultType.ICPC -> result?.toRunResult()
-                ContestResultType.IOI -> IOIRunResult(
+        val verdict = getResult(submission.verdict)
+        val result = if (verdict != null) {
+            when (resultType) {
+                ContestResultType.ICPC -> verdict.toRunResult()
+                ContestResultType.IOI -> RunResult.IOI(
                     score = listOf(submission.score ?: 0.0),
                 )
-            }.takeIf { result != null },
+            }
+        } else {
+            RunResult.InProgress(
+                when {
+                    testCount == null || testCount == 0 -> 0.0
+                    submission.test == -1L -> 0.0
+                    submission.test >= testCount -> 100.0
+                    else -> submission.test.toDouble() / testCount
+                }
+            )
+        }
+        return RunInfo(
+            id = submission.id.toInt(),
+            result = result,
             problemId = problemId,
             teamId = submission.authorId.toInt(),
-            percentage = when {
-                result != null -> 100.0
-                testCount == null || testCount == 0 -> 0.0
-                submission.test == -1L -> 0.0
-                submission.test >= testCount -> 100.0
-                else -> submission.test.toDouble() / testCount
-            },
             time = submission.timeFromStart,
         )
     }

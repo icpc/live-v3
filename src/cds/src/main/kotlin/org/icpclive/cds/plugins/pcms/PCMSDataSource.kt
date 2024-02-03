@@ -174,20 +174,19 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                                 element.children("group").map { it.getAttribute("score").toDouble() }.toList()
                                     .takeIf { it.isNotEmpty() }
 
-                            IOIRunResult(score = groupsScore ?: listOf(score))
+                            RunResult.IOI(score = groupsScore ?: listOf(score))
                         }
 
-                        else -> IOIRunResult(score = emptyList(), wrongVerdict = verdict)
+                        else -> RunResult.IOI(score = emptyList(), wrongVerdict = verdict)
                     }
                 }
 
                 ContestResultType.ICPC -> {
                     verdict?.toRunResult()
                 }
-            },
+            } ?: RunResult.InProgress(0.0),
             problemId = problemId,
             teamId = teamId,
-            percentage = if (verdict == null) 0.0 else 1.0,
             time = time,
         )
     }

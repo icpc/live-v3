@@ -48,14 +48,6 @@ const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) 
     </>;
 };
 
-const VerdictLabel2 = ({ runResult, ...props }) => {
-    return <>
-        {runResult.type === "ICPC" && <ICPCVerdictLabel runResult={runResult} {...props}/>}
-        {runResult.type === "IOI" && <IOIVerdictLabel runResult={runResult} {...props}/>}
-        {/*{runResult.type === "IOI" && <VerdictLabel text={"AA" ?? "??"} color="red" align="center" {...props}/>}*/}
-    </>;
-};
-
 
 const formatRank = (rank) => {
     if (rank === undefined || rank == null)
@@ -112,8 +104,9 @@ const VerdictCellInProgress2 = ({ percentage, className }) => {
 
 export const RunStatusLabel = ({ runInfo, className }) => {
     return <>
-        {runInfo.result === undefined && <VerdictCellInProgress2 percentage={runInfo.percentage} className={className}/>}
-        {runInfo.result !== undefined && <VerdictLabel2 runResult={runInfo.result} score={runInfo.result.result} className={className}/>}
+        {runInfo.result.type === "ICPC" && <ICPCVerdictLabel runResult={runInfo.result} className={className}/>}
+        {runInfo.result.type === "IOI" && <IOIVerdictLabel runResult={runInfo.result} className={className}/>}
+        {runInfo.result.type === "IN_PROGRESS" && <VerdictCellInProgress2 percentage={runInfo.result.testPart} className={className}/>}
     </>;
 };
 
