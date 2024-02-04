@@ -10,10 +10,10 @@ export interface ContestInfo {
   groups: GroupInfo[];
   organizations: OrganizationInfo[];
   penaltyRoundingMode: PenaltyRoundingMode;
-  holdBeforeStartTimeMs?: number | null;
-  emulationSpeed?: number;
-  awardsSettings?: AwardsSettings;
-  penaltyPerWrongAttempt?: string;
+  holdBeforeStartTimeMs: number | null;
+  emulationSpeed: number;
+  awardsSettings: AwardsSettings;
+  penaltyPerWrongAttempt: string;
 }
 
 export enum ContestStatus {
@@ -53,12 +53,12 @@ export interface ProblemInfo {
   id: number;
   ordinal: number;
   contestSystemId: string;
-  minScore?: number | null;
-  maxScore?: number | null;
-  color?: string | null;
-  unsolvedColor?: string | null;
-  scoreMergeMode?: ScoreMergeMode | null;
-  isHidden?: boolean;
+  minScore: number | null;
+  maxScore: number | null;
+  color: string | null;
+  unsolvedColor: string | null;
+  scoreMergeMode: ScoreMergeMode | null;
+  isHidden: boolean;
 }
 
 export interface TeamInfo {
@@ -72,7 +72,7 @@ export interface TeamInfo {
   isHidden: boolean;
   isOutOfContest: boolean;
   organizationId: string | null;
-  customFields?: { [key: string]: string };
+  customFields: { [key: string]: string };
 }
 
 export interface GroupInfo {
@@ -80,7 +80,6 @@ export interface GroupInfo {
   displayName: string;
   isHidden: boolean;
   isOutOfContest: boolean;
-  awardsGroupChampion?: boolean;
 }
 
 export interface OrganizationInfo {
@@ -198,9 +197,9 @@ export interface RunInfo {
   problemId: number;
   teamId: number;
   time: number;
-  featuredRunMedia?: MediaType | null;
-  reactionVideos?: MediaType[];
-  isHidden?: boolean;
+  featuredRunMedia: MediaType | null;
+  reactionVideos: MediaType[];
+  isHidden: boolean;
 }
 
 export type RunResult =
@@ -224,11 +223,11 @@ export namespace RunResult {
   export interface IOI {
     type: RunResult.Type.IOI;
     score: number[];
-    wrongVerdict?: Verdict | null;
-    difference?: number;
-    scoreAfter?: number;
-    isFirstBestRun?: boolean;
-    isFirstBestTeamRun?: boolean;
+    wrongVerdict: Verdict | null;
+    difference: number;
+    scoreAfter: number;
+    isFirstBestRun: boolean;
+    isFirstBestTeamRun: boolean;
   }
   
   export interface IN_PROGRESS {
@@ -627,11 +626,11 @@ export namespace AnalyticsMessage {
     relativeTimeMs: number;
     teamIds: number[];
     runIds: number[];
-    priority?: number;
-    tags?: string[];
-    advertisement?: AnalyticsCompanionPreset | null;
-    tickerMessage?: AnalyticsCompanionPreset | null;
-    featuredRun?: AnalyticsCompanionRun | null;
+    priority: number;
+    tags: string[];
+    advertisement: AnalyticsCompanionPreset | null;
+    tickerMessage: AnalyticsCompanionPreset | null;
+    featuredRun: AnalyticsCompanionRun | null;
   }
 }
 

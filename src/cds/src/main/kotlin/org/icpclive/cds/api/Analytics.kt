@@ -1,8 +1,7 @@
 package org.icpclive.cds.api
 
 import kotlinx.datetime.Instant
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 import org.icpclive.util.DurationInMillisecondsSerializer
 import org.icpclive.util.UnixMillisecondsSerializer
 import kotlin.time.Duration
@@ -43,9 +42,9 @@ public data class AnalyticsCommentaryEvent(
     override val relativeTime: Duration,
     val teamIds: List<Int>,
     val runIds: List<Int>,
-    val priority: Int = 0,
-    val tags: List<String> = emptyList(), // todo: support tage in CLICS parser
-    val advertisement: AnalyticsCompanionPreset? = null,
-    val tickerMessage: AnalyticsCompanionPreset? = null,
-    val featuredRun: AnalyticsCompanionRun? = null,
+    @Required val priority: Int = 0,
+    @Required val tags: List<String> = emptyList(), // todo: support tage in CLICS parser
+    @Required val advertisement: AnalyticsCompanionPreset? = null,
+    @Required val tickerMessage: AnalyticsCompanionPreset? = null,
+    @Required val featuredRun: AnalyticsCompanionRun? = null,
 ) : AnalyticsMessage()

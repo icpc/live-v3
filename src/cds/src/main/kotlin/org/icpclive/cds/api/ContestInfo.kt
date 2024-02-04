@@ -48,12 +48,12 @@ public data class ProblemInfo(
     val id: Int,
     val ordinal: Int,
     val contestSystemId: String,
-    val minScore: Double? = null,
-    val maxScore: Double? = null,
-    @Serializable(ColorSerializer::class) val color: Color? = null,
-    @Serializable(ColorSerializer::class) val unsolvedColor: Color? = null,
-    val scoreMergeMode: ScoreMergeMode? = null,
-    val isHidden: Boolean = false,
+    @Required val minScore: Double? = null,
+    @Required val maxScore: Double? = null,
+    @Required @Serializable(ColorSerializer::class) val color: Color? = null,
+    @Required @Serializable(ColorSerializer::class) val unsolvedColor: Color? = null,
+    @Required val scoreMergeMode: ScoreMergeMode? = null,
+    @Required val isHidden: Boolean = false,
 )
 
 @Serializable
@@ -165,7 +165,7 @@ public data class TeamInfo(
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
     val organizationId: String?,
-    val customFields: Map<String, String> = emptyMap(),
+    @Required val customFields: Map<String, String> = emptyMap(),
 )
 
 @Serializable
@@ -174,7 +174,6 @@ public data class GroupInfo(
     val displayName: String,
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
-    val awardsGroupChampion: Boolean = !isHidden,
 )
 
 @Serializable
@@ -316,12 +315,11 @@ public data class ContestInfo(
     val penaltyRoundingMode: PenaltyRoundingMode,
     @SerialName("holdBeforeStartTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
-    val holdBeforeStartTime: Duration? = null,
-    val emulationSpeed: Double = 1.0,
-    val awardsSettings: AwardsSettings = AwardsSettings(),
-    val penaltyPerWrongAttempt: Duration = 20.minutes,
-    @Transient
-    val cdsSupportsFinalization: Boolean = false,
+    @Required val holdBeforeStartTime: Duration? = null,
+    @Required val emulationSpeed: Double = 1.0,
+    @Required val awardsSettings: AwardsSettings = AwardsSettings(),
+    @Required val penaltyPerWrongAttempt: Duration = 20.minutes,
+    @Transient val cdsSupportsFinalization: Boolean = false,
 ) {
     public val currentContestTime: Duration
         get() = when (status) {

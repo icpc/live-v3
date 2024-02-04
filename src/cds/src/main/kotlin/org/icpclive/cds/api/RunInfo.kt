@@ -14,9 +14,9 @@ public data class RunInfo(
     val teamId: Int,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
-    val featuredRunMedia: MediaType? = null,
-    val reactionVideos: List<MediaType> = emptyList(),
-    val isHidden: Boolean = false,
+    @Required val featuredRunMedia: MediaType? = null,
+    @Required val reactionVideos: List<MediaType> = emptyList(),
+    @Required val isHidden: Boolean = false,
 )
 
 @Serializable(with = VerdictSerializer::class)
@@ -117,11 +117,11 @@ public sealed class RunResult {
     @SerialName("IOI")
     public data class IOI(
         val score: List<Double>,
-        val wrongVerdict: Verdict? = null,
-        val difference: Double = 0.0,
-        val scoreAfter: Double = 0.0,
-        val isFirstBestRun: Boolean = false,
-        val isFirstBestTeamRun: Boolean = false,
+        @Required val wrongVerdict: Verdict? = null,
+        @Required val difference: Double = 0.0,
+        @Required val scoreAfter: Double = 0.0,
+        @Required val isFirstBestRun: Boolean = false,
+        @Required val isFirstBestTeamRun: Boolean = false,
     ) : RunResult()
 
     @Serializable
