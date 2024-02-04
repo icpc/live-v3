@@ -24,7 +24,7 @@ import kotlin.time.Duration.Companion.minutes
 object CdsLoadersTest {
     val testDataDir = Path.of("").resolve("testData").resolve("loaders")
     private val goldenDataDir = testDataDir.resolve("goldenData")
-    private val updateTestData = true
+    private val updateTestData = false
 
     @Test
     fun pcms() {
