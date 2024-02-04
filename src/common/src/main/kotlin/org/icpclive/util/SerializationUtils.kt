@@ -175,6 +175,7 @@ object RegexSerializer : KSerializer<Regex> {
 }
 
 fun defaultJsonSettings() = Json {
+    encodeDefaults = true
     isLenient = true
     allowSpecialFloatingPointValues = true
     allowStructuredMapKeys = true
