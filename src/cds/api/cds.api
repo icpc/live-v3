@@ -514,17 +514,14 @@ public final class org/icpclive/cds/api/ContestStatus : java/lang/Enum {
 
 public final class org/icpclive/cds/api/GroupInfo {
 	public static final field Companion Lorg/icpclive/cds/api/GroupInfo$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZZ)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZ)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Z
 	public final fun component4 ()Z
-	public final fun component5 ()Z
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZZZ)Lorg/icpclive/cds/api/GroupInfo;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/GroupInfo;Ljava/lang/String;Ljava/lang/String;ZZZILjava/lang/Object;)Lorg/icpclive/cds/api/GroupInfo;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZZ)Lorg/icpclive/cds/api/GroupInfo;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/GroupInfo;Ljava/lang/String;Ljava/lang/String;ZZILjava/lang/Object;)Lorg/icpclive/cds/api/GroupInfo;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAwardsGroupChampion ()Z
 	public final fun getCdsId ()Ljava/lang/String;
 	public final fun getDisplayName ()Ljava/lang/String;
 	public fun hashCode ()I
