@@ -1,0 +1,13 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "url": ".",
+      "login": "live",
+      "contestId": "",
+      "eventFeedPath": "",
+      "feedVersion": "2020_03"
+    }
+  ],
+  "useTeamNames": false
+}
