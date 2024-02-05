@@ -106,7 +106,7 @@ export const RunStatusLabel = ({ runInfo, className }) => {
     return <>
         {runInfo.result.type === "ICPC" && <ICPCVerdictLabel runResult={runInfo.result} className={className}/>}
         {runInfo.result.type === "IOI" && <IOIVerdictLabel runResult={runInfo.result} className={className}/>}
-        {runInfo.result.type === "IN_PROGRESS" && <VerdictCellInProgress2 percentage={runInfo.result.testPart} className={className}/>}
+        {runInfo.result.type === "IN_PROGRESS" && <VerdictCellInProgress2 percentage={runInfo.result.testedPart} className={className}/>}
     </>;
 };
 
