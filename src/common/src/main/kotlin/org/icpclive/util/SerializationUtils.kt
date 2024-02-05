@@ -176,6 +176,7 @@ object RegexSerializer : KSerializer<Regex> {
     }
 }
 
+@OptIn(ExperimentalSerializationApi::class)
 fun defaultJsonSettings() = Json {
     encodeDefaults = true
     isLenient = true
@@ -183,6 +184,7 @@ fun defaultJsonSettings() = Json {
     allowStructuredMapKeys = true
     prettyPrint = false
     useArrayPolymorphism = false
+    explicitNulls = false
 }
 
 @OptIn(ExperimentalSerializationApi::class)
