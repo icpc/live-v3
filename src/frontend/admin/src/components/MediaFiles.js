@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import { FileUploader } from "react-drag-drop-files";
-import { Button, Container, Link, Paper, Stack } from "@mui/material";
-import { errorHandlerWithSnackbar, useErrorHandlerWithSnackbar } from "../errors";
+import {  Container, Link, Paper } from "@mui/material";
+import { useErrorHandlerWithSnackbar } from "../errors";
 import { createApiGet } from "../utils";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Box from "@mui/material/Box";
 import { BASE_URL_BACKEND, MEDIAS_LOCATION } from "../config";
-import { useSnackbar } from "notistack";
 import "../App.css";
-
-const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-});
+import PropTypes from "prop-types";
 
 const FileLink = styled(Link)(({ theme, highlight }) => ({
     ...theme.typography.body2,
@@ -42,12 +29,16 @@ const FileItem = ({ fileName, highlight }) => {
         </Paper>
     );
 };
+FileItem.propTypes = {
+    fileName: PropTypes.string.isRequired,
+    highlight: PropTypes.bool,
+};
 
 const fileUrl = (fileName) => {
     return MEDIAS_LOCATION + "/" + fileName;
 };
 
-function AdvancedJson() {
+function MediaFiles() {
     const errorHandler = useErrorHandlerWithSnackbar();
 
     const apiGet = createApiGet(BASE_URL_BACKEND + "/media");
@@ -106,4 +97,4 @@ function AdvancedJson() {
     );
 }
 
-export default AdvancedJson;
+export default MediaFiles;
