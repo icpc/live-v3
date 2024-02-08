@@ -8,12 +8,14 @@ Welcome to the ICPC Live Source Code Repository.
   * You can download [latest dev build](https://github.com/icpc/live-v3/actions/runs/5968512041) instead if you are brave enough
 * Create [contest config files](https://github.com/icpc/live-v3/tree/main/docs/settings.md)
 * (Optional) [Tune](https://github.com/icpc/live-v3/blob/main/docs/advanced.json.md) imported data, so it looks better 
-* Run `java -jar /path/to/jar/file -c /path/to/config/directory`
+* Run `java -jar /path/to/jar/file --config-directory=/path/to/config/directory`
 
   Check for more options by running `java -jar /path/to/jar/file` without arguments. Here is the couple most useful
-  * ```--creds creds.json``` -- The path to the credential file. It can be used to avoid storing credentials in the main config file. 
+  * ```--creds=creds.json``` -- The path to the credential file. It can be used to avoid storing credentials in the main config file. 
   * ```--no-auth``` -- Disable auth in admin interface. It's useful if you are running the overlayer on localhost.
   * ```-p 8080``` -- 8080 is default port to listen, but it can be changed.
+  * ```--widget-positions=filename``` -- customize positions of each widget, see examples in config/widget_positions.json.*
+  * ```--visual-config=filename``` -- customize colors, sizes, captions and other, see examples in config/visualConfig.json.*
 
 * (Optional) Check [imported contest data](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
 
