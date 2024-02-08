@@ -54,7 +54,7 @@ const ScoreboardContent = styled.div`
   display: flex;
   flex: 1 0 0;
   flex-direction: column;
-  gap: ${c.SCOREBOARD_BETWIN_HEADER_PADDING}px;
+  gap: ${c.SCOREBOARD_BETWEEN_HEADER_PADDING}px;
 `;
 
 
@@ -72,7 +72,7 @@ const ScoreboardTableRowWrap = styled.div<{needPenalty: boolean, nProblems: numb
           ${c.SCOREBOARD_CELL_POINTS_SIZE} 
           ${({ needPenalty }) => needPenalty ? c.SCOREBOARD_CELL_PENALTY_SIZE : ""} 
           repeat(${props => props.nProblems}, 1fr);
-  gap: ${c.SCOREBOARD_BETWIN_HEADER_PADDING}px;
+  gap: ${c.SCOREBOARD_BETWEEN_HEADER_PADDING}px;
 
   box-sizing: border-box;
 

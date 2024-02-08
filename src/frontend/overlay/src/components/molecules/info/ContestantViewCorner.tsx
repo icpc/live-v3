@@ -30,23 +30,26 @@ const CornerContestantInfo = styled(ContestantInfo)`
   grid-column-start: 1;
 `;
 
-export const ContestantViewCorner = ({ teamId, isSmall = false, className = null }) => {
-    const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
-    for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
-        scoreboardData.problemResults[i]["index"] = i;
-    }
+export const ContestantViewCorner = ({ teamId, isSmall = false, className = null }: {
+    teamId: number;
+    isSmall: boolean;
+    className?: string;
+}) => {
+    const problemResults = useAppSelector((state) =>
+        state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]?.problemResults.map((r, i) => ({ ...r, index: i })));
+
     const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
     const contestData = useAppSelector((state) => state.contestInfo.info);
 
-    const results = _.sortBy(scoreboardData?.problemResults, "lastSubmitTimeMs")
+    const results = _.sortBy(problemResults, "lastSubmitTimeMs")
         .filter(result => result.lastSubmitTimeMs !== undefined);
     return <ContestantViewCornerWrap isSmall={isSmall} className={className}>
         {results.map((result, i) =>
             <TaskRow key={i}>
                 <SubmissionRow
                     result={result}
-                    problemLetter={tasks[i]?.letter}
-                    problemColor={tasks[i]?.color}
+                    problemLetter={tasks[result?.index]?.letter}
+                    problemColor={tasks[result?.index]?.color}
                     lastSubmitTimeMs={result?.lastSubmitTimeMs}
                     minScore={contestData?.problems[i]?.minScore}
                     maxScore={contestData?.problems[i]?.maxScore}
