@@ -10,5 +10,17 @@
     "positionY": 148,
     "sizeX": 1048,
     "sizeY": 1756
+  },
+  "fullScreenClock": {
+    "positionX": 16,
+    "positionY": 148,
+    "sizeX": 1048,
+    "sizeY": 1756
+  }, 
+  "statistics": {
+    "positionX": 16,
+    "positionY": 1026,
+    "sizeX": 1048,
+    "sizeY": 878
   }
 }
