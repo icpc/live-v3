@@ -1,0 +1,9 @@
+{
+    "problemOverrides": {
+        "1": {"unsolvedColor": "#808080","color":"#e6194B","displayName": "1"},
+        "2": {"unsolvedColor": "#808080","color":"#3cb44b","displayName": "2"},
+        "3": {"unsolvedColor": "#808080","color":"#ffe119","displayName": "3"},
+        "4": {"unsolvedColor": "#808080","color":"#4363d8","displayName": "4"}
+    }
+}
+
