@@ -727,6 +727,7 @@ export enum TickerPart {
 export interface clock {
   part: TickerPart;
   periodMs: number;
+  timeZone?: string | null;
 }
 
 export interface image {
