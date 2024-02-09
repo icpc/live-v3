@@ -1,0 +1,10 @@
+{
+  "type":"ejudge",
+  "resultType":"IOI",
+  "url":"zaoch_2023_day1_external.xml",
+  "emulation": {
+    "startTime": "now",
+    "speed": 5
+  }
+}
+
