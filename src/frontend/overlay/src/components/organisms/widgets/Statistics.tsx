@@ -37,7 +37,9 @@ const Title = styled.div`
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
 `;
 
-const Caption = styled.div``;
+const Caption = styled.div`
+    width: 100%;
+`;
 
 
 export const Statistics = () => {
