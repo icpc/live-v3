@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import PreviewIcon from "@mui/icons-material/Preview";
+import NotesIcon from "@mui/icons-material/Notes";
 import PropTypes from "prop-types";
 
 const pages = {
@@ -23,10 +24,10 @@ const pages = {
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
     "Dashboard": "dashboard",
-    "Backend Log": "log",
     "Analytics": "analytics",
     "Spotlight": "teamSpotlight",
     "Advanced": "advancedJson",
+    "Backend Log": "log",
     // "Advanced Properties": "AdvancedProperties",
 };
 
@@ -67,29 +68,29 @@ const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
                                     navigate(url);
                                     handleCloseNavMenu();
                                 }}>
-                                    <Typography textAlign="center">{name}</Typography>
+                                    <Typography textAlign="center" color={"black"}>{name}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                     <Typography variant="h6" noWrap component="div" onClick={() => navigate("/")}
-                        sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                        sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, color: "text.primary" }}>
                         ICPC Live 3
                     </Typography>
 
                     <Box sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
                         <Typography variant="h5" noWrap onClick={() => navigate("/")}
-                            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
+                            sx={{ mr: 2, display: { xs: "none", md: "flex" }, color: "text.primary" }}>
                             ICPC Live 3
                         </Typography>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         {Object.entries(pages).map(([name, url]) =>
                             <Button key={url} onClick={() => navigate(url)}
-                                sx={{ my: 2, color: "white", display: "block" }}>
-                                {name}
+                                sx={{ my: 2, color: "text.primary", display: "block" }}>
+                                {name === "Backend Log" ? <NotesIcon/> : name}
                             </Button>)}
-                        <Button onClick={showOrHideOverlayPerview} sx={{ my: 2, color: "white", display: "block" }}>
+                        <Button onClick={showOrHideOverlayPerview} sx={{ my: 2, color: "text.primary", display: "block" }}>
                             <PreviewIcon/>
                         </Button>
                     </Box>
