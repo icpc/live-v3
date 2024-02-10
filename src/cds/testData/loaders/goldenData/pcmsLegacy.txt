@@ -272,7 +272,6 @@
                 "medias": {
                 },
                 "isHidden": false,
-                "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
                 "customFields": {
