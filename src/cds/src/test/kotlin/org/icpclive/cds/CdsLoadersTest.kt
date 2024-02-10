@@ -50,6 +50,18 @@ object CdsLoadersTest {
     }
 
     @Test
+    fun pcmsLegacy() {
+        loaderTest(
+            goldenDataDir.resolve("pcmsLegacy.txt"),
+            PCMSSettingsImpl(
+                url = UrlOrLocalPath.Local(testDataDir.resolve("pcms-legacy.xml"))
+            ),
+            AdvancedProperties(startTime = Instant.fromEpochSeconds(1449385200))
+        )
+    }
+
+
+    @Test
     fun ejudge() {
         loaderTest(
             goldenDataDir.resolve("ejudge.txt"),

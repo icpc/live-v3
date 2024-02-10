@@ -150,16 +150,17 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     ): Sequence<RunInfo> {
         return element.children()
             .filter { it.getAttribute("time").toLong().milliseconds <= contestTime }
-            .map { parseRunInfo(it, teamId, problemId) }
+            .mapIndexed { index, it -> parseRunInfo(it, teamId, problemId, index) }
     }
 
     private fun parseRunInfo(
         element: Element,
         teamId: Int,
         problemId: Int,
+        index: Int
     ): RunInfo {
         val time = element.getAttribute("time").toLong().milliseconds
-        val id = runIds[element.getAttribute("run-id")]
+        val id = runIds[element.getAttribute("run-id").takeIf { it.isNotEmpty() } ?: "$teamId-$problemId-$index"]
         val verdict = getVerdict(element)
 
         return RunInfo(
