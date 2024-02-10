@@ -21,13 +21,19 @@ private val logger = getLogger(EmulationAdapter::class)
 
 internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSpeed: Double) = flow {
     val scope = CoroutineScope(currentCoroutineContext())
+    val waitProgress = MutableStateFlow<Pair<ContestStatus, Int>?>(null)
     val logJob = scope.launch {
         while (true) {
             delay(1.seconds)
-            logger.info("Waiting for contest to become Finalized to start emulation...")
+            val r = waitProgress.value
+            logger.info("Waiting for contest to become Finalized to start emulation. Current status is ${r?.first}. ${r?.second} runs are still in progress.")
         }
     }
-    val state = finalContestState()
+    val state = finalContestState { state, count ->
+        if (state != null) {
+            waitProgress.value = state to count
+        }
+    }
     logJob.cancel()
     val finalContestInfo = state.infoAfterEvent!!
     val runs = state.runs.values.toList()
