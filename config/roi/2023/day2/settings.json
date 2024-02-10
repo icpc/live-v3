@@ -1,5 +1,6 @@
 {
   "type": "pcms",
   "url": "day2.xml",
-  "resultType": "IOI"
+  "resultType": "IOI",
+  "emulation": {"speed": 10, "startTime": "now"}
 }
