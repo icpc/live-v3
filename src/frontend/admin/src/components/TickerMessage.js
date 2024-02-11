@@ -19,7 +19,7 @@ const addPresetButtons = [
     {
         type: "clock",
         component: ClockIcon,
-        settings: { periodMs: 30000, timeZone: "" },
+        settings: { periodMs: 30000, timeZone: null },
     }, {
         part: "long",
         type: "scoreboard",
