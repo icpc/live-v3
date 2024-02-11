@@ -132,9 +132,15 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         val memberIdToTeamIdMap = lastDay.contestInfo.teamList.associate {
             it.fullName to it.id
         }
+        val problemList = (previousDays + lastDay).flatMap {
+            it.contestInfo.problemList.sortedBy { it.ordinal }
+        }.mapIndexed { index, problemInfo ->
+            problemInfo.copy(ordinal = index)
+        }
+
         return ContestParseResult(
             lastDay.contestInfo.copy(
-                problemList = (previousDays + lastDay).flatMap { it.contestInfo.problemList }
+                problemList = problemList
             ),
             previousDays.flatMap {
                 it.runs.mapNotNull {
@@ -191,8 +197,9 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                     id = problemIds[it.id],
                     ordinal = it.index,
                     contestSystemId = it.id,
-                    maxScore = it.score,
-                    scoreMergeMode = ScoreMergeMode.MAX_TOTAL
+                    minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
+                    maxScore = if (resultType == ContestResultType.IOI) it.score else null,
+                    scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
                 )
             },
             teamList = teams,
