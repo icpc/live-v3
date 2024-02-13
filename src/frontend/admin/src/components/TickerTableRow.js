@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DateTime } from "luxon";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +17,7 @@ import { onChangeFieldEventHandler } from "./PresetsTableRow";
 
 export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
     const [editData, setEditData] = useState();
+    const [errorMessage, setErrorMessage] = useState("");
 
     const onClickEdit = () => {
         if (editData === undefined) {
@@ -41,6 +43,24 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
                 {data.settings.type === "image" && <ImageIcon/>}
             </TableCell>
             <TableCell component="th" scope="row">
+                {data.settings.type === "clock" &&
+                    (editData === undefined ? data.settings.timeZone : (
+                        <Box onSubmit={onSubmitEdit} component="form" type="submit">
+                            <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.timeZone} 
+                                id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
+                                error={errorMessage !== ""}
+                                helperText={errorMessage}
+                                onChange={(event) => {
+                                    const dateTime = DateTime.now().setZone(event.target.value);
+                                    if (dateTime.isValid || event.target.value === "") {
+                                        setErrorMessage("");
+                                        onChangeFieldEventHandler(setEditData, "timeZone")(event);
+                                    } else {
+                                        setErrorMessage(dateTime.invalidReason);
+                                    }
+                                }}/>
+                        </Box>)
+                    )}
                 {data.settings.type === "text" &&
                     (editData === undefined ? data.settings.text : (
                         <Box onSubmit={onSubmitEdit} component="form" type="submit">
