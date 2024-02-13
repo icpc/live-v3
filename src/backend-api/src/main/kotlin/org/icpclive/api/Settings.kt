@@ -121,11 +121,19 @@ data class ImageTickerSettings(
     override fun toMessage() = ImageTickerMessage(this)
 }
 
-
 @Serializable
 @SerialName("clock")
-data class ClockTickerSettings(override val part: TickerPart, override val periodMs: Long) : TickerMessageSettings() {
-    override fun toMessage() = ClockTickerMessage(this)
+data class ClockTickerSettings(
+    override val part: TickerPart,
+    override val periodMs: Long,
+    val timeZone: String? = null
+) : TickerMessageSettings() {
+    override fun toMessage(): ClockTickerMessage {
+        if (timeZone != null && timeZone.isEmpty()) {
+            return ClockTickerMessage(ClockTickerSettings(part, periodMs, null))
+        }
+        return ClockTickerMessage(this)
+    }
 }
 
 @Serializable
