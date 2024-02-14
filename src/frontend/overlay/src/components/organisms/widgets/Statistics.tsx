@@ -25,6 +25,7 @@ const StatisticsWrap = styled.div`
 
 const Header = styled.div`
   display: flex;
+  flex-flow: row;
   gap: 16px;
 
   width: 100%;
@@ -38,7 +39,7 @@ const Title = styled.div`
 `;
 
 const Caption = styled.div`
-    width: 100%;
+    flex-grow: 1;
 `;
 
 
