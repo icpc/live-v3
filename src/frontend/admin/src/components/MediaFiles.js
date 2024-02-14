@@ -43,7 +43,7 @@ function MediaFiles() {
 
     const apiGet = createApiGet(BASE_URL_BACKEND + "/media");
     const [mediaFiles, setMediaFiles] = useState([]);
-    const [uploadedFileUrl, setUploadedFileUrl] = useState(null);
+    const [uploadedFileUrls, setUploadedFileUrls] = useState(null);
 
     const loadFiles = () => {
         apiGet("").then(f => setMediaFiles(f));
@@ -51,39 +51,40 @@ function MediaFiles() {
 
     useEffect(() => {
         loadFiles();
-    }, []);
+    }, [uploadedFileUrls]);
 
-    const uploadNewFile = (file) => {
-        // const files = e.target.files;
-        // if (files.length < 1) {
-        //     errorHandler("No media file selected");
-        //     return;
-        // }
+    const uploadNewFile = (files) => {
+        files = [...files];
         const formData = new FormData();
-        formData.append("file", file);
+        files.forEach(file => formData.append("file", file));
         fetch(BASE_URL_BACKEND + "/media/upload", {
             method: "POST",
             body: formData,
         }).then(r => r.json()).then(r => {
             if (r.status === "error") {
-                errorHandler("Failed to uplaod file: " + file);
+                errorHandler("Failed to upload files " + files.map(f => f.name).join(","));
             } else if (r.status !== "ok" && !r.response) {
-                errorHandler("Failed to uplaod file");
+                errorHandler("Failed to upload files");
             }
-            setUploadedFileUrl(r.status === "ok" && r.response ? r.response : null);
+            setUploadedFileUrls(r.status === "ok" && r.response ? r.response : null);
             loadFiles();
         });
     };
 
     return (
         <Container maxWidth="lg" sx={{ pt: 2 }}>
-            <FileUploader handleChange={uploadNewFile} name="file" classes="media-files-uploader" />
+            <FileUploader
+                handleChange={uploadNewFile}
+                name="file"
+                classes="media-files-uploader"
+                multiple
+            />
 
-            {uploadedFileUrl && (
-                <Box sx={{ pt: 1 }}>
-                    <FileItem fileName={uploadedFileUrl} highlight />
+            {uploadedFileUrls && uploadedFileUrls.map(file => (
+                <Box sx={{ pt: 1 }} key={file}>
+                    <FileItem fileName={file} highlight />
                 </Box>
-            )}
+            ))}
 
             <Box sx={{
                 pt: 1,
