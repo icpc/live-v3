@@ -10,7 +10,7 @@ const LegendsWrapper = styled.div`
   align-content: center;
   justify-content: end;
 
-  width: 100%;
+  flex-grow: 1;
   height: 100%;
 
   /* grid-template-columns: auto; */
