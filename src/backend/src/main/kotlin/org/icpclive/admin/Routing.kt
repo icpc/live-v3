@@ -19,7 +19,6 @@ import org.icpclive.cds.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow
-import org.icpclive.util.sendJsonFlow
 import java.nio.file.Files
 
 fun Route.configureAdminApiRouting() {
@@ -130,7 +129,7 @@ fun Route.configureAdminApiRouting() {
 
             post("/upload") {
                 call.adminApiAction {
-                    var uploadedFileUrl: String? = null
+                    val uploadedFileUrls = mutableListOf<String>()
                     val multipart = call.receiveMultipart()
                     multipart.forEachPart { partData ->
                         if (partData is PartData.FileItem) {
@@ -138,10 +137,10 @@ fun Route.configureAdminApiRouting() {
                                 Config.mediaDirectory.resolve(partData.storeName),
                                 partData.streamProvider().readBytes()
                             )
-                            uploadedFileUrl = partData.storeName
+                            uploadedFileUrls += partData.storeName
                         }
                     }
-                    uploadedFileUrl
+                    uploadedFileUrls
                 }
             }
         }
