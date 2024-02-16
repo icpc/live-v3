@@ -52,15 +52,6 @@ private suspend fun GraphQLKtorClient.submissions(contestId: String, after: Stri
     )
 ).contest
 
-private suspend fun GraphQLKtorClient.submission(contestId: String, submissionId: String) = checkedExecute(
-    JudgeContestSubmission(
-        JudgeContestSubmission.Variables(
-            id = contestId,
-            sid  = submissionId,
-        )
-    )
-).contest
-
 
 private suspend fun GraphQLKtorClient.teams(contestId: String, after: String?, count: Int) = checkedExecute(
     JudgeContestTeams(
