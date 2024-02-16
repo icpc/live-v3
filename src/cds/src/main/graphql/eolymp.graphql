@@ -35,6 +35,8 @@ union CourseEntryContent = CourseEntryDocument | CourseEntrySection
 
 union IdentityConfigProvider = IdentityConfigProviderBasecamp | IdentityConfigProviderLocal | IdentityConfigProviderOIDC
 
+union LinkTarget = AtlasProblem | AtlasSubmission | DiscussionMessage | JudgeContest
+
 union RankerScoreboardColumnTarget = CommunityAttribute | JudgeContest | JudgeProblem
 
 union RankerScoreboardRowValue = RankerScoreboardRowValueCountry | RankerScoreboardRowValueNumber | RankerScoreboardRowValueRegion | RankerScoreboardRowValueScore | RankerScoreboardRowValueString
@@ -199,8 +201,9 @@ type AtlasProblemEdge {
 }
 
 type AtlasScore {
-  acceptedAt: Time!
+  acceptedAt: Time! @deprecated(reason : "use solvedAt instead")
   percentage: Float!
+  solvedAt: Time!
 }
 
 type AtlasSolution {
@@ -286,16 +289,34 @@ type AtlasSubmissionGroup {
   wallTimeUsage: Int!
 }
 
+type AtlasSubmissionInteractorExecutionData {
+  exitCode: Int!
+  logUrl: String!
+  memoryUsage: Int!
+  wallTimeUsage: Int!
+}
+
 type AtlasSubmissionRun {
   cost: Float!
   cpuTimeUsage: Int!
   id: ID!
   index: Int!
+  interactorExecutionData: AtlasSubmissionInteractorExecutionData
   memoryUsage: Int!
+  outputUrl: String
   resourceUsage: Float!
   score: Float!
   status: String!
+  stderrUrl: String
   verdict: String!
+  verifierExecutionData: AtlasSubmissionVerifierExecutionData
+  wallTimeUsage: Int!
+}
+
+type AtlasSubmissionVerifierExecutionData {
+  exitCode: Int!
+  logUrl: String!
+  memoryUsage: Int!
   wallTimeUsage: Int!
 }
 
@@ -524,6 +545,7 @@ type CommunityMember {
   attributes: [CommunityAttributeValue!]!
   disabled: Boolean! @deprecated(reason : "use active instead")
   fallbackTier: CommunityTier
+  feed(after: String, first: Int): FeedEntryConnection
   ghost: Boolean! @deprecated(reason : "use account instead")
   groups: [CommunityGroup!]!
   id: ID!
@@ -744,6 +766,7 @@ type DiscussionSubscription {
 
 type ECM {
   document: ECMNode
+  render: ECMNode
 }
 
 type Executor {
@@ -767,6 +790,25 @@ type ExecutorRuntime {
   name: String!
   template: String!
   version: String!
+}
+
+type FeedEntry {
+  attributes: Attributes
+  id: ID!
+  links: [Link!]!
+  timestamp: Time!
+  type: String!
+}
+
+type FeedEntryConnection {
+  edges: [FeedEntryEdge!]!
+  nodes: [FeedEntry!]!
+  totalCount: Int!
+}
+
+type FeedEntryEdge {
+  cursor: String!
+  node: FeedEntry
 }
 
 type Geography {
@@ -814,6 +856,7 @@ type GeographyRegionEdge {
 
 type HTML {
   html: String!
+  render: ECMNode
 }
 
 type IdentityConfig {
@@ -847,8 +890,8 @@ type IdentityConfigProviderOIDC {
 type Judge {
   contest(id: ID!): JudgeContest!
   contests(after: String, filters: JudgeContestFilter, first: Int): JudgeContestConnection
-  ticket(id: ID!): JudgeTicket
-  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  ticket(extra: [String!], id: ID!): JudgeTicket
+  tickets(after: String, extra: [String!], filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
 }
 
 type JudgeActivity {
@@ -882,7 +925,7 @@ type JudgeAnnouncement {
   contest: JudgeContest
   id: ID!
   isRead: Boolean!
-  message: String!
+  message: Content
   subject: String!
 }
 
@@ -901,8 +944,8 @@ type JudgeAnnouncementEdge {
 type JudgeContest {
   acl: ACL!
   activities(after: String, first: Int): JudgeActivityConnection
-  announcement(id: ID!): JudgeAnnouncement
-  announcements(after: String, filters: JudgeAnnouncementFilter, first: Int): JudgeAnnouncementConnection
+  announcement(extra: [String!], id: ID!): JudgeAnnouncement
+  announcements(after: String, extra: [String!], filters: JudgeAnnouncementFilter, first: Int): JudgeAnnouncementConnection
   appearance: JudgeContestAppearance
   domain: String
   duration: Int!
@@ -927,11 +970,11 @@ type JudgeContest {
   startsAt: Time!
   startsIn: Int!
   status: String!
-  submission(id: ID!): JudgeSubmission
-  submissions(after: String, filters: JudgeSubmissionFilter, first: Int): JudgeSubmissionConnection
+  submission(extra: [String!], id: ID!): JudgeSubmission
+  submissions(after: String, extra: [String!], filters: JudgeSubmissionFilter, first: Int): JudgeSubmissionConnection
   taxonomy: JudgeContestTaxonomy
-  ticket(id: ID!): JudgeTicket
-  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  ticket(extra: [String!], id: ID!): JudgeTicket
+  tickets(after: String, extra: [String!], filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
   upsolve: JudgeContestUpsolve
   url: String!
   viewer: JudgeParticipant
@@ -1070,11 +1113,13 @@ type JudgeProblem {
   attachments: [JudgeProblemAttachment!]!
   cpuLimit: Int!
   examples: [JudgeProblemTest!]!
+  feedbackPolicy: String!
   fileSizeLimit: Int!
   id: ID!
   index: Int!
   memoryLimit: Int!
   score: Float!
+  scoreByBestTestset: Boolean!
   statement(locale: String, preferredLocales: [String!]): JudgeProblemStatement
   statements: [JudgeProblemStatement!]!
   submitLimit: Int!
@@ -1132,7 +1177,7 @@ type JudgeReply {
   createdAt: Time!
   id: ID!
   member: CommunityMember
-  message: String!
+  message: Content
   user: CognitoUser
 }
 
@@ -1266,12 +1311,14 @@ type JudgeTicket {
   createdAt: Time!
   id: ID!
   isOpen: Boolean!
-  isRead: Boolean!
+  isRead: Boolean! @deprecated(reason : "use isReadByParticipant")
+  isReadByOwner: Boolean!
+  isReadByParticipant: Boolean!
   member: CommunityMember
-  message: String!
-  needsReply: Boolean!
+  message: Content
+  needsReply: Boolean! @deprecated(reason : "use isReadByOwner")
   participant: JudgeParticipant
-  replies(after: String, first: Int): JudgeReplyConnection
+  replies(after: String, extra: [String!], first: Int): JudgeReplyConnection
   subject: String!
 }
 
@@ -1301,10 +1348,19 @@ type KeeperObject {
 
 type Latex {
   latex: String!
+  render: ECMNode
+}
+
+type Link {
+  ref: String!
+  rel: String!
+  target: LinkTarget
+  type: String!
 }
 
 type Markdown {
   markdown: String!
+  render: ECMNode
 }
 
 type Meta {
@@ -1346,8 +1402,8 @@ type Query {
   entitlements: [String!]
   enum(id: ID!): TaxonomyEnum
   executor: Executor!
-  fragment(id: ID!, render: Boolean): ContentFragment
-  fragments(after: String, filters: ContentFragmentFilter, first: Int, render: Boolean): ContentFragmentConnection
+  fragment(extra: [String!], id: ID!, render: Boolean): ContentFragment
+  fragments(after: String, extra: [String!], filters: ContentFragmentFilter, first: Int, render: Boolean): ContentFragmentConnection
   geography: Geography!
   group(id: ID!): CommunityGroup!
   groups(after: String, filters: CommunityGroupFilter, first: Int): CommunityGroupConnection
@@ -1356,9 +1412,9 @@ type Query {
   member(id: ID!): CommunityMember!
   members(after: String, filters: CommunityMemberFilter, first: Int): CommunityMemberConnection
   meta: Meta!
-  parents(locale: String, locales: [String!], path: String!, render: Boolean): [ContentFragment!]!
-  path(locale: String, locales: [String!], path: String!, render: Boolean): ContentFragment
-  paths(after: String, filters: ContentPathFilter, first: Int, locale: String, locales: [String!], render: Boolean): ContentFragmentConnection
+  parents(extra: [String!], locale: String, locales: [String!], path: String!, render: Boolean): [ContentFragment!]!
+  path(extra: [String!], locale: String, locales: [String!], path: String!, render: Boolean): ContentFragment
+  paths(after: String, extra: [String!], filters: ContentPathFilter, first: Int, locale: String, locales: [String!], render: Boolean): ContentFragmentConnection
   problem(id: ID!, version: Int): AtlasProblem
   problems(after: String, filters: AtlasProblemFilter, first: Int, order: Direction, sort: AtlasProblemSort): AtlasProblemConnection
   scoreboard(id: ID, key: String): RankerScoreboard
@@ -1366,8 +1422,8 @@ type Query {
   submission(id: ID!): AtlasSubmission
   submissions(after: String, filters: AtlasSubmissionFilter, first: Int): AtlasSubmissionConnection
   taxonomy: Taxonomy!
-  ticket(id: ID!): JudgeTicket!
-  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  ticket(extra: [String!], id: ID!): JudgeTicket!
+  tickets(after: String, extra: [String!], filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
   tier(id: ID!): CommunityTier!
   tiers(after: String, first: Int): CommunityTierConnection
   viewer: Claims
@@ -1533,9 +1589,15 @@ type RankerScoreboardRowValueString {
   string: String!
 }
 
+type Render {
+  render: ECMNode
+}
+
 type Subscription {
-  watchContestSubmission(contestId: ID!, submissionId: ID!): JudgeSubmission
+  watchContestSubmission(contestId: ID!, extra: [String!], submissionId: ID!): JudgeSubmission
   watchSubmission(id: ID!): AtlasSubmission
+  watchTicketReplies(extra: [String!], ticketId: ID!): WatchTicketRepliesUpdate
+  watchTickets(extra: [String!]): WatchTicketsUpdate
 }
 
 type Taxonomy {
@@ -1600,8 +1662,8 @@ type UniverseSpace {
   scoreboards(after: String, filters: RankerScoreboardFilter, first: Int): RankerScoreboardConnection
   submission(id: ID!): AtlasSubmission
   submissions(after: String, filters: AtlasSubmissionFilter, first: Int): AtlasSubmissionConnection
-  ticket(id: ID!): JudgeTicket!
-  tickets(after: String, filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
+  ticket(extra: [String!], id: ID!): JudgeTicket!
+  tickets(after: String, extra: [String!], filters: JudgeTicketFilter, first: Int, order: Direction, sort: JudgeTicketSort): JudgeTicketConnection
   type: String!
   url: String!
   usage: UniverseSpaceUsage
@@ -1640,6 +1702,17 @@ type UniverseSpaceUsage {
   permissionsPerSpace: Int!
   problemsPerSpace: Int!
   scoreboardsPerSpace: Int!
+}
+
+type WatchTicketRepliesUpdate {
+  event: String!
+  reply: JudgeReply
+}
+
+type WatchTicketsUpdate {
+  event: String!
+  ticket: JudgeTicket
+  unreadCount: Int!
 }
 
 type Worker {
@@ -1806,6 +1879,7 @@ input CommunityMemberFilter {
 
 input ContentFragmentFilter {
   id: IDExpression
+  label: EnumExpression
   locale: EnumExpression
   path: StringExpression
   query: String

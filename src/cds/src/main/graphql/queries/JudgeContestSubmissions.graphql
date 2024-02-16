@@ -1,6 +1,6 @@
 query JudgeContestSubmissions($id: ID!, $after: String, $count: Int!) {
     contest(id: $id) {
-        submissions(after: $after, first: $count) {
+        submissions(after: $after, first: $count, extra: ["GROUPS"]) {
             pageInfo {
                 hasNextPage
                 endCursor
@@ -15,6 +15,9 @@ query JudgeContestSubmissions($id: ID!, $after: String, $count: Int!) {
                 verdict
                 score
                 status
+                groups {
+                    score
+                }
             }
         }
     }

@@ -6,7 +6,7 @@ import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.loopFlow
-import kotlin.time.Duration
+import kotlin.time.*
 
 internal abstract class FullReloadContestDataSource(private val interval: Duration) : ContestDataSource {
     abstract suspend fun loadOnce(): ContestParseResult
@@ -17,7 +17,10 @@ internal abstract class FullReloadContestDataSource(private val interval: Durati
         interval,
         { getLogger(FullReloadContestDataSource::class).error("Failed to reload data, retrying", it) }
     ) {
-        loadOnce()
+        val loadStart = TimeSource.Monotonic.markNow()
+        loadOnce().also {
+            getLogger(FullReloadContestDataSource::class).info("Reloaded contest data in ${loadStart.elapsedNow()}")
+        }
     }.flowOn(Dispatchers.IO)
         .conflate()
         .transform {
