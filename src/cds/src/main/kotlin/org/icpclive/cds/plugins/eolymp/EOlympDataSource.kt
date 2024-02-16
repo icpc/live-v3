@@ -48,6 +48,16 @@ private suspend fun GraphQLKtorClient.submissions(contestId: String, after: Stri
     )
 ).contest
 
+private suspend fun GraphQLKtorClient.submission(contestId: String, submissionId: String) = checkedExecute(
+    JudgeContestSubmission(
+        JudgeContestSubmission.Variables(
+            id = contestId,
+            sid  = submissionId,
+        )
+    )
+).contest
+
+
 private suspend fun GraphQLKtorClient.teams(contestId: String, after: String?, count: Int) = checkedExecute(
     JudgeContestTeams(
         JudgeContestTeams.Variables(
@@ -199,7 +209,9 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                     contestSystemId = it.id,
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (resultType == ContestResultType.IOI) it.score else null,
-                    scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
+                    scoreMergeMode = if (resultType == ContestResultType.IOI) {
+                        if (it.scoreByBestTestset) ScoreMergeMode.MAX_PER_GROUP else ScoreMergeMode.MAX_TOTAL
+                    } else null
                 )
             },
             teamList = teams,
@@ -224,7 +236,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                         id = runIds[it.id],
                         result = when (resultType) {
                             ContestResultType.ICPC -> verdict?.toRunResult()
-                            ContestResultType.IOI -> RunResult.IOI(listOf(it.score)).takeIf { verdict != null }
+                            ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
                         } ?: RunResult.InProgress(0.0),
                         problemId = problemIds[it.problem!!.id],
                         teamId = teamIds[it.participant!!.id],
