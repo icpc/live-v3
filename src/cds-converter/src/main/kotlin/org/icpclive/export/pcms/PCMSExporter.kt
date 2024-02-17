@@ -24,7 +24,7 @@ import kotlin.time.Duration
 object PCMSExporter {
 
     private fun convertOutcome(outcome: Verdict?) = when (outcome) {
-        null -> "unknown"
+        null -> "undefined"
         Verdict.Accepted -> "accepted"
         Verdict.Fail -> "fail"
         Verdict.CompilationError -> "compilation-error"
@@ -36,10 +36,10 @@ object PCMSExporter {
         Verdict.OutputLimitExceeded -> "output-limit-exceeded"
         Verdict.IdlenessLimitExceeded -> "idleness-limit-exceeded"
         Verdict.SecurityViolation -> "security-violation"
-        Verdict.Challenged -> "wrong-answer"
-        Verdict.CompilationErrorWithPenalty -> "wrong-answer"
+        Verdict.Challenged -> "unknown"
+        Verdict.CompilationErrorWithPenalty -> "unknown"
         Verdict.Ignored -> "compilation-error"
-        Verdict.Rejected -> "wrong-answer"
+        Verdict.Rejected -> "unknown"
     }
 
     fun ContestStatus.toPcmsStatus() = when (this) {
@@ -69,9 +69,16 @@ object PCMSExporter {
         }
     }
     private fun Element.buildRunNode(info: RunInfo) {
-        setAttribute("accepted", if ((info.result as? RunResult.ICPC)?.verdict?.isAccepted == true) "yes" else "no")
+        setAttribute("accepted", when (val result = info.result) {
+            is RunResult.ICPC -> if (result.verdict.isAccepted) "yes" else "no"
+            is RunResult.IOI -> if (result.wrongVerdict == null) "yes" else "no"
+            is RunResult.InProgress -> "undefined"
+        })
         setAttribute("time", info.time.inWholeMilliseconds.toString())
-        setAttribute("score", "0")
+        setAttribute("score", when (val result = info.result) {
+            is RunResult.ICPC, is RunResult.InProgress -> "0"
+            is RunResult.IOI -> result.score.sum().toString()
+        })
         //setAttribute("language-id", "")
         setAttribute("run-id", info.id.toString())
         setAttribute("outcome", convertOutcome((info.result as? RunResult.ICPC)?.verdict))
