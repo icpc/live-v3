@@ -25,7 +25,7 @@ tasks {
         from(project(":backend").tasks.named("shadowJar")) {
             rename { "live-v3.jar" }
         }
-        from(project(":schema-generator").tasks.named("exportSchemas")) {
+        from(project(":schema-generator").tasks.named("generateAllSchemas")) {
             into(".vscode/schemas")
         }
         fun emptyJson(dir:String, name: String) = from(emptyJson) {
