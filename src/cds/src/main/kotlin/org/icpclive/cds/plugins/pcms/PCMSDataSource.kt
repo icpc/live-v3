@@ -192,11 +192,13 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         )
     }
 
-    private fun getVerdict(element: Element) = when {
-        "yes" == element.getAttribute("accepted") -> Verdict.Accepted
+    private fun getVerdict(element: Element) = when (element.getAttribute("accepted")) {
+        "yes" -> Verdict.Accepted
+        "undefined" -> null
         else -> when (element.getAttribute("outcome")) {
             "fail" -> Verdict.Fail
-            "unknown" -> null
+            "undefined" -> null
+            "unknown" -> Verdict.Rejected
             "accepted" -> Verdict.Accepted
             "compilation-error" -> Verdict.CompilationError
             "wrong-answer" -> Verdict.WrongAnswer
@@ -207,7 +209,10 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             "output-limit-exceeded" -> Verdict.OutputLimitExceeded
             "idleness-limit-exceeded" -> Verdict.IdlenessLimitExceeded
             "security-violation" -> Verdict.SecurityViolation
-            else -> Verdict.WrongAnswer
+            else -> {
+                logger.error("Unknown verdict ${element.getAttribute("outcome")}, assuming WrongAnswer")
+                Verdict.WrongAnswer
+            }
         }
     }
 
