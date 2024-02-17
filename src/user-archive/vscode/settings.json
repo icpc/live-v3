@@ -1,0 +1,17 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "**/advanced.json"
+      ],
+      "url": ".vscode/schemas/advanced.schema.json"
+    },
+    {
+      "fileMatch": [
+        "**/settings.json",
+        "!.vscode/settings.json"
+      ],
+      "url": ".vscode/schemas/settings.schema.json"
+    }
+  ]
+}

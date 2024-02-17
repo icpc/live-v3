@@ -28,7 +28,8 @@ include(
     ":reactions-bot",
     ":schema-generator",
     ":sniper-tools",
-    ":faker"
+    ":faker",
+    ":user-archive"
 )
 project(":backend").projectDir = file("src/backend")
 project(":backend-api").projectDir = file("src/backend-api")
@@ -42,6 +43,7 @@ project(":reactions-bot").projectDir = file("src/reactions-bot")
 project(":schema-generator").projectDir = file("src/schema-generator")
 project(":sniper-tools").projectDir = file("src/sniper-tools")
 project(":faker").projectDir = file("src/faker")
+project(":user-archive").projectDir = file("src/user-archive")
 
 gradleEnterprise.buildScan {
     termsOfServiceUrl = "https://gradle.com/terms-of-service"
