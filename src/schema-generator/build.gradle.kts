@@ -145,7 +145,7 @@ dependencies {
     implementation(libs.cli)
     implementation(libs.kxs.ts.gen.core)
     implementation(libs.kotlin.reflect)
-    runtimeOnly(projects.cds)
+    runtimeOnly(projects.cds.plugins)
     runtimeOnly(projects.backendApi)
 
     testImplementation(libs.kotlin.junit)

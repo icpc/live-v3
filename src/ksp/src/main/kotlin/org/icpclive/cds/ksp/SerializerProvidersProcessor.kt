@@ -8,27 +8,25 @@ import java.io.PrintWriter
 class SerializerProvidersProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
     private val allGeneratedFiles = mutableMapOf<String, MutableList<String>>()
     private val interestingClasses = mutableMapOf<String, String>()
+
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val services = resolver.getSymbolsWithAnnotation(SerializerProviders::class.qualifiedName!!)
         val allSerializable = resolver
             .getSymbolsWithAnnotation("kotlinx.serialization.Serializable")
-        val ret = (allSerializable + services).filter { !it.validate()  }.toList()
-        services
-            .filter { it.validate() }
-            .filterIsInstance<KSClassDeclaration>()
-            .associateTo(interestingClasses) {
-                val ann = it.getAnnotationsByType(SerializerProviders::class).single()
-                it.qualifiedName!!.asString() to ann.providerClassName
-            }
+        val ret = allSerializable.filter { !it.validate()  }.toList()
 
         val subTypesOfInteresting = allSerializable
             .filter { it.validate() }
             .filterIsInstance<KSClassDeclaration>()
             .filter {
                 it.getAllSuperTypes().any { superClass ->
-                    //logger.warn("${it.qualifiedName?.asString()} -> ${superClass.declaration.qualifiedName?.asString()}, $interestingClasses")
-                    superClass.declaration.qualifiedName?.asString() in interestingClasses
+                    val ann = superClass.declaration.getAnnotationsByType(SerializerProviders::class).singleOrNull()
+                    if (ann != null) {
+                        interestingClasses[superClass.declaration.qualifiedName!!.asString()] = ann.providerClassName
+                        true
+                    } else {
+                        false
+                    }
                 }
             }
 
