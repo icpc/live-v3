@@ -217,6 +217,7 @@ data class Commentary(
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val contest_time: Duration,
     val message: String,
+    val tags: List<String>,
     val team_ids: List<String>?,
     val problem_ids: List<String>?,
     val submission_ids: List<String>?,

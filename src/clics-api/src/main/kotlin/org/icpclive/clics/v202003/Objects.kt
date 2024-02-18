@@ -271,7 +271,8 @@ data class Commentary(
         message = message,
         team_ids = team_ids,
         problem_ids = problem_ids,
-        submission_ids = submission_ids
+        submission_ids = submission_ids,
+        tags = emptyList(),
     )
 }
 

@@ -286,6 +286,7 @@ object ClicsExporter  {
                 event.time,
                 event.relativeTime,
                 event.message,
+                event.tags,
                 event.teamIds.map { teamIdToCdsId[it]!! },
                 emptyList(),
                 event.runIds.map { it.toString() }
