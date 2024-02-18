@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin
 
 plugins {
     `java-library`
+    `maven-publish`
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.bcv)
 }
@@ -11,11 +12,7 @@ apiValidation {
 }
 
 subprojects {
-    plugins.withType<KotlinPlatformJvmPlugin>() {
-        kotlin {
-            explicitApi()
-        }
-    }
+    apply<MavenPublishPlugin>()
 }
 
 dependencies {
