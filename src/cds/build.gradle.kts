@@ -1,6 +1,6 @@
 import com.expediagroup.graphql.plugin.gradle.config.GraphQLSerializer
-import com.google.protobuf.gradle.id
-import java.net.URI
+import com.google.protobuf.gradle.*
+import java.net.*
 
 plugins {
     `java-library`
@@ -9,6 +9,15 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.graphql)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.bcv)
+}
+
+apiValidation {
+    ignoredPackages.addAll(listOf(
+        "com.eolymp.graphql",
+        "io.codedrills.proto",
+    ))
 }
 
 protobuf {
@@ -54,6 +63,8 @@ tasks {
 
     test {
         inputs.dir("testData/")
+        inputs.dir("../../config/")
+        dependsOn(apiCheck)
     }
 }
 
@@ -96,6 +107,8 @@ dependencies {
     implementation(libs.graphql.ktor.client)
     implementation(libs.cli)
     runtimeOnly(libs.grpc.netty)
+    ksp(projects.ksp)
+    compileOnly(projects.ksp)
 
     testImplementation(libs.kotlin.junit)
 }
