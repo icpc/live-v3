@@ -3,7 +3,7 @@ package org.icpclive.cds.plugins.testsys
 import kotlinx.datetime.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import java.nio.charset.Charset
@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-@GenerateSettings("testsys")
-public interface TestSysSettings : CDSSettings {
+@Builder("testsys")
+public sealed interface TestSysSettings : CDSSettings {
     public val url: UrlOrLocalPath
     public val timeZone: TimeZone
         get() = TimeZone.of("Europe/Moscow")

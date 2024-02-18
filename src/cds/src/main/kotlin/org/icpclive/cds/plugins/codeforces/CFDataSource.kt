@@ -3,7 +3,7 @@ package org.icpclive.cds.plugins.codeforces
 import kotlinx.datetime.Clock
 import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.plugins.codeforces.api.data.CFHack
 import org.icpclive.cds.plugins.codeforces.api.data.CFSubmission
 import org.icpclive.cds.plugins.codeforces.api.results.CFStandings
@@ -15,8 +15,8 @@ import java.util.*
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 
-@GenerateSettings("cf")
-public interface CFSettings : CDSSettings {
+@Builder("cf")
+public sealed interface CFSettings : CDSSettings {
     public val contestId: Int
     public val apiKey: Credential
     public val apiSecret: Credential

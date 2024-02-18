@@ -27,7 +27,9 @@ public fun CDSSettings.toFlow(): Flow<ContestUpdate> {
 
 public interface CDSSettings {
     public val emulation: EmulationSettings?
+        get() = null
     public val network: NetworkSettings?
+        get() = null
 
     public fun toDataSource(): ContestDataSource
 

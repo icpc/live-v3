@@ -8,7 +8,7 @@ import kotlinx.serialization.modules.SerializersModule
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.*
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.v202003.upgrade
@@ -35,8 +35,8 @@ public class ClicsFeed(
     public val feedVersion: FeedVersion = FeedVersion.`2022_07`,
 )
 
-@GenerateSettings("clics")
-public interface ClicsSettings : CDSSettings {
+@Builder("clics")
+public sealed interface ClicsSettings : CDSSettings {
     public val feeds: List<ClicsFeed>
     public val useTeamNames: Boolean
         get() = true

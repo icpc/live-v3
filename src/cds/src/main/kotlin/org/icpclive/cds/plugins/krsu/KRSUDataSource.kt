@@ -4,13 +4,13 @@ import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
-@GenerateSettings("krsu")
-public interface KRSUSettings : CDSSettings {
+@Builder("krsu")
+public sealed interface KRSUSettings : CDSSettings {
     public val submissionsUrl: String
     public val contestUrl: String
     public val timeZone: TimeZone

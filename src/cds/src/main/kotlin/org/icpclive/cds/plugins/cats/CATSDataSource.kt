@@ -7,7 +7,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import java.time.ZonedDateTime
@@ -40,8 +40,8 @@ private object SubmissionTimeSerializer : KSerializer<Instant> {
     }
 }
 
-@GenerateSettings("cats")
-public interface CatsSettings : CDSSettings {
+@Builder("cats")
+public sealed interface CatsSettings : CDSSettings {
     public val login: Credential
     public val password: Credential
     public val url: String

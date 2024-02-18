@@ -7,12 +7,11 @@ import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
-import org.icpclive.cds.api.ContestResultType
-import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.plugins.yandex.api.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
@@ -21,8 +20,8 @@ import org.icpclive.util.loopFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-@GenerateSettings("yandex")
-public interface YandexSettings : CDSSettings {
+@Builder("yandex")
+public sealed interface YandexSettings : CDSSettings {
     public val apiKey: Credential
     public val loginRegex: Regex
     public val contestId: Int

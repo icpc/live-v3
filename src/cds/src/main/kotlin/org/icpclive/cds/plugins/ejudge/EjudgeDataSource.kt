@@ -3,7 +3,7 @@ package org.icpclive.cds.plugins.ejudge
 import kotlinx.datetime.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.util.child
@@ -15,8 +15,8 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
-@GenerateSettings("ejudge")
-public interface EjudgeSettings : CDSSettings {
+@Builder("ejudge")
+public sealed interface EjudgeSettings : CDSSettings {
     public val url: UrlOrLocalPath
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC

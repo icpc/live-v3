@@ -6,7 +6,7 @@ import com.expediagroup.graphql.client.types.GraphQLClientRequest
 import kotlinx.datetime.toKotlinInstant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import org.icpclive.util.Enumerator
@@ -60,8 +60,8 @@ private suspend fun GraphQLKtorClient.teams(contestId: String, after: String?, c
 ).contest
 
 
-@GenerateSettings("eolymp")
-public interface EOlympSettings : CDSSettings {
+@Builder("eolymp")
+public sealed interface EOlympSettings : CDSSettings {
     public val url: String
     public val token: Credential
     public val contestId: String

@@ -7,7 +7,7 @@ import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import org.icpclive.util.getLogger
@@ -15,8 +15,8 @@ import java.util.concurrent.*
 import kotlin.time.Duration.Companion.seconds
 
 
-@GenerateSettings("codedrills")
-public interface CodeDrillsSettings : CDSSettings {
+@Builder("codedrills")
+public sealed interface CodeDrillsSettings : CDSSettings {
     public val url: String
     public val port: Int
     public val contestId: String

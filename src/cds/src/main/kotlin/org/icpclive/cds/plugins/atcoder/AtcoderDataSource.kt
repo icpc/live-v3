@@ -5,7 +5,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.*
 import org.icpclive.cds.settings.*
 import org.icpclive.util.Enumerator
 import kotlin.time.Duration
@@ -43,12 +43,12 @@ internal class ContestData(
     val StandingsData: List<AtcoderTeam>,
 )
 
-@GenerateSettings("atcoder")
-public interface AtcoderSettings : CDSSettings {
+@Builder("atcoder")
+public sealed interface AtcoderSettings : CDSSettings {
     public val contestId: String
     public val sessionCookie: Credential
-    public val startTime: Instant
-    public val contestLength: Duration
+    @Human public val startTime: Instant
+    @Seconds public val contestLength: Duration
     override fun toDataSource(): ContestDataSource = AtcoderDataSource(this)
 }
 

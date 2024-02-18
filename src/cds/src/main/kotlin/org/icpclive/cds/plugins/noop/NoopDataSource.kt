@@ -5,13 +5,13 @@ import kotlinx.datetime.Instant
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.ContestDataSource
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import kotlin.time.Duration
 
 
-@GenerateSettings("noop")
-public interface NoopSettings : CDSSettings {
+@Builder("noop")
+public sealed interface NoopSettings : CDSSettings {
     override fun toDataSource(): ContestDataSource = NoopDataSource()
 }
 
