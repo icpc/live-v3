@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation(projects.cds)
+    implementation(projects.cds.plugins)
     implementation(projects.common)
     implementation(libs.cli)
     implementation(libs.exposed.core)
