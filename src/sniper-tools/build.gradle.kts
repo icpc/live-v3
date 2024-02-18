@@ -11,14 +11,6 @@ application {
     mainClass = "org.icpclive.sniper.ApplicationKt"
 }
 
-kotlin {
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-        }
-    }
-}
-
 tasks {
     runTask {
         this.workingDir(rootDir.resolve("."))
