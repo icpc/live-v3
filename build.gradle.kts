@@ -24,6 +24,63 @@ subprojects {
     group = "org.icpclive"
     version = rootProject.findProperty("build_version")!!
 
+
+    plugins.withType<MavenPublishPlugin> {
+        afterEvaluate {
+            configure<PublishingExtension> {
+                repositories {
+                    maven {
+                        name = "GitHubPackages"
+                        url = uri("https://maven.pkg.github.com/icpc/live-v3")
+                        credentials {
+                            username = System.getenv("GITHUB_ACTOR")
+                            password = System.getenv("GITHUB_TOKEN")
+                        }
+                    }
+                }
+                publications {
+                    create<MavenPublication>("mavenJava${this@subprojects.name}") {
+                        pom {
+                            name = "ICPC live contest data system parser"
+                            description = "Parser for a various programming competition contest systems"
+                            url = "https://github.com/icpc/live-v3"
+                            licenses {
+                                license {
+                                    name = "The MIT License"
+                                    url = "http://opensource.org/licenses/MIT"
+                                }
+                            }
+                            scm {
+                                connection.set("scm:git:git://github.com/icpc/live-v3.git")
+                                developerConnection.set("scm:git:ssh://github.com/icpc/live-v3.git")
+                                url.set("https://github.com/icpc/live-v3")
+                            }
+                        }
+                        versionMapping {
+                            usage("java-api") {
+                                fromResolutionOf("runtimeClasspath")
+                            }
+                            usage("java-runtime") {
+                                fromResolutionResult()
+                            }
+                        }
+                        from(components["java"])
+                        groupId = "org.icpclive"
+                        val projectPath = this@subprojects.path
+                        artifactId = when {
+                            projectPath.endsWith("plugins") -> {
+                                "org.icpclive.cds.full"
+                            }
+                            else -> {
+                                "org.icpclive.cds.${projectPath}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     plugins.withType<JavaPlugin> {
         configure<JavaPluginExtension> {
             toolchain {
