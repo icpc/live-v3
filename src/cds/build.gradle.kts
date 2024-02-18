@@ -18,7 +18,6 @@ apiValidation {
         "com.eolymp.graphql",
         "io.codedrills.proto",
     ))
-    ignoredProjects.add("ksp")
 }
 
 protobuf {
@@ -92,12 +91,6 @@ tasks {
     }
 }
 
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xjvm-default=all")
-    }
-}
-
 dependencies {
     api(libs.kotlinx.collections.immutable)
     implementation(projects.common)
@@ -114,8 +107,8 @@ dependencies {
     implementation(libs.graphql.ktor.client)
     implementation(libs.cli)
     runtimeOnly(libs.grpc.netty)
-    ksp(projects.cds.ksp)
-    compileOnly(projects.cds.ksp)
+    ksp(projects.ksp)
+    compileOnly(projects.ksp)
 
     testImplementation(libs.kotlin.junit)
 }

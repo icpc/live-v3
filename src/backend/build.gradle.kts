@@ -15,14 +15,6 @@ application {
     mainClass = "org.icpclive.ApplicationKt"
 }
 
-kotlin {
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-        }
-    }
-}
-
 tasks {
     runTask {
         this.args = listOfNotNull(
