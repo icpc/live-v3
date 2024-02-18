@@ -28,6 +28,6 @@ annotation class UnixMilliSeconds(val name: String = "")
 @Target(AnnotationTarget.PROPERTY)
 annotation class AlwaysSerialize
 
-@Retention(AnnotationRetention.SOURCE)
+@Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.CLASS)
 annotation class SerializerProviders(val providerClassName: String)

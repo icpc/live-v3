@@ -54,13 +54,15 @@ subprojects {
         }
     }
 
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            compilerOptions {
-                freeCompilerArgs.add("-Xjvm-default=all")
-                optIn = listOf("kotlinx.serialization.ExperimentalSerializationApi")
+    tasks {
+        withType<KotlinCompile>().configureEach {
+            kotlinOptions {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xjvm-default=all")
+                    optIn = listOf("kotlinx.serialization.ExperimentalSerializationApi")
+                }
+                allWarningsAsErrors = true
             }
-            allWarningsAsErrors = true
         }
     }
 }

@@ -46,7 +46,7 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2.4.2
         with:
-          arguments: build release --scan -Pnpm.download=false -i
+          arguments: build release apiCheck --scan -Pnpm.download=false -i
 
       - uses: actions/upload-artifact@v3
         if: always()
