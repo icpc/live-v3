@@ -1,13 +1,11 @@
-package org.icpclive.cds.ejudge
+package org.icpclive.cds.plugins.ejudge
 
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toKotlinLocalDateTime
-import org.icpclive.api.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.xmlLoader
-import org.icpclive.cds.settings.EjudgeSettings
+import kotlinx.datetime.*
+import org.icpclive.cds.api.*
+import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.Builder
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.util.child
 import org.icpclive.util.children
 import org.w3c.dom.Element
@@ -16,6 +14,17 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
+
+@Builder("ejudge")
+public sealed interface EjudgeSettings : CDSSettings {
+    public val url: UrlOrLocalPath
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
+    public val timeZone: TimeZone
+        get() = TimeZone.of("Europe/Moscow")
+
+    override fun toDataSource(): ContestDataSource = EjudgeDataSource(this)
+}
 
 internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce(): ContestParseResult {
@@ -55,7 +64,8 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 organizationId = null
             )
         }.toList()
-    val timePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+
+    private val timePattern: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
     private fun parseEjudgeTime(time: String): Instant {
         return java.time.LocalDateTime.parse(
@@ -110,7 +120,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
     private fun parseRunInfo(
         element: Element,
         currentTime: Duration,
-        teamIdMapping: Map<String, Int>
+        teamIdMapping: Map<String, Int>,
     ): RunInfo? {
         val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
         if (time > currentTime) {

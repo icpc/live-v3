@@ -1,28 +1,15 @@
-package org.icpclive.cds.clics
+package org.icpclive.cds.plugins.clics
 
-import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.withTimeout
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.SerializationException
+import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
-import org.icpclive.api.AnalyticsCommentaryEvent
-import org.icpclive.api.ContestInfo
-import org.icpclive.api.ContestStatus
-import org.icpclive.api.RunInfo
-import org.icpclive.cds.AnalyticsUpdate
-import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.RunUpdate
-import org.icpclive.cds.common.ClientAuth
-import org.icpclive.cds.common.ContestDataSource
-import org.icpclive.cds.common.getLineStreamLoaderFlow
-import org.icpclive.cds.settings.ClicsFeed
-import org.icpclive.cds.settings.ClicsSettings
-import org.icpclive.cds.settings.NetworkSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.*
+import org.icpclive.cds.api.*
+import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.Builder
+import org.icpclive.cds.settings.*
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.v202003.upgrade
 import org.icpclive.clics.v202207.Event
@@ -30,6 +17,32 @@ import org.icpclive.clics.v202207.Event.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
+import org.icpclive.clics.v202003.Event as V202003Event
+
+public enum class FeedVersion {
+    `2020_03`,
+    `2022_07`
+}
+
+@Serializable
+public class ClicsFeed(
+    @Contextual public val url: UrlOrLocalPath,
+    public val contestId: String,
+    @Contextual public val login: Credential? = null,
+    @Contextual public val password: Credential? = null,
+    public val eventFeedName: String = "event-feed",
+    public val eventFeedPath: String? = null,
+    public val feedVersion: FeedVersion = FeedVersion.`2022_07`,
+)
+
+@Builder("clics")
+public sealed interface ClicsSettings : CDSSettings {
+    public val feeds: List<ClicsFeed>
+    public val useTeamNames: Boolean
+        get() = true
+
+    override fun toDataSource(): ContestDataSource = ClicsDataSource(this)
+}
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
     val auth = ClientAuth.BasicOrNull(
@@ -63,7 +76,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
     private suspend fun runLoader(
         onRun: suspend (RunInfo) -> Unit,
         onContestInfo: suspend (ContestInfo) -> Unit,
-        onComment: suspend (AnalyticsCommentaryEvent) -> Unit
+        onComment: suspend (AnalyticsCommentaryEvent) -> Unit,
     ) {
         val loaders = feeds.map { getEventFeedLoader(it, settings.network) }
 
@@ -132,7 +145,10 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         is StateEvent -> model.processState(it.data!!)
                         is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
                         is GroupsEvent -> model.processGroup(it.id, it.data)
-                        is PreloadFinishedEvent -> { preloadFinished = true }
+                        is PreloadFinishedEvent -> {
+                            preloadFinished = true
+                        }
+
                         is AccountEvent, is AwardsEvent, is ClarificationEvent, is LanguageEvent,
                         is MapEvent, is PersonEvent, is StartStatusEvent -> {}
                     }
@@ -201,6 +217,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
 
     companion object {
         val logger = getLogger(ClicsDataSource::class)
+
         @OptIn(ExperimentalSerializationApi::class)
         private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings, networkSettings: NetworkSettings?) = flow {
             val jsonDecoder = Json {
@@ -217,15 +234,17 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                     .mapNotNull { data ->
                         try {
                             when (settings.feedVersion) {
-                                ClicsSettings.FeedVersion.`2020_03` -> jsonDecoder.decodeFromString<org.icpclive.clics.v202003.Event>(data).upgrade()
-                                ClicsSettings.FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
+                                FeedVersion.`2020_03` -> jsonDecoder.decodeFromString<V202003Event>(data).upgrade()
+                                FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
                             }
                         } catch (e: SerializationException) {
                             logger.error("Failed to deserialize: $data", e)
                             null
                         }
                     })
-                if (settings.eventFeedUrl is UrlOrLocalPath.Local) { break }
+                if (settings.eventFeedUrl is UrlOrLocalPath.Local) {
+                    break
+                }
                 delay(5.seconds)
                 logger.info("Connection ${settings.eventFeedUrl} is closed, retrying")
             }

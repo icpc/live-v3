@@ -1,15 +1,23 @@
-package org.icpclive.cds.krsu
+package org.icpclive.cds.plugins.krsu
 
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.toInstant
+import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
-import org.icpclive.api.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.common.jsonUrlLoader
-import org.icpclive.cds.settings.KRSUSettings
+import org.icpclive.cds.api.*
+import org.icpclive.cds.common.*
+import org.icpclive.cds.ksp.Builder
+import org.icpclive.cds.settings.CDSSettings
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
+
+@Builder("krsu")
+public sealed interface KRSUSettings : CDSSettings {
+    public val submissionsUrl: String
+    public val contestUrl: String
+    public val timeZone: TimeZone
+        get() = TimeZone.of("Asia/Bishkek")
+
+    override fun toDataSource(): ContestDataSource = KRSUDataSource(this)
+}
 
 internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDataSource(5.seconds) {
     override suspend fun loadOnce() = parseAndUpdateStandings(
@@ -120,14 +128,14 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         val Id: Int,
         val ProblemSet: List<Problem>,
         val StartTime: LocalDateTime,
-        val Length: Int
+        val Length: Int,
     )
 
     @Serializable
     @Suppress("unused")
     class Problem(
         val Letter: Int,
-        val Problem: Int
+        val Problem: Int,
     )
 }
 

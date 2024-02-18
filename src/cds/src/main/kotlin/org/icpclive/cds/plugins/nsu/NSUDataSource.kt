@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import java.time.format.DateTimeFormatter
@@ -21,8 +21,8 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 
-@GenerateSettings("nsu")
-public interface NSUSettings : CDSSettings {
+@Builder("nsu")
+public sealed interface NSUSettings : CDSSettings {
     public val url: String
     public val olympiadId: Int
     public val tourId: Int

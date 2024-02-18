@@ -4,7 +4,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.*
 import org.icpclive.util.*
 import org.w3c.dom.Element
@@ -14,12 +14,15 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-@GenerateSettings("pcms")
-public interface PCMSSettings : CDSSettings {
+@Builder("pcms")
+public sealed interface PCMSSettings : CDSSettings {
     public val url: UrlOrLocalPath
     public val login: Credential?
+        get() = null
     public val password: Credential?
+        get() = null
     public val problemsUrl: UrlOrLocalPath?
+        get() = null
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC
 

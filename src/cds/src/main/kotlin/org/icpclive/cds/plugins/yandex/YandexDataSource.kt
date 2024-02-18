@@ -1,25 +1,35 @@
-package org.icpclive.cds.yandex
+package org.icpclive.cds.plugins.yandex
 
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
-import org.icpclive.api.ContestStatus
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
-import org.icpclive.cds.settings.YandexSettings
-import org.icpclive.cds.yandex.api.*
+import org.icpclive.cds.ksp.Builder
+import org.icpclive.cds.plugins.yandex.api.*
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import org.icpclive.util.getLogger
 import org.icpclive.util.loopFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
+
+@Builder("yandex")
+public sealed interface YandexSettings : CDSSettings {
+    public val apiKey: Credential
+    public val loginRegex: Regex
+    public val contestId: Int
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
+
+    override fun toDataSource(): ContestDataSource = YandexDataSource(this)
+}
 
 internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
     private val apiKey = settings.apiKey.value
@@ -46,12 +56,18 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
 
 
         contestDescriptionLoader = jsonUrlLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
-        problemLoader = jsonUrlLoader<Problems>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
+        problemLoader = jsonUrlLoader<Problems>(
+            settings.network,
+            auth
+        ) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
             it.problems.sortedBy { it.alias }
         }
         participantLoader = run {
             val participantRegex = settings.loginRegex
-            jsonUrlLoader<List<Participant>>(settings.network, auth) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
+            jsonUrlLoader<List<Participant>>(
+                settings.network,
+                auth
+            ) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
                 it.filter { participant -> participant.login.matches(participantRegex) }
             }
         }
@@ -82,7 +98,7 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
                 emit(InfoUpdate(info))
             }
             val allSubmissions = allSubmissionsLoader.load()
-            with (rawContestInfoFlow.value) {
+            with(rawContestInfoFlow.value) {
                 emitAll(
                     allSubmissions.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
                         .map { RunUpdate(submissionToRun(it)) }
@@ -101,7 +117,8 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
                 .flowOn(Dispatchers.IO)
             val allRunsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
-                    it.sortedWith(compareBy({it.time}, { it.id })).filter(this::isTeamSubmission).map { RunUpdate(submissionToRun(it)) }
+                    it.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
+                        .map { RunUpdate(submissionToRun(it)) }
                 }
             }.flatMapConcat { it.asFlow() }
             emitAll(merge(allRunsFlow, rawContestInfoFlow.map { InfoUpdate(it.toApi()) }))
@@ -114,8 +131,8 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
     }
 
     private fun newSubmissionsFlow(
-        period: Duration
-    ) : Flow<List<Submission>> {
+        period: Duration,
+    ): Flow<List<Submission>> {
         log.info("HERE!!!")
         val formatter = Json { ignoreUnknownKeys = true }
         var pendingRunId = 0L

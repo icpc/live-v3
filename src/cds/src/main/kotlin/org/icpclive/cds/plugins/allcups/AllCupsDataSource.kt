@@ -6,21 +6,21 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.common.FullReloadContestDataSource
-import org.icpclive.cds.ksp.GenerateSettings
+import org.icpclive.cds.ksp.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import org.icpclive.util.getLogger
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-@GenerateSettings("allcups")
-public interface AllCupsSettings : CDSSettings {
+@Builder("allcups")
+public sealed interface AllCupsSettings : CDSSettings {
     public val contestId: Int
     public val token: Credential
     public val contestName: String
-    public val startTime: Instant
-    public val contestLength: Duration
-    public val freezeTime: Duration
+    @Human public val startTime: Instant
+    @Seconds public val contestLength: Duration
+    @Seconds public val freezeTime: Duration
     public val problemIds: List<Int>
     public val teamIds: List<Int>
     override fun toDataSource(): ContestDataSource = AllCupsDataSource(this)

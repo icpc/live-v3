@@ -8,4 +8,5 @@ repositories {
 
 dependencies {
     implementation(libs.ksp)
+    implementation(libs.kotlinx.serialization.json)
 }

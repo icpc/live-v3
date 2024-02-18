@@ -1440,12 +1440,70 @@ public abstract interface class org/icpclive/cds/plugins/allcups/AllCupsSettings
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsBuilder : org/icpclive/cds/plugins/allcups/AllCupsSettings {
+	public synthetic fun <init> (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
+	public fun getContestId ()I
+	public fun getContestLength-UwyO8pc ()J
+	public fun getContestName ()Ljava/lang/String;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getFreezeTime-UwyO8pc ()J
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getProblemIds ()Ljava/util/List;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun getTeamIds ()Ljava/util/List;
+	public fun getToken ()Lorg/icpclive/cds/settings/Credential;
+	public fun setContestId (I)V
+	public fun setContestLength-LRDsOJo (J)V
+	public fun setContestName (Ljava/lang/String;)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setFreezeTime-LRDsOJo (J)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setProblemIds (Ljava/util/List;)V
+	public fun setStartTime (Lkotlinx/datetime/Instant;)V
+	public fun setTeamIds (Ljava/util/List;)V
+	public fun setToken (Lorg/icpclive/cds/settings/Credential;)V
+}
+
+public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsImplKt {
+	public static final fun AllCupsSettings-yeyM-xY (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
+	public static synthetic fun AllCupsSettings-yeyM-xY$default (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
+}
+
 public abstract interface class org/icpclive/cds/plugins/atcoder/AtcoderSettings : org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getContestId ()Ljava/lang/String;
 	public abstract fun getContestLength-UwyO8pc ()J
 	public abstract fun getSessionCookie ()Lorg/icpclive/cds/settings/Credential;
 	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/atcoder/AtcoderSettingsBuilder : org/icpclive/cds/plugins/atcoder/AtcoderSettings {
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Lkotlinx/datetime/Instant;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;
+	public fun getContestId ()Ljava/lang/String;
+	public fun getContestLength-UwyO8pc ()J
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getSessionCookie ()Lorg/icpclive/cds/settings/Credential;
+	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun setContestId (Ljava/lang/String;)V
+	public fun setContestLength-LRDsOJo (J)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setSessionCookie (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setStartTime (Lkotlinx/datetime/Instant;)V
+}
+
+public final class org/icpclive/cds/plugins/atcoder/AtcoderSettingsImplKt {
+	public static final fun AtcoderSettings-zkXUZaI (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Lkotlinx/datetime/Instant;JLkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;
+	public static synthetic fun AtcoderSettings-zkXUZaI$default (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Lkotlinx/datetime/Instant;JLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/atcoder/AtcoderSettings;
 }
 
 public abstract interface class org/icpclive/cds/plugins/cats/CatsSettings : org/icpclive/cds/settings/CDSSettings {
@@ -1456,6 +1514,35 @@ public abstract interface class org/icpclive/cds/plugins/cats/CatsSettings : org
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public abstract fun getUrl ()Ljava/lang/String;
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/cats/CatsSettingsBuilder : org/icpclive/cds/plugins/cats/CatsSettings {
+	public fun <init> (Lorg/icpclive/cds/plugins/cats/CatsSettings;)V
+	public fun <init> (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/cats/CatsSettings;
+	public fun getCid ()Ljava/lang/String;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getLogin ()Lorg/icpclive/cds/settings/Credential;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public fun getUrl ()Ljava/lang/String;
+	public fun setCid (Ljava/lang/String;)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setLogin (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPassword (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
+	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
+	public fun setUrl (Ljava/lang/String;)V
+}
+
+public final class org/icpclive/cds/plugins/cats/CatsSettingsImplKt {
+	public static final fun CatsSettings (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
+	public static synthetic fun CatsSettings$default (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/cats/CatsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/cats/CatsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
 }
 
 public final class org/icpclive/cds/plugins/clics/ClicsFeed {
@@ -1492,6 +1579,27 @@ public abstract interface class org/icpclive/cds/plugins/clics/ClicsSettings : o
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/clics/ClicsSettingsBuilder : org/icpclive/cds/plugins/clics/ClicsSettings {
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/clics/ClicsSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/clics/ClicsSettings;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getFeeds ()Ljava/util/List;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getUseTeamNames ()Z
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setFeeds (Ljava/util/List;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setUseTeamNames (Z)V
+}
+
+public final class org/icpclive/cds/plugins/clics/ClicsSettingsImplKt {
+	public static final fun ClicsSettings (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/clics/ClicsSettings;
+	public static synthetic fun ClicsSettings$default (Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/clics/ClicsSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/clics/ClicsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/clics/ClicsSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/clics/ClicsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/clics/ClicsSettings;
+}
+
 public final class org/icpclive/cds/plugins/clics/FeedVersion : java/lang/Enum {
 	public static final field 2020_03 Lorg/icpclive/cds/plugins/clics/FeedVersion;
 	public static final field 2022_07 Lorg/icpclive/cds/plugins/clics/FeedVersion;
@@ -1507,12 +1615,60 @@ public abstract interface class org/icpclive/cds/plugins/cms/CmsSettings : org/i
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/cms/CmsSettingsBuilder : org/icpclive/cds/plugins/cms/CmsSettings {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/cms/CmsSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/cms/CmsSettings;
+	public fun getActiveContest ()Ljava/lang/String;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getOtherContests ()Ljava/util/List;
+	public fun getUrl ()Ljava/lang/String;
+	public fun setActiveContest (Ljava/lang/String;)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setOtherContests (Ljava/util/List;)V
+	public fun setUrl (Ljava/lang/String;)V
+}
+
+public final class org/icpclive/cds/plugins/cms/CmsSettingsImplKt {
+	public static final fun CmsSettings (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
+	public static synthetic fun CmsSettings$default (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/cms/CmsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/cms/CmsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
+}
+
 public abstract interface class org/icpclive/cds/plugins/codedrills/CodeDrillsSettings : org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getAuthKey ()Lorg/icpclive/cds/settings/Credential;
 	public abstract fun getContestId ()Ljava/lang/String;
 	public abstract fun getPort ()I
 	public abstract fun getUrl ()Ljava/lang/String;
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/codedrills/CodeDrillsSettingsBuilder : org/icpclive/cds/plugins/codedrills/CodeDrillsSettings {
+	public fun <init> (Ljava/lang/String;ILjava/lang/String;Lorg/icpclive/cds/settings/Credential;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;
+	public fun getAuthKey ()Lorg/icpclive/cds/settings/Credential;
+	public fun getContestId ()Ljava/lang/String;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPort ()I
+	public fun getUrl ()Ljava/lang/String;
+	public fun setAuthKey (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setContestId (Ljava/lang/String;)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPort (I)V
+	public fun setUrl (Ljava/lang/String;)V
+}
+
+public final class org/icpclive/cds/plugins/codedrills/CodeDrillsSettingsImplKt {
+	public static final fun CodeDrillsSettings (Ljava/lang/String;ILjava/lang/String;Lorg/icpclive/cds/settings/Credential;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;
+	public static synthetic fun CodeDrillsSettings$default (Ljava/lang/String;ILjava/lang/String;Lorg/icpclive/cds/settings/Credential;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/codedrills/CodeDrillsSettings;
 }
 
 public abstract interface class org/icpclive/cds/plugins/codeforces/CFSettings : org/icpclive/cds/settings/CDSSettings {
@@ -1523,11 +1679,59 @@ public abstract interface class org/icpclive/cds/plugins/codeforces/CFSettings :
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/codeforces/CFSettingsBuilder : org/icpclive/cds/plugins/codeforces/CFSettings {
+	public fun <init> (ILorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/codeforces/CFSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/codeforces/CFSettings;
+	public fun getApiKey ()Lorg/icpclive/cds/settings/Credential;
+	public fun getApiSecret ()Lorg/icpclive/cds/settings/Credential;
+	public fun getAsManager ()Z
+	public fun getContestId ()I
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun setApiKey (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setApiSecret (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setAsManager (Z)V
+	public fun setContestId (I)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+}
+
+public final class org/icpclive/cds/plugins/codeforces/CFSettingsImplKt {
+	public static final fun CFSettings (ILorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/codeforces/CFSettings;
+	public static synthetic fun CFSettings$default (ILorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/codeforces/CFSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/codeforces/CFSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/codeforces/CFSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/codeforces/CFSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/codeforces/CFSettings;
+}
+
 public abstract interface class org/icpclive/cds/plugins/ejudge/EjudgeSettings : org/icpclive/cds/settings/CDSSettings {
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/ejudge/EjudgeSettingsBuilder : org/icpclive/cds/plugins/ejudge/EjudgeSettings {
+	public fun <init> (Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;)V
+	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
+	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
+	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+}
+
+public final class org/icpclive/cds/plugins/ejudge/EjudgeSettingsImplKt {
+	public static final fun EjudgeSettings (Lorg/icpclive/cds/settings/UrlOrLocalPath;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;
+	public static synthetic fun EjudgeSettings$default (Lorg/icpclive/cds/settings/UrlOrLocalPath;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;
 }
 
 public abstract interface class org/icpclive/cds/plugins/eolymp/EOlympSettings : org/icpclive/cds/settings/CDSSettings {
@@ -1538,6 +1742,31 @@ public abstract interface class org/icpclive/cds/plugins/eolymp/EOlympSettings :
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/eolymp/EOlympSettingsBuilder : org/icpclive/cds/plugins/eolymp/EOlympSettings {
+	public fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;
+	public fun getContestId ()Ljava/lang/String;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDaysContestIds ()Ljava/util/List;
+	public fun getToken ()Lorg/icpclive/cds/settings/Credential;
+	public fun getUrl ()Ljava/lang/String;
+	public fun setContestId (Ljava/lang/String;)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPreviousDaysContestIds (Ljava/util/List;)V
+	public fun setToken (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setUrl (Ljava/lang/String;)V
+}
+
+public final class org/icpclive/cds/plugins/eolymp/EOlympSettingsImplKt {
+	public static final fun EOlympSettings (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;
+	public static synthetic fun EOlympSettings$default (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;
+}
+
 public abstract interface class org/icpclive/cds/plugins/krsu/KRSUSettings : org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getContestUrl ()Ljava/lang/String;
 	public abstract fun getSubmissionsUrl ()Ljava/lang/String;
@@ -1545,8 +1774,48 @@ public abstract interface class org/icpclive/cds/plugins/krsu/KRSUSettings : org
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/krsu/KRSUSettingsBuilder : org/icpclive/cds/plugins/krsu/KRSUSettings {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/krsu/KRSUSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/krsu/KRSUSettings;
+	public fun getContestUrl ()Ljava/lang/String;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getSubmissionsUrl ()Ljava/lang/String;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public fun setContestUrl (Ljava/lang/String;)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setSubmissionsUrl (Ljava/lang/String;)V
+	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
+}
+
+public final class org/icpclive/cds/plugins/krsu/KRSUSettingsImplKt {
+	public static final fun KRSUSettings (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/krsu/KRSUSettings;
+	public static synthetic fun KRSUSettings$default (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/krsu/KRSUSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/krsu/KRSUSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/krsu/KRSUSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/krsu/KRSUSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/krsu/KRSUSettings;
+}
+
 public abstract interface class org/icpclive/cds/plugins/noop/NoopSettings : org/icpclive/cds/settings/CDSSettings {
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/noop/NoopSettingsBuilder : org/icpclive/cds/plugins/noop/NoopSettings {
+	public fun <init> ()V
+	public fun <init> (Lorg/icpclive/cds/plugins/noop/NoopSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/noop/NoopSettings;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+}
+
+public final class org/icpclive/cds/plugins/noop/NoopSettingsImplKt {
+	public static final fun NoopSettings (Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/noop/NoopSettings;
+	public static synthetic fun NoopSettings$default (Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/noop/NoopSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/noop/NoopSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/noop/NoopSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/noop/NoopSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/noop/NoopSettings;
 }
 
 public abstract interface class org/icpclive/cds/plugins/nsu/NSUSettings : org/icpclive/cds/settings/CDSSettings {
@@ -1559,13 +1828,69 @@ public abstract interface class org/icpclive/cds/plugins/nsu/NSUSettings : org/i
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/nsu/NSUSettingsBuilder : org/icpclive/cds/plugins/nsu/NSUSettings {
+	public fun <init> (Ljava/lang/String;IILorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/nsu/NSUSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/nsu/NSUSettings;
+	public fun getEmail ()Lorg/icpclive/cds/settings/Credential;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getOlympiadId ()I
+	public fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public fun getTourId ()I
+	public fun getUrl ()Ljava/lang/String;
+	public fun setEmail (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setOlympiadId (I)V
+	public fun setPassword (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
+	public fun setTourId (I)V
+	public fun setUrl (Ljava/lang/String;)V
+}
+
+public final class org/icpclive/cds/plugins/nsu/NSUSettingsImplKt {
+	public static final fun NSUSettings (Ljava/lang/String;IILorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/nsu/NSUSettings;
+	public static synthetic fun NSUSettings$default (Ljava/lang/String;IILorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/nsu/NSUSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/nsu/NSUSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/nsu/NSUSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/nsu/NSUSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/nsu/NSUSettings;
+}
+
 public abstract interface class org/icpclive/cds/plugins/pcms/PCMSSettings : org/icpclive/cds/settings/CDSSettings {
-	public abstract fun getLogin ()Lorg/icpclive/cds/settings/Credential;
-	public abstract fun getPassword ()Lorg/icpclive/cds/settings/Credential;
-	public abstract fun getProblemsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun getLogin ()Lorg/icpclive/cds/settings/Credential;
+	public fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public fun getProblemsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/pcms/PCMSSettingsBuilder : org/icpclive/cds/plugins/pcms/PCMSSettings {
+	public fun <init> (Lorg/icpclive/cds/plugins/pcms/PCMSSettings;)V
+	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/pcms/PCMSSettings;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getLogin ()Lorg/icpclive/cds/settings/Credential;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public fun getProblemsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
+	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setLogin (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPassword (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setProblemsUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
+	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+}
+
+public final class org/icpclive/cds/plugins/pcms/PCMSSettingsImplKt {
+	public static final fun PCMSSettings (Lorg/icpclive/cds/settings/UrlOrLocalPath;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/pcms/PCMSSettings;
+	public static synthetic fun PCMSSettings$default (Lorg/icpclive/cds/settings/UrlOrLocalPath;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/pcms/PCMSSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/pcms/PCMSSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/pcms/PCMSSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/pcms/PCMSSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/pcms/PCMSSettings;
 }
 
 public abstract interface class org/icpclive/cds/plugins/testsys/TestSysSettings : org/icpclive/cds/settings/CDSSettings {
@@ -1574,12 +1899,58 @@ public abstract interface class org/icpclive/cds/plugins/testsys/TestSysSettings
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 
+public final class org/icpclive/cds/plugins/testsys/TestSysSettingsBuilder : org/icpclive/cds/plugins/testsys/TestSysSettings {
+	public fun <init> (Lorg/icpclive/cds/plugins/testsys/TestSysSettings;)V
+	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/testsys/TestSysSettings;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
+	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
+	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+}
+
+public final class org/icpclive/cds/plugins/testsys/TestSysSettingsImplKt {
+	public static final fun TestSysSettings (Lorg/icpclive/cds/settings/UrlOrLocalPath;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/testsys/TestSysSettings;
+	public static synthetic fun TestSysSettings$default (Lorg/icpclive/cds/settings/UrlOrLocalPath;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/testsys/TestSysSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/testsys/TestSysSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/testsys/TestSysSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/testsys/TestSysSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/testsys/TestSysSettings;
+}
+
 public abstract interface class org/icpclive/cds/plugins/yandex/YandexSettings : org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getApiKey ()Lorg/icpclive/cds/settings/Credential;
 	public abstract fun getContestId ()I
 	public abstract fun getLoginRegex ()Lkotlin/text/Regex;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/yandex/YandexSettingsBuilder : org/icpclive/cds/plugins/yandex/YandexSettings {
+	public fun <init> (Lorg/icpclive/cds/plugins/yandex/YandexSettings;)V
+	public fun <init> (Lorg/icpclive/cds/settings/Credential;Lkotlin/text/Regex;I)V
+	public final fun build ()Lorg/icpclive/cds/plugins/yandex/YandexSettings;
+	public fun getApiKey ()Lorg/icpclive/cds/settings/Credential;
+	public fun getContestId ()I
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getLoginRegex ()Lkotlin/text/Regex;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
+	public fun setApiKey (Lorg/icpclive/cds/settings/Credential;)V
+	public fun setContestId (I)V
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setLoginRegex (Lkotlin/text/Regex;)V
+	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
+}
+
+public final class org/icpclive/cds/plugins/yandex/YandexSettingsImplKt {
+	public static final fun YandexSettings (Lorg/icpclive/cds/settings/Credential;Lkotlin/text/Regex;ILkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/yandex/YandexSettings;
+	public static synthetic fun YandexSettings$default (Lorg/icpclive/cds/settings/Credential;Lkotlin/text/Regex;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/yandex/YandexSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/yandex/YandexSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/yandex/YandexSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/yandex/YandexSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/yandex/YandexSettings;
 }
 
 public final class org/icpclive/cds/scoreboard/AbstractScoreboardCalculatorKt {
@@ -1608,8 +1979,8 @@ public abstract interface class org/icpclive/cds/scoreboard/ScoreboardCalculator
 
 public abstract interface class org/icpclive/cds/settings/CDSSettings {
 	public static final field Companion Lorg/icpclive/cds/settings/CDSSettings$Companion;
-	public abstract fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
-	public abstract fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public abstract fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
 }
 

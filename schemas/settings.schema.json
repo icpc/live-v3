@@ -136,17 +136,10 @@
             ],
             "title": "atcoder"
         },
-        "org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>": {
-            "oneOf": [
-                {
-                    "enum": [
-                        "ICPC",
-                        "IOI"
-                    ]
-                },
-                {
-                    "type": "null"
-                }
+        "org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>": {
+            "enum": [
+                "ICPC",
+                "IOI"
             ]
         },
         "cats": {
@@ -172,7 +165,7 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -381,7 +374,7 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "timeZone": {
                     "type": "string"
@@ -400,19 +393,6 @@
             ],
             "title": "ejudge"
         },
-        "kotlin.collections.ArrayList?<kotlin.String>": {
-            "oneOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
         "eolymp": {
             "type": "object",
             "properties": {
@@ -430,7 +410,7 @@
                     "type": "string"
                 },
                 "previousDaysContestIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<kotlin.String>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -562,7 +542,7 @@
                     "type": "string"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
@@ -622,7 +602,7 @@
                     "type": "number"
                 },
                 "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType?<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
