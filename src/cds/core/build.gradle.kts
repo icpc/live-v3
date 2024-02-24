@@ -1,30 +1,10 @@
-import java.net.*
-
 plugins {
     `java-library`
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.dokka)
     alias(libs.plugins.ksp)
     alias(libs.plugins.bcv)
-}
-
-tasks {
-    dokkaHtml {
-        moduleName.set("ICPC-live contest data parser")
-        dokkaSourceSets.configureEach {
-            perPackageOption {
-                matchingRegex.set(".*")
-                reportUndocumented.set(true)
-                sourceLink {
-                    localDirectory.set(projectDir)
-                    remoteUrl.set(URI("https://github.com/icpc/live-v3/tree/main/src/cds").toURL())
-                    remoteLineSuffix.set("#L")
-                }
-            }
-        }
-    }
 }
 
 kotlin {

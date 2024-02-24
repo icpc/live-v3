@@ -10,10 +10,8 @@ plugins {
 }
 
 tasks {
-    register<Sync>("doc") {
-        destinationDir = rootDir.resolve("_site/cds/")
-
-        from(project(":cds").tasks.named("dokkaHtml"))
+    register<Task>("doc") {
+        dependsOn(project(":cds").tasks.named("dokkaHtmlMultiModule"))
     }
 
     // If you invoke a gen task, :schema-generator:gen will be invoked. It's defined in :schema-generator project
