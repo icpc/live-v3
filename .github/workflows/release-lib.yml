@@ -6,17 +6,6 @@ on:
       version:
         description: Name of release
         required: true
-      publish:
-        type: boolean
-        description: Would release be published
-        required: true
-        default: true
-      draft:
-        type: boolean
-        description: Publish draft first
-        required: true
-        default: true
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}-instance
@@ -41,7 +30,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Publish package
-        run: ./gradlew publish
+        run: ./gradlew publish --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }} -i
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
