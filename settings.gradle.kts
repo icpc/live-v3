@@ -19,6 +19,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 val simpleProjects = listOf(
     "backend",
     "backend-api",
+    "cds",
     "cds:core",
     "cds:plugins",
     "cds:tests",
