@@ -64,14 +64,9 @@ subprojects {
                         }
                         from(components["java"])
                         groupId = "org.icpclive"
-                        val projectPath = this@subprojects.path
-                        artifactId = when {
-                            projectPath.endsWith("plugins") -> {
-                                "org.icpclive.cds.full"
-                            }
-                            else -> {
-                                "org.icpclive.cds.${projectPath}"
-                            }
+                        artifactId = when (val name = this@subprojects.name){
+                            "plugins" -> "org.icpclive.cds.full"
+                            else -> "org.icpclive.cds.$name"
                         }
                     }
                 }
