@@ -40,8 +40,7 @@
                         }
                     },
                     "additionalProperties": false,
-                    "required": [
-                    ]
+                    "required": []
                 },
                 {
                     "type": "null"

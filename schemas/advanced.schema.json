@@ -216,8 +216,7 @@
                         }
                     },
                     "additionalProperties": false,
-                    "required": [
-                    ]
+                    "required": []
                 },
                 {
                     "type": "null"
@@ -278,8 +277,7 @@
                         }
                     },
                     "additionalProperties": false,
-                    "required": [
-                    ]
+                    "required": []
                 },
                 {
                     "type": "null"
@@ -346,8 +344,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": [
-            ]
+            "required": []
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.TeamInfoOverride>": {
             "oneOf": [
@@ -378,8 +375,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": [
-            ]
+            "required": []
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.GroupInfoOverride>": {
             "oneOf": [
@@ -410,8 +406,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": [
-            ]
+            "required": []
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.OrganizationInfoOverride>": {
             "oneOf": [
@@ -476,8 +471,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": [
-            ]
+            "required": []
         },
         "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.ProblemInfoOverride>": {
             "oneOf": [
@@ -527,8 +521,7 @@
                         }
                     },
                     "additionalProperties": false,
-                    "required": [
-                    ]
+                    "required": []
                 },
                 {
                     "type": "null"
@@ -660,8 +653,7 @@
                         }
                     },
                     "additionalProperties": false,
-                    "required": [
-                    ]
+                    "required": []
                 },
                 {
                     "type": "null"
@@ -712,8 +704,7 @@
                 }
             },
             "additionalProperties": false,
-            "required": [
-            ],
+            "required": [],
             "title": "ICPC live advanced settings"
         }
     }
