@@ -26,22 +26,30 @@ jobs:
     name: Create artifacts from master
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: 'src/frontend/package-lock.json'
-      - uses: actions/setup-java@master
+
+      - name: Setup Java
+        uses: actions/setup-java@master
         with:
           distribution: adopt
           java-version: 17
 
-      - uses: gradle/gradle-build-action@v2
-        with:
-          arguments: release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }} -i
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
-      - uses: actions/upload-artifact@master
+      - name: Build with gradle
+        run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }} -i
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
         with:
           name: artifacts
           path: artifacts
