@@ -10,5 +10,6 @@ plugins {
 dependencies {
     implementation(projects.cds.core)
     implementation(libs.kotlinx.serialization.json)
+    testImplementation(projects.cds.full)
     api(libs.kotlin.junit)
 }
