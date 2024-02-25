@@ -35,7 +35,7 @@
 7. docker-compose up -d
 
 ## TODO
-[ ] Make this package public.
-[ ] Change something, so we don't have to pass .env file, and only supply password. This is currently here for control panel, because code-server will steal all the environment variables.
-[ ] Create a reasonable admin panel.
-[ ] Make an easy-to-run example for Amazon ECS.
+- [ ] Make this package public.
+- [ ] Change something, so we don't have to pass .env file, and only supply password. This is currently here for control panel, because code-server will steal all the environment variables.
+- [ ] Create a reasonable admin panel.
+- [ ] Make an easy-to-run example for Amazon ECS.
