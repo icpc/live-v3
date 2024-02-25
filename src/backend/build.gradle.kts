@@ -15,14 +15,6 @@ application {
     mainClass = "org.icpclive.ApplicationKt"
 }
 
-kotlin {
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-        }
-    }
-}
-
 tasks {
     runTask {
         this.args = listOfNotNull(
@@ -53,7 +45,7 @@ tasks {
 }
 
 dependencies {
-    implementation(projects.cds)
+    implementation(projects.cds.plugins)
     implementation(projects.common)
     implementation(projects.backendApi)
     implementation(libs.cli)

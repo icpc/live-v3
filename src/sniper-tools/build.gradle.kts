@@ -11,14 +11,6 @@ application {
     mainClass = "org.icpclive.sniper.ApplicationKt"
 }
 
-kotlin {
-    sourceSets {
-        all {
-            languageSettings.optIn("kotlinx.serialization.ExperimentalSerializationApi")
-        }
-    }
-}
-
 tasks {
     runTask {
         this.workingDir(rootDir.resolve("."))
@@ -32,7 +24,7 @@ tasks {
 }
 
 dependencies {
-    implementation(projects.cds)
+    implementation(projects.cds.plugins)
     implementation(projects.common)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.auth)

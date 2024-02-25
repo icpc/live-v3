@@ -10,10 +10,8 @@ plugins {
 }
 
 tasks {
-    register<Sync>("doc") {
-        destinationDir = rootDir.resolve("_site/cds/")
-
-        from(project(":cds").tasks.named("dokkaHtml"))
+    register<Task>("doc") {
+        dependsOn(project(":cds").tasks.named("dokkaHtmlMultiModule"))
     }
 
     // If you invoke a gen task, :schema-generator:gen will be invoked. It's defined in :schema-generator project
@@ -23,6 +21,59 @@ tasks {
 subprojects {
     group = "org.icpclive"
     version = rootProject.findProperty("build_version")!!
+
+
+    plugins.withType<MavenPublishPlugin> {
+        afterEvaluate {
+            configure<PublishingExtension> {
+                repositories {
+                    maven {
+                        name = "GitHubPackages"
+                        url = uri("https://maven.pkg.github.com/icpc/live-v3")
+                        credentials {
+                            username = System.getenv("GITHUB_ACTOR")
+                            password = System.getenv("GITHUB_TOKEN")
+                        }
+                    }
+                }
+                publications {
+                    create<MavenPublication>("mavenJava${this@subprojects.name}") {
+                        pom {
+                            name = "ICPC live contest data system parser"
+                            description = "Parser for a various programming competition contest systems"
+                            url = "https://github.com/icpc/live-v3"
+                            licenses {
+                                license {
+                                    name = "The MIT License"
+                                    url = "http://opensource.org/licenses/MIT"
+                                }
+                            }
+                            scm {
+                                connection.set("scm:git:git://github.com/icpc/live-v3.git")
+                                developerConnection.set("scm:git:ssh://github.com/icpc/live-v3.git")
+                                url.set("https://github.com/icpc/live-v3")
+                            }
+                        }
+                        versionMapping {
+                            usage("java-api") {
+                                fromResolutionOf("runtimeClasspath")
+                            }
+                            usage("java-runtime") {
+                                fromResolutionResult()
+                            }
+                        }
+                        from(components["java"])
+                        groupId = "org.icpclive"
+                        version = rootProject.findProperty("build_version")!!.toString()
+                        artifactId = when (val name = this@subprojects.name){
+                            "plugins" -> "org.icpclive.cds.full"
+                            else -> "org.icpclive.cds.$name"
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     plugins.withType<JavaPlugin> {
         configure<JavaPluginExtension> {
@@ -54,9 +105,15 @@ subprojects {
         }
     }
 
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions {
-            allWarningsAsErrors = true
+    tasks {
+        withType<KotlinCompile>().configureEach {
+            kotlinOptions {
+                compilerOptions {
+                    freeCompilerArgs.add("-Xjvm-default=all")
+                    optIn = listOf("kotlinx.serialization.ExperimentalSerializationApi")
+                }
+                allWarningsAsErrors = true
+            }
         }
     }
 }
