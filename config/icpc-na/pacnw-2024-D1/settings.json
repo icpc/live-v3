@@ -4,8 +4,8 @@
   "feeds": [
     {
       "login": "icpclive",
-      "password": "boat-cards-bunny-plaque",
-      "url": "https://pacnwpractice.icpc-vcss.org:50443",
+      "password": "1",
+      "url": "https://gnyserver.icpc-vcss.org:50443",
       "contestId": "",
       "eventFeedPath": "contest",
       "feedVersion": "2020_03",
