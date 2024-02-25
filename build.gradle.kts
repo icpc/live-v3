@@ -65,10 +65,7 @@ subprojects {
                         from(components["java"])
                         groupId = "org.icpclive"
                         version = rootProject.findProperty("build_version")!!.toString()
-                        artifactId = when (val name = this@subprojects.name){
-                            "plugins" -> "org.icpclive.cds.full"
-                            else -> "org.icpclive.cds.$name"
-                        }
+                        artifactId = "org.icpclive.cds.${this@subprojects.name}"
                     }
                 }
             }

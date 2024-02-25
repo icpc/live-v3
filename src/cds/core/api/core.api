@@ -1516,13 +1516,6 @@ public abstract interface class org/icpclive/cds/settings/CDSSettingsProvider {
 	public abstract fun getSerializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/settings/CdsCommandLineOptions : com/github/ajalt/clikt/parameters/groups/OptionGroup {
-	public fun <init> ()V
-	public final fun getAdvancedJsonPath ()Ljava/nio/file/Path;
-	public final fun getConfigDirectory ()Ljava/nio/file/Path;
-	public final fun getCredentialFile ()Ljava/nio/file/Path;
-}
-
 public final class org/icpclive/cds/settings/Credential {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun getDisplayValue ()Ljava/lang/String;
@@ -1557,8 +1550,7 @@ public final class org/icpclive/cds/settings/EmulationSettings$Companion {
 }
 
 public final class org/icpclive/cds/settings/EntrypointKt {
-	public static final fun parseFileToCdsSettings (Ljava/nio/file/Path;Lorg/icpclive/cds/settings/CredentialProvider;)Lorg/icpclive/cds/settings/CDSSettings;
-	public static final fun toFlow (Lorg/icpclive/cds/settings/CdsCommandLineOptions;Lorg/slf4j/Logger;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun fromFile (Lorg/icpclive/cds/settings/CDSSettings$Companion;Ljava/nio/file/Path;Lorg/icpclive/cds/settings/CredentialProvider;)Lorg/icpclive/cds/settings/CDSSettings;
 }
 
 public final class org/icpclive/cds/settings/NetworkSettings {

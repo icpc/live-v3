@@ -16,10 +16,8 @@ dependencies {
     api(libs.kotlinx.datetime)
     api(libs.kotlinx.coroutines.core)
     implementation(projects.common)
-    implementation(projects.clicsApi)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.serialization.json5)
-    implementation(libs.cli)
     ksp(projects.ksp)
     compileOnly(projects.ksp)
 
