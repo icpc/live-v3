@@ -1,4 +1,6 @@
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.collections.immutable.persistentMapOf
@@ -8,16 +10,22 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
+import kotlinx.serialization.json.ClassDiscriminatorMode
+import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
 import org.icpclive.clics.*
-import org.icpclive.clics.v202207.*
-import org.icpclive.clics.v202207.Award
-import org.icpclive.clics.v202207.Scoreboard
-import org.icpclive.clics.v202207.ScoreboardRow
+import org.icpclive.clics.v202306.objects.*
+import org.icpclive.clics.v202306.events.*
+import org.icpclive.clics.events.Event
+import org.icpclive.clics.events.GlobalEvent
+import org.icpclive.clics.events.IdEvent
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
+import org.icpclive.clics.v202306.objects.ScoreboardRowProblem
+import org.icpclive.clics.v202306.objects.Award
+import org.icpclive.clics.v202306.objects.ScoreboardRow
 import org.icpclive.util.*
 import java.nio.ByteBuffer
 import kotlin.time.Duration.Companion.minutes
@@ -30,7 +38,7 @@ private fun ProblemInfo.toClicsProblem() = Problem(
     label = displayName,
     name = fullName,
     rgb = color,
-    test_data_count = 1,
+    testDataCount = 1,
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
@@ -41,17 +49,17 @@ private fun GroupInfo.toClicsGroup() = Group(
 private fun OrganizationInfo.toClicsOrg() = Organization(
     id = id.value,
     name = displayName,
-    formal_name = fullName,
+    formalName = fullName,
     logo = listOfNotNull(logo?.toClicsMedia())
 )
 
 private fun MediaType.toClicsMedia() = when (this) {
     is MediaType.Object -> null
-    is MediaType.Image -> Media("image", url)
+    is MediaType.Image -> File("image", Url(url))
     is MediaType.TaskStatus -> null
-    is MediaType.Video -> Media("video", url)
-    is MediaType.M2tsVideo -> Media("video/m2ts", url)
-    is MediaType.HLSVideo -> Media("application/vnd.apple.mpegurl", url)
+    is MediaType.Video -> File("video", Url(url))
+    is MediaType.M2tsVideo -> File("video/m2ts", Url(url))
+    is MediaType.HLSVideo -> File("application/vnd.apple.mpegurl", Url(url))
     is MediaType.WebRTCGrabberConnection -> null
     is MediaType.WebRTCProxyConnection -> null
 }
@@ -60,8 +68,8 @@ private fun TeamInfo.toClicsTeam() = Team(
     id = id.value,
     name = fullName,
     hidden = isHidden,
-    group_ids = groups.map { it.value },
-    organization_id = organizationId?.value,
+    groupIds = groups.map { it.value },
+    organizationId = organizationId?.value,
     photo = listOfNotNull(medias[TeamMediaType.PHOTO]?.toClicsMedia()),
     video = listOfNotNull(medias[TeamMediaType.RECORD]?.toClicsMedia()),
     desktop = listOfNotNull(medias[TeamMediaType.SCREEN]?.toClicsMedia()),
@@ -98,9 +106,6 @@ object ClicsExporter  {
 
     private val unknownLanguage = Language(
         "unknown",
-        "unknown",
-        false,
-        emptyList()
     )
 
     private val languages = listOf(unknownLanguage)
@@ -114,13 +119,13 @@ object ClicsExporter  {
     private fun getContest(info: ContestInfo) = Contest(
         id = "contest",
         name = info.name,
-        formal_name = info.name,
-        start_time = info.startTime.takeIf { it != Instant.fromEpochSeconds(0) },
-        countdown_pause_time = info.holdBeforeStartTime,
+        formalName = info.name,
+        startTime = info.startTime.takeIf { it != Instant.fromEpochSeconds(0) },
+        countdownPauseTime = info.holdBeforeStartTime,
         duration = info.contestLength,
-        scoreboard_freeze_duration = info.contestLength - info.freezeTime,
-        scoreboard_type = "pass-fail",
-        penalty_time = info.penaltyPerWrongAttempt,
+        scoreboardFreezeDuration = info.contestLength - info.freezeTime,
+        scoreboardType = "pass-fail",
+        penaltyTime = info.penaltyPerWrongAttempt.inWholeMinutes,
     )
 
     private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diffChange(
@@ -168,39 +173,35 @@ object ClicsExporter  {
             ended = null,
             frozen = null,
             started = null,
-            unfrozen = null,
             finalized = null,
             thawed = null,
-            end_of_updates = null
+            endOfUpdates = null
         )
 
         ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> State(
             ended = null,
             frozen = if (info.currentContestTime >= info.freezeTime) info.startTime + info.freezeTime else null,
             started = info.startTime,
-            unfrozen = null,
             finalized = null,
             thawed = null,
-            end_of_updates = null
+            endOfUpdates = null
         )
 
         ContestStatus.OVER -> State(
             ended = info.startTime + info.contestLength,
             frozen = info.startTime + info.freezeTime,
             started = info.startTime,
-            unfrozen = null,
             finalized = null,
             thawed = null,
-            end_of_updates = null
+            endOfUpdates = null
         )
         ContestStatus.FINALIZED -> State(
             ended = info.startTime + info.contestLength,
-            frozen = null,
+            frozen = info.startTime + info.freezeTime,
             started = info.startTime,
-            unfrozen = null,
             finalized = info.startTime + info.contestLength,
-            thawed = null,
-            end_of_updates = info.startTime + info.contestLength
+            thawed = info.startTime + info.contestLength,
+            endOfUpdates = info.startTime + info.contestLength
         )
     }
 
@@ -213,13 +214,13 @@ object ClicsExporter  {
                 run.id.toString(),
                 Submission(
                     id = run.id.toString(),
-                    language_id = unknownLanguage.id,
-                    problem_id = run.problemId.value,
-                    team_id = run.teamId.value,
+                    languageId = unknownLanguage.id,
+                    problemId = run.problemId.value,
+                    teamId = run.teamId.value,
                     time = info.startTime + run.time,
-                    contest_time = run.time,
+                    contestTime = run.time,
                 ),
-                Event::SubmissionEvent
+                ::SubmissionEvent
             )
         }
         val result = run.result as? RunResult.ICPC ?: return
@@ -227,14 +228,14 @@ object ClicsExporter  {
             run.id.toString(),
             Judgement(
                 id = run.id.toString(),
-                submission_id = run.id.toString(),
-                judgement_type_id = judgmentTypes[result.verdict]?.id,
-                start_time = info.startTime + run.time,
-                start_contest_time = run.time,
-                end_time = info.startTime + run.time,
-                end_contest_time = run.time
+                submissionId = run.id.toString(),
+                judgementTypeId = judgmentTypes[result.verdict]?.id,
+                startTime = info.startTime + run.time,
+                startContestTime = run.time,
+                endTime = info.startTime + run.time,
+                endContestTime = run.time
             ),
-            Event::JudgementEvent
+            ::JudgementEvent
         )
     }
 
@@ -253,24 +254,24 @@ object ClicsExporter  {
 
     @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
-        diff(oldInfo, newInfo, ::getContest, Event::ContestEvent)
-        diff(oldInfo, newInfo, ::getState, Event::StateEvent)
+        diff(oldInfo, newInfo, ::getContest, ::ContestEvent)
+        diff(oldInfo, newInfo, ::getState, ::StateEvent)
         if (oldInfo == null) {
             for (type in judgmentTypes.values) {
-                updateEvent(type.id, type, Event::JudgementTypeEvent)
+                updateEvent(type.id, type, ::JudgementTypeEvent)
             }
             for (language in languages) {
-                updateEvent(language.id, language, Event::LanguageEvent)
+                updateEvent(language.id, language, ::LanguageEvent)
             }
         }
-        diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> Event.ProblemEvent(id.value, token, data) }
-        diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> Event.GroupsEvent(id.value, token, data) }
-        diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> Event.OrganizationEvent(id.value, token, data) }
+        diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> ProblemEvent(id.value, token, data) }
+        diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> GroupEvent(id.value, token, data) }
+        diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> OrganizationEvent(id.value, token, data) }
 
-        diff(teamsMap, newInfo.teamList, { id }, TeamInfo::toClicsTeam) { id, token, data -> Event.TeamEvent(id.value, token, data) }
+        diff(teamsMap, newInfo.teamList, { id }, TeamInfo::toClicsTeam) { id, token, data -> TeamEvent(id.value, token, data) }
 
-        diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> Event.GroupsEvent(id.value, token, data) }
-        diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> Event.OrganizationEvent(id.value, token, data) }
+        diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> GroupEvent(id.value, token, data) }
+        diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> OrganizationEvent(id.value, token, data) }
     }
 
     private suspend fun FlowCollector<EventProducer>.processAnalytics(message: AnalyticsMessage) {
@@ -278,16 +279,16 @@ object ClicsExporter  {
         updateEvent(
             event.id,
             Commentary(
-                event.id,
-                event.time,
-                event.relativeTime,
-                event.message,
-                event.tags,
-                event.teamIds.map { it.value },
-                emptyList(),
-                event.runIds.map { it.toString() }
+                id = event.id,
+                time = event.time,
+                contestTime = event.relativeTime,
+                message = event.message,
+                tags = event.tags,
+                teamIds = event.teamIds.map { it.value },
+                problemIds = event.runIds.map { it.toString() },
+                submissionIds = emptyList(),
             ),
-            Event::CommentaryEvent
+            ::CommentaryEvent
         )
     }
 
@@ -303,16 +304,17 @@ object ClicsExporter  {
         }.map { it("live-cds-${eventCounter++}") }
     }
 
-    private inline fun <X, reified T: GlobalEvent<X>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
-        it.data
+    private inline fun <reified X, Y, reified T: GlobalEvent<Y>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
+        it.data as X
     }.stateIn(scope, SharingStarted.Eagerly, null)
         .filterNotNull()
-    private inline fun <X, reified T: IdEvent<X>> Flow<Event>.filterIdEvent(scope: CoroutineScope) = filterIsInstance<T>()
+
+    private inline fun <reified X : Y, Y, reified T: IdEvent<Y>> Flow<Event>.filterIdEvent(scope: CoroutineScope) = filterIsInstance<T>()
         .runningFold(persistentMapOf<String, X>()) { accumulator, value ->
             if (value.data == null) {
                 accumulator.remove(value.id)
             } else {
-                accumulator.put(value.id, value.data!!)
+                accumulator.put(value.id, value.data as X)
             }
     }.stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
 
@@ -355,9 +357,9 @@ object ClicsExporter  {
             it,
             Award::id,
             { this },
-            Event::AwardsEvent
+            ::AwardEvent
         )
-    }.map { it("live-cds-award-${awardEventId}") }
+    }.map { it("live-cds-award-${awardEventId++}") }
 
 
     fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
@@ -372,32 +374,41 @@ object ClicsExporter  {
                 generateEventFeed(updates),
                 generateAwardEvents(scoreboardFlow.map { it.toClicsAwards() }.distinctUntilChanged())
             ).shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
-        val contestFlow = eventFeed.filterGlobalEvent<Contest, Event.ContestEvent>(scope)
-        val stateFlow = eventFeed.filterGlobalEvent<State, Event.StateEvent>(scope)
+        val contestFlow = eventFeed.filterGlobalEvent<Contest, _, ContestEvent>(scope)
+        val stateFlow = eventFeed.filterGlobalEvent<State, _, StateEvent>(scope)
 
-        val judgementTypesFlow = eventFeed.filterIdEvent<JudgementType, Event.JudgementTypeEvent>(scope)
-        val languagesFlow = eventFeed.filterIdEvent<Language, Event.LanguageEvent>(scope)
-        val problemsFlow = eventFeed.filterIdEvent<Problem, Event.ProblemEvent>(scope)
-        val groupsFlow = eventFeed.filterIdEvent<Group, Event.GroupsEvent>(scope)
-        val organizationsFlow = eventFeed.filterIdEvent<Organization, Event.OrganizationEvent>(scope)
-        val teamsFlow = eventFeed.filterIdEvent<Team, Event.TeamEvent>(scope)
-        val submissionsFlow = eventFeed.filterIdEvent<Submission, Event.SubmissionEvent>(scope)
-        val judgementsFlow = eventFeed.filterIdEvent<Judgement, Event.JudgementEvent>(scope)
+        val judgementTypesFlow = eventFeed.filterIdEvent<JudgementType, _, JudgementTypeEvent>(scope)
+        val languagesFlow = eventFeed.filterIdEvent<Language, _, LanguageEvent>(scope)
+        val problemsFlow = eventFeed.filterIdEvent<Problem, _, ProblemEvent>(scope)
+        val groupsFlow = eventFeed.filterIdEvent<Group, _, GroupEvent>(scope)
+        val organizationsFlow = eventFeed.filterIdEvent<Organization, _, OrganizationEvent>(scope)
+        val teamsFlow = eventFeed.filterIdEvent<Team, _, TeamEvent>(scope)
+        val submissionsFlow = eventFeed.filterIdEvent<Submission, _, SubmissionEvent>(scope)
+        val judgementsFlow = eventFeed.filterIdEvent<Judgement, _, JudgementEvent>(scope)
         //val runsFlow = eventFeed.filterIdEvent<Run, Event.RunsEvent>(scope)
-        val commentaryFlow = eventFeed.filterIdEvent<Commentary, Event.CommentaryEvent>(scope)
+        val commentaryFlow = eventFeed.filterIdEvent<Commentary, _, CommentaryEvent>(scope)
         //val personsFlow = eventFeed.filterIdEvent<Person, Event.PersonEvent>(scope)
         //val accountsFlow = eventFeed.filterIdEvent<Account, Event.AccountEvent>(scope)
         //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)
-        val awardsFlow = eventFeed.filterIdEvent<Award, Event.AwardsEvent>(scope)
+        val awardsFlow = eventFeed.filterIdEvent<Award, _, AwardEvent>(scope)
 
-        val json = defaultJsonSettings()
+        val json = Json {
+            encodeDefaults = true
+            prettyPrint = false
+            explicitNulls = false
+            serializersModule = clicsEventsSerializersModule(FeedVersion.`2023_06`)
+            classDiscriminatorMode = ClassDiscriminatorMode.NONE
+        }
         route("/api") {
+            install(ContentNegotiation) { json(json) }
             get {
                 call.respond(
-                    ApiInfo(
-                        version = "2022_07",
-                        versionUrl = "https://ccs-specs.icpc.io/2022-07/contest_api",
-                        name = "icpc live"
+                    ApiInformation(
+                        version = FeedVersion.`2023_06`.name,
+                        versionUrl = FeedVersion.`2023_06`.url,
+                        provider = ApiInformationProvider(
+                            name = "icpc live"
+                        )
                     )
                 )
             }
@@ -454,7 +465,7 @@ object ClicsExporter  {
         val info = state.infoAfterEvent!!
         return Scoreboard(
             time = info.startTime + lastSubmissionTime,
-            contest_time = lastSubmissionTime,
+            contestTime = lastSubmissionTime,
             state = getState(info),
             rows = rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
                 val row = scoreboardRowsAfter[teamId]!!

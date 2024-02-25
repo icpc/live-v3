@@ -1,5 +1,6 @@
 plugins {
     id("live.library-conventions")
+    id("live.ksp-conventions")
 }
 
 dependencies {

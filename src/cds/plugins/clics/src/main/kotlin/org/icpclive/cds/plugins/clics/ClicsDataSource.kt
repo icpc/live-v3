@@ -12,17 +12,15 @@ import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
 import org.icpclive.clics.clicsEventsSerializersModule
-import org.icpclive.clics.v202003.upgrade
-import org.icpclive.clics.v202207.Event
-import org.icpclive.clics.v202207.Event.*
+import org.icpclive.clics.events.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
-import org.icpclive.clics.v202003.Event as V202003Event
 
 public enum class FeedVersion {
     `2020_03`,
-    `2022_07`
+    `2022_07`,
+    `2023_06`
 }
 
 @Serializable
@@ -72,7 +70,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         settings.useTeamNames
     )
 
-    private val Event.isFinalEvent get() = this is StateEvent && data?.end_of_updates != null
+    private val Event.isFinalEvent get() = this is StateEvent && data?.endOfUpdates != null
 
     private suspend fun runLoader(
         onRun: suspend (RunInfo) -> Unit,
@@ -86,17 +84,11 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             is StateEvent -> 1
             is JudgementTypeEvent -> 2
             is OrganizationEvent -> 3
-            is GroupsEvent -> 4
+            is GroupEvent -> 4
             is TeamEvent -> 5
             is ProblemEvent -> 6
             is PreloadFinishedEvent -> throw IllegalStateException()
-            is AccountEvent -> 7
-            is AwardsEvent -> 8
-            is ClarificationEvent -> 9
-            is LanguageEvent -> 10
-            is MapEvent -> 11
-            is PersonEvent -> 12
-            is StartStatusEvent -> 13
+            is AwardEvent, is LanguageEvent, is AccountEvent -> 8
         }
 
         fun priority(event: UpdateRunEvent) = when (event) {
@@ -145,13 +137,12 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         is TeamEvent -> model.processTeam(it.id, it.data)
                         is StateEvent -> model.processState(it.data!!)
                         is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
-                        is GroupsEvent -> model.processGroup(it.id, it.data)
+                        is GroupEvent -> model.processGroup(it.id, it.data)
                         is PreloadFinishedEvent -> {
                             preloadFinished = true
                         }
 
-                        is AccountEvent, is AwardsEvent, is ClarificationEvent, is LanguageEvent,
-                        is MapEvent, is PersonEvent, is StartStatusEvent -> {}
+                        is AwardEvent, is LanguageEvent, is AccountEvent -> {}
                     }
                     if (preloadFinished) {
                         onContestInfo(model.contestInfo)
@@ -182,6 +173,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         )
                     }
                 }
+                is ClarificationEvent -> {}
             }
         }
 
@@ -225,7 +217,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                 ignoreUnknownKeys = true
                 explicitNulls = false
                 serializersModule = SerializersModule {
-                    include(clicsEventsSerializersModule {
+                    include(clicsEventsSerializersModule(org.icpclive.clics.FeedVersion.valueOf(settings.feedVersion.name)) {
                         when (val path = settings.baseUrl.subDir(it)) {
                             is UrlOrLocalPath.Local -> path.value.joinToString("/")
                             is UrlOrLocalPath.Url -> path.value
@@ -239,12 +231,9 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                     .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {
-                            when (settings.feedVersion) {
-                                FeedVersion.`2020_03` -> jsonDecoder.decodeFromString<V202003Event>(data).upgrade()
-                                FeedVersion.`2022_07` -> jsonDecoder.decodeFromString<Event>(data)
-                            }
+                            jsonDecoder.decodeFromString<Event>(data)
                         } catch (e: SerializationException) {
-                            logger.error("Failed to deserialize: $data", e)
+                            logger.error("Failed to deserialize: $data\n${e.message}\n\n")
                             null
                         }
                     })

@@ -74,20 +74,22 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
 
     override fun finish() {
         super.finish()
-        for ((fileName, content) in allGeneratedFiles)
-        PrintWriter(generator.createNewFile(
-            Dependencies(
-                true,
-                sources = content.files.toTypedArray()
-            ),
-            "META-INF.services",
-            fileName = fileName,
-            extensionName = ""
-        )).use {
-            it.println(content.names.joinToString("\n"))
+        for ((fileName, content) in allGeneratedFiles) {
+            PrintWriter(
+                generator.createNewFile(
+                    Dependencies(
+                        true,
+                        sources = content.files.toTypedArray()
+                    ),
+                    "META-INF.services",
+                    fileName = fileName,
+                    extensionName = ""
+                )
+            ).use {
+                it.println(content.names.joinToString("\n"))
+            }
         }
     }
-
 }
 
 class SerializerProvidersProvider() : SymbolProcessorProvider {
