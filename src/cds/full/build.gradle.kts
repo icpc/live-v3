@@ -2,7 +2,6 @@ plugins {
     `java-library`
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.bcv)
 }
 
 
@@ -24,4 +23,5 @@ dependencies {
     api(projects.cds.plugins.yandex)
     api(projects.cds.ktor)
     api(projects.cds.cli)
+    api(projects.cds.utils)
 }

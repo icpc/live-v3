@@ -3,7 +3,6 @@ plugins {
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.bcv)
 }
 
 kotlin {
@@ -18,7 +17,7 @@ dependencies {
     implementation(libs.ktor.client.contentNegotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(projects.cds.core)
-    implementation(projects.common)
+    implementation(projects.cds.utils)
 
     testImplementation(libs.kotlin.junit)
 }

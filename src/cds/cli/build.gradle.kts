@@ -2,7 +2,6 @@ plugins {
     `java-library`
     `maven-publish`
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.bcv)
 }
 
 kotlin {
@@ -12,5 +11,5 @@ kotlin {
 dependencies {
     api(projects.cds.core)
     api(libs.cli)
-    implementation(projects.common)
+    implementation(projects.cds.utils)
 }

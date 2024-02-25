@@ -10,8 +10,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
-import org.icpclive.util.getLogger
-import org.icpclive.util.intervalFlow
+import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -138,7 +137,7 @@ class TeamSpotlightService(
         coroutineScope {
             val scoreboardState = scoreboard.map { it.scoreboardSnapshot }.stateIn(this)
             merge(
-                intervalFlow(settings.scoreboardPushInterval).map { ScoreboardPushTrigger },
+                loopFlow(settings.scoreboardPushInterval, onError = {}) { ScoreboardPushTrigger },
                 runs.filter { !it.isHidden },
                 addScoreRequests ?: emptyFlow(),
                 DataBus.socialEvents.await(),

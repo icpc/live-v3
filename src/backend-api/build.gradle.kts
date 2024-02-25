@@ -7,7 +7,7 @@ plugins {
 dependencies {
     api(libs.kotlinx.serialization.json)
     api(libs.kotlinx.datetime)
-    api(projects.common)
+    api(projects.cds.utils)
     api(projects.cds.core)
     testImplementation(libs.kotlin.junit)
 }

@@ -5,6 +5,7 @@ package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
@@ -66,3 +67,16 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
     }.sortedBy { it.first }.forEach { emit(it) }
 }.map { (startTime + it.first / emulationSpeed) to it.second }
     .toTimedFlow { logger.info("Processed events upto ${(it - startTime) * emulationSpeed}") }
+
+
+private fun <T> Flow<Pair<Instant, T>>.toTimedFlow(log: (Instant) -> Unit = {}) : Flow<T> {
+    var lastLoggedTime: Instant = Instant.DISTANT_PAST
+    return map { (nextEventTime, item) ->
+        delay(nextEventTime - Clock.System.now())
+        if (nextEventTime - lastLoggedTime > 10.seconds) {
+            log(nextEventTime)
+            lastLoggedTime = nextEventTime
+        }
+        item
+    }
+}

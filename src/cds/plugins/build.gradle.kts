@@ -2,11 +2,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.bcv)
-}
-
-apiValidation {
-    ignoredProjects.add("plugins")
 }
 
 subprojects {

@@ -8,6 +8,6 @@ plugins {
 dependencies {
     api(libs.kotlinx.serialization.json)
     api(libs.kotlinx.datetime)
-    api(projects.common)
+    implementation(projects.cds.utils)
     testImplementation(libs.kotlin.junit)
 }

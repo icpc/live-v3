@@ -25,7 +25,6 @@ tasks {
 
 dependencies {
     implementation(projects.cds.full)
-    implementation(projects.common)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.autoHeadResponse)
