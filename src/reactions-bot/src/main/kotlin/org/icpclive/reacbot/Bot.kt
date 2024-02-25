@@ -25,7 +25,7 @@ import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.cli.CdsCommandLineOptions
 import org.icpclive.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.createDirectories

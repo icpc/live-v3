@@ -33,7 +33,7 @@ import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.tunning.TeamInfoOverride
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.cli.CdsCommandLineOptions
 import org.icpclive.export.icpc.csv.IcpcCsvExporter
 import org.icpclive.util.*
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter

@@ -10,8 +10,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
 import org.icpclive.api.defaultWidgetPositions
-import org.icpclive.cds.settings.CdsCommandLineOptions
-import java.nio.file.Path
+import org.icpclive.cds.cli.CdsCommandLineOptions
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
     val cdsSettings by CdsCommandLineOptions()

@@ -45,7 +45,7 @@ tasks {
 }
 
 dependencies {
-    implementation(projects.cds.plugins)
+    implementation(projects.cds.full)
     implementation(projects.common)
     implementation(projects.backendApi)
     implementation(libs.cli)

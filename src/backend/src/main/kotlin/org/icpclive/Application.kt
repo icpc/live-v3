@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.adapters.*
-import org.icpclive.cds.settings.toFlow
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
