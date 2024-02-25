@@ -23,6 +23,7 @@ val simpleProjects = listOf(
     "cds:core",
     "cds:plugins",
     "cds:tests",
+    "cds:ktor",
     "ksp",
     "cds-converter",
     "clics-api",

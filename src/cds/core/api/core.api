@@ -1431,36 +1431,6 @@ public final class org/icpclive/cds/api/Verdict$WrongAnswer : org/icpclive/cds/a
 	public fun toString ()Ljava/lang/String;
 }
 
-public abstract class org/icpclive/cds/common/ClientAuth {
-	public static final field Companion Lorg/icpclive/cds/common/ClientAuth$Companion;
-}
-
-public final class org/icpclive/cds/common/ClientAuth$Basic : org/icpclive/cds/common/ClientAuth {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun getLogin ()Ljava/lang/String;
-	public final fun getPassword ()Ljava/lang/String;
-}
-
-public final class org/icpclive/cds/common/ClientAuth$Bearer : org/icpclive/cds/common/ClientAuth {
-	public fun <init> (Ljava/lang/String;)V
-	public final fun getToken ()Ljava/lang/String;
-}
-
-public final class org/icpclive/cds/common/ClientAuth$Companion {
-	public final fun BasicOrNull (Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/common/ClientAuth$Basic;
-}
-
-public final class org/icpclive/cds/common/ClientAuth$CookieAuth : org/icpclive/cds/common/ClientAuth {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public final fun getName ()Ljava/lang/String;
-	public final fun getValue ()Ljava/lang/String;
-}
-
-public final class org/icpclive/cds/common/ClientAuth$OAuth : org/icpclive/cds/common/ClientAuth {
-	public fun <init> (Ljava/lang/String;)V
-	public final fun getToken ()Ljava/lang/String;
-}
-
 public abstract interface class org/icpclive/cds/common/ContestDataSource {
 	public abstract fun getFlow ()Lkotlinx/coroutines/flow/Flow;
 }
@@ -1496,37 +1466,10 @@ public final class org/icpclive/cds/common/ContestParseResult$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public abstract interface class org/icpclive/cds/common/DataLoader {
-	public abstract fun load (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class org/icpclive/cds/common/DataLoaderKt {
-	public static final fun byteArrayLoader (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/common/ClientAuth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/common/DataLoader;
-	public static synthetic fun byteArrayLoader$default (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/common/ClientAuth;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lorg/icpclive/cds/common/DataLoader;
-	public static final fun map (Lorg/icpclive/cds/common/DataLoader;Lkotlin/jvm/functions/Function2;)Lorg/icpclive/cds/common/DataLoader;
-	public static final fun xmlLoader (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/common/ClientAuth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/common/DataLoader;
-	public static synthetic fun xmlLoader$default (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/common/ClientAuth;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lorg/icpclive/cds/common/DataLoader;
-}
-
 public abstract class org/icpclive/cds/common/FullReloadContestDataSource : org/icpclive/cds/common/ContestDataSource {
 	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun getFlow ()Lkotlinx/coroutines/flow/Flow;
 	public abstract fun loadOnce (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public final class org/icpclive/cds/common/LineStreamLoaderServiceKt {
-	public static final fun getLineStreamLoaderFlow (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/common/ClientAuth;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/common/NetworkUtilsKt {
-	public static final fun defaultHttpClient (Lorg/icpclive/cds/common/ClientAuth;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;)Lio/ktor/client/HttpClient;
-	public static synthetic fun defaultHttpClient$default (Lorg/icpclive/cds/common/ClientAuth;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lio/ktor/client/HttpClient;
-}
-
-public final class org/icpclive/cds/common/StringLoader : org/icpclive/cds/common/DataLoader {
-	public fun <init> (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/common/ClientAuth;Lkotlin/jvm/functions/Function0;)V
-	public final fun getComputeURL ()Lkotlin/jvm/functions/Function0;
-	public fun load (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class org/icpclive/cds/scoreboard/AbstractScoreboardCalculatorKt {

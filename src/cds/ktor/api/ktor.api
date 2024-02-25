@@ -1,0 +1,52 @@
+public abstract class org/icpclive/cds/ktor/ClientAuth {
+	public static final field Companion Lorg/icpclive/cds/ktor/ClientAuth$Companion;
+}
+
+public final class org/icpclive/cds/ktor/ClientAuth$Basic : org/icpclive/cds/ktor/ClientAuth {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getLogin ()Ljava/lang/String;
+	public final fun getPassword ()Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/ktor/ClientAuth$Bearer : org/icpclive/cds/ktor/ClientAuth {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getToken ()Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/ktor/ClientAuth$Companion {
+	public final fun BasicOrNull (Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/ktor/ClientAuth$Basic;
+}
+
+public final class org/icpclive/cds/ktor/ClientAuth$CookieAuth : org/icpclive/cds/ktor/ClientAuth {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getName ()Ljava/lang/String;
+	public final fun getValue ()Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/ktor/ClientAuth$OAuth : org/icpclive/cds/ktor/ClientAuth {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getToken ()Ljava/lang/String;
+}
+
+public abstract interface class org/icpclive/cds/ktor/DataLoader {
+	public abstract fun load (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class org/icpclive/cds/ktor/DataLoaderKt {
+	public static final fun byteArrayLoader (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/ktor/ClientAuth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public static final fun map (Lorg/icpclive/cds/ktor/DataLoader;Lkotlin/jvm/functions/Function2;)Lorg/icpclive/cds/ktor/DataLoader;
+	public static final fun stringLoader (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/ktor/ClientAuth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public static final fun xmlLoader (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/ktor/ClientAuth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+}
+
+public final class org/icpclive/cds/ktor/LineStreamLoaderKt {
+	public static final fun getLineStreamLoaderFlow (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/ktor/ClientAuth;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public final class org/icpclive/cds/ktor/NetworkUtilsKt {
+	public static final fun defaultHttpClient (Lorg/icpclive/cds/ktor/ClientAuth;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;)Lio/ktor/client/HttpClient;
+	public static synthetic fun defaultHttpClient$default (Lorg/icpclive/cds/ktor/ClientAuth;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lio/ktor/client/HttpClient;
+	public static final fun wrapIfSSLError (Ljava/lang/Throwable;)Ljava/lang/Throwable;
+	public static final fun wrapIfSSLError (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+

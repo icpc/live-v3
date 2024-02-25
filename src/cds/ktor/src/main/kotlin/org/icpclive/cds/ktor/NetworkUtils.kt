@@ -1,4 +1,4 @@
-package org.icpclive.cds.common
+package org.icpclive.cds.ktor
 
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -8,7 +8,10 @@ import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import org.icpclive.cds.settings.NetworkSettings
+import java.io.IOException
+import java.security.GeneralSecurityException
 import java.security.cert.X509Certificate
+import javax.net.ssl.SSLException
 import javax.net.ssl.X509TrustManager
 
 public sealed class ClientAuth {
@@ -64,7 +67,7 @@ internal fun HttpClientConfig<*>.setupAuth(auth: ClientAuth) {
 public fun defaultHttpClient(
     auth: ClientAuth?,
     networkSettings: NetworkSettings?,
-    block: HttpClientConfig<CIOEngineConfig>.() -> Unit = {},
+    block: HttpClientConfig<*>.() -> Unit = {},
 ): HttpClient = HttpClient(CIO) {
     install(HttpTimeout)
     if (auth != null) {
@@ -80,6 +83,21 @@ public fun defaultHttpClient(
                 }
             }
         }
+        requestTimeout = 40000
     }
     block()
+}
+
+internal class LiveSSLException(message: String, cause: Throwable?) : IOException(message, cause)
+
+@PublishedApi
+internal fun wrapIfSSLError(e: Throwable): Throwable = if (e is SSLException || e is GeneralSecurityException) {
+    LiveSSLException("There are some https related errors. If you don't care, add \"network\": {\"allowUnsecureConnections\": true} to your config.", e)
+} else e
+
+@PublishedApi
+internal inline fun <T> wrapIfSSLError(block: () -> T): T = try {
+    block()
+} catch (e: Throwable) {
+    throw wrapIfSSLError(e)
 }

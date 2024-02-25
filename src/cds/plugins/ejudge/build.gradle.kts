@@ -11,6 +11,7 @@ kotlin {
 
 dependencies {
     api(projects.cds.core)
+    implementation(projects.cds.ktor)
     implementation(projects.common)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.datetime)

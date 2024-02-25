@@ -2,9 +2,11 @@ package org.icpclive.cds.plugins.krsu
 
 import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
+import org.icpclive.cds.common.ContestDataSource
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.Builder
+import org.icpclive.cds.ktor.jsonUrlLoader
 import org.icpclive.cds.settings.CDSSettings
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
