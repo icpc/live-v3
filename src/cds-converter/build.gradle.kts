@@ -22,7 +22,6 @@ tasks.runTask {
 
 dependencies {
     implementation(projects.cds.full)
-    implementation(projects.common)
     implementation(projects.clicsApi)
     implementation(libs.cli)
     implementation(libs.ktor.serialization.kotlinx.json)

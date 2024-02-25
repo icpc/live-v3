@@ -18,8 +18,7 @@ import org.icpclive.clics.v202207.Scoreboard
 import org.icpclive.clics.v202207.ScoreboardRow
 import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.cds.scoreboard.calculateScoreboard
-import org.icpclive.util.defaultJsonSettings
-import org.icpclive.util.intervalFlow
+import org.icpclive.util.*
 import java.nio.ByteBuffer
 import kotlin.time.Duration.Companion.minutes
 
@@ -429,7 +428,7 @@ object ClicsExporter  {
                         call.respondBytesWriter {
                             merge(
                                 eventFeed.map { json.encodeToString(it) },
-                                intervalFlow(2.minutes).map { "" }
+                                loopFlow(2.minutes, onError = {}) { "" }
                             ).collect {
                                 writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
                                 flush()

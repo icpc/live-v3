@@ -15,8 +15,7 @@ import kotlin.io.path.*
 import kotlin.time.Duration.Companion.seconds
 
 
-fun directoryChangesFlow(path: Path) =
-    flow {
+public fun directoryChangesFlow(path: Path): Flow<Path> = flow {
         while (currentCoroutineContext().isActive) {
             path.fileSystem.newWatchService().use { watcher ->
                 path.register(
@@ -45,11 +44,11 @@ fun directoryChangesFlow(path: Path) =
     }.map { path.resolve(it).toAbsolutePath() }
     .flowOn(Dispatchers.IO)
 
-fun fileChangesFlow(path: Path) = directoryChangesFlow(path.toAbsolutePath().parent)
+public fun fileChangesFlow(path: Path): Flow<Path> = directoryChangesFlow(path.toAbsolutePath().parent)
     .filter { it.endsWith(path.fileName) }
 
 @OptIn(ExperimentalSerializationApi::class)
-inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger) = fileChangesFlow(path).map {
+public inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger): Flow<T> = fileChangesFlow(path).map {
     logger.info("Reloaded ${path.fileName}")
     path.inputStream().use {
         Json.decodeFromStream<T>(it)
@@ -59,6 +58,6 @@ inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger) = fileCha
         logger.error("Failed to reload ${path.fileName}", it)
     }
 
-inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger, noData: T) =
+public inline fun <reified T> fileJsonContentFlow(path: Path, logger: Logger, noData: T): Flow<T> =
     fileJsonContentFlow<T>(path, logger)
         .onStart { if (!path.exists()) emit(noData) }

@@ -2,6 +2,7 @@ import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import java.net.*
 plugins {
     alias(libs.plugins.dokka)
+    alias(libs.plugins.bcv)
 }
 
 subprojects {
@@ -23,6 +24,10 @@ subprojects {
             }
         }
     }
+}
+
+apiValidation {
+    ignoredProjects.addAll(listOf("plugins", "full", "tests"))
 }
 
 tasks {

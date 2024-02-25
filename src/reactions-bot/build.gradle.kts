@@ -34,7 +34,7 @@ repositories {
 
 dependencies {
     implementation(projects.cds.full)
-    implementation(projects.common)
+    implementation(projects.cds.utils)
     implementation(libs.cli)
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)
