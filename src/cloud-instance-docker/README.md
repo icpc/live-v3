@@ -1,4 +1,4 @@
-How to run cloud-instance.
+## How to run cloud-instance.
 1. Have a machine with docker and docker-compose.
 2. Create a folder, put `docker-compose.yml` and `.env` into it.
 3. (for now) Package is not public, so you should get access to github read:packages on target machine.
@@ -33,3 +33,9 @@ How to run cloud-instance.
    ```
 6. Opt. use traefik to get normal domain names, look at docker-compose.yml in this repo.
 7. docker-compose up -d
+
+## TODO
+[ ] Make this package public.
+[ ] Change something, so we don't have to pass .env file, and only supply password. This is currently here for control panel, because code-server will steal all the environment variables.
+[ ] Create a reasonable admin panel.
+[ ] Make an easy-to-run example for Amazon ECS.
