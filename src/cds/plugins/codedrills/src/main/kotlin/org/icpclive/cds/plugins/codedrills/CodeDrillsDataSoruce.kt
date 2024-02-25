@@ -5,9 +5,8 @@ import io.grpc.ManagedChannelBuilder
 import io.grpc.Metadata
 import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
-import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential

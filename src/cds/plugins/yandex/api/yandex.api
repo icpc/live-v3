@@ -3,7 +3,7 @@ public abstract interface class org/icpclive/cds/plugins/yandex/YandexSettings :
 	public abstract fun getContestId ()I
 	public abstract fun getLoginRegex ()Lkotlin/text/Regex;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/yandex/YandexSettingsBuilder : org/icpclive/cds/plugins/yandex/YandexSettings {

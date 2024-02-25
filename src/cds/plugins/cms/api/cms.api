@@ -2,7 +2,7 @@ public abstract interface class org/icpclive/cds/plugins/cms/CmsSettings : org/i
 	public abstract fun getActiveContest ()Ljava/lang/String;
 	public abstract fun getOtherContests ()Ljava/util/List;
 	public abstract fun getUrl ()Ljava/lang/String;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/cms/CmsSettingsBuilder : org/icpclive/cds/plugins/cms/CmsSettings {

@@ -2,7 +2,7 @@ public abstract interface class org/icpclive/cds/plugins/krsu/KRSUSettings : org
 	public abstract fun getContestUrl ()Ljava/lang/String;
 	public abstract fun getSubmissionsUrl ()Ljava/lang/String;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/krsu/KRSUSettingsBuilder : org/icpclive/cds/plugins/krsu/KRSUSettings {

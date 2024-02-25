@@ -758,7 +758,7 @@ public abstract interface class org/icpclive/cds/plugins/eolymp/EOlympSettings :
 	public fun getPreviousDaysContestIds ()Ljava/util/List;
 	public abstract fun getToken ()Lorg/icpclive/cds/settings/Credential;
 	public abstract fun getUrl ()Ljava/lang/String;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/eolymp/EOlympSettingsBuilder : org/icpclive/cds/plugins/eolymp/EOlympSettings {

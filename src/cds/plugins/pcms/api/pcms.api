@@ -4,7 +4,7 @@ public abstract interface class org/icpclive/cds/plugins/pcms/PCMSSettings : org
 	public fun getProblemsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/pcms/PCMSSettingsBuilder : org/icpclive/cds/plugins/pcms/PCMSSettings {

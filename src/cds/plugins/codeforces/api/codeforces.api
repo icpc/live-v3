@@ -3,7 +3,7 @@ public abstract interface class org/icpclive/cds/plugins/codeforces/CFSettings :
 	public abstract fun getApiSecret ()Lorg/icpclive/cds/settings/Credential;
 	public fun getAsManager ()Z
 	public abstract fun getContestId ()I
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/codeforces/CFSettingsBuilder : org/icpclive/cds/plugins/codeforces/CFSettings {

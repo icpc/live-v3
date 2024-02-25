@@ -1,4 +1,4 @@
-package org.icpclive.cds.common
+package org.icpclive.cds
 
 import kotlinx.coroutines.flow.Flow
 import org.icpclive.cds.ContestUpdate

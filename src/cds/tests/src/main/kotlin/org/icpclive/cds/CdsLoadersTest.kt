@@ -7,7 +7,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.adapters.finalContestState
-import org.icpclive.cds.common.ContestParseResult
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.*
 import org.opentest4j.AssertionFailedError

@@ -5,9 +5,8 @@ import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings

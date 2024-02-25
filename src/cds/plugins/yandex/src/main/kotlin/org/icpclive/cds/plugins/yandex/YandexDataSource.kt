@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.yandex.api.*

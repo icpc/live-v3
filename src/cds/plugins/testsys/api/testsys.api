@@ -1,7 +1,7 @@
 public abstract interface class org/icpclive/cds/plugins/testsys/TestSysSettings : org/icpclive/cds/settings/CDSSettings {
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/testsys/TestSysSettingsBuilder : org/icpclive/cds/plugins/testsys/TestSysSettings {

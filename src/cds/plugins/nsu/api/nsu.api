@@ -5,7 +5,7 @@ public abstract interface class org/icpclive/cds/plugins/nsu/NSUSettings : org/i
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public abstract fun getTourId ()I
 	public abstract fun getUrl ()Ljava/lang/String;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/nsu/NSUSettingsBuilder : org/icpclive/cds/plugins/nsu/NSUSettings {

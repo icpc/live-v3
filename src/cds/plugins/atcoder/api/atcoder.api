@@ -3,7 +3,7 @@ public abstract interface class org/icpclive/cds/plugins/atcoder/AtcoderSettings
 	public abstract fun getContestLength-UwyO8pc ()J
 	public abstract fun getSessionCookie ()Lorg/icpclive/cds/settings/Credential;
 	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/atcoder/AtcoderSettingsBuilder : org/icpclive/cds/plugins/atcoder/AtcoderSettings {
