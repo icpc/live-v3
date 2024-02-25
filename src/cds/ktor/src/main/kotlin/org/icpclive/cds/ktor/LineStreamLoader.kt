@@ -1,4 +1,4 @@
-package org.icpclive.cds.common
+package org.icpclive.cds.ktor
 
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
@@ -9,8 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.settings.NetworkSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
-import org.icpclive.util.getLogger
-import org.icpclive.util.wrapIfSSLError
+import org.icpclive.util.*
 
 public fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: UrlOrLocalPath): Flow<String> = flow {
     when (url) {

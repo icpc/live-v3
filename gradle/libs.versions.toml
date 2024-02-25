@@ -28,6 +28,7 @@ bcv = "0.14.0"                     # https://github.com/Kotlin/binary-compatibil
 
 [libraries]
 
+ktor-client-core        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-core" }
 ktor-client-cio        = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-cio" }
 ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-auth" }
 ktor-client-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-content-negotiation" }

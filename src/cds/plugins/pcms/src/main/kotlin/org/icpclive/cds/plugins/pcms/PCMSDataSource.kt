@@ -2,11 +2,13 @@ package org.icpclive.cds.plugins.pcms
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import org.icpclive.cds.common.ContestDataSource
 import org.icpclive.cds.api.*
 import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.settings.*
 import org.icpclive.util.*
+import org.icpclive.cds.ktor.*
 import org.w3c.dom.Element
 import java.util.*
 import kotlin.time.Duration
@@ -33,8 +35,9 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     private val login = settings.login?.value
     private val password = settings.password?.value
     private val dataLoader = xmlLoader(
-        networkSettings = settings.network,
-        login?.let { ClientAuth.Basic(login, password!!) }) {
+        settings.network,
+        ClientAuth.BasicOrNull(login, password)
+    ) {
         settings.url
     }
 
@@ -54,7 +57,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         parseContestInfo(element.child("contest"), problemsOverride)
 
     private suspend fun loadCustomProblems(problemsUrl: UrlOrLocalPath): Element {
-        val problemsLoader = xmlLoader(networkSettings = settings.network) { problemsUrl }
+        val problemsLoader = xmlLoader(networkSettings = settings.network, null) { problemsUrl }
         return problemsLoader.load().documentElement
     }
 
