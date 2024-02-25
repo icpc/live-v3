@@ -1,5 +1,5 @@
 public abstract interface class org/icpclive/cds/plugins/noop/NoopSettings : org/icpclive/cds/settings/CDSSettings {
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/noop/NoopSettingsBuilder : org/icpclive/cds/plugins/noop/NoopSettings {

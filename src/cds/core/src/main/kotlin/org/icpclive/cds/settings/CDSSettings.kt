@@ -10,7 +10,7 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.toEmulationFlow
-import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.ksp.SerializerProviders
 import org.icpclive.util.postProcess
 import java.nio.file.Path

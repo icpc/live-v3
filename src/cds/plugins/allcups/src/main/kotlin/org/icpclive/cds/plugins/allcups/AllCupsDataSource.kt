@@ -2,11 +2,11 @@ package org.icpclive.cds.plugins.allcups
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.*
-import org.icpclive.cds.common.ContestParseResult
-import org.icpclive.cds.common.FullReloadContestDataSource
+import org.icpclive.cds.ContestParseResult
+import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.ksp.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential

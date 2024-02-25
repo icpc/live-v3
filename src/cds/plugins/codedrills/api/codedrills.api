@@ -3920,7 +3920,7 @@ public abstract interface class org/icpclive/cds/plugins/codedrills/CodeDrillsSe
 	public abstract fun getContestId ()Ljava/lang/String;
 	public abstract fun getPort ()I
 	public abstract fun getUrl ()Ljava/lang/String;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/codedrills/CodeDrillsSettingsBuilder : org/icpclive/cds/plugins/codedrills/CodeDrillsSettings {

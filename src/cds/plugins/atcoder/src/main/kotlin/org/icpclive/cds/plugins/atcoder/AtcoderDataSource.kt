@@ -3,9 +3,8 @@ package org.icpclive.cds.plugins.atcoder
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.common.ContestDataSource
+import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.common.*
 import org.icpclive.cds.ksp.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*

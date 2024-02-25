@@ -1,4 +1,4 @@
-package org.icpclive.cds.common
+package org.icpclive.cds
 
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*

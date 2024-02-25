@@ -7,7 +7,7 @@ public abstract interface class org/icpclive/cds/plugins/allcups/AllCupsSettings
 	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
 	public abstract fun getTeamIds ()Ljava/util/List;
 	public abstract fun getToken ()Lorg/icpclive/cds/settings/Credential;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsBuilder : org/icpclive/cds/plugins/allcups/AllCupsSettings {

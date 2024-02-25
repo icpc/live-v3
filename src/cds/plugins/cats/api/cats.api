@@ -5,7 +5,7 @@ public abstract interface class org/icpclive/cds/plugins/cats/CatsSettings : org
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public abstract fun getUrl ()Ljava/lang/String;
-	public fun toDataSource ()Lorg/icpclive/cds/common/ContestDataSource;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/cats/CatsSettingsBuilder : org/icpclive/cds/plugins/cats/CatsSettings {
