@@ -1,0 +1,6 @@
+{
+  "teamOverrideTemplate": {
+    "displayName": "{name}",
+    "fullName":"{name}"
+  } 
+}
