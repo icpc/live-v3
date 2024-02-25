@@ -1,10 +1,9 @@
-package org.icpclive.cds
-
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.fromFile
 import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.cds.settings.parseFileToCdsSettings
 import org.junit.jupiter.api.*
 import kotlin.io.path.*
 
@@ -18,7 +17,7 @@ class AllConfigsAreParsable {
             it.name == "settings.json" || it.name == "settings.json5" || it.name == "events.properties" && !it.pathString.contains("v2-configs")
         }.map {
             DynamicTest.dynamicTest(it.relativeTo(configDir).toString()) {
-                parseFileToCdsSettings(it) { "" }
+                CDSSettings.fromFile(it) { "" }
             }
         }.toList()
     }
