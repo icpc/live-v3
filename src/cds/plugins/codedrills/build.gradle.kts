@@ -1,15 +1,8 @@
 import com.google.protobuf.gradle.*
 
 plugins {
-    `java-library`
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
+    id("live.cds-plugin-conventions")
     alias(libs.plugins.protobuf)
-}
-
-kotlin {
-    explicitApi()
 }
 
 protobuf {
@@ -38,14 +31,9 @@ protobuf {
 }
 
 dependencies {
-    api(projects.cds.core)
     implementation(projects.cds.utils)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.datetime)
-    ksp(projects.ksp)
     implementation(libs.protobuf)
     runtimeOnly(libs.grpc.netty)
     implementation(libs.grpc.protobuf)
     implementation(libs.grpc.stub)
-    compileOnly(projects.ksp)
 }

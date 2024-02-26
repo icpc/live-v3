@@ -11,7 +11,7 @@ import java.awt.Color
 import kotlin.time.Duration
 
 @Serializable
-data class ApiInfo(
+public data class ApiInfo(
     val version: String,
     val versionUrl: String,
     val name: String? = null,
@@ -19,19 +19,19 @@ data class ApiInfo(
 )
 
 @Serializable
-data class Endpoint(
+public data class Endpoint(
     val type: String,
     val properties: List<String>
 )
 
 @Serializable
-data class Access(
+public data class Access(
     val capabilities: List<String>,
     val endpoints: List<Endpoint>
 )
 
 @Serializable
-data class Contest(
+public data class Contest(
     val id: String,
     val name: String? = null,
     val formal_name: String? = null,
@@ -51,7 +51,7 @@ data class Contest(
 )
 
 @Serializable
-data class JudgementType(
+public data class JudgementType(
     val id: String,
     val name: String,
     val penalty: Boolean,
@@ -59,7 +59,7 @@ data class JudgementType(
 )
 
 @Serializable
-data class Language(
+public data class Language(
     val id: String,
     val name: String? = null,
     val entry_point_required: Boolean? = null,
@@ -68,7 +68,7 @@ data class Language(
 
 
 @Serializable
-data class Scoreboard(
+public data class Scoreboard(
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val time: Instant,
     @Serializable(with = ClicsTime.DurationSerializer::class)
@@ -78,7 +78,7 @@ data class Scoreboard(
 )
 
 @Serializable
-data class ScoreboardRow(
+public data class ScoreboardRow(
     val rank: Int,
     val team_id: String,
     val score: ScoreboardRowScore,
@@ -86,13 +86,13 @@ data class ScoreboardRow(
 )
 
 @Serializable
-data class ScoreboardRowScore(
+public data class ScoreboardRowScore(
     val num_solved: Int,
     val total_time: Long
 )
 
 @Serializable
-data class ScoreboardRowProblem(
+public data class ScoreboardRowProblem(
     val problem_id: String,
     val num_judged: Int,
     val num_pending: Int,
@@ -101,7 +101,7 @@ data class ScoreboardRowProblem(
 )
 
 @Serializable
-data class Problem(
+public data class Problem(
     val id: String,
     val ordinal: Int = 0,
     val label: String = "",
@@ -112,7 +112,7 @@ data class Problem(
 )
 
 @Serializable
-data class Media(
+public data class Media(
     val mime: String = "", // not by spec
     val href: String,
     val fileName: String? = null,
@@ -122,7 +122,7 @@ data class Media(
 )
 
 @Serializable
-data class Organization(
+public data class Organization(
     val id: String,
     val name: String = "",
     val formal_name: String? = null,
@@ -133,7 +133,7 @@ data class Organization(
 )
 
 @Serializable
-data class Team(
+public data class Team(
     val id: String,
     val organization_id: String? = null,
     val group_ids: List<String> = emptyList(),
@@ -146,7 +146,7 @@ data class Team(
 )
 
 @Serializable
-data class Group(
+public data class Group(
     val id: String,
     val icpcId: String? = null,
     val name: String = "",
@@ -154,7 +154,7 @@ data class Group(
 )
 
 @Serializable
-data class Submission(
+public data class Submission(
     val id: String,
     val language_id: String,
     val problem_id: String,
@@ -167,7 +167,7 @@ data class Submission(
 )
 
 @Serializable
-data class Judgement(
+public data class Judgement(
     val id: String,
     val submission_id: String,
     val judgement_type_id: String?,
@@ -182,7 +182,7 @@ data class Judgement(
 )
 
 @Serializable
-data class Run(
+public data class Run(
     val id: String,
     val judgement_id: String,
     val ordinal: Int,
@@ -192,7 +192,7 @@ data class Run(
 )
 
 @Serializable
-data class State(
+public data class State(
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val ended: Instant?,
     @Serializable(with = ClicsTime.InstantSerializer::class)
@@ -210,7 +210,7 @@ data class State(
 )
 
 @Serializable
-data class Commentary(
+public data class Commentary(
     val id: String,
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val time: Instant,
@@ -224,21 +224,21 @@ data class Commentary(
 )
 
 @Serializable
-data class Award(
+public data class Award(
     val id: String,
     val citation: String,
     val team_ids: List<String>
 )
 
 @Serializable
-data class Person(
+public data class Person(
     val id: String,
     val name: String,
     val role: String
 )
 
 @Serializable
-data class Account(
+public data class Account(
     val id: String,
     val username: String,
     val password: String?,
@@ -248,7 +248,7 @@ data class Account(
     val person_id: String?
 ) {
     @Serializable
-    enum class TYPE {
+    public enum class TYPE {
         @SerialName("team")
         TEAM,
 
@@ -267,6 +267,6 @@ data class Account(
 }
 
 @Serializable
-data class Clarification(
+public data class Clarification(
     val id: String,
 )

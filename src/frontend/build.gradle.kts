@@ -1,6 +1,7 @@
 import com.github.gradle.node.npm.task.NpmTask
 
 plugins {
+    id("live.common-conventions")
     alias(libs.plugins.node)
 }
 

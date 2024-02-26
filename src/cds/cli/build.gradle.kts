@@ -1,11 +1,5 @@
 plugins {
-    `java-library`
-    `maven-publish`
-    alias(libs.plugins.kotlin.jvm)
-}
-
-kotlin {
-    explicitApi()
+    id("live.library-conventions")
 }
 
 dependencies {
