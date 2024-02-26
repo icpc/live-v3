@@ -1,4 +1,5 @@
 public abstract interface class org/icpclive/cds/plugins/ejudge/EjudgeSettings : org/icpclive/cds/settings/CDSSettings {
+	public fun getProblemScoreLimit ()Ljava/util/Map;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
@@ -11,11 +12,13 @@ public final class org/icpclive/cds/plugins/ejudge/EjudgeSettingsBuilder : org/i
 	public final fun build ()Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getProblemScoreLimit ()Ljava/util/Map;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setProblemScoreLimit (Ljava/util/Map;)V
 	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
 	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
 	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
