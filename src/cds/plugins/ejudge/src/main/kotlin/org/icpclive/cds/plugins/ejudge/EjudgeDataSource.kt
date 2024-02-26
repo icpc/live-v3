@@ -7,8 +7,7 @@ import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
-import org.icpclive.util.child
-import org.icpclive.util.children
+import org.icpclive.util.*
 import org.w3c.dom.Element
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
@@ -23,11 +22,16 @@ public sealed interface EjudgeSettings : CDSSettings {
         get() = ContestResultType.ICPC
     public val timeZone: TimeZone
         get() = TimeZone.of("Europe/Moscow")
+    public val problemScoreLimit: Map<String, Double>
+        get() = emptyMap()
 
     override fun toDataSource(): ContestDataSource = EjudgeDataSource(this)
 }
 
 internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
+    private val problemIds = Enumerator<String>()
+    private val runsIds = Enumerator<String>()
+
     override suspend fun loadOnce(): ContestParseResult {
         val element = xmlLoader.load()
         return parseContestInfo(element.documentElement)
@@ -39,7 +43,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             ProblemInfo(
                 displayName = element.getAttribute("short_name"),
                 fullName = element.getAttribute("long_name"),
-                id = element.getAttribute("id").toInt(),
+                id = problemIds[element.getAttribute("id")],
                 ordinal = index,
                 contestSystemId = element.getAttribute("id"),
                 minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
@@ -94,6 +98,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         val teams = parseTeamsInfo(element)
         val teamIdMapping = teams.associateBy({ it.contestSystemId }, { it.id })
 
+        val problems = parseProblemsInfo(element)
         return ContestParseResult(
             contestInfo = ContestInfo(
                 name = name,
@@ -102,7 +107,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,
-                problemList = parseProblemsInfo(element),
+                problemList = problems,
                 teamList = teams,
                 groupList = emptyList(),
                 organizationList = emptyList(),
@@ -112,7 +117,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 }
             ),
             runs = element.child("runs").children().mapNotNull { run ->
-                parseRunInfo(run, currentTime - startTime, teamIdMapping)
+                parseRunInfo(run, currentTime - startTime, teamIdMapping, settings.problemScoreLimit)
             }.toList(),
             emptyList(),
         )
@@ -122,6 +127,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         element: Element,
         currentTime: Duration,
         teamIdMapping: Map<String, Int>,
+        problemScoreLimit: Map<String, Double>,
     ): RunInfo? {
         val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
         if (time > currentTime) {
@@ -129,7 +135,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         }
 
         val teamId = teamIdMapping[element.getAttribute("user_id")]!!
-        val runId = element.getAttribute("run_id").toInt()
+        val runId = runsIds[element.getAttribute("run_id")]
 
         val result = when (element.getAttribute("status")) {
             "OK" -> Verdict.Accepted
@@ -150,6 +156,8 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             else -> null
         }
 
+        val problemId = element.getAttribute("prob_id")
+
         return RunInfo(
             id = runId,
             when (settings.resultType) {
@@ -159,14 +167,14 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                     val score = element.getAttribute("score").ifEmpty { null }?.toDouble()
                     if (score != null) {
                         RunResult.IOI(
-                            score = listOf(score),
+                            score = listOf(minOf(score, problemScoreLimit[problemId] ?: Double.POSITIVE_INFINITY)),
                         )
                     } else {
                         RunResult.InProgress(0.0)
                     }
                 }
             },
-            problemId = element.getAttribute("prob_id").toInt(),
+            problemId = problemIds[problemId],
             teamId = teamId,
             time = time,
         )
