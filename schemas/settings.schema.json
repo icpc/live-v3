@@ -362,6 +362,14 @@
             ],
             "title": "codedrills"
         },
+        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "number"
+                }
+            }
+        },
         "ejudge": {
             "type": "object",
             "properties": {
@@ -377,6 +385,9 @@
                 },
                 "timeZone": {
                     "type": "string"
+                },
+                "problemScoreLimit": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
