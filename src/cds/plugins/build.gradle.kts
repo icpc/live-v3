@@ -1,3 +1,0 @@
-subprojects {
-    apply<MavenPublishPlugin>()
-}

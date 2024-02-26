@@ -1,6 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
+    id("live.kotlin-conventions")
 }
 
 val tmpLocation = layout.buildDirectory.dir("tmp")
@@ -147,6 +146,4 @@ dependencies {
     implementation(libs.kotlin.reflect)
     runtimeOnly(projects.cds.full)
     runtimeOnly(projects.backendApi)
-
-    testImplementation(libs.kotlin.junit)
 }

@@ -1,9 +1,10 @@
 plugins {
-    `java-library`
-    `maven-publish`
-    alias(libs.plugins.kotlin.jvm)
+    id("live.library-conventions")
 }
 
+apiValidation {
+    validationDisabled = true
+}
 
 dependencies {
     api(projects.cds.plugins.allcups)

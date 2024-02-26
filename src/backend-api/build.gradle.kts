@@ -1,7 +1,5 @@
 plugins {
-    `java-library`
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
+    id("live.kotlin-conventions")
 }
 
 dependencies {
@@ -9,5 +7,4 @@ dependencies {
     api(libs.kotlinx.datetime)
     api(projects.cds.utils)
     api(projects.cds.core)
-    testImplementation(libs.kotlin.junit)
 }

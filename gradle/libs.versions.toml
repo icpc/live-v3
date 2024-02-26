@@ -88,14 +88,15 @@ graphql-ktor-client = { version.ref = "graphql", group = "com.expediagroup", nam
 
 ksp = { version.ref = "ksp", group = "com.google.devtools.ksp", name = "symbol-processing-api" }
 
+gradleplugin-kotlin-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+gradleplugin-shadow = { group = "com.github.johnrengelman", name = "shadow", version.ref = "shadow-plugin" }
+gradleplugin-dokka = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka"}
+gradleplugin-bcv = { group = "org.jetbrains.kotlinx.binary-compatibility-validator", name = "org.jetbrains.kotlinx.binary-compatibility-validator.gradle.plugin", version.ref = "bcv" }
+gradleplugin-ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "ksp"}
+gradleplugin-kotlin-serialization = { group = "org.jetbrains.kotlin.plugin.serialization", name = "org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
+
 [plugins]
 
 node = { id = "com.github.node-gradle.node", version.ref = "node-plugin" }
-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow-plugin" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
-dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 graphql = { id = "com.expediagroup.graphql", version.ref = "graphql"}
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
-bcv = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "bcv" }

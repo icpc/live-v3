@@ -21,7 +21,6 @@ val simpleProjects = listOf(
     "backend-api",
     "cds",
     "cds:core",
-    "cds:plugins",
     "cds:tests",
     "cds:ktor",
     "cds:cli",

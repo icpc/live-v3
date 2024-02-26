@@ -1,13 +1,6 @@
 plugins {
-    `java-library`
-    `maven-publish`
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-}
-
-kotlin {
-    explicitApi()
+    id("live.library-conventions")
+    id("live.ksp-conventions")
 }
 
 dependencies {
@@ -19,6 +12,4 @@ dependencies {
     implementation(libs.kotlinx.serialization.json5)
     ksp(projects.ksp)
     compileOnly(projects.ksp)
-
-    testImplementation(libs.kotlin.junit)
 }
