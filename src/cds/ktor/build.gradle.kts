@@ -1,12 +1,5 @@
 plugins {
-    `java-library`
-    `maven-publish`
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
-}
-
-kotlin {
-    explicitApi()
+    id("live.library-conventions")
 }
 
 dependencies {
@@ -18,6 +11,4 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(projects.cds.core)
     implementation(projects.cds.utils)
-
-    testImplementation(libs.kotlin.junit)
 }

@@ -12,7 +12,7 @@ import java.awt.Color
 import kotlin.time.Duration
 
 @Serializable
-enum class Operation {
+public enum class Operation {
     @SerialName("create")
     CREATE,
 
@@ -24,7 +24,7 @@ enum class Operation {
 }
 
 @Serializable
-data class Contest(
+public data class Contest(
     val id: String,
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val start_time: Instant? = null,
@@ -40,7 +40,7 @@ data class Contest(
     val penalty_time: Duration? = null,
     val scoreboard_type: String? = null
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Contest(
+    public fun upgrade(): org.icpclive.clics.v202207.Contest = org.icpclive.clics.v202207.Contest(
         id = id,
         name = name,
         formal_name = formal_name,
@@ -54,7 +54,7 @@ data class Contest(
 }
 
 @Serializable
-data class Problem(
+public data class Problem(
     val id: String,
     val ordinal: Int = 0,
     val label: String = "",
@@ -63,7 +63,7 @@ data class Problem(
     val rgb: Color? = null,
     val test_data_count: Int? = null
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Problem(
+    public fun upgrade(): org.icpclive.clics.v202207.Problem = org.icpclive.clics.v202207.Problem(
         id = id,
         ordinal = ordinal,
         label = label,
@@ -74,18 +74,18 @@ data class Problem(
 }
 
 @Serializable
-data class Media(
+public data class Media(
     val mime: String,
     val href: String,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Media(
+    public fun upgrade(): org.icpclive.clics.v202207.Media = org.icpclive.clics.v202207.Media(
         mime = mime,
         href = href
     )
 }
 
 @Serializable
-data class Organization(
+public data class Organization(
     val id: String,
     val name: String = "",
     val formal_name: String? = null,
@@ -93,7 +93,7 @@ data class Organization(
     val logo: List<Media> = emptyList(),
     val twitter_hashtag: String? = null
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Organization(
+    public fun upgrade(): org.icpclive.clics.v202207.Organization = org.icpclive.clics.v202207.Organization(
         id = id,
         name = name,
         formal_name = formal_name,
@@ -104,7 +104,7 @@ data class Organization(
 }
 
 @Serializable
-data class Team(
+public data class Team(
     val id: String,
     val organization_id: String? = null,
     val group_ids: List<String> = emptyList(),
@@ -115,7 +115,7 @@ data class Team(
     val desktop: List<Media> = emptyList(),
     val webcam: List<Media> = emptyList(),
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Team(
+    public fun upgrade(): org.icpclive.clics.v202207.Team = org.icpclive.clics.v202207.Team(
         id = id,
         organization_id = organization_id,
         group_ids = group_ids,
@@ -129,13 +129,13 @@ data class Team(
 }
 
 @Serializable
-data class Group(
+public data class Group(
     val id: String,
     val icpcId: String? = null,
     val name: String = "",
     val type: String? = null,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Group(
+    public fun upgrade(): org.icpclive.clics.v202207.Group = org.icpclive.clics.v202207.Group(
         id = id,
         icpcId = icpcId,
         name = name,
@@ -144,13 +144,13 @@ data class Group(
 }
 
 @Serializable
-data class JudgementType(
+public data class JudgementType(
     val id: String,
     val name: String,
     val solved: Boolean = false,
     val penalty: Boolean = false
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.JudgementType(
+    public fun upgrade(): org.icpclive.clics.v202207.JudgementType = org.icpclive.clics.v202207.JudgementType(
         id = id,
         name = name,
         solved = solved,
@@ -159,7 +159,7 @@ data class JudgementType(
 }
 
 @Serializable
-data class Submission(
+public data class Submission(
     val id: String,
     val language_id: String? = null,
     val problem_id: String? = null,
@@ -170,7 +170,7 @@ data class Submission(
     val contest_time: Duration? = null,
     val reaction: List<Media>? = null,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Submission(
+    public fun upgrade(): org.icpclive.clics.v202207.Submission = org.icpclive.clics.v202207.Submission(
         id = id,
         language_id = language_id!!,
         problem_id = problem_id!!,
@@ -182,7 +182,7 @@ data class Submission(
 }
 
 @Serializable
-data class Judgement(
+public data class Judgement(
     val id: String,
     val submission_id: String? = null,
     val judgement_type_id: String? = null,
@@ -195,7 +195,7 @@ data class Judgement(
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val end_contest_time: Duration? = null,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Judgement(
+    public fun upgrade(): org.icpclive.clics.v202207.Judgement = org.icpclive.clics.v202207.Judgement(
         id = id,
         submission_id = submission_id!!,
         judgement_type_id = judgement_type_id,
@@ -207,7 +207,7 @@ data class Judgement(
 }
 
 @Serializable
-data class Run(
+public data class Run(
     val id: String,
     val judgement_id: String? = null,
     val ordinal: Int? = null,
@@ -215,7 +215,7 @@ data class Run(
     @Serializable(with = ClicsTime.DurationSerializer::class)
     val contest_time: Duration? = null,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Run(
+    public fun upgrade(): org.icpclive.clics.v202207.Run = org.icpclive.clics.v202207.Run(
         id = id,
         judgement_id = judgement_id!!,
         ordinal = ordinal!!,
@@ -225,7 +225,7 @@ data class Run(
 }
 
 @Serializable
-data class State(
+public data class State(
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val ended: Instant?,
     @Serializable(with = ClicsTime.InstantSerializer::class)
@@ -241,7 +241,7 @@ data class State(
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val end_of_updates: Instant?,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.State(
+    public fun upgrade(): org.icpclive.clics.v202207.State = org.icpclive.clics.v202207.State(
         ended = ended,
         frozen = frozen,
         thawed = thawed,
@@ -253,7 +253,7 @@ data class State(
 }
 
 @Serializable
-data class Commentary(
+public data class Commentary(
     val id: String,
     @Serializable(with = ClicsTime.InstantSerializer::class)
     val time: Instant,
@@ -264,7 +264,7 @@ data class Commentary(
     val problem_ids: List<String>?,
     val submission_ids: List<String>?,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Commentary(
+    public fun upgrade(): org.icpclive.clics.v202207.Commentary = org.icpclive.clics.v202207.Commentary(
         id = id,
         time = time,
         contest_time = contest_time,
@@ -277,18 +277,18 @@ data class Commentary(
 }
 
 @Serializable
-data class Clarification(val id: String) {
-    fun upgrade() = org.icpclive.clics.v202207.Clarification(id)
+public data class Clarification(val id: String) {
+    public fun upgrade(): org.icpclive.clics.v202207.Clarification = org.icpclive.clics.v202207.Clarification(id)
 }
 
 @Serializable
-data class Language(
+public data class Language(
     val id: String,
     val name: String? = null,
     val entry_point_required: Boolean? = null,
     val extensions: List<String>? = null,
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Language(
+    public fun upgrade(): org.icpclive.clics.v202207.Language = org.icpclive.clics.v202207.Language(
         id = id,
         name = name,
         entry_point_required = entry_point_required,
@@ -297,12 +297,12 @@ data class Language(
 }
 
 @Serializable
-data class Award(
+public data class Award(
     val id: String,
     val citation: String? = null,
     val team_ids: List<String>? = null
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Award(
+    public fun upgrade(): org.icpclive.clics.v202207.Award = org.icpclive.clics.v202207.Award(
         id = id,
         citation = citation!!,
         team_ids = team_ids!!
@@ -310,12 +310,12 @@ data class Award(
 }
 
 @Serializable
-data class Person(
+public data class Person(
     val id: String,
     val name: String? = null,
     val role: String? = null
 ) {
-    fun upgrade() = org.icpclive.clics.v202207.Person(
+    public fun upgrade(): org.icpclive.clics.v202207.Person = org.icpclive.clics.v202207.Person(
         id = id,
         name = name!!,
         role = role!!
@@ -323,7 +323,7 @@ data class Person(
 }
 
 @Serializable
-data class Account(
+public data class Account(
     val id: String,
     val username: String?,
     val password: String?,
@@ -333,7 +333,7 @@ data class Account(
     val person_id: String?
 ) {
     @Serializable
-    enum class TYPE {
+    public enum class TYPE {
         @SerialName("team")
         TEAM,
 
@@ -350,7 +350,7 @@ data class Account(
         STAFF
     }
 
-    fun upgrade() = org.icpclive.clics.v202207.Account(
+    public fun upgrade(): org.icpclive.clics.v202207.Account = org.icpclive.clics.v202207.Account(
         id = id,
         username = username!!,
         password = password,

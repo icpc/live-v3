@@ -1,3 +1,7 @@
+plugins {
+    id("live.common-conventions")
+}
+
 tasks {
     val emptyJson by creating {
         val file = project.layout.buildDirectory.file("empty.json")
