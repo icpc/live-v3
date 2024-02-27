@@ -87,11 +87,12 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
             ContestStatus.BEFORE -> emptyList()
             else -> contestInfo.parseSubmissions(statusLoader.load())
         }
-        val hacks = when (contestInfo.status) {
-            ContestStatus.BEFORE -> emptyList()
-            else -> contestInfo.parseHacks(hacksLoader.load())
-        }
-        return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
+//        val hacks = when (contestInfo.status) {
+//            ContestStatus.BEFORE -> emptyList()
+//            else -> contestInfo.parseHacks(hacksLoader.load())
+//        }
+//        return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
+        return ContestParseResult(contestInfo.toApi(), runs, emptyList())
     }
 
     companion object {
