@@ -17,13 +17,19 @@ tasks {
         from(configDir.dir("_examples")) {
             includeEmptyDirs = false
             include("codeforces/**")
+            include("clics/**")
+            include("cms/**")
+            include("pcms/**")
+            include("yandex/**")
             into("examples/config")
         }
         from(configDir) {
             into("examples")
             include("creds.json.example")
             include("visualConfig.json.example")
-            include("widget_positions.json.example")
+            include("analyticsTemplate.json")
+            include("analyticsTemplateRu.json")
+            include("widget_positions.json.*")
             rename { it.removeSuffix(".example") }
         }
         from(project(":backend").tasks.named("shadowJar")) {
