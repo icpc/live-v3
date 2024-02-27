@@ -26,7 +26,7 @@ public interface CFSettings : CDSSettings {
     override fun toDataSource(): ContestDataSource = CFDataSource(this)
 }
 
-internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSource(5.seconds) {
+internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSource(9.seconds) {
     private val contestInfo = CFContestInfo()
     private val apiKey = settings.apiKey.value
     private val apiSecret = settings.apiSecret.value
