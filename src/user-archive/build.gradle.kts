@@ -26,9 +26,8 @@ tasks {
         from(configDir) {
             into("examples")
             include("creds.json.example")
-            include("visualConfig.json.example")
-            include("analyticsTemplate.json")
-            include("analyticsTemplateRu.json")
+            include("visualConfig.json.*")
+            include("analyticsTemplate.json.*")
             include("widget_positions.json.*")
             rename { it.removeSuffix(".example") }
         }
