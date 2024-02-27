@@ -768,12 +768,14 @@ public final class org/icpclive/cds/plugins/eolymp/EOlympSettingsBuilder : org/i
 	public fun getContestId ()Ljava/lang/String;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDays ()Ljava/util/List;
 	public fun getPreviousDaysContestIds ()Ljava/util/List;
 	public fun getToken ()Lorg/icpclive/cds/settings/Credential;
 	public fun getUrl ()Ljava/lang/String;
 	public fun setContestId (Ljava/lang/String;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setPreviousDaysContestIds (Ljava/util/List;)V
 	public fun setToken (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setUrl (Ljava/lang/String;)V

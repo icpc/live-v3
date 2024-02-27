@@ -4,13 +4,14 @@ package org.icpclive.cds.settings
 
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.KSerializer
+import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.toEmulationFlow
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.adapters.addPreviousDays
 import org.icpclive.cds.ksp.SerializerProviders
 import org.icpclive.util.postProcess
 import java.nio.file.Path
@@ -18,13 +19,23 @@ import java.util.*
 import kotlin.io.path.exists
 import kotlin.reflect.KClass
 
-public fun CDSSettings.toFlow(): Flow<ContestUpdate> {
-    val raw = toDataSource()
-    return when (val emulationSettings = emulation) {
-        null -> raw.getFlow()
-        else -> raw.getFlow().toEmulationFlow(emulationSettings.startTime, emulationSettings.speed)
-    }
+private fun Flow<ContestUpdate>.processEmulation(emulationSettings: EmulationSettings?) = when {
+    emulationSettings == null -> this
+    else -> toEmulationFlow(emulationSettings.startTime, emulationSettings.speed)
 }
+
+public fun CDSSettings.toFlow(): Flow<ContestUpdate> {
+    return toDataSource()
+        .getFlow()
+        .addPreviousDays(previousDays)
+        .processEmulation(emulation)
+}
+
+@Serializable
+public class PreviousDaySettings(
+    public val settings: CDSSettings,
+    @Contextual public val advancedJsonPath: UrlOrLocalPath? = null,
+)
 
 @SerializerProviders("org.icpclive.cds.settings.CDSSettingsProvider")
 public interface CDSSettings {
@@ -32,6 +43,8 @@ public interface CDSSettings {
         get() = null
     public val network: NetworkSettings?
         get() = null
+    public val previousDays: List<PreviousDaySettings>
+        get() = emptyList()
 
     public fun toDataSource(): ContestDataSource
 

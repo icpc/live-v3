@@ -20,6 +20,7 @@ public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsBuilder : org
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getFreezeTime-UwyO8pc ()J
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDays ()Ljava/util/List;
 	public fun getProblemIds ()Ljava/util/List;
 	public fun getStartTime ()Lkotlinx/datetime/Instant;
 	public fun getTeamIds ()Ljava/util/List;
@@ -30,6 +31,7 @@ public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsBuilder : org
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setFreezeTime-LRDsOJo (J)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setProblemIds (Ljava/util/List;)V
 	public fun setStartTime (Lkotlinx/datetime/Instant;)V
 	public fun setTeamIds (Ljava/util/List;)V

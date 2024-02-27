@@ -39,10 +39,12 @@ public final class org/icpclive/cds/plugins/clics/ClicsSettingsBuilder : org/icp
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getFeeds ()Ljava/util/List;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDays ()Ljava/util/List;
 	public fun getUseTeamNames ()Z
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setFeeds (Ljava/util/List;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setUseTeamNames (Z)V
 }
 
