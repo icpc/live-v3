@@ -1,24 +1,26 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="wf-2021" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="AllConfigsAreParsable" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="-Plive.dev.contest=icpc-wf/2021/finals -Plive.dev.widgetPositionsFile=widget_positions.json.overlay2" />
+      <option name="scriptParameters" value="" />
       <option name="taskDescriptions">
         <list />
       </option>
       <option name="taskNames">
         <list>
-          <option value="backend:run" />
+          <option value=":cds:plugins:test" />
+          <option value="--tests" />
+          <option value="&quot;AllConfigsAreParsable&quot;" />
         </list>
       </option>
       <option name="vmOptions" />
     </ExternalSystemSettings>
-    <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+    <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
     <DebugAllEnabled>false</DebugAllEnabled>
-    <ForceTestExec>false</ForceTestExec>
+    <RunAsTest>true</RunAsTest>
     <method v="2" />
   </configuration>
 </component>
