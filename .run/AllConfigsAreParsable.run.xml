@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value=":cds:plugins:test" />
+          <option value=":cds:tests:test" />
           <option value="--tests" />
           <option value="&quot;AllConfigsAreParsable&quot;" />
         </list>
