@@ -19,13 +19,15 @@ class AllConfigsAreParsable {
             DynamicTest.dynamicTest(it.relativeTo(configDir).toString()) {
                 CDSSettings.fromFile(it) { "" }
             }
-        }.toList()
+        }.toList().also {
+            require(it.isNotEmpty())
+        }
     }
 
     @OptIn(ExperimentalPathApi::class, ExperimentalSerializationApi::class)
     @TestFactory
     fun testAdvancedJson() : List<DynamicTest> {
-        val configDir = Path("").absolute().parent.parent.resolve("config")
+        val configDir = Path("").absolute().parent.parent.parent.resolve("config")
         return configDir.walk().filter {
             it.name == "advanced.json"
         }.map { path ->
@@ -34,7 +36,9 @@ class AllConfigsAreParsable {
                     Json.decodeFromStream<AdvancedProperties>(it)
                 }
             }
-        }.toList()
+        }.toList().also {
+            require(it.isNotEmpty())
+        }
     }
 
 }
