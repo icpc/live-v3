@@ -2,22 +2,16 @@
   "teamOverrideTemplate": {
     "medias": {
       "screen": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{comp}",
-        "url": "http://192.168.1.41:13478",
-        "streamType": "desktop",
-        "credential": "nwrrc-live-secret"
+        "type": "Photo",
+        "url": "https://www.ixbt.com/img/n1/news/2023/3/5/8c2133bc59b7dea5a6fb40725fe9e4dc_large.jpg"
       },
       "camera": {
-        "type": "WebRTCGrabberConnection",
-        "url": "http://192.168.1.41:13478",
-        "peerName": "{comp}",
-        "streamType": "webcam",
-        "credential": "nwrrc-live-secret"
+        "type": "Photo",
+        "url": "https://sm.ign.com/ign_nordic/gallery/e/elgato-fac/elgato-facecam-stock-settings_bxgw.jpg"
       },
       "achievement": {
         "type": "Photo",
-        "url": "/media/ach/{comp}.svg"
+        "url": "http://localhost:8080/media/test.svg"
       }
     }
   },

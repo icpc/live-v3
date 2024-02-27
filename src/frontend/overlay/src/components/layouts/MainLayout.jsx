@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
-import bg from "../../assets/images/bg.png";
+import bg from "../../assets/images/bg1.png";
 import c from "../../config";
 import { DEBUG } from "../../consts";
 import { useQueryParams } from "../../utils/query-params";

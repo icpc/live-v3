@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import c from "../../../config";
 import { SCOREBOARD_TYPES } from "../../../consts";
-import {ContestantInfo} from "../../molecules/info/ContestantInfo";
+import { ContestantInfo } from "../../molecules/info/ContestantInfo";
 
 
 const ScoreboardWrap = styled.div.attrs(({ top }) => (
@@ -21,14 +21,16 @@ const ScoreboardWrap = styled.div.attrs(({ top }) => (
 `;
 
 const TickerScoreboardContestantInfo = styled(ContestantInfo)`
-    height: 48px;
+    font-family: TTFors, sans-serif;
+    font-weight: bold;
+    height: 43px;
 `;
 
 export const Scoreboard = ({ tickerSettings, state }) => {
     const { from, to, periodMs } = tickerSettings;
     const [row, setRow] = useState(0);
     const rows = useSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
-    const nrows = Math.ceil(rows.length / 4);
+    const nrows = Math.ceil(rows.length / 8);
     useEffect(() => {
         if(state !== "entering" && rows.length > 0) {
             const interval = setInterval(() => {

@@ -1,0 +1,612 @@
+{
+	"teamMediaTemplate": {
+		"screen": {
+			"type": "WebRTCGrabberConnection",
+			"url": "http://ejudge.strategy48.ru:8000", 
+			"peerName": "002", 
+			"streamType": "desktop", 
+			"credential": "strategy123"
+		},
+		"camera": {
+			"type": "WebRTCGrabberConnection",
+			"url": "http://ejudge.strategy48.ru:8000", 
+			"peerName": "002", 
+			"streamType": "webcam", 
+			"credential": "strategy123"
+		}
+	},
+	"teamOverrides": {
+		"47043": {
+			"name": "Let's celebrate and write s♂me c♂de (Борцов, Хохряков, Тарасов)",
+			"shortname": "Let's celebrate and write s♂me c♂de",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "001",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=001&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47044": {
+			"name": "Путёвка в мир Грибов (Насретдинов, Крылыков, Писарев)",
+			"shortname": "Путёвка в мир Грибов"
+		},
+		"47045": {
+			"name": "Извините, я отходил (Дегтерев, Янко, Ташланов)",
+			"shortname": "Извините, я отходил",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "003",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=003&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47046": {
+			"name": "Вращающиеся калиперы (Солдатов, Минасян, Лещинский)",
+			"shortname": "Вращающиеся калиперы",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "004",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=004&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47047": {
+			"name": "#include <bits/stdc++.h> (Овчаров, Поспелова, Туров)",
+			"shortname": "#include <bits/stdc++.h>",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "005",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=005&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47048": {
+			"name": "Агузки (Ныйкин, Поярков, Жерневский)",
+			"shortname": "Агузки",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "006",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=006&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47049": {
+			"name": "Ищем третьего тиммейта, а то наш всё (Титов, Ермолов, Ржевин)",
+			"shortname": "Ищем третьего тиммейта, а то наш всё",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "007",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=007&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47050": {
+			"name": "Штырь или водокачка? (Жеглов, Дьячков, Соснов)",
+			"shortname": "Штырь или водокачка?",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "008",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=008&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47051": {
+			"name": "1329: кек (Евстигнеев, Клигунов, Кузнецов)",
+			"shortname": "1329: кек",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "009",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=009&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47052": {
+			"name": "Гильдия Единых Инфотехов (Акимов, Голов, Куликовский)",
+			"shortname": "Гильдия Единых Инфотехов",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "010",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=010&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47053": {
+			"name": "Квадрат зайдет? (Боровлев, Сомкин, Баданов)",
+			"shortname": "Квадрат зайдет?",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "011",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=011&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47054": {
+			"name": "Индюк, пингвин, крокодил (Ларичев, Волков, Заварин)",
+			"shortname": "Индюк, пингвин, крокодил",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "012",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=012&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47055": {
+			"name": "К У П И Т Ь | ЫМ ИЛАБЛОД АРБУЗ (Возмилов, Терентьева, Матюпатенко)",
+			"shortname": "К У П И Т Ь | ЫМ ИЛАБЛОД АРБУЗ",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "013",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=013&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47056": {
+			"name": "Сборная СОСквы (Понкратов, Пугачев, Шатохин)",
+			"shortname": "Сборная СОСквы",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "014",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=014&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47057": {
+			"name": "Povvered_by_Kv@ss (Шарапов, Бицюк, Федоров)",
+			"shortname": "Povvered_by_Kv@ss",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "015",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=015&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47058": {
+			"name": "шиз (Дрожецкий, Скрипник, Ермачков)",
+			"shortname": "шиз",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "016",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=016&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47059": {
+			"name": "Бипки (Меринов, Курбатов, Андреев)",
+			"shortname": "Бипки",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "017",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=017&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47060": {
+			"name": "Хинкали (Ким, Ефимов, Любин)",
+			"shortname": "Хинкали",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "018",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=018&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47061": {
+			"name": "Акулы МШП (Паркина, Сильвестров, Широковских)",
+			"shortname": "Акулы МШП",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "019",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=019&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47062": {
+			"name": "Бандерлоги (Лузгов, Прыгунов, Галявиев)",
+			"shortname": "Бандерлоги",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "020",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=020&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47063": {
+			"name": "ОЦ Команда (Шкулёва, Алексеев, Семенюк)",
+			"shortname": "ОЦ Команда",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "021",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=021&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47064": {
+			"name": "Блин, сложно (Пахомов, Козлов, Чернов)",
+			"shortname": "Блин, сложно",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "022",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=022&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47065": {
+			"name": "zxc tilted boyz (Косенков, Севостьянов, Бузин)",
+			"shortname": "zxc tilted boyz",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "023",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=023&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47066": {
+			"name": "фан-клуб Миланы Хаметовой (Ларин, Васильев, Иванов)",
+			"shortname": "фан-клуб Миланы Хаметовой",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "024",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=024&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47067": {
+			"name": "на чиле (Душенков, Макурова, Жиляев)",
+			"shortname": "на чиле",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "025",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=025&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47068": {
+			"name": "Вестибубилюбибу (Чистяков, Кузнецов, Жукова)",
+			"shortname": "Вестибубилюбибу",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "026",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=026&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47069": {
+			"name": "кислые мармеладки (Макнил, Равнушкин, Громыко)",
+			"shortname": "кислые мармеладки",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "027",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=027&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47070": {
+			"name": "Сборная ш*** (Салыгин, Лосев, Грекова)",
+			"shortname": "Сборная ш***",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "028",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=028&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47071": {
+			"name": "Фонарный столб (Витюк, Бычков, Хромов)",
+			"shortname": "Фонарный столб",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "029",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=029&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47072": {
+			"name": "11Б179! (Сергиенко, Губарев, Черный)",
+			"shortname": "11Б179!",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "030",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=030&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47073": {
+			"name": "Sintec) (Кобзев, Доронин, Фомин)",
+			"shortname": "Sintec)",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "031",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=031&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47074": {
+			"name": "Голубые береты (Краснов, Пискарев, Егоров)",
+			"shortname": "Голубые береты",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "032",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=032&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47075": {
+			"name": "ЕГЭ по биоинформатике (Горохов, Колесникова, Семиврагова)",
+			"shortname": "ЕГЭ по биоинформатике",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "033",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=033&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47076": {
+			"name": "микроволновая печь DEXP MS-70 черный в ассортименте (Щербаков, Суринов, Щемеров)",
+			"shortname": "микроволновая печь DEXP MS-70 черный в ассортименте",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "034",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=034&streamType=webcam&credential=strategy123"
+				}
+			}
+		},
+		"47077": {
+			"name": "Маша сказала тян (Алексеева, Зотова, Минхузов)",
+			"shortname": "Маша сказала тян",
+			"medias": {
+				"screen": {
+					"type": "WebRTCGrabberConnection",
+					"url": "http://ejudge.strategy48.ru:8000",
+					"peerName": "035",
+					"streamType": "desktop",
+					"credential": "strategy123"
+				},
+				"camera": {
+					"type": "Video",
+					"url": "http://ejudge.strategy48.ru:8000/player?peerName=035&streamType=webcam&credential=strategy123"
+				}
+			}
+		}
+	},
+	"scoreboardOverrides": {
+		"medals": [
+			{"name": "gold", "count": 2},
+			{"name": "silver", "count": 2},
+			{"name": "bronze", "count": 2}
+		],
+		"penaltyPerWrongAttempt": 20,
+		"showTeamsWithoutSubmissions": false,
+		"penaltyRoundingMode": "each_submission_down_to_minute"
+	}
+}

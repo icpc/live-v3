@@ -152,6 +152,7 @@ const TickerWrap = styled.div`
   position: absolute;
   z-index: 2147000000;
   color: ${c.TICKER_FONT_COLOR};
+    background-color: rgb(6, 9, 62);
   display: grid;
   grid-template-columns: ${c.TICKER_SMALL_SIZE} auto;
   column-gap: 9px;

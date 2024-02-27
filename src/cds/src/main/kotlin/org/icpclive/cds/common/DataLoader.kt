@@ -70,7 +70,10 @@ internal inline fun <reified T> jsonLoader(
 ): DataLoader<T> {
     val json = Json { ignoreUnknownKeys = true }
     return StringLoader(networkSettings, auth, url)
-        .map { json.decodeFromString(it) }
+        .map {
+            println(it);
+            json.decodeFromString(it)
+        }
 }
 
 internal inline fun <reified T> jsonUrlLoader(
