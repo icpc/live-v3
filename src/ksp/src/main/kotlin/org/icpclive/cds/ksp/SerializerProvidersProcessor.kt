@@ -6,7 +6,11 @@ import com.google.devtools.ksp.symbol.*
 import java.io.PrintWriter
 
 class SerializerProvidersProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
-    private val allGeneratedFiles = mutableMapOf<String, MutableList<String>>()
+    class GeneratedFile(
+        val names: MutableList<String> = mutableListOf(),
+        val files: MutableSet<KSFile> = mutableSetOf()
+    )
+    private val allGeneratedFiles = mutableMapOf<String, GeneratedFile>()
     private val interestingClasses = mutableMapOf<String, String>()
 
     @OptIn(KspExperimental::class)
@@ -58,8 +62,11 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
             }
             for (superClass in supers) {
                 allGeneratedFiles
-                    .getOrPut(interestingClasses[superClass.qualifiedName!!.asString()]!!) { mutableListOf() }
-                    .add("$packageName.${className}Provider")
+                    .getOrPut(interestingClasses[superClass.qualifiedName!!.asString()]!!) { GeneratedFile() }
+                    .let { file ->
+                        file.names.add("$packageName.${className}Provider")
+                        file.files.add(it.containingFile!!)
+                    }
             }
         }
         return ret
@@ -71,13 +78,13 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
         PrintWriter(generator.createNewFile(
             Dependencies(
                 true,
-                sources = emptyArray()
+                sources = content.files.toTypedArray()
             ),
             "META-INF.services",
             fileName = fileName,
             extensionName = ""
         )).use {
-            it.println(content.joinToString("\n"))
+            it.println(content.names.joinToString("\n"))
         }
     }
 
