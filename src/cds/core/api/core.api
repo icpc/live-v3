@@ -62,6 +62,8 @@ public final class org/icpclive/cds/RunUpdate : org/icpclive/cds/ContestUpdate {
 
 public final class org/icpclive/cds/adapters/Adapters {
 	public static final fun addFirstToSolves (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun addPreviousDaysResults (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun addPreviousDaysSettings (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun applyAdvancedProperties (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun autoFinalize (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun autoFinalize (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;)Lkotlinx/coroutines/flow/Flow;
@@ -1500,6 +1502,7 @@ public abstract interface class org/icpclive/cds/settings/CDSSettings {
 	public static final field Companion Lorg/icpclive/cds/settings/CDSSettings$Companion;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDays ()Ljava/util/List;
 	public abstract fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
@@ -1573,6 +1576,29 @@ public synthetic class org/icpclive/cds/settings/NetworkSettings$$serializer : k
 }
 
 public final class org/icpclive/cds/settings/NetworkSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/PreviousDaySettings {
+	public static final field Companion Lorg/icpclive/cds/settings/PreviousDaySettings$Companion;
+	public fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdvancedJsonPath ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public final fun getSettings ()Lorg/icpclive/cds/settings/CDSSettings;
+}
+
+public synthetic class org/icpclive/cds/settings/PreviousDaySettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/settings/PreviousDaySettings$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/PreviousDaySettings;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/PreviousDaySettings;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/PreviousDaySettings$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 

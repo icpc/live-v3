@@ -47,58 +47,6 @@
                 }
             ]
         },
-        "allcups": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "allcups",
-                    "default": "allcups"
-                },
-                "contestId": {
-                    "type": "number"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "contestName": {
-                    "type": "string"
-                },
-                "startTime": {
-                    "type": "string"
-                },
-                "contestLengthSeconds": {
-                    "type": "number"
-                },
-                "freezeTimeSeconds": {
-                    "type": "number"
-                },
-                "problemIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
-                },
-                "teamIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "contestId",
-                "token",
-                "contestName",
-                "startTime",
-                "contestLengthSeconds",
-                "freezeTimeSeconds",
-                "problemIds",
-                "teamIds"
-            ],
-            "title": "allcups"
-        },
         "atcoder": {
             "type": "object",
             "properties": {
@@ -123,6 +71,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -171,6 +122,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -207,6 +161,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -279,6 +236,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -315,6 +275,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -350,6 +313,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -394,6 +360,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -427,6 +396,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -459,6 +431,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -481,6 +456,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -519,6 +497,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -559,6 +540,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -586,6 +570,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -619,6 +606,9 @@
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 }
             },
             "additionalProperties": false,
@@ -629,6 +619,131 @@
                 "contestId"
             ],
             "title": "yandex"
+        },
+        "kotlinx.serialization.Polymorphic<CDSSettings><kotlin.String,kotlinx.serialization.Polymorphic<CDSSettings>>": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/allcups"
+                },
+                {
+                    "$ref": "#/$defs/atcoder"
+                },
+                {
+                    "$ref": "#/$defs/cats"
+                },
+                {
+                    "$ref": "#/$defs/cf"
+                },
+                {
+                    "$ref": "#/$defs/clics"
+                },
+                {
+                    "$ref": "#/$defs/cms"
+                },
+                {
+                    "$ref": "#/$defs/codedrills"
+                },
+                {
+                    "$ref": "#/$defs/ejudge"
+                },
+                {
+                    "$ref": "#/$defs/eolymp"
+                },
+                {
+                    "$ref": "#/$defs/krsu"
+                },
+                {
+                    "$ref": "#/$defs/noop"
+                },
+                {
+                    "$ref": "#/$defs/nsu"
+                },
+                {
+                    "$ref": "#/$defs/pcms"
+                },
+                {
+                    "$ref": "#/$defs/testsys"
+                },
+                {
+                    "$ref": "#/$defs/yandex"
+                }
+            ]
+        },
+        "org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>?>": {
+            "type": "object",
+            "properties": {
+                "settings": {
+                    "$ref": "#/$defs/kotlinx.serialization.Polymorphic<CDSSettings><kotlin.String,kotlinx.serialization.Polymorphic<CDSSettings>>"
+                },
+                "advancedJsonPath": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "settings"
+            ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>?>"
+            }
+        },
+        "allcups": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "allcups",
+                    "default": "allcups"
+                },
+                "contestId": {
+                    "type": "number"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "contestName": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "contestLengthSeconds": {
+                    "type": "number"
+                },
+                "freezeTimeSeconds": {
+                    "type": "number"
+                },
+                "problemIds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
+                },
+                "teamIds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "token",
+                "contestName",
+                "startTime",
+                "contestLengthSeconds",
+                "freezeTimeSeconds",
+                "problemIds",
+                "teamIds"
+            ],
+            "title": "allcups"
         },
         "ICPC live settings": {
             "oneOf": [

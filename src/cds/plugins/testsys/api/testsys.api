@@ -10,10 +10,12 @@ public final class org/icpclive/cds/plugins/testsys/TestSysSettingsBuilder : org
 	public final fun build ()Lorg/icpclive/cds/plugins/testsys/TestSysSettings;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDays ()Ljava/util/List;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
 	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 }
