@@ -1,12 +1,5 @@
 plugins {
-    `java-library`
-    `maven-publish`
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
-}
-
-kotlin {
-    explicitApi()
+    id("live.library-conventions")
 }
 
 dependencies {
@@ -15,6 +8,4 @@ dependencies {
     api(libs.kotlinx.serialization.json)
     api(libs.slf4j)
     runtimeOnly(libs.logback)
-
-    testImplementation(libs.kotlin.junit)
 }
