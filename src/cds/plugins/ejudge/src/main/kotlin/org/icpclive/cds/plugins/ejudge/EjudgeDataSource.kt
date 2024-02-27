@@ -138,7 +138,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         val runId = runsIds[element.getAttribute("run_id")]
 
         val result = when (element.getAttribute("status")) {
-            "OK" -> Verdict.Accepted
+            "OK", "PT" -> Verdict.Accepted
             "CE" -> Verdict.CompilationError
             "RT" -> Verdict.RuntimeError
             "TL" -> Verdict.TimeLimitExceeded
@@ -164,13 +164,13 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 ContestResultType.ICPC -> result?.toICPCRunResult() ?: RunResult.InProgress(0.0)
 
                 ContestResultType.IOI -> {
-                    val score = element.getAttribute("score").ifEmpty { null }?.toDouble()
-                    if (score != null) {
+                    if (result != Verdict.Accepted) {
+                        RunResult.IOI(score = listOf(0.0), wrongVerdict = result)
+                    } else {
+                        val score = element.getAttribute("score").ifEmpty { null }?.toDouble() ?: 0.0
                         RunResult.IOI(
                             score = listOf(minOf(score, problemScoreLimit[problemId] ?: Double.POSITIVE_INFINITY)),
                         )
-                    } else {
-                        RunResult.InProgress(0.0)
                     }
                 }
             },

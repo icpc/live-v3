@@ -1,10 +1,20 @@
 {
-  "type":"ejudge",
-  "resultType":"IOI",
-  "url":"zaoch_2023_day2_external.xml",
+  "type": "ejudge",
+  "resultType": "IOI",
+  "url": "zaoch_2023_day2_external.xml",
   "problemScoreLimit": {
     "5": 71,
     "8": 84
-  }
+  },
+  "previousDays": [
+    {
+      "settings": {
+        "type": "ejudge",
+        "resultType": "IOI",
+        "url": "../2023-d1/zaoch_2023_day1_external.xml"
+      }
+    }
+  ],
+  "emulation": {"speed": 10, "startTime": "now"}
 }
 

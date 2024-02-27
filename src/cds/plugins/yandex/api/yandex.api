@@ -15,12 +15,14 @@ public final class org/icpclive/cds/plugins/yandex/YandexSettingsBuilder : org/i
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getLoginRegex ()Lkotlin/text/Regex;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDays ()Ljava/util/List;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun setApiKey (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setContestId (I)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setLoginRegex (Lkotlin/text/Regex;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
 }
 

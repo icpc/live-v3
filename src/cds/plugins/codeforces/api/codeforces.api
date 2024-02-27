@@ -16,12 +16,14 @@ public final class org/icpclive/cds/plugins/codeforces/CFSettingsBuilder : org/i
 	public fun getContestId ()I
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getPreviousDays ()Ljava/util/List;
 	public fun setApiKey (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setApiSecret (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setAsManager (Z)V
 	public fun setContestId (I)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setPreviousDays (Ljava/util/List;)V
 }
 
 public final class org/icpclive/cds/plugins/codeforces/CFSettingsImplKt {
