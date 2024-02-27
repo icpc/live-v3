@@ -31,7 +31,7 @@ const contestConfigs = [
     "config/__tests/testsys_icpc/spbsu-2023-may"
 ].map((p) => path.join(repoDir, p));
 
-const backendStartCooldown = 3000;
+const backendStartCooldown = 10000;
 const backendFinishCooldown = 1000;
 const overlayDisplayDelay = 1000;
 const address = "127.0.0.1";
