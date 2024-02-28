@@ -98,6 +98,7 @@ export enum ScoreMergeMode {
 }
 
 export type MediaType =
+  | MediaType.HLSVideo
   | MediaType.Object
   | MediaType.Photo
   | MediaType.TaskStatus
@@ -107,12 +108,20 @@ export type MediaType =
 
 export namespace MediaType {
   export enum Type {
+    HLSVideo = "HLSVideo",
     Object = "Object",
     Photo = "Photo",
     TaskStatus = "TaskStatus",
     Video = "Video",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
+  }
+  
+  export interface HLSVideo {
+    type: MediaType.Type.HLSVideo;
+    url: string;
+    jwtToken?: string | null;
+    isMedia?: boolean;
   }
   
   export interface Object {
