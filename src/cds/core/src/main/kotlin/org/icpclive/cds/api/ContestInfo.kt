@@ -116,3 +116,4 @@ public data class ContestInfo(
     val problems: Map<ProblemId, ProblemInfo> by lazy { problemList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
 }
+
