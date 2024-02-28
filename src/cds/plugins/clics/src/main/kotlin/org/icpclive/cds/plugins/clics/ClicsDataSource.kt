@@ -225,7 +225,12 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                 ignoreUnknownKeys = true
                 explicitNulls = false
                 serializersModule = SerializersModule {
-                    include(clicsEventsSerializersModule { "${settings.baseUrl}/${it}" })
+                    include(clicsEventsSerializersModule {
+                        when (val path = settings.baseUrl.subDir(it)) {
+                            is UrlOrLocalPath.Local -> path.value.joinToString("/")
+                            is UrlOrLocalPath.Url -> path.value
+                        }
+                    })
                 }
             }
 
