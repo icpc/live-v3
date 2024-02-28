@@ -50,6 +50,7 @@ private fun MediaType.toClicsMedia() = when (this) {
     is MediaType.Photo -> Media("image", url)
     is MediaType.TaskStatus -> null
     is MediaType.Video -> Media("video", url)
+    is MediaType.HLSVideo -> Media("video", url)
     is MediaType.WebRTCGrabberConnection -> null
     is MediaType.WebRTCProxyConnection -> null
 }
@@ -67,7 +68,7 @@ private fun TeamInfo.toClicsTeam() = Team(
 )
 
 
-object ClicsExporter  {
+object ClicsExporter {
 
     private fun Verdict.toJudgmentType() = when (this) {
         Verdict.Accepted -> JudgementType("AC", "correct", solved = true, penalty = false)
@@ -79,13 +80,13 @@ object ClicsExporter  {
         Verdict.Challenged -> JudgementType("CH", "challenged", solved = false, penalty = true)
 
         Verdict.CompilationErrorWithPenalty -> JudgementType("CEP", "compiler error penalised", solved = false, penalty = true)
-        Verdict.IdlenessLimitExceeded -> JudgementType( "IL", "idleness limit", solved = false, penalty = true)
+        Verdict.IdlenessLimitExceeded -> JudgementType("IL", "idleness limit", solved = false, penalty = true)
         Verdict.MemoryLimitExceeded -> JudgementType("MLE", "memory limit", solved = false, penalty = true)
         Verdict.OutputLimitExceeded -> JudgementType("OLE", "output limit", solved = false, penalty = true)
         Verdict.PresentationError -> JudgementType("PE", "presentation error", solved = false, penalty = true)
         Verdict.Rejected -> JudgementType("RE", "rejected", solved = false, penalty = true)
         Verdict.RuntimeError -> JudgementType("RTE", "run-time error", solved = false, penalty = true)
-        Verdict.SecurityViolation -> JudgementType( "SV", "security violation", solved = false, penalty = true)
+        Verdict.SecurityViolation -> JudgementType("SV", "security violation", solved = false, penalty = true)
         Verdict.TimeLimitExceeded -> JudgementType("TLE", "time limit", solved = false, penalty = true)
         Verdict.WrongAnswer -> JudgementType("WA", "wrong answer", solved = false, penalty = true)
     }
@@ -103,11 +104,11 @@ object ClicsExporter  {
 
     private val languages = listOf(unknownLanguage)
 
-    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(id: String, data: T, block : (String, String, T?) -> Event) = emit {
+    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(id: String, data: T, block: (String, String, T?) -> Event) = emit {
         block(id, it, data)
     }
 
-    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block : (String, T?) -> Event) = emit { block(it, data) }
+    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block: (String, T?) -> Event) = emit { block(it, data) }
 
     private fun getContest(info: ContestInfo) = Contest(
         id = "contest",
@@ -126,7 +127,7 @@ object ClicsExporter  {
         new: List<T>,
         id: T.() -> String,
         convert: (T) -> CT,
-        toFinalEvent: (String, String, CT?) -> Event
+        toFinalEvent: (String, String, CT?) -> Event,
     ) {
         for (n in new) {
             if (old[n.id()] != n) {
@@ -140,7 +141,7 @@ object ClicsExporter  {
         old: MutableMap<String, T>,
         new: List<T>,
         id: T.() -> String,
-        toFinalEvent: (String, String, CT?) -> Event
+        toFinalEvent: (String, String, CT?) -> Event,
     ) {
         val values = new.map { it.id() }.toSet()
         for (k in old.keys) {
@@ -155,7 +156,7 @@ object ClicsExporter  {
         new: List<T>,
         id: T.() -> String,
         convert: (T) -> CT,
-        toFinalEvent: (String, String, CT?) -> Event
+        toFinalEvent: (String, String, CT?) -> Event,
     ) {
         diffChange(old, new, id, convert, toFinalEvent)
         diffRemove(old, new, id, toFinalEvent)
@@ -191,6 +192,7 @@ object ClicsExporter  {
             thawed = null,
             end_of_updates = null
         )
+
         ContestStatus.FINALIZED -> State(
             ended = info.startTime + info.contestLength,
             frozen = null,
@@ -238,7 +240,7 @@ object ClicsExporter  {
         )
     }
 
-    private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event : (String, T?) -> Event) {
+    private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event: (String, T?) -> Event) {
         val old = oldInfo?.getter()
         val new = newInfo.getter()
         if (old != new) {
@@ -295,9 +297,9 @@ object ClicsExporter  {
     }
 
 
-    private fun generateEventFeed(updates: Flow<ContestUpdate>) : Flow<Event> {
+    private fun generateEventFeed(updates: Flow<ContestUpdate>): Flow<Event> {
         var eventCounter = 1
-        return updates.contestState().transform {state ->
+        return updates.contestState().transform { state ->
             when (val event = state.event) {
                 is InfoUpdate -> calculateDiff(state.infoBeforeEvent, event.newInfo)
                 is RunUpdate -> processRun(state.infoBeforeEvent!!, event.newInfo)
@@ -306,18 +308,19 @@ object ClicsExporter  {
         }.map { it("live-cds-${eventCounter++}") }
     }
 
-    private inline fun <X, reified T: GlobalEvent<X>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
+    private inline fun <X, reified T : GlobalEvent<X>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
         it.data
     }.stateIn(scope, SharingStarted.Eagerly, null)
         .filterNotNull()
-    private inline fun <X, reified T: IdEvent<X>> Flow<Event>.filterIdEvent(scope: CoroutineScope) = filterIsInstance<T>()
+
+    private inline fun <X, reified T : IdEvent<X>> Flow<Event>.filterIdEvent(scope: CoroutineScope) = filterIsInstance<T>()
         .runningFold(persistentMapOf<String, X>()) { accumulator, value ->
             if (value.data == null) {
                 accumulator.remove(value.id)
             } else {
                 accumulator.put(value.id, value.data!!)
             }
-    }.stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
+        }.stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
 
     @Serializable
     data class Error(val code: Int, val message: String)
@@ -335,14 +338,14 @@ object ClicsExporter  {
                     call.respond(f[id]!!)
                 } else {
                     call.respond(
-                        Error(404,"Object with ID '$id' not found")
+                        Error(404, "Object with ID '$id' not found")
                     )
                 }
             }
         }
     }
 
-    private inline fun <reified T: Any> Route.getGlobal(prefix: String, flow: Flow<T>) {
+    private inline fun <reified T : Any> Route.getGlobal(prefix: String, flow: Flow<T>) {
         endpoint[prefix] = serializer<T>().descriptor
         route("/$prefix") {
             get { call.respond(flow.first()) }
