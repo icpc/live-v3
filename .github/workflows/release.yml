@@ -46,7 +46,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build with gradle
-        run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }} -i
+        run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
