@@ -8,10 +8,6 @@ plugins {
     alias(libs.plugins.graphql)
 }
 
-kotlin {
-    explicitApi()
-}
-
 val graphQlDirectory = project.projectDir.resolve("src").resolve("main").resolve("graphql")
 val graphQlSchemaFile = graphQlDirectory.resolve("eolymp.graphql")
 

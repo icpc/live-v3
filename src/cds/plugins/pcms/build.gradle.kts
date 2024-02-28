@@ -5,10 +5,6 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-kotlin {
-    explicitApi()
-}
-
 dependencies {
     api(projects.cds.core)
     implementation(projects.cds.utils)

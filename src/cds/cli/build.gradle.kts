@@ -4,10 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-kotlin {
-    explicitApi()
-}
-
 dependencies {
     api(projects.cds.core)
     api(libs.cli)

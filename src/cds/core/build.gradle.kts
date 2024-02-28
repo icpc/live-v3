@@ -6,10 +6,6 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-kotlin {
-    explicitApi()
-}
-
 dependencies {
     api(libs.kotlinx.collections.immutable)
     api(libs.kotlinx.datetime)

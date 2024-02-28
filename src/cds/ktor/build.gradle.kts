@@ -5,10 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
-kotlin {
-    explicitApi()
-}
-
 dependencies {
     api(libs.ktor.client.core)
     implementation(libs.kotlin.reflect)

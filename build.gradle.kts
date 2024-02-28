@@ -1,5 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.ShadowJavaPlugin
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -105,6 +107,7 @@ subprojects {
     tasks {
         withType<KotlinCompile>().configureEach {
             kotlinOptions {
+                explicitApiMode.set(ExplicitApiMode.Strict)
                 compilerOptions {
                     freeCompilerArgs.add("-Xjvm-default=all")
                     optIn = listOf("kotlinx.serialization.ExperimentalSerializationApi")

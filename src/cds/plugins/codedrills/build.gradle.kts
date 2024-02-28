@@ -8,10 +8,6 @@ plugins {
     alias(libs.plugins.protobuf)
 }
 
-kotlin {
-    explicitApi()
-}
-
 protobuf {
     protoc {
         artifact = libs.protoc.get().toString()
