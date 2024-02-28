@@ -111,7 +111,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         id = problemToId[id],
         ordinal = ordinal,
         contestSystemId = id,
-        color = rgb ?: Color.BLACK
+        color = rgb
     )
 
     private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(
