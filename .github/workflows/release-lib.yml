@@ -30,7 +30,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Publish package
-        run: ./gradlew publish --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }} -i
+        run: ./gradlew publish --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
