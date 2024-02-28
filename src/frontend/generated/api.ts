@@ -104,6 +104,7 @@ export type OrganizationId = string;
 export type GroupId = string;
 
 export type MediaType =
+  | MediaType.HLSVideo
   | MediaType.M2tsVideo
   | MediaType.Object
   | MediaType.Photo
@@ -114,6 +115,7 @@ export type MediaType =
 
 export namespace MediaType {
   export enum Type {
+    HLSVideo = "HLSVideo",
     M2tsVideo = "M2tsVideo",
     Object = "Object",
     Photo = "Photo",
@@ -123,12 +125,19 @@ export namespace MediaType {
     WebRTCProxyConnection = "WebRTCProxyConnection",
   }
   
+  export interface HLSVideo {
+    type: MediaType.Type.HLSVideo;
+    url: string;
+    jwtToken?: string | null;
+    isMedia?: boolean;
+  }
+
   export interface M2tsVideo {
     type: MediaType.Type.M2tsVideo;
     url: string;
     isMedia?: boolean;
   }
-  
+
   export interface Object {
     type: MediaType.Type.Object;
     url: string;

@@ -22,6 +22,30 @@
             ],
             "title": "M2tsVideo"
         },
+        "HLSVideo": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "HLSVideo",
+                    "default": "HLSVideo"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "jwtToken": {
+                    "type": "string"
+                },
+                "isMedia": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "HLSVideo"
+        },
         "Object": {
             "type": "object",
             "properties": {
@@ -165,6 +189,9 @@
         },
         "org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>": {
             "oneOf": [
+                {
+                    "$ref": "#/$defs/HLSVideo"
+                },
                 {
                     "$ref": "#/$defs/M2tsVideo"
                 },
