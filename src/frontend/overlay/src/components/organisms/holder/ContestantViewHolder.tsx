@@ -6,6 +6,7 @@ import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
 import { useAppDispatch } from "@/redux/hooks";
 import { MediaType } from "@shared/api";
 import Hls from "hls.js";
+import c from "../../../config";
 
 // export const TeamImageWrapper = styled.img /*`
 //   // border-radius: ${({ borderRadius }) => borderRadius};
@@ -22,6 +23,12 @@ import Hls from "hls.js";
 //   object-position: bottom;
 //   border-radius: ${({ borderRadius }) => borderRadius};
 // `*/;
+export const VideoWrapper = styled.video`
+  position: absolute;
+  width: 100%;
+  // height: 100%;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
+`;
 
 
 export const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded, ...props }) => {
@@ -192,10 +199,10 @@ function HlsPlayer({
     }, [autoPlay, src, jwtToken]);
 
     // If Media Source is supported, use HLS.js to play video
-    if (Hls.isSupported()) return <video ref={playerRef} autoPlay={autoPlay} controls={false} {...props} />;
+    if (Hls.isSupported()) return <VideoWrapper ref={playerRef} autoPlay={autoPlay} controls={false} {...props} />;
 
     // Fallback to using a regular video player if HLS is supported by default in the user's browser
-    return <video ref={playerRef} src={src} autoPlay={autoPlay} controls={false} {...props} />;
+    return <VideoWrapper ref={playerRef} src={src} autoPlay={autoPlay} controls={false} {...props} />;
 }
 
 export const FullWidthWrapper = styled.div`
