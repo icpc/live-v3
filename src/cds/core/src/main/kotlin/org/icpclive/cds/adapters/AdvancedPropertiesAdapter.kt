@@ -29,6 +29,10 @@ private fun String.applyTemplate(valueProvider: (String) -> String?) =
 private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (this) {
     is MediaType.Photo -> copy(url = url.applyTemplate(valueProvider))
     is MediaType.Video -> copy(url = url.applyTemplate(valueProvider))
+    is MediaType.HLSVideo -> copy(
+        url = url.applyTemplate(valueProvider),
+        jwtToken = jwtToken?.applyTemplate(valueProvider)
+    )
     is MediaType.Object -> copy(url = url.applyTemplate(valueProvider))
     is MediaType.WebRTCProxyConnection -> copy(url = url.applyTemplate(valueProvider))
     is MediaType.WebRTCGrabberConnection -> copy(
