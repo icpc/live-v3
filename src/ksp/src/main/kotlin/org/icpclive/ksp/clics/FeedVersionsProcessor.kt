@@ -227,8 +227,8 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
     private fun MyCodeGenerator.serilizableWith(resolve: KSType) {
         when (resolve.declaration.qualifiedName!!.asString()) {
             "org.icpclive.clics.Url" -> +"@Contextual"
-            "kotlinx.datetime.Instant" -> serializable("org.icpclive.clics.ClicsTime.InstantSerializer")
-            "kotlin.time.Duration" -> serializable("org.icpclive.clics.ClicsTime.DurationSerializer")
+            "kotlinx.datetime.Instant" -> serializable("org.icpclive.clics.time.InstantSerializer")
+            "kotlin.time.Duration" -> serializable("org.icpclive.clics.time.DurationSerializer")
         }
     }
 
