@@ -318,7 +318,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     const [mediaTypes1, setMediaTypes1] = useState(undefined);
     const [mediaTypes2, setMediaTypes2] = useState(undefined);
     const [statusShown, setStatusShown] = useState(true);
-    const [achievementShown, setAchievementShown] = useState(false);
+    const [achievementShown, setAchievementShown] = useState(true);
 
     const onShow = useCallback(() => {
         const settings = {

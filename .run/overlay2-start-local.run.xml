@@ -7,7 +7,7 @@
     </scripts>
     <node-interpreter value="project" />
     <envs>
-      <env name="VITE_WEBSOCKET_URL" value="ws://localhost:8080/api/overlay" />
+      <env name="VITE_WEBSOCKET_URL" value="wss://overlay.challenge.live.ismagilov.de/api/overlay" />
     </envs>
     <method v="2" />
   </configuration>

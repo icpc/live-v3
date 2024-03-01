@@ -17,7 +17,7 @@ export const useAnalyticsService = () => {
         case "AnalyticsMessageSnapshot":
             setMessages(() => event.messages.reduce((ac, message) => ({ ...ac, [message.id]: message }), {}));
             break;
-        case "ModifyAnalyticsMessage":
+        case "ModifyAnalyticsMessage": // :NOTE: почему мы ничего не делаем?
         case "AddAnalyticsMessage":
             setMessages(messages => ({ ...messages, [event.message.id]: event.message }));
             break;

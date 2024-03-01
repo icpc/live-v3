@@ -274,7 +274,7 @@ const ScoreboardTableHeader = () => {
         <ScoreboardTableHeaderNameCell>Name</ScoreboardTableHeaderNameCell>
         <ScoreboardTableHeaderCell>Σ</ScoreboardTableHeaderCell>
         {needPenalty && <ScoreboardTableHeaderCell>Penalty</ScoreboardTableHeaderCell>}
-        {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.name} letter={probData.letter}
+        {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.ordinal} letter={probData.letter}
             problemColor={probData.color}/>
         )}
     </ScoreboardTableHeaderWrap>;

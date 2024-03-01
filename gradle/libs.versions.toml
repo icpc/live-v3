@@ -34,6 +34,7 @@ ktor-client-auth       = { version.ref = "ktor", group = "io.ktor", name = "ktor
 ktor-client-contentNegotiation  = { version.ref = "ktor", group = "io.ktor", name = "ktor-client-content-negotiation" }
 
 ktor-serialization-kotlinx-json = { version.ref = "ktor", group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
+ktor-http = { version.ref = "ktor", group = "io.ktor", name = "ktor-http" }
 
 ktor-server-auth                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auth" }
 ktor-server-autoHeadResponse    = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-auto-head-response" }
