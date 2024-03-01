@@ -1,6 +1,7 @@
 package org.icpclive.cds.plugins.testsys
 
 import kotlinx.datetime.*
+import kotlinx.datetime.format.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.ksp.cds.Builder
@@ -8,7 +9,6 @@ import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import java.nio.charset.Charset
-import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
@@ -122,10 +122,19 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         add(builder.toString())
     }
 
-    private fun String.toDate() =
-        java.time.LocalDateTime.parse(this, DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))
-            .toKotlinLocalDateTime()
-            .toInstant(settings.timeZone)
+    private val dateFormat = LocalDateTime.Format {
+        dayOfMonth()
+        char('.')
+        monthNumber()
+        char('.')
+        year()
+        char(' ')
+        time(LocalTime.Formats.ISO)
+    }
+
+    private fun String.toDate(): Instant {
+        return dateFormat.parse(this).toInstant(settings.timeZone)
+    }
 
     private fun String.toStatus() = when (this) {
         "RESULTS" -> ContestStatus.OVER

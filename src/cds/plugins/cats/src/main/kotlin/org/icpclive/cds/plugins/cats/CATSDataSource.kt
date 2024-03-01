@@ -1,44 +1,36 @@
 package org.icpclive.cds.plugins.cats
 
 import kotlinx.datetime.*
+import kotlinx.datetime.format.*
 import kotlinx.serialization.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
+import org.icpclive.cds.util.serializers.*
 import kotlin.time.Duration.Companion.seconds
 
-private object ContestTimeSerializer : KSerializer<LocalDateTime> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantConstand", PrimitiveKind.STRING)
-    private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+private object ContestTimeSerializer : FormatterLocalDateSerializer(LocalDateTime.Format {
+    dayOfMonth()
+    char('.')
+    monthNumber()
+    char('.')
+    year()
+    char(' ')
+    hour()
+    char(':')
+    minute()
+})
 
-    override fun serialize(encoder: Encoder, value: LocalDateTime) {
-        encoder.encodeString(formatter.format(value.toJavaLocalDateTime()))
-    }
-
-    override fun deserialize(decoder: Decoder): LocalDateTime {
-        return java.time.LocalDateTime.parse(decoder.decodeString(), formatter).toKotlinLocalDateTime()
-    }
-}
-
-private object SubmissionTimeSerializer : KSerializer<Instant> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantConstand", PrimitiveKind.STRING)
-    private val formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmssZ")
-
-    override fun serialize(encoder: Encoder, value: Instant) {
-        encoder.encodeString(formatter.format(value.toJavaInstant()))
-    }
-
-    override fun deserialize(decoder: Decoder): Instant {
-        return ZonedDateTime.parse(decoder.decodeString(), formatter).toInstant().toKotlinInstant()
-    }
-}
+private object SubmissionTimeSerializer : FormatterInstantSerializer(DateTimeComponents.Format {
+    date(LocalDate.Formats.ISO_BASIC)
+    char('T')
+    hour()
+    minute()
+    second()
+    offset(UtcOffset.Formats.ISO_BASIC)
+})
 
 @Builder("cats")
 public sealed interface CatsSettings : CDSSettings {

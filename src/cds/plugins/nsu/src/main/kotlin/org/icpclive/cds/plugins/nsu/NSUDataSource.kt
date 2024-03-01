@@ -9,6 +9,7 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.datetime.*
+import kotlinx.datetime.format.char
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import org.icpclive.cds.*
@@ -17,7 +18,6 @@ import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.ktor.*
-import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -198,13 +198,14 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
         return verdict?.toICPCRunResult()
     }
 
-    private val timePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    private val timePattern = LocalDateTime.Format {
+        date(LocalDate.Formats.ISO)
+        char(' ')
+        time(LocalTime.Formats.ISO)
+    }
 
     private fun parseNSUTime(time: String): Instant {
-        return java.time.LocalDateTime.parse(
-            time, timePattern
-        ).toKotlinLocalDateTime()
-            .toInstant(settings.timeZone)
+        return timePattern.parse(time).toInstant(settings.timeZone)
     }
 
     @Serializable

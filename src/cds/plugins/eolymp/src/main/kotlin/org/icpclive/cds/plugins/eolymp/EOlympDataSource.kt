@@ -3,7 +3,8 @@ package org.icpclive.cds.plugins.eolymp
 import com.eolymp.graphql.*
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
-import kotlinx.datetime.toKotlinInstant
+import kotlinx.datetime.Instant
+import kotlinx.datetime.format.DateTimeComponents
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.ksp.cds.Builder
@@ -12,10 +13,6 @@ import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.util.getLogger
 import java.net.URL
-import java.time.chrono.IsoChronology
-import java.time.format.DateTimeFormatterBuilder
-import java.time.format.ResolverStyle
-import java.time.temporal.ChronoField
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.seconds
 
@@ -90,27 +87,6 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         "IOI" -> ContestResultType.IOI
         else -> error("Unknown contest format: $format")
     }
-
-    private val dateTimeFormatter = DateTimeFormatterBuilder()
-        .parseCaseInsensitive()
-        .appendValue(ChronoField.YEAR, 4)
-        .appendLiteral('-')
-        .appendValue(ChronoField.MONTH_OF_YEAR, 2)
-        .appendLiteral('-')
-        .appendValue(ChronoField.DAY_OF_MONTH, 2)
-        .appendLiteral('T')
-        .appendValue(ChronoField.HOUR_OF_DAY, 2)
-        .appendLiteral(':')
-        .appendValue(ChronoField.MINUTE_OF_HOUR, 2)
-        .appendLiteral(':')
-        .appendValue(ChronoField.SECOND_OF_MINUTE, 2)
-        .optionalStart()
-        .appendFraction(ChronoField.NANO_OF_SECOND, 2, 9, true)
-        .optionalEnd()
-        .appendOffset("+HH:MM", "Z")
-        .toFormatter()
-        .withResolverStyle(ResolverStyle.STRICT)
-        .withChronology(IsoChronology.INSTANCE)
 
     private var previousDays: List<ContestParseResult> = emptyList()
 
@@ -271,7 +247,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         }
     }
 
-    private fun parseTime(s: String) = java.time.Instant.from(dateTimeFormatter.parse(s)).toKotlinInstant()
+    private fun parseTime(s: String) = Instant.parse(s, DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET)
 
     companion object {
         val log by getLogger()
