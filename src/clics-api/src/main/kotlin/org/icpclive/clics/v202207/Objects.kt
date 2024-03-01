@@ -4,7 +4,8 @@ package org.icpclive.clics.v202207
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import org.icpclive.clics.ClicsTime
+import org.icpclive.clics.time.InstantSerializer
+import org.icpclive.clics.time.DurationSerializer
 import org.icpclive.util.ColorSerializer
 import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
@@ -35,13 +36,13 @@ public data class Contest(
     val id: String,
     val name: String? = null,
     val formal_name: String? = null,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val start_time: Instant? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val countdown_pause_time: Duration? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val duration: Duration,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val scoreboard_freeze_duration: Duration?,
     val scoreboard_type: String? = null,
     @Serializable(with = DurationInMinutesSerializer::class)
@@ -69,9 +70,9 @@ public data class Language(
 
 @Serializable
 public data class Scoreboard(
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val time: Instant,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val contest_time: Duration,
     val state: State,
     val rows: List<ScoreboardRow>
@@ -159,9 +160,9 @@ public data class Submission(
     val language_id: String,
     val problem_id: String,
     val team_id: String,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val time: Instant,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val contest_time: Duration,
     val reaction: List<Media>? = null,
 )
@@ -171,13 +172,13 @@ public data class Judgement(
     val id: String,
     val submission_id: String,
     val judgement_type_id: String?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val start_time: Instant,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val start_contest_time: Duration,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val end_time: Instant?,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val end_contest_time: Duration?,
 )
 
@@ -187,34 +188,34 @@ public data class Run(
     val judgement_id: String,
     val ordinal: Int,
     val judgement_type_id: String,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val contest_time: Duration,
 )
 
 @Serializable
 public data class State(
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val ended: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val frozen: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val thawed: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val started: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val unfrozen: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val finalized: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val end_of_updates: Instant?,
 )
 
 @Serializable
 public data class Commentary(
     val id: String,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val time: Instant,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val contest_time: Duration,
     val message: String,
     val tags: List<String>,

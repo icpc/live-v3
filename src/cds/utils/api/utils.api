@@ -12,6 +12,7 @@ public final class org/icpclive/util/ColorSerializer : kotlinx/serialization/KSe
 }
 
 public final class org/icpclive/util/DateTimeSerializersKt {
+	public static final fun format (Lkotlinx/datetime/Instant;Lkotlinx/datetime/format/DateTimeFormat;Lkotlinx/datetime/TimeZone;)Ljava/lang/String;
 	public static final fun getHumanReadable (Lkotlinx/datetime/Instant;)Ljava/lang/String;
 }
 
@@ -55,6 +56,24 @@ public final class org/icpclive/util/FileChangesWatcherKt {
 public final class org/icpclive/util/FlowUtilsKt {
 	public static final fun completeOrThrow (Lkotlinx/coroutines/CompletableDeferred;Ljava/lang/Object;)V
 	public static final fun logAndRetryWithDelay-8Mi8wO0 (Lkotlinx/coroutines/flow/Flow;JLkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+}
+
+public abstract class org/icpclive/util/FormatterInstantSerializer : kotlinx/serialization/KSerializer {
+	public fun <init> (Lkotlinx/datetime/format/DateTimeFormat;)V
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlinx/datetime/Instant;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlinx/datetime/Instant;)V
+}
+
+public abstract class org/icpclive/util/FormatterLocalDateSerializer : kotlinx/serialization/KSerializer {
+	public fun <init> (Lkotlinx/datetime/format/DateTimeFormat;)V
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlinx/datetime/LocalDateTime;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlinx/datetime/LocalDateTime;)V
 }
 
 public final class org/icpclive/util/HumanTimeSerializer : kotlinx/serialization/KSerializer {

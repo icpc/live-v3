@@ -1,6 +1,6 @@
 [versions]
 ktor = "2.3.8"                     # https://ktor.io/
-datetime = "0.5.0"                 # https://github.com/Kotlin/kotlinx-datetime
+datetime = "0.6.0-RC"              # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.6.3"            # https://github.com/Kotlin/kotlinx.serialization
 kotlin = "2.0.0-Beta4"
 ksp = "2.0.0-Beta4-1.0.17"         # https://github.com/google/ksp

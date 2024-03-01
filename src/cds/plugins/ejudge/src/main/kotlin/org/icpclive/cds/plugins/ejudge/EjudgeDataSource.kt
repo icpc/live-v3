@@ -1,6 +1,8 @@
 package org.icpclive.cds.plugins.ejudge
 
 import kotlinx.datetime.*
+import kotlinx.datetime.format.alternativeParsing
+import kotlinx.datetime.format.char
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ksp.Builder
@@ -9,7 +11,6 @@ import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.util.*
 import org.w3c.dom.Element
-import java.time.format.DateTimeFormatter
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
@@ -70,14 +71,21 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             )
         }.toList()
 
-    private val timePattern: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    private val timePattern = LocalDateTime.Format {
+        year()
+        alternativeParsing({ char('/') }) { char('-') }
+        monthNumber()
+        alternativeParsing({ char('/') }) { char('-') }
+        dayOfMonth()
+        char(' ')
+        time(LocalTime.Formats.ISO)
+    }
 
     private fun parseEjudgeTime(time: String): Instant {
-        return java.time.LocalDateTime.parse(
-            time.replace("/", "-"), // snark's ejudge uses '/' instead of '-'
+        return LocalDateTime.parse(
+            time,
             timePattern
-        ).toKotlinLocalDateTime()
-            .toInstant(settings.timeZone)
+        ).toInstant(settings.timeZone)
     }
 
     private fun parseContestInfo(element: Element): ContestParseResult {

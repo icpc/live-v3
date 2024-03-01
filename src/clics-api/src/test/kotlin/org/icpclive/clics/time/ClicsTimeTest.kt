@@ -1,11 +1,13 @@
-package org.icpclive.clics
+package org.icpclive.clics.time
 
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.icpclive.clics.time.*
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import kotlin.math.roundToLong
+import kotlin.math.*
 import kotlin.test.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -13,72 +15,78 @@ import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 
-object ClicksTimeTest {
-    var years = arrayOf(arrayOf("2001", 2001), arrayOf("2345", 2345))
-    var months = arrayOf(
-        arrayOf("1", 1),
-        arrayOf("01", 1),
-        arrayOf("1", 1),
-        arrayOf("01", 1),
-        arrayOf("12", 12)
+object ClicsTimeTest {
+    var years = arrayOf(
+        "2001" to 2001,
+        "2345" to 2345
     )
-    var days = arrayOf(arrayOf("7", 7), arrayOf("22", 22))
+    var months = arrayOf(
+        "1" to 1,
+        "01" to 1,
+        "1" to 1,
+        "01" to 1,
+        "12" to 12
+    )
+    var days = arrayOf(
+        "7" to 7,
+        "22" to 22
+    )
     var hours = arrayOf(
-        arrayOf("00", 0),
-        arrayOf("0", 0),
-        arrayOf("1", 1),
-        arrayOf("8", 8),
-        arrayOf("08", 8),
-        arrayOf("23", 23)
+        "00" to 0,
+        "0" to 0,
+        "1" to 1,
+        "8" to 8,
+        "08" to 8,
+        "23" to 23
     )
     var minutes = arrayOf(
-        arrayOf("00", 0),
-        arrayOf("0", 0),
-        arrayOf("8", 8),
-        arrayOf("08", 8),
-        arrayOf("59", 59)
+        "00" to 0,
+        "0" to 0,
+        "8" to 8,
+        "08" to 8,
+        "59" to 59
     )
     var seconds = arrayOf(
-        arrayOf("00", 0.0),
-        arrayOf("0", 0.0),
-        arrayOf("8", 8.0),
-        arrayOf("08", 8.0),
-        arrayOf("59", 59.0),
-        arrayOf("1.2", 1.2),
-        arrayOf("1.23", 1.23),
-        arrayOf("1.234", 1.234),
-        arrayOf("1.23456", 1.234)
+        "00" to 0.0,
+        "0" to 0.0,
+        "8" to 8.0,
+        "08" to 8.0,
+        "59" to 59.0,
+        "1.2" to 1.2,
+        "1.23" to 1.23,
+        "1.234" to 1.234,
+        "1.23456" to 1.234
     )
     var zones = arrayOf(
-        arrayOf("", "+00:00"),
-        arrayOf("Z", "+00:00"),
-        arrayOf("z", "+00:00"),
-        arrayOf("+12", "+12:00"),
-        arrayOf("+1", "+01:00"),
-        arrayOf("-730", "-07:30"),
-        arrayOf("+1234", "+12:34"),
-        arrayOf("-12:34", "-12:34")
+        "" to "+00:00",
+        "Z" to "+00:00",
+        "z" to "+00:00",
+        "+12" to "+12:00",
+        "+1" to "+01:00",
+        "-730" to "-07:30",
+        "+1234" to "+12:34",
+        "-12:34" to "-12:34"
     )
-    var signs = arrayOf(arrayOf("", 1), arrayOf("+", 1), arrayOf("-", -1))
 
     @Test
     fun parseTimeTest() {
-        for (YY in years) for (MM in months) for (DD in days) for (hh in hours) for (mm in minutes) for (ss in seconds) for (zz in zones) {
-            val testTime = String.format(
-                "%s-%s-%sT%s:%s:%s%s",
-                YY[0], MM[0], DD[0], hh[0], mm[0], ss[0], zz[0]
-            )
-            val s = ss[1] as Double
-            val `is` = s.toInt()
-            val ns = Math.rint(1e9 * (s - `is`)).toInt()
-            val isoDateTime = String.format(
-                "%04d-%02d-%02dT%02d:%02d:%02d.%09d%s",
-                YY[1], MM[1], DD[1], hh[1], mm[1], `is`, ns, zz[1]
-            )
-            val zdt = ZonedDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
-            val expect = zdt.toInstant().toEpochMilli()
-            val result: Long = ClicsTime.parseTime(testTime).toEpochMilliseconds()
-            assertEquals(expect, result)
+        for (YY in years) for (MM in months) for (DD in days) {
+            for (hh in hours) for (mm in minutes) for (ss in seconds) for (zz in zones) {
+                val testTime = "${YY.first}-${MM.first}-${DD.first}T${hh.first}:${mm.first}:${ss.first}${zz.first}"
+                val intS = floor(ss.second).toInt()
+                val ns = round(1e9 * (ss.second - intS)).toInt()
+                val isoDateTime = String.format(
+                    "%04d-%02d-%02dT%02d:%02d:%02d.%09d%s",
+                    YY.second, MM.second, DD.second, hh.second, mm.second, intS, ns, zz.second
+                )
+                val zdt = ZonedDateTime.parse(isoDateTime, DateTimeFormatter.ISO_DATE_TIME)
+                val expect = zdt.toInstant().toEpochMilli()
+                val result: Long = parseClicsTime(testTime).toEpochMilliseconds()
+                assertEquals(expect, result)
+                val formatted = formatClicsTime(Instant.fromEpochMilliseconds(expect))
+                val parsedBack = ZonedDateTime.parse(formatted, DateTimeFormatter.ISO_DATE_TIME)
+                assertEquals(parsedBack.toInstant(), zdt.toInstant())
+            }
         }
     }
 
@@ -110,7 +118,11 @@ object ClicksTimeTest {
         "1.234" to 1.234,
         "1.23456" to 1.235
     )
-    var relSigns = arrayOf("" to 1, "+" to 1, "-" to -1)
+    var relSigns = arrayOf(
+        "" to 1,
+        "+" to 1,
+        "-" to -1
+    )
 
     @Test
     fun parseRelativeTimeTest() {
@@ -132,7 +144,7 @@ object ClicksTimeTest {
                 "%s%02d:%02d:%02d.%09d",
                 if (pp.second == 1) "+" else "-", hh.second, mm.second, `is`, ns
             )
-            val result: Long = ClicsTime.parseRelativeTime(testRelTime).toDouble(DurationUnit.MILLISECONDS).roundToLong()
+            val result: Long = parseClicsRelativeTime(testRelTime).toDouble(DurationUnit.MILLISECONDS).roundToLong()
             assertEquals(expect, result, "$testRelTime vs $isoInstant")
         }
     }
@@ -141,16 +153,16 @@ object ClicksTimeTest {
     fun durationJsonSerialisation() {
         @Serializable
         data class ObjectWithDuration(
-            @Serializable(with = ClicsTime.DurationSerializer::class)
-            val dur: Duration
+            @Serializable(with = DurationSerializer::class)
+            val dur: Duration,
         )
 
         for (pp in relSigns) for (hh in relHours) for (mm in relMinutes) for (ss in relSeconds) {
             hh.first ?: continue
             mm.first ?: continue
             val duration = (hh.second.hours + mm.second.minutes + ss.second.seconds) * pp.second
-            val durationString = ClicsTime.formatIso(duration)
-            ClicsTime.parseRelativeTime(durationString)
+            val durationString = formatClicsRelativeTime(duration)
+            parseClicsRelativeTime(durationString)
             val obj = ObjectWithDuration(duration)
             val encodedString = Json.encodeToString(obj)
             assertEquals("{\"dur\":\"$durationString\"}", encodedString)
