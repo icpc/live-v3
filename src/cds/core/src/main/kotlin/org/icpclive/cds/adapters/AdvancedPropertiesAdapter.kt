@@ -3,18 +3,15 @@
 
 package org.icpclive.cds.adapters
 
+import io.ktor.http.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import org.icpclive.api.*
-import org.icpclive.api.tunning.*
-import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.InfoUpdate
-import org.icpclive.cds.RunUpdate
+import org.icpclive.cds.*
+import org.icpclive.cds.api.*
+import org.icpclive.cds.tunning.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.humanReadable
 
@@ -25,18 +22,27 @@ private data object Trigger : AdvancedAdapterEvent
 
 internal object AdvancedPropertiesAdapter
 
-private val templateRegex = kotlin.text.Regex("\\{([a-z0-9A-Z_-]*)}")
+private val templateRegex = kotlin.text.Regex("\\{(!?[a-z0-9A-Z_-]*)}")
 
 private fun String.applyTemplate(valueProvider: (String) -> String?) =
     replace(templateRegex) { valueProvider(it.groups[1]!!.value) ?: it.value }
 
+private fun urlEncoded(block: (String) -> String?) : (String) -> String? = l@{
+    block(it.removePrefix("!"))?.run {
+        if (it.startsWith("!"))
+            this
+        else
+            encodeURLParameter()
+    }
+}
+
 private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (this) {
-    is MediaType.Photo -> copy(url = url.applyTemplate(valueProvider))
-    is MediaType.Video -> copy(url = url.applyTemplate(valueProvider))
-    is MediaType.Object -> copy(url = url.applyTemplate(valueProvider))
-    is MediaType.WebRTCProxyConnection -> copy(url = url.applyTemplate(valueProvider))
+    is MediaType.Photo -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
+    is MediaType.Video -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
+    is MediaType.Object -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
+    is MediaType.WebRTCProxyConnection -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.WebRTCGrabberConnection -> copy(
-        url = url.applyTemplate(valueProvider),
+        url = url.applyTemplate(urlEncoded(valueProvider)),
         peerName = peerName.applyTemplate(valueProvider),
         credential = credential?.applyTemplate(valueProvider)
     )
@@ -143,14 +149,19 @@ private fun <K, V> mergeMaps(original: Map<K, V>, override: Map<K, V?>) = buildM
 private fun TeamOverrideTemplate.instantiateTemplate(
     teams: List<TeamInfo>,
     valueProvider: TeamInfo.(String) -> String?,
-) = teams.associate {
-    it.contestSystemId to TeamInfoOverride(
-        hashTag = hashTag?.applyTemplate { name -> it.valueProvider(name) },
-        fullName = fullName?.applyTemplate { name -> it.valueProvider(name) },
-        displayName = displayName?.applyTemplate { name -> it.valueProvider(name) },
-        medias = medias?.mapValues { (_, v) -> v?.applyTemplate { name -> it.valueProvider(name) } }
-    )
+) = teams.associate { team ->
+    team.contestSystemId to instantiateTemplate { team.valueProvider(it) }
 }
+
+internal fun TeamOverrideTemplate.instantiateTemplate(
+    valueProvider: (String) -> String?,
+): TeamInfoOverride = TeamInfoOverride(
+    hashTag = hashTag?.applyTemplate(valueProvider),
+    fullName = fullName?.applyTemplate(valueProvider),
+    displayName = displayName?.applyTemplate(valueProvider),
+    medias = medias?.mapValues { (_, v) -> v?.applyTemplate(valueProvider) }
+)
+
 
 private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Set<Int>) = if (show != false) {
     this
