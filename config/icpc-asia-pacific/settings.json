@@ -1,0 +1,11 @@
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "login":"login",
+      "password":"password",
+      "url":"https://icpc2024-pacific-maingate.gusmachine.com/api",
+      "contestId": "3"
+    }
+  ]
+}
