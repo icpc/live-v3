@@ -5,7 +5,7 @@ import kotlinx.datetime.Instant
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.cds.ksp.Builder
+import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.settings.CDSSettings
 import kotlin.time.Duration
 

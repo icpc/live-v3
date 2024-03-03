@@ -5,9 +5,9 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.ksp.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
+import org.icpclive.ksp.cds.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.minutes
@@ -47,8 +47,10 @@ internal class ContestData(
 public sealed interface AtcoderSettings : CDSSettings {
     public val contestId: String
     public val sessionCookie: Credential
-    @Human public val startTime: Instant
-    @Seconds public val contestLength: Duration
+    @Human
+    public val startTime: Instant
+    @Seconds
+    public val contestLength: Duration
     override fun toDataSource(): ContestDataSource = AtcoderDataSource(this)
 }
 

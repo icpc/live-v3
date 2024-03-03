@@ -12,7 +12,7 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.toEmulationFlow
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.adapters.addPreviousDays
-import org.icpclive.cds.ksp.SerializerProviders
+import org.icpclive.ksp.cds.SerializerProviders
 import org.icpclive.util.postProcess
 import java.nio.file.Path
 import java.util.*

@@ -4,7 +4,7 @@ import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.ksp.Builder
+import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.jsonUrlLoader
 import org.icpclive.cds.settings.CDSSettings
 import kotlin.time.Duration.Companion.hours

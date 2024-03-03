@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.ksp.Builder
+import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.ktor.*

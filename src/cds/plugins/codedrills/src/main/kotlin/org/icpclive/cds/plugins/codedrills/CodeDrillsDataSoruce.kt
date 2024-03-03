@@ -7,7 +7,7 @@ import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.ksp.Builder
+import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
 import org.icpclive.util.getLogger

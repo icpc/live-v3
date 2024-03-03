@@ -4,13 +4,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.modules.SerializersModule
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ContestDataSource
-import org.icpclive.cds.ksp.Builder
+import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
+import org.icpclive.clics.Url
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.events.*
 import org.icpclive.util.getLogger
@@ -31,7 +31,8 @@ public class ClicsFeed(
     @Contextual public val password: Credential? = null,
     public val eventFeedName: String = "event-feed",
     public val eventFeedPath: String? = null,
-    public val feedVersion: FeedVersion = FeedVersion.`2022_07`,
+    public val urlPrefixMapping: Map<String, String> = emptyMap(),
+    public val feedVersion: FeedVersion = FeedVersion.`2023_06`,
 )
 
 @Builder("clics")
@@ -61,6 +62,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
         add(settings.eventFeedName)
     }.fold(baseUrl, UrlOrLocalPath::subDir)
     val feedVersion = settings.feedVersion
+    val urlPrefixMapping = settings.urlPrefixMapping
 }
 
 internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource {
@@ -216,13 +218,24 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
                 explicitNulls = false
-                serializersModule = SerializersModule {
-                    include(clicsEventsSerializersModule(org.icpclive.clics.FeedVersion.valueOf(settings.feedVersion.name)) {
-                        when (val path = settings.baseUrl.subDir(it)) {
-                            is UrlOrLocalPath.Local -> path.value.joinToString("/")
-                            is UrlOrLocalPath.Url -> path.value
+                serializersModule = clicsEventsSerializersModule(org.icpclive.clics.FeedVersion.valueOf(settings.feedVersion.name)) {
+                    val mapped = settings.urlPrefixMapping.entries.fold(it) { acc, (key, value) ->
+                        if (acc.startsWith(key)) {
+                            value + acc.substring(key.length)
+                        } else {
+                            acc
                         }
-                    })
+                    }
+                    if (mapped.startsWith("http://") || mapped.startsWith("https://")) {
+                        Url(mapped)
+                    } else {
+                        Url(
+                            when (val path = settings.baseUrl.subDir(it)) {
+                                is UrlOrLocalPath.Local -> path.value.joinToString("/")
+                                is UrlOrLocalPath.Url -> path.value
+                            }
+                        )
+                    }
                 }
             }
 

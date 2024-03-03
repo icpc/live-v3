@@ -175,6 +175,14 @@
             ],
             "title": "cf"
         },
+        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "string"
+                }
+            }
+        },
         "org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06>": {
             "enum": [
                 "2020_03",
@@ -182,7 +190,7 @@
                 "2023_06"
             ]
         },
-        "org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,org.icpclive.cds.plugins.clics.FeedVersion>": {
+        "org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>": {
             "type": "object",
             "properties": {
                 "url": {
@@ -202,6 +210,9 @@
                 },
                 "eventFeedPath": {
                     "type": "string"
+                },
+                "urlPrefixMapping": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
                 },
                 "feedVersion": {
                     "$ref": "#/$defs/org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06>"

@@ -1,3 +1,3 @@
-org.icpclive.cds.ksp.SerializerProvidersProvider
-org.icpclive.cds.ksp.GeneratedBuildersProvider
+org.icpclive.ksp.cds.SerializerProvidersProvider
+org.icpclive.ksp.cds.GeneratedBuildersProvider
 org.icpclive.ksp.clics.FeedVersionsProcessorProvider

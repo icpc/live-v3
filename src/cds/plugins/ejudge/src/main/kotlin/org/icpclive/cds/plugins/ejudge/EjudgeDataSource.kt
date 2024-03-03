@@ -3,7 +3,7 @@ package org.icpclive.cds.plugins.ejudge
 import kotlinx.datetime.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.ksp.Builder
+import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath

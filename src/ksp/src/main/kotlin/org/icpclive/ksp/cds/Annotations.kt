@@ -1,4 +1,4 @@
-package org.icpclive.cds.ksp
+package org.icpclive.ksp.cds
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)

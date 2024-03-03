@@ -1,8 +1,9 @@
-package org.icpclive.cds.ksp
+package org.icpclive.ksp.cds
 
 import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
+import org.icpclive.ksp.common.*
 import java.io.PrintWriter
 
 class SerializerProvidersProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
@@ -42,23 +43,17 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
                 .filterIsInstance<KSClassDeclaration>()
                 .filter { superClass -> superClass.qualifiedName?.asString() in interestingClasses }
                 .toList()
-            PrintWriter(
-                generator.createNewFile(
-                    dependencies = Dependencies(true, it.containingFile!!),
-                    packageName = packageName,
-                    fileName = "${className}Provider"
-                )
-            ).use {
-                val providers = supers
-                    .map { "${interestingClasses[it.qualifiedName?.asString()]!!}<$className>" }
-                it.println("package $packageName")
-                it.println()
-                it.println("import kotlinx.serialization.*")
-                it.println()
-                it.println("internal class ${className}Provider : ${providers.joinToString(",")} {")
-                it.println("  override val clazz = ${className}::class")
-                it.println("  override val serializer = serializer<$className>()")
-                it.println("}")
+            generator.generateFile(
+                dependencies = Dependencies(true, it.containingFile!!),
+                packageName = packageName,
+                fileName = "${className}Provider"
+            ) {
+                val providers = supers.map { "${interestingClasses[it.qualifiedName?.asString()]!!}<$className>" }
+                imports("kotlinx.serialization.*")
+                withCodeBlock("internal class ${className}Provider : ${providers.joinToString(",")}") {
+                    property(listOf(Modifier.OVERRIDE), "clazz", null, "${className}::class")
+                    property(listOf(Modifier.OVERRIDE), "serializer", null, "serializer<$className>()")
+                }
             }
             for (superClass in supers) {
                 allGeneratedFiles
