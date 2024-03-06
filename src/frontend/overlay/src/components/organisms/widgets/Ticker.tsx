@@ -185,7 +185,7 @@ export const Ticker = () => {
         {isLoaded &&
             <>
                 <SingleTicker part={"short"} color={c.TICKER_SMALL_BACKGROUND}/>
-                <SingleTicker part={"long"} color={c.SCOREBOARD_BACKGROUND_COLOR}/>
+                <SingleTicker part={"long"} color={c.TICKER_BACKGROUND}/>
             </>
         }
     </TickerWrap>;
