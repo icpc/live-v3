@@ -59,9 +59,9 @@ const ScoreboardContent = styled.div`
 
 
 export const nameTable = {
-    normal: "Current",
-    optimistic: "Optimistic",
-    pessimistic: "Pessimistic",
+    normal: c.SCOREBOARD_NORMAL_NAME,
+    optimistic: c.SCOREBOARD_OPTIMISTIC_NAME,
+    pessimistic: c.SCOREBOARD_PESSIMISTIC_NAME,
 };
 
 const ScoreboardTableRowWrap = styled.div<{needPenalty: boolean, nProblems: number}>`
@@ -287,7 +287,7 @@ export const Scoreboard = ({ widgetData: { settings } }) => {
     return <ScoreboardWrap>
         <ScoreboardHeader>
             <ScoreboardTitle>
-                {nameTable[settings.optimismLevel] ?? "??"} standings
+                {nameTable[settings.optimismLevel] ?? c.SCOREBOARD_UNDEFINED_NAME} standings
             </ScoreboardTitle>
             <ScoreboardCaption>
                 {c.SCOREBOARD_CAPTION}
