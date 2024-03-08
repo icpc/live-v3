@@ -2,12 +2,10 @@ package org.icpclive.data
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.api.*
+import org.icpclive.cds.adapters.ContestState
 import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
@@ -20,6 +18,7 @@ import org.icpclive.service.FeaturedRunAction
  */
 object DataBus {
     val contestInfoFlow = CompletableDeferred<StateFlow<ContestInfo>>()
+    val contestStateFlow = CompletableDeferred<StateFlow<ContestState>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
 

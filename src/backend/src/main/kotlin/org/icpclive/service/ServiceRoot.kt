@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import org.icpclive.Config
 import org.icpclive.api.*
 import org.icpclive.cds.*
+import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.ContestResultType
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.util.completeOrThrow
@@ -18,6 +19,7 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
     val analyticsFlow = loaded.filterIsInstance<AnalyticsUpdate>().map { it.message }
     launch {
+        DataBus.contestStateFlow.completeOrThrow(loaded.contestState().stateIn(this))
         DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this))
     }
     launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }

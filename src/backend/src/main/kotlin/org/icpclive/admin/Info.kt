@@ -1,9 +1,14 @@
 package org.icpclive.admin
 
 import kotlinx.coroutines.flow.first
-import org.icpclive.cds.api.GroupInfo
-import org.icpclive.cds.api.InefficientContestInfoApi
+import kotlinx.serialization.Required
+import kotlinx.serialization.Serializable
+import org.icpclive.api.ExternalRunInfo
+import org.icpclive.api.ExternalTeamInfo
+import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
+import org.icpclive.util.DurationInMillisecondsSerializer
+import kotlin.time.Duration
 
 @OptIn(InefficientContestInfoApi::class)
 suspend fun getTeams() = DataBus.contestInfoFlow.await().first().teamList.filterNot { it.isHidden }
@@ -16,3 +21,38 @@ suspend fun getRegions() : List<GroupInfo> {
 }
 
 suspend fun getHashtags() = getTeams().filter { it.hashTag != null }.associateBy({ it.hashTag!! }, { it.id })
+
+suspend fun getExternalRun(id: Int) : ExternalRunInfo? {
+    val state = DataBus.contestStateFlow.await().first()
+    val contestInfo = state.infoAfterEvent ?: return null
+    val runInfo = state.runs[id] ?: return null
+    return runInfo.toExternal(contestInfo)
+}
+
+private fun RunInfo.toExternal(contestInfo: ContestInfo): ExternalRunInfo? {
+    if (isHidden) return null
+    return ExternalRunInfo(
+        id = id,
+        result = result,
+        problem = contestInfo.problems[problemId] ?: return null,
+        team = contestInfo.teams[teamId]?.toExternal(contestInfo) ?: return null,
+        time = time,
+        featuredRunMedia = featuredRunMedia,
+        reactionVideos = reactionVideos,
+    )
+}
+
+private fun TeamInfo.toExternal(contestInfo: ContestInfo) : ExternalTeamInfo? {
+    if (isHidden) return null
+    return ExternalTeamInfo(
+        fullName = fullName,
+        displayName = displayName,
+        contestSystemId = contestSystemId,
+        groups = groups.mapNotNull { contestInfo.groups[it] },
+        hashTag = hashTag,
+        medias = medias,
+        isOutOfContest = isOutOfContest,
+        organization = organizationId?.let { contestInfo.organizations[organizationId] },
+        customFields = customFields
+    )
+}
