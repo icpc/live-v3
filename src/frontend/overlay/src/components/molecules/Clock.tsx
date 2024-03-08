@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import PropTypes from "prop-types";
 import { useAppSelector } from "@/redux/hooks";
+import { ContestStatus } from "@shared/api";
 
 Settings.defaultZone = "utc";
 
@@ -47,22 +48,29 @@ export const ContestClock = ({
         if (contestInfo === undefined) {
             return noStatusText;
         }
-
-        if (contestInfo.status === "BEFORE") {
+        switch (contestInfo.status) {
+        case ContestStatus.BEFORE: {
             const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs)
                 .diffNow().negate().milliseconds * (contestInfo.emulationSpeed ?? 1);
             if (contestInfo.holdBeforeStartTimeMs !== undefined) {
                 return "-" + formatTime(contestInfo.holdBeforeStartTimeMs, true);
             } else if (contestInfo.startTimeUnixMs !== undefined && milliseconds <= 0) {
                 return "-" + formatTime(-milliseconds + 1000, true);
+            } else if (contestInfo.startTimeUnixMs !== undefined && milliseconds <= 60 * 1000) {
+                // hack just in case backend is slow in sending contest state
+                return formatTime(milliseconds , true);
             }
+            return showStatus ? "BEFORE" : "";
         }
-        const milliseconds = getMilliseconds();
-        if (contestInfo.status === "RUNNING" || contestInfo.status === "BEFORE") {
+        case ContestStatus.RUNNING:
+        case ContestStatus.FAKE_RUNNING: {
+            const milliseconds = Math.min(getMilliseconds(), contestInfo.contestLengthMs);
             return formatTime(milliseconds);
         }
-
-        return showStatus ? contestInfo.status : "";
+        case ContestStatus.OVER:
+        case ContestStatus.FINALIZED:
+            return showStatus ? "OVER" : "";
+        }
     }, [contestInfo, globalTimeMode, getMilliseconds, formatTime]);
     const [status, setStatus] = useState(getStatus());
     useEffect(() => {
