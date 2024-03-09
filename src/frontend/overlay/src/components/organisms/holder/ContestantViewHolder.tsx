@@ -5,6 +5,7 @@ import { pushLog } from "@/redux/debug";
 import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
 import { useAppDispatch } from "@/redux/hooks";
 import { MediaType } from "@shared/api";
+import c from "../../../config";
 
 // export const TeamImageWrapper = styled.img /*`
 //   // border-radius: ${({ borderRadius }) => borderRadius};
@@ -21,6 +22,11 @@ import { MediaType } from "@shared/api";
 //   border-radius: ${({ borderRadius }) => borderRadius};
 // `*/;
 
+export const VideoWrapper = styled.video`
+  position: absolute;
+  width: 100%;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
+`;
 
 export const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded, ...props }) => {
     const dispatch = useAppDispatch();
@@ -53,7 +59,7 @@ export const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded, ...props }) => {
 
         return () => rtcRef.current?.close();
     }, [url]);
-    return (<video
+    return (<VideoWrapper
         ref={videoRef}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
         onLoadedData={() => {
@@ -96,7 +102,7 @@ export const TeamWebRTCGrabberVideoWrapper = ({ media: { url, peerName, streamTy
         };
     }, [url, peerName, streamType]);
 
-    return (<video
+    return (<VideoWrapper
         ref={videoRef}
         onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
@@ -160,7 +166,7 @@ const teamViewComponentRender: {
     },
     Video: ({ onLoadStatus, className, media }) => {
         return <FullWidthWrapper className={className}>
-            <video
+            <VideoWrapper
                 src={media.url}
                 onCanPlay={() => onLoadStatus(true)}
                 onError={() => onLoadStatus(false)}
