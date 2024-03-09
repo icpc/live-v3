@@ -287,7 +287,7 @@ export const Scoreboard = ({ widgetData: { settings } }) => {
     return <ScoreboardWrap>
         <ScoreboardHeader>
             <ScoreboardTitle>
-                {nameTable[settings.optimismLevel] ?? c.SCOREBOARD_UNDEFINED_NAME} standings
+                {nameTable[settings.optimismLevel] ?? c.SCOREBOARD_UNDEFINED_NAME} {c.SCOREBOARD_STANDINGS_NAME}
             </ScoreboardTitle>
             <ScoreboardCaption>
                 {c.SCOREBOARD_CAPTION}
