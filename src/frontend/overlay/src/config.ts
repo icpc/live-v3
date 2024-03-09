@@ -1,4 +1,8 @@
 // Strings
+import { dynamicFavicon } from "@shared/dynamicFavicon";
+import { isShouldUseDarkColor } from "@/utils/colors";
+import { faviconTemplate } from "@/consts";
+
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
 const VISUAL_CONFIG_URL = import.meta.env.VITE_VISUAL_CONFIG_URL ?? `${window.location.protocol}//${window.location.hostname}:${WS_PORT}/api/overlay/visualConfig.json`;
@@ -207,5 +211,9 @@ config.CELL_INFO_VERDICT_WIDTH= "100px"; // css property
 
 // layers (z-indexes)
 config.QUEUE_BASIC_ZINDEX = 20;
+
+dynamicFavicon(faviconTemplate
+    .replaceAll("{CONTEST_COLOR}", config_["CONTEST_COLOR"])
+    .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(config_["CONTEST_COLOR"]) ? "#000000" : "#FFFFFF"));
 
 export default config_;
