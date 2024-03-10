@@ -18,10 +18,8 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     val loaded = loader.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
     val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
     val analyticsFlow = loaded.filterIsInstance<AnalyticsUpdate>().map { it.message }
-    launch {
-        DataBus.contestStateFlow.completeOrThrow(loaded.contestState().stateIn(this))
-        DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this))
-    }
+    launch { DataBus.contestStateFlow.completeOrThrow(loaded.contestState().stateIn(this)) }
+    launch { DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this)) }
     launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }
     launch {
         when (DataBus.contestInfoFlow.await().value.resultType) {
