@@ -31,7 +31,7 @@ export const VideoWrapper = styled.video`
 
 export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
     const dispatch = useAppDispatch();
-    const videoRef = useRef();
+    const videoRef = useRef<HTMLVideoElement>();
     useEffect(() => {
         setIsLoaded(false);
         if (videoRef.current) {
@@ -46,7 +46,11 @@ export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
                 player.destroy();
             };
         }
-        return () => {};
+        return ()  => {
+            if (videoRef.current) {
+                videoRef.current.srcObject = null;
+            }
+        }
     }, [url]);
     return (<VideoWrapper
         ref={videoRef}
