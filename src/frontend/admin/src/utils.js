@@ -116,7 +116,7 @@ export const isShouldUseDarkColor = (backgroundColor) => {
     return brightness > 125;
 };
 
-export const dynamicFavicon = (svg) => {
+export const setFavicon = (svg) => {
     const link = document.createElement("link");
     link.type = "image/x-icon";
     link.rel = "shortcut icon";
