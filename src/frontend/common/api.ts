@@ -98,23 +98,29 @@ export enum ScoreMergeMode {
 }
 
 export type MediaType =
+  | MediaType.M2tsVideo
   | MediaType.Object
   | MediaType.Photo
   | MediaType.TaskStatus
   | MediaType.Video
-  | MediaType.M2tsVideo
   | MediaType.WebRTCGrabberConnection
   | MediaType.WebRTCProxyConnection;
 
 export namespace MediaType {
   export enum Type {
+    M2tsVideo = "M2tsVideo",
     Object = "Object",
     Photo = "Photo",
     TaskStatus = "TaskStatus",
     Video = "Video",
-    M2tsVideo = "M2tsVideo",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
+  }
+  
+  export interface M2tsVideo {
+    type: MediaType.Type.M2tsVideo;
+    url: string;
+    isMedia?: boolean;
   }
   
   export interface Object {
@@ -137,12 +143,6 @@ export namespace MediaType {
   
   export interface Video {
     type: MediaType.Type.Video;
-    url: string;
-    isMedia?: boolean;
-  }
-
-  export interface M2tsVideo {
-    type: MediaType.Type.M2tsVideo;
     url: string;
     isMedia?: boolean;
   }

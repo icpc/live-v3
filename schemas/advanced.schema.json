@@ -1,6 +1,27 @@
 {
     "$ref": "#/$defs/ICPC live advanced settings",
     "$defs": {
+        "M2tsVideo": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "M2tsVideo",
+                    "default": "M2tsVideo"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "isMedia": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "M2tsVideo"
+        },
         "Object": {
             "type": "object",
             "properties": {
@@ -144,6 +165,9 @@
         },
         "org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>": {
             "oneOf": [
+                {
+                    "$ref": "#/$defs/M2tsVideo"
+                },
                 {
                     "$ref": "#/$defs/Object"
                 },
