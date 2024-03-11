@@ -19,6 +19,7 @@ import org.icpclive.cds.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow
+import java.io.IOException
 import java.nio.file.Files
 
 fun Route.configureAdminApiRouting() {
@@ -98,7 +99,11 @@ fun Route.configureAdminApiRouting() {
 
         route("/advancedJson") {
             get {
-                call.respondFile(Config.cdsSettings.advancedJsonPath.toFile())
+                try {
+                    call.respondFile(Config.cdsSettings.advancedJsonPath.toFile())
+                } catch (e: IOException) {
+                    call.respondText("{}")
+                }
             }
             post {
                 call.adminApiAction {
