@@ -39,7 +39,7 @@ private fun urlEncoded(block: (String) -> String?) : (String) -> String? = l@{
 private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (this) {
     is MediaType.Photo -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.Video -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
-    is MediaType.M2tsVideo -> copy(url = url.applyTemplate(valueProvider))
+    is MediaType.M2tsVideo -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.Object -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.WebRTCProxyConnection -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.WebRTCGrabberConnection -> copy(
