@@ -14,11 +14,11 @@ export const useLocalStorageState = (key, defaultValue) => {
 };
 
 export const createApiPost = (apiUrl) =>
-    function (path, body = {}, method = "POST") {
+    function (path, body = {}, method = "POST", sendRaw = false) {
         const requestOptions = {
             method: method,
-            headers: { "Content-Type": "application/json" },
-            body:  method === "GET" ? undefined : JSON.stringify(body),
+            headers: { "Content-Type": sendRaw ? "text/plain" : "application/json" },
+            body:  method === "GET" ? undefined : (sendRaw ? body : JSON.stringify(body)),
         };
         return fetch(apiUrl + path, requestOptions)
             .then(response => response.json())
@@ -30,13 +30,13 @@ export const createApiPost = (apiUrl) =>
             });
     };
 export const createApiGet = (apiUrl) =>
-    function (path, body = undefined) {
+    function (path, body = undefined, rawText = false) {
         const requestOptions = {
             headers: { "Content-Type": "application/json" },
             body:  body !== undefined ? JSON.stringify(body) : undefined,
         };
         return fetch(apiUrl + path, requestOptions)
-            .then(response => response.json());
+            .then(response => rawText ? response.text() : response.json());
     };
 
 export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
