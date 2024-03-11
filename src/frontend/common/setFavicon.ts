@@ -1,4 +1,4 @@
-export const dynamicFavicon = (svg: string) => {
+export const setFavicon = (svg: string) => {
     const link = document.createElement("link");
     link.type = "image/x-icon";
     link.rel = "shortcut icon";

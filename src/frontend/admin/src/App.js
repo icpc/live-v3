@@ -15,7 +15,7 @@ import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 import Analytics from "./components/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight";
-import { createApiGet, dynamicFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
+import { createApiGet, setFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
 import FullScreenClockManager from "./components/FullScreenClockManager";
 import AdvancedJson from "./components/AdvancedJson";
 import MediaFiles from "./components/MediaFiles";
@@ -75,7 +75,7 @@ function App() {
             .then(c => {
                 if (c["CONTEST_COLOR"]) {
                     setContestColor(c["CONTEST_COLOR"]);
-                    dynamicFavicon(faviconTemplate
+                    setFavicon(faviconTemplate
                         .replaceAll("{CONTEST_COLOR}", c["CONTEST_COLOR"])
                         .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(contestColor) ? "#000000" : "#FFFFFF"));
                 }

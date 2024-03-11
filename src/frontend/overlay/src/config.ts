@@ -1,5 +1,5 @@
 // Strings
-import { dynamicFavicon } from "@shared/dynamicFavicon";
+import { setFavicon } from "@shared/setFavicon";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { faviconTemplate } from "@/consts";
 
@@ -212,7 +212,7 @@ config.CELL_INFO_VERDICT_WIDTH= "100px"; // css property
 // layers (z-indexes)
 config.QUEUE_BASIC_ZINDEX = 20;
 
-dynamicFavicon(faviconTemplate
+setFavicon(faviconTemplate
     .replaceAll("{CONTEST_COLOR}", config_["CONTEST_COLOR"])
     .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(config_["CONTEST_COLOR"]) ? "#000000" : "#FFFFFF"));
 
