@@ -63,7 +63,7 @@ jobs:
           automatic_release_tag: "v${{ github.event.inputs.version }}"
           draft: ${{ github.event.inputs.draft }}
           files: |
-            artifacts/*.jar
+            artifacts/*
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
