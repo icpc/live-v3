@@ -117,7 +117,6 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
             ProblemInfo(
                 fullName = it.title,
                 displayName = it.title.substringBefore('.'),
-                id = it.id,
                 ordinal = index,
                 contestSystemId = it.id.toString()
             )
@@ -159,7 +158,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
             RunInfo(
                 id = it.id,
                 result = getRunResult(it.res, it.status) ?: RunResult.InProgress(0.0),
-                problemId = it.taskId,
+                problemId = it.taskId.toString(),
                 teamId = it.teamId,
                 time = parseNSUTime(it.smtime) - startTime
             )

@@ -113,7 +113,6 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         .withResolverStyle(ResolverStyle.STRICT)
         .withChronology(IsoChronology.INSTANCE)
 
-    private val problemIds = Enumerator<String>()
     private val teamIds = Enumerator<String>()
     private val runIds = Enumerator<String>()
 
@@ -196,7 +195,6 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                 ProblemInfo(
                     displayName = ('A'.code + it.index - 1).toChar().toString(),
                     fullName = it.statement?.title ?: "",
-                    id = problemIds[it.id],
                     ordinal = it.index,
                     contestSystemId = it.id,
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
@@ -230,7 +228,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                             ContestResultType.ICPC -> verdict?.toICPCRunResult()
                             ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
                         } ?: RunResult.InProgress(0.0),
-                        problemId = problemIds[it.problem!!.id],
+                        problemId = it.problem!!.id,
                         teamId = teamIds[it.participant!!.id],
                         time = parseTime(it.submittedAt) - contestInfo.startTime,
                         isHidden = it.deleted

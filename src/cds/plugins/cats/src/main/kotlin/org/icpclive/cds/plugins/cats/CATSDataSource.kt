@@ -156,7 +156,6 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     displayName = problem.code,
                     fullName = problem.name,
                     color = null,
-                    id = problem.id,
                     ordinal = index,
                     contestSystemId = problem.id.toString(),
                     minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
@@ -223,7 +222,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                 RunInfo(
                     id = it.id,
                     result = result,
-                    problemId = it.problem_id,
+                    problemId = it.problem_id.toString(),
                     teamId = it.team_id,
                     time = it.submit_time - startTime
                 )

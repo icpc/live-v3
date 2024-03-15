@@ -28,7 +28,7 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
         var lastAccepted = Duration.ZERO
         val runsByProblem = runs.groupBy { it.problemId }
         val problemResults = info.scoreboardProblems.map { problem ->
-            val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
+            val problemRuns = runsByProblem.getOrElse(problem.contestSystemId) { emptyList() }
             val (runsBeforeFirstOk, okRun) = info.run {
                 val okRunIndex = problemRuns
                     .withIndex()

@@ -106,7 +106,7 @@ object PCMSExporter {
         row.problemResults.forEachIndexed { index, probResult ->
             val probNode = createChild("problem")
             val problemInfo = info.scoreboardProblems[index]
-            val problemRuns = (runsByProblem[problemInfo.id] ?: emptyList())
+            val problemRuns = (runsByProblem[problemInfo.contestSystemId] ?: emptyList())
             val isAcceptedInt = if ((probResult as ICPCProblemResult).isSolved) 1 else 0
             probNode.setAttribute("accepted", isAcceptedInt.toString())
             probNode.setAttribute("attempts", (probResult.wrongAttempts + isAcceptedInt).toString())

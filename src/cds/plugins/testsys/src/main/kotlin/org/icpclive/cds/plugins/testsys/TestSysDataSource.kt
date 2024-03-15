@@ -44,7 +44,6 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
             ProblemInfo(
                 displayName = letter,
                 fullName = name,
-                id = index,
                 ordinal = index,
                 contestSystemId = letter,
             ) to penalty.toInt()
@@ -68,7 +67,6 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         }
         val isCEPenalty = data["@comment"]?.contains("@pragma IgnoreCE") != true
         val problems = problemsWithPenalty.map { it.first }
-        val problemIdMap = problems.associate { it.contestSystemId to it.id }
         val teamIdMap = teams.associate { it.contestSystemId to it.id }
         val contestInfo = ContestInfo(
             name = data["@contest"]!!.single(),
@@ -97,7 +95,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                         else -> true
                     }
                 ).takeIf { verdict != "FZ" }?.toICPCRunResult() ?: RunResult.InProgress(0.0),
-                problemId = problemIdMap[problemId]!!,
+                problemId = problemId,
                 teamId = teamIdMap[teamId]!!,
                 time = time.toInt().seconds,
             )

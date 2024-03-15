@@ -20,7 +20,7 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
         )
         val runsByProblem = runs.groupBy { it.problemId }
         val problemResults = info.scoreboardProblems.map { problem ->
-            val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
+            val problemRuns = runsByProblem.getOrElse(problem.contestSystemId) { emptyList() }
             val finalRunIndex = problemRuns.indexOfLast { it.result is RunResult.IOI && it.result.difference != 0.0 }
             val finalRun = if (finalRunIndex == -1) null else problemRuns[finalRunIndex]
             if (finalRun != null) {

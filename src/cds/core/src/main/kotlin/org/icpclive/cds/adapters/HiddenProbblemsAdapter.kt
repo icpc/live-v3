@@ -18,7 +18,7 @@ public fun Flow<ContestUpdate>.processHiddenProblems(): Flow<ContestUpdate> =
             else
                 original
         },
-        { new: ContestInfo, old: ContestInfo?, key: Int ->
+        { new: ContestInfo, old: ContestInfo?, key: String ->
             new.problems[key]?.isHidden != old?.problems?.get(key)?.isHidden
         }
     ).map { it.event }

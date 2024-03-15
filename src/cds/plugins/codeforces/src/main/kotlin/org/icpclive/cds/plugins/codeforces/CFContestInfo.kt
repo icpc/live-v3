@@ -9,6 +9,8 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 
+private const val HACKS_PROBLEM_ID = "hacks"
+
 internal class CFContestInfo {
     private var contestLength: Duration = 5.hours
     private var startTime: Instant = Instant.fromEpochMilliseconds(0)
@@ -43,7 +45,6 @@ internal class CFContestInfo {
                 val problemInfo = ProblemInfo(
                     displayName = problem.index,
                     fullName = problem.name!!,
-                    id = id,
                     ordinal = id,
                     contestSystemId = id.toString(),
                     minScore = if (problem.points != null) 0.0 else null,
@@ -61,9 +62,8 @@ internal class CFContestInfo {
                 val hacksInfo = ProblemInfo(
                     displayName = "*",
                     fullName = "Hacks",
-                    id = -1,
                     ordinal = -1,
-                    contestSystemId = "hacks",
+                    contestSystemId = HACKS_PROBLEM_ID,
                     minScore = null,
                     maxScore = null,
                     scoreMergeMode = ScoreMergeMode.SUM,
@@ -186,7 +186,7 @@ internal class CFContestInfo {
             .mapValues { (_, submissions) ->
                 var wrongs = 0
                 submissions.sortedBy { it.id }.map {
-                    val problemId = problemsMap[it.problem.index]!!.id
+                    val problemId = problemsMap[it.problem.index]!!.contestSystemId
                     val problemTests = problemTestsCount[it.problem.index]!!
                     val result = submissionToResult(it, wrongs)
                     val run = RunInfo(
@@ -225,7 +225,7 @@ internal class CFContestInfo {
                                     wrongVerdict = Verdict.CompilationError,
                                 )
                             },
-                            problemId = -1,
+                            problemId = HACKS_PROBLEM_ID,
                             teamId = participantsByCdsId[getTeamCdsId(hack.hacker)]!!.id,
                             time = hack.creationTimeSeconds - startTime
                         )
@@ -240,7 +240,7 @@ internal class CFContestInfo {
                                 wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else Verdict.Accepted,
                             ),
                             isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
-                            problemId = problemsMap[hack.problem.index]!!.id,
+                            problemId = problemsMap[hack.problem.index]!!.contestSystemId,
                             teamId = participantsByCdsId[getTeamCdsId(hack.defender)]!!.id,
                             time = hack.creationTimeSeconds - startTime
                         )

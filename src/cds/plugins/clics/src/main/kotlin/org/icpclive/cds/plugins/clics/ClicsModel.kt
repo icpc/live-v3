@@ -6,7 +6,6 @@ import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.plugins.clics.model.ClicsOrganisationInfo
 import org.icpclive.clics.v202207.*
 import org.icpclive.util.Enumerator
-import java.awt.Color
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -18,7 +17,6 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     private val teams = mutableMapOf<String, Team>()
     private val submissionToId = Enumerator<String>()
     private val teamToId = Enumerator<String>()
-    private val problemToId = Enumerator<String>()
     private val submissions = mutableMapOf<String, Submission>()
     private val submissionJudgmentIds = mutableMapOf<String, MutableSet<String>>()
     private val judgements = mutableMapOf<String, Judgement>()
@@ -101,7 +99,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
                     isAddingPenalty = judgementType.isAddingPenalty,
                 ).toICPCRunResult()
             },
-            problemId = problemToId[problem_id],
+            problemId = problem_id,
             teamId = teamToId[team_id],
             time = contest_time,
             reactionVideos = reaction?.mapNotNull { it.mediaType() } ?: emptyList(),
@@ -111,7 +109,6 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     private fun Problem.toApi() = ProblemInfo(
         displayName = label,
         fullName = name,
-        id = problemToId[id],
         ordinal = ordinal,
         contestSystemId = id,
         color = rgb

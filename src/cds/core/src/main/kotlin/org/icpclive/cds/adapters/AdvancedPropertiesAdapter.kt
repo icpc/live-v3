@@ -367,7 +367,6 @@ private fun mergeProblems(
     ProblemInfo(
         displayName = override.displayName ?: problem.displayName,
         fullName = override.fullName ?: problem.fullName,
-        id = problem.id,
         ordinal = override.ordinal ?: problem.ordinal,
         contestSystemId = problem.contestSystemId,
         minScore = override.minScore ?: problem.minScore,
