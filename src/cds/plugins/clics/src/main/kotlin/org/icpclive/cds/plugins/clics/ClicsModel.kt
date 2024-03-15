@@ -107,10 +107,10 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     }
 
     private fun Problem.toApi() = ProblemInfo(
+        id = id,
         displayName = label,
         fullName = name,
         ordinal = ordinal,
-        contestSystemId = id,
         color = rgb
     )
 

@@ -153,13 +153,13 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             .asSequence()
             .mapIndexed { index, problem ->
                 ProblemInfo(
+                    id = problem.id.toString(),
                     displayName = problem.code,
                     fullName = problem.name,
-                    color = null,
                     ordinal = index,
-                    contestSystemId = problem.id.toString(),
                     minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (settings.resultType == ContestResultType.IOI) problem.max_points else null,
+                    color = null,
                     scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
                 )
             }

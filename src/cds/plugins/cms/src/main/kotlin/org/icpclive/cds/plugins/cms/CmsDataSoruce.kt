@@ -38,28 +38,28 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             val problems = tasksLoader.load().entries.groupBy { it.value.contest }.mapValues {
                 it.value.map { (k, v) ->
                     ProblemInfo(
+                        id = k,
                         displayName = v.short_name,
                         fullName = v.name,
-                        contestSystemId = k,
                         ordinal = 0,
+                        minScore = 0.0,
+                        maxScore = v.max_score,
                         scoreMergeMode = when (v.score_mode) {
                             ScoreMode.max -> ScoreMergeMode.MAX_TOTAL
                             ScoreMode.max_subtask -> ScoreMergeMode.MAX_PER_GROUP
-                        },
-                        minScore = 0.0,
-                        maxScore = v.max_score
+                        }
                     )
                 }
             }
             for (other in settings.otherContests) {
                 for (p in problems[other] ?: emptyList()) {
                     add(p.copy(ordinal = size))
-                    finishedContestsProblems.add(p.contestSystemId)
+                    finishedContestsProblems.add(p.id)
                 }
             }
             for (p in problems[settings.activeContest] ?: emptyList()) {
                 add(p.copy(ordinal = size))
-                runningContestProblems.add(p.contestSystemId)
+                runningContestProblems.add(p.id)
             }
         }
         val organizations = teamsLoader.load().map { (k, v) ->

@@ -40,10 +40,10 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         .child("problems")
         .children().mapIndexed { index, element ->
             ProblemInfo(
+                id = element.getAttribute("id"),
                 displayName = element.getAttribute("short_name"),
                 fullName = element.getAttribute("long_name"),
                 ordinal = index,
-                contestSystemId = element.getAttribute("id"),
                 minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
                 maxScore = if (settings.resultType == ContestResultType.IOI) 100.0 else null,
                 scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null

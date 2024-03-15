@@ -91,7 +91,7 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
                 },
                 problemList = settings.problemIds.mapIndexed { index, id ->
                     ProblemInfo(
-                        contestSystemId = id.toString(),
+                        id = id.toString(),
                         displayName = "",
                         fullName = "",
                         ordinal = index

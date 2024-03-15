@@ -8,10 +8,10 @@ import org.icpclive.cds.plugins.yandex.api.Problem
 import kotlin.time.Duration.Companion.seconds
 
 private fun Problem.toApi(index: Int, resultType: ContestResultType) = ProblemInfo(
+    id = id,
     displayName = alias,
     fullName = name,
     ordinal = index,
-    contestSystemId = id,
     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
     maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null

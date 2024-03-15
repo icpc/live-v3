@@ -74,10 +74,10 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
+                    id = it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias"),
                     displayName = it.getAttribute("alias"),
                     fullName = it.getAttribute("name"),
                     ordinal = index,
-                    contestSystemId = it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias"),
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
                     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_PER_GROUP else null
