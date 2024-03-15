@@ -16,8 +16,8 @@ private fun RunInfo.setFTS(value: Boolean) = when (result) {
 }
 
 private sealed class RunType {
-    data class ICPCBest(val problemId: String) : RunType()
-    data class IOIBest(val problemId: String) : RunType()
+    data class ICPCBest(val problemId: ProblemId) : RunType()
+    data class IOIBest(val problemId: ProblemId) : RunType()
     data object NotBest : RunType()
 }
 
@@ -49,8 +49,6 @@ public fun Flow<ContestUpdate>.addFirstToSolves(): Flow<ContestUpdate> = withGro
                 val bestRun = runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
                 runs.map { it.setFTS(it == bestRun) }
             }
-
-            else -> TODO()
         }
     }
 ).map { it.event }

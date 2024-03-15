@@ -25,8 +25,8 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
     val teamIdToNewTeamId = mutableMapOf<Int, Int?>()
     val teamIdToCdsTeamId = mutableMapOf<Int, String>()
 
-    fun problemId(day: Int, id: String) = if (day < previousDays.size)
-        "d${day+1}.$id"
+    fun problemId(day: Int, id: ProblemId) = if (day < previousDays.size)
+        ProblemId("d${day+1}.${id.value}")
     else
         id
 

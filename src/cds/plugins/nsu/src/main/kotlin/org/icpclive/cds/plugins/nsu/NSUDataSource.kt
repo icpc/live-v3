@@ -115,7 +115,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
 
         val problemsList: List<ProblemInfo> = tasks.mapIndexed { index, it ->
             ProblemInfo(
-                id = it.id.toString(),
+                id = ProblemId(it.id.toString()),
                 displayName = it.title.substringBefore('.'),
                 fullName = it.title,
                 ordinal = index
@@ -158,7 +158,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
             RunInfo(
                 id = it.id,
                 result = getRunResult(it.res, it.status) ?: RunResult.InProgress(0.0),
-                problemId = it.taskId.toString(),
+                problemId = ProblemId(it.taskId.toString()),
                 teamId = it.teamId,
                 time = parseNSUTime(it.smtime) - startTime
             )

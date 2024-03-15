@@ -48,7 +48,7 @@ export interface AwardsSettings {
 }
 
 export interface ProblemInfo {
-  id: string;
+  id: ProblemId;
   letter: string;
   name: string;
   ordinal: number;
@@ -87,6 +87,8 @@ export interface OrganizationInfo {
   fullName: string;
   logo: MediaType | null;
 }
+
+export type ProblemId = string;
 
 export enum ScoreMergeMode {
   MAX_PER_GROUP = "MAX_PER_GROUP",
@@ -201,7 +203,7 @@ export enum MedalTiebreakMode {
 export interface RunInfo {
   id: number;
   result: RunResult;
-  problemId: string;
+  problemId: ProblemId;
   teamId: number;
   time: number;
   featuredRunMedia: MediaType | null;

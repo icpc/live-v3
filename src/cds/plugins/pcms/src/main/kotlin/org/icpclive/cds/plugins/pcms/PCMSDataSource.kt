@@ -74,7 +74,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
-                    id = it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias"),
+                    id = ProblemId(it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias")),
                     displayName = it.getAttribute("alias"),
                     fullName = it.getAttribute("name"),
                     ordinal = index,
@@ -189,7 +189,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                     verdict?.toICPCRunResult()
                 }
             } ?: RunResult.InProgress(0.0),
-            problemId = problemId,
+            problemId = ProblemId(problemId),
             teamId = teamId,
             time = time,
         )

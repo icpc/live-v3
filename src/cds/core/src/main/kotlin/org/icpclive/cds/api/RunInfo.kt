@@ -10,7 +10,7 @@ import kotlin.time.Duration
 public data class RunInfo(
     val id: Int,
     val result: RunResult,
-    val problemId: String,
+    val problemId: ProblemId,
     val teamId: Int,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,

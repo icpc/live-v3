@@ -11,7 +11,7 @@ import org.icpclive.cds.api.*
 private fun RunInfo.shouldDiscloseColor() = (result as? RunResult.ICPC)?.verdict?.isAccepted == true && !isHidden
 
 @OptIn(InefficientContestInfoApi::class)
-private fun ContestInfo.applyColors(problems: Set<Pair<String, Boolean?>>): ContestInfo {
+private fun ContestInfo.applyColors(problems: Set<Pair<ProblemId, Boolean?>>): ContestInfo {
     val newProblemList = problemList.map {
         if ((it.id to true) in problems || it.unsolvedColor == null) {
             it
