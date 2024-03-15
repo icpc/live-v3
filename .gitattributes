@@ -1,2 +1,5 @@
 *.js text eol=lf
 *.dat text eol=crlf
+
+*.sh text eol=lf
+*.bat text eol=crlf
