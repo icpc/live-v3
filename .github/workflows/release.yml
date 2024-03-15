@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Name of release
+        description: Name of release (without 'v')
         required: true
       publish:
         type: boolean
