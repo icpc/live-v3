@@ -98,9 +98,9 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
         val contest = scoreboard.scoreboard.contest
         val problems = scoreboard.scoreboard.problemList.mapIndexed { index, problem ->
             ProblemInfo(
+                id = problem.id.toString(),
                 displayName = problem.index,
                 fullName = problem.title,
-                contestSystemId = problem.id.toString(),
                 ordinal = index
             )
         }

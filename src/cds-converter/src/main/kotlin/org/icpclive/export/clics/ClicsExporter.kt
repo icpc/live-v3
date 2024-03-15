@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.minutes
 typealias EventProducer = (String) -> Event
 
 private fun ProblemInfo.toClicsProblem() = Problem(
-    id = contestSystemId,
+    id = id,
     ordinal = ordinal,
     label = displayName,
     name = fullName,
@@ -265,7 +265,7 @@ object ClicsExporter  {
                 updateEvent(language.id, language, Event::LanguageEvent)
             }
         }
-        diff(problemsMap, newInfo.problemList, ProblemInfo::contestSystemId, ProblemInfo::toClicsProblem, Event::ProblemEvent)
+        diff(problemsMap, newInfo.problemList, ProblemInfo::id, ProblemInfo::toClicsProblem, Event::ProblemEvent)
         diffChange(groupsMap, newInfo.groupList, GroupInfo::cdsId, GroupInfo::toClicsGroup, Event::GroupsEvent)
         diffChange(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, OrganizationInfo::toClicsOrg, Event::OrganizationEvent)
 
@@ -465,7 +465,7 @@ object ClicsExporter  {
                 row.problemResults.mapIndexed { index, v ->
                     val iv = v as ICPCProblemResult
                     ScoreboardRowProblem(
-                        info.scoreboardProblems[index].contestSystemId,
+                        info.scoreboardProblems[index].id,
                         iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
                         iv.pendingAttempts,
                         iv.isSolved,
@@ -482,7 +482,7 @@ object ClicsExporter  {
         }
         for ((index, problem) in info.scoreboardProblems.withIndex()) {
             add(Award(
-                "first-to-solve-${problem.contestSystemId}",
+                "first-to-solve-${problem.id}",
                 "First to solve problem ${problem.displayName}",
                 scoreboardSnapshot.rows.entries
                     .filter { (it.value.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }

@@ -13,7 +13,7 @@ private fun RunInfo.shouldDiscloseColor() = (result as? RunResult.ICPC)?.verdict
 @OptIn(InefficientContestInfoApi::class)
 private fun ContestInfo.applyColors(problems: Set<Pair<String, Boolean?>>): ContestInfo {
     val newProblemList = problemList.map {
-        if ((it.contestSystemId to true) in problems || it.unsolvedColor == null) {
+        if ((it.id to true) in problems || it.unsolvedColor == null) {
             it
         } else {
             it.copy(color = it.unsolvedColor)

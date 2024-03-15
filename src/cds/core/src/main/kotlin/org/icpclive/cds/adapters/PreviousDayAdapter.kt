@@ -35,7 +35,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
         for (problem in info.problemList.sortedBy { it.ordinal }) {
             allProblems.add(problem.copy(
                 ordinal = allProblems.size,
-                contestSystemId = problemId(index, problem.contestSystemId)
+                id = problemId(index, problem.id)
             ))
         }
         for (run in state.runs.values) {
@@ -61,7 +61,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                 val info = update.newInfo
                 val newProblems = info.problemList.sortedBy { it.ordinal }.mapIndexed { index, problem ->
                     problem.copy(
-                        contestSystemId = problemId(previousDays.size, problem.contestSystemId),
+                        id = problemId(previousDays.size, problem.id),
                         ordinal = allProblems.size + index
                     )
                 }

@@ -115,10 +115,10 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
 
         val problemsList: List<ProblemInfo> = tasks.mapIndexed { index, it ->
             ProblemInfo(
-                fullName = it.title,
+                id = it.id.toString(),
                 displayName = it.title.substringBefore('.'),
-                ordinal = index,
-                contestSystemId = it.id.toString()
+                fullName = it.title,
+                ordinal = index
             )
         }
 

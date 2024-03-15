@@ -101,10 +101,10 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         val data = loader.load()
         val problems = data.TaskInfo.mapIndexed { index, task ->
             ProblemInfo(
+                id = task.TaskScreenName,
                 displayName = task.Assignment,
                 fullName = task.TaskName,
                 ordinal = index,
-                contestSystemId = task.TaskScreenName,
                 minScore = 0.0,
                 maxScore = (data.StandingsData.maxOfOrNull { it.TaskResults[task.TaskScreenName]?.Score ?: 0 } ?: 0) / 100.0,
                 scoreMergeMode = ScoreMergeMode.LAST_OK

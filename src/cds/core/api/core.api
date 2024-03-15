@@ -1029,27 +1029,25 @@ public final class org/icpclive/cds/api/PenaltyRoundingMode$Companion {
 
 public final class org/icpclive/cds/api/ProblemInfo {
 	public static final field Companion Lorg/icpclive/cds/api/ProblemInfo$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;Z)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Lorg/icpclive/cds/api/ScoreMergeMode;
-	public final fun component11 ()Z
+	public final fun component10 ()Z
 	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()I
+	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()I
-	public final fun component5 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/Double;
 	public final fun component6 ()Ljava/lang/Double;
-	public final fun component7 ()Ljava/lang/Double;
+	public final fun component7 ()Ljava/awt/Color;
 	public final fun component8 ()Ljava/awt/Color;
-	public final fun component9 ()Ljava/awt/Color;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;Z)Lorg/icpclive/cds/api/ProblemInfo;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ProblemInfo;Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ProblemInfo;
+	public final fun component9 ()Lorg/icpclive/cds/api/ScoreMergeMode;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;Z)Lorg/icpclive/cds/api/ProblemInfo;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ProblemInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/awt/Color;Ljava/awt/Color;Lorg/icpclive/cds/api/ScoreMergeMode;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ProblemInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor ()Ljava/awt/Color;
-	public final fun getContestSystemId ()Ljava/lang/String;
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getFullName ()Ljava/lang/String;
-	public final fun getId ()I
+	public final fun getId ()Ljava/lang/String;
 	public final fun getMaxScore ()Ljava/lang/Double;
 	public final fun getMinScore ()Ljava/lang/Double;
 	public final fun getOrdinal ()I
@@ -1088,22 +1086,22 @@ public final class org/icpclive/cds/api/ProblemResult$Companion {
 
 public final class org/icpclive/cds/api/RunInfo {
 	public static final field Companion Lorg/icpclive/cds/api/RunInfo$Companion;
-	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;IIJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;IIJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()I
 	public final fun component2 ()Lorg/icpclive/cds/api/RunResult;
-	public final fun component3 ()I
+	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()I
 	public final fun component5-UwyO8pc ()J
 	public final fun component6 ()Lorg/icpclive/cds/api/MediaType;
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Z
-	public final fun copy-Zb7fWow (ILorg/icpclive/cds/api/RunResult;IIJLorg/icpclive/cds/api/MediaType;Ljava/util/List;Z)Lorg/icpclive/cds/api/RunInfo;
-	public static synthetic fun copy-Zb7fWow$default (Lorg/icpclive/cds/api/RunInfo;ILorg/icpclive/cds/api/RunResult;IIJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
+	public final fun copy-Zb7fWow (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;Z)Lorg/icpclive/cds/api/RunInfo;
+	public static synthetic fun copy-Zb7fWow$default (Lorg/icpclive/cds/api/RunInfo;ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFeaturedRunMedia ()Lorg/icpclive/cds/api/MediaType;
 	public final fun getId ()I
-	public final fun getProblemId ()I
+	public final fun getProblemId ()Ljava/lang/String;
 	public final fun getReactionVideos ()Ljava/util/List;
 	public final fun getResult ()Lorg/icpclive/cds/api/RunResult;
 	public final fun getTeamId ()I

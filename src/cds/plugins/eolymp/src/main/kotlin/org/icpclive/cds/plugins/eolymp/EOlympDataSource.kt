@@ -193,10 +193,10 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
             freezeTime = result.duration.seconds - (result.scoreboard?.freezingTime?.seconds ?: ZERO),
             problemList = result.problems!!.nodes.map {
                 ProblemInfo(
+                    id = it.id,
                     displayName = ('A'.code + it.index - 1).toChar().toString(),
                     fullName = it.statement?.title ?: "",
                     ordinal = it.index,
-                    contestSystemId = it.id,
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (resultType == ContestResultType.IOI) it.score else null,
                     scoreMergeMode = if (resultType == ContestResultType.IOI) {
