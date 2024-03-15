@@ -205,7 +205,6 @@ object ClicsExporter  {
 
     private val submissionsCreated = mutableSetOf<Int>()
     private var teamIdToCdsId = mapOf<Int, String>()
-    private var problemIdToCdsId = mapOf<Int, String>()
 
     private suspend fun FlowCollector<EventProducer>.processRun(info: ContestInfo, run: RunInfo) {
         if (run.id !in submissionsCreated) {
@@ -215,7 +214,7 @@ object ClicsExporter  {
                 Submission(
                     id = run.id.toString(),
                     language_id = unknownLanguage.id,
-                    problem_id = problemIdToCdsId[run.problemId]!!,
+                    problem_id = run.problemId,
                     team_id = teamIdToCdsId[run.teamId]!!,
                     time = info.startTime + run.time,
                     contest_time = run.time,
@@ -254,7 +253,6 @@ object ClicsExporter  {
 
     @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
-        problemIdToCdsId = newInfo.problemList.associate { it.id to it.contestSystemId }
         teamIdToCdsId = newInfo.teamList.associate { it.id to it.contestSystemId }
 
         diff(oldInfo, newInfo, ::getContest, Event::ContestEvent)

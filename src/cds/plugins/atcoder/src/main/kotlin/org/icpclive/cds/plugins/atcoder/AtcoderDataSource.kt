@@ -55,7 +55,6 @@ public sealed interface AtcoderSettings : CDSSettings {
 
 internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {
     private val teamIds = Enumerator<String>()
-    private val problemIds = Enumerator<String>()
     private val loader = jsonLoader<ContestData>(
         settings.network,
         ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)
@@ -64,9 +63,9 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
     }
 
     private var submissionId: Int = 1
-    val runs = mutableMapOf<Pair<Int, Int>, List<RunInfo>>()
+    val runs = mutableMapOf<Pair<Int, String>, List<RunInfo>>()
 
-    private fun addNewRuns(teamId: Int, problemId: Int, result: AtcoderTaskResult): List<RunInfo> {
+    private fun addNewRuns(teamId: Int, problemId: String, result: AtcoderTaskResult): List<RunInfo> {
         val oldRuns = (runs[teamId to problemId] ?: emptyList()).toMutableList()
         repeat(result.Count - oldRuns.size) {
             oldRuns.add(
@@ -104,7 +103,6 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
             ProblemInfo(
                 displayName = task.Assignment,
                 fullName = task.TaskName,
-                id = problemIds[task.TaskScreenName],
                 ordinal = index,
                 contestSystemId = task.TaskScreenName,
                 minScore = 0.0,
@@ -144,8 +142,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         val newRuns = buildList {
             for (teamResult in data.StandingsData) {
                 val teamId = teamIds[teamResult.UserScreenName]
-                for ((problemCdsId, problemResult) in teamResult.TaskResults) {
-                    val problemId = problemIds[problemCdsId]
+                for ((problemId, problemResult) in teamResult.TaskResults) {
                     runs[teamId to problemId] = addNewRuns(teamId, problemId, problemResult).also {
                         addAll(it)
                     }

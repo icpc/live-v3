@@ -43,7 +43,6 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     private val resultType = settings.resultType
     private val runIds = Enumerator<String>()
     private val teamIds = Enumerator<String>()
-    private val problemIds = Enumerator<String>()
     private var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -77,7 +76,6 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 ProblemInfo(
                     displayName = it.getAttribute("alias"),
                     fullName = it.getAttribute("name"),
-                    id = problemIds[it.getAttribute("alias")],
                     ordinal = index,
                     contestSystemId = it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias"),
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
@@ -140,7 +138,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 parseProblemRuns(
                     problem,
                     team.id,
-                    problemIds[problem.getAttribute("alias")],
+                    problem.getAttribute("alias"),
                     contestTime
                 )
             }.toList()
@@ -150,7 +148,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     private fun parseProblemRuns(
         element: Element,
         teamId: Int,
-        problemId: Int,
+        problemId: String,
         contestTime: Duration,
     ): Sequence<RunInfo> {
         return element.children()
@@ -161,7 +159,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     private fun parseRunInfo(
         element: Element,
         teamId: Int,
-        problemId: Int,
+        problemId: String,
         index: Int
     ): RunInfo {
         val time = element.getAttribute("time").toLong().milliseconds

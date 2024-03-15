@@ -29,7 +29,6 @@ public sealed interface EjudgeSettings : CDSSettings {
 }
 
 internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
-    private val problemIds = Enumerator<String>()
     private val runsIds = Enumerator<String>()
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -43,7 +42,6 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             ProblemInfo(
                 displayName = element.getAttribute("short_name"),
                 fullName = element.getAttribute("long_name"),
-                id = problemIds[element.getAttribute("id")],
                 ordinal = index,
                 contestSystemId = element.getAttribute("id"),
                 minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
@@ -174,7 +172,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                     }
                 }
             },
-            problemId = problemIds[problemId],
+            problemId = problemId,
             teamId = teamId,
             time = time,
         )

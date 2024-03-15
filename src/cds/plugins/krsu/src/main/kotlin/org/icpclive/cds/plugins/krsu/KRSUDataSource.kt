@@ -35,9 +35,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             ProblemInfo(
                 displayName = "" + ('A' + index),
                 fullName = "" + ('A' + index),
-                id = it.Problem,
                 ordinal = index,
-                contestSystemId = index.toString(),
+                contestSystemId = it.Problem.toString(),
             )
         }
 //        val problemById = problemsList.associateBy { it.id }
@@ -66,7 +65,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             RunInfo(
                 id = it.Id,
                 result?.toICPCRunResult() ?: RunResult.InProgress(0.0),
-                problemId = it.Problem,
+                problemId = it.Problem.toString(),
                 teamId = teams[it.Login]?.id ?: -1,
                 time = (it.ReceivedTime.toInstant(settings.timeZone)) - startTime,
             )

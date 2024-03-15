@@ -26,7 +26,6 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
     private val usersLoader = jsonUrlLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/" }
     private val submissionsLoader = jsonUrlLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/" }
     private val subchangesLoader = jsonUrlLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/" }
-    private val problemId = Enumerator<String>()
     private val teamId = Enumerator<String>()
     private val submissionId = Enumerator<String>()
 
@@ -41,7 +40,6 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                     ProblemInfo(
                         displayName = v.short_name,
                         fullName = v.name,
-                        id = problemId[k],
                         contestSystemId = k,
                         ordinal = 0,
                         scoreMergeMode = when (v.score_mode) {
@@ -113,7 +111,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             RunInfo(
                 id = submissionId[k],
                 result = RunResult.InProgress(0.0),
-                problemId = problemId[v.task],
+                problemId = v.task,
                 teamId = teamId[v.user],
                 time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO
             )
