@@ -2,6 +2,7 @@ package org.icpclive.util
 
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.*
@@ -75,6 +76,27 @@ public object UnixSecondsSerializer : KSerializer<Instant> {
     }
 }
 
+public abstract class FormatterInstantSerializer(private val formatter: DateTimeFormat<DateTimeComponents>) : KSerializer<Instant> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Instant", PrimitiveKind.STRING)
+    override fun serialize(encoder: Encoder, value: Instant) {
+        encoder.encodeString(value.format(formatter, TimeZone.currentSystemDefault()))
+    }
+    override fun deserialize(decoder: Decoder): Instant {
+        return Instant.parse(decoder.decodeString(), formatter)
+    }
+}
+
+public abstract class FormatterLocalDateSerializer(private val formatter: DateTimeFormat<LocalDateTime>) : KSerializer<LocalDateTime> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalDateTime", PrimitiveKind.STRING)
+    override fun serialize(encoder: Encoder, value: LocalDateTime) {
+        encoder.encodeString(formatter.format(value))
+    }
+    override fun deserialize(decoder: Decoder): LocalDateTime {
+        return formatter.parse(decoder.decodeString())
+    }
+}
+
+
 public object HumanTimeSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantH", PrimitiveKind.STRING)
 
@@ -120,6 +142,9 @@ public object TimeZoneSerializer : KSerializer<TimeZone> {
         }
     }
 }
+
+public fun Instant.format(formatter: DateTimeFormat<DateTimeComponents>, timeZone: TimeZone): String =
+    format(formatter, timeZone.offsetAt(this))
 
 public val Instant.humanReadable: String
     get() = Date(this.toEpochMilliseconds()).toString()

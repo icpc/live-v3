@@ -5,7 +5,8 @@ package org.icpclive.clics.v202003
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import org.icpclive.clics.ClicsTime
+import org.icpclive.clics.time.InstantSerializer
+import org.icpclive.clics.time.DurationSerializer
 import org.icpclive.util.ColorSerializer
 import org.icpclive.util.DurationInMinutesSerializer
 import java.awt.Color
@@ -26,15 +27,15 @@ public enum class Operation {
 @Serializable
 public data class Contest(
     val id: String,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val start_time: Instant? = null,
     val name: String? = null,
     val formal_name: String? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val duration: Duration,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val scoreboard_freeze_duration: Duration?,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val countdown_pause_time: Duration? = null,
     @Serializable(with = DurationInMinutesSerializer::class)
     val penalty_time: Duration? = null,
@@ -164,9 +165,9 @@ public data class Submission(
     val language_id: String? = null,
     val problem_id: String? = null,
     val team_id: String? = null,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val time: Instant? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val contest_time: Duration? = null,
     val reaction: List<Media>? = null,
 ) {
@@ -186,13 +187,13 @@ public data class Judgement(
     val id: String,
     val submission_id: String? = null,
     val judgement_type_id: String? = null,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val start_time: Instant? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val start_contest_time: Duration? = null,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val end_time: Instant? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val end_contest_time: Duration? = null,
 ) {
     public fun upgrade(): org.icpclive.clics.v202207.Judgement = org.icpclive.clics.v202207.Judgement(
@@ -212,7 +213,7 @@ public data class Run(
     val judgement_id: String? = null,
     val ordinal: Int? = null,
     val judgement_type_id: String? = null,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val contest_time: Duration? = null,
 ) {
     public fun upgrade(): org.icpclive.clics.v202207.Run = org.icpclive.clics.v202207.Run(
@@ -226,19 +227,19 @@ public data class Run(
 
 @Serializable
 public data class State(
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val ended: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val frozen: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val thawed: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val started: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val unfrozen: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val finalized: Instant?,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val end_of_updates: Instant?,
 ) {
     public fun upgrade(): org.icpclive.clics.v202207.State = org.icpclive.clics.v202207.State(
@@ -255,9 +256,9 @@ public data class State(
 @Serializable
 public data class Commentary(
     val id: String,
-    @Serializable(with = ClicsTime.InstantSerializer::class)
+    @Serializable(with = InstantSerializer::class)
     val time: Instant,
-    @Serializable(with = ClicsTime.DurationSerializer::class)
+    @Serializable(with = DurationSerializer::class)
     val contest_time: Duration,
     val message: String,
     val team_ids: List<String>?,
