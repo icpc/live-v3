@@ -43,10 +43,10 @@ public enum class ScoreMergeMode {
 
 @Serializable
 public data class ProblemInfo(
+    val id: String,
     @SerialName("letter") val displayName: String,
     @SerialName("name") val fullName: String,
     val ordinal: Int,
-    val contestSystemId: String,
     @Required val minScore: Double? = null,
     @Required val maxScore: Double? = null,
     @Required @Serializable(ColorSerializer::class) val color: Color? = null,
@@ -335,6 +335,6 @@ public data class ContestInfo(
     val teams: Map<Int, TeamInfo> by lazy { teamList.associateBy { it.id } }
     val cdsTeams: Map<String, TeamInfo> by lazy { teamList.associateBy { it.contestSystemId } }
     val organizations: Map<String, OrganizationInfo> by lazy { organizationList.associateBy { it.cdsId } }
-    val problems: Map<String, ProblemInfo> by lazy { problemList.associateBy { it.contestSystemId } }
+    val problems: Map<String, ProblemInfo> by lazy { problemList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
 }

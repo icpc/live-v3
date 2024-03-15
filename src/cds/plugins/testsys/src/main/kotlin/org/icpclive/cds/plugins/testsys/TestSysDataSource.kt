@@ -42,10 +42,10 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
+                id = letter,
                 displayName = letter,
                 fullName = name,
                 ordinal = index,
-                contestSystemId = letter,
             ) to penalty.toInt()
         }
         val penalty = problemsWithPenalty.map { it.second }.distinct().takeIf { it.size <= 1 }

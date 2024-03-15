@@ -48,11 +48,10 @@ export interface AwardsSettings {
 }
 
 export interface ProblemInfo {
+  id: string;
   letter: string;
   name: string;
-  id: number;
   ordinal: number;
-  contestSystemId: string;
   minScore: number | null;
   maxScore: number | null;
   color: string | null;
@@ -202,7 +201,7 @@ export enum MedalTiebreakMode {
 export interface RunInfo {
   id: number;
   result: RunResult;
-  problemId: number;
+  problemId: string;
   teamId: number;
   time: number;
   featuredRunMedia: MediaType | null;

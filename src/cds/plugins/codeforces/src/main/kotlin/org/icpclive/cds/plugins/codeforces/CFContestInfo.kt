@@ -43,10 +43,10 @@ internal class CFContestInfo {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(
+                    id = id.toString(),
                     displayName = problem.index,
                     fullName = problem.name!!,
                     ordinal = id,
-                    contestSystemId = id.toString(),
                     minScore = if (problem.points != null) 0.0 else null,
                     maxScore = problem.points,
                     scoreMergeMode = when (contestType) {
@@ -60,10 +60,10 @@ internal class CFContestInfo {
             }
             if (contestType == CFContestType.CF) {
                 val hacksInfo = ProblemInfo(
+                    id = HACKS_PROBLEM_ID,
                     displayName = "*",
                     fullName = "Hacks",
                     ordinal = -1,
-                    contestSystemId = HACKS_PROBLEM_ID,
                     minScore = null,
                     maxScore = null,
                     scoreMergeMode = ScoreMergeMode.SUM,
@@ -186,7 +186,7 @@ internal class CFContestInfo {
             .mapValues { (_, submissions) ->
                 var wrongs = 0
                 submissions.sortedBy { it.id }.map {
-                    val problemId = problemsMap[it.problem.index]!!.contestSystemId
+                    val problemId = problemsMap[it.problem.index]!!.id
                     val problemTests = problemTestsCount[it.problem.index]!!
                     val result = submissionToResult(it, wrongs)
                     val run = RunInfo(
@@ -240,7 +240,7 @@ internal class CFContestInfo {
                                 wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else Verdict.Accepted,
                             ),
                             isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
-                            problemId = problemsMap[hack.problem.index]!!.contestSystemId,
+                            problemId = problemsMap[hack.problem.index]!!.id,
                             teamId = participantsByCdsId[getTeamCdsId(hack.defender)]!!.id,
                             time = hack.creationTimeSeconds - startTime
                         )

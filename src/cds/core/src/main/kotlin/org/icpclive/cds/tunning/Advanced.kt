@@ -229,7 +229,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             )
         },
         problemOverrides = problemList.associate {
-            it.contestSystemId to ProblemInfoOverride(
+            it.id to ProblemInfoOverride(
                 displayName = it.displayName.takeIfAsked("problemDisplayName"),
                 fullName = it.fullName.takeIfAsked("problemFullName"),
                 color = it.color.takeIfAsked("color"),

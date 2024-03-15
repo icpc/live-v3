@@ -361,14 +361,14 @@ private fun mergeProblems(
 ) = mergeOverrides(
     problems,
     overrides,
-    ProblemInfo::contestSystemId,
+    ProblemInfo::id,
     unusedMessage = { "No problem for override: $it" }
 ) { problem, override ->
     ProblemInfo(
+        id = problem.id,
         displayName = override.displayName ?: problem.displayName,
         fullName = override.fullName ?: problem.fullName,
         ordinal = override.ordinal ?: problem.ordinal,
-        contestSystemId = problem.contestSystemId,
         minScore = override.minScore ?: problem.minScore,
         maxScore = override.maxScore ?: problem.maxScore,
         color = override.color ?: problem.color,
