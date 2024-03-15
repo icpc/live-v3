@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.minutes
 typealias EventProducer = (String) -> Event
 
 private fun ProblemInfo.toClicsProblem() = Problem(
-    id = id,
+    id = id.value,
     ordinal = ordinal,
     label = displayName,
     name = fullName,
@@ -104,7 +104,7 @@ object ClicsExporter  {
 
     private val languages = listOf(unknownLanguage)
 
-    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(id: String, data: T, block : (String, String, T?) -> Event) = emit {
+    private suspend fun <ID, T> FlowCollector<EventProducer>.updateEvent(id: ID, data: T, block : (ID, String, T?) -> Event) = emit {
         block(id, it, data)
     }
 
@@ -122,26 +122,26 @@ object ClicsExporter  {
         penalty_time = info.penaltyPerWrongAttempt,
     )
 
-    private suspend fun <T, CT> FlowCollector<EventProducer>.diffChange(
-        old: MutableMap<String, T>,
+    private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diffChange(
+        old: MutableMap<ID, T>,
         new: List<T>,
-        id: T.() -> String,
-        convert: (T) -> CT,
-        toFinalEvent: (String, String, CT?) -> Event
+        id: T.() -> ID,
+        convert: T.() -> CT,
+        toFinalEvent: (ID, String, CT?) -> Event
     ) {
         for (n in new) {
             if (old[n.id()] != n) {
-                updateEvent(n.id(), convert(n), toFinalEvent)
+                updateEvent(n.id(), n.convert(), toFinalEvent)
                 old[n.id()] = n
             }
         }
     }
 
-    private suspend fun <T, CT> FlowCollector<EventProducer>.diffRemove(
-        old: MutableMap<String, T>,
+    private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diffRemove(
+        old: MutableMap<ID, T>,
         new: List<T>,
-        id: T.() -> String,
-        toFinalEvent: (String, String, CT?) -> Event
+        id: T.() -> ID,
+        toFinalEvent: (ID, String, CT?) -> Event
     ) {
         val values = new.map { it.id() }.toSet()
         for (k in old.keys) {
@@ -151,12 +151,12 @@ object ClicsExporter  {
         }
     }
 
-    private suspend fun <T, CT> FlowCollector<EventProducer>.diff(
-        old: MutableMap<String, T>,
+    private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diff(
+        old: MutableMap<ID, T>,
         new: List<T>,
-        id: T.() -> String,
-        convert: (T) -> CT,
-        toFinalEvent: (String, String, CT?) -> Event
+        id: T.() -> ID,
+        convert: T.() -> CT,
+        toFinalEvent: (ID, String, CT?) -> Event
     ) {
         diffChange(old, new, id, convert, toFinalEvent)
         diffRemove(old, new, id, toFinalEvent)
@@ -214,7 +214,7 @@ object ClicsExporter  {
                 Submission(
                     id = run.id.toString(),
                     language_id = unknownLanguage.id,
-                    problem_id = run.problemId,
+                    problem_id = run.problemId.value,
                     team_id = teamIdToCdsId[run.teamId]!!,
                     time = info.startTime + run.time,
                     contest_time = run.time,
@@ -248,7 +248,7 @@ object ClicsExporter  {
 
     private val groupsMap = mutableMapOf<String, GroupInfo>()
     private val orgsMap = mutableMapOf<String, OrganizationInfo>()
-    private val problemsMap = mutableMapOf<String, ProblemInfo>()
+    private val problemsMap = mutableMapOf<ProblemId, ProblemInfo>()
     private val teamsMap = mutableMapOf<String, TeamInfo>()
 
     @OptIn(InefficientContestInfoApi::class)
@@ -265,7 +265,7 @@ object ClicsExporter  {
                 updateEvent(language.id, language, Event::LanguageEvent)
             }
         }
-        diff(problemsMap, newInfo.problemList, ProblemInfo::id, ProblemInfo::toClicsProblem, Event::ProblemEvent)
+        diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> Event.ProblemEvent(id.value, token, data) }
         diffChange(groupsMap, newInfo.groupList, GroupInfo::cdsId, GroupInfo::toClicsGroup, Event::GroupsEvent)
         diffChange(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, OrganizationInfo::toClicsOrg, Event::OrganizationEvent)
 
@@ -356,7 +356,7 @@ object ClicsExporter  {
             awardsMap,
             it,
             Award::id,
-            { it },
+            { this },
             Event::AwardsEvent
         )
     }.map { it("live-cds-award-${awardEventId}") }
@@ -465,7 +465,7 @@ object ClicsExporter  {
                 row.problemResults.mapIndexed { index, v ->
                     val iv = v as ICPCProblemResult
                     ScoreboardRowProblem(
-                        info.scoreboardProblems[index].id,
+                        info.scoreboardProblems[index].id.value,
                         iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
                         iv.pendingAttempts,
                         iv.isSolved,

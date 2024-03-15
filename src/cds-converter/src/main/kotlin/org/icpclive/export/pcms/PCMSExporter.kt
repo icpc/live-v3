@@ -110,7 +110,7 @@ object PCMSExporter {
             val isAcceptedInt = if ((probResult as ICPCProblemResult).isSolved) 1 else 0
             probNode.setAttribute("accepted", isAcceptedInt.toString())
             probNode.setAttribute("attempts", (probResult.wrongAttempts + isAcceptedInt).toString())
-            probNode.setAttribute("id", problemInfo.id)
+            probNode.setAttribute("id", problemInfo.id.value)
             probNode.setAttribute("alias", problemInfo.displayName)
             probNode.setAttribute("time", (probResult.lastSubmitTime ?: Duration.ZERO).inWholeMilliseconds.toString())
             probNode.setAttribute("penalty", (if (probResult.isSolved) {

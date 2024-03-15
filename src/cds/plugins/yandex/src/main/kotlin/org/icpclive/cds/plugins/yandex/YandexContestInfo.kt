@@ -8,7 +8,7 @@ import org.icpclive.cds.plugins.yandex.api.Problem
 import kotlin.time.Duration.Companion.seconds
 
 private fun Problem.toApi(index: Int, resultType: ContestResultType) = ProblemInfo(
-    id = id,
+    id = ProblemId(id),
     displayName = alias,
     fullName = name,
     ordinal = index,
@@ -59,7 +59,7 @@ internal class YandexContestInfo(
         return RunInfo(
             id = submission.id.toInt(),
             result = result,
-            problemId = submission.problemId,
+            problemId = ProblemId(submission.problemId),
             teamId = submission.authorId.toInt(),
             time = submission.timeFromStart,
         )

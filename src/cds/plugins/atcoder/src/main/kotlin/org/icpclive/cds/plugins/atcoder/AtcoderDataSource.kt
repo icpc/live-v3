@@ -72,7 +72,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
                 RunInfo(
                     id = submissionId++,
                     result = RunResult.InProgress(0.0),
-                    problemId = problemId,
+                    problemId = ProblemId(problemId),
                     teamId = teamId,
                     time = minOf(settings.contestLength, Clock.System.now() - settings.startTime)
                 )
@@ -101,7 +101,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         val data = loader.load()
         val problems = data.TaskInfo.mapIndexed { index, task ->
             ProblemInfo(
-                id = task.TaskScreenName,
+                id = ProblemId(task.TaskScreenName),
                 displayName = task.Assignment,
                 fullName = task.TaskName,
                 ordinal = index,

@@ -40,7 +40,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         .child("problems")
         .children().mapIndexed { index, element ->
             ProblemInfo(
-                id = element.getAttribute("id"),
+                id = ProblemId(element.getAttribute("id")),
                 displayName = element.getAttribute("short_name"),
                 fullName = element.getAttribute("long_name"),
                 ordinal = index,
@@ -172,7 +172,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                     }
                 }
             },
-            problemId = problemId,
+            problemId = ProblemId(problemId),
             teamId = teamId,
             time = time,
         )

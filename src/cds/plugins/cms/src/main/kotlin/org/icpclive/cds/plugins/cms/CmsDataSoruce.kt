@@ -38,7 +38,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             val problems = tasksLoader.load().entries.groupBy { it.value.contest }.mapValues {
                 it.value.map { (k, v) ->
                     ProblemInfo(
-                        id = k,
+                        id = ProblemId(k),
                         displayName = v.short_name,
                         fullName = v.name,
                         ordinal = 0,
@@ -54,12 +54,12 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             for (other in settings.otherContests) {
                 for (p in problems[other] ?: emptyList()) {
                     add(p.copy(ordinal = size))
-                    finishedContestsProblems.add(p.id)
+                    finishedContestsProblems.add(p.id.value)
                 }
             }
             for (p in problems[settings.activeContest] ?: emptyList()) {
                 add(p.copy(ordinal = size))
-                runningContestProblems.add(p.id)
+                runningContestProblems.add(p.id.value)
             }
         }
         val organizations = teamsLoader.load().map { (k, v) ->
@@ -111,7 +111,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             RunInfo(
                 id = submissionId[k],
                 result = RunResult.InProgress(0.0),
-                problemId = v.task,
+                problemId = ProblemId(v.task),
                 teamId = teamId[v.user],
                 time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO
             )

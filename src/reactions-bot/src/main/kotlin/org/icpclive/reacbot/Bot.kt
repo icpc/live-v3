@@ -74,7 +74,7 @@ class Bot(
                     if (sendAdditionalInfo) {
                         val ci = runBlocking { contestInfo.await().value }
                         ci.teams[reaction.teamId]?.let { team ->
-                            ci.problems[reaction.problemId]?.let { problem ->
+                            ci.problems[ProblemId(reaction.problemId)]?.let { problem ->
                                 caption = "${team.fullName}, problem ${problem.displayName}"
                             }
                         }
@@ -111,7 +111,7 @@ class Bot(
     }
 
     private fun processReaction(scope: CoroutineScope, run: RunInfo, reactionUrl: String) {
-        val reaction = storage.addReactions(run.teamId, run.problemId, run.id,
+        val reaction = storage.addReactions(run.teamId, run.problemId.value, run.id,
             (run.result as? RunResult.ICPC)?.verdict?.isAccepted == true, reactionUrl)
         if (reaction.telegramFileId == null && reaction.id.value !in alreadyProcessedReactionIds) {
             alreadyProcessedReactionIds.add(reaction.id.value)

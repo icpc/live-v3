@@ -42,7 +42,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
-                id = letter,
+                id = ProblemId(letter),
                 displayName = letter,
                 fullName = name,
                 ordinal = index,
@@ -95,7 +95,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                         else -> true
                     }
                 ).takeIf { verdict != "FZ" }?.toICPCRunResult() ?: RunResult.InProgress(0.0),
-                problemId = problemId,
+                problemId = ProblemId(problemId),
                 teamId = teamIdMap[teamId]!!,
                 time = time.toInt().seconds,
             )
