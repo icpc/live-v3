@@ -41,9 +41,15 @@ public enum class ScoreMergeMode {
     SUM
 }
 
+@JvmInline
+@Serializable
+public value class ProblemId(public val value: String) {
+    override fun toString(): String = value
+}
+
 @Serializable
 public data class ProblemInfo(
-    val id: String,
+    val id: ProblemId,
     @SerialName("letter") val displayName: String,
     @SerialName("name") val fullName: String,
     val ordinal: Int,
@@ -335,6 +341,6 @@ public data class ContestInfo(
     val teams: Map<Int, TeamInfo> by lazy { teamList.associateBy { it.id } }
     val cdsTeams: Map<String, TeamInfo> by lazy { teamList.associateBy { it.contestSystemId } }
     val organizations: Map<String, OrganizationInfo> by lazy { organizationList.associateBy { it.cdsId } }
-    val problems: Map<String, ProblemInfo> by lazy { problemList.associateBy { it.id } }
+    val problems: Map<ProblemId, ProblemInfo> by lazy { problemList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
 }

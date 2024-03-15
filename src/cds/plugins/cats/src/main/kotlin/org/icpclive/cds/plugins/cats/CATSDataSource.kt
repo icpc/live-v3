@@ -153,7 +153,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             .asSequence()
             .mapIndexed { index, problem ->
                 ProblemInfo(
-                    id = problem.id.toString(),
+                    id = ProblemId(problem.id.toString()),
                     displayName = problem.code,
                     fullName = problem.name,
                     ordinal = index,
@@ -222,7 +222,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                 RunInfo(
                     id = it.id,
                     result = result,
-                    problemId = it.problem_id.toString(),
+                    problemId = ProblemId(it.problem_id.toString()),
                     teamId = it.team_id,
                     time = it.submit_time - startTime
                 )

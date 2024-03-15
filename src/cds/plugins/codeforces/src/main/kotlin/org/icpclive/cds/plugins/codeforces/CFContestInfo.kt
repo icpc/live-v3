@@ -9,7 +9,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 
-private const val HACKS_PROBLEM_ID = "hacks"
+private val HACKS_PROBLEM_ID = ProblemId("hacks")
 
 internal class CFContestInfo {
     private var contestLength: Duration = 5.hours
@@ -43,7 +43,7 @@ internal class CFContestInfo {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(
-                    id = id.toString(),
+                    id = ProblemId(id.toString()),
                     displayName = problem.index,
                     fullName = problem.name!!,
                     ordinal = id,

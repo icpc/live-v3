@@ -99,7 +99,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
                     isAddingPenalty = judgementType.isAddingPenalty,
                 ).toICPCRunResult()
             },
-            problemId = problem_id,
+            problemId = ProblemId(problem_id),
             teamId = teamToId[team_id],
             time = contest_time,
             reactionVideos = reaction?.mapNotNull { it.mediaType() } ?: emptyList(),
@@ -107,7 +107,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     }
 
     private fun Problem.toApi() = ProblemInfo(
-        id = id,
+        id = ProblemId(id),
         displayName = label,
         fullName = name,
         ordinal = ordinal,

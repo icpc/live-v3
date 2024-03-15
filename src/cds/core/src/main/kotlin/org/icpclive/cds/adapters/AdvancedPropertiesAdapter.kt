@@ -361,7 +361,7 @@ private fun mergeProblems(
 ) = mergeOverrides(
     problems,
     overrides,
-    ProblemInfo::id,
+    { id.value },
     unusedMessage = { "No problem for override: $it" }
 ) { problem, override ->
     ProblemInfo(

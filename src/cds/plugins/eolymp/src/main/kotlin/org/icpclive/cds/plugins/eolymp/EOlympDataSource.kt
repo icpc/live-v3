@@ -193,7 +193,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
             freezeTime = result.duration.seconds - (result.scoreboard?.freezingTime?.seconds ?: ZERO),
             problemList = result.problems!!.nodes.map {
                 ProblemInfo(
-                    id = it.id,
+                    id = ProblemId(it.id),
                     displayName = ('A'.code + it.index - 1).toChar().toString(),
                     fullName = it.statement?.title ?: "",
                     ordinal = it.index,
@@ -228,7 +228,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                             ContestResultType.ICPC -> verdict?.toICPCRunResult()
                             ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
                         } ?: RunResult.InProgress(0.0),
-                        problemId = it.problem!!.id,
+                        problemId = ProblemId(it.problem!!.id),
                         teamId = teamIds[it.participant!!.id],
                         time = parseTime(it.submittedAt) - contestInfo.startTime,
                         isHidden = it.deleted

@@ -33,7 +33,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
 
         val problemsList = contest.ProblemSet.mapIndexed { index, it ->
             ProblemInfo(
-                id = it.Problem.toString(),
+                id = ProblemId(it.Problem.toString()),
                 displayName = "" + ('A' + index),
                 fullName = "" + ('A' + index),
                 ordinal = index,
@@ -65,7 +65,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             RunInfo(
                 id = it.Id,
                 result?.toICPCRunResult() ?: RunResult.InProgress(0.0),
-                problemId = it.Problem.toString(),
+                problemId = ProblemId(it.Problem.toString()),
                 teamId = teams[it.Login]?.id ?: -1,
                 time = (it.ReceivedTime.toInstant(settings.timeZone)) - startTime,
             )

@@ -98,7 +98,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
         val contest = scoreboard.scoreboard.contest
         val problems = scoreboard.scoreboard.problemList.mapIndexed { index, problem ->
             ProblemInfo(
-                id = problem.id.toString(),
+                id = ProblemId(problem.id.toString()),
                 displayName = problem.index,
                 fullName = problem.title,
                 ordinal = index
@@ -148,7 +148,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
             RunInfo(
                 id = it.id,
                 result = verdict,
-                problemId = it.problemId.toString(),
+                problemId = ProblemId(it.problemId.toString()),
                 teamId = memberIdToTeam[it.submittedBy]!!,
                 time = time,
             )
