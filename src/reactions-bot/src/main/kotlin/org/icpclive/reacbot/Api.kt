@@ -7,7 +7,7 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 
 object Reactions : IntIdTable() {
     val teamId = Reactions.integer("teamId")
-    val problemId = Reactions.integer("problemId")
+    val problemId = Reactions.varchar("problemId", 100)
     val runId = Reactions.integer("runID")
     val isOk = Reactions.bool("isOk")
     val fileName = Reactions.varchar("fileName", 200)

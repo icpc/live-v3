@@ -14,7 +14,7 @@ class Storage {
         }
     }
 
-    fun addReactions(teamId: Int, problemId: Int, runId: Int, isOk: Boolean, fileName: String): Reaction =
+    fun addReactions(teamId: Int, problemId: String, runId: Int, isOk: Boolean, fileName: String): Reaction =
         transaction(connection) {
             return@transaction Reaction.wrapRow(
                 Reactions.selectAll().where { Reactions.fileName eq fileName }.singleOrNull<ResultRow>()

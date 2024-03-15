@@ -100,7 +100,6 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
             ProblemInfo(
                 displayName = problem.index,
                 fullName = problem.title,
-                id = problem.id,
                 contestSystemId = problem.id.toString(),
                 ordinal = index
             )
@@ -149,7 +148,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
             RunInfo(
                 id = it.id,
                 result = verdict,
-                problemId = it.problemId,
+                problemId = it.problemId.toString(),
                 teamId = memberIdToTeam[it.submittedBy]!!,
                 time = time,
             )

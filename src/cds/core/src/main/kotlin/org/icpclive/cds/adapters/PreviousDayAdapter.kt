@@ -17,7 +17,6 @@ import kotlin.time.Duration
 @OptIn(InefficientContestInfoApi::class)
 @JvmName("addPreviousDaysResults")
 public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>): Flow<ContestUpdate> {
-    val problemsEnumerator = Enumerator<Pair<Int, Int>>()
     val teamsEnumerator = Enumerator<String>()
     val runsEnumerator = Enumerator<Pair<Int, Int>>()
 
@@ -26,19 +25,24 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
     val teamIdToNewTeamId = mutableMapOf<Int, Int?>()
     val teamIdToCdsTeamId = mutableMapOf<Int, String>()
 
+    fun problemId(day: Int, id: String) = if (day < previousDays.size)
+        "d${day+1}.$id"
+    else
+        id
+
     for ((index, state) in previousDays.withIndex()) {
         val info = state.infoAfterEvent!!
         for (problem in info.problemList.sortedBy { it.ordinal }) {
             allProblems.add(problem.copy(
-                id = problemsEnumerator[index to problem.id],
-                ordinal = allProblems.size
+                ordinal = allProblems.size,
+                contestSystemId = problemId(index, problem.contestSystemId)
             ))
         }
         for (run in state.runs.values) {
             allRuns.add(run.copy(
                     id = runsEnumerator[index to run.id],
                     time = Duration.ZERO,
-                    problemId = problemsEnumerator[index to run.problemId],
+                    problemId = problemId(index,run.problemId),
                     teamId = teamsEnumerator[info.teams[run.teamId]!!.contestSystemId].also {
                         teamIdToNewTeamId[it] = null
                         teamIdToCdsTeamId[it] = info.teams[run.teamId]!!.contestSystemId
@@ -57,7 +61,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                 val info = update.newInfo
                 val newProblems = info.problemList.sortedBy { it.ordinal }.mapIndexed { index, problem ->
                     problem.copy(
-                        id = problemsEnumerator[previousDays.size to problem.id],
+                        contestSystemId = problemId(previousDays.size, problem.contestSystemId),
                         ordinal = allProblems.size + index
                     )
                 }
@@ -94,7 +98,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                 emit(RunUpdate(
                     info.copy(
                     id = runsEnumerator[previousDays.size to info.id],
-                    problemId = problemsEnumerator[previousDays.size to info.problemId],
+                    problemId = problemId(previousDays.size, info.problemId),
                 )))
             }
         }

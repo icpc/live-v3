@@ -57,7 +57,7 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
     private fun Submission.toRun() = RunInfo(
         id = id,
         result = code.toVerdict().toICPCRunResult(),
-        problemId = task_id,
+        problemId = task_id.toString(),
         teamId = user_id,
         time = elapsed_seconds.seconds
     )
@@ -91,7 +91,6 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
                 },
                 problemList = settings.problemIds.mapIndexed { index, id ->
                     ProblemInfo(
-                        id = id,
                         contestSystemId = id.toString(),
                         displayName = "",
                         fullName = "",

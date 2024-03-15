@@ -5,13 +5,11 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.yandex.api.*
 import org.icpclive.cds.plugins.yandex.api.Participant
 import org.icpclive.cds.plugins.yandex.api.Problem
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 private fun Problem.toApi(index: Int, resultType: ContestResultType) = ProblemInfo(
     displayName = alias,
     fullName = name,
-    id = index,
     ordinal = index,
     contestSystemId = id,
     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
@@ -19,40 +17,26 @@ private fun Problem.toApi(index: Int, resultType: ContestResultType) = ProblemIn
     scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
 )
 
-internal class YandexContestInfo private constructor(
-    private val name: String,
-    private val startTime: Instant,
-    private val duration: Duration,
-    private val freezeTime: Duration,
-    private val problems: List<ProblemInfo>,
-    private val teams: List<TeamInfo>,
-    private val testCountByProblem: List<Int?>,
+internal class YandexContestInfo(
+    contestDescription: ContestDescription,
+    problems: List<Problem>,
+    participants: List<Participant>,
     private val resultType: ContestResultType,
 ) {
-    private val teamIds: Set<Int> = teams.map(TeamInfo::id).toSet()
 
-    constructor(
-        contestDescription: ContestDescription,
-        problems: List<Problem>,
-        participants: List<Participant>,
-        resultType: ContestResultType,
-    ) : this(
-        contestDescription.name,
-        Instant.parse(contestDescription.startTime),
-        contestDescription.duration.seconds,
-        (contestDescription.freezeTime ?: contestDescription.duration).seconds,
-        problems.mapIndexed { index, it -> it.toApi(index, resultType) },
-        participants.map(Participant::toTeamInfo).sortedBy { it.id },
-        problems.map(Problem::testCount),
-        resultType
-    )
+    private val name = contestDescription.name
+    private val startTime = Instant.parse(contestDescription.startTime)
+    private val duration = contestDescription.duration.seconds
+    private val freezeTime = (contestDescription.freezeTime ?: contestDescription.duration).seconds
+    private val problems = problems.mapIndexed { index, it -> it.toApi(index, resultType) }
+    private val teams =  participants.map { it.toTeamInfo() }.sortedBy { it.id }
+    private val teamIds = teams.map(TeamInfo::id).toSet()
+    private val testCountByProblem = problems.map { it.id to it.testCount }.toMap()
+
+
 
     fun submissionToRun(submission: Submission): RunInfo {
-        val problemId = problems.indexOfFirst { it.displayName == submission.problemAlias }
-        if (problemId == -1) {
-            throw IllegalStateException("Problem not found: ${submission.problemAlias}")
-        }
-        val testCount = testCountByProblem[problemId]
+        val testCount = testCountByProblem[submission.problemId]
 
         val verdict = getResult(submission.verdict)
         val result = if (verdict != null) {
@@ -75,7 +59,7 @@ internal class YandexContestInfo private constructor(
         return RunInfo(
             id = submission.id.toInt(),
             result = result,
-            problemId = problemId,
+            problemId = submission.problemId,
             teamId = submission.authorId.toInt(),
             time = submission.timeFromStart,
         )
