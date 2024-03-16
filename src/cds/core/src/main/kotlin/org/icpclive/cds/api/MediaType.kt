@@ -52,7 +52,7 @@ public sealed class MediaType {
 
     @Serializable
     @SerialName("TaskStatus")
-    public data class TaskStatus(val teamId: Int) : MediaType() {
+    public data class TaskStatus(val teamId: TeamId) : MediaType() {
         override val isMedia: Boolean = false
     }
 

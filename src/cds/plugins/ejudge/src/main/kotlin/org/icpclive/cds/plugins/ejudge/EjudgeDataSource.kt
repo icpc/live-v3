@@ -55,10 +55,9 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         .children().mapIndexed { index, participant ->
             val participantName = participant.getAttribute("name")
             TeamInfo(
-                id = index,
+                id = TeamId(participant.getAttribute("id")),
                 fullName = participantName,
                 displayName = participantName,
-                contestSystemId = participant.getAttribute("id"),
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
@@ -94,7 +93,6 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         }
 
         val teams = parseTeamsInfo(element)
-        val teamIdMapping = teams.associateBy({ it.contestSystemId }, { it.id })
 
         val problems = parseProblemsInfo(element)
         return ContestParseResult(
@@ -115,7 +113,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 }
             ),
             runs = element.child("runs").children().mapNotNull { run ->
-                parseRunInfo(run, currentTime - startTime, teamIdMapping, settings.problemScoreLimit)
+                parseRunInfo(run, currentTime - startTime, settings.problemScoreLimit)
             }.toList(),
             emptyList(),
         )
@@ -124,7 +122,6 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
     private fun parseRunInfo(
         element: Element,
         currentTime: Duration,
-        teamIdMapping: Map<String, Int>,
         problemScoreLimit: Map<String, Double>,
     ): RunInfo? {
         val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
@@ -132,7 +129,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             return null
         }
 
-        val teamId = teamIdMapping[element.getAttribute("user_id")]!!
+        val teamId = TeamId(element.getAttribute("user_id"))
         val runId = runsIds[element.getAttribute("run_id")]
 
         val result = when (element.getAttribute("status")) {

@@ -39,7 +39,7 @@ class TickerSettings : ObjectSettings
 
 @Serializable
 data class ExternalTeamViewSettings(
-    val teamId: Int? = null,
+    val teamId: TeamId? = null,
     val mediaTypes: List<TeamMediaType> = emptyList(),
     val showTaskStatus: Boolean = true,
     val showAchievement: Boolean = false,
@@ -64,7 +64,7 @@ data class TeamLocatorCircleSettings(
     val x: Int,
     val y: Int,
     val radius: Int,
-    val teamId: Int,
+    val teamId: TeamId,
 )
 
 @Serializable
@@ -78,7 +78,7 @@ data class TeamLocatorExternalCircleSettings(
     val x: Int,
     val y: Int,
     val radius: Int,
-    val teamId: Int? = null,
+    val teamId: TeamId? = null,
     val cdsTeamId: String? = null,
 )
 

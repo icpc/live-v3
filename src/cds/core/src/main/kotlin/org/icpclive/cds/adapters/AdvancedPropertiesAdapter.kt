@@ -55,7 +55,7 @@ private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (
 public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> =
     flow {
         val triggerFlow = Channel<Trigger>()
-        val submittedTeams = mutableSetOf<Int>()
+        val submittedTeams = mutableSetOf<TeamId>()
         val triggers = mutableSetOf<Instant>()
         coroutineScope {
             val advancedPropsStateFlow = advancedPropsFlow.stateIn(this)
@@ -151,7 +151,7 @@ private fun TeamOverrideTemplate.instantiateTemplate(
     teams: List<TeamInfo>,
     valueProvider: TeamInfo.(String) -> String?,
 ) = teams.associate { team ->
-    team.contestSystemId to instantiateTemplate { team.valueProvider(it) }
+    team.id to instantiateTemplate { team.valueProvider(it) }
 }
 
 internal fun TeamOverrideTemplate.instantiateTemplate(
@@ -164,7 +164,7 @@ internal fun TeamOverrideTemplate.instantiateTemplate(
 )
 
 
-private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Set<Int>) = if (show != false) {
+private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Set<TeamId>) = if (show != false) {
     this
 } else {
     filter { it.id in submittedTeams }.also {
@@ -234,7 +234,7 @@ private fun AdvancedProperties.status(info: ContestInfo): ContestStatus {
 internal fun applyAdvancedProperties(
     info: ContestInfo,
     overrides: AdvancedProperties,
-    submittedTeams: Set<Int>,
+    submittedTeams: Set<TeamId>,
 ): ContestInfo {
     val teamInfosPrelim = applyRegex(
         applyRegex(
@@ -243,10 +243,10 @@ internal fun applyAdvancedProperties(
                 submittedTeams
             ),
             overrides.teamNameRegexes,
-            TeamInfo::fullName
+            { fullName }
         ),
         overrides.teamIdRegexes,
-        TeamInfo::contestSystemId
+        { id.value }
     )
     val newGroups = buildSet {
         for (team in teamInfosPrelim) {
@@ -283,7 +283,7 @@ internal fun applyAdvancedProperties(
 
     fun TeamInfo.templateValueGetter(name: String): String? {
         return when (name) {
-            "teamId" -> contestSystemId
+            "teamId" -> id.value
             "orgFullName" -> organizationId?.let { orgsById[it]?.fullName }
             "orgDisplayName" -> organizationId?.let { orgsById[it]?.displayName }
             else -> customFields[name]
@@ -291,8 +291,11 @@ internal fun applyAdvancedProperties(
     }
 
     val teamInfoWithCustomFields = teamInfosPrelim
-        .mergeTeams(overrides.teamOverrides?.filterValues { it.customFields != null }
-            ?.mapValues { TeamInfoOverride(customFields = it.value.customFields) })
+        .mergeTeams(
+            overrides.teamOverrides
+                ?.filterValues { it.customFields != null }
+                ?.mapValues { TeamInfoOverride(customFields = it.value.customFields) }
+        )
 
     val teamInfos = teamInfoWithCustomFields
         .mergeTeams(
@@ -378,17 +381,16 @@ private fun mergeProblems(
     )
 }
 
-private fun List<TeamInfo>.mergeTeams(overrides: Map<String, TeamInfoOverride>?) = mergeOverrides(
+private fun List<TeamInfo>.mergeTeams(overrides: Map<TeamId, TeamInfoOverride>?) = mergeOverrides(
     this,
     overrides,
-    TeamInfo::contestSystemId,
+    { id },
     unusedMessage = { "No team for override: $it" },
 ) { team, override ->
     TeamInfo(
         id = team.id,
         fullName = override.fullName ?: team.fullName,
         displayName = override.displayName ?: team.displayName,
-        contestSystemId = team.contestSystemId,
         groups = override.groups ?: team.groups,
         hashTag = override.hashTag ?: team.hashTag,
         medias = mergeMaps(team.medias, override.medias ?: emptyMap()),

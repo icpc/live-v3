@@ -170,10 +170,9 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             .filter { team -> team.role == "in_contest" }
             .map { team ->
                 TeamInfo(
-                    id = team.account_id,
+                    id = TeamId(team.account_id.toString()),
                     fullName = team.name,
                     displayName = team.name,
-                    contestSystemId = team.account_id.toString(),
                     groups = emptyList(),
                     hashTag = null,
                     medias = mapOf(),
@@ -223,7 +222,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     id = it.id,
                     result = result,
                     problemId = ProblemId(it.problem_id.toString()),
-                    teamId = it.team_id,
+                    teamId = TeamId(it.team_id.toString()),
                     time = it.submit_time - startTime
                 )
             }

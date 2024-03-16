@@ -58,7 +58,7 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
         id = id,
         result = code.toVerdict().toICPCRunResult(),
         problemId = ProblemId(task_id.toString()),
-        teamId = user_id,
+        teamId = TeamId(user_id.toString()),
         time = elapsed_seconds.seconds
     )
 
@@ -77,10 +77,9 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
                 organizationList = emptyList(),
                 teamList = settings.teamIds.map {
                     TeamInfo(
-                        id = it,
+                        id = TeamId(it.toString()),
                         displayName = "",
                         fullName = "",
-                        contestSystemId = it.toString(),
                         groups = emptyList(),
                         hashTag = null,
                         medias = emptyMap(),

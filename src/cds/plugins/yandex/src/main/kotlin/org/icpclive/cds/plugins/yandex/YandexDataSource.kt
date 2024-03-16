@@ -97,7 +97,7 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
             val allSubmissions = allSubmissionsLoader.load()
             with(rawContestInfoFlow.value) {
                 emitAll(
-                    allSubmissions.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
+                    allSubmissions.sortedWith(compareBy({ it.time }, { it.id }))
                         .map { RunUpdate(submissionToRun(it)) }
                         .asFlow()
                 )
@@ -114,7 +114,7 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
                 .flowOn(Dispatchers.IO)
             val allRunsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
-                    it.sortedWith(compareBy({ it.time }, { it.id })).filter(this::isTeamSubmission)
+                    it.sortedWith(compareBy({ it.time }, { it.id }))
                         .map { RunUpdate(submissionToRun(it)) }
                 }
             }.flatMapConcat { it.asFlow() }

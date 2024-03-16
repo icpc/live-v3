@@ -493,7 +493,6 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAwardsSettings ()Lorg/icpclive/cds/api/AwardsSettings;
 	public final fun getCdsSupportsFinalization ()Z
-	public final fun getCdsTeams ()Ljava/util/Map;
 	public final fun getContestLength-UwyO8pc ()J
 	public final fun getCurrentContestTime-UwyO8pc ()J
 	public final fun getEmulationSpeed ()D
@@ -724,8 +723,8 @@ public final class org/icpclive/cds/api/LegacyScoreboard$Companion {
 
 public final class org/icpclive/cds/api/LegacyScoreboardRow {
 	public static final field Companion Lorg/icpclive/cds/api/LegacyScoreboardRow$Companion;
-	public synthetic fun <init> (IIDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()I
+	public synthetic fun <init> (Ljava/lang/String;IDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-ed2mA_4 ()Ljava/lang/String;
 	public final fun component2 ()I
 	public final fun component3 ()D
 	public final fun component4-UwyO8pc ()J
@@ -734,8 +733,8 @@ public final class org/icpclive/cds/api/LegacyScoreboardRow {
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy-SBKQj6I (IIDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/api/LegacyScoreboardRow;
-	public static synthetic fun copy-SBKQj6I$default (Lorg/icpclive/cds/api/LegacyScoreboardRow;IIDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/LegacyScoreboardRow;
+	public final fun copy-FwdU8qc (Ljava/lang/String;IDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/api/LegacyScoreboardRow;
+	public static synthetic fun copy-FwdU8qc$default (Lorg/icpclive/cds/api/LegacyScoreboardRow;Ljava/lang/String;IDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/LegacyScoreboardRow;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getChampionInGroups ()Ljava/util/List;
 	public final fun getLastAccepted ()J
@@ -744,7 +743,7 @@ public final class org/icpclive/cds/api/LegacyScoreboardRow {
 	public final fun getProblemResults ()Ljava/util/List;
 	public final fun getRank ()I
 	public final fun getTeamGroups ()Ljava/util/List;
-	public final fun getTeamId ()I
+	public final fun getTeamId-ed2mA_4 ()Ljava/lang/String;
 	public final fun getTotalScore ()D
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -869,12 +868,12 @@ public final class org/icpclive/cds/api/MediaType$Photo$Companion {
 
 public final class org/icpclive/cds/api/MediaType$TaskStatus : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$TaskStatus$Companion;
-	public fun <init> (I)V
-	public final fun component1 ()I
-	public final fun copy (I)Lorg/icpclive/cds/api/MediaType$TaskStatus;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$TaskStatus;IILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$TaskStatus;
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-ed2mA_4 ()Ljava/lang/String;
+	public final fun copy-nUE0bHc (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$TaskStatus;
+	public static synthetic fun copy-nUE0bHc$default (Lorg/icpclive/cds/api/MediaType$TaskStatus;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$TaskStatus;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getTeamId ()I
+	public final fun getTeamId-ed2mA_4 ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
@@ -1176,25 +1175,25 @@ public final class org/icpclive/cds/api/ProblemResult$Companion {
 
 public final class org/icpclive/cds/api/RunInfo {
 	public static final field Companion Lorg/icpclive/cds/api/RunInfo$Companion;
-	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()I
 	public final fun component2 ()Lorg/icpclive/cds/api/RunResult;
 	public final fun component3-Xzdl60o ()Ljava/lang/String;
-	public final fun component4 ()I
+	public final fun component4-ed2mA_4 ()Ljava/lang/String;
 	public final fun component5-UwyO8pc ()J
 	public final fun component6 ()Lorg/icpclive/cds/api/MediaType;
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Z
-	public final fun copy-jb0x3hQ (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;Z)Lorg/icpclive/cds/api/RunInfo;
-	public static synthetic fun copy-jb0x3hQ$default (Lorg/icpclive/cds/api/RunInfo;ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;IJLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
+	public final fun copy-HGkjL3I (ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;Z)Lorg/icpclive/cds/api/RunInfo;
+	public static synthetic fun copy-HGkjL3I$default (Lorg/icpclive/cds/api/RunInfo;ILorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFeaturedRunMedia ()Lorg/icpclive/cds/api/MediaType;
 	public final fun getId ()I
 	public final fun getProblemId-Xzdl60o ()Ljava/lang/String;
 	public final fun getReactionVideos ()Ljava/util/List;
 	public final fun getResult ()Lorg/icpclive/cds/api/RunResult;
-	public final fun getTeamId ()I
+	public final fun getTeamId-ed2mA_4 ()Ljava/lang/String;
 	public final fun getTime-UwyO8pc ()J
 	public fun hashCode ()I
 	public final fun isHidden ()Z
@@ -1407,31 +1406,59 @@ public final class org/icpclive/cds/api/ScoreboardUpdateType : java/lang/Enum {
 	public static fun values ()[Lorg/icpclive/cds/api/ScoreboardUpdateType;
 }
 
+public final class org/icpclive/cds/api/TeamId {
+	public static final field Companion Lorg/icpclive/cds/api/TeamId$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/TeamId;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/cds/api/TeamId$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/TeamId$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize-tFv2abk (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/String;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize-iuLu8EU (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/String;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/TeamId$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/api/TeamInfo {
 	public static final field Companion Lorg/icpclive/cds/api/TeamInfo$Companion;
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()I
-	public final fun component10-jSlij8E ()Ljava/lang/String;
-	public final fun component11 ()Ljava/util/Map;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-ed2mA_4 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/util/Map;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/util/List;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/util/Map;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/Map;
+	public final fun component7 ()Z
 	public final fun component8 ()Z
-	public final fun component9 ()Z
-	public final fun copy-OML4_fA (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;)Lorg/icpclive/cds/api/TeamInfo;
-	public static synthetic fun copy-OML4_fA$default (Lorg/icpclive/cds/api/TeamInfo;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lorg/icpclive/cds/api/TeamInfo;
+	public final fun component9-jSlij8E ()Ljava/lang/String;
+	public final fun copy-nj4I2KQ (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;)Lorg/icpclive/cds/api/TeamInfo;
+	public static synthetic fun copy-nj4I2KQ$default (Lorg/icpclive/cds/api/TeamInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lorg/icpclive/cds/api/TeamInfo;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getContestSystemId ()Ljava/lang/String;
 	public final fun getCustomFields ()Ljava/util/Map;
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getFullName ()Ljava/lang/String;
 	public final fun getGroups ()Ljava/util/List;
 	public final fun getHashTag ()Ljava/lang/String;
-	public final fun getId ()I
+	public final fun getId-ed2mA_4 ()Ljava/lang/String;
 	public final fun getMedias ()Ljava/util/Map;
 	public final fun getOrganizationId-jSlij8E ()Ljava/lang/String;
 	public fun hashCode ()I

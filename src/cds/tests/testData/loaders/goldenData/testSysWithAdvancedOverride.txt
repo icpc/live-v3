@@ -154,10 +154,9 @@
         ],
         "teams": [
             {
-                "id": 0,
+                "id": "01",
                 "name": "Monad.Reader (Садыков, Ибатов, Гаврилов)",
                 "shortName": "Monad.Reader",
-                "contestSystemId": "01",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -169,10 +168,9 @@
                 }
             },
             {
-                "id": 1,
+                "id": "02",
                 "name": "LOUD Enough (Гаевой, Бочков, Макаров)",
                 "shortName": "LOUD Enough",
-                "contestSystemId": "02",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -184,10 +182,9 @@
                 }
             },
             {
-                "id": 2,
+                "id": "03",
                 "name": "(1к) Stardust Crusaders (Михайлов, Ковалев, Ельцов)",
                 "shortName": "Stardust Crusaders",
-                "contestSystemId": "03",
                 "groups": [
                     "firstGrade"
                 ],
@@ -201,10 +198,9 @@
                 }
             },
             {
-                "id": 3,
+                "id": "04",
                 "name": "Cheba Kings (Григорьев, Ефремов, Иванов)",
                 "shortName": "Cheba Kings",
-                "contestSystemId": "04",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -216,10 +212,9 @@
                 }
             },
             {
-                "id": 4,
+                "id": "05",
                 "name": "(1к) Square ball (Волочай, Нечаев, Еремеев)",
                 "shortName": "Square ball",
-                "contestSystemId": "05",
                 "groups": [
                     "firstGrade"
                 ],
@@ -233,10 +228,9 @@
                 }
             },
             {
-                "id": 5,
+                "id": "06",
                 "name": "loozha (Строганов, Куликов, Мандельштам)",
                 "shortName": "loozha",
-                "contestSystemId": "06",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -248,10 +242,9 @@
                 }
             },
             {
-                "id": 6,
+                "id": "07",
                 "name": "admarkov team (Марков)",
                 "shortName": "admarkov team",
-                "contestSystemId": "07",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -263,10 +256,9 @@
                 }
             },
             {
-                "id": 7,
+                "id": "08",
                 "name": "How to turn off computer? (Гребенников, Заварин, Фадеева)",
                 "shortName": "How to turn off computer?",
-                "contestSystemId": "08",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -278,10 +270,9 @@
                 }
             },
             {
-                "id": 8,
+                "id": "09",
                 "name": "В компании друзей (Горячев)",
                 "shortName": "В компании друзей",
-                "contestSystemId": "09",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -293,10 +284,9 @@
                 }
             },
             {
-                "id": 9,
+                "id": "10",
                 "name": "Botwa Jigurda (Саакян, Мишура, Кравченко)",
                 "shortName": "Botwa Jigurda",
-                "contestSystemId": "10",
                 "groups": [],
                 "hashTag": null,
                 "medias": {},
@@ -308,10 +298,9 @@
                 }
             },
             {
-                "id": 10,
+                "id": "11",
                 "name": "(шк) Работать там (Ковригин, Иванов, Цветков)",
                 "shortName": "Работать там",
-                "contestSystemId": "11",
                 "groups": [
                     "school"
                 ],
@@ -325,10 +314,9 @@
                 }
             },
             {
-                "id": 11,
+                "id": "12",
                 "name": "(1к) фан-клуб ивана короткого (Атмажитова, Рудович, Касьянов)",
                 "shortName": "фан-клуб ивана короткого",
-                "contestSystemId": "12",
                 "groups": [
                     "firstGrade"
                 ],
@@ -342,10 +330,9 @@
                 }
             },
             {
-                "id": 12,
+                "id": "13",
                 "name": "(1к) bravit_team (Мартынов, Новожилов, Климов)",
                 "shortName": "bravit_team",
-                "contestSystemId": "13",
                 "groups": [
                     "firstGrade"
                 ],
@@ -359,10 +346,9 @@
                 }
             },
             {
-                "id": 13,
+                "id": "14",
                 "name": "(вк) gerind (Вихляев)",
                 "shortName": "gerind",
-                "contestSystemId": "14",
                 "groups": [
                     "outOfContest"
                 ],
@@ -376,10 +362,9 @@
                 }
             },
             {
-                "id": 14,
+                "id": "15",
                 "name": "(вк) Как же хочется Реечьку.. (Быков, Мекумянов)",
                 "shortName": "Как же хочется Реечьку..",
-                "contestSystemId": "15",
                 "groups": [
                     "outOfContest"
                 ],
@@ -393,10 +378,9 @@
                 }
             },
             {
-                "id": 15,
+                "id": "16",
                 "name": "(вк) Persik (Цаболов, Чакалов, Маргиев)",
                 "shortName": "Persik",
-                "contestSystemId": "16",
                 "groups": [
                     "outOfContest"
                 ],
@@ -410,10 +394,9 @@
                 }
             },
             {
-                "id": 16,
+                "id": "17",
                 "name": "(вк) Антибыкшмут (Гамосов, Тамаев)",
                 "shortName": "Антибыкшмут",
-                "contestSystemId": "17",
                 "groups": [
                     "outOfContest"
                 ],
@@ -427,10 +410,9 @@
                 }
             },
             {
-                "id": 17,
+                "id": "18",
                 "name": "(вк) Инферны (Дзуцева, Корчагин, Джибилов)",
                 "shortName": "Инферны",
-                "contestSystemId": "18",
                 "groups": [
                     "outOfContest"
                 ],
@@ -444,10 +426,9 @@
                 }
             },
             {
-                "id": 18,
+                "id": "19",
                 "name": "(вк) ученики Койбаева (Галустьян, Габисов, Кудзаев)",
                 "shortName": "ученики Койбаева",
-                "contestSystemId": "19",
                 "groups": [
                     "outOfContest"
                 ],
@@ -461,10 +442,9 @@
                 }
             },
             {
-                "id": 19,
+                "id": "20",
                 "name": "(вк) Заказной Nat & Ural (Сарнацкий, Хугаев, Тебиев)",
                 "shortName": "Заказной Nat & Ural",
-                "contestSystemId": "20",
                 "groups": [
                     "outOfContest"
                 ],
@@ -518,7 +498,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 3,
+            "teamId": "04",
             "time": 607000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -536,7 +516,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 7,
+            "teamId": "08",
             "time": 682000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -554,7 +534,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 6,
+            "teamId": "07",
             "time": 699000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -572,7 +552,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 1,
+            "teamId": "02",
             "time": 737000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -590,7 +570,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 0,
+            "teamId": "01",
             "time": 774000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -608,7 +588,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 1,
+            "teamId": "02",
             "time": 788000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -626,7 +606,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 0,
+            "teamId": "01",
             "time": 809000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -644,7 +624,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 3,
+            "teamId": "04",
             "time": 872000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -662,7 +642,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 9,
+            "teamId": "10",
             "time": 902000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -680,7 +660,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 1,
+            "teamId": "02",
             "time": 938000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -698,7 +678,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 6,
+            "teamId": "07",
             "time": 967000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -716,7 +696,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 0,
+            "teamId": "01",
             "time": 986000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -734,7 +714,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 3,
+            "teamId": "04",
             "time": 1144000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -752,7 +732,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 8,
+            "teamId": "09",
             "time": 1156000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -770,7 +750,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 12,
+            "teamId": "13",
             "time": 1161000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -788,7 +768,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 3,
+            "teamId": "04",
             "time": 1240000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -806,7 +786,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 14,
+            "teamId": "15",
             "time": 1265000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -824,7 +804,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 8,
+            "teamId": "09",
             "time": 1294000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -842,7 +822,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 12,
+            "teamId": "13",
             "time": 1353000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -860,7 +840,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 13,
+            "teamId": "14",
             "time": 1359000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -878,7 +858,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 6,
+            "teamId": "07",
             "time": 1387000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -896,7 +876,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 3,
+            "teamId": "04",
             "time": 1394000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -914,7 +894,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 4,
+            "teamId": "05",
             "time": 1436000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -932,7 +912,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 9,
+            "teamId": "10",
             "time": 1465000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -950,7 +930,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 9,
+            "teamId": "10",
             "time": 1517000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -968,7 +948,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 13,
+            "teamId": "14",
             "time": 1518000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -986,7 +966,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 6,
+            "teamId": "07",
             "time": 1522000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1004,7 +984,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 19,
+            "teamId": "20",
             "time": 1541000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1022,7 +1002,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 11,
+            "teamId": "12",
             "time": 1605000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1040,7 +1020,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 11,
+            "teamId": "12",
             "time": 1613000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1058,7 +1038,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 7,
+            "teamId": "08",
             "time": 1679000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1076,7 +1056,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 6,
+            "teamId": "07",
             "time": 1696000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1094,7 +1074,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 7,
+            "teamId": "08",
             "time": 1707000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1112,7 +1092,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 11,
+            "teamId": "12",
             "time": 1710000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1130,7 +1110,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 11,
+            "teamId": "12",
             "time": 1734000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1148,7 +1128,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 5,
+            "teamId": "06",
             "time": 1823000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1166,7 +1146,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 3,
+            "teamId": "04",
             "time": 1883000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1184,7 +1164,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 6,
+            "teamId": "07",
             "time": 1892000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1202,7 +1182,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 8,
+            "teamId": "09",
             "time": 1922000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1220,7 +1200,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 0,
+            "teamId": "01",
             "time": 1974000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1238,7 +1218,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 4,
+            "teamId": "05",
             "time": 1977000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1256,7 +1236,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 0,
+            "teamId": "01",
             "time": 2022000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1274,7 +1254,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 0,
+            "teamId": "01",
             "time": 2158000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1292,7 +1272,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 3,
+            "teamId": "04",
             "time": 2163000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1310,7 +1290,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 3,
+            "teamId": "04",
             "time": 2217000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1328,7 +1308,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 14,
+            "teamId": "15",
             "time": 2241000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1346,7 +1326,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 7,
+            "teamId": "08",
             "time": 2246000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1364,7 +1344,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 8,
+            "teamId": "09",
             "time": 2307000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1382,7 +1362,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 14,
+            "teamId": "15",
             "time": 2310000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1400,7 +1380,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 1,
+            "teamId": "02",
             "time": 2343000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1418,7 +1398,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 5,
+            "teamId": "06",
             "time": 2368000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1436,7 +1416,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 18,
+            "teamId": "19",
             "time": 2424000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1454,7 +1434,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 4,
+            "teamId": "05",
             "time": 2524000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1472,7 +1452,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 8,
+            "teamId": "09",
             "time": 2548000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1490,7 +1470,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 1,
+            "teamId": "02",
             "time": 2600000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1508,7 +1488,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 14,
+            "teamId": "15",
             "time": 2635000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1526,7 +1506,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 16,
+            "teamId": "17",
             "time": 2636000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1544,7 +1524,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 12,
+            "teamId": "13",
             "time": 2679000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1562,7 +1542,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 2,
+            "teamId": "03",
             "time": 2695000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1580,7 +1560,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 8,
+            "teamId": "09",
             "time": 2706000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1598,7 +1578,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 7,
+            "teamId": "08",
             "time": 2790000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1616,7 +1596,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 6,
+            "teamId": "07",
             "time": 2809000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1634,7 +1614,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 16,
+            "teamId": "17",
             "time": 2816000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1652,7 +1632,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 13,
+            "teamId": "14",
             "time": 2820000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1670,7 +1650,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 7,
+            "teamId": "08",
             "time": 2843000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1688,7 +1668,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 1,
+            "teamId": "02",
             "time": 2861000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1706,7 +1686,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 16,
+            "teamId": "17",
             "time": 2862000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1724,7 +1704,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 6,
+            "teamId": "07",
             "time": 2915000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1742,7 +1722,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 2977000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1760,7 +1740,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 16,
+            "teamId": "17",
             "time": 3011000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1778,7 +1758,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 18,
+            "teamId": "19",
             "time": 3038000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1796,7 +1776,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 9,
+            "teamId": "10",
             "time": 3131000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1814,7 +1794,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 11,
+            "teamId": "12",
             "time": 3189000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1832,7 +1812,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 13,
+            "teamId": "14",
             "time": 3191000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1850,7 +1830,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 8,
+            "teamId": "09",
             "time": 3215000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1868,7 +1848,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 13,
+            "teamId": "14",
             "time": 3229000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1886,7 +1866,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 8,
+            "teamId": "09",
             "time": 3275000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1904,7 +1884,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 3332000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1922,7 +1902,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 18,
+            "teamId": "19",
             "time": 3360000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1940,7 +1920,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 4,
+            "teamId": "05",
             "time": 3406000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1958,7 +1938,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 18,
+            "teamId": "19",
             "time": 3407000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1976,7 +1956,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 1,
+            "teamId": "02",
             "time": 3476000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -1994,7 +1974,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 5,
+            "teamId": "06",
             "time": 3571000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2012,7 +1992,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 12,
+            "teamId": "13",
             "time": 3606000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2030,7 +2010,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 17,
+            "teamId": "18",
             "time": 3627000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2048,7 +2028,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 4,
+            "teamId": "05",
             "time": 3851000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2066,7 +2046,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 6,
+            "teamId": "07",
             "time": 3908000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2084,7 +2064,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 3926000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2102,7 +2082,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 13,
+            "teamId": "14",
             "time": 3932000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2120,7 +2100,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 7,
+            "teamId": "08",
             "time": 3942000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2138,7 +2118,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 13,
+            "teamId": "14",
             "time": 3949000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2156,7 +2136,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 13,
+            "teamId": "14",
             "time": 3977000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2174,7 +2154,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 14,
+            "teamId": "15",
             "time": 4077000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2192,7 +2172,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 4156000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2210,7 +2190,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 18,
+            "teamId": "19",
             "time": 4182000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2228,7 +2208,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 4217000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2246,7 +2226,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 2,
+            "teamId": "03",
             "time": 4288000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2264,7 +2244,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 4,
+            "teamId": "05",
             "time": 4366000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2282,7 +2262,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 1,
+            "teamId": "02",
             "time": 4373000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2300,7 +2280,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 9,
+            "teamId": "10",
             "time": 4450000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2318,7 +2298,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 4452000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2336,7 +2316,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 2,
+            "teamId": "03",
             "time": 4477000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2354,7 +2334,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 3,
+            "teamId": "04",
             "time": 4635000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2372,7 +2352,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 18,
+            "teamId": "19",
             "time": 4802000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2390,7 +2370,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 5,
+            "teamId": "06",
             "time": 4835000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2408,7 +2388,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 4,
+            "teamId": "05",
             "time": 4867000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2426,7 +2406,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 13,
+            "teamId": "14",
             "time": 4938000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2444,7 +2424,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 4,
+            "teamId": "05",
             "time": 4998000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2462,7 +2442,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 18,
+            "teamId": "19",
             "time": 5003000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2480,7 +2460,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 13,
+            "teamId": "14",
             "time": 5007000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2498,7 +2478,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 5128000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2516,7 +2496,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 14,
+            "teamId": "15",
             "time": 5137000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2534,7 +2514,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 5,
+            "teamId": "06",
             "time": 5140000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2552,7 +2532,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 2,
+            "teamId": "03",
             "time": 5175000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2570,7 +2550,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 6,
+            "teamId": "07",
             "time": 5179000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2588,7 +2568,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 5180000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2606,7 +2586,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 17,
+            "teamId": "18",
             "time": 5242000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2624,7 +2604,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 14,
+            "teamId": "15",
             "time": 5299000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2642,7 +2622,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 17,
+            "teamId": "18",
             "time": 5301000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2660,7 +2640,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 8,
+            "teamId": "09",
             "time": 5314000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2678,7 +2658,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 3,
+            "teamId": "04",
             "time": 5409000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2696,7 +2676,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 3,
+            "teamId": "04",
             "time": 5515000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2714,7 +2694,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 2,
+            "teamId": "03",
             "time": 5562000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2732,7 +2712,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 11,
+            "teamId": "12",
             "time": 5596000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2750,7 +2730,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 2,
+            "teamId": "03",
             "time": 5651000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2768,7 +2748,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 16,
+            "teamId": "17",
             "time": 5732000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2786,7 +2766,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 2,
+            "teamId": "03",
             "time": 5742000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2804,7 +2784,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 9,
+            "teamId": "10",
             "time": 5804000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2822,7 +2802,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 2,
+            "teamId": "03",
             "time": 5851000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2840,7 +2820,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 13,
+            "teamId": "14",
             "time": 5875000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2858,7 +2838,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 18,
+            "teamId": "19",
             "time": 5910000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2876,7 +2856,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 17,
+            "teamId": "18",
             "time": 6084000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2894,7 +2874,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 14,
+            "teamId": "15",
             "time": 6100000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2912,7 +2892,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 11,
+            "teamId": "12",
             "time": 6163000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2930,7 +2910,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 5,
+            "teamId": "06",
             "time": 6177000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2948,7 +2928,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 11,
+            "teamId": "12",
             "time": 6273000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2966,7 +2946,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 17,
+            "teamId": "18",
             "time": 6275000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -2984,7 +2964,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 3,
+            "teamId": "04",
             "time": 6324000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3002,7 +2982,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 6347000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3020,7 +3000,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 6462000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3038,7 +3018,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "A",
-            "teamId": 1,
+            "teamId": "02",
             "time": 6484000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3056,7 +3036,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 3,
+            "teamId": "04",
             "time": 6487000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3074,7 +3054,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 6495000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3092,7 +3072,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "A",
-            "teamId": 1,
+            "teamId": "02",
             "time": 6518000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3110,7 +3090,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 6581000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3128,7 +3108,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 17,
+            "teamId": "18",
             "time": 6587000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3146,7 +3126,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 9,
+            "teamId": "10",
             "time": 6595000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3164,7 +3144,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 0,
+            "teamId": "01",
             "time": 6651000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3182,7 +3162,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 17,
+            "teamId": "18",
             "time": 6750000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3200,7 +3180,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 9,
+            "teamId": "10",
             "time": 6799000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3218,7 +3198,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 0,
+            "teamId": "01",
             "time": 6827000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3236,7 +3216,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 9,
+            "teamId": "10",
             "time": 6958000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3254,7 +3234,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 3,
+            "teamId": "04",
             "time": 6985000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3272,7 +3252,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 0,
+            "teamId": "01",
             "time": 7021000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3290,7 +3270,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 7051000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3308,7 +3288,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 16,
+            "teamId": "17",
             "time": 7065000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3326,7 +3306,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "J",
-            "teamId": 8,
+            "teamId": "09",
             "time": 7186000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3344,7 +3324,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 16,
+            "teamId": "17",
             "time": 7204000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3362,7 +3342,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 3,
+            "teamId": "04",
             "time": 7224000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3380,7 +3360,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 0,
+            "teamId": "01",
             "time": 7299000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3398,7 +3378,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 3,
+            "teamId": "04",
             "time": 7338000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3416,7 +3396,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 3,
+            "teamId": "04",
             "time": 7382000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3434,7 +3414,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 0,
+            "teamId": "01",
             "time": 7430000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3452,7 +3432,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 7433000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3470,7 +3450,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 3,
+            "teamId": "04",
             "time": 7438000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3488,7 +3468,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 7549000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3506,7 +3486,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 7604000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3524,7 +3504,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 7606000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3542,7 +3522,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 7646000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3560,7 +3540,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 7692000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3578,7 +3558,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 7767000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3596,7 +3576,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 13,
+            "teamId": "14",
             "time": 7793000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3614,7 +3594,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 3,
+            "teamId": "04",
             "time": 7862000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3632,7 +3612,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 7867000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3650,7 +3630,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 7963000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3668,7 +3648,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 8156000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3686,7 +3666,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 7,
+            "teamId": "08",
             "time": 8176000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3704,7 +3684,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 1,
+            "teamId": "02",
             "time": 8180000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3722,7 +3702,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 8309000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3740,7 +3720,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 17,
+            "teamId": "18",
             "time": 8314000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3758,7 +3738,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 8414000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3776,7 +3756,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 4,
+            "teamId": "05",
             "time": 8419000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3794,7 +3774,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 8457000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3812,7 +3792,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 8507000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3830,7 +3810,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 16,
+            "teamId": "17",
             "time": 8529000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3848,7 +3828,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 8579000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3866,7 +3846,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 8645000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3884,7 +3864,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 8674000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3902,7 +3882,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 8711000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3920,7 +3900,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 8731000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3938,7 +3918,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 8780000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3956,7 +3936,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 8786000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3974,7 +3954,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 13,
+            "teamId": "14",
             "time": 8860000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -3992,7 +3972,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 13,
+            "teamId": "14",
             "time": 8901000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4010,7 +3990,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 8930000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4028,7 +4008,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 7,
+            "teamId": "08",
             "time": 8932000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4046,7 +4026,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 5,
+            "teamId": "06",
             "time": 8988000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4064,7 +4044,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 8990000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4082,7 +4062,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 9002000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4100,7 +4080,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 7,
+            "teamId": "08",
             "time": 9004000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4118,7 +4098,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 13,
+            "teamId": "14",
             "time": 9021000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4136,7 +4116,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 9029000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4154,7 +4134,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 3,
+            "teamId": "04",
             "time": 9076000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4172,7 +4152,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 13,
+            "teamId": "14",
             "time": 9169000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4190,7 +4170,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 5,
+            "teamId": "06",
             "time": 9251000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4208,7 +4188,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 9266000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4226,7 +4206,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 19,
+            "teamId": "20",
             "time": 9445000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4244,7 +4224,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 9631000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4262,7 +4242,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 7,
+            "teamId": "08",
             "time": 9640000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4280,7 +4260,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 9726000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4298,7 +4278,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 9762000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4316,7 +4296,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 9814000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4334,7 +4314,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 7,
+            "teamId": "08",
             "time": 9848000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4352,7 +4332,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 17,
+            "teamId": "18",
             "time": 9917000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4370,7 +4350,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 4,
+            "teamId": "05",
             "time": 9988000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4388,7 +4368,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 10009000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4406,7 +4386,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 7,
+            "teamId": "08",
             "time": 10015000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4424,7 +4404,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 10048000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4442,7 +4422,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 4,
+            "teamId": "05",
             "time": 10078000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4460,7 +4440,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 9,
+            "teamId": "10",
             "time": 10102000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4478,7 +4458,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 10104000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4496,7 +4476,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 1,
+            "teamId": "02",
             "time": 10129000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4514,7 +4494,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 10257000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4532,7 +4512,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 3,
+            "teamId": "04",
             "time": 10278000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4550,7 +4530,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 2,
+            "teamId": "03",
             "time": 10334000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4568,7 +4548,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 10362000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4586,7 +4566,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 10366000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4604,7 +4584,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 10381000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4622,7 +4602,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 9,
+            "teamId": "10",
             "time": 10394000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4640,7 +4620,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 19,
+            "teamId": "20",
             "time": 10437000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4658,7 +4638,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 7,
+            "teamId": "08",
             "time": 10475000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4676,7 +4656,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 3,
+            "teamId": "04",
             "time": 10600000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4694,7 +4674,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 10600000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4712,7 +4692,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 9,
+            "teamId": "10",
             "time": 10673000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4730,7 +4710,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 4,
+            "teamId": "05",
             "time": 10816000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4748,7 +4728,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 15,
+            "teamId": "16",
             "time": 10846000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4766,7 +4746,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 10891000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4784,7 +4764,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 8,
+            "teamId": "09",
             "time": 10893000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4802,7 +4782,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 3,
+            "teamId": "04",
             "time": 10901000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4820,7 +4800,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 0,
+            "teamId": "01",
             "time": 10924000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4838,7 +4818,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 2,
+            "teamId": "03",
             "time": 10957000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4856,7 +4836,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11023000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4874,7 +4854,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 11114000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4892,7 +4872,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 11200000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4910,7 +4890,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 11232000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4928,7 +4908,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11367000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4946,7 +4926,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11468000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4964,7 +4944,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11487000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -4982,7 +4962,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11522000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5000,7 +4980,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "K",
-            "teamId": 19,
+            "teamId": "20",
             "time": 11529000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5018,7 +4998,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 11685000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5036,7 +5016,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 11751000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5054,7 +5034,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 11771000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5072,7 +5052,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 11876000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5090,7 +5070,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11884000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5108,7 +5088,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11909000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5126,7 +5106,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 11912000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5144,7 +5124,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 4,
+            "teamId": "05",
             "time": 11999000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5162,7 +5142,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 11,
+            "teamId": "12",
             "time": 12015000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5180,7 +5160,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 12022000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5198,7 +5178,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 12031000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5216,7 +5196,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 12055000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5234,7 +5214,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 0,
+            "teamId": "01",
             "time": 12057000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5252,7 +5232,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 12093000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5270,7 +5250,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 12,
+            "teamId": "13",
             "time": 12130000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5288,7 +5268,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 12131000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5306,7 +5286,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 12,
+            "teamId": "13",
             "time": 12215000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5324,7 +5304,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 3,
+            "teamId": "04",
             "time": 12260000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5342,7 +5322,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 12265000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5360,7 +5340,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 12300000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5378,7 +5358,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 12321000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5396,7 +5376,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 3,
+            "teamId": "04",
             "time": 12392000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5414,7 +5394,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 4,
+            "teamId": "05",
             "time": 12470000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5432,7 +5412,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 4,
+            "teamId": "05",
             "time": 12619000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5450,7 +5430,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 17,
+            "teamId": "18",
             "time": 12623000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5468,7 +5448,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 12667000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5486,7 +5466,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 12685000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5504,7 +5484,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 12731000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5522,7 +5502,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 12741000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5540,7 +5520,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 6,
+            "teamId": "07",
             "time": 12936000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5558,7 +5538,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 9,
+            "teamId": "10",
             "time": 12936000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5576,7 +5556,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 13011000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5594,7 +5574,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 13149000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5612,7 +5592,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 13318000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5630,7 +5610,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 13400000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5648,7 +5628,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 13510000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5666,7 +5646,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 13625000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5684,7 +5664,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 14,
+            "teamId": "15",
             "time": 13652000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5702,7 +5682,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 11,
+            "teamId": "12",
             "time": 13684000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5720,7 +5700,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 13824000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5738,7 +5718,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 13870000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5756,7 +5736,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 13889000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5774,7 +5754,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 1,
+            "teamId": "02",
             "time": 14065000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5792,7 +5772,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 14253000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5810,7 +5790,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 14270000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5828,7 +5808,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 4,
+            "teamId": "05",
             "time": 14291000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5846,7 +5826,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 14433000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5864,7 +5844,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 14446000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5882,7 +5862,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 14491000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5900,7 +5880,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 14497000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5918,7 +5898,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 14534000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5936,7 +5916,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "A",
-            "teamId": 7,
+            "teamId": "08",
             "time": 14558000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5954,7 +5934,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 14580000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5972,7 +5952,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 14582000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -5990,7 +5970,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 14695000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6008,7 +5988,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 14696000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6026,7 +6006,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 14794000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6044,7 +6024,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 14822000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6062,7 +6042,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 14842000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6080,7 +6060,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 14855000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6098,7 +6078,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 14901000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6116,7 +6096,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 2,
+            "teamId": "03",
             "time": 14909000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6134,7 +6114,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 17,
+            "teamId": "18",
             "time": 14996000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6152,7 +6132,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15013000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6170,7 +6150,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15052000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6188,7 +6168,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15059000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6206,7 +6186,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 15068000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6224,7 +6204,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15086000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6242,7 +6222,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15087000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6260,7 +6240,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 15151000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6278,7 +6258,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 15211000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6296,7 +6276,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15271000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6314,7 +6294,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 15287000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6332,7 +6312,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 9,
+            "teamId": "10",
             "time": 15367000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6350,7 +6330,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15373000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6368,7 +6348,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15373000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6386,7 +6366,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 15388000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6404,7 +6384,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15412000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6422,7 +6402,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 9,
+            "teamId": "10",
             "time": 15428000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6440,7 +6420,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 15457000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6458,7 +6438,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15528000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6476,7 +6456,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15566000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6494,7 +6474,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15567000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6512,7 +6492,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15690000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6530,7 +6510,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15714000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6548,7 +6528,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 15728000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6566,7 +6546,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15730000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6584,7 +6564,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15735000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6602,7 +6582,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15803000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6620,7 +6600,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 15808000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6638,7 +6618,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15809000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6656,7 +6636,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15832000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6674,7 +6654,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15883000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6692,7 +6672,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15887000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6710,7 +6690,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 15913000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6728,7 +6708,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15917000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6746,7 +6726,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 7,
+            "teamId": "08",
             "time": 15934000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6764,7 +6744,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15958000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6782,7 +6762,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 15964000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6800,7 +6780,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 15969000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6818,7 +6798,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "F",
-            "teamId": 14,
+            "teamId": "15",
             "time": 15974000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6836,7 +6816,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "B",
-            "teamId": 15,
+            "teamId": "16",
             "time": 16004000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6854,7 +6834,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 7,
+            "teamId": "08",
             "time": 16073000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6872,7 +6852,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 14,
+            "teamId": "15",
             "time": 16094000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6890,7 +6870,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 4,
+            "teamId": "05",
             "time": 16110000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6908,7 +6888,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "A",
-            "teamId": 3,
+            "teamId": "04",
             "time": 16165000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6926,7 +6906,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 16183000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6944,7 +6924,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 16365000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6962,7 +6942,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 16444000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6980,7 +6960,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 16506000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -6998,7 +6978,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 16519000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7016,7 +6996,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 0,
+            "teamId": "01",
             "time": 16631000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7034,7 +7014,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 16650000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7052,7 +7032,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 16671000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7070,7 +7050,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 16698000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7088,7 +7068,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 16762000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7106,7 +7086,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 18,
+            "teamId": "19",
             "time": 16778000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7124,7 +7104,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 16852000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7142,7 +7122,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 16893000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7160,7 +7140,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 16941000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7178,7 +7158,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 16955000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7196,7 +7176,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 16988000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7214,7 +7194,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17004000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7232,7 +7212,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 17053000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7250,7 +7230,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 12,
+            "teamId": "13",
             "time": 17079000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7268,7 +7248,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 12,
+            "teamId": "13",
             "time": 17131000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7286,7 +7266,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 0,
+            "teamId": "01",
             "time": 17137000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7304,7 +7284,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 2,
+            "teamId": "03",
             "time": 17146000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7322,7 +7302,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17152000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7340,7 +7320,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 4,
+            "teamId": "05",
             "time": 17156000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7358,7 +7338,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 8,
+            "teamId": "09",
             "time": 17174000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7376,7 +7356,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 17185000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7394,7 +7374,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17187000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7412,7 +7392,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "L",
-            "teamId": 12,
+            "teamId": "13",
             "time": 17219000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7430,7 +7410,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 6,
+            "teamId": "07",
             "time": 17246000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7448,7 +7428,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 0,
+            "teamId": "01",
             "time": 17252000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7466,7 +7446,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17273000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7484,7 +7464,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 17,
+            "teamId": "18",
             "time": 17314000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7502,7 +7482,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 11,
+            "teamId": "12",
             "time": 17393000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7520,7 +7500,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 6,
+            "teamId": "07",
             "time": 17403000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7538,7 +7518,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17428000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7556,7 +7536,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 0,
+            "teamId": "01",
             "time": 17439000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7574,7 +7554,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17454000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7592,7 +7572,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17495000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7610,7 +7590,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 0,
+            "teamId": "01",
             "time": 17496000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7628,7 +7608,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "I",
-            "teamId": 3,
+            "teamId": "04",
             "time": 17518000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7646,7 +7626,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17524000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7664,7 +7644,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17536000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7682,7 +7662,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 11,
+            "teamId": "12",
             "time": 17537000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7700,7 +7680,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17568000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7718,7 +7698,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 17578000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7736,7 +7716,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "I",
-            "teamId": 3,
+            "teamId": "04",
             "time": 17587000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7754,7 +7734,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17609000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7772,7 +7752,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17611000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7790,7 +7770,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17621000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7808,7 +7788,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 11,
+            "teamId": "12",
             "time": 17637000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7826,7 +7806,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17643000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7844,7 +7824,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 2,
+            "teamId": "03",
             "time": 17649000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7862,7 +7842,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17661000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7880,7 +7860,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "I",
-            "teamId": 3,
+            "teamId": "04",
             "time": 17682000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7898,7 +7878,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17687000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7916,7 +7896,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 11,
+            "teamId": "12",
             "time": 17698000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7934,7 +7914,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17713000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7952,7 +7932,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17713000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7970,7 +7950,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17714000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -7988,7 +7968,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 0,
+            "teamId": "01",
             "time": 17720000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8006,7 +7986,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17736000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8024,7 +8004,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17755000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8042,7 +8022,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17763000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8060,7 +8040,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "D",
-            "teamId": 0,
+            "teamId": "01",
             "time": 17777000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8078,7 +8058,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 0,
+            "teamId": "01",
             "time": 17783000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8096,7 +8076,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17784000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8114,7 +8094,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 2,
+            "teamId": "03",
             "time": 17824000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8132,7 +8112,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17825000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8150,7 +8130,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17827000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8168,7 +8148,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17829000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8186,7 +8166,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17837000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8204,7 +8184,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17841000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8222,7 +8202,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17855000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8240,7 +8220,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 17857000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8258,7 +8238,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17859000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8276,7 +8256,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17871000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8294,7 +8274,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 2,
+            "teamId": "03",
             "time": 17899000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8312,7 +8292,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17903000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8330,7 +8310,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 3,
+            "teamId": "04",
             "time": 17907000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8348,7 +8328,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17909000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8366,7 +8346,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17918000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8384,7 +8364,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 17927000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8402,7 +8382,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17931000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8420,7 +8400,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 6,
+            "teamId": "07",
             "time": 17943000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8438,7 +8418,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17948000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8456,7 +8436,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17956000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8474,7 +8454,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17963000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8492,7 +8472,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "E",
-            "teamId": 4,
+            "teamId": "05",
             "time": 17967000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8510,7 +8490,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17969000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8528,7 +8508,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17971000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8546,7 +8526,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17974000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8564,7 +8544,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17978000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8582,7 +8562,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 5,
+            "teamId": "06",
             "time": 17982000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8600,7 +8580,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17984000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8618,7 +8598,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "C",
-            "teamId": 9,
+            "teamId": "10",
             "time": 17992000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8636,7 +8616,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "H",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17993000,
             "featuredRunMedia": null,
             "reactionVideos": [],
@@ -8654,7 +8634,7 @@
                 "isFirstToSolveRun": false
             },
             "problemId": "G",
-            "teamId": 1,
+            "teamId": "02",
             "time": 17993000,
             "featuredRunMedia": null,
             "reactionVideos": [],

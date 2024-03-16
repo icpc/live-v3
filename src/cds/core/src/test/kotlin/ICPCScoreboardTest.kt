@@ -21,10 +21,10 @@ class ICPCScoreboardTest {
             ProblemInfo(problemIdB, "B", "B", 2),
         ),
         teamList = listOf(
-            TeamInfo(1, "T1", "T1", "T1", emptyList(), null, emptyMap(), false, false, null),
-            TeamInfo(2, "T2", "T2", "T2", emptyList(), null, emptyMap(), false, false, null),
-            TeamInfo(3, "T3", "T3", "T3", emptyList(), null, emptyMap(), false, false, null),
-            TeamInfo(4, "T4", "T4", "T4", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(TeamId("T1"), "T1", "T1", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(TeamId("T2"), "T2", "T2", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(TeamId("T3"), "T3", "T3", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(TeamId("T4"), "T4", "T4", emptyList(), null, emptyMap(), false, false, null),
         ),
         groupList = emptyList(),
         organizationList = emptyList(),
@@ -34,16 +34,16 @@ class ICPCScoreboardTest {
     @Test
     fun testRanks() {
         val runs = listOf(
-            RunInfo(1, RunResult.ICPC(Verdict.Accepted, false), problemIdA, 4, 10.minutes),
-            RunInfo(3, RunResult.ICPC(Verdict.Accepted, false), problemIdA, 1, 30.minutes),
-            RunInfo(4, RunResult.ICPC(Verdict.Accepted, false), problemIdA, 3, 30.minutes),
-            RunInfo(5, RunResult.ICPC(Verdict.Accepted, false), problemIdA, 2, 40.minutes),
+            RunInfo(1, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T4"), 10.minutes),
+            RunInfo(3, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T1"), 30.minutes),
+            RunInfo(4, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T3"), 30.minutes),
+            RunInfo(5, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T2"), 40.minutes),
         )
         val calculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
         val scoreboardRows = runs.groupBy { it.teamId }.mapValues { calculator.getScoreboardRow(info, it.value) }
         val ranking = calculator.getRanking(info, scoreboardRows)
         assertEquals(ranking.ranks, listOf(1, 2, 2, 4))
-        assertEquals(ranking.order, listOf(4, 1, 3, 2))
+        assertEquals(ranking.order, listOf(TeamId("T4"), TeamId("T1"), TeamId("T3"), TeamId("T2")))
     }
 
 }

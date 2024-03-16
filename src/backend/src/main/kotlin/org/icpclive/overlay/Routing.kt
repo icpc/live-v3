@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.admin.getExternalRun
 import org.icpclive.cds.api.OptimismLevel
-import org.icpclive.cds.api.RunInfo
 import org.icpclive.data.DataBus
 import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.cds.scoreboard.toLegacyScoreboard
@@ -44,7 +43,7 @@ fun Route.configureOverlayRouting() {
         }
     }
     route("/svgAchievement"){
-        configureSvgAtchievementRouting(Config.mediaDirectory)
+        configureSvgAchievementRouting(Config.mediaDirectory)
     }
     get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
     get("/externalRun/{id}") {

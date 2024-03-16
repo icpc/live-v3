@@ -16,7 +16,6 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
     private val teams = mutableMapOf<String, Team>()
     private val submissionToId = Enumerator<String>()
-    private val teamToId = Enumerator<String>()
     private val submissions = mutableMapOf<String, Submission>()
     private val submissionJudgmentIds = mutableMapOf<String, MutableSet<String>>()
     private val judgements = mutableMapOf<String, Judgement>()
@@ -58,10 +57,9 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
-            id = teamToId[id],
+            id = TeamId(id),
             fullName = teamName(teamOrganization?.formalName, name),
             displayName = teamName(teamOrganization?.name, name),
-            contestSystemId = id,
             isHidden = hidden,
             groups = buildList {
                 for (group in group_ids) {
@@ -107,7 +105,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
                 ).toICPCRunResult()
             },
             problemId = ProblemId(problem_id),
-            teamId = teamToId[team_id],
+            teamId = TeamId(team_id),
             time = contest_time,
             reactionVideos = reaction?.mapNotNull { it.mediaType() } ?: emptyList(),
         )
@@ -257,7 +255,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
             commentary.message,
             commentary.time,
             commentary.contest_time,
-            commentary.team_ids?.map { teamToId[it] } ?: emptyList(),
+            commentary.team_ids?.map { TeamId(it) } ?: emptyList(),
             commentary.submission_ids?.map { submissionToId[it] } ?: emptyList(),
         )
 

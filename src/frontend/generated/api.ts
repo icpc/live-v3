@@ -61,10 +61,9 @@ export interface ProblemInfo {
 }
 
 export interface TeamInfo {
-  id: number;
+  id: TeamId;
   name: string;
   shortName: string;
-  contestSystemId: string;
   groups: GroupId[];
   hashTag: string | null;
   medias: { [key in TeamMediaType]: MediaType };
@@ -97,6 +96,8 @@ export enum ScoreMergeMode {
   LAST_OK = "LAST_OK",
   SUM = "SUM",
 }
+
+export type TeamId = string;
 
 export type OrganizationId = string;
 
@@ -142,7 +143,7 @@ export namespace MediaType {
   
   export interface TaskStatus {
     type: MediaType.Type.TaskStatus;
-    teamId: number;
+    teamId: TeamId;
     isMedia?: boolean;
   }
   
@@ -181,7 +182,7 @@ export interface MedalSettings {
 export interface ManualAwardSetting {
   id: string;
   citation: string;
-  teamCdsIds: string[];
+  teamCdsIds: TeamId[];
 }
 
 export enum TeamMediaType {
@@ -208,7 +209,7 @@ export interface RunInfo {
   id: number;
   result: RunResult;
   problemId: ProblemId;
-  teamId: number;
+  teamId: TeamId;
   time: number;
   featuredRunMedia: MediaType | null;
   reactionVideos: MediaType[];
@@ -257,8 +258,8 @@ export interface Verdict {
 
 export interface Scoreboard {
   type: ScoreboardUpdateType;
-  rows: { [key: number]: ScoreboardRow };
-  order: number[];
+  rows: { [key: TeamId]: ScoreboardRow };
+  order: TeamId[];
   ranks: number[];
   awards: Award[];
 }
@@ -293,7 +294,7 @@ export namespace Award {
     type: Award.Type.custom;
     id: string;
     citation: string;
-    teams: number[];
+    teams: TeamId[];
   }
   
   export interface group_champion {
@@ -301,7 +302,7 @@ export namespace Award {
     id: string;
     citation: string;
     groupId: GroupId;
-    teams: number[];
+    teams: TeamId[];
   }
   
   export interface medal {
@@ -309,14 +310,14 @@ export namespace Award {
     id: string;
     citation: string;
     medalColor: MedalColor | null;
-    teams: number[];
+    teams: TeamId[];
   }
   
   export interface winner {
     type: Award.Type.winner;
     id: string;
     citation: string;
-    teams: number[];
+    teams: TeamId[];
   }
 }
 
@@ -352,7 +353,7 @@ export interface LegacyScoreboard {
 }
 
 export interface LegacyScoreboardRow {
-  teamId: number;
+  teamId: TeamId;
   rank: number;
   totalScore: number;
   penalty: number;
@@ -557,7 +558,7 @@ export interface TeamLocatorCircleSettings {
   x: number;
   y: number;
   radius: number;
-  teamId: number;
+  teamId: TeamId;
 }
 
 export type QueueEvent =
@@ -637,7 +638,7 @@ export namespace AnalyticsMessage {
     message: string;
     timeUnixMs: number;
     relativeTimeMs: number;
-    teamIds: number[];
+    teamIds: TeamId[];
     runIds: number[];
     priority: number;
     tags: string[];

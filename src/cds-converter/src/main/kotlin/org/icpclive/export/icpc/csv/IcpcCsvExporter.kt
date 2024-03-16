@@ -29,7 +29,7 @@ object IcpcCsvExporter {
         "institution"
     )
 
-    fun TeamInfo.icpcId() = customFields["icpc_id"] ?: contestSystemId
+    fun TeamInfo.icpcId() = customFields["icpc_id"] ?: id.value
 
     fun format(info: ContestInfo, runs: List<RunInfo>) : String {
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")

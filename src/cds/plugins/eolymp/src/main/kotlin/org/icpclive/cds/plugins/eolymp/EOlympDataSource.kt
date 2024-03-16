@@ -113,7 +113,6 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         .withResolverStyle(ResolverStyle.STRICT)
         .withChronology(IsoChronology.INSTANCE)
 
-    private val teamIds = Enumerator<String>()
     private val runIds = Enumerator<String>()
 
     private var previousDays: List<ContestParseResult> = emptyList()
@@ -167,10 +166,9 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                 )
                 addAll(x.participants!!.nodes.map {
                     TeamInfo(
-                        id = teamIds[it.id],
+                        id = TeamId(it.id),
                         fullName = it.name,
                         displayName = it.name,
-                        contestSystemId = it.id,
                         groups = emptyList(),
                         hashTag = null,
                         medias = emptyMap(),
@@ -229,7 +227,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                             ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
                         } ?: RunResult.InProgress(0.0),
                         problemId = ProblemId(it.problem!!.id),
-                        teamId = teamIds[it.participant!!.id],
+                        teamId = TeamId(it.participant!!.id),
                         time = parseTime(it.submittedAt) - contestInfo.startTime,
                         isHidden = it.deleted
                     )

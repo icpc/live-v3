@@ -11,8 +11,7 @@ class LocatorWidgetController(manager: Manager<TeamLocatorWidget>) :
     SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(ExternalTeamLocatorSettings(), manager) {
     override suspend fun onDelete(id: Int) {}
 
-    fun TeamLocatorExternalCircleSettings.getTeam(info: ContestInfo) =
-        info.teams[teamId] ?: info.cdsTeams[cdsTeamId]
+    fun TeamLocatorExternalCircleSettings.getTeam(info: ContestInfo) = info.teams[teamId]
 
     override suspend fun checkSettings(settings: ExternalTeamLocatorSettings) {
         val info = DataBus.contestInfoFlow.await().first()

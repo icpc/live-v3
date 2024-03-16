@@ -45,7 +45,7 @@ public fun Flow<ContestUpdate>.processHiddenTeamsAndGroups(): Flow<ContestUpdate
             else
                 original
         },
-        { new: ContestInfo, old: ContestInfo?, key: Int ->
+        { new: ContestInfo, old: ContestInfo?, key: TeamId ->
             new.teams[key]?.isHidden != old?.teams?.get(key)?.isHidden
         }
     ).map { it.event }
