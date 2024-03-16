@@ -79,8 +79,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
             awardsSettings.championTitle?.let { title ->
                 add(Award.Winner("winner", title, teamRanks[1]?.toSet() ?: emptySet()))
             }
-            for ((groupId_, title) in awardsSettings.groupsChampionTitles) {
-                val groupId = GroupId(groupId_)
+            for ((groupId, title) in awardsSettings.groupsChampionTitles) {
                 val groupBestRank = firstGroupRank[groupId]
                 add(
                     Award.GroupChampion(

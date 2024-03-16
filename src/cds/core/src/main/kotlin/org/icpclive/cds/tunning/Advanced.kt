@@ -153,9 +153,9 @@ public class AdvancedProperties(
     public val teamNameRegexes: TeamRegexOverrides? = null,
     public val teamIdRegexes: TeamRegexOverrides? = null,
     public val teamOverrides: Map<String, TeamInfoOverride>? = null,
-    public val groupOverrides: Map<String, GroupInfoOverride>? = null,
-    public val organizationOverrides: Map<String, OrganizationInfoOverride>? = null,
-    public val problemOverrides: Map<String, ProblemInfoOverride>? = null,
+    public val groupOverrides: Map<GroupId, GroupInfoOverride>? = null,
+    public val organizationOverrides: Map<OrganizationId, OrganizationInfoOverride>? = null,
+    public val problemOverrides: Map<ProblemId, ProblemInfoOverride>? = null,
     public val scoreboardOverrides: RankingSettings? = null,
     public val awardsSettings: AwardsSettings? = null,
 )
@@ -229,7 +229,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             )
         },
         problemOverrides = problemList.associate {
-            it.id.value to ProblemInfoOverride(
+            it.id to ProblemInfoOverride(
                 displayName = it.displayName.takeIfAsked("problemDisplayName"),
                 fullName = it.fullName.takeIfAsked("problemFullName"),
                 color = it.color.takeIfAsked("color"),
@@ -242,14 +242,14 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             )
         },
         groupOverrides = groupList.associate {
-            it.id.value to GroupInfoOverride(
+            it.id to GroupInfoOverride(
                 displayName = it.displayName.takeIfAsked("groupDisplayName"),
                 isHidden = it.isHidden.takeIfAsked("groupIsHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest"),
             )
         },
         organizationOverrides = organizationList.associate {
-            it.id.value to OrganizationInfoOverride(
+            it.id to OrganizationInfoOverride(
                 displayName = it.displayName.takeIfAsked("orgDisplayName"),
                 fullName = it.fullName.takeIfAsked("orgFullName"),
                 logo = it.logo.takeIfAsked("logo")

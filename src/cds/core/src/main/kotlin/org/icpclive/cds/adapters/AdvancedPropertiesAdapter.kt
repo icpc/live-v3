@@ -114,11 +114,11 @@ public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<A
         }
     }
 
-private fun <T, O> mergeOverrides(
+private fun <T, O, ID> mergeOverrides(
     infos: List<T>,
-    overrides: Map<String, O>?,
-    id: T.() -> String,
-    unusedMessage: (Set<String>) -> String? = { null },
+    overrides: Map<ID, O>?,
+    id: T.() -> ID,
+    unusedMessage: (Set<ID>) -> String? = { null },
     merge: (T, O) -> T,
 ): List<T> {
     return if (overrides == null) {
@@ -323,11 +323,11 @@ internal fun applyAdvancedProperties(
 
 private fun mergeOrganizations(
     organizationInfos: List<OrganizationInfo>,
-    overrides1: Map<String, OrganizationInfoOverride>?,
+    overrides1: Map<OrganizationId, OrganizationInfoOverride>?,
 ) = mergeOverrides(
     organizationInfos,
     overrides1,
-    { id.value },
+    { id },
     unusedMessage = { "No organization for override: $it" }
 ) { org, override ->
     OrganizationInfo(
@@ -340,11 +340,11 @@ private fun mergeOrganizations(
 
 private fun mergeGroups(
     groups: List<GroupInfo>,
-    overrides: Map<String, GroupInfoOverride>?,
+    overrides: Map<GroupId, GroupInfoOverride>?,
 ) = mergeOverrides(
     groups,
     overrides,
-    { id.value },
+    { id },
     unusedMessage = { "No group for override: $it" }
 ) { group, override ->
     GroupInfo(
@@ -357,11 +357,11 @@ private fun mergeGroups(
 
 private fun mergeProblems(
     problems: List<ProblemInfo>,
-    overrides: Map<String, ProblemInfoOverride>?,
+    overrides: Map<ProblemId, ProblemInfoOverride>?,
 ) = mergeOverrides(
     problems,
     overrides,
-    { id.value },
+    { id },
     unusedMessage = { "No problem for override: $it" }
 ) { problem, override ->
     ProblemInfo(
