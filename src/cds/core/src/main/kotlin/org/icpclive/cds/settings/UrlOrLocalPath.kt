@@ -5,7 +5,7 @@ import java.nio.file.Path
 public sealed class UrlOrLocalPath {
     public abstract fun subDir(s: String): UrlOrLocalPath
     public class Url(public val value: String) : UrlOrLocalPath() {
-        public override fun subDir(s: String): UrlOrLocalPath = Url("$value/$s")
+        public override fun subDir(s: String): UrlOrLocalPath = Url("${value.removeSuffix("/")}/$s")
         override fun toString(): String = value
     }
 

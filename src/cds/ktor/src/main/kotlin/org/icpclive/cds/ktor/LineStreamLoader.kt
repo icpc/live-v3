@@ -21,7 +21,7 @@ public fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: Clie
 
         is UrlOrLocalPath.Url -> {
             val httpClient = defaultHttpClient(auth, networkSettings)
-            logger.debug("Requesting $url")
+            logger.info("Requesting $url")
             httpClient.prepareGet(url.value) {
                 timeout {
                     socketTimeoutMillis = Long.MAX_VALUE
