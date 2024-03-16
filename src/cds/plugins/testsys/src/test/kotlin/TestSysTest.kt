@@ -1,6 +1,7 @@
 package org.icpclive.cds.plugins.testsys
 
 import org.icpclive.cds.CdsLoadersTest
+import org.icpclive.cds.api.GroupId
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.*
 import kotlin.test.Test
@@ -35,7 +36,7 @@ object TestSysTest : CdsLoadersTest() {
                     ),
                 ),
                 groupOverrides = mapOf(
-                    "outOfContest" to GroupInfoOverride(isOutOfContest = true)
+                    GroupId("outOfContest") to GroupInfoOverride(isOutOfContest = true)
                 ),
                 teamOverrideTemplate = TeamOverrideTemplate(
                     displayName = "{funnyName}"
