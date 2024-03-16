@@ -72,7 +72,7 @@
                     "default": "TaskStatus"
                 },
                 "teamId": {
-                    "type": "number"
+                    "type": "string"
                 },
                 "isMedia": {
                     "type": "boolean"
@@ -370,7 +370,7 @@
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.TeamInfoOverride>": {
+        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamId,org.icpclive.cds.tunning.TeamInfoOverride>": {
             "oneOf": [
                 {
                     "type": "object",
@@ -620,7 +620,7 @@
                 "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalSettings>"
             }
         },
-        "kotlin.collections.ArrayList<kotlin.String>": {
+        "kotlin.collections.ArrayList<org.icpclive.cds.api.TeamId>": {
             "type": "array",
             "items": {
                 "type": "string"
@@ -636,7 +636,7 @@
                     "type": "string"
                 },
                 "teamCdsIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.TeamId>"
                 }
             },
             "additionalProperties": false,
@@ -709,7 +709,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.tunning.TeamRegexOverrides?<org.icpclive.cds.tunning.RegexSet?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
                 },
                 "teamOverrides": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.TeamInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamId,org.icpclive.cds.tunning.TeamInfoOverride>"
                 },
                 "groupOverrides": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.GroupId,org.icpclive.cds.tunning.GroupInfoOverride>"

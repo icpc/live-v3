@@ -45,10 +45,9 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             if (!teams.contains(submission.Login)) {
                 teams[submission.Login] =
                     TeamInfo(
-                        id = lastTeamId++,
+                        id = TeamId(submission.Login),
                         fullName = submission.AuthorName,
                         displayName = submission.AuthorName,
-                        contestSystemId = submission.Login,
                         groups = emptyList(),
                         hashTag = null,
                         medias = emptyMap(),
@@ -66,7 +65,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                 id = it.Id,
                 result?.toICPCRunResult() ?: RunResult.InProgress(0.0),
                 problemId = ProblemId(it.Problem.toString()),
-                teamId = teams[it.Login]?.id ?: -1,
+                teamId = TeamId(it.Login),
                 time = (it.ReceivedTime.toInstant(settings.timeZone)) - startTime,
             )
         }.toList()

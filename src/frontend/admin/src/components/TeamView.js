@@ -41,7 +41,6 @@ const AUTOMODE_TEAM = {
     "id": null,
     "name": "Automode",
     "shortName": "Automode",
-    "contestSystemId": null,
     "groups": [],
     "medias": {},
     "shown": false,
@@ -62,7 +61,7 @@ const isTeamSatisfiesSearch = (team, searchValue) => {
     if (searchValue === "" || team.id === null) {
         return true;
     }
-    return (team.contestSystemId + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
+    return (team.id + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
 };
 
 const useTeamsList = (rawTeams, status) => {

@@ -26,7 +26,6 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
     private val usersLoader = jsonUrlLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/" }
     private val submissionsLoader = jsonUrlLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/" }
     private val subchangesLoader = jsonUrlLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/" }
-    private val teamId = Enumerator<String>()
     private val submissionId = Enumerator<String>()
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -72,10 +71,9 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
         }
         val teams = usersLoader.load().map { (k, v) ->
             TeamInfo(
-                id = teamId[k],
+                id = TeamId(k),
                 fullName = "[${v.team}] ${v.f_name} ${v.l_name}",
                 displayName = "${v.f_name} ${v.l_name}",
-                contestSystemId = k,
                 groups = emptyList(),
                 hashTag = null,
                 medias = mapOf(
@@ -112,7 +110,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 id = submissionId[k],
                 result = RunResult.InProgress(0.0),
                 problemId = ProblemId(v.task),
-                teamId = teamId[v.user],
+                teamId = TeamId(v.user),
                 time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO
             )
         }.associateBy { it.id }.toMutableMap()

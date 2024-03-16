@@ -62,6 +62,6 @@ public data class AwardsSettings(
     public data class ManualAwardSetting(
         val id: String,
         val citation: String,
-        val teamCdsIds: List<String>,
+        val teamCdsIds: List<TeamId>,
     )
 }

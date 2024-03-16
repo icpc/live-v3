@@ -56,7 +56,7 @@ private fun MediaType.toClicsMedia() = when (this) {
 }
 
 private fun TeamInfo.toClicsTeam() = Team(
-    id = contestSystemId,
+    id = id.value,
     name = fullName,
     hidden = isHidden,
     group_ids = groups.map { it.value },
@@ -204,7 +204,6 @@ object ClicsExporter  {
     }
 
     private val submissionsCreated = mutableSetOf<Int>()
-    private var teamIdToCdsId = mapOf<Int, String>()
 
     private suspend fun FlowCollector<EventProducer>.processRun(info: ContestInfo, run: RunInfo) {
         if (run.id !in submissionsCreated) {
@@ -215,7 +214,7 @@ object ClicsExporter  {
                     id = run.id.toString(),
                     language_id = unknownLanguage.id,
                     problem_id = run.problemId.value,
-                    team_id = teamIdToCdsId[run.teamId]!!,
+                    team_id = run.teamId.value,
                     time = info.startTime + run.time,
                     contest_time = run.time,
                 ),
@@ -249,12 +248,10 @@ object ClicsExporter  {
     private val groupsMap = mutableMapOf<GroupId, GroupInfo>()
     private val orgsMap = mutableMapOf<OrganizationId, OrganizationInfo>()
     private val problemsMap = mutableMapOf<ProblemId, ProblemInfo>()
-    private val teamsMap = mutableMapOf<String, TeamInfo>()
+    private val teamsMap = mutableMapOf<TeamId, TeamInfo>()
 
     @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
-        teamIdToCdsId = newInfo.teamList.associate { it.id to it.contestSystemId }
-
         diff(oldInfo, newInfo, ::getContest, Event::ContestEvent)
         diff(oldInfo, newInfo, ::getState, Event::StateEvent)
         if (oldInfo == null) {
@@ -269,7 +266,7 @@ object ClicsExporter  {
         diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> Event.GroupsEvent(id.value, token, data) }
         diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> Event.OrganizationEvent(id.value, token, data) }
 
-        diff(teamsMap, newInfo.teamList, TeamInfo::contestSystemId, TeamInfo::toClicsTeam, Event::TeamEvent)
+        diff(teamsMap, newInfo.teamList, { id }, TeamInfo::toClicsTeam) { id, token, data -> Event.TeamEvent(id.value, token, data) }
 
         diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> Event.GroupsEvent(id.value, token, data) }
         diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> Event.OrganizationEvent(id.value, token, data) }
@@ -285,7 +282,7 @@ object ClicsExporter  {
                 event.relativeTime,
                 event.message,
                 event.tags,
-                event.teamIds.map { teamIdToCdsId[it]!! },
+                event.teamIds.map { it.value },
                 emptyList(),
                 event.runIds.map { it.toString() }
             ),
@@ -460,7 +457,7 @@ object ClicsExporter  {
             val row = scoreboardSnapshot.rows[teamId]!!
             ScoreboardRow(
                 rank,
-                info.teams[teamId]!!.contestSystemId,
+                teamId.value,
                 ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
                 row.problemResults.mapIndexed { index, v ->
                     val iv = v as ICPCProblemResult
@@ -478,7 +475,7 @@ object ClicsExporter  {
 
     private fun ScoreboardAndContestInfo.toClicsAwards() = buildList {
         for (award in scoreboardSnapshot.awards) {
-            add(Award(award.id, award.citation, award.teams.map { info.teams[it]!!.contestSystemId }))
+            add(Award(award.id, award.citation, award.teams.map { it.value }))
         }
         for ((index, problem) in info.scoreboardProblems.withIndex()) {
             add(Award(
@@ -486,7 +483,7 @@ object ClicsExporter  {
                 "First to solve problem ${problem.displayName}",
                 scoreboardSnapshot.rows.entries
                     .filter { (it.value.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
-                    .map { info.teams[it.key]!!.contestSystemId }
+                    .map { it.key.value }
             ))
         }
     }

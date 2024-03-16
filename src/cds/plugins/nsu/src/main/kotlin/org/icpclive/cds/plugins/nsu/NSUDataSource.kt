@@ -99,10 +99,9 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
 
         val teamList: List<TeamInfo> = teams.map {
             TeamInfo(
-                id = it.id,
+                id = TeamId(it.id.toString()),
                 fullName = it.title,
                 displayName = it.title,
-                contestSystemId = it.id.toString(),
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
@@ -110,7 +109,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
                 isOutOfContest = false,
                 organizationId = null,
             )
-        }.sortedBy { it.id }
+        }.sortedBy { it.id.value }
 
 
         val problemsList: List<ProblemInfo> = tasks.mapIndexed { index, it ->
@@ -159,7 +158,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
                 id = it.id,
                 result = getRunResult(it.res, it.status) ?: RunResult.InProgress(0.0),
                 problemId = ProblemId(it.taskId.toString()),
-                teamId = it.teamId,
+                teamId = TeamId(it.teamId.toString()),
                 time = parseNSUTime(it.smtime) - startTime
             )
         }

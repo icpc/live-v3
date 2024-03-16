@@ -27,12 +27,11 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
-import org.icpclive.cds.api.ContestInfo
-import org.icpclive.cds.api.RunInfo
 import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.tunning.TeamInfoOverride
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
+import org.icpclive.cds.api.*
 import org.icpclive.cds.cli.CdsCommandLineOptions
 import org.icpclive.export.icpc.csv.IcpcCsvExporter
 import org.icpclive.util.*
@@ -109,7 +108,7 @@ object IcpcCSVDumpCommand : DumpFileCommand(
         } else {
             val parser = CSVParser(mappingFile.inputStream().reader(), CSVFormat.TDF)
             val map = parser.records.associate {
-                it[1]!! to it[0]!!
+                TeamId(it[1]!!) to it[0]!!
             }
             val advanced = AdvancedProperties(
                 teamOverrides = map.mapValues {

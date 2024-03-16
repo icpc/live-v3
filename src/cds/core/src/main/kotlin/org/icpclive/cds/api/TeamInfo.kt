@@ -2,6 +2,12 @@ package org.icpclive.cds.api
 
 import kotlinx.serialization.*
 
+@JvmInline
+@Serializable
+public value class TeamId(public val value: String) {
+    override fun toString(): String = value
+}
+
 @Serializable
 public enum class TeamMediaType {
     @SerialName("camera")
@@ -25,10 +31,9 @@ public enum class TeamMediaType {
 
 @Serializable
 public data class TeamInfo(
-    val id: Int,
+    val id: TeamId,
     @SerialName("name") val fullName: String,
     @SerialName("shortName") val displayName: String,
-    val contestSystemId: String,
     val groups: List<GroupId>,
     val hashTag: String?,
     val medias: Map<TeamMediaType, MediaType>,

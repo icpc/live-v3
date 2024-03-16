@@ -20,9 +20,9 @@ class ExternalRunInfo(
 
 @Serializable
 class ExternalTeamInfo(
+    val id: String,
     val fullName: String,
     val displayName: String,
-    val contestSystemId: String,
     val groups: List<GroupInfo>,
     val hashTag: String?,
     val medias: Map<TeamMediaType, MediaType>,

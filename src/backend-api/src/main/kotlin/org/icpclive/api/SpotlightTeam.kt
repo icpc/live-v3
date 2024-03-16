@@ -1,6 +1,7 @@
 package org.icpclive.api
 
 import kotlinx.serialization.Serializable
+import org.icpclive.cds.api.TeamId
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -8,14 +9,14 @@ sealed class KeyTeamCause
 class RunCause(val runId: Int) : KeyTeamCause()
 object ScoreSumCause : KeyTeamCause()
 
-data class KeyTeam(val teamId: Int, val cause: KeyTeamCause)
-data class CurrentTeamState(val teamId: Int, val score: Double)
+data class KeyTeam(val teamId: TeamId, val cause: KeyTeamCause)
+data class CurrentTeamState(val teamId: TeamId, val score: Double)
 
 @Serializable
-data class InterestingTeam(val teamId: Int, val teamName: String, val score: Double)
+data class InterestingTeam(val teamId: TeamId, val teamName: String, val score: Double)
 
 @Serializable
-data class AddTeamScoreRequest(val teamId: Int, val score: Double)
+data class AddTeamScoreRequest(val teamId: TeamId, val score: Double)
 
 data class TeamSpotlightFlowSettings(
     val notJudgedRunScore: Double = 5.0,

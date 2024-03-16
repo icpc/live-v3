@@ -53,10 +53,9 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val teams = (data["@t"] ?: emptyList()).mapIndexed { index, team ->
             val (id, _, _, name) = team.splitCommas()
             TeamInfo(
-                id = index,
+                id = TeamId(id),
                 fullName = name,
                 displayName = name,
-                contestSystemId = id,
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
@@ -67,7 +66,6 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         }
         val isCEPenalty = data["@comment"]?.contains("@pragma IgnoreCE") != true
         val problems = problemsWithPenalty.map { it.first }
-        val teamIdMap = teams.associate { it.contestSystemId to it.id }
         val contestInfo = ContestInfo(
             name = data["@contest"]!!.single(),
             status = data["@state"]!!.single().toStatus(),
@@ -96,7 +94,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                     }
                 ).takeIf { verdict != "FZ" }?.toICPCRunResult() ?: RunResult.InProgress(0.0),
                 problemId = ProblemId(problemId),
-                teamId = teamIdMap[teamId]!!,
+                teamId = TeamId(teamId),
                 time = time.toInt().seconds,
             )
         }

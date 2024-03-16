@@ -107,8 +107,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
         val teams = scoreboard.scoreboard.rowList.map {
             val team = it.team
             TeamInfo(
-                id = team.id,
-                contestSystemId = team.id.toString(),
+                id = TeamId(team.id.toString()),
                 fullName = team.name,
                 displayName = team.name,
                 groups = emptyList(),
@@ -122,7 +121,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
 
         val memberIdToTeam = scoreboard.scoreboard.rowList
             .map { it.team }
-            .flatMap { it.memberList.map { member -> member.id to it.id } }
+            .flatMap { it.memberList.map { member -> member.id to TeamId(it.id.toString()) } }
             .toMap()
 
         val startTime = Instant.fromEpochMilliseconds(contest.startTimeMilliSeconds)

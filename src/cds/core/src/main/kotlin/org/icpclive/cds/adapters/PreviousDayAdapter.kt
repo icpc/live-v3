@@ -17,13 +17,10 @@ import kotlin.time.Duration
 @OptIn(InefficientContestInfoApi::class)
 @JvmName("addPreviousDaysResults")
 public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>): Flow<ContestUpdate> {
-    val teamsEnumerator = Enumerator<String>()
     val runsEnumerator = Enumerator<Pair<Int, Int>>()
 
     val allProblems = mutableListOf<ProblemInfo>()
     val allRuns = mutableListOf<RunInfo>()
-    val teamIdToNewTeamId = mutableMapOf<Int, Int?>()
-    val teamIdToCdsTeamId = mutableMapOf<Int, String>()
 
     fun problemId(day: Int, id: ProblemId) = if (day < previousDays.size)
         ProblemId("d${day+1}.${id.value}")
@@ -43,16 +40,10 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                     id = runsEnumerator[index to run.id],
                     time = Duration.ZERO,
                     problemId = problemId(index,run.problemId),
-                    teamId = teamsEnumerator[info.teams[run.teamId]!!.contestSystemId].also {
-                        teamIdToNewTeamId[it] = null
-                        teamIdToCdsTeamId[it] = info.teams[run.teamId]!!.contestSystemId
-                    }
                 )
             )
         }
     }
-
-    val runsByTeamId = allRuns.groupBy { it.teamId }
 
     return transform { update ->
         when (update) {
@@ -65,33 +56,15 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                         ordinal = allProblems.size + index
                     )
                 }
-                val newTeamIds = info.teamList.associate { it.contestSystemId to it.id }
-                val todo = buildList {
-                    for ((id, oldId) in teamIdToNewTeamId.entries) {
-                        val newId = newTeamIds[teamIdToCdsTeamId[id]]
-                        if (oldId != newId) {
-                            add(id to newId)
-                        }
-                    }
-                }
                 emit(InfoUpdate(
                     info.copy(
                         problemList = allProblems + newProblems
                     )
                 ))
-                for ((id, newId) in todo) {
-                    teamIdToNewTeamId[id] = newId
-                    val runs = runsByTeamId[id] ?: continue
-                    for (run in runs) {
-                        emit(RunUpdate(
-                            if (newId == null) {
-                                run.copy(teamId = -1, isHidden = true)
-                            } else {
-                                run.copy(teamId = newId)
-                            }
-                        ))
-                    }
+                for (i in allRuns) {
+                    emit(RunUpdate(i))
                 }
+                allRuns.clear()
             }
             is RunUpdate -> {
                 val info = update.newInfo

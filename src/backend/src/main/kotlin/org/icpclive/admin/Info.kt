@@ -41,9 +41,9 @@ private fun RunInfo.toExternal(contestInfo: ContestInfo): ExternalRunInfo? {
 private fun TeamInfo.toExternal(contestInfo: ContestInfo) : ExternalTeamInfo? {
     if (isHidden) return null
     return ExternalTeamInfo(
+        id = id.value,
         fullName = fullName,
         displayName = displayName,
-        contestSystemId = contestSystemId,
         groups = groups.mapNotNull { contestInfo.groups[it] },
         hashTag = hashTag,
         medias = medias,
