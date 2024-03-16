@@ -24,6 +24,9 @@ fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.STRING -> "string"
 }
 
+fun SerialDescriptor.unwrapInlines(): SerialDescriptor = if (!isInline) this else getElementDescriptor(0).unwrapInlines()
+
+
 @OptIn(ExperimentalSerializationApi::class)
 fun SerialDescriptor.toJsonSchemaType(
     processed: MutableSet<String>,
@@ -43,7 +46,7 @@ fun SerialDescriptor.toJsonSchemaType(
         return defaultSerializer.descriptor.toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
     }
     if (isInline) {
-        return getElementDescriptor(0).toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
+        return unwrapInlines().toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
     }
     // Before processing, check for recursion
     val paramNamesWithTypes = elementDescriptors.map { it.serialName }
@@ -164,7 +167,7 @@ fun SerialDescriptor.toJsonSchemaType(
             }
 
             StructureKind.MAP -> {
-                val keysSerializer = getElementDescriptor(0)
+                val keysSerializer = getElementDescriptor(0).unwrapInlines()
                 val valuesSerializer = getElementDescriptor(1)
                 when (keysSerializer.kind) {
                     PrimitiveKind.STRING -> {

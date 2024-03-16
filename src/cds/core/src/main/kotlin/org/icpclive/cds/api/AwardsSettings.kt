@@ -14,7 +14,7 @@ import kotlinx.serialization.Transient
 @Serializable
 public data class AwardsSettings(
     public val championTitle: String? = null,
-    public val groupsChampionTitles: Map<String, String> = emptyMap(),
+    public val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
     public val rankAwardsMaxRank: Int = 0,
     private val medals: List<MedalSettings> = emptyList(),
     private val medalGroups: List<List<MedalSettings>> = emptyList(),

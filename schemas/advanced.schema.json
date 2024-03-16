@@ -401,7 +401,7 @@
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.GroupInfoOverride>": {
+        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.GroupId,org.icpclive.cds.tunning.GroupInfoOverride>": {
             "oneOf": [
                 {
                     "type": "object",
@@ -432,7 +432,7 @@
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.OrganizationInfoOverride>": {
+        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.OrganizationId,org.icpclive.cds.tunning.OrganizationInfoOverride>": {
             "oneOf": [
                 {
                     "type": "object",
@@ -497,7 +497,7 @@
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.ProblemInfoOverride>": {
+        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.ProblemId,org.icpclive.cds.tunning.ProblemInfoOverride>": {
             "oneOf": [
                 {
                     "type": "object",
@@ -552,7 +552,7 @@
                 }
             ]
         },
-        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>": {
+        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.GroupId,kotlin.String>": {
             "type": "object",
             "patternProperties": {
                 ".*": {
@@ -661,7 +661,7 @@
                             "type": "string"
                         },
                         "groupsChampionTitles": {
-                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
+                            "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.GroupId,kotlin.String>"
                         },
                         "rankAwardsMaxRank": {
                             "type": "number"
@@ -712,13 +712,13 @@
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.TeamInfoOverride>"
                 },
                 "groupOverrides": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.GroupInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.GroupId,org.icpclive.cds.tunning.GroupInfoOverride>"
                 },
                 "organizationOverrides": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.OrganizationInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.OrganizationId,org.icpclive.cds.tunning.OrganizationInfoOverride>"
                 },
                 "problemOverrides": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,org.icpclive.cds.tunning.ProblemInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.ProblemId,org.icpclive.cds.tunning.ProblemInfoOverride>"
                 },
                 "scoreboardOverrides": {
                     "$ref": "#/$defs/org.icpclive.cds.tunning.RankingSettings?<DurationM?,kotlin.Boolean?,org.icpclive.cds.api.PenaltyRoundingMode?>"
