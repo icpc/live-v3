@@ -63,16 +63,16 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
     }
 
     private var submissionId: Int = 1
-    val runs = mutableMapOf<Pair<Int, String>, List<RunInfo>>()
+    val runs = mutableMapOf<Pair<TeamId, ProblemId>, List<RunInfo>>()
 
-    private fun addNewRuns(teamId: Int, problemId: String, result: AtcoderTaskResult): List<RunInfo> {
+    private fun addNewRuns(teamId: TeamId, problemId: ProblemId, result: AtcoderTaskResult): List<RunInfo> {
         val oldRuns = (runs[teamId to problemId] ?: emptyList()).toMutableList()
         repeat(result.Count - oldRuns.size) {
             oldRuns.add(
                 RunInfo(
                     id = submissionId++,
                     result = RunResult.InProgress(0.0),
-                    problemId = ProblemId(problemId),
+                    problemId = problemId,
                     teamId = teamId,
                     time = minOf(settings.contestLength, Clock.System.now() - settings.startTime)
                 )
@@ -112,10 +112,9 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         }
         val teams = data.StandingsData.map {
             TeamInfo(
-                id = teamIds[it.UserScreenName],
+                id = TeamId(it.UserScreenName),
                 fullName = it.UserScreenName,
                 displayName = it.UserScreenName,
-                contestSystemId = it.UserScreenName,
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
@@ -123,7 +122,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
                 isOutOfContest = false,
                 organizationId = null,
             )
-        }.sortedBy { it.id }
+        }.sortedBy { it.id.value }
 
         val info = ContestInfo(
             name = "",
@@ -141,9 +140,9 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         )
         val newRuns = buildList {
             for (teamResult in data.StandingsData) {
-                val teamId = teamIds[teamResult.UserScreenName]
+                val teamId = TeamId(teamResult.UserScreenName)
                 for ((problemId, problemResult) in teamResult.TaskResults) {
-                    runs[teamId to problemId] = addNewRuns(teamId, problemId, problemResult).also {
+                    runs[teamId to ProblemId(problemId)] = addNewRuns(teamId, ProblemId(problemId), problemResult).also {
                         addAll(it)
                     }
                 }

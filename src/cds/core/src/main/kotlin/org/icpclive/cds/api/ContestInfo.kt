@@ -111,8 +111,7 @@ public data class ContestInfo(
             ContestStatus.OVER, ContestStatus.FINALIZED -> contestLength
         }
     val groups: Map<GroupId, GroupInfo> by lazy { groupList.associateBy { it.id } }
-    val teams: Map<Int, TeamInfo> by lazy { teamList.associateBy { it.id } }
-    val cdsTeams: Map<String, TeamInfo> by lazy { teamList.associateBy { it.contestSystemId } }
+    val teams: Map<TeamId, TeamInfo> by lazy { teamList.associateBy { it.id } }
     val organizations: Map<OrganizationId, OrganizationInfo> by lazy { organizationList.associateBy { it.id } }
     val problems: Map<ProblemId, ProblemInfo> by lazy { problemList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }

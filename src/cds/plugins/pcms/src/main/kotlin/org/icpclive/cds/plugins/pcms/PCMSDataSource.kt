@@ -42,7 +42,6 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
 
     private val resultType = settings.resultType
     private val runIds = Enumerator<String>()
-    private val teamIds = Enumerator<String>()
     private var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -91,7 +90,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         if (status == ContestStatus.RUNNING) {
             logger.info("Loaded contestInfo for time = $contestTime")
         }
-        val teams = teamsAndRuns.map { it.first }.sortedBy { it.id }
+        val teams = teamsAndRuns.map { it.first }.sortedBy { it.id.value }
         return ContestParseResult(
             ContestInfo(
                 name = element.getAttribute("name"),
@@ -118,7 +117,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         fun attr(name: String) = element.getAttribute(name).takeIf { it.isNotEmpty() }
         val alias = attr("alias")!!
         val team = TeamInfo(
-            id = teamIds[alias],
+            id = TeamId(alias),
             fullName = attr("party")!!,
             displayName = attr("shortname") ?: attr("party")!!,
             hashTag = attr("hashtag"),
@@ -128,7 +127,6 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 attr("camera")?.let { TeamMediaType.CAMERA to MediaType.Video(it) },
                 attr("record")?.let { TeamMediaType.RECORD to MediaType.Video(it) },
             ).associate { it },
-            contestSystemId = alias,
             isOutOfContest = false,
             isHidden = false,
             organizationId = null
@@ -138,7 +136,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 parseProblemRuns(
                     problem,
                     team.id,
-                    problem.getAttribute("alias"),
+                    ProblemId(problem.getAttribute("alias")),
                     contestTime
                 )
             }.toList()
@@ -147,8 +145,8 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
 
     private fun parseProblemRuns(
         element: Element,
-        teamId: Int,
-        problemId: String,
+        teamId: TeamId,
+        problemId: ProblemId,
         contestTime: Duration,
     ): Sequence<RunInfo> {
         return element.children()
@@ -158,8 +156,8 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
 
     private fun parseRunInfo(
         element: Element,
-        teamId: Int,
-        problemId: String,
+        teamId: TeamId,
+        problemId: ProblemId,
         index: Int
     ): RunInfo {
         val time = element.getAttribute("time").toLong().milliseconds
@@ -189,7 +187,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                     verdict?.toICPCRunResult()
                 }
             } ?: RunResult.InProgress(0.0),
-            problemId = ProblemId(problemId),
+            problemId = problemId,
             teamId = teamId,
             time = time,
         )

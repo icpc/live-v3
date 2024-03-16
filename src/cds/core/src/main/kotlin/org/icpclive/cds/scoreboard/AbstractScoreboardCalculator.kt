@@ -11,14 +11,14 @@ import org.icpclive.util.getLogger
 import kotlin.time.Duration
 
 public class Ranking internal constructor(
-    public val order: List<Int>,
+    public val order: List<TeamId>,
     public val ranks: List<Int>,
     public val awards: List<Award>,
 )
 
 public interface ScoreboardCalculator {
     public fun getScoreboardRow(info: ContestInfo, runs: List<RunInfo>): ScoreboardRow
-    public fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking
+    public fun getRanking(info: ContestInfo, rows: Map<TeamId, ScoreboardRow>): Ranking
 }
 
 private fun ordinalText(x: Int) = if (x in 11..13) {
@@ -39,8 +39,8 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
     abstract val comparator: Comparator<ScoreboardRow>
 
     @OptIn(InefficientContestInfoApi::class)
-    override fun getRanking(info: ContestInfo, rows: Map<Int, ScoreboardRow>): Ranking {
-        val comparatorWithName = compareBy(comparator) { it: Pair<Int, ScoreboardRow> -> it.second }
+    override fun getRanking(info: ContestInfo, rows: Map<TeamId, ScoreboardRow>): Ranking {
+        val comparatorWithName = compareBy(comparator) { it: Pair<TeamId, ScoreboardRow> -> it.second }
             .thenBy { info.teams[it.first]!!.displayName }
         val orderList = info.teamList
             .filterNot { it.isHidden }
@@ -127,7 +127,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                     Award.Custom(
                         manual.id,
                         manual.citation,
-                        manual.teamCdsIds.mapNotNull { info.cdsTeams[it]?.id }.toSet()
+                        manual.teamCdsIds.toSet()
                     )
                 )
             }
@@ -172,18 +172,18 @@ public fun Scoreboard.toLegacyScoreboard(info: ContestInfo): LegacyScoreboard = 
 private class RedoTask(
     val info: ContestInfo,
     val mode: ScoreboardUpdateType,
-    val runs: PersistentMap<Int, PersistentList<RunInfo>>,
+    val runs: PersistentMap<TeamId, PersistentList<RunInfo>>,
     val lastSubmissionTime: Duration,
 )
 
 
 private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
     var curInfo: ContestInfo? = null
-    var curRuns = persistentMapOf<Int, PersistentList<RunInfo>>()
+    var curRuns = persistentMapOf<TeamId, PersistentList<RunInfo>>()
     var lastSubmissionTime = Duration.ZERO
-    val oldKey = mutableMapOf<Int, Int>()
+    val oldKey = mutableMapOf<Int, TeamId>()
     collect { update ->
-        suspend fun updateGroup(key: Int) {
+        suspend fun updateGroup(key: TeamId) {
             val info = curInfo ?: return
             emit(
                 RedoTask(
@@ -254,7 +254,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
                     }
             }
 
-            var rows = persistentMapOf<Int, ScoreboardRow>()
+            var rows = persistentMapOf<TeamId, ScoreboardRow>()
             val logger = getLogger(AbstractScoreboardCalculator::class)
             while (true) {
                 val task = s.getAndUpdate { null } ?: s.filterNotNull().first().let { s.getAndUpdate { null }!! }
@@ -264,7 +264,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
                     ScoreboardUpdateType.DIFF -> task.runs
                     ScoreboardUpdateType.SNAPSHOT -> task.info.teams
                 }.keys.filterNot { task.info.teams[it]!!.isHidden }
-                val upd = teams.associateWithTo(persistentMapOf<Int, ScoreboardRow>().builder()) {
+                val upd = teams.associateWithTo(persistentMapOf<TeamId, ScoreboardRow>().builder()) {
                     calculator.getScoreboardRow(
                         task.info,
                         task.runs[it] ?: emptyList()

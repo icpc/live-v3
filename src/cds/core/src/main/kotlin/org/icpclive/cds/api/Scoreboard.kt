@@ -25,7 +25,7 @@ public sealed class ProblemResult {
 
 @Serializable
 public data class LegacyScoreboardRow(
-    val teamId: Int,
+    val teamId: TeamId,
     val rank: Int,
     val totalScore: Double,
     @Serializable(with = DurationInSecondsSerializer::class)
@@ -80,14 +80,14 @@ public data class ScoreboardRow(
 public sealed class Award {
     public abstract val id: String
     public abstract val citation: String
-    public abstract val teams: Set<Int>
+    public abstract val teams: Set<TeamId>
 
     @Serializable
     @SerialName("winner")
     public data class Winner(
         override val id: String,
         override val citation: String,
-        override val teams: Set<Int>,
+        override val teams: Set<TeamId>,
     ) : Award()
 
     @Serializable
@@ -96,7 +96,7 @@ public sealed class Award {
         override val id: String,
         override val citation: String,
         val medalColor: MedalColor?,
-        override val teams: Set<Int>,
+        override val teams: Set<TeamId>,
     ) : Award() {
         public enum class MedalColor {
             GOLD, SILVER, BRONZE;
@@ -109,7 +109,7 @@ public sealed class Award {
         override val id: String,
         override val citation: String,
         val groupId: GroupId,
-        override val teams: Set<Int>,
+        override val teams: Set<TeamId>,
     ) : Award()
 
     @Serializable
@@ -117,7 +117,7 @@ public sealed class Award {
     public data class Custom(
         override val id: String,
         override val citation: String,
-        override val teams: Set<Int>,
+        override val teams: Set<TeamId>,
     ) : Award()
 }
 
@@ -138,8 +138,8 @@ public enum class ScoreboardUpdateType {
 @Serializable
 public data class Scoreboard(
     val type: ScoreboardUpdateType,
-    val rows: Map<Int, ScoreboardRow>,
-    val order: List<Int>,
+    val rows: Map<TeamId, ScoreboardRow>,
+    val order: List<TeamId>,
     val ranks: List<Int>,
     val awards: List<Award>,
 )

@@ -152,7 +152,7 @@ public class AdvancedProperties(
     public val teamOverrideTemplate: TeamOverrideTemplate? = null,
     public val teamNameRegexes: TeamRegexOverrides? = null,
     public val teamIdRegexes: TeamRegexOverrides? = null,
-    public val teamOverrides: Map<String, TeamInfoOverride>? = null,
+    public val teamOverrides: Map<TeamId, TeamInfoOverride>? = null,
     public val groupOverrides: Map<GroupId, GroupInfoOverride>? = null,
     public val organizationOverrides: Map<OrganizationId, OrganizationInfoOverride>? = null,
     public val problemOverrides: Map<ProblemId, ProblemInfoOverride>? = null,
@@ -216,7 +216,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
         freezeTime = freezeTime.takeIfAsked("freezeTime"),
         holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teamList.associate {
-            it.contestSystemId to TeamInfoOverride(
+            it.id to TeamInfoOverride(
                 fullName = it.fullName.takeIfAsked("fullName"),
                 displayName = it.displayName.takeIfAsked("displayName"),
                 groups = it.groups.takeIfAsked("groups"),

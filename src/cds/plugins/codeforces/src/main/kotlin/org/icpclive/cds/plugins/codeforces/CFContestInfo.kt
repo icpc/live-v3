@@ -20,7 +20,6 @@ internal class CFContestInfo {
     private var cfStandings: CFStandings? = null
     private val problemsMap = mutableMapOf<String, ProblemInfo>()
     private val participantsByCdsId = mutableMapOf<String, TeamInfo>()
-    private var nextParticipantId = 1
     private var contestType: CFContestType = CFContestType.ICPC
     private var name: String = ""
 
@@ -74,13 +73,11 @@ internal class CFContestInfo {
         }
         for (row in standings.rows) {
             val cdsId = getTeamCdsId(row.party)
-            val id = participantsByCdsId[cdsId]?.id ?: nextParticipantId++
             val party = row.party
             participantsByCdsId[cdsId] = TeamInfo(
-                id = id,
+                id = TeamId(cdsId),
                 fullName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
                 displayName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
-                contestSystemId = cdsId,
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
@@ -262,7 +259,7 @@ internal class CFContestInfo {
         contestLength = contestLength,
         freezeTime = contestLength,
         problemList = problems,
-        teamList = participantsByCdsId.values.sortedBy { it.id },
+        teamList = participantsByCdsId.values.sortedBy { it.id.value },
         groupList = emptyList(),
         penaltyRoundingMode = when (contestType) {
             CFContestType.CF -> PenaltyRoundingMode.ZERO

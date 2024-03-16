@@ -74,7 +74,7 @@ private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = 
 }
 
 @Serializable
-class TeamState(val teamId: Int) : Comparable<TeamState> {
+class TeamState(val teamId: TeamId) : Comparable<TeamState> {
     var score = 0.0
         private set
     private var causedRun: RunInfo? = null
@@ -91,7 +91,7 @@ class TeamState(val teamId: Int) : Comparable<TeamState> {
     override fun compareTo(other: TeamState): Int = when {
         other.score > score -> 1
         other.score < score -> -1
-        else -> teamId.compareTo(other.teamId)
+        else -> teamId.value.compareTo(other.teamId.value)
     }
 }
 
@@ -101,7 +101,7 @@ class TeamSpotlightService(
 ) {
     private val mutex = Mutex()
     private val queue = mutableSetOf<TeamState>()
-    private fun getTeamInQueue(teamId: Int) =
+    private fun getTeamInQueue(teamId: TeamId) =
         queue.find { it.teamId == teamId } ?: TeamState(teamId).also { queue += it }
 
     fun getFlow(): Flow<KeyTeam> {

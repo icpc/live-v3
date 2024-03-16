@@ -86,9 +86,9 @@ object PCMSExporter {
 
     private fun Element.buildSessionNode(info: ContestInfo, teamInfo: TeamInfo, row: ScoreboardRow, runs: List<RunInfo>, awards: List<Award>) {
         setAttribute("party", teamInfo.fullName)
-        setAttribute("id", teamInfo.contestSystemId)
+        setAttribute("id", teamInfo.id.value)
         // setAttribute("time", "")
-        setAttribute("alias", teamInfo.contestSystemId)
+        setAttribute("alias", teamInfo.id.value)
         setAttribute("penalty", row.penalty.inWholeMinutes.toString())
         setAttribute("solved", row.totalScore.toInt().toString())
         for (award in awards) {
