@@ -7,7 +7,7 @@ val schemasExportLocation = rootProject.layout.projectDirectory.dir("schemas")
 val schemasGenerationLocation = tmpLocation.map { it.dir("schemas") }
 val schemasGatherLocation = layout.buildDirectory.dir("schemas")
 
-val tsExportLocation = rootProject.layout.projectDirectory.dir("src").dir("frontend").dir("common")
+val tsExportLocation = rootProject.layout.projectDirectory.dir("src").dir("frontend").dir("generated")
 val tsGenerationLocation = tmpLocation.map { it.dir("ts") }
 val tsGatherLocation = layout.buildDirectory.dir("ts")
 
