@@ -40,7 +40,7 @@ export enum PenaltyRoundingMode {
 
 export interface AwardsSettings {
   championTitle?: string | null;
-  groupsChampionTitles?: { [key: string]: string };
+  groupsChampionTitles?: { [key: GroupId]: string };
   rankAwardsMaxRank?: number;
   medals?: MedalSettings[];
   medalGroups?: MedalSettings[][];

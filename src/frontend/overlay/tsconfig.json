@@ -20,7 +20,7 @@
     "rootDir": "../", // Yes, this is ugly. Will be fixed once the admin is typescript too.
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["../common/*"],
+      "@shared/*": ["../common/*", "../generated/*"],
       "@/*": ["src/*"]
     },
   },
