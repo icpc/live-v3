@@ -29,11 +29,11 @@ public data class TeamInfo(
     @SerialName("name") val fullName: String,
     @SerialName("shortName") val displayName: String,
     val contestSystemId: String,
-    val groups: List<String>,
+    val groups: List<GroupId>,
     val hashTag: String?,
     val medias: Map<TeamMediaType, MediaType>,
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
-    val organizationId: String?,
+    val organizationId: OrganizationId?,
     @Required val customFields: Map<String, String> = emptyMap(),
 )

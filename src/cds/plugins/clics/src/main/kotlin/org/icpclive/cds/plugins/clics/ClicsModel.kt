@@ -53,7 +53,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         return null
     }
 
-    private fun Group.toApi(): GroupInfo = GroupInfo(id, name, isHidden = false, isOutOfContest = false)
+    private fun Group.toApi(): GroupInfo = GroupInfo(GroupId(id), name, isHidden = false, isOutOfContest = false)
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
@@ -63,7 +63,14 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
             displayName = teamName(teamOrganization?.name, name),
             contestSystemId = id,
             isHidden = hidden,
-            groups = group_ids.mapNotNull { groups[it]?.id } + listOfNotNull(teamOrganization?.country),
+            groups = buildList {
+                for (group in group_ids) {
+                    groups[group]?.let {
+                        add(GroupId(it.id))
+                    }
+                }
+                teamOrganization?.country?.let { add(GroupId(it)) }
+            },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
                 photo.firstOrNull()?.mediaType()?.let { put(TeamMediaType.PHOTO, it) }
@@ -71,7 +78,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
                 webcam.firstOrNull()?.mediaType()?.let { put(TeamMediaType.CAMERA, it) }
                 desktop.firstOrNull()?.mediaType()?.let { put(TeamMediaType.SCREEN, it) }
             },
-            organizationId = organization_id,
+            organizationId = organization_id?.let(::OrganizationId),
             isOutOfContest = false,
             customFields = mapOf(
                 "name" to name,
@@ -115,7 +122,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     )
 
     private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(
-        cdsId = id,
+        id = OrganizationId(id),
         displayName = name,
         fullName = formalName,
         logo = logo

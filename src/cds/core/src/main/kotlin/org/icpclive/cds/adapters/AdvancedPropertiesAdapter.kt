@@ -205,10 +205,10 @@ private fun applyRegex(
 ): List<TeamInfo> {
     if (regexOverrides == null) return teams
     return teams.map { team ->
-        val newOrg = team.key().matchRegexSet(regexOverrides.organizationRegex)
+        val newOrg = team.key().matchRegexSet(regexOverrides.organizationRegex)?.let(::OrganizationId)
         val newGroups = regexOverrides.groupRegex?.entries?.filter { (_, regex) ->
             regex.matches(team.key())
-        }?.map { it.key }.orEmpty()
+        }?.map { GroupId(it.key) }.orEmpty()
         val newCustomFields = regexOverrides.customFields?.mapValues { (_, regex) ->
             team.key().matchRegexSet(regex)
         }?.filterValues { it != null }?.mapValues { it.value!! }.orEmpty()
@@ -256,11 +256,11 @@ internal fun applyAdvancedProperties(
             override.groups?.let { addAll(it) }
         }
         for (group in info.groupList) {
-            remove(group.cdsId)
+            remove(group.id)
         }
     }
     val groups = mergeGroups(
-        info.groupList + newGroups.map { GroupInfo(it, it, isHidden = false, isOutOfContest = false) },
+        info.groupList + newGroups.map { GroupInfo(it, it.value, isHidden = false, isOutOfContest = false) },
         overrides.groupOverrides
     )
     val newOrganizations = buildSet {
@@ -270,16 +270,16 @@ internal fun applyAdvancedProperties(
         overrides.teamOverrides?.values?.forEach { override ->
             override.organizationId?.let { add(it) }
         }
-        for (group in info.organizationList) {
-            remove(group.cdsId)
+        for (org in info.organizationList) {
+            remove(org.id)
         }
     }
     val organizations = mergeOrganizations(
-        info.organizationList + newOrganizations.map { OrganizationInfo(it, it, it, null) },
+        info.organizationList + newOrganizations.map { OrganizationInfo(it, it.value, it.value, null) },
         overrides.organizationOverrides
     )
 
-    val orgsById = organizations.associateBy { it.cdsId }
+    val orgsById = organizations.associateBy { it.id }
 
     fun TeamInfo.templateValueGetter(name: String): String? {
         return when (name) {
@@ -327,11 +327,11 @@ private fun mergeOrganizations(
 ) = mergeOverrides(
     organizationInfos,
     overrides1,
-    OrganizationInfo::cdsId,
+    { id.value },
     unusedMessage = { "No organization for override: $it" }
 ) { org, override ->
     OrganizationInfo(
-        cdsId = org.cdsId,
+        id = org.id,
         displayName = override.displayName ?: org.displayName,
         fullName = override.fullName ?: org.fullName,
         logo = override.logo ?: org.logo
@@ -344,11 +344,11 @@ private fun mergeGroups(
 ) = mergeOverrides(
     groups,
     overrides,
-    GroupInfo::cdsId,
+    { id.value },
     unusedMessage = { "No group for override: $it" }
 ) { group, override ->
     GroupInfo(
-        cdsId = group.cdsId,
+        id = group.id,
         displayName = override.displayName ?: group.displayName,
         isHidden = override.isHidden ?: group.isHidden,
         isOutOfContest = override.isOutOfContest ?: group.isOutOfContest,

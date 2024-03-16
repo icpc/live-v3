@@ -1,14 +1,10 @@
 package org.icpclive.admin
 
 import kotlinx.coroutines.flow.first
-import kotlinx.serialization.Required
-import kotlinx.serialization.Serializable
 import org.icpclive.api.ExternalRunInfo
 import org.icpclive.api.ExternalTeamInfo
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
-import org.icpclive.util.DurationInMillisecondsSerializer
-import kotlin.time.Duration
 
 @OptIn(InefficientContestInfoApi::class)
 suspend fun getTeams() = DataBus.contestInfoFlow.await().first().teamList.filterNot { it.isHidden }
@@ -17,7 +13,7 @@ suspend fun getTeams() = DataBus.contestInfoFlow.await().first().teamList.filter
 suspend fun getRegions() : List<GroupInfo> {
     val info = DataBus.contestInfoFlow.await().first()
     val used = info.teamList.flatMap { it.groups }.toSet()
-    return info.groupList.filter { it.cdsId in used }
+    return info.groupList.filter { it.id in used }
 }
 
 suspend fun getHashtags() = getTeams().filter { it.hashTag != null }.associateBy({ it.hashTag!! }, { it.id })

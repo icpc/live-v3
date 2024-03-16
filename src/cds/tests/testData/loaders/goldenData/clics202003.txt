@@ -2726,55 +2726,55 @@
         ],
         "groups": [
             {
-                "cdsId": "1",
+                "id": "1",
                 "displayName": "System",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15689",
+                "id": "15689",
                 "displayName": "North America",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15692",
+                "id": "15692",
                 "displayName": "Northern Eurasia",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15693",
+                "id": "15693",
                 "displayName": "Asia West",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15705",
+                "id": "15705",
                 "displayName": "Europe",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15706",
+                "id": "15706",
                 "displayName": "Latin America",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15708",
+                "id": "15708",
                 "displayName": "Africa and the Middle East",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15709",
+                "id": "15709",
                 "displayName": "Asia Pacific",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "15710",
+                "id": "15710",
                 "displayName": "Jury",
                 "isHidden": false,
                 "isOutOfContest": false
@@ -2782,7 +2782,7 @@
         ],
         "organizations": [
             {
-                "cdsId": "0061",
+                "id": "0061",
                 "displayName": "AUCA",
                 "fullName": "American University - Central Asia",
                 "logo": {
@@ -2791,7 +2791,7 @@
                 }
             },
             {
-                "cdsId": "0065",
+                "id": "0065",
                 "displayName": "AU Beirut",
                 "fullName": "American University of Beirut",
                 "logo": {
@@ -2800,7 +2800,7 @@
                 }
             },
             {
-                "cdsId": "0068",
+                "id": "0068",
                 "displayName": "Amirkabir UT",
                 "fullName": "Amirkabir University of Technology",
                 "logo": {
@@ -2809,7 +2809,7 @@
                 }
             },
             {
-                "cdsId": "0081",
+                "id": "0081",
                 "displayName": "AAST-Alex",
                 "fullName": "Arab Academy for Science and Technology - Alexandria",
                 "logo": {
@@ -2818,7 +2818,7 @@
                 }
             },
             {
-                "cdsId": "0114",
+                "id": "0114",
                 "displayName": "BUET",
                 "fullName": "Bangladesh University of Engineering and Technology",
                 "logo": {
@@ -2827,7 +2827,7 @@
                 }
             },
             {
-                "cdsId": "0140",
+                "id": "0140",
                 "displayName": "BSUIR",
                 "fullName": "Belarusian State University of Informatics and Radioelectronics",
                 "logo": {
@@ -2836,7 +2836,7 @@
                 }
             },
             {
-                "cdsId": "0144",
+                "id": "0144",
                 "displayName": "Belarusian SU",
                 "fullName": "Belarusian State University",
                 "logo": {
@@ -2845,7 +2845,7 @@
                 }
             },
             {
-                "cdsId": "0160",
+                "id": "0160",
                 "displayName": "Bilkent U.",
                 "fullName": "Bilkent University",
                 "logo": {
@@ -2854,7 +2854,7 @@
                 }
             },
             {
-                "cdsId": "0196",
+                "id": "0196",
                 "displayName": "UniBuc",
                 "fullName": "University of Bucharest",
                 "logo": {
@@ -2863,7 +2863,7 @@
                 }
             },
             {
-                "cdsId": "0232",
+                "id": "0232",
                 "displayName": "Carnegie Mellon",
                 "fullName": "Carnegie Mellon University",
                 "logo": {
@@ -2872,7 +2872,7 @@
                 }
             },
             {
-                "cdsId": "0358",
+                "id": "0358",
                 "displayName": "Damascus U",
                 "fullName": "Damascus University",
                 "logo": {
@@ -2881,7 +2881,7 @@
                 }
             },
             {
-                "cdsId": "0413",
+                "id": "0413",
                 "displayName": "Duke",
                 "fullName": "Duke University",
                 "logo": {
@@ -2890,7 +2890,7 @@
                 }
             },
             {
-                "cdsId": "0443",
+                "id": "0443",
                 "displayName": "EP",
                 "fullName": "Ecole Polytechnique",
                 "logo": {
@@ -2899,7 +2899,7 @@
                 }
             },
             {
-                "cdsId": "0451",
+                "id": "0451",
                 "displayName": "ETH Zürich",
                 "fullName": "ETH Zürich",
                 "logo": {
@@ -2908,7 +2908,7 @@
                 }
             },
             {
-                "cdsId": "0492",
+                "id": "0492",
                 "displayName": "FAMAF - UNC",
                 "fullName": "Universidad Nacional de Córdoba - FaMAF",
                 "logo": {
@@ -2917,7 +2917,7 @@
                 }
             },
             {
-                "cdsId": "0502",
+                "id": "0502",
                 "displayName": "Alex-FE",
                 "fullName": "Alexandria University - Faculty of Engineering",
                 "logo": {
@@ -2926,7 +2926,7 @@
                 }
             },
             {
-                "cdsId": "0642",
+                "id": "0642",
                 "displayName": "Harvard",
                 "fullName": "Harvard University",
                 "logo": {
@@ -2935,7 +2935,7 @@
                 }
             },
             {
-                "cdsId": "0695",
+                "id": "0695",
                 "displayName": "USP - São Carlos",
                 "fullName": "Universidade de São Paulo - Campus de São Carlos",
                 "logo": {
@@ -2944,7 +2944,7 @@
                 }
             },
             {
-                "cdsId": "0718",
+                "id": "0718",
                 "displayName": "IIT Guwahati",
                 "fullName": "Indian Institute of Technology - Guwahati",
                 "logo": {
@@ -2953,7 +2953,7 @@
                 }
             },
             {
-                "cdsId": "0722",
+                "id": "0722",
                 "displayName": "IIT Roorkee",
                 "fullName": "Indian Institute of Technology - Roorkee",
                 "logo": {
@@ -2962,7 +2962,7 @@
                 }
             },
             {
-                "cdsId": "0724",
+                "id": "0724",
                 "displayName": "IIT Bombay",
                 "fullName": "Indian Institute of Technology - Bombay",
                 "logo": {
@@ -2971,7 +2971,7 @@
                 }
             },
             {
-                "cdsId": "0725",
+                "id": "0725",
                 "displayName": "IIT Delhi",
                 "fullName": "Indian Institute of Technology - Delhi",
                 "logo": {
@@ -2980,7 +2980,7 @@
                 }
             },
             {
-                "cdsId": "0727",
+                "id": "0727",
                 "displayName": "IIT Kanpur",
                 "fullName": "Indian Institute of Technology - Kanpur",
                 "logo": {
@@ -2989,7 +2989,7 @@
                 }
             },
             {
-                "cdsId": "0728",
+                "id": "0728",
                 "displayName": "IIT Kharagpur",
                 "fullName": "Indian Institute of Technology - Kharagpur",
                 "logo": {
@@ -2998,7 +2998,7 @@
                 }
             },
             {
-                "cdsId": "0846",
+                "id": "0846",
                 "displayName": "IIIT Hyderabad",
                 "fullName": "International Institute of Information Technology - Hyderabad",
                 "logo": {
@@ -3007,7 +3007,7 @@
                 }
             },
             {
-                "cdsId": "0923",
+                "id": "0923",
                 "displayName": "Izhevsk STU",
                 "fullName": "Izhevsk State Technical University",
                 "logo": {
@@ -3016,7 +3016,7 @@
                 }
             },
             {
-                "cdsId": "0931",
+                "id": "0931",
                 "displayName": "Jagiellonian",
                 "fullName": "Jagiellonian University in Krakow",
                 "logo": {
@@ -3025,7 +3025,7 @@
                 }
             },
             {
-                "cdsId": "0993",
+                "id": "0993",
                 "displayName": "Kazan FU",
                 "fullName": "Kazan (Volga Region) Federal University",
                 "logo": {
@@ -3034,7 +3034,7 @@
                 }
             },
             {
-                "cdsId": "1008",
+                "id": "1008",
                 "displayName": "KhNURE",
                 "fullName": "Kharkiv National University of Radio Electronics",
                 "logo": {
@@ -3043,7 +3043,7 @@
                 }
             },
             {
-                "cdsId": "1026",
+                "id": "1026",
                 "displayName": "Korea U",
                 "fullName": "Korea University",
                 "logo": {
@@ -3052,7 +3052,7 @@
                 }
             },
             {
-                "cdsId": "1145",
+                "id": "1145",
                 "displayName": "MIT",
                 "fullName": "Massachusetts Institute of Technology",
                 "logo": {
@@ -3061,7 +3061,7 @@
                 }
             },
             {
-                "cdsId": "1214",
+                "id": "1214",
                 "displayName": "MAI",
                 "fullName": "Moscow Aviation Institute",
                 "logo": {
@@ -3070,7 +3070,7 @@
                 }
             },
             {
-                "cdsId": "1215",
+                "id": "1215",
                 "displayName": "MEPhI",
                 "fullName": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)",
                 "logo": {
@@ -3079,7 +3079,7 @@
                 }
             },
             {
-                "cdsId": "1220",
+                "id": "1220",
                 "displayName": "MIPT",
                 "fullName": "Moscow Institute of Physics and Technology",
                 "logo": {
@@ -3088,7 +3088,7 @@
                 }
             },
             {
-                "cdsId": "1237",
+                "id": "1237",
                 "displayName": "Moscow SU",
                 "fullName": "Moscow State University",
                 "logo": {
@@ -3097,7 +3097,7 @@
                 }
             },
             {
-                "cdsId": "12694",
+                "id": "12694",
                 "displayName": "Utrecht - Leiden",
                 "fullName": "Utrecht - Leiden University",
                 "logo": {
@@ -3106,7 +3106,7 @@
                 }
             },
             {
-                "cdsId": "1303",
+                "id": "1303",
                 "displayName": "National Taiwan U",
                 "fullName": "National Taiwan University",
                 "logo": {
@@ -3115,7 +3115,7 @@
                 }
             },
             {
-                "cdsId": "1338",
+                "id": "1338",
                 "displayName": "UNN",
                 "fullName": "Nizhny Novgorod State University",
                 "logo": {
@@ -3124,7 +3124,7 @@
                 }
             },
             {
-                "cdsId": "1452",
+                "id": "1452",
                 "displayName": "Perm SU",
                 "fullName": "Perm State University",
                 "logo": {
@@ -3133,7 +3133,7 @@
                 }
             },
             {
-                "cdsId": "1623",
+                "id": "1623",
                 "displayName": "Saratov State U",
                 "fullName": "Saratov State University",
                 "logo": {
@@ -3142,7 +3142,7 @@
                 }
             },
             {
-                "cdsId": "1636",
+                "id": "1636",
                 "displayName": "Seoul National U",
                 "fullName": "Seoul National University",
                 "logo": {
@@ -3151,7 +3151,7 @@
                 }
             },
             {
-                "cdsId": "1677",
+                "id": "1677",
                 "displayName": "Sharif UT",
                 "fullName": "Sharif University of Technology",
                 "logo": {
@@ -3160,7 +3160,7 @@
                 }
             },
             {
-                "cdsId": "1730",
+                "id": "1730",
                 "displayName": "Sogang U",
                 "fullName": "Sogang University",
                 "logo": {
@@ -3169,7 +3169,7 @@
                 }
             },
             {
-                "cdsId": "1802",
+                "id": "1802",
                 "displayName": "St. Petersburg SU",
                 "fullName": "St. Petersburg State University",
                 "logo": {
@@ -3178,7 +3178,7 @@
                 }
             },
             {
-                "cdsId": "1822",
+                "id": "1822",
                 "displayName": "Stanford",
                 "fullName": "Stanford University",
                 "logo": {
@@ -3187,7 +3187,7 @@
                 }
             },
             {
-                "cdsId": "1917",
+                "id": "1917",
                 "displayName": "TUM",
                 "fullName": "Technische Universität München",
                 "logo": {
@@ -3196,7 +3196,7 @@
                 }
             },
             {
-                "cdsId": "1962",
+                "id": "1962",
                 "displayName": "U Aizu",
                 "fullName": "University of Aizu",
                 "logo": {
@@ -3205,7 +3205,7 @@
                 }
             },
             {
-                "cdsId": "1966",
+                "id": "1966",
                 "displayName": "UAP",
                 "fullName": "The University of Asia Pacific",
                 "logo": {
@@ -3214,7 +3214,7 @@
                 }
             },
             {
-                "cdsId": "1977",
+                "id": "1977",
                 "displayName": "UJ",
                 "fullName": "The University of Jordan",
                 "logo": {
@@ -3223,7 +3223,7 @@
                 }
             },
             {
-                "cdsId": "2107",
+                "id": "2107",
                 "displayName": "UChile",
                 "fullName": "Universidad de Chile",
                 "logo": {
@@ -3232,7 +3232,7 @@
                 }
             },
             {
-                "cdsId": "2112",
+                "id": "2112",
                 "displayName": "UH",
                 "fullName": "Universidad de La Habana",
                 "logo": {
@@ -3241,7 +3241,7 @@
                 }
             },
             {
-                "cdsId": "2172",
+                "id": "2172",
                 "displayName": "USB",
                 "fullName": "Universidad Simón Bolívar",
                 "logo": {
@@ -3250,7 +3250,7 @@
                 }
             },
             {
-                "cdsId": "2195",
+                "id": "2195",
                 "displayName": "UnB",
                 "fullName": "Universidade de Brasília",
                 "logo": {
@@ -3259,7 +3259,7 @@
                 }
             },
             {
-                "cdsId": "2204",
+                "id": "2204",
                 "displayName": "USP",
                 "fullName": "Universidade de São Paulo",
                 "logo": {
@@ -3268,7 +3268,7 @@
                 }
             },
             {
-                "cdsId": "2216",
+                "id": "2216",
                 "displayName": "UNICAMP",
                 "fullName": "Universidade Estadual de Campinas",
                 "logo": {
@@ -3277,7 +3277,7 @@
                 }
             },
             {
-                "cdsId": "2230",
+                "id": "2230",
                 "displayName": "UFMG",
                 "fullName": "Universidade Federal de Minas Gerais",
                 "logo": {
@@ -3286,7 +3286,7 @@
                 }
             },
             {
-                "cdsId": "2232",
+                "id": "2232",
                 "displayName": "UFPE",
                 "fullName": "Universidade Federal de Pernambuco",
                 "logo": {
@@ -3295,7 +3295,7 @@
                 }
             },
             {
-                "cdsId": "2324",
+                "id": "2324",
                 "displayName": "U British Columbia",
                 "fullName": "University of British Columbia",
                 "logo": {
@@ -3304,7 +3304,7 @@
                 }
             },
             {
-                "cdsId": "2343",
+                "id": "2343",
                 "displayName": "Cambridge",
                 "fullName": "University of Cambridge",
                 "logo": {
@@ -3313,7 +3313,7 @@
                 }
             },
             {
-                "cdsId": "2349",
+                "id": "2349",
                 "displayName": "U Central Florida",
                 "fullName": "University of Central Florida",
                 "logo": {
@@ -3322,7 +3322,7 @@
                 }
             },
             {
-                "cdsId": "2366",
+                "id": "2366",
                 "displayName": "U Dhaka",
                 "fullName": "University of Dhaka",
                 "logo": {
@@ -3331,7 +3331,7 @@
                 }
             },
             {
-                "cdsId": "2387",
+                "id": "2387",
                 "displayName": "U Illinois at U-C",
                 "fullName": "University of Illinois at Urbana-Champaign",
                 "logo": {
@@ -3340,7 +3340,7 @@
                 }
             },
             {
-                "cdsId": "2390",
+                "id": "2390",
                 "displayName": "UI",
                 "fullName": "Universitas Indonesia",
                 "logo": {
@@ -3349,7 +3349,7 @@
                 }
             },
             {
-                "cdsId": "2400",
+                "id": "2400",
                 "displayName": "Latvia",
                 "fullName": "University of Latvia",
                 "logo": {
@@ -3358,7 +3358,7 @@
                 }
             },
             {
-                "cdsId": "2493",
+                "id": "2493",
                 "displayName": "U Rochester",
                 "fullName": "University of Rochester",
                 "logo": {
@@ -3367,7 +3367,7 @@
                 }
             },
             {
-                "cdsId": "2519",
+                "id": "2519",
                 "displayName": "USC",
                 "fullName": "University of Southern California",
                 "logo": {
@@ -3376,7 +3376,7 @@
                 }
             },
             {
-                "cdsId": "2528",
+                "id": "2528",
                 "displayName": "UT",
                 "fullName": "University of Tehran",
                 "logo": {
@@ -3385,7 +3385,7 @@
                 }
             },
             {
-                "cdsId": "2538",
+                "id": "2538",
                 "displayName": "UT Dallas",
                 "fullName": "The University of Texas at Dallas",
                 "logo": {
@@ -3394,7 +3394,7 @@
                 }
             },
             {
-                "cdsId": "2562",
+                "id": "2562",
                 "displayName": "Utah",
                 "fullName": "University of Utah",
                 "logo": {
@@ -3403,7 +3403,7 @@
                 }
             },
             {
-                "cdsId": "2574",
+                "id": "2574",
                 "displayName": "U Wisconsin - Madison",
                 "fullName": "University of Wisconsin - Madison",
                 "logo": {
@@ -3412,7 +3412,7 @@
                 }
             },
             {
-                "cdsId": "2589",
+                "id": "2589",
                 "displayName": "U Wroclaw",
                 "fullName": "University of Wroclaw",
                 "logo": {
@@ -3421,7 +3421,7 @@
                 }
             },
             {
-                "cdsId": "2648",
+                "id": "2648",
                 "displayName": "Virginia Tech",
                 "fullName": "Virginia Tech",
                 "logo": {
@@ -3430,7 +3430,7 @@
                 }
             },
             {
-                "cdsId": "2659",
+                "id": "2659",
                 "displayName": "Volgograd STU",
                 "fullName": "Volgograd State Technical University",
                 "logo": {
@@ -3439,7 +3439,7 @@
                 }
             },
             {
-                "cdsId": "2673",
+                "id": "2673",
                 "displayName": "U Warsaw",
                 "fullName": "University of Warsaw",
                 "logo": {
@@ -3448,7 +3448,7 @@
                 }
             },
             {
-                "cdsId": "2742",
+                "id": "2742",
                 "displayName": "YSU",
                 "fullName": "Yerevan State University",
                 "logo": {
@@ -3457,7 +3457,7 @@
                 }
             },
             {
-                "cdsId": "2745",
+                "id": "2745",
                 "displayName": "Yonsei U",
                 "fullName": "Yonsei University",
                 "logo": {
@@ -3466,7 +3466,7 @@
                 }
             },
             {
-                "cdsId": "3071",
+                "id": "3071",
                 "displayName": "UFG",
                 "fullName": "Instituto de Informática - UFG",
                 "logo": {
@@ -3475,7 +3475,7 @@
                 }
             },
             {
-                "cdsId": "3098",
+                "id": "3098",
                 "displayName": "ICESI",
                 "fullName": "Universidad Icesi",
                 "logo": {
@@ -3484,7 +3484,7 @@
                 }
             },
             {
-                "cdsId": "3272",
+                "id": "3272",
                 "displayName": "UNAL Bogotá",
                 "fullName": "Universidad Nacional de Colombia - Bogotá",
                 "logo": {
@@ -3493,7 +3493,7 @@
                 }
             },
             {
-                "cdsId": "3295",
+                "id": "3295",
                 "displayName": "SPb ITMO",
                 "fullName": "St. Petersburg ITMO University",
                 "logo": {
@@ -3502,7 +3502,7 @@
                 }
             },
             {
-                "cdsId": "3328",
+                "id": "3328",
                 "displayName": "Purdue",
                 "fullName": "Purdue University",
                 "logo": {
@@ -3511,7 +3511,7 @@
                 }
             },
             {
-                "cdsId": "3348",
+                "id": "3348",
                 "displayName": "CU-FCAI",
                 "fullName": "Cairo University - Faculty of Computers and Artificial Intelligence",
                 "logo": {
@@ -3520,7 +3520,7 @@
                 }
             },
             {
-                "cdsId": "3360",
+                "id": "3360",
                 "displayName": "RAF",
                 "fullName": "Faculty of Computer Science, Belgrade ",
                 "logo": {
@@ -3529,7 +3529,7 @@
                 }
             },
             {
-                "cdsId": "3372",
+                "id": "3372",
                 "displayName": "UP Bonaterra",
                 "fullName": "Universidad Panamericana Campus Bonaterra",
                 "logo": {
@@ -3538,7 +3538,7 @@
                 }
             },
             {
-                "cdsId": "3436",
+                "id": "3436",
                 "displayName": "ENS Paris",
                 "fullName": "École Normale Supérieure de Paris",
                 "logo": {
@@ -3547,7 +3547,7 @@
                 }
             },
             {
-                "cdsId": "3487",
+                "id": "3487",
                 "displayName": "UN del Sur",
                 "fullName": "Universidad Nacional del Sur",
                 "logo": {
@@ -3556,7 +3556,7 @@
                 }
             },
             {
-                "cdsId": "3519",
+                "id": "3519",
                 "displayName": "GUC",
                 "fullName": "German University in Cairo",
                 "logo": {
@@ -3565,7 +3565,7 @@
                 }
             },
             {
-                "cdsId": "3534",
+                "id": "3534",
                 "displayName": "HSE",
                 "fullName": "National Research University Higher School of Economics",
                 "logo": {
@@ -3574,7 +3574,7 @@
                 }
             },
             {
-                "cdsId": "3664",
+                "id": "3664",
                 "displayName": "ASU-FCIS",
                 "fullName": "Ain Shams University - Faculty of Computer and Information Sciences",
                 "logo": {
@@ -3583,7 +3583,7 @@
                 }
             },
             {
-                "cdsId": "3683",
+                "id": "3683",
                 "displayName": "UBA - FCEN",
                 "fullName": "Universidad de Buenos Aires - FCEN",
                 "logo": {
@@ -3592,7 +3592,7 @@
                 }
             },
             {
-                "cdsId": "3775",
+                "id": "3775",
                 "displayName": "Tishreen",
                 "fullName": "Tishreen University",
                 "logo": {
@@ -3601,7 +3601,7 @@
                 }
             },
             {
-                "cdsId": "3919",
+                "id": "3919",
                 "displayName": "IIT(ISM) Dhanbad",
                 "fullName": "Indian Institute of Technology (ISM), Dhanbad",
                 "logo": {
@@ -3610,7 +3610,7 @@
                 }
             },
             {
-                "cdsId": "3944",
+                "id": "3944",
                 "displayName": "DA-IICT",
                 "fullName": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar",
                 "logo": {
@@ -3619,7 +3619,7 @@
                 }
             },
             {
-                "cdsId": "4166",
+                "id": "4166",
                 "displayName": "UFC-Quixadá",
                 "fullName": "Universidade Federal do Ceará - Campus Quixadá",
                 "logo": {
@@ -3628,7 +3628,7 @@
                 }
             },
             {
-                "cdsId": "4193",
+                "id": "4193",
                 "displayName": "UO-SAM",
                 "fullName": "Universidad de Oriente - Sede Antonio Maceo",
                 "logo": {
@@ -3637,7 +3637,7 @@
                 }
             },
             {
-                "cdsId": "4330",
+                "id": "4330",
                 "displayName": "IITU",
                 "fullName": "International IT University",
                 "logo": {
@@ -3646,7 +3646,7 @@
                 }
             },
             {
-                "cdsId": "4376",
+                "id": "4376",
                 "displayName": "PSUT",
                 "fullName": "Princess Sumaya University for Technology",
                 "logo": {
@@ -3655,7 +3655,7 @@
                 }
             },
             {
-                "cdsId": "4846",
+                "id": "4846",
                 "displayName": "UNIST",
                 "fullName": "Ulsan National Institute of Science and Technology",
                 "logo": {
@@ -3664,7 +3664,7 @@
                 }
             },
             {
-                "cdsId": "5628",
+                "id": "5628",
                 "displayName": "BPHC",
                 "fullName": "BITS-Pilani, Hyderabad Campus",
                 "logo": {
@@ -3673,7 +3673,7 @@
                 }
             },
             {
-                "cdsId": "5640",
+                "id": "5640",
                 "displayName": "IIT Indore",
                 "fullName": "Indian Institute of Technology - Indore",
                 "logo": {
@@ -3682,7 +3682,7 @@
                 }
             },
             {
-                "cdsId": "5716",
+                "id": "5716",
                 "displayName": "UCR",
                 "fullName": "Universidad de Costa Rica",
                 "logo": {
@@ -3691,7 +3691,7 @@
                 }
             },
             {
-                "cdsId": "5724",
+                "id": "5724",
                 "displayName": "Free U of Tbilisi",
                 "fullName": "Free University of Tbilisi",
                 "logo": {
@@ -3700,7 +3700,7 @@
                 }
             },
             {
-                "cdsId": "6581",
+                "id": "6581",
                 "displayName": "HIAST",
                 "fullName": "Higher Institute for Applied Sciences and Technology",
                 "logo": {
@@ -3709,7 +3709,7 @@
                 }
             },
             {
-                "cdsId": "6908",
+                "id": "6908",
                 "displayName": "IIT Patna",
                 "fullName": "Indian Institute of Technology - Patna",
                 "logo": {
@@ -3718,7 +3718,7 @@
                 }
             },
             {
-                "cdsId": "6960",
+                "id": "6960",
                 "displayName": "INSAT",
                 "fullName": "Institut National des Sciences Appliquées et de Technologie",
                 "logo": {
@@ -3727,7 +3727,7 @@
                 }
             },
             {
-                "cdsId": "7113",
+                "id": "7113",
                 "displayName": "Al-Baath",
                 "fullName": "Al-Baath University",
                 "logo": {
@@ -3736,7 +3736,7 @@
                 }
             },
             {
-                "cdsId": "7325",
+                "id": "7325",
                 "displayName": "IComp/UFAM",
                 "fullName": "Institute of Computing - Federal University of Amazonas",
                 "logo": {
@@ -3745,7 +3745,7 @@
                 }
             },
             {
-                "cdsId": "7423",
+                "id": "7423",
                 "displayName": "Kyungpook National U",
                 "fullName": "Kyungpook National University",
                 "logo": {
@@ -3754,7 +3754,7 @@
                 }
             },
             {
-                "cdsId": "7857",
+                "id": "7857",
                 "displayName": "Innopolis",
                 "fullName": "Innopolis University",
                 "logo": {
@@ -3763,7 +3763,7 @@
                 }
             },
             {
-                "cdsId": "7898",
+                "id": "7898",
                 "displayName": "NU-FAST-KHI",
                 "fullName": "NU-FAST Karachi",
                 "logo": {
@@ -3772,7 +3772,7 @@
                 }
             },
             {
-                "cdsId": "7990",
+                "id": "7990",
                 "displayName": "UNIMI",
                 "fullName": "Università Degli Studi di Milano",
                 "logo": {
@@ -3781,7 +3781,7 @@
                 }
             },
             {
-                "cdsId": "8140",
+                "id": "8140",
                 "displayName": "UG-CIMAT",
                 "fullName": "Universidad de Guanajuato - DCNE",
                 "logo": {
@@ -3790,7 +3790,7 @@
                 }
             },
             {
-                "cdsId": "8162",
+                "id": "8162",
                 "displayName": "SVU",
                 "fullName": "Syrian Virtual University",
                 "logo": {
@@ -3799,7 +3799,7 @@
                 }
             },
             {
-                "cdsId": "8628",
+                "id": "8628",
                 "displayName": "AU",
                 "fullName": "Avicenna University",
                 "logo": {
@@ -3808,7 +3808,7 @@
                 }
             },
             {
-                "cdsId": "9406",
+                "id": "9406",
                 "displayName": "IITBHU",
                 "fullName": "Indian Institute of Technology - Varanasi",
                 "logo": {
@@ -3817,7 +3817,7 @@
                 }
             },
             {
-                "cdsId": "9574",
+                "id": "9574",
                 "displayName": "IIIT DELHI",
                 "fullName": "Indraprastha Institute of Information Technology",
                 "logo": {
@@ -3826,7 +3826,7 @@
                 }
             },
             {
-                "cdsId": "9606",
+                "id": "9606",
                 "displayName": "SPb HSE",
                 "fullName": "St. Petersburg Campus of Higher School of Economics",
                 "logo": {
@@ -3835,7 +3835,7 @@
                 }
             },
             {
-                "cdsId": "9780",
+                "id": "9780",
                 "displayName": "NSUT",
                 "fullName": "Netaji Subhash University Of Technology",
                 "logo": {

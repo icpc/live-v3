@@ -25,8 +25,8 @@ import kotlin.time.Duration
 public class TeamInfoOverride(
     @JsonNames("name") public val fullName: String? = null,
     @JsonNames("shortname") public val displayName: String? = null,
-    public val groups: List<String>? = null,
-    public val organizationId: String? = null,
+    public val groups: List<GroupId>? = null,
+    public val organizationId: OrganizationId? = null,
     public val hashTag: String? = null,
     public val medias: Map<TeamMediaType, MediaType?>? = null,
     public val customFields: Map<String, String>? = null,
@@ -242,14 +242,14 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             )
         },
         groupOverrides = groupList.associate {
-            it.cdsId to GroupInfoOverride(
+            it.id.value to GroupInfoOverride(
                 displayName = it.displayName.takeIfAsked("groupDisplayName"),
                 isHidden = it.isHidden.takeIfAsked("groupIsHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest"),
             )
         },
         organizationOverrides = organizationList.associate {
-            it.cdsId to OrganizationInfoOverride(
+            it.id.value to OrganizationInfoOverride(
                 displayName = it.displayName.takeIfAsked("orgDisplayName"),
                 fullName = it.fullName.takeIfAsked("orgFullName"),
                 logo = it.logo.takeIfAsked("logo")

@@ -155,11 +155,11 @@ function ScoreboardGroupSetting({ settings, setSettings, groupsList }) {
                 <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={"all"}/>
             </TableRow>
             {isGroupsExpand && groupsList.map(group =>
-                <TableRow key={group.cdsId}>
+                <TableRow key={group.id}>
                     <TableCell>
                         {group.displayName}
                     </TableCell>
-                    <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={group.cdsId}/>
+                    <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={group.id}/>
                 </TableRow>
             )}
         </TableBody>
@@ -174,7 +174,7 @@ ScoreboardGroupSetting.propTypes = {
     setSettings: PropTypes.func.isRequired,
     groupsList: PropTypes.arrayOf(PropTypes.shape({
         displayName: PropTypes.string.isRequired,
-        cdsId: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
     })).isRequired,
 };
 
