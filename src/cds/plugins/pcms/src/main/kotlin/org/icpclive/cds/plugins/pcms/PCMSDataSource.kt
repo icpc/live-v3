@@ -102,7 +102,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 freezeTime = freezeTime,
                 problemList = problems,
                 teamList = teams,
-                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, it, isHidden = false, isOutOfContest = false) },
+                groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, it.value, isHidden = false, isOutOfContest = false) },
                 organizationList = emptyList(),
                 penaltyRoundingMode = when (resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
@@ -122,7 +122,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             fullName = attr("party")!!,
             displayName = attr("shortname") ?: attr("party")!!,
             hashTag = attr("hashtag"),
-            groups = attr("region")?.split(",") ?: emptyList(),
+            groups = attr("region")?.split(",")?.map { GroupId(it) } ?: emptyList(),
             medias = listOfNotNull(
                 attr("screen")?.let { TeamMediaType.SCREEN to MediaType.Video(it) },
                 attr("camera")?.let { TeamMediaType.CAMERA to MediaType.Video(it) },

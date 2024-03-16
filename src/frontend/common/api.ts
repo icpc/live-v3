@@ -65,24 +65,24 @@ export interface TeamInfo {
   name: string;
   shortName: string;
   contestSystemId: string;
-  groups: string[];
+  groups: GroupId[];
   hashTag: string | null;
   medias: { [key in TeamMediaType]: MediaType };
   isHidden: boolean;
   isOutOfContest: boolean;
-  organizationId: string | null;
+  organizationId: OrganizationId | null;
   customFields: { [key: string]: string };
 }
 
 export interface GroupInfo {
-  cdsId: string;
+  id: GroupId;
   displayName: string;
   isHidden: boolean;
   isOutOfContest: boolean;
 }
 
 export interface OrganizationInfo {
-  cdsId: string;
+  id: OrganizationId;
   displayName: string;
   fullName: string;
   logo: MediaType | null;
@@ -97,6 +97,10 @@ export enum ScoreMergeMode {
   LAST_OK = "LAST_OK",
   SUM = "SUM",
 }
+
+export type OrganizationId = string;
+
+export type GroupId = string;
 
 export type MediaType =
   | MediaType.M2tsVideo
@@ -296,7 +300,7 @@ export namespace Award {
     type: Award.Type.group_champion;
     id: string;
     citation: string;
-    groupId: string;
+    groupId: GroupId;
     teams: number[];
   }
   
@@ -355,8 +359,8 @@ export interface LegacyScoreboardRow {
   lastAccepted: number;
   medalType: string | null;
   problemResults: ProblemResult[];
-  teamGroups: string[];
-  championInGroups: string[];
+  teamGroups: GroupId[];
+  championInGroups: GroupId[];
 }
 
 export type MainScreenEvent =

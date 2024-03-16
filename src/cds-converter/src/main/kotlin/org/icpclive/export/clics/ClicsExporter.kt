@@ -34,12 +34,12 @@ private fun ProblemInfo.toClicsProblem() = Problem(
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
-    id = cdsId,
+    id = id.value,
     name = displayName,
 )
 
 private fun OrganizationInfo.toClicsOrg() = Organization(
-    id = cdsId,
+    id = id.value,
     name = displayName,
     formal_name = fullName,
     logo = listOfNotNull(logo?.toClicsMedia())
@@ -59,8 +59,8 @@ private fun TeamInfo.toClicsTeam() = Team(
     id = contestSystemId,
     name = fullName,
     hidden = isHidden,
-    group_ids = groups,
-    organization_id = organizationId,
+    group_ids = groups.map { it.value },
+    organization_id = organizationId?.value,
     photo = listOfNotNull(medias[TeamMediaType.PHOTO]?.toClicsMedia()),
     video = listOfNotNull(medias[TeamMediaType.RECORD]?.toClicsMedia()),
     desktop = listOfNotNull(medias[TeamMediaType.SCREEN]?.toClicsMedia()),
@@ -137,11 +137,11 @@ object ClicsExporter  {
         }
     }
 
-    private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diffRemove(
+    private suspend fun <ID, T> FlowCollector<EventProducer>.diffRemove(
         old: MutableMap<ID, T>,
         new: List<T>,
         id: T.() -> ID,
-        toFinalEvent: (ID, String, CT?) -> Event
+        toFinalEvent: Function3<ID, String, Nothing?, Event>
     ) {
         val values = new.map { it.id() }.toSet()
         for (k in old.keys) {
@@ -246,8 +246,8 @@ object ClicsExporter  {
         }
     }
 
-    private val groupsMap = mutableMapOf<String, GroupInfo>()
-    private val orgsMap = mutableMapOf<String, OrganizationInfo>()
+    private val groupsMap = mutableMapOf<GroupId, GroupInfo>()
+    private val orgsMap = mutableMapOf<OrganizationId, OrganizationInfo>()
     private val problemsMap = mutableMapOf<ProblemId, ProblemInfo>()
     private val teamsMap = mutableMapOf<String, TeamInfo>()
 
@@ -266,13 +266,13 @@ object ClicsExporter  {
             }
         }
         diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> Event.ProblemEvent(id.value, token, data) }
-        diffChange(groupsMap, newInfo.groupList, GroupInfo::cdsId, GroupInfo::toClicsGroup, Event::GroupsEvent)
-        diffChange(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, OrganizationInfo::toClicsOrg, Event::OrganizationEvent)
+        diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> Event.GroupsEvent(id.value, token, data) }
+        diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> Event.OrganizationEvent(id.value, token, data) }
 
         diff(teamsMap, newInfo.teamList, TeamInfo::contestSystemId, TeamInfo::toClicsTeam, Event::TeamEvent)
 
-        diffRemove(groupsMap, newInfo.groupList, GroupInfo::cdsId, Event::GroupsEvent)
-        diffRemove(orgsMap, newInfo.organizationList, OrganizationInfo::cdsId, Event::OrganizationEvent)
+        diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> Event.GroupsEvent(id.value, token, data) }
+        diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> Event.OrganizationEvent(id.value, token, data) }
     }
 
     private suspend fun FlowCollector<EventProducer>.processAnalytics(message: AnalyticsMessage) {

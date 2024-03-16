@@ -64,7 +64,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
         }
         val organizations = teamsLoader.load().map { (k, v) ->
             OrganizationInfo(
-                cdsId = k,
+                id = OrganizationId(k),
                 displayName = v.name,
                 fullName = v.name,
                 logo = MediaType.Photo(settings.url)
@@ -83,7 +83,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 ),
                 isHidden = false,
                 isOutOfContest = false,
-                organizationId = v.team,
+                organizationId = OrganizationId(v.team),
                 customFields = mapOf(
                     "country" to v.team,
                     "first_name" to v.f_name,

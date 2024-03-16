@@ -51,7 +51,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
         val ranks = MutableList(order.size) { 0 }
         val orderedRows = orderList.map { it.second }
 
-        val firstGroupRank = mutableMapOf<String, Int>()
+        val firstGroupRank = mutableMapOf<GroupId, Int>()
 
         var nextRank = 1
         var right = 0
@@ -79,7 +79,8 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
             awardsSettings.championTitle?.let { title ->
                 add(Award.Winner("winner", title, teamRanks[1]?.toSet() ?: emptySet()))
             }
-            for ((groupId, title) in awardsSettings.groupsChampionTitles) {
+            for ((groupId_, title) in awardsSettings.groupsChampionTitles) {
+                val groupId = GroupId(groupId_)
                 val groupBestRank = firstGroupRank[groupId]
                 add(
                     Award.GroupChampion(

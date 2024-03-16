@@ -33,8 +33,8 @@ public data class LegacyScoreboardRow(
     val lastAccepted: Long,
     val medalType: String?,
     val problemResults: List<ProblemResult>,
-    val teamGroups: List<String>,
-    val championInGroups: List<String>,
+    val teamGroups: List<GroupId>,
+    val championInGroups: List<GroupId>,
 )
 
 //TODO: custom string, maybe something else
@@ -108,7 +108,7 @@ public sealed class Award {
     public data class GroupChampion(
         override val id: String,
         override val citation: String,
-        val groupId: String,
+        val groupId: GroupId,
         override val teams: Set<Int>,
     ) : Award()
 

@@ -114,7 +114,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
-                organizationId = team.institute,
+                organizationId = OrganizationId(team.institute),
                 isOutOfContest = false,
                 isHidden = false
             )
@@ -172,7 +172,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
                 ScoreboardType.UNRECOGNIZED, null -> TODO("Unsupported scoreboard type")
             },
             organizationList = scoreboard.scoreboard.rowList.map { it.team.institute }.distinct().map {
-                OrganizationInfo(it, it, it, null)
+                OrganizationInfo(OrganizationId(it), it, it, null)
             }
         )
         return ContestParseResult(contestInfo, submissions, emptyList())

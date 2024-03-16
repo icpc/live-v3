@@ -308,7 +308,7 @@
                 }
             ]
         },
-        "kotlin.collections.ArrayList?<kotlin.String>": {
+        "kotlin.collections.ArrayList?<org.icpclive.cds.api.GroupId>": {
             "oneOf": [
                 {
                     "type": "array",
@@ -336,7 +336,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?>": {
+        "org.icpclive.cds.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?>": {
             "type": "object",
             "properties": {
                 "fullName": {
@@ -346,7 +346,7 @@
                     "type": "string"
                 },
                 "groups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<kotlin.String>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.GroupId>"
                 },
                 "organizationId": {
                     "type": "string"
@@ -376,7 +376,7 @@
                     "type": "object",
                     "patternProperties": {
                         ".*": {
-                            "$ref": "#/$defs/org.icpclive.cds.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,kotlin.String?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?>"
+                            "$ref": "#/$defs/org.icpclive.cds.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?>"
                         }
                     }
                 },

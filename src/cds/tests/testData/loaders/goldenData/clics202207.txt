@@ -2916,49 +2916,49 @@
         ],
         "groups": [
             {
-                "cdsId": "23737",
+                "id": "23737",
                 "displayName": "SWERC 2022-2023",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "self-registered",
+                "id": "self-registered",
                 "displayName": "Self-Registered",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "CHE",
+                "id": "CHE",
                 "displayName": "CHE",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "ESP",
+                "id": "ESP",
                 "displayName": "ESP",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "ITA",
+                "id": "ITA",
                 "displayName": "ITA",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "ISR",
+                "id": "ISR",
                 "displayName": "ISR",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "FRA",
+                "id": "FRA",
                 "displayName": "FRA",
                 "isHidden": false,
                 "isOutOfContest": false
             },
             {
-                "cdsId": "PRT",
+                "id": "PRT",
                 "displayName": "PRT",
                 "isHidden": false,
                 "isOutOfContest": false
@@ -2966,7 +2966,7 @@
         ],
         "organizations": [
             {
-                "cdsId": "366",
+                "id": "366",
                 "displayName": "UC",
                 "fullName": "University of Coimbra",
                 "logo": {
@@ -2975,7 +2975,7 @@
                 }
             },
             {
-                "cdsId": "443",
+                "id": "443",
                 "displayName": "EP",
                 "fullName": "Ecole Polytechnique",
                 "logo": {
@@ -2984,7 +2984,7 @@
                 }
             },
             {
-                "cdsId": "444",
+                "id": "444",
                 "displayName": "EPFL",
                 "fullName": "Ecole Polytechnique Fédérale de Lausanne",
                 "logo": {
@@ -2993,7 +2993,7 @@
                 }
             },
             {
-                "cdsId": "451",
+                "id": "451",
                 "displayName": "ETH Zürich",
                 "fullName": "ETH Zürich",
                 "logo": {
@@ -3002,7 +3002,7 @@
                 }
             },
             {
-                "cdsId": "460",
+                "id": "460",
                 "displayName": "ENSIMAG",
                 "fullName": "ENS d'Informatique et de Mathematiques Appliquees - Grenoble",
                 "logo": {
@@ -3011,7 +3011,7 @@
                 }
             },
             {
-                "cdsId": "478",
+                "id": "478",
                 "displayName": "U Porto",
                 "fullName": "Universidade do Porto",
                 "logo": {
@@ -3020,7 +3020,7 @@
                 }
             },
             {
-                "cdsId": "742",
+                "id": "742",
                 "displayName": "INSA",
                 "fullName": "INSA de Lyon",
                 "logo": {
@@ -3029,7 +3029,7 @@
                 }
             },
             {
-                "cdsId": "789",
+                "id": "789",
                 "displayName": "IS Técnico",
                 "fullName": "Instituto Superior Técnico",
                 "logo": {
@@ -3038,7 +3038,7 @@
                 }
             },
             {
-                "cdsId": "2079",
+                "id": "2079",
                 "displayName": "UAM",
                 "fullName": "Universidad Autónoma de Madrid",
                 "logo": {
@@ -3047,7 +3047,7 @@
                 }
             },
             {
-                "cdsId": "2122",
+                "id": "2122",
                 "displayName": "UM",
                 "fullName": "Universidad de Murcia",
                 "logo": {
@@ -3056,7 +3056,7 @@
                 }
             },
             {
-                "cdsId": "2166",
+                "id": "2166",
                 "displayName": "UPV",
                 "fullName": "Universitat Politècnica de València",
                 "logo": {
@@ -3065,7 +3065,7 @@
                 }
             },
             {
-                "cdsId": "2170",
+                "id": "2170",
                 "displayName": "U. Rey Juan Carlos",
                 "fullName": "Universidad Rey Juan Carlos",
                 "logo": {
@@ -3074,7 +3074,7 @@
                 }
             },
             {
-                "cdsId": "2257",
+                "id": "2257",
                 "displayName": "Genova",
                 "fullName": "Università degli Studi di Genova",
                 "logo": {
@@ -3083,7 +3083,7 @@
                 }
             },
             {
-                "cdsId": "2260",
+                "id": "2260",
                 "displayName": "Università di Roma 1",
                 "fullName": "Università di Roma - La Sapienza",
                 "logo": {
@@ -3092,7 +3092,7 @@
                 }
             },
             {
-                "cdsId": "2261",
+                "id": "2261",
                 "displayName": "TN",
                 "fullName": "Università di Trento",
                 "logo": {
@@ -3101,7 +3101,7 @@
                 }
             },
             {
-                "cdsId": "2263",
+                "id": "2263",
                 "displayName": "Universita' di Udine",
                 "fullName": "Università Degli Studi di Udine",
                 "logo": {
@@ -3110,7 +3110,7 @@
                 }
             },
             {
-                "cdsId": "2273",
+                "id": "2273",
                 "displayName": "UP Catalunya",
                 "fullName": "Universitat Politècnica de Catalunya",
                 "logo": {
@@ -3119,7 +3119,7 @@
                 }
             },
             {
-                "cdsId": "3236",
+                "id": "3236",
                 "displayName": "TECHNION",
                 "fullName": "Technion - Israel Institute of Technology",
                 "logo": {
@@ -3128,7 +3128,7 @@
                 }
             },
             {
-                "cdsId": "3409",
+                "id": "3409",
                 "displayName": "ENS - Lyon",
                 "fullName": "École Normale Supérieure de Lyon",
                 "logo": {
@@ -3137,7 +3137,7 @@
                 }
             },
             {
-                "cdsId": "3436",
+                "id": "3436",
                 "displayName": "ENS Paris",
                 "fullName": "École Normale Supérieure de Paris",
                 "logo": {
@@ -3146,7 +3146,7 @@
                 }
             },
             {
-                "cdsId": "3545",
+                "id": "3545",
                 "displayName": "UPF",
                 "fullName": "Universitat Pompeu Fabra",
                 "logo": {
@@ -3155,7 +3155,7 @@
                 }
             },
             {
-                "cdsId": "5282",
+                "id": "5282",
                 "displayName": "UBI",
                 "fullName": "Universidade da Beira Interior",
                 "logo": {
@@ -3164,7 +3164,7 @@
                 }
             },
             {
-                "cdsId": "5687",
+                "id": "5687",
                 "displayName": "EC-Lyon",
                 "fullName": "Ecole Centrale de Lyon",
                 "logo": {
@@ -3173,7 +3173,7 @@
                 }
             },
             {
-                "cdsId": "6369",
+                "id": "6369",
                 "displayName": "EHU",
                 "fullName": "University of the Basque Country",
                 "logo": {
@@ -3182,7 +3182,7 @@
                 }
             },
             {
-                "cdsId": "6379",
+                "id": "6379",
                 "displayName": "UCM",
                 "fullName": "Universidad Complutense de Madrid",
                 "logo": {
@@ -3191,7 +3191,7 @@
                 }
             },
             {
-                "cdsId": "7032",
+                "id": "7032",
                 "displayName": "ENS de Paris-Saclay",
                 "fullName": "École Normale Supérieure de Paris-Saclay",
                 "logo": {
@@ -3200,7 +3200,7 @@
                 }
             },
             {
-                "cdsId": "7083",
+                "id": "7083",
                 "displayName": "Polito",
                 "fullName": "Politecnico di Torino",
                 "logo": {
@@ -3209,7 +3209,7 @@
                 }
             },
             {
-                "cdsId": "7435",
+                "id": "7435",
                 "displayName": "UNIBO",
                 "fullName": "University of Bologna",
                 "logo": {
@@ -3218,7 +3218,7 @@
                 }
             },
             {
-                "cdsId": "7990",
+                "id": "7990",
                 "displayName": "UNIMI",
                 "fullName": "Università Degli Studi di Milano",
                 "logo": {
@@ -3227,7 +3227,7 @@
                 }
             },
             {
-                "cdsId": "8246",
+                "id": "8246",
                 "displayName": "Polimi",
                 "fullName": "Politecnico di Milano",
                 "logo": {
@@ -3236,7 +3236,7 @@
                 }
             },
             {
-                "cdsId": "8450",
+                "id": "8450",
                 "displayName": "USI",
                 "fullName": "Università della Svizzera italiana",
                 "logo": {
@@ -3245,7 +3245,7 @@
                 }
             },
             {
-                "cdsId": "8460",
+                "id": "8460",
                 "displayName": "CentraleSupélec",
                 "fullName": "CentraleSupélec",
                 "logo": {
@@ -3254,7 +3254,7 @@
                 }
             },
             {
-                "cdsId": "8483",
+                "id": "8483",
                 "displayName": "U of Haifa",
                 "fullName": "University of Haifa",
                 "logo": {
@@ -3263,7 +3263,7 @@
                 }
             },
             {
-                "cdsId": "8488",
+                "id": "8488",
                 "displayName": "UniVerona",
                 "fullName": "University of Verona",
                 "logo": {
@@ -3272,7 +3272,7 @@
                 }
             },
             {
-                "cdsId": "8818",
+                "id": "8818",
                 "displayName": "SNS",
                 "fullName": "Scuola Normale Superiore",
                 "logo": {
@@ -3281,7 +3281,7 @@
                 }
             },
             {
-                "cdsId": "8869",
+                "id": "8869",
                 "displayName": "UNIPI",
                 "fullName": "Università di Pisa",
                 "logo": {
@@ -3290,7 +3290,7 @@
                 }
             },
             {
-                "cdsId": "8886",
+                "id": "8886",
                 "displayName": "U-ARTOIS",
                 "fullName": "Artois University",
                 "logo": {
@@ -3299,7 +3299,7 @@
                 }
             },
             {
-                "cdsId": "9009",
+                "id": "9009",
                 "displayName": "U Montpellier",
                 "fullName": "Université de Montpellier",
                 "logo": {
@@ -3308,7 +3308,7 @@
                 }
             },
             {
-                "cdsId": "9635",
+                "id": "9635",
                 "displayName": "ENSEEIHT",
                 "fullName": "École Nationale Supérieure d'électrotechnique, d'électronique, d'informatique, d'hydraulique et des Télécommunications",
                 "logo": {
@@ -3317,7 +3317,7 @@
                 }
             },
             {
-                "cdsId": "9745",
+                "id": "9745",
                 "displayName": "HS",
                 "fullName": "Harbour.Space University",
                 "logo": {
@@ -3326,7 +3326,7 @@
                 }
             },
             {
-                "cdsId": "10640",
+                "id": "10640",
                 "displayName": "UR1",
                 "fullName": "University of Rennes 1",
                 "logo": {
@@ -3335,7 +3335,7 @@
                 }
             },
             {
-                "cdsId": "10678",
+                "id": "10678",
                 "displayName": "UniPD",
                 "fullName": "University of Padova",
                 "logo": {
@@ -3344,7 +3344,7 @@
                 }
             },
             {
-                "cdsId": "10685",
+                "id": "10685",
                 "displayName": "TP",
                 "fullName": "Télécom Paris",
                 "logo": {
@@ -3353,7 +3353,7 @@
                 }
             },
             {
-                "cdsId": "10689",
+                "id": "10689",
                 "displayName": "Sorbonne",
                 "fullName": "Sorbonne Université",
                 "logo": {
@@ -3362,7 +3362,7 @@
                 }
             },
             {
-                "cdsId": "10706",
+                "id": "10706",
                 "displayName": "Unive",
                 "fullName": "Ca' Foscari University of Venice",
                 "logo": {
@@ -3371,7 +3371,7 @@
                 }
             },
             {
-                "cdsId": "11111",
+                "id": "11111",
                 "displayName": "TAU",
                 "fullName": "Tel Aviv University",
                 "logo": {
@@ -3380,7 +3380,7 @@
                 }
             },
             {
-                "cdsId": "11205",
+                "id": "11205",
                 "displayName": "UdP",
                 "fullName": "Université de Paris",
                 "logo": {
@@ -3389,7 +3389,7 @@
                 }
             },
             {
-                "cdsId": "11538",
+                "id": "11538",
                 "displayName": "PPS",
                 "fullName": "Polytech Paris Saclay",
                 "logo": {
@@ -3398,7 +3398,7 @@
                 }
             },
             {
-                "cdsId": "15696",
+                "id": "15696",
                 "displayName": "EILCO",
                 "fullName": "Ecole d'Ingénieurs Littoral Côte d'Opale",
                 "logo": {
@@ -3407,7 +3407,7 @@
                 }
             },
             {
-                "cdsId": "16191",
+                "id": "16191",
                 "displayName": "UnivAQ",
                 "fullName": "University of L'Aquila",
                 "logo": {
@@ -3416,7 +3416,7 @@
                 }
             },
             {
-                "cdsId": "19561",
+                "id": "19561",
                 "displayName": "Université Paris-Saclay",
                 "fullName": "Université Paris-Saclay",
                 "logo": {
@@ -3425,7 +3425,7 @@
                 }
             },
             {
-                "cdsId": "20085",
+                "id": "20085",
                 "displayName": "CUNEF",
                 "fullName": "CUNEF Universidad",
                 "logo": {
@@ -3434,7 +3434,7 @@
                 }
             },
             {
-                "cdsId": "20090",
+                "id": "20090",
                 "displayName": "TNCY",
                 "fullName": "TELECOM Nancy",
                 "logo": {
@@ -3443,7 +3443,7 @@
                 }
             },
             {
-                "cdsId": "42424242",
+                "id": "42424242",
                 "displayName": "Jane Street",
                 "fullName": "Jane Street",
                 "logo": {
