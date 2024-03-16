@@ -16,7 +16,7 @@ Also, it sometimes contains some abilities to modify received data.
 
 You can use [json schema file](https://github.com/icpc/live-v3/tree/main/schemas/settings.schema.json) in your text editor to get help with writing config. 
 
-[Here](https://icpc.io/live-v3/cds/-i-c-p-c-live%20contest%20data%20parser/org.icpclive.cds.settings/-c-d-s-settings/index.html) 
+[Here](https://icpc.io/live-v3/cds/core/org.icpclive.cds.settings/-c-d-s-settings/index.html) 
 is the full list of supported properties for all systems.
 
 Typical config should look like that
