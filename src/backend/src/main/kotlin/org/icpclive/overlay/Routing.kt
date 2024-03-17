@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.admin.getExternalRun
 import org.icpclive.cds.api.OptimismLevel
+import org.icpclive.cds.api.RunId
 import org.icpclive.data.DataBus
 import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.cds.scoreboard.toLegacyScoreboard
@@ -28,7 +29,7 @@ private inline fun <reified T : Any> Route.setUpScoreboard(crossinline process: 
 fun Route.configureOverlayRouting() {
     flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
     flowEndpoint("/contestInfo") { DataBus.contestInfoFlow.await() }
-    flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runs.values.sortedBy { it.id } } }
+    flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runs.values.sortedBy { it.time } } }
     flowEndpoint("/queue") { DataBus.queueFlow.await() }
     flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
     flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
@@ -47,7 +48,7 @@ fun Route.configureOverlayRouting() {
     }
     get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
     get("/externalRun/{id}") {
-        val runInfo = getExternalRun(call.parameters["id"]!!.toInt())
+        val runInfo = getExternalRun(RunId(call.parameters["id"]!!))
         if (runInfo == null) {
             call.respond(HttpStatusCode.NotFound)
         } else {

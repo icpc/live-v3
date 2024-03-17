@@ -187,7 +187,7 @@ internal class CFContestInfo {
                     val problemTests = problemTestsCount[it.problem.index]!!
                     val result = submissionToResult(it, wrongs)
                     val run = RunInfo(
-                        id = it.id.toInt(),
+                        id = RunId(it.id.toString()),
                         result = result ?: RunResult.InProgress(it.passedTestCount.toDouble() / problemTests),
                         problemId = problemId,
                         teamId = participantsByCdsId[getTeamCdsId(it.author)]!!.id,
@@ -206,7 +206,7 @@ internal class CFContestInfo {
                 if (hack.hacker.participantType == CFPartyParticipantType.CONTESTANT) {
                     add(
                         RunInfo(
-                            id = (hack.id * 2).inv(),
+                            id = RunId("hack-attack-${hack.id}"),
                             result = when (hack.verdict) {
                                 CFHackVerdict.HACK_SUCCESSFUL -> RunResult.IOI(
                                     score = listOf(100.0),
@@ -231,7 +231,7 @@ internal class CFContestInfo {
                 if (hack.defender.participantType == CFPartyParticipantType.CONTESTANT) {
                     add(
                         RunInfo(
-                            id = (hack.id * 2 + 1).inv(),
+                            id = RunId("hack-defend-${hack.id}"),
                             result = RunResult.IOI(
                                 score = listOf(0.0),
                                 wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else Verdict.Accepted,

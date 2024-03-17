@@ -13,7 +13,7 @@ import org.icpclive.cds.api.*
 public class ContestState internal constructor(
     public val event: ContestUpdate,
     public val infoBeforeEvent: ContestInfo?,
-    public val runs: PersistentMap<Int, RunInfo>,
+    public val runs: PersistentMap<RunId, RunInfo>,
     public val analyticsMessages: PersistentMap<String, AnalyticsMessage>,
 ) {
     public val infoAfterEvent: ContestInfo?
@@ -22,7 +22,7 @@ public class ContestState internal constructor(
 
 public fun Flow<ContestUpdate>.contestState(): Flow<ContestState> = flow {
     var curInfo: ContestInfo? = null
-    var curRuns = persistentMapOf<Int, RunInfo>()
+    var curRuns = persistentMapOf<RunId, RunInfo>()
     var curMessages = persistentMapOf<String, AnalyticsMessage>()
     collect {
         emit(ContestState(it, curInfo, curRuns, curMessages))

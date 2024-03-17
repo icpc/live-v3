@@ -41,7 +41,6 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     }
 
     private val resultType = settings.resultType
-    private val runIds = Enumerator<String>()
     private var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -161,11 +160,11 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         index: Int
     ): RunInfo {
         val time = element.getAttribute("time").toLong().milliseconds
-        val id = runIds[element.getAttribute("run-id").takeIf { it.isNotEmpty() } ?: "$teamId-$problemId-$index"]
+        val id = element.getAttribute("run-id").takeIf { it.isNotEmpty() } ?: "$teamId-$problemId-$index"
         val verdict = getVerdict(element)
 
         return RunInfo(
-            id = id,
+            id = RunId(id),
             when (resultType) {
                 ContestResultType.IOI -> {
                     when (verdict) {

@@ -8,7 +8,6 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.ksp.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
-import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.minutes
@@ -54,7 +53,6 @@ public sealed interface AtcoderSettings : CDSSettings {
 }
 
 internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {
-    private val teamIds = Enumerator<String>()
     private val loader = jsonLoader<ContestData>(
         settings.network,
         ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)
@@ -70,7 +68,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         repeat(result.Count - oldRuns.size) {
             oldRuns.add(
                 RunInfo(
-                    id = submissionId++,
+                    id = RunId(submissionId++.toString()),
                     result = RunResult.InProgress(0.0),
                     problemId = problemId,
                     teamId = teamId,

@@ -219,7 +219,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     }
                 } else RunResult.InProgress(0.0)
                 RunInfo(
-                    id = it.id,
+                    id = RunId(it.id.toString()),
                     result = result,
                     problemId = ProblemId(it.problem_id.toString()),
                     teamId = TeamId(it.team_id.toString()),

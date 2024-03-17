@@ -1,12 +1,13 @@
 package org.icpclive.api
 
 import kotlinx.serialization.Serializable
+import org.icpclive.cds.api.RunId
 import org.icpclive.cds.api.TeamId
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 sealed class KeyTeamCause
-class RunCause(val runId: Int) : KeyTeamCause()
+class RunCause(val runId: RunId) : KeyTeamCause()
 object ScoreSumCause : KeyTeamCause()
 
 data class KeyTeam(val teamId: TeamId, val cause: KeyTeamCause)

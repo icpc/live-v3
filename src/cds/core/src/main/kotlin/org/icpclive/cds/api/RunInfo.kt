@@ -6,9 +6,17 @@ import kotlinx.serialization.encoding.Encoder
 import org.icpclive.util.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
+@JvmInline
+@Serializable
+public value class RunId(public val value: String) {
+    override fun toString(): String = value
+}
+
+
+
 @Serializable
 public data class RunInfo(
-    val id: Int,
+    val id: RunId,
     val result: RunResult,
     val problemId: ProblemId,
     val teamId: TeamId,

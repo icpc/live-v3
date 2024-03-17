@@ -29,7 +29,6 @@ public sealed interface EjudgeSettings : CDSSettings {
 }
 
 internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContestDataSource(5.seconds) {
-    private val runsIds = Enumerator<String>()
 
     override suspend fun loadOnce(): ContestParseResult {
         val element = xmlLoader.load()
@@ -130,7 +129,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         }
 
         val teamId = TeamId(element.getAttribute("user_id"))
-        val runId = runsIds[element.getAttribute("run_id")]
+        val runId = RunId(element.getAttribute("run_id"))
 
         val result = when (element.getAttribute("status")) {
             "OK", "PT" -> Verdict.Accepted

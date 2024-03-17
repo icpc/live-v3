@@ -41,7 +41,7 @@ public data class AnalyticsCommentaryEvent(
     @Serializable(with = DurationInMillisecondsSerializer::class)
     override val relativeTime: Duration,
     val teamIds: List<TeamId>,
-    val runIds: List<Int>,
+    val runIds: List<RunId>,
     @Required val priority: Int = 0,
     @Required val tags: List<String> = emptyList(), // todo: support tage in CLICS parser
     @Required val advertisement: AnalyticsCompanionPreset? = null,

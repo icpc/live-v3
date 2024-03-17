@@ -17,7 +17,7 @@ internal open class ContestStateWithGroupedRuns<K>(
 }
 private fun PersistentList<RunInfo>.resort(index_: Int) = builder().apply {
     var index = index_
-    val comparator = compareBy(RunInfo::time, RunInfo::id)
+    val comparator = compareBy(RunInfo::time, { it.id.value })
     while (index > 0 && comparator.compare(get(index - 1), get(index)) > 0) {
         val t = get(index)
         set(index, get(index - 1))
@@ -68,7 +68,7 @@ internal fun <K : Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.w
     var curRuns = persistentMapOf<K, PersistentList<RunInfo>>()
     var curMessages = persistentMapOf<String, AnalyticsMessage>()
     var originalRuns = persistentMapOf<K, PersistentList<RunInfo>>()
-    val oldKey = mutableMapOf<Int, K>()
+    val oldKey = mutableMapOf<RunId, K>()
     collect { update ->
         suspend fun emit(update: ContestUpdate) = emit(provider(update, curInfo, curRuns, curMessages))
         suspend fun updateGroup(key: K, newRun: RunInfo? = null) {

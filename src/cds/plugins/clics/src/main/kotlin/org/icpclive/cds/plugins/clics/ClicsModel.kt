@@ -5,7 +5,6 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.plugins.clics.model.ClicsOrganisationInfo
 import org.icpclive.clics.v202207.*
-import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -15,7 +14,6 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
     private val teams = mutableMapOf<String, Team>()
-    private val submissionToId = Enumerator<String>()
     private val submissions = mutableMapOf<String, Submission>()
     private val submissionJudgmentIds = mutableMapOf<String, MutableSet<String>>()
     private val judgements = mutableMapOf<String, Judgement>()
@@ -90,7 +88,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         val passedTests = judgment?.id?.let { judgmentRunIds[it] }?.size ?: 0
         val judgementType = judgementTypes[judgment?.judgement_type_id]
         return RunInfo(
-            id = submissionToId[id],
+            id = RunId(id),
             result = if (judgementType == null) {
                 val part = when (val count = problem?.test_data_count) {
                     null, 0 -> 0.0
@@ -256,7 +254,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
             commentary.time,
             commentary.contest_time,
             commentary.team_ids?.map { TeamId(it) } ?: emptyList(),
-            commentary.submission_ids?.map { submissionToId[it] } ?: emptyList(),
+            commentary.submission_ids?.map { RunId(it) } ?: emptyList(),
         )
 
 
