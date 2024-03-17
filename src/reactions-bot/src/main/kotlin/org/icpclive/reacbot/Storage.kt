@@ -14,7 +14,7 @@ class Storage {
         }
     }
 
-    fun addReactions(teamId: String, problemId: String, runId: Int, isOk: Boolean, fileName: String): Reaction =
+    fun addReactions(teamId: String, problemId: String, runId: String, isOk: Boolean, fileName: String): Reaction =
         transaction(connection) {
             return@transaction Reaction.wrapRow(
                 Reactions.selectAll().where { Reactions.fileName eq fileName }.singleOrNull<ResultRow>()
@@ -47,21 +47,21 @@ class Storage {
                 )
             val voted = Votes.selectAll()
                 .where { Votes.chatId eq chatId }
-                .map { Vote.wrapRow(it).id.value }
+                .map { Vote.wrapRow(it).runId }
                 .toSet()
 
             return@transaction reactions.map { Reaction.wrapRow(it) }.firstOrNull { it.runId !in voted }
         }
     }
 
-    fun storeReactionVote(reactionId: Int, chatId: Long, delta: Int) {
+    fun storeReactionVote(runId: String, chatId: Long, delta: Int) {
         transaction(connection) {
-            Reactions.update(where = { Reactions.id eq reactionId }) {
+            Reactions.update(where = { Reactions.runId eq runId }) {
                 it[voteCount] = voteCount + 1
                 it[rating] = rating + delta
             }
             Votes.insert {
-                it[Votes.reactionId] = reactionId
+                it[Votes.runId] = runId
                 it[Votes.chatId] = chatId
                 it[Votes.vote] = delta
             }

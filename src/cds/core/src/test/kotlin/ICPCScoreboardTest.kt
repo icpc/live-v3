@@ -34,10 +34,10 @@ class ICPCScoreboardTest {
     @Test
     fun testRanks() {
         val runs = listOf(
-            RunInfo(1, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T4"), 10.minutes),
-            RunInfo(3, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T1"), 30.minutes),
-            RunInfo(4, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T3"), 30.minutes),
-            RunInfo(5, RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T2"), 40.minutes),
+            RunInfo(RunId("1"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T4"), 10.minutes),
+            RunInfo(RunId("3"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T1"), 30.minutes),
+            RunInfo(RunId("4"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T3"), 30.minutes),
+            RunInfo(RunId("5"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T2"), 40.minutes),
         )
         val calculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
         val scoreboardRows = runs.groupBy { it.teamId }.mapValues { calculator.getScoreboardRow(info, it.value) }

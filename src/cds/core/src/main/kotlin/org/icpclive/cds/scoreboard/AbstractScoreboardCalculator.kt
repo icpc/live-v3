@@ -181,7 +181,7 @@ private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
     var curInfo: ContestInfo? = null
     var curRuns = persistentMapOf<TeamId, PersistentList<RunInfo>>()
     var lastSubmissionTime = Duration.ZERO
-    val oldKey = mutableMapOf<Int, TeamId>()
+    val oldKey = mutableMapOf<RunId, TeamId>()
     collect { update ->
         suspend fun updateGroup(key: TeamId) {
             val info = curInfo ?: return

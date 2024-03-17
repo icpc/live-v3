@@ -206,7 +206,7 @@ export enum MedalTiebreakMode {
 }
 
 export interface RunInfo {
-  id: number;
+  id: RunId;
   result: RunResult;
   problemId: ProblemId;
   teamId: TeamId;
@@ -215,6 +215,8 @@ export interface RunInfo {
   reactionVideos: MediaType[];
   isHidden: boolean;
 }
+
+export type RunId = string;
 
 export type RunResult =
   | RunResult.ICPC
@@ -639,7 +641,7 @@ export namespace AnalyticsMessage {
     timeUnixMs: number;
     relativeTimeMs: number;
     teamIds: TeamId[];
-    runIds: number[];
+    runIds: RunId[];
     priority: number;
     tags: string[];
     advertisement: AnalyticsCompanionPreset | null;
