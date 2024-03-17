@@ -83,7 +83,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val runs = (data["@s"] ?: emptyList()).mapIndexed { index, subm ->
             val (teamId, problemId, _, time, verdict) = subm.splitCommas()
             RunInfo(
-                id = index,
+                id = RunId(index.toString()),
                 result = Verdict.lookup(
                     shortName = verdict,
                     isAccepted = verdict == "OK",

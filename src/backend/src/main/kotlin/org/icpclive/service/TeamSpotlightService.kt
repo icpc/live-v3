@@ -133,7 +133,7 @@ class TeamSpotlightService(
         // analyticsMessage: Flow<AnalyticsMessage>
         addScoreRequests: Flow<AddTeamScoreRequest>? = null,
     ) {
-        val runIds = mutableSetOf<Int>()
+        val runIds = mutableSetOf<RunId>()
         coroutineScope {
             val scoreboardState = scoreboard.map { it.scoreboardSnapshot }.stateIn(this)
             merge(

@@ -203,7 +203,7 @@ object ClicsExporter  {
         )
     }
 
-    private val submissionsCreated = mutableSetOf<Int>()
+    private val submissionsCreated = mutableSetOf<RunId>()
 
     private suspend fun FlowCollector<EventProducer>.processRun(info: ContestInfo, run: RunInfo) {
         if (run.id !in submissionsCreated) {

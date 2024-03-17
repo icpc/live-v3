@@ -6,7 +6,6 @@ import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.cms.model.*
 import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
@@ -26,7 +25,6 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
     private val usersLoader = jsonUrlLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/" }
     private val submissionsLoader = jsonUrlLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/" }
     private val subchangesLoader = jsonUrlLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/" }
-    private val submissionId = Enumerator<String>()
 
     override suspend fun loadOnce(): ContestParseResult {
         val contests = contestsLoader.load()
@@ -107,7 +105,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 return@mapNotNull null
             }
             RunInfo(
-                id = submissionId[k],
+                id = RunId(k),
                 result = RunResult.InProgress(0.0),
                 problemId = ProblemId(v.task),
                 teamId = TeamId(v.user),
@@ -115,10 +113,10 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             )
         }.associateBy { it.id }.toMutableMap()
         subchangesLoader.load().entries.sortedBy { it.value.time }.forEach { (_, it) ->
-            val r = submissions[submissionId[it.submission]] ?: return@forEach
+            val r = submissions[RunId(it.submission)] ?: return@forEach
             val scores = if (it.extra.isEmpty()) listOf(it.score) else it.extra.map { it.toDouble() }
             submissions[r.id] = r.copy(result = RunResult.IOI(scores))
         }
-        return ContestParseResult(info, submissions.values.sortedBy { it.id }, emptyList())
+        return ContestParseResult(info, submissions.values.sortedBy { it.id.value }, emptyList())
     }
 }

@@ -42,11 +42,6 @@ public final class org/icpclive/util/DurationInSecondsSerializer : kotlinx/seria
 	public fun serialize-HG0u8IE (Lkotlinx/serialization/encoding/Encoder;J)V
 }
 
-public final class org/icpclive/util/Enumerator {
-	public fun <init> ()V
-	public final fun get (Ljava/lang/Object;)I
-}
-
 public final class org/icpclive/util/FileChangesWatcherKt {
 	public static final fun directoryChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun fileChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;

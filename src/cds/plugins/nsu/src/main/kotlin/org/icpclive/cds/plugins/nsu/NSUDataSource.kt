@@ -155,7 +155,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
 
         val runs: List<RunInfo> = submissions.map {
             RunInfo(
-                id = it.id,
+                id = RunId(it.id.toString()),
                 result = getRunResult(it.res, it.status) ?: RunResult.InProgress(0.0),
                 problemId = ProblemId(it.taskId.toString()),
                 teamId = TeamId(it.teamId.toString()),

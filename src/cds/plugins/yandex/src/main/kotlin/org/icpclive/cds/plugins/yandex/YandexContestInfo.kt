@@ -57,7 +57,7 @@ internal class YandexContestInfo(
             )
         }
         return RunInfo(
-            id = submission.id.toInt(),
+            id = RunId(submission.id.toString()),
             result = result,
             problemId = ProblemId(submission.problemId),
             teamId = TeamId(submission.authorId.toString()),

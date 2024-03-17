@@ -21,7 +21,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         scoreboardFlow: Flow<ScoreboardAndContestInfo>,
     ) = flow {
         logger.info("Analytics generator service is started")
-        val runs = mutableMapOf<Int, RunAnalyse>()
+        val runs = mutableMapOf<RunId, RunAnalyse>()
         combine(contestInfoFlow, runsFlow, scoreboardFlow, ::Triple).collect { (contestInfo, run, scoreboard) ->
             if (run.isHidden) {
                 runs.remove(run.id)
@@ -119,7 +119,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         }
     }
 
-    private fun MutableMap<Int, RunAnalyse>.processRun(run: RunInfo, scoreboard: Scoreboard): RunAnalyse? {
+    private fun MutableMap<RunId, RunAnalyse>.processRun(run: RunInfo, scoreboard: Scoreboard): RunAnalyse? {
         val result = scoreboard.rows[run.teamId]
         if (result == null) {
             remove(run.id)

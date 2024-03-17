@@ -96,7 +96,7 @@ class Bot(
             callbackQuery("vote:") {
                 val query = this.callbackQuery.data.split(":")
                 if (query.size == 3) {
-                    val reactionId = query[1].toIntOrNull() ?: return@callbackQuery
+                    val reactionId = query[1]
                     storage.storeReactionVote(
                         reactionId, this.callbackQuery.message?.chat?.id ?: 0L, when (query[2]) {
                             "like" -> +1
@@ -111,8 +111,13 @@ class Bot(
     }
 
     private fun processReaction(scope: CoroutineScope, run: RunInfo, reactionUrl: String) {
-        val reaction = storage.addReactions(run.teamId.value, run.problemId.value, run.id,
-            (run.result as? RunResult.ICPC)?.verdict?.isAccepted == true, reactionUrl)
+        val reaction = storage.addReactions(
+            run.teamId.value,
+            run.problemId.value,
+            run.id.value,
+            (run.result as? RunResult.ICPC)?.verdict?.isAccepted == true,
+            reactionUrl
+        )
         if (reaction.telegramFileId == null && reaction.id.value !in alreadyProcessedReactionIds) {
             alreadyProcessedReactionIds.add(reaction.id.value)
             scope.launch(reactionsProcessingPool) {

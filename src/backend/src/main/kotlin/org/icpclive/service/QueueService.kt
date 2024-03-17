@@ -18,22 +18,22 @@ private data class Run(val run: RunInfo) : QueueProcessTrigger()
 private data class Featured(val request: FeaturedRunAction) : QueueProcessTrigger()
 private object Subscribe : QueueProcessTrigger()
 
-sealed class FeaturedRunAction(val runId: Int) {
+sealed class FeaturedRunAction(val runId: RunId) {
     class MakeFeatured(
-        runId: Int,
+        runId: RunId,
         val mediaType: MediaType,
     ) : FeaturedRunAction(runId) {
         val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred()
     }
 
-    class MakeNotFeatured(runId: Int) : FeaturedRunAction(runId)
+    class MakeNotFeatured(runId: RunId) : FeaturedRunAction(runId)
 }
 
 class QueueService {
-    private val runs = mutableMapOf<Int, RunInfo>()
-    private val removedRuns = mutableMapOf<Int, RunInfo>()
+    private val runs = mutableMapOf<RunId, RunInfo>()
+    private val removedRuns = mutableMapOf<RunId, RunInfo>()
     private var featuredRun: FeaturedRunInfo? = null
-    private val lastUpdateTime = mutableMapOf<Int, Duration>()
+    private val lastUpdateTime = mutableMapOf<RunId, Duration>()
 
     private val resultFlow = MutableSharedFlow<QueueEvent>(
         extraBufferCapacity = 100000,
@@ -157,13 +157,13 @@ class QueueService {
                     }
                 }
                 is Subscribe -> {
-                    resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.id }))
+                    resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.time }))
                 }
             }
             while (runs.size >= MAX_QUEUE_SIZE) {
                 runs.values.asSequence()
                     .filterNot { (it.result as? RunResult.ICPC)?.isFirstToSolveRun == true || it.featuredRunMedia != null }
-                    .minByOrNull { it.id }
+                    .minByOrNull { it.time }
                     ?.run { removeRun(this) }
                     ?: break
             }
@@ -173,7 +173,7 @@ class QueueService {
     companion object {
         val logger = getLogger(QueueService::class)
 
-        private data class FeaturedRunInfo(val runId: Int, val mediaType: MediaType)
+        private data class FeaturedRunInfo(val runId: RunId, val mediaType: MediaType)
 
         private val WAIT_TIME = 1.minutes
         private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes

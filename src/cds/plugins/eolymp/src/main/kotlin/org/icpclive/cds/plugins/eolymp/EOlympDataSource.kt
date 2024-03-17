@@ -10,7 +10,6 @@ import org.icpclive.cds.ksp.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
-import org.icpclive.util.Enumerator
 import org.icpclive.util.getLogger
 import java.net.URL
 import java.time.chrono.IsoChronology
@@ -112,8 +111,6 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         .toFormatter()
         .withResolverStyle(ResolverStyle.STRICT)
         .withChronology(IsoChronology.INSTANCE)
-
-    private val runIds = Enumerator<String>()
 
     private var previousDays: List<ContestParseResult> = emptyList()
 
@@ -221,7 +218,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                 addAll(x.submissions!!.nodes.map {
                     val verdict = parseVerdict(it.status, it.verdict, it.percentage)
                     RunInfo(
-                        id = runIds[it.id],
+                        id = RunId(it.id),
                         result = when (resultType) {
                             ContestResultType.ICPC -> verdict?.toICPCRunResult()
                             ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }

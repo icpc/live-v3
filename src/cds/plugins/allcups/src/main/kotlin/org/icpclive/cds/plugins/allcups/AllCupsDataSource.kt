@@ -55,7 +55,7 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
     }
 
     private fun Submission.toRun() = RunInfo(
-        id = id,
+        id = RunId(id.toString()),
         result = code.toVerdict().toICPCRunResult(),
         problemId = ProblemId(task_id.toString()),
         teamId = TeamId(user_id.toString()),

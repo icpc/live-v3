@@ -62,7 +62,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         val runs = submissions.map {
             val result = outcomeMap[it.StatusName]
             RunInfo(
-                id = it.Id,
+                id = RunId(it.Id.toString()),
                 result?.toICPCRunResult() ?: RunResult.InProgress(0.0),
                 problemId = ProblemId(it.Problem.toString()),
                 teamId = TeamId(it.Login),

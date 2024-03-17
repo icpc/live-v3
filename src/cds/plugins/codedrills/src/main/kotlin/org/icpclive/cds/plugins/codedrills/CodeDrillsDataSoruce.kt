@@ -145,7 +145,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
                 return@mapNotNull null
             }
             RunInfo(
-                id = it.id,
+                id = RunId(it.id.toString()),
                 result = verdict,
                 problemId = ProblemId(it.problemId.toString()),
                 teamId = memberIdToTeam[it.submittedBy]!!,

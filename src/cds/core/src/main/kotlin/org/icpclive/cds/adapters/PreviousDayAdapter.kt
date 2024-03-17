@@ -11,35 +11,32 @@ import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.util.Enumerator
 import kotlin.time.Duration
 
 @OptIn(InefficientContestInfoApi::class)
 @JvmName("addPreviousDaysResults")
 public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>): Flow<ContestUpdate> {
-    val runsEnumerator = Enumerator<Pair<Int, Int>>()
-
     val allProblems = mutableListOf<ProblemInfo>()
     val allRuns = mutableListOf<RunInfo>()
 
-    fun problemId(day: Int, id: ProblemId) = if (day < previousDays.size)
-        ProblemId("d${day+1}.${id.value}")
-    else
-        id
+    fun problemId(day: Int, id: ProblemId) = ProblemId("d${day + 1}.${id.value}")
 
     for ((index, state) in previousDays.withIndex()) {
         val info = state.infoAfterEvent!!
         for (problem in info.problemList.sortedBy { it.ordinal }) {
-            allProblems.add(problem.copy(
-                ordinal = allProblems.size,
-                id = problemId(index, problem.id)
-            ))
+            allProblems.add(
+                problem.copy(
+                    ordinal = allProblems.size,
+                    id = problemId(index, problem.id)
+                )
+            )
         }
         for (run in state.runs.values) {
-            allRuns.add(run.copy(
-                    id = runsEnumerator[index to run.id],
+            allRuns.add(
+                run.copy(
+                    id = RunId("$index${'$'}${run.id}"),
                     time = Duration.ZERO,
-                    problemId = problemId(index,run.problemId),
+                    problemId = problemId(index, run.problemId),
                 )
             )
         }
@@ -52,28 +49,24 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                 val info = update.newInfo
                 val newProblems = info.problemList.sortedBy { it.ordinal }.mapIndexed { index, problem ->
                     problem.copy(
-                        id = problemId(previousDays.size, problem.id),
+                        id = problem.id,
                         ordinal = allProblems.size + index
                     )
                 }
-                emit(InfoUpdate(
-                    info.copy(
-                        problemList = allProblems + newProblems
+                emit(
+                    InfoUpdate(
+                        info.copy(
+                            problemList = allProblems + newProblems
+                        )
                     )
-                ))
+                )
                 for (i in allRuns) {
                     emit(RunUpdate(i))
                 }
                 allRuns.clear()
             }
-            is RunUpdate -> {
-                val info = update.newInfo
-                emit(RunUpdate(
-                    info.copy(
-                    id = runsEnumerator[previousDays.size to info.id],
-                    problemId = problemId(previousDays.size, info.problemId),
-                )))
-            }
+
+            is RunUpdate -> emit(update)
         }
     }
 }

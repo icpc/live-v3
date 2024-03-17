@@ -8,7 +8,7 @@ import kotlin.time.Duration
 
 @Serializable
 class ExternalRunInfo(
-    val id: Int,
+    val id: String,
     val result: RunResult,
     val problem: ProblemInfo,
     val team: ExternalTeamInfo,
