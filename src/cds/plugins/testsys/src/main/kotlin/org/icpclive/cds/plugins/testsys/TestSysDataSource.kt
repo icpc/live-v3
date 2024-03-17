@@ -42,7 +42,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val problemsWithPenalty = (data["@p"] ?: emptyList()).mapIndexed { index, prob ->
             val (letter, name, penalty) = prob.splitCommas()
             ProblemInfo(
-                id = ProblemId(letter),
+                id = letter.toProblemId(),
                 displayName = letter,
                 fullName = name,
                 ordinal = index,
@@ -53,7 +53,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val teams = (data["@t"] ?: emptyList()).mapIndexed { index, team ->
             val (id, _, _, name) = team.splitCommas()
             TeamInfo(
-                id = TeamId(id),
+                id = id.toTeamId(),
                 fullName = name,
                 displayName = name,
                 groups = emptyList(),
@@ -83,7 +83,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         val runs = (data["@s"] ?: emptyList()).mapIndexed { index, subm ->
             val (teamId, problemId, _, time, verdict) = subm.splitCommas()
             RunInfo(
-                id = RunId(index.toString()),
+                id = index.toRunId(),
                 result = Verdict.lookup(
                     shortName = verdict,
                     isAccepted = verdict == "OK",
@@ -93,8 +93,8 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                         else -> true
                     }
                 ).takeIf { verdict != "FZ" }?.toICPCRunResult() ?: RunResult.InProgress(0.0),
-                problemId = ProblemId(problemId),
-                teamId = TeamId(teamId),
+                problemId = problemId.toProblemId(),
+                teamId = teamId.toTeamId(),
                 time = time.toInt().seconds,
             )
         }

@@ -68,7 +68,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         repeat(result.Count - oldRuns.size) {
             oldRuns.add(
                 RunInfo(
-                    id = RunId(submissionId++.toString()),
+                    id = submissionId++.toRunId(),
                     result = RunResult.InProgress(0.0),
                     problemId = problemId,
                     teamId = teamId,
@@ -99,7 +99,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         val data = loader.load()
         val problems = data.TaskInfo.mapIndexed { index, task ->
             ProblemInfo(
-                id = ProblemId(task.TaskScreenName),
+                id = task.TaskScreenName.toProblemId(),
                 displayName = task.Assignment,
                 fullName = task.TaskName,
                 ordinal = index,
@@ -110,7 +110,7 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         }
         val teams = data.StandingsData.map {
             TeamInfo(
-                id = TeamId(it.UserScreenName),
+                id = it.UserScreenName.toTeamId(),
                 fullName = it.UserScreenName,
                 displayName = it.UserScreenName,
                 groups = emptyList(),
@@ -138,9 +138,9 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         )
         val newRuns = buildList {
             for (teamResult in data.StandingsData) {
-                val teamId = TeamId(teamResult.UserScreenName)
+                val teamId = teamResult.UserScreenName.toTeamId()
                 for ((problemId, problemResult) in teamResult.TaskResults) {
-                    runs[teamId to ProblemId(problemId)] = addNewRuns(teamId, ProblemId(problemId), problemResult).also {
+                    runs[teamId to problemId.toProblemId()] = addNewRuns(teamId, problemId.toProblemId(), problemResult).also {
                         addAll(it)
                     }
                 }

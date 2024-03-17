@@ -108,7 +108,7 @@ object IcpcCSVDumpCommand : DumpFileCommand(
         } else {
             val parser = CSVParser(mappingFile.inputStream().reader(), CSVFormat.TDF)
             val map = parser.records.associate {
-                TeamId(it[1]!!) to it[0]!!
+                it[1]!!.toTeamId() to it[0]!!
             }
             val advanced = AdvancedProperties(
                 teamOverrides = map.mapValues {

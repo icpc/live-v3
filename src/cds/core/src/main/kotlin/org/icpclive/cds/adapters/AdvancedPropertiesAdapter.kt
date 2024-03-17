@@ -205,10 +205,10 @@ private fun applyRegex(
 ): List<TeamInfo> {
     if (regexOverrides == null) return teams
     return teams.map { team ->
-        val newOrg = team.key().matchRegexSet(regexOverrides.organizationRegex)?.let(::OrganizationId)
+        val newOrg = team.key().matchRegexSet(regexOverrides.organizationRegex)?.toOrganizationId()
         val newGroups = regexOverrides.groupRegex?.entries?.filter { (_, regex) ->
             regex.matches(team.key())
-        }?.map { GroupId(it.key) }.orEmpty()
+        }?.map { it.key.toGroupId() }.orEmpty()
         val newCustomFields = regexOverrides.customFields?.mapValues { (_, regex) ->
             team.key().matchRegexSet(regex)
         }?.filterValues { it != null }?.mapValues { it.value!! }.orEmpty()

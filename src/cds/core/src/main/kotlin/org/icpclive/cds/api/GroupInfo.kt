@@ -4,9 +4,14 @@ import kotlinx.serialization.Serializable
 
 @JvmInline
 @Serializable
-public value class GroupId(public val value: String) {
+public value class GroupId internal constructor(public val value: String) {
     override fun toString(): String = value
 }
+
+public fun String.toGroupId(): GroupId = GroupId(this)
+public fun Int.toGroupId(): GroupId = toString().toGroupId()
+public fun Long.toGroupId(): GroupId = toString().toGroupId()
+
 
 @Serializable
 public data class GroupInfo(

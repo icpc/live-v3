@@ -1,8 +1,7 @@
 package org.icpclive.cds.plugins.yandex.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.api.TeamId
-import org.icpclive.cds.api.TeamInfo
+import org.icpclive.cds.api.*
 
 @Serializable
 internal data class Participant(
@@ -12,7 +11,7 @@ internal data class Participant(
     val uid: String?,
 ) {
     fun toTeamInfo() = TeamInfo(
-        id = TeamId(login),
+        id = login.toTeamId(),
         fullName = name,
         displayName = name,
         groups = emptyList(),

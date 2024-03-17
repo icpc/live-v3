@@ -98,7 +98,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
         val contest = scoreboard.scoreboard.contest
         val problems = scoreboard.scoreboard.problemList.mapIndexed { index, problem ->
             ProblemInfo(
-                id = ProblemId(problem.id.toString()),
+                id = problem.id.toProblemId(),
                 displayName = problem.index,
                 fullName = problem.title,
                 ordinal = index
@@ -107,13 +107,13 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
         val teams = scoreboard.scoreboard.rowList.map {
             val team = it.team
             TeamInfo(
-                id = TeamId(team.id.toString()),
+                id = team.id.toTeamId(),
                 fullName = team.name,
                 displayName = team.name,
                 groups = emptyList(),
                 hashTag = null,
                 medias = emptyMap(),
-                organizationId = OrganizationId(team.institute),
+                organizationId = team.institute.toOrganizationId(),
                 isOutOfContest = false,
                 isHidden = false
             )
@@ -121,7 +121,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
 
         val memberIdToTeam = scoreboard.scoreboard.rowList
             .map { it.team }
-            .flatMap { it.memberList.map { member -> member.id to TeamId(it.id.toString()) } }
+            .flatMap { it.memberList.map { member -> member.id to it.id.toTeamId() } }
             .toMap()
 
         val startTime = Instant.fromEpochMilliseconds(contest.startTimeMilliSeconds)
@@ -145,9 +145,9 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
                 return@mapNotNull null
             }
             RunInfo(
-                id = RunId(it.id.toString()),
+                id = it.id.toRunId(),
                 result = verdict,
-                problemId = ProblemId(it.problemId.toString()),
+                problemId = it.problemId.toProblemId(),
                 teamId = memberIdToTeam[it.submittedBy]!!,
                 time = time,
             )
@@ -171,7 +171,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
                 ScoreboardType.UNRECOGNIZED, null -> TODO("Unsupported scoreboard type")
             },
             organizationList = scoreboard.scoreboard.rowList.map { it.team.institute }.distinct().map {
-                OrganizationInfo(OrganizationId(it), it, it, null)
+                OrganizationInfo(it.toOrganizationId(), it, it, null)
             }
         )
         return ContestParseResult(contestInfo, submissions, emptyList())
