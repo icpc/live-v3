@@ -73,8 +73,8 @@ class Bot(
                     var caption: String? = null
                     if (sendAdditionalInfo) {
                         val ci = runBlocking { contestInfo.await().value }
-                        ci.teams[TeamId(reaction.teamId)]?.let { team ->
-                            ci.problems[ProblemId(reaction.problemId)]?.let { problem ->
+                        ci.teams[reaction.teamId.toTeamId()]?.let { team ->
+                            ci.problems[reaction.problemId.toProblemId()]?.let { problem ->
                                 caption = "${team.fullName}, problem ${problem.displayName}"
                             }
                         }

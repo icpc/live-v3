@@ -9,7 +9,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
 
-private val HACKS_PROBLEM_ID = ProblemId("hacks")
+private val HACKS_PROBLEM_ID = "hacks".toProblemId()
 
 internal class CFContestInfo {
     private var contestLength: Duration = 5.hours
@@ -42,7 +42,7 @@ internal class CFContestInfo {
         if (problemsMap.isEmpty() && standings.problems.isNotEmpty()) {
             for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(
-                    id = ProblemId(id.toString()),
+                    id = id.toProblemId(),
                     displayName = problem.index,
                     fullName = problem.name!!,
                     ordinal = id,
@@ -75,7 +75,7 @@ internal class CFContestInfo {
             val cdsId = getTeamCdsId(row.party)
             val party = row.party
             participantsByCdsId[cdsId] = TeamInfo(
-                id = TeamId(cdsId),
+                id = cdsId.toTeamId(),
                 fullName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
                 displayName = party.teamName ?: party.members[0].let { it.name ?: it.handle },
                 groups = emptyList(),
@@ -187,7 +187,7 @@ internal class CFContestInfo {
                     val problemTests = problemTestsCount[it.problem.index]!!
                     val result = submissionToResult(it, wrongs)
                     val run = RunInfo(
-                        id = RunId(it.id.toString()),
+                        id = it.id.toRunId(),
                         result = result ?: RunResult.InProgress(it.passedTestCount.toDouble() / problemTests),
                         problemId = problemId,
                         teamId = participantsByCdsId[getTeamCdsId(it.author)]!!.id,
@@ -206,7 +206,7 @@ internal class CFContestInfo {
                 if (hack.hacker.participantType == CFPartyParticipantType.CONTESTANT) {
                     add(
                         RunInfo(
-                            id = RunId("hack-attack-${hack.id}"),
+                            id = "hack-attack-${hack.id}".toRunId(),
                             result = when (hack.verdict) {
                                 CFHackVerdict.HACK_SUCCESSFUL -> RunResult.IOI(
                                     score = listOf(100.0),
@@ -231,7 +231,7 @@ internal class CFContestInfo {
                 if (hack.defender.participantType == CFPartyParticipantType.CONTESTANT) {
                     add(
                         RunInfo(
-                            id = RunId("hack-defend-${hack.id}"),
+                            id = "hack-defend-${hack.id}".toRunId(),
                             result = RunResult.IOI(
                                 score = listOf(0.0),
                                 wrongVerdict = if (hack.verdict == CFHackVerdict.HACK_SUCCESSFUL) null else Verdict.Accepted,

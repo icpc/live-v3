@@ -4,9 +4,14 @@ import kotlinx.serialization.*
 
 @JvmInline
 @Serializable
-public value class TeamId(public val value: String) {
+public value class TeamId internal constructor(public val value: String) {
     override fun toString(): String = value
 }
+
+public fun String.toTeamId(): TeamId = TeamId(this)
+public fun Int.toTeamId(): TeamId = toString().toTeamId()
+public fun Long.toTeamId(): TeamId = toString().toTeamId()
+
 
 @Serializable
 public enum class TeamMediaType {

@@ -35,7 +35,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             val problems = tasksLoader.load().entries.groupBy { it.value.contest }.mapValues {
                 it.value.map { (k, v) ->
                     ProblemInfo(
-                        id = ProblemId(k),
+                        id = k.toProblemId(),
                         displayName = v.short_name,
                         fullName = v.name,
                         ordinal = 0,
@@ -61,7 +61,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
         }
         val organizations = teamsLoader.load().map { (k, v) ->
             OrganizationInfo(
-                id = OrganizationId(k),
+                id = k.toOrganizationId(),
                 displayName = v.name,
                 fullName = v.name,
                 logo = MediaType.Photo(settings.url)
@@ -69,7 +69,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
         }
         val teams = usersLoader.load().map { (k, v) ->
             TeamInfo(
-                id = TeamId(k),
+                id = k.toTeamId(),
                 fullName = "[${v.team}] ${v.f_name} ${v.l_name}",
                 displayName = "${v.f_name} ${v.l_name}",
                 groups = emptyList(),
@@ -79,7 +79,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 ),
                 isHidden = false,
                 isOutOfContest = false,
-                organizationId = OrganizationId(v.team),
+                organizationId = v.team.toOrganizationId(),
                 customFields = mapOf(
                     "country" to v.team,
                     "first_name" to v.f_name,
@@ -105,15 +105,15 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 return@mapNotNull null
             }
             RunInfo(
-                id = RunId(k),
+                id = k.toRunId(),
                 result = RunResult.InProgress(0.0),
-                problemId = ProblemId(v.task),
-                teamId = TeamId(v.user),
+                problemId = v.task.toProblemId(),
+                teamId = v.user.toTeamId(),
                 time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO
             )
         }.associateBy { it.id }.toMutableMap()
         subchangesLoader.load().entries.sortedBy { it.value.time }.forEach { (_, it) ->
-            val r = submissions[RunId(it.submission)] ?: return@forEach
+            val r = submissions[it.submission.toRunId()] ?: return@forEach
             val scores = if (it.extra.isEmpty()) listOf(it.score) else it.extra.map { it.toDouble() }
             submissions[r.id] = r.copy(result = RunResult.IOI(scores))
         }

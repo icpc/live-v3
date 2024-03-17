@@ -163,7 +163,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                 )
                 addAll(x.participants!!.nodes.map {
                     TeamInfo(
-                        id = TeamId(it.id),
+                        id = it.id.toTeamId(),
                         fullName = it.name,
                         displayName = it.name,
                         groups = emptyList(),
@@ -188,7 +188,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
             freezeTime = result.duration.seconds - (result.scoreboard?.freezingTime?.seconds ?: ZERO),
             problemList = result.problems!!.nodes.map {
                 ProblemInfo(
-                    id = ProblemId(it.id),
+                    id = it.id.toProblemId(),
                     displayName = ('A'.code + it.index - 1).toChar().toString(),
                     fullName = it.statement?.title ?: "",
                     ordinal = it.index,
@@ -218,13 +218,13 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                 addAll(x.submissions!!.nodes.map {
                     val verdict = parseVerdict(it.status, it.verdict, it.percentage)
                     RunInfo(
-                        id = RunId(it.id),
+                        id = it.id.toRunId(),
                         result = when (resultType) {
                             ContestResultType.ICPC -> verdict?.toICPCRunResult()
                             ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
                         } ?: RunResult.InProgress(0.0),
-                        problemId = ProblemId(it.problem!!.id),
-                        teamId = TeamId(it.participant!!.id),
+                        problemId = it.problem!!.id.toProblemId(),
+                        teamId = it.participant!!.id.toTeamId(),
                         time = parseTime(it.submittedAt) - contestInfo.startTime,
                         isHidden = it.deleted
                     )

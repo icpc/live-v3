@@ -6,10 +6,17 @@ import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
+
 class ICPCScoreboardTest {
-    val problemIdA = ProblemId("A")
-    val problemIdB = ProblemId("B")
-    val info = ContestInfo(
+    private val problemIdA = "A".toProblemId()
+    private val problemIdB = "B".toProblemId()
+    private val teamId1 = "T1".toTeamId()
+    private val teamId2 = "T2".toTeamId()
+    private val teamId3 = "T3".toTeamId()
+    private val teamId4 = "T4".toTeamId()
+
+
+    private val info = ContestInfo(
         name = "",
         status = ContestStatus.OVER,
         resultType = ContestResultType.ICPC,
@@ -21,10 +28,10 @@ class ICPCScoreboardTest {
             ProblemInfo(problemIdB, "B", "B", 2),
         ),
         teamList = listOf(
-            TeamInfo(TeamId("T1"), "T1", "T1", emptyList(), null, emptyMap(), false, false, null),
-            TeamInfo(TeamId("T2"), "T2", "T2", emptyList(), null, emptyMap(), false, false, null),
-            TeamInfo(TeamId("T3"), "T3", "T3", emptyList(), null, emptyMap(), false, false, null),
-            TeamInfo(TeamId("T4"), "T4", "T4", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(teamId1, "T1", "T1", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(teamId2, "T2", "T2", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(teamId3, "T3", "T3", emptyList(), null, emptyMap(), false, false, null),
+            TeamInfo(teamId4, "T4", "T4", emptyList(), null, emptyMap(), false, false, null),
         ),
         groupList = emptyList(),
         organizationList = emptyList(),
@@ -34,16 +41,16 @@ class ICPCScoreboardTest {
     @Test
     fun testRanks() {
         val runs = listOf(
-            RunInfo(RunId("1"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T4"), 10.minutes),
-            RunInfo(RunId("3"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T1"), 30.minutes),
-            RunInfo(RunId("4"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T3"), 30.minutes),
-            RunInfo(RunId("5"), RunResult.ICPC(Verdict.Accepted, false), problemIdA, TeamId("T2"), 40.minutes),
+            RunInfo("1".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId4, 10.minutes),
+            RunInfo("3".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId1, 30.minutes),
+            RunInfo("4".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId3, 30.minutes),
+            RunInfo("5".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId2, 40.minutes),
         )
         val calculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
         val scoreboardRows = runs.groupBy { it.teamId }.mapValues { calculator.getScoreboardRow(info, it.value) }
         val ranking = calculator.getRanking(info, scoreboardRows)
         assertEquals(ranking.ranks, listOf(1, 2, 2, 4))
-        assertEquals(ranking.order, listOf(TeamId("T4"), TeamId("T1"), TeamId("T3"), TeamId("T2")))
+        assertEquals(ranking.order, listOf(teamId4, teamId1, teamId3, teamId2))
     }
 
 }

@@ -6,9 +6,14 @@ import java.awt.Color
 
 @JvmInline
 @Serializable
-public value class ProblemId(public val value: String) {
+public value class ProblemId internal constructor(public val value: String) {
     override fun toString(): String = value
 }
+
+public fun String.toProblemId(): ProblemId = ProblemId(this)
+public fun Int.toProblemId(): ProblemId = toString().toProblemId()
+public fun Long.toProblemId(): ProblemId = toString().toProblemId()
+
 
 public enum class ScoreMergeMode {
     /**
