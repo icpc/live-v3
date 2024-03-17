@@ -565,7 +565,6 @@ public final class org/icpclive/cds/api/ContestStatus$Companion {
 public final class org/icpclive/cds/api/GroupId {
 	public static final field Companion Lorg/icpclive/cds/api/GroupId$Companion;
 	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/GroupId;
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
 	public fun equals (Ljava/lang/Object;)Z
 	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
 	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
@@ -623,6 +622,12 @@ public synthetic class org/icpclive/cds/api/GroupInfo$$serializer : kotlinx/seri
 
 public final class org/icpclive/cds/api/GroupInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/GroupInfoKt {
+	public static final fun toGroupId (I)Ljava/lang/String;
+	public static final fun toGroupId (J)Ljava/lang/String;
+	public static final fun toGroupId (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class org/icpclive/cds/api/ICPCProblemResult : org/icpclive/cds/api/ProblemResult {
@@ -1009,7 +1014,6 @@ public final class org/icpclive/cds/api/OptimismLevel$Companion {
 public final class org/icpclive/cds/api/OrganizationId {
 	public static final field Companion Lorg/icpclive/cds/api/OrganizationId$Companion;
 	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/OrganizationId;
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
 	public fun equals (Ljava/lang/Object;)Z
 	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
 	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
@@ -1069,6 +1073,12 @@ public final class org/icpclive/cds/api/OrganizationInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/cds/api/OrganizationInfoKt {
+	public static final fun toOrganizationId (I)Ljava/lang/String;
+	public static final fun toOrganizationId (J)Ljava/lang/String;
+	public static final fun toOrganizationId (Ljava/lang/String;)Ljava/lang/String;
+}
+
 public final class org/icpclive/cds/api/PenaltyRoundingMode : java/lang/Enum {
 	public static final field Companion Lorg/icpclive/cds/api/PenaltyRoundingMode$Companion;
 	public static final field EACH_SUBMISSION_DOWN_TO_MINUTE Lorg/icpclive/cds/api/PenaltyRoundingMode;
@@ -1089,7 +1099,6 @@ public final class org/icpclive/cds/api/PenaltyRoundingMode$Companion {
 public final class org/icpclive/cds/api/ProblemId {
 	public static final field Companion Lorg/icpclive/cds/api/ProblemId$Companion;
 	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/ProblemId;
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
 	public fun equals (Ljava/lang/Object;)Z
 	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
 	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
@@ -1162,6 +1171,12 @@ public final class org/icpclive/cds/api/ProblemInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/cds/api/ProblemInfoKt {
+	public static final fun toProblemId (I)Ljava/lang/String;
+	public static final fun toProblemId (J)Ljava/lang/String;
+	public static final fun toProblemId (Ljava/lang/String;)Ljava/lang/String;
+}
+
 public abstract class org/icpclive/cds/api/ProblemResult {
 	public static final field Companion Lorg/icpclive/cds/api/ProblemResult$Companion;
 	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
@@ -1176,7 +1191,6 @@ public final class org/icpclive/cds/api/ProblemResult$Companion {
 public final class org/icpclive/cds/api/RunId {
 	public static final field Companion Lorg/icpclive/cds/api/RunId$Companion;
 	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/RunId;
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
 	public fun equals (Ljava/lang/Object;)Z
 	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
 	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
@@ -1243,6 +1257,12 @@ public synthetic class org/icpclive/cds/api/RunInfo$$serializer : kotlinx/serial
 
 public final class org/icpclive/cds/api/RunInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/RunInfoKt {
+	public static final fun toRunId (I)Ljava/lang/String;
+	public static final fun toRunId (J)Ljava/lang/String;
+	public static final fun toRunId (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public abstract class org/icpclive/cds/api/RunResult {
@@ -1439,7 +1459,6 @@ public final class org/icpclive/cds/api/ScoreboardUpdateType : java/lang/Enum {
 public final class org/icpclive/cds/api/TeamId {
 	public static final field Companion Lorg/icpclive/cds/api/TeamId$Companion;
 	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/TeamId;
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
 	public fun equals (Ljava/lang/Object;)Z
 	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
 	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
@@ -1510,6 +1529,12 @@ public synthetic class org/icpclive/cds/api/TeamInfo$$serializer : kotlinx/seria
 
 public final class org/icpclive/cds/api/TeamInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/TeamInfoKt {
+	public static final fun toTeamId (I)Ljava/lang/String;
+	public static final fun toTeamId (J)Ljava/lang/String;
+	public static final fun toTeamId (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class org/icpclive/cds/api/TeamMediaType : java/lang/Enum {

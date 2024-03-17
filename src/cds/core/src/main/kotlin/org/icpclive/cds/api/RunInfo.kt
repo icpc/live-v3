@@ -8,9 +8,13 @@ import kotlin.time.Duration
 
 @JvmInline
 @Serializable
-public value class RunId(public val value: String) {
+public value class RunId internal constructor(public val value: String) {
     override fun toString(): String = value
 }
+
+public fun String.toRunId(): RunId = RunId(this)
+public fun Int.toRunId(): RunId = toString().toRunId()
+public fun Long.toRunId(): RunId = toString().toRunId()
 
 
 

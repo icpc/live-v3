@@ -72,7 +72,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
-                    id = ProblemId(it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias")),
+                    id = (it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias")).toProblemId(),
                     displayName = it.getAttribute("alias"),
                     fullName = it.getAttribute("name"),
                     ordinal = index,
@@ -116,11 +116,11 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         fun attr(name: String) = element.getAttribute(name).takeIf { it.isNotEmpty() }
         val alias = attr("alias")!!
         val team = TeamInfo(
-            id = TeamId(alias),
+            id = alias.toTeamId(),
             fullName = attr("party")!!,
             displayName = attr("shortname") ?: attr("party")!!,
             hashTag = attr("hashtag"),
-            groups = attr("region")?.split(",")?.map { GroupId(it) } ?: emptyList(),
+            groups = attr("region")?.split(",")?.map { it.toGroupId() } ?: emptyList(),
             medias = listOfNotNull(
                 attr("screen")?.let { TeamMediaType.SCREEN to MediaType.Video(it) },
                 attr("camera")?.let { TeamMediaType.CAMERA to MediaType.Video(it) },
@@ -135,7 +135,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 parseProblemRuns(
                     problem,
                     team.id,
-                    ProblemId(problem.getAttribute("alias")),
+                    problem.getAttribute("alias").toProblemId(),
                     contestTime
                 )
             }.toList()
@@ -164,7 +164,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         val verdict = getVerdict(element)
 
         return RunInfo(
-            id = RunId(id),
+            id = id.toRunId(),
             when (resultType) {
                 ContestResultType.IOI -> {
                     when (verdict) {

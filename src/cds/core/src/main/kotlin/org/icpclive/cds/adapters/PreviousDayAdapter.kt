@@ -19,7 +19,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
     val allProblems = mutableListOf<ProblemInfo>()
     val allRuns = mutableListOf<RunInfo>()
 
-    fun problemId(day: Int, id: ProblemId) = ProblemId("d${day + 1}.${id.value}")
+    fun problemId(day: Int, id: ProblemId) = "d${day + 1}.${id.value}".toProblemId()
 
     for ((index, state) in previousDays.withIndex()) {
         val info = state.infoAfterEvent!!
@@ -34,7 +34,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
         for (run in state.runs.values) {
             allRuns.add(
                 run.copy(
-                    id = RunId("$index${'$'}${run.id}"),
+                    id = "$index${'$'}${run.id}".toRunId(),
                     time = Duration.ZERO,
                     problemId = problemId(index, run.problemId),
                 )

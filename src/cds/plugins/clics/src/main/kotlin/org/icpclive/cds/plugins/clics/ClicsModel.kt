@@ -50,22 +50,22 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         return null
     }
 
-    private fun Group.toApi(): GroupInfo = GroupInfo(GroupId(id), name, isHidden = false, isOutOfContest = false)
+    private fun Group.toApi(): GroupInfo = GroupInfo(id.toGroupId(), name, isHidden = false, isOutOfContest = false)
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organization_id?.let { organisations[it] }
         return TeamInfo(
-            id = TeamId(id),
+            id = id.toTeamId(),
             fullName = teamName(teamOrganization?.formalName, name),
             displayName = teamName(teamOrganization?.name, name),
             isHidden = hidden,
             groups = buildList {
                 for (group in group_ids) {
                     groups[group]?.let {
-                        add(GroupId(it.id))
+                        add(it.id.toGroupId())
                     }
                 }
-                teamOrganization?.country?.let { add(GroupId(it)) }
+                teamOrganization?.country?.let { add(it.toGroupId()) }
             },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
@@ -74,7 +74,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
                 webcam.firstOrNull()?.mediaType()?.let { put(TeamMediaType.CAMERA, it) }
                 desktop.firstOrNull()?.mediaType()?.let { put(TeamMediaType.SCREEN, it) }
             },
-            organizationId = organization_id?.let(::OrganizationId),
+            organizationId = organization_id?.toOrganizationId(),
             isOutOfContest = false,
             customFields = mapOf(
                 "name" to name,
@@ -88,7 +88,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         val passedTests = judgment?.id?.let { judgmentRunIds[it] }?.size ?: 0
         val judgementType = judgementTypes[judgment?.judgement_type_id]
         return RunInfo(
-            id = RunId(id),
+            id = id.toRunId(),
             result = if (judgementType == null) {
                 val part = when (val count = problem?.test_data_count) {
                     null, 0 -> 0.0
@@ -102,15 +102,15 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
                     isAddingPenalty = judgementType.isAddingPenalty,
                 ).toICPCRunResult()
             },
-            problemId = ProblemId(problem_id),
-            teamId = TeamId(team_id),
+            problemId = problem_id.toProblemId(),
+            teamId = team_id.toTeamId(),
             time = contest_time,
             reactionVideos = reaction?.mapNotNull { it.mediaType() } ?: emptyList(),
         )
     }
 
     private fun Problem.toApi() = ProblemInfo(
-        id = ProblemId(id),
+        id = id.toProblemId(),
         displayName = label,
         fullName = name,
         ordinal = ordinal,
@@ -118,7 +118,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
     )
 
     private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(
-        id = OrganizationId(id),
+        id = id.toOrganizationId(),
         displayName = name,
         fullName = formalName,
         logo = logo
@@ -253,8 +253,8 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
             commentary.message,
             commentary.time,
             commentary.contest_time,
-            commentary.team_ids?.map { TeamId(it) } ?: emptyList(),
-            commentary.submission_ids?.map { RunId(it) } ?: emptyList(),
+            commentary.team_ids?.map { it.toTeamId() } ?: emptyList(),
+            commentary.submission_ids?.map { it.toRunId() } ?: emptyList(),
         )
 
 

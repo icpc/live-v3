@@ -8,8 +8,7 @@ import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.admin.getExternalRun
-import org.icpclive.cds.api.OptimismLevel
-import org.icpclive.cds.api.RunId
+import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
 import org.icpclive.cds.scoreboard.toLegacyScoreboard
@@ -48,7 +47,7 @@ fun Route.configureOverlayRouting() {
     }
     get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
     get("/externalRun/{id}") {
-        val runInfo = getExternalRun(RunId(call.parameters["id"]!!))
+        val runInfo = getExternalRun(call.parameters["id"]!!.toRunId())
         if (runInfo == null) {
             call.respond(HttpStatusCode.NotFound)
         } else {

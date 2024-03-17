@@ -153,7 +153,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             .asSequence()
             .mapIndexed { index, problem ->
                 ProblemInfo(
-                    id = ProblemId(problem.id.toString()),
+                    id = problem.id.toProblemId(),
                     displayName = problem.code,
                     fullName = problem.name,
                     ordinal = index,
@@ -170,7 +170,7 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
             .filter { team -> team.role == "in_contest" }
             .map { team ->
                 TeamInfo(
-                    id = TeamId(team.account_id.toString()),
+                    id = team.account_id.toTeamId(),
                     fullName = team.name,
                     displayName = team.name,
                     groups = emptyList(),
@@ -219,10 +219,10 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     }
                 } else RunResult.InProgress(0.0)
                 RunInfo(
-                    id = RunId(it.id.toString()),
+                    id = it.id.toRunId(),
                     result = result,
-                    problemId = ProblemId(it.problem_id.toString()),
-                    teamId = TeamId(it.team_id.toString()),
+                    problemId = it.problem_id.toProblemId(),
+                    teamId = it.team_id.toTeamId(),
                     time = it.submit_time - startTime
                 )
             }

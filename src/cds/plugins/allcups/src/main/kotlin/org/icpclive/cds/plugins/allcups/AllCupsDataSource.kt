@@ -55,10 +55,10 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
     }
 
     private fun Submission.toRun() = RunInfo(
-        id = RunId(id.toString()),
+        id = id.toRunId(),
         result = code.toVerdict().toICPCRunResult(),
-        problemId = ProblemId(task_id.toString()),
-        teamId = TeamId(user_id.toString()),
+        problemId = task_id.toProblemId(),
+        teamId = user_id.toTeamId(),
         time = elapsed_seconds.seconds
     )
 
@@ -77,7 +77,7 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
                 organizationList = emptyList(),
                 teamList = settings.teamIds.map {
                     TeamInfo(
-                        id = TeamId(it.toString()),
+                        id = it.toTeamId(),
                         displayName = "",
                         fullName = "",
                         groups = emptyList(),
@@ -90,7 +90,7 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
                 },
                 problemList = settings.problemIds.mapIndexed { index, id ->
                     ProblemInfo(
-                        id = ProblemId(id.toString()),
+                        id = id.toProblemId(),
                         displayName = "",
                         fullName = "",
                         ordinal = index

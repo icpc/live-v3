@@ -39,7 +39,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         .child("problems")
         .children().mapIndexed { index, element ->
             ProblemInfo(
-                id = ProblemId(element.getAttribute("id")),
+                id = element.getAttribute("id").toProblemId(),
                 displayName = element.getAttribute("short_name"),
                 fullName = element.getAttribute("long_name"),
                 ordinal = index,
@@ -54,7 +54,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         .children().mapIndexed { index, participant ->
             val participantName = participant.getAttribute("name")
             TeamInfo(
-                id = TeamId(participant.getAttribute("id")),
+                id = participant.getAttribute("id").toTeamId(),
                 fullName = participantName,
                 displayName = participantName,
                 groups = emptyList(),
@@ -128,8 +128,8 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             return null
         }
 
-        val teamId = TeamId(element.getAttribute("user_id"))
-        val runId = RunId(element.getAttribute("run_id"))
+        val teamId = element.getAttribute("user_id").toTeamId()
+        val runId = element.getAttribute("run_id").toRunId()
 
         val result = when (element.getAttribute("status")) {
             "OK", "PT" -> Verdict.Accepted
@@ -168,7 +168,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                     }
                 }
             },
-            problemId = ProblemId(problemId),
+            problemId = problemId.toProblemId(),
             teamId = teamId,
             time = time,
         )
