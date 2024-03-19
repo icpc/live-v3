@@ -7,6 +7,6 @@ import java.io.IOException
 internal class CFStatusWrapper<T : Any>(val status: String, private val comment: String? = null, val result: T? = null) {
     fun unwrap(): T {
         if (status != "OK") throw IOException("Error from codeforces: $comment")
-        return result!!
+        return result ?: throw IOException("Strange response from codeforces: status=${status}, commnet=$comment, result=null" )
     }
 }
