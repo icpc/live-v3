@@ -5,17 +5,22 @@
   "scripts": {
     "buildOverlay": "npm run build -w overlay",
     "buildAdmin": "npm run build -w admin",
-    "lint": "npm run lint -w overlay && npm run lint -w admin",
+    "buildLocatorAdmin": "npm run build -w locator",
+    "lint": "npm run lint -w overlay && npm run lint -w admin && npm run lint -w locator",
     "test": "npm run test -w tests",
     "install-browsers": "npm run install-browsers -w tests"
   },
   "workspaces": [
     "overlay",
     "admin",
+    "locator",
     "tests"
   ],
   "engines": {
     "node": ">=20",
-    "npm":">=10.2.4"
+    "npm": ">=10.2.4"
+  },
+  "dependencies": {
+    "rollup": "^2.79.1"
   }
 }
