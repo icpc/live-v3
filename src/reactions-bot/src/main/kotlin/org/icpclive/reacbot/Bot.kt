@@ -42,7 +42,6 @@ class Bot(
     private val reactionsProcessingPool = Dispatchers.IO.limitedParallelism(loaderThreads)
     private val cds = cdsOptions.toFlow(getLogger(Bot::class))
         .contestState()
-        .filterUseless()
         .removeFrozenSubmissions()
         .processHiddenTeamsAndGroups()
         .processHiddenProblems()

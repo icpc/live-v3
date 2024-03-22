@@ -78,7 +78,7 @@ object IcpcCsvExporter {
                 val state = stateFlow.first()
                 format(
                     state.infoAfterEvent!!,
-                    state.runs.values.toList()
+                    state.runsAfterEvent.values.toList()
                 )
             }
         }

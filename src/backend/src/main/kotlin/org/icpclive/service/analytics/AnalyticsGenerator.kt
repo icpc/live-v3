@@ -7,7 +7,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.api.*
-import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
+import org.icpclive.cds.scoreboard.toScoreboardDiff
 import org.icpclive.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.inputStream
@@ -18,7 +19,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
     suspend fun getFlow(
         contestInfoFlow: StateFlow<ContestInfo>,
         runsFlow: Flow<RunInfo>,
-        scoreboardFlow: Flow<ScoreboardAndContestInfo>,
+        scoreboardFlow: Flow<ContestStateWithScoreboard>,
     ) = flow {
         logger.info("Analytics generator service is started")
         val runs = mutableMapOf<RunId, RunAnalyse>()
@@ -27,7 +28,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
                 runs.remove(run.id)
                 return@collect
             }
-            val analysis = runs.processRun(run, scoreboard.scoreboardSnapshot) ?: return@collect
+            val analysis = runs.processRun(run, scoreboard.toScoreboardDiff(true)) ?: return@collect
 
             val team = contestInfo.teams[run.teamId] ?: return@collect
             val problem = contestInfo.problems[run.problemId] ?: return@collect
@@ -119,7 +120,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path) {
         }
     }
 
-    private fun MutableMap<RunId, RunAnalyse>.processRun(run: RunInfo, scoreboard: Scoreboard): RunAnalyse? {
+    private fun MutableMap<RunId, RunAnalyse>.processRun(run: RunInfo, scoreboard: ScoreboardDiff): RunAnalyse? {
         val result = scoreboard.rows[run.teamId]
         if (result == null) {
             remove(run.id)

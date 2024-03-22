@@ -41,8 +41,8 @@ abstract class CdsLoadersTest {
                 loader.finalContestState().let {
                     ContestParseResult(
                         it.infoAfterEvent!!,
-                        it.runs.values.toList(),
-                        it.analyticsMessages.values.toList()
+                        it.runsAfterEvent.values.toList(),
+                        it.analyticsMessagesAfterEvent.values.toList()
                     )
                 }
             }

@@ -7,22 +7,23 @@ import org.icpclive.api.*
 import org.icpclive.cds.api.IOIProblemResult
 import org.icpclive.util.completeOrThrow
 import org.icpclive.data.DataBus
-import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import kotlin.time.Duration.Companion.milliseconds
 
 class IOIStatisticsService {
-    suspend fun run(scoreboardFlow: Flow<ScoreboardAndContestInfo>) {
+    suspend fun run(scoreboardFlow: Flow<ContestStateWithScoreboard>) {
         coroutineScope {
             scoreboardFlow.conflate().transform {
                 emit(it)
                 delay(100.milliseconds)
-            }.map {
-                val problems = it.info.problems.size
+            }.mapNotNull {
+                val info = it.state.infoAfterEvent ?: return@mapNotNull null
+                val problems = info.problems.size
                 SolutionsStatistic(
                     List(problems) { problemId ->
                         val listScore = mutableListOf<Double>()
                         var pending = 0
-                        for (row in it.scoreboardSnapshot.rows.values) {
+                        for (row in it.scoreboardRows.values) {
                             val p = row.problemResults[problemId]
                             require(p is IOIProblemResult)
                             if (p.score != null) {
