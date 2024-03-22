@@ -267,17 +267,11 @@ export interface Verdict {
   isAccepted: boolean;
 }
 
-export interface Scoreboard {
-  type: ScoreboardUpdateType;
+export interface ScoreboardDiff {
   rows: { [key: TeamId]: ScoreboardRow };
   order: TeamId[];
   ranks: number[];
   awards: Award[];
-}
-
-export enum ScoreboardUpdateType {
-  DIFF = "DIFF",
-  SNAPSHOT = "SNAPSHOT",
 }
 
 export interface ScoreboardRow {

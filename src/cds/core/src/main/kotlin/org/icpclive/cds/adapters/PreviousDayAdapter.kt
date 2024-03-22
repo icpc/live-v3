@@ -31,7 +31,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                 )
             )
         }
-        for (run in state.runs.values) {
+        for (run in state.runsAfterEvent.values) {
             allRuns.add(
                 run.copy(
                     id = "$index${'$'}${run.id}".toRunId(),
