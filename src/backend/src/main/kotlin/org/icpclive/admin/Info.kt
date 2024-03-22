@@ -21,7 +21,7 @@ suspend fun getHashtags() = getTeams().filter { it.hashTag != null }.associateBy
 suspend fun getExternalRun(id: RunId) : ExternalRunInfo? {
     val state = DataBus.contestStateFlow.await().first()
     val contestInfo = state.infoAfterEvent ?: return null
-    val runInfo = state.runs[id] ?: return null
+    val runInfo = state.runsAfterEvent[id] ?: return null
     return runInfo.toExternal(contestInfo)
 }
 

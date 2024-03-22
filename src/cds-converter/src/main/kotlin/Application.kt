@@ -74,7 +74,7 @@ abstract class DumpFileCommand(
         }
         val dump = format(
             data.infoAfterEvent!!,
-            data.runs.values.toList(),
+            data.runsAfterEvent.values.toList(),
         )
         output.toFile().printWriter().use {
             it.println(dump)

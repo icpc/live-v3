@@ -90,7 +90,7 @@ tasks {
             listOf(
                 "org.icpclive.cds.api.ContestInfo",
                 "org.icpclive.cds.api.RunInfo",
-                "org.icpclive.cds.api.Scoreboard",
+                "org.icpclive.cds.api.ScoreboardDiff",
                 "org.icpclive.cds.api.LegacyScoreboard",
                 "org.icpclive.api.MainScreenEvent",
                 "org.icpclive.api.QueueEvent",

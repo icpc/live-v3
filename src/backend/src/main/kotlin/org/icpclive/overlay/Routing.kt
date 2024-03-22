@@ -9,9 +9,8 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.admin.getExternalRun
 import org.icpclive.cds.api.*
+import org.icpclive.cds.scoreboard.*
 import org.icpclive.data.DataBus
-import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
-import org.icpclive.cds.scoreboard.toLegacyScoreboard
 import org.icpclive.util.sendJsonFlow
 
 inline fun <reified T: Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend () -> Flow<T>) {
@@ -19,7 +18,7 @@ inline fun <reified T: Any> Route.flowEndpoint(name: String, crossinline dataPro
     get(name) { call.respond(dataProvider().first()) }
 }
 
-private inline fun <reified T : Any> Route.setUpScoreboard(crossinline process: (Flow<ScoreboardAndContestInfo>) -> Flow<T>) {
+private inline fun <reified T : Any> Route.setUpScoreboard(crossinline process: (Flow<ContestStateWithScoreboard>) -> Flow<T>) {
     flowEndpoint("/normal") { process(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
     flowEndpoint("/optimistic") { process(DataBus.getScoreboardEvents(OptimismLevel.OPTIMISTIC)) }
     flowEndpoint("/pessimistic") { process(DataBus.getScoreboardEvents(OptimismLevel.PESSIMISTIC)) }
@@ -28,16 +27,16 @@ private inline fun <reified T : Any> Route.setUpScoreboard(crossinline process: 
 fun Route.configureOverlayRouting() {
     flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
     flowEndpoint("/contestInfo") { DataBus.contestInfoFlow.await() }
-    flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runs.values.sortedBy { it.time } } }
+    flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
     flowEndpoint("/queue") { DataBus.queueFlow.await() }
     flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
     flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
     route("/scoreboard") {
-        setUpScoreboard { flow -> flow.map { it.scoreboardSnapshot.toLegacyScoreboard(it.info) } }
+        setUpScoreboard { flow -> flow.map { it.toLegacyScoreboard() } }
         route("/v2") {
             setUpScoreboard { flow ->
-                flow.withIndex().map {
-                    if (it.index == 0) it.value.scoreboardSnapshot else it.value.scoreboardDiff
+                flow.withIndex().map { (index, state) ->
+                    state.toScoreboardDiff(snapshot = index == 0)
                 }
             }
         }

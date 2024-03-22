@@ -36,8 +36,8 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
     }
     logJob.cancel()
     val finalContestInfo = state.infoAfterEvent!!
-    val runs = state.runs.values.toList()
-    val analyticsMessages = state.analyticsMessages.values.toList()
+    val runs = state.runsAfterEvent.values.toList()
+    val analyticsMessages = state.analyticsMessagesAfterEvent.values.toList()
     logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${startTime.humanReadable}")
     val contestInfo = finalContestInfo.copy(
         startTime = startTime,

@@ -16,7 +16,7 @@ import org.icpclive.clics.v202207.*
 import org.icpclive.clics.v202207.Award
 import org.icpclive.clics.v202207.Scoreboard
 import org.icpclive.clics.v202207.ScoreboardRow
-import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.util.*
 import java.nio.ByteBuffer
@@ -295,7 +295,7 @@ object ClicsExporter  {
     private fun generateEventFeed(updates: Flow<ContestUpdate>) : Flow<Event> {
         var eventCounter = 1
         return updates.contestState().transform {state ->
-            when (val event = state.event) {
+            when (val event = state.lastEvent) {
                 is InfoUpdate -> calculateDiff(state.infoBeforeEvent, event.newInfo)
                 is RunUpdate -> processRun(state.infoBeforeEvent!!, event.newInfo)
                 is AnalyticsUpdate -> processAnalytics(event.message)
@@ -450,39 +450,43 @@ object ClicsExporter  {
         }
     }
 
-    private fun ScoreboardAndContestInfo.toClicsScoreboard() = Scoreboard(
-        time = info.startTime + lastSubmissionTime,
-        contest_time = lastSubmissionTime,
-        state = getState(info),
-        rows = scoreboardSnapshot.order.zip(scoreboardSnapshot.ranks).map { (teamId, rank) ->
-            val row = scoreboardSnapshot.rows[teamId]!!
-            ScoreboardRow(
-                rank,
-                teamId.value,
-                ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
-                row.problemResults.mapIndexed { index, v ->
-                    val iv = v as ICPCProblemResult
-                    ScoreboardRowProblem(
-                        info.scoreboardProblems[index].id.value,
-                        iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
-                        iv.pendingAttempts,
-                        iv.isSolved,
-                        iv.lastSubmitTime?.inWholeMinutes.takeIf { iv.isSolved }
-                    )
-                }
-            )
-        }
-    )
+    private fun ContestStateWithScoreboard.toClicsScoreboard(): Scoreboard {
+        val info = state.infoAfterEvent!!
+        return Scoreboard(
+            time = info.startTime + lastSubmissionTime,
+            contest_time = lastSubmissionTime,
+            state = getState(info),
+            rows = order.zip(ranks).map { (teamId, rank) ->
+                val row = scoreboardRows[teamId]!!
+                ScoreboardRow(
+                    rank,
+                    teamId.value,
+                    ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
+                    row.problemResults.mapIndexed { index, v ->
+                        val iv = v as ICPCProblemResult
+                        ScoreboardRowProblem(
+                            info.scoreboardProblems[index].id.value,
+                            iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
+                            iv.pendingAttempts,
+                            iv.isSolved,
+                            iv.lastSubmitTime?.inWholeMinutes.takeIf { iv.isSolved }
+                        )
+                    }
+                )
+            }
+        )
+    }
 
-    private fun ScoreboardAndContestInfo.toClicsAwards() = buildList {
-        for (award in scoreboardSnapshot.awards) {
+    private fun ContestStateWithScoreboard.toClicsAwards() = buildList {
+        val info = state.infoAfterEvent!!
+        for (award in awards) {
             add(Award(award.id, award.citation, award.teams.map { it.value }))
         }
         for ((index, problem) in info.scoreboardProblems.withIndex()) {
             add(Award(
                 "first-to-solve-${problem.id}",
                 "First to solve problem ${problem.displayName}",
-                scoreboardSnapshot.rows.entries
+                scoreboardRows.entries
                     .filter { (it.value.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
                     .map { it.key.value }
             ))

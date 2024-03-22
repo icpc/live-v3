@@ -9,7 +9,8 @@ import kotlinx.serialization.Serializable
 import org.icpclive.api.*
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
-import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
+import org.icpclive.cds.scoreboard.toScoreboardDiff
 import org.icpclive.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -129,13 +130,13 @@ class TeamSpotlightService(
     suspend fun run(
         info: StateFlow<ContestInfo>,
         runs: Flow<RunInfo>,
-        scoreboard: Flow<ScoreboardAndContestInfo>,
+        scoreboard: Flow<ContestStateWithScoreboard>,
         // analyticsMessage: Flow<AnalyticsMessage>
         addScoreRequests: Flow<AddTeamScoreRequest>? = null,
     ) {
         val runIds = mutableSetOf<RunId>()
         coroutineScope {
-            val scoreboardState = scoreboard.map { it.scoreboardSnapshot }.stateIn(this)
+            val scoreboardState = scoreboard.map { it.toScoreboardDiff(true) }.stateIn(this)
             merge(
                 loopFlow(settings.scoreboardPushInterval, onError = {}) { ScoreboardPushTrigger },
                 runs.filter { !it.isHidden },
