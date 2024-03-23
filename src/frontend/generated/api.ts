@@ -523,6 +523,7 @@ export interface PictureSettings {
 }
 
 export interface QueueSettings {
+  horizontal?: boolean;
 }
 
 export interface ScoreboardSettings {
