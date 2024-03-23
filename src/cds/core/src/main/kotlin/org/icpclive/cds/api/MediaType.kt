@@ -23,6 +23,10 @@ public sealed class MediaType {
     @SerialName("M2tsVideo")
     public data class M2tsVideo(val url: String, override val isMedia: Boolean = true) : MediaType()
 
+    @Serializable
+    @SerialName("HLSVideo")
+    public data class HLSVideo(val url: String, val jwtToken: String? = null, override val isMedia: Boolean = true) : MediaType()
+
     /**
      * WebRTC proxy connection
      * @see <a href="https://github.com/kbats183/webrtc-proxy">https://github.com/kbats183/webrtc-proxy</a>

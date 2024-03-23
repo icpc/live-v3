@@ -131,13 +131,13 @@ export namespace MediaType {
     jwtToken?: string | null;
     isMedia?: boolean;
   }
-
+  
   export interface M2tsVideo {
     type: MediaType.Type.M2tsVideo;
     url: string;
     isMedia?: boolean;
   }
-
+  
   export interface Object {
     type: MediaType.Type.Object;
     url: string;
