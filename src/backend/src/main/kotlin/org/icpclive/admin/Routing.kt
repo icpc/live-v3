@@ -19,8 +19,8 @@ import org.icpclive.cds.tunning.toAdvancedProperties
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.util.sendFlow
-import java.io.IOException
 import java.nio.file.Files
+import kotlin.io.path.notExists
 
 fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {
@@ -99,10 +99,10 @@ fun Route.configureAdminApiRouting() {
 
         route("/advancedJson") {
             get {
-                try {
-                    call.respondFile(Config.cdsSettings.advancedJsonPath.toFile())
-                } catch (e: IOException) {
+                if (Config.cdsSettings.advancedJsonPath.notExists()) {
                     call.respondText("{}")
+                } else {
+                    call.respondFile(Config.cdsSettings.advancedJsonPath.toFile())
                 }
             }
             post {
