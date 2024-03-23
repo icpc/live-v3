@@ -138,6 +138,7 @@ public data class Team(
     val organization_id: String? = null,
     val group_ids: List<String> = emptyList(),
     val name: String = "",
+    val display_name: String? = null,
     val hidden: Boolean = false,
     val photo: List<Media> = emptyList(),
     val video: List<Media> = emptyList(),
