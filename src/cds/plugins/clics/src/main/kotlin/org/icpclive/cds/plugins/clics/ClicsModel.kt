@@ -57,7 +57,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         return TeamInfo(
             id = id.toTeamId(),
             fullName = teamName(teamOrganization?.formalName, name),
-            displayName = teamName(teamOrganization?.name, name),
+            displayName = teamName(teamOrganization?.name, display_name ?: name),
             isHidden = hidden,
             groups = buildList {
                 for (group in group_ids) {
@@ -76,9 +76,10 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
             },
             organizationId = organization_id?.toOrganizationId(),
             isOutOfContest = false,
-            customFields = mapOf(
-                "name" to name,
-            )
+            customFields = buildMap {
+                put("name", name)
+                display_name?.let { put("clicsDisplayName", it) }
+            }
         )
     }
 
