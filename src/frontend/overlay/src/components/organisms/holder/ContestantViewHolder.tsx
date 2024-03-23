@@ -52,7 +52,7 @@ export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
             if (videoRef.current) {
                 videoRef.current.srcObject = null;
             }
-        }
+        };
     }, [url]);
     return (<VideoWrapper
         ref={videoRef}
@@ -235,10 +235,10 @@ function HlsPlayer({
     }, [autoPlay, src, jwtToken]);
 
     // If Media Source is supported, use HLS.js to play video
-    if (Hls.isSupported()) return <video ref={playerRef} autoPlay={autoPlay} controls={false} {...props} />;
+    if (Hls.isSupported()) return <VideoWrapper ref={playerRef} autoPlay={autoPlay} controls={false} {...props} />;
 
     // Fallback to using a regular video player if HLS is supported by default in the user's browser
-    return <video ref={playerRef} src={src} autoPlay={autoPlay} controls={false} {...props} />;
+    return <VideoWrapper ref={playerRef} src={src} autoPlay={autoPlay} controls={false} {...props} />;
 }
 
 export const FullWidthWrapper = styled.div`
@@ -303,7 +303,6 @@ const teamViewComponentRender: {
                 autoPlay
                 loop
                 muted
-
             />
         </FullWidthWrapper>;
     },

@@ -1,27 +1,6 @@
 {
     "$ref": "#/$defs/ICPC live advanced settings",
     "$defs": {
-        "M2tsVideo": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "M2tsVideo",
-                    "default": "M2tsVideo"
-                },
-                "url": {
-                    "type": "string"
-                },
-                "isMedia": {
-                    "type": "boolean"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "url"
-            ],
-            "title": "M2tsVideo"
-        },
         "HLSVideo": {
             "type": "object",
             "properties": {
@@ -45,6 +24,27 @@
                 "url"
             ],
             "title": "HLSVideo"
+        },
+        "M2tsVideo": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "M2tsVideo",
+                    "default": "M2tsVideo"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "isMedia": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "M2tsVideo"
         },
         "Object": {
             "type": "object",
