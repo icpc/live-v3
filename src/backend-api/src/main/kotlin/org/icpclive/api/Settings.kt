@@ -20,7 +20,7 @@ data class TitleSettings(val preset: String, val data: Map<String, String>) : Ob
 data class PictureSettings(val url: String, val name: String) : ObjectSettings
 
 @Serializable
-class QueueSettings : ObjectSettings
+data class QueueSettings(val horizontal: Boolean = false) : ObjectSettings
 
 @Serializable
 data class ScoreboardSettings(
