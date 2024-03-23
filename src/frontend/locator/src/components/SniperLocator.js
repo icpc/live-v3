@@ -92,6 +92,7 @@ const VariantSelect = ({ variants, variant, setVariant }) => {
 };
 
 VariantSelect.propTypes = {
+    variants: PropTypes.any,
     variant: PropTypes.oneOf(["1", ]).isRequired,
     setVariant: PropTypes.func.isRequired,
 };
