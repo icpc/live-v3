@@ -19,8 +19,5 @@
   "engines": {
     "node": ">=20",
     "npm": ">=10.2.4"
-  },
-  "dependencies": {
-    "rollup": "^2.79.1"
   }
 }
