@@ -2,8 +2,9 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "https://euc2024.fel.cvut.cz:8443/api",
+      "url": ".",
       "login": "live",
+      "eventFeedPath": "",
       "contestId": "EUC24",
       "feedVersion": "2022_07",
       "password": "pass"

@@ -5,19 +5,19 @@
   "teamOverrideTemplate": {
     "medias": {
       "photo": {
-        "type": "Photo",
+        "type": "Image",
         "url": "http://localhost:8080/media/photos/{teamId}.jpg"
       },
       "screen": {
-        "type": "Photo",
+        "type": "Image",
         "url": "http://localhost:8080/media/screen/screen{teamId}.svg"
       },
       "camera": {
-        "type": "Photo",
+        "type": "Image",
         "url": "http://localhost:8080/media/camera/camera{teamId}.svg"
       },
       "achievement": {
-        "type": "Photo",
+        "type": "Image",
         "url": "http://localhost:8080/media/achievements/achievements{teamId}.svg"
       }
     }

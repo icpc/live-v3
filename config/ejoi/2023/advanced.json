@@ -9,7 +9,7 @@
   "teamOverrideTemplate": {
     "displayName": "[{country}] {first_name} {last_name}",
     "medias": {
-      "photo": {"type": "Photo", "url": "/media/photos/{teamId}.png"}
+      "photo": {"type": "Image", "url": "/media/photos/{teamId}.png"}
     }
   },
   "problemOverrides": {

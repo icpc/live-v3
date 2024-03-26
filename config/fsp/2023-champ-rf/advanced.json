@@ -17,7 +17,7 @@
           "credential": "federationchempionatlive"
         },
         "achievement": {
-          "type": "Photo",
+          "type": "Image",
           "url": "/media/ach/fsp{comp}.svg"
         }
       }

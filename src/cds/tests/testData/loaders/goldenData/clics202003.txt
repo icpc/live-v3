@@ -199,7 +199,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/1/photo.jpg"
                     }
                 },
@@ -220,7 +220,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/10/photo.jpg"
                     }
                 },
@@ -257,7 +257,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/101/photo.jpg"
                     }
                 },
@@ -278,7 +278,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/102/photo.jpg"
                     }
                 },
@@ -299,7 +299,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/103/photo.jpg"
                     }
                 },
@@ -320,7 +320,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/104/photo.jpg"
                     }
                 },
@@ -341,7 +341,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/105/photo.jpg"
                     }
                 },
@@ -362,7 +362,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/106/photo.jpg"
                     }
                 },
@@ -383,7 +383,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/107/photo.jpg"
                     }
                 },
@@ -404,7 +404,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/108/photo.jpg"
                     }
                 },
@@ -425,7 +425,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/109/photo.jpg"
                     }
                 },
@@ -446,7 +446,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/11/photo.jpg"
                     }
                 },
@@ -483,7 +483,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/111/photo.jpg"
                     }
                 },
@@ -504,7 +504,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/112/photo.jpg"
                     }
                 },
@@ -525,7 +525,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/113/photo.jpg"
                     }
                 },
@@ -546,7 +546,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/114/photo.jpg"
                     }
                 },
@@ -567,7 +567,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/115/photo.jpg"
                     }
                 },
@@ -588,7 +588,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/116/photo.jpg"
                     }
                 },
@@ -609,7 +609,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/117/photo.jpg"
                     }
                 },
@@ -630,7 +630,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/118/photo.jpg"
                     }
                 },
@@ -651,7 +651,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/119/photo.jpg"
                     }
                 },
@@ -672,7 +672,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/12/photo.jpg"
                     }
                 },
@@ -693,7 +693,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/13/photo.jpg"
                     }
                 },
@@ -714,7 +714,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/14/photo.jpg"
                     }
                 },
@@ -735,7 +735,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/16/photo.jpg"
                     }
                 },
@@ -756,7 +756,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/17/photo.jpg"
                     }
                 },
@@ -777,7 +777,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/18/photo.jpg"
                     }
                 },
@@ -798,7 +798,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/19/photo.jpg"
                     }
                 },
@@ -819,7 +819,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/2/photo.jpg"
                     }
                 },
@@ -840,7 +840,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/20/photo.jpg"
                     }
                 },
@@ -861,7 +861,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/21/photo.jpg"
                     }
                 },
@@ -882,7 +882,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/22/photo.jpg"
                     }
                 },
@@ -903,7 +903,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/23/photo.jpg"
                     }
                 },
@@ -924,7 +924,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/24/photo.jpg"
                     }
                 },
@@ -945,7 +945,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/25/photo.jpg"
                     }
                 },
@@ -966,7 +966,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/26/photo.jpg"
                     }
                 },
@@ -1003,7 +1003,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/28/photo.jpg"
                     }
                 },
@@ -1024,7 +1024,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/29/photo.jpg"
                     }
                 },
@@ -1045,7 +1045,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/3/photo.jpg"
                     }
                 },
@@ -1066,7 +1066,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/30/photo.jpg"
                     }
                 },
@@ -1087,7 +1087,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/31/photo.jpg"
                     }
                 },
@@ -1108,7 +1108,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/32/photo.jpg"
                     }
                 },
@@ -1129,7 +1129,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/33/photo.jpg"
                     }
                 },
@@ -1150,7 +1150,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/34/photo.jpg"
                     }
                 },
@@ -1171,7 +1171,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/35/photo.jpg"
                     }
                 },
@@ -1192,7 +1192,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/36/photo.jpg"
                     }
                 },
@@ -1213,7 +1213,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/37/photo.jpg"
                     }
                 },
@@ -1234,7 +1234,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/38/photo.jpg"
                     }
                 },
@@ -1255,7 +1255,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/39/photo.jpg"
                     }
                 },
@@ -1276,7 +1276,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/4/photo.jpg"
                     }
                 },
@@ -1297,7 +1297,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/40/photo.jpg"
                     }
                 },
@@ -1318,7 +1318,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/41/photo.jpg"
                     }
                 },
@@ -1339,7 +1339,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/42/photo.jpg"
                     }
                 },
@@ -1360,7 +1360,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/43/photo.jpg"
                     }
                 },
@@ -1381,7 +1381,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/44/photo.jpg"
                     }
                 },
@@ -1402,7 +1402,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/45/photo.jpg"
                     }
                 },
@@ -1423,7 +1423,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/46/photo.jpg"
                     }
                 },
@@ -1444,7 +1444,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/47/photo.jpg"
                     }
                 },
@@ -1465,7 +1465,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/48/photo.jpg"
                     }
                 },
@@ -1486,7 +1486,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/49/photo.jpg"
                     }
                 },
@@ -1507,7 +1507,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/5/photo.jpg"
                     }
                 },
@@ -1528,7 +1528,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/50/photo.jpg"
                     }
                 },
@@ -1549,7 +1549,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/51/photo.jpg"
                     }
                 },
@@ -1570,7 +1570,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/52/photo.jpg"
                     }
                 },
@@ -1591,7 +1591,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/53/photo.jpg"
                     }
                 },
@@ -1612,7 +1612,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/54/photo.jpg"
                     }
                 },
@@ -1633,7 +1633,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/55/photo.jpg"
                     }
                 },
@@ -1654,7 +1654,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/56/photo.jpg"
                     }
                 },
@@ -1675,7 +1675,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/58/photo.jpg"
                     }
                 },
@@ -1696,7 +1696,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/59/photo.jpg"
                     }
                 },
@@ -1717,7 +1717,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/6/photo.jpg"
                     }
                 },
@@ -1754,7 +1754,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/61/photo.jpg"
                     }
                 },
@@ -1775,7 +1775,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/62/photo.jpg"
                     }
                 },
@@ -1796,7 +1796,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/63/photo.jpg"
                     }
                 },
@@ -1817,7 +1817,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/64/photo.jpg"
                     }
                 },
@@ -1838,7 +1838,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/65/photo.jpg"
                     }
                 },
@@ -1859,7 +1859,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/66/photo.jpg"
                     }
                 },
@@ -1880,7 +1880,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/67/photo.jpg"
                     }
                 },
@@ -1901,7 +1901,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/68/photo.jpg"
                     }
                 },
@@ -1922,7 +1922,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/69/photo.jpg"
                     }
                 },
@@ -1943,7 +1943,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/7/photo.jpg"
                     }
                 },
@@ -1964,7 +1964,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/70/photo.jpg"
                     }
                 },
@@ -1985,7 +1985,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/71/photo.jpg"
                     }
                 },
@@ -2006,7 +2006,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/72/photo.jpg"
                     }
                 },
@@ -2027,7 +2027,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/73/photo.jpg"
                     }
                 },
@@ -2048,7 +2048,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/74/photo.jpg"
                     }
                 },
@@ -2069,7 +2069,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/75/photo.jpg"
                     }
                 },
@@ -2090,7 +2090,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/76/photo.jpg"
                     }
                 },
@@ -2111,7 +2111,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/77/photo.jpg"
                     }
                 },
@@ -2132,7 +2132,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/78/photo.jpg"
                     }
                 },
@@ -2153,7 +2153,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/79/photo.jpg"
                     }
                 },
@@ -2174,7 +2174,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/8/photo.jpg"
                     }
                 },
@@ -2227,7 +2227,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/82/photo.jpg"
                     }
                 },
@@ -2248,7 +2248,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/83/photo.jpg"
                     }
                 },
@@ -2269,7 +2269,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/84/photo.jpg"
                     }
                 },
@@ -2290,7 +2290,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/85/photo.jpg"
                     }
                 },
@@ -2311,7 +2311,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/86/photo.jpg"
                     }
                 },
@@ -2332,7 +2332,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/87/photo.jpg"
                     }
                 },
@@ -2353,7 +2353,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/88/photo.jpg"
                     }
                 },
@@ -2374,7 +2374,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/89/photo.jpg"
                     }
                 },
@@ -2427,7 +2427,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/91/photo.jpg"
                     }
                 },
@@ -2448,7 +2448,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/92/photo.jpg"
                     }
                 },
@@ -2469,7 +2469,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/93/photo.jpg"
                     }
                 },
@@ -2490,7 +2490,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/94/photo.jpg"
                     }
                 },
@@ -2511,7 +2511,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/95/photo.jpg"
                     }
                 },
@@ -2532,7 +2532,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/96/photo.jpg"
                     }
                 },
@@ -2553,7 +2553,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/97/photo.jpg"
                     }
                 },
@@ -2574,7 +2574,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/98/photo.jpg"
                     }
                 },
@@ -2595,7 +2595,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/teams/99/photo.jpg"
                     }
                 },
@@ -2669,7 +2669,7 @@
                 "displayName": "AUCA",
                 "fullName": "American University - Central Asia",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0061/logo.png"
                 }
             },
@@ -2678,7 +2678,7 @@
                 "displayName": "AU Beirut",
                 "fullName": "American University of Beirut",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0065/logo.png"
                 }
             },
@@ -2687,7 +2687,7 @@
                 "displayName": "Amirkabir UT",
                 "fullName": "Amirkabir University of Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0068/logo.png"
                 }
             },
@@ -2696,7 +2696,7 @@
                 "displayName": "AAST-Alex",
                 "fullName": "Arab Academy for Science and Technology - Alexandria",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0081/logo.png"
                 }
             },
@@ -2705,7 +2705,7 @@
                 "displayName": "BUET",
                 "fullName": "Bangladesh University of Engineering and Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0114/logo.png"
                 }
             },
@@ -2714,7 +2714,7 @@
                 "displayName": "BSUIR",
                 "fullName": "Belarusian State University of Informatics and Radioelectronics",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0140/logo.png"
                 }
             },
@@ -2723,7 +2723,7 @@
                 "displayName": "Belarusian SU",
                 "fullName": "Belarusian State University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0144/logo.png"
                 }
             },
@@ -2732,7 +2732,7 @@
                 "displayName": "Bilkent U.",
                 "fullName": "Bilkent University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0160/logo.png"
                 }
             },
@@ -2741,7 +2741,7 @@
                 "displayName": "UniBuc",
                 "fullName": "University of Bucharest",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0196/logo.png"
                 }
             },
@@ -2750,7 +2750,7 @@
                 "displayName": "Carnegie Mellon",
                 "fullName": "Carnegie Mellon University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0232/logo.png"
                 }
             },
@@ -2759,7 +2759,7 @@
                 "displayName": "Damascus U",
                 "fullName": "Damascus University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0358/logo.png"
                 }
             },
@@ -2768,7 +2768,7 @@
                 "displayName": "Duke",
                 "fullName": "Duke University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0413/logo.png"
                 }
             },
@@ -2777,7 +2777,7 @@
                 "displayName": "EP",
                 "fullName": "Ecole Polytechnique",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0443/logo.png"
                 }
             },
@@ -2786,7 +2786,7 @@
                 "displayName": "ETH Zürich",
                 "fullName": "ETH Zürich",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0451/logo.png"
                 }
             },
@@ -2795,7 +2795,7 @@
                 "displayName": "FAMAF - UNC",
                 "fullName": "Universidad Nacional de Córdoba - FaMAF",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0492/logo.png"
                 }
             },
@@ -2804,7 +2804,7 @@
                 "displayName": "Alex-FE",
                 "fullName": "Alexandria University - Faculty of Engineering",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0502/logo.png"
                 }
             },
@@ -2813,7 +2813,7 @@
                 "displayName": "Harvard",
                 "fullName": "Harvard University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0642/logo.png"
                 }
             },
@@ -2822,7 +2822,7 @@
                 "displayName": "USP - São Carlos",
                 "fullName": "Universidade de São Paulo - Campus de São Carlos",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0695/logo.png"
                 }
             },
@@ -2831,7 +2831,7 @@
                 "displayName": "IIT Guwahati",
                 "fullName": "Indian Institute of Technology - Guwahati",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0718/logo.png"
                 }
             },
@@ -2840,7 +2840,7 @@
                 "displayName": "IIT Roorkee",
                 "fullName": "Indian Institute of Technology - Roorkee",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0722/logo.png"
                 }
             },
@@ -2849,7 +2849,7 @@
                 "displayName": "IIT Bombay",
                 "fullName": "Indian Institute of Technology - Bombay",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0724/logo.png"
                 }
             },
@@ -2858,7 +2858,7 @@
                 "displayName": "IIT Delhi",
                 "fullName": "Indian Institute of Technology - Delhi",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0725/logo.png"
                 }
             },
@@ -2867,7 +2867,7 @@
                 "displayName": "IIT Kanpur",
                 "fullName": "Indian Institute of Technology - Kanpur",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0727/logo.png"
                 }
             },
@@ -2876,7 +2876,7 @@
                 "displayName": "IIT Kharagpur",
                 "fullName": "Indian Institute of Technology - Kharagpur",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0728/logo.png"
                 }
             },
@@ -2885,7 +2885,7 @@
                 "displayName": "IIIT Hyderabad",
                 "fullName": "International Institute of Information Technology - Hyderabad",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0846/logo.png"
                 }
             },
@@ -2894,7 +2894,7 @@
                 "displayName": "Izhevsk STU",
                 "fullName": "Izhevsk State Technical University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0923/logo.png"
                 }
             },
@@ -2903,7 +2903,7 @@
                 "displayName": "Jagiellonian",
                 "fullName": "Jagiellonian University in Krakow",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0931/logo.png"
                 }
             },
@@ -2912,7 +2912,7 @@
                 "displayName": "Kazan FU",
                 "fullName": "Kazan (Volga Region) Federal University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/0993/logo.png"
                 }
             },
@@ -2921,7 +2921,7 @@
                 "displayName": "KhNURE",
                 "fullName": "Kharkiv National University of Radio Electronics",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1008/logo.png"
                 }
             },
@@ -2930,7 +2930,7 @@
                 "displayName": "Korea U",
                 "fullName": "Korea University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1026/logo.png"
                 }
             },
@@ -2939,7 +2939,7 @@
                 "displayName": "MIT",
                 "fullName": "Massachusetts Institute of Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1145/logo.png"
                 }
             },
@@ -2948,7 +2948,7 @@
                 "displayName": "MAI",
                 "fullName": "Moscow Aviation Institute",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1214/logo.png"
                 }
             },
@@ -2957,7 +2957,7 @@
                 "displayName": "MEPhI",
                 "fullName": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1215/logo.png"
                 }
             },
@@ -2966,7 +2966,7 @@
                 "displayName": "MIPT",
                 "fullName": "Moscow Institute of Physics and Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1220/logo.png"
                 }
             },
@@ -2975,7 +2975,7 @@
                 "displayName": "Moscow SU",
                 "fullName": "Moscow State University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1237/logo.png"
                 }
             },
@@ -2984,7 +2984,7 @@
                 "displayName": "Utrecht - Leiden",
                 "fullName": "Utrecht - Leiden University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/12694/logo.png"
                 }
             },
@@ -2993,7 +2993,7 @@
                 "displayName": "National Taiwan U",
                 "fullName": "National Taiwan University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1303/logo.png"
                 }
             },
@@ -3002,7 +3002,7 @@
                 "displayName": "UNN",
                 "fullName": "Nizhny Novgorod State University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1338/logo.png"
                 }
             },
@@ -3011,7 +3011,7 @@
                 "displayName": "Perm SU",
                 "fullName": "Perm State University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1452/logo.png"
                 }
             },
@@ -3020,7 +3020,7 @@
                 "displayName": "Saratov State U",
                 "fullName": "Saratov State University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1623/logo.png"
                 }
             },
@@ -3029,7 +3029,7 @@
                 "displayName": "Seoul National U",
                 "fullName": "Seoul National University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1636/logo.png"
                 }
             },
@@ -3038,7 +3038,7 @@
                 "displayName": "Sharif UT",
                 "fullName": "Sharif University of Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1677/logo.png"
                 }
             },
@@ -3047,7 +3047,7 @@
                 "displayName": "Sogang U",
                 "fullName": "Sogang University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1730/logo.png"
                 }
             },
@@ -3056,7 +3056,7 @@
                 "displayName": "St. Petersburg SU",
                 "fullName": "St. Petersburg State University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1802/logo.png"
                 }
             },
@@ -3065,7 +3065,7 @@
                 "displayName": "Stanford",
                 "fullName": "Stanford University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1822/logo.png"
                 }
             },
@@ -3074,7 +3074,7 @@
                 "displayName": "TUM",
                 "fullName": "Technische Universität München",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1917/logo.png"
                 }
             },
@@ -3083,7 +3083,7 @@
                 "displayName": "U Aizu",
                 "fullName": "University of Aizu",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1962/logo.png"
                 }
             },
@@ -3092,7 +3092,7 @@
                 "displayName": "UAP",
                 "fullName": "The University of Asia Pacific",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1966/logo.png"
                 }
             },
@@ -3101,7 +3101,7 @@
                 "displayName": "UJ",
                 "fullName": "The University of Jordan",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/1977/logo.png"
                 }
             },
@@ -3110,7 +3110,7 @@
                 "displayName": "UChile",
                 "fullName": "Universidad de Chile",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2107/logo.png"
                 }
             },
@@ -3119,7 +3119,7 @@
                 "displayName": "UH",
                 "fullName": "Universidad de La Habana",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2112/logo.png"
                 }
             },
@@ -3128,7 +3128,7 @@
                 "displayName": "USB",
                 "fullName": "Universidad Simón Bolívar",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2172/logo.png"
                 }
             },
@@ -3137,7 +3137,7 @@
                 "displayName": "UnB",
                 "fullName": "Universidade de Brasília",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2195/logo.png"
                 }
             },
@@ -3146,7 +3146,7 @@
                 "displayName": "USP",
                 "fullName": "Universidade de São Paulo",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2204/logo.png"
                 }
             },
@@ -3155,7 +3155,7 @@
                 "displayName": "UNICAMP",
                 "fullName": "Universidade Estadual de Campinas",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2216/logo.png"
                 }
             },
@@ -3164,7 +3164,7 @@
                 "displayName": "UFMG",
                 "fullName": "Universidade Federal de Minas Gerais",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2230/logo.png"
                 }
             },
@@ -3173,7 +3173,7 @@
                 "displayName": "UFPE",
                 "fullName": "Universidade Federal de Pernambuco",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2232/logo.png"
                 }
             },
@@ -3182,7 +3182,7 @@
                 "displayName": "U British Columbia",
                 "fullName": "University of British Columbia",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2324/logo.png"
                 }
             },
@@ -3191,7 +3191,7 @@
                 "displayName": "Cambridge",
                 "fullName": "University of Cambridge",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2343/logo.png"
                 }
             },
@@ -3200,7 +3200,7 @@
                 "displayName": "U Central Florida",
                 "fullName": "University of Central Florida",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2349/logo.png"
                 }
             },
@@ -3209,7 +3209,7 @@
                 "displayName": "U Dhaka",
                 "fullName": "University of Dhaka",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2366/logo.png"
                 }
             },
@@ -3218,7 +3218,7 @@
                 "displayName": "U Illinois at U-C",
                 "fullName": "University of Illinois at Urbana-Champaign",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2387/logo.png"
                 }
             },
@@ -3227,7 +3227,7 @@
                 "displayName": "UI",
                 "fullName": "Universitas Indonesia",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2390/logo.png"
                 }
             },
@@ -3236,7 +3236,7 @@
                 "displayName": "Latvia",
                 "fullName": "University of Latvia",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2400/logo.png"
                 }
             },
@@ -3245,7 +3245,7 @@
                 "displayName": "U Rochester",
                 "fullName": "University of Rochester",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2493/logo.png"
                 }
             },
@@ -3254,7 +3254,7 @@
                 "displayName": "USC",
                 "fullName": "University of Southern California",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2519/logo.png"
                 }
             },
@@ -3263,7 +3263,7 @@
                 "displayName": "UT",
                 "fullName": "University of Tehran",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2528/logo.png"
                 }
             },
@@ -3272,7 +3272,7 @@
                 "displayName": "UT Dallas",
                 "fullName": "The University of Texas at Dallas",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2538/logo.png"
                 }
             },
@@ -3281,7 +3281,7 @@
                 "displayName": "Utah",
                 "fullName": "University of Utah",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2562/logo.png"
                 }
             },
@@ -3290,7 +3290,7 @@
                 "displayName": "U Wisconsin - Madison",
                 "fullName": "University of Wisconsin - Madison",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2574/logo.png"
                 }
             },
@@ -3299,7 +3299,7 @@
                 "displayName": "U Wroclaw",
                 "fullName": "University of Wroclaw",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2589/logo.png"
                 }
             },
@@ -3308,7 +3308,7 @@
                 "displayName": "Virginia Tech",
                 "fullName": "Virginia Tech",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2648/logo.png"
                 }
             },
@@ -3317,7 +3317,7 @@
                 "displayName": "Volgograd STU",
                 "fullName": "Volgograd State Technical University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2659/logo.png"
                 }
             },
@@ -3326,7 +3326,7 @@
                 "displayName": "U Warsaw",
                 "fullName": "University of Warsaw",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2673/logo.png"
                 }
             },
@@ -3335,7 +3335,7 @@
                 "displayName": "YSU",
                 "fullName": "Yerevan State University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2742/logo.png"
                 }
             },
@@ -3344,7 +3344,7 @@
                 "displayName": "Yonsei U",
                 "fullName": "Yonsei University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/2745/logo.png"
                 }
             },
@@ -3353,7 +3353,7 @@
                 "displayName": "UFG",
                 "fullName": "Instituto de Informática - UFG",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3071/logo.png"
                 }
             },
@@ -3362,7 +3362,7 @@
                 "displayName": "ICESI",
                 "fullName": "Universidad Icesi",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3098/logo.png"
                 }
             },
@@ -3371,7 +3371,7 @@
                 "displayName": "UNAL Bogotá",
                 "fullName": "Universidad Nacional de Colombia - Bogotá",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3272/logo.png"
                 }
             },
@@ -3380,7 +3380,7 @@
                 "displayName": "SPb ITMO",
                 "fullName": "St. Petersburg ITMO University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3295/logo.png"
                 }
             },
@@ -3389,7 +3389,7 @@
                 "displayName": "Purdue",
                 "fullName": "Purdue University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3328/logo.png"
                 }
             },
@@ -3398,7 +3398,7 @@
                 "displayName": "CU-FCAI",
                 "fullName": "Cairo University - Faculty of Computers and Artificial Intelligence",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3348/logo.png"
                 }
             },
@@ -3407,7 +3407,7 @@
                 "displayName": "RAF",
                 "fullName": "Faculty of Computer Science, Belgrade ",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3360/logo.png"
                 }
             },
@@ -3416,7 +3416,7 @@
                 "displayName": "UP Bonaterra",
                 "fullName": "Universidad Panamericana Campus Bonaterra",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3372/logo.png"
                 }
             },
@@ -3425,7 +3425,7 @@
                 "displayName": "ENS Paris",
                 "fullName": "École Normale Supérieure de Paris",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3436/logo.png"
                 }
             },
@@ -3434,7 +3434,7 @@
                 "displayName": "UN del Sur",
                 "fullName": "Universidad Nacional del Sur",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3487/logo.png"
                 }
             },
@@ -3443,7 +3443,7 @@
                 "displayName": "GUC",
                 "fullName": "German University in Cairo",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3519/logo.png"
                 }
             },
@@ -3452,7 +3452,7 @@
                 "displayName": "HSE",
                 "fullName": "National Research University Higher School of Economics",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3534/logo.png"
                 }
             },
@@ -3461,7 +3461,7 @@
                 "displayName": "ASU-FCIS",
                 "fullName": "Ain Shams University - Faculty of Computer and Information Sciences",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3664/logo.png"
                 }
             },
@@ -3470,7 +3470,7 @@
                 "displayName": "UBA - FCEN",
                 "fullName": "Universidad de Buenos Aires - FCEN",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3683/logo.png"
                 }
             },
@@ -3479,7 +3479,7 @@
                 "displayName": "Tishreen",
                 "fullName": "Tishreen University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3775/logo.png"
                 }
             },
@@ -3488,7 +3488,7 @@
                 "displayName": "IIT(ISM) Dhanbad",
                 "fullName": "Indian Institute of Technology (ISM), Dhanbad",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3919/logo.png"
                 }
             },
@@ -3497,7 +3497,7 @@
                 "displayName": "DA-IICT",
                 "fullName": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/3944/logo.png"
                 }
             },
@@ -3506,7 +3506,7 @@
                 "displayName": "UFC-Quixadá",
                 "fullName": "Universidade Federal do Ceará - Campus Quixadá",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/4166/logo.png"
                 }
             },
@@ -3515,7 +3515,7 @@
                 "displayName": "UO-SAM",
                 "fullName": "Universidad de Oriente - Sede Antonio Maceo",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/4193/logo.png"
                 }
             },
@@ -3524,7 +3524,7 @@
                 "displayName": "IITU",
                 "fullName": "International IT University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/4330/logo.png"
                 }
             },
@@ -3533,7 +3533,7 @@
                 "displayName": "PSUT",
                 "fullName": "Princess Sumaya University for Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/4376/logo.png"
                 }
             },
@@ -3542,7 +3542,7 @@
                 "displayName": "UNIST",
                 "fullName": "Ulsan National Institute of Science and Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/4846/logo.png"
                 }
             },
@@ -3551,7 +3551,7 @@
                 "displayName": "BPHC",
                 "fullName": "BITS-Pilani, Hyderabad Campus",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/5628/logo.png"
                 }
             },
@@ -3560,7 +3560,7 @@
                 "displayName": "IIT Indore",
                 "fullName": "Indian Institute of Technology - Indore",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/5640/logo.png"
                 }
             },
@@ -3569,7 +3569,7 @@
                 "displayName": "UCR",
                 "fullName": "Universidad de Costa Rica",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/5716/logo.png"
                 }
             },
@@ -3578,7 +3578,7 @@
                 "displayName": "Free U of Tbilisi",
                 "fullName": "Free University of Tbilisi",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/5724/logo.png"
                 }
             },
@@ -3587,7 +3587,7 @@
                 "displayName": "HIAST",
                 "fullName": "Higher Institute for Applied Sciences and Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/6581/logo.png"
                 }
             },
@@ -3596,7 +3596,7 @@
                 "displayName": "IIT Patna",
                 "fullName": "Indian Institute of Technology - Patna",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/6908/logo.png"
                 }
             },
@@ -3605,7 +3605,7 @@
                 "displayName": "INSAT",
                 "fullName": "Institut National des Sciences Appliquées et de Technologie",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/6960/logo.png"
                 }
             },
@@ -3614,7 +3614,7 @@
                 "displayName": "Al-Baath",
                 "fullName": "Al-Baath University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/7113/logo.png"
                 }
             },
@@ -3623,7 +3623,7 @@
                 "displayName": "IComp/UFAM",
                 "fullName": "Institute of Computing - Federal University of Amazonas",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/7325/logo.png"
                 }
             },
@@ -3632,7 +3632,7 @@
                 "displayName": "Kyungpook National U",
                 "fullName": "Kyungpook National University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/7423/logo.png"
                 }
             },
@@ -3641,7 +3641,7 @@
                 "displayName": "Innopolis",
                 "fullName": "Innopolis University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/7857/logo.png"
                 }
             },
@@ -3650,7 +3650,7 @@
                 "displayName": "NU-FAST-KHI",
                 "fullName": "NU-FAST Karachi",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/7898/logo.png"
                 }
             },
@@ -3659,7 +3659,7 @@
                 "displayName": "UNIMI",
                 "fullName": "Università Degli Studi di Milano",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/7990/logo.png"
                 }
             },
@@ -3668,7 +3668,7 @@
                 "displayName": "UG-CIMAT",
                 "fullName": "Universidad de Guanajuato - DCNE",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/8140/logo.png"
                 }
             },
@@ -3677,7 +3677,7 @@
                 "displayName": "SVU",
                 "fullName": "Syrian Virtual University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/8162/logo.png"
                 }
             },
@@ -3686,7 +3686,7 @@
                 "displayName": "AU",
                 "fullName": "Avicenna University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/8628/logo.png"
                 }
             },
@@ -3695,7 +3695,7 @@
                 "displayName": "IITBHU",
                 "fullName": "Indian Institute of Technology - Varanasi",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/9406/logo.png"
                 }
             },
@@ -3704,7 +3704,7 @@
                 "displayName": "IIIT DELHI",
                 "fullName": "Indraprastha Institute of Information Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/9574/logo.png"
                 }
             },
@@ -3713,7 +3713,7 @@
                 "displayName": "SPb HSE",
                 "fullName": "St. Petersburg Campus of Higher School of Economics",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/9606/logo.png"
                 }
             },
@@ -3722,7 +3722,7 @@
                 "displayName": "NSUT",
                 "fullName": "Netaji Subhash University Of Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2020-03/contests/finals/organizations/9780/logo.png"
                 }
             }

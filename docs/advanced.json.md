@@ -71,9 +71,11 @@ Also, you can create a template rule for medias, and it would be applied to all 
 Avaliable medias: `"camera"`, `"screen"`, `"record"`, `"photo"`, `"reactionVideo"`, `"achievement"`. 
 
 Avaliable media types:
-* `{ "type": "Photo", "url": "url" }` - photo
+* `{ "type": "Image", "url": "url" }` - any picture than can be embedded in img html tag
 * `{ "type": "Object", "url": "url" }` - file that can be embedded in html page, e.g. svg with animations
-* `{ "type": "Video", "url": "url" }` - video or http stream that supported web browser
+* `{ "type": "Video", "url": "url" }` - video or http stream that supported web browser and can embedded in video tag
+* `{ "type": "M2tsVideo", "url": "url" }` - video or http stream in mpeg ts container
+* `{ "type": "HLSVideo", "url": "url", "" }` - HLS video or stream
 * `{ "type": "WebRTCProxyConnection", "url": "url" }` - connection to http stream via [WebRTCProxy](https://github.com/kbats183/webrtc-proxy)
 * `{ "type": "WebRTCGrabberConnection", "url": "signallingUrl (with /admin)", "peerName": "peerName", "streamType": "desktop/webcam", "credential": "optional" }` - connection to desktop, webcam or etc. using [WebRTCGrabber](https://github.com/irdkwmnsb/webrtc-grabber)
 

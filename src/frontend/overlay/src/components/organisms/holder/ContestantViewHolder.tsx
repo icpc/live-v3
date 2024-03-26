@@ -25,7 +25,13 @@ import Hls from "hls.js";
 //   border-radius: ${({ borderRadius }) => borderRadius};
 // `*/;
 
-export const VideoWrapper = styled.video`
+const VideoWrapper = styled.video`
+  position: absolute;
+  width: 100%;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
+`;
+
+const ImgWrapper = styled.img`
   position: absolute;
   width: 100%;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
@@ -282,9 +288,9 @@ const teamViewComponentRender: {
             []);
         return <ContestantViewHolderCorner hasPInP={hasPInP} isSmall={isSmall} className={className} {...media}/>;
     },
-    Photo: ({ onLoadStatus, className, media }) => {
+    Image: ({ onLoadStatus, className, media }) => {
         return <FullWidthWrapper className={className}>
-            <img src={media.url} onLoad={() => onLoadStatus(true)}/>
+            <ImgWrapper src={media.url} onLoad={() => onLoadStatus(true)}/>
         </FullWidthWrapper>;
     },
     Object: ({ onLoadStatus, className, media }) => {

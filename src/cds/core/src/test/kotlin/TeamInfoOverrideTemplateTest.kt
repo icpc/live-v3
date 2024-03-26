@@ -14,7 +14,7 @@ object TeamInfoOverrideTemplateTest {
         val template = TeamOverrideTemplate(
             displayName = "{teamName}",
             medias = mapOf(
-                TeamMediaType.CAMERA to MediaType.Photo("http://photos-server/{teamName}"),
+                TeamMediaType.CAMERA to MediaType.Image("http://photos-server/{teamName}"),
                 TeamMediaType.REACTION_VIDEO to MediaType.WebRTCGrabberConnection(
                     url = "{!grabberUrl}",
                     peerName = "{teamName}",
@@ -31,7 +31,7 @@ object TeamInfoOverrideTemplateTest {
             "grabberUrl" to url
         ))
         assertEquals(teamName, instantiated.displayName)
-        assertEquals("http://photos-server/${teamReplaced}", (instantiated.medias?.get(TeamMediaType.CAMERA) as MediaType.Photo).url)
+        assertEquals("http://photos-server/${teamReplaced}", (instantiated.medias?.get(TeamMediaType.CAMERA) as MediaType.Image).url)
         assertEquals(url, (instantiated.medias?.get(TeamMediaType.REACTION_VIDEO) as MediaType.WebRTCGrabberConnection).url)
         assertEquals(teamName, (instantiated.medias?.get(TeamMediaType.REACTION_VIDEO) as MediaType.WebRTCGrabberConnection).peerName)
     }

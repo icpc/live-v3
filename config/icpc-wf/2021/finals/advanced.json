@@ -11,7 +11,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F0"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/1.jpg"
     },
     "camera": {
@@ -35,7 +35,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F2"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/2.jpg"
     },
     "camera": {
@@ -59,7 +59,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F4"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/3.jpg"
     },
     "camera": {
@@ -83,7 +83,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F6"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/4.jpg"
     },
     "camera": {
@@ -107,7 +107,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F8"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/5.jpg"
     },
     "camera": {
@@ -131,7 +131,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F10"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/6.jpg"
     },
     "camera": {
@@ -155,7 +155,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F12"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/7.jpg"
     },
     "camera": {
@@ -179,7 +179,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F14"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/8.jpg"
     },
     "camera": {
@@ -203,7 +203,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F16"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/9.jpg"
     },
     "camera": {
@@ -227,7 +227,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F18"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/10.jpg"
     },
     "camera": {
@@ -251,7 +251,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F20"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/11.jpg"
     },
     "camera": {
@@ -275,7 +275,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F22"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/12.jpg"
     },
     "camera": {
@@ -302,7 +302,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F24"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/13.jpg"
     },
     "camera": {
@@ -326,7 +326,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F26"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/14.jpg"
     },
     "camera": {
@@ -350,7 +350,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F28"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/15.jpg"
     },
     "camera": {
@@ -374,7 +374,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F30"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/16.jpg"
     },
     "camera": {
@@ -398,7 +398,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F32"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/17.jpg"
     },
     "camera": {
@@ -422,7 +422,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F34"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/18.jpg"
     },
     "camera": {
@@ -449,7 +449,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F36"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/19.jpg"
     },
     "camera": {
@@ -473,7 +473,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F38"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/20.jpg"
     },
     "camera": {
@@ -497,7 +497,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F40"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/21.jpg"
     },
     "camera": {
@@ -521,7 +521,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F42"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/22.jpg"
     },
     "camera": {
@@ -545,7 +545,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F44"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/23.jpg"
     },
     "camera": {
@@ -569,7 +569,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F46"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/24.jpg"
     },
     "camera": {
@@ -593,7 +593,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F48"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/25.jpg"
     },
     "camera": {
@@ -617,7 +617,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F50"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/26.jpg"
     },
     "camera": {
@@ -641,7 +641,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F52"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/27.jpg"
     },
     "camera": {
@@ -665,7 +665,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F54"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/28.jpg"
     },
     "camera": {
@@ -689,7 +689,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F56"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/29.jpg"
     },
     "camera": {
@@ -713,7 +713,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F58"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/30.jpg"
     },
     "camera": {
@@ -737,7 +737,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F60"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/31.jpg"
     },
     "camera": {
@@ -761,7 +761,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F62"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/33.jpg"
     },
     "camera": {
@@ -785,7 +785,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F64"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/34.jpg"
     },
     "camera": {
@@ -809,7 +809,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F66"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/35.jpg"
     },
     "camera": {
@@ -833,7 +833,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F68"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/36.jpg"
     },
     "camera": {
@@ -857,7 +857,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F70"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/38.jpg"
     },
     "camera": {
@@ -884,7 +884,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F72"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/39.jpg"
     },
     "camera": {
@@ -908,7 +908,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F74"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/40.jpg"
     },
     "camera": {
@@ -932,7 +932,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F76"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/41.jpg"
     },
     "camera": {
@@ -956,7 +956,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F78"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/42.jpg"
     },
     "camera": {
@@ -980,7 +980,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F80"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/43.jpg"
     },
     "camera": {
@@ -1004,7 +1004,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F82"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/44.jpg"
     },
     "camera": {
@@ -1028,7 +1028,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F84"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/45.jpg"
     },
     "camera": {
@@ -1052,7 +1052,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F86"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/46.jpg"
     },
     "camera": {
@@ -1076,7 +1076,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F88"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/47.jpg"
     },
     "camera": {
@@ -1100,7 +1100,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F90"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/48.jpg"
     },
     "camera": {
@@ -1124,7 +1124,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F92"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/49.jpg"
     },
     "camera": {
@@ -1148,7 +1148,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F94"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/50.jpg"
     },
     "camera": {
@@ -1172,7 +1172,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F96"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/51.jpg"
     },
     "camera": {
@@ -1196,7 +1196,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F98"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/52.jpg"
     },
     "camera": {
@@ -1223,7 +1223,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F100"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/53.jpg"
     },
     "camera": {
@@ -1247,7 +1247,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F102"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/54.jpg"
     },
     "camera": {
@@ -1271,7 +1271,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F104"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/55.jpg"
     },
     "camera": {
@@ -1298,7 +1298,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F106"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/56.jpg"
     },
     "camera": {
@@ -1325,7 +1325,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F108"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/57.jpg"
     },
     "camera": {
@@ -1349,7 +1349,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F110"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/58.jpg"
     },
     "camera": {
@@ -1376,7 +1376,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F112"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/59.jpg"
     },
     "camera": {
@@ -1400,7 +1400,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F114"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/60.jpg"
     },
     "camera": {
@@ -1424,7 +1424,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F116"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/61.jpg"
     },
     "camera": {
@@ -1448,7 +1448,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F118"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/62.jpg"
     },
     "camera": {
@@ -1472,7 +1472,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F120"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/63.jpg"
     },
     "camera": {
@@ -1496,7 +1496,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F122"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/64.jpg"
     },
     "camera": {
@@ -1523,7 +1523,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F124"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/65.jpg"
     },
     "camera": {
@@ -1550,7 +1550,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F126"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/66.jpg"
     },
     "camera": {
@@ -1577,7 +1577,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F128"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/67.jpg"
     },
     "camera": {
@@ -1601,7 +1601,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F130"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/68.jpg"
     },
     "camera": {
@@ -1625,7 +1625,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F132"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/69.jpg"
     },
     "camera": {
@@ -1649,7 +1649,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F134"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/70.jpg"
     },
     "camera": {
@@ -1673,7 +1673,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F136"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/71.jpg"
     },
     "camera": {
@@ -1697,7 +1697,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F138"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/72.jpg"
     },
     "camera": {
@@ -1721,7 +1721,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F140"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/73.jpg"
     },
     "camera": {
@@ -1745,7 +1745,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F142"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/74.jpg"
     },
     "camera": {
@@ -1769,7 +1769,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F144"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/75.jpg"
     },
     "camera": {
@@ -1796,7 +1796,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F146"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/76.jpg"
     },
     "camera": {
@@ -1820,7 +1820,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F148"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/77.jpg"
     },
     "camera": {
@@ -1844,7 +1844,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F150"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/78.jpg"
     },
     "camera": {
@@ -1868,7 +1868,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F152"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/79.jpg"
     },
     "camera": {
@@ -1892,7 +1892,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F154"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/80.jpg"
     },
     "camera": {
@@ -1916,7 +1916,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F156"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/81.jpg"
     },
     "camera": {
@@ -1940,7 +1940,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F158"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/82.jpg"
     },
     "camera": {
@@ -1964,7 +1964,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F160"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/83.jpg"
     },
     "camera": {
@@ -1988,7 +1988,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F162"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/84.jpg"
     },
     "camera": {
@@ -2012,7 +2012,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F164"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/85.jpg"
     },
     "camera": {
@@ -2036,7 +2036,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F166"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/86.jpg"
     },
     "camera": {
@@ -2060,7 +2060,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F168"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/88.jpg"
     },
     "camera": {
@@ -2084,7 +2084,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F170"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/89.jpg"
     },
     "camera": {
@@ -2108,7 +2108,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F172"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/90.jpg"
     },
     "camera": {
@@ -2132,7 +2132,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F174"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/91.jpg"
     },
     "camera": {
@@ -2156,7 +2156,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F176"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/92.jpg"
     },
     "camera": {
@@ -2183,7 +2183,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F178"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/93.jpg"
     },
     "camera": {
@@ -2207,7 +2207,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F180"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/94.jpg"
     },
     "camera": {
@@ -2234,7 +2234,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F182"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/95.jpg"
     },
     "camera": {
@@ -2258,7 +2258,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F184"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/96.jpg"
     },
     "camera": {
@@ -2282,7 +2282,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F186"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/97.jpg"
     },
     "camera": {
@@ -2306,7 +2306,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F188"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/98.jpg"
     },
     "camera": {
@@ -2330,7 +2330,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F190"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/99.jpg"
     },
     "camera": {
@@ -2354,7 +2354,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F192"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/100.jpg"
     },
     "camera": {
@@ -2378,7 +2378,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F194"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/101.jpg"
     },
     "camera": {
@@ -2402,7 +2402,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F196"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/102.jpg"
     },
     "camera": {
@@ -2426,7 +2426,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F198"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/103.jpg"
     },
     "camera": {
@@ -2450,7 +2450,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F200"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/104.jpg"
     },
     "camera": {
@@ -2474,7 +2474,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F202"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/105.jpg"
     },
     "camera": {
@@ -2498,7 +2498,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F204"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/106.jpg"
     },
     "camera": {
@@ -2522,7 +2522,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F206"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/107.jpg"
     },
     "camera": {
@@ -2546,7 +2546,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F208"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/108.jpg"
     },
     "camera": {
@@ -2570,7 +2570,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F210"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/109.jpg"
     },
     "camera": {
@@ -2594,7 +2594,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F212"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/110.jpg"
     },
     "camera": {
@@ -2621,7 +2621,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F214"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/111.jpg"
     },
     "camera": {
@@ -2645,7 +2645,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F216"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/112.jpg"
     },
     "camera": {
@@ -2669,7 +2669,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F218"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/113.jpg"
     },
     "camera": {
@@ -2693,7 +2693,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F220"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/114.jpg"
     },
     "camera": {
@@ -2717,7 +2717,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F222"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/115.jpg"
     },
     "camera": {
@@ -2741,7 +2741,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F224"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/116.jpg"
     },
     "camera": {
@@ -2765,7 +2765,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F226"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/117.jpg"
     },
     "camera": {
@@ -2789,7 +2789,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F228"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/118.jpg"
     },
     "camera": {
@@ -2816,7 +2816,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F230"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/119.jpg"
     },
     "camera": {
@@ -2840,7 +2840,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F232"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/120.jpg"
     },
     "camera": {
@@ -2867,7 +2867,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F234"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/121.jpg"
     },
     "camera": {
@@ -2891,7 +2891,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F236"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/122.jpg"
     },
     "camera": {
@@ -2915,7 +2915,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F238"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/123.jpg"
     },
     "camera": {
@@ -2939,7 +2939,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F240"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/124.jpg"
     },
     "camera": {
@@ -2966,7 +2966,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F242"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/125.jpg"
     },
     "camera": {
@@ -2990,7 +2990,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F244"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/126.jpg"
     },
     "camera": {
@@ -3014,7 +3014,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F246"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/127.jpg"
     },
     "camera": {
@@ -3038,7 +3038,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F248"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/128.jpg"
     },
     "camera": {
@@ -3062,7 +3062,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F250"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/129.jpg"
     },
     "camera": {
@@ -3086,7 +3086,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F252"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/130.jpg"
     },
     "camera": {
@@ -3110,7 +3110,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F254"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/131.jpg"
     },
     "camera": {
@@ -3137,7 +3137,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F256"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/132.jpg"
     },
     "camera": {
@@ -3161,7 +3161,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F258"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/133.jpg"
     },
     "camera": {
@@ -3185,7 +3185,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F260"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/135.jpg"
     },
     "camera": {
@@ -3209,7 +3209,7 @@
      "url": "http://172.24.0.181:9080/c?source=http%3A%2F%2Flive%3Alanded-wafer-state-diner%40172.29.1.207%3A8080%2Fstream%2F262"
     },
     "photo": {
-     "type": "Photo",
+     "type": "Image",
      "url": "/media/team_photos/136.jpg"
     },
     "camera": {
