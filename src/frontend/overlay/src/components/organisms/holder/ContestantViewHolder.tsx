@@ -373,7 +373,7 @@ export const ContestantViewHolder = ({ onLoadStatus, media, isSmall, hasPInP, cl
             []);
         return null;
     }
-    if (!media.isMedia && media.type === "Photo") {
+    if (!media.isMedia && media.type === "Image") { // TODO: why only Image?
         return <Achievement src={media.url} onLoadStatus={onLoadStatus} className={className}/>;
     }
     return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} hasPInP={hasPInP} media={media} className={className}/>;
