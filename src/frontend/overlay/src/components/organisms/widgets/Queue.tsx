@@ -41,7 +41,8 @@ const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(({ bottom, righ
 
   position: absolute;
   transition-property: ${({ horizontal }) => horizontal ? "right" : "bottom"};
-  transition: linear ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
+  transition-duration: ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
+  transition-timing-function: linear;
   animation: ${({ animation }) => animation} ${c.QUEUE_ROW_APPEAR_TIME}ms linear; /* dissapear is also linear for now. FIXME */
   animation-fill-mode: forwards;
 `;
