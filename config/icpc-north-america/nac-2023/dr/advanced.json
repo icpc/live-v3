@@ -2,11 +2,11 @@
   "teamOverrideTemplate": {
     "medias": {
       "photo": {
-        "type": "Photo",
+        "type": "Image",
         "url": "http://10.3.3.70:8080/media/team photos/{teamId}.jpg"
       },
       "achievement": {
-        "type": "Photo",
+        "type": "Image",
         "url": "http://10.3.3.70:8080/media/achievements/{teamId}.svg"
       }
     }

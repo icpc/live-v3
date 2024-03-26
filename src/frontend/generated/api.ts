@@ -105,9 +105,9 @@ export type GroupId = string;
 
 export type MediaType =
   | MediaType.HLSVideo
+  | MediaType.Image
   | MediaType.M2tsVideo
   | MediaType.Object
-  | MediaType.Photo
   | MediaType.TaskStatus
   | MediaType.Video
   | MediaType.WebRTCGrabberConnection
@@ -116,9 +116,9 @@ export type MediaType =
 export namespace MediaType {
   export enum Type {
     HLSVideo = "HLSVideo",
+    Image = "Image",
     M2tsVideo = "M2tsVideo",
     Object = "Object",
-    Photo = "Photo",
     TaskStatus = "TaskStatus",
     Video = "Video",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
@@ -132,6 +132,12 @@ export namespace MediaType {
     isMedia?: boolean;
   }
   
+  export interface Image {
+    type: MediaType.Type.Image;
+    url: string;
+    isMedia?: boolean;
+  }
+  
   export interface M2tsVideo {
     type: MediaType.Type.M2tsVideo;
     url: string;
@@ -140,12 +146,6 @@ export namespace MediaType {
   
   export interface Object {
     type: MediaType.Type.Object;
-    url: string;
-    isMedia?: boolean;
-  }
-  
-  export interface Photo {
-    type: MediaType.Type.Photo;
     url: string;
     isMedia?: boolean;
   }

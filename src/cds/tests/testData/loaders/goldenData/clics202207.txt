@@ -164,7 +164,7 @@
                 "hashTag": "#ETH",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/1/photo"
                     }
                 },
@@ -186,7 +186,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/2/photo"
                     }
                 },
@@ -208,7 +208,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/3/photo"
                     }
                 },
@@ -230,7 +230,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/4/photo"
                     }
                 },
@@ -252,7 +252,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/5/photo"
                     }
                 },
@@ -274,7 +274,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/6/photo"
                     }
                 },
@@ -296,7 +296,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/7/photo"
                     }
                 },
@@ -318,7 +318,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/8/photo"
                     }
                 },
@@ -340,7 +340,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/9/photo"
                     }
                 },
@@ -362,7 +362,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/10/photo"
                     }
                 },
@@ -384,7 +384,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/11/photo"
                     }
                 },
@@ -406,7 +406,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/13/photo"
                     }
                 },
@@ -428,7 +428,7 @@
                 "hashTag": "#Polytechnique",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/14/photo"
                     }
                 },
@@ -450,7 +450,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/15/photo"
                     }
                 },
@@ -472,7 +472,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/16/photo"
                     }
                 },
@@ -494,7 +494,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/17/photo"
                     }
                 },
@@ -516,7 +516,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/18/photo"
                     }
                 },
@@ -538,7 +538,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/19/photo"
                     }
                 },
@@ -560,7 +560,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/20/photo"
                     }
                 },
@@ -582,7 +582,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/21/photo"
                     }
                 },
@@ -604,7 +604,7 @@
                 "hashTag": "#UPorto",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/22/photo"
                     }
                 },
@@ -626,7 +626,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/23/photo"
                     }
                 },
@@ -648,7 +648,7 @@
                 "hashTag": "#UPC",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/24/photo"
                     }
                 },
@@ -670,7 +670,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/25/photo"
                     }
                 },
@@ -692,7 +692,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/26/photo"
                     }
                 },
@@ -714,7 +714,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/27/photo"
                     }
                 },
@@ -736,7 +736,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/28/photo"
                     }
                 },
@@ -758,7 +758,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/29/photo"
                     }
                 },
@@ -780,7 +780,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/30/photo"
                     }
                 },
@@ -802,7 +802,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/31/photo"
                     }
                 },
@@ -824,7 +824,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/32/photo"
                     }
                 },
@@ -846,7 +846,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/33/photo"
                     }
                 },
@@ -868,7 +868,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/34/photo"
                     }
                 },
@@ -890,7 +890,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/35/photo"
                     }
                 },
@@ -912,7 +912,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/36/photo"
                     }
                 },
@@ -934,7 +934,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/37/photo"
                     }
                 },
@@ -956,7 +956,7 @@
                 "hashTag": "#Polytechnique",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/38/photo"
                     }
                 },
@@ -978,7 +978,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/39/photo"
                     }
                 },
@@ -1000,7 +1000,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/40/photo"
                     }
                 },
@@ -1022,7 +1022,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/41/photo"
                     }
                 },
@@ -1044,7 +1044,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/42/photo"
                     }
                 },
@@ -1066,7 +1066,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/43/photo"
                     }
                 },
@@ -1088,7 +1088,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/44/photo"
                     }
                 },
@@ -1110,7 +1110,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/45/photo"
                     }
                 },
@@ -1132,7 +1132,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/46/photo"
                     }
                 },
@@ -1154,7 +1154,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/47/photo"
                     }
                 },
@@ -1176,7 +1176,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/48/photo"
                     }
                 },
@@ -1198,7 +1198,7 @@
                 "hashTag": "#UPC",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/49/photo"
                     }
                 },
@@ -1220,7 +1220,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/50/photo"
                     }
                 },
@@ -1242,7 +1242,7 @@
                 "hashTag": "#LaStatale",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/51/photo"
                     }
                 },
@@ -1264,7 +1264,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/52/photo"
                     }
                 },
@@ -1286,7 +1286,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/53/photo"
                     }
                 },
@@ -1308,7 +1308,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/54/photo"
                     }
                 },
@@ -1330,7 +1330,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/55/photo"
                     }
                 },
@@ -1352,7 +1352,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/56/photo"
                     }
                 },
@@ -1374,7 +1374,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/57/photo"
                     }
                 },
@@ -1396,7 +1396,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/58/photo"
                     }
                 },
@@ -1418,7 +1418,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/59/photo"
                     }
                 },
@@ -1440,7 +1440,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/60/photo"
                     }
                 },
@@ -1462,7 +1462,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/61/photo"
                     }
                 },
@@ -1484,7 +1484,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/62/photo"
                     }
                 },
@@ -1506,7 +1506,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/63/photo"
                     }
                 },
@@ -1528,7 +1528,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/64/photo"
                     }
                 },
@@ -1550,7 +1550,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/65/photo"
                     }
                 },
@@ -1572,7 +1572,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/66/photo"
                     }
                 },
@@ -1594,7 +1594,7 @@
                 "hashTag": "#UPC",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/67/photo"
                     }
                 },
@@ -1616,7 +1616,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/68/photo"
                     }
                 },
@@ -1638,7 +1638,7 @@
                 "hashTag": "#ETH",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/69/photo"
                     }
                 },
@@ -1660,7 +1660,7 @@
                 "hashTag": "#UPorto",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/70/photo"
                     }
                 },
@@ -1682,7 +1682,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/71/photo"
                     }
                 },
@@ -1704,7 +1704,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/72/photo"
                     }
                 },
@@ -1726,7 +1726,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/73/photo"
                     }
                 },
@@ -1748,7 +1748,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/74/photo"
                     }
                 },
@@ -1770,7 +1770,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/75/photo"
                     }
                 },
@@ -1792,7 +1792,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/76/photo"
                     }
                 },
@@ -1814,7 +1814,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/77/photo"
                     }
                 },
@@ -1836,7 +1836,7 @@
                 "hashTag": "#ENS_Ulm",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/78/photo"
                     }
                 },
@@ -1858,7 +1858,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/79/photo"
                     }
                 },
@@ -1880,7 +1880,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/80/photo"
                     }
                 },
@@ -1902,7 +1902,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/81/photo"
                     }
                 },
@@ -1924,7 +1924,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/82/photo"
                     }
                 },
@@ -1946,7 +1946,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/83/photo"
                     }
                 },
@@ -1968,7 +1968,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/84/photo"
                     }
                 },
@@ -1990,7 +1990,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/85/photo"
                     }
                 },
@@ -2012,7 +2012,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/86/photo"
                     }
                 },
@@ -2034,7 +2034,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/87/photo"
                     }
                 },
@@ -2056,7 +2056,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/88/photo"
                     }
                 },
@@ -2078,7 +2078,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/89/photo"
                     }
                 },
@@ -2100,7 +2100,7 @@
                 "hashTag": "#LaStatale",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/90/photo"
                     }
                 },
@@ -2122,7 +2122,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/91/photo"
                     }
                 },
@@ -2144,7 +2144,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/92/photo"
                     }
                 },
@@ -2166,7 +2166,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/93/photo"
                     }
                 },
@@ -2188,7 +2188,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/94/photo"
                     }
                 },
@@ -2210,7 +2210,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/95/photo"
                     }
                 },
@@ -2232,7 +2232,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/96/photo"
                     }
                 },
@@ -2254,7 +2254,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/97/photo"
                     }
                 },
@@ -2276,7 +2276,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/98/photo"
                     }
                 },
@@ -2298,7 +2298,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/99/photo"
                     }
                 },
@@ -2320,7 +2320,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/100/photo"
                     }
                 },
@@ -2342,7 +2342,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/101/photo"
                     }
                 },
@@ -2364,7 +2364,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/102/photo"
                     }
                 },
@@ -2386,7 +2386,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/103/photo"
                     }
                 },
@@ -2408,7 +2408,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/104/photo"
                     }
                 },
@@ -2430,7 +2430,7 @@
                 "hashTag": "#LaStatale",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/105/photo"
                     }
                 },
@@ -2452,7 +2452,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/106/photo"
                     }
                 },
@@ -2474,7 +2474,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/107/photo"
                     }
                 },
@@ -2496,7 +2496,7 @@
                 "hashTag": "#ETH",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/108/photo"
                     }
                 },
@@ -2518,7 +2518,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/109/photo"
                     }
                 },
@@ -2540,7 +2540,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/110/photo"
                     }
                 },
@@ -2562,7 +2562,7 @@
                 "hashTag": "#ENS_Ulm",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/111/photo"
                     }
                 },
@@ -2584,7 +2584,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/112/photo"
                     }
                 },
@@ -2606,7 +2606,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/113/photo"
                     }
                 },
@@ -2628,7 +2628,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/114/photo"
                     }
                 },
@@ -2650,7 +2650,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/115/photo"
                     }
                 },
@@ -2672,7 +2672,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/116/photo"
                     }
                 },
@@ -2694,7 +2694,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/117/photo"
                     }
                 },
@@ -2716,7 +2716,7 @@
                 "hashTag": "#ScuolaNormale",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/118/photo"
                     }
                 },
@@ -2738,7 +2738,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/119/photo"
                     }
                 },
@@ -2760,7 +2760,7 @@
                 "hashTag": "#ENS_Ulm",
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/120/photo"
                     }
                 },
@@ -2782,7 +2782,7 @@
                 "hashTag": null,
                 "medias": {
                     "photo": {
-                        "type": "Photo",
+                        "type": "Image",
                         "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/teams/121/photo"
                     }
                 },
@@ -2850,7 +2850,7 @@
                 "displayName": "UC",
                 "fullName": "University of Coimbra",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/366/logo.64"
                 }
             },
@@ -2859,7 +2859,7 @@
                 "displayName": "EP",
                 "fullName": "Ecole Polytechnique",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/443/logo.64"
                 }
             },
@@ -2868,7 +2868,7 @@
                 "displayName": "EPFL",
                 "fullName": "Ecole Polytechnique Fédérale de Lausanne",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/444/logo.64"
                 }
             },
@@ -2877,7 +2877,7 @@
                 "displayName": "ETH Zürich",
                 "fullName": "ETH Zürich",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/451/logo.64"
                 }
             },
@@ -2886,7 +2886,7 @@
                 "displayName": "ENSIMAG",
                 "fullName": "ENS d'Informatique et de Mathematiques Appliquees - Grenoble",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/460/logo.64"
                 }
             },
@@ -2895,7 +2895,7 @@
                 "displayName": "U Porto",
                 "fullName": "Universidade do Porto",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/478/logo.64"
                 }
             },
@@ -2904,7 +2904,7 @@
                 "displayName": "INSA",
                 "fullName": "INSA de Lyon",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/742/logo.64"
                 }
             },
@@ -2913,7 +2913,7 @@
                 "displayName": "IS Técnico",
                 "fullName": "Instituto Superior Técnico",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/789/logo.64"
                 }
             },
@@ -2922,7 +2922,7 @@
                 "displayName": "UAM",
                 "fullName": "Universidad Autónoma de Madrid",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2079/logo.64"
                 }
             },
@@ -2931,7 +2931,7 @@
                 "displayName": "UM",
                 "fullName": "Universidad de Murcia",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2122/logo.64"
                 }
             },
@@ -2940,7 +2940,7 @@
                 "displayName": "UPV",
                 "fullName": "Universitat Politècnica de València",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2166/logo.64"
                 }
             },
@@ -2949,7 +2949,7 @@
                 "displayName": "U. Rey Juan Carlos",
                 "fullName": "Universidad Rey Juan Carlos",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2170/logo.64"
                 }
             },
@@ -2958,7 +2958,7 @@
                 "displayName": "Genova",
                 "fullName": "Università degli Studi di Genova",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2257/logo.64"
                 }
             },
@@ -2967,7 +2967,7 @@
                 "displayName": "Università di Roma 1",
                 "fullName": "Università di Roma - La Sapienza",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2260/logo.64"
                 }
             },
@@ -2976,7 +2976,7 @@
                 "displayName": "TN",
                 "fullName": "Università di Trento",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2261/logo.64"
                 }
             },
@@ -2985,7 +2985,7 @@
                 "displayName": "Universita' di Udine",
                 "fullName": "Università Degli Studi di Udine",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2263/logo.64"
                 }
             },
@@ -2994,7 +2994,7 @@
                 "displayName": "UP Catalunya",
                 "fullName": "Universitat Politècnica de Catalunya",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2273/logo.64"
                 }
             },
@@ -3003,7 +3003,7 @@
                 "displayName": "TECHNION",
                 "fullName": "Technion - Israel Institute of Technology",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3236/logo.64"
                 }
             },
@@ -3012,7 +3012,7 @@
                 "displayName": "ENS - Lyon",
                 "fullName": "École Normale Supérieure de Lyon",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3409/logo.64"
                 }
             },
@@ -3021,7 +3021,7 @@
                 "displayName": "ENS Paris",
                 "fullName": "École Normale Supérieure de Paris",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3436/logo.64"
                 }
             },
@@ -3030,7 +3030,7 @@
                 "displayName": "UPF",
                 "fullName": "Universitat Pompeu Fabra",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3545/logo"
                 }
             },
@@ -3039,7 +3039,7 @@
                 "displayName": "UBI",
                 "fullName": "Universidade da Beira Interior",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5282/logo.64"
                 }
             },
@@ -3048,7 +3048,7 @@
                 "displayName": "EC-Lyon",
                 "fullName": "Ecole Centrale de Lyon",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5687/logo.64"
                 }
             },
@@ -3057,7 +3057,7 @@
                 "displayName": "EHU",
                 "fullName": "University of the Basque Country",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6369/logo"
                 }
             },
@@ -3066,7 +3066,7 @@
                 "displayName": "UCM",
                 "fullName": "Universidad Complutense de Madrid",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6379/logo.64"
                 }
             },
@@ -3075,7 +3075,7 @@
                 "displayName": "ENS de Paris-Saclay",
                 "fullName": "École Normale Supérieure de Paris-Saclay",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7032/logo.64"
                 }
             },
@@ -3084,7 +3084,7 @@
                 "displayName": "Polito",
                 "fullName": "Politecnico di Torino",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7083/logo"
                 }
             },
@@ -3093,7 +3093,7 @@
                 "displayName": "UNIBO",
                 "fullName": "University of Bologna",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7435/logo.64"
                 }
             },
@@ -3102,7 +3102,7 @@
                 "displayName": "UNIMI",
                 "fullName": "Università Degli Studi di Milano",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7990/logo.64"
                 }
             },
@@ -3111,7 +3111,7 @@
                 "displayName": "Polimi",
                 "fullName": "Politecnico di Milano",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8246/logo.64"
                 }
             },
@@ -3120,7 +3120,7 @@
                 "displayName": "USI",
                 "fullName": "Università della Svizzera italiana",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8450/logo.64"
                 }
             },
@@ -3129,7 +3129,7 @@
                 "displayName": "CentraleSupélec",
                 "fullName": "CentraleSupélec",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8460/logo.64"
                 }
             },
@@ -3138,7 +3138,7 @@
                 "displayName": "U of Haifa",
                 "fullName": "University of Haifa",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8483/logo.64"
                 }
             },
@@ -3147,7 +3147,7 @@
                 "displayName": "UniVerona",
                 "fullName": "University of Verona",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8488/logo.64"
                 }
             },
@@ -3156,7 +3156,7 @@
                 "displayName": "SNS",
                 "fullName": "Scuola Normale Superiore",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8818/logo.64"
                 }
             },
@@ -3165,7 +3165,7 @@
                 "displayName": "UNIPI",
                 "fullName": "Università di Pisa",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8869/logo.64"
                 }
             },
@@ -3174,7 +3174,7 @@
                 "displayName": "U-ARTOIS",
                 "fullName": "Artois University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8886/logo.64"
                 }
             },
@@ -3183,7 +3183,7 @@
                 "displayName": "U Montpellier",
                 "fullName": "Université de Montpellier",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9009/logo.64"
                 }
             },
@@ -3192,7 +3192,7 @@
                 "displayName": "ENSEEIHT",
                 "fullName": "École Nationale Supérieure d'électrotechnique, d'électronique, d'informatique, d'hydraulique et des Télécommunications",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9635/logo.64"
                 }
             },
@@ -3201,7 +3201,7 @@
                 "displayName": "HS",
                 "fullName": "Harbour.Space University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9745/logo.64"
                 }
             },
@@ -3210,7 +3210,7 @@
                 "displayName": "UR1",
                 "fullName": "University of Rennes 1",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10640/logo.64"
                 }
             },
@@ -3219,7 +3219,7 @@
                 "displayName": "UniPD",
                 "fullName": "University of Padova",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10678/logo.64"
                 }
             },
@@ -3228,7 +3228,7 @@
                 "displayName": "TP",
                 "fullName": "Télécom Paris",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10685/logo.64"
                 }
             },
@@ -3237,7 +3237,7 @@
                 "displayName": "Sorbonne",
                 "fullName": "Sorbonne Université",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10689/logo.64"
                 }
             },
@@ -3246,7 +3246,7 @@
                 "displayName": "Unive",
                 "fullName": "Ca' Foscari University of Venice",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10706/logo.64"
                 }
             },
@@ -3255,7 +3255,7 @@
                 "displayName": "TAU",
                 "fullName": "Tel Aviv University",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11111/logo.64"
                 }
             },
@@ -3264,7 +3264,7 @@
                 "displayName": "UdP",
                 "fullName": "Université de Paris",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11205/logo.64"
                 }
             },
@@ -3273,7 +3273,7 @@
                 "displayName": "PPS",
                 "fullName": "Polytech Paris Saclay",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11538/logo.64"
                 }
             },
@@ -3282,7 +3282,7 @@
                 "displayName": "EILCO",
                 "fullName": "Ecole d'Ingénieurs Littoral Côte d'Opale",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/15696/logo.64"
                 }
             },
@@ -3291,7 +3291,7 @@
                 "displayName": "UnivAQ",
                 "fullName": "University of L'Aquila",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/16191/logo.64"
                 }
             },
@@ -3300,7 +3300,7 @@
                 "displayName": "Université Paris-Saclay",
                 "fullName": "Université Paris-Saclay",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/19561/logo.64"
                 }
             },
@@ -3309,7 +3309,7 @@
                 "displayName": "CUNEF",
                 "fullName": "CUNEF Universidad",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20085/logo.64"
                 }
             },
@@ -3318,7 +3318,7 @@
                 "displayName": "TNCY",
                 "fullName": "TELECOM Nancy",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20090/logo.64"
                 }
             },
@@ -3327,7 +3327,7 @@
                 "displayName": "Jane Street",
                 "fullName": "Jane Street",
                 "logo": {
-                    "type": "Photo",
+                    "type": "Image",
                     "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/42424242/logo.64"
                 }
             }

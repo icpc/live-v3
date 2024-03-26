@@ -39,7 +39,7 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
 
     private fun Media.mediaType(): MediaType? {
         if (mime.startsWith("image")) {
-            return MediaType.Photo(href)
+            return MediaType.Image(href)
         }
         if (mime.startsWith("video/m2ts")) {
             return MediaType.M2tsVideo(href)

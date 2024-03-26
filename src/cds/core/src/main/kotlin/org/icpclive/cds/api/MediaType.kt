@@ -8,8 +8,8 @@ public sealed class MediaType {
     public abstract val isMedia: Boolean
 
     @Serializable
-    @SerialName("Photo")
-    public data class Photo(val url: String, override val isMedia: Boolean = true) : MediaType()
+    @SerialName("Image")
+    public data class Image(val url: String, override val isMedia: Boolean = true) : MediaType()
 
     @Serializable
     @SerialName("Object")
@@ -61,7 +61,7 @@ public sealed class MediaType {
     }
 
     public fun noMedia(): MediaType = when (this) {
-        is Photo -> copy(isMedia = false)
+        is Image -> copy(isMedia = false)
         is Video -> copy(isMedia = false)
         is Object -> copy(isMedia = false)
         is M2tsVideo -> copy(isMedia = false)

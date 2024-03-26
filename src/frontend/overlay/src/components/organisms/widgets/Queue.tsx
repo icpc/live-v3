@@ -41,7 +41,8 @@ const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(({ bottom, righ
 
   position: absolute;
   transition-property: ${({ horizontal }) => horizontal ? "right" : "bottom"};
-  transition: linear ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
+  transition-duration: ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
+  transition-timing-function: linear;
   animation: ${({ animation }) => animation} ${c.QUEUE_ROW_APPEAR_TIME}ms linear; /* dissapear is also linear for now. FIXME */
   animation-fill-mode: forwards;
 `;
@@ -395,7 +396,7 @@ export const Featured = ({ runInfo }) => {
 type QueueProps = {
     widgetData: Widget.QueueWidget,
 };
-export const Queue = ({ widgetData: { settings: { horizontal }, location } }): QueueProps => {
+export const Queue = ({ widgetData: { settings: { horizontal }, location } }: QueueProps) => {
     const [height, setHeight] = useState<number>(null);
     const width =location.sizeX - c.QUEUE_ROW_HORIZONTAL_PADDING * 2;
     const [featured, queueRows] = useQueueRowsData({ height, width, horizontal });

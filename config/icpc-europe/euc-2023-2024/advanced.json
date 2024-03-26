@@ -9,10 +9,10 @@
     "teamOverrideTemplate": {
       "medias": {
         "achievement": {
-          "type": "Photo",
+          "type": "Image",
           "url": "/media/{teamId}.svg"
         },
-        "photo": {"type": "Photo", "url": "/media/teams/{teamId}/photo.jpg"}
+        "photo": {"type": "Image", "url": "/media/teams/{teamId}/photo.jpg"}
       }
     },
     "problemOverrides": {

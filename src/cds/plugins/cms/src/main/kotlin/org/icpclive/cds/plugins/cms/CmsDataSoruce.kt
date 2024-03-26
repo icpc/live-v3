@@ -64,7 +64,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 id = k.toOrganizationId(),
                 displayName = v.name,
                 fullName = v.name,
-                logo = MediaType.Photo(settings.url)
+                logo = MediaType.Image(settings.url)
             )
         }
         val teams = usersLoader.load().map { (k, v) ->
@@ -75,7 +75,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 groups = emptyList(),
                 hashTag = null,
                 medias = mapOf(
-                    TeamMediaType.PHOTO to MediaType.Photo("${settings.url}/faces/$k", true)
+                    TeamMediaType.PHOTO to MediaType.Image("${settings.url}/faces/$k", true)
                 ),
                 isHidden = false,
                 isOutOfContest = false,
