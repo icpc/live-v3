@@ -47,7 +47,7 @@ private fun OrganizationInfo.toClicsOrg() = Organization(
 
 private fun MediaType.toClicsMedia() = when (this) {
     is MediaType.Object -> null
-    is MediaType.Photo -> Media("image", url)
+    is MediaType.Image -> Media("image", url)
     is MediaType.TaskStatus -> null
     is MediaType.Video -> Media("video", url)
     is MediaType.M2tsVideo -> Media("video/m2ts", url)

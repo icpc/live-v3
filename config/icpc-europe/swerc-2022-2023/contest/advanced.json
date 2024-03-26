@@ -2,7 +2,7 @@
   "teamOverrideTemplate": {
     "medias": {
       "photo": {
-        "type": "Photo",
+        "type": "Image",
         "url": "/media/photo/{teamId}.jpg"
       }
     }

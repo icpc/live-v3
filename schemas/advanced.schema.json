@@ -25,6 +25,27 @@
             ],
             "title": "HLSVideo"
         },
+        "Image": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Image",
+                    "default": "Image"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "isMedia": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "Image"
+        },
         "M2tsVideo": {
             "type": "object",
             "properties": {
@@ -66,27 +87,6 @@
                 "url"
             ],
             "title": "Object"
-        },
-        "Photo": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "Photo",
-                    "default": "Photo"
-                },
-                "url": {
-                    "type": "string"
-                },
-                "isMedia": {
-                    "type": "boolean"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "url"
-            ],
-            "title": "Photo"
         },
         "TaskStatus": {
             "type": "object",
@@ -193,13 +193,13 @@
                     "$ref": "#/$defs/HLSVideo"
                 },
                 {
+                    "$ref": "#/$defs/Image"
+                },
+                {
                     "$ref": "#/$defs/M2tsVideo"
                 },
                 {
                     "$ref": "#/$defs/Object"
-                },
-                {
-                    "$ref": "#/$defs/Photo"
                 },
                 {
                     "$ref": "#/$defs/TaskStatus"

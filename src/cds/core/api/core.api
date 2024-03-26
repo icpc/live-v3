@@ -813,6 +813,36 @@ public final class org/icpclive/cds/api/MediaType$HLSVideo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/cds/api/MediaType$Image : org/icpclive/cds/api/MediaType {
+	public static final field Companion Lorg/icpclive/cds/api/MediaType$Image$Companion;
+	public fun <init> (Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Z
+	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$Image;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Image;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Image;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun isMedia ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/cds/api/MediaType$Image$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/MediaType$Image$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/MediaType$Image;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/MediaType$Image;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/MediaType$Image$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/api/MediaType$M2tsVideo : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$M2tsVideo$Companion;
 	public fun <init> (Ljava/lang/String;Z)V
@@ -870,36 +900,6 @@ public synthetic class org/icpclive/cds/api/MediaType$Object$$serializer : kotli
 }
 
 public final class org/icpclive/cds/api/MediaType$Object$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/MediaType$Photo : org/icpclive/cds/api/MediaType {
-	public static final field Companion Lorg/icpclive/cds/api/MediaType$Photo$Companion;
-	public fun <init> (Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Z
-	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$Photo;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Photo;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Photo;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun isMedia ()Z
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/MediaType$Photo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/MediaType$Photo$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/MediaType$Photo;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/MediaType$Photo;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/MediaType$Photo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
