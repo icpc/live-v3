@@ -6,7 +6,7 @@ plugins {
 
 
 base {
-    archivesName = rootProject.name
+    archivesName = "sniper-locator-controller"
 }
 
 application {
