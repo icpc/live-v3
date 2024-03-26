@@ -395,7 +395,7 @@ export const Featured = ({ runInfo }) => {
 type QueueProps = {
     widgetData: Widget.QueueWidget,
 };
-export const Queue = ({ widgetData: { settings: { horizontal }, location } }): QueueProps => {
+export const Queue = ({ widgetData: { settings: { horizontal }, location } }: QueueProps) => {
     const [height, setHeight] = useState<number>(null);
     const width =location.sizeX - c.QUEUE_ROW_HORIZONTAL_PADDING * 2;
     const [featured, queueRows] = useQueueRowsData({ height, width, horizontal });
