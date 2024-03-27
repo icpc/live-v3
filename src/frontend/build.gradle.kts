@@ -39,6 +39,17 @@ tasks {
         inputs.file("admin/package.json")
         outputs.dir("admin/build")
     }
+    val buildLocatorAdmin = named<NpmTask>("npm_run_buildLocatorAdmin") {
+        outputs.cacheIf { true }
+        environment.set(mapOf("PUBLIC_URL" to "/locator"))
+        inputs.dir("locator/src")
+        inputs.dir("locator/public")
+        inputs.dir("common")
+        inputs.file("package.json")
+        inputs.file("package-lock.json")
+        inputs.file("locator/package.json")
+        outputs.dir("locator/build")
+    }
     //val installBrowsers = named<NpmTask>("npm_run_install-browsers") // probably want to cache it somehow
     val runTests = named<NpmTask>("npm_run_test") {
         //dependsOn(installBrowsers)
@@ -48,7 +59,7 @@ tasks {
         dependsOn(runTests)
     }
     val assemble = register<Task>("assemble") {
-        dependsOn(buildOverlay, buildAdmin)
+        dependsOn(buildOverlay, buildAdmin, buildLocatorAdmin)
     }
     register<Task>("build") {
         dependsOn(assemble, test)
