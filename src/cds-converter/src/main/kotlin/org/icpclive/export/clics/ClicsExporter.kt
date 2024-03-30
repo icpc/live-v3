@@ -456,8 +456,8 @@ object ClicsExporter  {
             time = info.startTime + lastSubmissionTime,
             contest_time = lastSubmissionTime,
             state = getState(info),
-            rows = order.zip(ranks).map { (teamId, rank) ->
-                val row = scoreboardRows[teamId]!!
+            rows = rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
+                val row = scoreboardRowsAfter[teamId]!!
                 ScoreboardRow(
                     rank,
                     teamId.value,
@@ -479,14 +479,14 @@ object ClicsExporter  {
 
     private fun ContestStateWithScoreboard.toClicsAwards() = buildList {
         val info = state.infoAfterEvent!!
-        for (award in awards) {
+        for (award in rankingAfter.awards) {
             add(Award(award.id, award.citation, award.teams.map { it.value }))
         }
         for ((index, problem) in info.scoreboardProblems.withIndex()) {
             add(Award(
                 "first-to-solve-${problem.id}",
                 "First to solve problem ${problem.displayName}",
-                scoreboardRows.entries
+                scoreboardRowsAfter.entries
                     .filter { (it.value.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
                     .map { it.key.value }
             ))

@@ -23,7 +23,7 @@ class IOIStatisticsService {
                     List(problems) { problemId ->
                         val listScore = mutableListOf<Double>()
                         var pending = 0
-                        for (row in it.scoreboardRows.values) {
+                        for (row in it.scoreboardRowsAfter.values) {
                             val p = row.problemResults[problemId]
                             require(p is IOIProblemResult)
                             if (p.score != null) {
