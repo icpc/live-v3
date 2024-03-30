@@ -6,6 +6,11 @@ import com.github.ajalt.clikt.output.MordantHelpFormatter
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.path
+import io.ktor.util.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import java.security.MessageDigest
+import java.util.Base64
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = false) {
     val configDirectory by option(
@@ -21,9 +26,27 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/snipers.txt") { configDirectory.resolve("snipers.txt") }
 
-    val overlayURL: String by option("-o", "--overlay", "--overlay-url", help = "Main overlay url").default("http://admin:admin@127.0.0.1:8080")
+    val overlayURL: String by option("-o", "--overlay", "--overlay-url", help = "Main overlay url").default("http://127.0.0.1:8080")
+
+    val authDisabled by option(
+        "--no-auth",
+        help = "Disable http basic auth in admin"
+    ).flag()
+
+    val credsJsonPath by option("--creds", help = "Path to creds.json").path(mustExist = true, canBeFile = true, canBeDir = false)
+        .defaultLazy("configDirectory/creds.json") { configDirectory.resolve("creds.json") }
+
+    var basicAuthKey: BasicAuthKey = BasicAuthKey("")
+
 
     override fun run() {
+        if (!authDisabled) {
+            val creds = Json.decodeFromStream<AdminCreds>(credsJsonPath.toFile().inputStream())
+            basicAuthKey = BasicAuthKey(
+                "Basic " +
+                        Base64.getEncoder().encodeToString("${creds.username}:${creds.password}".toByteArray())
+            )
+        }
         io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
     }
 

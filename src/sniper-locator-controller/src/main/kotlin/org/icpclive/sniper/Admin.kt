@@ -29,6 +29,9 @@ fun Route.setupRouting() {
             val locatorSettings = LocatorController.getLocatorWidgetConfig(request.sniperId, setOf(request.teamId))
             println("request: " + "${config.overlayURL}/api/admin/teamLocator/show_with_settings")
             val showRequest = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/show_with_settings") {
+                headers {
+                    append(HttpHeaders.Authorization, config.basicAuthKey.key)
+                }
                 setBody(Json.encodeToString(locatorSettings))
                 contentType(ContentType.Application.Json)
             }
@@ -40,7 +43,11 @@ fun Route.setupRouting() {
 
     post("/hide") {
         call.adminApiAction {
-            val response = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/hide").bodyAsText()
+            val response = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/hide") {
+                headers {
+                    append(HttpHeaders.Authorization, config.basicAuthKey.key)
+                }
+            }.bodyAsText()
             println(response)
         }
     }
@@ -55,7 +62,11 @@ fun Route.setupRouting() {
 
     get("/teams") {
         call.respondBytes(
-            Util.httpClient.get("${config.overlayURL}/api/admin/teamView/teams").readBytes(),
+            Util.httpClient.get("${config.overlayURL}/api/admin/teamView/teams") {
+                headers {
+                    append(HttpHeaders.Authorization, config.basicAuthKey.key)
+                }
+            }.readBytes(),
             contentType = ContentType.Application.Json,
         )
     }
