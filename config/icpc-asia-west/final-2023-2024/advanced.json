@@ -1,0 +1,54 @@
+{
+  "teamNameRegexes": {
+    "customFields": {
+      "funnyName": {
+        "(.*)" : "$1"
+      }
+    }    
+  },
+  "teamOverrideTemplate": {
+    "displayName": "{orgDisplayName}: {funnyName}"
+  },
+  "organizationOverrides": {
+    "Indian Institute of Technology - Gandhinagar": {"displayName": "IIT - Gandhinagar"},
+    "Indian Institute of Technology - Guwahati": {"displayName": "IIT - Guwahati"},
+    "Indian Institute of Technology - Hyderabad": {"displayName": "IIT - Hyderabad"},
+    "Indian Institute of Technology - Jodhpur": {"displayName": "IIT - Jodhpur"},
+    "Indian Institute of Technology - Kanpur": {"displayName": "IIT - Kanpur"},
+    "Indian Institute of Technology - Kharagpur": {"displayName": "IIT - Kharagpur"},
+    "Indian Institute of Technology - Lidia": {"displayName": "IIT - Lidia"},
+    "Indian Institute of Technology - Madras": {"displayName": "IIT - Madras"},
+    "Indian Institute of Technology - Patna": {"displayName": "IIT - Patna"},
+    "Indian Institute of Technology - Roorkee": {"displayName": "IIT - Roorkee"},
+    "Indian Institute of Technology - Ropar": {"displayName": "IIT - Ropar"},
+
+    "Shahjalal University of Science and Technology":{"displayName":"Shahjalal UST"},
+    "Comilla University":{"displayName":"Comilla U"},
+    "Jahangirnagar University":{"displayName":"Jahangirnagar U"},
+    "Khulna University of Engineering &amp;amp;amp;amp;amp; Technology":{"displayName":"Khulna UET"},
+    "Islamic University, Bangladesh":{"displayName":"Islamic U, Bangladesh"},
+    "Indian Institute of Technology - Delhi":{"displayName":"IIT - Delhi"},
+    "Chittagong University of Engineering & Technology":{"displayName":"Chittagong UET"},
+    "BITS-Pilani, Goa Campus":{"displayName":"BITS-Pilani, Goa Campus"},
+    "NATIONAL INSTITUTE OF TECHNOLOGY TIRUCHIRAPPALLI":{"displayName":"NIT TIRUCHIRAPPALLI"},
+    "NU-FAST Karachi":{"displayName":"NU-FAST Karachi"},"University of Rajshahi":{"displayName":"U Rajshahi"},
+    "Bangladesh University of Business and Technology":{"displayName":"Bangladesh UBT"},
+    "Rajshahi University of Engineering & Technology":{"displayName":"Rajshahi UET"},
+    "Military Institute of Science and Technology":{"displayName":"Military IST"},
+    "International Institute of Information Technology - Hyderabad":{"displayName":"IIIT - Hyderabad"},
+    "Indian Institute of Technology - Varanasi":{"displayName":"IIT - Varanasi"},
+    "Indian Institute of Information Technology Allahabad":{"displayName":"IIIT - Allahabad"},
+    "Indian Institute of Technology - Bombay":{"displayName":"IIT - Bombay"},
+    "International University of Business Agriculture and Technology":{"displayName":"IUBAT"},
+    "Ghulam Ishaq Khan Institute of Engineering Sciences and Technology":{"displayName":"Ghulam Ishaq Khan IEST"},
+    "BRAC University":{"displayName":"BRAC University"},
+    "Punjab University College of Information Technology":{"displayName":"Punjab U College IT"},
+    "Manipal Institute of Technology":{"displayName":"Manipal IT"},
+    "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar":{"displayName":"Dhirubhai Ambani IICT, Gandhinagar"},
+    "American International University - Bangladesh":{"displayName":"American IU - Bangladesh"},
+    "Indian Institute of Technology - Indore":{"displayName":"IIT - Indore"},
+    "Vellore Institute of Technology, Chennai":{"displayName":"Vellore IT, Chennai"},
+    "IIT Bhubaneswar":{"displayName":"IIT Bhubaneswar"},
+    "International Institute of Information Technology - Bangalore":{"displayName":"IIIT - Bangalore"}
+  }
+}
