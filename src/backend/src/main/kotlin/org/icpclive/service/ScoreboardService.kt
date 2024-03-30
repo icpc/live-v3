@@ -1,23 +1,38 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import org.icpclive.cds.ContestUpdate
+import kotlinx.coroutines.launch
+import org.icpclive.cds.api.ContestResultType
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.*
 import org.icpclive.data.DataBus
 import org.icpclive.util.getLogger
 
-class ScoreboardService(vararg val optimismLevel: OptimismLevel) {
-    suspend fun run(
-        updates: Flow<ContestStateWithScoreboard>,
-    ) {
-        logger.info("Scoreboard service for levels ${optimismLevel.toList()} started")
-        coroutineScope {
-            val scoreboardFlow = updates.shareIn(this, SharingStarted.Eagerly, replay = 1)
-            for (level in optimismLevel) {
-                DataBus.setScoreboardDiffs(level, scoreboardFlow.withIndex().map { (index, it) -> it.toScoreboardDiff(snapshot = index == 0) })
-                DataBus.setLegacyScoreboard(level, scoreboardFlow.map { it.toLegacyScoreboard() })
+class ScoreboardService : Service {
+    private fun setUp(level: OptimismLevel, flow: Flow<ContestStateWithScoreboard>) {
+        DataBus.setScoreboardDiffs(level, flow.withIndex().map { (index, it) -> it.toScoreboardDiff(snapshot = index == 0) })
+        DataBus.setLegacyScoreboard(level, flow.map { it.toLegacyScoreboard() })
+
+    }
+    override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
+        logger.info("Scoreboard service for started")
+        val mainScoreboardFlow = flow.shareIn(this, SharingStarted.Eagerly, replay = 1)
+        setUp(OptimismLevel.NORMAL, mainScoreboardFlow)
+        launch {
+            val first = mainScoreboardFlow.mapNotNull { it.state.infoAfterEvent }.first()
+            when (first.resultType) {
+                ContestResultType.IOI -> {
+                    setUp(OptimismLevel.OPTIMISTIC, mainScoreboardFlow)
+                    setUp(OptimismLevel.PESSIMISTIC, mainScoreboardFlow)
+                }
+                ContestResultType.ICPC -> {
+                    logger.info("It is ICPC contest, start also calculating secondary scoreboards")
+                    for (level in listOf(OptimismLevel.PESSIMISTIC, OptimismLevel.OPTIMISTIC)) {
+                        val secondaryScoreboardFlow = mainScoreboardFlow.map { it.state.lastEvent }.calculateScoreboard(level).shareIn(this, SharingStarted.Eagerly, replay = 1)
+                        setUp(level, secondaryScoreboardFlow)
+                    }
+                }
             }
         }
     }

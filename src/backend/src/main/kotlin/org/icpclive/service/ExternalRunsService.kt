@@ -1,7 +1,7 @@
 package org.icpclive.service
 
 import kotlinx.collections.immutable.persistentMapOf
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.ExternalRunInfo
 import org.icpclive.api.ExternalTeamInfo
@@ -11,26 +11,24 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.Ranking
 import org.icpclive.data.DataBus
 
-class ExternalRunsService {
-    suspend fun run(scoreboard: Flow<ContestStateWithScoreboard>) {
+class ExternalRunsService : Service {
+    override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         var runs = persistentMapOf<RunId, ExternalRunInfo>()
-        coroutineScope {
-            DataBus.externalRunsFlow.complete(scoreboard.transform {
-                when (val event = it.state.lastEvent) {
-                    is AnalyticsUpdate -> {}
-                    is InfoUpdate -> {}
-                    is RunUpdate -> {
-                        val externalInfo = event.newInfo.toExternal(it)
-                        if (externalInfo == null) {
-                            runs = runs.remove(event.newInfo.id)
-                        } else {
-                            runs = runs.put(event.newInfo.id, externalInfo)
-                        }
-                        emit(runs)
+        DataBus.externalRunsFlow.complete(flow.transform {
+            when (val event = it.state.lastEvent) {
+                is AnalyticsUpdate -> {}
+                is InfoUpdate -> {}
+                is RunUpdate -> {
+                    val externalInfo = event.newInfo.toExternal(it)
+                    if (externalInfo == null) {
+                        runs = runs.remove(event.newInfo.id)
+                    } else {
+                        runs = runs.put(event.newInfo.id, externalInfo)
                     }
+                    emit(runs)
                 }
-            }.stateIn(this))
-        }
+            }
+        }.stateIn(this, SharingStarted.Eagerly, emptyMap()))
     }
 }
 
