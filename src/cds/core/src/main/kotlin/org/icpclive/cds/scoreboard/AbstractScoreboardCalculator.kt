@@ -152,24 +152,24 @@ public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLev
 
 public fun ContestStateWithScoreboard.toScoreboardDiff(snapshot: Boolean) : ScoreboardDiff {
     val rows = if (snapshot) {
-        scoreboardRows
+        scoreboardRowsAfter
     } else {
-        scoreboardRowsDiff.associateWith { scoreboardRows[it]!! }
+        scoreboardRowsChanged.associateWith { scoreboardRowsAfter[it]!! }
     }
-    return ScoreboardDiff(rows, order, ranks, awards)
+    return ScoreboardDiff(rows, rankingAfter.order, rankingAfter.ranks, rankingAfter.awards)
 }
 
 public fun ContestStateWithScoreboard.toLegacyScoreboard(): LegacyScoreboard = LegacyScoreboard(
-    order.zip(ranks).map { (teamId, rank) ->
-        val row = scoreboardRows[teamId]!!
+    rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
+        val row = scoreboardRowsAfter[teamId]!!
         LegacyScoreboardRow(
             teamId = teamId,
             rank = rank,
             totalScore = row.totalScore,
             penalty = row.penalty,
             lastAccepted = row.lastAccepted.inWholeMilliseconds,
-            medalType = awards.firstNotNullOfOrNull { e -> (e as? Award.Medal)?.medalColor?.takeIf { teamId in e.teams }?.name?.lowercase() },
-            championInGroups = awards.mapNotNull { e -> (e as? Award.GroupChampion)?.groupId?.takeIf { teamId in e.teams } },
+            medalType = rankingAfter.awards.firstNotNullOfOrNull { e -> (e as? Award.Medal)?.medalColor?.takeIf { teamId in e.teams }?.name?.lowercase() },
+            championInGroups = rankingAfter.awards.mapNotNull { e -> (e as? Award.GroupChampion)?.groupId?.takeIf { teamId in e.teams } },
             problemResults = row.problemResults,
             teamGroups = state.infoAfterEvent!!.teams[teamId]!!.groups
         )
@@ -178,11 +178,11 @@ public fun ContestStateWithScoreboard.toLegacyScoreboard(): LegacyScoreboard = L
 
 public class ContestStateWithScoreboard internal constructor(
     public val state: ContestState,
-    public val scoreboardRows: Map<TeamId, ScoreboardRow>,
-    public val scoreboardRowsDiff: List<TeamId>,
-    public val order: List<TeamId>,
-    public val ranks: List<Int>,
-    public val awards: List<Award>,
+    public val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
+    public val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
+    public val scoreboardRowsChanged: List<TeamId>,
+    public val rankingBefore: Ranking,
+    public val rankingAfter: Ranking,
     public val lastSubmissionTime: Duration,
 )
 
@@ -235,15 +235,17 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
         return teamsReallyAffected
     }
     contestState().collect {
+        val oldRows = rows
+        val oldRanking = lastRanking
         val scoreboardDiff = applyEvent(it)
         emit(
             ContestStateWithScoreboard(
                 state = it,
-                scoreboardRows = rows,
-                scoreboardRowsDiff = scoreboardDiff,
-                order = lastRanking.order,
-                ranks = lastRanking.ranks,
-                awards = lastRanking.awards,
+                scoreboardRowsAfter = rows,
+                scoreboardRowsBefore = oldRows,
+                scoreboardRowsChanged = scoreboardDiff,
+                rankingAfter = lastRanking,
+                rankingBefore = oldRanking,
                 lastSubmissionTime = lastSubmissionTime
             )
         )
