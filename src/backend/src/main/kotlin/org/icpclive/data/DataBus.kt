@@ -54,4 +54,4 @@ object DataBus {
 }
 
 suspend fun DataBus.currentContestInfo() = currentContestInfoFlow().first()
-suspend fun DataBus.currentContestInfoFlow() = contestStateFlow.await().filter { it.lastEvent is InfoUpdate }.mapNotNull { it.infoAfterEvent }
+suspend fun DataBus.currentContestInfoFlow() = contestStateFlow.await().mapNotNull { it.infoAfterEvent }.distinctUntilChanged()
