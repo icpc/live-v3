@@ -1722,12 +1722,12 @@ public final class org/icpclive/cds/scoreboard/AbstractScoreboardCalculatorKt {
 }
 
 public final class org/icpclive/cds/scoreboard/ContestStateWithScoreboard {
-	public final fun getAwards ()Ljava/util/List;
 	public final fun getLastSubmissionTime-UwyO8pc ()J
-	public final fun getOrder ()Ljava/util/List;
-	public final fun getRanks ()Ljava/util/List;
-	public final fun getScoreboardRows ()Ljava/util/Map;
-	public final fun getScoreboardRowsDiff ()Ljava/util/List;
+	public final fun getRankingAfter ()Lorg/icpclive/cds/scoreboard/Ranking;
+	public final fun getRankingBefore ()Lorg/icpclive/cds/scoreboard/Ranking;
+	public final fun getScoreboardRowsAfter ()Ljava/util/Map;
+	public final fun getScoreboardRowsBefore ()Ljava/util/Map;
+	public final fun getScoreboardRowsChanged ()Ljava/util/List;
 	public final fun getState ()Lorg/icpclive/cds/api/ContestState;
 }
 
