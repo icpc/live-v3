@@ -46,6 +46,7 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
             )
         } ?: emptyFlow()
         launch { AnalyticsService().run(merge(analyticsFlow, generatedAnalyticsMessages)) }
+        launch { ExternalRunsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
         launch {
             val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
             val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)

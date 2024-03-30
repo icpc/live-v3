@@ -18,37 +18,4 @@ suspend fun getRegions() : List<GroupInfo> {
 
 suspend fun getHashtags() = getTeams().filter { it.hashTag != null }.associateBy({ it.hashTag!! }, { it.id })
 
-suspend fun getExternalRun(id: RunId) : ExternalRunInfo? {
-    val state = DataBus.contestStateFlow.await().first()
-    val contestInfo = state.infoAfterEvent ?: return null
-    val runInfo = state.runsAfterEvent[id] ?: return null
-    return runInfo.toExternal(contestInfo)
-}
-
-private fun RunInfo.toExternal(contestInfo: ContestInfo): ExternalRunInfo? {
-    if (isHidden) return null
-    return ExternalRunInfo(
-        id = id.value,
-        result = result,
-        problem = contestInfo.problems[problemId] ?: return null,
-        team = contestInfo.teams[teamId]?.toExternal(contestInfo) ?: return null,
-        time = time,
-        featuredRunMedia = featuredRunMedia,
-        reactionVideos = reactionVideos,
-    )
-}
-
-private fun TeamInfo.toExternal(contestInfo: ContestInfo) : ExternalTeamInfo? {
-    if (isHidden) return null
-    return ExternalTeamInfo(
-        id = id.value,
-        fullName = fullName,
-        displayName = displayName,
-        groups = groups.mapNotNull { contestInfo.groups[it] },
-        hashTag = hashTag,
-        medias = medias,
-        isOutOfContest = isOutOfContest,
-        organization = organizationId?.let { contestInfo.organizations[organizationId] },
-        customFields = customFields
-    )
-}
+suspend fun getExternalRun(id: RunId) = DataBus.externalRunsFlow.await().first()[id]
