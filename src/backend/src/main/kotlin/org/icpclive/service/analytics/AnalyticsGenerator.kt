@@ -6,6 +6,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.toScoreboardDiff
@@ -13,40 +14,44 @@ import org.icpclive.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.inputStream
 
-class AnalyticsGenerator(jsonTemplatePath: Path) {
-    private val messagesTemplates = Json.decodeFromStream<JsonAnalyticTemplates>(jsonTemplatePath.inputStream())
+class AnalyticsGenerator(jsonTemplatePath: Path?) {
+    private val messagesTemplates_ = jsonTemplatePath ?.let { Json.decodeFromStream<JsonAnalyticTemplates>(it.inputStream()) }
 
     suspend fun getFlow(
-        contestInfoFlow: StateFlow<ContestInfo>,
-        runsFlow: Flow<RunInfo>,
         scoreboardFlow: Flow<ContestStateWithScoreboard>,
     ) = flow {
         logger.info("Analytics generator service is started")
         val runs = mutableMapOf<RunId, RunAnalyse>()
-        combine(contestInfoFlow, runsFlow, scoreboardFlow, ::Triple).collect { (contestInfo, run, scoreboard) ->
-            if (run.isHidden) {
-                runs.remove(run.id)
-                return@collect
-            }
-            val analysis = runs.processRun(run, scoreboard.toScoreboardDiff(true)) ?: return@collect
+        scoreboardFlow.collect {
+            when (val event = it.state.lastEvent) {
+                is AnalyticsUpdate -> emit(event.message)
+                is InfoUpdate -> {}
+                is RunUpdate -> {
+                    if (messagesTemplates_ == null) return@collect
+                    val run = event.newInfo
+                    if (run.isHidden) return@collect
+                    val info = it.state.infoAfterEvent ?: return@collect
+                    val analysis = runs.processRun(run, it.toScoreboardDiff(true)) ?: return@collect
 
-            val team = contestInfo.teams[run.teamId] ?: return@collect
-            val problem = contestInfo.problems[run.problemId] ?: return@collect
-            emit(
-                AnalyticsCommentaryEvent(
-                    "_analytics_by_run_${run.id}",
-                    getMessage(analysis, team, problem),
-                    analysis.creationTime,
-                    run.time,
-                    listOf(team.id),
-                    listOf(run.id),
-                    tags = getTags(analysis),
-                )
-            )
+                    val team = info.teams[run.teamId] ?: return@collect
+                    val problem = info.problems[run.problemId] ?: return@collect
+                    emit(
+                        AnalyticsCommentaryEvent(
+                            "_analytics_by_run_${run.id}",
+                            getMessage(messagesTemplates_, analysis, team, problem),
+                            analysis.creationTime,
+                            run.time,
+                            listOf(team.id),
+                            listOf(run.id),
+                            tags = getTags(analysis),
+                        )
+                    )
+                }
+            }
         }
     }
 
-    private fun getMessage(analyse: RunAnalyse, team: TeamInfo, problem: ProblemInfo): String {
+    private fun getMessage(messagesTemplates: JsonAnalyticTemplates, analyse: RunAnalyse, team: TeamInfo, problem: ProblemInfo): String {
         val substitute = mapOf(
             "{team.shortName}" to team.displayName,
             "{problem.letter}" to problem.displayName,

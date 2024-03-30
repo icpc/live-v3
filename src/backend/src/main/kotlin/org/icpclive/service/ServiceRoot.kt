@@ -18,8 +18,7 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     val normalScoreboardState = loaded.calculateScoreboard(OptimismLevel.NORMAL).shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
 
     val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
-    val analyticsFlow = loaded.filterIsInstance<AnalyticsUpdate>().map { it.message }
-    launch { DataBus.contestStateFlow.completeOrThrow(loaded.contestState().stateIn(this)) }
+    launch { DataBus.contestStateFlow.completeOrThrow(normalScoreboardState.map { it.state }.stateIn(this)) }
     launch { DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this)) }
     launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }
     launch {
@@ -36,14 +35,8 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
                 launch { IOIStatisticsService().run(normalScoreboardState) }
             }
         }
-        val generatedAnalyticsMessages = Config.analyticsTemplatesFile?.let {
-            AnalyticsGenerator(it).getFlow(
-                DataBus.contestInfoFlow.await(),
-                runsFlow,
-                normalScoreboardState
-            )
-        } ?: emptyFlow()
-        launch { AnalyticsService().run(merge(analyticsFlow, generatedAnalyticsMessages)) }
+        val generatedAnalyticsMessages = AnalyticsGenerator(Config.analyticsTemplatesFile).getFlow(normalScoreboardState)
+        launch { AnalyticsService().run(generatedAnalyticsMessages) }
         launch { ExternalRunsService().run(normalScoreboardState) }
         launch {
             val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
