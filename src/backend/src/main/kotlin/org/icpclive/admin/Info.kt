@@ -5,13 +5,14 @@ import org.icpclive.api.ExternalRunInfo
 import org.icpclive.api.ExternalTeamInfo
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
+import org.icpclive.data.currentContestInfo
 
 @OptIn(InefficientContestInfoApi::class)
-suspend fun getTeams() = DataBus.contestInfoFlow.await().first().teamList.filterNot { it.isHidden }
+suspend fun getTeams() = DataBus.currentContestInfo().teamList.filterNot { it.isHidden }
 
 @OptIn(InefficientContestInfoApi::class)
 suspend fun getRegions() : List<GroupInfo> {
-    val info = DataBus.contestInfoFlow.await().first()
+    val info = DataBus.currentContestInfo()
     val used = info.teamList.flatMap { it.groups }.toSet()
     return info.groupList.filter { it.id in used }
 }

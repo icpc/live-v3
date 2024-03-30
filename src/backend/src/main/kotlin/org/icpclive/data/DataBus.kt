@@ -5,9 +5,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.api.*
+import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
-import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.util.completeOrThrow
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
 
@@ -15,7 +14,6 @@ import org.icpclive.service.FeaturedRunAction
  * Everything published here should be immutable, to allow secure work from many threads
  */
 object DataBus {
-    val contestInfoFlow = CompletableDeferred<StateFlow<ContestInfo>>()
     val contestStateFlow = CompletableDeferred<StateFlow<ContestState>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
@@ -54,3 +52,6 @@ object DataBus {
     }
     suspend fun getLegacyScoreboard(level: OptimismLevel) = legacyScoreboards[level.ordinal].await()
 }
+
+suspend fun DataBus.currentContestInfo() = currentContestInfoFlow().first()
+suspend fun DataBus.currentContestInfoFlow() = contestStateFlow.await().filter { it.lastEvent is InfoUpdate }.mapNotNull { it.infoAfterEvent }

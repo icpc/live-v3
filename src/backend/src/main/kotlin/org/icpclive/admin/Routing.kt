@@ -16,8 +16,7 @@ import org.icpclive.Config
 import org.icpclive.api.TeamViewPosition
 import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.tunning.toAdvancedProperties
-import org.icpclive.data.Controllers
-import org.icpclive.data.DataBus
+import org.icpclive.data.*
 import org.icpclive.util.sendFlow
 import java.nio.file.Files
 import kotlin.io.path.notExists
@@ -90,7 +89,7 @@ fun Route.configureAdminApiRouting() {
             }
             run {
                 call.respondText(contentType = ContentType.Application.Json) {
-                    formatter.encodeToString(DataBus.contestInfoFlow.await().first().toAdvancedProperties(
+                    formatter.encodeToString(DataBus.currentContestInfo().toAdvancedProperties(
                         call.request.queryParameters["fields"]?.split(",")?.toSet() ?: emptySet()
                     ))
                 }

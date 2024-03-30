@@ -11,6 +11,7 @@ import org.icpclive.admin.getExternalRun
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.*
 import org.icpclive.data.DataBus
+import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
 
 inline fun <reified T: Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend () -> Flow<T>) {
@@ -26,7 +27,7 @@ private inline fun <reified T : Any> Route.setUpScoreboard(crossinline getter: s
 
 fun Route.configureOverlayRouting() {
     flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
-    flowEndpoint("/contestInfo") { DataBus.contestInfoFlow.await() }
+    flowEndpoint("/contestInfo") { DataBus.currentContestInfoFlow() }
     flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
     flowEndpoint("/queue") { DataBus.queueFlow.await() }
     flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
