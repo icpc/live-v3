@@ -27,6 +27,10 @@ class ExternalTeamInfo(
     val hashTag: String?,
     val medias: Map<TeamMediaType, MediaType>,
     val isOutOfContest: Boolean,
+    val scoreboardRowBefore: ScoreboardRow,
+    val rankBefore: Int,
+    val scoreboardRowAfter: ScoreboardRow,
+    val rankAfter: Int,
     @Required val organization: OrganizationInfo?,
     @Required val customFields: Map<String, String> = emptyMap(),
 )

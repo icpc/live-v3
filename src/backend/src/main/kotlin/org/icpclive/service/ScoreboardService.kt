@@ -15,7 +15,7 @@ class ScoreboardService(val optimismLevel: OptimismLevel) {
         logger.info("Scoreboard service for optimismLevel=${optimismLevel} started")
         coroutineScope {
             val scoreboardFlow = updates.calculateScoreboard(optimismLevel)
-                .shareIn(this, SharingStarted.Eagerly, replay = 1)
+                .shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
             DataBus.setScoreboardEvents(optimismLevel, scoreboardFlow)
         }
     }
