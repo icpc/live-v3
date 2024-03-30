@@ -12,7 +12,6 @@ import org.icpclive.service.analytics.AnalyticsGenerator
 import org.icpclive.util.completeOrThrow
 import org.slf4j.Logger
 
-
 fun CoroutineScope.launchServices(logger: Logger, loader: Flow<ContestUpdate>) {
     val started = MutableStateFlow(1)
     val starter = SharingStarted {
@@ -51,5 +50,6 @@ fun CoroutineScope.launchServices(logger: Logger, loader: Flow<ContestUpdate>) {
     launchService(AnalyticsService(AnalyticsGenerator(Config.analyticsTemplatesFile)))
     launchService(ExternalRunsService())
     launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
+    launchService(RegularLoggingService())
     started.update { it - 1 }
 }

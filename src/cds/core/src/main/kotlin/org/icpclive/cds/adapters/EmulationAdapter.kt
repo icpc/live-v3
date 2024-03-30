@@ -66,17 +66,12 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         addAll(analyticsMessages.map { it.relativeTime to AnalyticsUpdate(it) })
     }.sortedBy { it.first }.forEach { emit(it) }
 }.map { (startTime + it.first / emulationSpeed) to it.second }
-    .toTimedFlow { logger.info("Processed events upto ${(it - startTime) * emulationSpeed}") }
+    .toTimedFlow()
 
 
-private fun <T> Flow<Pair<Instant, T>>.toTimedFlow(log: (Instant) -> Unit = {}) : Flow<T> {
-    var lastLoggedTime: Instant = Instant.DISTANT_PAST
+private fun <T> Flow<Pair<Instant, T>>.toTimedFlow(): Flow<T> {
     return map { (nextEventTime, item) ->
         delay(nextEventTime - Clock.System.now())
-        if (nextEventTime - lastLoggedTime > 10.seconds) {
-            log(nextEventTime)
-            lastLoggedTime = nextEventTime
-        }
         item
     }
 }

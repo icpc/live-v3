@@ -220,9 +220,6 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
                 }
             }
         }
-        if (teamsAffected.isNotEmpty()) {
-            logger.info("Recalculating $optimismLevel scoreboard for ${teamsAffected.size} teams, lastSubmissionTime = $lastSubmissionTime")
-        }
         val teamsReallyAffected = teamsAffected.filter {
             val newRow = calculator.getScoreboardRow(info, runsByTeamId[it] ?: emptyList())
             val oldRow = rows[it]
