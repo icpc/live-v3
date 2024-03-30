@@ -1,0 +1,24 @@
+{
+  "type":"ejudge",
+  "resultType":"IOI",
+  "url":"https://olympiads.ru/68QATYQE9wM7ZkIa/external.xml",
+  "problemScoreLimit": {
+    "1": 86,
+    "2": 80,
+    "3": 95,
+    "4": 80
+  },
+  "previousDays": [
+    {
+      "settings": {
+        "type":"ejudge",
+        "resultType":"IOI",
+        "url":"../Open-2024-d1/zaoch_2024_day1_external.xml",
+        "problemScoreLimit": {
+          "2": 89,
+          "4": 69
+        }
+      }
+    }
+  ]
+}
