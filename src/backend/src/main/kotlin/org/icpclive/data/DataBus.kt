@@ -24,7 +24,8 @@ object DataBus {
     // flow of run ids that need to be braking news
     val queueFeaturedRunsFlow = CompletableDeferred<FlowCollector<FeaturedRunAction>>()
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()
-    private val scoreboardFlow = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<ContestStateWithScoreboard>>() }
+    private val scoreboardDiffs = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<ScoreboardDiff>>() }
+    private val legacyScoreboards = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<LegacyScoreboard>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
     val analyticsActionsFlow = CompletableDeferred<Flow<AnalyticsAction>>()
     val analyticsFlow = CompletableDeferred<Flow<AnalyticsEvent>>()
@@ -44,6 +45,12 @@ object DataBus {
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
     val visualConfigFlow = CompletableDeferred<StateFlow<JsonObject>>()
 
-    fun setScoreboardEvents(level: OptimismLevel, flow: Flow<ContestStateWithScoreboard>) { scoreboardFlow[level.ordinal].completeOrThrow(flow) }
-    suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].await()
+    fun setScoreboardDiffs(level: OptimismLevel, flow: Flow<ScoreboardDiff>) {
+        scoreboardDiffs[level.ordinal].complete(flow)
+    }
+    suspend fun getScoreboardDiffs(level: OptimismLevel) : Flow<ScoreboardDiff> = scoreboardDiffs[level.ordinal].await()
+    fun setLegacyScoreboard(level: OptimismLevel, flow: Flow<LegacyScoreboard>) {
+        legacyScoreboards[level.ordinal].complete(flow)
+    }
+    suspend fun getLegacyScoreboard(level: OptimismLevel) = legacyScoreboards[level.ordinal].await()
 }
