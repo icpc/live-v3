@@ -18,10 +18,10 @@ inline fun <reified T: Any> Route.flowEndpoint(name: String, crossinline dataPro
     get(name) { call.respond(dataProvider().first()) }
 }
 
-private inline fun <reified T : Any> Route.setUpScoreboard(crossinline process: (Flow<ContestStateWithScoreboard>) -> Flow<T>) {
-    flowEndpoint("/normal") { process(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
-    flowEndpoint("/optimistic") { process(DataBus.getScoreboardEvents(OptimismLevel.OPTIMISTIC)) }
-    flowEndpoint("/pessimistic") { process(DataBus.getScoreboardEvents(OptimismLevel.PESSIMISTIC)) }
+private inline fun <reified T : Any> Route.setUpScoreboard(crossinline getter: suspend DataBus.(OptimismLevel) -> Flow<T>) {
+    flowEndpoint("/normal") { DataBus.getter(OptimismLevel.NORMAL) }
+    flowEndpoint("/optimistic") { DataBus.getter(OptimismLevel.OPTIMISTIC) }
+    flowEndpoint("/pessimistic") { DataBus.getter(OptimismLevel.PESSIMISTIC) }
 }
 
 fun Route.configureOverlayRouting() {
@@ -32,13 +32,9 @@ fun Route.configureOverlayRouting() {
     flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
     flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
     route("/scoreboard") {
-        setUpScoreboard { flow -> flow.map { it.toLegacyScoreboard() } }
+        setUpScoreboard { getLegacyScoreboard(it) }
         route("/v2") {
-            setUpScoreboard { flow ->
-                flow.withIndex().map { (index, state) ->
-                    state.toScoreboardDiff(snapshot = index == 0)
-                }
-            }
+            setUpScoreboard { getScoreboardDiffs(it) }
         }
     }
     route("/svgAchievement"){
