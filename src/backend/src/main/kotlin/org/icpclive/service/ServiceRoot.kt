@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.api.*
 import org.icpclive.cds.*
-import org.icpclive.cds.api.ContestResultType
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.util.completeOrThrow
@@ -13,10 +12,9 @@ import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
 
 fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
-    val loaded = loader.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
-    val normalScoreboardState = loaded.calculateScoreboard(OptimismLevel.NORMAL).shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
-
-    val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
+    val normalScoreboardState = loader
+        .calculateScoreboard(OptimismLevel.NORMAL)
+        .shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
 
     fun CoroutineScope.launchService(service: Service) = launch {
         with(service) {
@@ -46,17 +44,9 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     launchService(AnalyticsService(AnalyticsGenerator(Config.analyticsTemplatesFile)))
     launchService(ExternalRunsService())
 
-    launch {
-        val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
-        val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
-        DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
-        DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
-        accentService.run(
-            DataBus.contestInfoFlow.await(),
-            runsFlow,
-            normalScoreboardState,
-            DataBus.teamInterestingScoreRequestFlow.await(),
-        )
-    }
+    val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
+    DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
+
+    launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
 
 }

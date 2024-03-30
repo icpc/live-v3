@@ -1,12 +1,12 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
 import org.icpclive.api.*
+import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
@@ -97,9 +97,9 @@ class TeamState(val teamId: TeamId) : Comparable<TeamState> {
 }
 
 class TeamSpotlightService(
-    val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings(),
     private val teamInteresting: MutableStateFlow<List<CurrentTeamState>>? = null,
-) {
+) : Service {
+    val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings()
     private val mutex = Mutex()
     private val queue = mutableSetOf<TeamState>()
     private fun getTeamInQueue(teamId: TeamId) =
@@ -127,38 +127,40 @@ class TeamSpotlightService(
         teamInteresting?.emit(queue.map { CurrentTeamState(it.teamId, it.score) } )
     }
 
-    suspend fun run(
-        info: StateFlow<ContestInfo>,
-        runs: Flow<RunInfo>,
-        scoreboard: Flow<ContestStateWithScoreboard>,
-        // analyticsMessage: Flow<AnalyticsMessage>
-        addScoreRequests: Flow<AddTeamScoreRequest>? = null,
-    ) {
+    override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
+        DataBus.teamSpotlightFlow.completeOrThrow(getFlow())
         val runIds = mutableSetOf<RunId>()
-        coroutineScope {
-            val scoreboardState = scoreboard.map { it.toScoreboardDiff(true) }.stateIn(this)
+        launch {
+            val addScoreRequests = DataBus.teamInterestingScoreRequestFlow.await()
+            var scoreboardState : ScoreboardDiff? = null
             merge(
                 loopFlow(settings.scoreboardPushInterval, onError = {}) { ScoreboardPushTrigger },
-                runs.filter { !it.isHidden },
-                addScoreRequests ?: emptyFlow(),
+                flow.filter { state -> state.state.lastEvent.let { it is RunUpdate && !it.newInfo.isHidden } },
+                addScoreRequests,
                 DataBus.socialEvents.await(),
             ).collect { update ->
                 when (update) {
-                    is RunInfo -> {
-                        if (update.time + 60.seconds > info.value.currentContestTime) {
-                            if (update.isJudged || update.id !in runIds) {
-                                runIds += update.id
+                    is ContestStateWithScoreboard -> {
+                        scoreboardState = update.toScoreboardDiff(snapshot = true)
+                        val info = update.state.infoAfterEvent ?: return@collect
+                        val runUpdate = update.state.lastEvent as RunUpdate
+                        val run = runUpdate.newInfo
+                        if (run.time + 60.seconds > info.currentContestTime) {
+                            if (run.isJudged || run.id !in runIds) {
+                                runIds += run.id
                                 mutex.withLock {
-                                    getTeamInQueue(update.teamId).addAccent(TeamRunAccent(update))
+                                    getTeamInQueue(run.teamId).addAccent(TeamRunAccent(run))
                                 }
                             }
                         }
                     }
 
                     is ScoreboardPushTrigger -> {
-                        scoreboardState.value.order.zip(scoreboardState.value.ranks).takeWhile { it.second <= settings.scoreboardLowestRank }.forEach {
-                            mutex.withLock {
-                                getTeamInQueue(it.first).addAccent(TeamScoreboardPlace(it.second))
+                        scoreboardState?.let {
+                            it.order.zip(it.ranks).takeWhile { it.second <= settings.scoreboardLowestRank }.forEach {
+                                mutex.withLock {
+                                    getTeamInQueue(it.first).addAccent(TeamScoreboardPlace(it.second))
+                                }
                             }
                         }
                     }
