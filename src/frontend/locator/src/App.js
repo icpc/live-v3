@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
 import { faviconTemplate } from "./styles";
 import SniperLocator from "./components/SniperLocator";
+import Calibrator from "./components/Calibrator";
 
 const getTheme = (contestColor) => {
     if (!contestColor) {
@@ -64,6 +65,8 @@ function App() {
                     </ThemeProvider>
                     <Routes>
                         <Route path="/" element={<SniperLocator/>}/>
+                        <Route path="/sniperLocator" element={<SniperLocator/>}/>
+                        <Route path="/sniperCalibrator" element={<Calibrator/>}/>
                     </Routes>
                 </div>
             </SnackbarProvider>

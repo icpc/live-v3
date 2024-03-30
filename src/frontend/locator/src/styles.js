@@ -1,9 +1,3 @@
-import { grey, lightBlue } from "@mui/material/colors";
-
-export const selectedAndActiveRowColor = lightBlue.A400;
-export const activeRowColor = lightBlue.A100;
-export const selectedRowColor = grey.A200;
-
 export const faviconTemplate = `<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1734_27177)">
 <rect width="512" height="512" rx="256" fill="{CONTEST_COLOR}"/>

@@ -126,6 +126,5 @@ object Util {
         if (inited) return
         inited = true
         init(snipersTxtPath.toString(), Config.configDirectory.toAbsolutePath())
-        println(123123123)
     }
 }

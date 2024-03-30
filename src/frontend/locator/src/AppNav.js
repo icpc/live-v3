@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
-import NotesIcon from "@mui/icons-material/Notes";
 import MenuIcon from "@mui/icons-material/Menu";
 import PreviewIcon from "@mui/icons-material/Preview";
 import PropTypes from "prop-types";
 
 const pages = {
     "Sniper Locator": "sniperLocator",
+    "Sniper Calibrator": "sniperCalibrator"
 };
 
 
@@ -67,7 +67,7 @@ const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
                         {Object.entries(pages).map(([name, url]) =>
                             <Button key={url} onClick={() => navigate(url)}
                                 sx={{ my: 2, color: "text.primary", display: "block" }}>
-                                {name === "Backend Log" ? <NotesIcon/> : name}
+                                {name}
                             </Button>)}
                         <Button onClick={showOrHideOverlayPerview}
                             sx={{ my: 2, color: "text.primary", display: "block" }}>

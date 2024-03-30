@@ -59,11 +59,11 @@ fun Application.module() {
     routing {
         singlePageApplication {
             useResources = true
-            applicationRoute = "admin"
-            react("admin")
+            applicationRoute = "locator"
+            react("locator")
         }
         get {
-            call.respondRedirect("/admin")
+            call.respondRedirect("/locator")
         }
 
         route("/api") {
