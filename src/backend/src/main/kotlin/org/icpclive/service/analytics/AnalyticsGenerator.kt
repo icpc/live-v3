@@ -17,7 +17,7 @@ import kotlin.io.path.inputStream
 class AnalyticsGenerator(jsonTemplatePath: Path?) {
     private val messagesTemplates_ = jsonTemplatePath ?.let { Json.decodeFromStream<JsonAnalyticTemplates>(it.inputStream()) }
 
-    suspend fun getFlow(
+    fun getFlow(
         scoreboardFlow: Flow<ContestStateWithScoreboard>,
     ) = flow {
         logger.info("Analytics generator service is started")
