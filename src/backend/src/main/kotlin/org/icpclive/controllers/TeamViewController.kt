@@ -5,8 +5,7 @@ import kotlinx.coroutines.flow.first
 import org.icpclive.api.*
 import org.icpclive.cds.api.MediaType
 import org.icpclive.cds.api.TeamMediaType
-import org.icpclive.data.DataBus
-import org.icpclive.data.Manager
+import org.icpclive.data.*
 import kotlin.time.Duration.Companion.seconds
 
 class TeamViewController(manager: Manager<TeamViewWidget>, val position: TeamViewPosition) :
@@ -14,7 +13,7 @@ class TeamViewController(manager: Manager<TeamViewWidget>, val position: TeamVie
     override suspend fun onDelete(id: Int) {}
 
     override suspend fun constructWidget(settings: ExternalTeamViewSettings): TeamViewWidget {
-        val teamInfo = DataBus.contestInfoFlow.await().first().teams[settings.teamId]
+        val teamInfo = DataBus.currentContestInfo().teams[settings.teamId]
         val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toMutableList()
         if (settings.showTaskStatus) {
             settings.teamId?.let { teamId -> content.add(MediaType.TaskStatus(teamId)) }

@@ -135,7 +135,7 @@ fun Application.module() {
             } ?: MutableStateFlow(emptyVisualConfig)
         )
 
-        launchServices(loader)
+        launchServices(logger, loader)
     }
 }
 

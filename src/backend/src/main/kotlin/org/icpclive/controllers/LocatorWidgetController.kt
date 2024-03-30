@@ -4,8 +4,7 @@ import kotlinx.coroutines.flow.first
 import org.icpclive.admin.ApiActionException
 import org.icpclive.api.*
 import org.icpclive.cds.api.ContestInfo
-import org.icpclive.data.DataBus
-import org.icpclive.data.Manager
+import org.icpclive.data.*
 
 class LocatorWidgetController(manager: Manager<TeamLocatorWidget>) :
     SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(ExternalTeamLocatorSettings(), manager) {
@@ -14,7 +13,7 @@ class LocatorWidgetController(manager: Manager<TeamLocatorWidget>) :
     fun TeamLocatorExternalCircleSettings.getTeam(info: ContestInfo) = info.teams[teamId]
 
     override suspend fun checkSettings(settings: ExternalTeamLocatorSettings) {
-        val info = DataBus.contestInfoFlow.await().first()
+        val info = DataBus.currentContestInfo()
         settings.circles.forEach {
             if ((it.teamId == null) == (it.cdsTeamId == null)) throw ApiActionException("Only one of of teamId and cdsTeamsId can be specified")
             it.getTeam(info) ?: throw ApiActionException("No team for circle $it")
@@ -23,7 +22,7 @@ class LocatorWidgetController(manager: Manager<TeamLocatorWidget>) :
 
     override suspend fun constructWidget(settings: ExternalTeamLocatorSettings): TeamLocatorWidget {
         checkSettings(settings)
-        val info = DataBus.contestInfoFlow.await().first()
+        val info = DataBus.currentContestInfo()
         fun TeamLocatorExternalCircleSettings.toCircle() = TeamLocatorCircleSettings(
             x, y, radius, getTeam(info)?.id ?: throw ApiActionException("No team for circle $this")
         )
