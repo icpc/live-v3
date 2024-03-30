@@ -51,7 +51,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0
-            if (run.result !is RunResult.InProgress) {
+            if (run.result !is RunResult.InProgress && run.time > Duration.ZERO) {
                 do {
                     val submittedRun = run.copy(
                         result = RunResult.InProgress(percentage)
