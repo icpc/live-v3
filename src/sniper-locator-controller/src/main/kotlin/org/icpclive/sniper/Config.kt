@@ -11,6 +11,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.security.MessageDigest
 import java.util.Base64
+import kotlin.io.path.exists
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = false) {
     val configDirectory by option(
@@ -28,12 +29,12 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
 
     val overlayURL: String by option("-o", "--overlay", "--overlay-url", help = "Main overlay url").default("http://127.0.0.1:8080")
 
-    val authDisabled by option(
+    private val authDisabled by option(
         "--no-auth",
         help = "Disable http basic auth in admin"
     ).flag()
 
-    val credsJsonPath by option("--creds", help = "Path to creds.json").path(mustExist = true, canBeFile = true, canBeDir = false)
+    private val credsJsonPath by option("--creds", help = "Path to creds.json").path(mustExist = false, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/creds.json") { configDirectory.resolve("creds.json") }
 
     var basicAuthKey: BasicAuthKey = BasicAuthKey("")
@@ -41,7 +42,12 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
 
     override fun run() {
         if (!authDisabled) {
-            val creds = Json.decodeFromStream<AdminCreds>(credsJsonPath.toFile().inputStream())
+            val creds: AdminCreds
+            if (credsJsonPath.exists()) {
+                creds = Json.decodeFromStream<AdminCreds>(credsJsonPath.toFile().inputStream())
+            } else {
+                creds = AdminCreds("admin", "admin")
+            }
             basicAuthKey = BasicAuthKey(
                 "Basic " +
                         Base64.getEncoder().encodeToString("${creds.username}:${creds.password}".toByteArray())
