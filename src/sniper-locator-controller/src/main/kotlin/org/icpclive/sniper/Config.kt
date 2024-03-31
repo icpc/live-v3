@@ -42,11 +42,10 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
 
     override fun run() {
         if (!authDisabled) {
-            val creds: AdminCreds
-            if (credsJsonPath.exists()) {
-                creds = Json.decodeFromStream<AdminCreds>(credsJsonPath.toFile().inputStream())
+            val creds = if (credsJsonPath.exists()) {
+                Json.decodeFromStream<AdminCreds>(credsJsonPath.toFile().inputStream())
             } else {
-                creds = AdminCreds("admin", "admin")
+                AdminCreds("admin", "admin")
             }
             basicAuthKey = BasicAuthKey(
                 "Basic " +
