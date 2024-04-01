@@ -4,6 +4,11 @@ plugins {
     id("live.kotlin-conventions")
 }
 
+tasks {
+    test {
+        inputs.dir(rootProject.layout.projectDirectory.dir("config"))
+    }
+}
 
 dependencies {
     implementation(projects.cds.core)
