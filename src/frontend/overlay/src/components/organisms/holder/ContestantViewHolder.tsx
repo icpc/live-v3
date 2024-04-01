@@ -7,11 +7,13 @@ import { useAppDispatch } from "@/redux/hooks";
 import { MediaType } from "@shared/api";
 import c from "../../../config";
 import mpegts from "mpegts.js";
+import Hls from "hls.js";
 
 // export const TeamImageWrapper = styled.img /*`
 //   // border-radius: ${({ borderRadius }) => borderRadius};
 // `*/;
 
+// https://usefulangle.com/post/142/css-video-aspect-ratio
 // export const TeamVideoWrapper = styled.video/*`
 //   position: absolute;
 //   width: 100%;
@@ -23,7 +25,13 @@ import mpegts from "mpegts.js";
 //   border-radius: ${({ borderRadius }) => borderRadius};
 // `*/;
 
-export const VideoWrapper = styled.video`
+const VideoWrapper = styled.video`
+  position: absolute;
+  width: 100%;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
+`;
+
+const ImgWrapper = styled.img`
   position: absolute;
   width: 100%;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
@@ -50,7 +58,7 @@ export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
             if (videoRef.current) {
                 videoRef.current.srcObject = null;
             }
-        }
+        };
     }, [url]);
     return (<VideoWrapper
         ref={videoRef}
@@ -147,6 +155,97 @@ export const TeamWebRTCGrabberVideoWrapper = ({ media: { url, peerName, streamTy
         {...props}/>);
 };
 
+interface HlsPlayerProps
+    extends React.VideoHTMLAttributes<HTMLVideoElement> {
+    src: string;
+    jwtToken?: string;
+    // onCanPlay: () => void;
+    onError?: () => void;
+}
+
+function HlsPlayer({
+    src,
+    autoPlay,
+    jwtToken,
+    // onCanPlay,
+    ...props
+}: HlsPlayerProps) {
+    const playerRef = useRef<HTMLVideoElement>();
+    useEffect(() => {
+        // onCanPlay();
+        let hls: Hls;
+
+        function _initPlayer() {
+            if (hls != null) {
+                hls.destroy();
+            }
+
+            const newHls = new Hls({
+                enableWorker: false,
+                xhrSetup: (xhr) => {
+                    if (jwtToken) {
+                        xhr.setRequestHeader("Authorization", "Bearer " + jwtToken);
+                    }
+                },
+            });
+
+            if (playerRef.current != null) {
+                newHls.attachMedia(playerRef.current);
+            }
+
+            newHls.on(Hls.Events.MEDIA_ATTACHED, () => {
+                newHls.loadSource(src);
+
+                newHls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    if (autoPlay) {
+                        playerRef?.current
+                            ?.play()
+                            .catch(() =>
+                                console.log(
+                                    "Unable to autoplay prior to user interaction with the dom."
+                                )
+                            );
+                    }
+                });
+            });
+
+            newHls.on(Hls.Events.ERROR, function (event, data) {
+                if (data.fatal) {
+                    switch (data.type) {
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        newHls.startLoad();
+                        break;
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        newHls.recoverMediaError();
+                        break;
+                    default:
+                        _initPlayer();
+                        break;
+                    }
+                }
+            });
+
+            hls = newHls;
+        }
+
+        // Check for Media Source support
+        if (Hls.isSupported()) {
+            _initPlayer();
+        }
+
+        return () => {
+            if (hls != null) {
+                hls.destroy();
+            }
+        };
+    }, [autoPlay, src, jwtToken]);
+
+    // If Media Source is supported, use HLS.js to play video
+    if (Hls.isSupported()) return <VideoWrapper ref={playerRef} autoPlay={autoPlay} controls={false} {...props} />;
+
+    // Fallback to using a regular video player if HLS is supported by default in the user's browser
+    return <VideoWrapper ref={playerRef} src={src} autoPlay={autoPlay} controls={false} {...props} />;
+}
 
 export const FullWidthWrapper = styled.div`
   width: 100%;
@@ -189,9 +288,9 @@ const teamViewComponentRender: {
             []);
         return <ContestantViewHolderCorner hasPInP={hasPInP} isSmall={isSmall} className={className} {...media}/>;
     },
-    Photo: ({ onLoadStatus, className, media }) => {
+    Image: ({ onLoadStatus, className, media }) => {
         return <FullWidthWrapper className={className}>
-            <img src={media.url} onLoad={() => onLoadStatus(true)}/>
+            <ImgWrapper src={media.url} onLoad={() => onLoadStatus(true)}/>
         </FullWidthWrapper>;
     },
     Object: ({ onLoadStatus, className, media }) => {
@@ -209,7 +308,22 @@ const teamViewComponentRender: {
                 onError={() => onLoadStatus(false)}
                 autoPlay
                 loop
-                muted/>
+                muted
+            />
+        </FullWidthWrapper>;
+    },
+    HLSVideo: ({ onLoadStatus, media, ...props }) => {
+        return <FullWidthWrapper>
+            <HlsPlayer
+                src={media.url}
+                jwtToken={media.jwtToken}
+                autoPlay
+                loop
+                muted
+                onCanPlay={() => onLoadStatus(true)}
+                onError={() => onLoadStatus(false)}
+                {...props}
+            />
         </FullWidthWrapper>;
     },
     M2tsVideo: ({ onLoadStatus, className, media }) => {
@@ -259,7 +373,7 @@ export const ContestantViewHolder = ({ onLoadStatus, media, isSmall, hasPInP, cl
             []);
         return null;
     }
-    if (!media.isMedia && media.type === "Photo") {
+    if (!media.isMedia && media.type === "Image") { // TODO: why only Image?
         return <Achievement src={media.url} onLoadStatus={onLoadStatus} className={className}/>;
     }
     return <Component onLoadStatus={onLoadStatus} isSmall={isSmall} hasPInP={hasPInP} media={media} className={className}/>;

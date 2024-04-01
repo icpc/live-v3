@@ -5,11 +5,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.api.*
-import org.icpclive.cds.adapters.ContestState
-import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
-import org.icpclive.cds.scoreboard.ScoreboardAndContestInfo
-import org.icpclive.util.completeOrThrow
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
 
@@ -17,18 +14,17 @@ import org.icpclive.service.FeaturedRunAction
  * Everything published here should be immutable, to allow secure work from many threads
  */
 object DataBus {
-    val contestInfoFlow = CompletableDeferred<StateFlow<ContestInfo>>()
     val contestStateFlow = CompletableDeferred<StateFlow<ContestState>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
+    val externalRunsFlow = CompletableDeferred<Flow<Map<RunId, ExternalRunInfo>>>()
 
     // flow of run ids that need to be braking news
     val queueFeaturedRunsFlow = CompletableDeferred<FlowCollector<FeaturedRunAction>>()
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()
-    private val legacyScoreboardFlow = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<LegacyScoreboard>>() }
-    private val scoreboardFlow = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<ScoreboardAndContestInfo>>() }
+    private val scoreboardDiffs = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<ScoreboardDiff>>() }
+    private val legacyScoreboards = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<LegacyScoreboard>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
-    val advancedPropertiesFlow = CompletableDeferred<Flow<AdvancedProperties>>()
     val analyticsActionsFlow = CompletableDeferred<Flow<AnalyticsAction>>()
     val analyticsFlow = CompletableDeferred<Flow<AnalyticsEvent>>()
     val loggerFlow = MutableSharedFlow<String>(
@@ -47,6 +43,15 @@ object DataBus {
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
     val visualConfigFlow = CompletableDeferred<StateFlow<JsonObject>>()
 
-    fun setScoreboardEvents(level: OptimismLevel, flow: Flow<ScoreboardAndContestInfo>) { scoreboardFlow[level.ordinal].completeOrThrow(flow) }
-    suspend fun getScoreboardEvents(level: OptimismLevel) = scoreboardFlow[level.ordinal].await()
+    fun setScoreboardDiffs(level: OptimismLevel, flow: Flow<ScoreboardDiff>) {
+        scoreboardDiffs[level.ordinal].complete(flow)
+    }
+    suspend fun getScoreboardDiffs(level: OptimismLevel) : Flow<ScoreboardDiff> = scoreboardDiffs[level.ordinal].await()
+    fun setLegacyScoreboard(level: OptimismLevel, flow: Flow<LegacyScoreboard>) {
+        legacyScoreboards[level.ordinal].complete(flow)
+    }
+    suspend fun getLegacyScoreboard(level: OptimismLevel) = legacyScoreboards[level.ordinal].await()
 }
+
+suspend fun DataBus.currentContestInfo() = currentContestInfoFlow().first()
+suspend fun DataBus.currentContestInfoFlow() = contestStateFlow.await().mapNotNull { it.infoAfterEvent }.distinctUntilChanged()

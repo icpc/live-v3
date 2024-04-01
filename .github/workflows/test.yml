@@ -48,7 +48,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build with gradle
-        run: ./gradlew build release apiCheck --scan -Pnpm.download=false -i
+        run: ./gradlew build release apiCheck --scan -Pnpm.download=false
 
       - uses: actions/upload-artifact@v3
         if: always()

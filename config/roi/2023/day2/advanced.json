@@ -22,7 +22,7 @@
   "teamOverrideTemplate": {
     "medias": {
       "achievement": {
-        "type": "Photo",
+        "type": "Image",
         "url": "/media/ach/{teamId}.svg"
       },
       "screen": {

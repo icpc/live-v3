@@ -1,0 +1,30 @@
+{
+    "teamNameRegexes": {
+      "customFields": {
+        "funnyName": {
+          "(.*)": "$1"
+        }
+      }
+    },
+    "teamOverrideTemplate": {
+      "medias": {
+        "achievement": {
+          "type": "Image",
+          "url": "/media/{teamId}.svg"
+        },
+        "photo": {"type": "Image", "url": "/media/teams/{teamId}/photo.jpg"}
+      }
+    },
+    "problemOverrides": {
+      "A-sum-integers-SGQPRC": {
+        "isHidden": true
+      }
+    },
+    "awardsSettings": {
+        "medals": [
+          {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
+          {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
+          {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 6}
+        ]
+    }
+  }

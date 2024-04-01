@@ -31,7 +31,7 @@ const CornerContestantInfo = styled(ContestantInfo)`
 `;
 
 export const ContestantViewCorner = ({ teamId, isSmall = false, className = null }: {
-    teamId: number;
+    teamId: string;
     isSmall: boolean;
     className?: string;
 }) => {

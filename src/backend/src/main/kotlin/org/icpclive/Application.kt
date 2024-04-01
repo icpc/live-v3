@@ -121,7 +121,6 @@ fun Application.module() {
     launch(handler) {
         val loader = config.cdsSettings.toFlow(log)
             .contestState()
-            .filterUseless()
             .removeFrozenSubmissions()
             .processHiddenTeamsAndGroups()
             .processHiddenProblems()
@@ -136,7 +135,7 @@ fun Application.module() {
             } ?: MutableStateFlow(emptyVisualConfig)
         )
 
-        launchServices(loader)
+        launchServices(logger, loader)
     }
 }
 

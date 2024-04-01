@@ -1,5 +1,5 @@
 // import PropTypes from "prop-types";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { css, CSSObject, Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
@@ -13,7 +13,7 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { RunInfo } from "@shared/api";
+import { RunInfo, Widget } from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
 
 // const MAX_QUEUE_ROWS_COUNT = 20;
@@ -21,23 +21,28 @@ import { isFTS } from "@/utils/statusInfo";
 // Needed just for positioning and transitions. Don't use for anything else
 interface QueueRowAnimatorProps {
     bottom: number,
+    right: number,
+    horizontal?: boolean,
     zIndex: number,
     animation: Keyframes,
     fts: boolean
 }
-const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(({ bottom, zIndex }) => {
+const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(({ bottom, right, zIndex }) => {
     return ({
         style: {
             bottom: bottom + "px",
+            right: right + "px",
             zIndex: zIndex,
         }
     });
 })<QueueRowAnimatorProps>`
   overflow: hidden;
-  width: 100%;
+  width: ${({ horizontal }) => horizontal ? (c.QUEUE_ROW_WIDTH + "px") : "100%"};
 
   position: absolute;
-  transition: bottom linear ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
+  transition-property: ${({ horizontal }) => horizontal ? "right" : "bottom"};
+  transition-duration: ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
+  transition-timing-function: linear;
   animation: ${({ animation }) => animation} ${c.QUEUE_ROW_APPEAR_TIME}ms linear; /* dissapear is also linear for now. FIXME */
   animation-fill-mode: forwards;
 `;
@@ -115,6 +120,7 @@ interface QueueRow extends RunInfo {
     isEven: boolean,
     zIndex: number,
     bottom: number,
+    right: number,
     isFeatured: boolean,
     isFeaturedRunMediaLoaded: boolean,
     isFts: boolean,
@@ -122,14 +128,28 @@ interface QueueRow extends RunInfo {
 }
 
 const useQueueRowsData = ({
-    // width,
+    width,
     height,
     basicZIndex = c.QUEUE_BASIC_ZINDEX,
+    horizontal = true
 }: {
+    width: number,
     height: number,
-    basicZIndex?: number
+    basicZIndex?: number,
+    horizontal?: boolean,
 }): [QueueRow | null, QueueRow[]] => {
     const shouldShow = useDelayedBoolean(300);
+
+    const bottomPosition = useCallback((index: number) => {
+        const actual = horizontal ? Math.floor(index / c.QUEUE_HORISONTAL_HEIGHT_NUM) : index;
+        return (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * actual;
+    }, [horizontal]);
+    const rightPosition = useCallback((index: number) => {
+        return (c.QUEUE_ROW_WIDTH + c.QUEUE_ROW_HORIZONTAL_PADDING) * (horizontal ? (index % c.QUEUE_HORISONTAL_HEIGHT_NUM) : 0);
+    }, [horizontal]);
+    const allowedMaxRows = useMemo(() => {
+        return Math.min((width / c.QUEUE_ROW_WIDTH) * (height / c.QUEUE_ROW_HEIGHT), c.QUEUE_MAX_ROWS);
+    }, [width, height]);
 
     const { queue, totalQueueItems } = useAppSelector(state => state.queue);
 
@@ -144,6 +164,7 @@ const useQueueRowsData = ({
             isEven: (totalQueueItems - runIndex) % 2 === 0,
             zIndex: basicZIndex - runIndex + totalQueueItems,
             bottom: 0,
+            right: 0,
             isFeatured: false,
             isFeaturedRunMediaLoaded: false,
             isFts: isFTS(run),
@@ -171,14 +192,21 @@ const useQueueRowsData = ({
     let regularRowCount = 0;
     rows.forEach((row) => {
         if (row.isFts) {
-            row.bottom = (height - (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * (totalFts - ftsRowCount)) + 3;
+            if (horizontal) {
+                row.bottom = height - c.QUEUE_ROW_HEIGHT - 3 - bottomPosition(totalFts - ftsRowCount - 1);
+                row.right = width - c.QUEUE_ROW_WIDTH - rightPosition(totalFts - ftsRowCount - 1);
+            } else {
+                row.bottom = height - bottomPosition(totalFts - ftsRowCount) + 3;
+                row.right = 0;
+            }
             ftsRowCount++;
-        } else {
-            row.bottom = (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * regularRowCount;
+        } else  {
+            row.bottom = bottomPosition(regularRowCount);
+            row.right = rightPosition(regularRowCount);
             regularRowCount++;
         }
     });
-    const allowedRegular = c.QUEUE_MAX_ROWS - ftsRowCount;
+    const allowedRegular = allowedMaxRows - ftsRowCount;
     rows = rows.filter((row, index) => {
         return row.isFts || index < allowedRegular;
     });
@@ -293,7 +321,7 @@ const QueueWrap = styled.div`
   background-color: ${c.QUEUE_BACKGROUND_COLOR};
   background-repeat: no-repeat;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
-  padding: 8px;
+  padding: ${c.QUEUE_ROW_HORIZONTAL_PADDING}px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -365,10 +393,13 @@ export const Featured = ({ runInfo }) => {
     </TransitionGroup>;
 };
 
-export const Queue = () => {
-    // const [width, setWidth] = useState(null);
+type QueueProps = {
+    widgetData: Widget.QueueWidget,
+};
+export const Queue = ({ widgetData: { settings: { horizontal }, location } }: QueueProps) => {
     const [height, setHeight] = useState<number>(null);
-    const [featured, queueRows] = useQueueRowsData({ height });
+    const width =location.sizeX - c.QUEUE_ROW_HORIZONTAL_PADDING * 2;
+    const [featured, queueRows] = useQueueRowsData({ height, width, horizontal });
     return <>
         <Featured runInfo={featured}/>
         <QueueWrap>
@@ -394,8 +425,10 @@ export const Queue = () => {
                                 return state !== "exited" && (
                                     <QueueRowAnimator
                                         bottom={row.bottom}
+                                        right={row.right}
                                         zIndex={row.zIndex}
                                         fts={row.isFts}
+                                        horizontal={horizontal}
                                         {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
                                     >
                                         {/*<FeaturedRunRow2*/}

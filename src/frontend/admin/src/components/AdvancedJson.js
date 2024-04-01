@@ -8,16 +8,16 @@ import { createApiGet, createApiPost } from "shared-code/utils";
 import JsonEditor from "./atoms/JsonEditor";
 import Box from "@mui/material/Box";
 
+const SCHEMA_URL = SCHEMAS_LOCATION + "/advanced.schema.json";
+const API_URL = BASE_URL_BACKEND + "/advancedJson";
+
 function AdvancedJson() {
     const { enqueueSnackbar } = useSnackbar();
     const errorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
 
-    const schemaUrl = SCHEMAS_LOCATION + "/advanced.schema.json";
-    const apiUrl = BASE_URL_BACKEND + "/advancedJson";
-
-    const schemaGet = createApiGet(schemaUrl);
-    const apiGet = createApiGet(apiUrl);
-    const apiPost = createApiPost(apiUrl);
+    const schemaGet = createApiGet(SCHEMA_URL);
+    const apiGet = createApiGet(API_URL);
+    const apiPost = createApiPost(API_URL);
 
     const [schema, setSchema] = useState();
     const [content, setContent] = useState();
@@ -26,16 +26,16 @@ function AdvancedJson() {
         schemaGet("")
             .then(data => setSchema(data))
             .catch(errorHandler("Failed to load advanced json schema"));
-    }, [schemaUrl]);
+    }, []);
 
     useEffect(() => {
-        apiGet("")
+        apiGet("", undefined, true)
             .then(data => setContent(data))
             .catch(errorHandler("Failed to load advanced json data"));
-    }, [apiUrl]);
+    }, []);
 
     const onSubmit = () => {
-        apiPost("", content)
+        apiPost("", content, "POST", true)
             .catch(errorHandler("Failed to save advanced json data"));
     };
 
@@ -52,8 +52,8 @@ function AdvancedJson() {
             <Box height="75vh">
                 <JsonEditor
                     schema={schema}
-                    onChange={(value) => setContent(JSON.parse(value))}
-                    defaultValue={JSON.stringify(content, null, 2)}
+                    onChange={(value) => setContent(value)}
+                    defaultValue={content}
                 />
             </Box>
             <Button type="submit" onClick={onSubmit}>

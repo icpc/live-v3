@@ -115,7 +115,7 @@ export const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
 
 
 interface ScoreboardRowProps {
-    teamId: number,
+    teamId: string,
     hideTasks?: boolean,
     optimismLevel: OptimismLevel
 }

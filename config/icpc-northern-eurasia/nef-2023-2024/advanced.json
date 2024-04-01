@@ -64,20 +64,24 @@
     "displayName": "{orgDisplayName} {funnyName}",
     "medias": {
       "achievement": {
-        "type": "Photo",
+        "type": "Image",
+        "url": "/media/ach/{teamId}.svg"
+      },
+      "photo": {
+        "type": "Image",
         "url": "/media/ach/{teamId}.svg"
       },
       "screen": {
         "type": "WebRTCGrabberConnection",
         "peerName": "{grabberPeerName}",
-        "url": "{grabberUrl}",
+        "url": "http://{grabberIp}:8080",
         "streamType": "desktop",
         "credential": "live"
       },
       "camera": {
         "type": "WebRTCGrabberConnection",
         "url": "{grabberUrl}",
-        "peerName": "{grabberPeerName}",
+        "peerName": "http://{grabberIp}:8080",
         "streamType": "webcam",
         "credential": "live"
       }
@@ -125,11 +129,11 @@
         "nsk(\\d\\d\\d)": "N$1",
         "kaz(\\d\\d\\d)": "K$1"
       },
-      "grabberUrl": {
-        "spb(\\d\\d\\d)": "http://192.168.0.112:8000",
-        "geo(\\d\\d\\d)": "http://192.168.0.175:8000",
-        "nsk(\\d\\d\\d)": "http://192.168.0.175:8000",
-        "kaz(\\d\\d\\d)": "http://192.168.0.175:8000"
+      "grabberIp": {
+        "spb(\\d\\d\\d)": "192.168.0.112",
+        "geo(\\d\\d\\d)": "192.168.0.175",
+        "nsk(\\d\\d\\d)": "192.168.0.175",
+        "kaz(\\d\\d\\d)": "192.168.0.175"
       }
     },
     "groupRegex": {

@@ -36,8 +36,8 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
     }
     logJob.cancel()
     val finalContestInfo = state.infoAfterEvent!!
-    val runs = state.runs.values.toList()
-    val analyticsMessages = state.analyticsMessages.values.toList()
+    val runs = state.runsAfterEvent.values.toList()
+    val analyticsMessages = state.analyticsMessagesAfterEvent.values.toList()
     logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${startTime.humanReadable}")
     val contestInfo = finalContestInfo.copy(
         startTime = startTime,
@@ -51,7 +51,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0
-            if (run.result !is RunResult.InProgress) {
+            if (run.result !is RunResult.InProgress && run.time > Duration.ZERO) {
                 do {
                     val submittedRun = run.copy(
                         result = RunResult.InProgress(percentage)
@@ -66,17 +66,12 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         addAll(analyticsMessages.map { it.relativeTime to AnalyticsUpdate(it) })
     }.sortedBy { it.first }.forEach { emit(it) }
 }.map { (startTime + it.first / emulationSpeed) to it.second }
-    .toTimedFlow { logger.info("Processed events upto ${(it - startTime) * emulationSpeed}") }
+    .toTimedFlow()
 
 
-private fun <T> Flow<Pair<Instant, T>>.toTimedFlow(log: (Instant) -> Unit = {}) : Flow<T> {
-    var lastLoggedTime: Instant = Instant.DISTANT_PAST
+private fun <T> Flow<Pair<Instant, T>>.toTimedFlow(): Flow<T> {
     return map { (nextEventTime, item) ->
         delay(nextEventTime - Clock.System.now())
-        if (nextEventTime - lastLoggedTime > 10.seconds) {
-            log(nextEventTime)
-            lastLoggedTime = nextEventTime
-        }
         item
     }
 }

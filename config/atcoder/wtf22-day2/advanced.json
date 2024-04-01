@@ -16,7 +16,7 @@
   "teamOverrideTemplate": {
     "medias": {
       "achievement": {
-        "type": "Photo",
+        "type": "Image",
         "url": "/media/achievement/{teamId}.svg"
       }
     }

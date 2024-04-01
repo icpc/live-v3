@@ -1,6 +1,51 @@
 {
     "$ref": "#/$defs/ICPC live advanced settings",
     "$defs": {
+        "HLSVideo": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "HLSVideo",
+                    "default": "HLSVideo"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "jwtToken": {
+                    "type": "string"
+                },
+                "isMedia": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "HLSVideo"
+        },
+        "Image": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Image",
+                    "default": "Image"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "isMedia": {
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "Image"
+        },
         "M2tsVideo": {
             "type": "object",
             "properties": {
@@ -42,27 +87,6 @@
                 "url"
             ],
             "title": "Object"
-        },
-        "Photo": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "Photo",
-                    "default": "Photo"
-                },
-                "url": {
-                    "type": "string"
-                },
-                "isMedia": {
-                    "type": "boolean"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "url"
-            ],
-            "title": "Photo"
         },
         "TaskStatus": {
             "type": "object",
@@ -166,13 +190,16 @@
         "org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>": {
             "oneOf": [
                 {
+                    "$ref": "#/$defs/HLSVideo"
+                },
+                {
+                    "$ref": "#/$defs/Image"
+                },
+                {
                     "$ref": "#/$defs/M2tsVideo"
                 },
                 {
                     "$ref": "#/$defs/Object"
-                },
-                {
-                    "$ref": "#/$defs/Photo"
                 },
                 {
                     "$ref": "#/$defs/TaskStatus"

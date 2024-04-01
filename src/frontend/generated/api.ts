@@ -104,9 +104,10 @@ export type OrganizationId = string;
 export type GroupId = string;
 
 export type MediaType =
+  | MediaType.HLSVideo
+  | MediaType.Image
   | MediaType.M2tsVideo
   | MediaType.Object
-  | MediaType.Photo
   | MediaType.TaskStatus
   | MediaType.Video
   | MediaType.WebRTCGrabberConnection
@@ -114,13 +115,27 @@ export type MediaType =
 
 export namespace MediaType {
   export enum Type {
+    HLSVideo = "HLSVideo",
+    Image = "Image",
     M2tsVideo = "M2tsVideo",
     Object = "Object",
-    Photo = "Photo",
     TaskStatus = "TaskStatus",
     Video = "Video",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
+  }
+  
+  export interface HLSVideo {
+    type: MediaType.Type.HLSVideo;
+    url: string;
+    jwtToken?: string | null;
+    isMedia?: boolean;
+  }
+  
+  export interface Image {
+    type: MediaType.Type.Image;
+    url: string;
+    isMedia?: boolean;
   }
   
   export interface M2tsVideo {
@@ -131,12 +146,6 @@ export namespace MediaType {
   
   export interface Object {
     type: MediaType.Type.Object;
-    url: string;
-    isMedia?: boolean;
-  }
-  
-  export interface Photo {
-    type: MediaType.Type.Photo;
     url: string;
     isMedia?: boolean;
   }
@@ -258,17 +267,11 @@ export interface Verdict {
   isAccepted: boolean;
 }
 
-export interface Scoreboard {
-  type: ScoreboardUpdateType;
+export interface ScoreboardDiff {
   rows: { [key: TeamId]: ScoreboardRow };
   order: TeamId[];
   ranks: number[];
   awards: Award[];
-}
-
-export enum ScoreboardUpdateType {
-  DIFF = "DIFF",
-  SNAPSHOT = "SNAPSHOT",
 }
 
 export interface ScoreboardRow {
@@ -514,6 +517,7 @@ export interface PictureSettings {
 }
 
 export interface QueueSettings {
+  horizontal?: boolean;
 }
 
 export interface ScoreboardSettings {

@@ -46,7 +46,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build with gradle
-        run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }} -i
+        run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
@@ -82,13 +82,14 @@ jobs:
             type=semver,pattern={{version}},value=${{ github.event.inputs.version }}
             type=schedule,pattern={{date 'YYYYMMDD'}}
             
-      - name: Copy live.jar into cloud overlayer
-        run: cp artifacts/live-v3-*.jar ./src/cloud-instance-docker/live.jar
+      - name: Copy live.zip into cloud overlayer
+        run: cp artifacts/live-v3-*.zip ./src/cloud-instance-docker/live.zip
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: ./src/cloud-instance-docker/
+          build-args: USER_ARCHIVE=live.zip
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

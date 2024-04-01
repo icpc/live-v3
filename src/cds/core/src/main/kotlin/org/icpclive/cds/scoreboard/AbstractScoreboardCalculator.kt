@@ -1,9 +1,7 @@
 package org.icpclive.cds.scoreboard
 
 import kotlinx.collections.immutable.*
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
@@ -152,143 +150,103 @@ public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLev
         ContestResultType.IOI -> IOIScoreboardCalculator()
     }
 
-public fun Scoreboard.toLegacyScoreboard(info: ContestInfo): LegacyScoreboard = LegacyScoreboard(
-    order.zip(ranks).map { (teamId, rank) ->
-        val row = rows[teamId]!!
+public fun ContestStateWithScoreboard.toScoreboardDiff(snapshot: Boolean) : ScoreboardDiff {
+    val rows = if (snapshot) {
+        scoreboardRowsAfter
+    } else {
+        scoreboardRowsChanged.associateWith { scoreboardRowsAfter[it]!! }
+    }
+    return ScoreboardDiff(rows, rankingAfter.order, rankingAfter.ranks, rankingAfter.awards)
+}
+
+public fun ContestStateWithScoreboard.toLegacyScoreboard(): LegacyScoreboard = LegacyScoreboard(
+    rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
+        val row = scoreboardRowsAfter[teamId]!!
         LegacyScoreboardRow(
             teamId = teamId,
             rank = rank,
             totalScore = row.totalScore,
             penalty = row.penalty,
             lastAccepted = row.lastAccepted.inWholeMilliseconds,
-            medalType = awards.firstNotNullOfOrNull { e -> (e as? Award.Medal)?.medalColor?.takeIf { teamId in e.teams }?.name?.lowercase() },
-            championInGroups = awards.mapNotNull { e -> (e as? Award.GroupChampion)?.groupId?.takeIf { teamId in e.teams } },
+            medalType = rankingAfter.awards.firstNotNullOfOrNull { e -> (e as? Award.Medal)?.medalColor?.takeIf { teamId in e.teams }?.name?.lowercase() },
+            championInGroups = rankingAfter.awards.mapNotNull { e -> (e as? Award.GroupChampion)?.groupId?.takeIf { teamId in e.teams } },
             problemResults = row.problemResults,
-            teamGroups = info.teams[teamId]!!.groups
+            teamGroups = state.infoAfterEvent!!.teams[teamId]!!.groups
         )
     }
 )
 
-private class RedoTask(
-    val info: ContestInfo,
-    val mode: ScoreboardUpdateType,
-    val runs: PersistentMap<TeamId, PersistentList<RunInfo>>,
-    val lastSubmissionTime: Duration,
-)
-
-
-private fun Flow<ContestUpdate>.teamRunsUpdates() = flow {
-    var curInfo: ContestInfo? = null
-    var curRuns = persistentMapOf<TeamId, PersistentList<RunInfo>>()
-    var lastSubmissionTime = Duration.ZERO
-    val oldKey = mutableMapOf<RunId, TeamId>()
-    collect { update ->
-        suspend fun updateGroup(key: TeamId) {
-            val info = curInfo ?: return
-            emit(
-                RedoTask(
-                    info,
-                    ScoreboardUpdateType.DIFF,
-                    persistentMapOf(key to (curRuns[key] ?: persistentListOf())),
-                    lastSubmissionTime,
-                )
-            )
-        }
-        when (update) {
-            is RunUpdate -> {
-                lastSubmissionTime = maxOf(lastSubmissionTime, update.newInfo.time)
-                val k = update.newInfo.teamId
-                val oldK = oldKey[update.newInfo.id]
-                oldKey[update.newInfo.id] = k
-                if (oldK != k) {
-                    if (oldK != null) {
-                        curRuns = curRuns.removeRun(oldK, update.newInfo)
-                        updateGroup(oldK)
-                    }
-                    curRuns = curRuns.addAndResort(k, update.newInfo)
-                    updateGroup(k)
-                } else {
-                    curRuns = curRuns.updateAndResort(k, update.newInfo)
-                    updateGroup(k)
-                }
-            }
-
-            is InfoUpdate -> {
-                curInfo = update.newInfo
-                emit(
-                    RedoTask(
-                        update.newInfo,
-                        ScoreboardUpdateType.SNAPSHOT,
-                        curRuns,
-                        lastSubmissionTime
-                    )
-                )
-            }
-
-            is AnalyticsUpdate -> {}
-        }
-    }
-}
-
-public class ScoreboardAndContestInfo internal constructor(
-    public val info: ContestInfo,
-    public val scoreboardSnapshot: Scoreboard,
-    public val scoreboardDiff: Scoreboard,
+public class ContestStateWithScoreboard internal constructor(
+    public val state: ContestState,
+    public val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
+    public val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
+    public val scoreboardRowsChanged: List<TeamId>,
+    public val rankingBefore: Ranking,
+    public val rankingAfter: Ranking,
     public val lastSubmissionTime: Duration,
 )
 
-public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ScoreboardAndContestInfo> =
-    flow {
-        coroutineScope {
-            val s = MutableStateFlow<RedoTask?>(null)
-            launch {
-                teamRunsUpdates()
-                    .collect {
-                        s.update { old ->
-                            if (it.mode == ScoreboardUpdateType.SNAPSHOT || old == null) {
-                                it
-                            } else {
-                                RedoTask(it.info, old.mode, old.runs.putAll(it.runs), it.lastSubmissionTime)
-                            }
-                        }
+public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ContestStateWithScoreboard> = flow {
+    var rows = persistentMapOf<TeamId, ScoreboardRow>()
+    var lastRanking = Ranking(emptyList(), emptyList(), emptyList())
+    var lastSubmissionTime: Duration = Duration.ZERO
+    val logger = getLogger(AbstractScoreboardCalculator::class)
+    var runsByTeamId = persistentMapOf<TeamId, PersistentList<RunInfo>>()
+    fun applyEvent(state: ContestState) : List<TeamId> {
+        val info = state.infoAfterEvent ?: return emptyList()
+        val calculator = getScoreboardCalculator(info, optimismLevel)
+        val teamsAffected = when (val event = state.lastEvent) {
+            is AnalyticsUpdate -> emptyList()
+            is InfoUpdate -> info.teams.keys.toList()
+            is RunUpdate -> {
+                val oldRun = state.runsBeforeEvent[event.newInfo.id]
+                val newRun = event.newInfo
+                if (oldRun?.teamId != newRun.teamId) {
+                    if (oldRun != null) {
+                        runsByTeamId = runsByTeamId.removeRun(oldRun.teamId, oldRun)
                     }
-            }
-
-            var rows = persistentMapOf<TeamId, ScoreboardRow>()
-            val logger = getLogger(AbstractScoreboardCalculator::class)
-            while (true) {
-                val task = s.getAndUpdate { null } ?: s.filterNotNull().first().let { s.getAndUpdate { null }!! }
-                logger.info("Recalculating scoreboard mode = ${task.mode}, patch_rows = ${task.runs.size}, teams = ${task.info.teams.size}, lastSubmissionTime = ${task.lastSubmissionTime}")
-                val calculator = getScoreboardCalculator(task.info, optimismLevel)
-                val teams = when (task.mode) {
-                    ScoreboardUpdateType.DIFF -> task.runs
-                    ScoreboardUpdateType.SNAPSHOT -> task.info.teams
-                }.keys.filterNot { task.info.teams[it]!!.isHidden }
-                val upd = teams.associateWithTo(persistentMapOf<TeamId, ScoreboardRow>().builder()) {
-                    calculator.getScoreboardRow(
-                        task.info,
-                        task.runs[it] ?: emptyList()
-                    )
-                }.build()
-                rows = if (task.mode == ScoreboardUpdateType.SNAPSHOT) {
-                    upd
+                    runsByTeamId = runsByTeamId.addAndResort(newRun.teamId, newRun)
                 } else {
-                    rows.putAll(upd)
+                    runsByTeamId = runsByTeamId.updateAndResort(newRun.teamId, newRun)
                 }
-                for (team in teams) {
-                    require(team in rows) { "team $team is not in rows" }
+                lastSubmissionTime = maxOf(lastSubmissionTime, newRun.time)
+
+                val oldRunTested = oldRun != null && !oldRun.isHidden && oldRun.result !is RunResult.InProgress
+                val newRunTested = !newRun.isHidden && newRun.result !is RunResult.InProgress
+                if (!oldRunTested && !newRunTested)
+                    emptyList()
+                else {
+                    listOfNotNull(oldRun?.teamId, newRun.teamId).distinct()
                 }
-                val ranking = getScoreboardCalculator(task.info, optimismLevel).getRanking(task.info, rows)
-                emit(
-                    ScoreboardAndContestInfo(
-                        task.info,
-                        Scoreboard(ScoreboardUpdateType.SNAPSHOT, rows, ranking.order, ranking.ranks, ranking.awards),
-                        Scoreboard(task.mode, upd, ranking.order, ranking.ranks, ranking.awards),
-                        task.lastSubmissionTime,
-                    )
-                )
             }
         }
+        val teamsReallyAffected = teamsAffected.filter {
+            val newRow = calculator.getScoreboardRow(info, runsByTeamId[it] ?: emptyList())
+            val oldRow = rows[it]
+            rows = rows.put(it, newRow)
+            newRow != oldRow
+        }
+        if (teamsReallyAffected.isNotEmpty()) {
+            lastRanking = calculator.getRanking(info, rows)
+        }
+        return teamsReallyAffected
     }
+    contestState().collect {
+        val oldRows = rows
+        val oldRanking = lastRanking
+        val scoreboardDiff = applyEvent(it)
+        emit(
+            ContestStateWithScoreboard(
+                state = it,
+                scoreboardRowsAfter = rows,
+                scoreboardRowsBefore = oldRows,
+                scoreboardRowsChanged = scoreboardDiff,
+                rankingAfter = lastRanking,
+                rankingBefore = oldRanking,
+                lastSubmissionTime = lastSubmissionTime
+            )
+        )
+    }
+}
 
 

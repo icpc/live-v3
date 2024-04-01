@@ -16,7 +16,7 @@
         "credential": "nwrrc-live-secret"
       },
       "achievement": {
-        "type": "Photo",
+        "type": "Image",
         "url": "/media/ach/{comp}.svg"
       }
     }

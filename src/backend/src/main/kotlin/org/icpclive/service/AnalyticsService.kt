@@ -1,16 +1,19 @@
 package org.icpclive.service
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import org.icpclive.admin.ApiActionException
 import org.icpclive.api.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.util.completeOrThrow
 import org.icpclive.util.getLogger
 import org.icpclive.controllers.PresetsController
-import org.icpclive.data.Controllers
-import org.icpclive.data.DataBus
+import org.icpclive.data.*
+import org.icpclive.service.analytics.AnalyticsGenerator
 import kotlin.time.Duration
 
 sealed class AnalyticsAction {
@@ -24,7 +27,7 @@ sealed class AnalyticsAction {
 }
 
 
-class AnalyticsService {
+class AnalyticsService(val generator: AnalyticsGenerator) : Service {
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private val messages = mutableMapOf<String, AnalyticsMessage>()
 
@@ -111,7 +114,8 @@ class AnalyticsService {
                     logger.warn("Can't make run featured caused by message ${message.id}")
                     return
                 }
-                val team = DataBus.contestInfoFlow.await().value.teams[message.teamIds[0]] ?: return
+                // TODO: it should be passed from above
+                val team = DataBus.currentContestInfo().teams[message.teamIds[0]] ?: return
                 val media = team.medias[action.mediaType] ?: return
                 val request = FeaturedRunAction.MakeFeatured(message.runIds[0], media)
                 featuredRunsFlow.emit(request)
@@ -130,32 +134,34 @@ class AnalyticsService {
         }
     }
 
-    suspend fun run(rawEvents: Flow<AnalyticsMessage>) {
-        val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
-        val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
-        logger.info("Analytics service is started")
-        merge(rawEvents.map(::Message), subscriberFlow.map { Subscribe }, actionFlow)
-            .collect { event ->
-                when (event) {
-                    is Message -> {
-                        val message = event.message
-                        messages[message.id] = message
-                        resultFlow.emit(AddAnalyticsMessageEvent(message))
-                    }
+    override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
+        launch {
+            val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
+            val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
+            logger.info("Analytics service is started")
+            merge(generator.getFlow(flow).map(::Message), subscriberFlow.map { Subscribe }, actionFlow)
+                .collect { event ->
+                    when (event) {
+                        is Message -> {
+                            val message = event.message
+                            messages[message.id] = message
+                            resultFlow.emit(AddAnalyticsMessageEvent(message))
+                        }
 
-                    is Action -> {
-                        try {
-                            event.process(featuredRunFlow)
-                        } catch (e: ApiActionException) {
-                            logger.error("Failed during processing action: $event", e)
+                        is Action -> {
+                            try {
+                                event.process(featuredRunFlow)
+                            } catch (e: ApiActionException) {
+                                logger.error("Failed during processing action: $event", e)
+                            }
+                        }
+
+                        is Subscribe -> {
+                            resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))
                         }
                     }
-
-                    is Subscribe -> {
-                        resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))
-                    }
                 }
-            }
+        }
     }
 
     init {

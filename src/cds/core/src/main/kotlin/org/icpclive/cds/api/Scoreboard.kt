@@ -121,23 +121,14 @@ public sealed class Award {
     ) : Award()
 }
 
-public enum class ScoreboardUpdateType {
-    DIFF,
-    SNAPSHOT
-}
-
-
 /**
- * @param type if [ScoreboardUpdateType.SNAPSHOT] all teams not in rows should be dropped, if [ScoreboardUpdateType.DIFF], only mentioned teams should be replaced
- *        Other fields are always fully transferred
- * @param rows map from teams [TeamInfo.id] to scoreboard row for that team
+ * @param rows map from teams [TeamInfo.id] to scoreboard row for that team, if that row changed from previous update
  * @param order list of team ids in order of scoreboard
  * @param ranks rank of the corresponding team in order
  * @param awards for each award list of [TeamInfo.id] to receive it.
  */
 @Serializable
-public data class Scoreboard(
-    val type: ScoreboardUpdateType,
+public data class ScoreboardDiff(
     val rows: Map<TeamId, ScoreboardRow>,
     val order: List<TeamId>,
     val ranks: List<Int>,

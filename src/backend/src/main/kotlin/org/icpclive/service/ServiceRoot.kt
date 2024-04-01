@@ -1,62 +1,55 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import org.icpclive.Config
-import org.icpclive.api.*
-import org.icpclive.cds.*
-import org.icpclive.cds.adapters.contestState
-import org.icpclive.cds.api.ContestResultType
+import org.icpclive.api.CurrentTeamState
+import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.api.OptimismLevel
-import org.icpclive.util.completeOrThrow
+import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
+import org.icpclive.util.completeOrThrow
+import org.slf4j.Logger
 
+fun CoroutineScope.launchServices(logger: Logger, loader: Flow<ContestUpdate>) {
+    val started = MutableStateFlow(1)
+    val starter = SharingStarted {
+        started
+            .filter { it == 0 }
+            .map { SharingCommand.START }
+            .onEach { logger.info("Start loading data") }
+            .take(1)
+    }
+    val normalScoreboardState = loader
+        .calculateScoreboard(OptimismLevel.NORMAL)
+        .shareIn(this, starter)
 
-fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
-    val loaded = loader.shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
-    val runsFlow = loaded.filterIsInstance<RunUpdate>().map { it.newInfo }
-    val analyticsFlow = loaded.filterIsInstance<AnalyticsUpdate>().map { it.message }
-    launch { DataBus.contestStateFlow.completeOrThrow(loaded.contestState().stateIn(this)) }
-    launch { DataBus.contestInfoFlow.completeOrThrow(loaded.filterIsInstance<InfoUpdate>().map { it.newInfo }.stateIn(this)) }
-    launch { QueueService().run(runsFlow, DataBus.contestInfoFlow.await()) }
-    launch {
-        when (DataBus.contestInfoFlow.await().value.resultType) {
-            ContestResultType.ICPC -> {
-                launch { ScoreboardService(OptimismLevel.OPTIMISTIC).run(loaded) }
-                launch { ScoreboardService(OptimismLevel.PESSIMISTIC).run(loaded) }
-                launch { ScoreboardService(OptimismLevel.NORMAL).run(loaded) }
-                launch { ICPCStatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
+    fun CoroutineScope.launchService(service: Service) = launch {
+        started.update { it + 1 }
+        var subscribed = false
+        launch(CoroutineName(service::class.simpleName!!)) {
+            with(service) {
+                runOn(normalScoreboardState.onSubscription {
+                    logger.info("Service ${service::class.simpleName} subscribed to cds data")
+                    require(!subscribed) { "Service ${service::class.simpleName} shouldn't subscribe twice" }
+                    subscribed = true
+                    started.update { it - 1 }
+                })
             }
-
-            ContestResultType.IOI -> {
-                launch { ScoreboardService(OptimismLevel.NORMAL).run(loaded) }
-                DataBus.setScoreboardEvents(OptimismLevel.OPTIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
-                DataBus.setScoreboardEvents(OptimismLevel.PESSIMISTIC, DataBus.getScoreboardEvents(OptimismLevel.NORMAL))
-
-                launch { IOIStatisticsService().run(DataBus.getScoreboardEvents(OptimismLevel.NORMAL)) }
-            }
-        }
-        val generatedAnalyticsMessages = Config.analyticsTemplatesFile?.let {
-            AnalyticsGenerator(it).getFlow(
-                DataBus.contestInfoFlow.await(),
-                runsFlow,
-                DataBus.getScoreboardEvents(OptimismLevel.NORMAL)
-            )
-        } ?: emptyFlow()
-        launch { AnalyticsService().run(merge(analyticsFlow, generatedAnalyticsMessages)) }
-        launch {
-            val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
-            val accentService = TeamSpotlightService(teamInteresting = teamInterestingFlow)
-            DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
-            DataBus.teamSpotlightFlow.completeOrThrow(accentService.getFlow())
-            accentService.run(
-                DataBus.contestInfoFlow.await(),
-                runsFlow,
-                DataBus.getScoreboardEvents(OptimismLevel.NORMAL),
-                DataBus.teamInterestingScoreRequestFlow.await(),
-            )
         }
     }
+
+    val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
+    DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
+
+    launchService(ContestStateService())
+    launchService(QueueService())
+    launchService(ScoreboardService())
+    launchService(StatisticsService())
+    launchService(AnalyticsService(AnalyticsGenerator(Config.analyticsTemplatesFile)))
+    launchService(ExternalRunsService())
+    launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
+    launchService(RegularLoggingService())
+    started.update { it - 1 }
 }
