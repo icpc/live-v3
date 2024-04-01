@@ -34,7 +34,7 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         help = "Disable http basic auth in admin"
     ).flag()
 
-    private val credsJsonPath by option("--creds", help = "Path to creds.json").path(mustExist = false, canBeFile = true, canBeDir = false)
+    private val credsJsonPath by option("--creds", help = "Path to creds.json").path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/creds.json") { configDirectory.resolve("creds.json") }
 
     var basicAuthKey: BasicAuthKey = BasicAuthKey("")

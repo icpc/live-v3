@@ -11,7 +11,7 @@ const pages = {
 };
 
 
-const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
+const ResponsiveAppBar = () => {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -69,10 +69,6 @@ const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
                                 sx={{ my: 2, color: "text.primary", display: "block" }}>
                                 {name}
                             </Button>)}
-                        <Button onClick={showOrHideOverlayPerview}
-                            sx={{ my: 2, color: "text.primary", display: "block" }}>
-                            <PreviewIcon/>
-                        </Button>
                     </Box>
                 </Toolbar>
             </Container>
