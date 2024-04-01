@@ -13,7 +13,7 @@
       "settings": {
         "type":"ejudge",
         "resultType":"IOI",
-        "url":"../Open-2024-d1/zaoch_2024_day1_external.xml",
+        "url":"../2024-d1/external.xml",
         "problemScoreLimit": {
           "2": 89,
           "4": 69
