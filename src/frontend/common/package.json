@@ -1,0 +1,11 @@
+{
+  "name": "shared-code",
+  "dependencies": {
+
+  },
+  "exports": {
+    "./utils": "./src/utils.js",
+    "./errors": "./src/errors.js",
+    "./package.json": "./package.json"
+  }
+}

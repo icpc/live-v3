@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import PropTypes from "prop-types";
 import { IconButton, ButtonGroup } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import AddIcon from "@mui/icons-material/Add";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";

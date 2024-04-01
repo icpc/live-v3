@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "@mui/material/Container";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { useSnackbar } from "notistack";
 import { useControlsWidgetService } from "../services/controlsWidget";
 import { PresetsManager } from "./PresetsManager";

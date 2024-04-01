@@ -20,7 +20,7 @@ import {
     createTheme,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { TeamViewService, useTeamViewService } from "../services/teamViewWidget";
 import SingleTeamViewIcon from "@mui/icons-material/WebAsset";
 import PVPTeamViewIcon from "@mui/icons-material/Splitscreen";

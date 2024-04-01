@@ -14,6 +14,7 @@
     "overlay",
     "admin",
     "locator",
+    "common",
     "tests"
   ],
   "engines": {

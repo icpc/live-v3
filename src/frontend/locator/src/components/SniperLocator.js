@@ -16,7 +16,7 @@ import {
     createTheme,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { TeamViewService, useLocatorService } from "../services/sniperLocatorWidget";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import { SelectTeamTable } from "./TeamTable";

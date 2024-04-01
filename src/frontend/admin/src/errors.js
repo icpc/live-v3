@@ -1,12 +1,5 @@
 import { useSnackbar } from "notistack";
-
-export const errorHandlerWithSnackbar = (snackBarEnqueue) =>
-    (cause) => {
-        return (error) => {
-            console.error(cause + ": " + error);
-            snackBarEnqueue(cause, { variant: "error" });
-        };
-    };
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 
 export const useErrorHandlerWithSnackbar = () => {
     const { enqueueSnackbar } = useSnackbar();

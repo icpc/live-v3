@@ -1,5 +1,5 @@
 import { ADMIN_ACTIONS_WS_URL, BASE_URL_BACKEND } from "../config";
-import { createApiGet, createApiPost } from "../utils";
+import { createApiGet, createApiPost } from "shared-code/utils";
 
 const WEBSOCKET_RECONNECT_TIME = 3000;
 

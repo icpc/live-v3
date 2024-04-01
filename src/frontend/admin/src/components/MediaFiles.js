@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import { FileUploader } from "react-drag-drop-files";
 import {  Container, Link, Paper } from "@mui/material";
 import { useErrorHandlerWithSnackbar } from "../errors";
-import { createApiGet } from "../utils";
+import { createApiGet } from "shared-code/utils";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Box from "@mui/material/Box";
 import { BASE_URL_BACKEND, MEDIAS_LOCATION } from "../config";

@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import { PictureTableRow } from "./PictureTableRow";
 import { useSnackbar } from "notistack";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { PresetsManager } from "./PresetsManager";
 import { usePresetWidgetService } from "../services/presetWidget";
 

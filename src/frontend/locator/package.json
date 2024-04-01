@@ -17,7 +17,8 @@
     "react-drag-drop-files": "^2.3.4",
     "react-rnd": "^10.3.7",
     "react-router-dom": "^6.2.2",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "shared-code": "file:../common"
   },
   "scripts": {
     "start": "react-scripts start",
