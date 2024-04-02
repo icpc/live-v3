@@ -145,8 +145,9 @@ export const SingleTicker = ({ part, color }) => {
             </SingleTickerWrap>
         );
     }
+    const curMessage = useAppSelector((state) => state.ticker.tickers[part].curDisplaying);
     return (
-        <SingleTickerWrap color={color}>
+        <SingleTickerWrap color={curMessage?.type === "scoreboard" ? color : c.TICKER_DEFAULT_SCOREBOARD_BACKGROUND}>
             <SingleTickerRows part={part}/>
         </SingleTickerWrap>
     );
