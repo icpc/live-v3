@@ -1,4 +1,5 @@
-import { createApiPost, useWebsocket } from "../utils";
+import { createApiPost } from "shared-code/utils";
+import { useWebsocket } from "../utils";
 import { BASE_URL_BACKEND, BASE_URL_WS } from "../config";
 import { useMemo, useState } from "react";
 

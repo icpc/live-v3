@@ -1,4 +1,4 @@
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 import { useMemo } from "react";
 
 const getTeamViewVariantParams = (variant) => {
@@ -12,7 +12,7 @@ const getTeamViewVariantParams = (variant) => {
     }
 };
 
-export class TeamViewService extends AbstractWidgetService {
+export class TeamViewService extends AbstractWidgetImpl {
     constructor(variant, errorHandler, listenWS = true) {
         const [instances, apiPath] = getTeamViewVariantParams(variant);
         super("/" + apiPath, errorHandler, listenWS);

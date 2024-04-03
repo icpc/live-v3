@@ -2,7 +2,7 @@ import { SlimTableCell } from "./atoms/Table";
 import { Button, ButtonGroup, Container, Switch, Table, TableBody, TableRow } from "@mui/material";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { useFullScreenClockWidget } from "../services/fullScreenClockWidget";
 
 
