@@ -32,7 +32,7 @@ val simpleProjects = listOf(
     "frontend",
     "reactions-bot",
     "schema-generator",
-    "sniper-locator-controller",
+    "oracle-tools",
     "faker",
     "user-archive",
 )
