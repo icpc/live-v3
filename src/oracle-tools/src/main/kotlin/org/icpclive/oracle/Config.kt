@@ -1,4 +1,4 @@
-package org.icpclive.sniper
+package org.icpclive.oracle
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.context
@@ -6,10 +6,8 @@ import com.github.ajalt.clikt.output.MordantHelpFormatter
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.path
-import io.ktor.util.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import java.security.MessageDigest
 import java.util.Base64
 import kotlin.io.path.exists
 

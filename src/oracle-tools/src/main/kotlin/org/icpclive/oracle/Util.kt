@@ -1,10 +1,10 @@
-package org.icpclive.sniper
+package org.icpclive.oracle
 
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import org.icpclive.sniper.Config.snipersTxtPath
+import org.icpclive.oracle.Config.snipersTxtPath
 import java.io.File
 import java.nio.file.Path
 import java.text.SimpleDateFormat

@@ -1,4 +1,4 @@
-package org.icpclive.sniper
+package org.icpclive.oracle
 
 import kotlinx.serialization.Serializable
 

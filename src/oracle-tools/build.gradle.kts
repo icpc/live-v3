@@ -6,11 +6,11 @@ plugins {
 
 
 base {
-    archivesName = "sniper-locator-controller"
+    archivesName = "oracle-tools"
 }
 
 application {
-    mainClass = "org.icpclive.sniper.ApplicationKt"
+    mainClass = "org.icpclive.oracle.ApplicationKt"
 }
 
 tasks {

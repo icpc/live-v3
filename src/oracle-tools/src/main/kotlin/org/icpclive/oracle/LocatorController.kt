@@ -1,4 +1,4 @@
-package org.icpclive.sniper
+package org.icpclive.oracle
 
 object LocatorController {
     private const val WIDTH = 1920

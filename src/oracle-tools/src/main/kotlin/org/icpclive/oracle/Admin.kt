@@ -1,4 +1,4 @@
-package org.icpclive.sniper
+package org.icpclive.oracle
 
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
