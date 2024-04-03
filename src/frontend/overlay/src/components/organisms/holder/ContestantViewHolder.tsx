@@ -3,6 +3,7 @@ import { ContestantViewCorner } from "../../molecules/info/ContestantViewCorner"
 import styled from "styled-components";
 import { pushLog } from "@/redux/debug";
 import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
+import { useQueryParams } from "@/utils/query-params";
 import { useAppDispatch } from "@/redux/hooks";
 import { MediaType } from "@shared/api";
 import c from "../../../config";
@@ -147,11 +148,13 @@ export const TeamWebRTCGrabberVideoWrapper = ({ media: { url, peerName, streamTy
         };
     }, [url, peerName, streamType]);
 
+    const queryParams = useQueryParams();
+
     return (<VideoWrapper
         ref={videoRef}
         onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        muted
+        muted={!queryParams.has("grabber_audio")}
         {...props}/>);
 };
 
