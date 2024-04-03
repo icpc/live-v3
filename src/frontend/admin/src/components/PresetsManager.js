@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import { PresetsTableRow } from "./PresetsTableRow";
-import { AbstractWidgetService } from "../services/abstractWidget";
+import { AbstractWidgetService } from "shared-code/abstractWidget";
 
 export function DefaultAddPresetButton({ onCreate }) {
     return (<IconButton color="primary" size="large" onClick={() => onCreate()}><AddIcon/></IconButton>);

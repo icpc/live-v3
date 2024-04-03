@@ -1,9 +1,10 @@
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetService } from "shared-code/abstractWidget";
 import { useMemo } from "react";
+import { BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL } from "../config";
 
 export class PresetWidgetService extends AbstractWidgetService {
     constructor(apiPath, errorHandler, listenWS = true) {
-        super(apiPath, errorHandler, listenWS);
+        super(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, apiPath, errorHandler, listenWS);
     }
 
     isMessageRequireReload(data) {

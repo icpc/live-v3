@@ -1,5 +1,6 @@
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetService } from "shared-code/abstractWidget";
 import { useMemo } from "react";
+import { BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL } from "../config";
 
 const controlElements = [
     { text: "Scoreboard", id: "scoreboard" },
@@ -12,7 +13,7 @@ const controlElements = [
 
 export class ControlsWidgetService extends AbstractWidgetService {
     constructor(errorHandler, listenWS = true) {
-        super("", errorHandler, listenWS);
+        super(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, "", errorHandler, listenWS);
     }
 
     isMessageRequireReload(data) {

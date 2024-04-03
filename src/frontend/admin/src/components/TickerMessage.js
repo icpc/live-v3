@@ -13,7 +13,7 @@ import { TickerTableRow } from "./TickerTableRow";
 import Dashboard from "./Dashboard";
 import { usePresetWidgetService } from "../services/presetWidget";
 import { PresetsManager } from "./PresetsManager";
-import { AbstractWidgetService } from "../services/abstractWidget";
+import { AbstractWidgetService } from "shared-code/abstractWidget";
 
 const addPresetButtons = [
     {

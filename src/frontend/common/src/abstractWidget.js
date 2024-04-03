@@ -1,10 +1,10 @@
-import { ADMIN_ACTIONS_WS_URL, BASE_URL_BACKEND } from "../config";
-import { createApiGet, createApiPost } from "shared-code/utils";
+import { createApiGet, createApiPost } from "./utils.js";
 
 const WEBSOCKET_RECONNECT_TIME = 3000;
 
 export class AbstractWidgetService {
-    constructor(apiPath, errorHandler, listenWS) {
+    constructor(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, apiPath, errorHandler, listenWS) {
+        this.ADMIN_ACTIONS_WS_URL = ADMIN_ACTIONS_WS_URL;
         this.apiPath = apiPath;
         this.apiUrl = BASE_URL_BACKEND + apiPath;
         this.apiGet = createApiGet(this.apiUrl);
@@ -21,7 +21,7 @@ export class AbstractWidgetService {
     }
 
     openWS() {
-        this.ws = new WebSocket(ADMIN_ACTIONS_WS_URL);
+        this.ws = new WebSocket(this.ADMIN_ACTIONS_WS_URL);
         this.ws.onmessage = ({ data }) => this.isMessageRequireReload(data) && this.reloadDataHandlers.forEach(h => h(data));
         this.ws.onclose = (function () {
             this.ws = null;

@@ -1,9 +1,10 @@
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetService } from "shared-code/abstractWidget";
 import { useMemo } from "react";
+import { BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL } from "../config";
 
 export class FullScreenClockService extends AbstractWidgetService {
     constructor(errorHandler, listenWS = true) {
-        super("/fullScreenClock", errorHandler, listenWS);
+        super(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, "/fullScreenClock", errorHandler, listenWS);
     }
 
     isMessageRequireReload(data) {

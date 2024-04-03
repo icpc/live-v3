@@ -1,9 +1,10 @@
 import { useMemo } from "react";
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetService } from "shared-code/abstractWidget";
+import { BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL } from "../config";
 
 export class TeamViewService extends AbstractWidgetService {
     constructor(variant, errorHandler, listenWS = false) {
-        super("", errorHandler, listenWS);
+        super(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, "", errorHandler, listenWS);
         this.variant = variant;
         this.instances = [];
     }

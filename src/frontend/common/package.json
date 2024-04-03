@@ -1,11 +1,9 @@
 {
   "name": "shared-code",
-  "dependencies": {
-
-  },
   "exports": {
     "./utils": "./src/utils.js",
     "./errors": "./src/errors.js",
+    "./abstractWidget": "./src/abstractWidget.js",
     "./package.json": "./package.json"
   }
 }
