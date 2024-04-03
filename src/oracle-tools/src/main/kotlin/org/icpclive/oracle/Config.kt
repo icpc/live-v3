@@ -27,29 +27,16 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
 
     val overlayURL: String by option("-o", "--overlay", "--overlay-url", help = "Main overlay url").default("http://127.0.0.1:8080")
 
-    private val authDisabled by option(
+    val authDisabled by option(
         "--no-auth",
         help = "Disable http basic auth in admin"
     ).flag()
 
-    private val credsJsonPath by option("--creds", help = "Path to creds.json").path(mustExist = true, canBeFile = true, canBeDir = false)
+    val credsJsonPath by option("--creds", help = "Path to creds.json").path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/creds.json") { configDirectory.resolve("creds.json") }
-
-    var basicAuthKey: BasicAuthKey = BasicAuthKey("")
 
 
     override fun run() {
-        if (!authDisabled) {
-            val creds = if (credsJsonPath.exists()) {
-                Json.decodeFromStream<AdminCreds>(credsJsonPath.toFile().inputStream())
-            } else {
-                AdminCreds("admin", "admin")
-            }
-            basicAuthKey = BasicAuthKey(
-                "Basic " +
-                        Base64.getEncoder().encodeToString("${creds.username}:${creds.password}".toByteArray())
-            )
-        }
         io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
     }
 

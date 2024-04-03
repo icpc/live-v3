@@ -1,6 +1,10 @@
 package org.icpclive.oracle
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import java.util.*
+import kotlin.io.path.exists
 
 @Serializable
 data class SniperRequest(val sniperId: Int, val teamId: String)
@@ -18,8 +22,3 @@ data class TeamLocatorSettings(
     val circles: List<TeamLocatorCircleSettings> = emptyList(),
     val scene: String = "default", // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
 )
-
-@Serializable
-data class AdminCreds(val username: String, val password: String)
-
-data class BasicAuthKey(val key: String)

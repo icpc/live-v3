@@ -30,7 +30,7 @@ fun Route.setupRouting() {
             println("request: " + "${config.overlayURL}/api/admin/teamLocator/show_with_settings")
             val showRequest = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/show_with_settings") {
                 headers {
-                    append(HttpHeaders.Authorization, config.basicAuthKey.key)
+                    append(HttpHeaders.Authorization, BasicAuthKey.key)
                 }
                 setBody(Json.encodeToString(locatorSettings))
                 contentType(ContentType.Application.Json)
@@ -45,7 +45,7 @@ fun Route.setupRouting() {
         call.adminApiAction {
             val response = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/hide") {
                 headers {
-                    append(HttpHeaders.Authorization, config.basicAuthKey.key)
+                    append(HttpHeaders.Authorization, BasicAuthKey.key)
                 }
             }.bodyAsText()
             println(response)
@@ -64,7 +64,7 @@ fun Route.setupRouting() {
         call.respondBytes(
             Util.httpClient.get("${config.overlayURL}/api/admin/teamView/teams") {
                 headers {
-                    append(HttpHeaders.Authorization, config.basicAuthKey.key)
+                    append(HttpHeaders.Authorization, BasicAuthKey.key)
                 }
             }.readBytes(),
             contentType = ContentType.Application.Json,
