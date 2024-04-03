@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { useSnackbar } from "notistack";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { Autocomplete, TextField, Button,
     TableCell, TableRow,
     Dialog, DialogTitle, DialogContent, DialogActions,

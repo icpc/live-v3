@@ -1,7 +1,7 @@
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 import { useMemo } from "react";
 
-export class PresetWidgetService extends AbstractWidgetService {
+export class PresetWidgetService extends AbstractWidgetImpl {
     constructor(apiPath, errorHandler, listenWS = true) {
         super(apiPath, errorHandler, listenWS);
     }

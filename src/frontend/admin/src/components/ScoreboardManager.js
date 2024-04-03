@@ -23,8 +23,8 @@ import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { BASE_URL_BACKEND } from "../config";
-import { errorHandlerWithSnackbar } from "../errors";
-import { createApiGet, createApiPost } from "../utils";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
+import { createApiGet, createApiPost } from "shared-code/utils";
 import { SlimTableCell } from "./atoms/Table";
 
 function NumericField({ onChange : _onChange, value, minValue, arrowsDelta }) {

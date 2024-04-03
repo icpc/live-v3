@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, Container } from "@mui/material";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { useSnackbar } from "notistack";
 import { BASE_URL_BACKEND, SCHEMAS_LOCATION } from "../config";
 import Typography from "@mui/material/Typography";
-import { createApiGet, createApiPost } from "../utils";
+import { createApiGet, createApiPost } from "shared-code/utils";
 import JsonEditor from "./atoms/JsonEditor";
 import Box from "@mui/material/Box";
 

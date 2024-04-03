@@ -1,5 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { CornerContestantInfo } from "../../molecules/info/ContestantViewCorner";
+import c from "../../../config";
 
 const slideIn = keyframes`
   from {
@@ -65,7 +67,7 @@ export const Locator = ({ widgetData, transitionState }) => {
             <rect x="0" y="0" className="backdrop" height="100%" width="100%"/>
         </svg>
         {circles.map((circle, index) => {
-            let left = circle.x - 540 / 2;
+            let left = circle.x - c.LOCATOR_MAGIC_CONSTANT / 2;
             let top;
             if (circle.y - circle.radius - 50 > 10) {
                 top = circle.y - circle.radius - 50;
@@ -74,10 +76,10 @@ export const Locator = ({ widgetData, transitionState }) => {
             }
             if (left < 0) {
                 left = 0;
-            } else if (left + 540 > 1920) {
-                left = 1920 - 540;
+            } else if (left + c.LOCATOR_MAGIC_CONSTANT > 1920) {
+                left = 1920 - c.LOCATOR_MAGIC_CONSTANT;
             }
-            let len = Math.sqrt((left + 540 / 2 - circle.x) * (left + 540 / 2 - circle.x) +
+            const len = Math.sqrt((left + c.LOCATOR_MAGIC_CONSTANT / 2 - circle.x) * (left + c.LOCATOR_MAGIC_CONSTANT / 2 - circle.x) +
                 (top + 10 - circle.y) * (top + 10 - circle.y));
             return <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
                 key={circle.teamId}>
@@ -89,6 +91,7 @@ export const Locator = ({ widgetData, transitionState }) => {
                     duration={(index + 1) * 1500}>
                     {/* FIXME: This needs readdressing for overlay2 */}
                     {/*<TeamInfo key={index + "teamInfo"} teamId={circle.teamId}/>*/}
+                    <CornerContestantInfo teamId={circle.teamId} />
 
                 </TeamViewWrapper>
 
@@ -97,7 +100,7 @@ export const Locator = ({ widgetData, transitionState }) => {
                     duration={(index + 1) * 1500 - 500}>
                     <svg key={index + "path"} height="100%" width="100%" stroke="white" strokeWidth="5" fill="none">
                         <path
-                            d={`M ${circle.x + (left + 540 / 2 - circle.x) / len * circle.radius} ${circle.y + (top + 10 - circle.y) / len * circle.radius} L ${left + 540 / 2} ${top + 10}`}/>
+                            d={`M ${circle.x + (left + c.LOCATOR_MAGIC_CONSTANT / 2 - circle.x) / len * circle.radius} ${circle.y + (top + 10 - circle.y) / len * circle.radius} L ${left + c.LOCATOR_MAGIC_CONSTANT / 2} ${top + 10}`}/>
                     </svg>
                 </LineWrapper>
             </div>;

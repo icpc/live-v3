@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import { PresetsTableRow } from "./PresetsTableRow";
-import { AbstractWidgetService } from "../services/abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 
 export function DefaultAddPresetButton({ onCreate }) {
     return (<IconButton color="primary" size="large" onClick={() => onCreate()}><AddIcon/></IconButton>);
@@ -56,7 +56,7 @@ export function PresetsManager({ service, RowComponent, defaultRowData, tableKey
 }
 
 PresetsManager.propTypes = {
-    service: PropTypes.instanceOf(AbstractWidgetService).isRequired,
+    service: PropTypes.instanceOf(AbstractWidgetImpl).isRequired,
     RowComponent: PropTypes.elementType,
     defaultRowData: PropTypes.object,
     tableKeys: PropTypes.arrayOf(PropTypes.string).isRequired,

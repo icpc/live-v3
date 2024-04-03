@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import PropTypes from "prop-types";
 import { IconButton, ButtonGroup } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { errorHandlerWithSnackbar } from "../errors";
+import { errorHandlerWithSnackbar } from "shared-code/errors";
 import AddIcon from "@mui/icons-material/Add";
 import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
@@ -13,7 +13,7 @@ import { TickerTableRow } from "./TickerTableRow";
 import Dashboard from "./Dashboard";
 import { usePresetWidgetService } from "../services/presetWidget";
 import { PresetsManager } from "./PresetsManager";
-import { AbstractWidgetService } from "../services/abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 
 const addPresetButtons = [
     {
@@ -61,7 +61,7 @@ const TickerPart = ({ service, part }) =>
         AddButtons={makeAddButtons(part)}
     />);
 TickerPart.propTypes = {
-    service: PropTypes.instanceOf(AbstractWidgetService).isRequired,
+    service: PropTypes.instanceOf(AbstractWidgetImpl).isRequired,
     part: PropTypes.string.isRequired,
 };
 

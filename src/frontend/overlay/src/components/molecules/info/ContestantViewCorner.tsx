@@ -25,7 +25,7 @@ const TaskRow = styled.div`
   width: 100%;
 `;
 
-const CornerContestantInfo = styled(ContestantInfo)`
+export const CornerContestantInfo = styled(ContestantInfo)`
   grid-column-end: 3;
   grid-column-start: 1;
 `;

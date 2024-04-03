@@ -1,4 +1,4 @@
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 import { useMemo } from "react";
 
 const controlElements = [
@@ -10,7 +10,7 @@ const controlElements = [
     { text: "Full screen clock", id: "fullScreenClock" },
 ];
 
-export class ControlsWidgetService extends AbstractWidgetService {
+export class ControlsWidgetService extends AbstractWidgetImpl {
     constructor(errorHandler, listenWS = true) {
         super("", errorHandler, listenWS);
     }

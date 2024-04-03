@@ -1,7 +1,7 @@
-import { AbstractWidgetService } from "./abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 import { useMemo } from "react";
 
-export class FullScreenClockService extends AbstractWidgetService {
+export class FullScreenClockService extends AbstractWidgetImpl {
     constructor(errorHandler, listenWS = true) {
         super("/fullScreenClock", errorHandler, listenWS);
     }
