@@ -1,6 +1,5 @@
-import { AbstractWidgetService } from "shared-code/abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 import { useMemo } from "react";
-import { BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL } from "../config";
 
 const controlElements = [
     { text: "Scoreboard", id: "scoreboard" },
@@ -11,9 +10,9 @@ const controlElements = [
     { text: "Full screen clock", id: "fullScreenClock" },
 ];
 
-export class ControlsWidgetService extends AbstractWidgetService {
+export class ControlsWidgetService extends AbstractWidgetImpl {
     constructor(errorHandler, listenWS = true) {
-        super(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, "", errorHandler, listenWS);
+        super("", errorHandler, listenWS);
     }
 
     isMessageRequireReload(data) {

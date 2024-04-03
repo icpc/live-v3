@@ -1,6 +1,5 @@
-import { AbstractWidgetService } from "shared-code/abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 import { useMemo } from "react";
-import { BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL } from "../config";
 
 const getTeamViewVariantParams = (variant) => {
     switch (variant) {
@@ -13,10 +12,10 @@ const getTeamViewVariantParams = (variant) => {
     }
 };
 
-export class TeamViewService extends AbstractWidgetService {
+export class TeamViewService extends AbstractWidgetImpl {
     constructor(variant, errorHandler, listenWS = true) {
         const [instances, apiPath] = getTeamViewVariantParams(variant);
-        super(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, "/" + apiPath, errorHandler, listenWS);
+        super("/" + apiPath, errorHandler, listenWS);
         this.variant = variant;
         this.instances = instances;
     }

@@ -13,7 +13,7 @@ import { TickerTableRow } from "./TickerTableRow";
 import Dashboard from "./Dashboard";
 import { usePresetWidgetService } from "../services/presetWidget";
 import { PresetsManager } from "./PresetsManager";
-import { AbstractWidgetService } from "shared-code/abstractWidget";
+import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 
 const addPresetButtons = [
     {
@@ -61,7 +61,7 @@ const TickerPart = ({ service, part }) =>
         AddButtons={makeAddButtons(part)}
     />);
 TickerPart.propTypes = {
-    service: PropTypes.instanceOf(AbstractWidgetService).isRequired,
+    service: PropTypes.instanceOf(AbstractWidgetImpl).isRequired,
     part: PropTypes.string.isRequired,
 };
 
