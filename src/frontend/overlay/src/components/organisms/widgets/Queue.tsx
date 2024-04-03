@@ -422,7 +422,6 @@ export const Queue = ({ widgetData: { settings: { horizontal }, location } }: Qu
                     {queueRows.map(row => (
                         <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
                             {state => {
-                                console.log(row.isFts);
                                 return state !== "exited" && (
                                     <QueueRowAnimator
                                         bottom={row.bottom}
