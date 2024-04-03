@@ -61,6 +61,7 @@ export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
             }
         };
     }, [url]);
+    const queryParams = useQueryParams();
     return (<VideoWrapper
         ref={videoRef}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
@@ -70,7 +71,7 @@ export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
             setIsLoaded(true)
         }
         autoPlay
-        muted/>);
+        muted={!queryParams.has("teamview_audio")}/>);
 };
 
 
@@ -105,6 +106,7 @@ export const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded, ...props }) => {
 
         return () => rtcRef.current?.close();
     }, [url]);
+    const queryParams = useQueryParams();
     return (<VideoWrapper
         ref={videoRef}
         onError={() => setIsLoaded(false) || dispatch(pushLog("ERROR on loading image in Picture widget"))}
@@ -114,7 +116,7 @@ export const TeamWebRTCProxyVideoWrapper = ({ url, setIsLoaded, ...props }) => {
             return setIsLoaded(true);
         }}
         autoPlay
-        muted
+        muted={!queryParams.has("teamview_audio")}
         {...props}
     />);
 };
@@ -154,7 +156,7 @@ export const TeamWebRTCGrabberVideoWrapper = ({ media: { url, peerName, streamTy
         ref={videoRef}
         onLoadedData={() => onLoadStatus(true)}
         onError={() => onLoadStatus(false) || dispatch(pushLog("ERROR on loading image in WebRTC widget"))}
-        muted={!queryParams.has("grabber_audio")}
+        muted={!queryParams.has("teamview_audio")}
         {...props}/>);
 };
 
@@ -304,6 +306,7 @@ const teamViewComponentRender: {
         </FullWidthWrapper>;
     },
     Video: ({ onLoadStatus, className, media }) => {
+        const queryParams = useQueryParams();
         return <FullWidthWrapper className={className}>
             <VideoWrapper
                 src={media.url}
@@ -311,18 +314,19 @@ const teamViewComponentRender: {
                 onError={() => onLoadStatus(false)}
                 autoPlay
                 loop
-                muted
+                muted={!queryParams.has("teamview_audio")}
             />
         </FullWidthWrapper>;
     },
     HLSVideo: ({ onLoadStatus, media, ...props }) => {
+        const queryParams = useQueryParams();
         return <FullWidthWrapper>
             <HlsPlayer
                 src={media.url}
                 jwtToken={media.jwtToken}
                 autoPlay
                 loop
-                muted
+                muted={!queryParams.has("teamview_audio")}
                 onCanPlay={() => onLoadStatus(true)}
                 onError={() => onLoadStatus(false)}
                 {...props}
