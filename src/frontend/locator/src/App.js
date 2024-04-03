@@ -3,7 +3,7 @@ import "./App.css";
 import AppNav from "./AppNav";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
-import SniperLocator from "./components/SniperLocator";
+import OracleLocator from "./components/OracleLocator";
 import Calibrator from "./components/Calibrator";
 
 
@@ -14,9 +14,9 @@ function App() {
                 <div className="App">
                     <AppNav/>
                     <Routes>
-                        <Route path="/" element={<SniperLocator/>}/>
-                        <Route path="/sniperLocator" element={<SniperLocator/>}/>
-                        <Route path="/sniperCalibrator" element={<Calibrator/>}/>
+                        <Route path="/" element={<OracleLocator/>}/>
+                        <Route path="/oracleLocator" element={<OracleLocator/>}/>
+                        <Route path="/oracleCalibrator" element={<Calibrator/>}/>
                     </Routes>
                 </div>
             </SnackbarProvider>

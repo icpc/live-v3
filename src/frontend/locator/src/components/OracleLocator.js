@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "shared-code/errors";
-import { TeamViewService, useLocatorService } from "../services/sniperLocatorWidget";
+import { TeamViewService, useLocatorService } from "../services/oracleLocatorWidget";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import { SelectTeamTable } from "./TeamTable";
 import PropTypes from "prop-types";
@@ -86,7 +86,7 @@ const VariantSelect = ({ variants, variant, setVariant }) => {
             exclusive
             onChange={(_, v) => v && setVariant(v)}
         >
-            {variants.ids.map(v => <ToggleButton key={v} value={v}>Sniper {v}</ToggleButton>)}
+            {variants.ids.map(v => <ToggleButton key={v} value={v}>Oracle {v}</ToggleButton>)}
         </ToggleButtonGroup>
     );
 };
@@ -117,17 +117,17 @@ InstanceStatus.propTypes = {
     onHide: PropTypes.func.isRequired,
 };
 
-const useSniperList = (sniperLocatorService) => {
-    const [snipers, setSnipers] = useState({ ids: [] });
+const useOracleList = (oracleLocatorService) => {
+    const [oracles, setOracles] = useState({ ids: [] });
     useEffect(() => {
-        sniperLocatorService.snipers().then(s => setSnipers(s));
+        oracleLocatorService.oracles().then(s => setOracles(s));
     }, []);
-    return snipers;
+    return oracles;
 };
 
-const SniperViewManager = ({ service }) => {
-    const snipers = useSniperList(service);
-    const [sniper, setSniper] = useState(1);
+const OracleViewManager = ({ service }) => {
+    const oracles = useOracleList(service);
+    const [oracle, setOracle] = useState(1);
 
     const [rawTeams, setRawTeams] = useState([]);
     const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, {});
@@ -155,7 +155,7 @@ const SniperViewManager = ({ service }) => {
 
     const onMove = useCallback(() => {
         const settings = {
-            sniperId: sniper,
+            oracleId: oracle,
             teamId: selectedTeamCdsId,
         };
         service.moveWithSettings(settings);
@@ -163,7 +163,7 @@ const SniperViewManager = ({ service }) => {
 
     const onShow = useCallback(() => {
         const settings = {
-            sniperId: sniper,
+            oracleId: oracle,
             teamId: selectedTeamCdsId,
         };
         service.showWithSettings(settings);
@@ -178,7 +178,7 @@ const SniperViewManager = ({ service }) => {
     return (
         <Box>
             <Box sx={{ mb: 1 }} display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center">
-                <VariantSelect variants={snipers} variant={sniper} setVariant={setSniper} />
+                <VariantSelect variants={oracles} variant={oracle} setVariant={setOracle} />
             </Box>
             <InstanceStatus onShow={onInstanceSelect} onHide={onHide} selectedInstance={selectedInstance} />
 
@@ -241,22 +241,22 @@ const SniperViewManager = ({ service }) => {
     );
 };
 
-SniperViewManager.propTypes = {
+OracleViewManager.propTypes = {
     service: PropTypes.instanceOf(TeamViewService).isRequired,
 };
 
 
-function SniperLocator() {
+function OracleLocator() {
     const { enqueueSnackbar, } = useSnackbar();
     const service = useLocatorService(errorHandlerWithSnackbar(enqueueSnackbar));
 
     return (
         <Container sx={{ pt: 2 }}>
             <ThemeProvider theme={teamViewTheme}>
-                <SniperViewManager service={service}/>
+                <OracleViewManager service={service}/>
             </ThemeProvider>
         </Container>
     );
 }
 
-export default SniperLocator;
+export default OracleLocator;

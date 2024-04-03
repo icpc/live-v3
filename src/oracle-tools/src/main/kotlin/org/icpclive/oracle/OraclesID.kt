@@ -3,4 +3,4 @@ package org.icpclive.oracle
 import kotlinx.serialization.Serializable
 
 @Serializable
-class SnipersID(val ids: MutableList<Int>)
+class OraclesID(val ids: MutableList<Int>)

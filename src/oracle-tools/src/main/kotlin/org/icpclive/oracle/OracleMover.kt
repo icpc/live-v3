@@ -8,27 +8,27 @@ import java.util.*
 import kotlin.math.atan2
 import kotlin.math.hypot
 
-object SniperMover {
+object OracleMover {
     @JvmStatic
     suspend fun main(args: Array<String>) {
         Locale.setDefault(Locale.US)
         val `in` = Scanner(System.`in`)
         while (true) {
-            println("Select sniper (1-" + Util.snipers.size + ")")
-            val sniper = `in`.nextInt()
+            println("Select oracle (1-" + Util.oracles.size + ")")
+            val oracle = `in`.nextInt()
             println("Select team")
             val teamId = `in`.next()
-            if (moveToTeam(sniper, teamId) == null) {
-                println("No such team $teamId location for sniper $sniper")
+            if (moveToTeam(oracle, teamId) == null) {
+                println("No such team $teamId location for oracle $oracle")
             }
         }
     }
 
     private const val DEFAULT_SPEED = "0.52"
 
-    suspend fun moveToTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
-        println("moveToTeam $sniperNumber $teamId")
-        val point = getLocationPointByTeam(sniperNumber, teamId) ?: return null
+    suspend fun moveToTeam(oracleNumber: Int, teamId: String): LocatorPoint? {
+        println("moveToTeam $oracleNumber $teamId")
+        val point = getLocationPointByTeam(oracleNumber, teamId) ?: return null
 
         if (point.y > 0) {
             point.x = -point.x
@@ -43,20 +43,20 @@ object SniperMover {
         val mag = 0.5 * d
         val maxmag = 35.0
         val zoom = (mag * 9999 - 1) / (maxmag - 1)
-        move(sniperNumber, pan, tilt, zoom.toInt())
+        move(oracleNumber, pan, tilt, zoom.toInt())
         println(point)
         return point
     }
 
-    private fun getLocationPointByTeam(sniperNumber: Int, teamId: String): LocatorPoint? {
-        val x = Util.loadLocatorPoints(sniperNumber).find { it.id == teamId }
+    private fun getLocationPointByTeam(oracleNumber: Int, teamId: String): LocatorPoint? {
+        val x = Util.loadLocatorPoints(oracleNumber).find { it.id == teamId }
         return x
     }
 
     @Throws(Exception::class)
-    private suspend fun move(sniper: Int, pan: Double, tilt: Double, zoom: Int) {
-        val hostName = Util.snipers[sniper - 1].hostName
-        val setPositionResponse = Util.sniperRequest(
+    private suspend fun move(oracle: Int, pan: Double, tilt: Double, zoom: Int) {
+        val hostName = Util.oracles[oracle - 1].hostName
+        val setPositionResponse = Util.oracleRequest(
             hostName, mapOf(
                 "camera" to 1,
                 "tilt" to tilt,
@@ -66,13 +66,13 @@ object SniperMover {
                 "timestamp" to Util.getUTCTime()
             )
         )
-        logger.info("Set sniper $sniper position: $setPositionResponse")
+        logger.info("Set oracle $oracle position: $setPositionResponse")
 
-        val setSpeedResponse = Util.sniperRequest(
+        val setSpeedResponse = Util.oracleRequest(
             hostName, mapOf("camera" to 1, "speed" to DEFAULT_SPEED, "timestamp" to Util.getUTCTime())
         )
-        logger.info("Set sniper $sniper speed: $setSpeedResponse")
+        logger.info("Set oracle $oracle speed: $setSpeedResponse")
     }
 
-    private val logger = getLogger(SniperMover::class)
+    private val logger = getLogger(OracleMover::class)
 }

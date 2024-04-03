@@ -4,7 +4,7 @@ import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import org.icpclive.oracle.Config.snipersTxtPath
+import org.icpclive.oracle.Config.oraclesTxtPath
 import java.io.File
 import java.nio.file.Path
 import java.text.SimpleDateFormat
@@ -15,15 +15,15 @@ object Util {
         install(HttpTimeout)
     }
 
-    suspend fun sniperRequest(sniperHostName: String, parameters: Map<String, Any?>): String {
-        return httpClient.get(sniperHostName + "/axis-cgi/com/ptz.cgi") {
+    suspend fun oracleRequest(oracleHostName: String, parameters: Map<String, Any?>): String {
+        return httpClient.get(oracleHostName + "/axis-cgi/com/ptz.cgi") {
             for (parameter in parameters) {
                 parameter(parameter.key, parameter.value)
             }
         }.bodyAsText()
     }
 
-    val snipers: MutableList<SniperInfo> = ArrayList()
+    val oracles: MutableList<OracleInfo> = ArrayList()
     const val ANGLE = 1.28
     private var inited: Boolean = false
 
@@ -70,8 +70,8 @@ object Util {
         return LocatorConfig(newPan, newTilt, newAngle)
     }
 
-    fun loadLocatorPoints(sniperNumber: Int): List<LocatorPoint> {
-        val x = config.configDirectory.resolve("coordinates-$sniperNumber.txt")
+    fun loadLocatorPoints(oracleNumber: Int): List<LocatorPoint> {
+        val x = config.configDirectory.resolve("coordinates-$oracleNumber.txt")
         val scanner = Scanner(x)
         val n = scanner.nextInt()
 
@@ -93,9 +93,9 @@ object Util {
         return allPoints
     }
 
-    private fun init(snipersPath: String, configDir: Path) {
+    private fun init(oraclesPath: String, configDir: Path) {
         Locale.setDefault(Locale.US)
-        val inp = Scanner(File(snipersPath))
+        val inp = Scanner(File(oraclesPath))
         val m = inp.nextInt()
         val urls = Array(m) { inp.next() }
         inp.close()
@@ -108,8 +108,8 @@ object Util {
                 throw e
             }
 
-            snipers.add(
-                SniperInfo(
+            oracles.add(
+                OracleInfo(
                     urls[i],
                     file,
                     i + 1
@@ -118,13 +118,13 @@ object Util {
         }
     }
 
-    fun initForCalibrator(snipersPath: String, configDir: Path) {
-        init(snipersPath, configDir)
+    fun initForCalibrator(oraclesPath: String, configDir: Path) {
+        init(oraclesPath, configDir)
     }
 
     fun initForServer() {
         if (inited) return
         inited = true
-        init(snipersTxtPath.toString(), Config.configDirectory.toAbsolutePath())
+        init(oraclesTxtPath.toString(), Config.configDirectory.toAbsolutePath())
     }
 }

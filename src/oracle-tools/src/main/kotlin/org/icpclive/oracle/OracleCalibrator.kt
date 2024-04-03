@@ -23,7 +23,7 @@ import kotlin.math.sign
 import kotlin.math.sqrt
 import kotlin.system.exitProcess
 
-class SniperCalibrator(private val url: String, private val configPath: Path) : MJpegViewer, MouseListener,
+class OracleCalibrator(private val url: String, private val configPath: Path) : MJpegViewer, MouseListener,
     KeyListener {
     private var image: Image? = null
     var pan = 0.0
@@ -65,7 +65,7 @@ class SniperCalibrator(private val url: String, private val configPath: Path) : 
             override fun run() {
                 val runner: MjpegRunner
                 try {
-                    runner = MjpegRunner(this@SniperCalibrator, URI("$url/mjpg/video.mjpg").toURL())
+                    runner = MjpegRunner(this@OracleCalibrator, URI("$url/mjpg/video.mjpg").toURL())
                     runner.run()
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -88,7 +88,7 @@ class SniperCalibrator(private val url: String, private val configPath: Path) : 
     @Throws(Exception::class)
     private suspend fun updateState() {
         val conf = Util.parseCameraConfiguration(
-            Util.sniperRequest(
+            Util.oracleRequest(
                 url,
                 mapOf(
                     "query" to "position,limits",
@@ -322,11 +322,11 @@ class SniperCalibrator(private val url: String, private val configPath: Path) : 
         @Throws(FileNotFoundException::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            val configPath = Path.of("config/sniper-test")
-            Util.initForCalibrator(configPath.resolve("snipers.txt").toString(), configPath)
-            println("Select sniper (1-" + Util.snipers.size + ")")
-            val sniper = `in`.nextInt()
-            SniperCalibrator(Util.snipers[sniper - 1].hostName, configPath).run()
+            val configPath = Path.of("config/oracle-test")
+            Util.initForCalibrator(configPath.resolve("oracles.txt").toString(), configPath)
+            println("Select oracle (1-" + Util.oracles.size + ")")
+            val oracle = `in`.nextInt()
+            OracleCalibrator(Util.oracles[oracle - 1].hostName, configPath).run()
         }
     }
 }

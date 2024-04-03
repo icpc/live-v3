@@ -6,10 +6,6 @@ import com.github.ajalt.clikt.output.MordantHelpFormatter
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.path
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
-import java.util.Base64
-import kotlin.io.path.exists
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = false) {
     val configDirectory by option(
@@ -21,9 +17,9 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
 
     private val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
 
-    val snipersTxtPath by option("--snipers-txt", help = "Path to snipers.txt")
+    val oraclesTxtPath by option("--oracles-txt", help = "Path to oracles.txt")
         .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/snipers.txt") { configDirectory.resolve("snipers.txt") }
+        .defaultLazy("configDirectory/oracles.txt") { configDirectory.resolve("oracles.txt") }
 
     val overlayURL: String by option("-o", "--overlay", "--overlay-url", help = "Main overlay url").default("http://127.0.0.1:8080")
 

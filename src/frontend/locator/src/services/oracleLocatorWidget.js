@@ -40,13 +40,13 @@ export class TeamViewService extends AbstractWidgetService {
         return this.apiGet("/teams").catch(this.errorHandler("Failed to load team list"));
     }
 
-    snipers() {
-        return this.apiGet("/snipers").catch(this.errorHandler("Failed to load snipers list"));
+    oracles() {
+        return this.apiGet("/oracles").catch(this.errorHandler("Failed to load oracles list"));
     }
 
     moveWithSettings(settings) {
         console.log(settings);
-        return this.apiPost(this.presetSubPath() + "/move", settings).catch(this.errorHandler("Failed to move sniper"));
+        return this.apiPost(this.presetSubPath() + "/move", settings).catch(this.errorHandler("Failed to move oracle"));
     }
 
     showWithSettings(settings) {

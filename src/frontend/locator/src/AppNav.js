@@ -5,8 +5,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
 
 const pages = {
-    "Sniper Locator": "sniperLocator",
-    "Sniper Calibrator": "sniperCalibrator"
+    "Oracle Locator": "oracleLocator",
+    "Oracle Calibrator": "oracleCalibrator"
 };
 
 

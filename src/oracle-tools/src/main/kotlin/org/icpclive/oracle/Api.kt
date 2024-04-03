@@ -1,13 +1,9 @@
 package org.icpclive.oracle
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
-import java.util.*
-import kotlin.io.path.exists
 
 @Serializable
-data class SniperRequest(val sniperId: Int, val teamId: String)
+data class OracleRequest(val oracleId: Int, val teamId: String)
 
 @Serializable
 data class TeamLocatorCircleSettings(

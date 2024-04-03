@@ -4,8 +4,8 @@ object LocatorController {
     private const val WIDTH = 1920
     private const val HEIGHT = 1080
 
-    suspend fun getLocatorWidgetConfig(sniperNumber: Int, teamIds: Set<String>): TeamLocatorSettings {
-        val allPoints = Util.loadLocatorPoints(sniperNumber)
+    suspend fun getLocatorWidgetConfig(oracleNumber: Int, teamIds: Set<String>): TeamLocatorSettings {
+        val allPoints = Util.loadLocatorPoints(oracleNumber)
         var d = 1e100
         for (p1 in allPoints) {
             for (p2 in allPoints) {
@@ -14,10 +14,10 @@ object LocatorController {
             }
         }
         return TeamLocatorSettings(
-            scene = "sniper${sniperNumber}",
+            scene = "oracle${oracleNumber}",
             circles = translatePoints(
                 allPoints.filter { teamIds.contains(it.id) },
-                sniperNumber,
+                oracleNumber,
                 d
             ).map {
                 TeamLocatorCircleSettings(
@@ -30,9 +30,9 @@ object LocatorController {
         )
     }
 
-    private suspend fun translatePoints(points: List<LocatorPoint>, sniper: Int, d: Double): List<LocatorPoint> {
-        val camera = Util.snipers[sniper - 1]
-        val response = Util.sniperRequest(
+    private suspend fun translatePoints(points: List<LocatorPoint>, oracle: Int, d: Double): List<LocatorPoint> {
+        val camera = Util.oracles[oracle - 1]
+        val response = Util.oracleRequest(
             camera.hostName,
             mapOf("query" to "position,limits", "camera" to 1, "html" to "no", "timestamp" to Util.getUTCTime())
         )

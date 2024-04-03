@@ -17,16 +17,16 @@ fun Route.setupRouting() {
     post("/move") {
         call.adminApiAction {
             logger.info("hello!!!")
-            val request = call.receive<SniperRequest>()
-            SniperMover.moveToTeam(request.sniperId, request.teamId)
+            val request = call.receive<OracleRequest>()
+            OracleMover.moveToTeam(request.oracleId, request.teamId)
             Unit
         }
     }
 
     post("/show_with_settings") {
         call.adminApiAction {
-            val request = call.receive<SniperRequest>()
-            val locatorSettings = LocatorController.getLocatorWidgetConfig(request.sniperId, setOf(request.teamId))
+            val request = call.receive<OracleRequest>()
+            val locatorSettings = LocatorController.getLocatorWidgetConfig(request.oracleId, setOf(request.teamId))
             println("request: " + "${config.overlayURL}/api/admin/teamLocator/show_with_settings")
             val showRequest = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/show_with_settings") {
                 headers {
@@ -52,10 +52,10 @@ fun Route.setupRouting() {
         }
     }
 
-    get("/snipers") {
-        val ids = SnipersID(ArrayList())
-        for (sniper in Util.snipers) {
-            ids.ids.add(sniper.cameraID)
+    get("/oracles") {
+        val ids = OraclesID(ArrayList())
+        for (oracle in Util.oracles) {
+            ids.ids.add(oracle.cameraID)
         }
         call.respond(ids)
     }

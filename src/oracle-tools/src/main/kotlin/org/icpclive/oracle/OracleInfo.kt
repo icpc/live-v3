@@ -4,7 +4,7 @@ import java.io.File
 import java.util.*
 
 
-class SniperInfo(val hostName: String, private val coordinatesFile: File, val cameraID: Int) {
+class OracleInfo(val hostName: String, private val coordinatesFile: File, val cameraID: Int) {
     private var coordinates = load()
 
     fun update() {
@@ -21,6 +21,6 @@ class SniperInfo(val hostName: String, private val coordinatesFile: File, val ca
     }
 
     override fun toString(): String {
-        return "Sniper ${cameraID + 1}"
+        return "Oracle ${cameraID + 1}"
     }
 }
