@@ -297,7 +297,7 @@ export const QueueRow = ({ runInfo,
     const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[runInfo.teamId]);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[runInfo.teamId]);
     const probData = useAppSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
-    const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun;
+    const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun || runInfo?.result?.type === "IOI" && runInfo.result.isFirstBestRun;
 
     return <StyledQueueRow
         // flashing={flashing}
