@@ -297,7 +297,7 @@ export const QueueRow = ({ runInfo,
     const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[runInfo.teamId]);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[runInfo.teamId]);
     const probData = useAppSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
-    const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun;
+    const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun || runInfo?.result?.type === "IOI" && runInfo.result.isFirstBestRun;
 
     return <StyledQueueRow
         // flashing={flashing}
@@ -422,6 +422,7 @@ export const Queue = ({ widgetData: { settings: { horizontal }, location } }: Qu
                     {queueRows.map(row => (
                         <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
                             {state => {
+                                console.log(row.isFts);
                                 return state !== "exited" && (
                                     <QueueRowAnimator
                                         bottom={row.bottom}
