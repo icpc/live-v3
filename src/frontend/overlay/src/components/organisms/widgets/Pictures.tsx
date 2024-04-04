@@ -35,7 +35,7 @@ const PicturesContainerWrap = styled.div<{
   display: ${props => props.show ? "flex" : "none"};
   flex-direction: row;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
 
   width: 100%;
   height: 100%;
@@ -52,6 +52,11 @@ const PicturesContainer = styled.div`
   justify-content: center;
 
   text-align: center;
+  box-sizing: border-box;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
+  border: 5px solid ${c.PICTURE_NAME_BACKGROUND_COLOR};
+  overflow: hidden;
+  background-color: ${c.PICTURE_NAME_BACKGROUND_COLOR};
 `;
 
 
@@ -60,15 +65,14 @@ const PicturesCaptionWrap = styled.div`
 
   font-family: Passageway, serif;
   font-size: 24pt;
-  color: white;
-
-  background-color: rgb(136, 31, 27);
+  color: ${c.PICTURE_NAME_FONT_COLOR};
 `;
 
 const PicturesImg = styled.img`
   flex-grow: 1;
   flex-shrink: 1;
   max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 `;
 

@@ -173,6 +173,9 @@ config.TICKER_CLOCK_MARGIN_LEFT = "10px"; // css property
 config.TICKER_SCOREBOARD_RANK_WIDTH = "50px"; // css property
 config.TICKER_LIVE_ICON_SIZE = "32px";
 
+config.PICTURE_NAME_BACKGROUND_COLOR = config.CONTEST_COLOR;
+config.PICTURE_NAME_FONT_COLOR = "#FFFFFF";
+
 
 // not used
 config.TEAMVIEW_SMALL_FACTOR = "50%"; // css property
