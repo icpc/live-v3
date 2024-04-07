@@ -141,6 +141,11 @@ export const TeamWebRTCGrabberVideoWrapper = ({ media: { url, peerName, streamTy
             dispatch(pushLog(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`));
             console.warn(`Webrtc content failed from ${url} peerName ${peerName}. Incorrect credential`);
         });
+        client.on("connection:failed", () => {
+            dispatch(pushLog(`Webrtc content failed from ${url} peerName ${peerName}. No such peer with ${streamType}`));
+            console.warn(`Webrtc content failed from ${url} peerName ${peerName}. No such peer with ${streamType}`);
+            onLoadStatus(true);
+        });
 
         return () => {
             client.close();
