@@ -32,7 +32,7 @@ export class GrabberSocket {
             if (_this.isClosed) {
                 return;
             }
-            setTimeout(() => _this.connect(), 1000);
+            // setTimeout(() => _this.connect(), 1000);
         };
         this.ws = ws;
     }
