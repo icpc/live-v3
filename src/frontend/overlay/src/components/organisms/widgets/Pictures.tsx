@@ -48,31 +48,34 @@ const PicturesContainerWrap = styled.div<{
 const PicturesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  //flex-wrap: wrap;
   justify-content: center;
 
   text-align: center;
   box-sizing: border-box;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
-  border: 5px solid ${c.PICTURE_NAME_BACKGROUND_COLOR};
+  border: ${c.PICTURE_BORDER_SIZE} solid ${c.PICTURE_NAME_BACKGROUND_COLOR};
   overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
   background-color: ${c.PICTURE_NAME_BACKGROUND_COLOR};
 `;
 
 
 const PicturesCaptionWrap = styled.div`
-  align-self: stretch;
+  //align-self: stretch;
 
   font-family: Passageway, serif;
-  font-size: 24pt;
+  font-size: ${c.PICTURE_NAME_FONT_SIZE};
   color: ${c.PICTURE_NAME_FONT_COLOR};
 `;
 
 const PicturesImg = styled.img`
   flex-grow: 1;
   flex-shrink: 1;
-  max-width: 100%;
-  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
+  //max-width: 100%;
   object-fit: contain;
 `;
 
