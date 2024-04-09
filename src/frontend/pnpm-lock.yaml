@@ -126,10 +126,13 @@ importers:
     dependencies:
       '@redux-devtools/extension':
         specifier: ^3.3.0
-        version: 3.3.0(redux@4.2.1)
+        version: 3.3.0(redux@5.0.1)
       '@reduxjs/toolkit':
         specifier: ^1.9.7
-        version: 1.9.7(react-redux@7.2.9)(react@18.2.0)
+        version: 1.9.7(react-redux@9.1.0)(react@18.2.0)
+      '@types/react-dom':
+        specifier: ^18.2.24
+        version: 18.2.24
       '@vitejs/plugin-react':
         specifier: ^4.0.3
         version: 4.2.1(vite@4.5.3)
@@ -158,8 +161,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-redux:
-        specifier: ^7.2.6
-        version: 7.2.9(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^9.1.0
+        version: 9.1.0(react@18.2.0)(redux@5.0.1)
       react-router-dom:
         specifier: ^6.3.0
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
@@ -167,17 +170,17 @@ importers:
         specifier: ^4.4.2
         version: 4.4.5(react-dom@18.2.0)(react@18.2.0)
       redux:
-        specifier: ^4.1.2
-        version: 4.2.1
+        specifier: ^5.0.1
+        version: 5.0.1
       redux-deep-persist:
         specifier: ^1.0.6
         version: 1.0.7
       redux-persist:
         specifier: ^6.0.0
-        version: 6.0.0(react@18.2.0)(redux@4.2.1)
+        version: 6.0.0(react@18.2.0)(redux@5.0.1)
       redux-thunk:
         specifier: ^2.4.1
-        version: 2.4.2(redux@4.2.1)
+        version: 2.4.2(redux@5.0.1)
       sass:
         specifier: ^1.58.0
         version: 1.74.1
@@ -189,7 +192,7 @@ importers:
         version: 5.3.11(@babel/core@7.24.4)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
       stylelint:
         specifier: ^16.3.1
-        version: 16.3.1(typescript@5.1.6)
+        version: 16.3.1(typescript@5.4.4)
       stylelint-config-clean-order:
         specifier: ^5.4.2
         version: 5.4.2(stylelint@16.3.1)
@@ -202,6 +205,9 @@ importers:
       stylelint-processor-styled-components:
         specifier: ^1.10.0
         version: 1.10.0
+      typescript:
+        specifier: ^5.4.4
+        version: 5.4.4
       usehooks-ts:
         specifier: ^2.9.1
         version: 2.16.0(react@18.2.0)
@@ -232,7 +238,7 @@ importers:
         version: 0.5.0(postcss@8.4.38)
       vite-tsconfig-paths:
         specifier: ^4.2.1
-        version: 4.3.2(typescript@5.1.6)(vite@4.5.3)
+        version: 4.3.2(typescript@5.4.4)(vite@4.5.3)
 
   tests:
     dependencies:
@@ -2931,17 +2937,17 @@ packages:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
     dev: false
 
-  /@redux-devtools/extension@3.3.0(redux@4.2.1):
+  /@redux-devtools/extension@3.3.0(redux@5.0.1):
     resolution: {integrity: sha512-X34S/rC8S/M1BIrkYD1mJ5f8vlH0BDqxXrs96cvxSBo4FhMdbhU+GUGsmNYov1xjSyLMHgo8NYrUG8bNX7525g==}
     peerDependencies:
       redux: ^3.1.0 || ^4.0.0 || ^5.0.0
     dependencies:
       '@babel/runtime': 7.24.4
       immutable: 4.3.5
-      redux: 4.2.1
+      redux: 5.0.1
     dev: false
 
-  /@reduxjs/toolkit@1.9.7(react-redux@7.2.9)(react@18.2.0):
+  /@reduxjs/toolkit@1.9.7(react-redux@9.1.0)(react@18.2.0):
     resolution: {integrity: sha512-t7v8ZPxhhKgOKtU+uyJT13lu4vL7az5aFi4IdoDs/eS548edn2M8Ik9h8fxgvMjGoAUVFSt6ZC1P5cWmQ014QQ==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
@@ -2954,7 +2960,7 @@ packages:
     dependencies:
       immer: 9.0.21
       react: 18.2.0
-      react-redux: 7.2.9(react-dom@18.2.0)(react@18.2.0)
+      react-redux: 9.1.0(react@18.2.0)(redux@5.0.1)
       redux: 4.2.1
       redux-thunk: 2.4.2(redux@4.2.1)
       reselect: 4.1.8
@@ -3412,6 +3418,7 @@ packages:
     dependencies:
       '@types/react': 18.2.75
       hoist-non-react-statics: 3.3.2
+    dev: true
 
   /@types/html-minifier-terser@6.1.0:
     resolution: {integrity: sha512-oh/6byDPnL1zeNXFrDXFLyZjkr1MsBG667IM792caf1L2UPOOMf65NFzjUH/ltyfwjAGfs1rsX1eftK0jC/KIg==}
@@ -3500,13 +3507,10 @@ packages:
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
     dev: false
 
-  /@types/react-redux@7.1.33:
-    resolution: {integrity: sha512-NF8m5AjWCkert+fosDsN3hAlHzpjSiXlVy9EgQEmLoBhaNXbmyeGs/aj5dQzKuF+/q+S7JQagorGDW8pJ28Hmg==}
+  /@types/react-dom@18.2.24:
+    resolution: {integrity: sha512-cN6upcKd8zkGy4HU9F1+/s98Hrp6D4MOcippK4PoE8OZRngohHZpbJn1GsaDLz87MqvHNoT13nHvNqM9ocRHZg==}
     dependencies:
-      '@types/hoist-non-react-statics': 3.3.5
       '@types/react': 18.2.75
-      hoist-non-react-statics: 3.3.2
-      redux: 4.2.1
     dev: false
 
   /@types/react-transition-group@4.4.10:
@@ -3575,6 +3579,10 @@ packages:
 
   /@types/trusted-types@2.0.7:
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
+    dev: false
+
+  /@types/use-sync-external-store@0.0.3:
+    resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
     dev: false
 
   /@types/ws@8.5.10:
@@ -5094,7 +5102,7 @@ packages:
       yaml: 1.10.2
     dev: false
 
-  /cosmiconfig@9.0.0(typescript@5.1.6):
+  /cosmiconfig@9.0.0(typescript@5.4.4):
     resolution: {integrity: sha512-itvL5h8RETACmOTFc4UfIyB2RfEHi71Ax6E/PivVxq9NseKbOWpeyHEOIbmAw1rs8Ak0VursQNww7lf7YtUwzg==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -5107,7 +5115,7 @@ packages:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
-      typescript: 5.1.6
+      typescript: 5.4.4
     dev: false
 
   /cross-spawn@7.0.3:
@@ -10148,26 +10156,25 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-redux@7.2.9(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-Gx4L3uM182jEEayZfRbI/G11ZpYdNAnBs70lFVMNdHJI76XYtR+7m0MN+eAs7UHBPhWXcnFPaS+9owSCJQHNpQ==}
+  /react-redux@9.1.0(react@18.2.0)(redux@5.0.1):
+    resolution: {integrity: sha512-6qoDzIO+gbrza8h3hjMA9aq4nwVFCKFtY2iLxCtVT38Swyy2C/dJCGBXHeHLtx6qlg/8qzc2MrhOeduf5K32wQ==}
     peerDependencies:
-      react: ^16.8.3 || ^17 || ^18
-      react-dom: '*'
-      react-native: '*'
+      '@types/react': ^18.2.25
+      react: ^18.0
+      react-native: '>=0.69'
+      redux: ^5.0.0
     peerDependenciesMeta:
-      react-dom:
+      '@types/react':
         optional: true
       react-native:
         optional: true
+      redux:
+        optional: true
     dependencies:
-      '@babel/runtime': 7.24.4
-      '@types/react-redux': 7.1.33
-      hoist-non-react-statics: 3.3.2
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
+      '@types/use-sync-external-store': 0.0.3
       react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-is: 17.0.2
+      redux: 5.0.1
+      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
   /react-refresh@0.11.0:
@@ -10397,7 +10404,7 @@ packages:
     resolution: {integrity: sha512-PsD5UXbfCFvDruIPIHKAyaZ3wPhEWBMU8Rtcr/c1pXJT8aYoKbgKUS8JBkaWc3EB1ONlnLTdDDmnC/TOD39hqA==}
     dev: false
 
-  /redux-persist@6.0.0(react@18.2.0)(redux@4.2.1):
+  /redux-persist@6.0.0(react@18.2.0)(redux@5.0.1):
     resolution: {integrity: sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==}
     peerDependencies:
       react: '>=16'
@@ -10407,7 +10414,7 @@ packages:
         optional: true
     dependencies:
       react: 18.2.0
-      redux: 4.2.1
+      redux: 5.0.1
     dev: false
 
   /redux-thunk@2.4.2(redux@4.2.1):
@@ -10418,10 +10425,22 @@ packages:
       redux: 4.2.1
     dev: false
 
+  /redux-thunk@2.4.2(redux@5.0.1):
+    resolution: {integrity: sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==}
+    peerDependencies:
+      redux: ^4
+    dependencies:
+      redux: 5.0.1
+    dev: false
+
   /redux@4.2.1:
     resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
     dependencies:
       '@babel/runtime': 7.24.4
+    dev: false
+
+  /redux@5.0.1:
+    resolution: {integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==}
     dev: false
 
   /reflect.getprototypeof@1.0.6:
@@ -11292,7 +11311,7 @@ packages:
     peerDependencies:
       stylelint: '>=14'
     dependencies:
-      stylelint: 16.3.1(typescript@5.1.6)
+      stylelint: 16.3.1(typescript@5.4.4)
       stylelint-order: 6.0.4(stylelint@16.3.1)
     dev: false
 
@@ -11302,7 +11321,7 @@ packages:
     peerDependencies:
       stylelint: ^16.0.0
     dependencies:
-      stylelint: 16.3.1(typescript@5.1.6)
+      stylelint: 16.3.1(typescript@5.4.4)
     dev: false
 
   /stylelint-no-unsupported-browser-features@8.0.1(stylelint@16.3.1):
@@ -11313,7 +11332,7 @@ packages:
     dependencies:
       doiuse: 6.0.2
       postcss: 8.4.38
-      stylelint: 16.3.1(typescript@5.1.6)
+      stylelint: 16.3.1(typescript@5.4.4)
     dev: false
 
   /stylelint-order@6.0.4(stylelint@16.3.1):
@@ -11323,7 +11342,7 @@ packages:
     dependencies:
       postcss: 8.4.38
       postcss-sorting: 8.0.2(postcss@8.4.38)
-      stylelint: 16.3.1(typescript@5.1.6)
+      stylelint: 16.3.1(typescript@5.4.4)
     dev: false
 
   /stylelint-processor-styled-components@1.10.0:
@@ -11337,7 +11356,7 @@ packages:
       - supports-color
     dev: false
 
-  /stylelint@16.3.1(typescript@5.1.6):
+  /stylelint@16.3.1(typescript@5.4.4):
     resolution: {integrity: sha512-/JOwQnBvxEKOT2RtNgGpBVXnCSMBgKOL2k7w0K52htwCyJls4+cHvc4YZgXlVoAZS9QJd2DgYAiRnja96pTgxw==}
     engines: {node: '>=18.12.0'}
     hasBin: true
@@ -11349,7 +11368,7 @@ packages:
       '@dual-bundle/import-meta-resolve': 4.0.0
       balanced-match: 2.0.0
       colord: 2.9.3
-      cosmiconfig: 9.0.0(typescript@5.1.6)
+      cosmiconfig: 9.0.0(typescript@5.4.4)
       css-functions-list: 3.2.1
       css-tree: 2.3.1
       debug: 4.3.4(supports-color@5.5.0)
@@ -11705,7 +11724,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: false
 
-  /tsconfck@3.0.3(typescript@5.1.6):
+  /tsconfck@3.0.3(typescript@5.4.4):
     resolution: {integrity: sha512-4t0noZX9t6GcPTfBAbIbbIU4pfpCwh0ueq3S4O/5qXI1VwK1outmxhe9dOiEWqMz3MW2LKgDTpqWV+37IWuVbA==}
     engines: {node: ^18 || >=20}
     hasBin: true
@@ -11715,7 +11734,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      typescript: 5.1.6
+      typescript: 5.4.4
     dev: true
 
   /tsconfig-paths@3.15.0:
@@ -11851,6 +11870,7 @@ packages:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /typescript@5.4.4:
     resolution: {integrity: sha512-dGE2Vv8cpVvw28v8HCPqyb08EzbBURxDpuhJvTrusShUfGnhHBafDsLdS1EhhxyL6BJQE+2cT3dDPAv+MQ6oLw==}
@@ -11950,6 +11970,14 @@ packages:
       requires-port: 1.0.0
     dev: false
 
+  /use-sync-external-store@1.2.0(react@18.2.0):
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /usehooks-ts@2.16.0(react@18.2.0):
     resolution: {integrity: sha512-bez95WqYujxp6hFdM/CpRDiVPirZPxlMzOH2QB8yopoKQMXpscyZoxOjpEdaxvV+CAWUDSM62cWnqHE0E/MZ7w==}
     engines: {node: '>=16.15.0'}
@@ -12020,7 +12048,7 @@ packages:
       - rollup
     dev: false
 
-  /vite-tsconfig-paths@4.3.2(typescript@5.1.6)(vite@4.5.3):
+  /vite-tsconfig-paths@4.3.2(typescript@5.4.4)(vite@4.5.3):
     resolution: {integrity: sha512-0Vd/a6po6Q+86rPlntHye7F31zA2URZMbH8M3saAZ/xR9QoGN/L21bxEGfXdWmFdNkqPpRdxFT7nmNe12e9/uA==}
     peerDependencies:
       vite: '*'
@@ -12030,7 +12058,7 @@ packages:
     dependencies:
       debug: 4.3.4(supports-color@5.5.0)
       globrex: 0.1.2
-      tsconfck: 3.0.3(typescript@5.1.6)
+      tsconfck: 3.0.3(typescript@5.4.4)
       vite: 4.5.3(sass@1.74.1)
     transitivePeerDependencies:
       - supports-color

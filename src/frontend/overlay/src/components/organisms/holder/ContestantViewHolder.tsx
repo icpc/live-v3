@@ -160,13 +160,12 @@ export const TeamWebRTCGrabberVideoWrapper = ({ media: { url, peerName, streamTy
         {...props}/>);
 };
 
-interface HlsPlayerProps
-    extends React.VideoHTMLAttributes<HTMLVideoElement> {
+type HlsPlayerProps = {
     src: string;
     jwtToken?: string;
     // onCanPlay: () => void;
     onError?: () => void;
-}
+} & React.VideoHTMLAttributes<HTMLVideoElement>
 
 function HlsPlayer({
     src,
