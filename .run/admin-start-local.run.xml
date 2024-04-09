@@ -7,9 +7,9 @@
     </scripts>
     <node-interpreter value="project" />
     <envs>
-      <env name="REACT_APP_BACKEND_URL" value="http://localhost:8080/api/admin" />
-      <env name="REACT_APP_WEBSOCKET_URL" value="ws://localhost:8080/api/admin" />
-      <env name="REACT_APP_OVERLAY_LOCATION" value="http://localhost:5173" />
+      <env name="VITE_BACKEND_URL" value="http://localhost:8080/api/admin" />
+      <env name="VITE_OVERLAY_LOCATION" value="http://localhost:5173" />
+      <env name="VITE_WEBSOCKET_URL" value="ws://localhost:8080/api/admin" />
     </envs>
     <method v="2" />
   </configuration>
