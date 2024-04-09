@@ -124,7 +124,17 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
 
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
-            <ShowPresetButton onClick={onShow} active={data.shown}/>
+            <Box display="flex">
+                <ShowPresetButton className='block' onClick={onShow} active={data.shown}/>
+                <IconButton color="primary" onClick={() => {
+                    data.settings.preset = "title_left.svg";
+                    onEdit(data);
+                }}>L</IconButton>
+                <IconButton color="primary" onClick={() => {
+                    data.settings.preset = "title_right.svg";
+                    onEdit(data);
+                }}>R</IconButton>
+            </Box>
         </TableCell>
         <PresetsTableCell value={data.settings.preset} editValue={editData?.settings?.preset} isActive={data.shown}
             onChange={onChangeField("preset")} onSubmit={onSubmitEdit}
