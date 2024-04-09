@@ -1,0 +1,44 @@
+[
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 10000
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 30000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "image",
+        "part": "short",
+        "periodMs": 10000,
+        "path": "/media/VK_NEW.svg"
+    },
+    {
+        "type": "image",
+        "part": "short",
+        "periodMs": 10000,
+        "path": "/media/vsosh_white.svg"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Первый тур ВСОШ по информатике"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": ""
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Смотрите стрим в группе Довуз Университета Иннополис"
+    }
+]
