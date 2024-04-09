@@ -24,7 +24,7 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
       - name: "Install dependencies"
-        run: npm ci
+        run: pnpm install
         working-directory: "src/frontend"
       - name: "Lint admin js"
         working-directory: "src/frontend/admin"

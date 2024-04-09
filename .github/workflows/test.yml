@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./src/frontend
-        run: npm ci
+        run: pnpm install
 
       - name: Store Playwright's Version
         run: |
