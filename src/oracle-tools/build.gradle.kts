@@ -25,7 +25,7 @@ tasks {
     // Not the best way of doing this, but should work out.
     processResources {
         into("locator") {
-            from(project(":frontend").tasks.named("npm_run_buildLocatorAdmin"))
+            from(project(":frontend").tasks.named("pnpm_run_buildLocatorAdmin"))
         }
     }
 }

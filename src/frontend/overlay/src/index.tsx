@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 // import { PersistGate } from "redux-persist/integration/react";
 import { createGlobalStyle } from "styled-components";
@@ -8,6 +8,8 @@ import "./assets/fonts/fonts.scss";
 
 import { store } from "./redux/store";
 
+const container = document.getElementById("root");
+const root = createRoot(container);
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -34,15 +36,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-ReactDOM.render(
-    <React.StrictMode>
+root.render(
+    <StrictMode>
         <Provider store={store}>
             {/*<PersistGate loading={null} persistor={persistor}>*/}
             <GlobalStyle/>
             <App/>
             {/*</PersistGate>*/}
         </Provider>
-    </React.StrictMode>,
-    document.getElementById("root")
+    </StrictMode>
 );
 

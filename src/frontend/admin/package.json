@@ -9,22 +9,21 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.3",
     "@mui/styled-engine-sc": "^5.5.2",
+    "@vitejs/plugin-react": "^4.0.3",
     "ansi-to-react": "6.1.6",
     "luxon": "^2.4.0",
     "notistack": "^2.0.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.4",
     "react-rnd": "^10.3.7",
     "react-router-dom": "^6.2.2",
-    "react-scripts": "^5.0.1",
-    "shared-code": "file:../common"
+    "shared-code": "file:../common",
+    "vite": "^4.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite --port 3000",
+    "build": "vite build",
     "lint:js": "eslint ./src/**/*.js",
     "lint": "npm run lint:js"
   },
@@ -45,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prop-types": "^15.7.2"
   }
 }

@@ -32,10 +32,10 @@ tasks {
         }
         if (project.properties["live.dev.embedFrontend"] == "true") {
             into("admin") {
-                from(project(":frontend").tasks.named("npm_run_buildAdmin"))
+                from(project(":frontend").tasks.named("pnpm_run_buildAdmin"))
             }
             into("overlay") {
-                from(project(":frontend").tasks.named("npm_run_buildOverlay"))
+                from(project(":frontend").tasks.named("pnpm_run_buildOverlay"))
             }
         }
     }

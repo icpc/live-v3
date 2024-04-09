@@ -20,7 +20,7 @@ export function PresetsManager({ service, RowComponent, defaultRowData, tableKey
     const onDelete = (id) => service.deletePreset(id);
     const onShow = ({ shown, id }) => (shown ? service.hidePreset(id) : service.showPreset(id));
 
-    useEffect(loadData, []);
+    useEffect(() => {loadData();}, []);
     useEffect(() => {
         service.addReloadDataHandler(loadData);
         return () => service.deleteReloadDataHandler(loadData);

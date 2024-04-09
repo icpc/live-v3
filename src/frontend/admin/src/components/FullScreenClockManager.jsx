@@ -17,7 +17,7 @@ function FullScreenClockManager() {
 
     const [isShown, setIsShown] = useState(false);
     const [settings, setSettings] = useState({ globalTimeMode: false, quietMode: false, contestCountdownMode: false });
-    const loadSettings = () => service.loadOne().then((info) => setIsShown(info.shown));
+    const loadSettings = () => { service.loadOne().then((info) => setIsShown(info.shown));};
 
     useEffect(loadSettings, []);
     useEffect(() => {

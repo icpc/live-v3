@@ -4,7 +4,7 @@ Requirements:
 
 * gradle
 * jdk
-* node:16
+* node:20 with pnpm
 * browser
 
 Before cloning on Windows configure correct crlf handling
@@ -54,8 +54,8 @@ We have two front end packages:
 * overlay - webapp that is rendered in OBS (located in `overlay`)
 * admin - admin app for controlling the overlay (located in `admin`)
 
-Install dependencies with `npm ci` in the root path of the project
-(see package.json for more details)
+Install dependencies with `pnpm install` in the src/frontend path of the project
+(see src/frontend/package.json and src/frontend/pnpm-workspaces for more details)
 
 ### Running frontend separate from backend
 
