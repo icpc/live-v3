@@ -3,7 +3,6 @@
 module.exports = {
     "extends": [
         "stylelint-config-recommended",
-        "stylelint-config-styled-components",
         // "stylelint-config-clean-order/warning" // Disabled for now...
     ],
     "plugins": [
@@ -14,7 +13,8 @@ module.exports = {
             true,
             {
                 "severity": "error",
-                "ignore": ["multicolumn"]
+                "ignorePartialSupport": true
+                // "ignore": ["multicolumn"]
             }
         ],
         // "order/properties-order": [
@@ -23,7 +23,8 @@ module.exports = {
         //         "severity": "warning",
         //     }
         // ],
-        "block-no-empty": null
+        "block-no-empty": null,
+        "no-empty-source": null
     },
     "customSyntax": "postcss-styled-syntax"
 };

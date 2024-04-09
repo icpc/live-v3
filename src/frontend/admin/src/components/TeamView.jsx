@@ -50,7 +50,7 @@ const useTeamviewService = (service, setStatus) => {
     const loadStatus = useMemo(() => {
         return () => service.loadElements().then(s => setStatus(st => ({ ...st, ...s })));
     }, [service, setStatus]);
-    useEffect(() => loadStatus(), []);
+    useEffect(() => { loadStatus();}, []);
     useEffect(() => {
         service.addReloadDataHandler(loadStatus);
         return () => service.deleteReloadDataHandler(loadStatus);

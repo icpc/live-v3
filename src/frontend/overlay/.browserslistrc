@@ -5,5 +5,5 @@ chrome 86
 chrome > 0 and last 2 years
 
 # We also want to support development in the browser which is rougly
-last 2 major versions and not dead and not op_mini all
+last 2 major versions, not dead, not op_mini all, not kaios > 0, not and_qq > 0, not ios > 0
 

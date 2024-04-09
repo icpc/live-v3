@@ -142,10 +142,6 @@ export const ScoreboardRow = ({ teamId,
         )}
     </ScoreboardRowWrap>;
 };
-ScoreboardRow.propTypes = {
-    teamId: PropTypes.number.isRequired,
-    hideTasks: PropTypes.bool
-};
 
 type PositionedScoreboardRowProps = {
     zIndex: number,
