@@ -1,0 +1,7 @@
+packages:
+  - 'overlay'
+  - 'admin'
+  - 'common'
+  - 'locator'
+  - 'tests'
+  - 'generated'
