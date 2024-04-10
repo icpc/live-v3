@@ -6,14 +6,16 @@
         "citation": "Победитель",
         "color": "GOLD",
         "maxRank": 30,
-        "tiebreakMode": "NONE"
+        "tiebreakMode": "NONE",
+	"minScore": 400
       },
       {
         "id": "second-diploma",
         "citation": "Призер",
         "color": "SILVER",
-        "maxRank": 169,
-        "tiebreakMode": "NONE"
+        "maxRank": 172,
+        "tiebreakMode": "NONE",
+	"minScore": 400
       }
     ]
   },
