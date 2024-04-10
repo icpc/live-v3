@@ -18,6 +18,7 @@ export class GrabberPlayerClient {
         this.ws.on("auth:request", () => {
             _client.target.dispatchEvent(new CustomEvent("auth:request", {}));
         });
+
         _client.ws.on("auth:failed", () => {
             _client.ws.close();
             _client.target.dispatchEvent(new CustomEvent("auth:failed", {}));
@@ -38,6 +39,11 @@ export class GrabberPlayerClient {
         _client.ws.on("offer_answer", async ({ offerAnswer: { peerId, answer } }) => {
             console.debug(`WebRTCGrabber: got offer_answer from ${peerId}`);
             await _client?.pc.setRemoteDescription(answer);
+        });
+
+        _client.ws.on("offer:failed", () => {
+            _client.ws.close();
+            _client.target.dispatchEvent(new CustomEvent("connection:failed", {}));
         });
 
         _client.ws.on("grabber_ice", async ({ ice: { peerId, candidate } }) => {
@@ -73,7 +79,7 @@ export class GrabberPlayerClient {
             _client.ws.emit("player_ice", { ice: { ...peerInfo, candidate: event.candidate } });
         });
 
-        _client.close();
+        _client._closePeerConnection();
         _client.pc = pc;
 
         pc.createOffer().then(offer => {
@@ -87,8 +93,13 @@ export class GrabberPlayerClient {
         this.target.addEventListener(eventName, e => callback(e.detail));
     }
 
-    close() {
+    _closePeerConnection() {
         this.pc?.close();
         this.pc = null;
+    }
+
+    close() {
+        this.ws?.close();
+        this._closePeerConnection();
     }
 }
