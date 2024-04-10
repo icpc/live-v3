@@ -48,7 +48,6 @@ const PicturesContainerWrap = styled.div<{
 const PicturesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  //flex-wrap: wrap;
   justify-content: center;
 
   text-align: center;
@@ -63,8 +62,6 @@ const PicturesContainer = styled.div`
 
 
 const PicturesCaptionWrap = styled.div`
-  //align-self: stretch;
-
   font-family: Passageway, serif;
   font-size: ${c.PICTURE_NAME_FONT_SIZE};
   color: ${c.PICTURE_NAME_FONT_COLOR};
@@ -75,7 +72,6 @@ const PicturesImg = styled.img`
   flex-shrink: 1;
   min-width: 0;
   min-height: 0;
-  //max-width: 100%;
   object-fit: contain;
 `;
 
