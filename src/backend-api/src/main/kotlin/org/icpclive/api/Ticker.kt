@@ -48,3 +48,12 @@ class ScoreboardTickerMessage(val settings: ScoreboardTickerSettings) :
         const val TICKER_ID_PREFIX: String = "ticker_scoreboard"
     }
 }
+
+@Serializable
+@SerialName("empty")
+class EmptyTickerMessage(val settings: EmptyTickerSettings) :
+    TickerMessage(generateId(TICKER_ID_PREFIX), settings.part, settings.periodMs) {
+    companion object {
+        const val TICKER_ID_PREFIX: String = "ticker_empty"
+    }
+}

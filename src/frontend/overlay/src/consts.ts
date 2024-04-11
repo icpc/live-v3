@@ -1,5 +1,8 @@
 export const DEBUG = import.meta.env.DEV;
 
+
+export const WEBSOCKETS_OVERRIDE = {};
+
 export const WEBSOCKETS = {
     mainScreen: "mainScreen",
     contestInfo: "contestInfo",
@@ -9,6 +12,7 @@ export const WEBSOCKETS = {
     scoreboardNormal: "scoreboard/normal",
     scoreboardOptimistic: "scoreboard/optimistic",
     scoreboardPessimistic: "scoreboard/pessimistic",
+    ...WEBSOCKETS_OVERRIDE
 };
 
 export const SCOREBOARD_TYPES = Object.freeze({

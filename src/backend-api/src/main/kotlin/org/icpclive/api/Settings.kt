@@ -143,3 +143,11 @@ data class ScoreboardTickerSettings(
 ) : TickerMessageSettings() {
     override fun toMessage() = ScoreboardTickerMessage(this)
 }
+
+@Serializable
+@SerialName("empty")
+data class EmptyTickerSettings(
+    override val part: TickerPart, override val periodMs: Long
+) : TickerMessageSettings() {
+    override fun toMessage() = EmptyTickerMessage(this)
+}

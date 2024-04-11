@@ -40,6 +40,7 @@ private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (
     is MediaType.Image -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.Video -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.M2tsVideo -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
+    is MediaType.HLSVideo -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.Object -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.WebRTCProxyConnection -> copy(url = url.applyTemplate(urlEncoded(valueProvider)))
     is MediaType.WebRTCGrabberConnection -> copy(

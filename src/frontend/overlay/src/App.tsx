@@ -34,7 +34,8 @@ const safeHandleMessage = <H extends (...args: unknown[]) => unknown,>(ws: WebSo
 const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
     const openSocket = () => {
         dispatch(setWebsocketStatus(wsName, WebsocketStatus.CONNECTING));
-        ws.current = new WebSocket(`${c.BASE_URL_WS}/${WEBSOCKETS[wsName]}`);
+        const url = c.WEBSOCKET_URL_OVERRIDE[WEBSOCKETS[wsName]] || `${c.BASE_URL_WS}/${WEBSOCKETS[wsName]}`;
+        ws.current = new WebSocket(url);
         ws.current.onopen = () => {
             dispatch(pushLog(`Connected to WS ${wsName}`));
             dispatch(setWebsocketStatus(wsName, WebsocketStatus.CONNECTED));

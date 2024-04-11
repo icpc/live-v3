@@ -28,10 +28,6 @@ const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(({ top }) => (
   /* align-items: center; */
 `;
 
-const TickerScoreboardContestantInfo = styled(ContestantInfo)`
-    height: 48px;
-`;
-
 export const Scoreboard = ({ tickerSettings, state }) => {
     const { from, to, periodMs } = tickerSettings;
     const [row, setRow] = useState(0);
@@ -52,12 +48,9 @@ export const Scoreboard = ({ tickerSettings, state }) => {
 
     // This fugliness is needed to scroll the scoreboard
     return (
-        <ScoreboardWrap nrows={nrows*2} top={`calc(${-row * 100 }% - ${row * 2}px)`}>
-            {rows.map((row) => (
-                <TickerScoreboardContestantInfo key={row.teamId} teamId={row.teamId}/>
-            ))}
-        </ScoreboardWrap>
+        <></>
     );
 };
 
 export default Scoreboard;
+
