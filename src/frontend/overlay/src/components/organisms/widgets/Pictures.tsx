@@ -72,7 +72,7 @@ const PicturesImg = styled.img`
   flex-shrink: 1;
   min-width: 0;
   min-height: 0;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 export const Pictures = ({ widgetData, transitionState }) => {
