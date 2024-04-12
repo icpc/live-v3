@@ -694,6 +694,7 @@ export namespace TickerEvent {
 
 export type TickerMessage =
   | TickerMessage.clock
+  | TickerMessage.empty
   | TickerMessage.image
   | TickerMessage.scoreboard
   | TickerMessage.text;
@@ -701,6 +702,7 @@ export type TickerMessage =
 export namespace TickerMessage {
   export enum Type {
     clock = "clock",
+    empty = "empty",
     image = "image",
     scoreboard = "scoreboard",
     text = "text",
@@ -712,6 +714,14 @@ export namespace TickerMessage {
     part: TickerPart;
     periodMs: number;
     settings: clock;
+  }
+  
+  export interface empty {
+    type: TickerMessage.Type.empty;
+    id: string;
+    part: TickerPart;
+    periodMs: number;
+    settings: empty;
   }
   
   export interface image {
@@ -748,6 +758,11 @@ export interface clock {
   part: TickerPart;
   periodMs: number;
   timeZone?: string | null;
+}
+
+export interface empty {
+  part: TickerPart;
+  periodMs: number;
 }
 
 export interface image {
