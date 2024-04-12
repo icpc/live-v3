@@ -53,7 +53,6 @@ export const stopScrolling = () => {
 export const advanceScrolling = (part, add = 1, isFirst = true) => {
     return async (dispatch, getState) => {
         const state = getState();
-        console.log("Advance scrolling, ", state);
         const curDisplayingIndex = state.ticker.tickers[part].curDisplayingIndex ?? 0;
         const messages = state.ticker.tickers[part].messages;
         const newCurDisplayIndex = (curDisplayingIndex + add) % messages.length;
