@@ -34,7 +34,7 @@ export const debugSlice = createSlice({
                     state.log.shift();
                 }
             } else {
-                console.log(action.payload);
+                // console.log(action.payload);
             }
         },
         clearLog: (state) => {
