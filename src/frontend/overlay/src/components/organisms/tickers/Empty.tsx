@@ -1,56 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import c from "../../../config";
-import { SCOREBOARD_TYPES } from "@/consts";
-import { useAppSelector } from "@/redux/hooks";
-import { ContestantInfo } from "../../molecules/info/ContestantInfo";
+import React from "react";
 
-type ScoreboardWrapProps = {
-    top: string,
-    nrows: number
-}
-
-const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(({ top }) => (
-    { style: { top } }
-))<ScoreboardWrapProps>`
-  position: absolute;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(${props => props.nrows}, 1fr);
-  gap: 2px;
-
-  width: 100%;
-  height: 100%;
-
-  transition: top ${c.TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME}ms ease-in-out;
-
-  /* align-items: center; */
-`;
-
-export const Scoreboard = ({ tickerSettings, state }) => {
-    const { from, to, periodMs } = tickerSettings;
-    const [row, setRow] = useState(0);
-    const rows = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
-    const nrows = Math.ceil(rows.length / 4);
-    useEffect(() => {
-        if(state !== "entering" && rows.length > 0) {
-            const interval = setInterval(() => {
-                if (state !== "exiting") {
-                    setRow((row) => {
-                        return (row + 1) % nrows;
-                    });
-                }
-            }, (periodMs - c.TICKER_SCROLL_TRANSITION_TIME) / nrows / c.TICKER_SCOREBOARD_REPEATS + 1);
-            return () => clearInterval(interval);
-        }
-    }, [nrows, periodMs, state, rows.length]);
-
-    // This fugliness is needed to scroll the scoreboard
+export const Empty = () => {
     return (
         <></>
     );
 };
 
-export default Scoreboard;
+export default Empty;
 

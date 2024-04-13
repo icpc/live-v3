@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 const CodeEditor = ({ schema, defaultValue, onChange }) => {
     function onMount(editor, monaco) {
         /* Workaround for https://github.com/suren-atoyan/monaco-react/issues/69#issuecomment-612816117 */
+        console.log(defaultValue);
         const modelUri = "foo://admin/advanced.json";
         const model = monaco.editor.createModel(
             defaultValue, "json", monaco.Uri.parse(modelUri)
