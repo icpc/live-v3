@@ -10,45 +10,33 @@ node {
     download.set(rootProject.findProperty("npm.download") == "true")
 }
 
+fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: PnpmTask.(Directory) -> Unit = {}) = named<PnpmTask>(name) {
+    outputs.cacheIf { true }
+    environment.set(mapOf("PUBLIC_URL" to "/${directory.asFile.name}", "BUILD_PATH" to "build"))
+    inputs.dir(layout.projectDirectory.dir("common"))
+    inputs.dir(layout.projectDirectory.dir("generated"))
+    inputs.file(layout.projectDirectory.file("package.json"))
+    inputs.file(layout.projectDirectory.file("pnpm-lock.yaml"))
+    inputs.dir(directory.dir("src"))
+    inputs.file(directory.file("package.json"))
+    outputs.dir(directory.dir("build"))
+    configure(directory)
+}
+
 tasks {
     pnpmInstall {
         inputs.file("package.json")
         inputs.file("admin/package.json")
         inputs.file("overlay/package.json")
-    }
-    val buildOverlay = named<PnpmTask>("pnpm_run_buildOverlay") {
-        outputs.cacheIf { true }
-        environment.set(mapOf("PUBLIC_URL" to "/overlay", "BUILD_PATH" to "build"))
-        inputs.dir("overlay/src")
-        inputs.file("overlay/index.html")
-        inputs.dir("common")
-        inputs.file("package.json")
-        inputs.file("pnpm-lock.yaml")
-        inputs.file("overlay/package.json")
-        outputs.dir("overlay/build")
-    }
-    val buildAdmin = named<PnpmTask>("pnpm_run_buildAdmin") {
-        outputs.cacheIf { true }
-        environment.set(mapOf("PUBLIC_URL" to "/admin"))
-        inputs.dir("admin/src")
-        inputs.dir("admin/public")
-        inputs.dir("common")
-        inputs.file("package.json")
-        inputs.file("pnpm-lock.yaml")
-        inputs.file("admin/package.json")
-        outputs.dir("admin/build")
-    }
-    val buildLocatorAdmin = named<PnpmTask>("pnpm_run_buildLocatorAdmin") {
-        outputs.cacheIf { true }
-        environment.set(mapOf("PUBLIC_URL" to "/locator"))
-        inputs.dir("locator/src")
-        inputs.dir("locator/public")
-        inputs.dir("common")
-        inputs.file("package.json")
-        inputs.file("pnpm-lock.yaml")
         inputs.file("locator/package.json")
-        outputs.dir("locator/build")
     }
+    val buildOverlay = pnpmBuild("pnpm_run_buildOverlay", layout.projectDirectory.dir("overlay")) {
+        inputs.file(it.file("index.html"))
+    }
+    val buildAdmin = pnpmBuild("pnpm_run_buildAdmin", layout.projectDirectory.dir("admin")) {
+        inputs.file(it.file("index.html"))
+    }
+    val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator"))
     //val installBrowsers = named<NpmTask>("pnpm_run_install-browsers") // probably want to cache it somehow
     val runTests = named<PnpmTask>("pnpm_run_test") {
         //dependsOn(installBrowsers)
