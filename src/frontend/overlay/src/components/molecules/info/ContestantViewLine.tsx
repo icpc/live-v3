@@ -66,7 +66,7 @@ interface ContestantViewLineProps {
 }
 
 export const ContestantViewLine = ({ teamId, isSmall, className, isTop }: ContestantViewLineProps) => {
-    const scoreboardData: LegacyScoreboardRow = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
+    const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
     // for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
     //     scoreboardData.problemResults[i]["index"] = i;
     // }
