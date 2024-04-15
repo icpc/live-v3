@@ -10,6 +10,7 @@ import Clock from "../tickers/Clock";
 import Scoreboard from "../tickers/Scoreboard";
 import Text from "../tickers/Text";
 import Image from "../tickers/Image";
+import Empty from "../tickers/Empty";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const rowAppear = keyframes`
@@ -81,6 +82,7 @@ const SingleTickerWrap = styled.div<{
 `;
 
 const widgetTypes = Object.freeze({
+    empty: Empty,
     text: Text,
     clock: Clock,
     scoreboard: Scoreboard,
@@ -146,8 +148,9 @@ export const SingleTicker = ({ part, color }) => {
         );
     }
     const curMessage = useAppSelector((state) => state.ticker.tickers[part].curDisplaying);
+    const wrapColor = (curMessage?.type === "scoreboard" || curMessage?.type === "empty") ? c.TICKER_DEFAULT_SCOREBOARD_BACKGROUND : color;
     return (
-        <SingleTickerWrap color={curMessage?.type === "scoreboard" ? c.TICKER_DEFAULT_SCOREBOARD_BACKGROUND : color}>
+        <SingleTickerWrap color={wrapColor}>
             <SingleTickerRows part={part}/>
         </SingleTickerWrap>
     );
