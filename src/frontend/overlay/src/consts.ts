@@ -9,9 +9,9 @@ export const WEBSOCKETS = {
     queue: "queue",
     statistics: "statistics",
     ticker: "ticker",
-    scoreboardNormal: "scoreboard/v2/normal",
-    scoreboardOptimistic: "scoreboard/v2/optimistic",
-    scoreboardPessimistic: "scoreboard/v2/pessimistic",
+    scoreboardNormal: "scoreboard/normal",
+    scoreboardOptimistic: "scoreboard/optimistic",
+    scoreboardPessimistic: "scoreboard/pessimistic",
     ...WEBSOCKETS_OVERRIDE
 };
 

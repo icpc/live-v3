@@ -10,9 +10,8 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { formatScore, useFormatPenalty, useNeedPenalty } from "@/services/displayUtils";
 import { useElementSize } from "usehooks-ts";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, LegacyScoreboardRow, OptimismLevel, ScoreboardSettings } from "@shared/api";
+import { LegacyScoreboardRow, OptimismLevel, ScoreboardSettings } from "@shared/api";
 import { ScoreboardData } from "@/redux/contest/scoreboard";
-import { SCOREBOARD_TYPES } from "@/consts";
 
 
 const ScoreboardWrap = styled.div`
@@ -127,12 +126,10 @@ export const ScoreboardRow = ({ teamId,
     const scoreboardData = useAppSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const contestData = useAppSelector((state) => state.contestInfo.info);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
-    const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const needPenalty = useNeedPenalty();
     const formatPenalty = useFormatPenalty();
     return <ScoreboardRowWrap nProblems={contestData?.problems?.length ?? 1} needPenalty={needPenalty}>
-        <ScoreboardRankLabel rank={scoreboardData?.rank} medal={medal?.medalColor}/>
+        <ScoreboardRankLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
         <ScoreboardRowName align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={c.SCOREBOARD_CELL_POINTS_ALIGN}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
@@ -177,16 +174,8 @@ const ScoreboardRowsWrap = styled.div<{maxHeight: number}>`
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
 `;
 
-export const useScoreboardRows = (optimismLevel: OptimismLevel, selectedGroup: string) => {
-    const order = useAppSelector((state) => state.scoreboard[optimismLevel]?.orderById);
-    const teamsId = useAppSelector((state) => state.contestInfo.info?.teamsId);
-    if (teamsId === undefined || order === undefined) {
-        return [];
-    }
-    return Object.entries(order)
-        .filter(([k]) =>
-            selectedGroup === "all" || (teamsId[k]?.groups ?? []).includes(selectedGroup));
-};
+export const extractScoreboardRows = (data: ScoreboardData, selectedGroup) =>
+    data.rows.filter(t => selectedGroup === "all" || (t?.teamGroups ?? []).includes(selectedGroup));
 
 /**
  * Scollbar for scoreboard
@@ -225,13 +214,21 @@ interface ScoreboardRowsProps {
 }
 
 export const ScoreboardRows = ({ settings, onPage }: ScoreboardRowsProps) => {
-    const rows = useScoreboardRows(settings.optimismLevel, settings.group);
+    const rows = extractScoreboardRows(
+        useAppSelector((state) => state.scoreboard[settings.optimismLevel]),
+        settings.group);
+    const teams = _(rows)
+        .map((el, i): [number, LegacyScoreboardRow] => [i, el])
+        .sortBy("[1].teamId")
+        .value();
     const rowHeight = c.SCOREBOARD_ROW_HEIGHT + c.SCOREBOARD_ROW_PADDING;
     const scrollPos = useScroller(rows.length, onPage, c.SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
     return <ScoreboardRowsWrap maxHeight={onPage * rowHeight}>
-        {rows.map(([teamId, position]) =>
-            <PositionedScoreboardRow key={teamId} zIndex={rows.length-position} pos={(position - scrollPos) * rowHeight - c.SCOREBOARD_ROW_PADDING}>
-                <ScoreboardRow teamId={teamId} optimismLevel={settings.optimismLevel}/>
+        {teams.map(([index, teamData]) =>
+            <PositionedScoreboardRow key={teamData.teamId} zIndex={rows.length-index} pos={(index - scrollPos) * rowHeight - c.SCOREBOARD_ROW_PADDING}>
+                <ScoreboardRow teamId={teamData.teamId} optimismLevel={settings.optimismLevel}
+                    // hideTasks={settings} // I currently have no idea what hidetasks was so..
+                />
             </PositionedScoreboardRow>
         )}
     </ScoreboardRowsWrap>;

@@ -5,7 +5,7 @@
 // import thunkMiddleware from "redux-thunk";
 import { contestInfoReducer } from "./contest/contestInfo";
 import { queueReducer } from "./contest/queue";
-import scoreboardReducer from "./contest/scoreboard";
+import { scoreboardReducer } from "./contest/scoreboard";
 import debugReducer from "./debug";
 import statusReducer from "./status";
 import { widgetsReducer } from "./widgets";

@@ -35,10 +35,10 @@ const TickerScoreboardContestantInfo = styled(ContestantInfo)`
 export const Scoreboard = ({ tickerSettings, state }) => {
     const { from, to, periodMs } = tickerSettings;
     const [row, setRow] = useState(0);
-    const order = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].order.slice(from-1, to));
-    const nrows = Math.ceil(order.length / 4);
+    const rows = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rows.slice(from-1, to));
+    const nrows = Math.ceil(rows.length / 4);
     useEffect(() => {
-        if(state !== "entering" && order.length > 0) {
+        if(state !== "entering" && rows.length > 0) {
             const interval = setInterval(() => {
                 if (state !== "exiting") {
                     setRow((row) => {
@@ -48,13 +48,13 @@ export const Scoreboard = ({ tickerSettings, state }) => {
             }, (periodMs - c.TICKER_SCROLL_TRANSITION_TIME) / nrows / c.TICKER_SCOREBOARD_REPEATS + 1);
             return () => clearInterval(interval);
         }
-    }, [nrows, periodMs, state, order.length]);
+    }, [nrows, periodMs, state, rows.length]);
 
     // This fugliness is needed to scroll the scoreboard
     return (
         <ScoreboardWrap nrows={nrows*2} top={`calc(${-row * 100 }% - ${row * 2}px)`}>
-            {order.map((teamId) => (
-                <TickerScoreboardContestantInfo key={teamId} teamId={teamId}/>
+            {rows.map((row) => (
+                <TickerScoreboardContestantInfo key={row.teamId} teamId={row.teamId}/>
             ))}
         </ScoreboardWrap>
     );

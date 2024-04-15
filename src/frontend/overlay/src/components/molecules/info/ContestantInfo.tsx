@@ -6,7 +6,6 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel } from "../../atoms/ContestLabels";
 import { formatScore, useFormatPenalty } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award } from "@shared/api";
 
 
 const ContestantInfoLabel = styled(RankLabel)`
@@ -49,12 +48,10 @@ const ContestantInfoScoreLabel = styled(ShrinkingBox)`
 export const ContestantInfo = ({ teamId, roundBR= true, className = null }) => {
     const contestInfo = useAppSelector((state) => state.contestInfo.info);
     const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
-    const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
-    const medal = awards.find((award) => award.type == Award.Type.medal) as Award.medal;
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const formatPenalty = useFormatPenalty();
     return <ContestantInfoWrap round={roundBR} className={className}>
-        <ContestantInfoLabel rank={scoreboardData?.rank} medal={medal?.medalColor}/>
+        <ContestantInfoLabel rank={scoreboardData?.rank} medal={scoreboardData?.medalType}/>
         <ContestantInfoTeamNameLabel text={teamData?.shortName ?? "??"}/>
         <ContestantInfoScoreLabel align={"right"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
