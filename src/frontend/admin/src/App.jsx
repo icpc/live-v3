@@ -87,7 +87,7 @@ function App() {
     }, []);
 
     return (
-        <BrowserRouter basename={import.meta.env.PUBLIC_URL ?? ""}>
+        <BrowserRouter basename={import.meta.env.BASE_URL ?? ""}>
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
                     <ThemeProvider theme={getTheme(contestColor)}>
