@@ -157,7 +157,7 @@ public data class Group(
 @Serializable
 public data class Submission(
     val id: String,
-    val language_id: String,
+    val language_id: String?,
     val problem_id: String,
     val team_id: String,
     @Serializable(with = ClicsTime.InstantSerializer::class)
@@ -263,7 +263,10 @@ public data class Account(
         ANALYST,
 
         @SerialName("staff")
-        STAFF
+        STAFF,
+
+        @SerialName("spectator")
+        SPECTATOR
     }
 }
 
