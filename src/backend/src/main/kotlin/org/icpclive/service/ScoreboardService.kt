@@ -11,10 +11,14 @@ import org.icpclive.util.getLogger
 
 class ScoreboardService : Service {
     private fun setUp(level: OptimismLevel, flow: Flow<ContestStateWithScoreboard>) {
-        DataBus.setScoreboardDiffs(level, flow.withIndex().map { (index, it) -> it.toScoreboardDiff(snapshot = index == 0) })
-        DataBus.setLegacyScoreboard(level, flow.map { it.toLegacyScoreboard() })
-
+        DataBus.setScoreboardDiffs(level, flow.filter { it.isAffectingScoreboard() }.withIndex().map { (index, it) -> it.toScoreboardDiff(snapshot = index == 0) })
+        DataBus.setLegacyScoreboard(level, flow.filter { it.isAffectingScoreboard() }.map { it.toLegacyScoreboard() })
     }
+
+    private fun ContestStateWithScoreboard.isAffectingScoreboard() : Boolean {
+        return scoreboardRowsChanged.isNotEmpty() || rankingAfter !== rankingBefore
+    }
+
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         logger.info("Scoreboard service for started")
         val mainScoreboardFlow = flow.shareIn(this, SharingStarted.Eagerly, replay = 1)
