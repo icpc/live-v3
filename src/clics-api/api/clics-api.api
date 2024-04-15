@@ -1214,6 +1214,7 @@ public final class org/icpclive/clics/v202207/Account$TYPE : java/lang/Enum {
 	public static final field ANALYST Lorg/icpclive/clics/v202207/Account$TYPE;
 	public static final field Companion Lorg/icpclive/clics/v202207/Account$TYPE$Companion;
 	public static final field JUDGE Lorg/icpclive/clics/v202207/Account$TYPE;
+	public static final field SPECTATOR Lorg/icpclive/clics/v202207/Account$TYPE;
 	public static final field STAFF Lorg/icpclive/clics/v202207/Account$TYPE;
 	public static final field TEAM Lorg/icpclive/clics/v202207/Account$TYPE;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
