@@ -3,8 +3,7 @@ package org.icpclive.cds.api
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import org.icpclive.util.DurationInMillisecondsSerializer
-import org.icpclive.util.UnixMillisecondsSerializer
+import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
@@ -77,6 +76,24 @@ public enum class PenaltyRoundingMode {
 public annotation class InefficientContestInfoApi
 
 @Serializable
+public data class QueueSettings(
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("waitTimeSeconds")
+    val waitTime: Duration = 1.minutes,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("firstToSolveWaitTimeSeconds")
+    val firstToSolveWaitTime: Duration = 2.minutes,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("featuredRunWaitTimeSeconds")
+    val featuredRunWaitTime: Duration = 1.minutes,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("inProgressRunWaitTimeSeconds")
+    val inProgressRunWaitTime: Duration = 5.minutes,
+    val maxQueueSize: Int = 10,
+    val maxUntestedRun: Int = 5,
+)
+
+@Serializable
 @OptIn(InefficientContestInfoApi::class)
 public data class ContestInfo(
     val name: String,
@@ -102,6 +119,7 @@ public data class ContestInfo(
     @Required val emulationSpeed: Double = 1.0,
     @Required val awardsSettings: AwardsSettings = AwardsSettings(),
     @Required val penaltyPerWrongAttempt: Duration = 20.minutes,
+    @Required val queueSettings: QueueSettings = QueueSettings(),
     @Transient val cdsSupportsFinalization: Boolean = false,
 ) {
     public val currentContestTime: Duration

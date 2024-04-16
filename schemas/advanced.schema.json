@@ -711,6 +711,38 @@
                 }
             ]
         },
+        "org.icpclive.cds.tunning.QueueSettingsOverride?<DurationS?,DurationS?,DurationS?,DurationS?,kotlin.Int?,kotlin.Int?>": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "waitTimeSeconds": {
+                            "type": "number"
+                        },
+                        "firstToSolveWaitTimeSeconds": {
+                            "type": "number"
+                        },
+                        "featuredRunWaitTimeSeconds": {
+                            "type": "number"
+                        },
+                        "inProgressRunWaitTimeSeconds": {
+                            "type": "number"
+                        },
+                        "maxQueueSize": {
+                            "type": "number"
+                        },
+                        "maxUntestedRun": {
+                            "type": "number"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": []
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "ICPC live advanced settings": {
             "type": "object",
             "properties": {
@@ -752,6 +784,9 @@
                 },
                 "awardsSettings": {
                     "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings?<kotlin.String?,kotlin.collections.LinkedHashMap,kotlin.Int,kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>"
+                },
+                "queueSettings": {
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.QueueSettingsOverride?<DurationS?,DurationS?,DurationS?,DurationS?,kotlin.Int?,kotlin.Int?>"
                 }
             },
             "additionalProperties": false,

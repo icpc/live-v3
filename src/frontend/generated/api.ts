@@ -14,6 +14,7 @@ export interface ContestInfo {
   emulationSpeed: number;
   awardsSettings: AwardsSettings;
   penaltyPerWrongAttempt: string;
+  queueSettings: QueueSettings;
 }
 
 export enum ContestStatus {
@@ -45,6 +46,15 @@ export interface AwardsSettings {
   medals?: MedalSettings[];
   medalGroups?: MedalSettings[][];
   manual?: ManualAwardSetting[];
+}
+
+export interface QueueSettings {
+  waitTimeSeconds?: number;
+  firstToSolveWaitTimeSeconds?: number;
+  featuredRunWaitTimeSeconds?: number;
+  inProgressRunWaitTimeSeconds?: number;
+  maxQueueSize?: number;
+  maxUntestedRun?: number;
 }
 
 export interface ProblemInfo {

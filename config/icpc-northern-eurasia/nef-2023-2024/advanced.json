@@ -143,5 +143,13 @@
   },
   "scoreboardOverrides": {
     "showTeamsWithoutSubmissions": true
+  },
+  "queueSettings": {
+    "waitTimeSeconds": 60,
+    "firstToSolveWaitTimeSeconds": 120,
+    "featuredRunWaitTimeSeconds": 60,
+    "inProgressRunWaitTimeSeconds": 300,
+    "maxQueueSize": 15,
+    "maxUntestedRun": 5
   }
 }

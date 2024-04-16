@@ -7,6 +7,7 @@ import org.icpclive.cds.api.*
 import org.icpclive.util.*
 import java.awt.Color
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 
 /**
  * @param fullName Full name of the team. Will be mostly shown on admin pages.
@@ -158,6 +159,7 @@ public class AdvancedProperties(
     public val problemOverrides: Map<ProblemId, ProblemInfoOverride>? = null,
     public val scoreboardOverrides: RankingSettings? = null,
     public val awardsSettings: AwardsSettings? = null,
+    public val queueSettings: QueueSettingsOverride? = null,
 )
 
 internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
@@ -200,6 +202,24 @@ public class TeamOverrideTemplate(
     public val fullName: String? = null,
     public val hashTag: String? = null,
     public val medias: Map<TeamMediaType, MediaType?>? = null,
+)
+
+@Serializable
+public data class QueueSettingsOverride(
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("waitTimeSeconds")
+    val waitTime: Duration? = null,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("firstToSolveWaitTimeSeconds")
+    val firstToSolveWaitTime: Duration? = null,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("featuredRunWaitTimeSeconds")
+    val featuredRunWaitTime: Duration? = null,
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("inProgressRunWaitTimeSeconds")
+    val inProgressRunWaitTime: Duration? = null,
+    val maxQueueSize: Int? = null,
+    val maxUntestedRun: Int? = null,
 )
 
 /**
@@ -259,6 +279,14 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             penaltyPerWrongAttempt = penaltyPerWrongAttempt.takeIfAsked("penaltyPerWrongAttempt"),
             penaltyRoundingMode = penaltyRoundingMode.takeIfAsked("penaltyRoundingMode")
         ),
-        awardsSettings = awardsSettings.takeIfAsked("awards")
+        awardsSettings = awardsSettings.takeIfAsked("awards"),
+        queueSettings = QueueSettingsOverride(
+            waitTime = queueSettings.waitTime,
+            firstToSolveWaitTime = queueSettings.firstToSolveWaitTime,
+            featuredRunWaitTime = queueSettings.featuredRunWaitTime,
+            inProgressRunWaitTime = queueSettings.inProgressRunWaitTime,
+            maxQueueSize = queueSettings.maxQueueSize,
+            maxUntestedRun = queueSettings.maxUntestedRun,
+        ).takeIfAsked("queue")
     )
 }

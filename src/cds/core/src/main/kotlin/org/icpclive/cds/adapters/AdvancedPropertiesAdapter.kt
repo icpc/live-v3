@@ -9,11 +9,14 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.tunning.*
-import org.icpclive.util.getLogger
-import org.icpclive.util.humanReadable
+import org.icpclive.util.*
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 
 private sealed interface AdvancedAdapterEvent
 private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent
@@ -321,7 +324,15 @@ internal fun applyAdvancedProperties(
         problemList = problemInfos,
         penaltyPerWrongAttempt = overrides.scoreboardOverrides?.penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt,
         penaltyRoundingMode = overrides.scoreboardOverrides?.penaltyRoundingMode ?: info.penaltyRoundingMode,
-        awardsSettings = overrides.awardsSettings ?: info.awardsSettings
+        awardsSettings = overrides.awardsSettings ?: info.awardsSettings,
+        queueSettings = QueueSettings(
+            waitTime = overrides.queueSettings?.waitTime ?: info.queueSettings.waitTime,
+            firstToSolveWaitTime = overrides.queueSettings?.firstToSolveWaitTime ?: info.queueSettings.firstToSolveWaitTime,
+            featuredRunWaitTime = overrides.queueSettings?.featuredRunWaitTime ?: info.queueSettings.featuredRunWaitTime,
+            inProgressRunWaitTime = overrides.queueSettings?.inProgressRunWaitTime ?: info.queueSettings.inProgressRunWaitTime,
+            maxQueueSize = overrides.queueSettings?.maxQueueSize ?: info.queueSettings.maxQueueSize,
+            maxUntestedRun = overrides.queueSettings?.maxUntestedRun ?: info.queueSettings.maxUntestedRun,
+        )
     )
 }
 

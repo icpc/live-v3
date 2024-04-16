@@ -7,11 +7,11 @@ import kotlinx.datetime.Clock
 import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.api.QueueSettings
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.data.DataBus
 import org.icpclive.util.*
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 private sealed class QueueProcessTrigger
@@ -88,13 +88,12 @@ class QueueService : Service {
         is RunResult.InProgress -> false
     }
 
-    private val RunInfo.timeInQueue
-        get() = when {
-            featuredRunMedia != null -> FEATURED_WAIT_TIME
-            result.isFTS() -> FIRST_TO_SOLVE_WAIT_TIME
-            result is RunResult.InProgress -> IN_PROGRESS_WAIT_TIME
-            else -> WAIT_TIME
-        }
+    private fun RunInfo.getTimeInQueue(settings: QueueSettings) = when {
+        featuredRunMedia != null -> settings.featuredRunWaitTime
+        result.isFTS() -> settings.firstToSolveWaitTime
+        result is RunResult.InProgress -> settings.inProgressRunWaitTime
+        else -> settings.waitTime
+    }
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         launch {
@@ -114,9 +113,10 @@ class QueueService : Service {
             merge(statesFlowTrigger, removerFlowTrigger, subscriberFlowTrigger, featuredFlowTrigger).collect { event ->
                 when (event) {
                     is Clean -> {
-                        val currentTime = currentContestInfo?.currentContestTime ?: return@collect
+                        val info = currentContestInfo ?: return@collect
+                        val currentTime = info.currentContestTime
                         runs.values
-                            .filter { currentTime >= lastUpdateTime[it.id]!! + it.timeInQueue }
+                            .filter { currentTime >= lastUpdateTime[it.id]!! + it.getTimeInQueue(info.queueSettings) }
                             .filterNot { it.featuredRunMedia != null }
                             .forEach { removeRun(it) }
                     }
@@ -144,14 +144,12 @@ class QueueService : Service {
                                         // we want to update runs already in queue
                                         run.id in runs -> true
                                         // we can postpone untested run if there are too many untested runs
-                                        run.result is RunResult.InProgress && runs.values.count { it.result is RunResult.InProgress } >= MAX_UNTESTED_SIZE -> false
+                                        run.result is RunResult.InProgress && runs.values.count { it.result is RunResult.InProgress } >= contestInfo.queueSettings.maxUntestedRun -> false
                                         // otherwise, we are adding runs if they are not too old
-                                        else -> contestInfo.currentContestTime <= runUpdateTime + run.timeInQueue
+                                        else -> contestInfo.currentContestTime <= runUpdateTime + run.getTimeInQueue(contestInfo.queueSettings)
                                     }
                                     if (shouldUpdateRun) {
                                         modifyRun(run)
-                                    } else {
-                                        logger.debug("Ignore run as it is too old: ${contestInfo.currentContestTime} vs ${runUpdateTime + run.timeInQueue}")
                                     }
                                 }
                             }
@@ -161,7 +159,8 @@ class QueueService : Service {
                     is Featured -> {
                         val runId = event.request.runId
                         val run = runs[runId] ?: removedRuns[runId]
-                        if (run == null) {
+                        val info = currentContestInfo
+                        if (run == null || info == null) {
                             logger.warn("There is no run with id $runId for make it featured")
                             if (event.request is FeaturedRunAction.MakeFeatured) {
                                 event.request.result.complete(null)
@@ -175,7 +174,7 @@ class QueueService : Service {
                                 modifyRun(run)
                                 lastUpdateTime[run.id] = run.time
                                 event.request.result.complete(
-                                    AnalyticsCompanionRun(Clock.System.now() + FEATURED_WAIT_TIME, event.request.mediaType)
+                                    AnalyticsCompanionRun(Clock.System.now() + info.queueSettings.featuredRunWaitTime, event.request.mediaType)
                                 )
                             }
 
@@ -192,7 +191,7 @@ class QueueService : Service {
                         resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.time }))
                     }
                 }
-                while (runs.size >= MAX_QUEUE_SIZE) {
+                while (runs.size >= (currentContestInfo?.queueSettings?.maxQueueSize ?: 0)) {
                     runs.values.asSequence()
                         .filterNot { it.result.isFTS() || it.featuredRunMedia != null }
                         .filterNot { it.result is RunResult.InProgress }
@@ -208,12 +207,5 @@ class QueueService : Service {
         val logger = getLogger(QueueService::class)
 
         private data class FeaturedRunInfo(val runId: RunId, val mediaType: MediaType)
-
-        private val WAIT_TIME = 1.minutes
-        private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes
-        private val FEATURED_WAIT_TIME = 1.minutes
-        private val IN_PROGRESS_WAIT_TIME = 5.minutes
-        private const val MAX_QUEUE_SIZE = 10
-        private const val MAX_UNTESTED_SIZE = 5
     }
 }
