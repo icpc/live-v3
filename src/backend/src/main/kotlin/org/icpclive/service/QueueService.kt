@@ -196,6 +196,6 @@ class QueueService : Service {
         private val WAIT_TIME = 1.minutes
         private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes
         private val FEATURED_WAIT_TIME = 1.minutes
-        private const val MAX_QUEUE_SIZE = 20
+        private const val MAX_QUEUE_SIZE = 10
     }
 }
