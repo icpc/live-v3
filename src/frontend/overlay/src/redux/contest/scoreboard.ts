@@ -16,13 +16,16 @@ export type ScoreboardState = {
     [key in OptimismLevel]: ScoreboardData
 }
 
+
 const initialState: ScoreboardState = Object.fromEntries(
-    Object.keys(OptimismLevel).map((key) => [key, {
+    Object.keys(OptimismLevel).map((key: OptimismLevel) => [key, {
         ids: {},
         idAwards: {},
         order: [],
         ranks: [],
-        awards: []
+        awards: [],
+        orderById: {},
+        rankById: {}
     }])
 ) as ScoreboardState;
 
