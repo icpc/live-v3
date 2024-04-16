@@ -3,10 +3,11 @@ import { Award, OptimismLevel, ScoreboardDiff, ScoreboardRow, TeamId } from "@sh
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type ScoreboardData = {
-    ids: Record<TeamId, ScoreboardRow & {rank: number}>, // maybe stable?
+    ids: Record<TeamId, ScoreboardRow>, // maybe stable?
     idAwards: Record<TeamId, undefined | Exclude<Award, "teams">[]>,
     order: TeamId[],
     orderById: Record<TeamId, number>,
+    rankById: Record<TeamId, number>,
     ranks: number[],
     awards: Award[]
 };
@@ -34,16 +35,13 @@ const scoreboardSlice = createSlice({
             state[optimism].awards = diff.awards;
             state[optimism].order = diff.order;
             state[optimism].ranks = diff.ranks;
-            const rankMap = Object.fromEntries(_.zip(diff.order, diff.ranks));
             for (const [id, newData] of Object.entries(diff.rows)) {
-                state[optimism].ids[id] = {
-                    ...newData,
-                    rank: rankMap[id]
-                };
+                state[optimism].ids[id] = newData;
             }
             state[optimism].orderById = Object.fromEntries(
                 diff.order.map((teamId, index) => [teamId, index])
             );
+            state[optimism].rankById = Object.fromEntries(_.zip(diff.order, diff.ranks));
             state[optimism].idAwards = {};
             for (const award of diff.awards) {
                 for (const teamId of award.teams) {

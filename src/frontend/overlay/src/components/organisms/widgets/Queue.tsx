@@ -298,12 +298,13 @@ export const QueueRow = ({ runInfo,
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[runInfo.teamId]);
     const probData = useAppSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
     const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[runInfo.teamId]);
+    const rank = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rankById[runInfo.teamId]);
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun || runInfo?.result?.type === "IOI" && runInfo.result.isFirstBestRun;
     return <StyledQueueRow
         // flashing={flashing}
     >
-        <QueueRankLabel rank={scoreboardData?.rank} medal={medal?.medalColor}/>
+        <QueueRankLabel rank={rank} medal={medal?.medalColor}/>
         <QueueTeamNameLabel text={teamData?.shortName ?? "??"}/>
         <QueueScoreLabel align={"right"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}

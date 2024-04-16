@@ -15,6 +15,10 @@ export const WEBSOCKETS = {
     ...WEBSOCKETS_OVERRIDE
 };
 
+/**
+ * @deprecated
+ * Use enum from api.ts
+ */
 export const SCOREBOARD_TYPES = Object.freeze({
     normal: "normal",
     optimistic: "optimistic",

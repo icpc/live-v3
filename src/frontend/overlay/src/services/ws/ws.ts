@@ -1,5 +1,4 @@
 import _ from "lodash";
-import { SCOREBOARD_TYPES } from "../../consts";
 import { pushLog } from "../../redux/debug";
 import { handleMessage as contestInfoHandler } from "./contestInfo";
 import { handleMessage as mainScreenHandler } from "./mainScreen";

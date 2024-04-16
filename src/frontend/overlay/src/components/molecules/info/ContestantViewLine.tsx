@@ -5,7 +5,6 @@ import { VerticalSubmissionRow } from "./SubmissionRow";
 import styled from "styled-components";
 import c from "../../../config";
 import { useAppSelector } from "@/redux/hooks";
-import { LegacyScoreboardRow } from "@shared/api";
 
 type ContestantViewVerticalWrapProps = {
     top: string,

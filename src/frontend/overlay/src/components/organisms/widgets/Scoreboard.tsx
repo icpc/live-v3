@@ -1,4 +1,3 @@
-import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -10,8 +9,7 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { formatScore, useFormatPenalty, useNeedPenalty } from "@/services/displayUtils";
 import { useElementSize } from "usehooks-ts";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, LegacyScoreboardRow, OptimismLevel, ScoreboardSettings } from "@shared/api";
-import { ScoreboardData } from "@/redux/contest/scoreboard";
+import { Award, OptimismLevel, ScoreboardSettings } from "@shared/api";
 import { SCOREBOARD_TYPES } from "@/consts";
 
 
@@ -127,12 +125,13 @@ export const ScoreboardRow = ({ teamId,
     const scoreboardData = useAppSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const contestData = useAppSelector((state) => state.contestInfo.info);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
+    const awards: Award[] = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
+    const rank = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rankById[teamId]);
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const needPenalty = useNeedPenalty();
     const formatPenalty = useFormatPenalty();
     return <ScoreboardRowWrap nProblems={contestData?.problems?.length ?? 1} needPenalty={needPenalty}>
-        <ScoreboardRankLabel rank={scoreboardData?.rank} medal={medal?.medalColor}/>
+        <ScoreboardRankLabel rank={rank} medal={medal?.medalColor}/>
         <ScoreboardRowName align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={c.SCOREBOARD_CELL_POINTS_ALIGN}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>
