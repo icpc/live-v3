@@ -68,7 +68,7 @@ const RankLabelWrap = styled(ShrinkingBox)`
 `;
 
 export const RankLabel = memo(({ rank, medal, className }) => {
-    const color = c.MEDAL_COLORS[medal];
+    const color = c.MEDAL_COLORS[medal?.toLowerCase()];
     const dark = isShouldUseDarkColor(color);
     return <RankLabelWrap color={color} className={className} dark={dark} text={formatRank(rank)} />;
 });
