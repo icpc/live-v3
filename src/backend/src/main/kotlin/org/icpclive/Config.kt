@@ -1,5 +1,6 @@
 package org.icpclive
 
+import ch.qos.logback.classic.Level
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.output.MordantHelpFormatter
@@ -11,6 +12,8 @@ import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
 import org.icpclive.api.defaultWidgetPositions
 import org.icpclive.cds.cli.CdsCommandLineOptions
+import org.icpclive.org.icpclive.setupLogging
+import java.nio.file.Path
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
     val cdsSettings by CdsCommandLineOptions()
@@ -51,7 +54,20 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         help = "File with localization of analytics messages"
     ).path(canBeFile = true, canBeDir = false, mustExist = true)
 
+    val logFile by option(
+        "--log-file",
+        help = "File to print logs"
+    ).path(canBeFile = true, canBeDir = false, mustExist = false)
+        .default(Path.of("icpclive.log"), "./icpclive.log")
+
+    val disableLogFile by option("--disable-log-file", help = "Don't print logs to any file").flag()
+    val disableStdoutLogs by option("--disable-stdout-logs", help = "Don't print logs to stdout").flag()
+    val logLevel by option("--log-level", help = "level of logs to write")
+        .choice("ALL", "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF")
+        .default("INFO")
+
     override fun run() {
+        setupLogging(this)
         defaultWidgetPositions = widgetPositions
         presetsDirectory.toFile().mkdirs()
         mediaDirectory.toFile().mkdirs()
@@ -63,7 +79,6 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
             helpFormatter = { MordantHelpFormatter(it, showRequiredTag = true, showDefaultValues = true) }
         }
     }
-
 }
 
 val config: Config get() = Config
