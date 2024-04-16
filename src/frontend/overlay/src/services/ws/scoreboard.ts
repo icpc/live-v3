@@ -1,7 +1,7 @@
-import { setScoreboard } from "../../redux/contest/scoreboard";
-import { LegacyScoreboard } from "@shared/api";
+import { handleScoreboardDiff } from "../../redux/contest/scoreboard";
+import { OptimismLevel, ScoreboardDiff } from "@shared/api";
 
-export const handleMessage = (type) => (dispatch, e) => {
-    const message = JSON.parse(e.data) as LegacyScoreboard;
-    dispatch(setScoreboard(type, message.rows));
+export const handleMessage = (optimism: OptimismLevel) => (dispatch, e) => {
+    const diff = JSON.parse(e.data) as ScoreboardDiff;
+    dispatch(handleScoreboardDiff({ optimism, diff }));
 };

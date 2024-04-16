@@ -10,7 +10,7 @@ const ActionTypes = {
 type ContestState = {
     info: (ContestInfo & {
         teamsId: Record<TeamInfo["id"], TeamInfo>,
-        problemsId: Record<ProblemInfo["id"], ProblemInfo>
+        problemsId: Record<ProblemInfo["id"], ProblemInfo>,
     }) | undefined
 }
 

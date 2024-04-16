@@ -7,6 +7,7 @@ import { handleMessage as queueHandler } from "./queue";
 import { handleMessage as scoreboardHandler } from "./scoreboard";
 import { handleMessage as statisticsHandler } from "./statistics";
 import { handleMessage as tickerHandler } from "./ticker";
+import { OptimismLevel } from "@shared/api";
 
 
 const handler = {
@@ -32,9 +33,9 @@ const handler = {
 export const WEBSOCKET_HANDLERS = new Proxy({
     mainScreen: mainScreenHandler,
     queue: queueHandler,
-    scoreboardOptimistic: scoreboardHandler(SCOREBOARD_TYPES.optimistic),
-    scoreboardNormal: scoreboardHandler(SCOREBOARD_TYPES.normal),
-    scoreboardPessimistic: scoreboardHandler(SCOREBOARD_TYPES.pessimistic),
+    scoreboardOptimistic: scoreboardHandler(OptimismLevel.optimistic),
+    scoreboardNormal: scoreboardHandler(OptimismLevel.normal),
+    scoreboardPessimistic: scoreboardHandler(OptimismLevel.pessimistic),
     contestInfo: contestInfoHandler,
     ticker: tickerHandler,
     statistics: statisticsHandler,
