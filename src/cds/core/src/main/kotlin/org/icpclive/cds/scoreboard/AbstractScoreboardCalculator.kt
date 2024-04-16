@@ -186,6 +186,8 @@ public class ContestStateWithScoreboard internal constructor(
     public val lastSubmissionTime: Duration,
 )
 
+private fun RunInfo.isTested() = !isHidden && result !is RunResult.InProgress
+
 public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ContestStateWithScoreboard> = flow {
     var rows = persistentMapOf<TeamId, ScoreboardRow>()
     var lastRanking = Ranking(emptyList(), emptyList(), emptyList())
@@ -211,13 +213,9 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
                 }
                 lastSubmissionTime = maxOf(lastSubmissionTime, newRun.time)
 
-                val oldRunTested = oldRun != null && !oldRun.isHidden && oldRun.result !is RunResult.InProgress
-                val newRunTested = !newRun.isHidden && newRun.result !is RunResult.InProgress
-                if (!oldRunTested && !newRunTested)
-                    emptyList()
-                else {
-                    listOfNotNull(oldRun?.teamId, newRun.teamId).distinct()
-                }
+                listOfNotNull(oldRun?.teamId, newRun.teamId).distinct().takeIf {
+                    oldRun == null || oldRun.isTested() || newRun.isTested()
+                } ?: emptyList()
             }
         }
         val teamsReallyAffected = teamsAffected.filter {
