@@ -3532,7 +3532,8 @@
         "holdBeforeStartTimeMs": null,
         "emulationSpeed": 1.0,
         "awardsSettings": {},
-        "penaltyPerWrongAttempt": "PT20M"
+        "penaltyPerWrongAttempt": "PT20M",
+        "queueSettings": {}
     },
     "runs": [
         {
