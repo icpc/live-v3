@@ -82,10 +82,17 @@ class QueueService : Service {
         resultFlow.emit(RemoveRunFromQueueEvent(run))
     }
 
+    private fun RunResult.isFTS() = when (this) {
+        is RunResult.ICPC -> isFirstToSolveRun
+        is RunResult.IOI -> isFirstBestRun
+        is RunResult.InProgress -> false
+    }
+
     private val RunInfo.timeInQueue
         get() = when {
             featuredRunMedia != null -> FEATURED_WAIT_TIME
-            (result as? RunResult.ICPC)?.isFirstToSolveRun == true -> FIRST_TO_SOLVE_WAIT_TIME
+            result.isFTS() -> FIRST_TO_SOLVE_WAIT_TIME
+            result is RunResult.InProgress -> IN_PROGRESS_WAIT_TIME
             else -> WAIT_TIME
         }
 
@@ -126,17 +133,25 @@ class QueueService : Service {
                                 if (firstEventTime == null) {
                                     firstEventTime = contestInfo.currentContestTime
                                 }
-                                val currentTime = contestInfo.currentContestTime.takeIf { it > firstEventTime!! + 60.seconds } ?: run.time
-                                lastUpdateTime[run.id] = currentTime
+                                val runUpdateTime = contestInfo.currentContestTime.takeIf { it > firstEventTime!! + 60.seconds } ?: run.time
+                                lastUpdateTime[run.id] = runUpdateTime
                                 if (run.isHidden) {
                                     if (run.id in runs) {
                                         removeRun(run)
                                     }
                                 } else {
-                                    if (run.id in runs || contestInfo.currentContestTime <= currentTime + run.timeInQueue) {
+                                    val shouldUpdateRun = when {
+                                        // we want to update runs already in queue
+                                        run.id in runs -> true
+                                        // we can postpone untested run if there are too many untested runs
+                                        run.result is RunResult.InProgress && runs.values.count { it.result is RunResult.InProgress } >= MAX_UNTESTED_SIZE -> false
+                                        // otherwise, we are adding runs if they are not too old
+                                        else -> contestInfo.currentContestTime <= runUpdateTime + run.timeInQueue
+                                    }
+                                    if (shouldUpdateRun) {
                                         modifyRun(run)
                                     } else {
-                                        logger.debug("Ignore run as it is too old: ${contestInfo.currentContestTime} vs ${currentTime + run.timeInQueue}")
+                                        logger.debug("Ignore run as it is too old: ${contestInfo.currentContestTime} vs ${runUpdateTime + run.timeInQueue}")
                                     }
                                 }
                             }
@@ -179,8 +194,9 @@ class QueueService : Service {
                 }
                 while (runs.size >= MAX_QUEUE_SIZE) {
                     runs.values.asSequence()
-                        .filterNot { (it.result as? RunResult.ICPC)?.isFirstToSolveRun == true || it.featuredRunMedia != null }
-                        .minByOrNull { it.time }
+                        .filterNot { it.result.isFTS() || it.featuredRunMedia != null }
+                        .filterNot { it.result is RunResult.InProgress }
+                        .minByOrNull { lastUpdateTime[it.id]!! }
                         ?.run { removeRun(this) }
                         ?: break
                 }
@@ -196,6 +212,8 @@ class QueueService : Service {
         private val WAIT_TIME = 1.minutes
         private val FIRST_TO_SOLVE_WAIT_TIME = 2.minutes
         private val FEATURED_WAIT_TIME = 1.minutes
+        private val IN_PROGRESS_WAIT_TIME = 5.minutes
         private const val MAX_QUEUE_SIZE = 10
+        private const val MAX_UNTESTED_SIZE = 5
     }
 }
