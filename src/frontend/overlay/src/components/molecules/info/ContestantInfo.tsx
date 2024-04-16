@@ -50,7 +50,7 @@ export const ContestantInfo = ({ teamId, roundBR= true, className = null }) => {
     const contestInfo = useAppSelector((state) => state.contestInfo.info);
     const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
-    const rank = useAppSelector((state) => teamId in state.scoreboard[SCOREBOARD_TYPES.normal].rankById && state.scoreboard[SCOREBOARD_TYPES.normal].rankById[teamId]);
+    const rank = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rankById[teamId]);
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const formatPenalty = useFormatPenalty();
