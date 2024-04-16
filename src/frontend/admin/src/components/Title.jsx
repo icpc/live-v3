@@ -26,7 +26,11 @@ const PreviewSVGDialog = ({ id, ...props }) => {
     const { enqueueSnackbar } = useSnackbar();
     const service = useTitleWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar), false);
     const [content, setContent] = useState();
-    useEffect(() => props.open && service.getPreview(id).then(r => setContent(r.content)), [props.open, id]);
+    useEffect(() => {
+        if (props.open) {
+            service.getPreview(id).then(r => setContent(r.content));
+        }
+    }, [props.open, id]);
     return (
         <Dialog fullWidth maxWidth="md" { ...props }>
             <DialogTitle>Title preview</DialogTitle>
@@ -53,7 +57,9 @@ const TemplateEditor = ({ value, onSubmit, onChange }) => {
     const [templates, setTemplates] = useState([]);
 
     const service = useTitleWidgetService("/title", undefined, false);
-    useEffect(() => service.getTemplates().then(ts => setTemplates(ts)), []);
+    useEffect(() => {
+        service.getTemplates().then(ts => setTemplates(ts));
+    }, []);
 
     return (<Box onSubmit={onSubmit} component="form" type="submit">
         <Autocomplete
