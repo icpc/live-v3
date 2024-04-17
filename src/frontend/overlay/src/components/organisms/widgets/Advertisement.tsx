@@ -18,7 +18,7 @@ const AdvertisementWrap = styled.div`
   font-family: Urbanist, Passageway, serif;
   font-size: 24pt;
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
-  color: black;
+  color: ${c.ADVERTISEMENT_COLOR};
 
   background-color: ${c.ADVERTISEMENT_BACKGROUND};
   border-radius: 12px;

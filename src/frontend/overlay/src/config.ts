@@ -186,7 +186,8 @@ config.FULL_SCREEN_CLOCK_FONT_SIZE = "400px";
 config.FULL_SCREEN_CLOCK_COLOR = "#eeeeee";
 config.FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica; monospace";
 
-config.ADVERTISEMENT_BACKGROUND = "white";
+config.ADVERTISEMENT_BACKGROUND = "#FFFFFF"; // hex value.
+config.ADVERTISEMENT_COLOR = isShouldUseDarkColor(config.ADVERTISEMENT_BACKGROUND) ? "black" : "white";
 
 config.STAR_SIZE = 33; // px
 
