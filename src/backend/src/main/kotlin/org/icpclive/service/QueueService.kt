@@ -95,6 +95,11 @@ class QueueService : Service {
         else -> settings.waitTime
     }
 
+    private fun RunInfo.isInProgress(contestInfo: ContestInfo): Boolean {
+        return result is RunResult.InProgress && time < contestInfo.freezeTime
+    }
+
+
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         launch {
             val featuredRunsFlow = MutableSharedFlow<FeaturedRunAction>(
@@ -144,7 +149,7 @@ class QueueService : Service {
                                         // we want to update runs already in queue
                                         run.id in runs -> true
                                         // we can postpone untested run if there are too many untested runs
-                                        run.result is RunResult.InProgress && runs.values.count { it.result is RunResult.InProgress } >= contestInfo.queueSettings.maxUntestedRun -> false
+                                        run.isInProgress(contestInfo) && runs.values.count { it.isInProgress(contestInfo) } >= contestInfo.queueSettings.maxUntestedRun -> false
                                         // otherwise, we are adding runs if they are not too old
                                         else -> contestInfo.currentContestTime <= runUpdateTime + run.getTimeInQueue(contestInfo.queueSettings)
                                     }
@@ -191,10 +196,11 @@ class QueueService : Service {
                         resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.time }))
                     }
                 }
-                while (runs.size >= (currentContestInfo?.queueSettings?.maxQueueSize ?: 0)) {
+                val contestInfo = currentContestInfo ?: return@collect
+                while (runs.size >= contestInfo.queueSettings.maxQueueSize) {
                     runs.values.asSequence()
                         .filterNot { it.result.isFTS() || it.featuredRunMedia != null }
-                        .filterNot { it.result is RunResult.InProgress }
+                        .filterNot { it.isInProgress(contestInfo) }
                         .minByOrNull { lastUpdateTime[it.id]!! }
                         ?.run { removeRun(this) }
                         ?: break
