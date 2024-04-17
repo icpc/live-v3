@@ -1,5 +1,7 @@
 import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
 import { useMemo } from "react";
+import { createApiGet } from "shared-code/utils";
+import { BACKEND_ROOT } from "../config";
 
 const controlElements = [
     { text: "Scoreboard", id: "scoreboard" },
@@ -24,9 +26,14 @@ export class ControlsWidgetService extends AbstractWidgetImpl {
     }
 
     loadPresets() {
-        return Promise.all(
-            controlElements.map(({ id, text }) =>
-                this.loadOne(id).then(r => ({ id: id, settings: { text: text }, shown: r.shown }))));
+        return createApiGet(BACKEND_ROOT)("/api/overlay/visualConfig.json")
+            .then(c => {
+                const hiddenElements = c["ADMIN_HIDE_CONTROL"] ?? [];
+                const ce = controlElements.filter(e => !hiddenElements.includes(e.id));
+                return Promise.all(
+                    ce.map(({ id, text }) =>
+                        this.loadOne(id).then(r => ({ id: id, settings: { text: text }, shown: r.shown }))));
+            });
     }
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,8 +11,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PreviewIcon from "@mui/icons-material/Preview";
 import NotesIcon from "@mui/icons-material/Notes";
 import PropTypes from "prop-types";
+import { createApiGet } from "shared-code/utils";
+import { BACKEND_ROOT } from "./config";
 
-const pages = {
+const defaultPages = {
     "Controls": "controls",
     // "Advertisement": "advertisement",
     "Titles": "titles",
@@ -41,6 +43,23 @@ const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const [pages, setPages] = useState(defaultPages);
+
+    useEffect(() => {
+        createApiGet(BACKEND_ROOT)("/api/overlay/visualConfig.json")
+            .then(c => {
+                if (!c["ADMIN_HIDE_MENU"]) {
+                    return ;
+                }
+                const filtredPages = {};
+                Object.entries(defaultPages)
+                    .filter(([k]) => !c["ADMIN_HIDE_MENU"].includes(k))
+                    .forEach(([k, v]) => filtredPages[k] = v);
+                console.log("applyHidePagesViaVisual", filtredPages);
+                setPages(filtredPages);
+            });
+    }, []);
 
     return (
         <AppBar position="static">
