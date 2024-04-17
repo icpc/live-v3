@@ -20,7 +20,7 @@ const AdvertisementWrap = styled.div`
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   color: black;
 
-  background-color: white;
+  background-color: ${c.ADVERTISEMENT_BACKGROUND};
   border-radius: 12px;
 `;
 
