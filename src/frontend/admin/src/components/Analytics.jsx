@@ -92,7 +92,7 @@ function MessagesTable({ messages, selectedRowId, onRowClick }) {
                         <TableRow key={rowId} sx={{ backgroundColor: rowBackground(event), cursor: "pointer" }}
                             onClick={() => onRowClick(event)}>
                             <TableCell type="icon"><EventTagsIcons event={event}/></TableCell>
-                            <TableCell>{event.type === "commentary" ? event.message : ""}</TableCell>
+                            <TableCell>{event.runIds && event.runIds.join(", ") + ": "}{event.type === "commentary" ? event.message : ""}</TableCell>
                             <TableCell><Tooltip title={unixTimeMsToLocalTime(event.timeUnixMs)}>
                                 <span>{timeMsToDuration(event.relativeTimeMs)}</span>
                             </Tooltip></TableCell>
