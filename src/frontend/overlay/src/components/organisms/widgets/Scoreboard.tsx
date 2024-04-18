@@ -193,7 +193,6 @@ export const useScoreboardRows = (optimismLevel: OptimismLevel, selectedGroup: s
         // FIXME: this is ugly and I don't like it at all
         const rowsNumbers = result.map(([_, b]) => b);
         rowsNumbers.sort((a, b) => a > b ? 1 : a == b ? 0 : -1);
-        console.log(rowsNumbers);
         const mapping = new Map();
         for (let i = 0; i<rowsNumbers.length; i++) {
             mapping.set(rowsNumbers[i], i);
