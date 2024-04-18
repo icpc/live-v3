@@ -176,15 +176,33 @@ const ScoreboardRowsWrap = styled.div<{maxHeight: number}>`
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
 `;
 
+
+/**
+ * Returns a stable list of teams with each having their row number in the scoreboard.
+ * @param optimismLevel
+ * @param selectedGroup
+ */
 export const useScoreboardRows = (optimismLevel: OptimismLevel, selectedGroup: string) => {
     const order = useAppSelector((state) => state.scoreboard[optimismLevel]?.orderById);
     const teamsId = useAppSelector((state) => state.contestInfo.info?.teamsId);
     if (teamsId === undefined || order === undefined) {
         return [];
     }
-    return Object.entries(order)
-        .filter(([k]) =>
-            selectedGroup === "all" || (teamsId[k]?.groups ?? []).includes(selectedGroup));
+    const result = Object.entries(order).filter(([k]) => selectedGroup === "all" || (teamsId[k]?.groups ?? []).includes(selectedGroup));
+    if (selectedGroup !== "all") { // we should compress the row numbers.
+        // FIXME: this is ugly and I don't like it at all
+        const rowsNumbers = result.map(([_, b]) => b);
+        rowsNumbers.sort((a, b) => a > b ? 1 : a == b ? 0 : -1);
+        console.log(rowsNumbers);
+        const mapping = new Map();
+        for (let i = 0; i<rowsNumbers.length; i++) {
+            mapping.set(rowsNumbers[i], i);
+        }
+        for (let i = 0; i<result.length; i++) {
+            result[i][1] = mapping.get(result[i][1]);
+        }
+    }
+    return result;
 };
 
 /**
