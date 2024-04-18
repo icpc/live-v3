@@ -13,6 +13,7 @@ module.exports = {
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        // "plugin:@typescript-eslint/eslint-recommended",
         // "plugin:@typescript-eslint/recommended"
     ],
     "settings": {
@@ -58,9 +59,10 @@ module.exports = {
             "warn",
             "always"
         ],
-        "no-unused-vars": [
-            "warn"
-        ],
+        "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        // "no-unused-vars": [
+        //     "warn"
+        // ],
         "react/prop-types": [
             "off"
         ],

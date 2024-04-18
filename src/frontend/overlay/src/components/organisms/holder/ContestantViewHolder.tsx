@@ -48,7 +48,7 @@ export const TeamM2tsVideoWrapper = ({ url, setIsLoaded }) => {
                 type: "mpegts",
                 isLive: true,
                 url: url,
-                muted: !queryParams.has("teamview_audio"),
+                // muted: !queryParams.has("teamview_audio"),
             });
             player.attachMediaElement(videoRef.current);
             player.load();
