@@ -28,7 +28,10 @@ export class ControlsWidgetService extends AbstractWidgetImpl {
     loadPresets() {
         return createApiGet(BACKEND_ROOT)("/api/overlay/visualConfig.json")
             .then(c => {
-                const hiddenElements = c["ADMIN_HIDE_CONTROL"] ?? [];
+                return c["ADMIN_HIDE_CONTROL"] ?? [];
+            }).catch(() => {
+                return [];
+            }).then((hiddenElements) => {
                 const ce = controlElements.filter(e => !hiddenElements.includes(e.id));
                 return Promise.all(
                     ce.map(({ id, text }) =>
