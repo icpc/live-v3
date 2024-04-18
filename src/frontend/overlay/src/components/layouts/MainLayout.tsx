@@ -122,6 +122,9 @@ export const MainLayout = () => {
                     // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
                     return null;
                 }
+                if (params.get("scene") && obj.type !== "TeamLocatorWidget") {
+                    return null;
+                }
                 return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? c.WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
