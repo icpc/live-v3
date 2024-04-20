@@ -122,9 +122,37 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
     const [editData, onClickEdit, onSubmitEdit, onChangeField] = usePresetTableRowDataState(data, onEdit);
     const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
 
+    const changePreset = (presetFile) => {
+        return function() {
+            const tempData = Object.assign({}, data);
+            tempData.settings.preset = presetFile;
+            onEdit(tempData);
+        };
+    };
+
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
-            <ShowPresetButton onClick={onShow} active={data.shown}/>
+            <Box display="flex">
+                <ShowPresetButton className='block' onClick={onShow} active={data.shown}/>
+                <PresetsTableCell 
+                    value={data.settings.leftPreset} 
+                    editValue={editData?.settings?.preset} 
+                    isActive={data.shown}
+                    onChange={onChangeField("leftPreset")} 
+                    onSubmit={onSubmitEdit}
+                    valueEditor={TemplateEditor}
+                />
+                <PresetsTableCell 
+                    value={data.settings.rightPreset}
+                    editValue={editData?.settings?.preset} 
+                    isActive={data.shown}
+                    onChange={onChangeField("rightPreset")}
+                    onSubmit={onSubmitEdit}
+                    valueEditor={TemplateEditor}
+                />
+                <IconButton color="primary" onClick={changePreset(data.settings.leftPreset)}>L</IconButton>
+                <IconButton color="primary" onClick={changePreset(data.settings.rightPreset)}>R</IconButton>
+            </Box>
         </TableCell>
         <PresetsTableCell value={data.settings.preset} editValue={editData?.settings?.preset} isActive={data.shown}
             onChange={onChangeField("preset")} onSubmit={onSubmitEdit}
