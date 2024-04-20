@@ -1,8 +1,4 @@
 {
-    "teamOverrideTemplate": {
-        "displayName": "{name}",
-        "fullName":"{name}"
-      } ,
     "groupOverrides": {
         "330003": {
             "isHidden": true

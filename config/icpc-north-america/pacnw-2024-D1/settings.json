@@ -11,6 +11,5 @@
       "feedVersion": "2020_03",
       "eventFeedName":"event-feed?groupids=1205"
     }
-  ],
-  "useTeamNames": false
+  ]
 }

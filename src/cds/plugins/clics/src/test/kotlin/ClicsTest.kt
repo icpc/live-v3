@@ -2,6 +2,8 @@ package org.icpclive.cds.plugins.clics
 
 import org.icpclive.cds.CdsLoadersTest
 import org.icpclive.cds.settings.*
+import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.TeamOverrideTemplate
 import kotlin.test.Test
 
 object ClicsTest : CdsLoadersTest() {
@@ -18,6 +20,12 @@ object ClicsTest : CdsLoadersTest() {
                         eventFeedPath = "",
                         feedVersion = FeedVersion.`2020_03`
                     )
+                )
+            ),
+            AdvancedProperties(
+                teamOverrideTemplate = TeamOverrideTemplate(
+                    fullName = "{orgFullName}: {clicsTeamFullName}",
+                    displayName = "{orgDisplayName}: {clicsTeamDisplayName}",
                 )
             )
         )

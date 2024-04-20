@@ -8,7 +8,6 @@
       "eventFeedPath": ""
     }
   ],
-  "useTeamNames": false,
   "emulation": {
     "speed": 10,
     "startTime": "now"

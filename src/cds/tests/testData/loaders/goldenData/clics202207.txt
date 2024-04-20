@@ -155,8 +155,8 @@
         "teams": [
             {
                 "id": "1",
-                "name": "ETH Zürich: gETHyped",
-                "shortName": "ETH Zürich: gETHyped",
+                "name": "gETHyped",
+                "shortName": "gETHyped",
                 "groups": [
                     "23737",
                     "CHE"
@@ -172,13 +172,14 @@
                 "isOutOfContest": false,
                 "organizationId": "451",
                 "customFields": {
-                    "name": "gETHyped"
+                    "clicsTeamFullName": "gETHyped",
+                    "clicsTeamDisplayName": "gETHyped"
                 }
             },
             {
                 "id": "2",
-                "name": "Universidad Autónoma de Madrid: The Fan Team",
-                "shortName": "UAM: The Fan Team",
+                "name": "The Fan Team",
+                "shortName": "The Fan Team",
                 "groups": [
                     "23737",
                     "ESP"
@@ -194,13 +195,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2079",
                 "customFields": {
-                    "name": "The Fan Team"
+                    "clicsTeamFullName": "The Fan Team",
+                    "clicsTeamDisplayName": "The Fan Team"
                 }
             },
             {
                 "id": "3",
-                "name": "Politecnico di Torino: Fallback Solutions",
-                "shortName": "Polito: Fallback Solutions",
+                "name": "Fallback Solutions",
+                "shortName": "Fallback Solutions",
                 "groups": [
                     "23737",
                     "ITA"
@@ -216,13 +218,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7083",
                 "customFields": {
-                    "name": "Fallback Solutions"
+                    "clicsTeamFullName": "Fallback Solutions",
+                    "clicsTeamDisplayName": "Fallback Solutions"
                 }
             },
             {
                 "id": "4",
-                "name": "University of Haifa: Top Of The Mountain",
-                "shortName": "U of Haifa: Top Of The Mountain",
+                "name": "Top Of The Mountain",
+                "shortName": "Top Of The Mountain",
                 "groups": [
                     "23737",
                     "ISR"
@@ -238,13 +241,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8483",
                 "customFields": {
-                    "name": "Top Of The Mountain"
+                    "clicsTeamFullName": "Top Of The Mountain",
+                    "clicsTeamDisplayName": "Top Of The Mountain"
                 }
             },
             {
                 "id": "5",
-                "name": "Artois University: J'en perds deux",
-                "shortName": "U-ARTOIS: J'en perds deux",
+                "name": "J'en perds deux",
+                "shortName": "J'en perds deux",
                 "groups": [
                     "23737",
                     "FRA"
@@ -260,13 +264,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8886",
                 "customFields": {
-                    "name": "J'en perds deux"
+                    "clicsTeamFullName": "J'en perds deux",
+                    "clicsTeamDisplayName": "J'en perds deux"
                 }
             },
             {
                 "id": "6",
-                "name": "Università della Svizzera italiana: WalkLike3Egyptians",
-                "shortName": "USI: WalkLike3Egyptians",
+                "name": "WalkLike3Egyptians",
+                "shortName": "WalkLike3Egyptians",
                 "groups": [
                     "23737",
                     "CHE"
@@ -282,13 +287,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8450",
                 "customFields": {
-                    "name": "WalkLike3Egyptians"
+                    "clicsTeamFullName": "WalkLike3Egyptians",
+                    "clicsTeamDisplayName": "WalkLike3Egyptians"
                 }
             },
             {
                 "id": "7",
-                "name": "University of Padova: dQw4w9WgXcQ",
-                "shortName": "UniPD: dQw4w9WgXcQ",
+                "name": "dQw4w9WgXcQ",
+                "shortName": "dQw4w9WgXcQ",
                 "groups": [
                     "23737",
                     "ITA"
@@ -304,13 +310,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10678",
                 "customFields": {
-                    "name": "dQw4w9WgXcQ"
+                    "clicsTeamFullName": "dQw4w9WgXcQ",
+                    "clicsTeamDisplayName": "dQw4w9WgXcQ"
                 }
             },
             {
                 "id": "8",
-                "name": "Universidad de Murcia: Greedy2SAES",
-                "shortName": "UM: Greedy2SAES",
+                "name": "Greedy2SAES",
+                "shortName": "Greedy2SAES",
                 "groups": [
                     "23737",
                     "ESP"
@@ -326,13 +333,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2122",
                 "customFields": {
-                    "name": "Greedy2SAES"
+                    "clicsTeamFullName": "Greedy2SAES",
+                    "clicsTeamDisplayName": "Greedy2SAES"
                 }
             },
             {
                 "id": "9",
-                "name": "Universidade da Beira Interior: UBIdé",
-                "shortName": "UBI: UBIdé",
+                "name": "UBIdé",
+                "shortName": "UBIdé",
                 "groups": [
                     "23737",
                     "PRT"
@@ -348,13 +356,14 @@
                 "isOutOfContest": false,
                 "organizationId": "5282",
                 "customFields": {
-                    "name": "UBIdé"
+                    "clicsTeamFullName": "UBIdé",
+                    "clicsTeamDisplayName": "UBIdé"
                 }
             },
             {
                 "id": "10",
-                "name": "École Normale Supérieure de Lyon: ENSLip",
-                "shortName": "ENS - Lyon: ENSLip",
+                "name": "ENSLip",
+                "shortName": "ENSLip",
                 "groups": [
                     "23737",
                     "FRA"
@@ -370,13 +379,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3409",
                 "customFields": {
-                    "name": "ENSLip"
+                    "clicsTeamFullName": "ENSLip",
+                    "clicsTeamDisplayName": "ENSLip"
                 }
             },
             {
                 "id": "11",
-                "name": "Tel Aviv University: Jokers",
-                "shortName": "TAU: Jokers",
+                "name": "Jokers",
+                "shortName": "Jokers",
                 "groups": [
                     "23737",
                     "ISR"
@@ -392,13 +402,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11111",
                 "customFields": {
-                    "name": "Jokers"
+                    "clicsTeamFullName": "Jokers",
+                    "clicsTeamDisplayName": "Jokers"
                 }
             },
             {
                 "id": "13",
-                "name": "University of L'Aquila: CPU",
-                "shortName": "UnivAQ: CPU",
+                "name": "CPU",
+                "shortName": "CPU",
                 "groups": [
                     "23737",
                     "ITA"
@@ -414,13 +425,14 @@
                 "isOutOfContest": false,
                 "organizationId": "16191",
                 "customFields": {
-                    "name": "CPU"
+                    "clicsTeamFullName": "CPU",
+                    "clicsTeamDisplayName": "CPU"
                 }
             },
             {
                 "id": "14",
-                "name": "Ecole Polytechnique: X Gonna Code It to Ya",
-                "shortName": "EP: X Gonna Code It to Ya",
+                "name": "X Gonna Code It to Ya",
+                "shortName": "X Gonna Code It to Ya",
                 "groups": [
                     "23737",
                     "FRA"
@@ -436,13 +448,14 @@
                 "isOutOfContest": false,
                 "organizationId": "443",
                 "customFields": {
-                    "name": "X Gonna Code It to Ya"
+                    "clicsTeamFullName": "X Gonna Code It to Ya",
+                    "clicsTeamDisplayName": "X Gonna Code It to Ya"
                 }
             },
             {
                 "id": "15",
-                "name": "CUNEF Universidad: CUNEF-1",
-                "shortName": "CUNEF: CUNEF-1",
+                "name": "CUNEF-1",
+                "shortName": "CUNEF-1",
                 "groups": [
                     "23737",
                     "ESP"
@@ -458,13 +471,14 @@
                 "isOutOfContest": false,
                 "organizationId": "20085",
                 "customFields": {
-                    "name": "CUNEF-1"
+                    "clicsTeamFullName": "CUNEF-1",
+                    "clicsTeamDisplayName": "CUNEF-1"
                 }
             },
             {
                 "id": "16",
-                "name": "Università degli Studi di Genova: Genova 1",
-                "shortName": "Genova: Genova 1",
+                "name": "Genova 1",
+                "shortName": "Genova 1",
                 "groups": [
                     "23737",
                     "ITA"
@@ -480,13 +494,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2257",
                 "customFields": {
-                    "name": "Genova 1"
+                    "clicsTeamFullName": "Genova 1",
+                    "clicsTeamDisplayName": "Genova 1"
                 }
             },
             {
                 "id": "17",
-                "name": "Université de Paris: JIS",
-                "shortName": "UdP: JIS",
+                "name": "JIS",
+                "shortName": "JIS",
                 "groups": [
                     "23737",
                     "FRA"
@@ -502,13 +517,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11205",
                 "customFields": {
-                    "name": "JIS"
+                    "clicsTeamFullName": "JIS",
+                    "clicsTeamDisplayName": "JIS"
                 }
             },
             {
                 "id": "18",
-                "name": "Universidade da Beira Interior: UBIk",
-                "shortName": "UBI: UBIk",
+                "name": "UBIk",
+                "shortName": "UBIk",
                 "groups": [
                     "23737",
                     "PRT"
@@ -524,13 +540,14 @@
                 "isOutOfContest": false,
                 "organizationId": "5282",
                 "customFields": {
-                    "name": "UBIk"
+                    "clicsTeamFullName": "UBIk",
+                    "clicsTeamDisplayName": "UBIk"
                 }
             },
             {
                 "id": "19",
-                "name": "Technion - Israel Institute of Technology: SIGKILL",
-                "shortName": "TECHNION: SIGKILL",
+                "name": "SIGKILL",
+                "shortName": "SIGKILL",
                 "groups": [
                     "23737",
                     "ISR"
@@ -546,13 +563,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3236",
                 "customFields": {
-                    "name": "SIGKILL"
+                    "clicsTeamFullName": "SIGKILL",
+                    "clicsTeamDisplayName": "SIGKILL"
                 }
             },
             {
                 "id": "20",
-                "name": "Ecole Centrale de Lyon: ECL 1",
-                "shortName": "EC-Lyon: ECL 1",
+                "name": "ECL 1",
+                "shortName": "ECL 1",
                 "groups": [
                     "23737",
                     "FRA"
@@ -568,13 +586,14 @@
                 "isOutOfContest": false,
                 "organizationId": "5687",
                 "customFields": {
-                    "name": "ECL 1"
+                    "clicsTeamFullName": "ECL 1",
+                    "clicsTeamDisplayName": "ECL 1"
                 }
             },
             {
                 "id": "21",
-                "name": "Università di Pisa: flag[11]",
-                "shortName": "UNIPI: flag[11]",
+                "name": "flag[11]",
+                "shortName": "flag[11]",
                 "groups": [
                     "23737",
                     "ITA"
@@ -590,13 +609,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8869",
                 "customFields": {
-                    "name": "flag[11]"
+                    "clicsTeamFullName": "flag[11]",
+                    "clicsTeamDisplayName": "flag[11]"
                 }
             },
             {
                 "id": "22",
-                "name": "Universidade do Porto: Rated C++",
-                "shortName": "U Porto: Rated C++",
+                "name": "Rated C++",
+                "shortName": "Rated C++",
                 "groups": [
                     "23737",
                     "PRT"
@@ -612,13 +632,14 @@
                 "isOutOfContest": false,
                 "organizationId": "478",
                 "customFields": {
-                    "name": "Rated C++"
+                    "clicsTeamFullName": "Rated C++",
+                    "clicsTeamDisplayName": "Rated C++"
                 }
             },
             {
                 "id": "23",
-                "name": "INSA de Lyon: INSA 1",
-                "shortName": "INSA: INSA 1",
+                "name": "INSA 1",
+                "shortName": "INSA 1",
                 "groups": [
                     "23737",
                     "FRA"
@@ -634,13 +655,14 @@
                 "isOutOfContest": false,
                 "organizationId": "742",
                 "customFields": {
-                    "name": "INSA 1"
+                    "clicsTeamFullName": "INSA 1",
+                    "clicsTeamDisplayName": "INSA 1"
                 }
             },
             {
                 "id": "24",
-                "name": "Universitat Politècnica de Catalunya: UPC-3",
-                "shortName": "UP Catalunya: UPC-3",
+                "name": "UPC-3",
+                "shortName": "UPC-3",
                 "groups": [
                     "23737",
                     "ESP"
@@ -656,13 +678,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2273",
                 "customFields": {
-                    "name": "UPC-3"
+                    "clicsTeamFullName": "UPC-3",
+                    "clicsTeamDisplayName": "UPC-3"
                 }
             },
             {
                 "id": "25",
-                "name": "Università di Pisa: flag[10]",
-                "shortName": "UNIPI: flag[10]",
+                "name": "flag[10]",
+                "shortName": "flag[10]",
                 "groups": [
                     "23737",
                     "ITA"
@@ -678,13 +701,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8869",
                 "customFields": {
-                    "name": "flag[10]"
+                    "clicsTeamFullName": "flag[10]",
+                    "clicsTeamDisplayName": "flag[10]"
                 }
             },
             {
                 "id": "26",
-                "name": "University of Rennes 1: DROP TABLE",
-                "shortName": "UR1: DROP TABLE",
+                "name": "DROP TABLE",
+                "shortName": "DROP TABLE",
                 "groups": [
                     "23737",
                     "FRA"
@@ -700,13 +724,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10640",
                 "customFields": {
-                    "name": "DROP TABLE"
+                    "clicsTeamFullName": "DROP TABLE",
+                    "clicsTeamDisplayName": "DROP TABLE"
                 }
             },
             {
                 "id": "27",
-                "name": "Polytech Paris Saclay: Polychotomy",
-                "shortName": "PPS: Polychotomy",
+                "name": "Polychotomy",
+                "shortName": "Polychotomy",
                 "groups": [
                     "23737",
                     "FRA"
@@ -722,13 +747,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11538",
                 "customFields": {
-                    "name": "Polychotomy"
+                    "clicsTeamFullName": "Polychotomy",
+                    "clicsTeamDisplayName": "Polychotomy"
                 }
             },
             {
                 "id": "28",
-                "name": "Tel Aviv University: Bestagons",
-                "shortName": "TAU: Bestagons",
+                "name": "Bestagons",
+                "shortName": "Bestagons",
                 "groups": [
                     "23737",
                     "ISR"
@@ -744,13 +770,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11111",
                 "customFields": {
-                    "name": "Bestagons"
+                    "clicsTeamFullName": "Bestagons",
+                    "clicsTeamDisplayName": "Bestagons"
                 }
             },
             {
                 "id": "29",
-                "name": "University of Padova: CoffeLimitExceeded",
-                "shortName": "UniPD: CoffeLimitExceeded",
+                "name": "CoffeLimitExceeded",
+                "shortName": "CoffeLimitExceeded",
                 "groups": [
                     "23737",
                     "ITA"
@@ -766,13 +793,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10678",
                 "customFields": {
-                    "name": "CoffeLimitExceeded"
+                    "clicsTeamFullName": "CoffeLimitExceeded",
+                    "clicsTeamDisplayName": "CoffeLimitExceeded"
                 }
             },
             {
                 "id": "30",
-                "name": "Universidad Complutense de Madrid: Un CE más",
-                "shortName": "UCM: Un CE más",
+                "name": "Un CE más",
+                "shortName": "Un CE más",
                 "groups": [
                     "23737",
                     "ESP"
@@ -788,13 +816,14 @@
                 "isOutOfContest": false,
                 "organizationId": "6379",
                 "customFields": {
-                    "name": "Un CE más"
+                    "clicsTeamFullName": "Un CE más",
+                    "clicsTeamDisplayName": "Un CE más"
                 }
             },
             {
                 "id": "31",
-                "name": "Sorbonne Université: Sorbonne Rouge",
-                "shortName": "Sorbonne: Sorbonne Rouge",
+                "name": "Sorbonne Rouge",
+                "shortName": "Sorbonne Rouge",
                 "groups": [
                     "23737",
                     "FRA"
@@ -810,13 +839,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10689",
                 "customFields": {
-                    "name": "Sorbonne Rouge"
+                    "clicsTeamFullName": "Sorbonne Rouge",
+                    "clicsTeamDisplayName": "Sorbonne Rouge"
                 }
             },
             {
                 "id": "32",
-                "name": "INSA de Lyon: INSA 3",
-                "shortName": "INSA: INSA 3",
+                "name": "INSA 3",
+                "shortName": "INSA 3",
                 "groups": [
                     "23737",
                     "FRA"
@@ -832,13 +862,14 @@
                 "isOutOfContest": false,
                 "organizationId": "742",
                 "customFields": {
-                    "name": "INSA 3"
+                    "clicsTeamFullName": "INSA 3",
+                    "clicsTeamDisplayName": "INSA 3"
                 }
             },
             {
                 "id": "33",
-                "name": "Politecnico di Milano: team name goes here",
-                "shortName": "Polimi: team name goes here",
+                "name": "team name goes here",
+                "shortName": "team name goes here",
                 "groups": [
                     "23737",
                     "ITA"
@@ -854,13 +885,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8246",
                 "customFields": {
-                    "name": "team name goes here"
+                    "clicsTeamFullName": "team name goes here",
+                    "clicsTeamDisplayName": "team name goes here"
                 }
             },
             {
                 "id": "34",
-                "name": "CUNEF Universidad: CUNEF-A",
-                "shortName": "CUNEF: CUNEF-A",
+                "name": "CUNEF-A",
+                "shortName": "CUNEF-A",
                 "groups": [
                     "23737",
                     "ESP"
@@ -876,13 +908,14 @@
                 "isOutOfContest": false,
                 "organizationId": "20085",
                 "customFields": {
-                    "name": "CUNEF-A"
+                    "clicsTeamFullName": "CUNEF-A",
+                    "clicsTeamDisplayName": "CUNEF-A"
                 }
             },
             {
                 "id": "35",
-                "name": "Technion - Israel Institute of Technology: Pr3s3nTati0n_3Rr0r",
-                "shortName": "TECHNION: Pr3s3nTati0n_3Rr0r",
+                "name": "Pr3s3nTati0n_3Rr0r",
+                "shortName": "Pr3s3nTati0n_3Rr0r",
                 "groups": [
                     "23737",
                     "ISR"
@@ -898,13 +931,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3236",
                 "customFields": {
-                    "name": "Pr3s3nTati0n_3Rr0r"
+                    "clicsTeamFullName": "Pr3s3nTati0n_3Rr0r",
+                    "clicsTeamDisplayName": "Pr3s3nTati0n_3Rr0r"
                 }
             },
             {
                 "id": "36",
-                "name": "Politecnico di Torino: Toroidal Polihedrons",
-                "shortName": "Polito: Toroidal Polihedrons",
+                "name": "Toroidal Polihedrons",
+                "shortName": "Toroidal Polihedrons",
                 "groups": [
                     "23737",
                     "ITA"
@@ -920,13 +954,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7083",
                 "customFields": {
-                    "name": "Toroidal Polihedrons"
+                    "clicsTeamFullName": "Toroidal Polihedrons",
+                    "clicsTeamDisplayName": "Toroidal Polihedrons"
                 }
             },
             {
                 "id": "37",
-                "name": "Sorbonne Université: Sorbonne Blanc",
-                "shortName": "Sorbonne: Sorbonne Blanc",
+                "name": "Sorbonne Blanc",
+                "shortName": "Sorbonne Blanc",
                 "groups": [
                     "23737",
                     "FRA"
@@ -942,13 +977,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10689",
                 "customFields": {
-                    "name": "Sorbonne Blanc"
+                    "clicsTeamFullName": "Sorbonne Blanc",
+                    "clicsTeamDisplayName": "Sorbonne Blanc"
                 }
             },
             {
                 "id": "38",
-                "name": "Ecole Polytechnique: In eXtremis",
-                "shortName": "EP: In eXtremis",
+                "name": "In eXtremis",
+                "shortName": "In eXtremis",
                 "groups": [
                     "23737",
                     "FRA"
@@ -964,13 +1000,14 @@
                 "isOutOfContest": false,
                 "organizationId": "443",
                 "customFields": {
-                    "name": "In eXtremis"
+                    "clicsTeamFullName": "In eXtremis",
+                    "clicsTeamDisplayName": "In eXtremis"
                 }
             },
             {
                 "id": "39",
-                "name": "Harbour.Space University: x^3",
-                "shortName": "HS: x^3",
+                "name": "x^3",
+                "shortName": "x^3",
                 "groups": [
                     "23737",
                     "ESP"
@@ -986,13 +1023,14 @@
                 "isOutOfContest": false,
                 "organizationId": "9745",
                 "customFields": {
-                    "name": "x^3"
+                    "clicsTeamFullName": "x^3",
+                    "clicsTeamDisplayName": "x^3"
                 }
             },
             {
                 "id": "40",
-                "name": "Università di Trento: UniTN MindsHub",
-                "shortName": "TN: UniTN MindsHub",
+                "name": "UniTN MindsHub",
+                "shortName": "UniTN MindsHub",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1008,13 +1046,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2261",
                 "customFields": {
-                    "name": "UniTN MindsHub"
+                    "clicsTeamFullName": "UniTN MindsHub",
+                    "clicsTeamDisplayName": "UniTN MindsHub"
                 }
             },
             {
                 "id": "41",
-                "name": "Universidad Rey Juan Carlos: Hackbulla",
-                "shortName": "U. Rey Juan Carlos: Hackbulla",
+                "name": "Hackbulla",
+                "shortName": "Hackbulla",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1030,13 +1069,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2170",
                 "customFields": {
-                    "name": "Hackbulla"
+                    "clicsTeamFullName": "Hackbulla",
+                    "clicsTeamDisplayName": "Hackbulla"
                 }
             },
             {
                 "id": "42",
-                "name": "CentraleSupélec: Slippin' Jimmies",
-                "shortName": "CentraleSupélec: Slippin' Jimmies",
+                "name": "Slippin' Jimmies",
+                "shortName": "Slippin' Jimmies",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1052,13 +1092,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8460",
                 "customFields": {
-                    "name": "Slippin' Jimmies"
+                    "clicsTeamFullName": "Slippin' Jimmies",
+                    "clicsTeamDisplayName": "Slippin' Jimmies"
                 }
             },
             {
                 "id": "43",
-                "name": "École Nationale Supérieure d'électrotechnique, d'électronique, d'informatique, d'hydraulique et des Télécommunications: 7uring_net7",
-                "shortName": "ENSEEIHT: 7uring_net7",
+                "name": "7uring_net7",
+                "shortName": "7uring_net7",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1074,13 +1115,14 @@
                 "isOutOfContest": false,
                 "organizationId": "9635",
                 "customFields": {
-                    "name": "7uring_net7"
+                    "clicsTeamFullName": "7uring_net7",
+                    "clicsTeamDisplayName": "7uring_net7"
                 }
             },
             {
                 "id": "44",
-                "name": "Politecnico di Milano: AFL",
-                "shortName": "Polimi: AFL",
+                "name": "AFL",
+                "shortName": "AFL",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1096,13 +1138,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8246",
                 "customFields": {
-                    "name": "AFL"
+                    "clicsTeamFullName": "AFL",
+                    "clicsTeamDisplayName": "AFL"
                 }
             },
             {
                 "id": "45",
-                "name": "Universidad Autónoma de Madrid: de Morgan",
-                "shortName": "UAM: de Morgan",
+                "name": "de Morgan",
+                "shortName": "de Morgan",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1118,13 +1161,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2079",
                 "customFields": {
-                    "name": "de Morgan"
+                    "clicsTeamFullName": "de Morgan",
+                    "clicsTeamDisplayName": "de Morgan"
                 }
             },
             {
                 "id": "46",
-                "name": "Tel Aviv University: TempName",
-                "shortName": "TAU: TempName",
+                "name": "TempName",
+                "shortName": "TempName",
                 "groups": [
                     "23737",
                     "ISR"
@@ -1140,13 +1184,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11111",
                 "customFields": {
-                    "name": "TempName"
+                    "clicsTeamFullName": "TempName",
+                    "clicsTeamDisplayName": "TempName"
                 }
             },
             {
                 "id": "47",
-                "name": "Télécom Paris: Télégendaire",
-                "shortName": "TP: Télégendaire",
+                "name": "Télégendaire",
+                "shortName": "Télégendaire",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1162,13 +1207,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10685",
                 "customFields": {
-                    "name": "Télégendaire"
+                    "clicsTeamFullName": "Télégendaire",
+                    "clicsTeamDisplayName": "Télégendaire"
                 }
             },
             {
                 "id": "48",
-                "name": "Università Degli Studi di Udine: Gli informagici",
-                "shortName": "Universita' di Udine: Gli informagici",
+                "name": "Gli informagici",
+                "shortName": "Gli informagici",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1184,13 +1230,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2263",
                 "customFields": {
-                    "name": "Gli informagici"
+                    "clicsTeamFullName": "Gli informagici",
+                    "clicsTeamDisplayName": "Gli informagici"
                 }
             },
             {
                 "id": "49",
-                "name": "Universitat Politècnica de Catalunya: UPC-1",
-                "shortName": "UP Catalunya: UPC-1",
+                "name": "UPC-1",
+                "shortName": "UPC-1",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1206,13 +1253,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2273",
                 "customFields": {
-                    "name": "UPC-1"
+                    "clicsTeamFullName": "UPC-1",
+                    "clicsTeamDisplayName": "UPC-1"
                 }
             },
             {
                 "id": "50",
-                "name": "Ecole Polytechnique Fédérale de Lausanne: EPFL 1",
-                "shortName": "EPFL: EPFL 1",
+                "name": "EPFL 1",
+                "shortName": "EPFL 1",
                 "groups": [
                     "23737",
                     "CHE"
@@ -1228,13 +1276,14 @@
                 "isOutOfContest": false,
                 "organizationId": "444",
                 "customFields": {
-                    "name": "EPFL 1"
+                    "clicsTeamFullName": "EPFL 1",
+                    "clicsTeamDisplayName": "EPFL 1"
                 }
             },
             {
                 "id": "51",
-                "name": "Università Degli Studi di Milano: LaStatale Blue",
-                "shortName": "UNIMI: LaStatale Blue",
+                "name": "LaStatale Blue",
+                "shortName": "LaStatale Blue",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1250,13 +1299,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7990",
                 "customFields": {
-                    "name": "LaStatale Blue"
+                    "clicsTeamFullName": "LaStatale Blue",
+                    "clicsTeamDisplayName": "LaStatale Blue"
                 }
             },
             {
                 "id": "52",
-                "name": "Instituto Superior Técnico: The Outlaws",
-                "shortName": "IS Técnico: The Outlaws",
+                "name": "The Outlaws",
+                "shortName": "The Outlaws",
                 "groups": [
                     "23737",
                     "PRT"
@@ -1272,13 +1322,14 @@
                 "isOutOfContest": false,
                 "organizationId": "789",
                 "customFields": {
-                    "name": "The Outlaws"
+                    "clicsTeamFullName": "The Outlaws",
+                    "clicsTeamDisplayName": "The Outlaws"
                 }
             },
             {
                 "id": "53",
-                "name": "Sorbonne Université: Sorbonne Bleu",
-                "shortName": "Sorbonne: Sorbonne Bleu",
+                "name": "Sorbonne Bleu",
+                "shortName": "Sorbonne Bleu",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1294,13 +1345,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10689",
                 "customFields": {
-                    "name": "Sorbonne Bleu"
+                    "clicsTeamFullName": "Sorbonne Bleu",
+                    "clicsTeamDisplayName": "Sorbonne Bleu"
                 }
             },
             {
                 "id": "54",
-                "name": "Université de Paris: Overflow",
-                "shortName": "UdP: Overflow",
+                "name": "Overflow",
+                "shortName": "Overflow",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1316,13 +1368,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11205",
                 "customFields": {
-                    "name": "Overflow"
+                    "clicsTeamFullName": "Overflow",
+                    "clicsTeamDisplayName": "Overflow"
                 }
             },
             {
                 "id": "55",
-                "name": "Université Paris-Saclay: Javaman",
-                "shortName": "Université Paris-Saclay: Javaman",
+                "name": "Javaman",
+                "shortName": "Javaman",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1338,13 +1391,14 @@
                 "isOutOfContest": false,
                 "organizationId": "19561",
                 "customFields": {
-                    "name": "Javaman"
+                    "clicsTeamFullName": "Javaman",
+                    "clicsTeamDisplayName": "Javaman"
                 }
             },
             {
                 "id": "56",
-                "name": "Universitat Politècnica de València: ETSINF-1",
-                "shortName": "UPV: ETSINF-1",
+                "name": "ETSINF-1",
+                "shortName": "ETSINF-1",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1360,13 +1414,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2166",
                 "customFields": {
-                    "name": "ETSINF-1"
+                    "clicsTeamFullName": "ETSINF-1",
+                    "clicsTeamDisplayName": "ETSINF-1"
                 }
             },
             {
                 "id": "57",
-                "name": "Università di Trento: UniTN Fenwick Treento",
-                "shortName": "TN: UniTN Fenwick Treento",
+                "name": "UniTN Fenwick Treento",
+                "shortName": "UniTN Fenwick Treento",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1382,13 +1437,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2261",
                 "customFields": {
-                    "name": "UniTN Fenwick Treento"
+                    "clicsTeamFullName": "UniTN Fenwick Treento",
+                    "clicsTeamDisplayName": "UniTN Fenwick Treento"
                 }
             },
             {
                 "id": "58",
-                "name": "Università Degli Studi di Udine: MastersOfBreaks",
-                "shortName": "Universita' di Udine: MastersOfBreaks",
+                "name": "MastersOfBreaks",
+                "shortName": "MastersOfBreaks",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1404,13 +1460,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2263",
                 "customFields": {
-                    "name": "MastersOfBreaks"
+                    "clicsTeamFullName": "MastersOfBreaks",
+                    "clicsTeamDisplayName": "MastersOfBreaks"
                 }
             },
             {
                 "id": "59",
-                "name": "University of the Basque Country: UPV-EHU-2",
-                "shortName": "EHU: UPV-EHU-2",
+                "name": "UPV-EHU-2",
+                "shortName": "UPV-EHU-2",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1426,13 +1483,14 @@
                 "isOutOfContest": false,
                 "organizationId": "6369",
                 "customFields": {
-                    "name": "UPV-EHU-2"
+                    "clicsTeamFullName": "UPV-EHU-2",
+                    "clicsTeamDisplayName": "UPV-EHU-2"
                 }
             },
             {
                 "id": "60",
-                "name": "École Normale Supérieure de Lyon: ENSheep",
-                "shortName": "ENS - Lyon: ENSheep",
+                "name": "ENSheep",
+                "shortName": "ENSheep",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1448,13 +1506,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3409",
                 "customFields": {
-                    "name": "ENSheep"
+                    "clicsTeamFullName": "ENSheep",
+                    "clicsTeamDisplayName": "ENSheep"
                 }
             },
             {
                 "id": "61",
-                "name": "Ecole Polytechnique Fédérale de Lausanne: EPFL 2",
-                "shortName": "EPFL: EPFL 2",
+                "name": "EPFL 2",
+                "shortName": "EPFL 2",
                 "groups": [
                     "23737",
                     "CHE"
@@ -1470,13 +1529,14 @@
                 "isOutOfContest": false,
                 "organizationId": "444",
                 "customFields": {
-                    "name": "EPFL 2"
+                    "clicsTeamFullName": "EPFL 2",
+                    "clicsTeamDisplayName": "EPFL 2"
                 }
             },
             {
                 "id": "62",
-                "name": "Universidad Rey Juan Carlos: pik2s",
-                "shortName": "U. Rey Juan Carlos: pik2s",
+                "name": "pik2s",
+                "shortName": "pik2s",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1492,13 +1552,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2170",
                 "customFields": {
-                    "name": "pik2s"
+                    "clicsTeamFullName": "pik2s",
+                    "clicsTeamDisplayName": "pik2s"
                 }
             },
             {
                 "id": "63",
-                "name": "Ca' Foscari University of Venice: Risi&&Bisi",
-                "shortName": "Unive: Risi&&Bisi",
+                "name": "Risi&&Bisi",
+                "shortName": "Risi&&Bisi",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1514,13 +1575,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10706",
                 "customFields": {
-                    "name": "Risi&&Bisi"
+                    "clicsTeamFullName": "Risi&&Bisi",
+                    "clicsTeamDisplayName": "Risi&&Bisi"
                 }
             },
             {
                 "id": "64",
-                "name": "Artois University: Serge",
-                "shortName": "U-ARTOIS: Serge",
+                "name": "Serge",
+                "shortName": "Serge",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1536,13 +1598,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8886",
                 "customFields": {
-                    "name": "Serge"
+                    "clicsTeamFullName": "Serge",
+                    "clicsTeamDisplayName": "Serge"
                 }
             },
             {
                 "id": "65",
-                "name": "Ecole Centrale de Lyon: ECL 2",
-                "shortName": "EC-Lyon: ECL 2",
+                "name": "ECL 2",
+                "shortName": "ECL 2",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1558,13 +1621,14 @@
                 "isOutOfContest": false,
                 "organizationId": "5687",
                 "customFields": {
-                    "name": "ECL 2"
+                    "clicsTeamFullName": "ECL 2",
+                    "clicsTeamDisplayName": "ECL 2"
                 }
             },
             {
                 "id": "66",
-                "name": "Università degli Studi di Genova: Genova 2",
-                "shortName": "Genova: Genova 2",
+                "name": "Genova 2",
+                "shortName": "Genova 2",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1580,13 +1644,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2257",
                 "customFields": {
-                    "name": "Genova 2"
+                    "clicsTeamFullName": "Genova 2",
+                    "clicsTeamDisplayName": "Genova 2"
                 }
             },
             {
                 "id": "67",
-                "name": "Universitat Politècnica de Catalunya: UPC-2",
-                "shortName": "UP Catalunya: UPC-2",
+                "name": "UPC-2",
+                "shortName": "UPC-2",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1602,13 +1667,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2273",
                 "customFields": {
-                    "name": "UPC-2"
+                    "clicsTeamFullName": "UPC-2",
+                    "clicsTeamDisplayName": "UPC-2"
                 }
             },
             {
                 "id": "68",
-                "name": "Université de Paris: SaintGermainDesPres1",
-                "shortName": "UdP: SaintGermainDesPres1",
+                "name": "SaintGermainDesPres1",
+                "shortName": "SaintGermainDesPres1",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1624,13 +1690,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11205",
                 "customFields": {
-                    "name": "SaintGermainDesPres1"
+                    "clicsTeamFullName": "SaintGermainDesPres1",
+                    "clicsTeamDisplayName": "SaintGermainDesPres1"
                 }
             },
             {
                 "id": "69",
-                "name": "ETH Zürich: Save water - shower togETHer",
-                "shortName": "ETH Zürich: Save water - shower togETHer",
+                "name": "Save water - shower togETHer",
+                "shortName": "Save water - shower togETHer",
                 "groups": [
                     "23737",
                     "CHE"
@@ -1646,13 +1713,14 @@
                 "isOutOfContest": false,
                 "organizationId": "451",
                 "customFields": {
-                    "name": "Save water - shower togETHer"
+                    "clicsTeamFullName": "Save water - shower togETHer",
+                    "clicsTeamDisplayName": "Save water - shower togETHer"
                 }
             },
             {
                 "id": "70",
-                "name": "Universidade do Porto: Heroes of the C",
-                "shortName": "U Porto: Heroes of the C",
+                "name": "Heroes of the C",
+                "shortName": "Heroes of the C",
                 "groups": [
                     "23737",
                     "PRT"
@@ -1668,13 +1736,14 @@
                 "isOutOfContest": false,
                 "organizationId": "478",
                 "customFields": {
-                    "name": "Heroes of the C"
+                    "clicsTeamFullName": "Heroes of the C",
+                    "clicsTeamDisplayName": "Heroes of the C"
                 }
             },
             {
                 "id": "71",
-                "name": "University of Verona: Code Force One",
-                "shortName": "UniVerona: Code Force One",
+                "name": "Code Force One",
+                "shortName": "Code Force One",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1690,13 +1759,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8488",
                 "customFields": {
-                    "name": "Code Force One"
+                    "clicsTeamFullName": "Code Force One",
+                    "clicsTeamDisplayName": "Code Force One"
                 }
             },
             {
                 "id": "72",
-                "name": "University of Padova: bogosolving",
-                "shortName": "UniPD: bogosolving",
+                "name": "bogosolving",
+                "shortName": "bogosolving",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1712,13 +1782,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10678",
                 "customFields": {
-                    "name": "bogosolving"
+                    "clicsTeamFullName": "bogosolving",
+                    "clicsTeamDisplayName": "bogosolving"
                 }
             },
             {
                 "id": "73",
-                "name": "Polytech Paris Saclay: error 2F4U",
-                "shortName": "PPS: error 2F4U",
+                "name": "error 2F4U",
+                "shortName": "error 2F4U",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1734,13 +1805,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11538",
                 "customFields": {
-                    "name": "error 2F4U"
+                    "clicsTeamFullName": "error 2F4U",
+                    "clicsTeamDisplayName": "error 2F4U"
                 }
             },
             {
                 "id": "74",
-                "name": "ENS d'Informatique et de Mathematiques Appliquees - Grenoble: ensipc",
-                "shortName": "ENSIMAG: ensipc",
+                "name": "ensipc",
+                "shortName": "ensipc",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1756,13 +1828,14 @@
                 "isOutOfContest": false,
                 "organizationId": "460",
                 "customFields": {
-                    "name": "ensipc"
+                    "clicsTeamFullName": "ensipc",
+                    "clicsTeamDisplayName": "ensipc"
                 }
             },
             {
                 "id": "75",
-                "name": "Universidade da Beira Interior: jUBIleu",
-                "shortName": "UBI: jUBIleu",
+                "name": "jUBIleu",
+                "shortName": "jUBIleu",
                 "groups": [
                     "23737",
                     "PRT"
@@ -1778,13 +1851,14 @@
                 "isOutOfContest": false,
                 "organizationId": "5282",
                 "customFields": {
-                    "name": "jUBIleu"
+                    "clicsTeamFullName": "jUBIleu",
+                    "clicsTeamDisplayName": "jUBIleu"
                 }
             },
             {
                 "id": "76",
-                "name": "University of the Basque Country: UPV-EHU-1",
-                "shortName": "EHU: UPV-EHU-1",
+                "name": "UPV-EHU-1",
+                "shortName": "UPV-EHU-1",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1800,13 +1874,14 @@
                 "isOutOfContest": false,
                 "organizationId": "6369",
                 "customFields": {
-                    "name": "UPV-EHU-1"
+                    "clicsTeamFullName": "UPV-EHU-1",
+                    "clicsTeamDisplayName": "UPV-EHU-1"
                 }
             },
             {
                 "id": "77",
-                "name": "Università Degli Studi di Udine: Quickbits",
-                "shortName": "Universita' di Udine: Quickbits",
+                "name": "Quickbits",
+                "shortName": "Quickbits",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1822,13 +1897,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2263",
                 "customFields": {
-                    "name": "Quickbits"
+                    "clicsTeamFullName": "Quickbits",
+                    "clicsTeamDisplayName": "Quickbits"
                 }
             },
             {
                 "id": "78",
-                "name": "École Normale Supérieure de Paris: ENS Ulm 3",
-                "shortName": "ENS Paris: ENS Ulm 3",
+                "name": "ENS Ulm 3",
+                "shortName": "ENS Ulm 3",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1844,13 +1920,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3436",
                 "customFields": {
-                    "name": "ENS Ulm 3"
+                    "clicsTeamFullName": "ENS Ulm 3",
+                    "clicsTeamDisplayName": "ENS Ulm 3"
                 }
             },
             {
                 "id": "79",
-                "name": "École Normale Supérieure de Lyon: E N S p a c e",
-                "shortName": "ENS - Lyon: E N S p a c e",
+                "name": "E N S p a c e",
+                "shortName": "E N S p a c e",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1866,13 +1943,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3409",
                 "customFields": {
-                    "name": "E N S p a c e"
+                    "clicsTeamFullName": "E N S p a c e",
+                    "clicsTeamDisplayName": "E N S p a c e"
                 }
             },
             {
                 "id": "80",
-                "name": "Politecnico di Torino: Overkill",
-                "shortName": "Polito: Overkill",
+                "name": "Overkill",
+                "shortName": "Overkill",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1888,13 +1966,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7083",
                 "customFields": {
-                    "name": "Overkill"
+                    "clicsTeamFullName": "Overkill",
+                    "clicsTeamDisplayName": "Overkill"
                 }
             },
             {
                 "id": "81",
-                "name": "Ecole d'Ingénieurs Littoral Côte d'Opale: Brogrammers",
-                "shortName": "EILCO: Brogrammers",
+                "name": "Brogrammers",
+                "shortName": "Brogrammers",
                 "groups": [
                     "23737",
                     "FRA"
@@ -1910,13 +1989,14 @@
                 "isOutOfContest": false,
                 "organizationId": "15696",
                 "customFields": {
-                    "name": "Brogrammers"
+                    "clicsTeamFullName": "Brogrammers",
+                    "clicsTeamDisplayName": "Brogrammers"
                 }
             },
             {
                 "id": "82",
-                "name": "Universidad de Murcia: Don't you C?",
-                "shortName": "UM: Don't you C?",
+                "name": "Don't you C?",
+                "shortName": "Don't you C?",
                 "groups": [
                     "23737",
                     "ESP"
@@ -1932,13 +2012,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2122",
                 "customFields": {
-                    "name": "Don't you C?"
+                    "clicsTeamFullName": "Don't you C?",
+                    "clicsTeamDisplayName": "Don't you C?"
                 }
             },
             {
                 "id": "83",
-                "name": "Instituto Superior Técnico: FantasticoDebug",
-                "shortName": "IS Técnico: FantasticoDebug",
+                "name": "FantasticoDebug",
+                "shortName": "FantasticoDebug",
                 "groups": [
                     "23737",
                     "PRT"
@@ -1954,13 +2035,14 @@
                 "isOutOfContest": false,
                 "organizationId": "789",
                 "customFields": {
-                    "name": "FantasticoDebug"
+                    "clicsTeamFullName": "FantasticoDebug",
+                    "clicsTeamDisplayName": "FantasticoDebug"
                 }
             },
             {
                 "id": "84",
-                "name": "University of Bologna: UNIBOis",
-                "shortName": "UNIBO: UNIBOis",
+                "name": "UNIBOis",
+                "shortName": "UNIBOis",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1976,13 +2058,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7435",
                 "customFields": {
-                    "name": "UNIBOis"
+                    "clicsTeamFullName": "UNIBOis",
+                    "clicsTeamDisplayName": "UNIBOis"
                 }
             },
             {
                 "id": "85",
-                "name": "Università di Roma - La Sapienza: SapienzaWhite",
-                "shortName": "Università di Roma 1: SapienzaWhite",
+                "name": "SapienzaWhite",
+                "shortName": "SapienzaWhite",
                 "groups": [
                     "23737",
                     "ITA"
@@ -1998,13 +2081,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2260",
                 "customFields": {
-                    "name": "SapienzaWhite"
+                    "clicsTeamFullName": "SapienzaWhite",
+                    "clicsTeamDisplayName": "SapienzaWhite"
                 }
             },
             {
                 "id": "86",
-                "name": "Télécom Paris: Telecoders",
-                "shortName": "TP: Telecoders",
+                "name": "Telecoders",
+                "shortName": "Telecoders",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2020,13 +2104,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10685",
                 "customFields": {
-                    "name": "Telecoders"
+                    "clicsTeamFullName": "Telecoders",
+                    "clicsTeamDisplayName": "Telecoders"
                 }
             },
             {
                 "id": "87",
-                "name": "Università della Svizzera italiana: USInchronous",
-                "shortName": "USI: USInchronous",
+                "name": "USInchronous",
+                "shortName": "USInchronous",
                 "groups": [
                     "23737",
                     "CHE"
@@ -2042,13 +2127,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8450",
                 "customFields": {
-                    "name": "USInchronous"
+                    "clicsTeamFullName": "USInchronous",
+                    "clicsTeamDisplayName": "USInchronous"
                 }
             },
             {
                 "id": "88",
-                "name": "TELECOM Nancy: C--",
-                "shortName": "TNCY: C--",
+                "name": "C--",
+                "shortName": "C--",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2064,13 +2150,14 @@
                 "isOutOfContest": false,
                 "organizationId": "20090",
                 "customFields": {
-                    "name": "C--"
+                    "clicsTeamFullName": "C--",
+                    "clicsTeamDisplayName": "C--"
                 }
             },
             {
                 "id": "89",
-                "name": "INSA de Lyon: INSA 2",
-                "shortName": "INSA: INSA 2",
+                "name": "INSA 2",
+                "shortName": "INSA 2",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2086,13 +2173,14 @@
                 "isOutOfContest": false,
                 "organizationId": "742",
                 "customFields": {
-                    "name": "INSA 2"
+                    "clicsTeamFullName": "INSA 2",
+                    "clicsTeamDisplayName": "INSA 2"
                 }
             },
             {
                 "id": "90",
-                "name": "Università Degli Studi di Milano: LaStatale Green",
-                "shortName": "UNIMI: LaStatale Green",
+                "name": "LaStatale Green",
+                "shortName": "LaStatale Green",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2108,13 +2196,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7990",
                 "customFields": {
-                    "name": "LaStatale Green"
+                    "clicsTeamFullName": "LaStatale Green",
+                    "clicsTeamDisplayName": "LaStatale Green"
                 }
             },
             {
                 "id": "91",
-                "name": "Harbour.Space University: I eat PHP for breakfast",
-                "shortName": "HS: I eat PHP for breakfast",
+                "name": "I eat PHP for breakfast",
+                "shortName": "I eat PHP for breakfast",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2130,13 +2219,14 @@
                 "isOutOfContest": false,
                 "organizationId": "9745",
                 "customFields": {
-                    "name": "I eat PHP for breakfast"
+                    "clicsTeamFullName": "I eat PHP for breakfast",
+                    "clicsTeamDisplayName": "I eat PHP for breakfast"
                 }
             },
             {
                 "id": "92",
-                "name": "Universidad Complutense de Madrid: Unidad Computacional de Macacos",
-                "shortName": "UCM: Unidad Computacional de Macacos",
+                "name": "Unidad Computacional de Macacos",
+                "shortName": "Unidad Computacional de Macacos",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2152,13 +2242,14 @@
                 "isOutOfContest": false,
                 "organizationId": "6379",
                 "customFields": {
-                    "name": "Unidad Computacional de Macacos"
+                    "clicsTeamFullName": "Unidad Computacional de Macacos",
+                    "clicsTeamDisplayName": "Unidad Computacional de Macacos"
                 }
             },
             {
                 "id": "93",
-                "name": "Politecnico di Milano: C_aramba",
-                "shortName": "Polimi: C_aramba",
+                "name": "C_aramba",
+                "shortName": "C_aramba",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2174,13 +2265,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8246",
                 "customFields": {
-                    "name": "C_aramba"
+                    "clicsTeamFullName": "C_aramba",
+                    "clicsTeamDisplayName": "C_aramba"
                 }
             },
             {
                 "id": "94",
-                "name": "École Normale Supérieure de Paris-Saclay: Late submission",
-                "shortName": "ENS de Paris-Saclay: Late submission",
+                "name": "Late submission",
+                "shortName": "Late submission",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2196,13 +2288,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7032",
                 "customFields": {
-                    "name": "Late submission"
+                    "clicsTeamFullName": "Late submission",
+                    "clicsTeamDisplayName": "Late submission"
                 }
             },
             {
                 "id": "95",
-                "name": "Université de Montpellier: FDS-UM",
-                "shortName": "U Montpellier: FDS-UM",
+                "name": "FDS-UM",
+                "shortName": "FDS-UM",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2218,13 +2311,14 @@
                 "isOutOfContest": false,
                 "organizationId": "9009",
                 "customFields": {
-                    "name": "FDS-UM"
+                    "clicsTeamFullName": "FDS-UM",
+                    "clicsTeamDisplayName": "FDS-UM"
                 }
             },
             {
                 "id": "96",
-                "name": "Università di Trento: UniTN Send Nodes",
-                "shortName": "TN: UniTN Send Nodes",
+                "name": "UniTN Send Nodes",
+                "shortName": "UniTN Send Nodes",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2240,13 +2334,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2261",
                 "customFields": {
-                    "name": "UniTN Send Nodes"
+                    "clicsTeamFullName": "UniTN Send Nodes",
+                    "clicsTeamDisplayName": "UniTN Send Nodes"
                 }
             },
             {
                 "id": "97",
-                "name": "University of Coimbra: 0xC0FFEE++",
-                "shortName": "UC: 0xC0FFEE++",
+                "name": "0xC0FFEE++",
+                "shortName": "0xC0FFEE++",
                 "groups": [
                     "23737",
                     "PRT"
@@ -2262,13 +2357,14 @@
                 "isOutOfContest": false,
                 "organizationId": "366",
                 "customFields": {
-                    "name": "0xC0FFEE++"
+                    "clicsTeamFullName": "0xC0FFEE++",
+                    "clicsTeamDisplayName": "0xC0FFEE++"
                 }
             },
             {
                 "id": "98",
-                "name": "Télécom Paris: Télécode of Duty",
-                "shortName": "TP: Télécode of Duty",
+                "name": "Télécode of Duty",
+                "shortName": "Télécode of Duty",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2284,13 +2380,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10685",
                 "customFields": {
-                    "name": "Télécode of Duty"
+                    "clicsTeamFullName": "Télécode of Duty",
+                    "clicsTeamDisplayName": "Télécode of Duty"
                 }
             },
             {
                 "id": "99",
-                "name": "Università di Roma - La Sapienza: SapienzaBlack",
-                "shortName": "Università di Roma 1: SapienzaBlack",
+                "name": "SapienzaBlack",
+                "shortName": "SapienzaBlack",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2306,13 +2403,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2260",
                 "customFields": {
-                    "name": "SapienzaBlack"
+                    "clicsTeamFullName": "SapienzaBlack",
+                    "clicsTeamDisplayName": "SapienzaBlack"
                 }
             },
             {
                 "id": "100",
-                "name": "Universidad Rey Juan Carlos: Teamto de Verano",
-                "shortName": "U. Rey Juan Carlos: Teamto de Verano",
+                "name": "Teamto de Verano",
+                "shortName": "Teamto de Verano",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2328,13 +2426,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2170",
                 "customFields": {
-                    "name": "Teamto de Verano"
+                    "clicsTeamFullName": "Teamto de Verano",
+                    "clicsTeamDisplayName": "Teamto de Verano"
                 }
             },
             {
                 "id": "101",
-                "name": "ENS d'Informatique et de Mathematiques Appliquees - Grenoble: ensipc2",
-                "shortName": "ENSIMAG: ensipc2",
+                "name": "ensipc2",
+                "shortName": "ensipc2",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2350,13 +2449,14 @@
                 "isOutOfContest": false,
                 "organizationId": "460",
                 "customFields": {
-                    "name": "ensipc2"
+                    "clicsTeamFullName": "ensipc2",
+                    "clicsTeamDisplayName": "ensipc2"
                 }
             },
             {
                 "id": "102",
-                "name": "University of Bologna: UNIBOiis",
-                "shortName": "UNIBO: UNIBOiis",
+                "name": "UNIBOiis",
+                "shortName": "UNIBOiis",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2372,13 +2472,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7435",
                 "customFields": {
-                    "name": "UNIBOiis"
+                    "clicsTeamFullName": "UNIBOiis",
+                    "clicsTeamDisplayName": "UNIBOiis"
                 }
             },
             {
                 "id": "103",
-                "name": "Universidad de Murcia: SWERC Chaos",
-                "shortName": "UM: SWERC Chaos",
+                "name": "SWERC Chaos",
+                "shortName": "SWERC Chaos",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2394,13 +2495,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2122",
                 "customFields": {
-                    "name": "SWERC Chaos"
+                    "clicsTeamFullName": "SWERC Chaos",
+                    "clicsTeamDisplayName": "SWERC Chaos"
                 }
             },
             {
                 "id": "104",
-                "name": "Ecole Centrale de Lyon: ECL 3",
-                "shortName": "EC-Lyon: ECL 3",
+                "name": "ECL 3",
+                "shortName": "ECL 3",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2416,13 +2518,14 @@
                 "isOutOfContest": false,
                 "organizationId": "5687",
                 "customFields": {
-                    "name": "ECL 3"
+                    "clicsTeamFullName": "ECL 3",
+                    "clicsTeamDisplayName": "ECL 3"
                 }
             },
             {
                 "id": "105",
-                "name": "Università Degli Studi di Milano: LaStatale Red",
-                "shortName": "UNIMI: LaStatale Red",
+                "name": "LaStatale Red",
+                "shortName": "LaStatale Red",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2438,13 +2541,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7990",
                 "customFields": {
-                    "name": "LaStatale Red"
+                    "clicsTeamFullName": "LaStatale Red",
+                    "clicsTeamDisplayName": "LaStatale Red"
                 }
             },
             {
                 "id": "106",
-                "name": "University of Rennes 1: PBI",
-                "shortName": "UR1: PBI",
+                "name": "PBI",
+                "shortName": "PBI",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2460,13 +2564,14 @@
                 "isOutOfContest": false,
                 "organizationId": "10640",
                 "customFields": {
-                    "name": "PBI"
+                    "clicsTeamFullName": "PBI",
+                    "clicsTeamDisplayName": "PBI"
                 }
             },
             {
                 "id": "107",
-                "name": "Universitat Politècnica de València: ETSINF-2",
-                "shortName": "UPV: ETSINF-2",
+                "name": "ETSINF-2",
+                "shortName": "ETSINF-2",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2482,13 +2587,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2166",
                 "customFields": {
-                    "name": "ETSINF-2"
+                    "clicsTeamFullName": "ETSINF-2",
+                    "clicsTeamDisplayName": "ETSINF-2"
                 }
             },
             {
                 "id": "108",
-                "name": "ETH Zürich: dETHerminant",
-                "shortName": "ETH Zürich: dETHerminant",
+                "name": "dETHerminant",
+                "shortName": "dETHerminant",
                 "groups": [
                     "23737",
                     "CHE"
@@ -2504,13 +2610,14 @@
                 "isOutOfContest": false,
                 "organizationId": "451",
                 "customFields": {
-                    "name": "dETHerminant"
+                    "clicsTeamFullName": "dETHerminant",
+                    "clicsTeamDisplayName": "dETHerminant"
                 }
             },
             {
                 "id": "109",
-                "name": "University of Verona: SigSegv Squad",
-                "shortName": "UniVerona: SigSegv Squad",
+                "name": "SigSegv Squad",
+                "shortName": "SigSegv Squad",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2526,13 +2633,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8488",
                 "customFields": {
-                    "name": "SigSegv Squad"
+                    "clicsTeamFullName": "SigSegv Squad",
+                    "clicsTeamDisplayName": "SigSegv Squad"
                 }
             },
             {
                 "id": "110",
-                "name": "Universitat Pompeu Fabra: Boystdcouts",
-                "shortName": "UPF: Boystdcouts",
+                "name": "Boystdcouts",
+                "shortName": "Boystdcouts",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2548,13 +2656,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3545",
                 "customFields": {
-                    "name": "Boystdcouts"
+                    "clicsTeamFullName": "Boystdcouts",
+                    "clicsTeamDisplayName": "Boystdcouts"
                 }
             },
             {
                 "id": "111",
-                "name": "École Normale Supérieure de Paris: ENS Ulm 1",
-                "shortName": "ENS Paris: ENS Ulm 1",
+                "name": "ENS Ulm 1",
+                "shortName": "ENS Ulm 1",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2570,13 +2679,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3436",
                 "customFields": {
-                    "name": "ENS Ulm 1"
+                    "clicsTeamFullName": "ENS Ulm 1",
+                    "clicsTeamDisplayName": "ENS Ulm 1"
                 }
             },
             {
                 "id": "112",
-                "name": "University of Bologna: UNIBOiiis",
-                "shortName": "UNIBO: UNIBOiiis",
+                "name": "UNIBOiiis",
+                "shortName": "UNIBOiiis",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2592,13 +2702,14 @@
                 "isOutOfContest": false,
                 "organizationId": "7435",
                 "customFields": {
-                    "name": "UNIBOiiis"
+                    "clicsTeamFullName": "UNIBOiiis",
+                    "clicsTeamDisplayName": "UNIBOiiis"
                 }
             },
             {
                 "id": "113",
-                "name": "Universitat Pompeu Fabra: Venta de pantalones",
-                "shortName": "UPF: Venta de pantalones",
+                "name": "Venta de pantalones",
+                "shortName": "Venta de pantalones",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2614,13 +2725,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3545",
                 "customFields": {
-                    "name": "Venta de pantalones"
+                    "clicsTeamFullName": "Venta de pantalones",
+                    "clicsTeamDisplayName": "Venta de pantalones"
                 }
             },
             {
                 "id": "114",
-                "name": "Polytech Paris Saclay: Polydata",
-                "shortName": "PPS: Polydata",
+                "name": "Polydata",
+                "shortName": "Polydata",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2636,13 +2748,14 @@
                 "isOutOfContest": false,
                 "organizationId": "11538",
                 "customFields": {
-                    "name": "Polydata"
+                    "clicsTeamFullName": "Polydata",
+                    "clicsTeamDisplayName": "Polydata"
                 }
             },
             {
                 "id": "115",
-                "name": "Università della Svizzera italiana: fUSIlli",
-                "shortName": "USI: fUSIlli",
+                "name": "fUSIlli",
+                "shortName": "fUSIlli",
                 "groups": [
                     "23737",
                     "CHE"
@@ -2658,13 +2771,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8450",
                 "customFields": {
-                    "name": "fUSIlli"
+                    "clicsTeamFullName": "fUSIlli",
+                    "clicsTeamDisplayName": "fUSIlli"
                 }
             },
             {
                 "id": "116",
-                "name": "Harbour.Space University: P+P+P",
-                "shortName": "HS: P+P+P",
+                "name": "P+P+P",
+                "shortName": "P+P+P",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2680,13 +2794,14 @@
                 "isOutOfContest": false,
                 "organizationId": "9745",
                 "customFields": {
-                    "name": "P+P+P"
+                    "clicsTeamFullName": "P+P+P",
+                    "clicsTeamDisplayName": "P+P+P"
                 }
             },
             {
                 "id": "117",
-                "name": "Università di Roma - La Sapienza: SapienzaRed",
-                "shortName": "Università di Roma 1: SapienzaRed",
+                "name": "SapienzaRed",
+                "shortName": "SapienzaRed",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2702,13 +2817,14 @@
                 "isOutOfContest": false,
                 "organizationId": "2260",
                 "customFields": {
-                    "name": "SapienzaRed"
+                    "clicsTeamFullName": "SapienzaRed",
+                    "clicsTeamDisplayName": "SapienzaRed"
                 }
             },
             {
                 "id": "118",
-                "name": "Scuola Normale Superiore: Carovana Fighters",
-                "shortName": "SNS: Carovana Fighters",
+                "name": "Carovana Fighters",
+                "shortName": "Carovana Fighters",
                 "groups": [
                     "23737",
                     "ITA"
@@ -2724,13 +2840,14 @@
                 "isOutOfContest": false,
                 "organizationId": "8818",
                 "customFields": {
-                    "name": "Carovana Fighters"
+                    "clicsTeamFullName": "Carovana Fighters",
+                    "clicsTeamDisplayName": "Carovana Fighters"
                 }
             },
             {
                 "id": "119",
-                "name": "Universitat Pompeu Fabra: GetName",
-                "shortName": "UPF: GetName",
+                "name": "GetName",
+                "shortName": "GetName",
                 "groups": [
                     "23737",
                     "ESP"
@@ -2746,13 +2863,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3545",
                 "customFields": {
-                    "name": "GetName"
+                    "clicsTeamFullName": "GetName",
+                    "clicsTeamDisplayName": "GetName"
                 }
             },
             {
                 "id": "120",
-                "name": "École Normale Supérieure de Paris: ENS Ulm 2",
-                "shortName": "ENS Paris: ENS Ulm 2",
+                "name": "ENS Ulm 2",
+                "shortName": "ENS Ulm 2",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2768,13 +2886,14 @@
                 "isOutOfContest": false,
                 "organizationId": "3436",
                 "customFields": {
-                    "name": "ENS Ulm 2"
+                    "clicsTeamFullName": "ENS Ulm 2",
+                    "clicsTeamDisplayName": "ENS Ulm 2"
                 }
             },
             {
                 "id": "121",
-                "name": "Artois University: Jean Perrin",
-                "shortName": "U-ARTOIS: Jean Perrin",
+                "name": "Jean Perrin",
+                "shortName": "Jean Perrin",
                 "groups": [
                     "23737",
                     "FRA"
@@ -2790,7 +2909,8 @@
                 "isOutOfContest": false,
                 "organizationId": "8886",
                 "customFields": {
-                    "name": "Jean Perrin"
+                    "clicsTeamFullName": "Jean Perrin",
+                    "clicsTeamDisplayName": "Jean Perrin"
                 }
             }
         ],

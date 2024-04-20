@@ -38,9 +38,6 @@ public class ClicsFeed(
 @Builder("clics")
 public sealed interface ClicsSettings : CDSSettings {
     public val feeds: List<ClicsFeed>
-    public val useTeamNames: Boolean
-        get() = true
-
     override fun toDataSource(): ContestDataSource = ClicsDataSource(this)
 }
 
@@ -68,9 +65,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
 internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource {
     private val feeds = settings.feeds.map { ParsedClicsLoaderSettings(it) }
 
-    private val model = ClicsModel(
-        settings.useTeamNames
-    )
+    private val model = ClicsModel()
 
     private val Event.isFinalEvent get() = this is StateEvent && data?.endOfUpdates != null
 

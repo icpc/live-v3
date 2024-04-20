@@ -9,6 +9,5 @@
         "login": "live",
         "password": "password"
       }
-    ],
-    "useTeamNames": true
+    ]
   }

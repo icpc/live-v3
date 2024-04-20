@@ -9,7 +9,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
-internal class ClicsModel(private val addTeamNames: Boolean) {
+internal class ClicsModel {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
     private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
@@ -31,12 +31,6 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
 
     fun getAllRuns() = submissions.values.map { it.toApi() }
 
-    private fun teamName(org: String?, name: String) = when {
-        org == null -> name
-        addTeamNames -> "$org: $name"
-        else -> org
-    }
-
     private fun mediaType(file: File?): MediaType? {
         val mime = file?.mime ?: return null
         val href = file.href?.value ?: return null
@@ -55,8 +49,8 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
         val teamOrganization = organizationId?.let { organisations[it] }
         return TeamInfo(
             id = id.toTeamId(),
-            fullName = teamName(teamOrganization?.formalName, name),
-            displayName = teamName(teamOrganization?.name, displayName ?: name),
+            fullName = name,
+            displayName = displayName ?: name,
             isHidden = hidden ?: false,
             groups = buildList {
                 for (group in groupIds) {
@@ -76,8 +70,9 @@ internal class ClicsModel(private val addTeamNames: Boolean) {
             organizationId = organizationId?.toOrganizationId(),
             isOutOfContest = false,
             customFields = buildMap {
-                put("name", name)
-                displayName?.let { put("clicsDisplayName", it) }
+                put("clicsTeamFullName", name)
+                put("clicsTeamDisplayName", displayName ?: name)
+                label?.let { put("clicsTeamLabel", it) }
             }
         )
     }
