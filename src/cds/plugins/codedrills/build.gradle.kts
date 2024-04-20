@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.protobuf)
 }
 
+apiValidation {
+    ignoredPackages.add("io.codedrills.proto")
+}
+
 protobuf {
     protoc {
         artifact = libs.protoc.get().toString()
