@@ -72,8 +72,6 @@ internal class ClicsModel {
             customFields = buildMap {
                 put("clicsTeamFullName", name)
                 put("clicsTeamDisplayName", displayName ?: name)
-                teamOrganization?.name?.let { put("clicsOrganizationDisplayName", it) }
-                teamOrganization?.formalName?.let { put("clicsOrganizationFullName", it) }
                 label?.let { put("clicsTeamLabel", it) }
             }
         )
