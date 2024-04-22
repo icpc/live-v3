@@ -134,26 +134,26 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
             <Box display="flex">
                 <ShowPresetButton className='block' onClick={onShow} active={data.shown}/>
-                <PresetsTableCell 
-                    value={data.settings.leftPreset} 
-                    editValue={editData?.settings?.preset} 
-                    isActive={data.shown}
-                    onChange={onChangeField("leftPreset")} 
-                    onSubmit={onSubmitEdit}
-                    valueEditor={TemplateEditor}
-                />
-                <PresetsTableCell 
-                    value={data.settings.rightPreset}
-                    editValue={editData?.settings?.preset} 
-                    isActive={data.shown}
-                    onChange={onChangeField("rightPreset")}
-                    onSubmit={onSubmitEdit}
-                    valueEditor={TemplateEditor}
-                />
                 <IconButton color="primary" onClick={changePreset(data.settings.leftPreset)}>L</IconButton>
                 <IconButton color="primary" onClick={changePreset(data.settings.rightPreset)}>R</IconButton>
             </Box>
         </TableCell>
+        <PresetsTableCell
+            value={data.settings.leftPreset}
+            editValue={editData?.settings?.preset}
+            isActive={data.shown}
+            onChange={onChangeField("leftPreset")}
+            onSubmit={onSubmitEdit}
+            valueEditor={TemplateEditor}
+        />
+        <PresetsTableCell
+            value={data.settings.rightPreset}
+            editValue={editData?.settings?.preset}
+            isActive={data.shown}
+            onChange={onChangeField("rightPreset")}
+            onSubmit={onSubmitEdit}
+            valueEditor={TemplateEditor}
+        />
         <PresetsTableCell value={data.settings.preset} editValue={editData?.settings?.preset} isActive={data.shown}
             onChange={onChangeField("preset")} onSubmit={onSubmitEdit}
             valueEditor={TemplateEditor}
@@ -200,7 +200,7 @@ function Title() {
             <PresetsManager
                 service={service}
                 tableKeys={["preset", "data"]}
-                tableKeysHeaders={["Template", "Data"]}
+                tableKeysHeaders={["Left template", "Right template", "Template", "Data"]}
                 defaultRowData={{ "preset": "", "data": {} }}
                 RowComponent={TitleTableRow}
             />
