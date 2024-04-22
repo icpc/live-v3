@@ -14,7 +14,11 @@ object UnitSettings : ObjectSettings
 data class AdvertisementSettings(val text: String) : ObjectSettings
 
 @Serializable
-data class TitleSettings(val preset: String, val data: Map<String, String>) : ObjectSettings
+data class TitleSettings(
+    val preset: String,
+    val leftPreset: String? = null,
+    val rightPreset: String? = null,
+    val data: Map<String, String>) : ObjectSettings
 
 @Serializable
 data class PictureSettings(val url: String, val name: String) : ObjectSettings
