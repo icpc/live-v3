@@ -1,0 +1,53 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path d="M31 476C31 467.163 38.1634 460 47 460H224C232.837 460 240 467.163 240 476V481C240 489.837 232.837 497 224 497H47C38.1634 497 31 489.837 31 481V476Z" fill="#1E1E1E"/>
+    <text fill="white" xml:space="preserve" style="white-space: pre" font-family="Helvetica" font-size="20" font-weight="300" letter-spacing="0em">
+        <tspan id="goose-counter" x="44" y="485.4">{message}</tspan>
+    </text>
+    <foreignObject width="100%" height="100%" x="0" y="0">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+            <head>
+                <script type="text/javascript">
+                        const textElement = document.getElementById('goose-counter');
+                        const ancestorOriginString = window.location.ancestorOrigins[0]; 
+
+                        const url = new URL(ancestorOriginString);
+                        const protocol = url.protocol;
+                        const host = url.host;
+                        const wsProtocol = protocol === 'https:' ? 'wss:' : 'ws:';
+                        const wsEndpoint = `${wsProtocol}//${host}/api/admin/social`; 
+
+                        const ws = new WebSocket(wsEndpoint);
+
+                        let messageCount = 0;
+                        const targetSubstrings = '{keywords}'; 
+
+                        const targetList = targetSubstrings.split(",");
+
+                        ws.onopen = () => {
+                          console.log('Connected to WebSocket');
+                        };
+                        ws.onmessage = (event) => {
+                          const message = JSON.parse(event.data);
+                          if (message.rawText) {
+                            const lowercaseText = message.rawText.toLowerCase(); 
+                            for (const targetSubstring of targetList) {
+                              if (lowercaseText.includes(targetSubstring)) {
+                                messageCount++;
+                                break; 
+                              }
+                            }
+                            textElement.textContent = `{message}: ${messageCount}`;
+                          }
+                        };
+
+                        ws.onerror = (error) => {
+                          console.error('WebSocket error:', error);
+                          textElement.textContent = 'I will be back soon!';
+                        };
+                </script>
+            </head>
+        </html>
+    </foreignObject>
+</svg>

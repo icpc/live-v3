@@ -1,0 +1,23 @@
+[
+    {
+        "preset": "left.svg",
+        "data": {
+            "name": "Bill Poucher",
+            "role": "ICPC Executive Director"
+        }
+    },
+    {
+        "preset": "right.svg",
+        "data": {
+            "name": "Bill Poucher",
+            "role": "ICPC Executive Director"
+        }
+    },
+    {
+        "preset": "goose.svg",
+        "data": {
+            "message": "Goose counter",
+            "keywords": "гус,goose"
+        }
+    }
+]
