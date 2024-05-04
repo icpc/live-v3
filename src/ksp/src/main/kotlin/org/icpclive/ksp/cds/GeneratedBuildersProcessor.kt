@@ -118,7 +118,7 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
 
                 imports(
                     "kotlinx.serialization.*", "kotlinx.serialization.json.*", "kotlinx.serialization.encoding.*",
-                    "org.icpclive.cds.util.datetime.*", "org.icpclive.cds.util.*"
+                    "org.icpclive.cds.util.serializers.*"
                 )
 
                 +"@Serializable"

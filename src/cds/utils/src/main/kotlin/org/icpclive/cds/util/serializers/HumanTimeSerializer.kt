@@ -1,4 +1,4 @@
-package org.icpclive.cds.util.datetime
+package org.icpclive.cds.util.serializers
 
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone

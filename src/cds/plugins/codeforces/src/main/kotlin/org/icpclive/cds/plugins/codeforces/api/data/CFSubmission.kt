@@ -3,7 +3,7 @@
 package org.icpclive.cds.plugins.codeforces.api.data
 
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.util.datetime.DurationInSecondsSerializer
+import org.icpclive.cds.util.serializers.DurationInSecondsSerializer
 import kotlin.time.Duration
 
 internal enum class CFSubmissionVerdict {

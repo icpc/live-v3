@@ -4,9 +4,9 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.json.JsonNames
 import org.icpclive.cds.api.*
-import org.icpclive.cds.util.ColorSerializer
-import org.icpclive.cds.util.RegexSerializer
-import org.icpclive.cds.util.datetime.*
+import org.icpclive.cds.util.serializers.ColorSerializer
+import org.icpclive.cds.util.serializers.RegexSerializer
+import org.icpclive.cds.util.serializers.*
 import java.awt.Color
 import kotlin.time.Duration
 

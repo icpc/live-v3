@@ -15,11 +15,12 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import org.icpclive.cds.util.defaultJsonSettings
+import kotlinx.serialization.json.Json
 import org.slf4j.event.Level
 import java.time.Duration
 
 fun main(args: Array<String>): Unit = Config.main(args)
+
 
 private fun Application.setupKtorPlugins() {
     install(DefaultHeaders)
@@ -35,7 +36,17 @@ private fun Application.setupKtorPlugins() {
     }
     install(AutoHeadResponse)
     install(IgnoreTrailingSlash)
-    install(ContentNegotiation) { json(defaultJsonSettings()) }
+    install(ContentNegotiation) {
+        json(Json {
+            encodeDefaults = true
+            isLenient = true
+            allowSpecialFloatingPointValues = true
+            allowStructuredMapKeys = true
+            prettyPrint = false
+            useArrayPolymorphism = false
+            explicitNulls = false
+        })
+    }
     install(WebSockets) {
         pingPeriod = Duration.ofSeconds(15)
         timeout = Duration.ofSeconds(15)

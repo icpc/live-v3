@@ -6,7 +6,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.util.datetime.HumanTimeSerializer
+import org.icpclive.cds.util.serializers.HumanTimeSerializer
 import org.icpclive.cds.util.getLogger
 import kotlin.random.Random
 import kotlin.time.Duration

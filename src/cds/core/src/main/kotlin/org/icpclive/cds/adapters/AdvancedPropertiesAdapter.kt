@@ -10,7 +10,7 @@ import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.tunning.*
 import org.icpclive.cds.util.*
-import org.icpclive.cds.util.datetime.HumanTimeSerializer
+import org.icpclive.cds.util.serializers.HumanTimeSerializer
 
 private sealed interface AdvancedAdapterEvent
 private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent

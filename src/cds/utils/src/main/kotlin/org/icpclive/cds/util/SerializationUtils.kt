@@ -1,89 +1,10 @@
 package org.icpclive.cds.util
 
 import kotlinx.serialization.*
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
-import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModuleBuilder
-import java.awt.Color
-import java.lang.Exception
-
-public object ColorSerializer : KSerializer<Color> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Color", PrimitiveKind.STRING)
-
-    override fun serialize(encoder: Encoder, value: Color) {
-        encoder.encodeString("#%02x%02x%02x%02x".format(value.red, value.green, value.blue, value.alpha))
-    }
-
-    override fun deserialize(decoder: Decoder): Color {
-        val data = decoder.decodeString()
-        return try {
-            if (data.startsWith("0x")) {
-                return Color(data.toUInt(radix = 16).toInt(), data.length == 8)
-            }
-            val str = data.removePrefix("#")
-            when (str.length) {
-                8 -> Color(
-                    str.substring(0, 2).toInt(radix = 16),
-                    str.substring(2, 4).toInt(radix = 16),
-                    str.substring(4, 6).toInt(radix = 16),
-                    str.substring(6, 8).toInt(radix = 16),
-                )
-
-                6 -> Color(
-                    str.substring(0, 2).toInt(radix = 16),
-                    str.substring(2, 4).toInt(radix = 16),
-                    str.substring(4, 6).toInt(radix = 16),
-                )
-
-                3 -> Color(
-                    str[0].digitToInt(16) * 0x11,
-                    str[1].digitToInt(16) * 0x11,
-                    str[2].digitToInt(16) * 0x11,
-                )
-
-                else -> {
-                    throw NumberFormatException()
-                }
-            }
-        } catch (e: NumberFormatException) {
-            log.error(e) { "Failed to parse color from $data" }
-            Color.BLACK
-        }
-    }
-
-    private val log by getLogger()
-}
-
-public object RegexSerializer : KSerializer<Regex> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Regex", PrimitiveKind.STRING)
-    override fun deserialize(decoder: Decoder) : Regex {
-        val s = decoder.decodeString()
-        return try {
-            Regex(s)
-        } catch (e: Exception) {
-            throw SerializationException("Failed to compile regexp: $s", e)
-        }
-    }
-
-    override fun serialize(encoder: Encoder, value: Regex) {
-        encoder.encodeString(value.pattern)
-    }
-}
-
-@OptIn(ExperimentalSerializationApi::class)
-public fun defaultJsonSettings(): Json = Json {
-    encodeDefaults = true
-    isLenient = true
-    allowSpecialFloatingPointValues = true
-    allowStructuredMapKeys = true
-    prettyPrint = false
-    useArrayPolymorphism = false
-    explicitNulls = false
-}
 
 public inline fun <reified T: Any> SerializersModuleBuilder.postProcess(
     crossinline onDeserialize: (T) -> T = { it },
