@@ -45,15 +45,6 @@ public final class org/icpclive/cds/util/XmlUtilsKt {
 	public static final fun toSequence (Lorg/w3c/dom/NodeList;)Lkotlin/sequences/Sequence;
 }
 
-public final class org/icpclive/cds/util/serializers/ColorSerializer : kotlinx/serialization/KSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/util/serializers/ColorSerializer;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/awt/Color;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/awt/Color;)V
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-}
-
 public final class org/icpclive/cds/util/serializers/DurationInMillisecondsSerializer : kotlinx/serialization/KSerializer {
 	public static final field INSTANCE Lorg/icpclive/cds/util/serializers/DurationInMillisecondsSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;

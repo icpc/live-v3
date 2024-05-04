@@ -239,7 +239,7 @@ public abstract interface class org/icpclive/clics/objects/Problem {
 	public abstract fun getMaxScore ()Ljava/lang/Double;
 	public abstract fun getName ()Ljava/lang/String;
 	public abstract fun getOrdinal ()I
-	public abstract fun getRgb ()Ljava/awt/Color;
+	public abstract fun getRgb ()Ljava/lang/String;
 	public abstract fun getStatement ()Ljava/util/List;
 	public abstract fun getTestDataCount ()Ljava/lang/Integer;
 	public abstract fun getTimeLimit ()Ljava/lang/Double;
@@ -1098,8 +1098,8 @@ public final class org/icpclive/clics/v202003/objects/Organization$Companion {
 
 public final class org/icpclive/clics/v202003/objects/Problem : org/icpclive/clics/objects/Problem {
 	public static final field Companion Lorg/icpclive/clics/v202003/objects/Problem$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/lang/Double;
 	public final fun component11 ()Ljava/util/List;
@@ -1107,12 +1107,12 @@ public final class org/icpclive/clics/v202003/objects/Problem : org/icpclive/cli
 	public final fun component3 ()I
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/awt/Color;
+	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/lang/Double;
 	public final fun component9 ()Ljava/lang/Integer;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)Lorg/icpclive/clics/v202003/objects/Problem;
-	public static synthetic fun copy$default (Lorg/icpclive/clics/v202003/objects/Problem;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202003/objects/Problem;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)Lorg/icpclive/clics/v202003/objects/Problem;
+	public static synthetic fun copy$default (Lorg/icpclive/clics/v202003/objects/Problem;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202003/objects/Problem;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getColor ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
@@ -1120,7 +1120,7 @@ public final class org/icpclive/clics/v202003/objects/Problem : org/icpclive/cli
 	public fun getMaxScore ()Ljava/lang/Double;
 	public fun getName ()Ljava/lang/String;
 	public fun getOrdinal ()I
-	public fun getRgb ()Ljava/awt/Color;
+	public fun getRgb ()Ljava/lang/String;
 	public fun getStatement ()Ljava/util/List;
 	public fun getTestDataCount ()Ljava/lang/Integer;
 	public fun getTimeLimit ()Ljava/lang/Double;
@@ -2383,8 +2383,8 @@ public final class org/icpclive/clics/v202207/objects/Organization$Companion {
 
 public final class org/icpclive/clics/v202207/objects/Problem : org/icpclive/clics/objects/Problem {
 	public static final field Companion Lorg/icpclive/clics/v202207/objects/Problem$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/lang/Double;
 	public final fun component11 ()Ljava/util/List;
@@ -2392,12 +2392,12 @@ public final class org/icpclive/clics/v202207/objects/Problem : org/icpclive/cli
 	public final fun component3 ()I
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/awt/Color;
+	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/lang/Double;
 	public final fun component9 ()Ljava/lang/Integer;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)Lorg/icpclive/clics/v202207/objects/Problem;
-	public static synthetic fun copy$default (Lorg/icpclive/clics/v202207/objects/Problem;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202207/objects/Problem;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)Lorg/icpclive/clics/v202207/objects/Problem;
+	public static synthetic fun copy$default (Lorg/icpclive/clics/v202207/objects/Problem;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202207/objects/Problem;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getColor ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
@@ -2405,7 +2405,7 @@ public final class org/icpclive/clics/v202207/objects/Problem : org/icpclive/cli
 	public fun getMaxScore ()Ljava/lang/Double;
 	public fun getName ()Ljava/lang/String;
 	public fun getOrdinal ()I
-	public fun getRgb ()Ljava/awt/Color;
+	public fun getRgb ()Ljava/lang/String;
 	public fun getStatement ()Ljava/util/List;
 	public fun getTestDataCount ()Ljava/lang/Integer;
 	public fun getTimeLimit ()Ljava/lang/Double;
@@ -3700,8 +3700,8 @@ public final class org/icpclive/clics/v202306/objects/Organization$Companion {
 
 public final class org/icpclive/clics/v202306/objects/Problem : org/icpclive/clics/objects/Problem {
 	public static final field Companion Lorg/icpclive/clics/v202306/objects/Problem$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/lang/Double;
 	public final fun component11 ()Ljava/util/List;
@@ -3709,12 +3709,12 @@ public final class org/icpclive/clics/v202306/objects/Problem : org/icpclive/cli
 	public final fun component3 ()I
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/awt/Color;
+	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/lang/Double;
 	public final fun component9 ()Ljava/lang/Integer;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)Lorg/icpclive/clics/v202306/objects/Problem;
-	public static synthetic fun copy$default (Lorg/icpclive/clics/v202306/objects/Problem;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/awt/Color;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202306/objects/Problem;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)Lorg/icpclive/clics/v202306/objects/Problem;
+	public static synthetic fun copy$default (Lorg/icpclive/clics/v202306/objects/Problem;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202306/objects/Problem;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getColor ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
@@ -3722,7 +3722,7 @@ public final class org/icpclive/clics/v202306/objects/Problem : org/icpclive/cli
 	public fun getMaxScore ()Ljava/lang/Double;
 	public fun getName ()Ljava/lang/String;
 	public fun getOrdinal ()I
-	public fun getRgb ()Ljava/awt/Color;
+	public fun getRgb ()Ljava/lang/String;
 	public fun getStatement ()Ljava/util/List;
 	public fun getTestDataCount ()Ljava/lang/Integer;
 	public fun getTimeLimit ()Ljava/lang/Double;

@@ -1,7 +1,6 @@
 package org.icpclive.clics.objects
 
 import org.icpclive.ksp.clics.*
-import java.awt.Color
 
 @SinceClics(FeedVersion.`2020_03`)
 @UpdateContestEvent
@@ -12,7 +11,7 @@ public interface Problem {
     @Required public val ordinal: Int
     @Required public val label: String
     @Required public val name: String
-    public val rgb: Color?
+    public val rgb: String?
     public val color: String?
     public val timeLimit: Double?
     public val testDataCount: Int?

@@ -1,8 +1,10 @@
 package org.icpclive.cds.api
 
 import kotlinx.serialization.*
-import org.icpclive.cds.util.serializers.ColorSerializer
-import java.awt.Color
+import kotlinx.serialization.descriptors.*
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import org.icpclive.cds.util.getLogger
 
 @JvmInline
 @Serializable
@@ -50,8 +52,74 @@ public data class ProblemInfo(
     val ordinal: Int,
     @Required val minScore: Double? = null,
     @Required val maxScore: Double? = null,
-    @Required @Serializable(ColorSerializer::class) val color: Color? = null,
-    @Required @Serializable(ColorSerializer::class) val unsolvedColor: Color? = null,
+    @Required val color: Color? = null,
+    @Required val unsolvedColor: Color? = null,
     @Required val scoreMergeMode: ScoreMergeMode? = null,
     @Required val isHidden: Boolean = false,
 )
+
+@JvmInline
+@Serializable(with = ColorSerializer::class)
+public value class Color internal constructor(public val value: String) {
+    public companion object {
+        private val log by getLogger()
+        public fun normalize(data: String): Color {
+            val red: Int
+            val green: Int
+            val blue: Int
+            val alpha: Int
+            try {
+                if (data.startsWith("0x")) {
+                    val colorValue = data.toUInt(radix = 16).toInt()
+                    red = ((colorValue ushr 16) and 0xFF)
+                    green = ((colorValue ushr 8) and 0xFF)
+                    blue = ((colorValue ushr 0) and 0xFF)
+                    alpha = if (data.length == 8) ((colorValue ushr 24) and 0xFF) else 0xff
+                } else {
+                    val str = data.removePrefix("#")
+                    when (str.length) {
+                        8 -> {
+                            red = str.substring(0, 2).toInt(radix = 16)
+                            green = str.substring(2, 4).toInt(radix = 16)
+                            blue = str.substring(4, 6).toInt(radix = 16)
+                            alpha = str.substring(6, 8).toInt(radix = 16)
+                        }
+
+                        6 -> {
+                            red = str.substring(0, 2).toInt(radix = 16)
+                            green = str.substring(2, 4).toInt(radix = 16)
+                            blue = str.substring(4, 6).toInt(radix = 16)
+                            alpha = 255
+                        }
+
+                        3 -> {
+                            red = str[0].digitToInt(16) * 0x11
+                            green = str[1].digitToInt(16) * 0x11
+                            blue = str[2].digitToInt(16) * 0x11
+                            alpha = 255
+                        }
+
+                        else -> throw NumberFormatException()
+                    }
+                }
+            } catch (e: NumberFormatException) {
+                log.error(e) { "Failed to parse color from $data" }
+                return Color("#00000000")
+            }
+            return Color("#%02x%02x%02x%02x".format(red, green, blue, alpha))
+        }
+    }
+}
+
+
+internal object ColorSerializer : KSerializer<Color> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Color", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: Color) {
+        encoder.encodeString(value.value)
+    }
+
+    override fun deserialize(decoder: Decoder): Color {
+        return Color.normalize(decoder.decodeString())
+    }
+}

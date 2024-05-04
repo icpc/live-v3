@@ -109,7 +109,7 @@ internal class ClicsModel {
         displayName = label,
         fullName = name,
         ordinal = ordinal,
-        color = rgb
+        color = rgb?.let { Color.normalize(it) }
     )
 
     private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(

@@ -30,8 +30,6 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
 
                 "kotlin.text.Regex" -> serializable("RegexSerializer")
 
-                "java.awt.Color" -> serializable("ColorSerializer")
-
                 "kotlinx.datetime.Instant" -> {
                     when {
                         member.isAnnotationPresent(Human::class) -> serializable("HumanTimeSerializer")

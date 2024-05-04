@@ -4,10 +4,8 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.json.JsonNames
 import org.icpclive.cds.api.*
-import org.icpclive.cds.util.serializers.ColorSerializer
 import org.icpclive.cds.util.serializers.RegexSerializer
 import org.icpclive.cds.util.serializers.*
-import java.awt.Color
 import kotlin.time.Duration
 
 /**
@@ -50,8 +48,8 @@ public class TeamInfoOverride(
 public class ProblemInfoOverride(
     public val displayName: String? = null,
     public val fullName: String? = null,
-    @Serializable(ColorSerializer::class) public val color: Color? = null,
-    @Serializable(ColorSerializer::class) public val unsolvedColor: Color? = null,
+    public val color: Color? = null,
+    public val unsolvedColor: Color? = null,
     public val ordinal: Int? = null,
     public val minScore: Double? = null,
     public val maxScore: Double? = null,
