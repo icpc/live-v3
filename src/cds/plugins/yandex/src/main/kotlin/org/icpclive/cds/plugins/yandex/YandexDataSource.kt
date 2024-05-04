@@ -1,6 +1,5 @@
 package org.icpclive.cds.plugins.yandex
 
-import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.request.*
@@ -13,8 +12,7 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.yandex.api.*
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.Credential
+import org.icpclive.cds.settings.*
 import org.icpclive.util.getLogger
 import org.icpclive.util.loopFlow
 import kotlin.time.Duration
@@ -31,46 +29,24 @@ public sealed interface YandexSettings : CDSSettings {
     override fun toDataSource(): ContestDataSource = YandexDataSource(this)
 }
 
-internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
-    private val apiKey = settings.apiKey.value
-    private val httpClient: HttpClient
+internal class YandexDataSource(private val settings: YandexSettings) : ContestDataSource {
+    private val auth = ClientAuth.oauth(settings.apiKey.value)
+    private val contestBaseUrl = API_BASE.subDir("contests").subDir(settings.contestId.toString())
 
-    private val contestDescriptionLoader: DataLoader<ContestDescription>
-    private val problemLoader: DataLoader<List<Problem>>
-    private val participantLoader: DataLoader<List<Participant>>
-    private val allSubmissionsLoader: DataLoader<List<Submission>>
-
-    val resultType = settings.resultType
+    private val httpClient = defaultHttpClient(auth, settings.network) {
+        defaultRequest { url(contestBaseUrl.value) }
+    }
 
 
-    init {
-        val auth = ClientAuth.OAuth(apiKey)
-        httpClient = defaultHttpClient(auth, settings.network) {
-            defaultRequest {
-                url("$API_BASE/contests/${settings.contestId}/")
-            }
-        }
-
-
-        contestDescriptionLoader = jsonUrlLoader(settings.network, auth) { "$API_BASE/contests/${settings.contestId}" }
-        problemLoader = jsonUrlLoader<Problems>(
-            settings.network,
-            auth
-        ) { "$API_BASE/contests/${settings.contestId}/problems" }.map {
-            it.problems.sortedBy { it.alias }
-        }
-        participantLoader = run {
-            val participantRegex = settings.loginRegex
-            jsonUrlLoader<List<Participant>>(
-                settings.network,
-                auth
-            ) { "$API_BASE/contests/${settings.contestId}/participants" }.map {
-                it.filter { participant -> participant.login.matches(participantRegex) }
-            }
-        }
-        allSubmissionsLoader = jsonUrlLoader<Submissions>(settings.network, auth) {
-            "$API_BASE/contests/${settings.contestId}/submissions?locale=ru&page=1&pageSize=100000"
-        }.map { it.submissions.reversed() }
+    private val contestDescriptionLoader = DataLoader.json<ContestDescription>(settings.network, auth, contestBaseUrl)
+    private val problemLoader = DataLoader.json<Problems>(settings.network, auth, contestBaseUrl.subDir("problems")).map {
+        it.problems.sortedBy { it.alias }
+    }
+    private val participantLoader = DataLoader.json<List<Participant>>(settings.network, auth, contestBaseUrl.subDir("participants")) .map {
+        it.filter { participant -> participant.login.matches(settings.loginRegex) }
+    }
+    private val allSubmissionsLoader = DataLoader.json<Submissions>(settings.network, auth, contestBaseUrl.subDir("submissions?locale=ru&page=1&pageSize=100000")).map {
+        it.submissions.reversed()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -84,7 +60,7 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
                     contestDescriptionLoader.load(),
                     problemLoader.load(),
                     participantLoader.load(),
-                    resultType
+                    settings.resultType
                 )
             }.flowOn(Dispatchers.IO)
                 .stateIn(this)
@@ -124,7 +100,7 @@ internal class YandexDataSource(settings: YandexSettings) : ContestDataSource {
 
     companion object {
         private val log = getLogger(YandexDataSource::class)
-        const val API_BASE = "https://api.contest.yandex.net/api/public/v2"
+        private val API_BASE = UrlOrLocalPath.Url("https://api.contest.yandex.net/api/public/v2")
     }
 
     private fun newSubmissionsFlow(

@@ -74,7 +74,7 @@ public sealed interface EOlympSettings : CDSSettings {
 internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContestDataSource(5.seconds) {
     private val graphQLClient = GraphQLKtorClient(
         URL(settings.url),
-        defaultHttpClient(ClientAuth.Bearer(settings.token.value), settings.network)
+        defaultHttpClient(ClientAuth.bearer(settings.token.value), settings.network)
     )
 
     private fun convertStatus(status: String) = when (status) {

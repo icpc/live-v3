@@ -4,13 +4,13 @@ public abstract interface class org/icpclive/cds/plugins/cats/CatsSettings : org
 	public abstract fun getPassword ()Lorg/icpclive/cds/settings/Credential;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
-	public abstract fun getUrl ()Ljava/lang/String;
+	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/cats/CatsSettingsBuilder : org/icpclive/cds/plugins/cats/CatsSettings {
 	public fun <init> (Lorg/icpclive/cds/plugins/cats/CatsSettings;)V
-	public fun <init> (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;)V
+	public fun <init> (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/cats/CatsSettings;
 	public fun getCid ()Ljava/lang/String;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
@@ -20,7 +20,7 @@ public final class org/icpclive/cds/plugins/cats/CatsSettingsBuilder : org/icpcl
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
-	public fun getUrl ()Ljava/lang/String;
+	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun setCid (Ljava/lang/String;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setLogin (Lorg/icpclive/cds/settings/Credential;)V
@@ -29,12 +29,12 @@ public final class org/icpclive/cds/plugins/cats/CatsSettingsBuilder : org/icpcl
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
 	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
-	public fun setUrl (Ljava/lang/String;)V
+	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 }
 
 public final class org/icpclive/cds/plugins/cats/CatsSettingsImplKt {
-	public static final fun CatsSettings (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
-	public static synthetic fun CatsSettings$default (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
+	public static final fun CatsSettings (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
+	public static synthetic fun CatsSettings$default (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
 	public static final fun copy (Lorg/icpclive/cds/plugins/cats/CatsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
 	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/cats/CatsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cats/CatsSettings;
 }

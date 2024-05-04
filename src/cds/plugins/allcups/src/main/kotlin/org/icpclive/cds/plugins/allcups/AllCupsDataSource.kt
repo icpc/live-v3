@@ -7,8 +7,7 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.Credential
+import org.icpclive.cds.settings.*
 import org.icpclive.ksp.cds.*
 import org.icpclive.util.getLogger
 import kotlin.time.Duration
@@ -39,9 +38,11 @@ internal class Submission(
     val code: String
 )
 
+private val urlRoot = UrlOrLocalPath.Url("https://cups.online/api_live/submissions/round")
+
 internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadContestDataSource(5.seconds) {
-    private val loader = jsonUrlLoader<List<Submission>>(settings.network, ClientAuth.Bearer(settings.token.value)) {
-        "https://cups.online/api_live/submissions/round/${settings.contestId}/"
+    private val loader = DataLoader.json<List<Submission>>(settings.network, ClientAuth.bearer(settings.token.value)) {
+        urlRoot.subDir(settings.contestId.toString())
     }
 
     private fun String.toVerdict() = when (this) {

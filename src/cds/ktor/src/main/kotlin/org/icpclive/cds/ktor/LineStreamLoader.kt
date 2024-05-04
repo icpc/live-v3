@@ -11,7 +11,7 @@ import org.icpclive.cds.settings.NetworkSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.util.*
 
-public fun getLineStreamLoaderFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: UrlOrLocalPath): Flow<String> = flow {
+internal fun getLineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: UrlOrLocalPath): Flow<String> = flow {
     when (url) {
         is UrlOrLocalPath.Local -> {
             url.value.toFile().useLines { lines ->

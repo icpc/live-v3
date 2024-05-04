@@ -42,7 +42,7 @@ public sealed interface ClicsSettings : CDSSettings {
 }
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
-    val auth = ClientAuth.BasicOrNull(
+    val auth = ClientAuth.basicOrNull(
         settings.login?.value,
         settings.password?.value
     )
@@ -235,7 +235,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             }
 
             while (true) {
-                emitAll(getLineStreamLoaderFlow(networkSettings, settings.auth, settings.eventFeedUrl)
+                emitAll(DataLoader.lineFlow(networkSettings, settings.auth, settings.eventFeedUrl)
                     .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {

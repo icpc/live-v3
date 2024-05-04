@@ -1,31 +1,31 @@
 public abstract interface class org/icpclive/cds/plugins/cms/CmsSettings : org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getActiveContest ()Ljava/lang/String;
 	public abstract fun getOtherContests ()Ljava/util/List;
-	public abstract fun getUrl ()Ljava/lang/String;
+	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/cms/CmsSettingsBuilder : org/icpclive/cds/plugins/cms/CmsSettings {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public fun <init> (Lorg/icpclive/cds/plugins/cms/CmsSettings;)V
+	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Ljava/util/List;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/cms/CmsSettings;
 	public fun getActiveContest ()Ljava/lang/String;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getOtherContests ()Ljava/util/List;
 	public fun getPreviousDays ()Ljava/util/List;
-	public fun getUrl ()Ljava/lang/String;
+	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun setActiveContest (Ljava/lang/String;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
 	public fun setOtherContests (Ljava/util/List;)V
 	public fun setPreviousDays (Ljava/util/List;)V
-	public fun setUrl (Ljava/lang/String;)V
+	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 }
 
 public final class org/icpclive/cds/plugins/cms/CmsSettingsImplKt {
-	public static final fun CmsSettings (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
-	public static synthetic fun CmsSettings$default (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
+	public static final fun CmsSettings (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
+	public static synthetic fun CmsSettings$default (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
 	public static final fun copy (Lorg/icpclive/cds/plugins/cms/CmsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
 	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/cms/CmsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/cms/CmsSettings;
 }

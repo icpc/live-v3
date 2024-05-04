@@ -54,13 +54,13 @@ public sealed interface AtcoderSettings : CDSSettings {
     override fun toDataSource(): ContestDataSource = AtcoderDataSource(this)
 }
 
+
 internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadContestDataSource(5.seconds) {
-    private val loader = jsonLoader<ContestData>(
+    private val loader = DataLoader.json<ContestData>(
         settings.network,
-        ClientAuth.CookieAuth("REVEL_SESSION", settings.sessionCookie.value)
-    ) {
-        UrlOrLocalPath.Url("https://atcoder.jp/contests/${settings.contestId}/standings/json")
-    }
+        ClientAuth.cookie("REVEL_SESSION", settings.sessionCookie.value),
+        UrlOrLocalPath.Url("https://atcoder.jp/contests/").subDir(settings.contestId).subDir("standings").subDir("json")
+    )
 
     private var submissionId: Int = 1
     val runs = mutableMapOf<Pair<TeamId, ProblemId>, List<RunInfo>>()

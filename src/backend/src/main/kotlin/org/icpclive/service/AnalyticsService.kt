@@ -179,7 +179,7 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
     }
 
     companion object {
-        val logger = getLogger(AnalyticsMessage::class)
+        val logger = getLogger(AnalyticsService::class)
 
         private sealed class AnalyticsProcessTrigger
         private data class Message(val message: AnalyticsMessage) : AnalyticsProcessTrigger()

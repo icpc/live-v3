@@ -6,25 +6,26 @@ import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.cms.model.*
 import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("cms")
 public sealed interface CmsSettings : CDSSettings {
-    public val url: String
+    public val url: UrlOrLocalPath
     public val activeContest: String
     public val otherContests: List<String>
     override fun toDataSource(): ContestDataSource = CmsDataSource(this)
 }
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
-    private val contestsLoader = jsonUrlLoader<Map<String, Contest>>(settings.network, null) { "${settings.url}/contests/" }
-    private val tasksLoader = jsonUrlLoader<Map<String, Task>>(settings.network, null) { "${settings.url}/tasks/" }
-    private val teamsLoader = jsonUrlLoader<Map<String, Team>>(settings.network, null) { "${settings.url}/teams/" }
-    private val usersLoader = jsonUrlLoader<Map<String, User>>(settings.network, null) { "${settings.url}/users/" }
-    private val submissionsLoader = jsonUrlLoader<Map<String, Submission>>(settings.network, null) { "${settings.url}/submissions/" }
-    private val subchangesLoader = jsonUrlLoader<Map<String, Subchange>>(settings.network, null) { "${settings.url}/subchanges/" }
+    private val contestsLoader = DataLoader.json<Map<String, Contest>>(settings.network, null, settings.url.subDir("contests/"))
+    private val tasksLoader = DataLoader.json<Map<String, Task>>(settings.network, null, settings.url.subDir("/tasks/"))
+    private val teamsLoader = DataLoader.json<Map<String, Team>>(settings.network, null, settings.url.subDir("/teams/"))
+    private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, null, settings.url.subDir("/users/"))
+    private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, null, settings.url.subDir("/submissions/"))
+    private val subchangesLoader = DataLoader.json<Map<String, Subchange>>(settings.network, null, settings.url.subDir("subchanges/"))
 
     override suspend fun loadOnce(): ContestParseResult {
         val contests = contestsLoader.load()
@@ -64,7 +65,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 id = k.toOrganizationId(),
                 displayName = v.name,
                 fullName = v.name,
-                logo = MediaType.Image(settings.url)
+                logo = MediaType.Image(settings.url.toString())
             )
         }
         val teams = usersLoader.load().map { (k, v) ->

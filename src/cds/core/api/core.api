@@ -1893,14 +1893,16 @@ public abstract class org/icpclive/cds/settings/UrlOrLocalPath {
 public final class org/icpclive/cds/settings/UrlOrLocalPath$Local : org/icpclive/cds/settings/UrlOrLocalPath {
 	public fun <init> (Ljava/nio/file/Path;)V
 	public final fun getValue ()Ljava/nio/file/Path;
-	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Local;
+	public synthetic fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class org/icpclive/cds/settings/UrlOrLocalPath$Url : org/icpclive/cds/settings/UrlOrLocalPath {
 	public fun <init> (Ljava/lang/String;)V
 	public final fun getValue ()Ljava/lang/String;
-	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+	public synthetic fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toString ()Ljava/lang/String;
 }
 

@@ -9,8 +9,7 @@ import org.icpclive.cds.plugins.codeforces.api.data.CFHack
 import org.icpclive.cds.plugins.codeforces.api.data.CFSubmission
 import org.icpclive.cds.plugins.codeforces.api.results.CFStandings
 import org.icpclive.cds.plugins.codeforces.api.results.CFStatusWrapper
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.Credential
+import org.icpclive.cds.settings.*
 import java.security.MessageDigest
 import java.util.*
 import kotlin.random.Random
@@ -35,16 +34,16 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
     private fun apiRequestUrl(
         method: String,
         params: Map<String, String>,
-    ): String {
+    ): UrlOrLocalPath {
         val sortedParams = params.toSortedMap()
         sortedParams["time"] = Clock.System.now().epochSeconds.toString()
         sortedParams["apiKey"] = apiKey
         val rand = (Random.nextInt(900000) + 100000).toString()
         sortedParams["apiSig"] = rand + hash(sortedParams.toQuery("$rand/$method?", "#$apiSecret"))
-        return sortedParams.toQuery("https://codeforces.com/api/$method?")
+        return UrlOrLocalPath.Url(sortedParams.toQuery("https://codeforces.com/api/$method?"))
     }
 
-    private val standingsLoader = jsonUrlLoader<CFStatusWrapper<CFStandings>>(networkSettings = settings.network) {
+    private val standingsLoader = DataLoader.json<CFStatusWrapper<CFStandings>>(networkSettings = settings.network) {
         apiRequestUrl(
             "contest.standings",
             mapOf(
@@ -56,7 +55,7 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
         it.unwrap()
     }
 
-    private val statusLoader = jsonUrlLoader<CFStatusWrapper<List<CFSubmission>>>(networkSettings = settings.network) {
+    private val statusLoader = DataLoader.json<CFStatusWrapper<List<CFSubmission>>>(networkSettings = settings.network) {
         apiRequestUrl(
             "contest.status",
             mapOf(
@@ -68,7 +67,7 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
         it.unwrap()
     }
 
-    private val hacksLoader = jsonUrlLoader<CFStatusWrapper<List<CFHack>>>(networkSettings = settings.network) {
+    private val hacksLoader = DataLoader.json<CFStatusWrapper<List<CFHack>>>(networkSettings = settings.network) {
         apiRequestUrl(
             "contest.hacks",
             mapOf(

@@ -4,16 +4,17 @@ import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.ktor.DataLoader
 import org.icpclive.ksp.cds.Builder
-import org.icpclive.cds.ktor.jsonUrlLoader
 import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("krsu")
 public sealed interface KRSUSettings : CDSSettings {
-    public val submissionsUrl: String
-    public val contestUrl: String
+    public val submissionsUrl: UrlOrLocalPath
+    public val contestUrl: UrlOrLocalPath
     public val timeZone: TimeZone
         get() = TimeZone.of("Asia/Bishkek")
 
@@ -89,8 +90,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         )
     }
 
-    private val submissionsLoader = jsonUrlLoader<List<Submission>>(networkSettings = settings.network) { settings.submissionsUrl }
-    private val contestInfoLoader = jsonUrlLoader<Contest>(networkSettings = settings.network) { settings.contestUrl }
+    private val submissionsLoader = DataLoader.json<List<Submission>>(networkSettings = settings.network) { settings.submissionsUrl }
+    private val contestInfoLoader = DataLoader.json<Contest>(networkSettings = settings.network) { settings.contestUrl }
 
     companion object {
         private val outcomeMap = mapOf(
