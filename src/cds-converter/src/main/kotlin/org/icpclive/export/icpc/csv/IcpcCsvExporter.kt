@@ -12,7 +12,6 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.getScoreboardCalculator
-import org.icpclive.util.atMostOne
 
 
 object IcpcCsvExporter {
@@ -49,7 +48,7 @@ object IcpcCsvExporter {
     }
 
     private fun getFields(icpc_id: String, rank: Int, scoreboardRow: ScoreboardRow, awards: List<Award>): List<String> {
-        fun award(substring: String) = awards.atMostOne { it.id.contains(substring) }
+        fun award(substring: String) = awards.filter { it.id.contains(substring) }.also { require(it.size < 2) }.singleOrNull()
         return listOf(
             icpc_id,
             rank.toString(),

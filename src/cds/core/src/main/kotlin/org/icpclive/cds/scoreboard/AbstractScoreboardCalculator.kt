@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 import kotlin.time.Duration
 
 public class Ranking internal constructor(

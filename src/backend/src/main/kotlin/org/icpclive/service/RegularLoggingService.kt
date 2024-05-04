@@ -3,7 +3,7 @@ package org.icpclive.service
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds

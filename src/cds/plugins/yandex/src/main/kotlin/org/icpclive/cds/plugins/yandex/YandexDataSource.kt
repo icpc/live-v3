@@ -13,8 +13,8 @@ import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.yandex.api.*
 import org.icpclive.cds.settings.*
-import org.icpclive.util.getLogger
-import org.icpclive.util.loopFlow
+import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.loopFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

@@ -2,7 +2,7 @@ package org.icpclive.clics
 
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.modules.SerializersModule
-import org.icpclive.util.postProcess
+import org.icpclive.cds.util.postProcess
 
 public fun clicsEventsSerializersModule(
     feedVersion: FeedVersion,

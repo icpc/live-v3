@@ -9,7 +9,7 @@ import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.settings.*
 import org.icpclive.ksp.cds.*
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

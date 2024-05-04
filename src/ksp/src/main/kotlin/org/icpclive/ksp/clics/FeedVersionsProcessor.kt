@@ -226,7 +226,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
 
     private fun MyCodeGenerator.serilizableWith(resolve: KSType) {
         when (resolve.declaration.qualifiedName!!.asString()) {
-            "java.awt.Color" -> serializable("org.icpclive.util.ColorSerializer")
+            "java.awt.Color" -> serializable("org.icpclive.cds.util.ColorSerializer")
             "org.icpclive.clics.Url" -> +"@Contextual"
             "kotlinx.datetime.Instant" -> serializable("org.icpclive.clics.ClicsTime.InstantSerializer")
             "kotlin.time.Duration" -> serializable("org.icpclive.clics.ClicsTime.DurationSerializer")
@@ -242,8 +242,9 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                 fileName = "serializersModule"
             ) {
                 imports(
-                    "kotlinx.serialization.*", "kotlinx.serialization.encoding.*",
-                    "kotlinx.serialization.modules.*", "org.icpclive.util.*", "org.icpclive.clics.*"
+                    "kotlinx.serialization.*", "kotlinx.serialization.encoding.*", "kotlinx.serialization.modules.*",
+                    "org.icpclive.cds.util.*", "org.icpclive.cds.util.datetime.*",
+                    "org.icpclive.clics.*"
                 )
                 withCodeBlock("internal fun serializersModule(): SerializersModule = SerializersModule") {
                     for ((index, i) in objects[feedVersion]?.withIndex() ?: emptyList()) {

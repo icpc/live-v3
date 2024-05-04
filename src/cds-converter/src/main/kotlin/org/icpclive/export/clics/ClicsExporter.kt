@@ -23,10 +23,10 @@ import org.icpclive.clics.events.GlobalEvent
 import org.icpclive.clics.events.IdEvent
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
+import org.icpclive.cds.util.loopFlow
 import org.icpclive.clics.v202306.objects.ScoreboardRowProblem
 import org.icpclive.clics.v202306.objects.Award
 import org.icpclive.clics.v202306.objects.ScoreboardRow
-import org.icpclive.util.*
 import java.nio.ByteBuffer
 import kotlin.time.Duration.Companion.minutes
 
@@ -349,7 +349,7 @@ object ClicsExporter  {
     }
 
     private val awardsMap = mutableMapOf<String, Award>()
-    var awardEventId = 0
+    private var awardEventId = 0
 
     private fun generateAwardEvents(awards: Flow<List<Award>>) = awards.transform {
         diff(

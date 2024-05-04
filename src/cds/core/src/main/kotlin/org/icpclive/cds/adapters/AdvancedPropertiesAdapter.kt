@@ -9,14 +9,11 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.tunning.*
-import org.icpclive.util.*
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.minutes
+import org.icpclive.cds.util.datetime.HumanTimeSerializer
+import org.icpclive.cds.util.getLogger
 
 private sealed interface AdvancedAdapterEvent
 private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent
@@ -230,7 +227,7 @@ private fun AdvancedProperties.status(info: ContestInfo): ContestStatus {
     val status = ContestStatus.byCurrentTime(startTime ?: info.startTime, contestLength ?: info.contestLength)
     if (status == ContestStatus.OVER && (info.status == ContestStatus.FINALIZED || info.status == ContestStatus.FAKE_RUNNING)) return info.status
     if (status == info.status) return info.status
-    logger.info("Contest status is overridden to ${status}, startTime = ${(startTime ?: info.startTime).humanReadable}, contestLength = ${(contestLength ?: info.contestLength)}")
+    logger.info("Contest status is overridden to ${status}, startTime = ${HumanTimeSerializer.format(startTime ?: info.startTime)}, contestLength = ${(contestLength ?: info.contestLength)}")
     return status
 }
 

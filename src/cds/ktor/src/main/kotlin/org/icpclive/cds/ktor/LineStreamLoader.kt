@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.settings.NetworkSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
-import org.icpclive.util.*
+import org.icpclive.cds.util.getLogger
 
 internal fun getLineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: UrlOrLocalPath): Flow<String> = flow {
     when (url) {

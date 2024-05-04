@@ -116,7 +116,10 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
                 val notNullAbstractMembers = abstractMembers.filterNot { it.type.resolve().isMarkedNullable }
                 val classSerialName = iface.getAnnotationsByType(Builder::class).single().name.takeUnless { it.isEmpty() } ?: ifaceName
 
-                imports("kotlinx.serialization.*", "kotlinx.serialization.json.*", "kotlinx.serialization.encoding.*", "org.icpclive.util.*")
+                imports(
+                    "kotlinx.serialization.*", "kotlinx.serialization.json.*", "kotlinx.serialization.encoding.*",
+                    "org.icpclive.cds.util.datetime.*", "org.icpclive.cds.util.*"
+                )
 
                 +"@Serializable"
                 +"@SerialName(\"$classSerialName\")"

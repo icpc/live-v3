@@ -2,8 +2,8 @@ package org.icpclive.cds.api
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import org.icpclive.util.DurationInMillisecondsSerializer
-import org.icpclive.util.UnixMillisecondsSerializer
+import org.icpclive.cds.util.datetime.DurationInMillisecondsSerializer
+import org.icpclive.cds.util.datetime.UnixMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable

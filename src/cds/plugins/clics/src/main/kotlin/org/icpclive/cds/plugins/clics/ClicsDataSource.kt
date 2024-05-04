@@ -13,8 +13,8 @@ import org.icpclive.cds.settings.*
 import org.icpclive.clics.Url
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.events.*
-import org.icpclive.util.getLogger
-import org.icpclive.util.logAndRetryWithDelay
+import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
 
 public enum class FeedVersion {

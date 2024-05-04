@@ -3,8 +3,8 @@ package org.icpclive.cds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.api.ContestStatus
-import org.icpclive.util.getLogger
-import org.icpclive.util.loopFlow
+import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.loopFlow
 import kotlin.time.*
 
 public abstract class FullReloadContestDataSource(private val interval: Duration) : ContestDataSource {

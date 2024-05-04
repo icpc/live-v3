@@ -6,6 +6,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.encodeToString
+import org.icpclive.cds.util.defaultJsonSettings
 
 suspend fun DefaultWebSocketServerSession.sendFlow(flow: Flow<String>) {
     val sender = async {

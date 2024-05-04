@@ -31,8 +31,8 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.cli.CdsCommandLineOptions
+import org.icpclive.cds.util.getLogger
 import org.icpclive.export.icpc.csv.IcpcCsvExporter
-import org.icpclive.util.*
 import org.icpclive.org.icpclive.export.pcms.PCMSExporter
 import org.slf4j.event.Level
 import java.time.Duration

@@ -1,4 +1,4 @@
-package org.icpclive.util
+package org.icpclive.cds.util
 
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -9,7 +9,6 @@ import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.SerializersModuleBuilder
 import java.awt.Color
-import java.io.InputStream
 import java.lang.Exception
 
 public object ColorSerializer : KSerializer<Color> {
@@ -82,18 +81,6 @@ public fun defaultJsonSettings(): Json = Json {
     prettyPrint = false
     useArrayPolymorphism = false
     explicitNulls = false
-}
-
-@OptIn(ExperimentalSerializationApi::class)
-public inline fun <reified T> Json.decodeFromStreamIgnoringComments(stream: InputStream) : T = decodeFromJsonElement(decodeFromStream<JsonElement>(stream).cleanFromComments())
-public inline fun <reified T> Json.decodeFromStringIgnoringComments(data: String) : T = decodeFromJsonElement(decodeFromString<JsonElement>(data).cleanFromComments())
-
-@PublishedApi internal fun JsonElement.cleanFromComments() : JsonElement {
-    return when (this) {
-        is JsonArray -> JsonArray(map { it.cleanFromComments() })
-        is JsonObject -> JsonObject(filter { !it.key.startsWith("#") }.mapValues { it.value.cleanFromComments() })
-        is JsonPrimitive, JsonNull -> this
-    }
 }
 
 public inline fun <reified T: Any> SerializersModuleBuilder.postProcess(

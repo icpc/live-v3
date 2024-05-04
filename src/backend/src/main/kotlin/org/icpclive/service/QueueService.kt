@@ -9,8 +9,9 @@ import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.api.QueueSettings
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
+import org.icpclive.cds.util.*
 import org.icpclive.data.DataBus
-import org.icpclive.util.*
+import org.icpclive.util.completeOrThrow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

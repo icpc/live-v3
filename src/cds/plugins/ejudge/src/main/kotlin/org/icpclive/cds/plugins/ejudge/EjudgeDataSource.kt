@@ -7,7 +7,8 @@ import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
-import org.icpclive.util.*
+import org.icpclive.cds.util.child
+import org.icpclive.cds.util.children
 import org.w3c.dom.Element
 import java.time.format.DateTimeFormatter
 import kotlin.time.Duration

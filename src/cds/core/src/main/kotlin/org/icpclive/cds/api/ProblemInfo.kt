@@ -1,7 +1,7 @@
 package org.icpclive.cds.api
 
 import kotlinx.serialization.*
-import org.icpclive.util.ColorSerializer
+import org.icpclive.cds.util.ColorSerializer
 import java.awt.Color
 
 @JvmInline

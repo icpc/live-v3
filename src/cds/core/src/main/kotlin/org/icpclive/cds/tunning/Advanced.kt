@@ -4,10 +4,11 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.json.JsonNames
 import org.icpclive.cds.api.*
-import org.icpclive.util.*
+import org.icpclive.cds.util.ColorSerializer
+import org.icpclive.cds.util.RegexSerializer
+import org.icpclive.cds.util.datetime.*
 import java.awt.Color
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.minutes
 
 /**
  * @param fullName Full name of the team. Will be mostly shown on admin pages.

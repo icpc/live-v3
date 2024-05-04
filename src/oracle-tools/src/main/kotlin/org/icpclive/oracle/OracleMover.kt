@@ -3,7 +3,7 @@ package org.icpclive.oracle
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 import java.util.*
 import kotlin.math.atan2
 import kotlin.math.hypot

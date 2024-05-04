@@ -3,7 +3,7 @@ package org.icpclive.api
 
 import kotlinx.serialization.*
 import org.icpclive.cds.api.*
-import org.icpclive.util.DurationInMillisecondsSerializer
+import org.icpclive.cds.util.datetime.DurationInMillisecondsSerializer
 import kotlin.time.Duration
 
 @Serializable

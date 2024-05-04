@@ -10,7 +10,7 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.getScoreboardCalculator
-import org.icpclive.util.createChild
+import org.icpclive.cds.util.createChild
 import org.w3c.dom.Element
 import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilderFactory

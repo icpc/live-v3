@@ -2,16 +2,15 @@ package org.icpclive.util
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.UnsynchronizedAppenderBase
+import ch.qos.logback.core.encoder.Encoder
 import kotlinx.coroutines.runBlocking
-import kotlinx.datetime.Instant
 import org.icpclive.data.DataBus
 
-class FlowLogger<E : ILoggingEvent> : UnsynchronizedAppenderBase<E>() {
+class FlowLogger<E : ILoggingEvent>(private val encoder: Encoder<E>) : UnsynchronizedAppenderBase<E>() {
     override fun append(eventObject: E) {
-        val timestamp = Instant.fromEpochMilliseconds(eventObject.timeStamp)
-        val message = "${timestamp.humanReadable} [${eventObject.threadName}] ${eventObject.level} ${eventObject.loggerName} - ${eventObject.message}"
+        val message = encoder.encode(eventObject)
         runBlocking {
-            DataBus.loggerFlow.emit(message)
+            DataBus.loggerFlow.emit(String(message))
         }
     }
 }

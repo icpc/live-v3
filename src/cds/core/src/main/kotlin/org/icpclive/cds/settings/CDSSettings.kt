@@ -13,7 +13,7 @@ import org.icpclive.cds.adapters.toEmulationFlow
 import org.icpclive.cds.ContestDataSource
 import org.icpclive.cds.adapters.addPreviousDays
 import org.icpclive.ksp.cds.SerializerProviders
-import org.icpclive.util.postProcess
+import org.icpclive.cds.util.postProcess
 import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.exists

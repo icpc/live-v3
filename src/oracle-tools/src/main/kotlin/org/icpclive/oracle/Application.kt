@@ -15,7 +15,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import io.ktor.server.websocket.*
-import org.icpclive.util.defaultJsonSettings
+import org.icpclive.cds.util.defaultJsonSettings
 import org.slf4j.event.Level
 import java.time.Duration
 

@@ -10,7 +10,7 @@ import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.Credential
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 import java.net.URL
 import java.time.chrono.IsoChronology
 import java.time.format.DateTimeFormatterBuilder

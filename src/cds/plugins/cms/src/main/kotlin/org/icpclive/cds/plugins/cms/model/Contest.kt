@@ -2,7 +2,7 @@ package org.icpclive.cds.plugins.cms.model
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.util.UnixSecondsSerializer
+import org.icpclive.cds.util.datetime.UnixSecondsSerializer
 
 @Serializable
 internal data class Contest(

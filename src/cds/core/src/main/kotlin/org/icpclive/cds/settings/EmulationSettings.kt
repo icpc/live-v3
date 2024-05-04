@@ -2,7 +2,7 @@ package org.icpclive.cds.settings
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.util.HumanTimeSerializer
+import org.icpclive.cds.util.datetime.HumanTimeSerializer
 
 @Serializable
 public class EmulationSettings(

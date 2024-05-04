@@ -40,7 +40,7 @@ fun setupLogging(config: Config) {
         }
         logbackLogger.addAppender(stdoutAppender)
     }
-    val flogLogger = FlowLogger<ILoggingEvent>().apply {
+    val flogLogger = FlowLogger<ILoggingEvent>(ple).apply {
         context = lc
         start()
     }

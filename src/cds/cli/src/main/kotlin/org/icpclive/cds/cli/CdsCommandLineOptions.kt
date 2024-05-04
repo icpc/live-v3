@@ -10,8 +10,8 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.util.fileJsonContentFlow
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.fileJsonContentFlow
+import org.icpclive.cds.util.getLogger
 import org.slf4j.Logger
 import java.nio.file.Path
 import java.nio.file.Paths

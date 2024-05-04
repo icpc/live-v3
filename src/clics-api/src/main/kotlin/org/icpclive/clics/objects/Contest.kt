@@ -1,9 +1,7 @@
 package org.icpclive.clics.objects
 
 import kotlinx.datetime.Instant
-import kotlinx.serialization.Serializable
 import org.icpclive.ksp.clics.*
-import org.icpclive.util.DurationInMinutesSerializer
 import kotlin.time.*
 
 @SinceClics(FeedVersion.`2020_03`)

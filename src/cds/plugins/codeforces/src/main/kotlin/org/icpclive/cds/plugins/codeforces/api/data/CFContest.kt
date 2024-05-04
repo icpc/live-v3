@@ -5,8 +5,8 @@ package org.icpclive.cds.plugins.codeforces.api.data
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.util.DurationInSecondsSerializer
-import org.icpclive.util.UnixSecondsSerializer
+import org.icpclive.cds.util.datetime.DurationInSecondsSerializer
+import org.icpclive.cds.util.datetime.UnixSecondsSerializer
 import kotlin.time.Duration
 
 internal enum class CFContestType {

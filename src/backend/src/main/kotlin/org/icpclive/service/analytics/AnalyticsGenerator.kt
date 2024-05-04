@@ -10,7 +10,7 @@ import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.toScoreboardDiff
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.inputStream
 

@@ -3,7 +3,7 @@ package org.icpclive.cds.api
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import org.icpclive.util.*
+import org.icpclive.cds.util.datetime.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 

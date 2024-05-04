@@ -2,7 +2,7 @@ package org.icpclive.cds.plugins.codeforces.api.data
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import org.icpclive.util.UnixSecondsSerializer
+import org.icpclive.cds.util.datetime.UnixSecondsSerializer
 
 internal enum class CFHackVerdict {
     HACK_SUCCESSFUL, HACK_UNSUCCESSFUL, INVALID_INPUT, GENERATOR_INCOMPILABLE, GENERATOR_CRASHED, IGNORED, TESTING, OTHER

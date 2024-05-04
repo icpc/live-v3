@@ -1,5 +1,6 @@
 package org.icpclive
 
+import org.icpclive.util.completeOrThrow
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -21,11 +22,11 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.adapters.*
+import org.icpclive.cds.util.*
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.launchServices
-import org.icpclive.util.*
 import org.slf4j.event.Level
 import java.time.Duration
 import kotlin.system.exitProcess

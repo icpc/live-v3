@@ -1,4 +1,4 @@
-package org.icpclive.util
+package org.icpclive.cds.util
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
@@ -18,11 +18,7 @@ public fun <T> Flow<T>.logAndRetryWithDelay(duration: Duration, log: (Throwable)
     }
 }
 
-public fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
-    complete(value) || throw IllegalStateException("Double complete of CompletableDeferred")
-}
-
-public inline fun <reified T> loopFlow(interval: Duration, crossinline onError: (Throwable) -> Unit, crossinline block: suspend () -> T): Flow<T> =
+public inline fun <T> loopFlow(interval: Duration, crossinline onError: (Throwable) -> Unit, crossinline block: suspend () -> T): Flow<T> =
     flow {
         while (true) {
             emit(block())

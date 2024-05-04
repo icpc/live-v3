@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 
 internal object AutoFinalize
 

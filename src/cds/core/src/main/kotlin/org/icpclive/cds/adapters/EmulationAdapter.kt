@@ -9,7 +9,8 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.util.*
+import org.icpclive.cds.util.datetime.HumanTimeSerializer
+import org.icpclive.cds.util.getLogger
 import kotlin.random.Random
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -38,7 +39,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
     val finalContestInfo = state.infoAfterEvent!!
     val runs = state.runsAfterEvent.values.toList()
     val analyticsMessages = state.analyticsMessagesAfterEvent.values.toList()
-    logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${startTime.humanReadable}")
+    logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${HumanTimeSerializer.format(startTime)}")
     val contestInfo = finalContestInfo.copy(
         startTime = startTime,
         emulationSpeed = emulationSpeed

@@ -10,7 +10,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.util.completeOrThrow
-import org.icpclive.util.getLogger
+import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
 import org.icpclive.data.*
 import org.icpclive.service.analytics.AnalyticsGenerator
