@@ -11,6 +11,7 @@ import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.util.fileJsonContentFlow
+import org.icpclive.util.getLogger
 import org.slf4j.Logger
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -31,9 +32,10 @@ public class CdsCommandLineOptions : OptionGroup("CDS options") {
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
 
-    public fun toFlow(log: Logger): Flow<ContestUpdate> {
-        val advancedProperties = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, log, AdvancedProperties())
-        return CDSSettings.fromCliOptions(this, log)
+    public fun toFlow(): Flow<ContestUpdate> {
+        val logger = getLogger(CdsCommandLineOptions::class)
+        val advancedProperties = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, logger, AdvancedProperties())
+        return CDSSettings.fromCliOptions(this, logger)
             .toFlow()
             .applyAdvancedProperties(advancedProperties)
     }

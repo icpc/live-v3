@@ -63,7 +63,7 @@ abstract class DumpFileCommand(
     override fun run() {
         val logger = getLogger(DumpFileCommand::class)
         logger.info("Would save result to ${output}")
-        val flow = cdsOptions.toFlow(logger)
+        val flow = cdsOptions.toFlow()
         val data = runBlocking {
             logger.info("Waiting till contest become finalized...")
             val result = flow.postprocess().finalContestState()
@@ -195,7 +195,7 @@ fun Application.module() {
         exitProcess(1)
     }
 
-    val loaded = ServerCommand.cdsOptions.toFlow(environment.log)
+    val loaded = ServerCommand.cdsOptions.toFlow()
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     routing {

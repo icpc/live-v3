@@ -26,7 +26,6 @@ import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
 import org.icpclive.service.launchServices
 import org.icpclive.util.*
-import org.slf4j.LoggerFactory
 import org.slf4j.event.Level
 import java.time.Duration
 import kotlin.system.exitProcess
@@ -119,7 +118,7 @@ fun Application.module() {
     }
 
     launch(handler) {
-        val loader = config.cdsSettings.toFlow(log)
+        val loader = config.cdsSettings.toFlow()
             .contestState()
             .removeFrozenSubmissions()
             .processHiddenTeamsAndGroups()

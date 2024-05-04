@@ -26,7 +26,6 @@ import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.cli.CdsCommandLineOptions
-import org.icpclive.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 
@@ -40,7 +39,7 @@ class Bot(
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
     private val reactionsProcessingPool = Dispatchers.IO.limitedParallelism(loaderThreads)
-    private val cds = cdsOptions.toFlow(getLogger(Bot::class))
+    private val cds = cdsOptions.toFlow()
         .contestState()
         .removeFrozenSubmissions()
         .processHiddenTeamsAndGroups()

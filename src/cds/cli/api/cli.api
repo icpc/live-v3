@@ -3,6 +3,6 @@ public final class org/icpclive/cds/cli/CdsCommandLineOptions : com/github/ajalt
 	public final fun getAdvancedJsonPath ()Ljava/nio/file/Path;
 	public final fun getConfigDirectory ()Ljava/nio/file/Path;
 	public final fun getCredentialFile ()Ljava/nio/file/Path;
-	public final fun toFlow (Lorg/slf4j/Logger;)Lkotlinx/coroutines/flow/Flow;
+	public final fun toFlow ()Lkotlinx/coroutines/flow/Flow;
 }
 
