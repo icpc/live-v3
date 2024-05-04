@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("Adapters")
-
 package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.*

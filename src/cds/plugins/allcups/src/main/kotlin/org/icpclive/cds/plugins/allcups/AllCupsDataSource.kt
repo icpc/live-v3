@@ -8,8 +8,8 @@ import org.icpclive.cds.ktor.*
 import org.icpclive.cds.ContestParseResult
 import org.icpclive.cds.FullReloadContestDataSource
 import org.icpclive.cds.settings.*
-import org.icpclive.ksp.cds.*
 import org.icpclive.cds.util.getLogger
+import org.icpclive.ksp.cds.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -106,11 +106,11 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
                 .filter {
                     when  {
                         it.user_id !in settings.teamIds -> {
-                            logger.error("Submission from unknown user ${it.user_id}")
+                            log.error { "Submission from unknown user ${it.user_id}" }
                             false
                         }
                         it.task_id !in settings.problemIds -> {
-                            logger.error("Submission for unknown problem ${it.task_id}")
+                            log.error { "Submission for unknown problem ${it.task_id}" }
                             false
                         }
                         else -> true
@@ -122,6 +122,6 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
     }
 
     companion object {
-        val logger = getLogger(AllCupsDataSource::class)
+        val log by getLogger()
     }
 }

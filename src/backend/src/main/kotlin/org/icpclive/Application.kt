@@ -131,12 +131,11 @@ fun Application.module() {
         val emptyVisualConfig = JsonObject(emptyMap())
         DataBus.visualConfigFlow.completeOrThrow(
             config.visualConfigFile?.let {
-                fileJsonContentFlow<JsonObject>(it, logger).stateIn(this, SharingStarted.Eagerly, emptyVisualConfig)
+                fileJsonContentFlow<JsonObject>(it).stateIn(this, SharingStarted.Eagerly, emptyVisualConfig)
             } ?: MutableStateFlow(emptyVisualConfig)
         )
 
-        launchServices(logger, loader)
+        launchServices(loader)
     }
 }
 
-private val logger = getLogger(Application::class)

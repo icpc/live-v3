@@ -1,6 +1,5 @@
 package org.icpclive
 
-import ch.qos.logback.classic.Level
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.output.MordantHelpFormatter

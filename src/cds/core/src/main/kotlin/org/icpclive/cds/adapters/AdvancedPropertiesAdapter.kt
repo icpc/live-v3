@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("Adapters")
-
 package org.icpclive.cds.adapters
 
 import io.ktor.http.*
@@ -12,15 +9,12 @@ import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.tunning.*
+import org.icpclive.cds.util.*
 import org.icpclive.cds.util.datetime.HumanTimeSerializer
-import org.icpclive.cds.util.getLogger
 
 private sealed interface AdvancedAdapterEvent
 private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent
 private data object Trigger : AdvancedAdapterEvent
-
-
-internal object AdvancedPropertiesAdapter
 
 private val templateRegex = kotlin.text.Regex("\\{(!?[a-z0-9A-Z_-]*)}")
 
@@ -130,7 +124,7 @@ private fun <T, O, ID> mergeOverrides(
         (overrides.keys - idsSet)
             .takeIf { it.isNotEmpty() }
             ?.let(unusedMessage)
-            ?.let { logger.warn(it) }
+            ?.let { logger.warning { it } }
         infos.map {
             mergeIfNotNull(it, overrides[it.id()])
         }
@@ -169,7 +163,7 @@ private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Se
     this
 } else {
     filter { it.id in submittedTeams }.also {
-        logger.info("Filtered out ${size - it.size} of $size teams as they don't have submissions")
+        logger.info { "Filtered out ${size - it.size} of $size teams as they don't have submissions" }
     }
 }
 
@@ -178,7 +172,7 @@ private fun String.matchRegexSet(regexes: RegexSet?): String? {
     val matched = regexes.regexes.entries.filter { this.matches(it.key) }
     return when (matched.size) {
         0 -> {
-            logger.warn("None of regexes ${regexes.regexes.map { it.key }} didn't match $this")
+            logger.warning { "None of regexes ${regexes.regexes.map { it.key }} didn't match $this" }
             null
         }
 
@@ -187,13 +181,13 @@ private fun String.matchRegexSet(regexes: RegexSet?): String? {
             try {
                 this.replace(regex, replace)
             } catch (e: RuntimeException) {
-                logger.warn("Failed to apply $regex -> $replace to ${this}: ${e.message}")
+                logger.warning { "Failed to apply $regex -> $replace to ${this}: ${e.message}" }
                 null
             }
         }
 
         else -> {
-            logger.warn("Multiple regexes ${matched.map { it.key }} match $this")
+            logger.warning { "Multiple regexes ${matched.map { it.key }} match $this" }
             null
         }
     }
@@ -227,7 +221,7 @@ private fun AdvancedProperties.status(info: ContestInfo): ContestStatus {
     val status = ContestStatus.byCurrentTime(startTime ?: info.startTime, contestLength ?: info.contestLength)
     if (status == ContestStatus.OVER && (info.status == ContestStatus.FINALIZED || info.status == ContestStatus.FAKE_RUNNING)) return info.status
     if (status == info.status) return info.status
-    logger.info("Contest status is overridden to ${status}, startTime = ${HumanTimeSerializer.format(startTime ?: info.startTime)}, contestLength = ${(contestLength ?: info.contestLength)}")
+    logger.info { "Contest status is overridden to ${status}, startTime = ${HumanTimeSerializer.format(startTime ?: info.startTime)}, contestLength = ${(contestLength ?: info.contestLength)}" }
     return status
 }
 
@@ -308,7 +302,7 @@ internal fun applyAdvancedProperties(
         .mergeTeams(overrides.teamOverrides)
     val problemInfos = mergeProblems(info.problemList, overrides.problemOverrides)
 
-    logger.info("Team and problem overrides are reloaded")
+    logger.info { "Team and problem overrides are reloaded" }
     return info.copy(
         startTime = overrides.startTime ?: info.startTime,
         contestLength = overrides.contestLength ?: info.contestLength,
@@ -410,4 +404,4 @@ private fun List<TeamInfo>.mergeTeams(overrides: Map<TeamId, TeamInfoOverride>?)
     )
 }
 
-private val logger = getLogger(AdvancedPropertiesAdapter::class)
+private val logger by getLogger()

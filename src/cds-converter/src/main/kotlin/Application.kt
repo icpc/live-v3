@@ -60,14 +60,17 @@ abstract class DumpFileCommand(
     open fun Flow<ContestUpdate>.postprocess() = this
 
 
+    companion object {
+        val logger by getLogger()
+    }
+
     override fun run() {
-        val logger = getLogger(DumpFileCommand::class)
-        logger.info("Would save result to ${output}")
+        logger.info { "Would save result to ${output}" }
         val flow = cdsOptions.toFlow()
         val data = runBlocking {
-            logger.info("Waiting till contest become finalized...")
+            logger.info { "Waiting till contest become finalized..." }
             val result = flow.postprocess().finalContestState()
-            logger.info("Loaded contest data")
+            logger.info { "Loaded contest data" }
             result
         }
         val dump = format(

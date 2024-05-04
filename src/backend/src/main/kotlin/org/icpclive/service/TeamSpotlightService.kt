@@ -22,6 +22,7 @@ class TeamScoreboardPlace(val rank: Int) : TeamAccent()
 class ExternalScoreAddAccent(val score: Double) : TeamAccent()
 object SocialEventAccent : TeamAccent()
 
+private object ScoreboardPushTrigger
 
 private val RunInfo.isFirstSolvedRun get() = when (val result = this.result)  {
     is RunResult.ICPC -> result.isFirstToSolveRun
@@ -125,7 +126,7 @@ class TeamSpotlightService(
 
     private suspend fun TeamState.addAccent(accent: TeamAccent) {
         addAccent(accent, settings)
-        teamInteresting?.emit(queue.map { CurrentTeamState(it.teamId, it.score) } )
+        teamInteresting?.emit(queue.map { CurrentTeamState(it.teamId, it.score) })
     }
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
@@ -133,7 +134,7 @@ class TeamSpotlightService(
         val runIds = mutableSetOf<RunId>()
         launch {
             val addScoreRequests = DataBus.teamInterestingScoreRequestFlow.await()
-            var scoreboardState : ScoreboardDiff? = null
+            var scoreboardState: ScoreboardDiff? = null
             merge(
                 loopFlow(settings.scoreboardPushInterval, onError = {}) { ScoreboardPushTrigger },
                 flow.filter { state -> state.state.lastEvent.let { it is RunUpdate && !it.newInfo.isHidden } },
@@ -182,11 +183,5 @@ class TeamSpotlightService(
                 }
             }
         }
-    }
-
-    companion object {
-        private object ScoreboardPushTrigger
-
-        val logger = getLogger(TeamSpotlightService::class)
     }
 }

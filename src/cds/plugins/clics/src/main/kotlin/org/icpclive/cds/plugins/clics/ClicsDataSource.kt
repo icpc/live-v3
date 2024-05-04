@@ -10,11 +10,10 @@ import org.icpclive.cds.ContestDataSource
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
+import org.icpclive.cds.util.*
 import org.icpclive.clics.Url
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.events.*
-import org.icpclive.cds.util.getLogger
-import org.icpclive.cds.util.logAndRetryWithDelay
 import kotlin.time.Duration.Companion.seconds
 
 public enum class FeedVersion {
@@ -178,7 +177,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         loaders
             .merge()
             .logAndRetryWithDelay(5.seconds) {
-                logger.error("Exception caught in CLICS loader. Will restart in 5 seconds.", it)
+                log.error(it) { "Exception caught in CLICS loader. Will restart in 5 seconds." }
                 preloadFinished = false
             }
             .sortedPrefix()
@@ -187,7 +186,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             .takeWhile { !it.isFinalEvent }
             .onEach { idSet.add(it.token) }
             .logAndRetryWithDelay(5.seconds) {
-                logger.error("Exception caught in CLICS parser. Will restart in 5 seconds.", it)
+                log.error(it) { "Exception caught in CLICS parser. Will restart in 5 seconds." }
                 preloadFinished = false
             }.collect()
     }
@@ -200,13 +199,13 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             onComment = { emit(AnalyticsUpdate(it)) }
         )
         if (model.contestInfo.status != ContestStatus.FINALIZED) {
-            logger.info("Events are finished, while contest is not finalized. Enforce finalization.")
+            log.info { "Events are finished, while contest is not finalized. Enforce finalization." }
             emit(InfoUpdate(model.contestInfo.copy(status = ContestStatus.FINALIZED)))
         }
     }
 
     companion object {
-        val logger = getLogger(ClicsDataSource::class)
+        val log by getLogger()
 
         @OptIn(ExperimentalSerializationApi::class)
         private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings, networkSettings: NetworkSettings?) = flow {
@@ -241,7 +240,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         try {
                             jsonDecoder.decodeFromString<Event>(data)
                         } catch (e: SerializationException) {
-                            logger.error("Failed to deserialize: $data\n${e.message}\n\n")
+                            log.error { "Failed to deserialize: $data\n${e.message}\n\n" }
                             null
                         }
                     })
@@ -249,7 +248,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                     break
                 }
                 delay(5.seconds)
-                logger.info("Connection ${settings.eventFeedUrl} is closed, retrying")
+                log.info { "Connection ${settings.eventFeedUrl} is closed, retrying" }
             }
         }
     }

@@ -20,7 +20,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
     fun getFlow(
         scoreboardFlow: Flow<ContestStateWithScoreboard>,
     ) = flow {
-        logger.info("Analytics generator service is started")
+        log.info { "Analytics generator service is started" }
         val runs = mutableMapOf<RunId, RunAnalyse>()
         scoreboardFlow.collect {
             when (val event = it.state.lastEvent) {
@@ -185,6 +185,6 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
             text.replace(it.key, it.value)
         }
 
-        val logger = getLogger(AnalyticsGenerator::class)
+        val log by getLogger()
     }
 }

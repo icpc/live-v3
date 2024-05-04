@@ -30,16 +30,16 @@ class RegularLoggingService : Service {
                     lastGc = TimeSource.Monotonic.markNow()
                 }
                 val curStats = stats.value
-                logger.info("Processed contest up to ${curStats.lastTime}. It currently has ${curStats.teams} teams and ${curStats.submissions} submissions")
-                logger.info(
+                log.info { "Processed contest up to ${curStats.lastTime}. It currently has ${curStats.teams} teams and ${curStats.submissions} submissions" }
+                log.info {
                     "AllowedMemory: ${runtime.maxMemory().mem()}, UsedMem: ${(runtime.totalMemory() - runtime.freeMemory()).mem()}, AllocatedMemory: ${
                         runtime.totalMemory().mem()
                     }"
-                )
+                }
             }
         }
     }
     companion object {
-        val logger = getLogger(RegularLoggingService::class)
+        val log by getLogger()
     }
 }

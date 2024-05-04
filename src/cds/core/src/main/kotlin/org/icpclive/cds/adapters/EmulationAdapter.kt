@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("Adapters")
-
 package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.*
@@ -16,9 +13,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-internal class EmulationAdapter
-
-private val logger = getLogger(EmulationAdapter::class)
+private val logger by getLogger()
 
 internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSpeed: Double) = flow {
     val scope = CoroutineScope(currentCoroutineContext())
@@ -27,7 +22,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         while (true) {
             delay(1.seconds)
             val r = waitProgress.value
-            logger.info("Waiting for contest to become Finalized to start emulation. Current status is ${r?.first}. ${r?.second} runs are still in progress.")
+            logger.info { "Waiting for contest to become Finalized to start emulation. Current status is ${r?.first}. ${r?.second} runs are still in progress." }
         }
     }
     val state = finalContestState { state, count ->
@@ -39,7 +34,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
     val finalContestInfo = state.infoAfterEvent!!
     val runs = state.runsAfterEvent.values.toList()
     val analyticsMessages = state.analyticsMessagesAfterEvent.values.toList()
-    logger.info("Running in emulation mode with speed x${emulationSpeed} and startTime = ${HumanTimeSerializer.format(startTime)}")
+    logger.info { "Running in emulation mode with speed x${emulationSpeed} and startTime = ${HumanTimeSerializer.format(startTime)}" }
     val contestInfo = finalContestInfo.copy(
         startTime = startTime,
         emulationSpeed = emulationSpeed

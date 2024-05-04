@@ -66,13 +66,13 @@ object OracleMover {
                 "timestamp" to Util.getUTCTime()
             )
         )
-        logger.info("Set oracle $oracle position: $setPositionResponse")
+        log.info { "Set oracle $oracle position: $setPositionResponse" }
 
         val setSpeedResponse = Util.oracleRequest(
             hostName, mapOf("camera" to 1, "speed" to DEFAULT_SPEED, "timestamp" to Util.getUTCTime())
         )
-        logger.info("Set oracle $oracle speed: $setSpeedResponse")
+        log.info { "Set oracle $oracle speed: $setSpeedResponse" }
     }
 
-    private val logger = getLogger(OracleMover::class)
+    private val log by getLogger()
 }

@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.*
 import kotlin.time.Duration
 
 public class Ranking internal constructor(
@@ -135,7 +135,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
     }
 
     companion object {
-        val logger = getLogger(AbstractScoreboardCalculator::class)
+        val logger by getLogger()
     }
 }
 
@@ -192,7 +192,6 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
     var rows = persistentMapOf<TeamId, ScoreboardRow>()
     var lastRanking = Ranking(emptyList(), emptyList(), emptyList())
     var lastSubmissionTime: Duration = Duration.ZERO
-    val logger = getLogger(AbstractScoreboardCalculator::class)
     var runsByTeamId = persistentMapOf<TeamId, PersistentList<RunInfo>>()
     fun applyEvent(state: ContestState) : List<TeamId> {
         val info = state.infoAfterEvent ?: return emptyList()

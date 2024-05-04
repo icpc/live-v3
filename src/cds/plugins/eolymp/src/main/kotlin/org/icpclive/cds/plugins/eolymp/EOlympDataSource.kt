@@ -258,14 +258,14 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                     "MEMORY_OVERFLOW" -> Verdict.MemoryLimitExceeded
                     "RUNTIME_ERROR" -> Verdict.RuntimeError
                     else -> {
-                        log.info("Unknown verdict: $verdict, assuming rejected")
+                        log.info { "Unknown verdict: $verdict, assuming rejected" }
                         Verdict.Rejected
                     }
                 }
             }
 
             else -> {
-                log.info("Unexpected submission status: $status, assuming untested")
+                log.info { "Unexpected submission status: $status, assuming untested" }
                 null
             }
         }
@@ -274,6 +274,6 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
     private fun parseTime(s: String) = java.time.Instant.from(dateTimeFormatter.parse(s)).toKotlinInstant()
 
     companion object {
-        val log = getLogger(EOlympDataSource::class)
+        val log by getLogger()
     }
 }

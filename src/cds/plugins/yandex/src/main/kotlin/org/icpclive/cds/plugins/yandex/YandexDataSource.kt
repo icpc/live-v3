@@ -13,8 +13,7 @@ import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.yandex.api.*
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.util.getLogger
-import org.icpclive.cds.util.loopFlow
+import org.icpclive.cds.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -54,7 +53,7 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
         coroutineScope {
             val rawContestInfoFlow = loopFlow(
                 30.seconds,
-                { log.error("Failed to reload contest info", it) }
+                { log.error(it) { "Failed to reload contest info" } }
             ) {
                 YandexContestInfo(
                     contestDescriptionLoader.load(),
@@ -84,7 +83,7 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
             val newSubmissionsFlow = newSubmissionsFlow(1.seconds)
             val allSubmissionsFlow = loopFlow(
                 120.seconds,
-                onError = { getLogger(YandexDataSource::class).error("Failed to reload data, retrying", it) }
+                onError = { log.error(it) { "Failed to reload data, retrying" } }
             ) { allSubmissionsLoader.load() }
                 .onStart { delay(120.seconds) }
                 .flowOn(Dispatchers.IO)
@@ -99,29 +98,28 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
     }
 
     companion object {
-        private val log = getLogger(YandexDataSource::class)
+        private val log by getLogger()
         private val API_BASE = UrlOrLocalPath.Url("https://api.contest.yandex.net/api/public/v2")
     }
 
     private fun newSubmissionsFlow(
         period: Duration,
     ): Flow<List<Submission>> {
-        log.info("HERE!!!")
         val formatter = Json { ignoreUnknownKeys = true }
         var pendingRunId = 0L
 
         return loopFlow(
             period,
-            { log.error("Fail to load new submissions", it) }
+            { log.error(it) { "Fail to load new submissions" } }
         ) {
             buildList {
                 var page = 1
                 while (true) {
-                    log.info("Plan to load: submissions?locale=ru&page=$page&pageSize=100")
+                    log.debug { "Plan to load: submissions?locale=ru&page=$page&pageSize=100" }
                     val response = httpClient.request("submissions?locale=ru&page=$page&pageSize=100") {}
-                    log.info("Loaded")
+                    log.debug { "Loaded" }
                     val pageSubmissions = formatter.decodeFromString<Submissions>(response.body()).submissions
-                    log.info(pageSubmissions.toString())
+                    log.debug{ pageSubmissions.toString() }
                     addAll(pageSubmissions)
                     if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunId) {
                         break

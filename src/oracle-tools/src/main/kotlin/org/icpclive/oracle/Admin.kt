@@ -16,7 +16,7 @@ import org.icpclive.cds.util.getLogger
 fun Route.setupRouting() {
     post("/move") {
         call.adminApiAction {
-            logger.info("hello!!!")
+            log.info { "hello!!!" }
             val request = call.receive<OracleRequest>()
             OracleMover.moveToTeam(request.oracleId, request.teamId)
             Unit
@@ -91,9 +91,9 @@ suspend inline fun <reified T> ApplicationCall.adminApiAction(
         )
     }
 } catch (e: Exception) {
-    logger.info("Failed to run admin call $e")
+    log.info { "Failed to run admin call $e" }
     println("Failed to run admin call ${e.message}")
     respond(HttpStatusCode.BadRequest, mapOf("status" to "error", "message" to e.message))
 }
 
-val logger = getLogger(ApplicationCall::class)
+val log by getLogger()

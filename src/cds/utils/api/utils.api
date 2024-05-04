@@ -10,8 +10,8 @@ public final class org/icpclive/cds/util/ColorSerializer : kotlinx/serialization
 public final class org/icpclive/cds/util/FileChangesWatcherKt {
 	public static final fun directoryChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun fileChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun fileJsonContentFlow (Lkotlinx/serialization/DeserializationStrategy;Ljava/nio/file/Path;Lorg/slf4j/Logger;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
-	public static synthetic fun fileJsonContentFlow$default (Lkotlinx/serialization/DeserializationStrategy;Ljava/nio/file/Path;Lorg/slf4j/Logger;Ljava/lang/Object;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun fileJsonContentFlow (Lkotlinx/serialization/DeserializationStrategy;Ljava/nio/file/Path;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun fileJsonContentFlow$default (Lkotlinx/serialization/DeserializationStrategy;Ljava/nio/file/Path;Ljava/lang/Object;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class org/icpclive/cds/util/FlowUtilsKt {
@@ -19,8 +19,31 @@ public final class org/icpclive/cds/util/FlowUtilsKt {
 	public static final fun loopFlow-KLykuaI (JLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
 }
 
+public final class org/icpclive/cds/util/LoggerProvider {
+	public static final field INSTANCE Lorg/icpclive/cds/util/LoggerProvider;
+	public final fun provideDelegate (Ljava/lang/Object;Lkotlin/reflect/KProperty;)Lkotlin/Lazy;
+}
+
+public final class org/icpclive/cds/util/LoggerWrapper {
+	public fun <init> (Lorg/slf4j/Logger;)V
+	public final fun debug (Ljava/lang/String;)V
+	public final fun debug (Lkotlin/jvm/functions/Function0;)V
+	public final fun error (Ljava/lang/String;)V
+	public final fun error (Ljava/lang/String;Ljava/lang/Throwable;)V
+	public final fun error (Ljava/lang/Throwable;Lkotlin/jvm/functions/Function0;)V
+	public final fun error (Lkotlin/jvm/functions/Function0;)V
+	public final fun info (Ljava/lang/String;)V
+	public final fun info (Lkotlin/jvm/functions/Function0;)V
+	public final fun isDebugEnabled ()Z
+	public final fun isErrorEnabled ()Z
+	public final fun isInfoEnabled ()Z
+	public final fun isWarningEnabled ()Z
+	public final fun warn (Ljava/lang/String;)V
+	public final fun warning (Lkotlin/jvm/functions/Function0;)V
+}
+
 public final class org/icpclive/cds/util/LoggingUtilsKt {
-	public static final fun getLogger (Lkotlin/reflect/KClass;)Lorg/slf4j/Logger;
+	public static final fun logger ()Lorg/icpclive/cds/util/LoggerProvider;
 }
 
 public final class org/icpclive/cds/util/RegexSerializer : kotlinx/serialization/KSerializer {

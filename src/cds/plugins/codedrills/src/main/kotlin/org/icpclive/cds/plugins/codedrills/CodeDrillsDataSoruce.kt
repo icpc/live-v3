@@ -141,7 +141,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
             val time = Instant.fromEpochMilliseconds(it.submittedOn) - startTime
             if (time >= contestLength) return@mapNotNull null
             if (it.submittedBy !in memberIdToTeam) {
-                log.info("Submission by unknown contestant ${it.submittedBy} at ${Instant.fromEpochMilliseconds(it.submittedOn) - startTime}  is ignored")
+                log.info { "Submission by unknown contestant ${it.submittedBy} at ${Instant.fromEpochMilliseconds(it.submittedOn) - startTime}  is ignored" }
                 return@mapNotNull null
             }
             RunInfo(
@@ -178,6 +178,6 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
     }
 
     companion object {
-        val log = getLogger(CodeDrillsDataSource::class)
+        val log by getLogger()
     }
 }

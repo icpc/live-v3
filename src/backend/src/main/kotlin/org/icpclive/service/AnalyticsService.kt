@@ -51,11 +51,11 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
     private suspend fun Action.process(featuredRunsFlow: FlowCollector<FeaturedRunAction>) {
         val message = messages[action.messageId]
         if (message == null) {
-            logger.warn("Message with id ${action.messageId} not found")
+            log.warning { "Message with id ${action.messageId} not found" }
             return
         }
         if (message !is AnalyticsCommentaryEvent) {
-            logger.warn("Unsupported action for analytics message $message")
+            log.warning { "Unsupported action for analytics message $message" }
             return
         }
         when (action) {
@@ -111,7 +111,7 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
 
             is AnalyticsAction.MakeRunFeatured -> {
                 if (message.runIds.size != 1 || message.teamIds.size != 1) {
-                    logger.warn("Can't make run featured caused by message ${message.id}")
+                    log.warning { "Can't make run featured caused by message ${message.id}" }
                     return
                 }
                 // TODO: it should be passed from above
@@ -125,7 +125,7 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
 
             is AnalyticsAction.MakeRunNotFeatured -> {
                 if (message.runIds.size != 1) {
-                    logger.warn("Can't make run not featured caused by message ${message.id}")
+                    log.warning { "Can't make run not featured caused by message ${message.id}" }
                     return
                 }
                 featuredRunsFlow.emit(FeaturedRunAction.MakeNotFeatured(message.runIds[0]))
@@ -138,7 +138,7 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
         launch {
             val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
             val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
-            logger.info("Analytics service is started")
+            log.info { "Analytics service is started" }
             merge(generator.getFlow(flow).map(::Message), subscriberFlow.map { Subscribe }, actionFlow)
                 .collect { event ->
                     when (event) {
@@ -152,7 +152,7 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
                             try {
                                 event.process(featuredRunFlow)
                             } catch (e: ApiActionException) {
-                                logger.error("Failed during processing action: $event", e)
+                                log.error(e) { "Failed during processing action: $event" }
                             }
                         }
 
@@ -179,12 +179,12 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
     }
 
     companion object {
-        val logger = getLogger(AnalyticsService::class)
+        val log by getLogger()
 
         private sealed class AnalyticsProcessTrigger
         private data class Message(val message: AnalyticsMessage) : AnalyticsProcessTrigger()
         private data class Action(val action: AnalyticsAction) : AnalyticsProcessTrigger()
-        private object Subscribe : AnalyticsProcessTrigger()
+        private data object Subscribe : AnalyticsProcessTrigger()
     }
 }
 

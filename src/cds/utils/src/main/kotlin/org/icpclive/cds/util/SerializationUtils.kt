@@ -50,10 +50,12 @@ public object ColorSerializer : KSerializer<Color> {
                 }
             }
         } catch (e: NumberFormatException) {
-            getLogger(ColorSerializer::class).error("Failed to parse color from $data", e)
+            log.error(e) { "Failed to parse color from $data" }
             Color.BLACK
         }
     }
+
+    private val log by getLogger()
 }
 
 public object RegexSerializer : KSerializer<Regex> {

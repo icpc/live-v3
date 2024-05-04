@@ -108,7 +108,7 @@ class QueueService : Service {
                 onBufferOverflow = BufferOverflow.DROP_OLDEST
             )
             DataBus.queueFeaturedRunsFlow.completeOrThrow(featuredRunsFlow)
-            logger.info("Queue service is started")
+            log.info { "Queue service is started" }
             var firstEventTime: Duration? = null
             val removerFlowTrigger = loopFlow(1.seconds, onError = {}) { Clean }
             val statesFlowTrigger = flow.map { Event(it.state) }
@@ -167,7 +167,7 @@ class QueueService : Service {
                         val run = runs[runId] ?: removedRuns[runId]
                         val info = currentContestInfo
                         if (run == null || info == null) {
-                            logger.warn("There is no run with id $runId for make it featured")
+                            log.warning { "There is no run with id $runId for make it featured" }
                             if (event.request is FeaturedRunAction.MakeFeatured) {
                                 event.request.result.complete(null)
                             }
@@ -211,7 +211,7 @@ class QueueService : Service {
     }
 
     companion object {
-        val logger = getLogger(QueueService::class)
+        val log by getLogger()
 
         private data class FeaturedRunInfo(val runId: RunId, val mediaType: MediaType)
     }

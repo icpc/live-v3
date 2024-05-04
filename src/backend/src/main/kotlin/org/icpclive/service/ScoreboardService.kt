@@ -20,7 +20,7 @@ class ScoreboardService : Service {
     }
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
-        logger.info("Scoreboard service for started")
+        log.info { "Scoreboard service for started" }
         val mainScoreboardFlow = flow.shareIn(this, SharingStarted.Eagerly, replay = 1)
         setUp(OptimismLevel.NORMAL, mainScoreboardFlow)
         launch {
@@ -31,7 +31,7 @@ class ScoreboardService : Service {
                     setUp(OptimismLevel.PESSIMISTIC, mainScoreboardFlow)
                 }
                 ContestResultType.ICPC -> {
-                    logger.info("It is ICPC contest, start also calculating secondary scoreboards")
+                    log.info { "It is ICPC contest, start also calculating secondary scoreboards" }
                     for (level in listOf(OptimismLevel.PESSIMISTIC, OptimismLevel.OPTIMISTIC)) {
                         val secondaryScoreboardFlow = mainScoreboardFlow.map { it.state.lastEvent }.calculateScoreboard(level).shareIn(this, SharingStarted.Eagerly, replay = 1)
                         setUp(level, secondaryScoreboardFlow)
@@ -42,7 +42,7 @@ class ScoreboardService : Service {
     }
 
     companion object {
-        val logger = getLogger(ScoreboardService::class)
+        val log by getLogger()
     }
 }
 

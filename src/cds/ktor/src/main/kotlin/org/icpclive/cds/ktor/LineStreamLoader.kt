@@ -21,7 +21,7 @@ internal fun getLineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, u
 
         is UrlOrLocalPath.Url -> {
             val httpClient = defaultHttpClient(auth, networkSettings)
-            logger.info("Requesting $url")
+            logger.info { "Requesting $url" }
             httpClient.prepareGet(url.value) {
                 timeout {
                     socketTimeoutMillis = Long.MAX_VALUE
@@ -29,7 +29,7 @@ internal fun getLineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, u
                 }
             }.execute { httpResponse ->
                 if (httpResponse.status != HttpStatusCode.OK) {
-                    logger.warn("Got ${httpResponse.status} from $url")
+                    logger.warning { "Got ${httpResponse.status} from $url" }
                     return@execute
                 }
                 val channel = httpResponse.bodyAsChannel()
@@ -45,6 +45,4 @@ internal fun getLineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, u
     .catch { throw wrapIfSSLError(it) }
 
 
-private object LineStreamLoaderService
-
-private val logger = getLogger(LineStreamLoaderService::class)
+private val logger by getLogger()

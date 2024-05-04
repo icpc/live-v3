@@ -2,8 +2,8 @@ package org.icpclive.cds
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import org.icpclive.cds.util.*
 import org.icpclive.cds.api.ContestStatus
-import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.loopFlow
 import kotlin.time.*
 
@@ -14,11 +14,11 @@ public abstract class FullReloadContestDataSource(private val interval: Duration
 
     override fun getFlow(): Flow<ContestUpdate> = loopFlow(
         interval,
-        { getLogger(FullReloadContestDataSource::class).error("Failed to reload data, retrying", it) }
+        { logger.error(it) { "Failed to reload data, retrying" } }
     ) {
         val loadStart = TimeSource.Monotonic.markNow()
         loadOnce().also {
-            getLogger(FullReloadContestDataSource::class).info("Reloaded contest data in ${loadStart.elapsedNow()}")
+            logger.info { "Reloaded contest data in ${loadStart.elapsedNow()}" }
         }
     }.flowOn(Dispatchers.IO)
         .conflate()
@@ -35,4 +35,8 @@ public abstract class FullReloadContestDataSource(private val interval: Duration
                 emit(InfoUpdate(it.contestInfo))
             }
         }
+
+    private companion object {
+        val logger by getLogger()
+    }
 }

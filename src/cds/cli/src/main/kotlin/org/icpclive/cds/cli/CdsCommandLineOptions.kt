@@ -10,9 +10,7 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.cds.util.fileJsonContentFlow
-import org.icpclive.cds.util.getLogger
-import org.slf4j.Logger
+import org.icpclive.cds.util.*
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.io.path.exists
@@ -33,27 +31,22 @@ public class CdsCommandLineOptions : OptionGroup("CDS options") {
         .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
 
     public fun toFlow(): Flow<ContestUpdate> {
-        val logger = getLogger(CdsCommandLineOptions::class)
-        val advancedProperties = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, logger, AdvancedProperties())
-        return CDSSettings.fromCliOptions(this, logger)
+        val advancedProperties = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, AdvancedProperties())
+        log.info { "Using config directory ${this.configDirectory}" }
+        log.info { "Current working directory is ${Paths.get("").toAbsolutePath()}" }
+        val path = this.configDirectory.resolve("events.properties")
+            .takeIf { it.exists() }
+            ?.also { log.warning { "Using events.properties is deprecated, use settings.json instead." } }
+            ?: this.configDirectory.resolve("settings.json5").takeIf { it.exists() }
+            ?: this.configDirectory.resolve("settings.json")
+        val creds: Map<String, String> = this.credentialFile?.let { Json.decodeFromStream<Map<String, String>?>(it.toFile().inputStream()) } ?: emptyMap()
+        return CDSSettings.fromFile(path) { creds[it] }
             .toFlow()
             .applyAdvancedProperties(advancedProperties)
     }
-}
-
-internal fun CDSSettings.Companion.fromCliOptions(options: CdsCommandLineOptions, log: Logger): CDSSettings {
-    log.info("Using config directory ${options.configDirectory}")
-    log.info("Current working directory is ${Paths.get("").toAbsolutePath()}")
-
-    val path = options.configDirectory.resolve("events.properties")
-        .takeIf { it.exists() }
-        ?.also { log.warn("Using events.properties is deprecated, use settings.json instead.") }
-        ?: options.configDirectory.resolve("settings.json5").takeIf { it.exists() }
-        ?: options.configDirectory.resolve("settings.json")
-
-    val creds: Map<String, String> = options.credentialFile?.let { Json.decodeFromStream(it.toFile().inputStream()) } ?: emptyMap()
-
-    return CDSSettings.fromFile(path) { creds[it] }
+    private companion object {
+        val log by getLogger()
+    }
 }
 
 

@@ -85,7 +85,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             .map { parseTeamInfo(it, contestTime) }
             .toList()
         if (status == ContestStatus.RUNNING) {
-            logger.info("Loaded contestInfo for time = $contestTime")
+            log.info { "Loaded contestInfo for time = $contestTime" }
         }
         val teams = teamsAndRuns.map { it.first }.sortedBy { it.id.value }
         return ContestParseResult(
@@ -208,13 +208,13 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             "idleness-limit-exceeded" -> Verdict.IdlenessLimitExceeded
             "security-violation" -> Verdict.SecurityViolation
             else -> {
-                logger.error("Unknown verdict ${element.getAttribute("outcome")}, assuming WrongAnswer")
+                log.error { "Unknown verdict ${element.getAttribute("outcome")}, assuming WrongAnswer" }
                 Verdict.WrongAnswer
             }
         }
     }
 
     companion object {
-        private val logger = getLogger(PCMSDataSource::class)
+        private val log by getLogger()
     }
 }

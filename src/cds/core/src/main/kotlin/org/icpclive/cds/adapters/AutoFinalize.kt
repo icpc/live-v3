@@ -1,6 +1,3 @@
-@file:JvmMultifileClass
-@file:JvmName("Adapters")
-
 package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.*
@@ -9,7 +6,7 @@ import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.getLogger
 
-internal object AutoFinalize
+private val logger by getLogger()
 
 public fun Flow<ContestUpdate>.autoFinalize(progress: suspend (ContestStatus?, Int) -> Unit): Flow<ContestUpdate> = withGroupedRuns({ it.result !is RunResult.InProgress })
     .transformWhile {
@@ -17,7 +14,7 @@ public fun Flow<ContestUpdate>.autoFinalize(progress: suspend (ContestStatus?, I
         val info = it.infoAfterEvent
         if (info?.status == ContestStatus.OVER && !info.cdsSupportsFinalization && it.runs[false].isNullOrEmpty()) {
             emit(InfoUpdate(it.infoAfterEvent!!.copy(status = ContestStatus.FINALIZED)))
-            getLogger(AutoFinalize::class).info("Contest finished. Finalizing.")
+            logger.info { "Contest finished. Finalizing." }
             false
         } else {
             progress(info?.status, it.runs[false]?.size ?: 0)
