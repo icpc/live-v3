@@ -37,7 +37,7 @@ private fun ProblemInfo.toClicsProblem() = Problem(
     ordinal = ordinal,
     label = displayName,
     name = fullName,
-    rgb = color,
+    rgb = color?.value,
     testDataCount = 1,
 )
 
