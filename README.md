@@ -34,7 +34,8 @@ Welcome to the ICPC Live Source Code Repository.
 * Use [admin interface](http://localhost:8080/admin) in your browser to control overlay
 * Check general broadcast production [schema](https://docs.google.com/document/d/1JcOhmkvbRtG3MLLYUpzVBMqiQOoNpamOz-MvppCgcYk) for other details of typical setup
 * Check [emulation mode](https://github.com/icpc/live-v3/blob/main/docs/emulation.md) part of development doc for testing your setup before the contest started.
-* Check [troubleshooting guide](https://github.com/icpc/live-v3/blob/main/docs/troubleshooting.md) is something looks wrong. 
+* Check [troubleshooting guide](https://github.com/icpc/live-v3/blob/main/docs/troubleshooting.md) is something looks wrong.
+* Read our awesome auto-generated [documentation](https://icpc.io/live-v3/cds/core/org.icpclive.cds.settings/-c-d-s-settings/index.html) for extensive settings.json and advanced.json usage.
 # Authorisation
 
 For now http basic auth is used. If you try to login with
