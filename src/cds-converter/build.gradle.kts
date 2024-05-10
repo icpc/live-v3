@@ -32,4 +32,5 @@ dependencies {
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.server.websockets)
     implementation(libs.apache.commons.csv)
+    implementation(libs.logback)
 }
