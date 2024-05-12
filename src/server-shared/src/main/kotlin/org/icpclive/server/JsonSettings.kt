@@ -1,10 +1,10 @@
-package org.icpclive.util
+package org.icpclive.server
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalSerializationApi::class)
-fun defaultJsonSettings(): Json = Json {
+fun serverResponseJsonSettings(): Json = Json {
     encodeDefaults = true
     isLenient = true
     allowSpecialFloatingPointValues = true

@@ -6,19 +6,10 @@ import com.github.ajalt.clikt.core.*
 import com.github.ajalt.clikt.output.MordantHelpFormatter
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.multiple
-import com.github.ajalt.clikt.parameters.options.*
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.autohead.*
-import io.ktor.server.plugins.callloging.*
-import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.plugins.defaultheaders.*
-import io.ktor.server.plugins.statuspages.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.util.*
-import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.shareIn
@@ -26,8 +17,7 @@ import kotlinx.coroutines.plus
 import org.icpclive.export.clics.ClicsExporter
 import org.icpclive.export.icpc.csv.IcpcCsvExporter
 import org.icpclive.export.pcms.PCMSExporter
-import org.slf4j.event.Level
-import java.time.Duration
+import org.icpclive.server.setupDefaultKtorPlugins
 import kotlin.system.exitProcess
 
 
@@ -56,39 +46,9 @@ fun main(args: Array<String>): Unit = MainCommand.subcommands(
 ).main(args)
 
 
-private fun Application.setupKtorPlugins() {
-    install(DefaultHeaders)
-    install(CallLogging) {
-        level = Level.INFO
-        filter { call -> call.request.path().startsWith("/") }
-    }
-    install(StatusPages) {
-        exception<Throwable> { call, ex ->
-            call.application.environment.log.error("Query ${call.url()} failed with exception", ex)
-            throw ex
-        }
-    }
-    install(AutoHeadResponse)
-    install(IgnoreTrailingSlash)
-    install(WebSockets) {
-        pingPeriod = Duration.ofSeconds(15)
-        timeout = Duration.ofSeconds(15)
-        maxFrameSize = Long.MAX_VALUE
-        masking = false
-    }
-    install(CORS) {
-        allowHeader(HttpHeaders.Authorization)
-        allowHeader(HttpHeaders.ContentType)
-        allowHeader("*")
-        allowMethod(HttpMethod.Delete)
-        allowSameOrigin = true
-        anyHost()
-    }
-}
-
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-    setupKtorPlugins()
+    setupDefaultKtorPlugins()
 
     val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         environment.log.error("Uncaught exception in coroutine context $coroutineContext", throwable)
