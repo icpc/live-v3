@@ -44,6 +44,7 @@ tasks {
 dependencies {
     implementation(projects.cds.full)
     implementation(projects.backendApi)
+    implementation(projects.serverShared)
     implementation(libs.cli)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.auth)

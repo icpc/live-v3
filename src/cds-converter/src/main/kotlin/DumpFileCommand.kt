@@ -12,6 +12,7 @@ import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.api.RunInfo
 import org.icpclive.cds.cli.CdsCommandLineOptions
 import org.icpclive.cds.util.getLogger
+import org.icpclive.server.LoggingOptions
 import kotlin.io.path.absolute
 import kotlin.io.path.isDirectory
 
@@ -24,6 +25,7 @@ abstract class DumpFileCommand(
     abstract fun format(info: ContestInfo, runs: List<RunInfo>): String
 
     private val cdsOptions by CdsCommandLineOptions()
+    private val loggingOptions by LoggingOptions(logfileDefaultPrefix = "converter")
     private val output by option("-o", "--output", help = outputHelp).path().convert {
         if (it.isDirectory()) {
             it.resolve(defaultFileName)
@@ -41,6 +43,7 @@ abstract class DumpFileCommand(
     }
 
     override fun run() {
+        loggingOptions.setupLogging()
         logger.info { "Would save result to ${output}" }
         val flow = cdsOptions.toFlow()
         val data = runBlocking {

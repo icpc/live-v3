@@ -20,6 +20,7 @@ tasks.runTask {
 dependencies {
     implementation(projects.cds.full)
     implementation(projects.clicsApi)
+    implementation(projects.serverShared)
     implementation(libs.cli)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.autoHeadResponse)
@@ -32,5 +33,4 @@ dependencies {
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.server.websockets)
     implementation(libs.apache.commons.csv)
-    implementation(libs.logback)
 }

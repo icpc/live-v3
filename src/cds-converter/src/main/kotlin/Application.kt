@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.plus
 import org.icpclive.export.clics.ClicsExporter
 import org.icpclive.export.icpc.csv.IcpcCsvExporter
-import org.icpclive.org.icpclive.export.pcms.PCMSExporter
+import org.icpclive.export.pcms.PCMSExporter
 import org.slf4j.event.Level
 import java.time.Duration
 import kotlin.system.exitProcess

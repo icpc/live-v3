@@ -32,9 +32,10 @@ val simpleProjects = listOf(
     "frontend",
     "reactions-bot",
     "schema-generator",
+    "server-shared",
     "oracle-tools",
     "faker",
-    "user-archive",
+    "user-archive"
 )
 
 val cdsPlugins = listOf(

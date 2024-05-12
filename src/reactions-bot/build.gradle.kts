@@ -38,5 +38,6 @@ dependencies {
     implementation(libs.exposed.jdbc)
     implementation(libs.retrofit)
     implementation(libs.telegram.bot)
+    implementation(libs.logback)
     runtimeOnly(libs.db.sqlite)
 }

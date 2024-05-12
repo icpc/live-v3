@@ -3,9 +3,12 @@ package org.icpclive.oracle
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.output.MordantHelpFormatter
+import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.path
+import org.icpclive.server.LoggingOptions
+import org.icpclive.server.ServerOptions
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = false) {
     val configDirectory by option(
@@ -13,9 +16,8 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         help = "Path to config directory",
     ).path(mustExist = true, canBeFile = false, canBeDir = true).required()
 
-    private val port: Int by option("-p", "--port", help = "Port to listen").int().default(8083)
-
-    private val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
+    private val serverOptions by ServerOptions()
+    private val loggingOptions by LoggingOptions(logfileDefaultPrefix = "oracletools")
 
     val oraclesTxtPath by option("--oracles-txt", help = "Path to oracles.txt")
         .path(mustExist = true, canBeFile = true, canBeDir = false)
@@ -33,7 +35,8 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
 
 
     override fun run() {
-        io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
+        loggingOptions.setupLogging()
+        serverOptions.start()
     }
 
     init {
@@ -41,7 +44,6 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
             helpFormatter = { MordantHelpFormatter(it, showRequiredTag = true, showDefaultValues = true) }
         }
     }
-
 }
 
 val config: Config get() = Config

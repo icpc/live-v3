@@ -11,20 +11,19 @@ import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.api.LocationRectangle
 import org.icpclive.api.defaultWidgetPositions
 import org.icpclive.cds.cli.CdsCommandLineOptions
-import org.icpclive.org.icpclive.setupLogging
-import java.nio.file.Path
+import org.icpclive.server.LoggingOptions
+import org.icpclive.server.ServerOptions
+import org.icpclive.util.FlowLogger
 
 object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
     val cdsSettings by CdsCommandLineOptions()
+    private val serverSettings by ServerOptions()
+    private val loggingSettings by LoggingOptions(logfileDefaultPrefix = "icpclive")
 
-    val port: Int by option("-p", "--port", help = "Port to listen").int().default(8080)
     val authDisabled by option(
         "--no-auth",
         help = "Disable http basic auth in admin"
     ).flag()
-
-
-    val ktorArgs by option("--ktor-arg", help = "Arguments to forward to ktor server").multiple()
 
     val presetsDirectory by option("--presets-dir", help = "Directory to store presets")
         .path(canBeFile = false, canBeDir = true)
@@ -53,24 +52,13 @@ object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArg
         help = "File with localization of analytics messages"
     ).path(canBeFile = true, canBeDir = false, mustExist = true)
 
-    val logFile by option(
-        "--log-file",
-        help = "File to print logs"
-    ).path(canBeFile = true, canBeDir = false, mustExist = false)
-        .default(Path.of("icpclive.log"), "./icpclive.log")
-
-    val disableLogFile by option("--disable-log-file", help = "Don't print logs to any file").flag()
-    val disableStdoutLogs by option("--disable-stdout-logs", help = "Don't print logs to stdout").flag()
-    val logLevel by option("--log-level", help = "level of logs to write")
-        .choice("ALL", "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF")
-        .default("INFO")
 
     override fun run() {
-        setupLogging(this)
+        loggingSettings.setupLogging(extraLoggers = listOf(::FlowLogger))
         defaultWidgetPositions = widgetPositions
         presetsDirectory.toFile().mkdirs()
         mediaDirectory.toFile().mkdirs()
-        io.ktor.server.netty.EngineMain.main((listOf("-port=$port") + ktorArgs).toTypedArray())
+        serverSettings.start()
     }
 
     init {

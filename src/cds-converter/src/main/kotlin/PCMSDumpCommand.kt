@@ -2,7 +2,7 @@ package org.icpclive
 
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.api.RunInfo
-import org.icpclive.org.icpclive.export.pcms.PCMSExporter
+import org.icpclive.export.pcms.PCMSExporter
 
 object PCMSDumpCommand : DumpFileCommand(
     name = "pcms",
