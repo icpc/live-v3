@@ -1,3 +1,5 @@
+package org.icpclive.export.clics
+
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
@@ -254,8 +256,8 @@ object ClicsExporter  {
 
     @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
-        diff(oldInfo, newInfo, ::getContest, ::ContestEvent)
-        diff(oldInfo, newInfo, ::getState, ::StateEvent)
+        diff(oldInfo, newInfo, ClicsExporter::getContest, ::ContestEvent)
+        diff(oldInfo, newInfo, ClicsExporter::getState, ::StateEvent)
         if (oldInfo == null) {
             for (type in judgmentTypes.values) {
                 updateEvent(type.id, type, ::JudgementTypeEvent)
