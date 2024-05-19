@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<runlog contest_id="1606" duration="18000" start_time="2024/05/18 11:00:00" stop_time="2024/05/18 16:00:00" current_time="2024/05/19 12:25:39" fog_time="3600" unfog_time="10800">
+  <name>Чемпионат Урала по спортивному программированию 2024. Div2. Основной тур</name>
+  <users>
+    <user id="380465" name="*Lyceum 153: NewJazz (Габбасов, Тихонов, Чековинский)" />
+    <user id="380468" name="*Ufa UST: ISP (Газизов)" />
+    <user id="380469" name="*Ufa UST: SolarWings (Сагидуллин, Мунасыпов, Боровикова)" />
+    <user id="380470" name="Orenburg SU: krips (Ерошенко, Якунин, Попов)" />
+    <user id="380471" name="Ufa UST: Three-link recursion (Гареев, Аймурзин, Гильмутдинова)" />
+    <user id="380472" name="SPb SU: YKKONEN (Титов, Габитов, Аграновский)" />
+    <user id="380473" name="MISIS: Rudokipi (Казарин, Бречкин, Шильников)" />
+    <user id="380474" name="Kazan FU: Recursive SHAMANs (Хайруллин, Гражданцев, Билалов)" />
+    <user id="380475" name="SPb HSE: Horosho Segodnya Eli (Запольский, Голенков, Ханмурзин)" />
+    <user id="380476" name="Ufa UST: Dyatelki (Инсапов, Балгазин, Комарова)" />
+    <user id="380478" name="SPb SUAI: One Byte Brigade (Рыбаков, Костров, Метлушко)" />
+    <user id="380479" name="Voronezh SU: Gryadushka (Шульженко, Едрышов, Мишненкова)" />
+    <user id="380480" name="MISIS: ACMMLP (Пластинина, Макуров, Серебрянников)" />
+    <user id="380481" name="Ufa UST: busy beaver (Лаптев, Сакаев, Иванов)" />
+    <user id="380482" name="Tambov SU: ZaPlusBall (Анисимов, Емельянов, Солодовников)" />
+    <user id="380483" name="Chelyabinsk SU: KorTiKov (Фазылов, Ковердин, Корчагин)" />
+    <user id="380485" name="MEPhI: DeKaPTaaaaa4 (Ботвинов, Ефименко, Жариков)" />
+    <user id="380486" name="MAI #3 кота (Ткаченко, Глушин, Чеснов)" />
+    <user id="380487" name="Syktyvkar SU: Chillcore (Глухой, Торопов, Грималюк)" />
+    <user id="380488" name="HSE: joke (Цыганов, Павлек, Смирнягин)" />
+    <user id="380489" name="Tambov SU: CUBEER (Дырдин, Кулаев, Граценштейн)" />
+    <user id="380490" name="Ufa UST: NEVEREVER (Исянбаев, Чечко, Аллаков)" />
+    <user id="380491" name="HSE: Capybara (Дацковский, Хрущев, Здержиков)" />
+    <user id="380492" name="Syktyvkar SU: Houyhnhnm (Сауков, Артеев, Осипов)" />
+    <user id="380493" name="Ural FU: Increasing bracket sequence (Лежнин, Илаев, Хасанов)" />
+    <user id="380494" name="Syktyvkar SU: komiyosis (Косолапова, Листарова, Станкин)" />
+    <user id="380496" name="MEPhI: Atomic Minds (Осипчук, Филонец, Виноградов)" />
+    <user id="380497" name="Ural FU: Woodcutters (Курмангалеева, Иванов, Найдин)" />
+    <user id="380498" name="Kazan FU: Bugомолы (Гимаев, Гимадиев, Архипов)" />
+    <user id="380499" name="UlSTU: ↃↃ+ (Бугров, Буслаев, Покладов)" />
+    <user id="380500" name="Ural FU: #define ll int (Никифоров, Гордеев, Семёнов)" />
+  </users>
+  <problems>
+    <problem id="1" short_name="A" long_name="Ещё одна буква" />
+    <problem id="2" short_name="B" long_name="Шрифт Брайля" />
+    <problem id="3" short_name="C" long_name="Распродажа монет" />
+    <problem id="4" short_name="D" long_name="Охота на уток (Div2)" />
+    <problem id="5" short_name="E" long_name="Исследование сундуков (Div2)" />
+    <problem id="6" short_name="F" long_name="Торговый автомат" />
+    <problem id="7" short_name="G" long_name="При чем здесь геометрия? (Div2)" />
+    <problem id="8" short_name="H" long_name="Пчелиные соты" />
+    <problem id="9" short_name="I" long_name="Палящее солнце" />
+    <problem id="10" short_name="J" long_name="Джокер (Div2)" />
+    <problem id="11" short_name="K" long_name="Король и Маг против Зла" />
+    <problem id="12" short_name="L" long_name="Лабиринт (Div2)" />
+  </problems>
+  <languages>
+    <language id="32" long_name="Java 1.8" />
+    <language id="76" long_name="Visual C++ 2022 x64" />
+    <language id="78" long_name="G++ 13.2 x64" />
+    <language id="81" long_name="Python 3.12 x64" />
+  </languages>
+  <runs>
+    <run run_id="10657790" time="62" nsec="637935800" time_penalty="1" user_id="380485" prob_id="1" lang_id="78" status="OK" test="0" time_worked="15" memory_used="413696" />
+    <run run_id="10657792" time="122" nsec="402245800" time_penalty="2" user_id="380491" prob_id="1" lang_id="78" status="WA" test="3" time_worked="15" memory_used="393216" />
+    <run run_id="10657793" time="147" nsec="517547100" time_penalty="2" user_id="380473" prob_id="1" lang_id="76" status="OK" test="0" time_worked="15" memory_used="225280" />
+    <run run_id="10657796" time="175" nsec="925131700" time_penalty="2" user_id="380499" prob_id="1" lang_id="76" status="OK" test="0" time_worked="1" memory_used="237568" />
+    <run run_id="10657797" time="177" nsec="396502800" time_penalty="2" user_id="380500" prob_id="1" lang_id="81" status="OK" test="0" time_worked="93" memory_used="323584" />
+    <run run_id="10657799" time="185" nsec="230005200" time_penalty="3" user_id="380472" prob_id="1" lang_id="78" status="OK" test="0" time_worked="15" memory_used="364544" />
+    <run run_id="10657801" time="200" nsec="522435200" time_penalty="3" user_id="380465" prob_id="1" lang_id="76" status="OK" test="0" time_worked="15" memory_used="237568" />
+    <run run_id="10657802" time="207" nsec="865529900" time_penalty="3" user_id="380493" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="495616" />
+    <run run_id="10657803" time="208" nsec="253601500" time_penalty="3" user_id="380470" prob_id="1" lang_id="76" status="OK" test="0" time_worked="15" memory_used="237568" />
+    <run run_id="10657804" time="208" nsec="827921500" time_penalty="3" user_id="380497" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="335872" />
+    <run run_id="10657806" time="217" nsec="779824400" time_penalty="3" user_id="380469" prob_id="1" lang_id="76" status="OK" test="0" time_worked="15" memory_used="233472" />
+    <run run_id="10657808" time="223" nsec="628595000" time_penalty="3" user_id="380496" prob_id="1" lang_id="78" status="OK" test="0" time_worked="15" memory_used="401408" />
+    <run run_id="10657810" time="232" nsec="158840000" time_penalty="3" user_id="380491" prob_id="1" lang_id="78" status="OK" test="0" time_worked="15" memory_used="409600" />
+    <run run_id="10657811" time="232" nsec="299251100" time_penalty="3" user_id="380486" prob_id="1" lang_id="78" status="WA" test="3" time_worked="1" memory_used="397312" />
+    <run run_id="10657812" time="257" nsec="167373400" time_penalty="4" user_id="380474" prob_id="1" lang_id="76" status="OK" test="0" time_worked="15" memory_used="229376" />
+    <run run_id="10657814" time="274" nsec="923923200" time_penalty="4" user_id="380482" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="516096" />
+    <run run_id="10657816" time="290" nsec="55933000" time_penalty="4" user_id="380480" prob_id="1" lang_id="78" status="OK" test="0" time_worked="15" memory_used="368640" />
+    <run run_id="10657817" time="317" nsec="716388200" time_penalty="5" user_id="380490" prob_id="1" lang_id="81" status="OK" test="0" time_worked="93" memory_used="491520" />
+    <run run_id="10657818" time="318" nsec="553338400" time_penalty="5" user_id="380479" prob_id="1" lang_id="32" status="OK" test="0" time_worked="140" memory_used="864256" />
+    <run run_id="10657819" time="332" nsec="517769500" time_penalty="5" user_id="380486" prob_id="1" lang_id="78" status="OK" test="0" time_worked="15" memory_used="409600" />
+    <run run_id="10657820" time="335" nsec="693859800" time_penalty="5" user_id="380498" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="397312" />
+    <run run_id="10657821" time="348" nsec="954632200" time_penalty="5" user_id="380481" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="385024" />
+    <run run_id="10657823" time="389" nsec="409097700" time_penalty="6" user_id="380468" prob_id="1" lang_id="81" status="OK" test="0" time_worked="93" memory_used="417792" />
+    <run run_id="10657825" time="406" nsec="221499600" time_penalty="6" user_id="380475" prob_id="1" lang_id="81" status="OK" test="0" time_worked="109" memory_used="1613824" />
+    <run run_id="10657828" time="482" nsec="173687700" time_penalty="8" user_id="380494" prob_id="1" lang_id="81" status="OK" test="0" time_worked="93" memory_used="475136" />
+    <run run_id="10657829" time="514" nsec="629659800" time_penalty="8" user_id="380476" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="401408" />
+    <run run_id="10657834" time="614" nsec="442816500" time_penalty="10" user_id="380478" prob_id="1" lang_id="81" status="WA" test="3" time_worked="78" memory_used="344064" />
+    <run run_id="10657835" time="662" nsec="534369300" time_penalty="11" user_id="380489" prob_id="1" lang_id="81" status="OK" test="0" time_worked="93" memory_used="409600" />
+    <run run_id="10657841" time="822" nsec="637643700" time_penalty="13" user_id="380472" prob_id="2" lang_id="81" status="OK" test="0" time_worked="93" memory_used="548864" />
+    <run run_id="10657842" time="822" nsec="637643700" time_penalty="13" user_id="380471" prob_id="1" lang_id="76" status="WA" test="3" time_worked="1" memory_used="294912" />
+    <run run_id="10657844" time="829" nsec="469547500" time_penalty="13" user_id="380492" prob_id="1" lang_id="81" status="OK" test="0" time_worked="93" memory_used="380928" />
+    <run run_id="10657846" time="886" nsec="516482700" time_penalty="14" user_id="380491" prob_id="6" lang_id="78" status="WA" test="14" time_worked="109" memory_used="675840" />
+    <run run_id="10657848" time="914" nsec="362529900" time_penalty="15" user_id="380482" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="667648" />
+    <run run_id="10657849" time="922" nsec="565071100" time_penalty="15" user_id="380491" prob_id="6" lang_id="78" status="OK" test="0" time_worked="93" memory_used="675840" />
+    <run run_id="10657851" time="971" nsec="303125600" time_penalty="16" user_id="380478" prob_id="1" lang_id="81" status="WA" test="3" time_worked="78" memory_used="327680" />
+    <run run_id="10657856" time="1043" nsec="511924300" time_penalty="17" user_id="380483" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="462848" />
+    <run run_id="10657886" time="1431" nsec="403358500" time_penalty="23" user_id="380491" prob_id="7" lang_id="78" status="OK" test="0" time_worked="78" memory_used="434176" />
+    <run run_id="10657887" time="1431" nsec="609302200" time_penalty="23" user_id="380488" prob_id="1" lang_id="78" status="OK" test="0" time_worked="15" memory_used="417792" />
+    <run run_id="10657898" time="1518" nsec="5794700" time_penalty="25" user_id="380485" prob_id="2" lang_id="78" status="OK" test="0" time_worked="15" memory_used="430080" />
+    <run run_id="10657903" time="1600" nsec="655116800" time_penalty="26" user_id="380493" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="720896" />
+    <run run_id="10657914" time="1733" nsec="634141200" time_penalty="28" user_id="380471" prob_id="1" lang_id="76" status="OK" test="0" time_worked="1" memory_used="303104" />
+    <run run_id="10657941" time="1851" nsec="167600500" time_penalty="30" user_id="380496" prob_id="2" lang_id="78" status="OK" test="0" time_worked="15" memory_used="421888" />
+    <run run_id="10658011" time="1908" nsec="495479700" time_penalty="31" user_id="380472" prob_id="7" lang_id="81" status="OK" test="0" time_worked="187" memory_used="585728" />
+    <run run_id="10658024" time="1928" nsec="892511500" time_penalty="32" user_id="380489" prob_id="2" lang_id="81" status="WA" test="8" time_worked="78" memory_used="593920" />
+    <run run_id="10658034" time="1948" nsec="116647100" time_penalty="32" user_id="380490" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="794624" />
+    <run run_id="10658036" time="1952" nsec="58235500" time_penalty="32" user_id="380499" prob_id="2" lang_id="76" status="WA" test="8" time_worked="15" memory_used="249856" />
+    <run run_id="10658053" time="1982" nsec="943694500" time_penalty="33" user_id="380489" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="634880" />
+    <run run_id="10658086" time="2028" nsec="620630700" time_penalty="33" user_id="380491" prob_id="3" lang_id="78" status="WA" test="2" time_worked="15" memory_used="430080" />
+    <run run_id="10658111" time="2064" nsec="779532300" time_penalty="34" user_id="380497" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="585728" />
+    <run run_id="10658133" time="2133" nsec="693762700" time_penalty="35" user_id="380499" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="249856" />
+    <run run_id="10658165" time="2234" nsec="818799200" time_penalty="37" user_id="380487" prob_id="1" lang_id="81" status="OK" test="0" time_worked="93" memory_used="491520" />
+    <run run_id="10658171" time="2256" nsec="177714100" time_penalty="37" user_id="380481" prob_id="2" lang_id="81" status="WA" test="8" time_worked="78" memory_used="692224" />
+    <run run_id="10658173" time="2259" nsec="937418700" time_penalty="37" user_id="380491" prob_id="3" lang_id="78" status="OK" test="0" time_worked="171" memory_used="25387008" />
+    <run run_id="10658175" time="2261" nsec="923510100" time_penalty="37" user_id="380500" prob_id="2" lang_id="81" status="RT" test="3" time_worked="78" memory_used="929792" />
+    <run run_id="10658195" time="2360" nsec="262957300" time_penalty="39" user_id="380500" prob_id="2" lang_id="81" status="OK" test="0" time_worked="93" memory_used="827392" />
+    <run run_id="10658211" time="2453" nsec="398557200" time_penalty="40" user_id="380470" prob_id="2" lang_id="76" status="WA" test="8" time_worked="15" memory_used="245760" />
+    <run run_id="10658225" time="2498" nsec="861790000" time_penalty="41" user_id="380481" prob_id="2" lang_id="81" status="OK" test="0" time_worked="93" memory_used="729088" />
+    <run run_id="10658228" time="2521" nsec="409420100" time_penalty="42" user_id="380488" prob_id="2" lang_id="78" status="OK" test="0" time_worked="15" memory_used="434176" />
+    <run run_id="10658236" time="2568" nsec="164556000" time_penalty="42" user_id="380465" prob_id="2" lang_id="76" status="WA" test="3" time_worked="1" memory_used="249856" />
+    <run run_id="10658246" time="2604" nsec="213726100" time_penalty="43" user_id="380468" prob_id="2" lang_id="81" status="WA" test="3" time_worked="62" memory_used="626688" />
+    <run run_id="10658268" time="2700" nsec="717079300" time_penalty="45" user_id="380470" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="249856" />
+    <run run_id="10658283" time="2775" nsec="327010600" time_penalty="46" user_id="380468" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="679936" />
+    <run run_id="10658298" time="2848" nsec="193093900" time_penalty="47" user_id="380483" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="245760" />
+    <run run_id="10658300" time="2862" nsec="276537500" time_penalty="47" user_id="380493" prob_id="7" lang_id="81" status="WA" test="21" time_worked="78" memory_used="446464" />
+    <run run_id="10658321" time="2958" nsec="183689700" time_penalty="49" user_id="380486" prob_id="2" lang_id="78" status="OK" test="0" time_worked="1" memory_used="462848" />
+    <run run_id="10658332" time="3016" nsec="227426900" time_penalty="50" user_id="380498" prob_id="2" lang_id="78" status="OK" test="0" time_worked="15" memory_used="446464" />
+    <run run_id="10658337" time="3028" nsec="215834000" time_penalty="50" user_id="380493" prob_id="7" lang_id="81" status="WA" test="21" time_worked="78" memory_used="442368" />
+    <run run_id="10658345" time="3050" nsec="216836000" time_penalty="50" user_id="380491" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="622592" />
+    <run run_id="10658352" time="3095" nsec="530535400" time_penalty="51" user_id="380479" prob_id="2" lang_id="32" status="OK" test="0" time_worked="109" memory_used="962560" />
+    <run run_id="10658376" time="3227" nsec="402366800" time_penalty="53" user_id="380493" prob_id="7" lang_id="81" status="WA" test="21" time_worked="78" memory_used="520192" />
+    <run run_id="10658400" time="3434" nsec="839782500" time_penalty="57" user_id="380500" prob_id="7" lang_id="78" status="OK" test="0" time_worked="15" memory_used="430080" />
+    <run run_id="10658403" time="3449" nsec="492814500" time_penalty="57" user_id="380475" prob_id="2" lang_id="81" status="RT" test="3" time_worked="78" memory_used="2007040" />
+    <run run_id="10658406" time="3466" nsec="340128900" time_penalty="57" user_id="380488" prob_id="6" lang_id="78" status="OK" test="0" time_worked="93" memory_used="1482752" />
+    <run run_id="10658410" time="3492" nsec="699718700" time_penalty="58" user_id="380469" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="237568" />
+    <run run_id="10658416" time="3524" nsec="965236800" time_penalty="58" user_id="380480" prob_id="2" lang_id="78" status="OK" test="0" time_worked="15" memory_used="393216" />
+    <run run_id="10658421" time="3582" nsec="491739800" time_penalty="59" user_id="380486" prob_id="6" lang_id="78" status="WA" test="7" time_worked="15" memory_used="520192" />
+    <run run_id="10658423" time="3587" nsec="179402100" time_penalty="59" user_id="380475" prob_id="2" lang_id="81" status="OK" test="0" time_worked="93" memory_used="1814528" />
+    <run run_id="10658429" time="3619" nsec="725286900" time_penalty="60" user_id="380472" prob_id="11" lang_id="78" status="RT" test="5" time_worked="1" memory_used="434176" />
+    <run run_id="10658435" time="3689" nsec="156837300" time_penalty="61" user_id="380494" prob_id="2" lang_id="81" status="RT" test="3" time_worked="78" memory_used="663552" />
+    <run run_id="10658437" time="3713" nsec="357598600" time_penalty="61" user_id="380488" prob_id="10" lang_id="78" status="OK" test="0" time_worked="15" memory_used="442368" />
+    <run run_id="10658450" time="3784" nsec="848837700" time_penalty="63" user_id="380472" prob_id="11" lang_id="78" status="WA" test="5" time_worked="1" memory_used="417792" />
+    <run run_id="10658455" time="3803" nsec="234880900" time_penalty="63" user_id="380494" prob_id="2" lang_id="81" status="RT" test="3" time_worked="78" memory_used="897024" />
+    <run run_id="10658467" time="3832" nsec="542447300" time_penalty="63" user_id="380465" prob_id="11" lang_id="76" status="RT" test="8" time_worked="15" memory_used="262144" />
+    <run run_id="10658475" time="3852" nsec="150449800" time_penalty="64" user_id="380485" prob_id="7" lang_id="78" status="OK" test="0" time_worked="78" memory_used="4866048" />
+    <run run_id="10658483" time="3875" nsec="430374300" time_penalty="64" user_id="380472" prob_id="11" lang_id="78" status="WA" test="5" time_worked="15" memory_used="421888" />
+    <run run_id="10658488" time="3882" nsec="627640000" time_penalty="64" user_id="380478" prob_id="2" lang_id="81" status="OK" test="0" time_worked="93" memory_used="593920" />
+    <run run_id="10658508" time="3945" nsec="518017900" time_penalty="65" user_id="380465" prob_id="11" lang_id="76" status="WA" test="14" time_worked="15" memory_used="421888" />
+    <run run_id="10658514" time="3955" nsec="792797300" time_penalty="65" user_id="380473" prob_id="2" lang_id="76" status="WA" test="8" time_worked="15" memory_used="237568" />
+    <run run_id="10658525" time="3980" nsec="927923900" time_penalty="66" user_id="380496" prob_id="3" lang_id="78" status="WA" test="4" time_worked="15" memory_used="413696" />
+    <run run_id="10658544" time="4041" nsec="729608300" time_penalty="67" user_id="380472" prob_id="11" lang_id="78" status="ML" test="39" time_worked="468" memory_used="286457856" />
+    <run run_id="10658567" time="4115" nsec="44521800" time_penalty="68" user_id="380473" prob_id="2" lang_id="76" status="WA" test="8" time_worked="15" memory_used="237568" />
+    <run run_id="10658602" time="4229" nsec="145151600" time_penalty="70" user_id="380480" prob_id="7" lang_id="78" status="OK" test="0" time_worked="15" memory_used="389120" />
+    <run run_id="10658603" time="4229" nsec="546558800" time_penalty="70" user_id="380497" prob_id="7" lang_id="81" status="OK" test="0" time_worked="281" memory_used="524288" />
+    <run run_id="10658610" time="4271" nsec="446420800" time_penalty="71" user_id="380478" prob_id="1" lang_id="81" status="OK" test="0" time_worked="78" memory_used="360448" />
+    <run run_id="10658624" time="4332" nsec="395066700" time_penalty="72" user_id="380496" prob_id="3" lang_id="78" status="OK" test="0" time_worked="312" memory_used="11063296" />
+    <run run_id="10658626" time="4335" nsec="930747700" time_penalty="72" user_id="380473" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="237568" />
+    <run run_id="10658638" time="4376" nsec="115009200" time_penalty="72" user_id="380474" prob_id="2" lang_id="76" status="RT" test="11" time_worked="15" memory_used="241664" />
+    <run run_id="10658695" time="4527" nsec="832754800" time_penalty="75" user_id="380491" prob_id="4" lang_id="78" status="OK" test="0" time_worked="484" memory_used="782336" />
+    <run run_id="10658743" time="4704" nsec="728126500" time_penalty="78" user_id="380465" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="294912" />
+    <run run_id="10658761" time="4761" nsec="198291600" time_penalty="79" user_id="380472" prob_id="11" lang_id="78" status="ML" test="39" time_worked="546" memory_used="270123008" />
+    <run run_id="10658762" time="4768" nsec="995196600" time_penalty="79" user_id="380479" prob_id="3" lang_id="78" status="WA" test="4" time_worked="15" memory_used="6369280" />
+    <run run_id="10658763" time="4779" nsec="72795400" time_penalty="79" user_id="380493" prob_id="6" lang_id="78" status="WA" test="5" time_worked="1" memory_used="413696" />
+    <run run_id="10658784" time="4869" nsec="512426300" time_penalty="81" user_id="380474" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="245760" />
+    <run run_id="10658810" time="4985" nsec="612695200" time_penalty="83" user_id="380488" prob_id="3" lang_id="78" status="WA" test="2" time_worked="15" memory_used="2379776" />
+    <run run_id="10658820" time="5050" nsec="344432800" time_penalty="84" user_id="380492" prob_id="2" lang_id="81" status="RT" test="3" time_worked="62" memory_used="876544" />
+    <run run_id="10658832" time="5113" nsec="798835400" time_penalty="85" user_id="380488" prob_id="3" lang_id="78" status="OK" test="0" time_worked="203" memory_used="16998400" />
+    <run run_id="10658840" time="5144" nsec="97528400" time_penalty="85" user_id="380494" prob_id="2" lang_id="81" status="WA" test="6" time_worked="78" memory_used="483328" />
+    <run run_id="10658850" time="5173" nsec="60525100" time_penalty="86" user_id="380479" prob_id="3" lang_id="78" status="OK" test="0" time_worked="531" memory_used="44810240" />
+    <run run_id="10658852" time="5174" nsec="852124200" time_penalty="86" user_id="380471" prob_id="2" lang_id="76" status="OK" test="0" time_worked="15" memory_used="303104" />
+    <run run_id="10658853" time="5187" nsec="510488600" time_penalty="86" user_id="380500" prob_id="3" lang_id="78" status="OK" test="0" time_worked="203" memory_used="26587136" />
+    <run run_id="10658854" time="5190" nsec="838473400" time_penalty="86" user_id="380472" prob_id="11" lang_id="78" status="ML" test="40" time_worked="484" memory_used="279748608" />
+    <run run_id="10658904" time="5419" nsec="640784000" time_penalty="90" user_id="380488" prob_id="7" lang_id="78" status="OK" test="0" time_worked="15" memory_used="450560" />
+    <run run_id="10658920" time="5481" nsec="353758700" time_penalty="91" user_id="380482" prob_id="4" lang_id="78" status="WA" test="8" time_worked="15" memory_used="421888" />
+    <run run_id="10658928" time="5510" nsec="621822200" time_penalty="91" user_id="380483" prob_id="7" lang_id="76" status="OK" test="0" time_worked="109" memory_used="278528" />
+    <run run_id="10658941" time="5596" nsec="946387900" time_penalty="93" user_id="380491" prob_id="11" lang_id="78" status="RT" test="8" time_worked="15" memory_used="425984" />
+    <run run_id="10658957" time="5678" nsec="671752200" time_penalty="94" user_id="380491" prob_id="11" lang_id="78" status="OK" test="0" time_worked="78" memory_used="3391488" />
+    <run run_id="10658973" time="5776" nsec="968859900" time_penalty="96" user_id="380494" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="557056" />
+    <run run_id="10658978" time="5779" nsec="838672700" time_penalty="96" user_id="380465" prob_id="7" lang_id="76" status="TL" test="24" time_worked="1046" memory_used="290816" />
+    <run run_id="10658989" time="5801" nsec="502374300" time_penalty="96" user_id="380499" prob_id="7" lang_id="76" status="WA" test="24" time_worked="203" memory_used="282624" />
+    <run run_id="10659007" time="5920" nsec="358842600" time_penalty="98" user_id="380476" prob_id="2" lang_id="81" status="WA" test="8" time_worked="93" memory_used="3043328" />
+    <run run_id="10659011" time="5927" nsec="185983200" time_penalty="98" user_id="380479" prob_id="5" lang_id="78" status="WA" test="3" time_worked="1" memory_used="6443008" />
+    <run run_id="10659013" time="5928" nsec="689009300" time_penalty="98" user_id="380465" prob_id="7" lang_id="76" status="WA" test="25" time_worked="312" memory_used="290816" />
+    <run run_id="10659020" time="5958" nsec="851838500" time_penalty="99" user_id="380473" prob_id="7" lang_id="76" status="OK" test="0" time_worked="46" memory_used="270336" />
+    <run run_id="10659040" time="6121" nsec="165778300" time_penalty="102" user_id="380498" prob_id="6" lang_id="81" status="WA" test="7" time_worked="78" memory_used="806912" />
+    <run run_id="10659044" time="6140" nsec="792798200" time_penalty="102" user_id="380476" prob_id="2" lang_id="81" status="WA" test="8" time_worked="78" memory_used="1601536" />
+    <run run_id="10659053" time="6200" nsec="265294000" time_penalty="103" user_id="380497" prob_id="11" lang_id="81" status="RT" test="8" time_worked="78" memory_used="868352" />
+    <run run_id="10659060" time="6227" nsec="208009200" time_penalty="103" user_id="380499" prob_id="7" lang_id="76" status="TL" test="26" time_worked="1031" memory_used="270336" />
+    <run run_id="10659071" time="6293" nsec="813171700" time_penalty="104" user_id="380497" prob_id="11" lang_id="81" status="RT" test="8" time_worked="78" memory_used="856064" />
+    <run run_id="10659072" time="6293" nsec="875568200" time_penalty="104" user_id="380499" prob_id="7" lang_id="76" status="OK" test="0" time_worked="312" memory_used="270336" />
+    <run run_id="10659077" time="6320" nsec="426743100" time_penalty="105" user_id="380497" prob_id="11" lang_id="81" status="WA" test="14" time_worked="78" memory_used="1933312" />
+    <run run_id="10659125" time="6567" nsec="232432600" time_penalty="109" user_id="380491" prob_id="8" lang_id="78" status="OK" test="0" time_worked="15" memory_used="368640" />
+    <run run_id="10659129" time="6579" nsec="35876400" time_penalty="109" user_id="380497" prob_id="11" lang_id="81" status="WA" test="14" time_worked="93" memory_used="1740800" />
+    <run run_id="10659135" time="6608" nsec="829027400" time_penalty="110" user_id="380472" prob_id="6" lang_id="78" status="OK" test="0" time_worked="140" memory_used="978944" />
+    <run run_id="10659182" time="6901" nsec="273173500" time_penalty="115" user_id="380492" prob_id="2" lang_id="81" status="OK" test="0" time_worked="93" memory_used="577536" />
+    <run run_id="10659185" time="6924" nsec="291356600" time_penalty="115" user_id="380470" prob_id="3" lang_id="76" status="WA" test="2" time_worked="1" memory_used="274432" />
+    <run run_id="10659188" time="6949" nsec="918504800" time_penalty="115" user_id="380497" prob_id="11" lang_id="81" status="WA" test="14" time_worked="78" memory_used="1740800" />
+    <run run_id="10659194" time="6988" nsec="880474300" time_penalty="116" user_id="380476" prob_id="2" lang_id="81" status="OK" test="0" time_worked="78" memory_used="1564672" />
+    <run run_id="10659200" time="7019" nsec="333208600" time_penalty="116" user_id="380497" prob_id="11" lang_id="81" status="OK" test="0" time_worked="562" memory_used="21565440" />
+    <run run_id="10659235" time="7200" nsec="307734000" time_penalty="120" user_id="380486" prob_id="6" lang_id="78" status="TL" test="12" time_worked="1031" memory_used="667648" />
+    <run run_id="10659240" time="7224" nsec="712105700" time_penalty="120" user_id="380471" prob_id="6" lang_id="76" status="WA" test="7" time_worked="15" memory_used="303104" />
+    <run run_id="10659241" time="7228" nsec="38068500" time_penalty="120" user_id="380491" prob_id="9" lang_id="78" status="OK" test="0" time_worked="31" memory_used="602112" />
+    <run run_id="10659273" time="7391" nsec="691526500" time_penalty="123" user_id="380498" prob_id="6" lang_id="81" status="WA" test="7" time_worked="78" memory_used="684032" />
+    <run run_id="10659276" time="7404" nsec="639518500" time_penalty="123" user_id="380472" prob_id="11" lang_id="78" status="WA" test="12" time_worked="31" memory_used="573440" />
+    <run run_id="10659327" time="7730" nsec="236915700" time_penalty="128" user_id="380470" prob_id="11" lang_id="76" status="WA" test="10" time_worked="1" memory_used="253952" />
+    <run run_id="10659340" time="7806" nsec="450820100" time_penalty="130" user_id="380470" prob_id="11" lang_id="76" status="ML" test="10" time_worked="218" memory_used="288100352" />
+    <run run_id="10659346" time="7844" nsec="319968800" time_penalty="130" user_id="380472" prob_id="11" lang_id="78" status="WA" test="14" time_worked="15" memory_used="602112" />
+    <run run_id="10659353" time="7908" nsec="668295900" time_penalty="131" user_id="380474" prob_id="7" lang_id="76" status="TL" test="24" time_worked="1031" memory_used="262144" />
+    <run run_id="10659386" time="8119" nsec="598079200" time_penalty="135" user_id="380496" prob_id="7" lang_id="78" status="WA" test="10" time_worked="1" memory_used="425984" />
+    <run run_id="10659416" time="8257" nsec="649952500" time_penalty="137" user_id="380476" prob_id="12" lang_id="81" status="WA" test="3" time_worked="62" memory_used="561152" />
+    <run run_id="10659418" time="8277" nsec="450577200" time_penalty="137" user_id="380496" prob_id="7" lang_id="78" status="WA" test="10" time_worked="15" memory_used="425984" />
+    <run run_id="10659430" time="8338" nsec="729567700" time_penalty="138" user_id="380487" prob_id="2" lang_id="81" status="OK" test="0" time_worked="93" memory_used="884736" />
+    <run run_id="10659433" time="8351" nsec="194712100" time_penalty="139" user_id="380465" prob_id="7" lang_id="76" status="WA" test="24" time_worked="78" memory_used="262144" />
+    <run run_id="10659448" time="8416" nsec="219583200" time_penalty="140" user_id="380481" prob_id="6" lang_id="76" status="WA" test="7" time_worked="1" memory_used="532480" />
+    <run run_id="10659451" time="8423" nsec="655288300" time_penalty="140" user_id="380465" prob_id="7" lang_id="76" status="WA" test="24" time_worked="125" memory_used="262144" />
+    <run run_id="10659452" time="8431" nsec="695885600" time_penalty="140" user_id="380497" prob_id="3" lang_id="81" status="WA" test="3" time_worked="62" memory_used="671744" />
+    <run run_id="10659477" time="8569" nsec="264882100" time_penalty="142" user_id="380465" prob_id="7" lang_id="76" status="WA" test="24" time_worked="687" memory_used="266240" />
+    <run run_id="10659479" time="8582" nsec="21980600" time_penalty="143" user_id="380491" prob_id="10" lang_id="78" status="OK" test="0" time_worked="31" memory_used="786432" />
+    <run run_id="10659505" time="8695" nsec="891063400" time_penalty="144" user_id="380500" prob_id="11" lang_id="78" status="WA" test="3" time_worked="15" memory_used="425984" />
+    <run run_id="10659506" time="8713" nsec="555223500" time_penalty="145" user_id="380485" prob_id="3" lang_id="78" status="WA" test="2" time_worked="1" memory_used="421888" />
+    <run run_id="10659507" time="8714" nsec="802345600" time_penalty="145" user_id="380465" prob_id="7" lang_id="76" status="WA" test="24" time_worked="15" memory_used="262144" />
+    <run run_id="10659516" time="8763" nsec="497054300" time_penalty="146" user_id="380497" prob_id="3" lang_id="81" status="TL" test="10" time_worked="1046" memory_used="27729920" />
+    <run run_id="10659531" time="8851" nsec="570955600" time_penalty="147" user_id="380472" prob_id="11" lang_id="78" status="RT" test="46" time_worked="343" memory_used="201981952" />
+    <run run_id="10659536" time="8878" nsec="402084500" time_penalty="147" user_id="380472" prob_id="11" lang_id="78" status="ML" test="46" time_worked="421" memory_used="274817024" />
+    <run run_id="10659547" time="8914" nsec="655301600" time_penalty="148" user_id="380472" prob_id="11" lang_id="78" status="RT" test="46" time_worked="437" memory_used="241983488" />
+    <run run_id="10659549" time="8924" nsec="645940600" time_penalty="148" user_id="380474" prob_id="7" lang_id="76" status="WA" test="85" time_worked="31" memory_used="262144" />
+    <run run_id="10659552" time="8944" nsec="603297900" time_penalty="149" user_id="380472" prob_id="11" lang_id="78" status="RT" test="46" time_worked="390" memory_used="261984256" />
+    <run run_id="10659555" time="8966" nsec="157219600" time_penalty="149" user_id="380465" prob_id="7" lang_id="76" status="WA" test="24" time_worked="15" memory_used="270336" />
+    <run run_id="10659564" time="9015" nsec="952065800" time_penalty="150" user_id="380486" prob_id="6" lang_id="78" status="WA" test="7" time_worked="15" memory_used="692224" />
+    <run run_id="10659573" time="9064" nsec="950765800" time_penalty="151" user_id="380474" prob_id="7" lang_id="76" status="WA" test="85" time_worked="15" memory_used="266240" />
+    <run run_id="10659620" time="9304" nsec="311075700" time_penalty="155" user_id="380472" prob_id="11" lang_id="78" status="RT" test="46" time_worked="328" memory_used="265981952" />
+    <run run_id="10659630" time="9371" nsec="740579400" time_penalty="156" user_id="380475" prob_id="5" lang_id="81" status="TL" test="17" time_worked="1046" memory_used="53288960" />
+    <run run_id="10659636" time="9392" nsec="59361000" time_penalty="156" user_id="380485" prob_id="3" lang_id="78" status="WA" test="5" time_worked="15" memory_used="446464" />
+    <run run_id="10659642" time="9421" nsec="705992400" time_penalty="157" user_id="380472" prob_id="11" lang_id="78" status="ML" test="46" time_worked="312" memory_used="269586432" />
+    <run run_id="10659645" time="9447" nsec="54143600" time_penalty="157" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="352256" />
+    <run run_id="10659660" time="9551" nsec="351847500" time_penalty="159" user_id="380488" prob_id="4" lang_id="78" status="WA" test="8" time_worked="15" memory_used="598016" />
+    <run run_id="10659681" time="9653" nsec="91106700" time_penalty="160" user_id="380465" prob_id="6" lang_id="76" status="OK" test="0" time_worked="187" memory_used="1089536" />
+    <run run_id="10659694" time="9721" nsec="853432800" time_penalty="162" user_id="380486" prob_id="7" lang_id="78" status="WA" test="5" time_worked="15" memory_used="409600" />
+    <run run_id="10659695" time="9723" nsec="148568100" time_penalty="162" user_id="380488" prob_id="5" lang_id="78" status="OK" test="0" time_worked="46" memory_used="16822272" />
+    <run run_id="10659710" time="9853" nsec="863471100" time_penalty="164" user_id="380474" prob_id="7" lang_id="76" status="WA" test="85" time_worked="15" memory_used="274432" />
+    <run run_id="10659711" time="9855" nsec="254092400" time_penalty="164" user_id="380465" prob_id="7" lang_id="76" status="WA" test="24" time_worked="46" memory_used="278528" />
+    <run run_id="10659722" time="9924" nsec="822769100" time_penalty="165" user_id="380497" prob_id="3" lang_id="78" status="ML" test="11" time_worked="906" memory_used="273448960" />
+    <run run_id="10659728" time="9974" nsec="803629800" time_penalty="166" user_id="380497" prob_id="3" lang_id="76" status="TL" test="11" time_worked="1046" memory_used="172195840" />
+    <run run_id="10659731" time="9985" nsec="252590900" time_penalty="166" user_id="380483" prob_id="6" lang_id="76" status="WA" test="14" time_worked="78" memory_used="2158592" />
+    <run run_id="10659739" time="10011" nsec="489077200" time_penalty="166" user_id="380485" prob_id="3" lang_id="78" status="WA" test="5" time_worked="31" memory_used="458752" />
+    <run run_id="10659755" time="10066" nsec="694288300" time_penalty="167" user_id="380469" prob_id="3" lang_id="76" status="WA" test="6" time_worked="15" memory_used="266240" />
+    <run run_id="10659768" time="10121" nsec="622487600" time_penalty="168" user_id="380497" prob_id="3" lang_id="78" status="OK" test="0" time_worked="421" memory_used="32026624" />
+    <run run_id="10659796" time="10249" nsec="714031000" time_penalty="170" user_id="380470" prob_id="3" lang_id="76" status="WA" test="2" time_worked="1" memory_used="258048" />
+    <run run_id="10659805" time="10269" nsec="422745000" time_penalty="171" user_id="380472" prob_id="3" lang_id="78" status="WA" test="4" time_worked="15" memory_used="434176" />
+    <run run_id="10659810" time="10299" nsec="322169100" time_penalty="171" user_id="380474" prob_id="7" lang_id="76" status="WA" test="85" time_worked="15" memory_used="270336" />
+    <run run_id="10659847" time="10459" nsec="481657400" time_penalty="174" user_id="380474" prob_id="7" lang_id="76" status="WA" test="85" time_worked="31" memory_used="270336" />
+    <run run_id="10659869" time="10528" nsec="176588100" time_penalty="175" user_id="380488" prob_id="11" lang_id="78" status="WA" test="3" time_worked="1" memory_used="417792" />
+    <run run_id="10659881" time="10566" nsec="262906000" time_penalty="176" user_id="380470" prob_id="3" lang_id="76" status="WA" test="2" time_worked="1" memory_used="258048" />
+    <run run_id="10659893" time="10626" nsec="140961400" time_penalty="177" user_id="380500" prob_id="11" lang_id="78" status="RT" test="8" time_worked="15" memory_used="421888" />
+    <run run_id="10659896" time="10629" nsec="914547200" time_penalty="177" user_id="380472" prob_id="11" lang_id="78" status="OK" test="0" time_worked="109" memory_used="14950400" />
+    <run run_id="10659902" time="10644" nsec="518527300" time_penalty="177" user_id="380489" prob_id="5" lang_id="81" status="RT" test="3" time_worked="78" memory_used="970752" />
+    <run run_id="10659911" time="10686" nsec="92704400" time_penalty="178" user_id="380476" prob_id="12" lang_id="81" status="WA" test="3" time_worked="78" memory_used="589824" />
+    <run run_id="10659933" time="10736" nsec="315723500" time_penalty="178" user_id="380474" prob_id="7" lang_id="76" status="WA" test="85" time_worked="15" memory_used="270336" />
+    <run run_id="10659938" time="10752" nsec="378946700" time_penalty="179" user_id="380485" prob_id="3" lang_id="78" status="WA" test="5" time_worked="1" memory_used="450560" />
+    <run run_id="10659948" time="10801" nsec="369242800" time_penalty="180" user_id="380480" prob_id="3" lang_id="78" status="WA" test="2" time_worked="15" memory_used="372736" />
+    <run run_id="10659966" time="10856" nsec="224661600" time_penalty="180" user_id="380475" prob_id="5" lang_id="76" status="WA" test="7" time_worked="1" memory_used="290816" />
+    <run run_id="10659983" time="10911" nsec="645198600" time_penalty="181" user_id="380474" prob_id="7" lang_id="76" status="OK" test="0" time_worked="15" memory_used="266240" />
+    <run run_id="10659993" time="10959" nsec="219850100" time_penalty="182" user_id="380500" prob_id="11" lang_id="78" status="OK" test="0" time_worked="203" memory_used="6057984" />
+    <run run_id="10659999" time="10986" nsec="437350700" time_penalty="183" user_id="380486" prob_id="7" lang_id="78" status="OK" test="0" time_worked="31" memory_used="430080" />
+    <run run_id="10660013" time="11028" nsec="800403200" time_penalty="183" user_id="380472" prob_id="3" lang_id="78" status="OK" test="0" time_worked="140" memory_used="19107840" />
+    <run run_id="10660050" time="11251" nsec="440601700" time_penalty="187" user_id="380475" prob_id="5" lang_id="76" status="WA" test="7" time_worked="15" memory_used="286720" />
+    <run run_id="10660051" time="11251" nsec="503029900" time_penalty="187" user_id="380480" prob_id="3" lang_id="78" status="WA" test="6" time_worked="15" memory_used="385024" />
+    <run run_id="10660058" time="11274" nsec="776123100" time_penalty="187" user_id="380488" prob_id="11" lang_id="78" status="RT" test="5" time_worked="15" memory_used="434176" />
+    <run run_id="10660060" time="11282" nsec="404115000" time_penalty="188" user_id="380465" prob_id="7" lang_id="76" status="WA" test="24" time_worked="15" memory_used="262144" />
+    <run run_id="10660069" time="11324" nsec="283551800" time_penalty="188" user_id="380470" prob_id="11" lang_id="76" status="RT" test="8" time_worked="1" memory_used="253952" />
+    <run run_id="10660072" time="11330" nsec="390649900" time_penalty="188" user_id="380489" prob_id="5" lang_id="81" status="RT" test="3" time_worked="62" memory_used="864256" />
+    <run run_id="10660077" time="11344" nsec="797960400" time_penalty="189" user_id="380488" prob_id="11" lang_id="78" status="RT" test="5" time_worked="1" memory_used="417792" />
+    <run run_id="10660090" time="11409" nsec="705016000" time_penalty="190" user_id="380488" prob_id="11" lang_id="78" status="OK" test="0" time_worked="140" memory_used="3624960" />
+    <run run_id="10660101" time="11467" nsec="818594300" time_penalty="191" user_id="380470" prob_id="11" lang_id="76" status="TL" test="45" time_worked="1031" memory_used="2469888" />
+    <run run_id="10660103" time="11476" nsec="804571900" time_penalty="191" user_id="380491" prob_id="12" lang_id="78" status="OK" test="0" time_worked="343" memory_used="32182272" />
+    <run run_id="10660119" time="11560" nsec="789856800" time_penalty="192" user_id="380486" prob_id="6" lang_id="78" status="TL" test="14" time_worked="1046" memory_used="2834432" />
+    <run run_id="10660124" time="11594" nsec="830357400" time_penalty="193" user_id="380475" prob_id="5" lang_id="76" status="WA" test="7" time_worked="15" memory_used="303104" />
+    <run run_id="10660140" time="11670" nsec="333530600" time_penalty="194" user_id="380488" prob_id="4" lang_id="78" status="WA" test="8" time_worked="15" memory_used="598016" />
+    <run run_id="10660143" time="11705" nsec="225733800" time_penalty="195" user_id="380475" prob_id="5" lang_id="76" status="WA" test="7" time_worked="15" memory_used="290816" />
+    <run run_id="10660149" time="11750" nsec="912256300" time_penalty="195" user_id="380493" prob_id="7" lang_id="81" status="WA" test="21" time_worked="78" memory_used="552960" />
+    <run run_id="10660154" time="11786" nsec="767292400" time_penalty="196" user_id="380480" prob_id="10" lang_id="78" status="OK" test="0" time_worked="15" memory_used="368640" />
+    <run run_id="10660173" time="11865" nsec="28550200" time_penalty="197" user_id="380473" prob_id="10" lang_id="76" status="OK" test="0" time_worked="15" memory_used="253952" />
+    <run run_id="10660195" time="12000" nsec="764761100" time_penalty="200" user_id="380475" prob_id="5" lang_id="76" status="WA" test="7" time_worked="15" memory_used="286720" />
+    <run run_id="10660216" time="12120" nsec="913388300" time_penalty="202" user_id="380485" prob_id="3" lang_id="78" status="WA" test="5" time_worked="15" memory_used="2052096" />
+    <run run_id="10660226" time="12163" nsec="125501700" time_penalty="202" user_id="380488" prob_id="4" lang_id="78" status="OK" test="0" time_worked="687" memory_used="987136" />
+    <run run_id="10660236" time="12201" nsec="298089100" time_penalty="203" user_id="380489" prob_id="5" lang_id="81" status="WA" test="7" time_worked="62" memory_used="716800" />
+    <run run_id="10660253" time="12336" nsec="275414400" time_penalty="205" user_id="380475" prob_id="5" lang_id="76" status="WA" test="7" time_worked="1" memory_used="286720" />
+    <run run_id="10660258" time="12398" nsec="408563100" time_penalty="206" user_id="380491" prob_id="5" lang_id="78" status="WA" test="5" time_worked="15" memory_used="33153024" />
+    <run run_id="10660262" time="12425" nsec="404370300" time_penalty="207" user_id="380480" prob_id="3" lang_id="78" status="OK" test="0" time_worked="562" memory_used="25636864" />
+    <run run_id="10660264" time="12432" nsec="999712600" time_penalty="207" user_id="380489" prob_id="5" lang_id="81" status="WA" test="7" time_worked="78" memory_used="917504" />
+    <run run_id="10660296" time="12650" nsec="711388900" time_penalty="210" user_id="380500" prob_id="6" lang_id="78" status="OK" test="0" time_worked="62" memory_used="684032" />
+    <run run_id="10660321" time="12783" nsec="295206700" time_penalty="213" user_id="380471" prob_id="6" lang_id="76" status="WA" test="7" time_worked="15" memory_used="376832" />
+    <run run_id="10660351" time="12970" nsec="830589600" time_penalty="216" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="352256" />
+    <run run_id="10660365" time="13037" nsec="810594600" time_penalty="217" user_id="380488" prob_id="12" lang_id="78" status="OK" test="0" time_worked="421" memory_used="32927744" />
+    <run run_id="10660374" time="13119" nsec="79260700" time_penalty="218" user_id="380465" prob_id="7" lang_id="76" status="TL" test="24" time_worked="1031" memory_used="253952" />
+    <run run_id="10660382" time="13192" nsec="284800200" time_penalty="219" user_id="380465" prob_id="7" lang_id="76" status="RT" test="24" time_worked="15" memory_used="282624" />
+    <run run_id="10660383" time="13204" nsec="489560900" time_penalty="220" user_id="380491" prob_id="5" lang_id="78" status="OK" test="0" time_worked="46" memory_used="33193984" />
+    <run run_id="10660388" time="13225" nsec="72906600" time_penalty="220" user_id="380465" prob_id="7" lang_id="76" status="RT" test="24" time_worked="31" memory_used="274432" />
+    <run run_id="10660391" time="13258" nsec="476405000" time_penalty="220" user_id="380465" prob_id="7" lang_id="76" status="RT" test="24" time_worked="15" memory_used="266240" />
+    <run run_id="10660455" time="13638" nsec="314623500" time_penalty="227" user_id="380500" prob_id="10" lang_id="78" status="OK" test="0" time_worked="109" memory_used="70856704" />
+    <run run_id="10660461" time="13673" nsec="927615100" time_penalty="227" user_id="380465" prob_id="7" lang_id="78" status="WA" test="29" time_worked="31" memory_used="434176" />
+    <run run_id="10660477" time="13750" nsec="188364400" time_penalty="229" user_id="380500" prob_id="7" lang_id="78" status="OK" test="0" time_worked="15" memory_used="413696" />
+    <run run_id="10660478" time="13759" nsec="664843800" time_penalty="229" user_id="380496" prob_id="11" lang_id="78" status="RT" test="8" time_worked="15" memory_used="15941632" />
+    <run run_id="10660496" time="13864" nsec="60037200" time_penalty="231" user_id="380496" prob_id="11" lang_id="78" status="OK" test="0" time_worked="93" memory_used="18362368" />
+    <run run_id="10660529" time="14092" nsec="241389800" time_penalty="234" user_id="380465" prob_id="7" lang_id="78" status="WA" test="24" time_worked="46" memory_used="446464" />
+    <run run_id="10660542" time="14149" nsec="818835100" time_penalty="235" user_id="380465" prob_id="7" lang_id="78" status="WA" test="29" time_worked="62" memory_used="434176" />
+    <run run_id="10660550" time="14197" nsec="534035300" time_penalty="236" user_id="380486" prob_id="6" lang_id="78" status="TL" test="14" time_worked="1031" memory_used="2834432" />
+    <run run_id="10660562" time="14261" nsec="93955700" time_penalty="237" user_id="380486" prob_id="6" lang_id="78" status="OK" test="0" time_worked="78" memory_used="2838528" />
+    <run run_id="10660569" time="14311" nsec="513693000" time_penalty="238" user_id="380496" prob_id="7" lang_id="81" status="OK" test="0" time_worked="218" memory_used="610304" />
+    <run run_id="10660600" time="14558" nsec="856444300" time_penalty="242" user_id="380485" prob_id="3" lang_id="78" status="WA" test="5" time_worked="1" memory_used="446464" />
+    <run run_id="10660603" time="14584" nsec="541620200" time_penalty="243" user_id="380470" prob_id="11" lang_id="76" status="OK" test="0" time_worked="218" memory_used="6443008" />
+    <run run_id="10660613" time="14639" nsec="465102500" time_penalty="243" user_id="380468" prob_id="5" lang_id="81" status="WA" test="3" time_worked="46" memory_used="962560" />
+    <run run_id="10660641" time="14789" nsec="737930900" time_penalty="246" user_id="380468" prob_id="5" lang_id="81" status="WA" test="3" time_worked="78" memory_used="802816" />
+    <run run_id="10660677" time="15066" nsec="675520700" time_penalty="251" user_id="380479" prob_id="7" lang_id="78" status="OK" test="0" time_worked="31" memory_used="6361088" />
+    <run run_id="10660684" time="15107" nsec="207852200" time_penalty="251" user_id="380489" prob_id="5" lang_id="81" status="WA" test="7" time_worked="78" memory_used="954368" />
+    <run run_id="10660687" time="15119" nsec="79489000" time_penalty="251" user_id="380474" prob_id="11" lang_id="76" status="RT" test="8" time_worked="1" memory_used="258048" />
+    <run run_id="10660708" time="15240" nsec="816535200" time_penalty="254" user_id="380465" prob_id="7" lang_id="81" status="OK" test="0" time_worked="953" memory_used="524288" />
+    <run run_id="10660733" time="15375" nsec="826918600" time_penalty="256" user_id="380474" prob_id="11" lang_id="76" status="OK" test="0" time_worked="265" memory_used="7139328" />
+    <run run_id="10660735" time="15400" nsec="836634100" time_penalty="256" user_id="380488" prob_id="9" lang_id="78" status="WA" test="15" time_worked="15" memory_used="450560" />
+    <run run_id="10660744" time="15481" nsec="59761300" time_penalty="258" user_id="380488" prob_id="9" lang_id="78" status="WA" test="15" time_worked="15" memory_used="450560" />
+    <run run_id="10660755" time="15572" nsec="442517200" time_penalty="259" user_id="380476" prob_id="9" lang_id="81" status="RT" test="4" time_worked="46" memory_used="917504" />
+    <run run_id="10660794" time="15883" nsec="842763700" time_penalty="264" user_id="380476" prob_id="9" lang_id="81" status="WA" test="10" time_worked="93" memory_used="520192" />
+    <run run_id="10660797" time="15918" nsec="5675400" time_penalty="265" user_id="380496" prob_id="10" lang_id="81" status="OK" test="0" time_worked="78" memory_used="446464" />
+    <run run_id="10660810" time="15966" nsec="209604300" time_penalty="266" user_id="380476" prob_id="9" lang_id="81" status="WA" test="10" time_worked="62" memory_used="503808" />
+    <run run_id="10660813" time="15981" nsec="649318700" time_penalty="266" user_id="380483" prob_id="11" lang_id="76" status="TL" test="4" time_worked="1031" memory_used="249856" />
+    <run run_id="10660833" time="16089" nsec="987236600" time_penalty="268" user_id="380482" prob_id="7" lang_id="81" status="OK" test="0" time_worked="171" memory_used="544768" />
+    <run run_id="10660844" time="16139" nsec="481247300" time_penalty="268" user_id="380476" prob_id="9" lang_id="81" status="WA" test="10" time_worked="109" memory_used="512000" />
+    <run run_id="10660855" time="16184" nsec="353224100" time_penalty="269" user_id="380475" prob_id="5" lang_id="81" status="TL" test="18" time_worked="1015" memory_used="53661696" />
+    <run run_id="10660866" time="16245" nsec="578288600" time_penalty="270" user_id="380500" prob_id="9" lang_id="78" status="OK" test="0" time_worked="31" memory_used="503808" />
+    <run run_id="10660889" time="16376" nsec="799589800" time_penalty="272" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="364544" />
+    <run run_id="10660893" time="16382" nsec="371245000" time_penalty="273" user_id="380485" prob_id="11" lang_id="78" status="OK" test="0" time_worked="78" memory_used="8384512" />
+    <run run_id="10660904" time="16436" nsec="880389600" time_penalty="273" user_id="380476" prob_id="9" lang_id="81" status="WA" test="10" time_worked="78" memory_used="499712" />
+    <run run_id="10660905" time="16440" nsec="315078100" time_penalty="274" user_id="380465" prob_id="3" lang_id="76" status="TL" test="4" time_worked="1031" memory_used="274432" />
+    <run run_id="10660908" time="16444" nsec="545369000" time_penalty="274" user_id="380473" prob_id="3" lang_id="76" status="RT" test="3" time_worked="1" memory_used="249856" />
+    <run run_id="10660918" time="16474" nsec="400153200" time_penalty="274" user_id="380465" prob_id="3" lang_id="76" status="WA" test="4" time_worked="312" memory_used="270336" />
+    <run run_id="10660927" time="16533" nsec="509841200" time_penalty="275" user_id="380476" prob_id="9" lang_id="81" status="WA" test="10" time_worked="78" memory_used="507904" />
+    <run run_id="10660933" time="16565" nsec="254302400" time_penalty="276" user_id="380472" prob_id="10" lang_id="78" status="OK" test="0" time_worked="15" memory_used="401408" />
+    <run run_id="10660938" time="16626" nsec="373365800" time_penalty="277" user_id="380488" prob_id="9" lang_id="78" status="WA" test="15" time_worked="15" memory_used="450560" />
+    <run run_id="10660958" time="16734" nsec="501243200" time_penalty="278" user_id="380485" prob_id="9" lang_id="78" status="OK" test="0" time_worked="15" memory_used="491520" />
+    <run run_id="10660963" time="16761" nsec="129532400" time_penalty="279" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="352256" />
+    <run run_id="10660975" time="16818" nsec="145134500" time_penalty="280" user_id="380480" prob_id="11" lang_id="78" status="RT" test="7" time_worked="1" memory_used="380928" />
+    <run run_id="10660990" time="16892" nsec="388258900" time_penalty="281" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="356352" />
+    <run run_id="10660993" time="16909" nsec="162171400" time_penalty="281" user_id="380468" prob_id="5" lang_id="81" status="TL" test="12" time_worked="1031" memory_used="1175552" />
+    <run run_id="10660996" time="16919" nsec="172196100" time_penalty="281" user_id="380499" prob_id="3" lang_id="76" status="WA" test="2" time_worked="1" memory_used="352256" />
+    <run run_id="10661019" time="16986" nsec="416449400" time_penalty="283" user_id="380480" prob_id="11" lang_id="78" status="WA" test="7" time_worked="1" memory_used="380928" />
+    <run run_id="10661024" time="17003" nsec="638185900" time_penalty="283" user_id="380468" prob_id="5" lang_id="81" status="TL" test="12" time_worked="1031" memory_used="913408" />
+    <run run_id="10661030" time="17034" nsec="277337600" time_penalty="283" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="356352" />
+    <run run_id="10661037" time="17075" nsec="307149400" time_penalty="284" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="1249280" />
+    <run run_id="10661043" time="17102" nsec="420409500" time_penalty="285" user_id="380478" prob_id="3" lang_id="81" status="RT" test="3" time_worked="62" memory_used="888832" />
+    <run run_id="10661052" time="17145" nsec="152398200" time_penalty="285" user_id="380468" prob_id="5" lang_id="81" status="TL" test="12" time_worked="1046" memory_used="835584" />
+    <run run_id="10661077" time="17304" nsec="705431300" time_penalty="288" user_id="380480" prob_id="11" lang_id="78" status="WA" test="7" time_worked="1" memory_used="380928" />
+    <run run_id="10661078" time="17305" nsec="532202800" time_penalty="288" user_id="380483" prob_id="11" lang_id="76" status="TL" test="4" time_worked="1031" memory_used="253952" />
+    <run run_id="10661083" time="17338" nsec="658336200" time_penalty="288" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="15" memory_used="3801088" />
+    <run run_id="10661084" time="17341" nsec="629814600" time_penalty="289" user_id="380468" prob_id="5" lang_id="81" status="TL" test="12" time_worked="1015" memory_used="880640" />
+    <run run_id="10661090" time="17367" nsec="707558400" time_penalty="289" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="376832" />
+    <run run_id="10661092" time="17370" nsec="297861200" time_penalty="289" user_id="380480" prob_id="11" lang_id="78" status="RT" test="8" time_worked="15" memory_used="380928" />
+    <run run_id="10661099" time="17391" nsec="883072300" time_penalty="289" user_id="380472" prob_id="8" lang_id="81" status="OK" test="0" time_worked="93" memory_used="471040" />
+    <run run_id="10661103" time="17406" nsec="677032400" time_penalty="290" user_id="380499" prob_id="3" lang_id="76" status="TL" test="2" time_worked="1031" memory_used="376832" />
+    <run run_id="10661105" time="17415" nsec="24594000" time_penalty="290" user_id="380476" prob_id="9" lang_id="81" status="WA" test="10" time_worked="78" memory_used="516096" />
+    <run run_id="10661107" time="17427" nsec="337345300" time_penalty="290" user_id="380486" prob_id="3" lang_id="78" status="TL" test="9" time_worked="1046" memory_used="161083392" />
+    <run run_id="10661108" time="17429" nsec="828199900" time_penalty="290" user_id="380499" prob_id="3" lang_id="76" status="TL" test="4" time_worked="1031" memory_used="376832" />
+    <run run_id="10661111" time="17441" nsec="282755500" time_penalty="290" user_id="380483" prob_id="11" lang_id="76" status="TL" test="4" time_worked="1031" memory_used="253952" />
+    <run run_id="10661121" time="17487" nsec="719593100" time_penalty="291" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="15" memory_used="376832" />
+    <run run_id="10661135" time="17514" nsec="797196600" time_penalty="291" user_id="380476" prob_id="9" lang_id="81" status="WA" test="10" time_worked="78" memory_used="528384" />
+    <run run_id="10661147" time="17569" nsec="441007100" time_penalty="292" user_id="380473" prob_id="3" lang_id="76" status="ML" test="3" time_worked="546" memory_used="312995840" />
+    <run run_id="10661150" time="17576" nsec="436556900" time_penalty="292" user_id="380480" prob_id="11" lang_id="78" status="WA" test="8" time_worked="1" memory_used="380928" />
+    <run run_id="10661152" time="17579" nsec="646859600" time_penalty="292" user_id="380496" prob_id="4" lang_id="78" status="TL" test="16" time_worked="2015" memory_used="503808" />
+    <run run_id="10661156" time="17593" nsec="172402600" time_penalty="293" user_id="380483" prob_id="11" lang_id="76" status="WA" test="4" time_worked="1" memory_used="270336" />
+    <run run_id="10661170" time="17646" nsec="840389300" time_penalty="294" user_id="380486" prob_id="3" lang_id="78" status="WA" test="4" time_worked="1" memory_used="454656" />
+    <run run_id="10661172" time="17657" nsec="348921000" time_penalty="294" user_id="380488" prob_id="9" lang_id="78" status="WA" test="15" time_worked="31" memory_used="458752" />
+    <run run_id="10661182" time="17687" nsec="15828700" time_penalty="294" user_id="380489" prob_id="5" lang_id="81" status="WA" test="7" time_worked="78" memory_used="1032192" />
+    <run run_id="10661189" time="17702" nsec="47309300" time_penalty="295" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="15" memory_used="376832" />
+    <run run_id="10661191" time="17703" nsec="781449500" time_penalty="295" user_id="380486" prob_id="3" lang_id="78" status="TL" test="9" time_worked="1046" memory_used="160989184" />
+    <run run_id="10661196" time="17730" nsec="825013800" time_penalty="295" user_id="380485" prob_id="3" lang_id="78" status="WA" test="5" time_worked="15" memory_used="442368" />
+    <run run_id="10661199" time="17738" nsec="816100700" time_penalty="295" user_id="380499" prob_id="3" lang_id="76" status="WA" test="4" time_worked="1" memory_used="380928" />
+    <run run_id="10661201" time="17742" nsec="569100900" time_penalty="295" user_id="380488" prob_id="9" lang_id="78" status="WA" test="15" time_worked="15" memory_used="450560" />
+    <run run_id="10661204" time="17750" nsec="430265300" time_penalty="295" user_id="380465" prob_id="11" lang_id="76" status="WA" test="12" time_worked="15" memory_used="409600" />
+    <run run_id="10661208" time="17762" nsec="684941900" time_penalty="296" user_id="380497" prob_id="10" lang_id="81" status="WA" test="6" time_worked="62" memory_used="327680" />
+    <run run_id="10661211" time="17774" nsec="234696100" time_penalty="296" user_id="380482" prob_id="3" lang_id="78" status="WA" test="2" time_worked="15" memory_used="417792" />
+    <run run_id="10661214" time="17791" nsec="238509100" time_penalty="296" user_id="380486" prob_id="3" lang_id="78" status="TL" test="9" time_worked="1046" memory_used="161021952" />
+    <run run_id="10661226" time="17818" nsec="450460400" time_penalty="296" user_id="380496" prob_id="4" lang_id="78" status="WA" test="26" time_worked="468" memory_used="507904" />
+    <run run_id="10661231" time="17833" nsec="812596000" time_penalty="297" user_id="380497" prob_id="8" lang_id="81" status="WA" test="2" time_worked="62" memory_used="315392" />
+    <run run_id="10661235" time="17840" nsec="859032500" time_penalty="297" user_id="380473" prob_id="3" lang_id="76" status="WA" test="3" time_worked="1" memory_used="270336" />
+    <run run_id="10661238" time="17847" nsec="54997700" time_penalty="297" user_id="380478" prob_id="3" lang_id="81" status="RT" test="3" time_worked="46" memory_used="806912" />
+    <run run_id="10661288" time="17962" nsec="914829900" time_penalty="299" user_id="380497" prob_id="4" lang_id="81" status="WA" test="3" time_worked="46" memory_used="278528" />
+    <run run_id="10661292" time="17965" nsec="51040600" time_penalty="299" user_id="380470" prob_id="3" lang_id="76" status="WA" test="2" time_worked="1" memory_used="258048" />
+    <run run_id="10661296" time="17972" nsec="484996500" time_penalty="299" user_id="380496" prob_id="4" lang_id="78" status="WA" test="18" time_worked="265" memory_used="507904" />
+    <run run_id="10661297" time="17975" nsec="816121200" time_penalty="299" user_id="380498" prob_id="7" lang_id="78" status="WA" test="4" time_worked="15" memory_used="421888" />
+  </runs>
+</runlog>
