@@ -1,0 +1,225 @@
+{
+  "freezeTimeSeconds": 14400,
+  "teamOverrides": {
+    "380464": {
+      "name": "*Lyceum 153: Chill++ (Гумеров, Актуганов, Пыпин)",
+      "shortname": "*Lyceum 153: Chill++"
+    },
+    "380465": {
+      "name": "*Lyceum 153: NewJazz (Габбасов, Тихонов, Чековинский)",
+      "shortname": "*Lyceum 153: NewJazz"
+    },
+    "380466": {
+      "name": "*Lyceum RELI: мой Господин (Юмаев, Валиуллин, Зиганшин)",
+      "shortname": "*Lyceum RELI: мой Господин"
+    },
+    "380467": {
+      "name": "*SPb PU: Кузнечики (Богданов, Неверов)",
+      "shortname": "*SPb PU: Кузнечики"
+    },
+    "380468": {
+      "name": "*Ufa UST: ISP (Газизов)",
+      "shortname": "*Ufa UST: ISP"
+    },
+    "380469": {
+      "name": "*Ufa UST: SolarWings (Сагидуллин, Мунасыпов, Боровикова)",
+      "shortname": "*Ufa UST: SolarWings"
+    },
+    "380470": {
+      "name": "Orenburg SU: krips (Ерошенко, Якунин, Попов)",
+      "shortname": "Orenburg SU: krips"
+    },
+    "380471": {
+      "name": "Ufa UST: Three-link recursion (Гареев, Аймурзин, Гильмутдинова)",
+      "shortname": "Ufa UST: Three-link recursion"
+    },
+    "380472": {
+      "name": "SPb SU: YKKONEN (Титов, Габитов, Аграновский)",
+      "shortname": "SPb SU: YKKONEN"
+    },
+    "380473": {
+      "name": "MISIS: Rudokipi (Казарин, Бречкин, Шильников)",
+      "shortname": "MISIS: Rudokipi"
+    },
+    "380474": {
+      "name": "Kazan FU: Recursive SHAMANs (Хайруллин, Гражданцев, Билалов)",
+      "shortname": "Kazan FU: Recursive SHAMANs"
+    },
+    "380475": {
+      "name": "SPb HSE: Horosho Segodnya Eli (Запольский, Голенков, Ханмурзин)",
+      "shortname": "SPb HSE: Horosho Segodnya Eli"
+    },
+    "380476": {
+      "name": "Ufa UST: Dyatelki (Инсапов, Балгазин, Комарова)",
+      "shortname": "Ufa UST: Dyatelki"
+    },
+    "380477": {
+      "name": "Petrozavodsk SU: ыуцвапр (Сарбаш, Кирпиченко, Ларионов)",
+      "shortname": "Petrozavodsk SU: ыуцвапр"
+    },
+    "380478": {
+      "name": "SPb SUAI: One Byte Brigade (Рыбаков, Костров, Метлушко)",
+      "shortname": "SPb SUAI: One Byte Brigade"
+    },
+    "380479": {
+      "name": "Voronezh SU: Gryadushka (Шульженко, Едрышов, Мишненкова)",
+      "shortname": "Voronezh SU: Gryadushka"
+    },
+    "380480": {
+      "name": "MISIS: ACMMLP (Пластинина, Макуров, Серебрянников)",
+      "shortname": "MISIS: ACMMLP"
+    },
+    "380481": {
+      "name": "Ufa UST: busy beaver (Лаптев, Сакаев, Иванов)",
+      "shortname": "Ufa UST: busy beaver"
+    },
+    "380482": {
+      "name": "Tambov SU: ZaPlusBall (Анисимов, Емельянов, Солодовников)",
+      "shortname": "Tambov SU: ZaPlusBall"
+    },
+    "380483": {
+      "name": "Chelyabinsk SU: KorTiKov (Фазылов, Ковердин, Корчагин)",
+      "shortname": "Chelyabinsk SU: KorTiKov"
+    },
+    "380484": {
+      "name": "Siberian FU: Ladder Enjoyers (Спицин, Волков, Познахирко)",
+      "shortname": "Siberian FU: Ladder Enjoyers"
+    },
+    "380485": {
+      "name": "MEPhI: DeKaPTaaaaa4 (Ботвинов, Ефименко, Жариков)",
+      "shortname": "MEPhI: DeKaPTaaaaa4"
+    },
+    "380486": {
+      "name": "MAI #3 кота (Ткаченко, Глушин, Чеснов)",
+      "shortname": "MAI #3 кота"
+    },
+    "380487": {
+      "name": "Syktyvkar SU: Chillcore (Глухой, Торопов, Грималюк)",
+      "shortname": "Syktyvkar SU: Chillcore"
+    },
+    "380488": {
+      "name": "HSE: joke (Цыганов, Павлек, Смирнягин)",
+      "shortname": "HSE: joke"
+    },
+    "380489": {
+      "name": "Tambov SU: CUBEER (Дырдин, Кулаев, Граценштейн)",
+      "shortname": "Tambov SU: CUBEER"
+    },
+    "380490": {
+      "name": "Ufa UST: NEVEREVER (Исянбаев, Чечко, Аллаков)",
+      "shortname": "Ufa UST: NEVEREVER"
+    },
+    "380491": {
+      "name": "HSE: Capybara (Дацковский, Хрущев, Здержиков)",
+      "shortname": "HSE: Capybara"
+    },
+    "380492": {
+      "name": "Syktyvkar SU: Houyhnhnm (Сауков, Артеев, Осипов)",
+      "shortname": "Syktyvkar SU: Houyhnhnm"
+    },
+    "380493": {
+      "name": "Ural FU: Increasing bracket sequence (Лежнин, Илаев, Хасанов)",
+      "shortname": "Ural FU: Increasing bracket sequence"
+    },
+    "380494": {
+      "name": "Syktyvkar SU: komiyosis (Косолапова, Листарова, Станкин)",
+      "shortname": "Syktyvkar SU: komiyosis"
+    },
+    "380495": {
+      "name": "Yaroslavl SU: ArbuzTeam (Балашов, Величко, Казакова)",
+      "shortname": "Yaroslavl SU: ArbuzTeam"
+    },
+    "380496": {
+      "name": "MEPhI: Atomic Minds (Осипчук, Филонец, Виноградов)",
+      "shortname": "MEPhI: Atomic Minds"
+    },
+    "380497": {
+      "name": "Ural FU: Woodcutters (Курмангалеева, Иванов, Найдин)",
+      "shortname": "Ural FU: Woodcutters"
+    },
+    "380498": {
+      "name": "Kazan FU: Bugомолы (Гимаев, Гимадиев, Архипов)",
+      "shortname": "Kazan FU: Bugомолы"
+    },
+    "380499": {
+      "name": "UlSTU: ↃↃ+ (Бугров, Буслаев, Покладов)",
+      "shortname": "UlSTU: ↃↃ+"
+    },
+    "380500": {
+      "name": "Ural FU: #define ll int (Никифоров, Гордеев, Семёнов)",
+      "shortname": "Ural FU: #define ll int"
+    }
+  },
+  "awardsSettings": {
+    "medals": [
+      {
+        "id": "gold-medal",
+        "citation": "Gold Medal",
+        "color": "GOLD",
+        "maxRank": 1
+      },
+      {
+        "id": "silver-medal",
+        "citation": "Solver Medal",
+        "color": "SILVER",
+        "maxRank": 3
+      },
+      {
+        "id": "bronze-medal",
+        "citation": "Bronze Medal",
+        "color": "BRONZE",
+        "maxRank": 6
+      }
+    ]
+  },
+  "problemOverrides": {
+    "A": {
+      "color": "#e6194B"
+    },
+    "B": {
+      "color": "#3cb44b"
+    },
+    "C": {
+      "color": "#ffe119"
+    },
+    "D": {
+      "color": "#4363d8"
+    },
+    "E": {
+      "color": "#f58231"
+    },
+    "F": {
+      "color": "#42d4f4"
+    },
+    "G": {
+      "color": "#f032e6"
+    },
+    "H": {
+      "color": "#fabed4"
+    },
+    "I": {
+      "color": "#469990"
+    },
+    "J": {
+      "color": "#dcbeff"
+    },
+    "K": {
+      "color": "#9A6324"
+    },
+    "L": {
+      "color": "#fffac8"
+    },
+    "M": {
+      "color": "#800000"
+    },
+    "N": {
+      "color": "#aaffc3"
+    },
+    "O": {
+      "color": "#000075"
+    },
+    "P": {
+      "color": "#a9a9a9"
+    }
+  }
+}
