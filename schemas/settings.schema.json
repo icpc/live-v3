@@ -364,6 +364,12 @@
                 "problemScoreLimit": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>"
                 },
+                "authCookieName": {
+                    "type": "string"
+                },
+                "authCookieValue": {
+                    "type": "string"
+                },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
