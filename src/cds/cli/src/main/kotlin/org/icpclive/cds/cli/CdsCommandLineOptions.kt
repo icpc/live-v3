@@ -31,7 +31,12 @@ public class CdsCommandLineOptions : OptionGroup("CDS options") {
         .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
 
     public fun toFlow(): Flow<ContestUpdate> {
-        val advancedProperties = fileJsonContentFlow<AdvancedProperties>(advancedJsonPath, AdvancedProperties())
+        val advancedProperties = fileContentFlow(
+            advancedJsonPath,
+            noData = AdvancedProperties()
+        ) {
+            AdvancedProperties.fromInputStream(it)
+        }
         log.info { "Using config directory ${this.configDirectory}" }
         log.info { "Current working directory is ${Paths.get("").toAbsolutePath()}" }
         val path = this.configDirectory.resolve("events.properties")

@@ -13,5 +13,9 @@
       ],
       "url": ".vscode/schemas/settings.schema.json"
     }
-  ]
+  ],
+  "files.associations": {
+    "**/advanced.json": "jsonc",
+    "**/settings.json": "jsonc"
+  }
 }

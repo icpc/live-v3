@@ -14,7 +14,8 @@ const CodeEditor = ({ schema, defaultValue, onChange }) => {
 
         monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
             ...monaco.languages.json.jsonDefaults.diagnosticOptions,
-            allowComments: true,
+            comments: "ignore",
+            trailingCommas: "ignore",
             schemas: [
                 {
                     uri: "foo://app/advanced",

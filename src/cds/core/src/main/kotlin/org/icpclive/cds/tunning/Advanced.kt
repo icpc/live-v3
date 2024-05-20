@@ -2,10 +2,11 @@ package org.icpclive.cds.tunning
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
-import kotlinx.serialization.json.JsonNames
+import kotlinx.serialization.json.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.serializers.RegexSerializer
 import org.icpclive.cds.util.serializers.*
+import java.io.InputStream
 import kotlin.time.Duration
 
 /**
@@ -159,7 +160,16 @@ public class AdvancedProperties(
     public val scoreboardOverrides: RankingSettings? = null,
     public val awardsSettings: AwardsSettings? = null,
     public val queueSettings: QueueSettingsOverride? = null,
-)
+) {
+    public companion object {
+        private val json = Json {
+            allowComments = true
+            allowTrailingComma = true
+        }
+        public fun fromString(input: String): AdvancedProperties = json.decodeFromString<AdvancedProperties>(input)
+        public fun fromInputStream(input: InputStream): AdvancedProperties = json.decodeFromStream<AdvancedProperties>(input)
+    }
+}
 
 internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
 

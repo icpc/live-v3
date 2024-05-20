@@ -9,7 +9,6 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
     implementation(projects.cds.utils)
     implementation(libs.kotlin.reflect)
-    implementation(libs.kotlinx.serialization.json5)
     implementation(libs.ktor.http)
     ksp(projects.ksp)
     compileOnly(projects.ksp)

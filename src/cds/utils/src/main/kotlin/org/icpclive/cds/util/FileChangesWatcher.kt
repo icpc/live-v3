@@ -7,6 +7,7 @@ import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.serializer
+import java.io.InputStream
 import java.nio.file.*
 import java.util.concurrent.*
 import kotlin.io.path.*
@@ -45,21 +46,23 @@ public fun directoryChangesFlow(path: Path): Flow<Path> = flow {
 public fun fileChangesFlow(path: Path): Flow<Path> = directoryChangesFlow(path.toAbsolutePath().parent)
     .filter { it.endsWith(path.fileName) }
 
-public fun <T : Any> fileJsonContentFlow(
-    serializer: DeserializationStrategy<T>,
+public fun <T : Any> fileContentFlow(
     path: Path,
-    noData: T? = null
+    noData: T? = null,
+    reader: (InputStream) -> T,
 ): Flow<T> =
     fileChangesFlow(path)
         .map {
             logger.info { "Reloaded ${path.fileName}" }
-            path.inputStream().use { Json.decodeFromStream(serializer, it) }
+            path.inputStream().use { reader(it) }
         }
         .flowOn(Dispatchers.IO)
         .logAndRetryWithDelay(5.seconds) { logger.error(it) { "Failed to reload ${path.fileName}" } }
         .onStart { if (!path.exists() && noData != null) emit(noData) }
 
-public inline fun <reified T : Any> fileJsonContentFlow(path: Path, noData: T? = null): Flow<T> =
-    fileJsonContentFlow(serializer<T>(), path, noData)
+
+
+public inline fun <reified T : Any> fileJsonContentFlow(path: Path, json: Json = Json, noData: T? = null): Flow<T> =
+    fileContentFlow(path, noData) { json.decodeFromStream<T>(it) }
 
 private val logger by getLogger()

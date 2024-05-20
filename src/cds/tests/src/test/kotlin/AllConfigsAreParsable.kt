@@ -28,12 +28,16 @@ class AllConfigsAreParsable {
     @TestFactory
     fun testAdvancedJson() : List<DynamicTest> {
         val configDir = Path("").absolute().parent.parent.parent.resolve("config")
+        val json = Json {
+            allowComments = true
+            allowTrailingComma = true
+        }
         return configDir.walk().filter {
             it.name == "advanced.json"
         }.map { path ->
             DynamicTest.dynamicTest(path.relativeTo(configDir).toString()) {
                 path.toFile().inputStream().use {
-                    Json.decodeFromStream<AdvancedProperties>(it)
+                    AdvancedProperties.fromInputStream(it)
                 }
             }
         }.toList().also {

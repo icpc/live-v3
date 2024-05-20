@@ -1,8 +1,9 @@
 {
+  // haha, some random comment here 111
   "problemOverrides": {
     "A": {
       "color": "#FFFF00",
-      "unsolvedColor": "#808080"
+      "unsolvedColor": "#808080",
     },
     "B": {
       "color": "#FF00FE",

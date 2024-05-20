@@ -107,7 +107,8 @@ fun Route.configureAdminApiRouting() {
                 call.adminApiAction {
                     val text = call.receiveText()
                     try {
-                        Json.decodeFromString<AdvancedProperties>(text)
+                        // check if parsable
+                        AdvancedProperties.fromString(text)
                     } catch (e: SerializationException) {
                         throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
                     }

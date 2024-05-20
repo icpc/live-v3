@@ -17,17 +17,12 @@
                     <option name="path" value="advanced.json" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
-                  <Item>
-                    <option name="pattern" value="true" />
-                    <option name="path" value="advanced.json5" />
-                    <option name="mappingKind" value="Pattern" />
-                  </Item>
                 </list>
               </option>
             </SchemaInfo>
           </value>
         </entry>
-        <entry key="ICPC live settiIngs">
+        <entry key="ICPC live settings">
           <value>
             <SchemaInfo>
               <option name="generatedName" value="New Schema" />
@@ -39,11 +34,6 @@
                   <Item>
                     <option name="pattern" value="true" />
                     <option name="path" value="settings.json" />
-                    <option name="mappingKind" value="Pattern" />
-                  </Item>
-                  <Item>
-                    <option name="pattern" value="true" />
-                    <option name="path" value="settings.json5" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
                 </list>

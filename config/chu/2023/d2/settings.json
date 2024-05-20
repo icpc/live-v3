@@ -1,5 +1,5 @@
 {
   "type":"ejudge",
   "url":"https://timus.online/admin/spacelog.aspx/log-2.xml?space=1500&action=getejudgelog",
-  "#timusSessionId":"123"
+  //"timusSessionId":"123"
 }

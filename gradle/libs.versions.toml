@@ -54,9 +54,6 @@ kotlinx-serialization-json = { version.ref = "serialization", group = "org.jetbr
 kotlinx-coroutines-core = { version.ref = "coroutines", group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
 kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable"}
 
-kotlinx-serialization-json5 = { version.ref = "json5", group = "io.github.xn32", name = "json5k" }
-
-
 kotlin-junit   = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
 kotlin-reflect = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
 
