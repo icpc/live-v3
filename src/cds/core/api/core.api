@@ -1988,6 +1988,8 @@ public synthetic class org/icpclive/cds/tunning/AdvancedProperties$$serializer :
 }
 
 public final class org/icpclive/cds/tunning/AdvancedProperties$Companion {
+	public final fun fromInputStream (Ljava/io/InputStream;)Lorg/icpclive/cds/tunning/AdvancedProperties;
+	public final fun fromString (Ljava/lang/String;)Lorg/icpclive/cds/tunning/AdvancedProperties;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
