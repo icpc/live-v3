@@ -8,6 +8,7 @@ public final class org/icpclive/cds/ktor/ClientAuth$Companion {
 	public final fun basicOrNull (Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/ktor/ClientAuth;
 	public final fun bearer (Ljava/lang/String;)Lorg/icpclive/cds/ktor/ClientAuth;
 	public final fun cookie (Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/ktor/ClientAuth;
+	public final fun cookieOrNull (Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/ktor/ClientAuth;
 	public final fun oauth (Ljava/lang/String;)Lorg/icpclive/cds/ktor/ClientAuth;
 }
 

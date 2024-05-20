@@ -187,8 +187,5 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         )
     }
 
-    private val xmlLoader = if (!settings.authCookieName.isNullOrEmpty() && !settings.authCookieValue.isNullOrEmpty())
-        DataLoader.xml(settings.network, ClientAuth.cookie(settings.authCookieName!!, settings.authCookieValue!!), settings.url)
-    else
-        DataLoader.xml(settings.network, null, settings.url)
+    private val xmlLoader = DataLoader.xml(settings.network, ClientAuth.cookieOrNull(settings.authCookieName, settings.authCookieValue), settings.url)
 }

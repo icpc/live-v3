@@ -42,5 +42,11 @@ public interface ClientAuth {
         public fun oauth(token: String) : ClientAuth = HeaderAuthImpl(HttpHeaders.Authorization, "OAuth $token")
         public fun bearer(token: String) : ClientAuth = HeaderAuthImpl(HttpHeaders.Authorization, "Bearer $token")
         public fun cookie(name: String, value: String) : ClientAuth = HeaderAuthImpl(HttpHeaders.Cookie, "${name}=${value}")
+        public fun cookieOrNull(name: String?, value: String?) : ClientAuth? =
+            if (name != null && value != null) {
+                cookie(name, value)
+            } else {
+                null
+            }
     }
 }
