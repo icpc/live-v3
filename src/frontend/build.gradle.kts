@@ -6,7 +6,7 @@ plugins {
 }
 
 node {
-    version.set("20.11.0")
+    version.set("22.2.0")
     download.set(rootProject.findProperty("npm.download") == "true")
 }
 

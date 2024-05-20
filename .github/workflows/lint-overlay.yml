@@ -22,7 +22,7 @@ jobs:
           version: 8.15.6
       - uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'pnpm'
           cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
       - run: echo "::add-matcher::.github/problem-matchers.json"
