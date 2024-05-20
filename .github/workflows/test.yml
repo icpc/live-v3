@@ -16,7 +16,7 @@ jobs:
           version: 8.15.6
       - uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
 
