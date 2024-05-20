@@ -25,7 +25,7 @@ jobs:
         run: pnpm install
 
       - name: Store Playwright's Version
-        working-directory: ./src/frontend
+        working-directory: ./src/frontend/tests
         run: |
           PLAYWRIGHT_VERSION=$(pnpm list @playwright/test | grep @playwright | sed 's/.*@//')
           echo "Playwright's Version: $PLAYWRIGHT_VERSION"
