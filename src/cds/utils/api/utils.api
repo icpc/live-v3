@@ -1,8 +1,8 @@
 public final class org/icpclive/cds/util/FileChangesWatcherKt {
 	public static final fun directoryChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun fileChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun fileJsonContentFlow (Lkotlinx/serialization/DeserializationStrategy;Ljava/nio/file/Path;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
-	public static synthetic fun fileJsonContentFlow$default (Lkotlinx/serialization/DeserializationStrategy;Ljava/nio/file/Path;Ljava/lang/Object;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun fileContentFlow (Ljava/nio/file/Path;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun fileContentFlow$default (Ljava/nio/file/Path;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class org/icpclive/cds/util/FlowUtilsKt {
