@@ -335,6 +335,7 @@ sketch
 ### Gradle ###
 .gradle
 build/
+.kotlin
 
 # Ignore Gradle GUI config
 gradle-app.setting
