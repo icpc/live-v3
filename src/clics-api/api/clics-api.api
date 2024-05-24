@@ -70,6 +70,9 @@ public abstract interface class org/icpclive/clics/events/LanguageEvent : org/ic
 public abstract interface class org/icpclive/clics/events/OrganizationEvent : org/icpclive/clics/events/IdEvent, org/icpclive/clics/events/UpdateContestEvent {
 }
 
+public abstract interface class org/icpclive/clics/events/PersonEvent : org/icpclive/clics/events/IdEvent, org/icpclive/clics/events/UpdateContestEvent {
+}
+
 public final class org/icpclive/clics/events/PreloadFinishedEvent : org/icpclive/clics/events/UpdateContestEvent {
 	public fun <init> (Ljava/lang/String;)V
 	public fun getToken ()Ljava/lang/String;
@@ -230,6 +233,18 @@ public abstract interface class org/icpclive/clics/objects/Organization {
 	public abstract fun getTwitterAccount ()Ljava/lang/String;
 	public abstract fun getTwitterHashtag ()Ljava/lang/String;
 	public abstract fun getUrl ()Ljava/lang/String;
+}
+
+public abstract interface class org/icpclive/clics/objects/Person {
+	public abstract fun getEmail ()Ljava/lang/String;
+	public abstract fun getIcpcId ()Ljava/lang/String;
+	public abstract fun getId ()Ljava/lang/String;
+	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getPhoto ()Ljava/util/List;
+	public abstract fun getRole ()Ljava/lang/String;
+	public abstract fun getSex ()Ljava/lang/String;
+	public abstract fun getTeamId ()Ljava/lang/String;
+	public abstract fun getTitle ()Ljava/lang/String;
 }
 
 public abstract interface class org/icpclive/clics/objects/Problem {
@@ -1695,6 +1710,30 @@ public final class org/icpclive/clics/v202207/events/OrganizationEvent$Companion
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/clics/v202207/events/PersonEvent : org/icpclive/clics/events/PersonEvent {
+	public static final field Companion Lorg/icpclive/clics/v202207/events/PersonEvent$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Person;)V
+	public synthetic fun getData ()Ljava/lang/Object;
+	public fun getData ()Lorg/icpclive/clics/objects/Person;
+	public fun getId ()Ljava/lang/String;
+	public fun getToken ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/clics/v202207/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/PersonEvent$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/clics/v202207/events/PersonEvent;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/clics/v202207/events/PersonEvent;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/clics/v202207/events/PersonEvent$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/clics/v202207/events/ProblemEvent : org/icpclive/clics/events/ProblemEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/ProblemEvent$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Problem;)V
@@ -2381,6 +2420,50 @@ public final class org/icpclive/clics/v202207/objects/Organization$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/clics/v202207/objects/Person : org/icpclive/clics/objects/Person {
+	public static final field Companion Lorg/icpclive/clics/v202207/objects/Person$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lorg/icpclive/clics/v202207/objects/Person;
+	public static synthetic fun copy$default (Lorg/icpclive/clics/v202207/objects/Person;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202207/objects/Person;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public fun getIcpcId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getPhoto ()Ljava/util/List;
+	public fun getRole ()Ljava/lang/String;
+	public fun getSex ()Ljava/lang/String;
+	public fun getTeamId ()Ljava/lang/String;
+	public fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/clics/v202207/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Person$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/clics/v202207/objects/Person;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/clics/v202207/objects/Person;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/clics/v202207/objects/Person$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/clics/v202207/objects/Problem : org/icpclive/clics/objects/Problem {
 	public static final field Companion Lorg/icpclive/clics/v202207/objects/Problem$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;)V
@@ -2977,6 +3060,30 @@ public synthetic class org/icpclive/clics/v202306/events/OrganizationEvent$$seri
 }
 
 public final class org/icpclive/clics/v202306/events/OrganizationEvent$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/clics/v202306/events/PersonEvent : org/icpclive/clics/events/PersonEvent {
+	public static final field Companion Lorg/icpclive/clics/v202306/events/PersonEvent$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Person;)V
+	public synthetic fun getData ()Ljava/lang/Object;
+	public fun getData ()Lorg/icpclive/clics/objects/Person;
+	public fun getId ()Ljava/lang/String;
+	public fun getToken ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/clics/v202306/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/PersonEvent$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/clics/v202306/events/PersonEvent;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/clics/v202306/events/PersonEvent;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/clics/v202306/events/PersonEvent$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
@@ -3695,6 +3802,50 @@ public synthetic class org/icpclive/clics/v202306/objects/Organization$$serializ
 }
 
 public final class org/icpclive/clics/v202306/objects/Organization$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/clics/v202306/objects/Person : org/icpclive/clics/objects/Person {
+	public static final field Companion Lorg/icpclive/clics/v202306/objects/Person$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lorg/icpclive/clics/v202306/objects/Person;
+	public static synthetic fun copy$default (Lorg/icpclive/clics/v202306/objects/Person;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/v202306/objects/Person;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getEmail ()Ljava/lang/String;
+	public fun getIcpcId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public fun getName ()Ljava/lang/String;
+	public fun getPhoto ()Ljava/util/List;
+	public fun getRole ()Ljava/lang/String;
+	public fun getSex ()Ljava/lang/String;
+	public fun getTeamId ()Ljava/lang/String;
+	public fun getTitle ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/clics/v202306/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Person$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/clics/v202306/objects/Person;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/clics/v202306/objects/Person;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/clics/v202306/objects/Person$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
