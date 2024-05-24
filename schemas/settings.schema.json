@@ -344,6 +344,9 @@
                     "const": "dmoj",
                     "default": "dmoj"
                 },
+                "url": {
+                    "type": "string"
+                },
                 "contestId": {
                     "type": "string"
                 },
@@ -363,6 +366,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
+                "url",
                 "contestId",
                 "apiKey"
             ],
