@@ -1,0 +1,6 @@
+{
+  "type": "dmoj",
+  "url": "https://dmoj.ca/",
+  "contestId": "waterloo2023f",
+  "apiKey": "$creds.dmoj"
+}

@@ -337,6 +337,37 @@
             ],
             "title": "codedrills"
         },
+        "dmoj": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "dmoj",
+                    "default": "dmoj"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "apiKey"
+            ],
+            "title": "dmoj"
+        },
         "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>": {
             "type": "object",
             "patternProperties": {
@@ -659,6 +690,9 @@
                     "$ref": "#/$defs/codedrills"
                 },
                 {
+                    "$ref": "#/$defs/dmoj"
+                },
+                {
                     "$ref": "#/$defs/ejudge"
                 },
                 {
@@ -782,6 +816,9 @@
                 },
                 {
                     "$ref": "#/$defs/codedrills"
+                },
+                {
+                    "$ref": "#/$defs/dmoj"
                 },
                 {
                     "$ref": "#/$defs/ejudge"

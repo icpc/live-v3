@@ -46,6 +46,7 @@ val cdsPlugins = listOf(
     "cms",
     "codedrills",
     "codeforces",
+    "dmoj",
     "ejudge",
     "eolymp",
     "krsu",

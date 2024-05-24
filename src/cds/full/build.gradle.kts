@@ -14,6 +14,7 @@ dependencies {
     api(projects.cds.plugins.cms)
     api(projects.cds.plugins.codedrills)
     api(projects.cds.plugins.codeforces)
+    api(projects.cds.plugins.dmoj)
     api(projects.cds.plugins.ejudge)
     api(projects.cds.plugins.eolymp)
     api(projects.cds.plugins.krsu)
