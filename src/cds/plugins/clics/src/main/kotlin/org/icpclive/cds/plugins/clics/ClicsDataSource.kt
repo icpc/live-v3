@@ -84,7 +84,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             is TeamEvent -> 5
             is ProblemEvent -> 6
             is PreloadFinishedEvent -> throw IllegalStateException()
-            is AwardEvent, is LanguageEvent, is AccountEvent -> 8
+            is AwardEvent, is LanguageEvent, is AccountEvent, is PersonEvent -> 8
         }
 
         fun priority(event: UpdateRunEvent) = when (event) {
@@ -138,7 +138,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                             preloadFinished = true
                         }
 
-                        is AwardEvent, is LanguageEvent, is AccountEvent -> {}
+                        is AwardEvent, is LanguageEvent, is AccountEvent, is PersonEvent -> {}
                     }
                     if (preloadFinished) {
                         onContestInfo(model.contestInfo)
@@ -207,7 +207,6 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
     companion object {
         val log by getLogger()
 
-        @OptIn(ExperimentalSerializationApi::class)
         private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings, networkSettings: NetworkSettings?) = flow {
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
