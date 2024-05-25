@@ -8,6 +8,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.settings.NetworkSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.util.getLogger
 import org.w3c.dom.Document
 import java.io.File
 import javax.xml.parsers.DocumentBuilder
@@ -17,6 +18,8 @@ public fun interface DataLoader<out T> {
     public suspend fun load(): T
 
     public companion object {
+        private val logger by getLogger()
+
         private fun <T> impl(
             networkSettings: NetworkSettings?,
             auth: ClientAuth?,
@@ -30,6 +33,7 @@ public fun interface DataLoader<out T> {
                 when (val url = computeURL()) {
                     is UrlOrLocalPath.Local -> url.value.toFile().processFile()
                     is UrlOrLocalPath.Url -> wrapIfSSLError {
+                        logger.debug { "Requesting ${url.value}" }
                         httpClient.request(url.value).processRequest()
                     }
                 }
