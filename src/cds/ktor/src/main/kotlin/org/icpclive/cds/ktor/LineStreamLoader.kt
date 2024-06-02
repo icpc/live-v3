@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.getLogger
 
-internal fun getLineFlow(networkSettings: NetworkSettings?, url: UrlOrLocalPath): Flow<String> = flow {
+internal fun getLineFlow(networkSettings: NetworkSettings, url: UrlOrLocalPath): Flow<String> = flow {
     when (url) {
         is UrlOrLocalPath.Local -> {
             url.value.toFile().useLines { lines ->
@@ -19,7 +19,7 @@ internal fun getLineFlow(networkSettings: NetworkSettings?, url: UrlOrLocalPath)
         }
 
         is UrlOrLocalPath.Url -> {
-            val httpClient = defaultHttpClient(networkSettings)
+            val httpClient = networkSettings.createHttpClient()
             logger.info { "Requesting $url" }
             httpClient.prepareGet(url.value) {
                 timeout {

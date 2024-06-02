@@ -7,23 +7,22 @@ import org.icpclive.cds.settings.*
 import java.security.cert.X509Certificate
 import javax.net.ssl.X509TrustManager
 
-@JvmOverloads
-public fun defaultHttpClient(
-    networkSettings: NetworkSettings?,
-    block: HttpClientConfig<*>.() -> Unit = {},
-): HttpClient = HttpClient(CIO) {
-    install(HttpTimeout)
-    engine {
-        https {
-            if (networkSettings?.allowUnsecureConnections == true) {
-                trustManager = object : X509TrustManager {
-                    override fun getAcceptedIssuers() = null
-                    override fun checkClientTrusted(certs: Array<X509Certificate>, authType: String?) {}
-                    override fun checkServerTrusted(certs: Array<X509Certificate>, authType: String?) {}
+public fun NetworkSettings.createHttpClient(): HttpClient = createHttpClient {}
+
+public fun NetworkSettings.createHttpClient(block: HttpClientConfig<*>.() -> Unit, ): HttpClient =
+    HttpClient(CIO) {
+        install(HttpTimeout)
+        engine {
+            https {
+                if (allowUnsecureConnections) {
+                    trustManager = object : X509TrustManager {
+                        override fun getAcceptedIssuers() = null
+                        override fun checkClientTrusted(certs: Array<X509Certificate>, authType: String?) {}
+                        override fun checkServerTrusted(certs: Array<X509Certificate>, authType: String?) {}
+                    }
                 }
             }
+            requestTimeout = 40000
         }
-        requestTimeout = 40000
+        block()
     }
-    block()
-}

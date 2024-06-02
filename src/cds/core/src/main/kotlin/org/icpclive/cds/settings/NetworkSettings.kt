@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public class NetworkSettings(
-    public val allowUnsecureConnections: Boolean = true,
+    public val allowUnsecureConnections: Boolean = false,
 )
