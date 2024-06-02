@@ -100,7 +100,7 @@
             ],
             "title": "WithLoginPassword"
         },
-        "org.icpclive.cds.settings.Auth.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>": {
+        "org.icpclive.cds.settings.Authorization.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>": {
             "oneOf": [
                 {
                     "type": "object",
@@ -131,11 +131,11 @@
                 }
             }
         },
-        "org.icpclive.cds.settings.Auth<org.icpclive.cds.settings.Auth.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>": {
+        "org.icpclive.cds.settings.Authorization<org.icpclive.cds.settings.Authorization.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>": {
             "type": "object",
             "properties": {
                 "basic": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Auth.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.Authorization.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>"
                 },
                 "cookies": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>>"
@@ -154,7 +154,7 @@
                     "type": "string"
                 },
                 "auth": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Auth<org.icpclive.cds.settings.Auth.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.Authorization<org.icpclive.cds.settings.Authorization.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>"
                 }
             },
             "additionalProperties": false,
@@ -430,7 +430,7 @@
                     "default": "dmoj"
                 },
                 "url": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "contestId": {
                     "type": "string"

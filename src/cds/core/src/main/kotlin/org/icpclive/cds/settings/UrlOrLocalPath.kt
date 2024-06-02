@@ -16,18 +16,18 @@ import kotlin.io.path.exists
  * In serialized json can be represented as three different ways.
  * * As just a string. Then it would be interpreted as url if starts with https:// or http://, otherwise as a local path
  * * As an object with url, login and password
- * * As an object with url, and auth field representing [Auth] object.
+ * * As an object with url, and auth field representing [Authorization] object.
  *
  * The first two are just shortcuts for common cases.
  */
 public sealed class UrlOrLocalPath {
     public abstract fun subDir(s: String): UrlOrLocalPath
 
-    public class Url(public val value: String, public val auth: Auth? = null) : UrlOrLocalPath() {
+    public class Url(public val value: String, public val auth: Authorization? = null) : UrlOrLocalPath() {
         public override fun subDir(s: String): Url = Url("${value.removeSuffix("/")}/$s", auth)
-        public fun withBasicAuth(login: Credential, password: Credential): Url = Url(this.value, (auth ?: Auth()).withBasicAuth(login, password))
-        public fun withCookie(name: String, value: Credential): Url = Url(this.value, (auth ?: Auth()).withCookie(name, value))
-        public fun withHeader(name: String, value: Credential): Url = Url(this.value, (auth ?: Auth()).withHeader(name, value))
+        public fun withBasicAuth(login: Credential, password: Credential): Url = Url(this.value, (auth ?: Authorization()).withBasicAuth(login, password))
+        public fun withCookie(name: String, value: Credential): Url = Url(this.value, (auth ?: Authorization()).withCookie(name, value))
+        public fun withHeader(name: String, value: Credential): Url = Url(this.value, (auth ?: Authorization()).withHeader(name, value))
         override fun toString(): String = value
     }
 
@@ -38,16 +38,16 @@ public sealed class UrlOrLocalPath {
 }
 
 @Serializable
-public class Auth(
+public class Authorization(
     public val basic: BasicAuth? = null,
     public val cookies: Map<String, @Contextual Credential> = emptyMap(),
     public val headers: Map<String, @Contextual Credential> = emptyMap(),
 ) {
     @Serializable
     public class BasicAuth(public val login: @Contextual Credential, public val password: @Contextual Credential)
-    public fun withBasicAuth(login: Credential, password: Credential): Auth = Auth(BasicAuth(login, password), cookies, headers)
-    public fun withCookie(name: String, value: Credential): Auth = Auth(basic, cookies + (name to value), headers)
-    public fun withHeader(name: String, value: Credential): Auth = Auth(basic, cookies, headers + (name to value))
+    public fun withBasicAuth(login: Credential, password: Credential): Authorization = Authorization(BasicAuth(login, password), cookies, headers)
+    public fun withCookie(name: String, value: Credential): Authorization = Authorization(basic, cookies + (name to value), headers)
+    public fun withHeader(name: String, value: Credential): Authorization = Authorization(basic, cookies, headers + (name to value))
 }
 
 private interface UrlOrLocalPathSurrogate {
@@ -59,7 +59,7 @@ private interface UrlOrLocalPathSurrogate {
     class WithLoginPassword(val url: String, val login: @Contextual Credential, val password: @Contextual Credential)
 
     @Serializable
-    class WithWholeAuth(val url: String, val auth: Auth): UrlOrLocalPathSurrogate
+    class WithWholeAuth(val url: String, val auth: Authorization): UrlOrLocalPathSurrogate
 }
 
 private inline fun <T, R> KSerializer<T>.map(
@@ -110,12 +110,12 @@ internal class UrlOrLocalPathSerializer(val relativeTo: Path) : KSerializer<UrlO
         to = { UrlOrLocalPathSurrogate.Raw(it.toString()) }
     )
     internal val withLoginPassword = UrlOrLocalPathSurrogate.WithLoginPassword.serializer().map(
-        from = { UrlOrLocalPath.Url(it.url, Auth(Auth.BasicAuth(it.login, it.password), emptyMap())) },
+        from = { UrlOrLocalPath.Url(it.url, Authorization(Authorization.BasicAuth(it.login, it.password), emptyMap())) },
         to = { UrlOrLocalPathSurrogate.WithLoginPassword(it.value, it.auth!!.basic!!.login, it.auth.basic!!.password) }
     )
     internal val withWholeAuth = UrlOrLocalPathSurrogate.WithWholeAuth.serializer().map(
         from = { UrlOrLocalPath.Url(it.url, it.auth) },
-        to = { UrlOrLocalPathSurrogate.WithWholeAuth(it.value, it.auth ?: Auth()) }
+        to = { UrlOrLocalPathSurrogate.WithWholeAuth(it.value, it.auth ?: Authorization()) }
     )
 
     @OptIn(InternalSerializationApi::class)
