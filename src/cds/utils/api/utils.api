@@ -37,6 +37,10 @@ public final class org/icpclive/cds/util/LoggingUtilsKt {
 	public static final fun logger (Ljava/lang/Class;)Lorg/icpclive/cds/util/Logger;
 }
 
+public final class org/icpclive/cds/util/SerializationUtilsKt {
+	public static final fun map (Lkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/util/XmlUtilsKt {
 	public static final fun child (Lorg/w3c/dom/Element;Ljava/lang/String;)Lorg/w3c/dom/Element;
 	public static final fun children (Lorg/w3c/dom/Element;)Lkotlin/sequences/Sequence;
