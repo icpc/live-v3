@@ -30,7 +30,7 @@ internal class YandexContestInfo(
     private val freezeTime = (contestDescription.freezeTime ?: contestDescription.duration).seconds
     private val problems = problems.mapIndexed { index, it -> it.toApi(index, resultType) }
     private val teams =  participants.map { it.toTeamInfo() }.sortedBy { it.id.value }
-    private val teamIds = teams.map(TeamInfo::id).toSet()
+    private val teamIds = participants.associate { it.id to it.login }
     private val testCountByProblem = problems.map { it.id to it.testCount }.toMap()
 
 
@@ -60,7 +60,7 @@ internal class YandexContestInfo(
             id = submission.id.toRunId(),
             result = result,
             problemId = submission.problemId.toProblemId(),
-            teamId = submission.authorId.toTeamId(),
+            teamId = teamIds[submission.authorId]!!.toTeamId(),
             time = submission.timeFromStart,
         )
     }

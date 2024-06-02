@@ -29,22 +29,17 @@ public sealed interface YandexSettings : CDSSettings {
 }
 
 internal class YandexDataSource(private val settings: YandexSettings) : ContestDataSource {
-    private val auth = ClientAuth.oauth(settings.apiKey.value)
     private val contestBaseUrl = API_BASE.subDir("contests").subDir(settings.contestId.toString())
+        .withOAuth(settings.apiKey)
 
-    private val httpClient = defaultHttpClient(auth, settings.network) {
-        defaultRequest { url(contestBaseUrl.value) }
-    }
-
-
-    private val contestDescriptionLoader = DataLoader.json<ContestDescription>(settings.network, auth, contestBaseUrl)
-    private val problemLoader = DataLoader.json<Problems>(settings.network, auth, contestBaseUrl.subDir("problems")).map {
+    private val contestDescriptionLoader = DataLoader.json<ContestDescription>(settings.network, null, contestBaseUrl)
+    private val problemLoader = DataLoader.json<Problems>(settings.network, null, contestBaseUrl.subDir("problems")).map {
         it.problems.sortedBy { it.alias }
     }
-    private val participantLoader = DataLoader.json<List<Participant>>(settings.network, auth, contestBaseUrl.subDir("participants")) .map {
+    private val participantLoader = DataLoader.json<List<Participant>>(settings.network, null, contestBaseUrl.subDir("participants")) .map {
         it.filter { participant -> participant.login.matches(settings.loginRegex) }
     }
-    private val allSubmissionsLoader = DataLoader.json<Submissions>(settings.network, auth, contestBaseUrl.subDir("submissions?locale=ru&page=1&pageSize=100000")).map {
+    private val allSubmissionsLoader = DataLoader.json<Submissions>(settings.network, null, contestBaseUrl.subDir("submissions?locale=ru&page=1&pageSize=100000")).map {
         it.submissions.reversed()
     }
 
@@ -114,11 +109,11 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
         ) {
             buildList {
                 var page = 1
+                val loader = DataLoader.json<Submissions>(settings.network) {
+                    contestBaseUrl.subDir("submissions?locale=ru&page=$page&pageSize=100")
+                }.map { it.submissions }
                 while (true) {
-                    log.debug { "Plan to load: submissions?locale=ru&page=$page&pageSize=100" }
-                    val response = httpClient.request("submissions?locale=ru&page=$page&pageSize=100") {}
-                    log.debug { "Loaded" }
-                    val pageSubmissions = formatter.decodeFromString<Submissions>(response.body()).submissions
+                    val pageSubmissions = loader.load()
                     log.debug{ pageSubmissions.toString() }
                     addAll(pageSubmissions)
                     if (pageSubmissions.isEmpty() || pageSubmissions.last().id <= pendingRunId) {
