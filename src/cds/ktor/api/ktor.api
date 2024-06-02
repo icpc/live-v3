@@ -12,6 +12,14 @@ public final class org/icpclive/cds/ktor/ClientAuth$Companion {
 	public final fun oauth (Ljava/lang/String;)Lorg/icpclive/cds/ktor/ClientAuth;
 }
 
+public final class org/icpclive/cds/ktor/ClientAuthKt {
+	public static final fun setupAuth (Lio/ktor/client/request/HttpRequestBuilder;Lorg/icpclive/cds/settings/Auth;)V
+	public static final fun withBearer (Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
+	public static final fun withBearer (Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+	public static final fun withOAuth (Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
+	public static final fun withOAuth (Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+}
+
 public abstract interface class org/icpclive/cds/ktor/DataLoader {
 	public static final field Companion Lorg/icpclive/cds/ktor/DataLoader$Companion;
 	public abstract fun load (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

@@ -3,10 +3,8 @@ package org.icpclive.cds.ktor
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
-import org.icpclive.cds.settings.NetworkSettings
-import java.security.GeneralSecurityException
+import org.icpclive.cds.settings.*
 import java.security.cert.X509Certificate
-import javax.net.ssl.SSLException
 import javax.net.ssl.X509TrustManager
 
 @JvmOverloads

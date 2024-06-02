@@ -27,6 +27,7 @@ internal fun getLineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, u
                     socketTimeoutMillis = Long.MAX_VALUE
                     requestTimeoutMillis = Long.MAX_VALUE
                 }
+                setupAuth(url.auth)
             }.execute { httpResponse ->
                 if (httpResponse.status != HttpStatusCode.OK) {
                     logger.warning { "Got ${httpResponse.status} from $url" }

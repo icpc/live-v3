@@ -1,10 +1,8 @@
 package org.icpclive.cds.ktor
 
 import io.ktor.client.call.*
-import io.ktor.client.plugins.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.http.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
@@ -36,7 +34,9 @@ public fun interface DataLoader<out T> {
                     is UrlOrLocalPath.Local -> url.value.toFile().processFile()
                     is UrlOrLocalPath.Url -> wrapIfSSLError {
                         logger.debug { "Requesting ${url.value}" }
-                        httpClient.request(url.value).processRequest()
+                        httpClient.request(url.value) {
+                            setupAuth(url.auth)
+                        }.processRequest()
                     }
                 }
             }
