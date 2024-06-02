@@ -227,7 +227,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             }
 
             while (true) {
-                emitAll(DataLoader.lineFlow(networkSettings, null, settings.eventFeedUrl)
+                emitAll(DataLoader.lineFlow(networkSettings, settings.eventFeedUrl)
                     .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {

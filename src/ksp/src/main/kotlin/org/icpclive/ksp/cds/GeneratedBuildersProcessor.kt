@@ -26,7 +26,10 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
                 serialName = it.value
             }
             when (type) {
-                "org.icpclive.cds.settings.Credential", "org.icpclive.cds.settings.UrlOrLocalPath" -> +"@Contextual"
+                "org.icpclive.cds.settings.Credential",
+                "org.icpclive.cds.settings.UrlOrLocalPath",
+                "org.icpclive.cds.settings.UrlOrLocalPath.Local",
+                "org.icpclive.cds.settings.UrlOrLocalPath.Url" -> +"@Contextual"
 
                 "kotlin.text.Regex" -> serializable("RegexSerializer")
 

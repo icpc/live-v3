@@ -32,14 +32,14 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
     private val contestBaseUrl = API_BASE.subDir("contests").subDir(settings.contestId.toString())
         .withOAuth(settings.apiKey)
 
-    private val contestDescriptionLoader = DataLoader.json<ContestDescription>(settings.network, null, contestBaseUrl)
-    private val problemLoader = DataLoader.json<Problems>(settings.network, null, contestBaseUrl.subDir("problems")).map {
+    private val contestDescriptionLoader = DataLoader.json<ContestDescription>(settings.network, contestBaseUrl)
+    private val problemLoader = DataLoader.json<Problems>(settings.network, contestBaseUrl.subDir("problems")).map {
         it.problems.sortedBy { it.alias }
     }
-    private val participantLoader = DataLoader.json<List<Participant>>(settings.network, null, contestBaseUrl.subDir("participants")) .map {
+    private val participantLoader = DataLoader.json<List<Participant>>(settings.network, contestBaseUrl.subDir("participants")) .map {
         it.filter { participant -> participant.login.matches(settings.loginRegex) }
     }
-    private val allSubmissionsLoader = DataLoader.json<Submissions>(settings.network, null, contestBaseUrl.subDir("submissions?locale=ru&page=1&pageSize=100000")).map {
+    private val allSubmissionsLoader = DataLoader.json<Submissions>(settings.network, contestBaseUrl.subDir("submissions?locale=ru&page=1&pageSize=100000")).map {
         it.submissions.reversed()
     }
 

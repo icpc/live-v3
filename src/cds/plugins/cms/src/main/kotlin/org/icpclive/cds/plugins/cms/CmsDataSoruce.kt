@@ -13,19 +13,19 @@ import kotlin.time.Duration.Companion.seconds
 
 @Builder("cms")
 public sealed interface CmsSettings : CDSSettings {
-    public val url: UrlOrLocalPath
+    public val url: UrlOrLocalPath.Url
     public val activeContest: String
     public val otherContests: List<String>
     override fun toDataSource(): ContestDataSource = CmsDataSource(this)
 }
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
-    private val contestsLoader = DataLoader.json<Map<String, Contest>>(settings.network, null, settings.url.subDir("contests/"))
-    private val tasksLoader = DataLoader.json<Map<String, Task>>(settings.network, null, settings.url.subDir("/tasks/"))
-    private val teamsLoader = DataLoader.json<Map<String, Team>>(settings.network, null, settings.url.subDir("/teams/"))
-    private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, null, settings.url.subDir("/users/"))
-    private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, null, settings.url.subDir("/submissions/"))
-    private val subchangesLoader = DataLoader.json<Map<String, Subchange>>(settings.network, null, settings.url.subDir("subchanges/"))
+    private val contestsLoader = DataLoader.json<Map<String, Contest>>(settings.network, settings.url.subDir("contests/"))
+    private val tasksLoader = DataLoader.json<Map<String, Task>>(settings.network, settings.url.subDir("/tasks/"))
+    private val teamsLoader = DataLoader.json<Map<String, Team>>(settings.network, settings.url.subDir("/teams/"))
+    private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, settings.url.subDir("/users/"))
+    private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, settings.url.subDir("/submissions/"))
+    private val subchangesLoader = DataLoader.json<Map<String, Subchange>>(settings.network, settings.url.subDir("subchanges/"))
 
     override suspend fun loadOnce(): ContestParseResult {
         val contests = contestsLoader.load()

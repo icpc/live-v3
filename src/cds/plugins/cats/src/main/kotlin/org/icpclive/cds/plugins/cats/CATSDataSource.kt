@@ -36,7 +36,7 @@ private object SubmissionTimeSerializer : FormatterInstantSerializer(DateTimeCom
 public sealed interface CatsSettings : CDSSettings {
     public val login: Credential
     public val password: Credential
-    public val url: UrlOrLocalPath
+    public val url: UrlOrLocalPath.Url
     public val cid: String
     public val timeZone: TimeZone
         get() = TimeZone.of("Asia/Vladivostok")
