@@ -79,7 +79,6 @@ public fun Flow<ContestUpdate>.addPreviousDays(settings: List<PreviousDaySetting
                     require(it.settings.emulation == null) { "Previous day can't have emulation" }
                     require(it.settings.previousDays.isEmpty()) { "Previous day can't have it's own previous days" }
                     val advancedJsonPath = it.advancedJsonPath
-                    require(advancedJsonPath is UrlOrLocalPath.Local?) { "advancedJsonPath can't be url" }
                     it.settings.toFlow().let {
                         if (advancedJsonPath == null) {
                             it

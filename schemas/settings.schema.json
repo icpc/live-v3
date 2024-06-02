@@ -86,6 +86,104 @@
             ],
             "title": "atcoder"
         },
+        "WithLoginPassword": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "url",
+                "login",
+                "password"
+            ],
+            "title": "WithLoginPassword"
+        },
+        "org.icpclive.cds.settings.Auth.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "login": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "login",
+                        "password"
+                    ]
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "kotlin.collections.LinkedHashMap<kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "string"
+                }
+            }
+        },
+        "org.icpclive.cds.settings.Auth<org.icpclive.cds.settings.Auth.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>": {
+            "type": "object",
+            "properties": {
+                "basic": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.Auth.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>"
+                },
+                "cookies": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>>"
+                },
+                "headers": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>>"
+                }
+            },
+            "additionalProperties": false,
+            "required": []
+        },
+        "WithWholeAuth": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "auth": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.Auth<org.icpclive.cds.settings.Auth.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "url",
+                "auth"
+            ],
+            "title": "WithWholeAuth"
+        },
+        "UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "$ref": "#/$defs/WithLoginPassword"
+                },
+                {
+                    "$ref": "#/$defs/WithWholeAuth"
+                }
+            ]
+        },
         "org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>": {
             "enum": [
                 "ICPC",
@@ -106,7 +204,7 @@
                     "type": "string"
                 },
                 "url": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "cid": {
                     "type": "string"
@@ -194,7 +292,7 @@
             "type": "object",
             "properties": {
                 "url": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "contestId": {
                     "type": "string"
@@ -271,7 +369,7 @@
                     "default": "cms"
                 },
                 "url": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "activeContest": {
                     "type": "string"
@@ -388,7 +486,7 @@
                     "default": "ejudge"
                 },
                 "url": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "resultType": {
                     "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
@@ -468,10 +566,10 @@
                     "default": "krsu"
                 },
                 "submissionsUrl": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "contestUrl": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "timeZone": {
                     "type": "string"
@@ -571,7 +669,7 @@
                     "default": "pcms"
                 },
                 "url": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "login": {
                     "type": "string"
@@ -580,7 +678,7 @@
                     "type": "string"
                 },
                 "problemsUrl": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "resultType": {
                     "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
@@ -610,7 +708,7 @@
                     "default": "testsys"
                 },
                 "url": {
-                    "type": "string"
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "timeZone": {
                     "type": "string"
@@ -722,7 +820,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>?>": {
+        "org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<Local>?>": {
             "type": "object",
             "properties": {
                 "settings": {
@@ -740,7 +838,7 @@
         "kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>?>"
+                "$ref": "#/$defs/org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<Local>?>"
             }
         },
         "allcups": {
