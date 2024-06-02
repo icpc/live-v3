@@ -71,7 +71,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
     private val graphQLClient = GraphQLKtorClient(
         URL(settings.url),
         settings.network.createHttpClient {
-            setupAuth(Auth().withBearer(settings.token))
+            setupAuth(Authorization().withBearer(settings.token))
         }
     )
 

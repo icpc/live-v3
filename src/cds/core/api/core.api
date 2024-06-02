@@ -1828,53 +1828,53 @@ public abstract interface class org/icpclive/cds/scoreboard/ScoreboardCalculator
 	public abstract fun getScoreboardRow (Lorg/icpclive/cds/api/ContestInfo;Ljava/util/List;)Lorg/icpclive/cds/api/ScoreboardRow;
 }
 
-public final class org/icpclive/cds/settings/Auth {
-	public static final field Companion Lorg/icpclive/cds/settings/Auth$Companion;
+public final class org/icpclive/cds/settings/Authorization {
+	public static final field Companion Lorg/icpclive/cds/settings/Authorization$Companion;
 	public fun <init> ()V
-	public fun <init> (Lorg/icpclive/cds/settings/Auth$BasicAuth;Ljava/util/Map;Ljava/util/Map;)V
-	public synthetic fun <init> (Lorg/icpclive/cds/settings/Auth$BasicAuth;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getBasic ()Lorg/icpclive/cds/settings/Auth$BasicAuth;
+	public fun <init> (Lorg/icpclive/cds/settings/Authorization$BasicAuth;Ljava/util/Map;Ljava/util/Map;)V
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/Authorization$BasicAuth;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBasic ()Lorg/icpclive/cds/settings/Authorization$BasicAuth;
 	public final fun getCookies ()Ljava/util/Map;
 	public final fun getHeaders ()Ljava/util/Map;
-	public final fun withBasicAuth (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
-	public final fun withCookie (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
-	public final fun withHeader (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
+	public final fun withBasicAuth (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Authorization;
+	public final fun withCookie (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Authorization;
+	public final fun withHeader (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Authorization;
 }
 
-public synthetic class org/icpclive/cds/settings/Auth$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/settings/Auth$$serializer;
+public synthetic class org/icpclive/cds/settings/Authorization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/settings/Authorization$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/Auth;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/Authorization;
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/Auth;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/Authorization;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/settings/Auth$BasicAuth {
-	public static final field Companion Lorg/icpclive/cds/settings/Auth$BasicAuth$Companion;
+public final class org/icpclive/cds/settings/Authorization$BasicAuth {
+	public static final field Companion Lorg/icpclive/cds/settings/Authorization$BasicAuth$Companion;
 	public fun <init> (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)V
 	public final fun getLogin ()Lorg/icpclive/cds/settings/Credential;
 	public final fun getPassword ()Lorg/icpclive/cds/settings/Credential;
 }
 
-public synthetic class org/icpclive/cds/settings/Auth$BasicAuth$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/settings/Auth$BasicAuth$$serializer;
+public synthetic class org/icpclive/cds/settings/Authorization$BasicAuth$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/settings/Authorization$BasicAuth$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/Auth$BasicAuth;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/Authorization$BasicAuth;
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/Auth$BasicAuth;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/Authorization$BasicAuth;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/settings/Auth$BasicAuth$Companion {
+public final class org/icpclive/cds/settings/Authorization$BasicAuth$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/settings/Auth$Companion {
+public final class org/icpclive/cds/settings/Authorization$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
@@ -1995,9 +1995,9 @@ public final class org/icpclive/cds/settings/UrlOrLocalPath$Local : org/icpclive
 }
 
 public final class org/icpclive/cds/settings/UrlOrLocalPath$Url : org/icpclive/cds/settings/UrlOrLocalPath {
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Auth;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Auth;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAuth ()Lorg/icpclive/cds/settings/Auth;
+	public fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Authorization;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Authorization;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAuth ()Lorg/icpclive/cds/settings/Authorization;
 	public final fun getValue ()Ljava/lang/String;
 	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
 	public synthetic fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
