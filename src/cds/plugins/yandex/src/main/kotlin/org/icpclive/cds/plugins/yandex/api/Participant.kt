@@ -5,7 +5,7 @@ import org.icpclive.cds.api.*
 
 @Serializable
 internal data class Participant(
-    val id: Int,
+    val id: Long,
     val name: String,
     val login: String,
     val uid: String?,
