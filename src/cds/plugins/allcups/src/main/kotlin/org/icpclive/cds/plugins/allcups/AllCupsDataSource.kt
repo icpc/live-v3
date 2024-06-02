@@ -38,10 +38,10 @@ internal class Submission(
     val code: String
 )
 
-private val urlRoot = UrlOrLocalPath.Url("https://cups.online/api_live/submissions/round")
-
 internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadContestDataSource(5.seconds) {
-    private val loader = DataLoader.json<List<Submission>>(settings.network, ClientAuth.bearer(settings.token.value)) {
+    private val urlRoot = UrlOrLocalPath.Url("https://cups.online/api_live/submissions/round")
+        .withBearer(settings.token)
+    private val loader = DataLoader.json<List<Submission>>(settings.network) {
         urlRoot.subDir(settings.contestId.toString())
     }
 

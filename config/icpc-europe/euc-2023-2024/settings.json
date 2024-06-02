@@ -3,11 +3,9 @@
   "feeds": [
     {
       "url": ".",
-      "login": "live",
       "eventFeedPath": "",
       "contestId": "EUC24",
       "feedVersion": "2022_07",
-      "password": "pass"
     }
   ]
 }

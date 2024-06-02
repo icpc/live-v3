@@ -2,9 +2,11 @@
   "type": "clics",
   "feeds": [
     {
-      "login": "$creds.nwerc18_login",
-      "password": "$creds.nwerc18_password",
-      "url": "https://www.domjudge.org/demoweb/api",
+      "url": {
+        "url": "https://www.domjudge.org/demoweb/api",
+        "login": "$creds.nwerc18_login",
+        "password": "$creds.nwerc18_password"
+      },
       "contestId": "nwerc18"
     }
   ]

@@ -2,9 +2,11 @@
   "type": "clics",
   "feeds": [
     {
-      "login": "$creds.login",
-      "password": "$creds.password",
-      "url": "https://cds.gehack.nl/api",
+      "url": {
+        "url": "https://cds.gehack.nl/api",
+        "login": "$creds.login",
+        "password": "$creds.password"
+      },
       "contestId": "bapc2022"
     }
   ]

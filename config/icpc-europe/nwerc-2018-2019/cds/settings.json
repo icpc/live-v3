@@ -2,9 +2,11 @@
   "type":"clics",
   "feeds": [
     {
-      "login": "$creds.nwerc18_login_cds",
-      "password": "$creds.nwerc18_password_cds",
-      "url": "https://cds.gehack.nl/api",
+      "url": {
+        "url": "https://cds.gehack.nl/api",
+        "login": "$creds.nwerc18_login_cds",
+        "password": "$creds.nwerc18_password_cds"
+      },
       "contestId": "nwerc18"
     }
   ]

@@ -3,11 +3,13 @@
   "network": { "allowUnsecureConnections": true },
   "feeds": [
     {
-      "url": "https://pc2server.icpc-vcss.org:50443",
+      "url": {
+        "url": "https://gnyserver.icpc-vcss.org:50443/contest",
+        "login": "icpclive",
+        "password": "secret"
+      },
       "eventFeedPath": "event-feed?groupids=330002",
       "contestId": "",
-      "login": "icpclive",
-      "password": "audio-limes-issue-void",
       "feedVersion": "2022_07"
     }
   ]

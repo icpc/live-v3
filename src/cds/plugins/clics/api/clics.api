@@ -1,13 +1,11 @@
 public final class org/icpclive/cds/plugins/clics/ClicsFeed {
 	public static final field Companion Lorg/icpclive/cds/plugins/clics/ClicsFeed$Companion;
-	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Lorg/icpclive/cds/plugins/clics/FeedVersion;)V
-	public synthetic fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Lorg/icpclive/cds/plugins/clics/FeedVersion;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Lorg/icpclive/cds/plugins/clics/FeedVersion;)V
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Lorg/icpclive/cds/plugins/clics/FeedVersion;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getContestId ()Ljava/lang/String;
 	public final fun getEventFeedName ()Ljava/lang/String;
 	public final fun getEventFeedPath ()Ljava/lang/String;
 	public final fun getFeedVersion ()Lorg/icpclive/cds/plugins/clics/FeedVersion;
-	public final fun getLogin ()Lorg/icpclive/cds/settings/Credential;
-	public final fun getPassword ()Lorg/icpclive/cds/settings/Credential;
 	public final fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public final fun getUrlPrefixMapping ()Ljava/util/Map;
 }

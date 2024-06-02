@@ -3,10 +3,8 @@
   "feeds": [
     {
       "url": ".",
-      "login": "live",
       "contestId": "",
       "eventFeedPath": "",
-      "password": "landed-wafer-state-diner"
     },
     {
       "url": ".",

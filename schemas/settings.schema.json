@@ -288,19 +288,13 @@
                 "2023_06"
             ]
         },
-        "org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>": {
+        "org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>": {
             "type": "object",
             "properties": {
                 "url": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "contestId": {
-                    "type": "string"
-                },
-                "login": {
-                    "type": "string"
-                },
-                "password": {
                     "type": "string"
                 },
                 "eventFeedName": {
@@ -325,7 +319,7 @@
         "kotlin.collections.ArrayList<org.icpclive.cds.plugins.clics.ClicsFeed>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>?,kotlinx.serialization.ContextualSerializer<Credential>?,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>"
+                "$ref": "#/$defs/org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>"
             }
         },
         "clics": {
@@ -497,12 +491,6 @@
                 "problemScoreLimit": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>"
                 },
-                "authCookieName": {
-                    "type": "string"
-                },
-                "authCookieValue": {
-                    "type": "string"
-                },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
@@ -670,12 +658,6 @@
                 },
                 "url": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
-                },
-                "login": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
                 },
                 "problemsUrl": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"

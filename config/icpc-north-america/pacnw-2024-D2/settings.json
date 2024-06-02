@@ -3,9 +3,11 @@
   "network": { "allowUnsecureConnections": true },
   "feeds": [
     {
-      "login": "icpclive",
-      "password": "1",
-      "url": "https://gnyserver.icpc-vcss.org:50443",
+      "url": {
+        "url": "https://gnyserver.icpc-vcss.org:50443",
+        "login": "icpclive",
+        "password": "1"
+      },
       "contestId": "",
       "eventFeedPath": "contest",
       "feedVersion": "2020_03",

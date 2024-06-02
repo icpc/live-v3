@@ -84,11 +84,13 @@ private class Submission(
 
 internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDataSource(5.seconds) {
 
-    private val auth = ClientAuth.bearer(settings.apiKey.value)
+    val apiBaseUrl = UrlOrLocalPath.Url(settings.url).subDir("api/v2")
+        .withBearer(settings.apiKey)
+
     private val contestInfoLoader = DataLoader.json<Wrapper<ContestResponse>>(
         settings.network,
-        auth,
-        UrlOrLocalPath.Url(settings.url).subDir("api/v2/contest").subDir(settings.contestId)
+        null,
+        apiBaseUrl.subDir("contest").subDir(settings.contestId)
     ).map { it.unwrap().`object` }
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -147,9 +149,8 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
                 var page = 0
                 val loader = DataLoader.json<Wrapper<SubmissionsResult>>(
                     settings.network,
-                    auth
                 ) {
-                    UrlOrLocalPath.Url(settings.url).subDir("api/v2/submissions?problem=${problem.code}&page=$page")
+                    apiBaseUrl.subDir("submissions?problem=${problem.code}&page=$page")
                 }.map { it.unwrap() }
                 while (true) {
                     ++page
