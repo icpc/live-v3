@@ -201,7 +201,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
     companion object {
         val log by getLogger()
 
-        private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings, networkSettings: NetworkSettings?) = flow {
+        private fun getEventFeedLoader(settings: ParsedClicsLoaderSettings, networkSettings: NetworkSettings) = flow {
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
                 explicitNulls = false

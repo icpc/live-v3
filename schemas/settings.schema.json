@@ -30,22 +30,15 @@
                 }
             ]
         },
-        "org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>": {
-            "oneOf": [
-                {
-                    "type": "object",
-                    "properties": {
-                        "allowUnsecureConnections": {
-                            "type": "boolean"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": []
-                },
-                {
-                    "type": "null"
+        "org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>": {
+            "type": "object",
+            "properties": {
+                "allowUnsecureConnections": {
+                    "type": "boolean"
                 }
-            ]
+            },
+            "additionalProperties": false,
+            "required": []
         },
         "atcoder": {
             "type": "object",
@@ -70,7 +63,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -219,7 +212,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -258,7 +251,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -336,7 +329,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -375,7 +368,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -413,7 +406,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -449,7 +442,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -495,7 +488,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -531,7 +524,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -566,7 +559,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -591,7 +584,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -632,7 +625,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -669,7 +662,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -699,7 +692,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -735,7 +728,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
@@ -858,7 +851,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings?<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
                 },
                 "previousDays": {
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"

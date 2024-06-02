@@ -20,12 +20,12 @@ public fun interface DataLoader<out T> {
         private val logger by getLogger()
 
         private fun <T> impl(
-            networkSettings: NetworkSettings?,
+            networkSettings: NetworkSettings,
             computeURL: () -> UrlOrLocalPath,
             processFile: File.() -> T,
             processRequest: suspend HttpResponse.() -> T
         ) : DataLoader<T> {
-            val httpClient = defaultHttpClient(networkSettings)
+            val httpClient = networkSettings.createHttpClient()
 
             return DataLoader {
                 when (val url = computeURL()) {
@@ -41,17 +41,17 @@ public fun interface DataLoader<out T> {
         }
 
         public fun string(
-            networkSettings: NetworkSettings?,
+            networkSettings: NetworkSettings,
             computeURL: () -> UrlOrLocalPath,
         ): DataLoader<String> = impl(networkSettings, computeURL, File::readText, HttpResponse::bodyAsText)
 
         public fun byteArray(
-            networkSettings: NetworkSettings?,
+            networkSettings: NetworkSettings,
             computeURL: () -> UrlOrLocalPath,
         ): DataLoader<ByteArray> = impl(networkSettings, computeURL, File::readBytes) { body<ByteArray>() }
 
         public fun xml(
-            networkSettings: NetworkSettings?,
+            networkSettings: NetworkSettings,
             url: () -> UrlOrLocalPath,
         ): DataLoader<Document> {
             val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
@@ -61,7 +61,7 @@ public fun interface DataLoader<out T> {
 
         public fun <T> json(
             serializer: DeserializationStrategy<T>,
-            networkSettings: NetworkSettings?,
+            networkSettings: NetworkSettings,
             url: () -> UrlOrLocalPath,
         ): DataLoader<T> {
             val json = Json { ignoreUnknownKeys = true }
@@ -69,20 +69,30 @@ public fun interface DataLoader<out T> {
                 .map { json.decodeFromString(serializer, it) }
         }
         public inline fun <reified T> json(
-            networkSettings: NetworkSettings?,
+            networkSettings: NetworkSettings,
             noinline url: () -> UrlOrLocalPath,
         ): DataLoader<T> = json(serializer<T>(), networkSettings, url)
 
-        public inline fun <reified T> json(networkSettings: NetworkSettings?, url: UrlOrLocalPath): DataLoader<T> =
-            json(serializer<T>(), networkSettings) { url }
-        public fun string(networkSettings: NetworkSettings?, url: UrlOrLocalPath): DataLoader<String> =
-            string(networkSettings) { url }
-        public fun byteArray(networkSettings: NetworkSettings?, url: UrlOrLocalPath): DataLoader<ByteArray> =
-            byteArray(networkSettings) { url }
-        public fun xml(networkSettings: NetworkSettings?, url: UrlOrLocalPath): DataLoader<Document> =
-            xml(networkSettings) { url }
-        public fun lineFlow(networkSettings: NetworkSettings?, url: UrlOrLocalPath) : Flow<String> =
-            getLineFlow(networkSettings, url)
+        public inline fun <reified T> json(
+            networkSettings: NetworkSettings,
+            url: UrlOrLocalPath
+        ): DataLoader<T> = json(serializer<T>(), networkSettings) { url }
+        public fun string(
+            networkSettings: NetworkSettings,
+            url: UrlOrLocalPath
+        ): DataLoader<String> = string(networkSettings) { url }
+        public fun byteArray(
+            networkSettings: NetworkSettings,
+            url: UrlOrLocalPath
+        ): DataLoader<ByteArray> = byteArray(networkSettings) { url }
+        public fun xml(
+            networkSettings: NetworkSettings,
+            url: UrlOrLocalPath
+        ): DataLoader<Document> = xml(networkSettings) { url }
+        public fun lineFlow(
+            networkSettings: NetworkSettings,
+            url: UrlOrLocalPath
+        ) : Flow<String> = getLineFlow(networkSettings, url)
     }
 }
 

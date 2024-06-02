@@ -13,18 +13,14 @@ public abstract interface class org/icpclive/cds/ktor/DataLoader {
 }
 
 public final class org/icpclive/cds/ktor/DataLoader$Companion {
-	public final fun byteArray (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun byteArray (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
-	public static synthetic fun byteArray$default (Lorg/icpclive/cds/ktor/DataLoader$Companion;Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/UrlOrLocalPath;ILjava/lang/Object;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun json (Lkotlinx/serialization/DeserializationStrategy;Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public static synthetic fun json$default (Lorg/icpclive/cds/ktor/DataLoader$Companion;Lkotlinx/serialization/DeserializationStrategy;Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lkotlin/jvm/functions/Function0;ILjava/lang/Object;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun lineFlow (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lkotlinx/coroutines/flow/Flow;
-	public final fun string (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun string (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
-	public static synthetic fun string$default (Lorg/icpclive/cds/ktor/DataLoader$Companion;Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/UrlOrLocalPath;ILjava/lang/Object;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun xml (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun xml (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
-	public static synthetic fun xml$default (Lorg/icpclive/cds/ktor/DataLoader$Companion;Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/UrlOrLocalPath;ILjava/lang/Object;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun byteArray (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun byteArray (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun json (Lkotlinx/serialization/DeserializationStrategy;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun lineFlow (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lkotlinx/coroutines/flow/Flow;
+	public final fun string (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun string (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun xml (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun xml (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
 }
 
 public final class org/icpclive/cds/ktor/DataLoaderKt {
@@ -37,8 +33,7 @@ public final class org/icpclive/cds/ktor/LiveSSLExceptionKt {
 }
 
 public final class org/icpclive/cds/ktor/NetworkUtilsKt {
-	public static final fun defaultHttpClient (Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/NetworkSettings;)Lio/ktor/client/HttpClient;
-	public static final fun defaultHttpClient (Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;)Lio/ktor/client/HttpClient;
-	public static synthetic fun defaultHttpClient$default (Lorg/icpclive/cds/settings/Auth;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lio/ktor/client/HttpClient;
+	public static final fun createHttpClient (Lorg/icpclive/cds/settings/NetworkSettings;)Lio/ktor/client/HttpClient;
+	public static final fun createHttpClient (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;)Lio/ktor/client/HttpClient;
 }
 
