@@ -61,7 +61,6 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
         .withCookie("REVEL_SESSION", settings.sessionCookie)
     private val loader = DataLoader.json<ContestData>(
         settings.network,
-        null,
         contestUrl.subDir("standings").subDir("json")
     )
 

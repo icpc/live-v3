@@ -27,7 +27,7 @@ public sealed interface PCMSSettings : CDSSettings {
 }
 
 internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {
-    private val dataLoader = DataLoader.xml(settings.network, null) { settings.url }
+    private val dataLoader = DataLoader.xml(settings.network) { settings.url }
 
     private val resultType = settings.resultType
     private var startTime = Instant.fromEpochMilliseconds(0)
@@ -42,7 +42,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         parseContestInfo(element.child("contest"), problemsOverride)
 
     private suspend fun loadCustomProblems(problemsUrl: UrlOrLocalPath): Element {
-        val problemsLoader = DataLoader.xml(networkSettings = settings.network, null) { problemsUrl }
+        val problemsLoader = DataLoader.xml(networkSettings = settings.network) { problemsUrl }
         return problemsLoader.load().documentElement
     }
 

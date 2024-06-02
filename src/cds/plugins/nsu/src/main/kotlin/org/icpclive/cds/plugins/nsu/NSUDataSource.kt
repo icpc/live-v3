@@ -167,7 +167,7 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
 
     }
 
-    private val httpClient = defaultHttpClient(null, settings.network) {
+    private val httpClient = defaultHttpClient(settings.network) {
         install(HttpCookies)
         install(ContentNegotiation) { json() }
     }

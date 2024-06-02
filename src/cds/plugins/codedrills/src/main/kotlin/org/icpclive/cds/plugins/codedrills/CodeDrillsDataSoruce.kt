@@ -7,9 +7,8 @@ import io.grpc.stub.MetadataUtils
 import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.settings.*
 import org.icpclive.ksp.cds.Builder
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.util.getLogger
 import java.util.concurrent.*
 import kotlin.time.Duration.Companion.seconds
