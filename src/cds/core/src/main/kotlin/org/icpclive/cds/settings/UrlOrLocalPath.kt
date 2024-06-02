@@ -8,6 +8,18 @@ import kotlinx.serialization.json.*
 import java.nio.file.Path
 import kotlin.io.path.exists
 
+/**
+ * Represents a URL or a local file path.
+ *
+ * This is a place where ccs data can be located.
+ *
+ * In serialized json can be represented as three different ways.
+ * * As just a string. Then it would be interpreted as url if starts with https:// or http://, otherwise as a local path
+ * * As an object with url, login and password
+ * * As an object with url, and auth field representing [Auth] object.
+ *
+ * The first two are just shortcuts for common cases.
+ */
 public sealed class UrlOrLocalPath {
     public abstract fun subDir(s: String): UrlOrLocalPath
 
