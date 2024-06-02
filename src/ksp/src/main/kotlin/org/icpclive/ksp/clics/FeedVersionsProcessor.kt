@@ -242,16 +242,12 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
             ) {
                 imports(
                     "kotlinx.serialization.*", "kotlinx.serialization.encoding.*", "kotlinx.serialization.modules.*",
-                    "org.icpclive.cds.util.serializers.*", "org.icpclive.clics.*"
+                    "org.icpclive.cds.util.serializers.*", "org.icpclive.clics.*",
+                    "org.icpclive.cds.util.*"
                 )
                 withCodeBlock("internal fun serializersModule(): SerializersModule = SerializersModule") {
                     for ((index, i) in objects[feedVersion]?.withIndex() ?: emptyList()) {
-                        withCodeBlock("val wrapper$index = object : KSerializer<org.icpclive.clics.objects.${i}>") {
-                            +"private val delegate = org.icpclive.clics.${ feedVersion.packageName }.objects.${ i }.serializer()"
-                            +"override val descriptor get() = delegate.descriptor"
-                            +"override fun deserialize(decoder: Decoder) = delegate.deserialize(decoder)"
-                            +"override fun serialize(encoder: Encoder, value: org.icpclive.clics.objects.${i}) = delegate.serialize(encoder, value as org.icpclive.clics.${ feedVersion.packageName }.objects.${i})"
-                        }
+                        +"val wrapper$index = org.icpclive.clics.${ feedVersion.packageName }.objects.${ i }.serializer().asSuperClass<org.icpclive.clics.objects.${i}, _>()"
                         +"polymorphicDefaultDeserializer(org.icpclive.clics.objects.${i}::class) { wrapper$index }"
                         +"polymorphicDefaultSerializer(org.icpclive.clics.objects.${i}::class) { wrapper$index }"
                     }

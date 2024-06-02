@@ -5,6 +5,7 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
+import org.icpclive.cds.util.map
 import java.nio.file.Path
 import kotlin.io.path.exists
 
@@ -62,17 +63,6 @@ private interface UrlOrLocalPathSurrogate {
     class WithWholeAuth(val url: String, val auth: Authorization): UrlOrLocalPathSurrogate
 }
 
-private inline fun <T, R> KSerializer<T>.map(
-    crossinline from: (T) -> R,
-    crossinline to: (R) -> T,
-): KSerializer<R> = object : KSerializer<R> {
-    override val descriptor: SerialDescriptor
-        get() = this@map.descriptor
-
-    override fun deserialize(decoder: Decoder) = from(this@map.deserialize(decoder))
-    override fun serialize(encoder: Encoder, value: R) = this@map.serialize(encoder, to(value))
-}
-
 internal class UrlOrLocalPathSerializer(val relativeTo: Path) : KSerializer<UrlOrLocalPath> {
     override fun serialize(encoder: Encoder, value: UrlOrLocalPath) {
         when (value) {
@@ -98,7 +88,7 @@ internal class UrlOrLocalPathSerializer(val relativeTo: Path) : KSerializer<UrlO
     }
 
     internal val raw = UrlOrLocalPathSurrogate.Raw.serializer().map(
-        from = {
+        onDeserialize = {
             if (isHttpUrl(it.s)) {
                 UrlOrLocalPath.Url(it.s)
             } else {
@@ -107,15 +97,15 @@ internal class UrlOrLocalPathSerializer(val relativeTo: Path) : KSerializer<UrlO
                 UrlOrLocalPath.Local(fixedPath)
             }
         },
-        to = { UrlOrLocalPathSurrogate.Raw(it.toString()) }
+        onSerialize = { UrlOrLocalPathSurrogate.Raw(it.toString()) }
     )
     internal val withLoginPassword = UrlOrLocalPathSurrogate.WithLoginPassword.serializer().map(
-        from = { UrlOrLocalPath.Url(it.url, Authorization(Authorization.BasicAuth(it.login, it.password), emptyMap())) },
-        to = { UrlOrLocalPathSurrogate.WithLoginPassword(it.value, it.auth!!.basic!!.login, it.auth.basic!!.password) }
+        onDeserialize = { UrlOrLocalPath.Url(it.url, Authorization(Authorization.BasicAuth(it.login, it.password), emptyMap())) },
+        onSerialize = { UrlOrLocalPathSurrogate.WithLoginPassword(it.value, it.auth!!.basic!!.login, it.auth.basic!!.password) }
     )
     internal val withWholeAuth = UrlOrLocalPathSurrogate.WithWholeAuth.serializer().map(
-        from = { UrlOrLocalPath.Url(it.url, it.auth) },
-        to = { UrlOrLocalPathSurrogate.WithWholeAuth(it.value, it.auth ?: Authorization()) }
+        onDeserialize = { UrlOrLocalPath.Url(it.url, it.auth) },
+        onSerialize = { UrlOrLocalPathSurrogate.WithWholeAuth(it.value, it.auth ?: Authorization()) }
     )
 
     @OptIn(InternalSerializationApi::class)
