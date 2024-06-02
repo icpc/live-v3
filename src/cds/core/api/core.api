@@ -1828,6 +1828,56 @@ public abstract interface class org/icpclive/cds/scoreboard/ScoreboardCalculator
 	public abstract fun getScoreboardRow (Lorg/icpclive/cds/api/ContestInfo;Ljava/util/List;)Lorg/icpclive/cds/api/ScoreboardRow;
 }
 
+public final class org/icpclive/cds/settings/Auth {
+	public static final field Companion Lorg/icpclive/cds/settings/Auth$Companion;
+	public fun <init> ()V
+	public fun <init> (Lorg/icpclive/cds/settings/Auth$BasicAuth;Ljava/util/Map;Ljava/util/Map;)V
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/Auth$BasicAuth;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getBasic ()Lorg/icpclive/cds/settings/Auth$BasicAuth;
+	public final fun getCookies ()Ljava/util/Map;
+	public final fun getHeaders ()Ljava/util/Map;
+	public final fun withBasicAuth (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
+	public final fun withCookie (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
+	public final fun withHeader (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/Auth;
+}
+
+public synthetic class org/icpclive/cds/settings/Auth$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/settings/Auth$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/Auth;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/Auth;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/Auth$BasicAuth {
+	public static final field Companion Lorg/icpclive/cds/settings/Auth$BasicAuth$Companion;
+	public fun <init> (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)V
+	public final fun getLogin ()Lorg/icpclive/cds/settings/Credential;
+	public final fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+}
+
+public synthetic class org/icpclive/cds/settings/Auth$BasicAuth$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/settings/Auth$BasicAuth$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/Auth$BasicAuth;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/Auth$BasicAuth;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/Auth$BasicAuth$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/settings/Auth$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public abstract interface class org/icpclive/cds/settings/CDSSettings {
 	public static final field Companion Lorg/icpclive/cds/settings/CDSSettings$Companion;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
@@ -1911,9 +1961,9 @@ public final class org/icpclive/cds/settings/NetworkSettings$Companion {
 
 public final class org/icpclive/cds/settings/PreviousDaySettings {
 	public static final field Companion Lorg/icpclive/cds/settings/PreviousDaySettings$Companion;
-	public fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
-	public synthetic fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAdvancedJsonPath ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath$Local;)V
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath$Local;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdvancedJsonPath ()Lorg/icpclive/cds/settings/UrlOrLocalPath$Local;
 	public final fun getSettings ()Lorg/icpclive/cds/settings/CDSSettings;
 }
 
@@ -1945,11 +1995,16 @@ public final class org/icpclive/cds/settings/UrlOrLocalPath$Local : org/icpclive
 }
 
 public final class org/icpclive/cds/settings/UrlOrLocalPath$Url : org/icpclive/cds/settings/UrlOrLocalPath {
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Auth;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/settings/Auth;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAuth ()Lorg/icpclive/cds/settings/Auth;
 	public final fun getValue ()Ljava/lang/String;
 	public fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
 	public synthetic fun subDir (Ljava/lang/String;)Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toString ()Ljava/lang/String;
+	public final fun withBasicAuth (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+	public final fun withCookie (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+	public final fun withHeader (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
 }
 
 public final class org/icpclive/cds/tunning/AdvancedKt {

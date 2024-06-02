@@ -41,9 +41,11 @@ fun SerialDescriptor.toJsonSchemaType(
         return JsonObject(mapOf("type" to JsonPrimitive((kind as PrimitiveKind).toJsonTypeName())))
     }
     if (kind == SerialKind.CONTEXTUAL) {
-        val kclass = capturedKClass ?: error("Contextual serializer $serialName doesn't have class")
-        val defaultSerializer = serializersModule.serializer(kclass.java)
-        return defaultSerializer.descriptor.toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
+        val kclass = capturedKClass
+        if (kclass != null) {
+            val defaultSerializer = serializersModule.serializer(kclass.java)
+            return defaultSerializer.descriptor.toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
+        }
     }
     if (isInline) {
         return unwrapInlines().toJsonSchemaType(processed, serializersModule, definitions, extras, extraTypeProperty)
@@ -102,11 +104,29 @@ fun SerialDescriptor.toJsonSchemaType(
                                 )
                             }
                     )
-                )            }
-            is PrimitiveKind, SerialKind.CONTEXTUAL -> error("Already handled")
+                )
+            }
+            is PrimitiveKind -> error("Already handled")
+            SerialKind.CONTEXTUAL -> {
+                require(capturedKClass == null) { "Already handled" }
+                mapOf(
+                    "oneOf" to JsonArray(
+                        elementDescriptors
+                            .sortedBy { it.serialName }
+                            .map {
+                                it.toJsonSchemaType(
+                                    processed,
+                                    serializersModule,
+                                    definitions,
+                                    title = it.serialName.split(".").last(),
+                                )
+                            }
+                    )
+                )
+            }
             PolymorphicKind.SEALED -> {
                 require(extraTypeProperty == null)
-                val typeFieldName = getElementName(0)
+                val typeFieldName = getElementName(0).takeIf { it != "NO_TYPE_FIELD" }
                 val contextualDescriptor = getElementDescriptor(1)
                 mapOf(
                     "oneOf" to JsonArray(

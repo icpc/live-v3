@@ -16,7 +16,6 @@ import org.icpclive.ksp.cds.SerializerProviders
 import org.icpclive.cds.util.postProcess
 import java.nio.file.Path
 import java.util.*
-import kotlin.io.path.exists
 import kotlin.reflect.KClass
 
 private fun Flow<ContestUpdate>.processEmulation(emulationSettings: EmulationSettings?) = when {
@@ -34,7 +33,7 @@ public fun CDSSettings.toFlow(): Flow<ContestUpdate> {
 @Serializable
 public class PreviousDaySettings(
     public val settings: CDSSettings,
-    @Contextual public val advancedJsonPath: UrlOrLocalPath? = null,
+    @Contextual public val advancedJsonPath: UrlOrLocalPath.Local? = null,
 )
 
 @SerializerProviders("org.icpclive.cds.settings.CDSSettingsProvider")
@@ -51,7 +50,6 @@ public interface CDSSettings {
     public companion object {
         private val json = Json { prettyPrint = true }
         internal fun serializersModule() = serializersModule({ it }, Path.of(""))
-        private fun isHttpUrl(text: String) = text.startsWith("http://") || text.startsWith("https://")
         public fun serializersModule(credentialProvider: CredentialProvider, path: Path): SerializersModule =
             SerializersModule {
                 postProcess<Credential, String>(
@@ -69,22 +67,17 @@ public interface CDSSettings {
                     },
                     onSerialize = { it.displayValue }
                 )
-                postProcess<UrlOrLocalPath, String>(
-                    onDeserialize = {
-                        if (isHttpUrl(it)) {
-                            UrlOrLocalPath.Url(it)
-                        } else {
-                            val fixedPath = path.parent.resolve(it).toAbsolutePath()
-                            require(fixedPath.exists()) { "File $fixedPath mentioned in settings doesn't exist" }
-                            UrlOrLocalPath.Local(fixedPath)
-                        }
-                    },
-                    onSerialize = {
-                        when (it) {
-                            is UrlOrLocalPath.Url -> it.value
-                            is UrlOrLocalPath.Local -> it.value.toString()
-                        }
-                    }
+                val urlSerializer = UrlOrLocalPathSerializer(path)
+                contextual(UrlOrLocalPath::class, urlSerializer)
+                postProcess<UrlOrLocalPath.Url, UrlOrLocalPath>(
+                    urlSerializer,
+                    onSerialize = { it },
+                    onDeserialize = { it as? UrlOrLocalPath.Url ?: throw SerializationException("Local path is not allowed") }
+                )
+                postProcess<UrlOrLocalPath.Local, UrlOrLocalPath>(
+                    urlSerializer.raw,
+                    onSerialize = { it },
+                    onDeserialize = { it as? UrlOrLocalPath.Local ?: throw SerializationException("Url is not allowed") }
                 )
                 polymorphic(CDSSettings::class) {
                     for (provider in loadSettingsSerializers()) {
