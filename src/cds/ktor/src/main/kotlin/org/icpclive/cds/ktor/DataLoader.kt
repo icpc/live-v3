@@ -6,8 +6,7 @@ import io.ktor.client.statement.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
-import org.icpclive.cds.settings.NetworkSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.getLogger
 import org.w3c.dom.Document
 import java.io.File
@@ -22,7 +21,7 @@ public fun interface DataLoader<out T> {
 
         private fun <T> impl(
             networkSettings: NetworkSettings?,
-            auth: ClientAuth?,
+            auth: Auth?,
             computeURL: () -> UrlOrLocalPath,
             processFile: File.() -> T,
             processRequest: suspend HttpResponse.() -> T
@@ -44,19 +43,19 @@ public fun interface DataLoader<out T> {
 
         public fun string(
             networkSettings: NetworkSettings?,
-            auth: ClientAuth?,
+            auth: Auth?,
             computeURL: () -> UrlOrLocalPath,
         ): DataLoader<String> = impl(networkSettings, auth, computeURL, File::readText, HttpResponse::bodyAsText)
 
         public fun byteArray(
             networkSettings: NetworkSettings?,
-            auth: ClientAuth?,
+            auth: Auth?,
             computeURL: () -> UrlOrLocalPath,
         ): DataLoader<ByteArray> = impl(networkSettings, auth, computeURL, File::readBytes, { body<ByteArray>() })
 
         public fun xml(
             networkSettings: NetworkSettings?,
-            auth: ClientAuth?,
+            auth: Auth?,
             url: () -> UrlOrLocalPath,
         ): DataLoader<Document> {
             val builder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
@@ -67,7 +66,7 @@ public fun interface DataLoader<out T> {
         public fun <T> json(
             serializer: DeserializationStrategy<T>,
             networkSettings: NetworkSettings?,
-            auth: ClientAuth? = null,
+            auth: Auth? = null,
             url: () -> UrlOrLocalPath,
         ): DataLoader<T> {
             val json = Json { ignoreUnknownKeys = true }
@@ -76,19 +75,19 @@ public fun interface DataLoader<out T> {
         }
         public inline fun <reified T> json(
             networkSettings: NetworkSettings?,
-            auth: ClientAuth? = null,
+            auth: Auth? = null,
             noinline url: () -> UrlOrLocalPath,
         ): DataLoader<T> = json(serializer<T>(), networkSettings, auth, url)
 
-        public inline fun <reified T> json(networkSettings: NetworkSettings?, auth: ClientAuth? = null, url: UrlOrLocalPath, ): DataLoader<T> =
+        public inline fun <reified T> json(networkSettings: NetworkSettings?, auth: Auth? = null, url: UrlOrLocalPath, ): DataLoader<T> =
             json(serializer<T>(), networkSettings, auth) { url }
-        public fun string(networkSettings: NetworkSettings?, auth: ClientAuth? = null, url: UrlOrLocalPath): DataLoader<String> =
+        public fun string(networkSettings: NetworkSettings?, auth: Auth? = null, url: UrlOrLocalPath): DataLoader<String> =
             string(networkSettings, auth) { url }
-        public fun byteArray(networkSettings: NetworkSettings?, auth: ClientAuth? = null, url: UrlOrLocalPath): DataLoader<ByteArray> =
+        public fun byteArray(networkSettings: NetworkSettings?, auth: Auth? = null, url: UrlOrLocalPath): DataLoader<ByteArray> =
             byteArray(networkSettings, auth) { url }
-        public fun xml(networkSettings: NetworkSettings?, auth: ClientAuth? = null, url: UrlOrLocalPath): DataLoader<Document> =
+        public fun xml(networkSettings: NetworkSettings?, auth: Auth? = null, url: UrlOrLocalPath): DataLoader<Document> =
             xml(networkSettings, auth) { url }
-        public fun lineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: UrlOrLocalPath) : Flow<String> =
+        public fun lineFlow(networkSettings: NetworkSettings?, auth: Auth?, url: UrlOrLocalPath) : Flow<String> =
             getLineFlow(networkSettings, auth, url)
     }
 }

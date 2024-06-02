@@ -1,6 +1,4 @@
 public abstract interface class org/icpclive/cds/plugins/pcms/PCMSSettings : org/icpclive/cds/settings/CDSSettings {
-	public fun getLogin ()Lorg/icpclive/cds/settings/Credential;
-	public fun getPassword ()Lorg/icpclive/cds/settings/Credential;
 	public fun getProblemsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
@@ -12,17 +10,13 @@ public final class org/icpclive/cds/plugins/pcms/PCMSSettingsBuilder : org/icpcl
 	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/pcms/PCMSSettings;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
-	public fun getLogin ()Lorg/icpclive/cds/settings/Credential;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
-	public fun getPassword ()Lorg/icpclive/cds/settings/Credential;
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getProblemsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
-	public fun setLogin (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
-	public fun setPassword (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setProblemsUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V

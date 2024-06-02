@@ -2,9 +2,11 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "https://cds.storm.vu/api",
-      "password": "$creds.pretest_dhaka_pass",
-      "login": "live",
+      "url": {
+        "url": "https://cds.storm.vu/api",
+        "login": "live",
+        "password": "$creds.pretest_dhaka_pass"
+      },
       "contestId": "pretest_dhaka"
     }
   ]

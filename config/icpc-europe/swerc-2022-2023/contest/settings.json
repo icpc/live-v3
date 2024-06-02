@@ -2,9 +2,11 @@
   "type": "clics",
   "feeds": [
     {
-      "login": "live",
-      "password": "$creds.swerc22",
-      "url": "https://cds.swerc.eu/api",
+      "url": {
+        "url": "https://cds.swerc.eu/api",
+        "login": "live",
+        "password": "$creds.swerc22"
+      },
       "contestId": "swerc2022"
     }
   ]

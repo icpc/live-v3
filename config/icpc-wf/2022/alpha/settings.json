@@ -3,11 +3,13 @@
   "network": { "allowUnsecureConnections": true },
   "feeds": [
     {
-      "url": "https://alphacds.icpc-vcss.org:7443/api",
-      "login": "live",
+      "url": {
+        "url": "https://alphacds.icpc-vcss.org:7443/api",
+        "login": "live",
+        "password": "$creds.alpha_cds"
+      },
       "contestId": "wf46_finals",
-      "feedVersion": "2022_07",
-      "password": "$creds.alpha_cds"
+      "feedVersion": "2022_07"
     }
   ]
 }

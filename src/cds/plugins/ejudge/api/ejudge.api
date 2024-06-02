@@ -1,6 +1,4 @@
 public abstract interface class org/icpclive/cds/plugins/ejudge/EjudgeSettings : org/icpclive/cds/settings/CDSSettings {
-	public fun getAuthCookieName ()Ljava/lang/String;
-	public fun getAuthCookieValue ()Ljava/lang/String;
 	public fun getProblemScoreLimit ()Ljava/util/Map;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
@@ -12,8 +10,6 @@ public final class org/icpclive/cds/plugins/ejudge/EjudgeSettingsBuilder : org/i
 	public fun <init> (Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;)V
 	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/ejudge/EjudgeSettings;
-	public fun getAuthCookieName ()Ljava/lang/String;
-	public fun getAuthCookieValue ()Ljava/lang/String;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
@@ -21,8 +17,6 @@ public final class org/icpclive/cds/plugins/ejudge/EjudgeSettingsBuilder : org/i
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
-	public fun setAuthCookieName (Ljava/lang/String;)V
-	public fun setAuthCookieValue (Ljava/lang/String;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V

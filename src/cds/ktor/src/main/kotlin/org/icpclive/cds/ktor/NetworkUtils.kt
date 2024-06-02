@@ -9,12 +9,12 @@ import javax.net.ssl.X509TrustManager
 
 @JvmOverloads
 public fun defaultHttpClient(
-    auth: ClientAuth?,
+    auth: Auth?,
     networkSettings: NetworkSettings?,
     block: HttpClientConfig<*>.() -> Unit = {},
 ): HttpClient = HttpClient(CIO) {
     install(HttpTimeout)
-    auth?.setupAuth(this)
+    setupAuth(auth)
     engine {
         https {
             if (networkSettings?.allowUnsecureConnections == true) {

@@ -7,11 +7,10 @@ import io.ktor.http.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import org.icpclive.cds.settings.NetworkSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.getLogger
 
-internal fun getLineFlow(networkSettings: NetworkSettings?, auth: ClientAuth?, url: UrlOrLocalPath): Flow<String> = flow {
+internal fun getLineFlow(networkSettings: NetworkSettings?, auth: Auth?, url: UrlOrLocalPath): Flow<String> = flow {
     when (url) {
         is UrlOrLocalPath.Local -> {
             url.value.toFile().useLines { lines ->

@@ -26,8 +26,6 @@ public enum class FeedVersion {
 public class ClicsFeed(
     @Contextual public val url: UrlOrLocalPath,
     public val contestId: String,
-    @Contextual public val login: Credential? = null,
-    @Contextual public val password: Credential? = null,
     public val eventFeedName: String = "event-feed",
     public val eventFeedPath: String? = null,
     public val urlPrefixMapping: Map<String, String> = emptyMap(),
@@ -41,10 +39,6 @@ public sealed interface ClicsSettings : CDSSettings {
 }
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
-    val auth = ClientAuth.basicOrNull(
-        settings.login?.value,
-        settings.password?.value
-    )
     val baseUrl = settings.url
     val eventFeedUrl = buildList {
         if (settings.eventFeedPath != null) {
@@ -233,7 +227,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             }
 
             while (true) {
-                emitAll(DataLoader.lineFlow(networkSettings, settings.auth, settings.eventFeedUrl)
+                emitAll(DataLoader.lineFlow(networkSettings, null, settings.eventFeedUrl)
                     .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {

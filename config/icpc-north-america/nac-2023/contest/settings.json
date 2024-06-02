@@ -2,9 +2,11 @@
   "type": "clics",
   "feeds": [
     {
-      "login": "$creds.cds_login",
-      "password": "$creds.cds_password",
-      "url": "https://10.3.3.207/api",
+      "url": {
+        "url": "https://10.3.3.207/api",
+        "login": "$creds.cds_login",
+        "password": "$creds.cds_password"
+      },
       "contestId": "NAC-2023-real"
     }
   ]

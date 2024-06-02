@@ -2,9 +2,11 @@
   "type":"clics",
   "feeds": [
     {
-      "login": "$creds.login",
-      "password": "$creds.password",
-      "url": "https://cds.chipcie.ch.tudelft.nl/api",
+      "url": {
+        "url": "https://cds.chipcie.ch.tudelft.nl/api",
+        "login": "$creds.login",
+        "password": "$creds.password"
+      },
       "contestId": "nwerc2022"
     }
   ]

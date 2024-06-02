@@ -3,7 +3,6 @@
   "feeds": [
     {
       "url": ".",
-      "login": "live",
       "contestId": "",
       "eventFeedPath": "",
       "feedVersion": "2020_03"

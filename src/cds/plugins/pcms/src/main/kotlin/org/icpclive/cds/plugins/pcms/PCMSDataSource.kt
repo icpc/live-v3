@@ -18,10 +18,6 @@ import kotlin.time.Duration.Companion.seconds
 @Builder("pcms")
 public sealed interface PCMSSettings : CDSSettings {
     public val url: UrlOrLocalPath
-    public val login: Credential?
-        get() = null
-    public val password: Credential?
-        get() = null
     public val problemsUrl: UrlOrLocalPath?
         get() = null
     public val resultType: ContestResultType
@@ -31,12 +27,7 @@ public sealed interface PCMSSettings : CDSSettings {
 }
 
 internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {
-    private val dataLoader = DataLoader.xml(
-        settings.network,
-        ClientAuth.basicOrNull(settings.login?.value, settings.password?.value)
-    ) {
-        settings.url
-    }
+    private val dataLoader = DataLoader.xml(settings.network, null) { settings.url }
 
     private val resultType = settings.resultType
     private var startTime = Instant.fromEpochMilliseconds(0)

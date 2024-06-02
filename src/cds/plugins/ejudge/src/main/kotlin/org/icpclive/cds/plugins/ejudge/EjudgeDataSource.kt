@@ -26,10 +26,6 @@ public sealed interface EjudgeSettings : CDSSettings {
         get() = TimeZone.of("Europe/Moscow")
     public val problemScoreLimit: Map<String, Double>
         get() = emptyMap()
-    public val authCookieName: String?
-        get() = null
-    public val authCookieValue: String?
-        get() = null
 
     override fun toDataSource(): ContestDataSource = EjudgeDataSource(this)
 }
@@ -187,5 +183,5 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         )
     }
 
-    private val xmlLoader = DataLoader.xml(settings.network, ClientAuth.cookieOrNull(settings.authCookieName, settings.authCookieValue), settings.url)
+    private val xmlLoader = DataLoader.xml(settings.network, null, settings.url)
 }

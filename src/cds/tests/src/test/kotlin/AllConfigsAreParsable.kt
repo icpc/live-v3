@@ -1,4 +1,4 @@
-import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.settings.CDSSettings
@@ -17,7 +17,11 @@ class AllConfigsAreParsable {
             it.name == "settings.json" || it.name == "settings.json5" || it.name == "events.properties" && !it.pathString.contains("v2-configs")
         }.map {
             DynamicTest.dynamicTest(it.relativeTo(configDir).toString()) {
-                CDSSettings.fromFile(it) { "" }
+                try {
+                    CDSSettings.fromFile(it) { "" }
+                } catch (e: SerializationException) {
+                    throw AssertionError("Failed to parse file ${it.relativeTo(configDir.parent)}", e)
+                }
             }
         }.toList().also {
             require(it.isNotEmpty())

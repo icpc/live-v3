@@ -1,7 +1,13 @@
 {
   "type": "ejudge",
+  //"url": {
+  //  "url": "https://timus.online/admin/spacelog.aspx/log-1606.xml?space=1606&action=getejudgelog",
+  //  "auth": {
+  //    "cookies": {
+  //      "ASP.NET_SessionId": "123"
+  //    }
+  //  }
+  //},
   "url": "log-1606.xml",
   "timeZone": "Asia/Yekaterinburg",
-  "authCookieName": "ASP.NET_SessionId",
-  "authCookieValue": "123"
 }
