@@ -1,4 +1,4 @@
 {
   "type":"pcms",
-  "url":"https://contest.sgu.ru/api/standings/1"
+  "source":"https://contest.sgu.ru/api/standings/1"
 }

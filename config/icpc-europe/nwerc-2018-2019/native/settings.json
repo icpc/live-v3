@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://www.domjudge.org/demoweb/api",
         "login": "$creds.nwerc18_login",
         "password": "$creds.nwerc18_password"

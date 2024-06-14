@@ -2,7 +2,7 @@
   "type":"clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://icpc2024-pacific-maingate.gusmachine.com/api",
         "login":"login",
         "password":"password"

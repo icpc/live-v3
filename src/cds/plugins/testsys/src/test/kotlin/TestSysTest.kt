@@ -12,7 +12,7 @@ object TestSysTest : CdsLoadersTest() {
         loaderTest(
             goldenDataDir.resolve("testSys.txt"),
             TestSysSettings(
-                url = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
+                source = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
             )
         )
     }
@@ -22,7 +22,7 @@ object TestSysTest : CdsLoadersTest() {
         loaderTest(
             goldenDataDir.resolve("testSysWithAdvancedOverride.txt"),
             TestSysSettings(
-                url = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
+                source = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
             ),
             AdvancedProperties(
                 teamNameRegexes = TeamRegexOverrides(

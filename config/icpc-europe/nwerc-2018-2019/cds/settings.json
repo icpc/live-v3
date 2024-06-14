@@ -2,7 +2,7 @@
   "type":"clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://cds.gehack.nl/api",
         "login": "$creds.nwerc18_login_cds",
         "password": "$creds.nwerc18_password_cds"

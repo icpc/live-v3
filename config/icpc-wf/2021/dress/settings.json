@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": ".",
+      "source": ".",
       "contestId": "",
       "eventFeedPath": "",
     }

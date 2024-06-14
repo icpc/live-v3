@@ -6,7 +6,7 @@ public final class org/icpclive/cds/plugins/clics/ClicsFeed {
 	public final fun getEventFeedName ()Ljava/lang/String;
 	public final fun getEventFeedPath ()Ljava/lang/String;
 	public final fun getFeedVersion ()Lorg/icpclive/cds/plugins/clics/FeedVersion;
-	public final fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public final fun getSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public final fun getUrlPrefixMapping ()Ljava/util/Map;
 }
 

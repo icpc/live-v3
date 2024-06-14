@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": ".",
+      "source": ".",
       "contestId": "",
       "feedVersion": "2020_03",
       "eventFeedPath": ""

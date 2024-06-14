@@ -13,7 +13,7 @@ object PCMSTest : CdsLoadersTest() {
         loaderTest(
             goldenDataDir.resolve("pcms.txt"),
             PCMSSettings(
-                url = UrlOrLocalPath.Local(testDataDir.resolve("pcms.xml"))
+                source = UrlOrLocalPath.Local(testDataDir.resolve("pcms.xml"))
             ),
             AdvancedProperties(startTime = Instant.fromEpochSeconds(1670397300))
         )
@@ -24,7 +24,7 @@ object PCMSTest : CdsLoadersTest() {
         loaderTest(
             goldenDataDir.resolve("pcmsIOI.txt"),
             PCMSSettings(
-                url = UrlOrLocalPath.Local(testDataDir.resolve("pcms-ioi.xml"))
+                source = UrlOrLocalPath.Local(testDataDir.resolve("pcms-ioi.xml"))
             ) {
                 resultType = ContestResultType.IOI
             },
@@ -37,7 +37,7 @@ object PCMSTest : CdsLoadersTest() {
         loaderTest(
             goldenDataDir.resolve("pcmsLegacy.txt"),
             PCMSSettings(
-                url = UrlOrLocalPath.Local(testDataDir.resolve("pcms-legacy.xml"))
+                source = UrlOrLocalPath.Local(testDataDir.resolve("pcms-legacy.xml"))
             ),
             AdvancedProperties(startTime = Instant.fromEpochSeconds(1449385200))
         )

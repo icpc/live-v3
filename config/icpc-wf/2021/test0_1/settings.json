@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "https://172.29.1.207:8443/api/contests/test0",
+      "source": "https://172.29.1.207:8443/api/contests/test0",
       "contestId": "",
       "eventFeedPath": ""
     }

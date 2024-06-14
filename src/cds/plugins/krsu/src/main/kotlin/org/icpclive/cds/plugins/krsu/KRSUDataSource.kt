@@ -13,8 +13,8 @@ import kotlin.time.Duration.Companion.seconds
 
 @Builder("krsu")
 public sealed interface KRSUSettings : CDSSettings {
-    public val submissionsUrl: UrlOrLocalPath
-    public val contestUrl: UrlOrLocalPath
+    public val submissionsSource: UrlOrLocalPath
+    public val contestSource: UrlOrLocalPath
     public val timeZone: TimeZone
         get() = TimeZone.of("Asia/Bishkek")
 
@@ -90,8 +90,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         )
     }
 
-    private val submissionsLoader = DataLoader.json<List<Submission>>(networkSettings = settings.network) { settings.submissionsUrl }
-    private val contestInfoLoader = DataLoader.json<Contest>(networkSettings = settings.network) { settings.contestUrl }
+    private val submissionsLoader = DataLoader.json<List<Submission>>(networkSettings = settings.network) { settings.submissionsSource }
+    private val contestInfoLoader = DataLoader.json<Contest>(networkSettings = settings.network) { settings.contestSource }
 
     companion object {
         private val outcomeMap = mapOf(

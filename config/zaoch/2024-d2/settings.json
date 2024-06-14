@@ -1,7 +1,7 @@
 {
   "type":"ejudge",
   "resultType":"IOI",
-  "url":"https://olympiads.ru/68QATYQE9wM7ZkIa/external.xml",
+  "source":"https://olympiads.ru/68QATYQE9wM7ZkIa/external.xml",
   "problemScoreLimit": {
     "1": 86,
     "2": 80,
@@ -13,7 +13,7 @@
       "settings": {
         "type":"ejudge",
         "resultType":"IOI",
-        "url":"../2024-d1/external.xml",
+        "source":"../2024-d1/external.xml",
         "problemScoreLimit": {
           "2": 89,
           "4": 69

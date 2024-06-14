@@ -2,5 +2,5 @@
     "type": "cms",
     "activeContest": "day2",
     "otherContests": ["day1"],
-    "url": "http://ranking.ejoi2023.kiu.edu.ge"
+    "source": "http://ranking.ejoi2023.kiu.edu.ge"
 }

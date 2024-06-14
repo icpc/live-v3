@@ -36,7 +36,7 @@ private object SubmissionTimeSerializer : FormatterInstantSerializer(DateTimeCom
 public sealed interface CatsSettings : CDSSettings {
     public val login: Credential
     public val password: Credential
-    public val url: UrlOrLocalPath.Url
+    public val source: UrlOrLocalPath.Url
     public val cid: String
     public val timeZone: TimeZone
         get() = TimeZone.of("Asia/Vladivostok")
@@ -116,12 +116,12 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
         val contest_start: Int,
     ) : Run()
 
-    private val authLoader = DataLoader.json<Auth>(networkSettings = settings.network) { settings.url.subDir("?f=login&login=$login&passwd=$password&json=1") }
-    private val problemsLoader = DataLoader.json<Problems>(networkSettings = settings.network) { settings.url.subDir("problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1") }
-    private val usersLoader = DataLoader.json<Users>(networkSettings = settings.network) { settings.url.subDir("users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1") }
-    private val contestLoader = DataLoader.json<Contest>(networkSettings = settings.network) { settings.url.subDir("contest_params?cid=${settings.cid}&sid=${sid!!}&json=1") }
+    private val authLoader = DataLoader.json<Auth>(networkSettings = settings.network) { settings.source.subDir("?f=login&login=$login&passwd=$password&json=1") }
+    private val problemsLoader = DataLoader.json<Problems>(networkSettings = settings.network) { settings.source.subDir("problems?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1") }
+    private val usersLoader = DataLoader.json<Users>(networkSettings = settings.network) { settings.source.subDir("users?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1") }
+    private val contestLoader = DataLoader.json<Contest>(networkSettings = settings.network) { settings.source.subDir("contest_params?cid=${settings.cid}&sid=${sid!!}&json=1") }
     private val runsLoader = DataLoader.json<List<Run>>(networkSettings = settings.network) {
-        settings.url.subDir("console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1")
+        settings.source.subDir("console?cid=${settings.cid}&sid=${sid!!}&rows=1000&json=1&search=is_ooc%3D0&show_messages=0&show_contests=0&show_results=1")
     }
 
     override suspend fun loadOnce(): ContestParseResult {

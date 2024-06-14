@@ -17,9 +17,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @Builder("pcms")
 public sealed interface PCMSSettings : CDSSettings {
-    public val url: UrlOrLocalPath
-    public val problemsUrl: UrlOrLocalPath?
-        get() = null
+    public val source: UrlOrLocalPath
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC
 
@@ -27,26 +25,24 @@ public sealed interface PCMSSettings : CDSSettings {
 }
 
 internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {
-    private val dataLoader = DataLoader.xml(settings.network) { settings.url }
+    private val dataLoader = DataLoader.xml(settings.network) { settings.source }
 
     private val resultType = settings.resultType
     private var startTime = Instant.fromEpochMilliseconds(0)
 
     override suspend fun loadOnce(): ContestParseResult {
-        val problemsOverride = settings.problemsUrl?.let { loadCustomProblems(it) }
-
-        return parseAndUpdateStandings(dataLoader.load().documentElement, problemsOverride)
+        return parseAndUpdateStandings(dataLoader.load().documentElement)
     }
 
-    private fun parseAndUpdateStandings(element: Element, problemsOverride: Element?) =
-        parseContestInfo(element.child("contest"), problemsOverride)
+    private fun parseAndUpdateStandings(element: Element) =
+        parseContestInfo(element.child("contest"))
 
     private suspend fun loadCustomProblems(problemsUrl: UrlOrLocalPath): Element {
         val problemsLoader = DataLoader.xml(networkSettings = settings.network) { problemsUrl }
         return problemsLoader.load().documentElement
     }
 
-    private fun parseContestInfo(element: Element, problemsOverride: Element?): ContestParseResult {
+    private fun parseContestInfo(element: Element): ContestParseResult {
         val status = ContestStatus.valueOf(element.getAttribute("status").uppercase(Locale.getDefault()))
         val contestTime = element.getAttribute("time").toLong().milliseconds
         val contestLength = element.getAttribute("length").toInt().milliseconds
@@ -55,7 +51,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         }
         val freezeTime = if (resultType == ContestResultType.ICPC) contestLength - 1.hours else contestLength
 
-        val problemsElement = problemsOverride ?: element.child("challenge")
+        val problemsElement = element.child("challenge")
 
         val problems = problemsElement
             .children("problem")

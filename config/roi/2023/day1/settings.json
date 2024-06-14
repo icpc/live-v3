@@ -1,5 +1,5 @@
 {
   "type": "pcms",
-  "url": "day1.xml",
+  "source": "day1.xml",
   "resultType": "IOI"
 }

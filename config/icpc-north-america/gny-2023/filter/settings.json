@@ -3,7 +3,7 @@
   "network": { "allowUnsecureConnections": true },
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://gnyserver.icpc-vcss.org:50443/contest",
         "login": "icpclive",
         "password": "secret"

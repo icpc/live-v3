@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": ".",
+      "source": ".",
       "eventFeedPath": "",
       "contestId": "EUC24",
       "feedVersion": "2022_07",

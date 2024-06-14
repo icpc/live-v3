@@ -1,5 +1,5 @@
 {
   "type": "pcms",
-  "url": "https://nerc.itmo.ru/archive/2022/standings.xml",
+  "source": "https://nerc.itmo.ru/archive/2022/standings.xml",
   "emulation": {"startTime": "2024-03-26T21:30:00Z", "speed": 2}
 }

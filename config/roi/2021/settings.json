@@ -1,6 +1,6 @@
 {
   "type":"pcms",
-  "url": {
+  "source": {
     "url": "http://10.10.0.3/standings/standings-live.xml",
     "login":"admin",
     "password":"adm1n"

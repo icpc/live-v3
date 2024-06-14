@@ -14,7 +14,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @Builder("testsys")
 public sealed interface TestSysSettings : CDSSettings {
-    public val url: UrlOrLocalPath
+    public val source: UrlOrLocalPath
     public val timeZone: TimeZone
         get() = TimeZone.of("Europe/Moscow")
 
@@ -22,7 +22,7 @@ public sealed interface TestSysSettings : CDSSettings {
 }
 
 internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadContestDataSource(5.seconds) {
-    private val loader = DataLoader.byteArray(settings.network, settings.url)
+    private val loader = DataLoader.byteArray(settings.network, settings.source)
         .map {
             val eofPosition = it.indexOf(EOF)
             String(

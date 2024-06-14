@@ -11,7 +11,7 @@ object EjudgeTest : CdsLoadersTest() {
         loaderTest(
             goldenDataDir.resolve("ejudge.txt"),
             EjudgeSettings(
-                url = UrlOrLocalPath.Local(testDataDir.resolve("ejudge.xml"))
+                source = UrlOrLocalPath.Local(testDataDir.resolve("ejudge.xml"))
             )
         )
     }
@@ -21,13 +21,13 @@ object EjudgeTest : CdsLoadersTest() {
         loaderTest(
             goldenDataDir.resolve("ejudgeTwoDays.txt"),
             EjudgeSettings(
-                url = UrlOrLocalPath.Local(testDataDir.resolve("ejudge-ioi-day2.xml")),
+                source = UrlOrLocalPath.Local(testDataDir.resolve("ejudge-ioi-day2.xml")),
             ) {
                 resultType = ContestResultType.IOI
                 previousDays = listOf(
                     PreviousDaySettings(
                         EjudgeSettings(
-                            url = UrlOrLocalPath.Local(testDataDir.resolve("ejudge-ioi-day1.xml"))
+                            source = UrlOrLocalPath.Local(testDataDir.resolve("ejudge-ioi-day1.xml"))
                         ) {
                             resultType = ContestResultType.IOI
                             problemScoreLimit = mapOf(

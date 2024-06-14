@@ -15,7 +15,7 @@ object ClicsTest : CdsLoadersTest() {
             ClicsSettings(
                 feeds = listOf(
                     ClicsFeed(
-                        url = UrlOrLocalPath.Local(testDataDir.resolve("clics-2020-03")),
+                        source = UrlOrLocalPath.Local(testDataDir.resolve("clics-2020-03")),
                         contestId = "",
                         eventFeedPath = "",
                         feedVersion = FeedVersion.`2020_03`
@@ -38,7 +38,7 @@ object ClicsTest : CdsLoadersTest() {
             ClicsSettings(
                 feeds = listOf(
                     ClicsFeed(
-                        url = UrlOrLocalPath.Local(testDataDir.resolve("clics-2022-07")),
+                        source = UrlOrLocalPath.Local(testDataDir.resolve("clics-2022-07")),
                         contestId = "",
                         eventFeedPath = "",
                         feedVersion = FeedVersion.`2022_07`

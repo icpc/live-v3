@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-      "url": "https://172.29.1.207:8443/api",
+      "source": "https://172.29.1.207:8443/api",
       "contestId": "mock"
     }
   ]
