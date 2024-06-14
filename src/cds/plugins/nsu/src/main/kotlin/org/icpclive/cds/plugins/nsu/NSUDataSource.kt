@@ -15,16 +15,15 @@ import kotlinx.serialization.json.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.ksp.cds.Builder
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.ktor.*
+import org.icpclive.cds.settings.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 
 @Builder("nsu")
 public sealed interface NSUSettings : CDSSettings {
-    public val url: String
+    public val source: UrlOrLocalPath.Url
     public val olympiadId: Int
     public val tourId: Int
     public val email: Credential
@@ -67,12 +66,12 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
 
     override suspend fun loadOnce(): ContestParseResult {
         val queueLimit = 999999
-        val loginUrl = "${settings.url}/api/login"
-        val selectOlympiadUrl = "${settings.url}/api/olympiads/enter"
-        val selectTourUrl = "${settings.url}/api/tours/enter?tour=${settings.tourId}"
-        val submissionsUrl = "${settings.url}/api/queue/submissions?limit=" + queueLimit.toString()
-        val filtersUrl = "${settings.url}/api/queue/filters"
-        val ratingUrl = "${settings.url}/api/rating/rating?showFrozen=0"
+        val loginUrl = "${settings.source}/api/login"
+        val selectOlympiadUrl = "${settings.source}/api/olympiads/enter"
+        val selectTourUrl = "${settings.source}/api/tours/enter?tour=${settings.tourId}"
+        val submissionsUrl = "${settings.source}/api/queue/submissions?limit=" + queueLimit.toString()
+        val filtersUrl = "${settings.source}/api/queue/filters"
+        val ratingUrl = "${settings.source}/api/rating/rating?showFrozen=0"
 
 
         httpClient.post(loginUrl) {

@@ -1,6 +1,6 @@
 {
   "type":"cats",
-  "url":"https://imcs.dvfu.ru/cats",
+  "source":"https://imcs.dvfu.ru/cats",
   "cid":"6747059",
   "timeZone":"UTC+10",
   "resultType":"ICPC",

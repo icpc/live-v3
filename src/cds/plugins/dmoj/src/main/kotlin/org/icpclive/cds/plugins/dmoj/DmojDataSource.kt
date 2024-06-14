@@ -11,7 +11,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @Builder("dmoj")
 public sealed interface DmojSettings : CDSSettings {
-    public val url: UrlOrLocalPath.Url
+    public val source: UrlOrLocalPath.Url
     public val contestId: String
     public val apiKey: Credential
 
@@ -84,7 +84,7 @@ private class Submission(
 
 internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDataSource(5.seconds) {
 
-    private val apiBaseUrl = settings.url.subDir("api/v2").withBearer(settings.apiKey)
+    private val apiBaseUrl = settings.source.subDir("api/v2").withBearer(settings.apiKey)
 
     private val contestInfoLoader = DataLoader.json<Wrapper<ContestResponse>>(
         settings.network,

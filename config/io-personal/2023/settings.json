@@ -1,5 +1,5 @@
 {
   "type":"pcms",
-  "url":"https://neerc.ifmo.ru/school/io/today/standings-personal.xml",
+  "source":"https://neerc.ifmo.ru/school/io/today/standings-personal.xml",
   "resultType":"IOI"
 }

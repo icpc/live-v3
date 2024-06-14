@@ -2,7 +2,7 @@
   "type": "clics",
   "feeds": [
     {
-    "url": "http://localhost:8000",
+    "source": "http://localhost:8000",
     "contestId": "",
     "eventFeedPath": "",
     "feedVersion": "2020_03"

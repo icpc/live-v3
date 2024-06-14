@@ -19,7 +19,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @Builder("ejudge")
 public sealed interface EjudgeSettings : CDSSettings {
-    public val url: UrlOrLocalPath
+    public val source: UrlOrLocalPath
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC
     public val timeZone: TimeZone
@@ -183,5 +183,5 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         )
     }
 
-    private val xmlLoader = DataLoader.xml(settings.network, settings.url)
+    private val xmlLoader = DataLoader.xml(settings.network, settings.source)
 }

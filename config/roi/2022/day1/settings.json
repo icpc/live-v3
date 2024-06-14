@@ -1,5 +1,5 @@
 {
   "type": "pcms",
-  "url": "standings-live-day1.xml",
+  "source": "standings-live-day1.xml",
   "resultType": "IOI"
 }

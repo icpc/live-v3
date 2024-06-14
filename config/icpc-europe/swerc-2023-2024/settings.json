@@ -1,15 +1,15 @@
 {
-    "type": "clics",
-    "network": { "allowUnsecureConnections": true },
-    "feeds": [
-      {
-        "url": {
-          "url": "https://domjudge.lip6.fr:9443/api",
-          "login": "live",
-          "password": "password"
-        },
-        "contestId": "swerc2023",
-        "feedVersion": "2022_07"
-      }
-    ]
-  }
+  "type": "clics",
+  "network": {"allowUnsecureConnections": true},
+  "feeds": [
+    {
+      "source": {
+        "url": "https://domjudge.lip6.fr:9443/api",
+        "login": "live",
+        "password": "password"
+      },
+      "contestId": "swerc2023",
+      "feedVersion": "2022_07"
+    }
+  ]
+}

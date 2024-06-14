@@ -196,7 +196,7 @@
                 "password": {
                     "type": "string"
                 },
-                "url": {
+                "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "cid": {
@@ -223,7 +223,7 @@
                 "type",
                 "login",
                 "password",
-                "url",
+                "source",
                 "cid"
             ],
             "title": "cats"
@@ -284,7 +284,7 @@
         "org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>": {
             "type": "object",
             "properties": {
-                "url": {
+                "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "contestId": {
@@ -305,7 +305,7 @@
             },
             "additionalProperties": false,
             "required": [
-                "url",
+                "source",
                 "contestId"
             ]
         },
@@ -355,7 +355,7 @@
                     "const": "cms",
                     "default": "cms"
                 },
-                "url": {
+                "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "activeContest": {
@@ -377,7 +377,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url",
+                "source",
                 "activeContest",
                 "otherContests"
             ],
@@ -429,7 +429,7 @@
                     "const": "dmoj",
                     "default": "dmoj"
                 },
-                "url": {
+                "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "contestId": {
@@ -451,7 +451,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url",
+                "source",
                 "contestId",
                 "apiKey"
             ],
@@ -472,7 +472,7 @@
                     "const": "ejudge",
                     "default": "ejudge"
                 },
-                "url": {
+                "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "resultType": {
@@ -497,7 +497,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url"
+                "source"
             ],
             "title": "ejudge"
         },
@@ -546,10 +546,10 @@
                     "const": "krsu",
                     "default": "krsu"
                 },
-                "submissionsUrl": {
+                "submissionsSource": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
-                "contestUrl": {
+                "contestSource": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "timeZone": {
@@ -568,8 +568,8 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "submissionsUrl",
-                "contestUrl"
+                "submissionsSource",
+                "contestSource"
             ],
             "title": "krsu"
         },
@@ -603,8 +603,8 @@
                     "const": "nsu",
                     "default": "nsu"
                 },
-                "url": {
-                    "type": "string"
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "olympiadId": {
                     "type": "number"
@@ -634,7 +634,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url",
+                "source",
                 "olympiadId",
                 "tourId",
                 "email",
@@ -649,10 +649,7 @@
                     "const": "pcms",
                     "default": "pcms"
                 },
-                "url": {
-                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
-                },
-                "problemsUrl": {
+                "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "resultType": {
@@ -671,7 +668,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url"
+                "source"
             ],
             "title": "pcms"
         },
@@ -682,7 +679,7 @@
                     "const": "testsys",
                     "default": "testsys"
                 },
-                "url": {
+                "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
                 "timeZone": {
@@ -701,7 +698,7 @@
             "additionalProperties": false,
             "required": [
                 "type",
-                "url"
+                "source"
             ],
             "title": "testsys"
         },

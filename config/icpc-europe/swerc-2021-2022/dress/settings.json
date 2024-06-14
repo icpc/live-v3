@@ -2,7 +2,7 @@
   "type":"clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://cds.swerc.eu/api",
         "login": "live",
         "password": "SECRET"

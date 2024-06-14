@@ -2,7 +2,7 @@
   "type":"clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://open.kattis.com/clics-api",
         "login": "$creds.kattis_login",
         "password": "$creds.kattis_token"

@@ -3,7 +3,7 @@
   "network": { "allowUnsecureConnections": true },
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://alphacds.icpc-vcss.org:7443/api",
         "login": "live",
         "password": "$creds.alpha_cds"

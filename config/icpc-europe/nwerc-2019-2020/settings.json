@@ -2,7 +2,7 @@
   "type":"clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://judge.gehack.nl:8443/api",
         "login": "live",
         "password": "monger-lawless-hymn-inhaler"

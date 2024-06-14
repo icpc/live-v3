@@ -1,14 +1,14 @@
 {
-    "type":"clics",
-    "feeds": [
-      {
-        "url": {
-          "url": "https://open.kattis.com/clics-api",
-          "login": "$creds.kattis_login",
-          "password": "$creds.kattis_token"
-        },
-        "contestId": "mcpc23",
-        "feedVersion": "2020_03"
-      }
-    ]
+  "type": "clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://open.kattis.com/clics-api",
+        "login": "$creds.kattis_login",
+        "password": "$creds.kattis_token"
+      },
+      "contestId": "mcpc23",
+      "feedVersion": "2020_03"
+    }
+  ]
 }

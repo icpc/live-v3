@@ -1,6 +1,6 @@
 {
   "type": "pcms",
-  "url": "it-sequel.xml",
+  "source": "it-sequel.xml",
   "resultType": "IOI"
 }
 

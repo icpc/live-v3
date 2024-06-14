@@ -2,12 +2,12 @@
   "type": "clics",
   "feeds": [
     {
-      "url": ".",
+      "source": ".",
       "contestId": "",
       "eventFeedPath": "",
     },
     {
-      "url": ".",
+      "source": ".",
       "eventFeedName": "commentary-messages",
       "contestId": "",
       "eventFeedPath": "",

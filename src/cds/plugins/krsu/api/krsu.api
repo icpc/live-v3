@@ -1,6 +1,6 @@
 public abstract interface class org/icpclive/cds/plugins/krsu/KRSUSettings : org/icpclive/cds/settings/CDSSettings {
-	public abstract fun getContestUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
-	public abstract fun getSubmissionsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public abstract fun getContestSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public abstract fun getSubmissionsSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
@@ -9,17 +9,17 @@ public final class org/icpclive/cds/plugins/krsu/KRSUSettingsBuilder : org/icpcl
 	public fun <init> (Lorg/icpclive/cds/plugins/krsu/KRSUSettings;)V
 	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/krsu/KRSUSettings;
-	public fun getContestUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun getContestSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
-	public fun getSubmissionsUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun getSubmissionsSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
-	public fun setContestUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+	public fun setContestSource (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
-	public fun setSubmissionsUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
+	public fun setSubmissionsSource (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
 }
 

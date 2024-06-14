@@ -1,7 +1,7 @@
 public abstract interface class org/icpclive/cds/plugins/cms/CmsSettings : org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getActiveContest ()Ljava/lang/String;
 	public abstract fun getOtherContests ()Ljava/util/List;
-	public abstract fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+	public abstract fun getSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
 	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
@@ -14,13 +14,13 @@ public final class org/icpclive/cds/plugins/cms/CmsSettingsBuilder : org/icpcliv
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getOtherContests ()Ljava/util/List;
 	public fun getPreviousDays ()Ljava/util/List;
-	public fun getUrl ()Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+	public fun getSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
 	public fun setActiveContest (Ljava/lang/String;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
 	public fun setOtherContests (Ljava/util/List;)V
 	public fun setPreviousDays (Ljava/util/List;)V
-	public fun setUrl (Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;)V
+	public fun setSource (Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;)V
 }
 
 public final class org/icpclive/cds/plugins/cms/CmsSettingsImplKt {

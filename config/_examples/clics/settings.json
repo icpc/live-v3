@@ -2,7 +2,7 @@
   "type":"clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://cds.storm.vu/api",
         "login":"live",
         "password":"$creds.cds_password_pretest_dhaka"

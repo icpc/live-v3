@@ -13,19 +13,19 @@ import kotlin.time.Duration.Companion.seconds
 
 @Builder("cms")
 public sealed interface CmsSettings : CDSSettings {
-    public val url: UrlOrLocalPath.Url
+    public val source: UrlOrLocalPath.Url
     public val activeContest: String
     public val otherContests: List<String>
     override fun toDataSource(): ContestDataSource = CmsDataSource(this)
 }
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
-    private val contestsLoader = DataLoader.json<Map<String, Contest>>(settings.network, settings.url.subDir("contests/"))
-    private val tasksLoader = DataLoader.json<Map<String, Task>>(settings.network, settings.url.subDir("/tasks/"))
-    private val teamsLoader = DataLoader.json<Map<String, Team>>(settings.network, settings.url.subDir("/teams/"))
-    private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, settings.url.subDir("/users/"))
-    private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, settings.url.subDir("/submissions/"))
-    private val subchangesLoader = DataLoader.json<Map<String, Subchange>>(settings.network, settings.url.subDir("subchanges/"))
+    private val contestsLoader = DataLoader.json<Map<String, Contest>>(settings.network, settings.source.subDir("contests/"))
+    private val tasksLoader = DataLoader.json<Map<String, Task>>(settings.network, settings.source.subDir("/tasks/"))
+    private val teamsLoader = DataLoader.json<Map<String, Team>>(settings.network, settings.source.subDir("/teams/"))
+    private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, settings.source.subDir("/users/"))
+    private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, settings.source.subDir("/submissions/"))
+    private val subchangesLoader = DataLoader.json<Map<String, Subchange>>(settings.network, settings.source.subDir("subchanges/"))
 
     override suspend fun loadOnce(): ContestParseResult {
         val contests = contestsLoader.load()
@@ -65,7 +65,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 id = k.toOrganizationId(),
                 displayName = v.name,
                 fullName = v.name,
-                logo = MediaType.Image(settings.url.toString())
+                logo = MediaType.Image(settings.source.toString())
             )
         }
         val teams = usersLoader.load().map { (k, v) ->
@@ -76,7 +76,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 groups = emptyList(),
                 hashTag = null,
                 medias = mapOf(
-                    TeamMediaType.PHOTO to MediaType.Image("${settings.url}/faces/$k", true)
+                    TeamMediaType.PHOTO to MediaType.Image("${settings.source}/faces/$k", true)
                 ),
                 isHidden = false,
                 isOutOfContest = false,

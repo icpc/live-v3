@@ -24,7 +24,7 @@ public enum class FeedVersion {
 
 @Serializable
 public class ClicsFeed(
-    @Contextual public val url: UrlOrLocalPath,
+    @Contextual public val source: UrlOrLocalPath,
     public val contestId: String,
     public val eventFeedName: String = "event-feed",
     public val eventFeedPath: String? = null,
@@ -39,7 +39,7 @@ public sealed interface ClicsSettings : CDSSettings {
 }
 
 private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
-    val baseUrl = settings.url
+    val baseUrl = settings.source
     val eventFeedUrl = buildList {
         if (settings.eventFeedPath != null) {
             if (settings.eventFeedPath.isNotEmpty()) {

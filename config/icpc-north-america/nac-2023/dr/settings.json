@@ -2,7 +2,7 @@
   "type":"clics",
   "feeds": [
     {
-      "url": {
+      "source": {
         "url": "https://10.3.3.207/api",
         "login": "$creds.cds_login",
         "password": "$creds.cds_password"
