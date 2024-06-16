@@ -14,6 +14,8 @@ class ExternalRunInfo(
     val team: ExternalTeamInfo,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val testedTime: Duration? = null,
     @Required val featuredRunMedia: MediaType? = null,
     @Required val reactionVideos: List<MediaType> = emptyList(),
 )

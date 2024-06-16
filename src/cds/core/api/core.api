@@ -1355,18 +1355,19 @@ public final class org/icpclive/cds/api/RunId$Companion {
 
 public final class org/icpclive/cds/api/RunInfo {
 	public static final field Companion Lorg/icpclive/cds/api/RunInfo$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-1iip4kg ()Ljava/lang/String;
 	public final fun component2 ()Lorg/icpclive/cds/api/RunResult;
 	public final fun component3-Xzdl60o ()Ljava/lang/String;
 	public final fun component4-ed2mA_4 ()Ljava/lang/String;
 	public final fun component5-UwyO8pc ()J
-	public final fun component6 ()Lorg/icpclive/cds/api/MediaType;
-	public final fun component7 ()Ljava/util/List;
-	public final fun component8 ()Z
-	public final fun copy-Ny2MCq8 (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;Z)Lorg/icpclive/cds/api/RunInfo;
-	public static synthetic fun copy-Ny2MCq8$default (Lorg/icpclive/cds/api/RunInfo;Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
+	public final fun component6-FghU774 ()Lkotlin/time/Duration;
+	public final fun component7 ()Lorg/icpclive/cds/api/MediaType;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Z
+	public final fun copy-8G9nE0k (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;Z)Lorg/icpclive/cds/api/RunInfo;
+	public static synthetic fun copy-8G9nE0k$default (Lorg/icpclive/cds/api/RunInfo;Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;ZILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getFeaturedRunMedia ()Lorg/icpclive/cds/api/MediaType;
 	public final fun getId-1iip4kg ()Ljava/lang/String;
@@ -1374,6 +1375,7 @@ public final class org/icpclive/cds/api/RunInfo {
 	public final fun getReactionVideos ()Ljava/util/List;
 	public final fun getResult ()Lorg/icpclive/cds/api/RunResult;
 	public final fun getTeamId-ed2mA_4 ()Ljava/lang/String;
+	public final fun getTestedTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getTime-UwyO8pc ()J
 	public fun hashCode ()I
 	public final fun isHidden ()Z

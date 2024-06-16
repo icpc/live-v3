@@ -41,6 +41,7 @@ private fun RunInfo.toExternal(contestState: ContestStateWithScoreboard): Extern
         problem = info.problems[problemId] ?: return null,
         team = info.teams[teamId]?.toExternal(contestState) ?: return null,
         time = time,
+        testedTime = testedTime,
         featuredRunMedia = featuredRunMedia,
         reactionVideos = reactionVideos,
     )

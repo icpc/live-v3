@@ -230,6 +230,7 @@ export interface RunInfo {
   problemId: ProblemId;
   teamId: TeamId;
   time: number;
+  testedTime?: number | null;
   featuredRunMedia: MediaType | null;
   reactionVideos: MediaType[];
   isHidden: boolean;

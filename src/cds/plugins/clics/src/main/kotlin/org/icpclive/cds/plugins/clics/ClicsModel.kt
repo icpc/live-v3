@@ -100,6 +100,7 @@ internal class ClicsModel {
             problemId = problemId.toProblemId(),
             teamId = teamId.toTeamId(),
             time = contestTime,
+            testedTime = judgment?.endContestTime,
             reactionVideos = reaction?.mapNotNull { mediaType(it) } ?: emptyList(),
         )
     }
