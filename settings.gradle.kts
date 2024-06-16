@@ -1,6 +1,6 @@
 plugins {
-    `gradle-enterprise`
-    id("org.gradle.toolchains.foojay-resolver-convention") version("0.4.0")
+    id("com.gradle.develocity") version "3.17.5"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
 }
 
 rootProject.name = "live-v3"
@@ -68,7 +68,9 @@ for (projectName in cdsPlugins) {
 }
 
 
-gradleEnterprise.buildScan {
-    termsOfServiceUrl = "https://gradle.com/terms-of-service"
-    termsOfServiceAgree = "yes"
+develocity {
+    buildScan {
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+        termsOfUseAgree = "yes"
+    }
 }

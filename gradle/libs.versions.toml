@@ -1,9 +1,9 @@
 [versions]
 ktor = "2.3.11"                    # https://ktor.io/
 datetime = "0.6.0"                 # https://github.com/Kotlin/kotlinx-datetime
-serialization = "1.7.0-RC"         # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "2.0.0-RC3"
-ksp = "2.0.0-RC3-1.0.20"           # https://github.com/google/ksp
+serialization = "1.7.0"            # https://github.com/Kotlin/kotlinx.serialization
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.22"               # https://github.com/google/ksp
 slf4j = "2.0.13"                   # https://www.slf4j.org/download.html
 logback = "1.5.6"                  # https://logback.qos.ch/download.html
 node-plugin = "7.0.2"              # https://github.com/node-gradle/gradle-node-plugin
@@ -15,12 +15,11 @@ sqlite = "3.45.3.0"                # https://github.com/xerial/sqlite-jdbc
 clikt = "4.4.0"                    # https://ajalt.github.io/clikt/
 immutable = "0.3.7"                # https://github.com/Kotlin/kotlinx.collections.immutable
 protobuf-plugin = "0.9.4"          # https://github.com/google/protobuf-gradle-plugin
-protobuf = "4.26.1"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+protobuf = "4.27.1"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
 grpc = "1.64.0"                    # https://github.com/grpc/grpc
 grpc-kotlin = "1.4.1"              # https://github.com/grpc/grpc-kotlin
 dokka = "1.9.20"                   # https://github.com/Kotlin/dokka
 retrofit = "2.11.0"                # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
-json5 = "0.3.0"                    # https://github.com/xn32/json5k
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.10.0"      # https://commons.apache.org/proper/commons-csv/
 graphql = "7.1.1"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
