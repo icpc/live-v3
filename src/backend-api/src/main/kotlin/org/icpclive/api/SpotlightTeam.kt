@@ -1,8 +1,7 @@
 package org.icpclive.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.api.RunId
-import org.icpclive.cds.api.TeamId
+import org.icpclive.cds.api.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -30,11 +29,14 @@ data class TeamSpotlightFlowSettings(
     val scoreboardLowestRank: Int = 40,
     val scoreboardFirstScore: Double = 5.0,
     val scoreboardLastScore: Double = 1.0,
+    val scoreboardBeforeContestScore: Double = 2.0,
     val socialEventScore: Double = 100.0,
     val externalScoreScale: Double = 1.0,
 ) {
-    fun rankScore(rank: Int): Double {
-        if (rank > scoreboardLowestRank) {
+    fun rankScore(rank: Int, contestStatus: ContestStatus): Double {
+        if (contestStatus == ContestStatus.BEFORE) {
+            return scoreboardBeforeContestScore
+        } else if (rank > scoreboardLowestRank) {
             return 0.0
         }
         return scoreboardLastScore +

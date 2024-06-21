@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.plugins.clics.model.ClicsOrganisationInfo
+import org.icpclive.cds.util.getLogger
 import org.icpclive.clics.objects.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -62,6 +63,8 @@ internal class ClicsModel {
             },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
+                logger.info { "media webcam: $webcam" }
+                logger.info { "media desktop: $desktop" }
                 mediaType(photo.firstOrNull())?.let { put(TeamMediaType.PHOTO, it) }
                 mediaType(video.firstOrNull())?.let { put(TeamMediaType.RECORD, it) }
                 mediaType(webcam.firstOrNull())?.let { put(TeamMediaType.CAMERA, it) }
@@ -262,4 +265,7 @@ internal class ClicsModel {
         }
     }
 
+    companion object {
+        val logger by getLogger()
+    }
 }

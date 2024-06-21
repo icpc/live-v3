@@ -18,22 +18,24 @@ import kotlin.time.Duration.Companion.seconds
 
 sealed class TeamAccent
 class TeamRunAccent(val run: RunInfo) : TeamAccent()
-class TeamScoreboardPlace(val rank: Int) : TeamAccent()
+class TeamScoreboardPlace(val rank: Int, val contestStatus: ContestStatus) : TeamAccent()
 class ExternalScoreAddAccent(val score: Double) : TeamAccent()
 object SocialEventAccent : TeamAccent()
 
 private object ScoreboardPushTrigger
 
-private val RunInfo.isFirstSolvedRun get() = when (val result = this.result)  {
-    is RunResult.ICPC -> result.isFirstToSolveRun
-    is RunResult.IOI -> result.isFirstBestRun
-    is RunResult.InProgress -> false
-}
-private val RunInfo.isAccepted get() = when (val result = this.result) {
-    is RunResult.ICPC -> result.verdict.isAccepted
-    is RunResult.IOI -> false
-    is RunResult.InProgress -> false
-}
+private val RunInfo.isFirstSolvedRun
+    get() = when (val result = this.result) {
+        is RunResult.ICPC -> result.isFirstToSolveRun
+        is RunResult.IOI -> result.isFirstBestRun
+        is RunResult.InProgress -> false
+    }
+private val RunInfo.isAccepted
+    get() = when (val result = this.result) {
+        is RunResult.ICPC -> result.verdict.isAccepted
+        is RunResult.IOI -> false
+        is RunResult.InProgress -> false
+    }
 private val RunInfo.isJudged get() = result !is RunResult.InProgress
 
 private fun RunInfo.coerceAtMost(other: RunInfo): RunInfo {
@@ -52,7 +54,7 @@ private fun RunInfo.interesting() = when {
 
 private fun Double.takeIf(condition: Boolean?) = if (condition == true) this else 0.0
 private fun TeamAccent.getScoreDelta(flowSettings: TeamSpotlightFlowSettings) = when (this) {
-    is TeamScoreboardPlace -> flowSettings.rankScore(rank)
+    is TeamScoreboardPlace -> flowSettings.rankScore(rank, contestStatus)
     is TeamRunAccent -> {
         when (val result = run.result) {
             is RunResult.ICPC -> {
@@ -135,9 +137,13 @@ class TeamSpotlightService(
         launch {
             val addScoreRequests = DataBus.teamInterestingScoreRequestFlow.await()
             var scoreboardState: ScoreboardDiff? = null
+            var lastInfo: ContestInfo? = null
             merge(
                 loopFlow(settings.scoreboardPushInterval, onError = {}) { ScoreboardPushTrigger },
-                flow.filter { state -> state.state.lastEvent.let { it is RunUpdate && !it.newInfo.isHidden } },
+                flow.filter { state ->
+                    state.state.infoAfterEvent?.status == ContestStatus.BEFORE ||
+                            state.state.lastEvent.let { it is RunUpdate && !it.newInfo.isHidden }
+                },
                 addScoreRequests,
                 DataBus.socialEvents.await(),
             ).collect { update ->
@@ -145,7 +151,8 @@ class TeamSpotlightService(
                     is ContestStateWithScoreboard -> {
                         scoreboardState = update.toScoreboardDiff(snapshot = true)
                         val info = update.state.infoAfterEvent ?: return@collect
-                        val runUpdate = update.state.lastEvent as RunUpdate
+                        lastInfo = info
+                        val runUpdate = update.state.lastEvent as? RunUpdate ?: return@collect
                         val run = runUpdate.newInfo
                         if (run.time + 60.seconds > info.currentContestTime) {
                             if (run.isJudged || run.id !in runIds) {
@@ -158,10 +165,15 @@ class TeamSpotlightService(
                     }
 
                     is ScoreboardPushTrigger -> {
-                        scoreboardState?.let {
+                        scoreboardState?.let { it ->
                             it.order.zip(it.ranks).takeWhile { it.second <= settings.scoreboardLowestRank }.forEach {
                                 mutex.withLock {
-                                    getTeamInQueue(it.first).addAccent(TeamScoreboardPlace(it.second))
+                                    getTeamInQueue(it.first).addAccent(
+                                        TeamScoreboardPlace(
+                                            it.second,
+                                            lastInfo?.status ?: ContestStatus.BEFORE
+                                        )
+                                    )
                                 }
                             }
                         }
