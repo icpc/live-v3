@@ -82,17 +82,17 @@ const PVPTimeCell = styled(TimeCell)`
 `;
 
 export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }) => {
-    if (result.lastSubmitTimeMs === undefined) {
+    if (!result || !problemColor || !problemLetter ||!result?.lastSubmitTimeMs) {
         return <SubmissionColumnWrap>
-            <div style={{ order:2 }}/>
-            <div style={{ order:2 }}/>
+            <div style={{ order: 2 }}/>
+            <div style={{ order: 2 }}/>
 
             <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
         </SubmissionColumnWrap>;
     }
     return <SubmissionColumnWrap>
         <PVPResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isTop={isTop}/>
-        <PVPTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</PVPTimeCell>
+        <PVPTimeCell>{lastSubmitTimeMs && DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</PVPTimeCell>
         <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
     </SubmissionColumnWrap>;
 };

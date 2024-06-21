@@ -1,5 +1,5 @@
 import React from "react";
-import { SCOREBOARD_TYPES } from "@/consts";
+import { OptimismLevel } from "@shared/api";
 import { ContestantInfo } from "./ContestantInfo";
 import { VerticalSubmissionRow } from "./SubmissionRow";
 import styled from "styled-components";
@@ -65,27 +65,28 @@ interface ContestantViewLineProps {
 }
 
 export const ContestantViewLine = ({ teamId, isSmall, className, isTop }: ContestantViewLineProps) => {
-    const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]);
+    const scoreboardData = useAppSelector((state) =>
+        state.scoreboard[OptimismLevel.normal]?.ids && state.scoreboard[OptimismLevel.normal].ids[teamId]);
     // for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
     //     scoreboardData.problemResults[i]["index"] = i;
     // }
     const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
-    const contestData = useAppSelector((state) => state.contestInfo.info);
+    const contestData = useAppSelector((state) => state.contestInfo?.info);
 
     const [top, bottom] = isTop ? [null, "0"] : ["0", null];
 
-    return <ContestantViewVerticalWrap isSmall={isSmall} className={className} tasks={scoreboardData?.problemResults.length} top={top} bottom={bottom}>
+    return <ContestantViewVerticalWrap isSmall={isSmall} className={className} tasks={scoreboardData?.problemResults?.length} top={top} bottom={bottom}>
         <CornerContestantInfo teamId={teamId} />
-        {scoreboardData?.problemResults.map((result, i) =>
-            <TaskRow key={i} start={i + 2} end={i + 3} index={i} problems={scoreboardData?.problemResults.length} roundTop={isTop} roundBottom={!isTop}>
+        {scoreboardData?.problemResults?.map((result, i) =>
+            <TaskRow key={i} start={i + 2} end={i + 3} index={i} problems={scoreboardData?.problemResults?.length} roundTop={isTop} roundBottom={!isTop}>
                 <VerticalSubmissionRow
                     isTop={isTop}
                     result={result}
-                    problemLetter={tasks[i]?.letter}
-                    problemColor={tasks[i]?.color}
+                    problemLetter={tasks && tasks[i]?.letter}
+                    problemColor={tasks && tasks[i]?.color}
                     lastSubmitTimeMs={result?.lastSubmitTimeMs}
-                    minScore={contestData?.problems[i]?.minScore}
-                    maxScore={contestData?.problems[i]?.maxScore}
+                    minScore={contestData && contestData.problems[i]?.minScore}
+                    maxScore={contestData && contestData.problems[i]?.maxScore}
 
                 />
             </TaskRow>
