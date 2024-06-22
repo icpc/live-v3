@@ -33,7 +33,8 @@ export const PVP = ({ mediaContent, settings, setLoadedComponents, location }) =
         // fucking hell...
         const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
         const [positionLeft, positionRight] = index === 0 ? ["0", "auto"] : ["auto", "0"];
-        const height = index === 0 ? "auto" : "auto";
+        // TODO: need to optimizes size evaluation here
+        const height = index === 0 ? "auto" : (location.sizeX - mediaHeight * 16 / 9) / 16 * 9 + "px";
         const width = index === 0 ? mediaHeight * 16 / 9 + "px" : location.sizeX - mediaHeight * 16 / 9 + "px";
 
         // const top = location.sizeY + 2.3 * c.PVP_TABLE_ROW_HEIGHT;
