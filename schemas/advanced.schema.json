@@ -641,10 +641,34 @@
                 "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.cds.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode>"
             }
         },
-        "kotlin.collections.ArrayList<kotlin.collections.ArrayList>": {
+        "kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalSettings>"
+                "type": "string"
+            }
+        },
+        "org.icpclive.cds.api.AwardsSettings.MedalGroup<kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>": {
+            "type": "object",
+            "properties": {
+                "medals": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalSettings>"
+                },
+                "groups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>"
+                },
+                "excludedGroups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "medals"
+            ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalGroup>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalGroup<kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>"
             }
         },
         "kotlin.collections.ArrayList<org.icpclive.cds.api.TeamId>": {
@@ -697,7 +721,7 @@
                             "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalSettings>"
                         },
                         "medalGroups": {
-                            "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.collections.ArrayList>"
+                            "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalGroup>"
                         },
                         "manual": {
                             "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.ManualAwardSetting>"

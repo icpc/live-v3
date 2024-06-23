@@ -44,7 +44,7 @@ export interface AwardsSettings {
   groupsChampionTitles?: { [key: GroupId]: string };
   rankAwardsMaxRank?: number;
   medals?: MedalSettings[];
-  medalGroups?: MedalSettings[][];
+  medalGroups?: MedalGroup[];
   manual?: ManualAwardSetting[];
 }
 
@@ -196,6 +196,12 @@ export interface MedalSettings {
   maxRank?: number | null;
   minScore?: number;
   tiebreakMode?: MedalTiebreakMode;
+}
+
+export interface MedalGroup {
+  medals: MedalSettings[];
+  groups?: GroupId[];
+  excludedGroups?: GroupId[];
 }
 
 export interface ManualAwardSetting {

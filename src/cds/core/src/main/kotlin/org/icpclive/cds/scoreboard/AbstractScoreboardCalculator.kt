@@ -90,11 +90,32 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
             }
             for (medalGroup in awardsSettings.medalSettings) {
                 var position = 1
-                for (medal in medalGroup) {
+                val teamRanksFiltered = run {
+                    if (medalGroup.excludedGroups.isEmpty() && medalGroup.groups.isEmpty()) {
+                        teamRanks
+                    } else {
+                        val medalGroupSet = medalGroup.groups.toSet()
+                        val medalExcludedGroupSet = medalGroup.excludedGroups.toSet()
+                        val orderFiltered = order.zip(ranks).filter { (it, _) ->
+                            val teamGroups = info.teams[it]!!.groups
+                            (medalGroup.groups.isEmpty() || teamGroups.intersect(medalGroupSet).isNotEmpty()) &&
+                                    teamGroups.intersect(medalExcludedGroupSet).isEmpty()
+                        }
+                        val preRes = orderFiltered.groupBy({ it.second }, { it.first }).toList().sortedBy { it.first }.map { it.second }
+                        buildMap {
+                            var curRank = 1
+                            for (teams in preRes) {
+                                put(curRank, teams)
+                                curRank += teams.size
+                            }
+                        }
+                    }
+                }
+                for (medal in medalGroup.medals) {
                     val rankLimit = medal.maxRank ?: nextRank
                     val teams = buildSet {
                         while (position <= rankLimit) {
-                            val teams = teamRanks[position] ?: break
+                            val teams = teamRanksFiltered[position] ?: break
                             if (rows[teams[0]]!!.totalScore < medal.minScore) break
                             if (medal.tiebreakMode == AwardsSettings.MedalTiebreakMode.NONE && (position + teams.size - 1) > rankLimit) break
                             position += teams.size
@@ -223,7 +244,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
             rows = rows.put(it, newRow)
             newRow != oldRow
         }
-        if (teamsReallyAffected.isNotEmpty()) {
+        if (teamsReallyAffected.isNotEmpty() || state.infoBeforeEvent?.awardsSettings != state.infoAfterEvent.awardsSettings) {
             lastRanking = calculator.getRanking(info, rows)
         }
         return teamsReallyAffected

@@ -90,27 +90,10 @@
   },
   "freezeTimeSeconds": 14400,
   "awardsSettings": {
-    "medalGroups": [
-      [
-        {
-          "id": "gold-medal",
-          "citation": "Gold Medal",
-          "color": "GOLD",
-          "maxRank": 4
-        },
-        {
-          "id": "silver-medal",
-          "citation": "Silver Medal",
-          "color": "SILVER",
-          "maxRank": 8
-        },
-        {
-          "id": "bronze-medal",
-          "citation": "Bronze Medal",
-          "color": "BRONZE",
-          "maxRank": 12
-        }
-      ]
+    "medals": [
+      {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 4},
+      {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 8},
+      {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 12}
     ],
     "championTitle": "Northern Eurasia Finals Champions",
     "rankAwardsMaxRank": 13,

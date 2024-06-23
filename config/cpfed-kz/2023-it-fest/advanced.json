@@ -350,12 +350,10 @@
       "9":{"color":"#dcbeff"}
     },    
     "awardsSettings": {
-        "medalGroups": [
-          [
+        "medals": [
             {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 1},
             {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 2},
             {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 3}
-          ]
         ]
       }      
 }

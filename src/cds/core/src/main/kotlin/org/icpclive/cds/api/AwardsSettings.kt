@@ -17,14 +17,14 @@ public data class AwardsSettings(
     public val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
     public val rankAwardsMaxRank: Int = 0,
     private val medals: List<MedalSettings> = emptyList(),
-    private val medalGroups: List<List<MedalSettings>> = emptyList(),
+    private val medalGroups: List<MedalGroup> = emptyList(),
     public val manual: List<ManualAwardSetting> = emptyList(),
 ) {
     @Transient
-    public val medalSettings: List<List<MedalSettings>> = buildList {
+    public val medalSettings: List<MedalGroup> = buildList {
         addAll(medalGroups)
         if (medals.isNotEmpty()) {
-            add(medals)
+            add(MedalGroup(medals, emptyList(), emptyList()))
         }
     }
 
@@ -50,6 +50,19 @@ public data class AwardsSettings(
         val minScore: Double = Double.MIN_VALUE,
         val tiebreakMode: MedalTiebreakMode = MedalTiebreakMode.ALL,
     )
+
+    /**
+     * @param medals List of medals, first to be awarded.
+     * @param groups If not empty, only award to teams in that groups
+     * @param excludedGroups Do not award to team in that group
+     */
+    @Serializable
+    public data class MedalGroup(
+        val medals: List<MedalSettings>,
+        val groups: List<GroupId> = emptyList(),
+        val excludedGroups: List<GroupId> = emptyList(),
+    )
+
 
     /**
      * Settings for awards granted manually.

@@ -3,17 +3,21 @@
   "freezeTimeSeconds": 18000,
   "awardsSettings": {
     "medalGroups": [
-      [
-        {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 4},
-        {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 8},
-        {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 12}
-      ],
-      [
-        {"id": "first-diploma", "citation": "First Degree Diploma", "minScore": 7},
-        {"id": "second-diploma", "citation": "Second Degree Diploma", "minScore": 5},
-        {"id": "third-diploma", "citation": "Third Degree Diploma", "minScore": 4},
-        {"id": "mention", "citation": "Honorable Mention", "minScore": 0}
-      ]
+      {
+        "medals": [
+          {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 4},
+          {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 8},
+          {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 12}
+        ]
+      },
+      {
+        "medals": [
+          {"id": "first-diploma", "citation": "First Degree Diploma", "minScore": 7},
+          {"id": "second-diploma", "citation": "Second Degree Diploma", "minScore": 5},
+          {"id": "third-diploma", "citation": "Third Degree Diploma", "minScore": 4},
+          {"id": "mention", "citation": "Honorable Mention", "minScore": 0}
+        ]
+      }
     ],
     "championTitle": "Northern Eurasia Finals Champions",
     "rankAwardsMaxRank": 13,
