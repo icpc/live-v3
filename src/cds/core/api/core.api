@@ -1946,9 +1946,11 @@ public abstract interface class org/icpclive/cds/settings/CredentialProvider {
 
 public final class org/icpclive/cds/settings/EmulationSettings {
 	public static final field Companion Lorg/icpclive/cds/settings/EmulationSettings$Companion;
-	public fun <init> (DLkotlinx/datetime/Instant;)V
+	public fun <init> (DLkotlinx/datetime/Instant;Z)V
+	public synthetic fun <init> (DLkotlinx/datetime/Instant;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getSpeed ()D
 	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getUseRandomInProgress ()Z
 }
 
 public synthetic class org/icpclive/cds/settings/EmulationSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

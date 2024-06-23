@@ -6,6 +6,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.settings.EmulationSettings
 import org.icpclive.cds.util.serializers.HumanTimeSerializer
 import org.icpclive.cds.util.getLogger
 import kotlin.random.Random
@@ -15,7 +16,7 @@ import kotlin.time.Duration.Companion.seconds
 
 private val logger by getLogger()
 
-internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSpeed: Double) = flow {
+internal fun Flow<ContestUpdate>.toEmulationFlow(emulationSettings: EmulationSettings) = flow {
     val scope = CoroutineScope(currentCoroutineContext())
     val waitProgress = MutableStateFlow<Pair<ContestStatus, Int>?>(null)
     val logJob = scope.launch {
@@ -34,10 +35,10 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
     val finalContestInfo = state.infoAfterEvent!!
     val runs = state.runsAfterEvent.values.toList()
     val analyticsMessages = state.analyticsMessagesAfterEvent.values.toList()
-    logger.info { "Running in emulation mode with speed x${emulationSpeed} and startTime = ${HumanTimeSerializer.format(startTime)}" }
+    logger.info { "Running in emulation mode with speed x${emulationSettings.speed} and startTime = ${HumanTimeSerializer.format(emulationSettings.startTime)}" }
     val contestInfo = finalContestInfo.copy(
-        startTime = startTime,
-        emulationSpeed = emulationSpeed
+        startTime = emulationSettings.startTime,
+        emulationSpeed = emulationSettings.speed
     )
 
     emit(-Duration.INFINITE to InfoUpdate(contestInfo.copy(status = ContestStatus.BEFORE)))
@@ -47,7 +48,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0
-            if (run.result !is RunResult.InProgress && run.time > Duration.ZERO) {
+            if (run.result !is RunResult.InProgress && run.time > Duration.ZERO && emulationSettings.useRandomInProgress) {
                 do {
                     val submittedRun = run.copy(
                         result = RunResult.InProgress(percentage)
@@ -61,7 +62,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(startTime: Instant, emulationSp
         }
         addAll(analyticsMessages.map { it.relativeTime to AnalyticsUpdate(it) })
     }.sortedBy { it.first }.forEach { emit(it) }
-}.map { (startTime + it.first / emulationSpeed) to it.second }
+}.map { (emulationSettings.startTime + it.first / emulationSettings.speed) to it.second }
     .toTimedFlow()
 
 

@@ -7,7 +7,7 @@
                 "type": "number"
             }
         },
-        "org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>": {
+        "org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>": {
             "oneOf": [
                 {
                     "type": "object",
@@ -17,6 +17,9 @@
                         },
                         "startTime": {
                             "type": "string"
+                        },
+                        "useRandomInProgress": {
+                            "type": "boolean"
                         }
                     },
                     "additionalProperties": false,
@@ -60,7 +63,7 @@
                     "type": "number"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -209,7 +212,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -248,7 +251,7 @@
                     "type": "boolean"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -326,7 +329,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.plugins.clics.ClicsFeed>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -365,7 +368,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -403,7 +406,7 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -439,7 +442,7 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -485,7 +488,7 @@
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -521,7 +524,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -556,7 +559,7 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -581,7 +584,7 @@
                     "default": "noop"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -622,7 +625,7 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -656,7 +659,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -686,7 +689,7 @@
                     "type": "string"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -722,7 +725,7 @@
                     "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"
@@ -845,7 +848,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
                 "network": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.NetworkSettings<kotlin.Boolean>"

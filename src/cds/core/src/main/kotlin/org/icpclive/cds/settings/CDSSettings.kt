@@ -20,7 +20,7 @@ import kotlin.reflect.KClass
 
 private fun Flow<ContestUpdate>.processEmulation(emulationSettings: EmulationSettings?) = when {
     emulationSettings == null -> this
-    else -> toEmulationFlow(emulationSettings.startTime, emulationSettings.speed)
+    else -> toEmulationFlow(emulationSettings)
 }
 
 public fun CDSSettings.toFlow(): Flow<ContestUpdate> {

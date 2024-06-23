@@ -9,4 +9,5 @@ public class EmulationSettings(
     public val speed: Double,
     @Serializable(with = HumanTimeSerializer::class)
     public val startTime: Instant,
+    public val useRandomInProgress: Boolean = true,
 )
