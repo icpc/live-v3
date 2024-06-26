@@ -173,16 +173,16 @@ public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLev
 
 public fun ContestStateWithScoreboard.toScoreboardDiff(snapshot: Boolean) : ScoreboardDiff {
     val rows = if (snapshot) {
-        scoreboardRowsAfter
+        rankingAfter.order.associateWith { scoreboardRowAfter(it) }
     } else {
-        scoreboardRowsChanged.associateWith { scoreboardRowsAfter[it]!! }
+        scoreboardRowsChanged.associateWith { scoreboardRowAfter(it) }
     }
     return ScoreboardDiff(rows, rankingAfter.order, rankingAfter.ranks, rankingAfter.awards)
 }
 
 public fun ContestStateWithScoreboard.toLegacyScoreboard(): LegacyScoreboard = LegacyScoreboard(
     rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
-        val row = scoreboardRowsAfter[teamId]!!
+        val row = scoreboardRowAfter(teamId)
         LegacyScoreboardRow(
             teamId = teamId,
             rank = rank,
@@ -197,15 +197,28 @@ public fun ContestStateWithScoreboard.toLegacyScoreboard(): LegacyScoreboard = L
     }
 )
 
+/**
+ * The class representing the state of the contest at some point.
+ *
+ * The state is stored both before and after the last event.
+ *
+ * Scoreboard rows map, as opposed to ranking, contains hidden teams, so it shouldn't be used directly.
+ * Iterating over [Ranking.order] should be used instead.
+ */
 public class ContestStateWithScoreboard internal constructor(
     public val state: ContestState,
-    public val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
-    public val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
+    private val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
+    private val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
     public val scoreboardRowsChanged: List<TeamId>,
     public val rankingBefore: Ranking,
     public val rankingAfter: Ranking,
     public val lastSubmissionTime: Duration,
-)
+) {
+    public fun scoreboardRowBeforeOrNull(teamId: TeamId): ScoreboardRow? = scoreboardRowsBefore[teamId]
+    public fun scoreboardRowAfterOrNull(teamId: TeamId): ScoreboardRow? = scoreboardRowsAfter[teamId]
+    public fun scoreboardRowBefore(teamId: TeamId): ScoreboardRow = scoreboardRowsBefore[teamId]!!
+    public fun scoreboardRowAfter(teamId: TeamId): ScoreboardRow = scoreboardRowsAfter[teamId]!!
+}
 
 private fun RunInfo.isTested() = !isHidden && result !is RunResult.InProgress
 
