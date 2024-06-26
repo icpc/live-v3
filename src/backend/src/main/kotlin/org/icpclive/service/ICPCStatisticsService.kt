@@ -33,7 +33,7 @@ class StatisticsService : Service {
                 var pending = 0
 
                 for (teamId in it.rankingAfter.order) {
-                    val row = it.scoreboardRowsAfter[teamId] ?: continue
+                    val row = it.scoreboardRowAfterOrNull(teamId) ?: continue
                     val p = row.problemResults[problemId]
                     require(p is ICPCProblemResult)
                     success += if (p.isSolved) 1 else 0
@@ -54,7 +54,7 @@ class StatisticsService : Service {
                 val listScore = mutableListOf<Double>()
                 var pending = 0
                 for (teamId in it.rankingAfter.order) {
-                    val row = it.scoreboardRowsAfter[teamId] ?: continue
+                    val row = it.scoreboardRowAfterOrNull(teamId) ?: continue
                     val p = row.problemResults[problemId]
                     require(p is IOIProblemResult)
                     if (p.score != null) {
