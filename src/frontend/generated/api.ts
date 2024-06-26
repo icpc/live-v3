@@ -801,32 +801,38 @@ export interface text {
   text: string;
 }
 
-export interface SolutionsStatistic {
-  stats: ProblemSolutionStatistic[];
-}
+export type SolutionsStatistic =
+  | SolutionsStatistic.ICPC
+  | SolutionsStatistic.IOI;
 
-export type ProblemSolutionStatistic =
-  | ProblemSolutionStatistic.ICPC
-  | ProblemSolutionStatistic.IOI;
-
-export namespace ProblemSolutionStatistic {
+export namespace SolutionsStatistic {
   export enum Type {
     ICPC = "ICPC",
     IOI = "IOI",
   }
   
   export interface ICPC {
-    type: ProblemSolutionStatistic.Type.ICPC;
-    success: number;
-    wrong: number;
-    pending: number;
+    type: SolutionsStatistic.Type.ICPC;
+    teamsCount: number;
+    stats: ICPCProblemSolutionsStatistic[];
   }
   
   export interface IOI {
-    type: ProblemSolutionStatistic.Type.IOI;
-    result: IOIProblemEntity[];
-    pending: number;
+    type: SolutionsStatistic.Type.IOI;
+    teamsCount: number;
+    stats: IOIProblemSolutionsStatistic[];
   }
+}
+
+export interface ICPCProblemSolutionsStatistic {
+  success: number;
+  wrong: number;
+  pending: number;
+}
+
+export interface IOIProblemSolutionsStatistic {
+  result: IOIProblemEntity[];
+  pending: number;
 }
 
 export interface IOIProblemEntity {

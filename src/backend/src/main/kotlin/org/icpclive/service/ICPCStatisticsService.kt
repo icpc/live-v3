@@ -19,14 +19,15 @@ class StatisticsService : Service {
                 null -> null
             }
         }
-            .stateIn(this, SharingStarted.Eagerly, SolutionsStatistic(emptyList()))
+            .stateIn(this, SharingStarted.Eagerly, ICPCSolutionsStatistic(0, emptyList()))
             .also { DataBus.statisticFlow.completeOrThrow(it) }
     }
 
     private fun computeICPCStatistics(it: ContestStateWithScoreboard): SolutionsStatistic? {
         val info = it.state.infoAfterEvent ?: return null
         val problems = info.scoreboardProblems.size
-        return SolutionsStatistic(
+        return ICPCSolutionsStatistic(
+            it.rankingAfter.order.size,
             List(problems) { problemId ->
                 var success = 0
                 var wrong = 0
@@ -49,7 +50,8 @@ class StatisticsService : Service {
     private fun computeIOIStatistics(it: ContestStateWithScoreboard): SolutionsStatistic? {
         val info = it.state.infoAfterEvent ?: return null
         val problems = info.problems.size
-        return SolutionsStatistic(
+        return IOISolutionsStatistic(
+            it.rankingAfter.order.size,
             List(problems) { problemId ->
                 val listScore = mutableListOf<Double>()
                 var pending = 0
