@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ProblemSolutionStatistic, SolutionsStatistic } from "@shared/api";
+import {  SolutionsStatistic } from "@shared/api";
 export interface StatisticsState {
-    statistics?: ProblemSolutionStatistic[];
+    statistics?: SolutionsStatistic;
 }
 
 const initialState: StatisticsState = {
@@ -14,7 +14,7 @@ export const statisticsSlice = createSlice({
     initialState,
     reducers: {
         setStatistics: (state, action: PayloadAction<SolutionsStatistic>) => {
-            state.statistics = action.payload.stats;
+            state.statistics = action.payload;
         }
     }
 });

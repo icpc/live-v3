@@ -470,7 +470,7 @@ object ClicsExporter  {
             contestTime = lastSubmissionTime,
             state = getState(info),
             rows = rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
-                val row = scoreboardRowsAfter[teamId]!!
+                val row = scoreboardRowAfter(teamId)
                 ScoreboardRow(
                     rank,
                     teamId.value,
@@ -499,9 +499,9 @@ object ClicsExporter  {
             add(Award(
                 "first-to-solve-${problem.id}",
                 "First to solve problem ${problem.displayName}",
-                scoreboardRowsAfter.entries
-                    .filter { (it.value.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
-                    .map { it.key.value }
+                rankingAfter.order.map { it to scoreboardRowAfter(it) }
+                    .filter { (it.second.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
+                    .map { it.first.value }
             ))
         }
     }

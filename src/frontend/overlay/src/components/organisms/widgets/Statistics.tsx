@@ -44,11 +44,9 @@ const Caption = styled.div`
 
 
 export const Statistics = () => {
-    const resultType = useAppSelector(state => state.contestInfo?.info?.resultType);
     const statistics = useAppSelector((state) => state.statistics.statistics);
-    const count = useAppSelector(state => state.contestInfo?.info?.teams?.length);
     const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
-    const data = stackedBarsData(resultType, tasks, statistics, count);
+    const data = stackedBarsData(tasks, statistics);
 
     const [componentRef, { height }] = useElementSize();
     const [headerRef, { height: headerHeight }] = useElementSize();

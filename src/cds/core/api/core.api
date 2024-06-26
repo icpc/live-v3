@@ -1845,10 +1845,12 @@ public final class org/icpclive/cds/scoreboard/ContestStateWithScoreboard {
 	public final fun getLastSubmissionTime-UwyO8pc ()J
 	public final fun getRankingAfter ()Lorg/icpclive/cds/scoreboard/Ranking;
 	public final fun getRankingBefore ()Lorg/icpclive/cds/scoreboard/Ranking;
-	public final fun getScoreboardRowsAfter ()Ljava/util/Map;
-	public final fun getScoreboardRowsBefore ()Ljava/util/Map;
 	public final fun getScoreboardRowsChanged ()Ljava/util/List;
 	public final fun getState ()Lorg/icpclive/cds/api/ContestState;
+	public final fun scoreboardRowAfter-nUE0bHc (Ljava/lang/String;)Lorg/icpclive/cds/api/ScoreboardRow;
+	public final fun scoreboardRowAfterOrNull-nUE0bHc (Ljava/lang/String;)Lorg/icpclive/cds/api/ScoreboardRow;
+	public final fun scoreboardRowBefore-nUE0bHc (Ljava/lang/String;)Lorg/icpclive/cds/api/ScoreboardRow;
+	public final fun scoreboardRowBeforeOrNull-nUE0bHc (Ljava/lang/String;)Lorg/icpclive/cds/api/ScoreboardRow;
 }
 
 public final class org/icpclive/cds/scoreboard/Ranking {
