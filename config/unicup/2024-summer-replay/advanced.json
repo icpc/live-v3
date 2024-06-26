@@ -1,0 +1,86 @@
+{
+
+  "teamNameRegexes": {
+    "customFields": {
+      "funnyName": {
+        "([^(]*)\\(?.*" : "$1"
+      }
+    }
+  },
+    "teamOverrideTemplate": {
+        "displayName": "{funnyName}",
+        "medias": {
+          "photo": {
+            "type": "Image",
+            "url": "http://10.1.25.177:8080/media/photo/{teamId}.jpg"
+          },
+          "achievement": {
+            "type": "Image",
+            "url": "http://10.1.25.177:8080/media/ach/{teamId}.svg"
+          },
+          "screen": {
+            "type": "M2tsVideo",
+            "url":"http://10.1.23.85:5283/stream/10.1.23.{ip}:9090?token=token"
+          },
+          "camera": {
+            "type": "M2tsVideo",
+            "url":"http://10.1.23.85:5283/stream/10.1.23.{ip}:8080?token=token"
+          }
+
+      }
+    },
+    "teamOverrides": {
+"00":{"groups":["onsite","finalists"],"customFields": {"ip":"19"}},
+"01":{"groups":["onsite","finalists"],"customFields": {"ip":"21"}},
+"02":{"groups":["onsite","finalists"],"customFields": {"ip":"22"}},
+"03":{"groups":["onsite","finalists"],"customFields": {"ip":"23"}},
+"04":{"groups":["onsite","finalists"],"customFields": {"ip":"24"}},
+"05":{"groups":["onsite"],"customFields": {"ip":"25"}},
+"06":{"groups":["onsite","finalists"],"customFields": {"ip":"26"}},
+"07":{"groups":["onsite"],"customFields": {"ip":"27"}},
+"08":{"groups":["onsite"],"customFields": {"ip":"28"}},
+"09":{"groups":["onsite","finalists"],"customFields": {"ip":"29"}},
+"10":{"groups":["onsite"],"customFields": {"ip":"32"}},
+
+"ucup-team123":{"groups":["finalists"]},
+"ucup-team1191":{"groups":["finalists"]},
+"ucup-team052":{"groups":["finalists"]},
+
+            "exteam": {"isHidden": true,"isOutOfContest": true},        
+            "domjudge": {"isHidden": true,"isOutOfContest": true}        
+    },
+  "awardsSettings": {
+    "medalGroups": [
+      {
+        "groups": ["finalists"],
+        "medals": [
+          {"id": "predefined", "maxRank": 100, "color": "GOLD", "citation": "Already passed"}
+        ]
+      },
+      {
+        "excludedGroups": ["finalists"],
+        "medals": [
+          {"id": "now1", "maxRank": 8, "color": "SILVER", "citation": "Passed now"}
+        ]
+      }
+    ]
+  },
+      "problemOverrides": {
+        "contest-42523-A": {"color": "#1f93dbff"},
+        "contest-42523-B": {"color": "#ffffffff"},
+        "contest-42523-C": {"color": "#0b5e29ff"},
+        "contest-42523-D": {"color": "#dea300ff"},
+        "contest-42523-E": {"color": "#000000ff"},
+        "contest-42523-F": {"color": "#000dffff"},
+        "contest-42523-G": {"color": "#e86500ff"},
+        "contest-42523-H": {"color": "#ffe563ff"},
+        "contest-42523-I": {"color": "#ff33ccff"},
+        "contest-42523-J": {"color": "#786e6eff"},
+        "contest-42523-K": {"color": "#9900ffff"},
+        "contest-42523-L": {"color": "#705207ff"},
+        "contest-42523-M": {"color": "#0ddb6dff"}
+    },
+    "queueSettings": {
+      "maxQueueSize": 20
+    }
+}

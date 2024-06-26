@@ -1,0 +1,24 @@
+{
+    "type": "clics",
+    "feeds": [
+        {
+            "source": {
+                "url": "https://10.1.23.15:8443/api",
+                "login": "admin",
+                "password": "password"
+            },
+            "contestId": "ucup-semifinal-onsite"
+        },
+        {
+            "source": {
+                "url": "https://10.1.23.15:8443/api",
+                "login": "admin",
+                "password": "password"
+            },
+            "contestId": "ucup-semifinal-online"
+        }
+    ],
+    "network": {
+        "allowUnsecureConnections": true
+    }
+}

@@ -1,0 +1,13 @@
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://cds.ucup.icpc.site/api",
+        "login":"admin",
+        "password":"password"
+      },
+      "contestId": "onsite"
+    }
+  ]
+}
