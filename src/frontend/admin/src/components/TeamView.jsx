@@ -33,7 +33,7 @@ import BottomRightIcon from "@mui/icons-material/SouthEast";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
-import { SelectTeamTable, TEAM_FIELD_STRUCTURE } from "./TeamTable";
+import { SelectTeamTable, TEAM_FIELD_STRUCTURE, TeamViewSettingsPanel } from "./TeamTable";
 import PropTypes from "prop-types";
 import TeamMediaSwitcher, { DEFAULT_MEDIA_TYPES } from "./controls/TeamMediaSwitcher";
 import ShowPresetButton from "./controls/ShowPresetButton";
@@ -320,6 +320,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     const [mediaType2, setMediaType2] = useState(undefined);
     const [statusShown, setStatusShown] = useState(true);
     const [achievementShown, setAchievementShown] = useState(false);
+    const [timeLineShown, setTimeLineShown] = useState(false);
 
     const [allowedMediaTypes, disableMediaTypes] = useMemo(() => [
             DEFAULT_MEDIA_TYPES.filter(m => m && (selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m))),
@@ -371,6 +372,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
             teamId: selectedTeamId,
             showTaskStatus: statusShown,
             showAchievement: achievementShown && variant === "single",
+            showTimeLine: timeLineShown,
         };
         if (isMultipleMode) {
             currentService.editPreset(selectedInstance, settings);
@@ -380,7 +382,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
         setSelectedInstance(undefined);
         setSelectedTeamId(undefined);
     }, [selectedInstance, currentService, isMultipleMode, mediaType1,
-        mediaType2, selectedTeamId, statusShown, achievementShown, variant]);
+        mediaType2, selectedTeamId, statusShown, achievementShown, variant, timeLineShown]);
 
     const onInstanceSelect = useCallback((instance) => () => {
         if (instance === selectedInstance) {
@@ -487,6 +489,20 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
                                                 checked={achievementShown}
                                                 onClick={(v) => setAchievementShown(v)}
                                                 disabled={!(selectedTeam?.id ? selectedTeam.medias.achievement : teamsHasAchievement)}
+                                                sx={{ justifyContent: "flex-start" }}
+                                            />
+                                        </Grid>
+                                    </>
+                                )}
+                                {variant === "single" && (
+                                    <>
+                                        <Grid item xs={10} sm={4}>
+                                            <FormLabel component="legend">TimeLine</FormLabel>
+                                        </Grid>
+                                        <Grid item xs={2} sm={8}>
+                                            <ShowPresetButton
+                                                checked={timeLineShown}
+                                                onClick={(v) => setTimeLineShown(v)}
                                                 sx={{ justifyContent: "flex-start" }}
                                             />
                                         </Grid>

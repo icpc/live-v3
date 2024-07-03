@@ -9,6 +9,7 @@ import { MediaType } from "@shared/api";
 import c from "../../../config";
 import mpegts from "mpegts.js";
 import Hls from "hls.js";
+import TimeLine from "@/components/organisms/holder/TimeLine";
 
 // export const TeamImageWrapper = styled.img /*`
 //   // border-radius: ${({ borderRadius }) => borderRadius};
@@ -302,6 +303,10 @@ const teamViewComponentRender: {
         return <FullWidthWrapper className={className}>
             <ImgWrapper src={media.url} onLoad={() => onLoadStatus(true)}/>
         </FullWidthWrapper>;
+    },
+    TimeLine: ({ onLoadStatus, className, media}) => {
+        useLayoutEffect(() => onLoadStatus(true), []);
+        return <TimeLine className={className} {...media}/>;
     },
     Object: ({ onLoadStatus, className, media }) => {
         onLoadStatus(true);

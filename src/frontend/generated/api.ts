@@ -119,6 +119,7 @@ export type MediaType =
   | MediaType.M2tsVideo
   | MediaType.Object
   | MediaType.TaskStatus
+  | MediaType.TimeLine
   | MediaType.Video
   | MediaType.WebRTCGrabberConnection
   | MediaType.WebRTCProxyConnection;
@@ -130,6 +131,7 @@ export namespace MediaType {
     M2tsVideo = "M2tsVideo",
     Object = "Object",
     TaskStatus = "TaskStatus",
+    TimeLine = "TimeLine",
     Video = "Video",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
@@ -162,6 +164,12 @@ export namespace MediaType {
   
   export interface TaskStatus {
     type: MediaType.Type.TaskStatus;
+    teamId: TeamId;
+    isMedia?: boolean;
+  }
+  
+  export interface TimeLine {
+    type: MediaType.Type.TimeLine;
     teamId: TeamId;
     isMedia?: boolean;
   }
