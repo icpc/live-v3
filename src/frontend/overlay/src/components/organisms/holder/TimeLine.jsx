@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAppSelector } from "../../../redux/hooks";
 import { SCOREBOARD_TYPES } from "../../../consts";
@@ -7,23 +7,13 @@ import c from "../../../config";
 import { isShouldUseDarkColor } from "../../../utils/colors";
 
 const TimeLineContainer = styled.div`
-    grid-row-start: 1;
-    grid-row-end: 3;
-    justify-self: end;
-    align-self: end;
-    grid-column-end: 3;
     align-items: center;
     width: 100%;
-    position: absolute;
-    z-index: 1;
-    border-radius: 20px;
-    top: 10px;
-    display: flex; 
-    grid-template-columns: auto minmax(100px, 150px);
-    grid-auto-rows: ${c.QUEUE_ROW_HEIGHT}px;
-    white-space: nowrap;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: grid; 
     height: 60px;
-    background-color: black;
+    background-color: ${c.CONTEST_COLOR};
 `;
 
 
@@ -40,58 +30,45 @@ const Circle = styled.div`
     background-color: ${props => (props.solved ? c.VERDICT_OK : props.pending ? c.VERDICT_UNKNOWN : c.VERDICT_NOK)};
     border-radius: 50%;
     position: absolute;
-    //left: -10px;
-    top: -10px;
-    align-self: center;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-content: center;
 `;
 
 const Label = styled.div`
-    position: absolute;
-    align-self: center;
-    top: -10px;
-    display: inline-block;
-`;
-
-const Letter = styled.div`
-    position: absolute;;
+    position: relative;
     align-self: center;
     align-items: center;
     justify-content: center;
-    top: 10px;
-    //background-color: ${props => props.color};
-    border-radius: 25%;
-    font-size: 20px;
-    width: 16px;
-    //color: ${props => props.dark ? "#000" : "#FFF"};
-    color: white;
+    display: flex;
+    text-align: center;
 `;
 
 const ProblemWrap = styled.div`
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-
+    justify-content: center;
     position: absolute;
-    top: 5%;
     left: ${props => props.leftMargin};
 `;
 
 const Problem = ({ problemResult, letter, color, contestLengthMs }) => {
-    const leftMargin = (100 * problemResult.lastSubmitTimeMs / contestLengthMs) * 0.96 + "%";
+    const leftMargin = (100 * problemResult.time / contestLengthMs) * 0.99 + "%";
     console.log(letter, color);
     const dark = isShouldUseDarkColor(color);
+    console.log(problemResult);
+    const verdict = problemResult?.result?.verdict;
+    console.log(problemResult.result.type === ProblemResult.Type.ICPC ? verdict?.isAccepted : problemResult.score > 0);
     return (
         <ProblemWrap leftMargin={leftMargin}>
-            <Circle pending={problemResult.pendingAttempts > 0} 
-                solved={problemResult.type === ProblemResult.Type.ICPC ? problemResult.isSolved : problemResult.score > 0} />
-            <Label>
-                {problemResult.type === ProblemResult.Type.ICPC
-                    ? `${(problemResult.isSolved ? "+" : problemResult.pendingAttempts > 0 ? "?" : "-") +
-                        (problemResult.wrongAttempts + problemResult.pendingAttempts > 0 ? 
-                            problemResult.wrongAttempts + problemResult.pendingAttempts : "")}`
-                    : `${problemResult.score}`}
-            </Label>
-            <Letter color={color} dark={dark}>{letter}</Letter>
+            <Circle pending={!verdict?.isAccepted && !verdict?.isAddingPenalty}
+                solved={problemResult.result.type === ProblemResult.Type.ICPC ? verdict?.isAccepted : problemResult.score > 0}>
+                <Label>
+                    {letter}
+                </Label>
+            </Circle>
         </ProblemWrap>
     );
 };
@@ -103,12 +80,27 @@ export const TimeLine = ({ className, teamId }) => {
             (result, i) => ({ ... result, index: i })));
     const contestLengthMs = useAppSelector(state => state.contestInfo.info?.contestLengthMs);
     const tasks = useAppSelector(state => state.contestInfo.info?.problems);
+    const [runsResults, setRunsResults] = useState([]);
+    
+    const getResultRuns = (runs) => {
+        return runs.filter(obj => obj.teamId === teamId);
+    };
+    
+    const getRuns = () => {
+        console.log(123);
+        fetch("http://localhost:8080/api/overlay/runs").then(response => response.json())
+            .then(response => setRunsResults(getResultRuns(response)));
+    };
+
+    useEffect(() => {
+        getRuns();
+    }, []);
+    
     return (
         <TimeLineContainer className={className}>
             <Line>
-                {problemResults?.filter(obj => obj.type === ProblemResult.Type.ICPC ? obj.isSolved
-                    || obj.pendingAttempts + obj.wrongAttempts > 0 : obj.score > 0)?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} letter={tasks[problemResult?.index]?.letter} color={tasks[problemResult?.index]?.color}
+                {runsResults?.map((problemResult, index) => (
+                    <Problem problemResult={problemResult} letter={problemResult.problemId}
                         contestLengthMs={contestLengthMs} key={index} />
                 ))}
             </Line>
