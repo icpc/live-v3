@@ -75,11 +75,7 @@ const Problem = ({ problemResult, letter, color, contestLengthMs }) => {
 
 
 export const TimeLine = ({ className, teamId }) => {
-    const problemResults = useAppSelector((state) =>
-        state.scoreboard[SCOREBOARD_TYPES.normal]?.ids[teamId]?.problemResults.map(
-            (result, i) => ({ ... result, index: i })));
     const contestLengthMs = useAppSelector(state => state.contestInfo.info?.contestLengthMs);
-    const tasks = useAppSelector(state => state.contestInfo.info?.problems);
     const [runsResults, setRunsResults] = useState([]);
     
     const getResultRuns = (runs) => {
@@ -87,8 +83,7 @@ export const TimeLine = ({ className, teamId }) => {
     };
     
     const getRuns = () => {
-        console.log(123);
-        fetch("http://localhost:8080/api/overlay/runs").then(response => response.json())
+        fetch(c.RUNS_URL).then(response => response.json())
             .then(response => setRunsResults(getResultRuns(response)));
     };
 
