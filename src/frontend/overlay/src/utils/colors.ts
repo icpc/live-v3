@@ -1,4 +1,7 @@
 export const hexToRgb = (hex: string): {r: number, g: number, b: number} | null => {
+    if (hex === undefined || hex === null) {
+        return null;
+    }
     if (hex.length !== 4 && hex.length !== 7 && hex.length !== 9) {
         return null;
     }
