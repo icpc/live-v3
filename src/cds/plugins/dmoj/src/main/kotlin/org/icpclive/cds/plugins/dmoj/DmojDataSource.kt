@@ -53,7 +53,7 @@ private class Problem(
     val points: Int,
     val label: String,
     val name: String,
-    val code: String,
+    val code: String
 )
 
 @Serializable
@@ -79,7 +79,7 @@ private class Submission(
     val user: String,
     val date: Instant,
     val points: Double?,
-    val result: String
+    val result: String?
 )
 
 internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDataSource(5.seconds) {
@@ -143,44 +143,51 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
             }
         )
         val submissions = buildList {
-            for (problem in contest.problems) {
-                var page = 0
-                val loader = DataLoader.json<Wrapper<SubmissionsResult>>(
-                    settings.network,
-                ) {
-                    apiBaseUrl.subDir("submissions?problem=${problem.code}&page=$page")
-                }.map { it.unwrap() }
-                while (true) {
-                    ++page
-                    val data = loader.load()
-                    for (submission in data.objects) {
-                        val userStartTime = startTimeMap[submission.user.toTeamId()] ?: continue
-                        val time = submission.date - userStartTime
-                        if (time > contestLength) continue
+            var page = 0
+            val loader = DataLoader.json<Wrapper<SubmissionsResult>>(
+                settings.network,
+            ) {
+                apiBaseUrl.subDir("submissions?contest=${settings.contestId}&page=$page")
+            }.map { it.unwrap() }
+            while (true) {
+                ++page
+                val data = loader.load()
+                for (submission in data.objects) {
+                    val userStartTime = startTimeMap[submission.user.toTeamId()] ?: continue
+                    val time = submission.date - userStartTime
+                    if (time > contestLength) continue
+
+                    val result = if (submission.result == null) {
+                        RunResult.InProgress(0.0)
+                    } else {
                         val verdict = Verdict.lookup(
                             shortName = submission.result,
                             isAddingPenalty = submission.result != "CE" && submission.result != "AC",
                             isAccepted = submission.result == "AC"
                         )
-                        val result = when (resultType) {
+
+                        when (resultType) {
                             ContestResultType.ICPC -> {
                                 verdict.toICPCRunResult()
                             }
+
                             ContestResultType.IOI -> RunResult.IOI(
                                 listOf(submission.points ?: 0.0),
                                 wrongVerdict = verdict.takeIf { submission.points == null }
                             )
                         }
-                        add(RunInfo(
+                    }
+                    add(
+                        RunInfo(
                             id = submission.id.toRunId(),
                             result = result,
                             problemId = submission.problem.toProblemId(),
                             teamId = submission.user.toTeamId(),
                             time = time
-                        ))
-                    }
-                    if (!data.has_more) break
+                        )
+                    )
                 }
+                if (!data.has_more) break
             }
         }
         return ContestParseResult(info, submissions, emptyList())
