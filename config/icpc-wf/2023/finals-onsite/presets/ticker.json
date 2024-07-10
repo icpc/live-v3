@@ -1,0 +1,69 @@
+[
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Teams are at their workstations"
+    },
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 10000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Contest to start at 12:00 local time"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Scoreboard and problems at scoreboard.icpc.global"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Live stream at live.icpc.global"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Contest started at 11:48 local time"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Easy: IGA; Medium: HDC; Hard: BKFJ; If you're bored: E"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Online mirror at onlinejudge.icpc.global. tourist, Petr, ksun48 stream at twitch.tv/the__tourist"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "ksun48, Petr and tourist solving the 46th Finals at twitch.tv/the__tourist"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Shared problems are A=W, C=V, D=T, G=P, J=S"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Scoreboard is frozen now. Teams only see the results of their own submissions."
+    }
+]
