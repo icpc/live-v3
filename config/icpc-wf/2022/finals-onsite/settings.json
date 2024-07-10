@@ -3,18 +3,23 @@
   "network": { "allowUnsecureConnections": true },
   "feeds": [
     {
-      "url": "http://mediamtx.local:8046/api",
-      "contestId": "wf46_finals",
-      "login": "live",
-      "password": "$creds.livesecret"
+      "source": {
+        "url":"http://mediamtx.local:8046/api",
+        "auth": {
+          "basic": {
+            "login": "live",
+            "password": "$creds.livesecret"
+          }
+        }
+      },
+      "contestId": "wf46_finals"
     },
     {
-      "url": "http://172.24.0.8:8099",
+      "source": "http://172.24.0.8:8099",
       "eventFeedName": "commentary-messages",
       "contestId": "",
       "eventFeedPath": "",
       "feedVersion": "2020_03"
     }
-  ],
-  "useTeamNames": false
+  ]
 }
