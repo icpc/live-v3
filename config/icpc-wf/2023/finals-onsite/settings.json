@@ -1,0 +1,20 @@
+{
+  "type": "clics",
+  "network": { "allowUnsecureConnections": true },
+  "feeds": [
+    {
+      "url": "http://mediamtx.local:8047/api",
+      "contestId": "wf47_finals",
+      "login": "live",
+      "password": "$creds.livesecret"
+    },
+    {
+      "url": "http://172.24.0.9:8099",
+      "eventFeedName": "commentary-messages",
+      "contestId": "",
+      "eventFeedPath": "",
+      "feedVersion": "2020_03"
+    }
+  ],
+  "useTeamNames": false
+}

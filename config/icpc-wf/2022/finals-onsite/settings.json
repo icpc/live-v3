@@ -1,0 +1,20 @@
+{
+  "type": "clics",
+  "network": { "allowUnsecureConnections": true },
+  "feeds": [
+    {
+      "url": "http://mediamtx.local:8046/api",
+      "contestId": "wf46_finals",
+      "login": "live",
+      "password": "$creds.livesecret"
+    },
+    {
+      "url": "http://172.24.0.8:8099",
+      "eventFeedName": "commentary-messages",
+      "contestId": "",
+      "eventFeedPath": "",
+      "feedVersion": "2020_03"
+    }
+  ],
+  "useTeamNames": false
+}

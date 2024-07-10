@@ -1,0 +1,12 @@
+{
+  "type": "clics",
+  "network": { "allowUnsecureConnections": true },
+  "feeds": [
+    {
+      "source": ".",
+      "contestId": "",
+      "eventFeedPath": "",
+      "eventFeedName": "wf47-event-feed-live.ndjson"
+    }
+  ]
+}
