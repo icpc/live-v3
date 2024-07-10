@@ -1,5 +1,6 @@
 {
 "teamOverrideTemplate": {
+  "displayName": "{orgDisplayName}",
   "medias": {
     "achievement": {
       "type": "Image",

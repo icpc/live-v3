@@ -3,18 +3,23 @@
   "network": { "allowUnsecureConnections": true },
   "feeds": [
     {
-      "url": "http://mediamtx.local:8047/api",
-      "contestId": "wf47_finals",
-      "login": "live",
-      "password": "$creds.livesecret"
+      "source": {
+        "url":"http://mediamtx.local:8047/api",
+        "auth": {
+          "basic": {
+            "login": "live",
+            "password": "$creds.livesecret"
+          }
+        }
+      },
+      "contestId": "wf47_finals"
     },
     {
-      "url": "http://172.24.0.9:8099",
+      "source": "http://172.24.0.9:8099",
       "eventFeedName": "commentary-messages",
       "contestId": "",
       "eventFeedPath": "",
       "feedVersion": "2020_03"
     }
-  ],
-  "useTeamNames": false
+  ]
 }
