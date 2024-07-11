@@ -5,12 +5,8 @@
     {
       "source": {
         "url":"http://mediamtx.local:8047/api",
-        "auth": {
-          "basic": {
-            "login": "live",
-            "password": "$creds.livesecret"
-          }
-        }
+        "login": "live",
+        "password": "$creds.livesecret"
       },
       "contestId": "wf47_finals"
     },
