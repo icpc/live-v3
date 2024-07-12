@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import AppNav from "./AppNav";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -53,7 +53,7 @@ const getTheme = (contestColor) => {
     const textColor = isShouldUseDarkColor(contestColor) ? "#000000" : "#FFFFFF";
     return createTheme({
         palette: {
-            type: "light",
+            mode: "light",
             primary: {
                 main: contestColor,
                 contrastText: textColor,
