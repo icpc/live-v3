@@ -24,7 +24,8 @@
     "react-drag-drop-files": "^2.3.4",
     "react-rnd": "^10.3.7",
     "react-router-dom": "^6.24.1",
-    "shared-code": "file:../common"
+    "shared-code": "file:../common",
+    "vite": "^5.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -36,7 +37,6 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "prop-types": "^15.7.2",
-    "typescript": "^5.2.2",
-    "vite": "^5.3.1"
+    "typescript": "^5.2.2"
   }
 }
