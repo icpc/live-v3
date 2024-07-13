@@ -797,76 +797,6 @@ public final class org/icpclive/cds/api/IOIProblemResult$Companion {
 public abstract interface annotation class org/icpclive/cds/api/InefficientContestInfoApi : java/lang/annotation/Annotation {
 }
 
-public final class org/icpclive/cds/api/LegacyScoreboard {
-	public static final field Companion Lorg/icpclive/cds/api/LegacyScoreboard$Companion;
-	public fun <init> (Ljava/util/List;)V
-	public final fun component1 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;)Lorg/icpclive/cds/api/LegacyScoreboard;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/LegacyScoreboard;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/LegacyScoreboard;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getRows ()Ljava/util/List;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/LegacyScoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/LegacyScoreboard$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/LegacyScoreboard;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/LegacyScoreboard;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/LegacyScoreboard$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/LegacyScoreboardRow {
-	public static final field Companion Lorg/icpclive/cds/api/LegacyScoreboardRow$Companion;
-	public synthetic fun <init> (Ljava/lang/String;IDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-ed2mA_4 ()Ljava/lang/String;
-	public final fun component2 ()I
-	public final fun component3 ()D
-	public final fun component4-UwyO8pc ()J
-	public final fun component5 ()J
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/util/List;
-	public final fun component8 ()Ljava/util/List;
-	public final fun component9 ()Ljava/util/List;
-	public final fun copy-FwdU8qc (Ljava/lang/String;IDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/api/LegacyScoreboardRow;
-	public static synthetic fun copy-FwdU8qc$default (Lorg/icpclive/cds/api/LegacyScoreboardRow;Ljava/lang/String;IDJJLjava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/LegacyScoreboardRow;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getChampionInGroups ()Ljava/util/List;
-	public final fun getLastAccepted ()J
-	public final fun getMedalType ()Ljava/lang/String;
-	public final fun getPenalty-UwyO8pc ()J
-	public final fun getProblemResults ()Ljava/util/List;
-	public final fun getRank ()I
-	public final fun getTeamGroups ()Ljava/util/List;
-	public final fun getTeamId-ed2mA_4 ()Ljava/lang/String;
-	public final fun getTotalScore ()D
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/LegacyScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/LegacyScoreboardRow$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/LegacyScoreboardRow;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/LegacyScoreboardRow;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/LegacyScoreboardRow$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
 public abstract class org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Companion;
 	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
@@ -1837,7 +1767,6 @@ public final class org/icpclive/cds/api/Verdict$WrongAnswer : org/icpclive/cds/a
 public final class org/icpclive/cds/scoreboard/AbstractScoreboardCalculatorKt {
 	public static final fun calculateScoreboard (Lkotlinx/coroutines/flow/Flow;Lorg/icpclive/cds/api/OptimismLevel;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun getScoreboardCalculator (Lorg/icpclive/cds/api/ContestInfo;Lorg/icpclive/cds/api/OptimismLevel;)Lorg/icpclive/cds/scoreboard/ScoreboardCalculator;
-	public static final fun toLegacyScoreboard (Lorg/icpclive/cds/scoreboard/ContestStateWithScoreboard;)Lorg/icpclive/cds/api/LegacyScoreboard;
 	public static final fun toScoreboardDiff (Lorg/icpclive/cds/scoreboard/ContestStateWithScoreboard;Z)Lorg/icpclive/cds/api/ScoreboardDiff;
 }
 

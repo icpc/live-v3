@@ -370,22 +370,6 @@ export namespace ProblemResult {
   }
 }
 
-export interface LegacyScoreboard {
-  rows: LegacyScoreboardRow[];
-}
-
-export interface LegacyScoreboardRow {
-  teamId: TeamId;
-  rank: number;
-  totalScore: number;
-  penalty: number;
-  lastAccepted: number;
-  medalType: string | null;
-  problemResults: ProblemResult[];
-  teamGroups: GroupId[];
-  championInGroups: GroupId[];
-}
-
 export type MainScreenEvent =
   | MainScreenEvent.HideWidget
   | MainScreenEvent.MainScreenSnapshot

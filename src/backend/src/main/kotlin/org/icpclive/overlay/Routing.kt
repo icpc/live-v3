@@ -32,10 +32,7 @@ fun Route.configureOverlayRouting() {
     flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
     flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
     route("/scoreboard") {
-        setUpScoreboard { getLegacyScoreboard(it) }
-        route("/v2") {
-            setUpScoreboard { getScoreboardDiffs(it) }
-        }
+        setUpScoreboard { getScoreboardDiffs(it) }
     }
     route("/svgAchievement"){
         configureSvgAchievementRouting(Config.mediaDirectory)

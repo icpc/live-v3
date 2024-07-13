@@ -180,23 +180,6 @@ public fun ContestStateWithScoreboard.toScoreboardDiff(snapshot: Boolean) : Scor
     return ScoreboardDiff(rows, rankingAfter.order, rankingAfter.ranks, rankingAfter.awards)
 }
 
-public fun ContestStateWithScoreboard.toLegacyScoreboard(): LegacyScoreboard = LegacyScoreboard(
-    rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
-        val row = scoreboardRowAfter(teamId)
-        LegacyScoreboardRow(
-            teamId = teamId,
-            rank = rank,
-            totalScore = row.totalScore,
-            penalty = row.penalty,
-            lastAccepted = row.lastAccepted.inWholeMilliseconds,
-            medalType = rankingAfter.awards.firstNotNullOfOrNull { e -> (e as? Award.Medal)?.medalColor?.takeIf { teamId in e.teams }?.name?.lowercase() },
-            championInGroups = rankingAfter.awards.mapNotNull { e -> (e as? Award.GroupChampion)?.groupId?.takeIf { teamId in e.teams } },
-            problemResults = row.problemResults,
-            teamGroups = state.infoAfterEvent!!.teams[teamId]!!.groups
-        )
-    }
-)
-
 /**
  * The class representing the state of the contest at some point.
  *

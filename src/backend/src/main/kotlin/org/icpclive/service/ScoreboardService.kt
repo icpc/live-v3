@@ -12,7 +12,6 @@ import org.icpclive.cds.util.getLogger
 class ScoreboardService : Service {
     private fun setUp(level: OptimismLevel, flow: Flow<ContestStateWithScoreboard>) {
         DataBus.setScoreboardDiffs(level, flow.withIndex().filter { it.index == 0 || it.value.isAffectingScoreboard() }.map { (index, it) -> it.toScoreboardDiff(snapshot = index == 0) })
-        DataBus.setLegacyScoreboard(level, flow.withIndex().filter { it.index == 0 || it.value.isAffectingScoreboard() }.map { it.value.toLegacyScoreboard() })
     }
 
     private fun ContestStateWithScoreboard.isAffectingScoreboard() : Boolean {

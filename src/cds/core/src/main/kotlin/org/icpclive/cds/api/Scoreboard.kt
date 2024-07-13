@@ -23,20 +23,6 @@ public sealed class ProblemResult {
     public abstract val lastSubmitTime: Duration?
 }
 
-@Serializable
-public data class LegacyScoreboardRow(
-    val teamId: TeamId,
-    val rank: Int,
-    val totalScore: Double,
-    @Serializable(with = DurationInSecondsSerializer::class)
-    val penalty: Duration,
-    val lastAccepted: Long,
-    val medalType: String?,
-    val problemResults: List<ProblemResult>,
-    val teamGroups: List<GroupId>,
-    val championInGroups: List<GroupId>,
-)
-
 //TODO: custom string, maybe something else
 @Serializable
 @SerialName("ICPC")
@@ -59,11 +45,6 @@ public data class IOIProblemResult(
     override val lastSubmitTime: Duration?,
     val isFirstBest: Boolean,
 ) : ProblemResult()
-
-@Serializable
-public data class LegacyScoreboard(
-    val rows: List<LegacyScoreboardRow>,
-)
 
 @Serializable
 public data class ScoreboardRow(
