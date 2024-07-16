@@ -65,7 +65,8 @@ jobs:
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         run: |
           ls ./src/frontend/tests/playwright-report/data/*.png | \
-            awk '{print "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg\" width=\"100\" />"}' 
+            awk '{print "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg\" width=\"100\" />"}' | \
+            tr '\n' ' ' | awk '{print "images=$0" }' >> "$GITHUB_OUTPUT"
 
       - name: PR playwright - comment 
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
@@ -77,7 +78,7 @@ jobs:
             ${{ steps.build.outputs.build-log }}
             fdsfds
 
-            ${{ steps.pr_playwright-walk.outputs.test }}
+            ${{ steps.pr_playwright-walk.outputs.images }}
          
 
       - uses: actions/upload-artifact@v3
