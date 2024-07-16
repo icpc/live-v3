@@ -64,6 +64,14 @@ jobs:
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         run: |
           ls ./src/frontend/tests/playwright-report
+     - name: Create or update comment
+       uses: peter-evans/create-or-update-comment@v4
+       with:
+         issue-number: ${{ github.event.pull_request.number }}
+         body: |
+           Build output
+           ${{ steps.build.outputs.build-log }}
+
          
 
       - uses: actions/upload-artifact@v3
