@@ -61,12 +61,12 @@ jobs:
           path: ./src/frontend/tests/playwright-report/
           retention-days: 3
       - name: PR playwright - walk
-        id: pr_playwright-walk 
+        id: pr_playwright-walk
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         run: |
           ls ./src/frontend/tests/playwright-report/data/*.png | \
-            awk '{print "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg\" width=\"100\" />"}' \
-            >> "$GITHUB_OUTPUT"
+            awk '{print "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg\" width=\"100\" />"}' 
+
       - name: PR playwright - comment 
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         uses: peter-evans/create-or-update-comment@v4
@@ -77,7 +77,7 @@ jobs:
             ${{ steps.build.outputs.build-log }}
             fdsfds
 
-            ${{ steps.step1.outputs.test }}
+            ${{ steps.pr_playwright-walk.outputs.test }}
          
 
       - uses: actions/upload-artifact@v3
