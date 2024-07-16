@@ -63,7 +63,7 @@ jobs:
       - name: walk playwright
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         run: |
-        ls ./src/frontend/tests/playwright-report
+          ls ./src/frontend/tests/playwright-report
          
 
       - uses: actions/upload-artifact@v3
