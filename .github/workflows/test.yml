@@ -61,7 +61,7 @@ jobs:
           path: ./src/frontend/tests/playwright-report/
           retention-days: 3
       - name: PR playwright - walk
-        id: pr_playwright.walk 
+        id: pr_playwright-walk 
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         run: |
           ls ./src/frontend/tests/playwright-report/data/*.png >> "$GITHUB_OUTPUT"
