@@ -1,9 +1,9 @@
 name: Tests
 on:
   push:
-    branches: [main, master, overlay2-rework]
+    branches: [main, master]
   pull_request:
-    branches: [main, master, overlay2-rework]
+    branches: [main, master]
 jobs:
   test:
     timeout-minutes: 20
@@ -60,6 +60,11 @@ jobs:
           name: playwright-report
           path: ./src/frontend/tests/playwright-report/
           retention-days: 3
+      - name: walk playwright
+        if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
+        run: |
+        ls ./src/frontend/tests/playwright-report
+         
 
       - uses: actions/upload-artifact@v3
         if: always()
