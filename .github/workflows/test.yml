@@ -64,7 +64,9 @@ jobs:
         id: pr_playwright-walk 
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         run: |
-          ls ./src/frontend/tests/playwright-report/data/*.png >> "$GITHUB_OUTPUT"
+          ls ./src/frontend/tests/playwright-report/data/*.png | \
+            awk '{print "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg\" width=\"100\" />"}' \
+            >> "$GITHUB_OUTPUT"
       - name: PR playwright - comment 
         if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
         uses: peter-evans/create-or-update-comment@v4
