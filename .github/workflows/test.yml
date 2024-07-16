@@ -1,9 +1,9 @@
 name: Tests
 on:
   push:
-    branches: [main, master, send-test-screens-to-pr]
+    branches: [main, master, overlay2-rework]
   pull_request:
-    branches: [main, master]
+    branches: [main, master, overlay2-rework]
 jobs:
   test:
     timeout-minutes: 20
