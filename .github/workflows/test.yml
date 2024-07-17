@@ -54,21 +54,25 @@ jobs:
       - name: Build with gradle
         run: ./gradlew build release apiCheck --scan -Pnpm.download=false
 
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: ./src/frontend/tests/playwright-report/
-          retention-days: 3
+      - name: PR playwright - walk
+        id: pr_playwright-upload
+        if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
+        working-directory: ./src/frontend/tests/playwright-report
+        env:
+          IMGBB_API_TOKEN: ${{ secrets.IMGBB_API_TOKEN }}
+        run: |
+          ls *.png | \
+            echo xargs -i curl --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=" --form "image=@{}"
 
       - name: PR playwright - upload
         id: pr_playwright-upload
         if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
+        working-directory: ./src/frontend/tests/playwright-report
         env:
           IMGBB_API_TOKEN: ${{ secrets.IMGBB_API_TOKEN }}
         run: |
-          ls ./src/frontend/tests/playwright-report/data/*.png | \
-            xargs -i curl --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@./src/frontend/tests/playwright-report/data/{}"
+          ls *.png | \
+            xargs -i curl --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}"
 
       - name: PR playwright - comment
         uses: actions/github-script@v7
@@ -79,6 +83,13 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
             github.issues.createComment({ issue_number, owner, repo, 
               body: 'Playwright tests screens\n\n<p float="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" width="300" /></p>'});
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: ./src/frontend/tests/playwright-report/
+          retention-days: 3
 
       - uses: actions/upload-artifact@v3
         if: always()
