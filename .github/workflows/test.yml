@@ -84,14 +84,14 @@ jobs:
 
             console.log('[${{steps.pr_playwright-upload.outputs.pr_playwright-images}}]');
             const images = '${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'.split(',');
-            const images_grid = images.map(i => '<img src="' + i + '" width="300" />').join("");
+            const images_grid = images.map(i => '<img src="' + i + '" width="300" />').join(' ');
             console.log(images_grid)
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,                                                                                                                                                                                              
-              body: 'Playwright tests screens\n\n<p float="left">' + images_grid + </p>' + '\n\n${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'
+              body: 'Playwright tests screens\n\n<p float="left">' + images_grid + '</p>' + '\n\n${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'
             });
 
       - uses: actions/upload-artifact@v3
