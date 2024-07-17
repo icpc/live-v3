@@ -54,6 +54,16 @@ jobs:
       - name: Build with gradle
         run: ./gradlew build release apiCheck --scan -Pnpm.download=false
 
+      - name: PR playwright - fds
+        if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
+        working-directory: ./src/frontend/tests/playwright-report/data
+        env:
+          IMGBB_API_TOKEN: ${{ secrets.IMGBB_API_TOKEN }}
+        run: |
+          ls *.png | \
+            xargs -i curl -s --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}" | \
+            ls -1 | paste -sd "," -
+
       - name: PR playwright - upload
         id: pr_playwright-upload
         if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
