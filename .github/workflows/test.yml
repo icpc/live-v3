@@ -59,6 +59,7 @@ jobs:
         if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
         working-directory: ./src/frontend/tests/playwright-report/data
         env:
+          # using live@icpc.global IMGBB acount
           IMGBB_API_TOKEN: ${{ secrets.IMGBB_API_TOKEN }}
         run: |
           ls *.png | \
@@ -70,10 +71,8 @@ jobs:
         if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
         with:
           script: |
-            console.log('[${{steps.pr_playwright-upload.outputs.pr_playwright-images}}]');
-            const images = '${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'.split(',');
-            const images_grid = images.map(i => '<img src="' + i + '" width="300" />').join(' ');
-            console.log(images_grid)
+            const images_grid = '${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'
+              .split(',').map(i => '<img src="' + i + '" width="400" />').join(' ');
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
