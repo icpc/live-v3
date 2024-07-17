@@ -83,7 +83,7 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
 
             console.log('[${{steps.pr_playwright-upload.outputs.pr_playwright-images}}]');
-            const images = '[${{steps.pr_playwright-upload.outputs.pr_playwright-images}}]'.split(',');
+            const images = '${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'.split(',');
             const images_grid = images.map(i => '<img src="' + i.data.url + '" width="300" />');
             console.log(images_grid)
 
@@ -91,7 +91,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,                                                                                                                                                                                              
-              body: 'Playwright tests screens\n\n<p float="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" width="300" /></p>' + '\n\n${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'
+              body: 'Playwright tests screens\n\n<p float="left">' + images_grid + </p>' + '\n\n${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'
             });
 
       - uses: actions/upload-artifact@v3
