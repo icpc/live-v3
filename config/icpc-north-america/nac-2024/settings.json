@@ -1,0 +1,11 @@
+{
+    "type": "clics",
+    "feeds": [
+      {
+        "url": ".",
+        "contestId": "",
+        "eventFeedPath": "",
+        "eventFeedName": "event-feed.ndjson"
+      }
+    ]
+}
