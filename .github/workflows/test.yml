@@ -80,8 +80,9 @@ jobs:
           github-token: ${{ secrets.TOKEN_GITHUB }}
           script: |
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
+            const json = JSON.parse('{"data":{"id":"g7F6yqF","title":"main-Logo2024-adf85c27","url_viewer":"https:\/\/ibb.co\/g7F6yqF","url":"https:\/\/i.ibb.co\/rtfvk8f\/main-Logo2024-adf85c27.png","display_url":"https:\/\/i.ibb.co\/sPJtjxJ\/main-Logo2024-adf85c27.png","width":1319,"height":207,"size":138217,"time":1721248182,"expiration":600,"image":{"filename":"main-Logo2024-adf85c27.png","name":"main-Logo2024-adf85c27","mime":"image\/png","extension":"png","url":"https:\/\/i.ibb.co\/rtfvk8f\/main-Logo2024-adf85c27.png"},"thumb":{"filename":"main-Logo2024-adf85c27.png","name":"main-Logo2024-adf85c27","mime":"image\/png","extension":"png","url":"https:\/\/i.ibb.co\/g7F6yqF\/main-Logo2024-adf85c27.png"},"medium":{"filename":"main-Logo2024-adf85c27.png","name":"main-Logo2024-adf85c27","mime":"image\/png","extension":"png","url":"https:\/\/i.ibb.co\/sPJtjxJ\/main-Logo2024-adf85c27.png"},"delete_url":"https:\/\/ibb.co\/g7F6yqF\/68648783d6514146434dda9975b81d01"},"success":true,"status":200}');
             github.issues.createComment({ issue_number, owner, repo, 
-              body: 'Playwright tests screens\n\n<p float="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" width="300" /></p>'});
+              body: 'Playwright tests screens\n\n<p float="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" width="300" /></p>' + json.data.url});
 
       - uses: actions/upload-artifact@v3
         if: always()
