@@ -5,7 +5,6 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.api.*
-import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
@@ -23,7 +22,6 @@ object DataBus {
     val queueFeaturedRunsFlow = CompletableDeferred<FlowCollector<FeaturedRunAction>>()
     val tickerFlow = CompletableDeferred<Flow<TickerEvent>>()
     private val scoreboardDiffs = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<ScoreboardDiff>>() }
-    private val legacyScoreboards = Array(OptimismLevel.entries.size) { CompletableDeferred<Flow<LegacyScoreboard>>() }
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
     val analyticsActionsFlow = CompletableDeferred<Flow<AnalyticsAction>>()
     val analyticsFlow = CompletableDeferred<Flow<AnalyticsEvent>>()
@@ -47,10 +45,6 @@ object DataBus {
         scoreboardDiffs[level.ordinal].complete(flow)
     }
     suspend fun getScoreboardDiffs(level: OptimismLevel) : Flow<ScoreboardDiff> = scoreboardDiffs[level.ordinal].await()
-    fun setLegacyScoreboard(level: OptimismLevel, flow: Flow<LegacyScoreboard>) {
-        legacyScoreboards[level.ordinal].complete(flow)
-    }
-    suspend fun getLegacyScoreboard(level: OptimismLevel) = legacyScoreboards[level.ordinal].await()
 }
 
 suspend fun DataBus.currentContestInfo() = currentContestInfoFlow().first()

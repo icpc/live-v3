@@ -1,0 +1,17 @@
+{
+  "CONTEST_COLOR": "#3EA8C9",
+  "CONTEST_CAPTION": "46th",
+  "TICKER_BACKGROUND": "#3EA8C9",
+  "FULL_SCREEN_CLOCK_FONT_SIZE": "300px",
+  "WEBSOCKET_URL_OVERRIDE": {
+  },
+  "QUEUE_MAX_ROWS": 10,
+  "ADMIN_HIDE_MENU": [
+    "Dashboard",
+    "Spotlight",
+    "Ticker"
+  ],
+  "ADMIN_HIDE_CONTROL": [
+    "queue", "ticker"
+  ]
+}

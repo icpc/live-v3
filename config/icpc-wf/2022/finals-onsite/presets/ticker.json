@@ -1,0 +1,68 @@
+[
+    {
+        "type": "scoreboard",
+        "part": "long",
+        "periodMs": 10000,
+        "from": 1,
+        "to": 12
+    },
+    {
+        "type": "clock",
+        "part": "short",
+        "periodMs": 30000
+    },
+    {
+        "type": "text",
+        "part": "short",
+        "periodMs": 10000,
+        "text": "#ICPC"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Easy: YPW Medium: TQV Hard: UXSR If you're bored: Z"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 10000,
+        "text": "Over 40 teams have solved problem Y at 15 minutes from contest start"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 15000,
+        "text": "Everybody who solved Riddle of the Spinx solved it a riddle, not as a problem about linear equations"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Problem U is considered to be medium-hard task. It's incredible it's now solved."
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "All teams have solved at least one problem"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "Over 20 teams have incorrect submissions on problem U"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "All teams have solved problem Y"
+    },
+    {
+        "type": "text",
+        "part": "long",
+        "periodMs": 30000,
+        "text": "In WF46 each team has already solved at least one problem (Not the case yet for WF47)"
+    }
+]

@@ -1,0 +1,30 @@
+[
+    {
+        "url": "http://172.24.0.21:8046/media/mitWbug.png",
+        "name": "MIT's bug on problem W is they picked the wrong linear combinations"
+    },
+    {
+        "url": " http://172.24.0.21:8046/media/itmo_w.png",
+        "name": "ITMO gets accept on W after fixing this bug"
+    },
+    {
+        "url": "http://172.24.0.21:8046/media/oxford_w.png",
+        "name": "Oxford has an unusual solution for problem W"
+    },
+    {
+        "url": "http://172.24.0.21:8046/media/spb_hse_d.png",
+        "name": "Spb HSE finally beats problem D after four wrong attempts"
+    },
+    {
+        "url": "http://172.24.0.21:8046/media/spb_hse_t.png",
+        "name": "SPb HSE finally solves problem T"
+    },
+    {
+        "url": " http://172.24.0.21:8046/media/46025_dices.png",
+        "name": "Team Georgia Tech gets accepted on problem V after adding this line "
+    },
+    {
+        "url": "http://172.24.0.21:8046/media/spb_hse_v.png",
+        "name": " SPb HSE finally solved problem problem V and got into top12!"
+    }
+]

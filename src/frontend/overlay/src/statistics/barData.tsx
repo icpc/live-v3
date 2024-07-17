@@ -1,19 +1,19 @@
 import { StatisticsData } from "@/components/molecules/statistics/types";
 import { getIOIColor } from "@/utils/statusInfo";
 import c from "../config";
-import { ContestResultType, ProblemInfo, ProblemSolutionStatistic } from "@shared/api";
+import { ProblemInfo, SolutionsStatistic } from "@shared/api";
 
-export const stackedBarsData = (resultType: ContestResultType, tasks: ProblemInfo[], statistics: ProblemSolutionStatistic[], count: number): StatisticsData => {
-    if (!tasks || !statistics || !count) {
+export const stackedBarsData = (tasks: ProblemInfo[], statistics: SolutionsStatistic,): StatisticsData => {
+    if (!tasks || !statistics || !statistics.teamsCount || tasks.length != statistics.stats.length) {
         return {
             legend: [],
             data: [],
         };
     }
-
+    const count = statistics.teamsCount;
     const legend = [];
     const bars = [];
-    if (resultType === "ICPC") {
+    if (statistics.type == SolutionsStatistic.Type.ICPC) {
         legend.push({
             caption: "solved",
             color: c.VERDICT_OK,
@@ -26,7 +26,7 @@ export const stackedBarsData = (resultType: ContestResultType, tasks: ProblemInf
             caption: "incorrect",
             color: c.VERDICT_NOK,
         });
-        bars.push(...(statistics as ProblemSolutionStatistic.ICPC[])?.map(({ success, pending, wrong }, index) => ({
+        bars.push(...statistics.stats?.map(({ success, pending, wrong }, index) => ({
             name: tasks[index].letter,
             color: tasks[index].color,
             values: [
@@ -47,7 +47,7 @@ export const stackedBarsData = (resultType: ContestResultType, tasks: ProblemInf
                 },
             ]
         })) ?? []);
-    } else if (resultType === "IOI") {
+    } else if (statistics.type == SolutionsStatistic.Type.IOI) {
         legend.push({
             caption: "max score",
             color: c.VERDICT_OK2,
@@ -56,7 +56,7 @@ export const stackedBarsData = (resultType: ContestResultType, tasks: ProblemInf
             caption: "min score",
             color: c.VERDICT_NOK2,
         });
-        bars.push(...(statistics as ProblemSolutionStatistic.IOI[])?.map(({ result }, index) => ({
+        bars.push(...statistics.stats?.map(({ result }, index) => ({
             name: tasks[index].letter,
             color: tasks[index].color,
             values: result.map(({ count: rCount, score }) => ({
