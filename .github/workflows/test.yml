@@ -61,7 +61,7 @@ jobs:
           IMGBB_API_TOKEN: ${{ secrets.IMGBB_API_TOKEN }}
         run: |
           ls *.png | \
-            xargs -i curl -s --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}" | \
+            xargs -i curl -s -P1 --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}" | \
             ls -1 | paste -sd "," -
 
       - name: PR playwright - upload
@@ -72,7 +72,7 @@ jobs:
           IMGBB_API_TOKEN: ${{ secrets.IMGBB_API_TOKEN }}
         run: |
           ls *.png | \
-            xargs -i curl -s --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}" | \
+            xargs -i curl -s -P1 --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}" | \
             ls -1 | paste -sd "," - | awk '{print "pr_playwright-images="$0 }' >> "$GITHUB_OUTPUT"
 
       - name: PR playwright - comment
