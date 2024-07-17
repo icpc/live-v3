@@ -60,26 +60,15 @@ jobs:
           name: playwright-report
           path: ./src/frontend/tests/playwright-report/
           retention-days: 3
-      - name: PR playwright - walk
-        id: pr_playwright-walk
-        if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
+
+      - name: PR playwright - upload
+        id: pr_playwright-upload
+        if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
+        env:
+          IMGBB_API_TOKEN: ${{ secrets.IMGBB_API_TOKEN }}
         run: |
           ls ./src/frontend/tests/playwright-report/data/*.png | \
-            awk '{print "<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg\" width=\"100\" />"}' | \
-            tr '\n' ' ' | awk '{print "images="$0 }' >> "$GITHUB_OUTPUT"
-
-      - name: PR playwright - comment 
-        if: ${{ hashFiles('./src/frontend/tests/playwright-report') != '' }}
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Build output
-            ${{ steps.build.outputs.build-log }}
-            fdsfds
-
-            ${{ steps.pr_playwright-walk.outputs.images }}
-         
+            xargs -i curl --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@./src/frontend/tests/playwright-report/data/{}"
 
       - uses: actions/upload-artifact@v3
         if: always()
