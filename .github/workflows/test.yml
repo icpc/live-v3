@@ -76,7 +76,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Playwright tests screens\n\n<p float="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" width="300" /></p>' + json.data.url + '\n\n' + steps.pr_playwright-upload.outputs.pr_playwright_images
+              body: 'Playwright tests screens\n\n<p float="left"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Cat_August_2010-4.jpg/1200px-Cat_August_2010-4.jpg" width="300" /></p>' + json.data.url + '\n\n'
             });
 
       - uses: actions/upload-artifact@v3
