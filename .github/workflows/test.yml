@@ -83,9 +83,9 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
 
             console.log('[${{steps.pr_playwright-upload.outputs.pr_playwright-images}}]');
-            const images = JSON.parse('[${{steps.pr_playwright-upload.outputs.pr_playwright-images}}]');
-            const images_grid = images.map(i => '<img src="' + i.data.url + '" width="300" />');
-            console.log(images_grid)
+            // const images = JSON.parse('[${{steps.pr_playwright-upload.outputs.pr_playwright-images}}]');
+            // const images_grid = images.map(i => '<img src="' + i.data.url + '" width="300" />');
+            // console.log(images_grid)
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
