@@ -55,7 +55,6 @@ jobs:
         run: ./gradlew build release apiCheck --scan -Pnpm.download=false
 
       - name: PR playwright - walk
-        id: pr_playwright-upload
         if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
         working-directory: ./src/frontend/tests/playwright-report
         env:
