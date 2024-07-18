@@ -91,7 +91,7 @@ export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxS
     }
     return <SubmissionColumnWrap>
         <PVPResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isTop={isTop}/>
-        <PVPTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</PVPTimeCell>
+        <PVPTimeCell>{DateTime.fromMillis(-1).toFormat("H:mm")}</PVPTimeCell>
         <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
     </SubmissionColumnWrap>;
 };
