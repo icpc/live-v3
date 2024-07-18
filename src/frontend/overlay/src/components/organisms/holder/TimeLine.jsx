@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAppSelector } from "../../../redux/hooks";
-import { SCOREBOARD_TYPES } from "../../../consts";
-import { ProblemResult } from "../../../../../generated/api";
 import c from "../../../config";
 import { isShouldUseDarkColor } from "../../../utils/colors";
 
@@ -43,6 +41,7 @@ const Label = styled.div`
     justify-content: center;
     display: flex;
     text-align: center;
+    color: ${({ darkText }) => darkText ? "#000" : "#FFF"};
 `;
 
 const ProblemWrap = styled.div`
@@ -51,22 +50,18 @@ const ProblemWrap = styled.div`
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: ${props => props.leftMargin};
+    left: ${({ left }) => left};;
 `;
 
-const Problem = ({ problemResult, letter, color, contestLengthMs }) => {
-    const leftMargin = (100 * problemResult.time / contestLengthMs) * 0.99 + "%";
-    console.log(letter, color);
-    const dark = isShouldUseDarkColor(color);
-    console.log(problemResult);
-    const verdict = problemResult?.result?.verdict;
-    console.log(problemResult.result.type === ProblemResult.Type.ICPC ? verdict?.isAccepted : problemResult.score > 0);
+const Problem = ({ problemResult, color, contestLengthMs }) => {
+    const left = (100 * problemResult.time / contestLengthMs) * 0.99 + "%";
+    const darkText = isShouldUseDarkColor(color);
     return (
-        <ProblemWrap leftMargin={leftMargin}>
-            <Circle pending={!verdict?.isAccepted && !verdict?.isAddingPenalty}
-                solved={problemResult.result.type === ProblemResult.Type.ICPC ? verdict?.isAccepted : problemResult.score > 0}>
-                <Label>
-                    {letter}
+        <ProblemWrap left={left}>
+            <Circle pending={problemResult.type === "IN_PROGRESS"}
+                solved={problemResult.type === "ICPC" ? problemResult.isAccepted : problemResult.score > 0}>
+                <Label darkText={darkText}>
+                    {problemResult.problemId}
                 </Label>
             </Circle>
         </ProblemWrap>
@@ -77,26 +72,38 @@ const Problem = ({ problemResult, letter, color, contestLengthMs }) => {
 export const TimeLine = ({ className, teamId }) => {
     const contestLengthMs = useAppSelector(state => state.contestInfo.info?.contestLengthMs);
     const [runsResults, setRunsResults] = useState([]);
-    
-    const getResultRuns = (runs) => {
-        return runs.filter(obj => obj.teamId === teamId);
-    };
-    
-    const getRuns = () => {
-        fetch(c.RUNS_URL).then(response => response.json())
-            .then(response => setRunsResults(getResultRuns(response)));
-    };
 
     useEffect(() => {
-        getRuns();
-    }, []);
-    
+        const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns");
+        socket.onopen = function () {
+            console.log("WebSocket is open");
+            socket.send(teamId);
+        };
+
+        socket.onmessage = function (event) {
+            setRunsResults(JSON.parse(event.data));
+            console.log(event.data);
+        };
+
+        socket.onclose = function() {
+            console.log("WebSocket is closed");
+        };
+
+        socket.onerror = function(error) {
+            console.log("WebSocket error: " + error);
+        };
+
+        return () => {
+            socket.close();
+        };
+    }, [teamId]);
+
+
     return (
         <TimeLineContainer className={className}>
             <Line>
                 {runsResults?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} letter={problemResult.problemId}
-                        contestLengthMs={contestLengthMs} key={index} />
+                    <Problem problemResult={problemResult} contestLengthMs={contestLengthMs} key={index} />
                 ))}
             </Line>
         </TimeLineContainer>

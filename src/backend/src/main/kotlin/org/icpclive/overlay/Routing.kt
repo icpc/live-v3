@@ -5,6 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.ktor.websocket.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.admin.getExternalRun
@@ -28,6 +29,32 @@ fun Route.configureOverlayRouting() {
     flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
     flowEndpoint("/contestInfo") { DataBus.currentContestInfoFlow() }
     flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
+    webSocket("/teamRuns") {
+        val teamIdStr = (incoming.receive() as? Frame.Text)?.readText()
+        if (teamIdStr.isNullOrBlank()) {
+            close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "Invalid team id"))
+            return@webSocket
+        }
+        val teamId = teamIdStr.toTeamId()
+        sendJsonFlow(DataBus.contestStateFlow.await().map { state -> state.runsAfterEvent.values.filter { it.teamId == teamId }.sortedBy { it.time } }.distinctUntilChanged()
+            .map { runs ->
+                runs.map { info ->
+                    when (info.result) {
+                        is RunResult.ICPC -> {
+                            val icpcResult = info.result as RunResult.ICPC
+                            TimeLineRunInfo.ICPC(info.time, info.problemId, icpcResult.verdict.isAccepted)
+                        }
+                        is RunResult.IOI -> {
+                            val ioiResult = info.result as RunResult.IOI
+                            TimeLineRunInfo.IOI(info.time, info.problemId, ioiResult.scoreAfter)
+                        }
+                        else -> {
+                            TimeLineRunInfo.InProgress(info.time, info.problemId)
+                        }
+                    }
+                }
+            })
+    }
     flowEndpoint("/queue") { DataBus.queueFlow.await() }
     flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
     flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
