@@ -55,6 +55,9 @@ importers:
       shared-code:
         specifier: file:../common
         version: link:../common
+      vite:
+        specifier: ^5.3.1
+        version: 5.3.1(@types/node@20.14.10)(sass@1.58.0)(terser@5.31.2)
     devDependencies:
       '@types/react':
         specifier: ^18.3.3
@@ -86,9 +89,6 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.4.4
-      vite:
-        specifier: ^5.3.1
-        version: 5.3.1(@types/node@20.14.10)(sass@1.58.0)(terser@5.31.2)
 
   common: {}
 
