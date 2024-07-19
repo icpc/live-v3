@@ -7,23 +7,25 @@ import { isShouldUseDarkColor } from "../../../utils/colors";
 const TimeLineContainer = styled.div`
     align-items: center;
     width: 100%;
-    border-radius: 16px 16px 16px 0;
+    border-top-right-radius: ${c.TIMELINE_BORDER_RADIUS};
+    border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
+    border-right: ${c.TIMELINE_BORDER_RADIUS};
     display: grid;
-    height: 32px;
+    height: ${c.TIMELINE_WRAP_HEIGHT};
     background-color: ${c.CONTEST_COLOR};
 `;
 
 
 const Line = styled.div`
     width: 100%;
-    height: 4%;
+    height: ${c.TIMLINE_LINE_HEIGHT};
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     position: relative;
 `;
 
 const Circle = styled.div`
-    width: 18px;
-    height: 18px;
+    width: ${c.TIMLINE_CIRCLE_RADIUS};
+    height: ${c.TIMLINE_CIRCLE_RADIUS};
     background-color: ${( { solved, pending } ) => (solved ? c.VERDICT_OK : pending ? c.VERDICT_UNKNOWN : c.VERDICT_NOK) };
     border-radius: 50%;
     position: absolute;
