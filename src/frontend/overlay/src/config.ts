@@ -29,7 +29,6 @@ config.CONTEST_COLOR = "#4C83C3";
 config.CONTEST_CAPTION = "";
 
 config.BASE_URL_WS = (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay");
-config.RUNS_URL = import.meta.env.VITE_RUNS_URL ?? `${window.location.protocol}//${window.location.hostname}:${WS_PORT}/api/overlay/runs`;
 
 // Non Styling configs
 config.WEBSOCKET_RECONNECT_TIME = 5000; // ms
