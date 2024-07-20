@@ -37,6 +37,9 @@ importers:
       notistack:
         specifier: ^2.0.3
         version: 2.0.8(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react@18.3.1))(@mui/material@5.16.4(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      prop-types:
+        specifier: ^15.7.2
+        version: 15.8.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -83,9 +86,6 @@ importers:
       eslint-plugin-react-refresh:
         specifier: ^0.4.7
         version: 0.4.8(eslint@8.57.0)
-      prop-types:
-        specifier: ^15.7.2
-        version: 15.8.1
       typescript:
         specifier: ^5.2.2
         version: 5.5.3

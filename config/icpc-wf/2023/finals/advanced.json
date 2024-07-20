@@ -1,8 +1,26 @@
 {
 "teamOverrideTemplate": {
   "medias": {
+    "achievement": {
+      "type": "Image",
+      "url": ""
+    }
   },
   "displayName": "{orgDisplayName}" 
+},
+"teamOverrides": {
+  "47001": {
+    "medias": {
+      "camera": {
+        "type": "HLSVideo",
+        "url": ""
+      },
+      "screen": {
+        "type": "HLSVideo",
+        "url": ""
+      }
+    }
+  }
 },
 "awardsSettings": {
   "medals": [

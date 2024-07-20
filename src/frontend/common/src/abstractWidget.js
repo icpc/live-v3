@@ -1,4 +1,4 @@
-import { createApiGet, createApiPost } from "./utils.js";
+import { createApiGet, createApiPost } from "./utils.ts";
 
 const WEBSOCKET_RECONNECT_TIME = 3000;
 

@@ -7,8 +7,8 @@
       "vite/client"
     ],
     "module": "ESNext",
-    "skipLibCheck": false,
-    "esModuleInterop": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
 
     /* Bundler mode */
     "moduleResolution": "Node",
@@ -28,7 +28,7 @@
     "rootDir": "../", // Yes, this is ugly. Will be fixed once the admin is typescript too.
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["../common/*", "../generated/*"],
+      "@shared/*": ["../common/src/*", "../generated/*"],
       "@/*": ["./src/*"]
     }
   },
