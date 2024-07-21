@@ -1,16 +1,40 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useAppSelector } from "../../../redux/hooks";
 import c from "../../../config";
 import { isShouldUseDarkColor } from "../../../utils/colors";
 import { getIOIColor } from "../../../utils/statusInfo";
+
+const ChangeTextAnimation = keyframes`
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+
+const ChangeTextAnimation2 = keyframes`
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+`;
 
 const TimeLineContainer = styled.div`
     align-items: center;
     width: 100%;
     border-top-right-radius: ${c.TIMELINE_BORDER_RADIUS};
     border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
-    border-right: ${c.TIMELINE_BORDER_RADIUS};
+    border-bottom-right-radius: ${c.TIMELINE_BORDER_RADIUS};;
     display: grid;
     height: ${c.TIMELINE_WRAP_HEIGHT};
     background-color: ${c.CONTEST_COLOR};
@@ -37,8 +61,11 @@ const Label = styled.div`
     position: relative;
     justify-content: center;
     display: flex;
+    align-self: center;
     text-align: center;
+    align-items: center;
     color: ${({ darkText }) => darkText ? "#000" : "#FFF"};
+    font-weight: ${({ isBold }) => isBold ? "bold" : "normal"};
 `;
 
 const ProblemWrap = styled.div`
@@ -48,6 +75,31 @@ const ProblemWrap = styled.div`
     justify-content: center;
     position: absolute;
     left: ${({ left }) => left};
+`;
+
+const TextWithAnimation = styled.span`
+    animation: ${ChangeTextAnimation} 10s infinite;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    text-align: center;
+`;
+
+const TextWithAnimation2 = styled.span`
+    animation: ${ChangeTextAnimation2} 10s infinite;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+`;
+
+const Text = styled.span`
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 `;
 
 
@@ -76,8 +128,16 @@ export const TimeLine = ({ className, teamId }) => {
         return (
             <ProblemWrap left={left + "%"}>
                 <Circle color={getColor(problemResult)}>
-                    <Label darkText={darkText}>
-                        {problemResult.problemId}
+                    <Label darkText={darkText} isBold={problemResult.type === "IN_PROGRESS"}>
+                        {(problemResult.type === "IOI" || problemResult.type === "ICPC"
+                            && !problemResult.isAccepted) && <TextWithAnimation>{problemResult.problemId}</TextWithAnimation> }
+                        {!(problemResult.type === "IOI" || problemResult.type === "ICPC"
+                            && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
+                        {problemResult.type === "ICPC" && !problemResult.isAccepted && <TextWithAnimation2>{problemResult.shortName}</TextWithAnimation2>}
+                        {problemResult.type === "IOI" && <TextWithAnimation2>{problemResult.score}</TextWithAnimation2>}
+                        {/*{problemResult.problemId} <br/>*/}
+                        {/*{problemResult.type === "IOI" && problemResult.score}*/}
+                        {/*{problemResult.type === "ICPC" && !problemResult.isAccepted && problemResult.shortName}*/}
                     </Label>
                 </Circle>
             </ProblemWrap>

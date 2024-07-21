@@ -9,7 +9,11 @@ import kotlin.time.Duration
 public sealed class TimeLineRunInfo {
     @Serializable
     @SerialName("ICPC")
-    public data class ICPC(@Serializable(with = DurationInMillisecondsSerializer::class) val time: Duration, val problemId: ProblemId, val isAccepted: Boolean) : TimeLineRunInfo()
+    public data class ICPC(
+        @Serializable(with = DurationInMillisecondsSerializer::class) val time: Duration,
+        val problemId: ProblemId,
+        val isAccepted: Boolean,
+        val shortName: String) : TimeLineRunInfo()
 
     @Serializable
     @SerialName("IOI")
@@ -28,7 +32,7 @@ public sealed class TimeLineRunInfo {
                         if (icpcResult.verdict.isAccepted) {
                             acceptedProblems.add(info.problemId)
                         }
-                        ICPC(info.time, info.problemId, icpcResult.verdict.isAccepted)
+                        ICPC(info.time, info.problemId, icpcResult.verdict.isAccepted, icpcResult.verdict.shortName)
                     } else {
                         null
                     }
