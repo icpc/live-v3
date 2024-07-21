@@ -36,7 +36,11 @@ public sealed class TimeLineRunInfo {
 
                 is RunResult.IOI -> {
                     val ioiResult = info.result
-                    IOI(info.time, info.problemId, ioiResult.score.sum())
+                    if (ioiResult.difference > 0) {
+                        IOI(info.time, info.problemId, ioiResult.score.sum())
+                    } else {
+                        null
+                    }
                 }
 
                 else -> {

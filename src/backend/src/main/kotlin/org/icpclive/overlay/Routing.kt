@@ -7,6 +7,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
 import kotlinx.collections.immutable.persistentMapOf
+import kotlinx.collections.immutable.toPersistentMap
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.admin.getExternalRun
@@ -40,29 +41,20 @@ fun Route.configureOverlayRouting() {
         }
         val teamId = teamIdStr.toTeamId()
         val acceptedProblems = mutableSetOf<ProblemId>()
-        val startRuns = DataBus.contestStateFlow.await().first().runsAfterEvent.values.filter {
-            teamId == it.teamId && it.time.toLong(DurationUnit.MILLISECONDS) != 0L
-        }
-            .sortedBy { it.time }
-            .filter { it.result !is RunResult.InProgress }
-            .mapNotNull { info -> TimeLineRunInfo.fromRunInfo(info, acceptedProblems) }
-        startRuns.forEach {
-            if (it is TimeLineRunInfo.ICPC && it.isAccepted) {
-                acceptedProblems.add(it.problemId)
-            }
-        }
+        val allRuns = mutableMapOf<RunId, RunInfo>()
+        DataBus.contestStateFlow.await().first().runsAfterEvent.values
+            .filter { teamId == it.teamId && it.time.toLong(DurationUnit.MILLISECONDS) != 0L }
+            .forEach { allRuns[it.id] = it }
         sendJsonFlow(DataBus.contestStateFlow.await()
             .mapNotNull { (it.lastEvent as? RunUpdate)?.newInfo }
-            .runningFold(persistentMapOf<RunId, RunInfo>()) { acc, it ->
+            .runningFold(allRuns.toPersistentMap()) { acc, it ->
                 if (it.teamId == teamId) acc.put(it.id, it) else if (it.id in acc) acc.remove(it.id) else acc
             }
             .distinctUntilChanged { a, b -> a === b }
             .map { runs -> runs.values.sortedBy { it.time } }
             .map { runs ->
-                val ac = acceptedProblems.toMutableSet()
-                val ans = runs.mapNotNull { info -> TimeLineRunInfo.fromRunInfo(info, ac) }.toMutableList()
-                ans.addAll(startRuns)
-                ans
+                acceptedProblems.clear()
+                runs.mapNotNull { info -> TimeLineRunInfo.fromRunInfo(info, acceptedProblems) }
             })
     }
     flowEndpoint("/queue") { DataBus.queueFlow.await() }
