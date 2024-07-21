@@ -19,14 +19,25 @@
     "react-rnd": "^10.3.7",
     "react-router-dom": "^6.2.2",
     "react-scripts": "^5.0.1",
-    "shared-code": "file:../common"
+    "shared-code": "file:../common",
+    "vite": "^5.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "typescript": "^5.2.2",
+    "vite-tsconfig-paths": "^4.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint:js": "eslint ./src/**/*.js",
+    "start": "vite --port 3000",
+    "build": "tsc -b && vite build",
+    "lint:js": "eslint ./src/**/*.*s*",
     "lint": "npm run lint:js"
   },
   "eslintConfig": {

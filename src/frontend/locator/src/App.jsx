@@ -4,12 +4,12 @@ import AppNav from "./AppNav";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import OracleLocator from "./components/OracleLocator";
-import Calibrator from "./components/Calibrator";
+import Calibrator from "./components/Calibrator.jsx";
 
 
 function App() {
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL ?? ""}>
+        <BrowserRouter basename={import.meta.env.PUBLIC_URL ?? ""}>
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
                     <AppNav/>
