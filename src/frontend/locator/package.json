@@ -37,7 +37,7 @@
   "scripts": {
     "start": "vite --port 3000",
     "build": "tsc -b && vite build",
-    "lint:js": "eslint ./src/**/*.*s*",
+    "lint:js": "eslint ./src/**/*.js* && eslint ./src/**/*.ts*",
     "lint": "npm run lint:js"
   },
   "eslintConfig": {
