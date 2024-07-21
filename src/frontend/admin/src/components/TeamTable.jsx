@@ -90,6 +90,7 @@ const isMediaTypeChoosen = (mediaType, selectedMediaTypes) => {
     return selectedMediaTypes.includes(mediaType) || mediaType === null && selectedMediaTypes.length === 0;
 };
 
+// @deprecate Too hard
 export const TeamViewSettingsPanel = ({
     mediaTypes,
     selectedMediaTypes,

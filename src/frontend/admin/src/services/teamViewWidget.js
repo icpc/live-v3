@@ -1,4 +1,4 @@
-import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
+import { AbstractWidgetImpl } from "./abstractWidgetImpl";
 import { useMemo } from "react";
 
 const getTeamViewVariantParams = (variant) => {

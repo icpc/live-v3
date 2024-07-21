@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ShowPresetButton from "./ShowPresetButton";
+import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import { PresetsTableCell } from "./PresetsTableCell";
 import { activeRowColor } from "../styles";
 
@@ -47,7 +47,7 @@ export function PresetsTableRow({ data, tableKeys, onShow, onEdit, onDelete, isI
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
             <ShowPresetButton
                 onClick={onShow}
-                active={data.shown}
+                checked={data.shown}
             />
         </TableCell>
         {tableKeys.map((rowKey) => (

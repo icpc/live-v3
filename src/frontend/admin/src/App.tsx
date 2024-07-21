@@ -15,7 +15,7 @@ import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 import Analytics from "./components/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight";
-import { createApiGet } from "shared-code/utils";
+import { createApiGet } from "@shared/utils";
 import { setFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
 import FullScreenClockManager from "./components/FullScreenClockManager";
 import AdvancedJson from "./components/AdvancedJson";

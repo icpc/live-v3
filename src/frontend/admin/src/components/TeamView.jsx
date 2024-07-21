@@ -15,13 +15,12 @@ import {
     InputAdornment,
     FormLabel,
     FormControl,
-    FormControlLabel,
     ThemeProvider,
     createTheme,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "shared-code/errors";
-import { TeamViewService, useTeamViewService } from "../services/teamViewWidget";
+import { TeamViewService, useTeamViewService } from "../services/teamViewWidget.js";
 import SingleTeamViewIcon from "@mui/icons-material/WebAsset";
 import PVPTeamViewIcon from "@mui/icons-material/Splitscreen";
 import SplitTeamViewIcon from "@mui/icons-material/GridView";
@@ -34,8 +33,10 @@ import BottomRightIcon from "@mui/icons-material/SouthEast";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
-import { SelectTeamTable, TEAM_FIELD_STRUCTURE, TeamViewSettingsPanel } from "./TeamTable";
+import { SelectTeamTable, TEAM_FIELD_STRUCTURE } from "./TeamTable";
 import PropTypes from "prop-types";
+import TeamMediaSwitcher, { DEFAULT_MEDIA_TYPES } from "./controls/TeamMediaSwitcher";
+import ShowPresetButton from "./controls/ShowPresetButton";
 
 const AUTOMODE_TEAM = {
     "id": null,
@@ -64,6 +65,7 @@ const isTeamSatisfiesSearch = (team, searchValue) => {
     return (team.id + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
 };
 
+// TODO: move to common :|
 const useTeamsList = (rawTeams, status) => {
     const [selectedTeamId, setSelectedTeamId] = useState(undefined);
     const teamsWithStatus = useMemo(
@@ -79,7 +81,13 @@ const useTeamsList = (rawTeams, status) => {
     const filteredTeams = useMemo(() => {
         return teamsWithStatus.filter(t => isTeamSatisfiesSearch(t, searchValue));
     }, [teamsWithStatus, searchValue]);
-    return { teams: filteredTeams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue };
+    const selectedTeam = useMemo(() => {
+        if (selectedTeamId === undefined) {
+            return undefined;
+        }
+        return rawTeams.find(team => team.id === selectedTeamId);
+    }, [rawTeams, selectedTeamId]);
+    return { teams: filteredTeams, selectedTeamId, setSelectedTeamId, selectedTeam, searchValue, setSearchValue };
 };
 
 const teamViewTheme = createTheme({
@@ -282,19 +290,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     useTeamviewService(pvpService, setStatus);
     useTeamviewService(splitService, setStatus);
 
-    const [variant, setVariant] = useState("single");
-    useEffect(() => {
-        if (Object.values(status).length === 7 && variant === undefined) {
-            const shownInstance = Object.entries(status).find(([, i]) => i.shown);
-            if (!shownInstance || shownInstance[0] === null) {
-                setVariant("single");
-            } else if (shownInstance[0].startsWith("PVP")) {
-                setVariant("pvp");
-            } else {
-                setVariant("splitScreen");
-            }
-        }
-    }, [status]);
+    const [variant, setVariant] = useState(undefined);
 
     const currentService = useMemo(() => {
         if (variant === "splitScreen") {
@@ -306,25 +302,75 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     }, [variant, singleService, pvpService, splitService]);
 
     const [rawTeams, setRawTeams] = useState([]);
-    const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, status);
+    const { teams, selectedTeamId, setSelectedTeamId, selectedTeam, searchValue, setSearchValue } = useTeamsList(rawTeams, status);
     useEffect(() => {
         singleService.teams().then((ts) => setRawTeams([AUTOMODE_TEAM, ...ts]));
     }, [singleService]);
+    const [teamsAvailableMedias, teamsHasAchievement] = useMemo(() => {
+        const medias = new Set();
+        const hasAchievement = rawTeams.some(t => t.medias.achievement);
+        rawTeams.forEach(t => Object.keys(t.medias).forEach(m => medias.add(m)));
+        return [[...medias], hasAchievement];
+    }, [rawTeams]);
 
     const [isMultipleMode, setIsMultipleMode] = useState(false);
 
     const [selectedInstance, setSelectedInstance] = useState(undefined);
-    const [mediaTypes1, setMediaTypes1] = useState(undefined);
-    const [mediaTypes2, setMediaTypes2] = useState(undefined);
+    const [mediaType1, setMediaType1] = useState(undefined);
+    const [mediaType2, setMediaType2] = useState(undefined);
     const [statusShown, setStatusShown] = useState(true);
     const [achievementShown, setAchievementShown] = useState(false);
 
+    const [allowedMediaTypes, disableMediaTypes] = useMemo(() => [
+            DEFAULT_MEDIA_TYPES.filter(m => m && (selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m))),
+            DEFAULT_MEDIA_TYPES.filter(m => m && !(selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m)))
+    ], [teamsAvailableMedias, selectedTeam]);
+
+    console.log(allowedMediaTypes);
+
+
+    useEffect(() => {
+        if (Object.values(status).length === 7 && variant === undefined) {
+            const shownInstance = Object.entries(status).find(([, i]) => i.shown);
+            if (!shownInstance || shownInstance[0] === null) {
+                setVariant("single");
+            } else if (shownInstance[0].startsWith("PVP")) {
+                setVariant("pvp");
+            } else {
+                setVariant("splitScreen");
+            }
+
+            if (mediaType1 === undefined && rawTeams.length > 0) {
+                if (shownInstance && shownInstance[1].settings.mediaTypes.length > 0) {
+                    setMediaType1(shownInstance[1].settings.mediaTypes[0]);
+                } else {
+                    setMediaType1(allowedMediaTypes.length > 0 ? allowedMediaTypes[0] : null);
+                }
+            }
+            if (mediaType2 === undefined && rawTeams.length > 0) {
+                if (shownInstance && shownInstance[1].settings.mediaTypes.length > 1) {
+                    setMediaType2(shownInstance[1].settings.mediaTypes[1]);
+                } else {
+                    setMediaType2(allowedMediaTypes.length > 1 ? allowedMediaTypes[1] : null);
+                }
+            }
+            if (rawTeams.some(t => t.medias.achievement)) {
+                setAchievementShown(true);
+            }
+            console.log()
+        }
+    }, [status, mediaType1, setMediaType1, mediaType2, setMediaType2, setAchievementShown, rawTeams]);
+
+    useEffect(() => {
+        // rawTeams.any(t => t);
+    }, [rawTeams]);
+
     const onShow = useCallback(() => {
         const settings = {
-            mediaTypes: [mediaTypes1 && mediaTypes1[0], mediaTypes2 && mediaTypes2[0]].filter(i => i),
+            mediaTypes: [mediaType1, mediaType2].filter(i => i),
             teamId: selectedTeamId,
             showTaskStatus: statusShown,
-            showAchievement: achievementShown,
+            showAchievement: achievementShown && variant === "single",
         };
         if (isMultipleMode) {
             currentService.editPreset(selectedInstance, settings);
@@ -333,8 +379,8 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
         }
         setSelectedInstance(undefined);
         setSelectedTeamId(undefined);
-    }, [selectedInstance, currentService, isMultipleMode, mediaTypes1,
-        mediaTypes2, selectedTeamId, statusShown, achievementShown]);
+    }, [selectedInstance, currentService, isMultipleMode, mediaType1,
+        mediaType2, selectedTeamId, statusShown, achievementShown, variant]);
 
     const onInstanceSelect = useCallback((instance) => () => {
         if (instance === selectedInstance) {
@@ -348,17 +394,10 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
         currentService.hidePreset(instance);
     }, [currentService]);
 
-    const selectedTeamName = useMemo(() => {
-        if (selectedTeamId === undefined) {
-            return "";
-        }
-        return teams.find(team => team.id === selectedTeamId).name;
-    }, [teams, selectedTeamId]);
-
     return (
         <Box>
             <Box sx={{ mb: 1 }} display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center">
-                <VariantSelect variant={variant} setVariant={setVariant} />
+                <VariantSelect variant={variant ?? "single"} setVariant={setVariant} />
                 <MultipleModeSwitch currentService={currentService} setIsMultipleMode={setIsMultipleMode} />
             </Box>
             <InstancesManager
@@ -390,7 +429,7 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
                         <FormControl fullWidth sx={{ mb: 1 }}>
                             <FormLabel component="legend">Team name</FormLabel>
                             <TextField
-                                defaultValue={selectedTeamName}
+                                defaultValue={selectedTeam?.name}
                                 variant="standard"
                                 fullWidth
                                 InputProps={{
@@ -407,47 +446,53 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
 
                     {selectedTeamId !== undefined && (
                         <>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Main content</FormLabel>
-                                <TeamViewSettingsPanel
-                                    canShow={true}
-                                    onShowTeam={ts => setMediaTypes1(ts)}
-                                    showHideButton={false}
-                                    selectedMediaTypes={mediaTypes1}
-                                />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Additional content</FormLabel>
-                                <TeamViewSettingsPanel
-                                    canShow={true}
-                                    onShowTeam={ts => setMediaTypes2(ts)}
-                                    showHideButton={false}
-                                    selectedMediaTypes={mediaTypes2}
-                                />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Show status</FormLabel>
-                                <FormControlLabel
-                                    control={<Switch checked={statusShown} onChange={(_, v) => setStatusShown(v)}/>}
-                                    label={"Display the name of the team, their current ranking, and details about their tasks"}
-                                />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Show achievements</FormLabel>
-                                <FormControlLabel
-                                    control={(
-                                        <Switch
-                                            checked={achievementShown}
-                                            onChange={(_, v) => setAchievementShown(v)}
+                            <Grid container>
+                                <Grid item xs={12} sm={4}>
+                                    <FormLabel component="legend">Main content</FormLabel>
+                                </Grid>
+                                <Grid item xs={12} sm={8}>
+                                    <TeamMediaSwitcher
+                                        switchedMediaType={mediaType1}
+                                        onSwitch={ts => setMediaType1(ts)}
+                                        disabledMediaTypes={disableMediaTypes}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={4}>
+                                    <FormLabel component="legend">Additional content</FormLabel>
+                                </Grid>
+                                <Grid item xs={12} sm={8}>
+                                    <TeamMediaSwitcher
+                                        switchedMediaType={mediaType2}
+                                        onSwitch={ts => setMediaType2(ts)}
+                                        disabledMediaTypes={[...disableMediaTypes, mediaType1]}
+                                    />
+                                </Grid>
+                                <Grid item xs={10} sm={4}>
+                                    <FormLabel component="legend">Name, ranking, submissions</FormLabel>
+                                </Grid>
+                                <Grid item xs={2} sm={8}>
+                                        <ShowPresetButton
+                                            checked={statusShown}
+                                            onClick={(v) => setStatusShown(v)}
+                                            sx={{ justifyContent: "flex-start" }}
                                         />
-                                    )}
-                                    label={"Enable this switch to show contestant achievements"}
-                                />
-                                <Box>
-                                </Box>
-                            </FormControl>
-
-
+                                </Grid>
+                                {variant === "single" && (
+                                    <>
+                                        <Grid item xs={10} sm={4}>
+                                            <FormLabel component="legend">Achievements</FormLabel>
+                                        </Grid>
+                                        <Grid item xs={2} sm={8}>
+                                            <ShowPresetButton
+                                                checked={achievementShown}
+                                                onClick={(v) => setAchievementShown(v)}
+                                                disabled={!(selectedTeam?.id ? selectedTeam.medias.achievement : teamsHasAchievement)}
+                                                sx={{ justifyContent: "flex-start" }}
+                                            />
+                                        </Grid>
+                                    </>
+                                )}
+                            </Grid>
                             <Button
                                 color="primary"
                                 variant="contained"
