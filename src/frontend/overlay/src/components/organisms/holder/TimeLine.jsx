@@ -68,12 +68,11 @@ export const TimeLine = ({ className, teamId }) => {
             </ProblemWrap>
         );
     };
-    
+
     useEffect(() => {
-        const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns");
+        const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
         socket.onopen = function () {
             console.log("WebSocket is open");
-            socket.send(teamId);
         };
 
         socket.onmessage = function (event) {

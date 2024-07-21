@@ -18,4 +18,31 @@ public sealed class TimeLineRunInfo {
     @Serializable
     @SerialName("IN_PROGRESS")
     public data class InProgress(@Serializable(with = DurationInMillisecondsSerializer::class) val time: Duration, val problemId: ProblemId) : TimeLineRunInfo()
+
+    public companion object {
+        public fun fromRunInfo(info: RunInfo, acceptedProblems: MutableSet<ProblemId>): TimeLineRunInfo? {
+            return when (info.result) {
+                is RunResult.ICPC -> {
+                    val icpcResult = info.result as RunResult.ICPC
+                    if (!acceptedProblems.contains(info.problemId)) {
+                        if (icpcResult.verdict.isAccepted) {
+                            acceptedProblems.add(info.problemId)
+                        }
+                        ICPC(info.time, info.problemId, icpcResult.verdict.isAccepted)
+                    } else {
+                        null
+                    }
+                }
+
+                is RunResult.IOI -> {
+                    val ioiResult = info.result as RunResult.IOI
+                    IOI(info.time, info.problemId, ioiResult.scoreAfter)
+                }
+
+                else -> {
+                    InProgress(info.time, info.problemId)
+                }
+            }
+        }
+    }
 }

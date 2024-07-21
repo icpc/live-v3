@@ -6,9 +6,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
+import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.admin.getExternalRun
+import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
@@ -29,43 +31,35 @@ fun Route.configureOverlayRouting() {
     flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
     flowEndpoint("/contestInfo") { DataBus.currentContestInfoFlow() }
     flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
-    webSocket("/teamRuns") {
-        val teamIdStr = (incoming.receive() as? Frame.Text)?.readText()
+    webSocket("/teamRuns/{id}") {
+        val teamIdStr = call.parameters["id"]
         if (teamIdStr.isNullOrBlank()) {
             close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "Invalid team id"))
             return@webSocket
         }
         val teamId = teamIdStr.toTeamId()
-        sendJsonFlow(DataBus.contestStateFlow.await().map { state ->
-            state.runsAfterEvent.values.filter { it.teamId == teamId }
-                .sortedBy { it.time }
-        }.distinctUntilChanged()
+        val acceptedProblems = mutableSetOf<ProblemId>()
+        val startRuns = DataBus.contestStateFlow.await().first().runsAfterEvent.values.filter { teamId == it.teamId }
+            .sortedBy { it.time }
+            .filter { it.result !is RunResult.InProgress }
+            .mapNotNull { info -> TimeLineRunInfo.fromRunInfo(info, acceptedProblems) }
+        startRuns.forEach {
+            if (it is TimeLineRunInfo.ICPC && it.isAccepted) {
+                acceptedProblems.add(it.problemId)
+            }
+        }
+        sendJsonFlow(DataBus.contestStateFlow.await()
+            .mapNotNull { (it.lastEvent as? RunUpdate)?.newInfo }
+            .runningFold(persistentMapOf<RunId, RunInfo>()) { acc, it ->
+                if (it.teamId == teamId) acc.put(it.id, it) else if (it.id in acc) acc.remove(it.id) else acc
+            }
+            .distinctUntilChanged { a, b -> a === b }
+            .map { runs -> runs.values.sortedBy { it.time } }
             .map { runs ->
-                val acceptedProblems = mutableSetOf<ProblemId>()
-                runs.map { info ->
-                    when (info.result) {
-                        is RunResult.ICPC -> {
-                            val icpcResult = info.result as RunResult.ICPC
-                            if (!acceptedProblems.contains(info.problemId)) {
-                                if (icpcResult.verdict == Verdict.Accepted) {
-                                    acceptedProblems.add(info.problemId)
-                                }
-                                TimeLineRunInfo.ICPC(info.time, info.problemId, icpcResult.verdict.isAccepted)
-                            } else {
-                                null
-                            }
-                        }
-
-                        is RunResult.IOI -> {
-                            val ioiResult = info.result as RunResult.IOI
-                            TimeLineRunInfo.IOI(info.time, info.problemId, ioiResult.scoreAfter)
-                        }
-
-                        else -> {
-                            TimeLineRunInfo.InProgress(info.time, info.problemId)
-                        }
-                    }
-                }.filterNotNull()
+                val ac = acceptedProblems.toMutableSet()
+                val ans = runs.mapNotNull { info -> TimeLineRunInfo.fromRunInfo(info, ac) }.toMutableList()
+                ans.addAll(startRuns)
+                ans
             })
     }
     flowEndpoint("/queue") { DataBus.queueFlow.await() }
