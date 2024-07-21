@@ -15,6 +15,7 @@ import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
+import kotlin.time.DurationUnit
 
 inline fun <reified T : Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend () -> Flow<T>) {
     webSocket(name) { sendJsonFlow(dataProvider()) }
@@ -39,7 +40,9 @@ fun Route.configureOverlayRouting() {
         }
         val teamId = teamIdStr.toTeamId()
         val acceptedProblems = mutableSetOf<ProblemId>()
-        val startRuns = DataBus.contestStateFlow.await().first().runsAfterEvent.values.filter { teamId == it.teamId }
+        val startRuns = DataBus.contestStateFlow.await().first().runsAfterEvent.values.filter {
+            teamId == it.teamId && it.time.toLong(DurationUnit.MILLISECONDS) != 0L
+        }
             .sortedBy { it.time }
             .filter { it.result !is RunResult.InProgress }
             .mapNotNull { info -> TimeLineRunInfo.fromRunInfo(info, acceptedProblems) }

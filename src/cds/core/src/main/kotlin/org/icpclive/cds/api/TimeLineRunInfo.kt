@@ -23,7 +23,7 @@ public sealed class TimeLineRunInfo {
         public fun fromRunInfo(info: RunInfo, acceptedProblems: MutableSet<ProblemId>): TimeLineRunInfo? {
             return when (info.result) {
                 is RunResult.ICPC -> {
-                    val icpcResult = info.result as RunResult.ICPC
+                    val icpcResult = info.result
                     if (!acceptedProblems.contains(info.problemId)) {
                         if (icpcResult.verdict.isAccepted) {
                             acceptedProblems.add(info.problemId)
@@ -35,8 +35,8 @@ public sealed class TimeLineRunInfo {
                 }
 
                 is RunResult.IOI -> {
-                    val ioiResult = info.result as RunResult.IOI
-                    IOI(info.time, info.problemId, ioiResult.scoreAfter)
+                    val ioiResult = info.result
+                    IOI(info.time, info.problemId, ioiResult.score.sum())
                 }
 
                 else -> {

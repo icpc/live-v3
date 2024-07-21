@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useAppSelector } from "../../../redux/hooks";
 import c from "../../../config";
 import { isShouldUseDarkColor } from "../../../utils/colors";
+import { getIOIColor } from "../../../utils/statusInfo";
 
 const TimeLineContainer = styled.div`
     align-items: center;
@@ -26,7 +27,7 @@ const Line = styled.div`
 const Circle = styled.div`
     width: ${c.TIMLINE_CIRCLE_RADIUS};
     height: ${c.TIMLINE_CIRCLE_RADIUS};
-    background-color: ${( { solved, pending } ) => (solved ? c.VERDICT_OK : pending ? c.VERDICT_UNKNOWN : c.VERDICT_NOK) };
+    background-color: ${( { color } ) => color };
     border-radius: 50%;
     position: absolute;
     align-content: center;
@@ -51,16 +52,30 @@ const ProblemWrap = styled.div`
 
 
 export const TimeLine = ({ className, teamId }) => {
-    const contestLengthMs = useAppSelector(state => state.contestInfo.info?.contestLengthMs);
+    const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
+    
+    const getColor = (problemResult) => {
+        if (problemResult.type === "IN_PROGRESS") {
+            return c.VERDICT_UNKNOWN;
+        } else if (problemResult.type === "ICPC") {
+            if (problemResult.isAccepted) {
+                return c.VERDICT_OK;
+            } else {
+                return c.VERDICT_NOK;
+            }
+        } else {
+            const task = contestInfo.problems.find(info => info.letter === problemResult.problemId);
+            return getIOIColor(problemResult.score, task?.minScore, task?.maxScore);
+        }
+    };
 
     const Problem = ({ problemResult, color, contestLengthMs }) => {
         let left = (100 * problemResult.time / contestLengthMs) * 0.99;
         const darkText = isShouldUseDarkColor(color);
         return (
             <ProblemWrap left={left + "%"}>
-                <Circle pending={problemResult.type === "IN_PROGRESS"}
-                    solved={problemResult.type === "ICPC" ? problemResult.isAccepted : problemResult.score > 0}>
+                <Circle color={getColor(problemResult)}>
                     <Label darkText={darkText}>
                         {problemResult.problemId}
                     </Label>
@@ -99,7 +114,7 @@ export const TimeLine = ({ className, teamId }) => {
         <TimeLineContainer className={className}>
             <Line>
                 {runsResults?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} contestLengthMs={contestLengthMs} key={index} />
+                    <Problem problemResult={problemResult} contestLengthMs={contestInfo?.contestLengthMs} key={index} />
                 ))}
             </Line>
         </TimeLineContainer>

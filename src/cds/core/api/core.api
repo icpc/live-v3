@@ -1679,6 +1679,7 @@ public abstract class org/icpclive/cds/api/TimeLineRunInfo {
 }
 
 public final class org/icpclive/cds/api/TimeLineRunInfo$Companion {
+	public final fun fromRunInfo (Lorg/icpclive/cds/api/RunInfo;Ljava/util/Set;)Lorg/icpclive/cds/api/TimeLineRunInfo;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
