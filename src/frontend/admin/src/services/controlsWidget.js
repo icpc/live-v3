@@ -1,4 +1,4 @@
-import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
+import { AbstractWidgetImpl } from "./abstractWidgetImpl";
 import { useMemo } from "react";
 import { createApiGet } from "shared-code/utils";
 import { BACKEND_ROOT } from "../config";

@@ -3,7 +3,7 @@
   "exports": {
     "./utils": "./src/utils.ts",
     "./errors": "./src/errors.js",
-    "./abstractWidget": "./src/abstractWidget.js",
+    "./abstractWidget": "./src/abstractWidget.ts",
     "./package.json": "./package.json"
   }
 }

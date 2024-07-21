@@ -15,13 +15,12 @@ import {
     InputAdornment,
     FormLabel,
     FormControl,
-    FormControlLabel,
     ThemeProvider,
     createTheme,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "shared-code/errors";
-import { TeamViewService, useTeamViewService } from "../services/teamViewWidget";
+import { TeamViewService, useTeamViewService } from "../services/teamViewWidget.js";
 import SingleTeamViewIcon from "@mui/icons-material/WebAsset";
 import PVPTeamViewIcon from "@mui/icons-material/Splitscreen";
 import SplitTeamViewIcon from "@mui/icons-material/GridView";
@@ -37,6 +36,7 @@ import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import { SelectTeamTable, TEAM_FIELD_STRUCTURE } from "./TeamTable";
 import PropTypes from "prop-types";
 import TeamMediaSwitcher, { DEFAULT_MEDIA_TYPES } from "./controls/TeamMediaSwitcher";
+import ShowPresetButton from "./controls/ShowPresetButton";
 
 const AUTOMODE_TEAM = {
     "id": null,
@@ -446,52 +446,53 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
 
                     {selectedTeamId !== undefined && (
                         <>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Main content</FormLabel>
-                                <TeamMediaSwitcher
-                                    switchedMediaType={mediaType1}
-                                    onSwitch={ts => setMediaType1(ts)}
-                                    disabledMediaTypes={disableMediaTypes}
-                                />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Additional content</FormLabel>
-                                <TeamMediaSwitcher
-                                    switchedMediaType={mediaType2}
-                                    onSwitch={ts => setMediaType2(ts)}
-                                    disabledMediaTypes={[...disableMediaTypes, mediaType1]}
-                                />
-                                {/*<TeamViewSettingsPanel*/}
-                                {/*    canShow={true}*/}
-                                {/*    onShowTeam={ts => setMediaType2(ts)}*/}
-                                {/*    showHideButton={false}*/}
-                                {/*    selectedMediaTypes={mediaType2}*/}
-                                {/*/>*/}
-                            </FormControl>
-                            <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Show name, ranking, submissions</FormLabel>
-                                <FormControlLabel
-                                    control={<Switch checked={statusShown} onChange={(_, v) => setStatusShown(v)}/>}
-                                />
-                            </FormControl>
-                            {variant === "single" && (
-                                <FormControl fullWidth sx={{mb: 1}}>
-                                    <FormLabel component="legend">
-                                        Show achievements
-                                    </FormLabel>
-                                    <FormControlLabel
-                                        control={(
-                                            <Switch
-                                                checked={achievementShown}
-                                                onChange={(_, v) => setAchievementShown(v)}
-                                                disabled={!(selectedTeam?.id ? selectedTeam.medias.achievement : teamsHasAchievement)}
-                                            />
-                                        )}
+                            <Grid container>
+                                <Grid item xs={12} sm={4}>
+                                    <FormLabel component="legend">Main content</FormLabel>
+                                </Grid>
+                                <Grid item xs={12} sm={8}>
+                                    <TeamMediaSwitcher
+                                        switchedMediaType={mediaType1}
+                                        onSwitch={ts => setMediaType1(ts)}
+                                        disabledMediaTypes={disableMediaTypes}
                                     />
-                                </FormControl>
-                            )}
-
-
+                                </Grid>
+                                <Grid item xs={12} sm={4}>
+                                    <FormLabel component="legend">Additional content</FormLabel>
+                                </Grid>
+                                <Grid item xs={12} sm={8}>
+                                    <TeamMediaSwitcher
+                                        switchedMediaType={mediaType2}
+                                        onSwitch={ts => setMediaType2(ts)}
+                                        disabledMediaTypes={[...disableMediaTypes, mediaType1]}
+                                    />
+                                </Grid>
+                                <Grid item xs={10} sm={4}>
+                                    <FormLabel component="legend">Name, ranking, submissions</FormLabel>
+                                </Grid>
+                                <Grid item xs={2} sm={8}>
+                                        <ShowPresetButton
+                                            checked={statusShown}
+                                            onClick={(v) => setStatusShown(v)}
+                                            sx={{ justifyContent: "flex-start" }}
+                                        />
+                                </Grid>
+                                {variant === "single" && (
+                                    <>
+                                        <Grid item xs={10} sm={4}>
+                                            <FormLabel component="legend">Achievements</FormLabel>
+                                        </Grid>
+                                        <Grid item xs={2} sm={8}>
+                                            <ShowPresetButton
+                                                checked={achievementShown}
+                                                onClick={(v) => setAchievementShown(v)}
+                                                disabled={!(selectedTeam?.id ? selectedTeam.medias.achievement : teamsHasAchievement)}
+                                                sx={{ justifyContent: "flex-start" }}
+                                            />
+                                        </Grid>
+                                    </>
+                                )}
+                            </Grid>
                             <Button
                                 color="primary"
                                 variant="contained"

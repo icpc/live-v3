@@ -1,5 +1,7 @@
-export const createApiPost = (apiUrl: string) => {
-    return (path: string, body: any = {}, method: string = "POST", sendRaw: boolean = false) => {
+export type ApiPostClient = (path: string, body?: any, method?: string, rawText?: boolean) => Promise<any>
+
+export const createApiPost: (apiUrl: string) => ApiPostClient = (apiUrl) => {
+    return (path, body = {}, method = "POST", sendRaw = false) => {
         const requestOptions = {
             method: method,
             headers: {"Content-Type": sendRaw ? "text/plain" : "application/json"},
@@ -16,8 +18,10 @@ export const createApiPost = (apiUrl: string) => {
     };
 };
 
-export const createApiGet = (apiUrl: string) => {
-    return (path: string, body: any = undefined, rawText: boolean = false) => {
+export type ApiGetClient = (path: string, body?: any, rawText?: boolean) => Promise<any>
+
+export const createApiGet: (apiUrl: string) => ApiGetClient = (apiUrl) => {
+    return (path, body = undefined, rawText = false) => {
         const requestOptions = {
             headers: {"Content-Type": "application/json"},
             body: body !== undefined ? JSON.stringify(body) : undefined,

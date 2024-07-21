@@ -6,7 +6,7 @@ import { Autocomplete, TextField, Button,
     TableCell, TableRow,
     Dialog, DialogTitle, DialogContent, DialogActions,
     CircularProgress, Card, Stack } from "@mui/material";
-import ShowPresetButton from "./ShowPresetButton";
+import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
@@ -133,7 +133,7 @@ function TitleTableRow({ data, onShow, onEdit, onDelete }) {
     return (<TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
         <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
             <Box display="flex">
-                <ShowPresetButton className='block' onClick={onShow} active={data.shown}/>
+                <ShowPresetButton className='block' onClick={onShow} checked={data.shown}/>
                 <IconButton color="primary" onClick={changePreset(data.settings.leftPreset)}>L</IconButton>
                 <IconButton color="primary" onClick={changePreset(data.settings.rightPreset)}>R</IconButton>
             </Box>

@@ -10,7 +10,7 @@ import ClockIcon from "@mui/icons-material/AccessTime";
 import ScoreboardIcon from "@mui/icons-material/EmojiEvents";
 import TextIcon from "@mui/icons-material/Abc";
 import ImageIcon from "@mui/icons-material/Image";
-import ShowPresetButton from "./ShowPresetButton";
+import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import { activeRowColor } from "../styles";
 import PropTypes from "prop-types";
 import { onChangeFieldEventHandler } from "./PresetsTableRow";
@@ -34,7 +34,7 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
     return (
         <TableRow key={data.id} sx={{ backgroundColor: (data.shown ? activeRowColor : undefined) }}>
             <TableCell component="th" scope="row" align={"left"} key="__show_btn_row__">
-                <ShowPresetButton onClick={onShow} active={data.shown}/>
+                <ShowPresetButton onClick={onShow} checked={data.shown}/>
             </TableCell>
             <TableCell component="th" scope="row">
                 {data.settings.type === "clock" && <ClockIcon/>}

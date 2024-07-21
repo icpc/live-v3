@@ -10,7 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-import ShowPresetButton from "./ShowPresetButton";
+import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import { activeRowColor } from "../styles";
 import PropTypes from "prop-types";
 
@@ -62,7 +62,7 @@ export function PictureTableRow({ data, onShow, onEdit, onDelete }) {
                     <Box sx={{ display: "flex", pl: 1, pr: 1, justifyContent: "center" }}>
                         <ShowPresetButton
                             onClick={onShow}
-                            active={data.shown}
+                            checked={data.shown}
                         />
                         <IconButton color={editData === undefined ? "inherit" : "primary"}
                             onClick={onClickEdit}>

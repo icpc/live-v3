@@ -1,9 +1,23 @@
-import { createApiGet, createApiPost } from "./utils.ts";
+import {ApiGetClient, ApiPostClient, createApiGet, createApiPost} from "./utils.ts";
 
 const WEBSOCKET_RECONNECT_TIME = 3000;
 
-export class AbstractWidgetService {
-    constructor(BASE_URL_BACKEND, ADMIN_ACTIONS_WS_URL, apiPath, errorHandler, listenWS) {
+export type ErrorHandler = (cause: string) => (e: Error) => void;
+export type ReloadHandler = (data: any) => void;
+export type PresetId = string;
+
+export class AbstractWidgetService<PresetSettings> {
+    ADMIN_ACTIONS_WS_URL: string;
+    apiPath: string;
+    apiUrl: string;
+    apiGet: ApiGetClient;
+    apiPost: ApiPostClient;
+    errorHandler: ErrorHandler; // why it's not function?
+    errorHandlers: Set<ErrorHandler>;
+    reloadDataHandlers: Set<ReloadHandler>;
+    ws?: WebSocket;
+
+    constructor(BASE_URL_BACKEND: string, ADMIN_ACTIONS_WS_URL: string, apiPath: string, errorHandler: ErrorHandler, listenWS: boolean) {
         this.ADMIN_ACTIONS_WS_URL = ADMIN_ACTIONS_WS_URL;
         this.apiPath = apiPath;
         this.apiUrl = BASE_URL_BACKEND + apiPath;
@@ -29,53 +43,54 @@ export class AbstractWidgetService {
         }).bind(this);
     }
 
-    addReloadDataHandler(handler) {
+    addReloadDataHandler(handler: ReloadHandler) {
         this.reloadDataHandlers.add(handler);
     }
 
-    deleteReloadDataHandler(handler) {
+    deleteReloadDataHandler(handler: ReloadHandler) {
         this.reloadDataHandlers.delete(handler);
     }
 
-    addErrorHandler(handler) {
+    addErrorHandler(handler: ErrorHandler) {
         this.errorHandlers.add(handler);
     }
 
-    deleteErrorHandler(handler) {
+    deleteErrorHandler(handler: ErrorHandler) {
         this.errorHandlers.delete(handler);
     }
 
-    handleError(cause, e) {
+    handleError(cause: string, e: Error) {
         if (this.errorHandlers.size === 0) {
             console.error(cause + ": " + e);
         }
         this.errorHandlers.forEach(h => h(cause)(e));
     }
 
-    isMessageRequireReload(/* data */) {}
+    isMessageRequireReload(_: string): boolean {
+        return false;
+    }
 
     loadPresets() {}
 
-    createPreset(/* presetSettings */) {}
+    createPreset(_: PresetSettings) {}
 
-    editPreset(/* presetId, presetSettings */) {}
+    editPreset(_: PresetId, __: PresetSettings) {}
 
-    deletePreset(/* presetId */) {}
+    deletePreset(_: PresetId) {}
 
-    presetSubPath(presetId) {
+    presetSubPath(presetId: PresetId) {
         return "/" + presetId;
     }
 
-    showPreset(presetId) {
-        console.log("hey", this, this.apiPost);
+    showPreset(presetId: PresetId) {
         return this.apiPost(this.presetSubPath(presetId) + "/show").catch(this.errorHandler("Failed to show preset"));
     }
 
-    showPresetWithSettings(presetId, settings) {
+    showPresetWithSettings(presetId: PresetId, settings: PresetSettings) {
         return this.apiPost(this.presetSubPath(presetId) + "/show_with_settings", settings).catch(this.errorHandler("Failed to show preset"));
     }
 
-    hidePreset(presetId) {
+    hidePreset(presetId: PresetId) {
         return this.apiPost(this.presetSubPath(presetId) + "/hide").catch(this.errorHandler("Failed to hide preset"));
     }
 }
