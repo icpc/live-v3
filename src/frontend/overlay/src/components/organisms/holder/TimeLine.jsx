@@ -77,7 +77,7 @@ const ProblemWrap = styled.div`
     left: ${({ left }) => left};
 `;
 
-const TextWithAnimation = styled.span`
+const TextWithAnimation = styled.div`
     animation: ${ChangeTextAnimation} 10s infinite;
     justify-content: center;
     position: absolute;
@@ -85,7 +85,7 @@ const TextWithAnimation = styled.span`
     text-align: center;
 `;
 
-const TextWithAnimation2 = styled.span`
+const TextWithAnimation2 = styled.div`
     animation: ${ChangeTextAnimation2} 10s infinite;
     justify-content: center;
     position: absolute;
@@ -94,7 +94,7 @@ const TextWithAnimation2 = styled.span`
     font-size: 12px;
 `;
 
-const Text = styled.span`
+const Text = styled.div`
     position: absolute;
     display: flex;
     justify-content: center;
