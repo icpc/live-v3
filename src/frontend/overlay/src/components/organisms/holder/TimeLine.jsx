@@ -111,7 +111,7 @@ export const TimeLine = ({ className, teamId }) => {
     const getColor = (problemResult) => {
         if (problemResult.type === RunResult.Type.IN_PROGRESS) {
             return c.VERDICT_UNKNOWN;
-        } else if (problemResult.type === "ICPC") {
+        } else if (problemResult.type === RunResult.Type.ICPC) {
             if (problemResult.isAccepted) {
                 return c.VERDICT_OK;
             } else {
