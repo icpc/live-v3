@@ -6,7 +6,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.websocket.*
-import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.collections.immutable.toPersistentMap
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
@@ -16,7 +15,7 @@ import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
-import kotlin.time.DurationUnit
+import kotlin.time.Duration
 
 inline fun <reified T : Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend () -> Flow<T>) {
     webSocket(name) { sendJsonFlow(dataProvider()) }
@@ -43,7 +42,7 @@ fun Route.configureOverlayRouting() {
         val acceptedProblems = mutableSetOf<ProblemId>()
         val allRuns = mutableMapOf<RunId, RunInfo>()
         DataBus.contestStateFlow.await().first().runsAfterEvent.values
-            .filter { teamId == it.teamId && it.time.toLong(DurationUnit.MILLISECONDS) != 0L }
+            .filter { teamId == it.teamId && it.time != Duration.ZERO }
             .forEach { allRuns[it.id] = it }
         sendJsonFlow(DataBus.contestStateFlow.await()
             .mapNotNull { (it.lastEvent as? RunUpdate)?.newInfo }

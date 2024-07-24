@@ -4,6 +4,7 @@ import { useAppSelector } from "../../../redux/hooks";
 import c from "../../../config";
 import { isShouldUseDarkColor } from "../../../utils/colors";
 import { getIOIColor } from "../../../utils/statusInfo";
+import { RunResult } from "../../../../../generated/api";
 
 const ChangeTextAnimation = keyframes`
     0% {
@@ -108,7 +109,7 @@ export const TimeLine = ({ className, teamId }) => {
     const [runsResults, setRunsResults] = useState([]);
     
     const getColor = (problemResult) => {
-        if (problemResult.type === "IN_PROGRESS") {
+        if (problemResult.type === RunResult.Type.IN_PROGRESS) {
             return c.VERDICT_UNKNOWN;
         } else if (problemResult.type === "ICPC") {
             if (problemResult.isAccepted) {
@@ -128,16 +129,13 @@ export const TimeLine = ({ className, teamId }) => {
         return (
             <ProblemWrap left={left + "%"}>
                 <Circle color={getColor(problemResult)}>
-                    <Label darkText={darkText} isBold={problemResult.type === "IN_PROGRESS"}>
-                        {(problemResult.type === "IOI" || problemResult.type === "ICPC"
+                    <Label darkText={darkText} isBold={problemResult.type === RunResult.Type.IN_PROGRESS}>
+                        {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
                             && !problemResult.isAccepted) && <TextWithAnimation>{problemResult.problemId}</TextWithAnimation> }
-                        {!(problemResult.type === "IOI" || problemResult.type === "ICPC"
+                        {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
                             && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
-                        {problemResult.type === "ICPC" && !problemResult.isAccepted && <TextWithAnimation2>{problemResult.shortName}</TextWithAnimation2>}
-                        {problemResult.type === "IOI" && <TextWithAnimation2>{problemResult.score}</TextWithAnimation2>}
-                        {/*{problemResult.problemId} <br/>*/}
-                        {/*{problemResult.type === "IOI" && problemResult.score}*/}
-                        {/*{problemResult.type === "ICPC" && !problemResult.isAccepted && problemResult.shortName}*/}
+                        {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <TextWithAnimation2>{problemResult.shortName}</TextWithAnimation2>}
+                        {problemResult.type === RunResult.Type.IOI && <TextWithAnimation2>{problemResult.score}</TextWithAnimation2>}
                     </Label>
                 </Circle>
             </ProblemWrap>
