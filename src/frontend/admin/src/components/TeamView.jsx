@@ -33,7 +33,7 @@ import BottomRightIcon from "@mui/icons-material/SouthEast";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
-import { SelectTeamTable, TEAM_FIELD_STRUCTURE, TeamViewSettingsPanel } from "./TeamTable";
+import { SelectTeamTable, TEAM_FIELD_STRUCTURE } from "./TeamTable";
 import PropTypes from "prop-types";
 import TeamMediaSwitcher, { DEFAULT_MEDIA_TYPES } from "./controls/TeamMediaSwitcher";
 import ShowPresetButton from "./controls/ShowPresetButton";
