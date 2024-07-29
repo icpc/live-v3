@@ -84,7 +84,7 @@ const PVPTimeCell = styled(TimeCell)`
 export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }) => {
     if (!result || !problemColor || !problemLetter || !lastSubmitTimeMs) {
         return <SubmissionColumnWrap>
-            <div style={{ order: 2 }}/>
+            <div style={{ order: isTop ? 1 : 3 }}/>
             <div style={{ order: 2 }}/>
             <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
         </SubmissionColumnWrap>;
