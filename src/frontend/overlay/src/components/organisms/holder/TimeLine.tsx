@@ -58,7 +58,7 @@ const Circle = styled.div`
     align-content: center;
 `;
 
-const Label = styled.div`
+const Label = styled.div<{ darkText: boolean, isBold: boolean }>`
     position: relative;
     justify-content: center;
     display: flex;
@@ -69,7 +69,7 @@ const Label = styled.div`
     font-weight: ${({ isBold }) => isBold ? "bold" : "normal"};
 `;
 
-const ProblemWrap = styled.div`
+const ProblemWrap = styled.div<{ left: string }>`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -119,28 +119,30 @@ const getColor = (problemResult, contestInfo) => {
     }
 };
 
+const Problem = ({ problemResult, contestInfo }) => {
+    const contestLengthMs = contestInfo?.contestLengthMs;
+    const left = (100 * problemResult.time / contestLengthMs) * 0.99;
+    const color = getColor(problemResult, contestInfo);
+    const darkText = isShouldUseDarkColor(color);
+    return (
+        <ProblemWrap left={left + "%"}>
+            <Circle color={color}>
+                <Label darkText={darkText} isBold={problemResult.type === RunResult.Type.IN_PROGRESS}>
+                    {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
+                        && !problemResult.isAccepted) && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
+                    {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
+                        && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
+                    {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
+                    {problemResult.type === RunResult.Type.IOI && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
+                </Label>
+            </Circle>
+        </ProblemWrap>
+    );
+};
+
 export const TimeLine = ({ className, teamId }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
-
-    const Problem = ({ problemResult, color, contestLengthMs }) => {
-        let left = (100 * problemResult.time / contestLengthMs) * 0.99;
-        const darkText = isShouldUseDarkColor(color);
-        return (
-            <ProblemWrap left={left + "%"}>
-                <Circle color={getColor(problemResult, contestInfo)}>
-                    <Label darkText={darkText} isBold={problemResult.type === RunResult.Type.IN_PROGRESS}>
-                        {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                            && !problemResult.isAccepted) && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
-                        {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                            && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
-                        {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
-                        {problemResult.type === RunResult.Type.IOI && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
-                    </Label>
-                </Circle>
-            </ProblemWrap>
-        );
-    };
 
     useEffect(() => {
         const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
@@ -172,7 +174,7 @@ export const TimeLine = ({ className, teamId }) => {
         <TimeLineContainer className={className}>
             <Line>
                 {runsResults?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} contestLengthMs={contestInfo?.contestLengthMs} key={index} />
+                    <Problem problemResult={problemResult} contestInfo={contestInfo} key={index} />
                 ))}
             </Line>
         </TimeLineContainer>
