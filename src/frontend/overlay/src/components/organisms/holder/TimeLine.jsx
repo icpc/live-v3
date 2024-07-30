@@ -6,7 +6,7 @@ import { isShouldUseDarkColor } from "../../../utils/colors";
 import { getIOIColor } from "../../../utils/statusInfo";
 import { RunResult } from "../../../../../generated/api";
 
-const ChangeTextAnimation = keyframes`
+const ChangeProblemAnimation = keyframes`
     0% {
         opacity: 1;
     }
@@ -18,7 +18,7 @@ const ChangeTextAnimation = keyframes`
     }
 `;
 
-const ChangeTextAnimation2 = keyframes`
+const ChangeScoreOrVerdictAnimation = keyframes`
     0% {
         opacity: 0;
     }
@@ -78,16 +78,16 @@ const ProblemWrap = styled.div`
     left: ${({ left }) => left};
 `;
 
-const TextWithAnimation = styled.div`
-    animation: ${ChangeTextAnimation} 10s infinite;
+const ProblemWithAnimation = styled.div`
+    animation: ${ChangeProblemAnimation} 10s infinite;
     justify-content: center;
     position: absolute;
     align-items: center;
     text-align: center;
 `;
 
-const TextWithAnimation2 = styled.div`
-    animation: ${ChangeTextAnimation2} 10s infinite;
+const ScoreOrVerdictWithAnimation = styled.div`
+    animation: ${ChangeScoreOrVerdictAnimation} 10s infinite;
     justify-content: center;
     position: absolute;
     align-items: center;
@@ -104,38 +104,38 @@ const Text = styled.div`
 `;
 
 
+const getColor = (problemResult, contestInfo) => {
+    if (problemResult.type === RunResult.Type.IN_PROGRESS) {
+        return c.VERDICT_UNKNOWN;
+    } else if (problemResult.type === RunResult.Type.ICPC) {
+        if (problemResult.isAccepted) {
+            return c.VERDICT_OK;
+        } else {
+            return c.VERDICT_NOK;
+        }
+    } else {
+        const task = contestInfo.problems.find(info => info.letter === problemResult.problemId);
+        return getIOIColor(problemResult.score, task?.minScore, task?.maxScore);
+    }
+};
+
 export const TimeLine = ({ className, teamId }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
-    
-    const getColor = (problemResult) => {
-        if (problemResult.type === RunResult.Type.IN_PROGRESS) {
-            return c.VERDICT_UNKNOWN;
-        } else if (problemResult.type === RunResult.Type.ICPC) {
-            if (problemResult.isAccepted) {
-                return c.VERDICT_OK;
-            } else {
-                return c.VERDICT_NOK;
-            }
-        } else {
-            const task = contestInfo.problems.find(info => info.letter === problemResult.problemId);
-            return getIOIColor(problemResult.score, task?.minScore, task?.maxScore);
-        }
-    };
 
     const Problem = ({ problemResult, color, contestLengthMs }) => {
         let left = (100 * problemResult.time / contestLengthMs) * 0.99;
         const darkText = isShouldUseDarkColor(color);
         return (
             <ProblemWrap left={left + "%"}>
-                <Circle color={getColor(problemResult)}>
+                <Circle color={getColor(problemResult, contestInfo)}>
                     <Label darkText={darkText} isBold={problemResult.type === RunResult.Type.IN_PROGRESS}>
                         {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                            && !problemResult.isAccepted) && <TextWithAnimation>{problemResult.problemId}</TextWithAnimation> }
+                            && !problemResult.isAccepted) && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
                         {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
                             && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
-                        {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <TextWithAnimation2>{problemResult.shortName}</TextWithAnimation2>}
-                        {problemResult.type === RunResult.Type.IOI && <TextWithAnimation2>{problemResult.score}</TextWithAnimation2>}
+                        {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
+                        {problemResult.type === RunResult.Type.IOI && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
                     </Label>
                 </Circle>
             </ProblemWrap>
@@ -145,21 +145,21 @@ export const TimeLine = ({ className, teamId }) => {
     useEffect(() => {
         const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
         socket.onopen = function () {
-            console.log("WebSocket is open");
+            console.debug(`WebSocket /teamRuns/${teamId} is open`);
         };
 
         socket.onmessage = function (event) {
             const obj = JSON.parse(event.data);
             setRunsResults(obj);
-            console.log(obj);
+            console.debug(`WebSocket /teamRuns/${teamId}: ` + obj);
         };
 
         socket.onclose = function() {
-            console.log("WebSocket is closed");
+            console.debug(`WebSocket /teamRuns/${teamId} is closed`);
         };
 
         socket.onerror = function(error) {
-            console.log("WebSocket error: " + error);
+            console.log(`WebSocket /teamRuns/${teamId} error: ` + error);
         };
 
         return () => {
