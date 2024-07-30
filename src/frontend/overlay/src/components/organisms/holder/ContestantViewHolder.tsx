@@ -9,6 +9,7 @@ import { MediaType } from "@shared/api";
 import c from "../../../config";
 import mpegts from "mpegts.js";
 import Hls from "hls.js";
+import TimeLine from "@/components/organisms/holder/TimeLine";
 
 // export const TeamImageWrapper = styled.img /*`
 //   // border-radius: ${({ borderRadius }) => borderRadius};
@@ -283,6 +284,16 @@ const ContestantViewHolderCorner = styled(ContestantViewCorner)<{hasPInP: boolea
   align-self: end;
 `;
 
+const TimeLineWrap = styled(TimeLine)`
+    z-index: 1; /* Fixme when there is a proper grid in TeamView */
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    justify-self: end;
+    align-self: end;
+`;
+
 interface ComponentRenderProps<M extends MediaType> { // not sure if extends is the right keyword here
     onLoadStatus: (status: boolean) => void,
     hasPInP?: boolean,
@@ -302,6 +313,10 @@ const teamViewComponentRender: {
         return <FullWidthWrapper className={className}>
             <ImgWrapper src={media.url} onLoad={() => onLoadStatus(true)}/>
         </FullWidthWrapper>;
+    },
+    TimeLine: ({ onLoadStatus, className, media}) => {
+        useLayoutEffect(() => onLoadStatus(true), []);
+        return <TimeLineWrap className={className} {...media}/>;
     },
     Object: ({ onLoadStatus, className, media }) => {
         onLoadStatus(true);

@@ -60,6 +60,12 @@ public sealed class MediaType {
         override val isMedia: Boolean = false
     }
 
+    @Serializable
+    @SerialName("TimeLine")
+    public data class TimeLine(val teamId: TeamId) : MediaType() {
+        override val isMedia: Boolean = false
+    }
+
     public fun noMedia(): MediaType = when (this) {
         is Image -> copy(isMedia = false)
         is Video -> copy(isMedia = false)

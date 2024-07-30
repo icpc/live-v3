@@ -18,6 +18,9 @@ class TeamViewController(manager: Manager<TeamViewWidget>, val position: TeamVie
         if (settings.showTaskStatus) {
             settings.teamId?.let { teamId -> content.add(MediaType.TaskStatus(teamId)) }
         }
+        if (settings.showTimeLine) {
+            settings.teamId?.let { teamId -> content.add(MediaType.TimeLine(teamId)) }
+        }
         if (settings.showAchievement) {
             teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.let { content.add(it.noMedia()) }
         }
