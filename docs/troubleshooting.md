@@ -3,6 +3,7 @@
 ## Overlay backend is not starting or sends no data
 
 * Check `icpclive.log` file, there are probably some useful exceptions
+  * install org-provided https certificates `https://docs.google.com/document/d/1rCep3y8pZo-mRV1uf2OjzgniGoI5LW8_yw1kU48ka14/edit#heading=h.yq0i3xhz9lel`
   * If it has some SSL exceptions
     * Add `"network": { "allowUnsecureConnections": true }` into your settings file, 
       if you are fine with ignoring certificate check
