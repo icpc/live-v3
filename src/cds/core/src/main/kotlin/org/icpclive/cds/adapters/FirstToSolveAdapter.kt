@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.api.*
-import java.rmi.NotBoundException
+import org.icpclive.cds.utils.withGroupedRuns
 
 private fun RunInfo.setFTS(value: Boolean) = when (result) {
     is RunResult.ICPC -> copy(result = result.copy(isFirstToSolveRun = value))

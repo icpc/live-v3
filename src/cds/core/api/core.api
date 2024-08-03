@@ -85,7 +85,7 @@ public final class org/icpclive/cds/adapters/FirstToSolveAdapterKt {
 	public static final fun addFirstToSolves (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 }
 
-public final class org/icpclive/cds/adapters/HiddenProbblemsAdapterKt {
+public final class org/icpclive/cds/adapters/HiddenProblemsAdapterKt {
 	public static final fun processHiddenProblems (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 }
 
@@ -1672,110 +1672,6 @@ public final class org/icpclive/cds/api/TeamMediaType$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public abstract class org/icpclive/cds/api/TimeLineRunInfo {
-	public static final field Companion Lorg/icpclive/cds/api/TimeLineRunInfo$Companion;
-	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	public static final synthetic fun write$Self (Lorg/icpclive/cds/api/TimeLineRunInfo;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
-}
-
-public final class org/icpclive/cds/api/TimeLineRunInfo$Companion {
-	public final fun fromRunInfo (Lorg/icpclive/cds/api/RunInfo;Ljava/util/Set;)Lorg/icpclive/cds/api/TimeLineRunInfo;
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/TimeLineRunInfo$ICPC : org/icpclive/cds/api/TimeLineRunInfo {
-	public static final field Companion Lorg/icpclive/cds/api/TimeLineRunInfo$ICPC$Companion;
-	public synthetic fun <init> (JLjava/lang/String;ZLjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-UwyO8pc ()J
-	public final fun component2-Xzdl60o ()Ljava/lang/String;
-	public final fun component3 ()Z
-	public final fun component4 ()Ljava/lang/String;
-	public final fun copy-4joZhgo (JLjava/lang/String;ZLjava/lang/String;)Lorg/icpclive/cds/api/TimeLineRunInfo$ICPC;
-	public static synthetic fun copy-4joZhgo$default (Lorg/icpclive/cds/api/TimeLineRunInfo$ICPC;JLjava/lang/String;ZLjava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/TimeLineRunInfo$ICPC;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getProblemId-Xzdl60o ()Ljava/lang/String;
-	public final fun getShortName ()Ljava/lang/String;
-	public final fun getTime-UwyO8pc ()J
-	public fun hashCode ()I
-	public final fun isAccepted ()Z
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/TimeLineRunInfo$ICPC$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/TimeLineRunInfo$ICPC$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/TimeLineRunInfo$ICPC;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/TimeLineRunInfo$ICPC;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/TimeLineRunInfo$ICPC$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/TimeLineRunInfo$IOI : org/icpclive/cds/api/TimeLineRunInfo {
-	public static final field Companion Lorg/icpclive/cds/api/TimeLineRunInfo$IOI$Companion;
-	public synthetic fun <init> (JLjava/lang/String;DLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-UwyO8pc ()J
-	public final fun component2-Xzdl60o ()Ljava/lang/String;
-	public final fun component3 ()D
-	public final fun copy-nveW3u0 (JLjava/lang/String;D)Lorg/icpclive/cds/api/TimeLineRunInfo$IOI;
-	public static synthetic fun copy-nveW3u0$default (Lorg/icpclive/cds/api/TimeLineRunInfo$IOI;JLjava/lang/String;DILjava/lang/Object;)Lorg/icpclive/cds/api/TimeLineRunInfo$IOI;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getProblemId-Xzdl60o ()Ljava/lang/String;
-	public final fun getScore ()D
-	public final fun getTime-UwyO8pc ()J
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/TimeLineRunInfo$IOI$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/TimeLineRunInfo$IOI$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/TimeLineRunInfo$IOI;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/TimeLineRunInfo$IOI;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/TimeLineRunInfo$IOI$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/TimeLineRunInfo$InProgress : org/icpclive/cds/api/TimeLineRunInfo {
-	public static final field Companion Lorg/icpclive/cds/api/TimeLineRunInfo$InProgress$Companion;
-	public synthetic fun <init> (JLjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-UwyO8pc ()J
-	public final fun component2-Xzdl60o ()Ljava/lang/String;
-	public final fun copy-15fPPug (JLjava/lang/String;)Lorg/icpclive/cds/api/TimeLineRunInfo$InProgress;
-	public static synthetic fun copy-15fPPug$default (Lorg/icpclive/cds/api/TimeLineRunInfo$InProgress;JLjava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/TimeLineRunInfo$InProgress;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getProblemId-Xzdl60o ()Ljava/lang/String;
-	public final fun getTime-UwyO8pc ()J
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/TimeLineRunInfo$InProgress$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/TimeLineRunInfo$InProgress$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/TimeLineRunInfo$InProgress;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/TimeLineRunInfo$InProgress;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/TimeLineRunInfo$InProgress$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
 public abstract class org/icpclive/cds/api/Verdict {
 	public static final field Companion Lorg/icpclive/cds/api/Verdict$Companion;
 	public synthetic fun <init> (Ljava/lang/String;ZZLkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -2397,5 +2293,12 @@ public synthetic class org/icpclive/cds/tunning/TeamRegexOverrides$$serializer :
 
 public final class org/icpclive/cds/tunning/TeamRegexOverrides$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/utils/TeamRunsStorage {
+	public fun <init> ()V
+	public final fun applyEvent (Lorg/icpclive/cds/api/ContestState;)Ljava/util/List;
+	public final fun getRuns-nUE0bHc (Ljava/lang/String;)Ljava/util/List;
+	public final fun updateRun (Lorg/icpclive/cds/api/RunInfo;Lorg/icpclive/cds/api/RunInfo;)Ljava/util/List;
 }
 

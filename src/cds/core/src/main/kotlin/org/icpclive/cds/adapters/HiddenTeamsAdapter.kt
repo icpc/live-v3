@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.map
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
+import org.icpclive.cds.utils.withGroupedRuns
 
 private fun TeamInfo.updateHidden(isHidden: Boolean, isOutOfContest: Boolean) =
     if (isHidden != this.isHidden || isOutOfContest != this.isOutOfContest) {

@@ -17,9 +17,15 @@ import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
 import kotlin.time.Duration
 
-inline fun <reified T : Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend () -> Flow<T>) {
-    webSocket(name) { sendJsonFlow(dataProvider()) }
-    get(name) { call.respond(dataProvider().first()) }
+inline fun <reified T : Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend (ApplicationCall) -> Flow<T>?) {
+    webSocket(name) {
+        val flow = dataProvider(call) ?: return@webSocket
+        sendJsonFlow(flow)
+    }
+    get(name) {
+        val result = dataProvider(call)?.first() ?: return@get
+        call.respond(result)
+    }
 }
 
 private inline fun <reified T : Any> Route.setUpScoreboard(crossinline getter: suspend DataBus.(OptimismLevel) -> Flow<T>) {
@@ -32,29 +38,18 @@ fun Route.configureOverlayRouting() {
     flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
     flowEndpoint("/contestInfo") { DataBus.currentContestInfoFlow() }
     flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
-    webSocket("/teamRuns/{id}") {
+    flowEndpoint("/teamRuns/{id}") { call ->
         val teamIdStr = call.parameters["id"]
         if (teamIdStr.isNullOrBlank()) {
-            close(CloseReason(CloseReason.Codes.CANNOT_ACCEPT, "Invalid team id"))
-            return@webSocket
+            call.respond(HttpStatusCode.BadRequest, "Invalid team id")
+            null
+        } else {
+            val teamId = teamIdStr.toTeamId()
+            DataBus.timelineFlow.await()
+                .map { it[teamId] }
+                .distinctUntilChanged { a, b -> a === b }
+                .map { it ?: emptyList() }
         }
-        val teamId = teamIdStr.toTeamId()
-        val acceptedProblems = mutableSetOf<ProblemId>()
-        val allRuns = mutableMapOf<RunId, RunInfo>()
-        DataBus.contestStateFlow.await().first().runsAfterEvent.values
-            .filter { teamId == it.teamId && it.time != Duration.ZERO }
-            .forEach { allRuns[it.id] = it }
-        sendJsonFlow(DataBus.contestStateFlow.await()
-            .mapNotNull { (it.lastEvent as? RunUpdate)?.newInfo }
-            .runningFold(allRuns.toPersistentMap()) { acc, it ->
-                if (it.teamId == teamId) acc.put(it.id, it) else if (it.id in acc) acc.remove(it.id) else acc
-            }
-            .distinctUntilChanged { a, b -> a === b }
-            .map { runs -> runs.values.sortedBy { it.time } }
-            .map { runs ->
-                acceptedProblems.clear()
-                runs.mapNotNull { info -> TimeLineRunInfo.fromRunInfo(info, acceptedProblems) }
-            })
     }
     flowEndpoint("/queue") { DataBus.queueFlow.await() }
     flowEndpoint("/statistics") { DataBus.statisticFlow.await() }

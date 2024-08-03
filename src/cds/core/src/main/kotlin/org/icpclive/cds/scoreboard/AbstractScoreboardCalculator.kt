@@ -3,9 +3,10 @@ package org.icpclive.cds.scoreboard
 import kotlinx.collections.immutable.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
-import org.icpclive.cds.adapters.*
+import org.icpclive.cds.utils.TeamRunsStorage
+import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.*
-import org.icpclive.cds.util.*
+import org.icpclive.cds.util.getLogger
 import kotlin.time.Duration
 
 public class Ranking internal constructor(
@@ -203,13 +204,11 @@ public class ContestStateWithScoreboard internal constructor(
     public fun scoreboardRowAfter(teamId: TeamId): ScoreboardRow = scoreboardRowsAfter[teamId]!!
 }
 
-private fun RunInfo.isTested() = !isHidden && result !is RunResult.InProgress
-
 public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel): Flow<ContestStateWithScoreboard> = flow {
     var rows = persistentMapOf<TeamId, ScoreboardRow>()
     var lastRanking = Ranking(emptyList(), emptyList(), emptyList())
     var lastSubmissionTime: Duration = Duration.ZERO
-    var runsByTeamId = persistentMapOf<TeamId, PersistentList<RunInfo>>()
+    val runsByTeamId = TeamRunsStorage()
     fun applyEvent(state: ContestState) : List<TeamId> {
         val info = state.infoAfterEvent ?: return emptyList()
         val calculator = getScoreboardCalculator(info, optimismLevel)
@@ -217,25 +216,12 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
             is AnalyticsUpdate -> emptyList()
             is InfoUpdate -> info.teams.keys.toList()
             is RunUpdate -> {
-                val oldRun = state.runsBeforeEvent[event.newInfo.id]
-                val newRun = event.newInfo
-                if (oldRun?.teamId != newRun.teamId) {
-                    if (oldRun != null) {
-                        runsByTeamId = runsByTeamId.removeRun(oldRun.teamId, oldRun)
-                    }
-                    runsByTeamId = runsByTeamId.addAndResort(newRun.teamId, newRun)
-                } else {
-                    runsByTeamId = runsByTeamId.updateAndResort(newRun.teamId, newRun)
-                }
-                lastSubmissionTime = maxOf(lastSubmissionTime, newRun.time)
-
-                listOfNotNull(oldRun?.teamId, newRun.teamId).distinct().takeIf {
-                    oldRun == null || oldRun.isTested() || newRun.isTested()
-                } ?: emptyList()
+                lastSubmissionTime = maxOf(lastSubmissionTime, event.newInfo.time)
+                runsByTeamId.applyEvent(state)
             }
         }
         val teamsReallyAffected = teamsAffected.filter {
-            val newRow = calculator.getScoreboardRow(info, runsByTeamId[it] ?: emptyList())
+            val newRow = calculator.getScoreboardRow(info, runsByTeamId.getRuns(it))
             val oldRow = rows[it]
             rows = rows.put(it, newRow)
             newRow != oldRow

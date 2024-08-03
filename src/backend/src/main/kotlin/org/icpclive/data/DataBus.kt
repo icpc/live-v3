@@ -17,6 +17,7 @@ object DataBus {
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
     val externalRunsFlow = CompletableDeferred<Flow<Map<RunId, ExternalRunInfo>>>()
+    val timelineFlow = CompletableDeferred<Flow<Map<TeamId, List<TimeLineRunInfo>>>>()
 
     // flow of run ids that need to be braking news
     val queueFeaturedRunsFlow = CompletableDeferred<FlowCollector<FeaturedRunAction>>()

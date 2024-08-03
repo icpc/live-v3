@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.map
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.api.ProblemId
+import org.icpclive.cds.utils.withGroupedRuns
 
 public fun Flow<ContestUpdate>.processHiddenProblems(): Flow<ContestUpdate> =
     withGroupedRuns(

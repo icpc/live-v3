@@ -53,5 +53,6 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     launchService(ExternalRunsService())
     launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
     launchService(RegularLoggingService())
+    launchService(TimelineService())
     started.update { it - 1 }
 }
