@@ -8,6 +8,10 @@ plugins {
     id("com.github.johnrengelman.shadow")
 }
 
+tasks.named<Jar>("jar") {
+    archiveClassifier = "just"
+}
+
 tasks {
     register<Sync>("release") {
         destinationDir = rootDir.resolve("artifacts/")
