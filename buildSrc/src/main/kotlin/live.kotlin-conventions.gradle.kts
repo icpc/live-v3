@@ -13,10 +13,6 @@ java {
     }
 }
 
-tasks.named<Jar>("jar") {
-    archiveClassifier = "just"
-}
-
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
