@@ -50,6 +50,7 @@ Consider, if you are okay with passing your passwords using plain HTTP.
 If you don't need auth, you can disable it by `--no-auth` command-line option.
 
 # Using as a library
+[![](https://jitpack.io/v/icpc/live-v3.svg)](https://jitpack.io/#icpc/live-v3)
 
 [Check separate document](https://github.com/icpc/live-v3/blob/main/docs/using-as-lib.md)
 
