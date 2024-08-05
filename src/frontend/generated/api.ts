@@ -837,6 +837,7 @@ export interface ExternalTeamViewSettings {
   mediaTypes?: TeamMediaType[];
   showTaskStatus?: boolean;
   showAchievement?: boolean;
+  showTimeLine?: boolean;
   position?: TeamViewPosition;
 }
 
