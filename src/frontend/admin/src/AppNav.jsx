@@ -23,7 +23,6 @@ const defaultPages = {
     "TeamView": "teamview",
     "Scoreboard": "scoreboard",
     "Ticker": "ticker",
-    "Dashboard": "dashboard",
     "Analytics": "analytics",
     "Spotlight": "teamSpotlight",
     "Advanced": "advancedJson",

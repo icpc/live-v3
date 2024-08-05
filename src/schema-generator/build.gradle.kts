@@ -95,7 +95,9 @@ tasks {
                 "org.icpclive.api.QueueEvent",
                 "org.icpclive.api.AnalyticsEvent",
                 "org.icpclive.api.TickerEvent",
-                "org.icpclive.api.SolutionsStatistic"
+                "org.icpclive.api.SolutionsStatistic",
+                "org.icpclive.api.ExternalTeamViewSettings",
+                "org.icpclive.api.ObjectSettings"
             ),
             "api",
         ),
