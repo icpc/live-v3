@@ -4,35 +4,25 @@ import AppNav from "./AppNav";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Overlay } from "./components/Overlay";
 import TickerMessage from "./components/TickerMessage";
-import Controls from "./components/Controls";
+import ControlsPage from "./components/pages/ControlsPage.tsx";
 import Advertisement from "./components/Advertisement";
 import Title from "./components/Title";
 import Picture from "./components/Picture";
 import TeamView from "./components/TeamView";
 import { SnackbarProvider } from "notistack";
-import ScoreboardManager from "./components/ScoreboardManager";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
 import Analytics from "./components/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight";
 import { createApiGet } from "@shared/utils";
 import { setFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
-import FullScreenClockManager from "./components/FullScreenClockManager";
 import AdvancedJson from "./components/AdvancedJson";
 import MediaFiles from "./components/MediaFiles";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
 import { faviconTemplate } from "./styles";
-
-const dashboard_elements = {
-    "Controls": <Controls/>,
-    "Advertisement": <Advertisement/>,
-    "Title": <Title/>,
-    "Picture": <Picture/>,
-    "Scoreboard": <ScoreboardManager/>,
-    "Ticker": <TickerMessage/>,
-    "Full screen clock": <FullScreenClockManager/>,
-};
+import { ReloadHandleContext, useReloadHandleService } from "@/services/reloadHandler.ts";
+import ScoreboardPage from "@/components/pages/ScoreboardPage.tsx";
 
 const title_elements = {
     "Advertisement": <Advertisement/>,
@@ -86,36 +76,39 @@ function App() {
             });
     }, []);
 
+    const reloadHandleService = useReloadHandleService();
+
     return (
         <BrowserRouter basename={import.meta.env.BASE_URL ?? ""}>
-            <SnackbarProvider maxSnack={5}>
-                <div className="App">
-                    <ThemeProvider theme={getTheme(contestColor)}>
-                        <AppNav showOrHideOverlayPerview={() => setIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
-                    </ThemeProvider>
-                    <Routes>
-                        <Route path="/" element={<Controls/>}/>
-                        <Route path="/controls" element={<Controls/>}/>
-                        {/* <Route path="/advertisement" element={<Advertisement/>}/> */}
-                        {/* <Route path="/title" element={<Title/>}/> */}
-                        <Route path="/titles"
-                            element={<Dashboard elements={title_elements} layout="oneColumn" maxWidth="lg"/>}/>
-                        {/* <Route path="/picture" element={<Picture/>}/> */}
-                        <Route path="/teamview" element={<TeamView/>}/>
-                        {/*<Route path="/teampvp" element={<TeamPVP/>}/>*/}
-                        {/*<Route path="/splitscreen" element={<SplitScreen/>}/>*/}
-                        <Route path="/scoreboard" element={<ScoreboardManager/>}/>
-                        <Route path="/ticker" element={<TickerMessage/>}/>
-                        <Route path="/dashboard" element={<Dashboard elements={dashboard_elements}/>}/>
-                        <Route path="/log" element={<BackendLog/>}/>
-                        <Route path="/analytics" element={<Analytics/>}/>
-                        <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
-                        <Route path="/advancedJson" element={<AdvancedJson/>}/>
-                        <Route path="/media" element={<MediaFiles/>}/>
-                    </Routes>
-                    <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
-                </div>
-            </SnackbarProvider>
+            <ReloadHandleContext.Provider value={reloadHandleService}>
+                <SnackbarProvider maxSnack={5}>
+                    <div className="App">
+                        <ThemeProvider theme={getTheme(contestColor)}>
+                            <AppNav showOrHideOverlayPerview={() => setIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
+                        </ThemeProvider>
+                        <Routes>
+                            <Route path="/" element={<ControlsPage/>}/>
+                            <Route path="/controls" element={<ControlsPage/>}/>
+                            {/* <Route path="/advertisement" element={<Advertisement/>}/> */}
+                            {/* <Route path="/title" element={<Title/>}/> */}
+                            <Route path="/titles"
+                                element={<Dashboard elements={title_elements} layout="oneColumn" maxWidth="lg"/>}/>
+                            {/* <Route path="/picture" element={<Picture/>}/> */}
+                            <Route path="/teamview" element={<TeamView/>}/>
+                            {/*<Route path="/teampvp" element={<TeamPVP/>}/>*/}
+                            {/*<Route path="/splitscreen" element={<SplitScreen/>}/>*/}
+                            <Route path="/scoreboard" element={<ScoreboardPage/>}/>
+                            <Route path="/ticker" element={<TickerMessage/>}/>
+                            <Route path="/log" element={<BackendLog/>}/>
+                            <Route path="/analytics" element={<Analytics/>}/>
+                            <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
+                            <Route path="/advancedJson" element={<AdvancedJson/>}/>
+                            <Route path="/media" element={<MediaFiles/>}/>
+                        </Routes>
+                        <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
+                    </div>
+                </SnackbarProvider>
+            </ReloadHandleContext.Provider>
         </BrowserRouter>
     );
 }

@@ -6,7 +6,7 @@ type ShowPresetButtonProps = {
     checked: boolean;
     onClick: (newState: boolean) => void;
     disabled?: boolean;
-    sx?: ButtonProps['sx'];
+    sx?: ButtonProps["sx"];
 }
 
 const ShowPresetButton = ({ checked, onClick, disabled, sx = {} }: ShowPresetButtonProps) => {
@@ -14,7 +14,10 @@ const ShowPresetButton = ({ checked, onClick, disabled, sx = {} }: ShowPresetBut
         <Button
             color={checked ? "error" : "primary"}
             startIcon={checked ? <VisibilityOffIcon/> : <VisibilityIcon/>}
-            onClick={() => onClick(!checked)}
+            onClick={(event) => {
+                onClick(!checked);
+                event.stopPropagation();
+            }}
             disabled={disabled}
             sx={{ width: "100px", ...sx }}>
             {checked ? "Hide" : "Show"}

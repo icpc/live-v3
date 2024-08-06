@@ -831,3 +831,14 @@ export interface IOIProblemEntity {
   count: number;
   score: number;
 }
+
+export interface ExternalTeamViewSettings {
+  teamId?: TeamId | null;
+  mediaTypes?: TeamMediaType[];
+  showTaskStatus?: boolean;
+  showAchievement?: boolean;
+  showTimeLine?: boolean;
+  position?: TeamViewPosition;
+}
+
+export type ObjectSettings = any;

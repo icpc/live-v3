@@ -2,7 +2,7 @@
   "name": "shared-code",
   "exports": {
     "./utils": "./src/utils.ts",
-    "./errors": "./src/errors.js",
+    "./errors": "./src/errors.ts",
     "./abstractWidget": "./src/abstractWidget.ts",
     "./package.json": "./package.json"
   }
