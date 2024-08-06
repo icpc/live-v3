@@ -44,7 +44,9 @@ const ScoreboardSettingsTab = ({ isShown, onClickShow, onClickHide, settings, se
             <TableRow>
                 <SlimTableCell align={"center"}>
                     <ButtonGroup variant="contained" sx={{ m: 2 }}>
-                        <Button color="primary" disabled={isShown} onClick={onClickShow}>Show</Button>
+                        <Button color={isShown ? "success" : "primary"} onClick={onClickShow}>
+                            {isShown ? "Update" : "Show"}
+                        </Button>
                         <Button color="error" disabled={!isShown} onClick={onClickHide}>Hide</Button>
                     </ButtonGroup>
                 </SlimTableCell>
