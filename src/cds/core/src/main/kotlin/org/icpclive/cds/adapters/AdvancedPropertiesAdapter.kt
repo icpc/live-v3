@@ -12,9 +12,10 @@ import org.icpclive.cds.tunning.*
 import org.icpclive.cds.util.*
 import org.icpclive.cds.util.serializers.HumanTimeSerializer
 
-private sealed interface AdvancedAdapterEvent
-private data class Update(val update: ContestUpdate) : AdvancedAdapterEvent
-private data object Trigger : AdvancedAdapterEvent
+private sealed interface AdvancedAdapterEvent {
+    data class Update(val update: ContestUpdate) : AdvancedAdapterEvent
+    data object Trigger : AdvancedAdapterEvent
+}
 
 private val templateRegex = kotlin.text.Regex("\\{(!?[a-z0-9A-Z_-]*)}")
 
@@ -49,7 +50,7 @@ private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (
 
 public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> =
     flow {
-        val triggerFlow = Channel<Trigger>()
+        val triggerFlow = Channel<AdvancedAdapterEvent.Trigger>()
         val submittedTeams = mutableSetOf<TeamId>()
         val triggers = mutableSetOf<Instant>()
         coroutineScope {
@@ -60,7 +61,7 @@ public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<A
                 if (triggers.add(time)) {
                     launch {
                         delay(time - Clock.System.now())
-                        triggerFlow.send(Trigger)
+                        triggerFlow.send(AdvancedAdapterEvent.Trigger)
                     }
                 }
             }
@@ -74,16 +75,16 @@ public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<A
                 triggerAt(startOverride + ci.contestLength)
             }
             merge(
-                this@applyAdvancedProperties.map { Update(it) },
+                this@applyAdvancedProperties.map { AdvancedAdapterEvent.Update(it) },
                 triggerFlow.receiveAsFlow().conflate(),
-                advancedPropsStateFlow.map { Trigger },
+                advancedPropsStateFlow.map { AdvancedAdapterEvent.Trigger },
             ).collect {
                 when (it) {
-                    is Trigger -> {
+                    is AdvancedAdapterEvent.Trigger -> {
                         apply()
                     }
 
-                    is Update -> {
+                    is AdvancedAdapterEvent.Update -> {
                         when (it.update) {
                             is InfoUpdate -> {
                                 if (contestInfo != it.update.newInfo) {

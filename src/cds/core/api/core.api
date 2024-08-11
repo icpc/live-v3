@@ -77,6 +77,10 @@ public final class org/icpclive/cds/adapters/ContestStateKt {
 	public static final fun transformContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;)Lkotlinx/coroutines/flow/Flow;
 }
 
+public final class org/icpclive/cds/adapters/CustomFieldsAdapterKt {
+	public static final fun applyCustomFieldsMap (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+}
+
 public final class org/icpclive/cds/adapters/DifferenceAdapterKt {
 	public static final fun calculateScoreDifferences (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 }

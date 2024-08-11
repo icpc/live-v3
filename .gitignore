@@ -360,3 +360,4 @@ artifacts
 /playwright-report/
 /playwright/.cache/
 /_site
+*.ipynb
