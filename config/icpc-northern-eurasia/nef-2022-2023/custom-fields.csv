@@ -1,0 +1,309 @@
+team_id,short_name,hash_tag,computer_id,grabber_ip
+nef772709,KRSU: 1,ala8,A08,10.128.0.1
+nef772710,KGiAI: ToB,ala11,A11,10.128.0.1
+nef772711,AUCA: ZXC,ala14,A14,10.128.0.1
+nef772712,IAU: nothing to code,ala18,A18,10.128.0.1
+nef772713,KyrgyzTU: 2,ala21,A21,10.128.0.1
+nef772714,UCA: Fortuna,ala24,A24,10.128.0.1
+nef772715,AUCA: undefined,ala28,A28,10.128.0.1
+nef772716,UCA: ATWOT,ala32,A32,10.128.0.1
+nef772717,Kyrgyz-Turkey Manas U: 5,ala42,A42,10.128.0.1
+nef772718,UCA: Outsiders,ala45,A45,10.128.0.1
+nef772719,AUCA: MicroHumans,ala49,A49,10.128.0.1
+nef772720,UCA: Hooks,ala54,A54,10.128.0.1
+nef772721,UCA: SeniorS,ala62,A62,10.128.0.1
+nef772722,UCA: Preps,ala67,A67,10.128.0.1
+nef772723,UCA: Tourists,ala38,A38,10.128.0.1
+nef780302,YarSU: 14: MMM,spb16,016,10.25.3.59
+nef780303,TulaSU: 2: Accepted_and_point,spb112,112,10.25.3.59
+nef780304,OrelSU: 1: CatForces,spb113,113,10.25.3.59
+nef780305,NArFU: 2,spb131,131,10.25.3.59
+nef780306,Tver SU: 1: Guerilla Gorillas,spb59,059,10.25.3.59
+nef780307,RSATU: #1,spb101,101,10.25.3.59
+nef780309,YarSU: 23: AmateraSU,spb88,088,10.25.3.59
+nef780537,Kazakh-British TU: DeoxyriboNucleic Acid,ala1,A01,10.128.0.1
+nef780538,IITU: Aztec Gods of fitness,ala2,A02,10.128.0.1
+nef780539,AITU: 2,ala3,A03,10.128.0.1
+nef780540,Nazarbayev U: wf or gf?,ala5,A05,10.128.0.1
+nef780541,AITU: 1,ala9,A09,10.128.0.1
+nef780543,Kazakh-British TU: Unexpected,ala12,A12,10.128.0.1
+nef780544,IITU: Defective Memory,ala15,A15,10.128.0.1
+nef780545,Nazarbayev U: Bludnitsy,ala19,A19,10.128.0.1
+nef780563,Nazarbayev U: 1.1,ala33,A33,10.128.0.1
+nef780564,Nazarbayev U: The Glider,ala44,A44,10.128.0.1
+nef780565,SDU: 1,ala22,A22,10.128.0.1
+nef780566,Kazakh-British TU: LaGoona Goo,ala25,A25,10.128.0.1
+nef780567,Kazakh-British TU: Should you be here?,ala37,A37,10.128.0.1
+nef780568,AITU: 3,ala29,A29,10.128.0.1
+nef780569,Kazakh-British TU: Undertrained,ala48,A48,10.128.0.1
+nef780570,IITU: Akvelon Team,ala41,A41,10.128.0.1
+nef780571,IITU: ur mamaso,ala52,A52,10.128.0.1
+nef780572,"Nazarbayev U: Please, relocate randomly.",ala55,A55,10.128.0.1
+nef780573,* KazNU: - Solo,ala59,A59,10.128.0.1
+nef780574,AITU: 4,ala63,A63,10.128.0.1
+nef780575,SDU: 5,ala35,A35,10.128.0.1
+nef780576,"SDU: Kak dela v ka4alke, pasany?",ala46,A46,10.128.0.1
+nef780577,SDU: 3,ala57,A57,10.128.0.1
+nef780578,Karaganda SU: Buketov Team,ala61,A61,10.128.0.1
+nef780596,KazNU: 2 - SEN,ala65,A65,10.128.0.1
+nef780597,KazNTU: SU#I,ala68,A68,10.128.0.1
+nef780598,AIPET: -3,ala70,A70,10.128.0.1
+nef780599,KazNTU: SU#II,ala7,A07,10.128.0.1
+nef780600,KazNU: 3 - DAD,ala17,A17,10.128.0.1
+nef780601,* AIPET: -200,ala39,A39,10.128.0.1
+nef780602,CSUT&E: RAY,ala50,A50,10.128.0.1
+nef780606,KSTU: 1,ala31,A31,10.128.0.1
+nef780607,Narxoz University: Jusy do IT,ala27,A27,10.128.0.1
+nef780665,SPb ITMO: pengzoo,spb21,021,10.25.3.59
+nef780666,SPb SU: Willing to chill in WF,spb137,137,10.25.3.59
+nef780667,SPb SU: 36,spb141,141,10.25.3.59
+nef780668,SPb SU: Urgant Team,ala4,A04,10.128.0.1
+nef780669,SPb SU: 25,spb14,014,10.25.3.59
+nef780670,SPb SU: Demid Is Chelyabinsk King,spb10,010,10.25.3.59
+nef780671,SPb ITMO: Unexpected Value,spb89,089,10.25.3.59
+nef780672,SPb ITMO: optimized out,spb117,117,10.25.3.59
+nef780673,SPb HSE: jaba,spb7,007,10.25.3.59
+nef780674,SPb ITMO: Cataleptodius,spb157,157,10.25.3.59
+nef780675,SPb HSE: Just3Keks,spb94,094,10.25.3.59
+nef780676,SPb ITMO: I don't know,spb48,048,10.25.3.59
+nef780677,Petrozavodsk SU: belyashes with kittens,spb87,087,10.25.3.59
+nef780678,Petrozavodsk SU: _ = (1 - q^n) / (1 - q),spb177,177,10.25.3.59
+nef780679,Petrozavodsk SU: Aboba,spb95,095,10.25.3.59
+nef780680,SPb SU of AI: MegaSmetanka,spb33,033,10.25.3.59
+nef780681,SPb SU of AI: 0x60D7EA44,spb119,119,10.25.3.59
+nef780682,SPb ETU: Belaruskiya krakadzily,spb161,161,10.25.3.59
+nef780683,Mil A of Comm: Number One,spb67,067,10.25.3.59
+nef780684,SPb SU of Telecom: BonchBotz.SUT,spb160,160,10.25.3.59
+nef788026,Ural FU: Re:Fresh,spb106,106,10.25.3.59
+nef788027,Ural FU: what is happening,spb149,149,10.25.3.59
+nef788028,Ural FU: i dont walk with washing powder,spb111,111,10.25.3.59
+nef788029,Perm SNRU: Cat$,spb156,156,10.25.3.59
+nef788030,Ural FU: Cucumber Juice 73,spb61,061,10.25.3.59
+nef788031,Chelyabinsk SU: Eternity,spb73,073,10.25.3.59
+nef788032,Izhevsk STU: Skill++,spb23,023,10.25.3.59
+nef788054,Perm NRPU: Azkaban's Axiom,spb69,069,10.25.3.59
+nef788055,Perm SNRU: longlong nelzya int,spb45,045,10.25.3.59
+nef788056,Izhevsk STU: People++,spb80,080,10.25.3.59
+nef788057,Ufa SATU: WeHaveABreak,spb70,070,10.25.3.59
+nef788058,South Ural SU: Hydra,spb6,006,10.25.3.59
+nef788059,South Ural SU: Pivosaurus,spb174,174,10.25.3.59
+nef788060,Izhevsk STU: ZEDbl,spb120,120,10.25.3.59
+nef788061,South Ural SU: Three-headed programmer,spb90,090,10.25.3.59
+nef788062,Tyumen IU: kriper2004,spb76,076,10.25.3.59
+nef788063,Ufa SATU: God`s Choice,spb132,132,10.25.3.59
+nef788064,Orenburg SU: Feel Good ©,spb49,049,10.25.3.59
+nef788065,Tyumen SU: import.math,spb118,118,10.25.3.59
+nef788066,Perm NRPU: PythonTrio,spb175,175,10.25.3.59
+nef788067,Perm HSE: ALKgo!,spb78,078,10.25.3.59
+nef788068,Ural FU: If True,spb57,057,10.25.3.59
+nef788318,HSE: FFTilted,spb84,084,10.25.3.59
+nef788319,MIPT: Log-rank conjecture,spb17,017,10.25.3.59
+nef788320,MIPT: Machula's fun club,spb77,077,10.25.3.59
+nef788321,MIPT: Yolki-palki,spb55,055,10.25.3.59
+nef788323,HSE: FAT,spb25,025,10.25.3.59
+nef788324,HSE: Elderly Passion Fruit,spb150,150,10.25.3.59
+nef788325,MIPT: SkyFall,spb133,133,10.25.3.59
+nef788326,MAI: #1,spb63,063,10.25.3.59
+nef788327,HSE: It Has To Work,spb142,142,10.25.3.59
+nef788328,"MIPT: Emil, we are with you",spb97,097,10.25.3.59
+nef788329,MIPT: Pshimaf Naniz,spb124,124,10.25.3.59
+nef788330,MISiS: Eva Fan Club,spb105,105,10.25.3.59
+nef788331,MISiS: Yams,spb164,164,10.25.3.59
+nef788332,Moscow SU: apes together strong,spb15,015,10.25.3.59
+nef788334,Skoltech: Caravella,spb162,162,10.25.3.59
+nef788335,MEPhI: Useless but powerful,spb114,114,10.25.3.59
+nef788336,MPSU: Brain Limit,spb98,098,10.25.3.59
+nef788337,"Moscow SU: Meanwhile, Elk, MrF & YaV",spb41,041,10.25.3.59
+nef788338,MAI: #4,spb71,071,10.25.3.59
+nef788340,MISiS: 206 kg Ivana Yakimova,spb126,126,10.25.3.59
+nef788341,MAI: #2,spb165,165,10.25.3.59
+nef788342,MISiS: Stop this round,spb31,031,10.25.3.59
+nef788344,BMSTU: 30 seconds to parse,spb5,005,10.25.3.59
+nef788345,MISiS: Fiksiki,spb38,038,10.25.3.59
+nef788346,Moscow SU: broken cisgenders,spb167,167,10.25.3.59
+nef788347,Moscow SU: otolob2,spb129,129,10.25.3.59
+nef788349,Financial U: Nails,spb145,145,10.25.3.59
+nef788350,RosNOU: RNUteam,spb36,036,10.25.3.59
+nef788351,Moscow Tech U MIREA: Team 11,spb68,068,10.25.3.59
+nef788352,MEPhI: -3iq,spb32,032,10.25.3.59
+nef788353,MTUCI: Sigma Chad Machines,spb65,065,10.25.3.59
+nef788390,Vologda SU: 1,spb107,107,10.25.3.59
+nef788392,TulaSU: 1: pepelats,spb121,121,10.25.3.59
+nef788395,YarSU: 1: STACKMANS,spb153,153,10.25.3.59
+nef788418,Belarusian SU: 1: Dungeon Thread,spb81,081,10.25.3.59
+nef788419,BSUIR: #1: So stuffy,spb29,029,10.25.3.59
+nef788420,Belarusian SU: 2: Fiksiki,spb44,044,10.25.3.59
+nef788421,Belarusian SU: 5: Medium rare,spb100,100,10.25.3.59
+nef788422,GSU: -2,spb66,066,10.25.3.59
+nef788423,BSUIR: #3: Enter name of team,spb37,037,10.25.3.59
+nef788424,Belarusian SU: 3,spb166,166,10.25.3.59
+nef788425,Belarusian SU: 4: OSUTeam,spb54,054,10.25.3.59
+nef788426,Baltic FU: 1: Num4,spb83,083,10.25.3.59
+nef788427,BSUIR: turbosvin u+1f416 u+1f4a8,spb148,148,10.25.3.59
+nef788428,BSUIR: #7: Brute Force - Best Force,spb125,125,10.25.3.59
+nef788429,BelSUT: _1,spb18,018,10.25.3.59
+nef788430,Grodno SU: #1,spb75,075,10.25.3.59
+nef788431,BNTU: #1 FITRx3,spb50,050,10.25.3.59
+nef788432,BNTU: #2 Pogchampions,spb99,099,10.25.3.59
+nef788945,CFUV: Drei kameraden,spb130,130,10.25.3.59
+nef789838,CFUV: -1,spb20,020,10.25.3.59
+nef789937,Far Eastern FU: SpaceDuck,spb79,079,10.25.3.59
+nef789939,Far Eastern STU: DevOchka,spb144,144,10.25.3.59
+nef789941,North-Eastern FU: ultramarines,spb64,064,10.25.3.59
+nef789942,Far Eastern FU: Cyber-Meatball,spb39,039,10.25.3.59
+nef789943,Far Eastern FU: Chamliks,spb136,136,10.25.3.59
+nef789944,Far Eastern FU: Garbies,brn8,B08,10.128.0.1
+nef789945,Pacific NU: Compilation failed,spb35,035,10.25.3.59
+nef789946,Vladivostok SU: ADA,spb173,173,10.25.3.59
+nef789947,Sholom-Aleichem PSU: Sholom-Aleichem Priamursky SU 1,brn16,B16,10.128.0.1
+nef789968,North-Eastern FU: opa!,spb52,052,10.25.3.59
+nef790038,Yerevan SU: 1,kts10,K10,10.128.0.1
+nef790039,Yerevan SU: X,kts48,K48,10.128.0.1
+nef790040,RAU: 1,kts6,K06,10.128.0.1
+nef790041,Yerevan SU: Useless As Long,kts23,K23,10.128.0.1
+nef790042,Yerevan SU: 4,kts53,K53,10.128.0.1
+nef790043,RAU: 2,kts33,K33,10.128.0.1
+nef790044,RAU: 3,kts22,K22,10.128.0.1
+nef790046,RAU: 4,kts47,K47,10.128.0.1
+nef790047,Goris SU: We and Our Mountains,kts29,K29,10.128.0.1
+nef790048,Goris SU: NoPolitic++s,kts42,K42,10.128.0.1
+nef790050,EUA: 1,kts55,K55,10.128.0.1
+nef790061,Innopolis: U A,spb152,152,10.25.3.59
+nef790067,Saratov SU: K,spb163,163,10.25.3.59
+nef790068,Innopolis: U M,spb128,128,10.25.3.59
+nef790069,Kazan FU: I,spb96,096,10.25.3.59
+nef790070,Volgograd STU: D,spb60,060,10.25.3.59
+nef790071,Nizhny Novgorod HSE: Brawl Stars,spb51,051,10.25.3.59
+nef790072,NNSU: Lera not Retired,spb3,003,10.25.3.59
+nef790073,NNSU: Alexey Sergeevich,spb72,072,10.25.3.59
+nef790074,South FU IMMCS: H,spb115,115,10.25.3.59
+nef790100,Kazan FU: S,spb140,140,10.25.3.59
+nef790101,MordSU: A,spb103,103,10.25.3.59
+nef790102,NNSU: Kaifariki,spb176,176,10.25.3.59
+nef790103,Kazan FU: J,spb53,053,10.25.3.59
+nef790104,VoronezhSU: H,spb8,008,10.25.3.59
+nef790105,USTU: Ulyanovsk STU C,spb172,172,10.25.3.59
+nef790133,Penza SU: Arbina | Vadim Team,spb147,147,10.25.3.59
+nef790134,Saratov SU: J,spb91,091,10.25.3.59
+nef790135,Kazan FU: AA,spb46,046,10.25.3.59
+nef790136,Samara U: F,spb74,074,10.25.3.59
+nef790137,NSTU: PUDGE,spb159,159,10.25.3.59
+nef790138,MordSU: C,spb110,110,10.25.3.59
+nef790139,ASU: A,spb4,004,10.25.3.59
+nef790140,Penza SU: Arbina | SE Prodigies,spb108,108,10.25.3.59
+nef790141,VoronezhSU: Q,spb171,171,10.25.3.59
+nef790142,Nizhny Novgorod HSE: Dark Horse,spb178,178,10.25.3.59
+nef790432,Belarusian SU: 9: Pointing Hands,spb143,143,10.25.3.59
+nef790433,Izhevsk STU: Comrade coders,spb158,158,10.25.3.59
+nef790434,Perm SNRU: busy beavers,spb86,086,10.25.3.59
+nef790435,Ufa SATU: Seven_H,spb109,109,10.25.3.59
+nef790436,HSE: Dirizhabl’,spb30,030,10.25.3.59
+nef790437,Moscow Tech U MIREA: Team 4,spb116,116,10.25.3.59
+nef790438,Innopolis: U T,spb62,062,10.25.3.59
+nef790439,Volgograd STU: H,spb102,102,10.25.3.59
+nef791228,Saratov SU: M,spb19,019,10.25.3.59
+nef791356,BryanskSTU: 1: winx_v3.0,spb9,009,10.25.3.59
+nef791357,ISPU: #3,spb34,034,10.25.3.59
+nef795852,MSU Tashkent: 1 Awesome Team,ala6,A06,10.128.0.1
+nef795853,TIU: #1,ala10,A10,10.128.0.1
+nef795854,TUIT: Code of Duty,ala13,A13,10.128.0.1
+nef795855,TUIT: Algo Experts,ala20,A20,10.128.0.1
+nef795856,RusTjkSlav: REAL NERU,ala16,A16,10.128.0.1
+nef795857,SamTUIT: MAAc,ala23,A23,10.128.0.1
+nef795858,TUIT: Lorem Ipsum,ala26,A26,10.128.0.1
+nef795859,NUUz: Bekorchilar,ala30,A30,10.128.0.1
+nef795860,TUIT Urgench Branch: #1,ala36,A36,10.128.0.1
+nef795861,TIIM: Intellect,ala40,A40,10.128.0.1
+nef795862,TUIT: Dominators,ala47,A47,10.128.0.1
+nef795863,NewUU: Import magic,ala43,A43,10.128.0.1
+nef795864,IIAU: TEAM SEVEN,ala51,A51,10.128.0.1
+nef795865,MSU Tashkent: Ace,ala53,A53,10.128.0.1
+nef795866,SamTUIT: Vertow,ala66,A66,10.128.0.1
+nef795867,BukhSU: _1,ala56,A56,10.128.0.1
+nef795868,NUUz: Cyberdine,ala58,A58,10.128.0.1
+nef795869,JBNUU: 1,ala60,A60,10.128.0.1
+nef795870,Namangan SU: #1,ala34,A34,10.128.0.1
+nef795871,TUIT Urgench Branch: #2,ala64,A64,10.128.0.1
+nef795872,SamSU: DREAM TEAM,ala69,A69,10.128.0.1
+nef796437,Irkutsk SU: ICPC means Irkutsk Competitive Programming Community,spb85,085,10.25.3.59
+nef796438,Irkutsk SU: 322,spb24,024,10.25.3.59
+nef796439,Buryat SU: (INF)acts,spb22,022,10.25.3.59
+nef796440,Irkutsk SU: Take it easy,spb47,047,10.25.3.59
+nef796442,SFU: div ++inf,spb104,104,10.25.3.59
+nef796542,Irkutsk NRTU: PolyTech,brn1,B01,10.128.0.1
+nef796543,Buryat SU: 2: SYAS,brn2,B02,10.128.0.1
+nef796544,Irkutsk SU: Gigachads,spb127,127,10.25.3.59
+nef796545,ISRU: BebraniumCoders,spb122,122,10.25.3.59
+nef796546,Irkutsk SU: Amigos,spb135,135,10.25.3.59
+nef796547,SFU: CHERVI,brn3,B03,10.128.0.1
+nef796549,Irkutsk NRTU: Cython_ist++,spb93,093,10.25.3.59
+nef796550,ISRU: Glupoe nazvanie,spb123,123,10.25.3.59
+nef796555,Khakas TI of SFU: 1,brn5,B05,10.128.0.1
+nef796556,PSU: Gcode,brn6,B06,10.128.0.1
+nef796557,Buryat SU: 3: OP2G,brn7,B07,10.128.0.1
+nef796558,PSU: eternal,brn15,B15,10.128.0.1
+nef796560,PSU: Lil Chipmunks,brn22,B22,10.128.0.1
+nef796561,PSU: APNort,brn29,B29,10.128.0.1
+nef796574,Novosibirsk SU: 1: Gena the crocodile,spb82,082,10.25.3.59
+nef796575,Novosibirsk SU: 4: MathWay,spb28,028,10.25.3.59
+nef796576,Novosibirsk SU: 12: The Colleagues,spb56,056,10.25.3.59
+nef796577,Novosibirsk SU: 2: Ia-Ia,spb151,151,10.25.3.59
+nef796578,Novosibirsk SU: 5: Successful payment,spb146,146,10.25.3.59
+nef797070,Kazan FU: P,spb134,134,10.25.3.59
+nef797071,Innopolis: U J,spb40,040,10.25.3.59
+nef797072,NNSU: Almost Enqueued,spb92,092,10.25.3.59
+nef797075,SibSUTI: 1 Neutral,brn9,B09,10.128.0.1
+nef797076,Tomsk PU: 1,brn10,B10,10.128.0.1
+nef797077,SibSUTI: 2 TRIPLE_A,brn17,B17,10.128.0.1
+nef797079,Omsk SU: 3,brn11,B11,10.128.0.1
+nef797080,Altai STU: 1,brn12,B12,10.128.0.1
+nef797081,Omsk SU: 1,brn18,B18,10.128.0.1
+nef797082,NSTU: 5,brn14,B14,10.128.0.1
+nef797083,SibSUTI: 6 hodgepodge,brn23,B23,10.128.0.1
+nef797084,Omsk SU: 2,brn25,B25,10.128.0.1
+nef797085,SibSUTI: 4 ZERONE,brn30,B30,10.128.0.1
+nef797086,NSTU: 4,brn4,B04,10.128.0.1
+nef797087,Altai STU: 4,brn19,B19,10.128.0.1
+nef797089,NSTU: 6-FPMI,brn27,B27,10.128.0.1
+nef797090,Altai STU: 3,brn26,B26,10.128.0.1
+nef797091,SSTU: STU_2,brn21,B21,10.128.0.1
+nef797092,SSTU: STU_6,brn28,B28,10.128.0.1
+nef797093,NSTU: 12,brn31,B31,10.128.0.1
+nef797094,Tomsk PU: 2,brn32,B32,10.128.0.1
+nef799340,Tbilisi Freeuni: 1,kts1,K01,10.128.0.1
+nef799341,Kutaisi IU: WeShowSpeed,kts25,K25,10.128.0.1
+nef799342,Tbilisi Freeuni: 3,kts46,K46,10.128.0.1
+nef799343,Tbilisi Freeuni: 13,kts39,K39,10.128.0.1
+nef799344,Tbilisi Freeuni: 6,kts17,K17,10.128.0.1
+nef799345,Tbilisi Freeuni: 12,kts2,K02,10.128.0.1
+nef799346,Kutaisi IU: Gurkotas Lekvebi,kts34,K34,10.128.0.1
+nef799347,Tbilisi SU: T1,kts38,K38,10.128.0.1
+nef799348,Tbilisi SU: T2,kts9,K09,10.128.0.1
+nef799349,Kutaisi IU: Tamliani,kts50,K50,10.128.0.1
+nef799350,Tbilisi CU: 1,kts21,K21,10.128.0.1
+nef799351,Kutaisi ATSU: 1,kts54,K54,10.128.0.1
+nef799352,IBSU: Tbilisi 3,kts52,K52,10.128.0.1
+nef799353,Kutaisi IU: FarosanSlayer,kts3,K03,10.128.0.1
+nef799354,Tbilisi CU: 2,kts43,K43,10.128.0.1
+nef799355,Kutaisi ATSU: 2,kts32,K32,10.128.0.1
+nef799356,Batumi SU: 1,kts19,K19,10.128.0.1
+nef799357,Baku HOS: 1,kts4,K04,10.128.0.1
+nef799358,ADA: U 1,kts8,K08,10.128.0.1
+nef799360,ADA: U 2,kts12,K12,10.128.0.1
+nef799361,ADA: U 3,kts27,K27,10.128.0.1
+nef799363,UFAZ: 1,kts36,K36,10.128.0.1
+nef799364,AzSUE-UNEC: _1,kts37,K37,10.128.0.1
+nef799365,UFAZ: 3,kts24,K24,10.128.0.1
+nef799366,ADA: U 5,kts45,K45,10.128.0.1
+nef799368,Baku EU: 1,kts51,K51,10.128.0.1
+nef799369,ASOIU: 1,kts16,K16,10.128.0.1
+nef799372,AzTU: SABAH 17,kts35,K35,10.128.0.1
+nef799373,Baku SU: 1,kts30,K30,10.128.0.1
+nef799571,Baku HOS: 7,kts49,K49,10.128.0.1
+nefnc01,* KBTU:  DIV3O,ala72,A72,10.128.0.1
+nefnc02,* IITU: Kurenshe,ala73,A73,10.128.0.1
+nefnc03,* Tbilisi: Live_in_Baghdadi,kts7,K07,10.128.0.1
+nefnc04,* Yerevan SU: 2813,kts18,K18,10.128.0.1
+nefnc05,* Kutaisi: schoolteam,kts40,K40,10.128.0.1
+nefnc06,* IDEMO,kts28,K28,10.128.0.1
+nefnc07,"* FreeUni9: Saba ",kts14,K14,10.128.0.1
