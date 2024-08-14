@@ -53,8 +53,13 @@ data class ExternalTeamViewSettings(
 
 @Serializable
 data class OverlayTeamViewSettings(
-    val content: List<MediaType> = emptyList(),
-    val position: TeamViewPosition = TeamViewPosition.SINGLE_TOP_RIGHT,
+    val teamId: TeamId,
+    val primary: MediaType?,
+    val secondary: MediaType?,
+    val showTaskStatus: Boolean,
+    val achievement: MediaType?,
+    val showTimeLine: Boolean,
+    val position: TeamViewPosition,
 ) : ObjectSettings
 
 @Serializable

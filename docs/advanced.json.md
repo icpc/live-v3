@@ -75,9 +75,9 @@ Avaliable media types:
 * `{ "type": "Object", "url": "url" }` - file that can be embedded in html page, e.g. svg with animations
 * `{ "type": "Video", "url": "url" }` - video or http stream that supported web browser and can embedded in video tag
 * `{ "type": "M2tsVideo", "url": "url" }` - video or http stream in mpeg ts container
-* `{ "type": "HLSVideo", "url": "url", "" }` - HLS video or stream
+* `{ "type": "HLSVideo", "url": "url", "jwtTocken": "optional" }` - HLS video or stream
 * `{ "type": "WebRTCProxyConnection", "url": "url" }` - connection to http stream via [WebRTCProxy](https://github.com/kbats183/webrtc-proxy)
-* `{ "type": "WebRTCGrabberConnection", "url": "signallingUrl (with /admin)", "peerName": "peerName", "streamType": "desktop/webcam", "credential": "optional" }` - connection to desktop, webcam or etc. using [WebRTCGrabber](https://github.com/irdkwmnsb/webrtc-grabber)
+* `{ "type": "WebRTCGrabberConnection", "url": "signallingUrl (for example https://grabber.kbats.ru)", "peerName": "peerName", "streamType": "desktop/webcam", "credential": "optional" }` - connection to desktop, webcam or etc. using [WebRTCGrabber](https://github.com/irdkwmnsb/webrtc-grabber)
 
 # Customize ranking rules
 ```

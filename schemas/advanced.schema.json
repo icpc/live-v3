@@ -14,7 +14,7 @@
                 "jwtToken": {
                     "type": "string"
                 },
-                "isMedia": {
+                "vertical": {
                     "type": "boolean"
                 }
             },
@@ -35,7 +35,7 @@
                 "url": {
                     "type": "string"
                 },
-                "isMedia": {
+                "vertical": {
                     "type": "boolean"
                 }
             },
@@ -56,7 +56,7 @@
                 "url": {
                     "type": "string"
                 },
-                "isMedia": {
+                "vertical": {
                     "type": "boolean"
                 }
             },
@@ -76,9 +76,6 @@
                 },
                 "url": {
                     "type": "string"
-                },
-                "isMedia": {
-                    "type": "boolean"
                 }
             },
             "additionalProperties": false,
@@ -87,48 +84,6 @@
                 "url"
             ],
             "title": "Object"
-        },
-        "TaskStatus": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "TaskStatus",
-                    "default": "TaskStatus"
-                },
-                "teamId": {
-                    "type": "string"
-                },
-                "isMedia": {
-                    "type": "boolean"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "teamId"
-            ],
-            "title": "TaskStatus"
-        },
-        "TimeLine": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "TimeLine",
-                    "default": "TimeLine"
-                },
-                "teamId": {
-                    "type": "string"
-                },
-                "isMedia": {
-                    "type": "boolean"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "teamId"
-            ],
-            "title": "TimeLine"
         },
         "Video": {
             "type": "object",
@@ -140,7 +95,7 @@
                 "url": {
                     "type": "string"
                 },
-                "isMedia": {
+                "vertical": {
                     "type": "boolean"
                 }
             },
@@ -170,7 +125,7 @@
                 "credential": {
                     "type": "string"
                 },
-                "isMedia": {
+                "vertical": {
                     "type": "boolean"
                 }
             },
@@ -197,7 +152,7 @@
                 "audioUrl": {
                     "type": "string"
                 },
-                "isMedia": {
+                "vertical": {
                     "type": "boolean"
                 }
             },
@@ -221,12 +176,6 @@
                 },
                 {
                     "$ref": "#/$defs/Object"
-                },
-                {
-                    "$ref": "#/$defs/TaskStatus"
-                },
-                {
-                    "$ref": "#/$defs/TimeLine"
                 },
                 {
                     "$ref": "#/$defs/Video"

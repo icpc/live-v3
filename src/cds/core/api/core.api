@@ -800,8 +800,6 @@ public abstract interface annotation class org/icpclive/cds/api/InefficientConte
 public abstract class org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Companion;
 	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
-	public abstract fun isMedia ()Z
-	public final fun noMedia ()Lorg/icpclive/cds/api/MediaType;
 	public static final synthetic fun write$Self (Lorg/icpclive/cds/api/MediaType;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
@@ -821,8 +819,8 @@ public final class org/icpclive/cds/api/MediaType$HLSVideo : org/icpclive/cds/ap
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getJwtToken ()Ljava/lang/String;
 	public final fun getUrl ()Ljava/lang/String;
+	public final fun getVertical ()Z
 	public fun hashCode ()I
-	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -851,8 +849,8 @@ public final class org/icpclive/cds/api/MediaType$Image : org/icpclive/cds/api/M
 	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Image;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Image;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getUrl ()Ljava/lang/String;
+	public final fun getVertical ()Z
 	public fun hashCode ()I
-	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -881,8 +879,8 @@ public final class org/icpclive/cds/api/MediaType$M2tsVideo : org/icpclive/cds/a
 	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$M2tsVideo;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$M2tsVideo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getUrl ()Ljava/lang/String;
+	public final fun getVertical ()Z
 	public fun hashCode ()I
-	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -903,16 +901,13 @@ public final class org/icpclive/cds/api/MediaType$M2tsVideo$Companion {
 
 public final class org/icpclive/cds/api/MediaType$Object : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Object$Companion;
-	public fun <init> (Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Z
-	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$Object;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Object;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Object;
+	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Object;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Object;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Object;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
-	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -931,62 +926,6 @@ public final class org/icpclive/cds/api/MediaType$Object$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/api/MediaType$TaskStatus : org/icpclive/cds/api/MediaType {
-	public static final field Companion Lorg/icpclive/cds/api/MediaType$TaskStatus$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-ed2mA_4 ()Ljava/lang/String;
-	public final fun copy-nUE0bHc (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$TaskStatus;
-	public static synthetic fun copy-nUE0bHc$default (Lorg/icpclive/cds/api/MediaType$TaskStatus;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$TaskStatus;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getTeamId-ed2mA_4 ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun isMedia ()Z
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/MediaType$TaskStatus$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/MediaType$TaskStatus$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/MediaType$TaskStatus;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/MediaType$TaskStatus;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/MediaType$TaskStatus$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/MediaType$TimeLine : org/icpclive/cds/api/MediaType {
-	public static final field Companion Lorg/icpclive/cds/api/MediaType$TimeLine$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-ed2mA_4 ()Ljava/lang/String;
-	public final fun copy-nUE0bHc (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$TimeLine;
-	public static synthetic fun copy-nUE0bHc$default (Lorg/icpclive/cds/api/MediaType$TimeLine;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$TimeLine;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getTeamId-ed2mA_4 ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun isMedia ()Z
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/api/MediaType$TimeLine$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/MediaType$TimeLine$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/MediaType$TimeLine;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/MediaType$TimeLine;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/api/MediaType$TimeLine$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
 public final class org/icpclive/cds/api/MediaType$Video : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Video$Companion;
 	public fun <init> (Ljava/lang/String;Z)V
@@ -997,8 +936,8 @@ public final class org/icpclive/cds/api/MediaType$Video : org/icpclive/cds/api/M
 	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Video;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Video;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getUrl ()Ljava/lang/String;
+	public final fun getVertical ()Z
 	public fun hashCode ()I
-	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -1033,8 +972,8 @@ public final class org/icpclive/cds/api/MediaType$WebRTCGrabberConnection : org/
 	public final fun getPeerName ()Ljava/lang/String;
 	public final fun getStreamType ()Ljava/lang/String;
 	public final fun getUrl ()Ljava/lang/String;
+	public final fun getVertical ()Z
 	public fun hashCode ()I
-	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -1065,8 +1004,8 @@ public final class org/icpclive/cds/api/MediaType$WebRTCProxyConnection : org/ic
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudioUrl ()Ljava/lang/String;
 	public final fun getUrl ()Ljava/lang/String;
+	public final fun getVertical ()Z
 	public fun hashCode ()I
-	public fun isMedia ()Z
 	public fun toString ()Ljava/lang/String;
 }
 

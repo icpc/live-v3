@@ -113,17 +113,25 @@ type SeparateContentType = {
     secondary: MediaType | null;
 }
 
-const separateContent = ({ content }: OverlayTeamViewSettings): SeparateContentType => {
-    const taskStatusId = content.find(c => c.type === MediaType.Type.TaskStatus)?.teamId;
-    const achievement = content.find(c => (c.type === MediaType.Type.Object || c.type === MediaType.Type.Image) && !c.isMedia);
-    const timelineId = content.find(c => c.type === MediaType.Type.TimeLine)?.teamId;
+type VariantProps = {
+    location: LocationRectangle;
+    position?: TeamViewPosition;
+    setPrimaryLoaded: Dispatch<SetStateAction<boolean>>;
+    setSecondaryLoaded: Dispatch<SetStateAction<boolean>>;
+    setAchievementLoaded: Dispatch<SetStateAction<boolean>>;
+} & OverlayTeamViewSettings;
 
-    const medias = content.filter(c => c.isMedia);
-    const primary = medias.length > 0 && medias[0];
-    const secondary = medias.length > 1 && medias[1];
-
-    return { taskStatusId, achievement, timelineId, primary, secondary };
-};
+// const separateContent = ({ content }: OverlayTeamViewSettings): SeparateContentType => {
+//     const taskStatusId = content.find(c => c.type === MediaType.Type.TaskStatus)?.teamId;
+//     const achievement = content.find(c => (c.type === MediaType.Type.Object || c.type === MediaType.Type.Image) && !c.isMedia);
+//     const timelineId = content.find(c => c.type === MediaType.Type.TimeLine)?.teamId;
+//
+//     const medias = content.filter(c => c.isMedia);
+//     const primary = medias.length > 0 && medias[0];
+//     const secondary = medias.length > 1 && medias[1];
+//
+//     return { taskStatusId, achievement, timelineId, primary, secondary };
+// };
 
 const PrimaryMediaWrapper = styled.div`
     position: absolute;
@@ -178,15 +186,7 @@ const teamViewVariant = (position: TeamViewPosition | undefined) => {
     return "split";
 };
 
-type VariantProps = {
-    location: LocationRectangle;
-    position?: TeamViewPosition;
-    setPrimaryLoaded: Dispatch<SetStateAction<boolean>>;
-    setSecondaryLoaded: Dispatch<SetStateAction<boolean>>;
-    setAchievementLoaded: Dispatch<SetStateAction<boolean>>;
-} & SeparateContentType;
-
-const SingleVariant = ({ primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, taskStatusId, timelineId, location }: VariantProps) => {
+const SingleVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location }: VariantProps) => {
     const achievementY = location.sizeY - location.sizeX / 16 * 9;
     return (
         <>
@@ -206,17 +206,15 @@ const SingleVariant = ({ primary, setPrimaryLoaded, secondary, setSecondaryLoade
                         <TeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
                     </SecondaryMediaWrapper>
                 )}
-                {timelineId && (
-                    <TimelineWrapper>
-                        <div>
-                            <TimeLine teamId={timelineId} />
-                        </div>
-                    </TimelineWrapper>
-                )}
-                {taskStatusId && (
+                {showTaskStatus && (
                     <TaskStatusWrapper withAchievement={!!achievement} withSecondary={!!secondary}>
-                        <ContestantViewCorner teamId={taskStatusId} isSmall={false} />
+                        <ContestantViewCorner teamId={teamId} isSmall={false} />
                     </TaskStatusWrapper>
+                )}
+                {showTimeLine && (
+                    <TimelineWrapper>
+                        <div><TimeLine teamId={teamId} /></div>
+                    </TimelineWrapper>
                 )}
             </TeamViewGrid>
         </>
@@ -275,7 +273,7 @@ const PVPAchievementInnerWrapper = styled.div`
     bottom: -4px;
 `;
 
-const PVPVariant = ({ primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, taskStatusId, location, position }: VariantProps) => {
+const PVPVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, location, position }: VariantProps) => {
     const isTop = position === TeamViewPosition.PVP_TOP;
     return (
         <>
@@ -302,9 +300,9 @@ const PVPVariant = ({ primary, setPrimaryLoaded, secondary, setSecondaryLoaded, 
                     </PVPAchievementWrapper>
                 )}
             </PVPGrid>
-            {taskStatusId && (
+            {showTaskStatus && (
                 <PVPTaskStatusWrapper $isTop={isTop}>
-                    <ContestantViewLine teamId={taskStatusId} isTop={isTop}/>
+                    <ContestantViewLine teamId={teamId} isTop={isTop}/>
                 </PVPTaskStatusWrapper>
             )}
         </>
@@ -321,7 +319,7 @@ const SplitScreenGrid = styled.div<{ $secondaryY: number }>`
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
-const SplitVariant = ({ primary, setPrimaryLoaded, secondary, setSecondaryLoaded, taskStatusId, location }: VariantProps) => {
+const SplitVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, showTaskStatus, location }: VariantProps) => {
     return (
         <>
             {primary && (
@@ -335,9 +333,9 @@ const SplitVariant = ({ primary, setPrimaryLoaded, secondary, setSecondaryLoaded
                         <TeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
                     </SecondaryMediaWrapper>
                 )}
-                {taskStatusId && (
+                {showTaskStatus && (
                     <TaskStatusWrapper withAchievement={false} withSecondary={!!secondary}>
-                        <ContestantViewCorner teamId={taskStatusId} isSmall={false} />
+                        <ContestantViewCorner teamId={teamId} isSmall={false} />
                     </TaskStatusWrapper>
                 )}
             </SplitScreenGrid>
@@ -346,9 +344,9 @@ const SplitVariant = ({ primary, setPrimaryLoaded, secondary, setSecondaryLoaded
 };
 
 export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { settings, location }, transitionState }) => {
-    const position = settings.position;
+    const { teamId, primary, secondary, achievement, showTaskStatus, showTimeLine, position } = settings;
     const variant = teamViewVariant(position);
-    const { primary, secondary, achievement, taskStatusId, timelineId } = separateContent(settings);
+    // const { primary, secondary, achievement, taskStatusId, timelineId } = separateContent(settings);
 
     const [primaryLoaded, setPrimaryLoaded] = useState(false);
     const [secondaryLoaded, setSecondaryLoaded] = useState(false);
@@ -356,7 +354,7 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
     const isLoaded = (!primary || primaryLoaded) && (!secondary || secondaryLoaded || true)
         && (variant === "single" || !achievement || achievementLoaded);
 
-    const props = { primary, secondary, achievement, taskStatusId, timelineId, setPrimaryLoaded, setSecondaryLoaded, setAchievementLoaded, location, position };
+    const props = { ...settings, setPrimaryLoaded, setSecondaryLoaded, setAchievementLoaded, location };
 
     return (
         <TeamViewContainer

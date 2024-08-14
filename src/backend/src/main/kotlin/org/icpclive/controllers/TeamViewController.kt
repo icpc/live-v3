@@ -14,17 +14,23 @@ class TeamViewController(manager: Manager<TeamViewWidget>, val position: TeamVie
 
     override suspend fun constructWidget(settings: ExternalTeamViewSettings): TeamViewWidget {
         val teamInfo = DataBus.currentContestInfo().teams[settings.teamId]
-        val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toMutableList()
-        if (settings.showTaskStatus) {
-            settings.teamId?.let { teamId -> content.add(MediaType.TaskStatus(teamId)) }
-        }
-        if (settings.showTimeLine) {
-            settings.teamId?.let { teamId -> content.add(MediaType.TimeLine(teamId)) }
-        }
-        if (settings.showAchievement) {
-            teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.let { content.add(it.noMedia()) }
-        }
-        return TeamViewWidget(OverlayTeamViewSettings(content, position))
+        val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toList()
+
+        val primary = content.getOrNull(0)
+        val secondary = content.getOrNull(1)
+        val achievement = teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT).takeIf { settings.showAchievement }
+
+        return TeamViewWidget(
+            OverlayTeamViewSettings(
+                teamInfo?.id!!,
+                primary,
+                secondary,
+                settings.showTaskStatus,
+                achievement,
+                settings.showTimeLine,
+                position
+            )
+        )
     }
 
     override suspend fun createWidgetAndShow(settings: ExternalTeamViewSettings) {
