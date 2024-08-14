@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ScoreboardTaskResultLabel } from "../../organisms/widgets/Scoreboard";
+import { ProblemResult } from "@shared/api";
 
 
 const TimeCell = styled.div`
@@ -30,8 +31,8 @@ const SubmissionRowWrap = styled.div<{roundB: boolean}>`
   color: white;
 
   background-color: ${c.CONTESTER_BACKGROUND_COLOR};
-  border-top-left-radius: ${props => props.roundB ? "16px" : "0px"};
-  border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
+  border-top-left-radius: ${props => props.roundB ? c.GLOBAL_BORDER_RADIUS : "0px"};
+  border-top-right-radius: ${props => props.roundB ? c.GLOBAL_BORDER_RADIUS : "0px"};
 `;
 
 const SubmissionColumnWrap = styled.div`
@@ -81,7 +82,17 @@ const PVPTimeCell = styled(TimeCell)`
   order: 2;
 `;
 
-export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }) => {
+export type VerticalSubmissionRowProps = {
+    result: ProblemResult;
+    lastSubmitTimeMs?: number;
+    minScore?: number;
+    maxScore?: number;
+    problemLetter?: string;
+    problemColor?: string;
+    isTop?: boolean;
+}
+
+export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }: VerticalSubmissionRowProps) => {
     if (!result || !problemColor || !problemLetter || !lastSubmitTimeMs) {
         return <SubmissionColumnWrap>
             <div style={{ order: isTop ? 1 : 3 }}/>
@@ -91,7 +102,7 @@ export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxS
     }
     return <SubmissionColumnWrap>
         <PVPResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isTop={isTop}/>
-        <PVPTimeCell>{DateTime.fromMillis(-1).toFormat("H:mm")}</PVPTimeCell>
+        <PVPTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</PVPTimeCell>
         <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
     </SubmissionColumnWrap>;
 };

@@ -142,18 +142,21 @@ export namespace MediaType {
     url: string;
     jwtToken?: string | null;
     isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface Image {
     type: MediaType.Type.Image;
     url: string;
     isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface M2tsVideo {
     type: MediaType.Type.M2tsVideo;
     url: string;
     isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface Object {
@@ -178,6 +181,7 @@ export namespace MediaType {
     type: MediaType.Type.Video;
     url: string;
     isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface WebRTCGrabberConnection {
@@ -187,6 +191,7 @@ export namespace MediaType {
     streamType: string;
     credential: string | null;
     isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface WebRTCProxyConnection {
@@ -194,6 +199,7 @@ export namespace MediaType {
     url: string;
     audioUrl?: string | null;
     isMedia?: boolean;
+    vertical?: boolean;
   }
 }
 

@@ -9,7 +9,7 @@ public sealed class MediaType {
 
     @Serializable
     @SerialName("Image")
-    public data class Image(val url: String, override val isMedia: Boolean = true) : MediaType()
+    public data class Image(val url: String, override val isMedia: Boolean = true, val vertical: Boolean = false) : MediaType()
 
     @Serializable
     @SerialName("Object")
@@ -17,15 +17,15 @@ public sealed class MediaType {
 
     @Serializable
     @SerialName("Video")
-    public data class Video(val url: String, override val isMedia: Boolean = true) : MediaType()
+    public data class Video(val url: String, override val isMedia: Boolean = true, val vertical: Boolean = false) : MediaType()
 
     @Serializable
     @SerialName("M2tsVideo")
-    public data class M2tsVideo(val url: String, override val isMedia: Boolean = true) : MediaType()
+    public data class M2tsVideo(val url: String, override val isMedia: Boolean = true, val vertical: Boolean = false) : MediaType()
 
     @Serializable
     @SerialName("HLSVideo")
-    public data class HLSVideo(val url: String, val jwtToken: String? = null, override val isMedia: Boolean = true) : MediaType()
+    public data class HLSVideo(val url: String, val jwtToken: String? = null, override val isMedia: Boolean = true, val vertical: Boolean = false) : MediaType()
 
     /**
      * WebRTC proxy connection
@@ -37,6 +37,7 @@ public sealed class MediaType {
         val url: String,
         val audioUrl: String? = null,
         override val isMedia: Boolean = true,
+        val vertical: Boolean = false,
     ) : MediaType()
 
     /**
@@ -51,6 +52,7 @@ public sealed class MediaType {
         val streamType: String,
         val credential: String?,
         override val isMedia: Boolean = true,
+        val vertical: Boolean = false,
     ) :
         MediaType()
 

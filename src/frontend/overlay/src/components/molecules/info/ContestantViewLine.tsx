@@ -49,16 +49,19 @@ const TaskRow = styled.div<TaskRowProps>`
 
   width: 100%;
 
-  border-radius: ${props => props.index === 0 && props.roundTop ? "16px" : 0} ${props => props.index === props.problems - 1 && props.roundTop ? "16px" : 0}  ${props => props.index === props.problems - 1 && props.roundBottom ? "16px" : 0} ${props => props.index === 0 && props.roundBottom ? "16px" : 0};
+  border-radius: ${props => props.index === 0 && props.roundTop ? c.GLOBAL_BORDER_RADIUS : 0} 
+      ${props => props.index === props.problems - 1 && props.roundTop ? c.GLOBAL_BORDER_RADIUS : 0}
+      ${props => props.index === props.problems - 1 && props.roundBottom ? c.GLOBAL_BORDER_RADIUS : 0}
+      ${props => props.index === 0 && props.roundBottom ? c.GLOBAL_BORDER_RADIUS : 0};
 `;
 
 const CornerContestantInfo = styled(ContestantInfo)`
   grid-row: 2 / 3;
-  border-radius: ${c.GLOBAL_BORDER_RADIUS} 0 0  ${c.GLOBAL_BORDER_RADIUS};
+  border-radius: ${c.GLOBAL_BORDER_RADIUS} 0 0 ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 interface ContestantViewLineProps {
-    teamId: number,
+    teamId: string,
     isSmall?: boolean,
     className?: string,
     isTop?: boolean
@@ -67,9 +70,6 @@ interface ContestantViewLineProps {
 export const ContestantViewLine = ({ teamId, isSmall, className, isTop }: ContestantViewLineProps) => {
     const scoreboardData = useAppSelector((state) =>
         state.scoreboard[OptimismLevel.normal]?.ids && state.scoreboard[OptimismLevel.normal].ids[teamId]);
-    // for (let i = 0; i < scoreboardData?.problemResults.length; i++) {
-    //     scoreboardData.problemResults[i]["index"] = i;
-    // }
     const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
     const contestData = useAppSelector((state) => state.contestInfo?.info);
 
@@ -93,5 +93,4 @@ export const ContestantViewLine = ({ teamId, isSmall, className, isTop }: Contes
         )}
 
     </ContestantViewVerticalWrap>;
-
 };

@@ -140,7 +140,7 @@ const Problem = ({ problemResult, contestInfo }) => {
     );
 };
 
-export const TimeLine = ({ className, teamId }) => {
+export const TimeLine = ({ teamId, className = null }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
 

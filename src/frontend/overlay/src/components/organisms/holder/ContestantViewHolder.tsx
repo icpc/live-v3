@@ -314,7 +314,7 @@ const teamViewComponentRender: {
             <ImgWrapper src={media.url} onLoad={() => onLoadStatus(true)}/>
         </FullWidthWrapper>;
     },
-    TimeLine: ({ onLoadStatus, className, media}) => {
+    TimeLine: ({ onLoadStatus, className, media }) => {
         useLayoutEffect(() => onLoadStatus(true), []);
         return <TimeLineWrap className={className} {...media}/>;
     },
@@ -376,7 +376,7 @@ export const AchievementWrapper = styled.div`
   position: absolute;
   z-index: -1;
   top: 0;
-  border-radius: 16px;
+  border-radius: ${c.GLOBAL_BORDER_RADIUS};
   height: 100%;
 `;
 
@@ -393,6 +393,7 @@ interface ContestantViewHolderProps {
     hasPInP?: boolean,
     className?: string
 }
+
 export const ContestantViewHolder = ({ onLoadStatus, media, isSmall, hasPInP, className }: ContestantViewHolderProps) => {
     const Component = teamViewComponentRender[media.type] as FC<ComponentRenderProps<MediaType>>; // some more typescript magic
     if (Component === undefined) {
