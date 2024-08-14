@@ -35,7 +35,7 @@ const TasksContainer = styled.div`
     flex-wrap: wrap;
     flex-direction: column;
     align-content: flex-start;
-    //direction: rtl;
+    /* direction: rtl; */
     transform: scale(-1);
     overflow: hidden;
     height: 100%;

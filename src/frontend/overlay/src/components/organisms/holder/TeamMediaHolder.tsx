@@ -34,14 +34,12 @@ const ImgContainer = styled.img<{ $vertical?: boolean; }>`
     width: ${props => props.$vertical ? "auto" : "100%"};
     height: ${props => props.$vertical ? "100%" : "auto"};
     overflow: hidden;
-    border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const VideoContainer = styled.video<{ $vertical?: boolean; }>`
     width: ${props => props.$vertical ? "auto" : "100%"};
     height: ${props => props.$vertical ? "100%" : "auto"};
     overflow: hidden;
-    border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 export const ImageMediaHolder = ({ onLoadStatus, media: { url, vertical } }: MediaHolderProps<MediaType.Image>) => {
@@ -313,6 +311,8 @@ export const TeamMediaHolder = ({ media, ...props }: MediaHolderProps<MediaType>
     switch (media.type) {
     case MediaType.Type.Image:
         return <ImageMediaHolder media={media} {...props}></ImageMediaHolder>;
+    case MediaType.Type.Object:
+        return <ObjectMediaHolder media={media} {...props}></ObjectMediaHolder>;
     case MediaType.Type.Video:
         return <VideoMediaHolder media={media} {...props}></VideoMediaHolder>;
     case MediaType.Type.HLSVideo:

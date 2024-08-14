@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
-import { LocationRectangle, MediaType, OverlayTeamViewSettings, TeamId, TeamViewPosition, Widget } from "@shared/api";
+import { LocationRectangle, OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
 import { OverlayWidgetC } from "@/components/organisms/widgets/types";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 import TimeLine from "@/components/organisms/holder/TimeLine";
@@ -38,81 +38,6 @@ const TeamViewContainer = styled.div<{ show: boolean; animation?: Keyframes; ani
     animation-fill-mode: forwards;
 `;
 
-// const TeamViewPInPWrapper = styled.div`
-//     width: 100%;
-//     height: 100%;
-//     grid-column-start: 2;
-//     grid-column-end: 3;
-//     grid-row-start: 2;
-//     grid-row-end: 4;
-//     position: relative;
-//     border-radius: ${c.GLOBAL_BORDER_RADIUS};
-// `;
-//
-// const TeamViewWrapper = styled.div<{ sizeX: number; sizeY: number }>`
-//     width: 100%;
-//     height: 100%;
-//     display: grid;
-//     justify-content: end;
-//     grid-template-columns: ${({ sizeX, sizeY }) => `${sizeX - 2 * (Math.max(sizeY - sizeX * 9 / 16, 100)) * 16 / 9}px`}
-//                           ${({ sizeX, sizeY }) => `${2 * (Math.max(sizeY - sizeX * 9 / 16, 100)) * 16 / 9}px`};
-//     grid-template-rows: ${({ sizeX, sizeY }) => `${sizeY - 2 * Math.max(sizeY - sizeX * 9 / 16, 100)}px`}
-//                       ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`}
-//                       ${({ sizeX, sizeY }) => `${Math.max(sizeY - sizeX * 9 / 16, 100)}px`};
-// `;
-
-
-// const TeamViewContestantViewHolder = styled(ContestantViewHolder)`
-//     top: 0; /* # FIXME: fuck this. */
-// `;
-
-// export function TeamViewContent({ mediaContent, settings, setLoadedComponents, location, isSmall }) {
-//     const hasPInP = settings.content.filter(e => !e.isMedia).concat(mediaContent).filter((c) => c.pInP).length > 0;
-//
-//     return <TeamViewWrapper sizeX={location.sizeX} sizeY={location.sizeY}>
-//         {settings.content.filter(e => !e.isMedia).concat(mediaContent).map((c, index) => {
-//             const onLoadStatus = (v) => setLoadedComponents(m => v ? (m | (1 << index)) : (m & ~(1 << index)));
-//             const component = <TeamViewContestantViewHolder key={c.type + index} onLoadStatus={onLoadStatus} media={c}
-//                 isSmall={isSmall} hasPInP={hasPInP}/>;
-//             if (c.pInP) {
-//                 return <TeamViewPInPWrapper key={c.type + index} sizeX={location.sizeX}>{component}</TeamViewPInPWrapper>;
-//             }
-//             return component;
-//         })}
-//     </TeamViewWrapper>;
-// }
-
-// export const TeamViewOld = ({ widgetData: { settings, location }, transitionState }: OverlayWidgetProps<Widget.TeamViewWidget>) => {
-//     const [loadedComponents, setLoadedComponents] = useState(0);
-//     const isLoaded = loadedComponents === (1 << settings.content.length) - 1;
-//     const mediaContent = settings.content.filter(e => e.isMedia).map((e, index) => ({ ...e, pInP: index > 0 }));
-//     const isSmall = settings.position !== "SINGLE_TOP_RIGHT";
-//     const passedProps = {
-//         mediaContent,
-//         settings,
-//         setLoadedComponents,
-//         location
-//     };
-//     return <TeamViewContainer
-//         show={isLoaded}
-//         animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
-//         animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
-//     >
-//         {settings.position === "PVP_TOP" || settings.position === "PVP_BOTTOM" ?
-//             <PVP {...passedProps}/> :
-//             <TeamViewContent isSmall={isSmall} {...passedProps}/>
-//         }
-//     </TeamViewContainer>;
-// };
-
-type SeparateContentType = {
-    taskStatusId: TeamId | null;
-    achievement: MediaType | null;
-    timelineId: TeamId | null;
-    primary: MediaType | null;
-    secondary: MediaType | null;
-}
-
 type VariantProps = {
     location: LocationRectangle;
     position?: TeamViewPosition;
@@ -121,23 +46,12 @@ type VariantProps = {
     setAchievementLoaded: Dispatch<SetStateAction<boolean>>;
 } & OverlayTeamViewSettings;
 
-// const separateContent = ({ content }: OverlayTeamViewSettings): SeparateContentType => {
-//     const taskStatusId = content.find(c => c.type === MediaType.Type.TaskStatus)?.teamId;
-//     const achievement = content.find(c => (c.type === MediaType.Type.Object || c.type === MediaType.Type.Image) && !c.isMedia);
-//     const timelineId = content.find(c => c.type === MediaType.Type.TimeLine)?.teamId;
-//
-//     const medias = content.filter(c => c.isMedia);
-//     const primary = medias.length > 0 && medias[0];
-//     const secondary = medias.length > 1 && medias[1];
-//
-//     return { taskStatusId, achievement, timelineId, primary, secondary };
-// };
-
 const PrimaryMediaWrapper = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 1;
+    overflow: hidden;
 `;
 
 const AchievementWrapper = styled(PrimaryMediaWrapper)`
@@ -158,6 +72,8 @@ const SecondaryMediaWrapper = styled.div<{ withAchievement: boolean }>`
     grid-column: 2 / 3;
     grid-row-start: ${props => props.withAchievement ? 3 : 2};
     grid-row-end: ${props => props.withAchievement ? 5 : 4};
+    overflow: hidden;
+    border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const TaskStatusWrapper = styled.div<{ withAchievement: boolean; withSecondary: boolean }>`
@@ -344,9 +260,8 @@ const SplitVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSeconda
 };
 
 export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { settings, location }, transitionState }) => {
-    const { teamId, primary, secondary, achievement, showTaskStatus, showTimeLine, position } = settings;
+    const { primary, secondary, achievement, position } = settings;
     const variant = teamViewVariant(position);
-    // const { primary, secondary, achievement, taskStatusId, timelineId } = separateContent(settings);
 
     const [primaryLoaded, setPrimaryLoaded] = useState(false);
     const [secondaryLoaded, setSecondaryLoaded] = useState(false);
