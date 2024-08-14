@@ -58,8 +58,6 @@ private fun OrganizationInfo.toClicsOrg() = Organization(
 private fun MediaType.toClicsMedia() = when (this) {
     is MediaType.Object -> null
     is MediaType.Image -> File("image", Url(url))
-    is MediaType.TaskStatus -> null
-    is MediaType.TimeLine -> null
     is MediaType.Video -> File("video", Url(url))
     is MediaType.M2tsVideo -> File("video/m2ts", Url(url))
     is MediaType.HLSVideo -> File("application/vnd.apple.mpegurl", Url(url))
