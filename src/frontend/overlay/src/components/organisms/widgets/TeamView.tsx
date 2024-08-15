@@ -26,6 +26,10 @@ const slideOut = keyframes`
     }
 `;
 
+const RoundedTeamMediaHolder = styled(TeamMediaHolder)`
+    border-radius: ${c.GLOBAL_BORDER_RADIUS};
+`;
+
 const TeamViewContainer = styled.div<{ show: boolean; animation?: Keyframes; animationStyle: string }>`
     width: 100%;
     height: 100%;
@@ -38,7 +42,7 @@ const TeamViewContainer = styled.div<{ show: boolean; animation?: Keyframes; ani
     animation-fill-mode: forwards;
 `;
 
-type VariantProps = {
+type CommonContentProps = {
     location: LocationRectangle;
     position?: TeamViewPosition;
     setPrimaryLoaded: Dispatch<SetStateAction<boolean>>;
@@ -73,7 +77,6 @@ const SecondaryMediaWrapper = styled.div<{ withAchievement: boolean }>`
     grid-row-start: ${props => props.withAchievement ? 3 : 2};
     grid-row-end: ${props => props.withAchievement ? 5 : 4};
     overflow: hidden;
-    border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const TaskStatusWrapper = styled.div<{ withAchievement: boolean; withSecondary: boolean }>`
@@ -102,13 +105,13 @@ const teamViewVariant = (position: TeamViewPosition | undefined) => {
     return "split";
 };
 
-const SingleVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location }: VariantProps) => {
+const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location }: CommonContentProps) => {
     const achievementY = location.sizeY - location.sizeX / 16 * 9;
     return (
         <>
             {primary && (
                 <PrimaryMediaWrapper>
-                    <TeamMediaHolder media={primary} onLoadStatus={setPrimaryLoaded} />
+                    <RoundedTeamMediaHolder media={primary} onLoadStatus={setPrimaryLoaded} />
                 </PrimaryMediaWrapper>
             )}
             {achievement && (
@@ -119,7 +122,7 @@ const SingleVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
             <TeamViewGrid $achievementY={achievementY}>
                 {secondary && (
                     <SecondaryMediaWrapper withAchievement={!!achievement}>
-                        <TeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
+                        <RoundedTeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
                     </SecondaryMediaWrapper>
                 )}
                 {showTaskStatus && (
@@ -179,8 +182,14 @@ const PVPAchievementWrapper = styled.div<PVPWrapperProps>`
     grid-row: ${props => props.$isTop ? "2 / 3" : "3 / 4"};
     display: grid;
     position: relative;
-    border-radius: ${c.GLOBAL_BORDER_RADIUS};
+    background: ${c.PVP_BACKGROUND};
     overflow: hidden;
+`;
+
+const PVPTackStatusBackWrapper = styled.div<PVPWrapperProps>`
+    grid-column: 2;
+    grid-row: ${props => props.$isTop ? "3 / 4" : "2 / 3"};
+    background: ${c.PVP_BACKGROUND};
 `;
 
 const PVPAchievementInnerWrapper = styled.div`
@@ -189,13 +198,15 @@ const PVPAchievementInnerWrapper = styled.div`
     bottom: -4px;
 `;
 
-const PVPVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, location, position }: VariantProps) => {
+const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, location, position }: CommonContentProps) => {
     const isTop = position === TeamViewPosition.PVP_TOP;
+    const primaryY = location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT;
+    const secondaryY = (location.sizeX - (location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT) / 9 * 16) / 16 * 9;
     return (
         <>
             <PVPGrid
-                $primaryY={location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT}
-                $secondaryY={(location.sizeX - (location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT) / 9 * 16) / 16 * 9}
+                $primaryY={primaryY}
+                $secondaryY={secondaryY}
                 $isTop={isTop}
             >
                 {primary && (
@@ -215,10 +226,11 @@ const PVPVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondary
                         </PVPAchievementInnerWrapper>
                     </PVPAchievementWrapper>
                 )}
+                <PVPTackStatusBackWrapper $isTop={isTop}/>
             </PVPGrid>
             {showTaskStatus && (
                 <PVPTaskStatusWrapper $isTop={isTop}>
-                    <ContestantViewLine teamId={teamId} isTop={isTop}/>
+                    <ContestantViewLine teamId={teamId} isTop={isTop} tasksContainerY={secondaryY / 9 * 16}/>
                 </PVPTaskStatusWrapper>
             )}
         </>
@@ -235,18 +247,18 @@ const SplitScreenGrid = styled.div<{ $secondaryY: number }>`
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
-const SplitVariant = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, showTaskStatus, location }: VariantProps) => {
+const SplitContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, showTaskStatus, location }: CommonContentProps) => {
     return (
         <>
             {primary && (
                 <PrimaryMediaWrapper>
-                    <TeamMediaHolder media={primary} onLoadStatus={setPrimaryLoaded} />
+                    <RoundedTeamMediaHolder media={primary} onLoadStatus={setPrimaryLoaded} />
                 </PrimaryMediaWrapper>
             )}
             <SplitScreenGrid $secondaryY={location.sizeY * 0.39}>
                 {secondary && (
                     <SecondaryMediaWrapper withAchievement={false}>
-                        <TeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
+                        <RoundedTeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
                     </SecondaryMediaWrapper>
                 )}
                 {showTaskStatus && (
@@ -277,9 +289,9 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
             animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
             animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
         >
-            {variant === "single" && <SingleVariant {...props} />}
-            {variant === "pvp" && <PVPVariant {...props} />}
-            {variant === "split" && <SplitVariant {...props} />}
+            {variant === "single" && <SingleContent {...props} />}
+            {variant === "pvp" && <PVPContent {...props} />}
+            {variant === "split" && <SplitContent {...props} />}
         </TeamViewContainer>
     );
 };

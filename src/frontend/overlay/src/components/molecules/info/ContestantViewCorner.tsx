@@ -9,7 +9,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 const ContestantViewCornerWrap = styled.div<{isSmall: boolean}>`
   display: grid;
-  grid-auto-rows: 1fr ${c.QUEUE_ROW_HEIGHT}px;
+  grid-template-rows: 1fr ${c.QUEUE_ROW_HEIGHT}px;
   grid-template-columns: auto 150px;
   
   width: auto;
@@ -35,7 +35,7 @@ const TasksContainer = styled.div`
     flex-wrap: wrap;
     flex-direction: column;
     align-content: flex-start;
-    /* direction: rtl; */
+    /* css trick for perfect TaskRow overflowing: arrange the columns from bottom to top from right to left */
     transform: scale(-1);
     overflow: hidden;
     height: 100%;
@@ -44,8 +44,13 @@ const TasksContainer = styled.div`
 const TaskRow = styled.div`
   display: flex;
   width: 150px;
-  flex: 0 0 ${c.QUEUE_ROW_HEIGHT - 1}px;
+  flex: 0 0 ${c.QUEUE_ROW_HEIGHT}px; 
+  /* css trick for perfect TaskRow overflowing: arrange the columns from bottom to top from right to left */
   transform: scale(-1);
+  overflow: hidden;
+  &:last-child {
+    border-radius: ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS} 0 0;
+  }
 `;
 
 export const ContestantViewCorner = ({ teamId, isSmall = false, className = null }: {
@@ -73,8 +78,6 @@ export const ContestantViewCorner = ({ teamId, isSmall = false, className = null
                         lastSubmitTimeMs={result?.lastSubmitTimeMs}
                         minScore={contestData?.problems[i]?.minScore}
                         maxScore={contestData?.problems[i]?.maxScore}
-                        // roundT={false}
-                        roundB={i === results.length - 1}
                     />
                 </TaskRow>
             )}

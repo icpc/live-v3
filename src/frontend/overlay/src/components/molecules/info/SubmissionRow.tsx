@@ -19,7 +19,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
 `;
 
-const SubmissionRowWrap = styled.div<{roundB: boolean}>`
+const SubmissionRowWrap = styled.div`
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -31,8 +31,6 @@ const SubmissionRowWrap = styled.div<{roundB: boolean}>`
   color: white;
 
   background-color: ${c.CONTESTER_BACKGROUND_COLOR};
-  border-top-left-radius: ${props => props.roundB ? c.GLOBAL_BORDER_RADIUS : "0px"};
-  border-top-right-radius: ${props => props.roundB ? c.GLOBAL_BORDER_RADIUS : "0px"};
 `;
 
 const SubmissionColumnWrap = styled.div`
@@ -60,8 +58,8 @@ const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
   text-align: center;
 `;
 
-export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, roundB }) => {
-    return <SubmissionRowWrap roundB={roundB}>
+export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor }) => {
+    return <SubmissionRowWrap>
         <TimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</TimeCell>
         <QueueProblemLabel letter={problemLetter} problemColor={problemColor} />
         <SubmissionRowTaskResultLabel problemResult={result} minScore={minScore} maxScore={maxScore}/>
@@ -80,6 +78,7 @@ const PVPResultLabel = styled(ScoreboardTaskResultLabel)`
 
 const PVPTimeCell = styled(TimeCell)`
   order: 2;
+  width: 100%;
 `;
 
 export type VerticalSubmissionRowProps = {

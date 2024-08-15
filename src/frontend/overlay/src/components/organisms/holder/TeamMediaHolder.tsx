@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import c from "@/config";
 import { MediaType } from "@shared/api";
 import { useQueryParams } from "@/utils/query-params";
 import React, { useEffect, useRef } from "react";
 import Hls from "hls.js";
 import mpegts from "mpegts.js";
-import { GrabberPlayerClient } from "../../../utils/grabber/grabber_player";
+import { GrabberPlayerClient } from "@/utils/grabber/grabber_player";
 
 type MediaHolderProps<M extends MediaType> = {
     media: M;
@@ -13,16 +12,15 @@ type MediaHolderProps<M extends MediaType> = {
     className?: string;
 };
 
-const useTeamMediaAudio = () => {
+const useIsTeamMediaAudio = () => {
     const queryParams = useQueryParams();
-    return !queryParams.has("teamMediaAudio") && window["obsstudio"] ||
-        queryParams.has("teamMediaAudio") && queryParams.get("teamMediaAudio") !== "false";
+    return (!queryParams.has("teamMediaAudio") && window["obsstudio"]) ||
+        (queryParams.has("teamMediaAudio") && queryParams.get("teamMediaAudio") !== "false");
 };
 
 const MediaWrapper = styled.div<{ $vertical?: boolean }>`
     overflow: hidden;
     text-align: right;
-    border-radius: ${c.GLOBAL_BORDER_RADIUS};
 
     width: 100%;
     height: ${props => props.$vertical ? "100%" : "auto"};
@@ -42,9 +40,9 @@ const VideoContainer = styled.video<{ $vertical?: boolean; }>`
     overflow: hidden;
 `;
 
-export const ImageMediaHolder = ({ onLoadStatus, media: { url, vertical } }: MediaHolderProps<MediaType.Image>) => {
+export const ImageMediaHolder = ({ onLoadStatus, className, media: { url, vertical } }: MediaHolderProps<MediaType.Image>) => {
     return (
-        <MediaWrapper $vertical={vertical}>
+        <MediaWrapper $vertical={vertical} className={className}>
             <ImgContainer
                 src={url}
                 onLoad={() => onLoadStatus(true)}
@@ -54,10 +52,10 @@ export const ImageMediaHolder = ({ onLoadStatus, media: { url, vertical } }: Med
     );
 };
 
-export const VideoMediaHolder = ({ onLoadStatus, media: { url, vertical } }: MediaHolderProps<MediaType.Video>) => {
-    const audio = useTeamMediaAudio();
+export const VideoMediaHolder = ({ onLoadStatus, className, media: { url, vertical } }: MediaHolderProps<MediaType.Video>) => {
+    const audio = useIsTeamMediaAudio();
     return (
-        <MediaWrapper $vertical={vertical}>
+        <MediaWrapper $vertical={vertical} className={className}>
             <VideoContainer
                 src={url}
                 onCanPlay={() => onLoadStatus(true)}
@@ -72,8 +70,8 @@ export const VideoMediaHolder = ({ onLoadStatus, media: { url, vertical } }: Med
     );
 };
 
-export const HLSVideoMediaHolder = ({ onLoadStatus, media: { url, jwtToken, vertical } }: MediaHolderProps<MediaType.HLSVideo>) => {
-    const audio = useTeamMediaAudio();
+export const HLSVideoMediaHolder = ({ onLoadStatus, className, media: { url, jwtToken, vertical } }: MediaHolderProps<MediaType.HLSVideo>) => {
+    const audio = useIsTeamMediaAudio();
 
     const playerRef = useRef<HTMLVideoElement>();
     useEffect(() => {
@@ -145,7 +143,7 @@ export const HLSVideoMediaHolder = ({ onLoadStatus, media: { url, jwtToken, vert
     const src = Hls.isSupported() ? undefined : url;
 
     return (
-        <MediaWrapper $vertical={vertical}>
+        <MediaWrapper $vertical={vertical} className={className}>
             <VideoContainer
                 ref={playerRef}
                 src={src}
@@ -161,8 +159,8 @@ export const HLSVideoMediaHolder = ({ onLoadStatus, media: { url, jwtToken, vert
     );
 };
 
-export const M2tsVideoMediaHolder = ({ onLoadStatus, media: { url, vertical } }: MediaHolderProps<MediaType.M2tsVideo>) => {
-    const audio = useTeamMediaAudio();
+export const M2tsVideoMediaHolder = ({ onLoadStatus, className, media: { url, vertical } }: MediaHolderProps<MediaType.M2tsVideo>) => {
+    const audio = useIsTeamMediaAudio();
 
     const videoRef = useRef<HTMLVideoElement>();
     useEffect(() => {
@@ -187,7 +185,7 @@ export const M2tsVideoMediaHolder = ({ onLoadStatus, media: { url, vertical } }:
     }, [url]);
 
     return (
-        <MediaWrapper $vertical={vertical}>
+        <MediaWrapper $vertical={vertical} className={className}>
             <VideoContainer
                 ref={videoRef}
                 onCanPlay={() => onLoadStatus(true)}
@@ -202,8 +200,8 @@ export const M2tsVideoMediaHolder = ({ onLoadStatus, media: { url, vertical } }:
     );
 };
 
-export const WebRTCGrabberMediaHolder = ({ onLoadStatus, media: { url, peerName, streamType, credential, vertical } }: MediaHolderProps<MediaType.WebRTCGrabberConnection>) => {
-    const audio = useTeamMediaAudio();
+export const WebRTCGrabberMediaHolder = ({ onLoadStatus, className, media: { url, peerName, streamType, credential, vertical } }: MediaHolderProps<MediaType.WebRTCGrabberConnection>) => {
+    const audio = useIsTeamMediaAudio();
 
     const videoRef = useRef<HTMLVideoElement>();
     useEffect(() => {
@@ -235,7 +233,7 @@ export const WebRTCGrabberMediaHolder = ({ onLoadStatus, media: { url, peerName,
     }, [url, peerName, streamType]);
 
     return (
-        <MediaWrapper $vertical={vertical}>
+        <MediaWrapper $vertical={vertical} className={className}>
             <VideoContainer
                 ref={videoRef}
                 onCanPlay={() => onLoadStatus(true)}
@@ -249,8 +247,8 @@ export const WebRTCGrabberMediaHolder = ({ onLoadStatus, media: { url, peerName,
 };
 
 
-export const WebRTCProxyMediaHolder = ({ onLoadStatus, media: { url, audioUrl, vertical } }: MediaHolderProps<MediaType.WebRTCProxyConnection>) => {
-    const audio = useTeamMediaAudio();
+export const WebRTCProxyMediaHolder = ({ onLoadStatus, className, media: { url, audioUrl, vertical } }: MediaHolderProps<MediaType.WebRTCProxyConnection>) => {
+    const audio = useIsTeamMediaAudio();
 
     const videoRef = useRef<HTMLVideoElement>();
     const rtcRef = useRef<RTCPeerConnection>();
@@ -283,7 +281,7 @@ export const WebRTCProxyMediaHolder = ({ onLoadStatus, media: { url, audioUrl, v
     }, [url]);
 
     return (
-        <MediaWrapper $vertical={vertical}>
+        <MediaWrapper $vertical={vertical} className={className}>
             <VideoContainer
                 ref={videoRef}
                 onCanPlay={() => onLoadStatus(true)}
@@ -327,5 +325,3 @@ export const TeamMediaHolder = ({ media, ...props }: MediaHolderProps<MediaType>
         return null;
     }
 };
-
-// move to teamview
