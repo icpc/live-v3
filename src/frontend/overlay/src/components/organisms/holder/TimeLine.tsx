@@ -135,16 +135,15 @@ const Problem = ({ problemResult, contestInfo }) => {
 
     return (
         <ProblemWrap left={left + "%"} top={top + "px"}>
-            <Circle color={color}>
-                <Label>
-                    {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                        && !problemResult.isAccepted) && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
-                    {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                        && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
-                    {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
-                    {problemResult.type === RunResult.Type.IOI && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
-                </Label>
-            </Circle>
+            <Circle color={color} />
+            <Label>
+                {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
+                    && !problemResult.isAccepted) && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
+                {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
+                    && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
+                {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
+                {problemResult.type === RunResult.Type.IOI && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
+            </Label>
         </ProblemWrap>
     );
 };
