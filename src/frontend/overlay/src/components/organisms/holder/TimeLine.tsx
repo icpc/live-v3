@@ -192,7 +192,8 @@ export const TimeLine = ({ teamId, className = null }) => {
                     <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"}
                         last={elem === contestInfo.contestLengthMs / 3600000 - 1} />)}
                 {runsResults?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`} />
+                    <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
+                        animationKey={animationKey}/>
                 ))}
             </Line>
         </TimeLineContainer>
