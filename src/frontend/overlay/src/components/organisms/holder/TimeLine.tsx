@@ -125,16 +125,16 @@ const getColor = (problemResult, contestInfo) => {
     }
 };
 
-const Problem = ({ problemResult, contestInfo }) => {
+const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const contestLengthMs = contestInfo?.contestLengthMs;
     const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
     const problemsCount = contestInfo?.problems.length;
-    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS * 1.2) / problemsCount * problemNumber - (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS * 1.2) / 2;
+    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber - (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS) / 2 + c.TIMLINE_CIRCLE_RADIUS / 4;
     const left = (100 * problemResult.time / contestLengthMs) * 0.983;
     const color = getColor(problemResult, contestInfo);
 
     return (
-        <ProblemWrap left={left + "%"} top={top + "px"}>
+        <ProblemWrap left={left + "%"} top={top + "px"} key={animationKey}>
             <Circle color={color} />
             <Label>
                 {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
@@ -151,6 +151,7 @@ const Problem = ({ problemResult, contestInfo }) => {
 export const TimeLine = ({ teamId, className = null }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
+    const [animationKey, setAnimationKey] = useState(0);
 
     useEffect(() => {
         const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
@@ -161,6 +162,7 @@ export const TimeLine = ({ teamId, className = null }) => {
         socket.onmessage = function (event) {
             const obj = JSON.parse(event.data);
             setRunsResults(obj);
+            setAnimationKey(prev => prev + 1);
             console.debug(`WebSocket /teamRuns/${teamId}: ` + obj);
         };
 
@@ -184,7 +186,7 @@ export const TimeLine = ({ teamId, className = null }) => {
                 {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
                     <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"} last={elem === contestInfo.contestLengthMs / 3600000 - 1} />)}
                 {runsResults?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} contestInfo={contestInfo} key={index} />
+                    <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`} />
                 ))}
             </Line>
         </TimeLineContainer>
