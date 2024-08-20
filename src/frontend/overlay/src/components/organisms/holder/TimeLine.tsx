@@ -102,7 +102,8 @@ const Text = styled.div`
 
 const TimeBorder = styled.div<{ left: string, last: boolean }>`
     height: ${({ last }) => last ? c.TIMELINE_WRAP_HEIGHT + "px" : c.TIMELINE_WRAP_HEIGHT + "px"};
-    top: ${({ last }) => last ? -(c.TIMELINE_WRAP_HEIGHT - 0.03 * c.TIMELINE_WRAP_HEIGHT) / 2 + "px" : -(c.TIMELINE_WRAP_HEIGHT - 0.03 * c.TIMELINE_WRAP_HEIGHT) / 2 + "px"};
+    top: ${({ last }) => last ? -(c.TIMELINE_WRAP_HEIGHT - 0.03 * c.TIMELINE_WRAP_HEIGHT) / 2 + "px" 
+        : -(c.TIMELINE_WRAP_HEIGHT - 0.03 * c.TIMELINE_WRAP_HEIGHT) / 2 + "px"};
     background-color: ${c.TIMELINE_TIMEBORDER_COLOR};
     width: 2px;
     position: absolute;
@@ -129,7 +130,8 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const contestLengthMs = contestInfo?.contestLengthMs;
     const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
     const problemsCount = contestInfo?.problems.length;
-    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber - (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS) / 2 + c.TIMLINE_CIRCLE_RADIUS / 4;
+    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber
+        - (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS) / 2 + c.TIMLINE_CIRCLE_RADIUS / 4;
     const left = (100 * problemResult.time / contestLengthMs) * 0.983;
     const color = getColor(problemResult, contestInfo);
 
@@ -138,11 +140,14 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
             <Circle color={color} />
             <Label>
                 {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                    && !problemResult.isAccepted) && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
+                    && !problemResult.isAccepted) 
+                    && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
                 {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
                     && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
-                {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
-                {problemResult.type === RunResult.Type.IOI && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
+                {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted
+                    && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
+                {problemResult.type === RunResult.Type.IOI 
+                    && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
             </Label>
         </ProblemWrap>
     );
@@ -184,7 +189,8 @@ export const TimeLine = ({ teamId, className = null }) => {
         <TimeLineContainer className={className}>
             <Line>
                 {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
-                    <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"} last={elem === contestInfo.contestLengthMs / 3600000 - 1} />)}
+                    <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"}
+                        last={elem === contestInfo.contestLengthMs / 3600000 - 1} />)}
                 {runsResults?.map((problemResult, index) => (
                     <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`} />
                 ))}
