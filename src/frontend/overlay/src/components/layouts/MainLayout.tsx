@@ -54,10 +54,10 @@ type WidgetWrapProps = {
 const WidgetWrap = styled.div.attrs<WidgetWrapProps>(
     ({ left, top, width, height }) => {
         return { style: {
-            left: left+"px",
-            top: top+"px",
-            width: width+"px",
-            height: height+"px",
+            left: left + "px",
+            top: top + "px",
+            width: width + "px",
+            height: height + "px",
         } };
     }
 )<WidgetWrapProps>`

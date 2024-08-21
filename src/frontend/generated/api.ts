@@ -555,9 +555,7 @@ export interface QueueSettings {
 }
 
 export interface ScoreboardSettings {
-  isInfinite?: boolean;
-  numRows?: number | null;
-  startFromRow?: number;
+  scrollDirection?: ScoreboardScrollDirection;
   optimismLevel?: OptimismLevel;
   group?: string;
 }
@@ -581,6 +579,14 @@ export interface OverlayTeamViewSettings {
 }
 
 export interface TickerSettings {
+}
+
+export enum ScoreboardScrollDirection {
+  FirstPage = "FirstPage",
+  Back = "Back",
+  Pause = "Pause",
+  Forward = "Forward",
+  LastPage = "LastPage",
 }
 
 export enum OptimismLevel {

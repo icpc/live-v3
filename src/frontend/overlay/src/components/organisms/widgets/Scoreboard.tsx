@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
@@ -7,10 +6,10 @@ import { TaskResultLabel, RankLabel } from "../../atoms/ContestLabels";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 
 import { formatScore, useFormatPenalty, useNeedPenalty } from "@/services/displayUtils";
-import { useElementSize } from "usehooks-ts";
+import { useResizeObserver } from "usehooks-ts";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, OptimismLevel, ScoreboardSettings } from "@shared/api";
-import { SCOREBOARD_TYPES } from "@/consts";
+import { Award, ScoreboardSettings, OptimismLevel, Widget, ScoreboardScrollDirection } from "@shared/api";
+import { OverlayWidgetC } from "@/components/organisms/widgets/types";
 
 
 const ScoreboardWrap = styled.div`
@@ -67,9 +66,9 @@ const ScoreboardTableRowWrap = styled.div<{needPenalty: boolean, nProblems: numb
   display: grid;
   grid-template-columns:
           ${c.SCOREBOARD_CELL_PLACE_SIZE}
-          ${c.SCOREBOARD_CELL_TEAMNAME_SIZE} 
-          ${c.SCOREBOARD_CELL_POINTS_SIZE} 
-          ${({ needPenalty }) => needPenalty ? c.SCOREBOARD_CELL_PENALTY_SIZE : ""} 
+          ${c.SCOREBOARD_CELL_TEAMNAME_SIZE}
+          ${c.SCOREBOARD_CELL_POINTS_SIZE}
+          ${({ needPenalty }) => needPenalty ? c.SCOREBOARD_CELL_PENALTY_SIZE : ""}
           repeat(${props => props.nProblems}, 1fr);
   gap: ${c.SCOREBOARD_BETWEEN_HEADER_PADDING}px;
 
@@ -84,7 +83,7 @@ const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
 
   box-sizing: content-box;
   height: ${c.SCOREBOARD_ROW_HEIGHT}px;
-  
+
   font-size: ${c.SCOREBOARD_ROW_FONT_SIZE};
   font-weight: ${c.SCOREBOARD_TABLE_ROW_FONT_WEIGHT};
   font-style: normal;
@@ -125,8 +124,8 @@ export const ScoreboardRow = ({ teamId,
     const scoreboardData = useAppSelector((state) => state.scoreboard[optimismLevel].ids[teamId]);
     const contestData = useAppSelector((state) => state.contestInfo.info);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    const awards: Award[] = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
-    const rank = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rankById[teamId]);
+    const awards: Award[] = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].idAwards[teamId]);
+    const rank = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].rankById[teamId]);
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const needPenalty = useNeedPenalty();
     const formatPenalty = useFormatPenalty();
@@ -208,31 +207,35 @@ export const useScoreboardRows = (optimismLevel: OptimismLevel, selectedGroup: s
  * Scollbar for scoreboard
  * @param {number} totalRows - total number of rows in scoreboard
  * @param {number} singleScreenRowCount - total number of rows that can fit on a single screen
- * @param {number} scrollInterval - interval of scrolling
- * @param {number} startFromRow - row to start from inclusive
- * @param {number} numRows - row to end to inclusive
+ * @param {number} interval - interval of scrolling
+ * @param {number | undefined} direction - row to start from inclusive
  */
 export const useScroller = (
-    totalRows,
-    singleScreenRowCount,
-    scrollInterval,
-    startFromRow,
-    numRows
+    totalRows: number,
+    singleScreenRowCount: number,
+    interval: number,
+    direction: ScoreboardScrollDirection | undefined,
 ) => {
-    const showRows = numRows ? numRows : totalRows;
+    const showRows = totalRows;
     const numPages = Math.ceil(showRows / singleScreenRowCount);
     const singlePageRowCount = Math.floor(showRows / numPages);
     const [curPage, setCurPage] = useState(0);
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurPage((page) => (page + 1) % numPages);
-        }, scrollInterval);
-        return () => {
-            clearInterval(intervalId);
-        };
-    }, [scrollInterval, numPages]);
-    const pageEndRow = Math.min((curPage + 1) * singlePageRowCount + startFromRow, totalRows);
-    return Math.max(startFromRow, pageEndRow - singleScreenRowCount);
+        if (direction === ScoreboardScrollDirection.FirstPage) {
+            setCurPage(0);
+        } else if (direction === ScoreboardScrollDirection.LastPage) {
+            setCurPage(numPages - 1);
+        } else if (direction !== ScoreboardScrollDirection.Pause) {
+            const intervalId = setInterval(() => {
+                setCurPage(page => Math.max(0, (page + (direction === ScoreboardScrollDirection.Back ? -1 : 1)) % numPages));
+            }, interval);
+            return () => {
+                clearInterval(intervalId);
+            };
+        }
+    }, [interval, numPages, direction]);
+    const pageEndRow = Math.min((curPage + 1) * singlePageRowCount, totalRows);
+    return Math.max(0, pageEndRow - singleScreenRowCount);
 };
 
 interface ScoreboardRowsProps {
@@ -243,7 +246,7 @@ interface ScoreboardRowsProps {
 export const ScoreboardRows = ({ settings, onPage }: ScoreboardRowsProps) => {
     const rows = useScoreboardRows(settings.optimismLevel, settings.group);
     const rowHeight = c.SCOREBOARD_ROW_HEIGHT + c.SCOREBOARD_ROW_PADDING;
-    const scrollPos = useScroller(rows.length, onPage, c.SCOREBOARD_SCROLL_INTERVAL, settings.startFromRow - 1, settings.numRows);
+    const scrollPos = useScroller(rows.length, onPage, c.SCOREBOARD_SCROLL_INTERVAL, settings.scrollDirection);
     return <ScoreboardRowsWrap maxHeight={onPage * rowHeight}>
         {rows.map(([teamId, position]) =>
             <PositionedScoreboardRow key={teamId} zIndex={rows.length-position} pos={(position - scrollPos) * rowHeight - c.SCOREBOARD_ROW_PADDING}>
@@ -295,8 +298,9 @@ const ScoreboardTableHeader = () => {
     </ScoreboardTableHeaderWrap>;
 };
 
-export const Scoreboard = ({ widgetData: { settings } }) => {
-    const [rowsRef, { height }] = useElementSize();
+export const Scoreboard: OverlayWidgetC<Widget.ScoreboardWidget> = ({ widgetData: { settings } }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const { height = 0 } = useResizeObserver({ ref });
     const onPage = Math.floor((height - c.SCOREBOARD_HEADER_HEIGHT) / (c.SCOREBOARD_ROW_HEIGHT + c.SCOREBOARD_ROW_PADDING));
 
     return <ScoreboardWrap>
@@ -308,15 +312,11 @@ export const Scoreboard = ({ widgetData: { settings } }) => {
                 {c.SCOREBOARD_CAPTION}
             </ScoreboardCaption>
         </ScoreboardHeader>
-        <ScoreboardContent ref={rowsRef}>
+        <ScoreboardContent ref={ref}>
             <ScoreboardTableHeader/>
             <ScoreboardRows settings={settings} onPage={onPage} />
         </ScoreboardContent>
     </ScoreboardWrap>;
-};
-
-Scoreboard.propTypes = {
-    widgetData: PropTypes.object.isRequired
 };
 
 export default Scoreboard;

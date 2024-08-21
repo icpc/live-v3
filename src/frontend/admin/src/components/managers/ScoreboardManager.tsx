@@ -6,7 +6,7 @@ import {
     Button,
     ButtonGroup,
     Checkbox,
-    Switch,
+    Stack,
     Table,
     TableBody,
     TableCell,
@@ -14,57 +14,51 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { SlimTableCell } from "../atoms/Table.tsx";
-import NumericField from "../controls/NumericField.tsx";
-import { GroupInfo, OptimismLevel, ScoreboardSettings } from "@shared/api.ts";
+import { GroupInfo, OptimismLevel, ScoreboardSettings, ScoreboardScrollDirection } from "@shared/api.ts";
 import { ScoreboardWidgetService } from "@/services/scoreboardService.ts";
+import ScrollDirectionSwitcher from "@/components/controls/ScrollDirectionSwitcher.tsx";
 
 
 type ScoreboardSettingsTabProps = {
     isShown: boolean;
-    onClickShow: () => void;
-    onClickHide: () => void;
+    showWithSettings: (settings: ScoreboardSettings) => void;
+    hide: () => void;
     settings: ScoreboardSettings;
     setSettings: Dispatch<SetStateAction<ScoreboardSettings>>;
 }
 
-const ScoreboardSettingsTab = ({ isShown, onClickShow, onClickHide, settings, setSettings }: ScoreboardSettingsTabProps) => {
-    return (<Table align="center" sx={{ my: 0 }} size="small">
-        <TableHead>
-            <TableRow>
-                {["", "Start from row", "Amount of rows", "Infinity"].map(val =>
-                    <SlimTableCell key={val} align={"center"}>
-                        <Typography variant="h6">{val}</Typography>
-                    </SlimTableCell>
-                )}
-            </TableRow>
-        </TableHead>
-        <TableBody>
-            <TableRow>
-                <SlimTableCell align={"center"}>
-                    <ButtonGroup variant="contained" sx={{ m: 2 }}>
-                        <Button color={isShown ? "success" : "primary"} onClick={onClickShow}>
-                            {isShown ? "Update" : "Show"}
-                        </Button>
-                        <Button color="error" disabled={!isShown} onClick={onClickHide}>Hide</Button>
-                    </ButtonGroup>
-                </SlimTableCell>
-                <SlimTableCell align={"center"}>
-                    <NumericField value={settings.startFromRow} minValue={1} arrowsDelta={settings.startFromRow}
-                        onChange={v => setSettings(s => ({ ...s, startFromRow: v }))}/>
-                </SlimTableCell>
-                <SlimTableCell align={"center"}>
-                    <NumericField value={settings.numRows} minValue={0} arrowsDelta={settings.numRows}
-                        onChange={v => setSettings(s => ({ ...s, numRows: v }))}/>
-                </SlimTableCell>
-                <SlimTableCell align={"center"}>
-                    <Switch checked={settings.isInfinite}
-                        onChange={t => setSettings(s => ({ ...s, isInfinite: t.target.checked }))}/>
-                </SlimTableCell>
-            </TableRow>
-        </TableBody>
-    </Table>);
+const ScoreboardSettingsTab = ({ isShown, showWithSettings, hide, settings, setSettings }: ScoreboardSettingsTabProps) => {
+    const setScrollDirection = useCallback((d: ScoreboardScrollDirection) => {
+        setSettings(s => {
+            const newSettings: ScoreboardSettings = { ...s, scrollDirection: d };
+            if (isShown) {
+                showWithSettings(newSettings);
+            }
+            return newSettings;
+        });
+    }, [setSettings, isShown, showWithSettings]);
+
+    return (
+        <Stack spacing={4} direction="row" flexWrap="wrap" sx={{ mx: 2 }}>
+            <ButtonGroup>
+                <Button
+                    color={isShown ? "success" : "primary"}
+                    onClick={() => showWithSettings(settings)} variant="contained"
+                >
+                    {isShown ? "Update" : "Show"}
+                </Button>
+                <Button color="error" disabled={!isShown} onClick={hide} variant="contained">
+                    Hide
+                </Button>
+            </ButtonGroup>
+            <ScrollDirectionSwitcher
+                direction={settings.scrollDirection}
+                setDirection={setScrollDirection}
+            />
+        </Stack>
+    );
 };
 
 type ScoreboardOptLevelCellsProps = {
@@ -138,11 +132,9 @@ const ScoreboardGroupSetting = ({ settings, setSettings, groupsList }: Scoreboar
 };
 
 export const DEFAULT_SCOREBOARD_SETTINGS: ScoreboardSettings = {
-    isInfinite: true,
     optimismLevel: OptimismLevel.normal,
     group: "all",
-    startFromRow: 1,
-    numRows: 0,
+    scrollDirection: ScoreboardScrollDirection.Forward,
 };
 
 // TODO: create generic type for all managers that has service, settings and setSettings
@@ -160,19 +152,15 @@ const ScoreboardManager = ({ service, isShown, settings, setSettings }: Scoreboa
         service.groups().then((result) => setGroupsList(result));
     }, [service]);
 
-    const onClickHide = () => {
-        // TODO: when hide not reload settings from server, because I want set new settings and than hide + show
-        service.hide();
-    };
-
-    const onClickShow = () => {
-        service.showWithSettings(settings);
-    };
-
     return (
         <>
-            <ScoreboardSettingsTab isShown={isShown} onClickShow={onClickShow} onClickHide={onClickHide}
-                settings={settings} setSettings={setSettings}/>
+            <ScoreboardSettingsTab
+                isShown={isShown}
+                showWithSettings={(s: ScoreboardSettings) => service.showWithSettings(s)}
+                hide={() => service.hide()}
+                settings={settings}
+                setSettings={setSettings}
+            />
             <ScoreboardGroupSetting groupsList={groupsList} settings={settings} setSettings={setSettings}/>
         </>
     );
