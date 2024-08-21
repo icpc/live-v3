@@ -3,24 +3,28 @@
   "medias": {
     "achievement": {
       "type": "Image",
-      "url": ""
+      "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/achievement/{teamId}.svg"
+    },
+    "photo": {
+      "type": "Image",
+      "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_photos/team-{teamId}.jpg"
+    },
+    "record": {
+      "type": "Video",
+      "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_videos/team-{teamId}.MP4"
+    },
+    "camera": {
+      "type": "M2tsVideo",
+      "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=webcam.mp4&top_text={orgDisplayName}"
+    },
+    "screen": {
+      "type": "M2tsVideo",
+      "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=desktop.mp4&top_text={orgDisplayName}"
     }
   },
   "displayName": "{orgDisplayName}" 
 },
 "teamOverrides": {
-  "47001": {
-    "medias": {
-      "camera": {
-        "type": "HLSVideo",
-        "url": ""
-      },
-      "screen": {
-        "type": "HLSVideo",
-        "url": ""
-      }
-    }
-  }
 },
 "awardsSettings": {
   "medals": [

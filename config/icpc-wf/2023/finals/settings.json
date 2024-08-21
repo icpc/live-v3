@@ -7,6 +7,13 @@
       "contestId": "",
       "eventFeedPath": "",
       "eventFeedName": "wf47-event-feed-live.ndjson"
+    },
+    {
+      "source": ".",
+      "contestId": "",
+      "eventFeedPath": "",
+      "eventFeedName": "wf47-event-feed-commentary.ndjson",
+      "feedVersion": "2020_03"
     }
   ]
 }
