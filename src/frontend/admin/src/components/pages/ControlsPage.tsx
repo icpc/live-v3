@@ -87,7 +87,7 @@ const ControlsPage = () => {
         <Container maxWidth="md" sx={{ pt: 2 }} className="Controls">
             <ScoreboardWidgetGroup/>
             <SimpleWidgetGroup title={"Queue"} apiPath={"/queue"}/>
-            <SimpleWidgetGroup title={"Statistic"} apiPath={"/statistics"}/>
+            <SimpleWidgetGroup title={"Statistics"} apiPath={"/statistics"}/>
             <SimpleWidgetGroup title={"Ticker"} apiPath={"/ticker"}/>
             <FullScreenClockWidgetGroup/>
         </Container>

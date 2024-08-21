@@ -28,12 +28,14 @@ data class QueueSettings(val horizontal: Boolean = false) : ObjectSettings
 
 @Serializable
 data class ScoreboardSettings(
-    val isInfinite: Boolean = true,
-    val numRows: Int? = null,
-    val startFromRow: Int = 1,
+    val scrollDirection: ScoreboardScrollDirection = ScoreboardScrollDirection.Forward,
     val optimismLevel: OptimismLevel = OptimismLevel.NORMAL,
     val group: String = "all"
 ) : ObjectSettings
+
+enum class ScoreboardScrollDirection{
+    FirstPage, Back, Pause, Forward, LastPage
+}
 
 @Serializable
 class StatisticsSettings : ObjectSettings
