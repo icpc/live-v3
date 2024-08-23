@@ -84,11 +84,11 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
         // can change inside previous if, so we do recheck, not else.
         contestInfo.updateStandings(standingsLoader.load())
         val runs = when (contestInfo.status) {
-            ContestStatus.BEFORE -> emptyList()
+            is ContestStatus.BEFORE -> emptyList()
             else -> contestInfo.parseSubmissions(statusLoader.load())
         }
         val hacks = when (contestInfo.status) {
-            ContestStatus.BEFORE -> emptyList()
+            is ContestStatus.BEFORE -> emptyList()
             else -> contestInfo.parseHacks(hacksLoader.load())
         }
         return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())

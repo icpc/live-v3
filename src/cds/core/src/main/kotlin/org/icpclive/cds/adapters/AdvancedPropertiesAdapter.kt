@@ -218,11 +218,17 @@ private fun applyRegex(
 }
 
 private fun AdvancedProperties.status(info: ContestInfo): ContestStatus {
-    if (startTime == null && contestLength == null) return info.status
-    val status = ContestStatus.byCurrentTime(startTime ?: info.startTime, contestLength ?: info.contestLength)
-    if (status == ContestStatus.OVER && (info.status == ContestStatus.FINALIZED || info.status == ContestStatus.FAKE_RUNNING)) return info.status
+    if (startTime == null && contestLength == null && freezeTime == null && holdTime == null) return info.status
+    val status = ContestStatus.byCurrentTime(startTime ?: info.startTime ?: return info.status, freezeTime ?: info.freezeTime, contestLength ?: info.contestLength).let {
+        if (it is ContestStatus.BEFORE && holdTime != null) {
+            it.copy(holdTime = holdTime)
+        } else {
+            it
+        }
+    }
+    if (status is ContestStatus.OVER && (info.status is ContestStatus.FINALIZED || info.status is ContestStatus.RUNNING && info.status.isFake)) return info.status
     if (status == info.status) return info.status
-    logger.info { "Contest status is overridden to ${status}, startTime = ${HumanTimeSerializer.format(startTime ?: info.startTime)}, contestLength = ${(contestLength ?: info.contestLength)}" }
+    logger.info { "Contest status is overridden to ${status}, startTime = ${HumanTimeSerializer.format(startTime ?: info.startTimeOrZero)}, contestLength = ${(contestLength ?: info.contestLength)}" }
     return status
 }
 
@@ -305,11 +311,9 @@ internal fun applyAdvancedProperties(
 
     logger.info { "Team and problem overrides are reloaded" }
     return info.copy(
-        startTime = overrides.startTime ?: info.startTime,
         contestLength = overrides.contestLength ?: info.contestLength,
         freezeTime = overrides.freezeTime ?: info.freezeTime,
         status = overrides.status(info),
-        holdBeforeStartTime = overrides.holdTime ?: info.holdBeforeStartTime,
         teamList = teamInfos,
         groupList = groups,
         organizationList = organizations,

@@ -74,7 +74,6 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         return ContestParseResult(
             ContestInfo(
                 name = "",
-                status = ContestStatus.byCurrentTime(startTime, contestLength),
                 resultType = ContestResultType.ICPC,
                 startTime = startTime,
                 contestLength = contestLength,

@@ -1,6 +1,7 @@
 package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
@@ -13,8 +14,16 @@ public fun Flow<ContestUpdate>.autoFinalize(progress: suspend (ContestStatus?, I
     .transformWhile {
         emit(it.event)
         val info = it.infoAfterEvent
-        if (info?.status == ContestStatus.OVER && !info.cdsSupportsFinalization && it.runs[false].isNullOrEmpty()) {
-            emit(InfoUpdate(it.infoAfterEvent!!.copy(status = ContestStatus.FINALIZED)))
+        val status = info?.status
+        if (status is ContestStatus.OVER && !info.cdsSupportsFinalization && it.runs[false].isNullOrEmpty()) {
+            emit(InfoUpdate(it.infoAfterEvent!!.copy(
+                status = ContestStatus.FINALIZED(
+                    startedAt = status.startedAt,
+                    finishedAt = status.finishedAt,
+                    finalizedAt = status.finishedAt,
+                    frozenAt = status.frozenAt
+                )
+            )))
             logger.info { "Contest finished. Finalizing." }
             false
         } else {
@@ -30,4 +39,4 @@ public suspend fun Flow<ContestUpdate>.finalContestState(): ContestState = final
 
 public suspend fun Flow<ContestUpdate>.finalContestState(progress: suspend (ContestStatus?, Int) -> Unit): ContestState = autoFinalize(progress)
     .contestState()
-    .first { it.infoAfterEvent?.status == ContestStatus.FINALIZED }
+    .first { it.infoAfterEvent?.status is ContestStatus.FINALIZED }

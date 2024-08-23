@@ -1,9 +1,14 @@
 {
     "contestInfo": {
         "name": "\"LVI St. Petersburg State University Championship, Sunday, December 06, 2020\"",
-        "status": "FINALIZED",
+        "status": {
+            "type": "finalized",
+            "startedAtUnixMs": 1607241600000,
+            "finishAtUnixMs": 1607259600000,
+            "finalizedAtUnixMs": 1607259600000,
+            "frozenAtUnixMs": 1607259600000
+        },
         "resultType": "ICPC",
-        "startTimeUnixMs": 1607241600000,
         "contestLengthMs": 18000000,
         "freezeTimeMs": 18000000,
         "problems": [
@@ -397,7 +402,6 @@
         "groups": [],
         "organizations": [],
         "penaltyRoundingMode": "sum_down_to_minute",
-        "holdBeforeStartTimeMs": null,
         "emulationSpeed": 1.0,
         "awardsSettings": {},
         "penaltyPerWrongAttempt": "PT20M",

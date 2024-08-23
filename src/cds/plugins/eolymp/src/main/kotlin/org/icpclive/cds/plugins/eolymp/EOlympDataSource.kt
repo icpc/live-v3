@@ -12,6 +12,7 @@ import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.getLogger
 import java.net.URL
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.seconds
 
@@ -75,11 +76,11 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         }
     )
 
-    private fun convertStatus(status: String) = when (status) {
+    private fun convertStatus(status: String, startTime: Instant, contestLength: Duration, freezeTime: Duration?) = when (status) {
         "STATUS_UNKNOWN" -> error("Doc said $status should not be used")
-        "SCHEDULED" -> ContestStatus.BEFORE
-        "OPEN", "SUSPENDED", "FROZEN" -> ContestStatus.RUNNING
-        "COMPLETE" -> ContestStatus.OVER
+        "SCHEDULED" -> ContestStatus.BEFORE(scheduledStartAt = startTime)
+        "OPEN", "SUSPENDED", "FROZEN" -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = freezeTime?.let {  startTime + it }.takeIf { status == "FROZEN" })
+        "COMPLETE" -> ContestStatus.OVER(startedAt = startTime, finishedAt = startTime + contestLength, frozenAt = freezeTime?.let {  startTime + it })
         else -> error("Unknown status: $status")
     }
 
@@ -156,13 +157,15 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
             }
         }
         val resultType = convertResultType(result.format)
+        val startTime = parseTime(result.startsAt)
+        val contestLength = result.duration.seconds
+        val freezeTime = result.scoreboard?.freezingTime?.seconds?.let { contestLength - it }
         val contestInfo = ContestInfo(
             name = result.name,
-            status = convertStatus(result.status),
+            status = convertStatus(result.status, startTime, contestLength, freezeTime),
             resultType = resultType,
-            startTime = parseTime(result.startsAt),
-            contestLength = result.duration.seconds,
-            freezeTime = result.duration.seconds - (result.scoreboard?.freezingTime?.seconds ?: ZERO),
+            contestLength = contestLength,
+            freezeTime = freezeTime,
             problemList = result.problems!!.nodes.map {
                 ProblemInfo(
                     id = it.id.toProblemId(),
@@ -202,7 +205,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                         } ?: RunResult.InProgress(0.0),
                         problemId = it.problem!!.id.toProblemId(),
                         teamId = it.participant!!.id.toTeamId(),
-                        time = parseTime(it.submittedAt) - contestInfo.startTime,
+                        time = parseTime(it.submittedAt) - startTime,
                         isHidden = it.deleted
                     )
                 })

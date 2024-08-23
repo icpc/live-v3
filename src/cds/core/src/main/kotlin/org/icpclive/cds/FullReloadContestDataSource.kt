@@ -23,14 +23,15 @@ public abstract class FullReloadContestDataSource(private val interval: Duration
     }.flowOn(Dispatchers.IO)
         .conflate()
         .transform {
-            if (!isOver && it.contestInfo.status == ContestStatus.OVER) {
-                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.FAKE_RUNNING)))
+            val status = it.contestInfo.status
+            if (!isOver && status is ContestStatus.OVER) {
+                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.RUNNING(status.startedAt, status.frozenAt, isFake = true))))
             } else {
                 emit(InfoUpdate(it.contestInfo))
             }
             it.runs.sortedBy { it.time }.forEach { run -> emit(RunUpdate(run)) }
             it.analyticsMessages.forEach { msg -> emit(AnalyticsUpdate(msg)) }
-            if (!isOver && it.contestInfo.status == ContestStatus.OVER) {
+            if (!isOver && status is ContestStatus.OVER) {
                 isOver = true
                 emit(InfoUpdate(it.contestInfo))
             }

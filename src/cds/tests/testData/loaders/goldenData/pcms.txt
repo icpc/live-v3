@@ -1,9 +1,14 @@
 {
     "contestInfo": {
         "name": "ICPC 2022—2023, NERC — Northern Eurasia Finals",
-        "status": "FINALIZED",
+        "status": {
+            "type": "finalized",
+            "startedAtUnixMs": 1670397300000,
+            "finishAtUnixMs": 1670415300000,
+            "finalizedAtUnixMs": 1670415300000,
+            "frozenAtUnixMs": 1670411700000
+        },
         "resultType": "ICPC",
-        "startTimeUnixMs": 1670397300000,
         "contestLengthMs": 18000000,
         "freezeTimeMs": 14400000,
         "problems": [
@@ -3529,7 +3534,6 @@
         "groups": [],
         "organizations": [],
         "penaltyRoundingMode": "each_submission_down_to_minute",
-        "holdBeforeStartTimeMs": null,
         "emulationSpeed": 1.0,
         "awardsSettings": {},
         "penaltyPerWrongAttempt": "PT20M",

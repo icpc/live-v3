@@ -37,14 +37,29 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(emulationSettings: EmulationSet
     val analyticsMessages = state.analyticsMessagesAfterEvent.values.toList()
     logger.info { "Running in emulation mode with speed x${emulationSettings.speed} and startTime = ${HumanTimeSerializer.format(emulationSettings.startTime)}" }
     val contestInfo = finalContestInfo.copy(
-        startTime = emulationSettings.startTime,
         emulationSpeed = emulationSettings.speed
     )
 
-    emit(-Duration.INFINITE to InfoUpdate(contestInfo.copy(status = ContestStatus.BEFORE)))
+    emit(-Duration.INFINITE to InfoUpdate(contestInfo.copy(status = ContestStatus.BEFORE(scheduledStartAt = emulationSettings.startTime))))
     buildList {
-        add(Duration.ZERO to InfoUpdate(contestInfo.copy(status = ContestStatus.RUNNING)))
-        add(contestInfo.contestLength to InfoUpdate(contestInfo.copy(status = ContestStatus.OVER)))
+        add(Duration.ZERO to InfoUpdate(contestInfo.copy(
+            status = ContestStatus.RUNNING(startedAt = emulationSettings.startTime)
+        )))
+        if (contestInfo.freezeTime != null && contestInfo.freezeTime < contestInfo.contestLength) {
+            add(contestInfo.freezeTime to InfoUpdate(contestInfo.copy(
+                status = ContestStatus.RUNNING(
+                    startedAt = emulationSettings.startTime,
+                    frozenAt = emulationSettings.startTime + contestInfo.freezeTime / emulationSettings.speed
+                )
+            )))
+        }
+        add(contestInfo.contestLength to InfoUpdate(contestInfo.copy(
+            status = ContestStatus.OVER(
+                startedAt = emulationSettings.startTime,
+                finishedAt = emulationSettings.startTime + contestInfo.contestLength / emulationSettings.speed,
+                frozenAt = if (contestInfo.freezeTime != null) emulationSettings.startTime + contestInfo.freezeTime / emulationSettings.speed else null,
+            )
+        )))
         for (run in runs) {
             var percentage = Random.nextDouble(0.1)
             var timeShift = 0

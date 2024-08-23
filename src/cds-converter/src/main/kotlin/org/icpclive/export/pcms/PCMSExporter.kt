@@ -43,22 +43,27 @@ object PCMSExporter {
     }
 
     fun ContestStatus.toPcmsStatus() = when (this) {
-        ContestStatus.FINALIZED, ContestStatus.OVER -> "over"
-        ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> "running"
-        ContestStatus.BEFORE -> "before"
+        is ContestStatus.FINALIZED, is ContestStatus.OVER -> "over"
+        is ContestStatus.RUNNING -> "running"
+        is ContestStatus.BEFORE -> "before"
     }
 
+    private fun Element.setAttributeIfNotNull(name: String, value: String?) {
+        if (value != null) {
+            setAttribute(name, value)
+        }
+    }
 
     private fun Element.buildContestNode(info: ContestInfo) {
         setAttribute("name", info.name)
         setAttribute("time", info.currentContestTime.inWholeMilliseconds.toString())
-        setAttribute("start-time", info.startTime.toString())
-        setAttribute("start-time-millis", info.startTime.toEpochMilliseconds().toString())
+        setAttributeIfNotNull("start-time", info.startTime?.toString())
+        setAttributeIfNotNull("start-time-millis", info.startTime?.toEpochMilliseconds().toString())
         setAttribute("length", info.contestLength.inWholeMilliseconds.toString())
         setAttribute("status", info.status.toPcmsStatus())
         setAttribute("frozen", "no")
-        setAttribute("freeze-time", info.freezeTime.toIsoString())
-        setAttribute("freeze-time-millis", info.freezeTime.inWholeMilliseconds.toString())
+        setAttributeIfNotNull("freeze-time", info.freezeTime?.toIsoString())
+        setAttributeIfNotNull("freeze-time-millis", info.freezeTime?.inWholeMilliseconds.toString())
     }
     private fun Element.buildChallengeNode(info: ContestInfo) {
         info.scoreboardProblems.forEach { problem ->

@@ -24,7 +24,7 @@ internal class ClicsModel {
     private var startTime: Instant? = null
     private var contestLength = 5.hours
     private var freezeTime = 4.hours
-    private var status = ContestStatus.BEFORE
+    private var status: ContestStatus = ContestStatus.BEFORE()
     private var penaltyPerWrongAttempt = 20.minutes
     private var holdBeforeStartTime: Duration? = null
     private var name: String = ""
@@ -125,14 +125,12 @@ internal class ClicsModel {
             name = name,
             status = status,
             resultType = ContestResultType.ICPC,
-            startTime = startTime ?: Instant.fromEpochSeconds(0),
             contestLength = contestLength,
             freezeTime = freezeTime,
             problemList = problems.values.map { it.toApi() },
             teamList = teams.values.map { it.toApi() },
             groupList = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
-            holdBeforeStartTime = holdBeforeStartTime,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
             organizationList = organisations.values.map { it.toApi() },
             cdsSupportsFinalization = true
@@ -145,6 +143,12 @@ internal class ClicsModel {
         freezeTime = contestLength - (contest.scoreboardFreezeDuration ?: Duration.ZERO)
         holdBeforeStartTime = contest.countdownPauseTime
         penaltyPerWrongAttempt = (contest.penaltyTime ?: 20).minutes
+        if (status is ContestStatus.BEFORE) {
+            status = ContestStatus.BEFORE(
+                scheduledStartAt = startTime,
+                holdTime = holdBeforeStartTime
+            )
+        }
     }
 
     fun processProblem(id: String, problem: Problem?) {
@@ -256,10 +260,28 @@ internal class ClicsModel {
 
     fun processState(state: State) {
         status = when {
-            state.endOfUpdates != null -> ContestStatus.FINALIZED
-            state.ended != null -> ContestStatus.OVER
-            state.started != null -> ContestStatus.RUNNING
-            else -> ContestStatus.BEFORE
+            state.endOfUpdates != null -> ContestStatus.FINALIZED(
+                startedAt = state.started!!,
+                finishedAt = state.ended!!,
+                finalizedAt = state.endOfUpdates!!,
+                frozenAt = state.frozen
+            )
+
+            state.ended != null -> ContestStatus.OVER(
+                startedAt = state.started!!,
+                finishedAt = state.ended!!,
+                frozenAt = state.frozen
+            )
+
+            state.started != null -> ContestStatus.RUNNING(
+                startedAt = state.started!!,
+                frozenAt = state.frozen
+            )
+
+            else -> ContestStatus.BEFORE(
+                scheduledStartAt = startTime,
+                holdTime = holdBeforeStartTime
+            )
         }
     }
 

@@ -155,7 +155,6 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
 
         val contestInfo = ContestInfo(
             name = contest.title,
-            status = ContestStatus.byCurrentTime(startTime, contestLength),
             resultType = ContestResultType.ICPC,
             startTime = startTime,
             contestLength = contestLength,

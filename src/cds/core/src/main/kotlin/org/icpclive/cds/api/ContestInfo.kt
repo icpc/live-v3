@@ -14,16 +14,79 @@ public enum class ContestResultType {
 }
 
 @Serializable
-public enum class ContestStatus {
-    BEFORE, RUNNING, FAKE_RUNNING, OVER, FINALIZED;
+public sealed class ContestStatus {
+    @Serializable
+    @SerialName("before")
+    public data class BEFORE(
+        @SerialName("holdTimeMs")
+        @Serializable(with = DurationInMillisecondsSerializer::class)
+        public val holdTime: Duration? = null,
+        @SerialName("scheduledStartAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val scheduledStartAt: Instant? = null
+    ) : ContestStatus()
+    @Serializable
+    @SerialName("running")
+    public data class RUNNING(
+        @SerialName("startedAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val startedAt: Instant,
+        @SerialName("frozenAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val frozenAt: Instant? = null,
+        @Transient public val isFake: Boolean = false
+    ) : ContestStatus()
+    @Serializable
+    @SerialName("over")
+    public class OVER(
+        @SerialName("startedAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val startedAt: Instant,
+        @SerialName("finishAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val finishedAt: Instant,
+        @SerialName("frozenAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val frozenAt: Instant? = null,
+    ) : ContestStatus()
+    @Serializable
+    @SerialName("finalized")
+    public class FINALIZED(
+        @SerialName("startedAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val startedAt: Instant,
+        @SerialName("finishAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val finishedAt: Instant,
+        @SerialName("finalizedAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val finalizedAt: Instant,
+        @SerialName("frozenAtUnixMs")
+        @Serializable(with = UnixMillisecondsSerializer::class)
+        public val frozenAt: Instant? = null,
+    ) : ContestStatus()
 
     public companion object {
-        public fun byCurrentTime(startTime: Instant, contestLength: Duration): ContestStatus {
+        public fun byCurrentTime(
+            startTime: Instant,
+            freezeTime: Duration?,
+            contestLength: Duration
+        ): ContestStatus {
             val offset = Clock.System.now() - startTime
             return when {
-                offset < Duration.ZERO -> BEFORE
-                offset < contestLength -> RUNNING
-                else -> OVER
+                offset < Duration.ZERO -> BEFORE(
+                    holdTime = null,
+                    scheduledStartAt = startTime
+                )
+                offset < contestLength -> RUNNING(
+                    startedAt = startTime,
+                    frozenAt = if (freezeTime != null) (startTime + freezeTime).takeIf { offset >= freezeTime } else null,
+                )
+                else -> OVER(
+                    startedAt = startTime,
+                    finishedAt = startTime + contestLength,
+                    frozenAt = if (freezeTime != null) (startTime + freezeTime).takeIf { offset >= freezeTime } else null,
+                )
             }
         }
     }
@@ -99,38 +162,66 @@ public data class ContestInfo(
     val name: String,
     val status: ContestStatus,
     val resultType: ContestResultType,
-    @SerialName("startTimeUnixMs")
-    @Serializable(with = UnixMillisecondsSerializer::class)
-    val startTime: Instant,
     @SerialName("contestLengthMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val contestLength: Duration,
     @SerialName("freezeTimeMs")
     @Serializable(with = DurationInMillisecondsSerializer::class)
-    val freezeTime: Duration,
+    val freezeTime: Duration?,
     @InefficientContestInfoApi @SerialName("problems") val problemList: List<ProblemInfo>,
     @InefficientContestInfoApi @SerialName("teams") val teamList: List<TeamInfo>,
     @InefficientContestInfoApi @SerialName("groups") val groupList: List<GroupInfo>,
     @InefficientContestInfoApi @SerialName("organizations") val organizationList: List<OrganizationInfo>,
     val penaltyRoundingMode: PenaltyRoundingMode,
-    @SerialName("holdBeforeStartTimeMs")
-    @Serializable(with = DurationInMillisecondsSerializer::class)
-    @Required val holdBeforeStartTime: Duration? = null,
     @Required val emulationSpeed: Double = 1.0,
     @Required val awardsSettings: AwardsSettings = AwardsSettings(),
     @Required val penaltyPerWrongAttempt: Duration = 20.minutes,
     @Required val queueSettings: QueueSettings = QueueSettings(),
     @Transient val cdsSupportsFinalization: Boolean = false,
 ) {
-    public val currentContestTime: Duration
-        get() = when (status) {
-            ContestStatus.BEFORE -> Duration.ZERO
-            ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> (Clock.System.now() - startTime) * emulationSpeed
-            ContestStatus.OVER, ContestStatus.FINALIZED -> contestLength
-        }
+    public constructor(
+        name: String,
+        resultType: ContestResultType,
+        startTime: Instant,
+        contestLength: Duration,
+        freezeTime: Duration?,
+        problemList: List<ProblemInfo>,
+        teamList: List<TeamInfo>,
+        groupList: List<GroupInfo>,
+        organizationList: List<OrganizationInfo>,
+        penaltyRoundingMode: PenaltyRoundingMode,
+        penaltyPerWrongAttempt: Duration = 20.minutes,
+        cdsSupportsFinalization: Boolean = false,
+        ) : this(
+            name = name,
+            status = ContestStatus.byCurrentTime(startTime, freezeTime, contestLength),
+            resultType = resultType, contestLength = contestLength, freezeTime = freezeTime,
+            problemList = problemList, teamList = teamList, groupList = groupList, organizationList = organizationList,
+            penaltyRoundingMode = penaltyRoundingMode,
+            penaltyPerWrongAttempt = penaltyPerWrongAttempt,
+            cdsSupportsFinalization = cdsSupportsFinalization,
+        )
+
     val groups: Map<GroupId, GroupInfo> by lazy { groupList.associateBy { it.id } }
     val teams: Map<TeamId, TeamInfo> by lazy { teamList.associateBy { it.id } }
     val organizations: Map<OrganizationId, OrganizationInfo> by lazy { organizationList.associateBy { it.id } }
     val problems: Map<ProblemId, ProblemInfo> by lazy { problemList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
 }
+
+public val ContestInfo.startTimeOrZero: Instant
+    get() = startTime ?: Instant.fromEpochMilliseconds(0)
+
+public val ContestInfo.startTime: Instant?
+    get() = when (status) {
+        is ContestStatus.BEFORE -> status.scheduledStartAt
+        is ContestStatus.RUNNING -> status.startedAt
+        is ContestStatus.OVER -> status.startedAt
+        is ContestStatus.FINALIZED -> status.startedAt
+    }
+public val ContestInfo.currentContestTime: Duration
+    get() = when (status) {
+        is ContestStatus.BEFORE -> Duration.ZERO
+        is ContestStatus.RUNNING -> (Clock.System.now() - status.startedAt) * emulationSpeed
+        is ContestStatus.OVER, is ContestStatus.FINALIZED -> contestLength
+    }

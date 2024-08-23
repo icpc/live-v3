@@ -21,10 +21,9 @@ internal class NoopDataSource : ContestDataSource {
         InfoUpdate(
             ContestInfo(
                 name = "",
-                status = ContestStatus.BEFORE,
-                startTime = Instant.DISTANT_FUTURE,
+                status = ContestStatus.BEFORE(),
                 contestLength = Duration.ZERO,
-                freezeTime = Duration.ZERO,
+                freezeTime = null,
                 problemList = emptyList(),
                 teamList = emptyList(),
                 resultType = ContestResultType.ICPC,

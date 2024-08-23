@@ -90,11 +90,10 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
         }
         val info = ContestInfo(
             name = mainContest.name,
-            status = ContestStatus.byCurrentTime(mainContest.begin, mainContest.end - mainContest.begin),
             resultType = ContestResultType.IOI,
             startTime = mainContest.begin,
             contestLength = mainContest.end - mainContest.begin,
-            freezeTime = INFINITE,
+            freezeTime = null,
             problemList = problems,
             teamList = teams,
             groupList = emptyList(),

@@ -9,6 +9,7 @@ import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import java.nio.charset.Charset
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
@@ -66,13 +67,15 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         }
         val isCEPenalty = data["@comment"]?.contains("@pragma IgnoreCE") != true
         val problems = problemsWithPenalty.map { it.first }
+        val startTime = data["@startat"]!!.single().toDate()
+        val contestLength = data["@contlen"]!!.single().toInt().minutes
+        val freezeTime = data["@freeze"]!!.single().toInt().minutes
         val contestInfo = ContestInfo(
             name = data["@contest"]!!.single(),
-            status = data["@state"]!!.single().toStatus(),
+            status = data["@state"]!!.single().toStatus(startTime, contestLength, freezeTime),
             resultType = ContestResultType.ICPC,
-            startTime = data["@startat"]!!.single().toDate(),
-            contestLength = data["@contlen"]!!.single().toInt().minutes,
-            freezeTime = data["@freeze"]!!.single().toInt().minutes,
+            contestLength = contestLength,
+            freezeTime = freezeTime,
             teamList = teams,
             problemList = problems,
             penaltyPerWrongAttempt = (penalty.getOrNull(0) ?: 20).minutes,
@@ -136,12 +139,10 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
         return dateFormat.parse(this).toInstant(settings.timeZone)
     }
 
-    private fun String.toStatus() = when (this) {
-        "RESULTS" -> ContestStatus.OVER
-        "FROZEN" -> ContestStatus.OVER
-        "OVER" -> ContestStatus.OVER
-        "BEFORE" -> ContestStatus.BEFORE
-        "RUNNING" -> ContestStatus.RUNNING
+    private fun String.toStatus(startTime: Instant, contestLength: Duration, freezeTime: Duration): ContestStatus = when (this) {
+        "RESULTS", "OVER", "OVER (FROZEN)" -> ContestStatus.OVER(startedAt = startTime, finishedAt = startTime + contestLength, frozenAt = startTime + freezeTime)
+        "BEFORE" -> ContestStatus.BEFORE(scheduledStartAt = startTime)
+        "RUNNING", "FROZEN" -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = (startTime + freezeTime).takeIf { this == "FROZEN" })
         else -> TODO("Unknown contests state $this")
     }
 

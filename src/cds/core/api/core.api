@@ -545,37 +545,35 @@ public final class org/icpclive/cds/api/Color$Companion {
 
 public final class org/icpclive/cds/api/ContestInfo {
 	public static final field Companion Lorg/icpclive/cds/api/ContestInfo$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Ljava/util/List;
-	public final fun component11 ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
-	public final fun component12-FghU774 ()Lkotlin/time/Duration;
-	public final fun component13 ()D
-	public final fun component14 ()Lorg/icpclive/cds/api/AwardsSettings;
-	public final fun component15-UwyO8pc ()J
-	public final fun component16 ()Lorg/icpclive/cds/api/QueueSettings;
-	public final fun component17 ()Z
+	public final fun component10 ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
+	public final fun component11 ()D
+	public final fun component12 ()Lorg/icpclive/cds/api/AwardsSettings;
+	public final fun component13-UwyO8pc ()J
+	public final fun component14 ()Lorg/icpclive/cds/api/QueueSettings;
+	public final fun component15 ()Z
 	public final fun component2 ()Lorg/icpclive/cds/api/ContestStatus;
 	public final fun component3 ()Lorg/icpclive/cds/api/ContestResultType;
-	public final fun component4 ()Lkotlinx/datetime/Instant;
-	public final fun component5-UwyO8pc ()J
-	public final fun component6-UwyO8pc ()J
+	public final fun component4-UwyO8pc ()J
+	public final fun component5-FghU774 ()Lkotlin/time/Duration;
+	public final fun component6 ()Ljava/util/List;
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy-p5VFoj0 (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;Z)Lorg/icpclive/cds/api/ContestInfo;
-	public static synthetic fun copy-p5VFoj0$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lkotlin/time/Duration;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
+	public final fun copy-rmJQ3-o (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;Z)Lorg/icpclive/cds/api/ContestInfo;
+	public static synthetic fun copy-rmJQ3-o$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAwardsSettings ()Lorg/icpclive/cds/api/AwardsSettings;
 	public final fun getCdsSupportsFinalization ()Z
 	public final fun getContestLength-UwyO8pc ()J
-	public final fun getCurrentContestTime-UwyO8pc ()J
 	public final fun getEmulationSpeed ()D
-	public final fun getFreezeTime-UwyO8pc ()J
+	public final fun getFreezeTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getGroupList ()Ljava/util/List;
 	public final fun getGroups ()Ljava/util/Map;
-	public final fun getHoldBeforeStartTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getOrganizationList ()Ljava/util/List;
 	public final fun getOrganizations ()Ljava/util/Map;
@@ -586,7 +584,6 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun getQueueSettings ()Lorg/icpclive/cds/api/QueueSettings;
 	public final fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public final fun getScoreboardProblems ()Ljava/util/List;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
 	public final fun getStatus ()Lorg/icpclive/cds/api/ContestStatus;
 	public final fun getTeamList ()Ljava/util/List;
 	public final fun getTeams ()Ljava/util/Map;
@@ -607,6 +604,12 @@ public synthetic class org/icpclive/cds/api/ContestInfo$$serializer : kotlinx/se
 
 public final class org/icpclive/cds/api/ContestInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestInfoKt {
+	public static final fun getCurrentContestTime (Lorg/icpclive/cds/api/ContestInfo;)J
+	public static final fun getStartTime (Lorg/icpclive/cds/api/ContestInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getStartTimeOrZero (Lorg/icpclive/cds/api/ContestInfo;)Lkotlinx/datetime/Instant;
 }
 
 public final class org/icpclive/cds/api/ContestResultType : java/lang/Enum {
@@ -647,20 +650,125 @@ public final class org/icpclive/cds/api/ContestStateKt {
 	public static final fun ContestState (Lorg/icpclive/cds/ContestUpdate;Lorg/icpclive/cds/api/ContestState;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/api/ContestState;
 }
 
-public final class org/icpclive/cds/api/ContestStatus : java/lang/Enum {
-	public static final field BEFORE Lorg/icpclive/cds/api/ContestStatus;
+public abstract class org/icpclive/cds/api/ContestStatus {
 	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$Companion;
-	public static final field FAKE_RUNNING Lorg/icpclive/cds/api/ContestStatus;
-	public static final field FINALIZED Lorg/icpclive/cds/api/ContestStatus;
-	public static final field OVER Lorg/icpclive/cds/api/ContestStatus;
-	public static final field RUNNING Lorg/icpclive/cds/api/ContestStatus;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/cds/api/ContestStatus;
-	public static fun values ()[Lorg/icpclive/cds/api/ContestStatus;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public static final synthetic fun write$Self (Lorg/icpclive/cds/api/ContestStatus;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class org/icpclive/cds/api/ContestStatus$BEFORE : org/icpclive/cds/api/ContestStatus {
+	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$BEFORE$Companion;
+	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlinx/datetime/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlinx/datetime/Instant;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-FghU774 ()Lkotlin/time/Duration;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun copy-dnQKTGw (Lkotlin/time/Duration;Lkotlinx/datetime/Instant;)Lorg/icpclive/cds/api/ContestStatus$BEFORE;
+	public static synthetic fun copy-dnQKTGw$default (Lorg/icpclive/cds/api/ContestStatus$BEFORE;Lkotlin/time/Duration;Lkotlinx/datetime/Instant;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$BEFORE;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHoldTime-FghU774 ()Lkotlin/time/Duration;
+	public final fun getScheduledStartAt ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/cds/api/ContestStatus$BEFORE$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/ContestStatus$BEFORE$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/ContestStatus$BEFORE;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/ContestStatus$BEFORE;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestStatus$BEFORE$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/api/ContestStatus$Companion {
-	public final fun byCurrentTime-HG0u8IE (Lkotlinx/datetime/Instant;J)Lorg/icpclive/cds/api/ContestStatus;
+	public final fun byCurrentTime-qoljjlM (Lkotlinx/datetime/Instant;Lkotlin/time/Duration;J)Lorg/icpclive/cds/api/ContestStatus;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestStatus$FINALIZED : org/icpclive/cds/api/ContestStatus {
+	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$FINALIZED$Companion;
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getFinalizedAt ()Lkotlinx/datetime/Instant;
+	public final fun getFinishedAt ()Lkotlinx/datetime/Instant;
+	public final fun getFrozenAt ()Lkotlinx/datetime/Instant;
+	public final fun getStartedAt ()Lkotlinx/datetime/Instant;
+}
+
+public synthetic class org/icpclive/cds/api/ContestStatus$FINALIZED$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/ContestStatus$FINALIZED$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/ContestStatus$FINALIZED;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/ContestStatus$FINALIZED;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestStatus$FINALIZED$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestStatus$OVER : org/icpclive/cds/api/ContestStatus {
+	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$OVER$Companion;
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getFinishedAt ()Lkotlinx/datetime/Instant;
+	public final fun getFrozenAt ()Lkotlinx/datetime/Instant;
+	public final fun getStartedAt ()Lkotlinx/datetime/Instant;
+}
+
+public synthetic class org/icpclive/cds/api/ContestStatus$OVER$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/ContestStatus$OVER$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/ContestStatus$OVER;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/ContestStatus$OVER;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestStatus$OVER$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestStatus$RUNNING : org/icpclive/cds/api/ContestStatus {
+	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$RUNNING$Companion;
+	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Z)V
+	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Z
+	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Z)Lorg/icpclive/cds/api/ContestStatus$RUNNING;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ContestStatus$RUNNING;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$RUNNING;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getFrozenAt ()Lkotlinx/datetime/Instant;
+	public final fun getStartedAt ()Lkotlinx/datetime/Instant;
+	public fun hashCode ()I
+	public final fun isFake ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/cds/api/ContestStatus$RUNNING$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/ContestStatus$RUNNING$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/ContestStatus$RUNNING;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/ContestStatus$RUNNING;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ContestStatus$RUNNING$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 

@@ -8,7 +8,6 @@ import io.ktor.server.routing.*
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
@@ -123,10 +122,10 @@ object ClicsExporter  {
         id = "contest",
         name = info.name,
         formalName = info.name,
-        startTime = info.startTime.takeIf { it != Instant.fromEpochSeconds(0) },
-        countdownPauseTime = info.holdBeforeStartTime,
+        startTime = info.startTime,
+        countdownPauseTime = (info.status as? ContestStatus.BEFORE)?.holdTime,
         duration = info.contestLength,
-        scoreboardFreezeDuration = info.contestLength - info.freezeTime,
+        scoreboardFreezeDuration = info.freezeTime?.let { info.contestLength - it },
         scoreboardType = "pass-fail",
         penaltyTime = info.penaltyPerWrongAttempt.inWholeMinutes,
     )
@@ -171,8 +170,8 @@ object ClicsExporter  {
         diffRemove(old, new, id, toFinalEvent)
     }
 
-    private fun getState(info: ContestInfo) = when (info.status) {
-        ContestStatus.BEFORE -> State(
+    private fun getState(info: ContestInfo) = when (val status = info.status) {
+        is ContestStatus.BEFORE -> State(
             ended = null,
             frozen = null,
             started = null,
@@ -181,30 +180,30 @@ object ClicsExporter  {
             endOfUpdates = null
         )
 
-        ContestStatus.RUNNING, ContestStatus.FAKE_RUNNING -> State(
+        is ContestStatus.RUNNING -> State(
             ended = null,
-            frozen = if (info.currentContestTime >= info.freezeTime) info.startTime + info.freezeTime else null,
-            started = info.startTime,
+            frozen = status.frozenAt,
+            started = status.startedAt,
             finalized = null,
             thawed = null,
             endOfUpdates = null
         )
 
-        ContestStatus.OVER -> State(
-            ended = info.startTime + info.contestLength,
-            frozen = info.startTime + info.freezeTime,
-            started = info.startTime,
+        is ContestStatus.OVER -> State(
+            ended = status.finishedAt,
+            frozen = status.frozenAt,
+            started = status.startedAt,
             finalized = null,
             thawed = null,
             endOfUpdates = null
         )
-        ContestStatus.FINALIZED -> State(
-            ended = info.startTime + info.contestLength,
-            frozen = info.startTime + info.freezeTime,
-            started = info.startTime,
-            finalized = info.startTime + info.contestLength,
-            thawed = info.startTime + info.contestLength,
-            endOfUpdates = info.startTime + info.contestLength
+        is ContestStatus.FINALIZED -> State(
+            ended = status.finishedAt,
+            frozen = status.frozenAt,
+            started = status.startedAt,
+            finalized = status.finalizedAt,
+            thawed = null,
+            endOfUpdates = status.finalizedAt
         )
     }
 
@@ -220,7 +219,7 @@ object ClicsExporter  {
                     languageId = unknownLanguage.id,
                     problemId = run.problemId.value,
                     teamId = run.teamId.value,
-                    time = info.startTime + run.time,
+                    time = info.startTimeOrZero + run.time,
                     contestTime = run.time,
                 ),
                 ::SubmissionEvent
@@ -233,9 +232,9 @@ object ClicsExporter  {
                 id = run.id.toString(),
                 submissionId = run.id.toString(),
                 judgementTypeId = judgmentTypes[result.verdict]?.id,
-                startTime = info.startTime + run.time,
+                startTime = info.startTimeOrZero + run.time,
                 startContestTime = run.time,
-                endTime = info.startTime + run.time,
+                endTime = info.startTimeOrZero + run.time,
                 endContestTime = run.time
             ),
             ::JudgementEvent
@@ -467,7 +466,7 @@ object ClicsExporter  {
     private fun ContestStateWithScoreboard.toClicsScoreboard(): Scoreboard {
         val info = state.infoAfterEvent!!
         return Scoreboard(
-            time = info.startTime + lastSubmissionTime,
+            time = info.startTimeOrZero + lastSubmissionTime,
             contestTime = lastSubmissionTime,
             state = getState(info),
             rows = rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->

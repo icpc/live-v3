@@ -67,7 +67,6 @@ internal class YandexContestInfo(
 
     fun toApi() = ContestInfo(
         name = name,
-        status = ContestStatus.byCurrentTime(startTime, duration),
         resultType = resultType,
         startTime = startTime,
         contestLength = duration,

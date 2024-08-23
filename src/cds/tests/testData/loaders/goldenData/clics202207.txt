@@ -1,9 +1,14 @@
 {
     "contestInfo": {
         "name": "SWERC 2022",
-        "status": "FINALIZED",
+        "status": {
+            "type": "finalized",
+            "startedAtUnixMs": 1676794500000,
+            "finishAtUnixMs": 1676812500000,
+            "finalizedAtUnixMs": 1676812500000,
+            "frozenAtUnixMs": 1676808900000
+        },
         "resultType": "ICPC",
-        "startTimeUnixMs": 1676794500000,
         "contestLengthMs": 18000000,
         "freezeTimeMs": 14400000,
         "problems": [
@@ -3453,7 +3458,6 @@
             }
         ],
         "penaltyRoundingMode": "each_submission_down_to_minute",
-        "holdBeforeStartTimeMs": null,
         "emulationSpeed": 1.0,
         "awardsSettings": {},
         "penaltyPerWrongAttempt": "PT20M",

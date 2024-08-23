@@ -2,27 +2,59 @@ export interface ContestInfo {
   name: string;
   status: ContestStatus;
   resultType: ContestResultType;
-  startTimeUnixMs: number;
   contestLengthMs: number;
-  freezeTimeMs: number;
+  freezeTimeMs: number | null;
   problems: ProblemInfo[];
   teams: TeamInfo[];
   groups: GroupInfo[];
   organizations: OrganizationInfo[];
   penaltyRoundingMode: PenaltyRoundingMode;
-  holdBeforeStartTimeMs: number | null;
   emulationSpeed: number;
   awardsSettings: AwardsSettings;
   penaltyPerWrongAttempt: string;
   queueSettings: QueueSettings;
 }
 
-export enum ContestStatus {
-  BEFORE = "BEFORE",
-  RUNNING = "RUNNING",
-  FAKE_RUNNING = "FAKE_RUNNING",
-  OVER = "OVER",
-  FINALIZED = "FINALIZED",
+export type ContestStatus =
+  | ContestStatus.before
+  | ContestStatus.finalized
+  | ContestStatus.over
+  | ContestStatus.running;
+
+export namespace ContestStatus {
+  export enum Type {
+    before = "before",
+    finalized = "finalized",
+    over = "over",
+    running = "running",
+  }
+  
+  export interface before {
+    type: ContestStatus.Type.before;
+    holdTimeMs?: number | null;
+    scheduledStartAtUnixMs?: number | null;
+  }
+  
+  export interface finalized {
+    type: ContestStatus.Type.finalized;
+    startedAtUnixMs: number;
+    finishAtUnixMs: number;
+    finalizedAtUnixMs: number;
+    frozenAtUnixMs?: number | null;
+  }
+  
+  export interface over {
+    type: ContestStatus.Type.over;
+    startedAtUnixMs: number;
+    finishAtUnixMs: number;
+    frozenAtUnixMs?: number | null;
+  }
+  
+  export interface running {
+    type: ContestStatus.Type.running;
+    startedAtUnixMs: number;
+    frozenAtUnixMs?: number | null;
+  }
 }
 
 export enum ContestResultType {

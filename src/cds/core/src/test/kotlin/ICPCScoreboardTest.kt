@@ -15,12 +15,12 @@ class ICPCScoreboardTest {
     private val teamId3 = "T3".toTeamId()
     private val teamId4 = "T4".toTeamId()
 
+    private val startTime = Instant.fromEpochMilliseconds(1687460000)
 
     private val info = ContestInfo(
         name = "",
-        status = ContestStatus.OVER,
+        status = ContestStatus.OVER(startedAt = startTime, frozenAt = startTime + 4.hours, finishedAt = startTime + 5.hours),
         resultType = ContestResultType.ICPC,
-        startTime = Instant.fromEpochMilliseconds(1687460000),
         contestLength = 5.hours,
         freezeTime = 4.hours,
         problemList = listOf(

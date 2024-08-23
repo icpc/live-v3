@@ -25,7 +25,7 @@ export class BackendClient {
         return new Promise((resolve) => {
             contestInfo.onmessage = (event) => {
                 const message = JSON.parse(event.data.toString());
-                if (message.status === "OVER" || message.status == "FINALIZED") {
+                if (message.status.type === "over" || message.status.type == "finalized") {
                     contestInfo.close();
                     resolve(message);
                 }

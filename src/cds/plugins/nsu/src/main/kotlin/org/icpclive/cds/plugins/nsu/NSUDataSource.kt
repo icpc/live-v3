@@ -140,7 +140,6 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
 
         val info = ContestInfo(
             name = contestName,
-            status = ContestStatus.byCurrentTime(startTime, contestLength),
             resultType = ContestResultType.ICPC,
             startTime = startTime,
             contestLength = contestLength,
