@@ -59,8 +59,9 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
             }.flowOn(Dispatchers.IO)
                 .stateIn(this)
             val info = rawContestInfoFlow.value.toApi()
-            if (info.status == ContestStatus.OVER) {
-                emit(InfoUpdate(info.copy(status = ContestStatus.RUNNING)))
+            val status = info.status
+            if (status is ContestStatus.OVER) {
+                emit(InfoUpdate(info.copy(status = ContestStatus.RUNNING(status.startedAt, status.frozenAt, isFake = true))))
             } else {
                 emit(InfoUpdate(info))
             }
@@ -72,7 +73,7 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
                         .asFlow()
                 )
             }
-            if (info.status == ContestStatus.OVER) {
+            if (info.status is ContestStatus.OVER) {
                 emit(InfoUpdate(info))
             }
             val newSubmissionsFlow = newSubmissionsFlow(1.seconds)

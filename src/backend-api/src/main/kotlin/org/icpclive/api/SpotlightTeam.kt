@@ -34,7 +34,7 @@ data class TeamSpotlightFlowSettings(
     val externalScoreScale: Double = 1.0,
 ) {
     fun rankScore(rank: Int, contestStatus: ContestStatus): Double {
-        if (contestStatus == ContestStatus.BEFORE) {
+        if (contestStatus is ContestStatus.BEFORE) {
             return scoreboardBeforeContestScore
         } else if (rank > scoreboardLowestRank) {
             return 0.0

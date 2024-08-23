@@ -7,6 +7,7 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
 import org.icpclive.ksp.cds.Builder
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("dmoj")
@@ -104,11 +105,10 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
         val startTimeMap = mutableMapOf<TeamId, Instant>()
         val info = ContestInfo(
             name = contest.name,
-            status = ContestStatus.byCurrentTime(contest.start_time, contestLength),
             resultType = resultType,
             startTime = contest.start_time,
             contestLength = contestLength,
-            freezeTime = contestLength,
+            freezeTime = null,
             penaltyRoundingMode = when (resultType) {
                 ContestResultType.ICPC -> PenaltyRoundingMode.SUM_IN_SECONDS
                 ContestResultType.IOI -> PenaltyRoundingMode.ZERO

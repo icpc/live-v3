@@ -1,9 +1,14 @@
 {
     "contestInfo": {
         "name": "ACM ICPC 2015-2016, NEERC, Northern Subregional Contest",
-        "status": "FINALIZED",
+        "status": {
+            "type": "finalized",
+            "startedAtUnixMs": 1449385200000,
+            "finishAtUnixMs": 1449403200000,
+            "finalizedAtUnixMs": 1449403200000,
+            "frozenAtUnixMs": 1449399600000
+        },
         "resultType": "ICPC",
-        "startTimeUnixMs": 1449385200000,
         "contestLengthMs": 18000000,
         "freezeTimeMs": 14400000,
         "problems": [
@@ -1261,7 +1266,6 @@
         "groups": [],
         "organizations": [],
         "penaltyRoundingMode": "each_submission_down_to_minute",
-        "holdBeforeStartTimeMs": null,
         "emulationSpeed": 1.0,
         "awardsSettings": {},
         "penaltyPerWrongAttempt": "PT20M",

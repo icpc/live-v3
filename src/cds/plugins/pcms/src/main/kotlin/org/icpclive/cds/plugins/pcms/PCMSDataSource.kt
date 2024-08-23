@@ -9,7 +9,6 @@ import org.icpclive.cds.settings.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.util.*
 import org.w3c.dom.Element
-import java.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.milliseconds
@@ -43,13 +42,19 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     }
 
     private fun parseContestInfo(element: Element): ContestParseResult {
-        val status = ContestStatus.valueOf(element.getAttribute("status").uppercase(Locale.getDefault()))
+        val statusStr = element.getAttribute("status")
         val contestTime = element.getAttribute("time").toLong().milliseconds
         val contestLength = element.getAttribute("length").toInt().milliseconds
-        if (status != ContestStatus.BEFORE && startTime.epochSeconds == 0L) {
+        if (statusStr != "before" && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
-        val freezeTime = if (resultType == ContestResultType.ICPC) contestLength - 1.hours else contestLength
+        val freezeTime = if (resultType == ContestResultType.ICPC) contestLength - 1.hours else null
+        val status = when (statusStr) {
+            "before" -> ContestStatus.BEFORE(scheduledStartAt = startTime)
+            "running" -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime + freezeTime else null)
+            "over" -> ContestStatus.OVER(startedAt = startTime, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime + freezeTime else null, finishedAt = startTime + contestLength)
+            else -> error("Unknown contest status ${statusStr}")
+        }
 
         val problemsElement = element.child("challenge")
 
@@ -71,7 +76,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             .children("session")
             .map { parseTeamInfo(it, contestTime) }
             .toList()
-        if (status == ContestStatus.RUNNING) {
+        if (status is ContestStatus.RUNNING) {
             log.info { "Loaded contestInfo for time = $contestTime" }
         }
         val teams = teamsAndRuns.map { it.first }.sortedBy { it.id.value }
@@ -80,7 +85,6 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 name = element.getAttribute("name"),
                 status = status,
                 resultType = resultType,
-                startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,
                 problemList = problems,

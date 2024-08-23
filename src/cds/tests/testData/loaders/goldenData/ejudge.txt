@@ -1,9 +1,14 @@
 {
     "contestInfo": {
         "name": "МКОШП 2022",
-        "status": "FINALIZED",
+        "status": {
+            "type": "finalized",
+            "startedAtUnixMs": 1666512000000,
+            "finishAtUnixMs": 1666530000000,
+            "finalizedAtUnixMs": 1666530000000,
+            "frozenAtUnixMs": 1666526400000
+        },
         "resultType": "ICPC",
-        "startTimeUnixMs": 1666512000000,
         "contestLengthMs": 18000000,
         "freezeTimeMs": 14400000,
         "problems": [
@@ -829,7 +834,6 @@
         "groups": [],
         "organizations": [],
         "penaltyRoundingMode": "each_submission_down_to_minute",
-        "holdBeforeStartTimeMs": null,
         "emulationSpeed": 1.0,
         "awardsSettings": {},
         "penaltyPerWrongAttempt": "PT20M",

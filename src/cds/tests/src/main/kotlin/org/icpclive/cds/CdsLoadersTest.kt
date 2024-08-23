@@ -23,7 +23,7 @@ abstract class CdsLoadersTest {
         .relativeTo(Path.of("").absolute())
 
     protected val goldenDataDir: Path = testDataDir.resolve("goldenData")
-    private val updateTestData = false
+    internal val updateTestData = false
 
 
     private val json = Json {

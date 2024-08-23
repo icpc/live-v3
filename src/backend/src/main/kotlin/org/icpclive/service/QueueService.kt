@@ -97,7 +97,7 @@ class QueueService : Service {
     }
 
     private fun RunInfo.isInProgress(contestInfo: ContestInfo): Boolean {
-        return result is RunResult.InProgress && time < contestInfo.freezeTime
+        return result is RunResult.InProgress && contestInfo.freezeTime != null && time < contestInfo.freezeTime!!
     }
 
 
@@ -132,7 +132,7 @@ class QueueService : Service {
                             is AnalyticsUpdate -> {}
                             is InfoUpdate -> {}
                             is RunUpdate -> {
-                                val contestInfo = event.state.infoAfterEvent?.takeIf { it.status != ContestStatus.BEFORE } ?: return@collect
+                                val contestInfo = event.state.infoAfterEvent?.takeIf { it.status !is ContestStatus.BEFORE } ?: return@collect
                                 currentContestInfo = contestInfo
                                 val run = update.newInfo
                                 removedRuns[run.id] = run

@@ -7,6 +7,16 @@ import { ContestStatus } from "@shared/api";
 
 Settings.defaultZone = "utc";
 
+function getStartTime(status: ContestStatus) : number {
+    switch (status.type) {
+    case ContestStatus.Type.before:
+        return status.scheduledStartAtUnixMs ?? 0;
+    case ContestStatus.Type.over:
+    case ContestStatus.Type.running:
+    case ContestStatus.Type.finalized:
+        return status.startedAtUnixMs;
+    }
+}
 
 export const ContestClock = ({
     noStatusText = "??",
@@ -25,10 +35,10 @@ export const ContestClock = ({
     const contestInfo = useAppSelector((state) => state.contestInfo.info);
     const getMilliseconds = useCallback(() => {
         if (contestCountdownMode) {
-            return DateTime.fromMillis(contestInfo.startTimeUnixMs + contestInfo.contestLengthMs)
+            return DateTime.fromMillis(getStartTime(contestInfo.status) + contestInfo.contestLengthMs)
                 .diffNow().milliseconds * (contestInfo.emulationSpeed ?? 1);
         } else {
-            return DateTime.fromMillis(contestInfo.startTimeUnixMs)
+            return DateTime.fromMillis(getStartTime(contestInfo.status))
                 .diffNow().negate().milliseconds * (contestInfo.emulationSpeed ?? 1);
         }
     }, [contestInfo, contestCountdownMode]);
@@ -48,27 +58,26 @@ export const ContestClock = ({
         if (contestInfo === undefined) {
             return noStatusText;
         }
-        switch (contestInfo.status) {
-        case ContestStatus.BEFORE: {
-            const milliseconds = DateTime.fromMillis(contestInfo.startTimeUnixMs)
+        switch (contestInfo.status.type) {
+        case ContestStatus.Type.before: {
+            const milliseconds = DateTime.fromMillis(contestInfo.status.scheduledStartAtUnixMs)
                 .diffNow().negate().milliseconds * (contestInfo.emulationSpeed ?? 1);
-            if (contestInfo.holdBeforeStartTimeMs !== undefined) {
-                return "-" + formatTime(contestInfo.holdBeforeStartTimeMs, true);
-            } else if (contestInfo.startTimeUnixMs !== undefined && milliseconds <= 0) {
+            if (contestInfo.status.holdTimeMs !== undefined) {
+                return "-" + formatTime(contestInfo.status.holdTimeMs, true);
+            } else if (contestInfo.status.scheduledStartAtUnixMs !== undefined && milliseconds <= 0) {
                 return "-" + formatTime(-milliseconds + 1000, true);
-            } else if (contestInfo.startTimeUnixMs !== undefined && milliseconds <= 60 * 1000) {
+            } else if (contestInfo.status.scheduledStartAtUnixMs !== undefined && milliseconds <= 60 * 1000) {
                 // hack just in case backend is slow in sending contest state
                 return formatTime(milliseconds , true);
             }
             return showStatus ? "BEFORE" : "";
         }
-        case ContestStatus.RUNNING:
-        case ContestStatus.FAKE_RUNNING: {
+        case ContestStatus.Type.running: {
             const milliseconds = Math.min(getMilliseconds(), contestInfo.contestLengthMs);
             return formatTime(milliseconds);
         }
-        case ContestStatus.OVER:
-        case ContestStatus.FINALIZED:
+        case ContestStatus.Type.over:
+        case ContestStatus.Type.finalized:
             return showStatus ? "OVER" : "";
         }
     }, [contestInfo, globalTimeMode, getMilliseconds, formatTime]);

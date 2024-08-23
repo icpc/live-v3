@@ -71,7 +71,6 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
         return ContestParseResult(
             ContestInfo(
                 name = settings.contestName,
-                status = ContestStatus.byCurrentTime(settings.startTime, settings.contestLength),
                 resultType = ContestResultType.ICPC,
                 startTime = settings.startTime,
                 contestLength = settings.contestLength,

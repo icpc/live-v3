@@ -2,6 +2,7 @@ package org.icpclive.cds.plugins.clics
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
@@ -192,9 +193,14 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             onContestInfo = { emit(InfoUpdate(it)) },
             onComment = { emit(AnalyticsUpdate(it)) }
         )
-        if (model.contestInfo.status != ContestStatus.FINALIZED) {
+        if (model.contestInfo.status !is ContestStatus.FINALIZED) {
             log.info { "Events are finished, while contest is not finalized. Enforce finalization." }
-            emit(InfoUpdate(model.contestInfo.copy(status = ContestStatus.FINALIZED)))
+            emit(InfoUpdate(model.contestInfo.copy(status = ContestStatus.FINALIZED(
+                startedAt = model.contestInfo.startTimeOrZero,
+                finishedAt = model.contestInfo.startTimeOrZero + model.contestInfo.contestLength,
+                frozenAt = model.contestInfo.freezeTime?.let {  model.contestInfo.startTimeOrZero + it },
+                finalizedAt = model.contestInfo.startTimeOrZero + model.contestInfo.contestLength,
+            ))))
         }
     }
 

@@ -179,7 +179,6 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
 
         val contestInfo = ContestInfo(
             name = contest.title,
-            status = ContestStatus.byCurrentTime(startTime, contestLength),
             resultType = settings.resultType,
             startTime = startTime,
             contestLength = contestLength,

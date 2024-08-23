@@ -1,6 +1,7 @@
 package org.icpclive.cds.plugins.codeforces
 
 import kotlinx.datetime.Instant
+import kotlinx.datetime.isDistantFuture
 import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.codeforces.api.data.*
 import org.icpclive.cds.plugins.codeforces.api.results.CFStandings
@@ -14,7 +15,7 @@ private val HACKS_PROBLEM_ID = "hacks".toProblemId()
 internal class CFContestInfo {
     private var contestLength: Duration = 5.hours
     private var startTime: Instant = Instant.fromEpochMilliseconds(0)
-    var status = ContestStatus.BEFORE
+    var status: ContestStatus = ContestStatus.BEFORE()
         private set
     private val problems = mutableListOf<ProblemInfo>()
     private var cfStandings: CFStandings? = null
@@ -30,9 +31,9 @@ internal class CFContestInfo {
         startTime = contest.startTime
             ?: Instant.DISTANT_FUTURE
         status = when (contest.phase) {
-            CFContestPhase.BEFORE -> ContestStatus.BEFORE
-            CFContestPhase.CODING -> ContestStatus.RUNNING
-            else -> ContestStatus.OVER
+            CFContestPhase.BEFORE -> ContestStatus.BEFORE(scheduledStartAt = startTime.takeUnless{ it.isDistantFuture })
+            CFContestPhase.CODING -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = null)
+            else -> ContestStatus.OVER(startedAt = startTime, finishedAt = startTime + contestLength, frozenAt = null)
         }
     }
 
@@ -255,9 +256,8 @@ internal class CFContestInfo {
             CFContestType.IOI -> ContestResultType.IOI
             CFContestType.ICPC -> ContestResultType.ICPC
         },
-        startTime = startTime,
         contestLength = contestLength,
-        freezeTime = contestLength,
+        freezeTime = null,
         problemList = problems,
         teamList = participantsByCdsId.values.sortedBy { it.id.value },
         groupList = emptyList(),

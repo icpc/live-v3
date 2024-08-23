@@ -141,7 +141,7 @@ class TeamSpotlightService(
             merge(
                 loopFlow(settings.scoreboardPushInterval, onError = {}) { ScoreboardPushTrigger },
                 flow.filter { state ->
-                    state.state.infoAfterEvent?.status == ContestStatus.BEFORE ||
+                    state.state.infoAfterEvent?.status is ContestStatus.BEFORE ||
                             state.state.lastEvent.let { it is RunUpdate && !it.newInfo.isHidden }
                 },
                 addScoreRequests,
@@ -171,7 +171,7 @@ class TeamSpotlightService(
                                     getTeamInQueue(it.first).addAccent(
                                         TeamScoreboardPlace(
                                             it.second,
-                                            lastInfo?.status ?: ContestStatus.BEFORE
+                                            lastInfo?.status ?: ContestStatus.BEFORE()
                                         )
                                     )
                                 }

@@ -243,7 +243,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
         startTime = startTime.takeIfAsked("startTime"),
         contestLength = contestLength.takeIfAsked("contestLength"),
         freezeTime = freezeTime.takeIfAsked("freezeTime"),
-        holdTime = holdBeforeStartTime?.takeIfAsked("holdBeforeStartTime"),
+        holdTime = (status as? ContestStatus.BEFORE)?.holdTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teamList.associate {
             it.id to TeamInfoOverride(
                 fullName = it.fullName.takeIfAsked("fullName"),

@@ -1,9 +1,14 @@
 {
     "contestInfo": {
         "name": "ICPC World Finals Moscow",
-        "status": "FINALIZED",
+        "status": {
+            "type": "finalized",
+            "startedAtUnixMs": 1633414869000,
+            "finishAtUnixMs": 1633432869000,
+            "finalizedAtUnixMs": 1633432869000,
+            "frozenAtUnixMs": 1633429269000
+        },
         "resultType": "ICPC",
-        "startTimeUnixMs": 1633414869000,
         "contestLengthMs": 18000000,
         "freezeTimeMs": 14400000,
         "problems": [
@@ -3845,7 +3850,6 @@
             }
         ],
         "penaltyRoundingMode": "each_submission_down_to_minute",
-        "holdBeforeStartTimeMs": null,
         "emulationSpeed": 1.0,
         "awardsSettings": {},
         "penaltyPerWrongAttempt": "PT20M",

@@ -11,7 +11,7 @@ import kotlin.time.Duration
 public fun Flow<ContestState>.removeFrozenSubmissions(): Flow<ContestUpdate> = transform {
     when (it.lastEvent) {
         is RunUpdate -> {
-            if (it.infoBeforeEvent != null && it.lastEvent.newInfo.time >= it.infoBeforeEvent.freezeTime) {
+            if (it.infoBeforeEvent?.freezeTime != null && it.lastEvent.newInfo.time >= it.infoBeforeEvent.freezeTime) {
                 emit(
                     RunUpdate(
                         it.lastEvent.newInfo.copy(result = RunResult.InProgress(0.0))
@@ -25,7 +25,7 @@ public fun Flow<ContestState>.removeFrozenSubmissions(): Flow<ContestUpdate> = t
         is InfoUpdate -> {
             emit(it.lastEvent)
             if (it.lastEvent.newInfo.freezeTime != it.infoBeforeEvent?.freezeTime) {
-                val newFreeze = it.lastEvent.newInfo.freezeTime
+                val newFreeze = it.lastEvent.newInfo.freezeTime ?: Duration.INFINITE
                 val oldFreeze = it.infoBeforeEvent?.freezeTime ?: Duration.INFINITE
                 it.runsAfterEvent.values.filter { run ->
                     (run.time < newFreeze) != (run.time < oldFreeze)

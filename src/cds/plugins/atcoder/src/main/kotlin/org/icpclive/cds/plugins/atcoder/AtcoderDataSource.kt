@@ -128,11 +128,10 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
 
         val info = ContestInfo(
             name = "",
-            status = ContestStatus.byCurrentTime(settings.startTime, settings.contestLength),
             resultType = ContestResultType.IOI,
             startTime = settings.startTime,
             contestLength = settings.contestLength,
-            freezeTime = settings.contestLength,
+            freezeTime = null,
             problemList = problems,
             teamList = teams,
             groupList = emptyList(),
