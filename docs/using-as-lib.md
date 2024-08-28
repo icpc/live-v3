@@ -24,7 +24,7 @@ Add the following dependency to make everything accessible:
 
 ```kotlin
 dependencies {
-    implementation("com.github.icpc.live-v3:org.icpclive.cds.full:3.3.1")
+    implementation("com.github.icpc.live-v3:org.icpclive.cds.full:3.3.2")
 }
 ```
 
