@@ -98,7 +98,8 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             teamList = teams,
             groupList = emptyList(),
             organizationList = organizations,
-            penaltyRoundingMode = PenaltyRoundingMode.ZERO,
+            languagesList = emptyList(),
+            penaltyRoundingMode = PenaltyRoundingMode.ZERO
         )
         val submissions = submissionsLoader.load().mapNotNull { (k, v) ->
             if (v.task !in runningContestProblems && v.task !in finishedContestsProblems) {
@@ -109,7 +110,8 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 result = RunResult.InProgress(0.0),
                 problemId = v.task.toProblemId(),
                 teamId = v.user.toTeamId(),
-                time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO
+                time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO,
+                languageId = null,
             )
         }.associateBy { it.id }.toMutableMap()
         subchangesLoader.load().entries.sortedBy { it.value.time }.forEach { (_, it) ->

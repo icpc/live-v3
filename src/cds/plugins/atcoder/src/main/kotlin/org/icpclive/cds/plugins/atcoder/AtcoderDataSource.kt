@@ -76,7 +76,8 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
                     result = RunResult.InProgress(0.0),
                     problemId = problemId,
                     teamId = teamId,
-                    time = minOf(settings.contestLength, Clock.System.now() - settings.startTime)
+                    time = minOf(settings.contestLength, Clock.System.now() - settings.startTime),
+                    languageId = null
                 )
             )
         }
@@ -126,6 +127,16 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
             )
         }.sortedBy { it.id.value }
 
+        val runs = buildList {
+            for (teamResult in data.StandingsData) {
+                val teamId = teamResult.UserScreenName.toTeamId()
+                for ((problemId, problemResult) in teamResult.TaskResults) {
+                    runs[teamId to problemId.toProblemId()] = addNewRuns(teamId, problemId.toProblemId(), problemResult).also {
+                        addAll(it)
+                    }
+                }
+            }
+        }
         val info = ContestInfo(
             name = "",
             resultType = ContestResultType.IOI,
@@ -138,17 +149,9 @@ internal class AtcoderDataSource(val settings: AtcoderSettings) : FullReloadCont
             organizationList = emptyList(),
             penaltyRoundingMode = PenaltyRoundingMode.LAST,
             penaltyPerWrongAttempt = 5.minutes,
+            languagesList = runs.languages()
         )
-        val newRuns = buildList {
-            for (teamResult in data.StandingsData) {
-                val teamId = teamResult.UserScreenName.toTeamId()
-                for ((problemId, problemResult) in teamResult.TaskResults) {
-                    runs[teamId to problemId.toProblemId()] = addNewRuns(teamId, problemId.toProblemId(), problemResult).also {
-                        addAll(it)
-                    }
-                }
-            }
-        }
-        return ContestParseResult(info, newRuns, emptyList())
+
+        return ContestParseResult(info, runs, emptyList())
     }
 }

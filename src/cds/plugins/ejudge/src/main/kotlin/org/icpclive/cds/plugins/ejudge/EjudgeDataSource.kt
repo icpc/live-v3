@@ -112,6 +112,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 teamList = teams,
                 groupList = emptyList(),
                 organizationList = emptyList(),
+                languagesList = emptyList(),
                 penaltyRoundingMode = when (settings.resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                     ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
@@ -177,6 +178,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             problemId = problemId.toProblemId(),
             teamId = teamId,
             time = time,
+            languageId = null,
         )
     }
 

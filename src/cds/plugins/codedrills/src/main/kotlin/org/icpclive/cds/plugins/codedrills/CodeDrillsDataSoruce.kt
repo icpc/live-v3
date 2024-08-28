@@ -149,6 +149,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
                 problemId = it.problemId.toProblemId(),
                 teamId = memberIdToTeam[it.submittedBy]!!,
                 time = time,
+                languageId = it.programmingLanguage.name.toLanguageId()
             )
         }
 
@@ -170,7 +171,8 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
             },
             organizationList = scoreboard.scoreboard.rowList.map { it.team.institute }.distinct().map {
                 OrganizationInfo(it.toOrganizationId(), it, it, null)
-            }
+            },
+            languagesList = ProgrammingLanguage.entries.map { LanguageInfo(it.name.toLanguageId(), it.name, emptyList()) }
         )
         return ContestParseResult(contestInfo, submissions, emptyList())
     }

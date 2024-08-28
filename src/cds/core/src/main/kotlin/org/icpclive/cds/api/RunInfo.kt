@@ -26,6 +26,7 @@ public data class RunInfo(
     val teamId: TeamId,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
+    val languageId: LanguageId?,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val testedTime: Duration? = null,
     @Required val featuredRunMedia: MediaType? = null,

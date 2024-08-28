@@ -35,16 +35,17 @@ class ICPCScoreboardTest {
         ),
         groupList = emptyList(),
         organizationList = emptyList(),
+        languagesList = emptyList(),
         penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
     )
 
     @Test
     fun testRanks() {
         val runs = listOf(
-            RunInfo("1".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId4, 10.minutes),
-            RunInfo("3".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId1, 30.minutes),
-            RunInfo("4".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId3, 30.minutes),
-            RunInfo("5".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId2, 40.minutes),
+            RunInfo("1".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId4, 10.minutes, null),
+            RunInfo("3".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId1, 30.minutes, null),
+            RunInfo("4".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId3, 30.minutes, null),
+            RunInfo("5".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId2, 40.minutes, null),
         )
         val calculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
         val scoreboardRows = runs.groupBy { it.teamId }.mapValues { calculator.getScoreboardRow(info, it.value) }

@@ -193,6 +193,7 @@ internal class CFContestInfo {
                         problemId = problemId,
                         teamId = participantsByCdsId[getTeamCdsId(it.author)]!!.id,
                         time = it.relativeTimeSeconds,
+                        languageId = it.programmingLanguage.toLanguageId()
                     )
                     wrongs += if (it.processedVerdict?.isAddingPenalty == true) 1 else 0
                     run
@@ -225,7 +226,8 @@ internal class CFContestInfo {
                             },
                             problemId = HACKS_PROBLEM_ID,
                             teamId = participantsByCdsId[getTeamCdsId(hack.hacker)]!!.id,
-                            time = hack.creationTimeSeconds - startTime
+                            time = hack.creationTimeSeconds - startTime,
+                            languageId = null
                         )
                     )
                 }
@@ -240,7 +242,8 @@ internal class CFContestInfo {
                             isHidden = hack.verdict != CFHackVerdict.HACK_SUCCESSFUL,
                             problemId = problemsMap[hack.problem.index]!!.id,
                             teamId = participantsByCdsId[getTeamCdsId(hack.defender)]!!.id,
-                            time = hack.creationTimeSeconds - startTime
+                            time = hack.creationTimeSeconds - startTime,
+                            languageId = null
                         )
                     )
                 }
@@ -266,7 +269,8 @@ internal class CFContestInfo {
             CFContestType.IOI -> PenaltyRoundingMode.ZERO
             CFContestType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
         },
-        organizationList = emptyList()
+        organizationList = emptyList(),
+        languagesList = emptyList(),
     )
 
     companion object {

@@ -160,6 +160,33 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         val startTime = parseTime(result.startsAt)
         val contestLength = result.duration.seconds
         val freezeTime = result.scoreboard?.freezingTime?.seconds?.let { contestLength - it }
+        val runs = buildList {
+            var cursor: String? = null
+            while (true) {
+                val x = graphQLClient.submissions(
+                    contestId,
+                    cursor,
+                    100
+                )
+                addAll(x.submissions!!.nodes.map {
+                    val verdict = parseVerdict(it.status, it.verdict, it.percentage)
+                    RunInfo(
+                        id = it.id.toRunId(),
+                        result = when (resultType) {
+                            ContestResultType.ICPC -> verdict?.toICPCRunResult()
+                            ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
+                        } ?: RunResult.InProgress(0.0),
+                        problemId = it.problem!!.id.toProblemId(),
+                        teamId = it.participant!!.id.toTeamId(),
+                        time = parseTime(it.submittedAt) - startTime,
+                        isHidden = it.deleted,
+                        languageId = it.lang.toLanguageId()
+                    )
+                })
+                if (!x.submissions.pageInfo.hasNextPage) break
+                cursor = x.submissions.pageInfo.endCursor
+            }
+        }
         val contestInfo = ContestInfo(
             name = result.name,
             status = convertStatus(result.status, startTime, contestLength, freezeTime),
@@ -182,37 +209,12 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
             teamList = teams,
             groupList = emptyList(),
             organizationList = emptyList(),
+            languagesList = runs.languages(),
             penaltyRoundingMode = when (resultType) {
                 ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_UP_TO_MINUTE
                 ContestResultType.IOI -> PenaltyRoundingMode.ZERO
             }
         )
-        val runs = buildList {
-            var cursor: String? = null
-            while (true) {
-                val x = graphQLClient.submissions(
-                    contestId,
-                    cursor,
-                    100
-                )
-                addAll(x.submissions!!.nodes.map {
-                    val verdict = parseVerdict(it.status, it.verdict, it.percentage)
-                    RunInfo(
-                        id = it.id.toRunId(),
-                        result = when (resultType) {
-                            ContestResultType.ICPC -> verdict?.toICPCRunResult()
-                            ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
-                        } ?: RunResult.InProgress(0.0),
-                        problemId = it.problem!!.id.toProblemId(),
-                        teamId = it.participant!!.id.toTeamId(),
-                        time = parseTime(it.submittedAt) - startTime,
-                        isHidden = it.deleted
-                    )
-                })
-                if (!x.submissions.pageInfo.hasNextPage) break
-                cursor = x.submissions.pageInfo.endCursor
-            }
-        }
         return ContestParseResult(
             contestInfo,
             runs,

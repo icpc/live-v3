@@ -7,4 +7,6 @@ import org.icpclive.ksp.clics.*
 @EventSerialName("languages")
 public interface Language {
     @Required public val id: String
+    @Required public val name: String
+    @SinceClics(FeedVersion.`2022_07`) public val extensions: List<String>
 }

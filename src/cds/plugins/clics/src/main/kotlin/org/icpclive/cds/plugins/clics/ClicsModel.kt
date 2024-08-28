@@ -3,7 +3,7 @@ package org.icpclive.cds.plugins.clics
 import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
-import org.icpclive.cds.plugins.clics.model.ClicsOrganisationInfo
+import org.icpclive.cds.plugins.clics.model.ClicsOrganizationInfo
 import org.icpclive.clics.objects.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -12,7 +12,8 @@ import kotlin.time.Duration.Companion.minutes
 internal class ClicsModel {
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
-    private val organisations = mutableMapOf<String, ClicsOrganisationInfo>()
+    private val languages = mutableMapOf<String, Language>()
+    private val organizations = mutableMapOf<String, ClicsOrganizationInfo>()
     private val teams = mutableMapOf<String, Team>()
     private val submissions = mutableMapOf<String, Submission>()
     private val submissionJudgmentIds = mutableMapOf<String, MutableSet<String>>()
@@ -46,7 +47,7 @@ internal class ClicsModel {
     private fun Group.toApi(): GroupInfo = GroupInfo(id.toGroupId(), name!!, isHidden = false, isOutOfContest = false)
 
     private fun Team.toApi(): TeamInfo {
-        val teamOrganization = organizationId?.let { organisations[it] }
+        val teamOrganization = organizationId?.let { organizations[it] }
         return TeamInfo(
             id = id.toTeamId(),
             fullName = name,
@@ -102,6 +103,7 @@ internal class ClicsModel {
             time = contestTime,
             testedTime = judgment?.endContestTime,
             reactionVideos = reaction?.mapNotNull { mediaType(it) } ?: emptyList(),
+            languageId = languageId?.toLanguageId()
         )
     }
 
@@ -113,11 +115,17 @@ internal class ClicsModel {
         color = rgb?.let { Color.normalize(it) }
     )
 
-    private fun ClicsOrganisationInfo.toApi() = OrganizationInfo(
+    private fun ClicsOrganizationInfo.toApi() = OrganizationInfo(
         id = id.toOrganizationId(),
         displayName = name,
         fullName = formalName,
         logo = logo
+    )
+
+    private fun Language.toApi() = LanguageInfo(
+        id = id.toLanguageId(),
+        name = name,
+        extensions = extensions
     )
 
     val contestInfo: ContestInfo
@@ -132,7 +140,8 @@ internal class ClicsModel {
             groupList = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
-            organizationList = organisations.values.map { it.toApi() },
+            organizationList = organizations.values.map { it.toApi() },
+            languagesList = languages.values.map { it.toApi() },
             cdsSupportsFinalization = true
         )
 
@@ -151,6 +160,15 @@ internal class ClicsModel {
         }
     }
 
+    fun processLanguage(id: String, language: Language?) {
+        if (language == null) {
+            languages.remove(id)
+        } else {
+            require(id == language.id)
+            languages[language.id] = language
+        }
+    }
+
     fun processProblem(id: String, problem: Problem?) {
         if (problem == null) {
             problems.remove(id)
@@ -162,10 +180,10 @@ internal class ClicsModel {
 
     fun processOrganization(id: String, organization: Organization?) {
         if (organization == null) {
-            organisations.remove(id)
+            organizations.remove(id)
         } else {
             require(id == organization.id)
-            organisations[organization.id] = ClicsOrganisationInfo(
+            organizations[organization.id] = ClicsOrganizationInfo(
                 id = organization.id,
                 name = organization.name!!,
                 formalName = organization.formalName ?: organization.name!!,

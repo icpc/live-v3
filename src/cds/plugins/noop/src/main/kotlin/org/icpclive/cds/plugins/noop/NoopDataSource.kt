@@ -29,6 +29,7 @@ internal class NoopDataSource : ContestDataSource {
                 resultType = ContestResultType.ICPC,
                 groupList = emptyList(),
                 organizationList = emptyList(),
+                languagesList = emptyList(),
                 penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
             )
         )

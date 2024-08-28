@@ -8,6 +8,7 @@ export interface ContestInfo {
   teams: TeamInfo[];
   groups: GroupInfo[];
   organizations: OrganizationInfo[];
+  languages: LanguageInfo[];
   penaltyRoundingMode: PenaltyRoundingMode;
   emulationSpeed: number;
   awardsSettings: AwardsSettings;
@@ -129,6 +130,12 @@ export interface OrganizationInfo {
   logo: MediaType | null;
 }
 
+export interface LanguageInfo {
+  id: LanguageId;
+  name: string;
+  extensions: string[];
+}
+
 export type ProblemId = string;
 
 export enum ScoreMergeMode {
@@ -229,6 +236,8 @@ export namespace MediaType {
   }
 }
 
+export type LanguageId = string;
+
 export interface MedalSettings {
   id: string;
   citation: string;
@@ -276,6 +285,7 @@ export interface RunInfo {
   problemId: ProblemId;
   teamId: TeamId;
   time: number;
+  languageId: LanguageId | null;
   testedTime?: number | null;
   featuredRunMedia: MediaType | null;
   reactionVideos: MediaType[];

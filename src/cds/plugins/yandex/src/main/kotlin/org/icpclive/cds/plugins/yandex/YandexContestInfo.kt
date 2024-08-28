@@ -31,8 +31,7 @@ internal class YandexContestInfo(
     private val problems = problems.mapIndexed { index, it -> it.toApi(index, resultType) }
     private val teams =  participants.map { it.toTeamInfo() }.sortedBy { it.id.value }
     private val teamIds = participants.associate { it.id to it.login }
-    private val testCountByProblem = problems.map { it.id to it.testCount }.toMap()
-
+    private val testCountByProblem = problems.associate { it.id to it.testCount }
 
 
     fun submissionToRun(submission: Submission): RunInfo {
@@ -62,6 +61,7 @@ internal class YandexContestInfo(
             problemId = submission.problemId.toProblemId(),
             teamId = teamIds[submission.authorId]!!.toTeamId(),
             time = submission.timeFromStart,
+            languageId = null
         )
     }
 
@@ -75,6 +75,7 @@ internal class YandexContestInfo(
         teamList = teams,
         groupList = emptyList(),
         organizationList = emptyList(),
+        languagesList = emptyList(),
         penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE
     )
 }

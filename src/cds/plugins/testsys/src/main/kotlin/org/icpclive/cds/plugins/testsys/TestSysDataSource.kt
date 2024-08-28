@@ -82,6 +82,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
             penaltyRoundingMode = PenaltyRoundingMode.SUM_DOWN_TO_MINUTE,
             groupList = emptyList(),
             organizationList = emptyList(),
+            languagesList = emptyList()
         )
         val runs = (data["@s"] ?: emptyList()).mapIndexed { index, subm ->
             val (teamId, problemId, _, time, verdict) = subm.splitCommas()
@@ -99,6 +100,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                 problemId = problemId.toProblemId(),
                 teamId = teamId.toTeamId(),
                 time = time.toInt().seconds,
+                languageId = null
             )
         }
         return ContestParseResult(

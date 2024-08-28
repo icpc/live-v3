@@ -138,6 +138,17 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
             contestLength
         }
 
+        val runs: List<RunInfo> = submissions.map {
+            RunInfo(
+                id = it.id.toRunId(),
+                result = getRunResult(it.res, it.status) ?: RunResult.InProgress(0.0),
+                problemId = it.taskId.toProblemId(),
+                teamId = it.teamId.toTeamId(),
+                time = parseNSUTime(it.smtime) - startTime,
+                languageId = null
+            )
+        }
+
         val info = ContestInfo(
             name = contestName,
             resultType = ContestResultType.ICPC,
@@ -148,18 +159,9 @@ internal class NSUDataSource(val settings: NSUSettings) : FullReloadContestDataS
             teamList = teamList,
             groupList = emptyList(),
             organizationList = emptyList(),
-            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+            languagesList = runs.languages(),
+            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
         )
-
-        val runs: List<RunInfo> = submissions.map {
-            RunInfo(
-                id = it.id.toRunId(),
-                result = getRunResult(it.res, it.status) ?: RunResult.InProgress(0.0),
-                problemId = it.taskId.toProblemId(),
-                teamId = it.teamId.toTeamId(),
-                time = parseNSUTime(it.smtime) - startTime
-            )
-        }
 
         return ContestParseResult(info, runs, emptyList())
 

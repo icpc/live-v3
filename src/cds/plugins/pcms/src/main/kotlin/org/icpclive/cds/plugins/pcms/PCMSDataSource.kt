@@ -80,6 +80,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             log.info { "Loaded contestInfo for time = $contestTime" }
         }
         val teams = teamsAndRuns.map { it.first }.sortedBy { it.id.value }
+        val runs = teamsAndRuns.flatMap { it.second }
         return ContestParseResult(
             ContestInfo(
                 name = element.getAttribute("name"),
@@ -91,12 +92,13 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 teamList = teams,
                 groupList = teams.flatMap { it.groups }.distinct().map { GroupInfo(it, it.value, isHidden = false, isOutOfContest = false) },
                 organizationList = emptyList(),
+                languagesList = runs.languages(),
                 penaltyRoundingMode = when (resultType) {
                     ContestResultType.IOI -> PenaltyRoundingMode.ZERO
                     ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
                 }
             ),
-            teamsAndRuns.flatMap { it.second },
+            runs,
             emptyList()
         )
     }
@@ -178,6 +180,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             problemId = problemId,
             teamId = teamId,
             time = time,
+            languageId = element.getAttribute("language-id").takeIf { it.isNotEmpty() }?.toLanguageId()
         )
     }
 

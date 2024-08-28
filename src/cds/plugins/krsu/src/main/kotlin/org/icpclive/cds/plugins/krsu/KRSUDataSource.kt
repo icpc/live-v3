@@ -68,6 +68,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                 problemId = it.Problem.toProblemId(),
                 teamId = it.Login.toTeamId(),
                 time = (it.ReceivedTime.toInstant(settings.timeZone)) - startTime,
+                languageId = null,
             )
         }.toList()
 
@@ -82,7 +83,8 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                 teamList = teams.values.toList(),
                 groupList = emptyList(),
                 organizationList = emptyList(),
-                penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+                penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
+                languagesList = emptyList()
             ),
             runs,
             emptyList()

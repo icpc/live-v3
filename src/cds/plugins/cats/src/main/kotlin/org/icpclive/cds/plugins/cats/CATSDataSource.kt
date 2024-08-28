@@ -177,28 +177,12 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
         val contestLength = contest.finish_date.toInstant(settings.timeZone) - startTime
         val freezeTime = contest.freeze_date.toInstant(settings.timeZone) - startTime
 
-        val contestInfo = ContestInfo(
-            name = contest.title,
-            resultType = settings.resultType,
-            startTime = startTime,
-            contestLength = contestLength,
-            freezeTime = freezeTime,
-            problemList = problemsList,
-            teamList = teamList,
-            groupList = emptyList(),
-            organizationList = emptyList(),
-            penaltyRoundingMode = when (settings.resultType) {
-                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
-                ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
-            }
-        )
-
         val resultRuns = runs
             .asSequence()
             .filterIsInstance<Submit>()
             .map {
                 val result = if (it.state_text.isNotEmpty()) {
-                    when (contestInfo.resultType) {
+                    when (settings.resultType) {
                         ContestResultType.ICPC -> Verdict.lookup(
                             shortName = it.state_text,
                             isAccepted = ("OK" == it.state_text),
@@ -213,11 +197,30 @@ internal class CATSDataSource(val settings: CatsSettings) : FullReloadContestDat
                     result = result,
                     problemId = it.problem_id.toProblemId(),
                     teamId = it.team_id.toTeamId(),
-                    time = it.submit_time - startTime
+                    time = it.submit_time - startTime,
+                    languageId = null
                 )
             }
             .toList()
             .sortedBy { it.time }
+
+        val contestInfo = ContestInfo(
+            name = contest.title,
+            resultType = settings.resultType,
+            startTime = startTime,
+            contestLength = contestLength,
+            freezeTime = freezeTime,
+            problemList = problemsList,
+            teamList = teamList,
+            groupList = emptyList(),
+            organizationList = emptyList(),
+            penaltyRoundingMode = when (settings.resultType) {
+                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+            },
+            languagesList = resultRuns.languages(),
+        )
+
 
         return ContestParseResult(
             contestInfo,

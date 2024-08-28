@@ -84,7 +84,7 @@ object PCMSExporter {
             is RunResult.ICPC, is RunResult.InProgress -> "0"
             is RunResult.IOI -> result.score.sum().toString()
         })
-        //setAttribute("language-id", "")
+        setAttributeIfNotNull("language-id", info.languageId?.value)
         setAttribute("run-id", info.id.toString())
         setAttribute("outcome", convertOutcome((info.result as? RunResult.ICPC)?.verdict))
     }

@@ -54,6 +54,13 @@ private fun OrganizationInfo.toClicsOrg() = Organization(
     logo = listOfNotNull(logo?.toClicsMedia())
 )
 
+private fun LanguageInfo.toClicsLang() = Language(
+    id = id.value,
+    name = name,
+    extensions = extensions
+)
+
+
 private fun MediaType.toClicsMedia() = when (this) {
     is MediaType.Object -> null
     is MediaType.Image -> File("image", Url(url))
@@ -106,11 +113,11 @@ object ClicsExporter  {
         it.toJudgmentType()
     }
 
-    private val unknownLanguage = Language(
-        "unknown",
+    private val unknownLanguage = LanguageInfo(
+        id = "unknown".toLanguageId(),
+        name = "unknown",
+        extensions = emptyList()
     )
-
-    private val languages = listOf(unknownLanguage)
 
     private suspend fun <ID, T> FlowCollector<EventProducer>.updateEvent(id: ID, data: T, block : (ID, String, T?) -> Event) = emit {
         block(id, it, data)
@@ -216,7 +223,7 @@ object ClicsExporter  {
                 run.id.toString(),
                 Submission(
                     id = run.id.toString(),
-                    languageId = unknownLanguage.id,
+                    languageId = (run.languageId ?: unknownLanguage.id).value,
                     problemId = run.problemId.value,
                     teamId = run.teamId.value,
                     time = info.startTimeOrZero + run.time,
@@ -251,6 +258,7 @@ object ClicsExporter  {
 
     private val groupsMap = mutableMapOf<GroupId, GroupInfo>()
     private val orgsMap = mutableMapOf<OrganizationId, OrganizationInfo>()
+    private val languagesMap = mutableMapOf<LanguageId, LanguageInfo>()
     private val problemsMap = mutableMapOf<ProblemId, ProblemInfo>()
     private val teamsMap = mutableMapOf<TeamId, TeamInfo>()
 
@@ -262,18 +270,17 @@ object ClicsExporter  {
             for (type in judgmentTypes.values) {
                 updateEvent(type.id, type, ::JudgementTypeEvent)
             }
-            for (language in languages) {
-                updateEvent(language.id, language, ::LanguageEvent)
-            }
         }
         diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> ProblemEvent(id.value, token, data) }
         diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> GroupEvent(id.value, token, data) }
         diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> OrganizationEvent(id.value, token, data) }
+        diffChange(languagesMap, newInfo.languagesList + unknownLanguage, { id }, { toClicsLang() }) { id, token, data -> LanguageEvent(id.value, token, data) }
 
         diff(teamsMap, newInfo.teamList, { id }, TeamInfo::toClicsTeam) { id, token, data -> TeamEvent(id.value, token, data) }
 
         diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> GroupEvent(id.value, token, data) }
         diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> OrganizationEvent(id.value, token, data) }
+        diffRemove(languagesMap, newInfo.languagesList + unknownLanguage, { id }) { id, token, data -> LanguageEvent(id.value, token, data) }
     }
 
     private suspend fun FlowCollector<EventProducer>.processAnalytics(message: AnalyticsMessage) {

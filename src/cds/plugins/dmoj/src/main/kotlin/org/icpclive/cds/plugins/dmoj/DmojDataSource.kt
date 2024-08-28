@@ -103,45 +103,6 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
             else -> error("Unknown contest format: ${contest.format.name}")
         }
         val startTimeMap = mutableMapOf<TeamId, Instant>()
-        val info = ContestInfo(
-            name = contest.name,
-            resultType = resultType,
-            startTime = contest.start_time,
-            contestLength = contestLength,
-            freezeTime = null,
-            penaltyRoundingMode = when (resultType) {
-                ContestResultType.ICPC -> PenaltyRoundingMode.SUM_IN_SECONDS
-                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
-            },
-            groupList = emptyList(),
-            teamList = contest.rankings.map {
-                TeamInfo(
-                    id = it.user.toTeamId(),
-                    displayName = it.user,
-                    fullName = it.user,
-                    groups = emptyList(),
-                    hashTag = null,
-                    medias = emptyMap(),
-                    isHidden = it.is_disqualified == true,
-                    isOutOfContest = false,
-                    organizationId = null
-                ).also { team ->
-                    startTimeMap[team.id] = it.start_time ?: contest.start_time
-                }
-            },
-            organizationList = emptyList(),
-            problemList = contest.problems.mapIndexed { index, it ->
-                ProblemInfo(
-                    id = it.code.toProblemId(),
-                    displayName = it.label,
-                    fullName = it.name,
-                    ordinal = index,
-                    minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
-                    maxScore = if (resultType == ContestResultType.IOI) it.points.toDouble() else null,
-                    scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.LAST_OK else null
-                )
-            }
-        )
         val submissions = buildList {
             var page = 0
             val loader = DataLoader.json<Wrapper<SubmissionsResult>>(
@@ -183,13 +144,54 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
                             result = result,
                             problemId = submission.problem.toProblemId(),
                             teamId = submission.user.toTeamId(),
-                            time = time
+                            time = time,
+                            languageId = null
                         )
                     )
                 }
                 if (!data.has_more) break
             }
         }
+        val info = ContestInfo(
+            name = contest.name,
+            resultType = resultType,
+            startTime = contest.start_time,
+            contestLength = contestLength,
+            freezeTime = null,
+            penaltyRoundingMode = when (resultType) {
+                ContestResultType.ICPC -> PenaltyRoundingMode.SUM_IN_SECONDS
+                ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+            },
+            groupList = emptyList(),
+            teamList = contest.rankings.map {
+                TeamInfo(
+                    id = it.user.toTeamId(),
+                    displayName = it.user,
+                    fullName = it.user,
+                    groups = emptyList(),
+                    hashTag = null,
+                    medias = emptyMap(),
+                    isHidden = it.is_disqualified == true,
+                    isOutOfContest = false,
+                    organizationId = null
+                ).also { team ->
+                    startTimeMap[team.id] = it.start_time ?: contest.start_time
+                }
+            },
+            organizationList = emptyList(),
+            problemList = contest.problems.mapIndexed { index, it ->
+                ProblemInfo(
+                    id = it.code.toProblemId(),
+                    displayName = it.label,
+                    fullName = it.name,
+                    ordinal = index,
+                    minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
+                    maxScore = if (resultType == ContestResultType.IOI) it.points.toDouble() else null,
+                    scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.LAST_OK else null
+                )
+            },
+            languagesList = submissions.languages()
+        )
         return ContestParseResult(info, submissions, emptyList())
     }
 }

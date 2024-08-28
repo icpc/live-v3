@@ -63,11 +63,30 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
         result = code.toVerdict().toICPCRunResult(),
         problemId = task_id.toProblemId(),
         teamId = user_id.toTeamId(),
-        time = elapsed_seconds.seconds
+        time = elapsed_seconds.seconds,
+        languageId = null
     )
 
     override suspend fun loadOnce(): ContestParseResult {
         val submissions = loader.load()
+        val runs = submissions
+            .filter { it.elapsed_seconds <= settings.contestLength.inWholeSeconds }
+            .filter {
+                when {
+                    it.user_id !in settings.teamIds -> {
+                        log.error { "Submission from unknown user ${it.user_id}" }
+                        false
+                    }
+
+                    it.task_id !in settings.problemIds -> {
+                        log.error { "Submission for unknown problem ${it.task_id}" }
+                        false
+                    }
+
+                    else -> true
+                }
+            }
+            .map { it.toRun() }
         return ContestParseResult(
             ContestInfo(
                 name = settings.contestName,
@@ -98,24 +117,10 @@ internal class AllCupsDataSource(val settings: AllCupsSettings) : FullReloadCont
                         fullName = "",
                         ordinal = index
                     )
-                }
+                },
+                languagesList = runs.languages(),
             ),
-            submissions
-                .filter { it.elapsed_seconds <= settings.contestLength.inWholeSeconds }
-                .filter {
-                    when  {
-                        it.user_id !in settings.teamIds -> {
-                            log.error { "Submission from unknown user ${it.user_id}" }
-                            false
-                        }
-                        it.task_id !in settings.problemIds -> {
-                            log.error { "Submission for unknown problem ${it.task_id}" }
-                            false
-                        }
-                        else -> true
-                    }
-                }
-                .map { it.toRun() },
+            runs,
             emptyList()
         )
     }

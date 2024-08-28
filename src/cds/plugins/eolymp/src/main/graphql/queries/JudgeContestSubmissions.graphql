@@ -15,6 +15,7 @@ query JudgeContestSubmissions($id: ID!, $after: String, $count: Int!) {
                 verdict
                 score
                 status
+                lang
                 groups {
                     score
                 }

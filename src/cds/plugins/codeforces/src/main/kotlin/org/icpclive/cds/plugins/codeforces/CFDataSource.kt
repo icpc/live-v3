@@ -3,6 +3,7 @@ package org.icpclive.cds.plugins.codeforces
 import kotlinx.datetime.Clock
 import org.icpclive.cds.*
 import org.icpclive.cds.api.ContestStatus
+import org.icpclive.cds.api.languages
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.codeforces.api.data.CFHack
@@ -91,7 +92,7 @@ internal class CFDataSource(val settings: CFSettings) : FullReloadContestDataSou
             is ContestStatus.BEFORE -> emptyList()
             else -> contestInfo.parseHacks(hacksLoader.load())
         }
-        return ContestParseResult(contestInfo.toApi(), runs + hacks, emptyList())
+        return ContestParseResult(contestInfo.toApi().copy(languagesList = runs.languages()), runs + hacks, emptyList())
     }
 
     companion object {

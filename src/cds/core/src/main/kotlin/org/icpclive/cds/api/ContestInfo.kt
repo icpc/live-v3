@@ -172,6 +172,7 @@ public data class ContestInfo(
     @InefficientContestInfoApi @SerialName("teams") val teamList: List<TeamInfo>,
     @InefficientContestInfoApi @SerialName("groups") val groupList: List<GroupInfo>,
     @InefficientContestInfoApi @SerialName("organizations") val organizationList: List<OrganizationInfo>,
+    @InefficientContestInfoApi @SerialName("languages") val languagesList: List<LanguageInfo>,
     val penaltyRoundingMode: PenaltyRoundingMode,
     @Required val emulationSpeed: Double = 1.0,
     @Required val awardsSettings: AwardsSettings = AwardsSettings(),
@@ -189,6 +190,7 @@ public data class ContestInfo(
         teamList: List<TeamInfo>,
         groupList: List<GroupInfo>,
         organizationList: List<OrganizationInfo>,
+        languagesList: List<LanguageInfo>,
         penaltyRoundingMode: PenaltyRoundingMode,
         penaltyPerWrongAttempt: Duration = 20.minutes,
         cdsSupportsFinalization: Boolean = false,
@@ -197,6 +199,7 @@ public data class ContestInfo(
             status = ContestStatus.byCurrentTime(startTime, freezeTime, contestLength),
             resultType = resultType, contestLength = contestLength, freezeTime = freezeTime,
             problemList = problemList, teamList = teamList, groupList = groupList, organizationList = organizationList,
+            languagesList = languagesList,
             penaltyRoundingMode = penaltyRoundingMode,
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             cdsSupportsFinalization = cdsSupportsFinalization,
@@ -206,6 +209,7 @@ public data class ContestInfo(
     val teams: Map<TeamId, TeamInfo> by lazy { teamList.associateBy { it.id } }
     val organizations: Map<OrganizationId, OrganizationInfo> by lazy { organizationList.associateBy { it.id } }
     val problems: Map<ProblemId, ProblemInfo> by lazy { problemList.associateBy { it.id } }
+    val languages: Map<LanguageId, LanguageInfo> by lazy { languagesList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
 }
 
@@ -225,3 +229,7 @@ public val ContestInfo.currentContestTime: Duration
         is ContestStatus.RUNNING -> (Clock.System.now() - status.startedAt) * emulationSpeed
         is ContestStatus.OVER, is ContestStatus.FINALIZED -> contestLength
     }
+
+public fun List<RunInfo>.languages(): List<LanguageInfo> = mapNotNull { it.languageId }.distinct().sortedBy { it.value }.map {
+    LanguageInfo(it, it.value, emptyList())
+}

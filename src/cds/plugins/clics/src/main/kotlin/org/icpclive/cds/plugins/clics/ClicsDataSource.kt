@@ -2,7 +2,6 @@ package org.icpclive.cds.plugins.clics
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.datetime.Clock
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
@@ -74,12 +73,13 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             is ContestEvent -> 0
             is StateEvent -> 1
             is JudgementTypeEvent -> 2
-            is OrganizationEvent -> 3
-            is GroupEvent -> 4
-            is TeamEvent -> 5
-            is ProblemEvent -> 6
+            is LanguageEvent -> 3
+            is OrganizationEvent -> 4
+            is GroupEvent -> 5
+            is TeamEvent -> 6
+            is ProblemEvent -> 7
             is PreloadFinishedEvent -> throw IllegalStateException()
-            is AwardEvent, is LanguageEvent, is AccountEvent, is PersonEvent -> 8
+            is AwardEvent, is AccountEvent, is PersonEvent -> 8
         }
 
         fun priority(event: UpdateRunEvent) = when (event) {
@@ -129,11 +129,12 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         is StateEvent -> model.processState(it.data!!)
                         is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
                         is GroupEvent -> model.processGroup(it.id, it.data)
+                        is LanguageEvent -> model.processLanguage(it.id, it.data)
                         is PreloadFinishedEvent -> {
                             preloadFinished = true
                         }
 
-                        is AwardEvent, is LanguageEvent, is AccountEvent, is PersonEvent -> {}
+                        is AwardEvent, is AccountEvent, is PersonEvent -> {}
                     }
                     if (preloadFinished) {
                         onContestInfo(model.contestInfo)
