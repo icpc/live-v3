@@ -22,7 +22,7 @@ Welcome to the ICPC Live Source Code Repository.
 * Add a source to OBS
     * +Source
     * Browser
-    * URL http://localhost:8080/overlay?noStatus
+    * URL http://localhost:8080/overlay?noStatus&teamMediaAudio
     * W H 1920x1080
     * OBS Custom css: 
   ```css
@@ -30,6 +30,8 @@ Welcome to the ICPC Live Source Code Repository.
       background: unset;
   }
   ```
+
+  NOTE: use can set parameter `teamMediaAudio=false`, to mute team media audio 
 
 * Use [admin interface](http://localhost:8080/admin) in your browser to control overlay
 * Check general broadcast production [schema](https://docs.google.com/document/d/1JcOhmkvbRtG3MLLYUpzVBMqiQOoNpamOz-MvppCgcYk) for other details of typical setup

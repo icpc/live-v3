@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ScoreboardTaskResultLabel } from "../../organisms/widgets/Scoreboard";
+import { ProblemResult } from "@shared/api";
 
 
 const TimeCell = styled.div`
@@ -18,7 +19,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
 `;
 
-const SubmissionRowWrap = styled.div<{roundB: boolean}>`
+const SubmissionRowWrap = styled.div`
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -30,8 +31,6 @@ const SubmissionRowWrap = styled.div<{roundB: boolean}>`
   color: white;
 
   background-color: ${c.CONTESTER_BACKGROUND_COLOR};
-  border-top-left-radius: ${props => props.roundB ? "16px" : "0px"};
-  border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
 `;
 
 const SubmissionColumnWrap = styled.div`
@@ -59,8 +58,8 @@ const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
   text-align: center;
 `;
 
-export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, roundB }) => {
-    return <SubmissionRowWrap roundB={roundB}>
+export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor }) => {
+    return <SubmissionRowWrap>
         <TimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</TimeCell>
         <QueueProblemLabel letter={problemLetter} problemColor={problemColor} />
         <SubmissionRowTaskResultLabel problemResult={result} minScore={minScore} maxScore={maxScore}/>
@@ -79,9 +78,20 @@ const PVPResultLabel = styled(ScoreboardTaskResultLabel)`
 
 const PVPTimeCell = styled(TimeCell)`
   order: 2;
+  width: 100%;
 `;
 
-export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }) => {
+export type VerticalSubmissionRowProps = {
+    result: ProblemResult;
+    lastSubmitTimeMs?: number;
+    minScore?: number;
+    maxScore?: number;
+    problemLetter?: string;
+    problemColor?: string;
+    isTop?: boolean;
+}
+
+export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }: VerticalSubmissionRowProps) => {
     if (!result || !problemColor || !problemLetter || !lastSubmitTimeMs) {
         return <SubmissionColumnWrap>
             <div style={{ order: isTop ? 1 : 3 }}/>
@@ -91,7 +101,7 @@ export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxS
     }
     return <SubmissionColumnWrap>
         <PVPResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isTop={isTop}/>
-        <PVPTimeCell>{DateTime.fromMillis(-1).toFormat("H:mm")}</PVPTimeCell>
+        <PVPTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</PVPTimeCell>
         <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
     </SubmissionColumnWrap>;
 };

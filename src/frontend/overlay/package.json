@@ -48,6 +48,8 @@
     "@swc/core": "~1.6.0",
     "@types/lodash": "^4.14.202",
     "@types/luxon": "^3.4.2",
+    "@types/react": "^18.3.3",
+    "@types/react-transition-group": "^4.4.11",
     "@types/styled-components": "^5.1.30",
     "concurrently": "^8.2.2",
     "postcss-styled-syntax": "^0.5.0",

@@ -157,8 +157,6 @@ export type MediaType =
   | MediaType.Image
   | MediaType.M2tsVideo
   | MediaType.Object
-  | MediaType.TaskStatus
-  | MediaType.TimeLine
   | MediaType.Video
   | MediaType.WebRTCGrabberConnection
   | MediaType.WebRTCProxyConnection;
@@ -169,8 +167,6 @@ export namespace MediaType {
     Image = "Image",
     M2tsVideo = "M2tsVideo",
     Object = "Object",
-    TaskStatus = "TaskStatus",
-    TimeLine = "TimeLine",
     Video = "Video",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
@@ -180,43 +176,30 @@ export namespace MediaType {
     type: MediaType.Type.HLSVideo;
     url: string;
     jwtToken?: string | null;
-    isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface Image {
     type: MediaType.Type.Image;
     url: string;
-    isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface M2tsVideo {
     type: MediaType.Type.M2tsVideo;
     url: string;
-    isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface Object {
     type: MediaType.Type.Object;
     url: string;
-    isMedia?: boolean;
-  }
-  
-  export interface TaskStatus {
-    type: MediaType.Type.TaskStatus;
-    teamId: TeamId;
-    isMedia?: boolean;
-  }
-  
-  export interface TimeLine {
-    type: MediaType.Type.TimeLine;
-    teamId: TeamId;
-    isMedia?: boolean;
   }
   
   export interface Video {
     type: MediaType.Type.Video;
     url: string;
-    isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface WebRTCGrabberConnection {
@@ -225,14 +208,14 @@ export namespace MediaType {
     peerName: string;
     streamType: string;
     credential: string | null;
-    isMedia?: boolean;
+    vertical?: boolean;
   }
   
   export interface WebRTCProxyConnection {
     type: MediaType.Type.WebRTCProxyConnection;
     url: string;
     audioUrl?: string | null;
-    isMedia?: boolean;
+    vertical?: boolean;
   }
 }
 
@@ -588,8 +571,13 @@ export interface TeamLocatorSettings {
 }
 
 export interface OverlayTeamViewSettings {
-  content?: MediaType[];
-  position?: TeamViewPosition;
+  teamId: TeamId;
+  primary: MediaType | null;
+  secondary: MediaType | null;
+  showTaskStatus: boolean;
+  achievement: MediaType | null;
+  showTimeLine: boolean;
+  position: TeamViewPosition;
 }
 
 export interface TickerSettings {

@@ -7,7 +7,6 @@ import { SCOREBOARD_TYPES } from "@/consts";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel, RunStatusLabel } from "../../atoms/ContestLabels";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
-import { ContestantViewHolder } from "../holder/ContestantViewHolder";
 import { useDelayedBoolean } from "@/utils/hooks/withTimeoutAfterRender";
 import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
@@ -15,6 +14,7 @@ import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
 import { Award, RunInfo, Widget } from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
+import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 
 // const MAX_QUEUE_ROWS_COUNT = 20;
 
@@ -370,13 +370,6 @@ const StyledFeatured = styled.div<{additional: CSSObject}>`
   ${({ additional }) => additional}
 `;
 
-const QueueTeamView = styled(ContestantViewHolder)`
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative; /* fixme: ContestantViewHolder should be semantically relative and follow the flow. */
-`;
-
 export const Featured = ({ runInfo }) => {
     return <TransitionGroup component={null}>
         {runInfo && <Transition timeout={c.QUEUE_ROW_FEATURED_RUN_APPEAR_TIME} key={runInfo.id}>
@@ -384,8 +377,10 @@ export const Featured = ({ runInfo }) => {
                 const realState = runInfo.isFeaturedRunMediaLoaded ? state : "exited";
                 return (
                     <StyledFeatured additional={appearStatesFeatured[realState]}>
-                        <QueueTeamView media={runInfo.featuredRunMedia}
-                            onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}/>
+                        <TeamMediaHolder
+                            media={runInfo.featuredRunMedia}
+                            onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}
+                        />
                         <QueueRow runInfo={runInfo}/>
                     </StyledFeatured>
                 );

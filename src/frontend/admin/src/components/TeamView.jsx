@@ -323,11 +323,9 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
     const [timeLineShown, setTimeLineShown] = useState(false);
 
     const [allowedMediaTypes, disableMediaTypes] = useMemo(() => [
-            DEFAULT_MEDIA_TYPES.filter(m => m && (selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m))),
-            DEFAULT_MEDIA_TYPES.filter(m => m && !(selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m)))
+        DEFAULT_MEDIA_TYPES.filter(m => m && (selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m))),
+        DEFAULT_MEDIA_TYPES.filter(m => m && !(selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m)))
     ], [teamsAvailableMedias, selectedTeam]);
-
-    console.log(allowedMediaTypes);
 
 
     useEffect(() => {
@@ -358,9 +356,8 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
             if (rawTeams.some(t => t.medias.achievement)) {
                 setAchievementShown(true);
             }
-            console.log()
         }
-    }, [status, mediaType1, setMediaType1, mediaType2, setMediaType2, setAchievementShown, rawTeams]);
+    }, [status, mediaType1, setMediaType1, mediaType2, setMediaType2, setAchievementShown, rawTeams, variant]);
 
     useEffect(() => {
         // rawTeams.any(t => t);
@@ -371,8 +368,8 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
             mediaTypes: [mediaType1, mediaType2].filter(i => i),
             teamId: selectedTeamId,
             showTaskStatus: statusShown,
-            showAchievement: achievementShown && variant === "single",
-            showTimeLine: timeLineShown,
+            showAchievement: achievementShown && (variant !== "splitScreen"),
+            showTimeLine: timeLineShown && variant === "single",
         };
         if (isMultipleMode) {
             currentService.editPreset(selectedInstance, settings);
@@ -473,13 +470,13 @@ const TeamViewManager = ({ singleService, pvpService, splitService }) => {
                                     <FormLabel component="legend">Name, ranking, submissions</FormLabel>
                                 </Grid>
                                 <Grid item xs={2} sm={8}>
-                                        <ShowPresetButton
-                                            checked={statusShown}
-                                            onClick={(v) => setStatusShown(v)}
-                                            sx={{ justifyContent: "flex-start" }}
-                                        />
+                                    <ShowPresetButton
+                                        checked={statusShown}
+                                        onClick={(v) => setStatusShown(v)}
+                                        sx={{ justifyContent: "flex-start" }}
+                                    />
                                 </Grid>
-                                {variant === "single" && (
+                                {variant !== "splitScreen" && (
                                     <>
                                         <Grid item xs={10} sm={4}>
                                             <FormLabel component="legend">Achievements</FormLabel>
