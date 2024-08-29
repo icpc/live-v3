@@ -41,22 +41,37 @@ const TimeLineContainer = styled.div`
     position: relative;
 `;
 
-const Line = styled.div<{ width: number }>`
-    width: ${({ width }) => width}%;
+interface LineProps {
+    width: number;
+}
+
+
+const Line = styled.div.attrs<LineProps>(({ width }) => ({
+    style: {
+        width: `${width}%`,
+    },
+}))`
     height: ${c.TIMLINE_LINE_HEIGHT};
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     position: absolute;
 `;
 
-const CircleAtEnd = styled.div<{ lineWidth: number }>`
+interface CircleAtEndProps {
+    lineWidth: number;
+}
+
+const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
+    style: {
+        left: `${lineWidth}%`,
+    },
+}))`
     width: 10px;
     height: 10px;
-    background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     border-radius: 50%;
     position: absolute;
     top: 50%;
-    left: ${({ lineWidth }) => lineWidth + "%"};
     transform: translate(-50%, -50%);
+    background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
 `;
 
 const Circle = styled.div`
