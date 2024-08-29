@@ -42,15 +42,15 @@ const TimeLineContainer = styled.div`
 `;
 
 interface LineProps {
-    width: number;
+    lineWidth: number;
 }
 
 
-const Line = styled.div.attrs<LineProps>(({ width }) => ({
+const Line = styled.div.attrs<LineProps>(({ lineWidth }) => ({
     style: {
-        width: `${width}%`,
+        width: `${lineWidth}%`,
     },
-}))`
+}))<LineProps>`
     height: ${c.TIMLINE_LINE_HEIGHT};
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     position: absolute;
@@ -64,7 +64,7 @@ const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
     style: {
         left: `${lineWidth}%`,
     },
-}))`
+}))<CircleAtEndProps>`
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -215,7 +215,7 @@ export const TimeLine = ({ teamId, className = null }) => {
             const currentTime = Date.now();
             const elapsedTime = currentTime - contestInfo?.startTimeUnixMs;
             const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 1000);
-            setLineWidth(progress);
+            setLineWidth(progress * 0.983);
         };
 
         const interval = setInterval(updateLineWidth, 1000);
@@ -228,7 +228,7 @@ export const TimeLine = ({ teamId, className = null }) => {
 
     return (
         <TimeLineContainer className={className}>
-            <Line width={lineWidth} />
+            <Line lineWidth={lineWidth} />
             <CircleAtEnd lineWidth={lineWidth}/>
             {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
                 <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"}
