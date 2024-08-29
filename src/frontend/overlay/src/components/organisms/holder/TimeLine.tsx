@@ -4,6 +4,7 @@ import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
 import { RunResult } from "@shared/api";
+import { getStartTime } from "@/components/molecules/Clock";
 
 const ChangeProblemAnimation = keyframes`
     0% {
@@ -213,7 +214,7 @@ export const TimeLine = ({ teamId, className = null }) => {
         const updateLineWidth = () => {
             if (!contestInfo) return;
             const currentTime = Date.now();
-            const elapsedTime = currentTime - contestInfo?.startTimeUnixMs;
+            const elapsedTime = currentTime - getStartTime(contestInfo?.status);
             const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 1000);
             setLineWidth(progress * 0.983);
         };
