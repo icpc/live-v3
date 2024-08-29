@@ -159,6 +159,7 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber + c.TIMLINE_CIRCLE_RADIUS / 2;
     const left = (100 * problemResult.time / contestLengthMs) * 0.983;
     const color = getColor(problemResult, contestInfo);
+    const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
 
     return (
         <ProblemWrap left={left + "%"} top={top + "px"} key={animationKey}>
@@ -166,9 +167,9 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
             <Label>
                 {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
                     && !problemResult.isAccepted) 
-                    && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
+                    && <ProblemWithAnimation>{letter}</ProblemWithAnimation> }
                 {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                    && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
+                    && !problemResult.isAccepted) && <Text>{letter}</Text>}
                 {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted
                     && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
                 {problemResult.type === RunResult.Type.IOI 
