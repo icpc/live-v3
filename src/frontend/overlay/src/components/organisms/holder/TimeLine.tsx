@@ -38,13 +38,25 @@ const TimeLineContainer = styled.div`
     display: grid;
     height: ${c.TIMELINE_WRAP_HEIGHT + "px"};
     background-color: ${c.CONTEST_COLOR};
+    position: relative;
 `;
 
-const Line = styled.div`
-    width: 100%;
+const Line = styled.div<{ width: number }>`
+    width: ${({ width }) => width}%;
     height: ${c.TIMLINE_LINE_HEIGHT};
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
-    position: relative;
+    position: absolute;
+`;
+
+const CircleAtEnd = styled.div<{ lineWidth: number }>`
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: ${({ lineWidth }) => lineWidth + "%"};
+    transform: translate(-50%, -50%);
 `;
 
 const Circle = styled.div`
@@ -102,8 +114,6 @@ const Text = styled.div`
 
 const TimeBorder = styled.div<{ left: string, last: boolean }>`
     height: ${({ last }) => last ? c.TIMELINE_WRAP_HEIGHT + "px" : c.TIMELINE_WRAP_HEIGHT + "px"};
-    top: ${({ last }) => last ? -(c.TIMELINE_WRAP_HEIGHT - 0.03 * c.TIMELINE_WRAP_HEIGHT) / 2 + "px" 
-        : -(c.TIMELINE_WRAP_HEIGHT - 0.03 * c.TIMELINE_WRAP_HEIGHT) / 2 + "px"};
     background-color: ${c.TIMELINE_TIMEBORDER_COLOR};
     width: 2px;
     position: absolute;
@@ -130,8 +140,7 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const contestLengthMs = contestInfo?.contestLengthMs;
     const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
     const problemsCount = contestInfo?.problems.length;
-    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber
-        - (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS) / 2 + c.TIMLINE_CIRCLE_RADIUS / 4;
+    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber + c.TIMLINE_CIRCLE_RADIUS / 2;
     const left = (100 * problemResult.time / contestLengthMs) * 0.983;
     const color = getColor(problemResult, contestInfo);
 
@@ -157,6 +166,7 @@ export const TimeLine = ({ teamId, className = null }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
     const [animationKey, setAnimationKey] = useState(0);
+    const [lineWidth, setLineWidth] = useState(100);
 
     useEffect(() => {
         const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
@@ -184,18 +194,34 @@ export const TimeLine = ({ teamId, className = null }) => {
         };
     }, [teamId]);
 
+    useEffect(() => {
+        const updateLineWidth = () => {
+            if (!contestInfo) return;
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - contestInfo?.startTimeUnixMs;
+            const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 1000);
+            setLineWidth(progress);
+        };
+
+        const interval = setInterval(updateLineWidth, 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [contestInfo]);
+
 
     return (
         <TimeLineContainer className={className}>
-            <Line>
-                {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
-                    <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"}
-                        last={elem === contestInfo.contestLengthMs / 3600000 - 1} />)}
-                {runsResults?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
-                        animationKey={animationKey}/>
-                ))}
-            </Line>
+            <Line width={lineWidth} />
+            <CircleAtEnd lineWidth={lineWidth}/>
+            {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
+                <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"}
+                    last={elem === contestInfo.contestLengthMs / 3600000 - 1} />)}
+            {runsResults?.map((problemResult, index) => (
+                <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
+                    animationKey={animationKey}/>
+            ))}
         </TimeLineContainer>
     );
 };
