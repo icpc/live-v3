@@ -128,8 +128,8 @@ const Text = styled.div`
     text-align: center;
 `;
 
-const TimeBorder = styled.div<{ left: string, last: boolean }>`
-    height: ${({ last }) => last ? c.TIMELINE_WRAP_HEIGHT + "px" : c.TIMELINE_WRAP_HEIGHT + "px"};
+const TimeBorder = styled.div<{ left: string }>`
+    height: ${c.TIMELINE_WRAP_HEIGHT}px;
     background-color: ${c.TIMELINE_TIMEBORDER_COLOR};
     width: 2px;
     position: absolute;
@@ -157,7 +157,7 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
     const problemsCount = contestInfo?.problems.length;
     const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber + c.TIMLINE_CIRCLE_RADIUS / 2;
-    const left = (100 * problemResult.time / contestLengthMs) * 0.983;
+    const left = (100 * problemResult.time / contestLengthMs) * c.TIMELINE_REAL_WIDTH;
     const color = getColor(problemResult, contestInfo);
     const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
 
@@ -203,7 +203,7 @@ export const TimeLine = ({ teamId, className = null }) => {
         };
 
         socket.onerror = function(error) {
-            console.log(`WebSocket /teamRuns/${teamId} error: ` + error);
+            console.log(`WebSocket /teamRuns/${teamId} error: `, error);
         };
 
         return () => {
@@ -217,7 +217,7 @@ export const TimeLine = ({ teamId, className = null }) => {
             const currentTime = Date.now();
             const elapsedTime = currentTime - getStartTime(contestInfo?.status);
             const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 1000);
-            setLineWidth(progress * 0.983);
+            setLineWidth(progress * c.TIMELINE_REAL_WIDTH);
         };
 
         const interval = setInterval(updateLineWidth, 1000);
@@ -233,8 +233,8 @@ export const TimeLine = ({ teamId, className = null }) => {
             <Line lineWidth={lineWidth} />
             <CircleAtEnd lineWidth={lineWidth}/>
             {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
-                <TimeBorder key={elem} left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * 0.983 + "%"}
-                    last={elem === contestInfo.contestLengthMs / 3600000 - 1} />)}
+                <TimeBorder key={elem} 
+                    left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH + "%"} />)}
             {runsResults?.map((problemResult, index) => (
                 <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
                     animationKey={animationKey}/>
