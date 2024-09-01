@@ -7,7 +7,7 @@ import { ContestStatus } from "@shared/api";
 
 Settings.defaultZone = "utc";
 
-function getStartTime(status: ContestStatus) : number {
+export function getStartTime(status: ContestStatus) : number {
     switch (status.type) {
     case ContestStatus.Type.before:
         return status.scheduledStartAtUnixMs ?? 0;

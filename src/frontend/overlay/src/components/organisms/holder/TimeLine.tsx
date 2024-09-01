@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { useAppSelector } from "../../../redux/hooks";
-import c from "../../../config";
-import { isShouldUseDarkColor } from "../../../utils/colors";
-import { getIOIColor } from "../../../utils/statusInfo";
-import { RunResult } from "../../../../../generated/api";
+import { useAppSelector } from "@/redux/hooks";
+import c from "@/config";
+import { getIOIColor } from "@/utils/statusInfo";
+import { RunResult } from "@shared/api";
+import { getStartTime } from "@/components/molecules/Clock";
 
 const ChangeProblemAnimation = keyframes`
     0% {
@@ -37,45 +37,72 @@ const TimeLineContainer = styled.div`
     border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
     border-bottom-right-radius: ${c.TIMELINE_BORDER_RADIUS};;
     display: grid;
-    height: ${c.TIMELINE_WRAP_HEIGHT};
+    height: ${c.TIMELINE_WRAP_HEIGHT}px;
     background-color: ${c.CONTEST_COLOR};
-`;
-
-
-const Line = styled.div`
-    width: 100%;
-    height: ${c.TIMLINE_LINE_HEIGHT};
-    background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     position: relative;
 `;
 
+interface LineProps {
+    lineWidth: number;
+}
+
+
+const Line = styled.div.attrs<LineProps>(({ lineWidth }) => ({
+    style: {
+        width: `${lineWidth}%`,
+    },
+}))<LineProps>`
+    height: ${c.TIMLINE_LINE_HEIGHT};
+    background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
+    position: absolute;
+`;
+
+interface CircleAtEndProps {
+    lineWidth: number;
+}
+
+const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
+    style: {
+        left: `${lineWidth}%`,
+    },
+}))<CircleAtEndProps>`
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
+`;
+
 const Circle = styled.div`
-    width: ${c.TIMLINE_CIRCLE_RADIUS};
-    height: ${c.TIMLINE_CIRCLE_RADIUS};
+    width: ${c.TIMLINE_CIRCLE_RADIUS}px;
+    height: ${c.TIMLINE_CIRCLE_RADIUS}px;
     background-color: ${( { color } ) => color };
     border-radius: 50%;
     position: absolute;
     align-content: center;
 `;
 
-const Label = styled.div<{ darkText: boolean, isBold: boolean }>`
+const Label = styled.div`
     position: relative;
     justify-content: center;
     display: flex;
     align-self: center;
     text-align: center;
     align-items: center;
-    color: ${({ darkText }) => darkText ? "#000" : "#FFF"};
-    font-weight: ${({ isBold }) => isBold ? "bold" : "normal"};
+    color: white;
+    font-weight: bold;
 `;
 
-const ProblemWrap = styled.div<{ left: string }>`
+const ProblemWrap = styled.div<{ left: string, top: string }>`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: absolute;
     left: ${({ left }) => left};
+    top: ${({ top }) => top};
 `;
 
 const ProblemWithAnimation = styled.div`
@@ -92,15 +119,21 @@ const ScoreOrVerdictWithAnimation = styled.div`
     position: absolute;
     align-items: center;
     text-align: center;
-    font-size: 12px;
 `;
 
 const Text = styled.div`
     position: absolute;
-    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+`;
+
+const TimeBorder = styled.div<{ left: string }>`
+    height: ${c.TIMELINE_WRAP_HEIGHT}px;
+    background-color: ${c.TIMELINE_TIMEBORDER_COLOR};
+    width: 2px;
+    position: absolute;
+    left: ${({ left }) => left};
 `;
 
 
@@ -119,23 +152,29 @@ const getColor = (problemResult, contestInfo) => {
     }
 };
 
-const Problem = ({ problemResult, contestInfo }) => {
+const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const contestLengthMs = contestInfo?.contestLengthMs;
-    const left = (100 * problemResult.time / contestLengthMs) * 0.99;
+    const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
+    const problemsCount = contestInfo?.problems.length;
+    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber + c.TIMLINE_CIRCLE_RADIUS / 2;
+    const left = (100 * problemResult.time / contestLengthMs) * c.TIMELINE_REAL_WIDTH;
     const color = getColor(problemResult, contestInfo);
-    const darkText = isShouldUseDarkColor(color);
+    const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
+
     return (
-        <ProblemWrap left={left + "%"}>
-            <Circle color={color}>
-                <Label darkText={darkText} isBold={problemResult.type === RunResult.Type.IN_PROGRESS}>
-                    {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                        && !problemResult.isAccepted) && <ProblemWithAnimation>{problemResult.problemId}</ProblemWithAnimation> }
-                    {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                        && !problemResult.isAccepted) && <Text>{problemResult.problemId}</Text>}
-                    {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
-                    {problemResult.type === RunResult.Type.IOI && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
-                </Label>
-            </Circle>
+        <ProblemWrap left={left + "%"} top={top + "px"} key={animationKey}>
+            <Circle color={color} />
+            <Label>
+                {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
+                    && !problemResult.isAccepted) 
+                    && <ProblemWithAnimation>{letter}</ProblemWithAnimation> }
+                {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
+                    && !problemResult.isAccepted) && <Text>{letter}</Text>}
+                {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted
+                    && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
+                {problemResult.type === RunResult.Type.IOI 
+                    && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
+            </Label>
         </ProblemWrap>
     );
 };
@@ -143,6 +182,8 @@ const Problem = ({ problemResult, contestInfo }) => {
 export const TimeLine = ({ teamId, className = null }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
+    const [animationKey, setAnimationKey] = useState(0);
+    const [lineWidth, setLineWidth] = useState(100);
 
     useEffect(() => {
         const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
@@ -153,6 +194,7 @@ export const TimeLine = ({ teamId, className = null }) => {
         socket.onmessage = function (event) {
             const obj = JSON.parse(event.data);
             setRunsResults(obj);
+            setAnimationKey(prev => prev + 1);
             console.debug(`WebSocket /teamRuns/${teamId}: ` + obj);
         };
 
@@ -161,7 +203,7 @@ export const TimeLine = ({ teamId, className = null }) => {
         };
 
         socket.onerror = function(error) {
-            console.log(`WebSocket /teamRuns/${teamId} error: ` + error);
+            console.log(`WebSocket /teamRuns/${teamId} error: `, error);
         };
 
         return () => {
@@ -169,14 +211,34 @@ export const TimeLine = ({ teamId, className = null }) => {
         };
     }, [teamId]);
 
+    useEffect(() => {
+        const updateLineWidth = () => {
+            if (!contestInfo) return;
+            const currentTime = Date.now();
+            const elapsedTime = currentTime - getStartTime(contestInfo?.status);
+            const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 1000);
+            setLineWidth(progress * c.TIMELINE_REAL_WIDTH);
+        };
+
+        const interval = setInterval(updateLineWidth, 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [contestInfo]);
+
 
     return (
         <TimeLineContainer className={className}>
-            <Line>
-                {runsResults?.map((problemResult, index) => (
-                    <Problem problemResult={problemResult} contestInfo={contestInfo} key={index} />
-                ))}
-            </Line>
+            <Line lineWidth={lineWidth} />
+            <CircleAtEnd lineWidth={lineWidth}/>
+            {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
+                <TimeBorder key={elem} 
+                    left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH + "%"} />)}
+            {runsResults?.map((problemResult, index) => (
+                <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
+                    animationKey={animationKey}/>
+            ))}
         </TimeLineContainer>
     );
 };

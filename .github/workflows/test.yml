@@ -57,6 +57,7 @@ jobs:
       - name: PR playwright - upload
         id: pr_playwright-upload
         if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
+        timeout-minutes: 1
         working-directory: ./src/frontend/tests/playwright-report/data
         env:
           # using live@icpc.global IMGBB acount
