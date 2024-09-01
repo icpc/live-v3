@@ -37,7 +37,7 @@ const TimeLineContainer = styled.div`
     border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
     border-bottom-right-radius: ${c.TIMELINE_BORDER_RADIUS};;
     display: grid;
-    height: ${c.TIMELINE_WRAP_HEIGHT + "px"};
+    height: ${c.TIMELINE_WRAP_HEIGHT}px;
     background-color: ${c.CONTEST_COLOR};
     position: relative;
 `;
@@ -76,8 +76,8 @@ const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
 `;
 
 const Circle = styled.div`
-    width: ${c.TIMLINE_CIRCLE_RADIUS + "px"};
-    height: ${c.TIMLINE_CIRCLE_RADIUS + "px"};
+    width: ${c.TIMLINE_CIRCLE_RADIUS}px;
+    height: ${c.TIMLINE_CIRCLE_RADIUS}px;
     background-color: ${( { color } ) => color };
     border-radius: 50%;
     position: absolute;
