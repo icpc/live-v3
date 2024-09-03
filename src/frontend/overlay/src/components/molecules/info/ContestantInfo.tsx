@@ -12,7 +12,7 @@ import { Award } from "@shared/api";
 const ContestantInfoLabel = styled(RankLabel)`
   flex-shrink: 0;
   align-self: stretch;
-  width: 32px;
+  width: ${c.CONTESTER_INFO_RANK_WIDTH};
   padding-left: 4px;
 `;
 
@@ -41,7 +41,7 @@ const ContestantInfoWrap = styled.div<{round: boolean}>`
 const ContestantInfoScoreLabel = styled(ShrinkingBox)`
   flex-shrink: 0;
   box-sizing: content-box;
-  width: 51px;
+  width: ${c.CONTESTER_INFO_SCORE_WIDTH};
   padding-right: 20px;
 `;
 
