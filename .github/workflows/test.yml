@@ -72,7 +72,7 @@ jobs:
         with:
           script: |
             const images_grid = '${{steps.pr_playwright-upload.outputs.pr_playwright_images}}'
-              .split(',').map(i => '<img src="' + i + '" width="400" />').join(' ');
+              .split(',').concat('https://arc.live.kbats.ru/contests/wf47_finals/teams/team_photos/team-47133.jpg').map(i => '<img src="' + i + '" width="400" />').join(' ');
             console.log(images_grid);
 
             github.rest.issues.createComment({
