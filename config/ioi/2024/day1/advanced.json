@@ -1,0 +1,36 @@
+{
+  "teamOverrideTemplate": {
+    "displayName": "{country}: {first_name} {last_name}"
+  },
+  "teamOverrides": {
+    "egy21" : {"isOutOfContest": true },
+    "egy22" : {"isOutOfContest": true },
+    "egy23" : {"isOutOfContest": true },
+    "egy24" : {"isOutOfContest": true }
+  },
+  "awardsSettings": {
+    "medals": [
+      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 31, "tiebreakMode": "ALL"},
+      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 92, "tiebreakMode": "ALL"},
+      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 183, "tiebreakMode": "NONE"}
+    ]
+  },
+  "problemOverrides": {
+    "nile": {
+      "displayName": "A1",
+      "color": "#e6194B"
+    },
+    "message": {
+      "displayName": "B1",
+      "color": "#3cb44b"
+    },
+    "tree": {
+      "displayName": "C1",
+      "color": "#ffe119"
+    }
+  },
+   "queueSettings": {
+    "maxQueueSize": 15,
+    "maxUntestedRun": 5
+  } 
+}

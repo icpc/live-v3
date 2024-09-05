@@ -1,0 +1,6 @@
+{
+    "type": "cms",
+    "activeContest": "day2",
+    "otherContests": ["day1"],
+    "source": "https://ranking.ioi2024.eg"
+}
