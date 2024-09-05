@@ -13,8 +13,8 @@ import { activeRowColor } from "@/styles.js";
 import { timeMsToDuration, unixTimeMsToLocalTime } from "@/utils";
 import { FeaturedRunStatus, useAnalyticsService } from "@/services/analytics";
 import { AnalyticsMessage, AnalyticsMessageComment, ProblemInfo, TeamInfo, TeamMediaType } from "@shared/api.ts";
-import TeamMediaSwitcher from "@/controls/TeamMediaSwitcher";
-import ButtonGroup from "@/components/atoms/ButtonGroup.js";
+import TeamMediaSwitcher from "@/components/controls/TeamMediaSwitcher";
+import ButtonGroup from "@/components/atoms/ButtonGroup";
 
 const featuredRunMediaTypes = [
     TeamMediaType.screen, TeamMediaType.camera, TeamMediaType.record, TeamMediaType.photo, TeamMediaType.reactionVideo
