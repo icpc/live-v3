@@ -7,6 +7,7 @@ import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.cms.model.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.util.getLogger
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
@@ -26,6 +27,10 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
     private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, settings.source.subDir("/users/"))
     private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, settings.source.subDir("/submissions/"))
     private val subchangesLoader = DataLoader.json<Map<String, Subchange>>(settings.network, settings.source.subDir("subchanges/"))
+
+    // cms sometimes, for some reason, don't report some of the old results.
+    // Let's cache them ourselves just in case
+    private val submissionResults = mutableMapOf<RunId, RunResult>()
 
     override suspend fun loadOnce(): ContestParseResult {
         val contests = contestsLoader.load()
@@ -101,24 +106,32 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
             languagesList = emptyList(),
             penaltyRoundingMode = PenaltyRoundingMode.ZERO
         )
+
+        subchangesLoader.load()
+            .values
+            .sortedBy { it.time }
+            .forEach { it ->
+                val scores = if (it.extra.isEmpty()) listOf(it.score) else it.extra.map { it.toDouble() }
+                submissionResults[it.submission.toRunId()] = RunResult.IOI(scores)
+            }
         val submissions = submissionsLoader.load().mapNotNull { (k, v) ->
             if (v.task !in runningContestProblems && v.task !in finishedContestsProblems) {
                 return@mapNotNull null
             }
             RunInfo(
                 id = k.toRunId(),
-                result = RunResult.InProgress(0.0),
+                result = submissionResults[k.toRunId()] ?: RunResult.InProgress(0.0),
                 problemId = v.task.toProblemId(),
                 teamId = v.user.toTeamId(),
                 time = if (v.task in runningContestProblems) v.time - mainContest.begin else Duration.ZERO,
                 languageId = null,
             )
         }.associateBy { it.id }.toMutableMap()
-        subchangesLoader.load().entries.sortedBy { it.value.time }.forEach { (_, it) ->
-            val r = submissions[it.submission.toRunId()] ?: return@forEach
-            val scores = if (it.extra.isEmpty()) listOf(it.score) else it.extra.map { it.toDouble() }
-            submissions[r.id] = r.copy(result = RunResult.IOI(scores))
-        }
+
         return ContestParseResult(info, submissions.values.sortedBy { it.id.value }, emptyList())
+    }
+
+    companion object {
+        val logger by getLogger()
     }
 }
