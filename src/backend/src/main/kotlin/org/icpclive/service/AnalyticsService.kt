@@ -205,8 +205,7 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
             merge(
                 subscriberFlow.map { Subscribe },
                 actionFlow,
-                generator.getFlow(flow).map { ContestUpdate(AnalyticsUpdate(it)) },
-                flow.map { ContestUpdate(it.state.lastEvent) }
+                generator.getFlow(flow).map { ContestUpdate(it.state.lastEvent) }
             ).collect { event ->
                 when (event) {
                     is ContestUpdate -> {
