@@ -5,6 +5,7 @@ import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
 import { RunResult } from "@shared/api";
 import { getStartTime } from "@/components/molecules/Clock";
+import { DateTime } from "luxon";
 
 const ChangeProblemAnimation = keyframes`
     0% {
@@ -52,7 +53,7 @@ const Line = styled.div.attrs<LineProps>(({ lineWidth }) => ({
         width: `${lineWidth}%`,
     },
 }))<LineProps>`
-    height: ${c.TIMLINE_LINE_HEIGHT};
+    height: ${c.TIMELINE_LINE_HEIGHT};
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     position: absolute;
 `;
@@ -76,12 +77,12 @@ const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
 `;
 
 const Circle = styled.div`
-    width: ${c.TIMLINE_CIRCLE_RADIUS}px;
-    height: ${c.TIMLINE_CIRCLE_RADIUS}px;
-    background-color: ${( { color } ) => color };
+    width: ${c.TIMELINE_ELEMENT_DIAMETER}px;
+    height: ${c.TIMELINE_ELEMENT_DIAMETER}px;
     border-radius: 50%;
     position: absolute;
     align-content: center;
+    background-color: ${( { color } ) => color };
 `;
 
 const Label = styled.div`
@@ -147,7 +148,7 @@ const getColor = (problemResult, contestInfo) => {
             return c.VERDICT_NOK;
         }
     } else {
-        const task = contestInfo.problems.find(info => info.letter === problemResult.problemId);
+        const task = contestInfo.problems.find(info => info.id === problemResult.problemId);
         return getIOIColor(problemResult.score, task?.minScore, task?.maxScore);
     }
 };
@@ -156,8 +157,9 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const contestLengthMs = contestInfo?.contestLengthMs;
     const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
     const problemsCount = contestInfo?.problems.length;
-    const top = (c.TIMELINE_WRAP_HEIGHT - c.TIMLINE_CIRCLE_RADIUS ) / problemsCount * problemNumber + c.TIMLINE_CIRCLE_RADIUS / 2;
-    const left = (100 * problemResult.time / contestLengthMs) * c.TIMELINE_REAL_WIDTH;
+    const height = Math.max(c.TIMELINE_WRAP_HEIGHT - 2 * c.TIMELINE_PADDING - c.TIMELINE_ELEMENT_DIAMETER, 0);
+    const top = height / (problemsCount - 1) * problemNumber + c.TIMELINE_PADDING + c.TIMELINE_ELEMENT_DIAMETER / 2;
+    const left = (100 * problemResult.time / contestLengthMs) * c.TIMELINE_REAL_WIDTH + 1.5;
     const color = getColor(problemResult, contestInfo);
     const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
 
@@ -166,14 +168,14 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
             <Circle color={color} />
             <Label>
                 {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                    && !problemResult.isAccepted) 
+                        && !problemResult.isAccepted)
                     && <ProblemWithAnimation>{letter}</ProblemWithAnimation> }
                 {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
                     && !problemResult.isAccepted) && <Text>{letter}</Text>}
                 {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted
                     && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
-                {problemResult.type === RunResult.Type.IOI 
-                    && <ScoreOrVerdictWithAnimation>{problemResult.score}</ScoreOrVerdictWithAnimation>}
+                {problemResult.type === RunResult.Type.IOI
+                    && <ScoreOrVerdictWithAnimation>{Math.round(problemResult.score * 100) / 100}</ScoreOrVerdictWithAnimation>}
             </Label>
         </ProblemWrap>
     );
@@ -214,9 +216,8 @@ export const TimeLine = ({ teamId, className = null }) => {
     useEffect(() => {
         const updateLineWidth = () => {
             if (!contestInfo) return;
-            const currentTime = Date.now();
-            const elapsedTime = currentTime - getStartTime(contestInfo?.status);
-            const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 1000);
+            const elapsedTime = DateTime.fromMillis(getStartTime(contestInfo.status)).diffNow().negate().milliseconds;
+            const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 100 * (contestInfo.emulationSpeed ?? 1));
             setLineWidth(progress * c.TIMELINE_REAL_WIDTH);
         };
 
@@ -233,7 +234,7 @@ export const TimeLine = ({ teamId, className = null }) => {
             <Line lineWidth={lineWidth} />
             <CircleAtEnd lineWidth={lineWidth}/>
             {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
-                <TimeBorder key={elem} 
+                <TimeBorder key={elem}
                     left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH + "%"} />)}
             {runsResults?.map((problemResult, index) => (
                 <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
