@@ -38,7 +38,7 @@ public sealed class ContestStatus {
     ) : ContestStatus()
     @Serializable
     @SerialName("over")
-    public class OVER(
+    public data class OVER(
         @SerialName("startedAtUnixMs")
         @Serializable(with = UnixMillisecondsSerializer::class)
         public val startedAt: Instant,
@@ -51,7 +51,7 @@ public sealed class ContestStatus {
     ) : ContestStatus()
     @Serializable
     @SerialName("finalized")
-    public class FINALIZED(
+    public data class FINALIZED(
         @SerialName("startedAtUnixMs")
         @Serializable(with = UnixMillisecondsSerializer::class)
         public val startedAt: Instant,
