@@ -50,11 +50,11 @@ export const stackedBarsData = (tasks: ProblemInfo[], statistics: SolutionsStati
     } else if (statistics.type == SolutionsStatistic.Type.IOI) {
         legend.push({
             caption: "max score",
-            color: c.VERDICT_OK2,
+            color: c.VERDICT_OK,
         });
         legend.push({
             caption: "min score",
-            color: c.VERDICT_NOK2,
+            color: c.VERDICT_NOK,
         });
         bars.push(...statistics.stats?.map(({ result }, index) => ({
             name: tasks[index].letter,
