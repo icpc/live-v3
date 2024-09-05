@@ -25,6 +25,7 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     }
     val normalScoreboardState = loader
         .calculateScoreboard(OptimismLevel.NORMAL)
+        .buffer(Int.MAX_VALUE)
         .shareIn(this, starter)
 
     fun CoroutineScope.launchService(service: Service) = launch {
