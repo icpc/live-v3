@@ -658,20 +658,13 @@ export namespace QueueEvent {
 }
 
 export type AnalyticsEvent =
-  | AnalyticsEvent.AddAnalyticsMessage
   | AnalyticsEvent.AnalyticsMessageSnapshot
-  | AnalyticsEvent.ModifyAnalyticsMessage;
+  | AnalyticsEvent.UpdateAnalyticsMessage;
 
 export namespace AnalyticsEvent {
   export enum Type {
-    AddAnalyticsMessage = "AddAnalyticsMessage",
     AnalyticsMessageSnapshot = "AnalyticsMessageSnapshot",
-    ModifyAnalyticsMessage = "ModifyAnalyticsMessage",
-  }
-  
-  export interface AddAnalyticsMessage {
-    type: AnalyticsEvent.Type.AddAnalyticsMessage;
-    message: AnalyticsMessage;
+    UpdateAnalyticsMessage = "UpdateAnalyticsMessage",
   }
   
   export interface AnalyticsMessageSnapshot {
@@ -679,44 +672,39 @@ export namespace AnalyticsEvent {
     messages: AnalyticsMessage[];
   }
   
-  export interface ModifyAnalyticsMessage {
-    type: AnalyticsEvent.Type.ModifyAnalyticsMessage;
+  export interface UpdateAnalyticsMessage {
+    type: AnalyticsEvent.Type.UpdateAnalyticsMessage;
     message: AnalyticsMessage;
   }
 }
 
-export type AnalyticsMessage =
-  | AnalyticsMessage.commentary;
-
-export namespace AnalyticsMessage {
-  export enum Type {
-    commentary = "commentary",
-  }
-  
-  export interface commentary {
-    type: AnalyticsMessage.Type.commentary;
-    id: string;
-    message: string;
-    timeUnixMs: number;
-    relativeTimeMs: number;
-    teamIds: TeamId[];
-    runIds: RunId[];
-    priority: number;
-    tags: string[];
-    advertisement: AnalyticsCompanionPreset | null;
-    tickerMessage: AnalyticsCompanionPreset | null;
-    featuredRun: AnalyticsCompanionRun | null;
-  }
-}
-
-export interface AnalyticsCompanionPreset {
-  presetId: number;
-  expirationTimeUnixMs: number | null;
+export interface AnalyticsMessage {
+  id: string;
+  updateTimeUnixMs: number;
+  timeUnixMs: number;
+  relativeTimeMs: number;
+  comments: AnalyticsMessageComment[];
+  teamId: TeamId | null;
+  runInfo: RunInfo | null;
+  featuredRun: AnalyticsCompanionRun | null;
 }
 
 export interface AnalyticsCompanionRun {
   expirationTimeUnixMs: number | null;
   mediaType: MediaType;
+}
+
+export interface AnalyticsMessageComment {
+  id: string;
+  message: string;
+  advertisement: AnalyticsCompanionPreset | null;
+  tickerMessage: AnalyticsCompanionPreset | null;
+  creationTimeUnixMs: number;
+}
+
+export interface AnalyticsCompanionPreset {
+  presetId: number;
+  expirationTimeUnixMs: number | null;
 }
 
 export type TickerEvent =

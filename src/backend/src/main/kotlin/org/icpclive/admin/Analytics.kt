@@ -1,13 +1,16 @@
 package org.icpclive.admin
 
 import io.ktor.server.application.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
-import kotlinx.coroutines.flow.MutableSharedFlow
-import org.icpclive.util.completeOrThrow
+import kotlinx.coroutines.flow.*
+import org.icpclive.api.AnalyticsMessageId
+import org.icpclive.api.AnalyticsMessageSnapshotEvent
 import org.icpclive.data.DataBus
+import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.service.AnalyticsAction
-import org.icpclive.util.sendJsonFlow
+import org.icpclive.util.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -15,29 +18,31 @@ fun Route.setupAnalytics() {
     val actionsFlow = MutableSharedFlow<AnalyticsAction>(extraBufferCapacity = 10000)
     DataBus.analyticsActionsFlow.completeOrThrow(actionsFlow)
 
-    fun ApplicationCall.id() =
-        parameters["id"] ?: throw ApiActionException("Error load preset by id")
+    fun ApplicationCall.id() = parameters["id"]?.toAnalyticsMessageId() ?: throw ApiActionException("Error load preset by id")
+    fun ApplicationCall.commentId() = parameters["commentId"] ?: throw ApiActionException("Error load preset by id")
 
     fun Route.presetWidget(
         name: String,
-        showAction: (id: String, ttlMs: Duration?) -> AnalyticsAction,
-        hideAction: (id: String) -> AnalyticsAction
+        showAction: (id: AnalyticsMessageId, commentId: String, ttlMs: Duration?) -> AnalyticsAction,
+        hideAction: (id: AnalyticsMessageId, commentId: String) -> AnalyticsAction,
     ) {
-        route("/$name") {
+        route("/{commentId}/$name") {
             post {
                 call.adminApiAction {
-                    actionsFlow.emit(showAction(call.id(), call.request.queryParameters["ttl"]?.toLong()?.milliseconds))
+                    actionsFlow.emit(showAction(call.id(), call.commentId(), call.request.queryParameters["ttl"]?.toLong()?.milliseconds))
                 }
             }
             delete {
                 call.adminApiAction {
-                    actionsFlow.emit(hideAction(call.id()))
+                    actionsFlow.emit(hideAction(call.id(), call.commentId()))
                 }
             }
         }
     }
 
     webSocket { sendJsonFlow(DataBus.analyticsFlow.await()) }
+    get { call.respond(DataBus.analyticsFlow.await().filterIsInstance<AnalyticsMessageSnapshotEvent>().first().messages) }
+
     route("/{id}") {
         presetWidget(
             "advertisement",
@@ -61,4 +66,6 @@ fun Route.setupAnalytics() {
         }
 
     }
+
+    get("/contestInfo") { call.respond(DataBus.currentContestInfoFlow().first()) }
 }

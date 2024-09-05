@@ -10,8 +10,8 @@ public class ContestState internal constructor(
     public val infoAfterEvent: ContestInfo?,
     public val runsBeforeEvent: PersistentMap<RunId, RunInfo>,
     public val runsAfterEvent: PersistentMap<RunId, RunInfo>,
-    public val analyticsMessagesBeforeEvent: PersistentMap<String, AnalyticsMessage>,
-    public val analyticsMessagesAfterEvent: PersistentMap<String, AnalyticsMessage>,
+    public val analyticsMessagesBeforeEvent: PersistentMap<String, CommentaryMessage>,
+    public val analyticsMessagesAfterEvent: PersistentMap<String, CommentaryMessage>,
 )
 
 public class ContestStateBuilder(private val event: ContestUpdate, previousState: ContestState?) {
@@ -20,7 +20,7 @@ public class ContestStateBuilder(private val event: ContestUpdate, previousState
     private var runsBeforeEvent = previousState?.runsAfterEvent ?: persistentMapOf()
     public var runs: PersistentMap<RunId, RunInfo> = runsBeforeEvent
     private var analyticsMessagesBeforeEvent = previousState?.analyticsMessagesAfterEvent ?: persistentMapOf()
-    public var analyticsMessages: PersistentMap<String, AnalyticsMessage> = analyticsMessagesBeforeEvent
+    public var analyticsMessages: PersistentMap<String, CommentaryMessage> = analyticsMessagesBeforeEvent
 
     public fun build() : ContestState = ContestState(
         event,

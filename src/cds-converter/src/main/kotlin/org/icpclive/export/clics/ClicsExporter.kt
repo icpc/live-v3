@@ -16,6 +16,7 @@ import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.api.CommentaryMessage
 import org.icpclive.clics.*
 import org.icpclive.clics.v202306.objects.*
 import org.icpclive.clics.v202306.events.*
@@ -291,8 +292,7 @@ object ClicsExporter  {
         diffRemove(languagesMap, newInfo.languagesList + unknownLanguage, { id }) { id, token, data -> LanguageEvent(id.value, token, data) }
     }
 
-    private suspend fun FlowCollector<EventProducer>.processAnalytics(message: AnalyticsMessage) {
-        val event = message as? AnalyticsCommentaryEvent ?: return
+    private suspend fun FlowCollector<EventProducer>.processAnalytics(event: CommentaryMessage) {
         updateEvent(
             event.id,
             Commentary(
@@ -403,7 +403,7 @@ object ClicsExporter  {
         val submissionsFlow = eventFeed.filterIdEvent<Submission, _, SubmissionEvent>(scope)
         val judgementsFlow = eventFeed.filterIdEvent<Judgement, _, JudgementEvent>(scope)
         //val runsFlow = eventFeed.filterIdEvent<Run, Event.RunsEvent>(scope)
-        val commentaryFlow = eventFeed.filterIdEvent<Commentary, _, CommentaryEvent>(scope)
+        val commentaryFlow = eventFeed.filterIdEvent<Commentary, _, org.icpclive.clics.events.CommentaryEvent>(scope)
         //val personsFlow = eventFeed.filterIdEvent<Person, Event.PersonEvent>(scope)
         //val accountsFlow = eventFeed.filterIdEvent<Account, Event.AccountEvent>(scope)
         //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)

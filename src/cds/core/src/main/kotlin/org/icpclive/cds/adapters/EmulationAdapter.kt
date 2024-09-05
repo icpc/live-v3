@@ -75,7 +75,7 @@ internal fun Flow<ContestUpdate>.toEmulationFlow(emulationSettings: EmulationSet
             }
             add((run.time + timeShift.milliseconds) to RunUpdate(run))
         }
-        addAll(analyticsMessages.map { it.relativeTime to AnalyticsUpdate(it) })
+        addAll(analyticsMessages.map { it.relativeTime to AnalyticsUpdate(it.copy(time = emulationSettings.startTime + it.relativeTime / emulationSettings.speed)) })
     }.sortedBy { it.first }.forEach { emit(it) }
 }.map { (emulationSettings.startTime + it.first / emulationSettings.speed) to it.second }
     .toTimedFlow()

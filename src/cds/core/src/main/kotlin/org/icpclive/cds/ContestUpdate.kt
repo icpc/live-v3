@@ -15,7 +15,7 @@ public class RunUpdate(public val newInfo: RunInfo) : ContestUpdate {
     }
 }
 
-public class AnalyticsUpdate(public val message: AnalyticsMessage) : ContestUpdate {
+public class AnalyticsUpdate(public val message: CommentaryMessage) : ContestUpdate {
     override fun toString(): String {
         return "AnalyticsUpdate(message=$message)"
     }

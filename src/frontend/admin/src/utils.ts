@@ -1,25 +1,25 @@
 import { DateTime } from "luxon";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WEBSOCKET_RECONNECT_TIME } from "./config";
 
-export const localStorageGet = key => JSON.parse(localStorage.getItem(key) ?? "null");
-export const localStorageSet = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-export const useLocalStorageState = (key, defaultValue) => {
-    const [state, setState] = useState(localStorageGet(key) ?? defaultValue);
-    const saveState = v => {
+export const localStorageGet = <T>(key: string) => JSON.parse(localStorage.getItem(key) ?? "null") as T;
+export const localStorageSet = <T>(key: string, value: T) => localStorage.setItem(key, JSON.stringify(value));
+export const useLocalStorageState = <T> (key: string, defaultValue: T): [T, (newValue: T) => void] => {
+    const [state, setState] = useState<T>(localStorageGet<T>(key) ?? defaultValue);
+    const saveState = (v: T) => {
         localStorageSet(key, v);
         setState(v);
     };
     return [state, saveState];
 };
 
-export const timeMsToDuration = (timeMs) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
-export const unixTimeMsToLocalTime = (timeMs) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");
+export const timeMsToDuration = (timeMs: number) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
+export const unixTimeMsToLocalTime = (timeMs: number) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");
 
-export const useWebsocket = (wsUrl, handleMessage) => {
+export const useWebsocket = <T, R>(wsUrl: string, handleMessage: (message: MessageEvent<T>) => R) => {
     const [isConnected, setIsConnected] = useState(false);
-    const ws = useRef(null);
-    const openSocket = useMemo(() => () => {
+    const ws = useRef<WebSocket>(null);
+    const openSocket = useCallback(() => {
         ws.current = new WebSocket(wsUrl);
         ws.current.onopen = () => {
             setIsConnected(true);
@@ -35,7 +35,7 @@ export const useWebsocket = (wsUrl, handleMessage) => {
     useEffect(() => {
         openSocket();
         return () => ws.current?.close();
-    }, [wsUrl, handleMessage]);
+    }, [openSocket]);
     return isConnected;
 };
 
@@ -48,14 +48,14 @@ export const useDebounce = (value, delay) => {
     return debouncedValue;
 };
 
-export const useDebounceList = (delay) => {
-    const [addCache, setAddCache] = useState([]);
-    const [debouncedValue, setDebouncedValue] = useState([]);
-    const add = (value) => setAddCache(cache => [ value, ...cache ]);
+export const useDebounceList = <T> (delay: number): [T[], (newList: T[]) => void, (addElement: T) => void] => {
+    const [addCache, setAddCache] = useState<T[]>([]);
+    const [debouncedValue, setDebouncedValue] = useState<T[]>([]);
+    const add = (value: T) => setAddCache(cache => [value, ...cache]);
     const pushCache = () => {
         const currentCache = addCache;
         setAddCache([]);
-        setDebouncedValue(value => [ ...currentCache, ...value ]);
+        setDebouncedValue(value => [...currentCache, ...value]);
     };
     useEffect(() => {
         const handler = setTimeout(pushCache, delay);
@@ -64,7 +64,32 @@ export const useDebounceList = (delay) => {
     return [debouncedValue, setDebouncedValue, add];
 };
 
-export const hexToRgb = (hex) => {
+export const useFillHeight = (ref?: HTMLElement) => {
+    // function getWindowDimensions() {
+    //     const { innerWidth: width, innerHeight: height } = window;
+    //     return {
+    //         width,
+    //         height
+    //     };
+    // }
+    //
+    // export default function useWindowDimensions() {
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowHeight(window.innerHeight);
+        }
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return useMemo(() => windowHeight - (ref?.offsetTop ?? 0),
+        [windowHeight, ref?.offsetTop]);
+};
+
+export const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2}?)$/i.exec(hex);
     return result ? {
         r: parseInt(result[1], 16),
@@ -76,7 +101,7 @@ export const hexToRgb = (hex) => {
 /*
 Returns true if dark (black) color better for given backgroundColor and false otherwise.
  */
-export const isShouldUseDarkColor = (backgroundColor) => {
+export const isShouldUseDarkColor = (backgroundColor: string) => {
     const rgb = hexToRgb(backgroundColor);
     if (!rgb) {
         return false;
@@ -90,7 +115,7 @@ export const isShouldUseDarkColor = (backgroundColor) => {
     return brightness > 125;
 };
 
-export const setFavicon = (svg) => {
+export const setFavicon = (svg: string) => {
     const link = document.createElement("link");
     link.type = "image/x-icon";
     link.rel = "shortcut icon";

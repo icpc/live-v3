@@ -7,5 +7,5 @@ import org.icpclive.cds.api.*
 public data class ContestParseResult(
     val contestInfo: ContestInfo,
     val runs: List<RunInfo>,
-    val analyticsMessages: List<AnalyticsMessage>,
+    val analyticsMessages: List<CommentaryMessage>,
 )

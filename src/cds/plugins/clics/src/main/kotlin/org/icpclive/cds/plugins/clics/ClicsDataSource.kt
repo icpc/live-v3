@@ -7,6 +7,7 @@ import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.api.CommentaryMessage
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
@@ -65,7 +66,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
     private suspend fun runLoader(
         onRun: suspend (RunInfo) -> Unit,
         onContestInfo: suspend (ContestInfo) -> Unit,
-        onComment: suspend (AnalyticsCommentaryEvent) -> Unit,
+        onComment: suspend (CommentaryMessage) -> Unit,
     ) {
         val loaders = feeds.map { getEventFeedLoader(it, settings.network) }
 

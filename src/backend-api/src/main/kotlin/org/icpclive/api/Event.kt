@@ -4,7 +4,6 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.api.AnalyticsMessage
 import org.icpclive.cds.api.RunInfo
 
 @Serializable
@@ -63,12 +62,8 @@ class RemoveMessageTickerEvent(val messageId: String) : TickerEvent()
 class TickerSnapshotEvent(val messages: List<TickerMessage>) : TickerEvent()
 
 @Serializable
-@SerialName("AddAnalyticsMessage")
-class AddAnalyticsMessageEvent(val message: AnalyticsMessage) : AnalyticsEvent()
-
-@Serializable
-@SerialName("ModifyAnalyticsMessage")
-class ModifyAnalyticsMessageEvent(val message: AnalyticsMessage) : AnalyticsEvent()
+@SerialName("UpdateAnalyticsMessage")
+class UpdateAnalyticsMessageEvent(val message: AnalyticsMessage) : AnalyticsEvent()
 
 @Serializable
 @SerialName("AnalyticsMessageSnapshot")

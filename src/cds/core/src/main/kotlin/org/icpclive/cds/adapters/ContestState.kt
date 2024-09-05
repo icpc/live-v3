@@ -12,7 +12,7 @@ public fun ContestState?.applyEvent(event: ContestUpdate): ContestState {
     val runsBeforeEvent = this?.runsAfterEvent ?: persistentMapOf()
     var runs: PersistentMap<RunId, RunInfo> = runsBeforeEvent
     val analyticsMessagesBeforeEvent = this?.analyticsMessagesAfterEvent ?: persistentMapOf()
-    var analyticsMessages: PersistentMap<String, AnalyticsMessage> = analyticsMessagesBeforeEvent
+    var analyticsMessages: PersistentMap<String, CommentaryMessage> = analyticsMessagesBeforeEvent
     when (event) {
         is InfoUpdate -> info = event.newInfo
         is RunUpdate -> runs = runs.put(event.newInfo.id, event.newInfo)
