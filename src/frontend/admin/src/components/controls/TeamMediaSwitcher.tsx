@@ -1,6 +1,6 @@
 import { TeamMediaType } from "@shared/api";
 import { Button } from "@mui/material";
-import ButtonGroup from "@/components/atoms/ButtonGroup.tsx";
+import ButtonGroup from "@/components/atoms/ButtonGroup";
 
 export const DEFAULT_MEDIA_TYPES = [TeamMediaType.screen, TeamMediaType.camera, TeamMediaType.record, TeamMediaType.photo, null];
 
