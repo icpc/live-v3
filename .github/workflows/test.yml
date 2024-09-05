@@ -75,14 +75,15 @@ jobs:
         with:
           script: |
             const images_grid = '${{steps.pr_playwright-upload.outputs.pr_playwright_images}}'
-              .split(',').concat('https://arc.live.kbats.ru/contests/wf47_finals/teams/team_photos/team-47133.jpg').map(i => '<img src="' + i + '" width="400" />').join(' ');
+              .split(',').concat('https://arc.live.kbats.ru/contests/wf47_finals/teams/team_photos/team-47133.jpg')
+              .map(i => '![image](' + i + ')').join(' ');
             console.log(images_grid);
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,                                                                                                                                                                                              
-              body: 'Playwright tests screens\n\n<p float="left">' + images_grid + '</p>'
+              body: 'Playwright tests screens\n\n' + images_grid + ''
             });
 
       - uses: actions/upload-artifact@v3
