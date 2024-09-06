@@ -25,8 +25,8 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
         return ObjectStatus(overlayWidgetId != null, settings, id)
     }
 
-    suspend fun previewWidget() = mutex.withLock {
-        constructWidget(settings)
+    suspend fun previewWidget(previewSettings: SettingsType = settings) = mutex.withLock {
+        constructWidget(previewSettings)
     }
 
     abstract suspend fun constructWidget(settings: SettingsType) : DataType
