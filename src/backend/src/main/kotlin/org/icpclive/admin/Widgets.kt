@@ -44,6 +44,11 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
             call.respond(controller.previewWidget())
         }
     }
+    post("/preview") {
+        run {
+            call.respond(controller.previewWidget(call.safeReceive<SettingsType>()))
+        }
+    }
 }
 
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupControllerGroup(
