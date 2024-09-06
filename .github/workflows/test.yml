@@ -64,7 +64,8 @@ jobs:
         run: |
           ls *.png | \
             xargs -i curl -s -P1 --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}" | \
-            jq -r '.data.display_url' | tee gg.txt
+            tee hh.txt | jq -r '.data.image.url' | tee gg.txt
+          cat hh.txt
           while read -r url; do
             echo $url
             curl -s -D test.txt -o test.png "$url"
