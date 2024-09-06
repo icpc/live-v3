@@ -30,7 +30,9 @@ const RoundedTeamMediaHolder = styled(TeamMediaHolder)`
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
-const TeamViewContainer = styled.div<{ show: boolean; animation?: Keyframes; animationStyle: string }>`
+const TeamViewContainer = styled.div.attrs({
+    className: "TeamViewContainer",
+})<{ show: boolean; animation?: Keyframes; animationStyle: string }>`
     width: 100%;
     height: 100%;
     display: ${props => props.show ? "flex" : "none"};

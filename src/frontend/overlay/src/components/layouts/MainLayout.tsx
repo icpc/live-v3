@@ -101,6 +101,7 @@ const WIDGETS = {
 const useWidgets = () => {
     const queryParams = useQueryParams();
     if(queryParams.has("forceWidgets")) {
+        console.info("forceWidgets=", queryParams.get("forceWidgets"));
         return JSON.parse(queryParams.get("forceWidgets")) as Record<Widget["widgetId"], Widget>;
     } else {
         return useAppSelector(state => state.widgets.widgets);
