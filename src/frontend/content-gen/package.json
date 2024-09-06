@@ -1,0 +1,19 @@
+{
+  "name": "content-gen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.32.3",
+    "@types/node": "^22.5.4",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "install-browsers": "playwright install --with-deps",
+    "teamview": "playwright test teamview.spec.ts"
+  }
+}
