@@ -65,15 +65,16 @@ jobs:
         run: |
           ls *.png | \
             xargs -i curl -s -P1 --location --request POST "https://api.imgbb.com/1/upload?expiration=604800&key=$IMGBB_API_TOKEN" --form "image=@{}" | \
-            jq -r '.data.url' | paste -sd "," - | awk '{print "pr_playwright-images="$0 }' >> "$GITHUB_OUTPUT"
-
+            jq -r '.data.image.url' | paste -sd "," - | awk '{print "pr_playwright_images="$0 }' | tee "$GITHUB_OUTPUT"
       - name: PR playwright - comment
         uses: actions/github-script@v7
         if: github.event.pull_request.number != '' && hashFiles('./src/frontend/tests/playwright-report') != ''
         with:
           script: |
-            const images_grid = '${{steps.pr_playwright-upload.outputs.pr_playwright-images}}'
-              .split(',').map(i => '<img src="' + i + '" width="400" />').join(' ');
+            const images_grid = '${{steps.pr_playwright-upload.outputs.pr_playwright_images}}'
+              .split(',')
+              .map(i => '<img src="' + i.replace("https://i.ibb.co/", "https://kbats.ru/imgbb/") + '" width="400" />')
+              .join(' ');
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
