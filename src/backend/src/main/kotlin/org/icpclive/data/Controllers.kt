@@ -31,4 +31,6 @@ object Controllers {
     }
     val tickerMessage = PresetsController(presetsPath("ticker"), TickerManager, TickerMessageSettings::toMessage)
     val userController = Config.createUsersController()
+
+    suspend fun getWidgetStats() = WidgetManager.getUsageStatistics()
 }

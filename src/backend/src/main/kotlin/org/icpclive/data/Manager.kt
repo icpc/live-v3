@@ -6,12 +6,12 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.TypeWithId
 
-abstract class Manager<in T> {
+abstract class Manager<T> {
     abstract suspend fun add(item: T)
     abstract suspend fun remove(itemId: String)
 }
 
-abstract class ManagerWithEvents<in T : TypeWithId, E> : Manager<T>() {
+abstract class ManagerWithEvents<T : TypeWithId, E> : Manager<T>() {
     private val mutex = Mutex()
     private var timer = 0L
     private val items = mutableListOf<T>()
@@ -24,15 +24,31 @@ abstract class ManagerWithEvents<in T : TypeWithId, E> : Manager<T>() {
     protected abstract fun createAddEvent(item: T): E
     protected abstract fun createRemoveEvent(id: String): E
     protected abstract fun createSnapshotEvent(items: List<T>): E
+    protected open fun onItemAdd(item: T) {}
+    protected open fun onItemRemove(item: T) {}
+
+    protected suspend fun traverse(block: (T) -> Unit) = mutex.withLock {
+        items.forEach(block)
+    }
+
+    private fun removeById(id: String) : Boolean {
+        val myItems = items.filter { it.id == id }
+        for (item in myItems) {
+            onItemRemove(item)
+        }
+        items.removeAll(myItems)
+        return myItems.isNotEmpty()
+    }
 
     override suspend fun add(item: T) = mutex.withLock {
-        items.removeIf { it.id == item.id } // We don't need the remove event, as create considered as the set on frontend.
+        removeById(item.id) // We don't need the remove event, as create considered as the set on frontend.
         items.add(item)
+        onItemAdd(item)
         sendEvent(createAddEvent(item))
     }
 
     override suspend fun remove(itemId: String) = mutex.withLock {
-        if (items.removeIf { it.id == itemId }) {
+        if (removeById(itemId)) {
             sendEvent(createRemoveEvent(itemId))
         }
     }

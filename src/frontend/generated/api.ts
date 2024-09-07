@@ -461,6 +461,7 @@ export namespace Widget {
     type: Widget.Type.AdvertisementWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     advertisement: AdvertisementSettings;
   }
   
@@ -468,6 +469,7 @@ export namespace Widget {
     type: Widget.Type.FullScreenClockWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     settings: FullScreenClockSettings;
   }
   
@@ -475,6 +477,7 @@ export namespace Widget {
     type: Widget.Type.PictureWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     picture: PictureSettings;
   }
   
@@ -482,6 +485,7 @@ export namespace Widget {
     type: Widget.Type.QueueWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     settings: QueueSettings;
   }
   
@@ -489,6 +493,7 @@ export namespace Widget {
     type: Widget.Type.ScoreboardWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     settings: ScoreboardSettings;
   }
   
@@ -496,6 +501,7 @@ export namespace Widget {
     type: Widget.Type.StatisticsWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     settings: StatisticsSettings;
   }
   
@@ -503,6 +509,7 @@ export namespace Widget {
     type: Widget.Type.SvgWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     content: string;
   }
   
@@ -510,6 +517,7 @@ export namespace Widget {
     type: Widget.Type.TeamLocatorWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     settings: TeamLocatorSettings;
   }
   
@@ -517,6 +525,7 @@ export namespace Widget {
     type: Widget.Type.TeamViewWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     settings: OverlayTeamViewSettings;
   }
   
@@ -524,6 +533,7 @@ export namespace Widget {
     type: Widget.Type.TickerWidget;
     widgetId: string;
     location: LocationRectangle;
+    statisticsId: string;
     settings: TickerSettings;
   }
 }
@@ -872,3 +882,28 @@ export interface ExternalTeamViewSettings {
 }
 
 export type ObjectSettings = any;
+
+export interface WidgetUsageStatistics {
+  entries: { [key: string]: WidgetUsageStatisticsEntry };
+}
+
+export type WidgetUsageStatisticsEntry =
+  | WidgetUsageStatisticsEntry.per_team
+  | WidgetUsageStatisticsEntry.simple;
+
+export namespace WidgetUsageStatisticsEntry {
+  export enum Type {
+    per_team = "per_team",
+    simple = "simple",
+  }
+  
+  export interface per_team {
+    type: WidgetUsageStatisticsEntry.Type.per_team;
+    byTeam: { [key: TeamId]: WidgetUsageStatisticsEntry };
+  }
+  
+  export interface simple {
+    type: WidgetUsageStatisticsEntry.Type.simple;
+    totalShownTimeSeconds: number;
+  }
+}

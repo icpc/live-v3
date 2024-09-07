@@ -6,7 +6,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.data.*
 
-class LocatorWidgetController(manager: Manager<TeamLocatorWidget>) :
+class LocatorWidgetController(manager: Manager<in TeamLocatorWidget>) :
     SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(ExternalTeamLocatorSettings(), manager) {
     override suspend fun onDelete(id: Int) {}
 

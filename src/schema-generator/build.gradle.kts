@@ -97,7 +97,8 @@ tasks {
                 "org.icpclive.api.TickerEvent",
                 "org.icpclive.api.SolutionsStatistic",
                 "org.icpclive.api.ExternalTeamViewSettings",
-                "org.icpclive.api.ObjectSettings"
+                "org.icpclive.api.ObjectSettings",
+                "org.icpclive.api.WidgetUsageStatistics",
             ),
             "api",
         ),

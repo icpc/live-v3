@@ -148,6 +148,9 @@ fun Route.configureAdminApiRouting() {
                 }
             }
         }
+        get("/usage_stats") {
+            call.respond(Controllers.getWidgetStats())
+        }
     }
     route("/social") {
         setupSocial()

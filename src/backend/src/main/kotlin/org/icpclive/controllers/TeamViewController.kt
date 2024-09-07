@@ -1,14 +1,12 @@
 package org.icpclive.controllers
 
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.first
 import org.icpclive.api.*
-import org.icpclive.cds.api.MediaType
 import org.icpclive.cds.api.TeamMediaType
 import org.icpclive.data.*
 import kotlin.time.Duration.Companion.seconds
 
-class TeamViewController(manager: Manager<TeamViewWidget>, val position: TeamViewPosition) :
+class TeamViewController(manager: Manager<in TeamViewWidget>, val position: TeamViewPosition) :
     SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(ExternalTeamViewSettings(), manager) {
     override suspend fun onDelete(id: Int) {}
 
