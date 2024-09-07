@@ -19,19 +19,29 @@ import org.icpclive.cds.api.*
 import org.icpclive.clics.*
 import org.icpclive.clics.v202306.objects.*
 import org.icpclive.clics.v202306.events.*
-import org.icpclive.clics.events.Event
-import org.icpclive.clics.events.GlobalEvent
-import org.icpclive.clics.events.IdEvent
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.cds.util.loopFlow
+import org.icpclive.clics.events.*
+import org.icpclive.clics.v202306.events.AwardEvent
+import org.icpclive.clics.v202306.events.CommentaryEvent
+import org.icpclive.clics.v202306.events.ContestEvent
+import org.icpclive.clics.v202306.events.GroupEvent
+import org.icpclive.clics.v202306.events.JudgementEvent
+import org.icpclive.clics.v202306.events.JudgementTypeEvent
+import org.icpclive.clics.v202306.events.LanguageEvent
+import org.icpclive.clics.v202306.events.OrganizationEvent
+import org.icpclive.clics.v202306.events.ProblemEvent
+import org.icpclive.clics.v202306.events.StateEvent
+import org.icpclive.clics.v202306.events.SubmissionEvent
+import org.icpclive.clics.v202306.events.TeamEvent
 import org.icpclive.clics.v202306.objects.ScoreboardRowProblem
 import org.icpclive.clics.v202306.objects.Award
 import org.icpclive.clics.v202306.objects.ScoreboardRow
 import java.nio.ByteBuffer
 import kotlin.time.Duration.Companion.minutes
 
-typealias EventProducer = (String) -> Event
+typealias EventProducer = (EventToken) -> Event
 
 private fun ProblemInfo.toClicsProblem() = Problem(
     id = id.value,
@@ -117,11 +127,11 @@ object ClicsExporter  {
         extensions = emptyList()
     )
 
-    private suspend fun <ID, T> FlowCollector<EventProducer>.updateEvent(id: ID, data: T, block : (ID, String, T?) -> Event) = emit {
+    private suspend fun <ID, T> FlowCollector<EventProducer>.updateEvent(id: ID, data: T, block : (ID, EventToken, T?) -> Event) = emit {
         block(id, it, data)
     }
 
-    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block : (String, T?) -> Event) = emit { block(it, data) }
+    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block : (EventToken, T?) -> Event) = emit { block(it, data) }
 
     private fun getContest(info: ContestInfo) = Contest(
         id = "contest",
@@ -140,7 +150,7 @@ object ClicsExporter  {
         new: List<T>,
         id: T.() -> ID,
         convert: T.() -> CT,
-        toFinalEvent: (ID, String, CT?) -> Event
+        toFinalEvent: (ID, EventToken, CT?) -> Event
     ) {
         for (n in new) {
             if (old[n.id()] != n) {
@@ -154,7 +164,7 @@ object ClicsExporter  {
         old: MutableMap<ID, T>,
         new: List<T>,
         id: T.() -> ID,
-        toFinalEvent: Function3<ID, String, Nothing?, Event>
+        toFinalEvent: (ID, EventToken, Nothing?) -> Event
     ) {
         val values = new.map { it.id() }.toSet()
         for (k in old.keys) {
@@ -169,7 +179,7 @@ object ClicsExporter  {
         new: List<T>,
         id: T.() -> ID,
         convert: T.() -> CT,
-        toFinalEvent: (ID, String, CT?) -> Event
+        toFinalEvent: (ID, EventToken, CT?) -> Event
     ) {
         diffChange(old, new, id, convert, toFinalEvent)
         diffRemove(old, new, id, toFinalEvent)
@@ -246,7 +256,7 @@ object ClicsExporter  {
         )
     }
 
-    private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event : (String, T?) -> Event) {
+    private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event : (EventToken, T?) -> Event) {
         val old = oldInfo?.getter()
         val new = newInfo.getter()
         if (old != new) {
@@ -308,7 +318,7 @@ object ClicsExporter  {
                 is RunUpdate -> processRun(state.infoBeforeEvent!!, event.newInfo)
                 is AnalyticsUpdate -> processAnalytics(event.message)
             }
-        }.map { it("live-cds-${eventCounter++}") }
+        }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }
 
     private inline fun <reified X, Y, reified T: GlobalEvent<Y>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
@@ -366,7 +376,7 @@ object ClicsExporter  {
             { this },
             ::AwardEvent
         )
-    }.map { it("live-cds-award-${awardEventId++}") }
+    }.map { it(EventToken("live-cds-award-${awardEventId++}")) }
 
 
     fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
@@ -403,7 +413,7 @@ object ClicsExporter  {
             encodeDefaults = true
             prettyPrint = false
             explicitNulls = false
-            serializersModule = clicsEventsSerializersModule(FeedVersion.`2023_06`)
+            serializersModule = clicsEventsSerializersModule(FeedVersion.`2023_06`, tokenPrefix = "")
             classDiscriminatorMode = ClassDiscriminatorMode.NONE
         }
         route("/api") {
