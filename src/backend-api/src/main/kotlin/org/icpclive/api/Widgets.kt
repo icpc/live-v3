@@ -25,14 +25,16 @@ fun getLocationOrDefault(widgetPrefix: String, defaultLocationRectangle: Locatio
 @Serializable
 sealed class Widget(
     @SerialName("widgetId") override val id: String,
-    val location: LocationRectangle
+    val location: LocationRectangle,
+    val statisticsId: String,
 ) : TypeWithId
 
 @Serializable
 @SerialName("AdvertisementWidget")
 class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(
     generateId(WIDGET_ID_PREFIX),
-    getLocationOrDefault(WIDGET_ID_PREFIX, location)
+    getLocationOrDefault(WIDGET_ID_PREFIX, location),
+    WIDGET_ID_PREFIX,
 ) {
     companion object {
         const val WIDGET_ID_PREFIX = "advertisement"
@@ -44,7 +46,8 @@ class AdvertisementWidget(val advertisement: AdvertisementSettings) : Widget(
 @SerialName("PictureWidget")
 class PictureWidget(val picture: PictureSettings) : Widget(
     generateId(WIDGET_ID_PREFIX),
-    getLocationOrDefault(WIDGET_ID_PREFIX, location)
+    getLocationOrDefault(WIDGET_ID_PREFIX, location),
+    WIDGET_ID_PREFIX
 ) {
     companion object {
         const val WIDGET_ID_PREFIX = "picture"
@@ -56,7 +59,8 @@ class PictureWidget(val picture: PictureSettings) : Widget(
 @SerialName("SvgWidget")
 class SvgWidget(val content: String) : Widget(
     generateId(WIDGET_ID_PREFIX),
-    getLocationOrDefault(WIDGET_ID_PREFIX, location)
+    getLocationOrDefault(WIDGET_ID_PREFIX, location),
+    WIDGET_ID_PREFIX
 ) {
     companion object {
         const val WIDGET_ID_PREFIX = "svg"
@@ -68,7 +72,8 @@ class SvgWidget(val content: String) : Widget(
 @SerialName("QueueWidget")
 class QueueWidget(val settings: QueueSettings) : Widget(
     WIDGET_ID,
-    getLocationOrDefault(WIDGET_ID, location)
+    getLocationOrDefault(WIDGET_ID, location),
+    WIDGET_ID,
 ) {
     companion object {
         const val WIDGET_ID = "queue"
@@ -80,7 +85,8 @@ class QueueWidget(val settings: QueueSettings) : Widget(
 @SerialName("ScoreboardWidget")
 class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(
     WIDGET_ID,
-    getLocationOrDefault(WIDGET_ID, location)
+    getLocationOrDefault(WIDGET_ID, location),
+    WIDGET_ID,
 ) {
     companion object {
         const val WIDGET_ID = "scoreboard"
@@ -92,7 +98,8 @@ class ScoreboardWidget(val settings: ScoreboardSettings) : Widget(
 @SerialName("StatisticsWidget")
 class StatisticsWidget(val settings: StatisticsSettings) : Widget(
     WIDGET_ID,
-    getLocationOrDefault(WIDGET_ID, location)
+    getLocationOrDefault(WIDGET_ID, location),
+    WIDGET_ID
 ) {
     companion object {
         const val WIDGET_ID = "statistics"
@@ -104,7 +111,8 @@ class StatisticsWidget(val settings: StatisticsSettings) : Widget(
 @SerialName("TickerWidget")
 class TickerWidget(val settings: TickerSettings) : Widget(
     WIDGET_ID,
-    getLocationOrDefault(WIDGET_ID, location)
+    getLocationOrDefault(WIDGET_ID, location),
+    WIDGET_ID
 ) {
     companion object {
         const val WIDGET_ID = "ticker"
@@ -117,16 +125,19 @@ enum class TeamViewPosition {
     SINGLE_TOP_RIGHT, PVP_TOP, PVP_BOTTOM, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
 }
 
+
 @Serializable
 @SerialName("TeamViewWidget")
 class TeamViewWidget(
     val settings: OverlayTeamViewSettings
 ) : Widget(
     getWidgetId(settings.position),
-    getLocationOrDefault(getWidgetId(settings.position), getLocation(settings.position))
+    getLocationOrDefault(getWidgetId(settings.position), getLocation(settings.position)),
+    WIDGET_ID_PREFIX
 ) {
     companion object {
-        fun getWidgetId(position: TeamViewPosition) = "teamview." + position.name
+        private const val WIDGET_ID_PREFIX = "teamview"
+        fun getWidgetId(position: TeamViewPosition) = "$WIDGET_ID_PREFIX.${position.name}"
         fun getLocation(position: TeamViewPosition) = when (position) {
             TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(16, 16, 1488, 984)
             TeamViewPosition.PVP_TOP -> LocationRectangle(16, 16, 1488, 984 / 2 + 16)
@@ -143,7 +154,8 @@ class TeamViewWidget(
 @SerialName("FullScreenClockWidget")
 class FullScreenClockWidget(val settings: FullScreenClockSettings) : Widget(
     WIDGET_ID,
-    getLocationOrDefault(WIDGET_ID, location)
+    getLocationOrDefault(WIDGET_ID, location),
+    WIDGET_ID
 ) {
     companion object {
         const val WIDGET_ID = "fullScreenClock"
@@ -156,6 +168,7 @@ class FullScreenClockWidget(val settings: FullScreenClockSettings) : Widget(
 class TeamLocatorWidget(val settings: TeamLocatorSettings) : Widget(
     WIDGET_ID,
     getLocationOrDefault(WIDGET_ID, location),
+    WIDGET_ID,
 ) {
     companion object {
         const val WIDGET_ID = "teamLocator"

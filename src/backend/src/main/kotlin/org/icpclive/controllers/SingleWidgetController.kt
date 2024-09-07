@@ -13,7 +13,7 @@ import org.icpclive.data.Manager
 
 abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : TypeWithId>(
     private var settings: SettingsType,
-    private val manager: Manager<DataType>,
+    private val manager: Manager<in DataType>,
     val id: Int? = null,
 ) {
     private val mutex = Mutex()
