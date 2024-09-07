@@ -38,7 +38,7 @@ public sealed interface ClicsSettings : CDSSettings {
     override fun toDataSource(): ContestDataSource = ClicsDataSource(this)
 }
 
-private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
+private class ParsedClicsLoaderSettings(settings: ClicsFeed, val tokenPrefix: String) {
     val baseUrl = settings.source
     val eventFeedUrl = buildList {
         if (settings.eventFeedPath != null) {
@@ -56,7 +56,7 @@ private class ParsedClicsLoaderSettings(settings: ClicsFeed) {
 }
 
 internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource {
-    private val feeds = settings.feeds.map { ParsedClicsLoaderSettings(it) }
+    private val feeds = settings.feeds.mapIndexed { index, it -> ParsedClicsLoaderSettings(it, "feed${index}$") }
 
     private val model = ClicsModel()
 
@@ -108,7 +108,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                 contestEvents.filter { !it.isFinalEvent }.forEach { emit(it) }
                 runEvents.forEach { emit(it) }
                 otherEvents.forEach { emit(it) }
-                emit(PreloadFinishedEvent(""))
+                emit(PreloadFinishedEvent(EventToken("")))
                 contestEvents.filter { it.isFinalEvent }.forEach { emit(it) }
                 for (event in channel) {
                     emit(event)
@@ -169,7 +169,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             }
         }
 
-        val idSet = mutableSetOf<String>()
+        val idSet = mutableSetOf<EventToken>()
         loaders
             .merge()
             .logAndRetryWithDelay(5.seconds) {
@@ -212,7 +212,10 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true
                 explicitNulls = false
-                serializersModule = clicsEventsSerializersModule(org.icpclive.clics.FeedVersion.valueOf(settings.feedVersion.name)) {
+                serializersModule = clicsEventsSerializersModule(
+                    feedVersion = org.icpclive.clics.FeedVersion.valueOf(settings.feedVersion.name),
+                    tokenPrefix = settings.tokenPrefix,
+                ) {
                     val mapped = settings.urlPrefixMapping.entries.fold(it) { acc, (key, value) ->
                         if (acc.startsWith(key)) {
                             value + acc.substring(key.length)

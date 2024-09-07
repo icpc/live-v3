@@ -1,6 +1,6 @@
 public final class org/icpclive/clics/EventsKt {
-	public static final fun clicsEventsSerializersModule (Lorg/icpclive/clics/FeedVersion;Lkotlin/jvm/functions/Function1;)Lkotlinx/serialization/modules/SerializersModule;
-	public static synthetic fun clicsEventsSerializersModule$default (Lorg/icpclive/clics/FeedVersion;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/serialization/modules/SerializersModule;
+	public static final fun clicsEventsSerializersModule (Lorg/icpclive/clics/FeedVersion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lkotlinx/serialization/modules/SerializersModule;
+	public static synthetic fun clicsEventsSerializersModule$default (Lorg/icpclive/clics/FeedVersion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/serialization/modules/SerializersModule;
 }
 
 public final class org/icpclive/clics/FeedVersion : java/lang/Enum {
@@ -43,7 +43,37 @@ public abstract interface class org/icpclive/clics/events/ContestEvent : org/icp
 }
 
 public abstract interface class org/icpclive/clics/events/Event {
-	public abstract fun getToken ()Ljava/lang/String;
+	public abstract fun getToken-SZb7hLM ()Ljava/lang/String;
+}
+
+public final class org/icpclive/clics/events/EventToken {
+	public static final field Companion Lorg/icpclive/clics/events/EventToken$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/clics/events/EventToken;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/clics/events/EventToken$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/clics/events/EventToken$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize-kUsLQ_I (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/String;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize-SkBLzSE (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/String;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/clics/events/EventToken$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public abstract interface class org/icpclive/clics/events/GlobalEvent {
@@ -74,8 +104,8 @@ public abstract interface class org/icpclive/clics/events/PersonEvent : org/icpc
 }
 
 public final class org/icpclive/clics/events/PreloadFinishedEvent : org/icpclive/clics/events/UpdateContestEvent {
-	public fun <init> (Ljava/lang/String;)V
-	public fun getToken ()Ljava/lang/String;
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public abstract interface class org/icpclive/clics/events/ProblemEvent : org/icpclive/clics/events/IdEvent, org/icpclive/clics/events/UpdateContestEvent {
@@ -341,11 +371,11 @@ public abstract interface class org/icpclive/clics/objects/Team {
 
 public final class org/icpclive/clics/v202003/events/AwardEvent : org/icpclive/clics/events/AwardEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/AwardEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Award;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Award;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Award;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -365,11 +395,11 @@ public final class org/icpclive/clics/v202003/events/AwardEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/ClarificationEvent : org/icpclive/clics/events/ClarificationEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/ClarificationEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Clarification;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Clarification;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Clarification;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -389,11 +419,11 @@ public final class org/icpclive/clics/v202003/events/ClarificationEvent$Companio
 
 public final class org/icpclive/clics/v202003/events/CommentaryEvent : org/icpclive/clics/events/CommentaryEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/CommentaryEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Commentary;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Commentary;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Commentary;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -413,10 +443,10 @@ public final class org/icpclive/clics/v202003/events/CommentaryEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/ContestEvent : org/icpclive/clics/events/ContestEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/ContestEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Contest;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Contest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Contest;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -436,11 +466,11 @@ public final class org/icpclive/clics/v202003/events/ContestEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/GroupEvent : org/icpclive/clics/events/GroupEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/GroupEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Group;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Group;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Group;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -460,11 +490,11 @@ public final class org/icpclive/clics/v202003/events/GroupEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/JudgementEvent : org/icpclive/clics/events/JudgementEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/JudgementEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Judgement;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Judgement;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Judgement;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -484,11 +514,11 @@ public final class org/icpclive/clics/v202003/events/JudgementEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/JudgementTypeEvent : org/icpclive/clics/events/JudgementTypeEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/JudgementTypeEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/JudgementType;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/JudgementType;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/JudgementType;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -508,11 +538,11 @@ public final class org/icpclive/clics/v202003/events/JudgementTypeEvent$Companio
 
 public final class org/icpclive/clics/v202003/events/LanguageEvent : org/icpclive/clics/events/LanguageEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/LanguageEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Language;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Language;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Language;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -546,11 +576,11 @@ public final class org/icpclive/clics/v202003/events/Operation$Companion {
 
 public final class org/icpclive/clics/v202003/events/OrganizationEvent : org/icpclive/clics/events/OrganizationEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/OrganizationEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Organization;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Organization;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Organization;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -570,11 +600,11 @@ public final class org/icpclive/clics/v202003/events/OrganizationEvent$Companion
 
 public final class org/icpclive/clics/v202003/events/ProblemEvent : org/icpclive/clics/events/ProblemEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/ProblemEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Problem;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Problem;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Problem;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -594,11 +624,11 @@ public final class org/icpclive/clics/v202003/events/ProblemEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/RunEvent : org/icpclive/clics/events/RunEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/RunEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Run;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Run;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Run;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -618,10 +648,10 @@ public final class org/icpclive/clics/v202003/events/RunEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/StateEvent : org/icpclive/clics/events/StateEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/StateEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/State;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/State;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/State;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -641,11 +671,11 @@ public final class org/icpclive/clics/v202003/events/StateEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/SubmissionEvent : org/icpclive/clics/events/SubmissionEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/SubmissionEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Submission;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Submission;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Submission;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -665,11 +695,11 @@ public final class org/icpclive/clics/v202003/events/SubmissionEvent$Companion {
 
 public final class org/icpclive/clics/v202003/events/TeamEvent : org/icpclive/clics/events/TeamEvent {
 	public static final field Companion Lorg/icpclive/clics/v202003/events/TeamEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Team;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/v202003/events/Operation;Lorg/icpclive/clics/objects/Team;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Team;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202003/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1478,11 +1508,11 @@ public final class org/icpclive/clics/v202003/objects/Team$Companion {
 
 public final class org/icpclive/clics/v202207/events/AccountEvent : org/icpclive/clics/events/AccountEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/AccountEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Account;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Account;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Account;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1502,11 +1532,11 @@ public final class org/icpclive/clics/v202207/events/AccountEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/AwardEvent : org/icpclive/clics/events/AwardEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/AwardEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Award;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Award;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Award;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1526,11 +1556,11 @@ public final class org/icpclive/clics/v202207/events/AwardEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/ClarificationEvent : org/icpclive/clics/events/ClarificationEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/ClarificationEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Clarification;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Clarification;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Clarification;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1550,11 +1580,11 @@ public final class org/icpclive/clics/v202207/events/ClarificationEvent$Companio
 
 public final class org/icpclive/clics/v202207/events/CommentaryEvent : org/icpclive/clics/events/CommentaryEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/CommentaryEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Commentary;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Commentary;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Commentary;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1574,10 +1604,10 @@ public final class org/icpclive/clics/v202207/events/CommentaryEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/ContestEvent : org/icpclive/clics/events/ContestEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/ContestEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/Contest;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/Contest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Contest;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1597,11 +1627,11 @@ public final class org/icpclive/clics/v202207/events/ContestEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/GroupEvent : org/icpclive/clics/events/GroupEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/GroupEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Group;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Group;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Group;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1621,11 +1651,11 @@ public final class org/icpclive/clics/v202207/events/GroupEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/JudgementEvent : org/icpclive/clics/events/JudgementEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/JudgementEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Judgement;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Judgement;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Judgement;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1645,11 +1675,11 @@ public final class org/icpclive/clics/v202207/events/JudgementEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/JudgementTypeEvent : org/icpclive/clics/events/JudgementTypeEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/JudgementTypeEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/JudgementType;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/JudgementType;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/JudgementType;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1669,11 +1699,11 @@ public final class org/icpclive/clics/v202207/events/JudgementTypeEvent$Companio
 
 public final class org/icpclive/clics/v202207/events/LanguageEvent : org/icpclive/clics/events/LanguageEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/LanguageEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Language;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Language;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Language;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1693,11 +1723,11 @@ public final class org/icpclive/clics/v202207/events/LanguageEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/OrganizationEvent : org/icpclive/clics/events/OrganizationEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/OrganizationEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Organization;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Organization;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Organization;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1717,11 +1747,11 @@ public final class org/icpclive/clics/v202207/events/OrganizationEvent$Companion
 
 public final class org/icpclive/clics/v202207/events/PersonEvent : org/icpclive/clics/events/PersonEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/PersonEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Person;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Person;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Person;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1741,11 +1771,11 @@ public final class org/icpclive/clics/v202207/events/PersonEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/ProblemEvent : org/icpclive/clics/events/ProblemEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/ProblemEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Problem;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Problem;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Problem;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1765,11 +1795,11 @@ public final class org/icpclive/clics/v202207/events/ProblemEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/RunEvent : org/icpclive/clics/events/RunEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/RunEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Run;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Run;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Run;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1789,10 +1819,10 @@ public final class org/icpclive/clics/v202207/events/RunEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/StateEvent : org/icpclive/clics/events/StateEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/StateEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/State;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/State;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/State;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1812,11 +1842,11 @@ public final class org/icpclive/clics/v202207/events/StateEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/SubmissionEvent : org/icpclive/clics/events/SubmissionEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/SubmissionEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Submission;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Submission;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Submission;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -1836,11 +1866,11 @@ public final class org/icpclive/clics/v202207/events/SubmissionEvent$Companion {
 
 public final class org/icpclive/clics/v202207/events/TeamEvent : org/icpclive/clics/events/TeamEvent {
 	public static final field Companion Lorg/icpclive/clics/v202207/events/TeamEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Team;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Team;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Team;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202207/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2836,11 +2866,11 @@ public final class org/icpclive/clics/v202207/objects/Team$Companion {
 
 public final class org/icpclive/clics/v202306/events/AccountEvent : org/icpclive/clics/events/AccountEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/AccountEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Account;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Account;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Account;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2860,11 +2890,11 @@ public final class org/icpclive/clics/v202306/events/AccountEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/AwardEvent : org/icpclive/clics/events/AwardEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/AwardEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Award;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Award;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Award;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2884,11 +2914,11 @@ public final class org/icpclive/clics/v202306/events/AwardEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/ClarificationEvent : org/icpclive/clics/events/ClarificationEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/ClarificationEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Clarification;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Clarification;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Clarification;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2908,11 +2938,11 @@ public final class org/icpclive/clics/v202306/events/ClarificationEvent$Companio
 
 public final class org/icpclive/clics/v202306/events/CommentaryEvent : org/icpclive/clics/events/CommentaryEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/CommentaryEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Commentary;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Commentary;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Commentary;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2932,10 +2962,10 @@ public final class org/icpclive/clics/v202306/events/CommentaryEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/ContestEvent : org/icpclive/clics/events/ContestEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/ContestEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/Contest;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/Contest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Contest;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2955,11 +2985,11 @@ public final class org/icpclive/clics/v202306/events/ContestEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/GroupEvent : org/icpclive/clics/events/GroupEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/GroupEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Group;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Group;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Group;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2979,11 +3009,11 @@ public final class org/icpclive/clics/v202306/events/GroupEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/JudgementEvent : org/icpclive/clics/events/JudgementEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/JudgementEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Judgement;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Judgement;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Judgement;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3003,11 +3033,11 @@ public final class org/icpclive/clics/v202306/events/JudgementEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/JudgementTypeEvent : org/icpclive/clics/events/JudgementTypeEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/JudgementTypeEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/JudgementType;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/JudgementType;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/JudgementType;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3027,11 +3057,11 @@ public final class org/icpclive/clics/v202306/events/JudgementTypeEvent$Companio
 
 public final class org/icpclive/clics/v202306/events/LanguageEvent : org/icpclive/clics/events/LanguageEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/LanguageEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Language;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Language;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Language;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3051,11 +3081,11 @@ public final class org/icpclive/clics/v202306/events/LanguageEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/OrganizationEvent : org/icpclive/clics/events/OrganizationEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/OrganizationEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Organization;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Organization;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Organization;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3075,11 +3105,11 @@ public final class org/icpclive/clics/v202306/events/OrganizationEvent$Companion
 
 public final class org/icpclive/clics/v202306/events/PersonEvent : org/icpclive/clics/events/PersonEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/PersonEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Person;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Person;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Person;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3099,11 +3129,11 @@ public final class org/icpclive/clics/v202306/events/PersonEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/ProblemEvent : org/icpclive/clics/events/ProblemEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/ProblemEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Problem;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Problem;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Problem;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3123,11 +3153,11 @@ public final class org/icpclive/clics/v202306/events/ProblemEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/RunEvent : org/icpclive/clics/events/RunEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/RunEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Run;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Run;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Run;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3147,10 +3177,10 @@ public final class org/icpclive/clics/v202306/events/RunEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/StateEvent : org/icpclive/clics/events/StateEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/StateEvent$Companion;
-	public fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/State;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/clics/objects/State;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/State;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3170,11 +3200,11 @@ public final class org/icpclive/clics/v202306/events/StateEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/SubmissionEvent : org/icpclive/clics/events/SubmissionEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/SubmissionEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Submission;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Submission;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Submission;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -3194,11 +3224,11 @@ public final class org/icpclive/clics/v202306/events/SubmissionEvent$Companion {
 
 public final class org/icpclive/clics/v202306/events/TeamEvent : org/icpclive/clics/events/TeamEvent {
 	public static final field Companion Lorg/icpclive/clics/v202306/events/TeamEvent$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Team;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Team;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Team;
 	public fun getId ()Ljava/lang/String;
-	public fun getToken ()Ljava/lang/String;
+	public fun getToken-SZb7hLM ()Ljava/lang/String;
 }
 
 public synthetic class org/icpclive/clics/v202306/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {

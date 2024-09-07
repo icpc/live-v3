@@ -189,10 +189,10 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                         if (isIdEvent) {
                             add("override val id: String")
                         }
-                        add("override val token: String")
+                        add("@Contextual override val token: org.icpclive.clics.events.EventToken")
                         add("override val data: ${obj.qualifiedName!!.asString()}?")
                     } else {
-                        add("@SerialName(\"id\") override val token: String")
+                        add("@SerialName(\"id\") @Contextual override val token: org.icpclive.clics.events.EventToken")
                         add("private val op: Operation")
                         add("@SerialName(\"data\") private val _data: ${obj.qualifiedName!!.asString()}")
                     }

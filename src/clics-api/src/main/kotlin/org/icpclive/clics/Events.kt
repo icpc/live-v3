@@ -2,10 +2,13 @@ package org.icpclive.clics
 
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
 import org.icpclive.cds.util.postProcess
+import org.icpclive.clics.events.EventToken
 
 public fun clicsEventsSerializersModule(
     feedVersion: FeedVersion,
+    tokenPrefix: String,
     urlPostprocessor: (String) -> Url = { Url(it) },
 ): SerializersModule = SerializersModule {
     include(
@@ -14,6 +17,11 @@ public fun clicsEventsSerializersModule(
             FeedVersion.`2022_07` -> org.icpclive.clics.v202207.serializersModule()
             FeedVersion.`2023_06` -> org.icpclive.clics.v202306.serializersModule()
         }
+    )
+    postProcess(
+        String.serializer(),
+        onSerialize = { it: EventToken -> it.value.removePrefix(tokenPrefix) },
+        onDeserialize = { EventToken(tokenPrefix + it) }
     )
     postProcess(
         String.serializer(),

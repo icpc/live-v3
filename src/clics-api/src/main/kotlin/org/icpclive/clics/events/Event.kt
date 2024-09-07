@@ -1,7 +1,13 @@
 package org.icpclive.clics.events
 
+import kotlinx.serialization.Serializable
+
+@Serializable
+@JvmInline
+public value class EventToken(public val value: String)
+
 public sealed interface Event {
-    public val token: String
+    public val token: EventToken
 }
 public sealed interface UpdateContestEvent : Event
 public sealed interface UpdateRunEvent: Event
