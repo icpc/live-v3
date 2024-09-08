@@ -42,7 +42,7 @@ abstract class CdsLoadersTest {
                     ContestParseResult(
                         it.infoAfterEvent!!,
                         it.runsAfterEvent.values.toList(),
-                        it.analyticsMessagesAfterEvent.values.toList()
+                        it.commentaryMessagesAfterEvent.values.toList()
                     )
                 }
             }

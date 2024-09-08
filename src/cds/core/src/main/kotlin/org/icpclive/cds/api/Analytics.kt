@@ -6,9 +6,17 @@ import org.icpclive.cds.util.serializers.DurationInMillisecondsSerializer
 import org.icpclive.cds.util.serializers.UnixMillisecondsSerializer
 import kotlin.time.Duration
 
+@JvmInline
+@Serializable
+public value class CommentaryMessageId internal constructor(public val value: String) {
+    override fun toString(): String = value
+}
+
+public fun String.toCommentaryMessageId(): CommentaryMessageId = CommentaryMessageId(this)
+
 @Serializable
 public data class CommentaryMessage(
-    val id: String,
+    val id: CommentaryMessageId,
     val message: String,
     @SerialName("timeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)

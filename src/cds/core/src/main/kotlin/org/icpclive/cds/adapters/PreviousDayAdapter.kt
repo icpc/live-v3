@@ -41,7 +41,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
 
     return transform { update ->
         when (update) {
-            is AnalyticsUpdate -> emit(update)
+            is CommentaryMessagesUpdate -> emit(update)
             is InfoUpdate -> {
                 val info = update.newInfo
                 val newProblems = info.problemList.sortedBy { it.ordinal }.mapIndexed { index, problem ->

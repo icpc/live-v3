@@ -129,7 +129,7 @@ class QueueService : Service {
 
                     is Event -> {
                         when (val update = event.state.lastEvent) {
-                            is AnalyticsUpdate -> {}
+                            is CommentaryMessagesUpdate -> {}
                             is InfoUpdate -> {}
                             is RunUpdate -> {
                                 val contestInfo = event.state.infoAfterEvent?.takeIf { it.status !is ContestStatus.BEFORE } ?: return@collect

@@ -10,7 +10,7 @@ internal open class ContestStateWithGroupedRuns<K>(
     val event: ContestUpdate,
     val infoBeforeEvent: ContestInfo?,
     val runs: PersistentMap<K, PersistentList<RunInfo>>,
-    val analyticsMessages: PersistentMap<String, CommentaryMessage>,
+    val commentaryMessages: PersistentMap<CommentaryMessageId, CommentaryMessage>,
 ) {
     val infoAfterEvent: ContestInfo?
         get() = if (event is InfoUpdate) event.newInfo else infoBeforeEvent
@@ -25,13 +25,13 @@ internal fun <K : Any> Flow<ContestUpdate>.withGroupedRuns(
 
 internal fun <K : Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.withGroupedRuns(
     selector: (RunInfo) -> K,
-    provider: (ContestUpdate, ContestInfo?, PersistentMap<K, PersistentList<RunInfo>>, PersistentMap<String, CommentaryMessage>) -> S,
+    provider: (ContestUpdate, ContestInfo?, PersistentMap<K, PersistentList<RunInfo>>, PersistentMap<CommentaryMessageId, CommentaryMessage>) -> S,
     transformGroup: ((key: K, cur: PersistentList<RunInfo>, original: PersistentList<RunInfo>, info: ContestInfo?) -> List<RunInfo>)? = null,
     needUpdateGroup: ((new: ContestInfo, old: ContestInfo?, key: K) -> Boolean)? = null,
 ): Flow<S> = flow {
     var curInfo: ContestInfo? = null
     var curRuns = persistentMapOf<K, PersistentList<RunInfo>>()
-    var curMessages = persistentMapOf<String, CommentaryMessage>()
+    var curMessages = persistentMapOf<CommentaryMessageId, CommentaryMessage>()
     var originalRuns = persistentMapOf<K, PersistentList<RunInfo>>()
     val oldKey = mutableMapOf<RunId, K>()
     collect { update ->
@@ -89,7 +89,7 @@ internal fun <K : Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.w
                 }
             }
 
-            is AnalyticsUpdate -> {
+            is CommentaryMessagesUpdate -> {
                 curMessages = curMessages.put(update.message.id, update.message)
                 emit(update)
             }

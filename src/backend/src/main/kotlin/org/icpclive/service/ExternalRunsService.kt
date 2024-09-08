@@ -16,7 +16,7 @@ class ExternalRunsService : Service {
         var runs = persistentMapOf<RunId, ExternalRunInfo>()
         DataBus.externalRunsFlow.complete(flow.transform {
             when (val event = it.state.lastEvent) {
-                is AnalyticsUpdate -> {}
+                is CommentaryMessagesUpdate -> {}
                 is InfoUpdate -> {}
                 is RunUpdate -> {
                     val externalInfo = event.newInfo.toExternal(it)

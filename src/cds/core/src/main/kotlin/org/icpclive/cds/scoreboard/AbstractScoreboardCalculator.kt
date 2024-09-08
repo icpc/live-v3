@@ -213,7 +213,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
         val info = state.infoAfterEvent ?: return emptyList()
         val calculator = getScoreboardCalculator(info, optimismLevel)
         val teamsAffected = when (val event = state.lastEvent) {
-            is AnalyticsUpdate -> emptyList()
+            is CommentaryMessagesUpdate -> emptyList()
             is InfoUpdate -> info.teams.keys.toList()
             is RunUpdate -> {
                 lastSubmissionTime = maxOf(lastSubmissionTime, event.newInfo.time)

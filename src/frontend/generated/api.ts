@@ -679,7 +679,7 @@ export namespace AnalyticsEvent {
 }
 
 export interface AnalyticsMessage {
-  id: string;
+  id: AnalyticsMessageId;
   updateTimeUnixMs: number;
   timeUnixMs: number;
   relativeTimeMs: number;
@@ -687,7 +687,10 @@ export interface AnalyticsMessage {
   teamId: TeamId | null;
   runInfo: RunInfo | null;
   featuredRun: AnalyticsCompanionRun | null;
+  tags: string[];
 }
+
+export type AnalyticsMessageId = string;
 
 export interface AnalyticsCompanionRun {
   expirationTimeUnixMs: number | null;
@@ -695,12 +698,14 @@ export interface AnalyticsCompanionRun {
 }
 
 export interface AnalyticsMessageComment {
-  id: string;
+  id: CommentaryMessageId;
   message: string;
   advertisement: AnalyticsCompanionPreset | null;
   tickerMessage: AnalyticsCompanionPreset | null;
   creationTimeUnixMs: number;
 }
+
+export type CommentaryMessageId = string;
 
 export interface AnalyticsCompanionPreset {
   presetId: number;

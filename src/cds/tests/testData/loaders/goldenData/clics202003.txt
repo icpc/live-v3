@@ -48804,7 +48804,7 @@
             "isHidden": false
         }
     ],
-    "analyticsMessages": [
+    "commentaryMessages": [
         {
             "id": "0",
             "message": "Contest has started",

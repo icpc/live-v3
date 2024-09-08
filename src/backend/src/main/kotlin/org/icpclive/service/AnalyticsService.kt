@@ -22,13 +22,16 @@ sealed class AnalyticsAction {
     abstract val messageId: AnalyticsMessageId
 
     sealed class AnalyticsCommentaryAction : AnalyticsAction() {
-        abstract val commentId: String
+        abstract val commentId: CommentaryMessageId
     }
 
-    data class CreateAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: String, val ttl: Duration?) : AnalyticsCommentaryAction()
-    data class DeleteAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: String, val expectedId: Int? = null) : AnalyticsCommentaryAction()
-    data class CreateTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: String, val ttl: Duration?) : AnalyticsCommentaryAction()
-    data class DeleteTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: String, val expectedId: Int? = null) : AnalyticsCommentaryAction()
+    data class CreateAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
+    data class DeleteAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
+        AnalyticsCommentaryAction()
+
+    data class CreateTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
+    data class DeleteTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
+        AnalyticsCommentaryAction()
 
     data class MakeRunFeatured(override val messageId: AnalyticsMessageId, val mediaType: TeamMediaType) : AnalyticsAction()
     data class MakeRunNotFeatured(override val messageId: AnalyticsMessageId) : AnalyticsAction()
@@ -164,9 +167,11 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
         var teamId = message.teamId
         var runInfo = message.runInfo
         var comments = message.comments
+        val tags = message.tags.toMutableSet()
         if (commentEvent != null) {
             updateTime = maxOf(updateTime, commentEvent.time)
             comments = comments.updateComment(AnalyticsMessageComment(commentEvent.id, commentEvent.message, creationTime = commentEvent.time))
+            tags += commentEvent.tags
         }
         if (run != null) {
             teamId = run.teamId
@@ -176,6 +181,14 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
             time = contestInfo?.instantAt(it.time) ?: time
             relativeTime = it.time
             updateTime = maxOf(updateTime, time)
+            tags += "submission"
+            val icpcResult = it.result as? RunResult.ICPC
+            if (icpcResult?.verdict?.isAccepted == true) {
+                tags += "accepted"
+            }
+            if (icpcResult?.isFirstToSolveRun == true) {
+                tags += "first-to-solved"
+            }
         }
 
         if (comment != null) {
@@ -188,7 +201,8 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
             teamId = teamId,
             runInfo = runInfo,
             comments = comments,
-            featuredRun = featuredRun ?: message.featuredRun.takeIf { featuredRunRemove != true }
+            featuredRun = featuredRun ?: message.featuredRun.takeIf { featuredRunRemove != true },
+            tags = tags,
         )
         messages[message.id] = newMessage
         resultFlow.emit(UpdateAnalyticsMessageEvent(newMessage))
@@ -218,8 +232,8 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
 
                                 val run = update.newInfo
                                 if (run.isHidden) return@collect
+                                val messageId = run.id.toAnalyticsMessageId()
 
-                                val messageId = AnalyticsMessageIdRun(run.id)
                                 val timeInstant = contestInfo?.instantAt(run.time) ?: Clock.System.now()
                                 val message = messages[messageId] ?: AnalyticsMessage(
                                     id = messageId,
@@ -231,10 +245,10 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
 
                             }
 
-                            is AnalyticsUpdate -> {
+                            is CommentaryMessagesUpdate -> {
                                 val analyticsMessage = update.message
                                 for (runId in analyticsMessage.runIds) {
-                                    val messageId = AnalyticsMessageIdRun(runId)
+                                    val messageId = runId.toAnalyticsMessageId()
                                     val message = messages[messageId] ?: AnalyticsMessage(
                                         id = messageId,
                                         lastUpdateTime = analyticsMessage.time,
@@ -245,7 +259,7 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
                                 }
                                 // also we can iterate of teamId in Commentary message and create Analytics message for each team
                                 if (analyticsMessage.runIds.isEmpty()) {
-                                    val messageId = AnalyticsMessageIdCommentary(analyticsMessage.id)
+                                    val messageId = analyticsMessage.id.toAnalyticsMessageId()
                                     val message = messages[messageId] ?: AnalyticsMessage(
                                         id = messageId,
                                         lastUpdateTime = analyticsMessage.time,

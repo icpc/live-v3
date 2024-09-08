@@ -267,7 +267,7 @@ internal class ClicsModel {
 
     fun processCommentary(commentary: Commentary) =
         CommentaryMessage(
-            commentary.id,
+            commentary.id.toCommentaryMessageId(),
             commentary.message,
             commentary.time,
             commentary.contestTime,

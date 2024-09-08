@@ -5,8 +5,17 @@ import kotlinx.serialization.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.serializers.DurationInMillisecondsSerializer
 import org.icpclive.cds.util.serializers.UnixMillisecondsSerializer
-import org.icpclive.util.AnalyticsMessageIdSerializer
 import kotlin.time.Duration
+
+@JvmInline
+@Serializable
+value class AnalyticsMessageId internal constructor(val value: String) {
+    override fun toString(): String = value
+}
+
+fun String.toAnalyticsMessageId() = AnalyticsMessageId(this)
+fun RunId.toAnalyticsMessageId() = AnalyticsMessageId("run_$this")
+fun CommentaryMessageId.toAnalyticsMessageId() = AnalyticsMessageId("commentary_$this")
 
 @Serializable
 data class AnalyticsMessage(
@@ -24,17 +33,13 @@ data class AnalyticsMessage(
     @Required val teamId: TeamId? = null,
     @Required val runInfo: RunInfo? = null,
     @Required val featuredRun: AnalyticsCompanionRun? = null,
+    @Required val tags: Set<String> = emptySet(),
 )
-
-@Serializable(with = AnalyticsMessageIdSerializer::class)
-sealed class AnalyticsMessageId
-data class AnalyticsMessageIdRun(val runId: RunId) : AnalyticsMessageId()
-data class AnalyticsMessageIdCommentary(val commentaryId: String) : AnalyticsMessageId()
 
 
 @Serializable
 data class AnalyticsMessageComment(
-    val id: String,
+    val id: CommentaryMessageId,
     val message: String,
     @Required val advertisement: AnalyticsCompanionPreset? = null,
     @Required val tickerMessage: AnalyticsCompanionPreset? = null,

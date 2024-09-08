@@ -193,7 +193,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         runLoader(
             onRun = { emit(RunUpdate(it)) },
             onContestInfo = { emit(InfoUpdate(it)) },
-            onComment = { emit(AnalyticsUpdate(it)) }
+            onComment = { emit(CommentaryMessagesUpdate(it)) }
         )
         if (model.contestInfo.status !is ContestStatus.FINALIZED) {
             log.info { "Events are finished, while contest is not finalized. Enforce finalization." }

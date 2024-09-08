@@ -7,7 +7,7 @@ import {
     TextField,
     Tooltip,
 } from "@mui/material";
-import { ArrowForward as ArrowForwardIcon/*, StarHalf, EmojiEvents, LooksOne, Check*/ } from "@mui/icons-material";
+import { ArrowForward as ArrowForwardIcon, StarHalf, EmojiEvents, LooksOne, Check } from "@mui/icons-material";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { activeRowColor } from "@/styles.js";
 import { timeMsToDuration, unixTimeMsToLocalTime } from "@/utils";
@@ -20,18 +20,18 @@ const featuredRunMediaTypes = [
     TeamMediaType.screen, TeamMediaType.camera, TeamMediaType.record, TeamMediaType.photo, TeamMediaType.reactionVideo
 ];
 
-// const EventTagsIcons = ({ event: { tags } }) => {
-//     if (tags.includes("accepted-first-to-solve")){
-//         return <StarHalf/>;
-//     } else if (tags.includes("accepted-winner")) {
-//         return <LooksOne/>;
-//     } else if (tags.includes("accepted-gold-medal")) {
-//         return <EmojiEvents/>;
-//     } else if (tags.includes("accepted")) {
-//         return <Check/>;
-//     }
-//     return undefined; //<Icon/>;
-// };
+const EventTagsIcons = ({ tags }: { tags: string[]  }) => {
+    if (tags.includes("first-to-solved")){
+        return <StarHalf/>;
+    } else if (tags.includes("accepted-winner")) {
+        return <LooksOne/>;
+    } else if (tags.includes("accepted-gold-medal")) {
+        return <EmojiEvents/>;
+    } else if (tags.includes("accepted")) {
+        return <Check/>;
+    }
+    return undefined; //<Icon/>;
+};
 
 const buildMessagesTableColumns = (
     teams: { [id: string]: TeamInfo },
@@ -39,6 +39,17 @@ const buildMessagesTableColumns = (
     selectedCommentId: string | undefined,
     onSelectComment: (messageId: string, commentId: string) => void,
 ): GridColDef<AnalyticsMessage>[] => [
+    {
+        field: "tags",
+        headerName: "",
+        width: 26,
+        minWidth: 26,
+        cellClassName: "AnalyticsTableTagsCell",
+        valueGetter: (v: string[]) => v.join(" "),
+        renderCell: ({ row: { tags } }: GridRenderCellParams<AnalyticsMessage, string[]>) => (
+            <EventTagsIcons tags={tags} />
+        )
+    },
     {
         field: "comments",
         headerName: "Messages",
@@ -87,6 +98,7 @@ const buildMessagesTableColumns = (
     {
         field: "relativeTimeMs",
         headerName: "Time",
+        width: 80,
         renderCell: (params: GridRenderCellParams<AnalyticsMessage, number>) => (
             <Tooltip title={unixTimeMsToLocalTime(params.row.timeUnixMs)}>
                 <span>{timeMsToDuration(params.row.relativeTimeMs)}</span>
@@ -137,9 +149,8 @@ function MessagesTable({
                     minHeight: 30,
                     maxHeight: 30,
                 },
-                "& .MuiDataGrid-cell:focus": {
-                    outline: "0",
-                }
+                "& .MuiDataGrid-cell:focus": { outline: "0" },
+                "& .AnalyticsTableTagsCell": { paddingX: "2px" }
             }}
         />
     );

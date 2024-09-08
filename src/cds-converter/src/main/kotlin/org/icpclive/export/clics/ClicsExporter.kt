@@ -292,11 +292,11 @@ object ClicsExporter  {
         diffRemove(languagesMap, newInfo.languagesList + unknownLanguage, { id }) { id, token, data -> LanguageEvent(id.value, token, data) }
     }
 
-    private suspend fun FlowCollector<EventProducer>.processAnalytics(event: CommentaryMessage) {
+    private suspend fun FlowCollector<EventProducer>.processCommentaryMessage(event: CommentaryMessage) {
         updateEvent(
-            event.id,
+            event.id.toString(),
             Commentary(
-                id = event.id,
+                id = event.id.toString(),
                 time = event.time,
                 contestTime = event.relativeTime,
                 message = event.message,
@@ -316,7 +316,7 @@ object ClicsExporter  {
             when (val event = state.lastEvent) {
                 is InfoUpdate -> calculateDiff(state.infoBeforeEvent, event.newInfo)
                 is RunUpdate -> processRun(state.infoBeforeEvent!!, event.newInfo)
-                is AnalyticsUpdate -> processAnalytics(event.message)
+                is CommentaryMessagesUpdate -> processCommentaryMessage(event.message)
             }
         }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }
@@ -403,7 +403,7 @@ object ClicsExporter  {
         val submissionsFlow = eventFeed.filterIdEvent<Submission, _, SubmissionEvent>(scope)
         val judgementsFlow = eventFeed.filterIdEvent<Judgement, _, JudgementEvent>(scope)
         //val runsFlow = eventFeed.filterIdEvent<Run, Event.RunsEvent>(scope)
-        val commentaryFlow = eventFeed.filterIdEvent<Commentary, _, org.icpclive.clics.events.CommentaryEvent>(scope)
+        val commentaryFlow = eventFeed.filterIdEvent<Commentary, _, CommentaryEvent>(scope)
         //val personsFlow = eventFeed.filterIdEvent<Person, Event.PersonEvent>(scope)
         //val accountsFlow = eventFeed.filterIdEvent<Account, Event.AccountEvent>(scope)
         //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)

@@ -12,7 +12,7 @@ const contestConfigs: TestConfig[] = [
                 { path: "scoreboard" },
             ],
             analytics: {
-                messageId: "2619",
+                messageId: "run_1674",
                 makeFeaturedType: "record"
             }
         }, {

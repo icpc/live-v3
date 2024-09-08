@@ -42,6 +42,6 @@ public fun Flow<ContestUpdate>.selectProblemColors(): Flow<ContestUpdate> = with
             emit(it.event)
         }
 
-        is AnalyticsUpdate -> emit(it.event)
+        is CommentaryMessagesUpdate -> emit(it.event)
     }
 }

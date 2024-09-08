@@ -24,7 +24,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
         val runs = mutableMapOf<RunId, RunAnalyse>()
         scoreboardFlow.collect {
             when (val event = it.state.lastEvent) {
-                is InfoUpdate, is AnalyticsUpdate -> emit(it)
+                is InfoUpdate, is CommentaryMessagesUpdate -> emit(it)
                 is RunUpdate -> {
                     emit(it)
                     if (messagesTemplates_ == null) return@collect
@@ -36,7 +36,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
                     val team = info.teams[run.teamId] ?: return@collect
                     val problem = info.problems[run.problemId] ?: return@collect
                     val message = CommentaryMessage(
-                        "_analytics_by_run_${run.id}",
+                        "_analytics_by_run_${run.id}".toCommentaryMessageId(),
                         getMessage(messagesTemplates_, analysis, team, problem),
                         analysis.creationTime,
                         run.time,

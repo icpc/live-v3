@@ -11,12 +11,12 @@ public fun ContestState?.applyEvent(event: ContestUpdate): ContestState {
     var info: ContestInfo? = infoBeforeEvent
     val runsBeforeEvent = this?.runsAfterEvent ?: persistentMapOf()
     var runs: PersistentMap<RunId, RunInfo> = runsBeforeEvent
-    val analyticsMessagesBeforeEvent = this?.analyticsMessagesAfterEvent ?: persistentMapOf()
-    var analyticsMessages: PersistentMap<String, CommentaryMessage> = analyticsMessagesBeforeEvent
+    val commentaryMessagesMessagesBeforeEvent = this?.commentaryMessagesAfterEvent ?: persistentMapOf()
+    var commentaryMessagesMessages: PersistentMap<CommentaryMessageId, CommentaryMessage> = commentaryMessagesMessagesBeforeEvent
     when (event) {
         is InfoUpdate -> info = event.newInfo
         is RunUpdate -> runs = runs.put(event.newInfo.id, event.newInfo)
-        is AnalyticsUpdate -> analyticsMessages = analyticsMessages.put(event.message.id, event.message)
+        is CommentaryMessagesUpdate -> commentaryMessagesMessages = commentaryMessagesMessages.put(event.message.id, event.message)
     }
     return ContestState(
         event,
@@ -24,8 +24,8 @@ public fun ContestState?.applyEvent(event: ContestUpdate): ContestState {
         info,
         runsBeforeEvent,
         runs,
-        analyticsMessagesBeforeEvent,
-        analyticsMessages
+        commentaryMessagesMessagesBeforeEvent,
+        commentaryMessagesMessages
     )
 }
 
@@ -39,7 +39,7 @@ public fun <T> Flow<T>.transformContestState(block: suspend FlowCollector<Contes
                 val isUseless = when (value) {
                     is RunUpdate -> it.runsAfterEvent[value.newInfo.id] == value.newInfo
                     is InfoUpdate -> it.infoAfterEvent == value.newInfo
-                    is AnalyticsUpdate -> it.analyticsMessagesAfterEvent[value.message.id] == value.message
+                    is CommentaryMessagesUpdate -> it.commentaryMessagesAfterEvent[value.message.id] == value.message
                 }
                 if (isUseless) return@collect
             }

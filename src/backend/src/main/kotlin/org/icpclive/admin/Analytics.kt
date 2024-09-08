@@ -5,8 +5,9 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.*
-import org.icpclive.api.AnalyticsMessageId
-import org.icpclive.api.AnalyticsMessageSnapshotEvent
+import org.icpclive.api.*
+import org.icpclive.cds.api.CommentaryMessageId
+import org.icpclive.cds.api.toCommentaryMessageId
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.service.AnalyticsAction
@@ -18,13 +19,13 @@ fun Route.setupAnalytics() {
     val actionsFlow = MutableSharedFlow<AnalyticsAction>(extraBufferCapacity = 10000)
     DataBus.analyticsActionsFlow.completeOrThrow(actionsFlow)
 
-    fun ApplicationCall.id() = parameters["id"]?.toAnalyticsMessageId() ?: throw ApiActionException("Error load preset by id")
-    fun ApplicationCall.commentId() = parameters["commentId"] ?: throw ApiActionException("Error load preset by id")
+    fun ApplicationCall.id() = parameters["id"]?.toAnalyticsMessageId() ?: throw ApiActionException("Error load analytics message by id")
+    fun ApplicationCall.commentId() = parameters["commentId"]?.toCommentaryMessageId() ?: throw ApiActionException("Error load analytics message comment by id")
 
     fun Route.presetWidget(
         name: String,
-        showAction: (id: AnalyticsMessageId, commentId: String, ttlMs: Duration?) -> AnalyticsAction,
-        hideAction: (id: AnalyticsMessageId, commentId: String) -> AnalyticsAction,
+        showAction: (id: AnalyticsMessageId, commentId: CommentaryMessageId, ttlMs: Duration?) -> AnalyticsAction,
+        hideAction: (id: AnalyticsMessageId, commentId: CommentaryMessageId) -> AnalyticsAction,
     ) {
         route("/{commentId}/$name") {
             post {
