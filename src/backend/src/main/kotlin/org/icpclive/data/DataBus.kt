@@ -32,8 +32,8 @@ object DataBus {
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
     val adminActionsFlow = MutableSharedFlow<String>(
-        replay = 500,
-        extraBufferCapacity = 0,
+        replay = 0,
+        extraBufferCapacity = 10,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
     val teamSpotlightFlow = CompletableDeferred<Flow<KeyTeam>>()
