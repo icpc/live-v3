@@ -273,7 +273,7 @@ const TeamViewManager = () => {
     const [mediaType2, setMediaType2] = useState<TeamMediaType>(undefined);
     const [statusShown, setStatusShown] = useState(true);
     const [achievementShown, setAchievementShown] = useState(false);
-    const [timeLineShown, setTimeLineShown] = useState(false);
+    const [timeLineShown, setTimeLineShown] = useState(true);
 
     const [allowedMediaTypes, disableMediaTypes] = useMemo(() => [
         DEFAULT_MEDIA_TYPES.filter(m => m && (selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m))),
@@ -312,16 +312,12 @@ const TeamViewManager = () => {
         }
     }, [status, mediaType1, setMediaType1, mediaType2, setMediaType2, setAchievementShown, rawTeams, variant, allowedMediaTypes]);
 
-    useEffect(() => {
-        // rawTeams.any(t => t);
-    }, [rawTeams]);
-
     const onShow = useCallback(() => {
         const settings = {
             mediaTypes: [mediaType1, mediaType2].filter(i => i),
             teamId: selectedTeamId,
             showTaskStatus: statusShown,
-            showAchievement: achievementShown && (variant !== "split"),
+            showAchievement: achievementShown && variant !== "split",
             showTimeLine: timeLineShown && variant === "single",
         };
         if (isMultipleMode) {

@@ -20,7 +20,7 @@ const contestConfigs: TestConfig[] = [
             widgets: [
                 { path: "queue" },
                 {
-                    path: "teamView", settings:
+                    path: "teamView/SINGLE", settings:
                         {
                             "mediaTypes": [ "camera", "screen" ],
                             "teamId": 47065,
