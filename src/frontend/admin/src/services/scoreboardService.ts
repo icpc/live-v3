@@ -1,6 +1,7 @@
-import { GroupInfo, ScoreboardSettings } from "@shared/api.ts";
-import { AbstractSingleWidgetService, useServiceSnackbarErrorHandler } from "@/services/abstractSingleWidget.ts";
 import { useMemo } from "react";
+import { GroupInfo, ScoreboardSettings } from "@shared/api.ts";
+import { AbstractSingleWidgetService } from "@/services/abstractSingleWidget.ts";
+import { useServiceSnackbarErrorHandler } from "@/services/abstractWidgetWithStatus.ts";
 
 export class ScoreboardWidgetService extends AbstractSingleWidgetService<ScoreboardSettings> {
     constructor() {

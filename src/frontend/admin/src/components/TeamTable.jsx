@@ -17,7 +17,7 @@ export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
     id: PropTypes.string,
     shown: PropTypes.bool.isRequired,
     selected: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
+    shortName: PropTypes.string.isRequired,
     medias: PropTypes.shape({
         screen: PropTypes.object,
         camera: PropTypes.object,
@@ -47,7 +47,7 @@ const TeamTableRow = ({ rowData, onClick, tStyle }) => {
         >
             {rowData.id && `${rowData.id} :`}
             {rowData.id === null && <AutoModeIcon sx={{ mr: 1 }} />}
-            {" " + rowData.name}
+            {" " + rowData.shortName}
         </Box>
     </Grid>);
 };

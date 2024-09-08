@@ -8,7 +8,7 @@ import ControlsPage from "./components/pages/ControlsPage.tsx";
 import Advertisement from "./components/Advertisement";
 import Title from "./components/Title";
 import Picture from "./components/Picture";
-import TeamView from "./components/TeamView";
+import TeamView from "./components/pages/TeamView";
 import { SnackbarProvider } from "notistack";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";

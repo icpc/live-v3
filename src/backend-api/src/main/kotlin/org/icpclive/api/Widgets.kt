@@ -122,7 +122,7 @@ class TickerWidget(val settings: TickerSettings) : Widget(
 
 @Serializable
 enum class TeamViewPosition {
-    SINGLE_TOP_RIGHT, PVP_TOP, PVP_BOTTOM, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+    SINGLE, PVP_TOP, PVP_BOTTOM, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
 }
 
 
@@ -139,7 +139,7 @@ class TeamViewWidget(
         private const val WIDGET_ID_PREFIX = "teamview"
         fun getWidgetId(position: TeamViewPosition) = "$WIDGET_ID_PREFIX.${position.name}"
         fun getLocation(position: TeamViewPosition) = when (position) {
-            TeamViewPosition.SINGLE_TOP_RIGHT -> LocationRectangle(16, 16, 1488, 984)
+            TeamViewPosition.SINGLE -> LocationRectangle(16, 16, 1488, 984)
             TeamViewPosition.PVP_TOP -> LocationRectangle(16, 16, 1488, 984 / 2 + 16)
             TeamViewPosition.PVP_BOTTOM -> LocationRectangle(16, 16 + 984 / 2 - 16, 1488, 984 / 2 + 16)
             TeamViewPosition.TOP_LEFT -> LocationRectangle(16, 16, 1488 / 2, 837 / 2)

@@ -50,7 +50,7 @@ data class ExternalTeamViewSettings(
     val showTaskStatus: Boolean = true,
     val showAchievement: Boolean = false,
     val showTimeLine: Boolean = false,
-    val position: TeamViewPosition = TeamViewPosition.SINGLE_TOP_RIGHT,
+    val position: TeamViewPosition = TeamViewPosition.SINGLE,
 ) : ObjectSettings
 
 @Serializable

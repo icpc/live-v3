@@ -13,6 +13,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.icpclive.Config
 import org.icpclive.api.TeamViewPosition
+import org.icpclive.api.WidgetUsageStatisticsEntry
 import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.tunning.toAdvancedProperties
 import org.icpclive.data.*
@@ -31,32 +32,28 @@ fun Route.configureAdminApiRouting() {
                 call.respond(getRegions())
             }
         }
-        route("/teamView") {
-            setupController(Controllers.teamView(TeamViewPosition.SINGLE_TOP_RIGHT))
-            get("/teams") {
-                call.respond(getTeams())
+        fun Route.setupTeamViews(name:String, vararg positions: TeamViewPosition) {
+            route("/$name") {
+                setupControllerGroup(positions.associate { it.name to Controllers.teamView(it) })
+                positions.forEach { position ->
+                    route("/${position.name}") { setupController(Controllers.teamView(position)) }
+                }
+                get("/teams") { call.respond(getTeams()) }
+                get("/usage_stats") {
+                    val entry = Controllers.getWidgetStats().entries["teamview"] as? WidgetUsageStatisticsEntry.PerTeam
+                    call.respond(entry ?: WidgetUsageStatisticsEntry.PerTeam(emptyMap()))
+                }
             }
         }
-        fun Route.setupTeamViews(positions: List<TeamViewPosition>) {
-            setupControllerGroup(positions.associate { it.name to Controllers.teamView(it) })
-            positions.forEach { position ->
-                route("/${position.name}") { setupController(Controllers.teamView(position)) }
-            }
-            get("/teams") { call.respond(getTeams()) }
-        }
-        route("/splitScreen") {
-            setupTeamViews(
-                listOf(
-                    TeamViewPosition.TOP_LEFT,
-                    TeamViewPosition.TOP_RIGHT,
-                    TeamViewPosition.BOTTOM_LEFT,
-                    TeamViewPosition.BOTTOM_RIGHT
-                )
-            )
-        }
-        route("/teamPVP") {
-            setupTeamViews(listOf(TeamViewPosition.PVP_TOP, TeamViewPosition.PVP_BOTTOM))
-        }
+        setupTeamViews("teamView", TeamViewPosition.SINGLE)
+        setupTeamViews("teamPVP", TeamViewPosition.PVP_TOP, TeamViewPosition.PVP_BOTTOM)
+        setupTeamViews(
+            "splitScreen",
+            TeamViewPosition.TOP_LEFT,
+            TeamViewPosition.TOP_RIGHT,
+            TeamViewPosition.BOTTOM_LEFT,
+            TeamViewPosition.BOTTOM_RIGHT
+        )
         route("/fullScreenClock") { setupController(Controllers.fullScreenClock) }
         route("/teamLocator") { setupController(Controllers.locator) }
 
