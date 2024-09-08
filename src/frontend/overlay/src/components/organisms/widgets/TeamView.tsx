@@ -97,7 +97,7 @@ const TimelineWrapper = styled.div`
 `;
 
 const teamViewVariant = (position: TeamViewPosition | undefined) => {
-    if (position === TeamViewPosition.SINGLE_TOP_RIGHT || position === undefined) {
+    if (position === TeamViewPosition.SINGLE || position === undefined) {
         return "single";
     } else if (position === TeamViewPosition.PVP_TOP || position === TeamViewPosition.PVP_BOTTOM) {
         return "pvp";

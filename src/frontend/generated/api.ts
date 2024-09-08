@@ -615,7 +615,7 @@ export enum OptimismLevel {
 }
 
 export enum TeamViewPosition {
-  SINGLE_TOP_RIGHT = "SINGLE_TOP_RIGHT",
+  SINGLE = "SINGLE",
   PVP_TOP = "PVP_TOP",
   PVP_BOTTOM = "PVP_BOTTOM",
   TOP_LEFT = "TOP_LEFT",
