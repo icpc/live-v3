@@ -54,12 +54,12 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
     }
 
     suspend fun show() = mutex.withLock {
-        hideImpl()
+        cancel()
         showImpl()
     }
 
     suspend fun show(newSettings: SettingsType) = mutex.withLock {
-        hideImpl()
+        cancel()
         settings = newSettings
         showImpl()
     }
@@ -69,14 +69,14 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
         createWidgetAndShow(settings)
     }
 
-    private suspend fun hideImpl() {
-        removeWidget()
+    private suspend fun cancel() {
         widgetShowScope?.cancel()
         widgetShowScope = null
     }
 
     suspend fun hide() = mutex.withLock {
-        hideImpl()
+        removeWidget()
+        cancel()
     }
 
     open suspend fun onDelete() {
