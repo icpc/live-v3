@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.api.CurrentTeamState
 import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.adapters.generateCommentary
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.cds.util.getLogger
@@ -23,8 +24,10 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
             .onEach { log.info { "Start loading data" } }
             .take(1)
     }
+    val commentaryGenerator = AnalyticsGenerator(Config.analyticsTemplatesFile)
     val normalScoreboardState = loader
         .calculateScoreboard(OptimismLevel.NORMAL)
+        .generateCommentary(commentaryGenerator::getMessages)
         .buffer(Int.MAX_VALUE)
         .shareIn(this, starter)
 
@@ -50,7 +53,7 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
     launchService(QueueService())
     launchService(ScoreboardService())
     launchService(StatisticsService())
-    launchService(AnalyticsService(AnalyticsGenerator(Config.analyticsTemplatesFile)))
+    launchService(AnalyticsService())
     launchService(ExternalRunsService())
     launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
     launchService(RegularLoggingService())

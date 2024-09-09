@@ -71,6 +71,10 @@ public final class org/icpclive/cds/adapters/AutoFinalizeKt {
 	public static final fun finalContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
+public final class org/icpclive/cds/adapters/CommentaryAdapterKt {
+	public static final fun generateCommentary (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+}
+
 public final class org/icpclive/cds/adapters/ContestStateKt {
 	public static final fun applyEvent (Lorg/icpclive/cds/api/ContestState;Lorg/icpclive/cds/ContestUpdate;)Lorg/icpclive/cds/api/ContestState;
 	public static final fun contestState (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;

@@ -191,8 +191,8 @@ public fun ContestStateWithScoreboard.toScoreboardDiff(snapshot: Boolean) : Scor
  */
 public class ContestStateWithScoreboard internal constructor(
     public val state: ContestState,
-    private val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
-    private val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
+    internal val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
+    internal val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
     public val scoreboardRowsChanged: List<TeamId>,
     public val rankingBefore: Ranking,
     public val rankingAfter: Ranking,

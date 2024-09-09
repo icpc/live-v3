@@ -15,7 +15,6 @@ import org.icpclive.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
 import org.icpclive.data.*
-import org.icpclive.service.analytics.AnalyticsGenerator
 import kotlin.time.Duration
 
 sealed class AnalyticsAction {
@@ -38,7 +37,7 @@ sealed class AnalyticsAction {
 }
 
 
-class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
+class AnalyticsService : Service {
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private var contestInfo: ContestInfo? = null
     private val messages = mutableMapOf<AnalyticsMessageId, AnalyticsMessage>()
@@ -219,7 +218,7 @@ class AnalyticsService(private val generator: AnalyticsGenerator) : Service {
             merge(
                 subscriberFlow.map { Subscribe },
                 actionFlow,
-                generator.getFlow(flow).map { ContestUpdate(it.state.lastEvent) }
+                flow.map { ContestUpdate(it.state.lastEvent) }
             ).collect { event ->
                 when (event) {
                     is ContestUpdate -> {
