@@ -70,7 +70,7 @@ export function queueReducer(state = initialState, action): QueueState {
             ...state,
             queue: [
                 action.payload.newRun,
-                ...state.queue
+                ...state.queue.filter((run) => run.id !== action.payload.newRun.id)
             ],
             totalQueueItems: state.totalQueueItems + 1
         };
