@@ -12,7 +12,14 @@ import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { activeRowColor } from "@/styles.js";
 import { timeMsToDuration, unixTimeMsToLocalTime } from "@/utils";
 import { FeaturedRunStatus, useAnalyticsService } from "@/services/analytics";
-import { AnalyticsMessage, AnalyticsMessageComment, ProblemInfo, TeamInfo, TeamMediaType } from "@shared/api.ts";
+import {
+    AnalyticsMessage,
+    AnalyticsMessageComment,
+    ProblemInfo,
+    RunResult,
+    TeamInfo,
+    TeamMediaType
+} from "@shared/api.ts";
 import TeamMediaSwitcher from "@/components/controls/TeamMediaSwitcher";
 import ButtonGroup from "@/components/atoms/ButtonGroup";
 
@@ -36,6 +43,7 @@ const EventTagsIcons = ({ tags }: { tags: string[]  }) => {
 const buildMessagesTableColumns = (
     teams: { [id: string]: TeamInfo },
     problems: { [id: string]: ProblemInfo },
+    selectedMessageId: string | undefined,
     selectedCommentId: string | undefined,
     onSelectComment: (messageId: string, commentId: string) => void,
 ): GridColDef<AnalyticsMessage>[] => [
@@ -54,10 +62,11 @@ const buildMessagesTableColumns = (
         field: "comments",
         headerName: "Messages",
         flex: 3,
+        sortable: false,
         valueGetter: (v: AnalyticsMessageComment[]) => v.map(c => c.message).join(" "),
         renderCell: ({ row: { id, comments, featuredRun } }: GridRenderCellParams<AnalyticsMessage, AnalyticsMessageComment[]>) => (
             <>
-                {[].concat(comments).reverse().map((m: AnalyticsMessageComment) => (
+                {comments.map((m: AnalyticsMessageComment) => (
                     <Box key={m.id} sx={{ color: m.advertisement || m.tickerMessage || featuredRun ? activeRowColor : undefined }}>
                         <Checkbox
                             checked={m.id === selectedCommentId}
@@ -67,9 +76,10 @@ const buildMessagesTableColumns = (
                         &nbsp;{m.message}
                     </Box>
                 ))}
+                {comments.length === 0 && <Checkbox checked={id === selectedMessageId} sx={{ p: 0 }} />}
             </>
         ),
-        colSpan: (_, message) => message.comments.length > 0 ? 3 : 1,
+        colSpan: (_, message) => message.comments.length > 0 ? 2 : 1,
     },
     {
         field: "teamId",
@@ -84,7 +94,7 @@ const buildMessagesTableColumns = (
     {
         field: "problemId",
         headerName: "Problem",
-        flex: 1,
+        width: 70,
         valueGetter: (_, message) =>
             message.runInfo && (problems[message.runInfo.problemId]?.letter + " - " + problems[message.runInfo.problemId]?.name),
         valueFormatter: (_, message) =>  message.runInfo && problems[message.runInfo.problemId]?.letter || "",
@@ -96,9 +106,22 @@ const buildMessagesTableColumns = (
         valueGetter: (_, message) => message.runInfo?.id ?? "",
     },
     {
+        field: "runInfoResult",
+        headerName: "Result",
+        width: 50,
+        valueGetter: (_, message): string => {
+            if (message.runInfo?.result?.type === RunResult.Type.ICPC) {
+                return message.runInfo.result.verdict.shortName;
+            } else if (message.runInfo?.result?.type === RunResult.Type.IOI) {
+                return message.runInfo.result.scoreAfter.toString(0);
+            }
+            return "";
+        },
+    },
+    {
         field: "relativeTimeMs",
         headerName: "Time",
-        width: 80,
+        width: 70,
         renderCell: (params: GridRenderCellParams<AnalyticsMessage, number>) => (
             <Tooltip title={unixTimeMsToLocalTime(params.row.timeUnixMs)}>
                 <span>{timeMsToDuration(params.row.relativeTimeMs)}</span>
@@ -131,7 +154,7 @@ function MessagesTable({
         <DataGrid
             ref={ref}
             rows={messages}
-            columns={buildMessagesTableColumns(teams, problems, selectedCommentId, onSelectComment)}
+            columns={buildMessagesTableColumns(teams, problems, selectedRowId, selectedCommentId, onSelectComment)}
             initialState={{
                 pagination: { paginationModel: { pageSize: 100 } },
             }}
