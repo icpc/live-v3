@@ -190,11 +190,11 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                             add("override val id: String")
                         }
                         add("@Contextual override val token: org.icpclive.clics.events.EventToken")
-                        add("override val data: ${obj.qualifiedName!!.asString()}?")
+                        add("@Contextual override val data: ${obj.qualifiedName!!.asString()}?")
                     } else {
                         add("@SerialName(\"id\") @Contextual override val token: org.icpclive.clics.events.EventToken")
                         add("private val op: Operation")
-                        add("@SerialName(\"data\") private val _data: ${obj.qualifiedName!!.asString()}")
+                        add("@Contextual @SerialName(\"data\") private val _data: ${obj.qualifiedName!!.asString()}")
                     }
                 },
                 { +it },
@@ -246,14 +246,14 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                     "org.icpclive.cds.util.*"
                 )
                 withCodeBlock("internal fun serializersModule(): SerializersModule = SerializersModule") {
-                    for ((index, i) in objects[feedVersion]?.withIndex() ?: emptyList()) {
-                        +"val wrapper$index = org.icpclive.clics.${ feedVersion.packageName }.objects.${ i }.serializer().asSuperClass<org.icpclive.clics.objects.${i}, _>()"
-                        +"polymorphicDefaultDeserializer(org.icpclive.clics.objects.${i}::class) { wrapper$index }"
-                        +"polymorphicDefaultSerializer(org.icpclive.clics.objects.${i}::class) { wrapper$index }"
+                    for (i in objects[feedVersion] ?: emptyList()) {
+                        withCodeBlock("contextual(org.icpclive.clics.objects.${i}::class)") {
+                            +"org.icpclive.clics.${feedVersion.packageName}.objects.${i}.serializer().asSuperClass()"
+                        }
                     }
                     for (i in events[feedVersion] ?: emptyList()) {
-                        withCodeBlock("polymorphic(org.icpclive.clics.events.${i}::class)") {
-                            +"subclass(org.icpclive.clics.${feedVersion.packageName}.events.${i}::class)"
+                        withCodeBlock("contextual(org.icpclive.clics.events.${i}::class)") {
+                            +"org.icpclive.clics.${feedVersion.packageName}.events.${i}.serializer().asSuperClass()"
                         }
                     }
                     withCodeBlock("polymorphic(org.icpclive.clics.events.Event::class)") {

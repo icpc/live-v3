@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
-import kotlinx.serialization.json.ClassDiscriminatorMode
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
@@ -415,7 +414,6 @@ object ClicsExporter  {
             prettyPrint = false
             explicitNulls = false
             serializersModule = clicsEventsSerializersModule(FeedVersion.`2023_06`, tokenPrefix = "")
-            classDiscriminatorMode = ClassDiscriminatorMode.NONE
         }
         route("/api") {
             install(ContentNegotiation) { json(json) }
