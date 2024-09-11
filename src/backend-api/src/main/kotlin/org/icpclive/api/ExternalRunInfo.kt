@@ -33,6 +33,7 @@ class ExternalTeamInfo(
     val rankBefore: Int,
     val scoreboardRowAfter: ScoreboardRow,
     val rankAfter: Int,
+    val color: Color?,
     @Required val organization: OrganizationInfo?,
     @Required val customFields: Map<String, String> = emptyMap(),
 )

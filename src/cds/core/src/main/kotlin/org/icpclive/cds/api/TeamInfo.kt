@@ -45,5 +45,6 @@ public data class TeamInfo(
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
     val organizationId: OrganizationId?,
+    val color: Color? = null,
     @Required val customFields: Map<String, String> = emptyMap(),
 )

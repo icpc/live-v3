@@ -113,6 +113,7 @@ export interface TeamInfo {
   isHidden: boolean;
   isOutOfContest: boolean;
   organizationId: OrganizationId | null;
+  color?: string | null;
   customFields: { [key: string]: string };
 }
 

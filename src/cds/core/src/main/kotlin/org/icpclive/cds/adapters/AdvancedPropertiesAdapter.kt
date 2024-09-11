@@ -156,7 +156,8 @@ internal fun TeamOverrideTemplate.instantiateTemplate(
     hashTag = hashTag?.applyTemplate(valueProvider),
     fullName = fullName?.applyTemplate(valueProvider),
     displayName = displayName?.applyTemplate(valueProvider),
-    medias = medias?.mapValues { (_, v) -> v?.applyTemplate(valueProvider) }
+    medias = medias?.mapValues { (_, v) -> v?.applyTemplate(valueProvider) },
+    color = color?.applyTemplate(valueProvider)?.let { Color.normalize(it) }
 )
 
 
@@ -405,7 +406,8 @@ private fun List<TeamInfo>.mergeTeams(overrides: Map<TeamId, TeamInfoOverride>?)
         customFields = mergeMaps(team.customFields, override.customFields ?: emptyMap()),
         isHidden = override.isHidden ?: team.isHidden,
         isOutOfContest = override.isOutOfContest ?: team.isOutOfContest,
-        organizationId = override.organizationId ?: team.organizationId
+        organizationId = override.organizationId ?: team.organizationId,
+        color = override.color ?: team.color,
     )
 }
 

@@ -33,6 +33,7 @@ public class TeamInfoOverride(
     public val customFields: Map<String, String>? = null,
     public val isHidden: Boolean? = null,
     public val isOutOfContest: Boolean? = null,
+    public val color: Color? = null
 )
 
 /**
@@ -211,6 +212,7 @@ public class TeamOverrideTemplate(
     public val fullName: String? = null,
     public val hashTag: String? = null,
     public val medias: Map<TeamMediaType, MediaType?>? = null,
+    public val color: String? = null,
 )
 
 @Serializable

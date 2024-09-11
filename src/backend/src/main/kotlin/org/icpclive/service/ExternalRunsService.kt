@@ -66,6 +66,7 @@ private fun TeamInfo.toExternal(contestState: ContestStateWithScoreboard) : Exte
         isOutOfContest = isOutOfContest,
         organization = organizationId?.let { contestInfo.organizations[organizationId] },
         customFields = customFields,
+        color = color,
         scoreboardRowBefore = contestState.scoreboardRowBeforeOrNull(id) ?: return null,
         rankBefore = contestState.rankingBefore.getTeamRank(id) ?: return null,
         scoreboardRowAfter = contestState.scoreboardRowAfterOrNull(id) ?: return null,
