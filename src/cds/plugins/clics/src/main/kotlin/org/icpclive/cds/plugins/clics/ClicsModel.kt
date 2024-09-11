@@ -37,6 +37,7 @@ internal class ClicsModel {
         val href = file.href?.value ?: return null
         return when {
             mime.startsWith("image") -> MediaType.Image(href)
+            mime.startsWith("audio") -> MediaType.Audio(href)
             mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(href)
             mime.startsWith("application/vnd.apple.mpegurl") -> MediaType.HLSVideo(href)
             mime.startsWith("video") -> MediaType.Video(href)
@@ -67,6 +68,7 @@ internal class ClicsModel {
                 mediaType(video.firstOrNull())?.let { put(TeamMediaType.RECORD, it) }
                 mediaType(webcam.firstOrNull())?.let { put(TeamMediaType.CAMERA, it) }
                 mediaType(desktop.firstOrNull())?.let { put(TeamMediaType.SCREEN, it) }
+                mediaType(audio.firstOrNull())?.let { put(TeamMediaType.AUDIO, it) }
             },
             organizationId = organizationId?.toOrganizationId(),
             isOutOfContest = false,

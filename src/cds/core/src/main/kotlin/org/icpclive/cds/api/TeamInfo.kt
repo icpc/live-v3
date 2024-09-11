@@ -32,6 +32,9 @@ public enum class TeamMediaType {
 
     @SerialName("achievement")
     ACHIEVEMENT,
+
+    @SerialName("audio")
+    AUDIO,
 }
 
 @Serializable

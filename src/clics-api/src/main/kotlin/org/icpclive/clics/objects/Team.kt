@@ -20,4 +20,5 @@ public interface Team {
     public val backup: List<File>
     public val key_log: List<File>
     public val tool_data: List<File>
+    public val audio: List<File>
 }

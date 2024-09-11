@@ -1002,6 +1002,33 @@ public abstract class org/icpclive/cds/api/MediaType {
 	public static final synthetic fun write$Self (Lorg/icpclive/cds/api/MediaType;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
+public final class org/icpclive/cds/api/MediaType$Audio : org/icpclive/cds/api/MediaType {
+	public static final field Companion Lorg/icpclive/cds/api/MediaType$Audio$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Audio;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Audio;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Audio;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/cds/api/MediaType$Audio$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/MediaType$Audio$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/MediaType$Audio;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/MediaType$Audio;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/MediaType$Audio$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/api/MediaType$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
@@ -1799,6 +1826,7 @@ public final class org/icpclive/cds/api/TeamInfoKt {
 
 public final class org/icpclive/cds/api/TeamMediaType : java/lang/Enum {
 	public static final field ACHIEVEMENT Lorg/icpclive/cds/api/TeamMediaType;
+	public static final field AUDIO Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field CAMERA Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field Companion Lorg/icpclive/cds/api/TeamMediaType$Companion;
 	public static final field PHOTO Lorg/icpclive/cds/api/TeamMediaType;

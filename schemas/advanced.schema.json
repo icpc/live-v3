@@ -1,6 +1,24 @@
 {
     "$ref": "#/$defs/ICPC live advanced settings",
     "$defs": {
+        "Audio": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Audio",
+                    "default": "Audio"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "Audio"
+        },
         "HLSVideo": {
             "type": "object",
             "properties": {
@@ -166,6 +184,9 @@
         "org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>": {
             "oneOf": [
                 {
+                    "$ref": "#/$defs/Audio"
+                },
+                {
                     "$ref": "#/$defs/HLSVideo"
                 },
                 {
@@ -212,6 +233,9 @@
                             "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
                         },
                         "achievement": {
+                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "audio": {
                             "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
                         }
                     }

@@ -154,6 +154,7 @@ export type OrganizationId = string;
 export type GroupId = string;
 
 export type MediaType =
+  | MediaType.Audio
   | MediaType.HLSVideo
   | MediaType.Image
   | MediaType.M2tsVideo
@@ -164,6 +165,7 @@ export type MediaType =
 
 export namespace MediaType {
   export enum Type {
+    Audio = "Audio",
     HLSVideo = "HLSVideo",
     Image = "Image",
     M2tsVideo = "M2tsVideo",
@@ -171,6 +173,11 @@ export namespace MediaType {
     Video = "Video",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
+  }
+  
+  export interface Audio {
+    type: MediaType.Type.Audio;
+    url: string;
   }
   
   export interface HLSVideo {
@@ -250,6 +257,7 @@ export enum TeamMediaType {
   photo = "photo",
   reactionVideo = "reactionVideo",
   achievement = "achievement",
+  audio = "audio",
 }
 
 export enum MedalColor {
