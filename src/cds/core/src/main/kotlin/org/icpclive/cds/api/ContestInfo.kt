@@ -229,6 +229,9 @@ public val ContestInfo.currentContestTime: Duration
         is ContestStatus.RUNNING -> (Clock.System.now() - status.startedAt) * emulationSpeed
         is ContestStatus.OVER, is ContestStatus.FINALIZED -> contestLength
     }
+public fun ContestInfo.instantAt(duration: Duration): Instant {
+    return startTimeOrZero + duration / emulationSpeed
+}
 
 public fun List<RunInfo>.languages(): List<LanguageInfo> = mapNotNull { it.languageId }.distinct().sortedBy { it.value }.map {
     LanguageInfo(it, it.value, emptyList())

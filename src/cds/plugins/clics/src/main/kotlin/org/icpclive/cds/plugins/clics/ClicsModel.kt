@@ -268,8 +268,8 @@ internal class ClicsModel {
     }
 
     fun processCommentary(commentary: Commentary) =
-        AnalyticsCommentaryEvent(
-            commentary.id,
+        CommentaryMessage(
+            commentary.id.toCommentaryMessageId(),
             commentary.message,
             commentary.time,
             commentary.contestTime,

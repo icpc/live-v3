@@ -95,26 +95,9 @@ const teamViewTheme = createTheme({
         MuiPaper: {
             styleOverrides: {
                 root: ({ theme }) => ({
-                    padding: theme.spacing(2),
+                    padding: theme.spacing(1),
                     marginBottom: theme.spacing(1),
                 }),
-            },
-        },
-        MuiButton: {
-            defaultProps: {
-                size: "small",
-            },
-        },
-        MuiButtonGroup: {
-            defaultProps: {
-                size: "small",
-            },
-        },
-        MuiButtonBase: {
-            styleOverrides: {
-                root: {
-                    margin: "0 !important",
-                },
             },
         },
     },

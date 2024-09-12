@@ -1,5 +1,6 @@
 import { TeamMediaType } from "@shared/api";
-import { Button, ButtonGroup } from "@mui/material";
+import { Button } from "@mui/material";
+import ButtonGroup from "@/components/atoms/ButtonGroup";
 
 export const DEFAULT_MEDIA_TYPES = [TeamMediaType.screen, TeamMediaType.camera, TeamMediaType.record, TeamMediaType.photo, null];
 
@@ -9,17 +10,28 @@ const mediaTypeName = (type: TeamMediaType | null) => {
 
 type TeamMediaSwitcherProps = {
     mediaTypes?: (TeamMediaType | null)[];
+    disabled?: boolean;
     disabledMediaTypes?: TeamMediaType[];
     switchedMediaType?: TeamMediaType | null;
-    onSwitch: (type: TeamMediaType | null) => void
+    onSwitch: (type: TeamMediaType | null) => void;
+    onSwitchHide?: () => void;
+    disabledHide?: boolean;
 }
 
-const TeamMediaSwitcher = ({ mediaTypes = DEFAULT_MEDIA_TYPES, disabledMediaTypes, switchedMediaType, onSwitch }: TeamMediaSwitcherProps) => {
+const TeamMediaSwitcher = ({
+    mediaTypes = DEFAULT_MEDIA_TYPES,
+    disabled,
+    disabledMediaTypes,
+    switchedMediaType,
+    onSwitch,
+    onSwitchHide,
+    disabledHide
+}: TeamMediaSwitcherProps) => {
     return (
         <ButtonGroup>
             {mediaTypes.map(t => (
                 <Button
-                    disabled={disabledMediaTypes?.includes(t)}
+                    disabled={disabled || disabledMediaTypes?.includes(t)}
                     // color={secondaryMediaType === elem.mediaType ? "warning" : "primary"}
                     sx={{ mx: 2 }}
                     variant={t === switchedMediaType ? "contained" : "outlined"}
@@ -29,6 +41,17 @@ const TeamMediaSwitcher = ({ mediaTypes = DEFAULT_MEDIA_TYPES, disabledMediaType
                     {mediaTypeName(t)}
                 </Button>
             ))}
+            {onSwitchHide && (
+                <Button
+                    // sx={gridButton}
+                    disabled={disabledHide}
+                    variant={!disabledHide ? "outlined" : "contained"}
+                    color="error"
+                    onClick={() => onSwitchHide()}
+                >
+                    hide
+                </Button>
+            )}
         </ButtonGroup>
     );
 };

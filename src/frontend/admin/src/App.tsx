@@ -12,7 +12,7 @@ import TeamView from "./components/TeamView";
 import { SnackbarProvider } from "notistack";
 import BackendLog from "./components/BackendLog";
 import Dashboard from "./components/Dashboard";
-import Analytics from "./components/Analytics";
+import Analytics from "@/components/pages/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight";
 import { createApiGet } from "@shared/utils";
 import { setFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";

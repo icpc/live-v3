@@ -191,8 +191,8 @@ public fun ContestStateWithScoreboard.toScoreboardDiff(snapshot: Boolean) : Scor
  */
 public class ContestStateWithScoreboard internal constructor(
     public val state: ContestState,
-    private val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
-    private val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
+    internal val scoreboardRowsAfter: Map<TeamId, ScoreboardRow>,
+    internal val scoreboardRowsBefore: Map<TeamId, ScoreboardRow>,
     public val scoreboardRowsChanged: List<TeamId>,
     public val rankingBefore: Ranking,
     public val rankingAfter: Ranking,
@@ -213,7 +213,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
         val info = state.infoAfterEvent ?: return emptyList()
         val calculator = getScoreboardCalculator(info, optimismLevel)
         val teamsAffected = when (val event = state.lastEvent) {
-            is AnalyticsUpdate -> emptyList()
+            is CommentaryMessagesUpdate -> emptyList()
             is InfoUpdate -> info.teams.keys.toList()
             is RunUpdate -> {
                 lastSubmissionTime = maxOf(lastSubmissionTime, event.newInfo.time)

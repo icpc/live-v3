@@ -15,6 +15,7 @@ import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.api.CommentaryMessage
 import org.icpclive.clics.*
 import org.icpclive.clics.v202306.objects.*
 import org.icpclive.clics.v202306.events.*
@@ -291,12 +292,11 @@ object ClicsExporter  {
         diffRemove(languagesMap, newInfo.languagesList + unknownLanguage, { id }) { id, token, data -> LanguageEvent(id.value, token, data) }
     }
 
-    private suspend fun FlowCollector<EventProducer>.processAnalytics(message: AnalyticsMessage) {
-        val event = message as? AnalyticsCommentaryEvent ?: return
+    private suspend fun FlowCollector<EventProducer>.processCommentaryMessage(event: CommentaryMessage) {
         updateEvent(
-            event.id,
+            event.id.toString(),
             Commentary(
-                id = event.id,
+                id = event.id.toString(),
                 time = event.time,
                 contestTime = event.relativeTime,
                 message = event.message,
@@ -316,7 +316,7 @@ object ClicsExporter  {
             when (val event = state.lastEvent) {
                 is InfoUpdate -> calculateDiff(state.infoBeforeEvent, event.newInfo)
                 is RunUpdate -> processRun(state.infoBeforeEvent!!, event.newInfo)
-                is AnalyticsUpdate -> processAnalytics(event.message)
+                is CommentaryMessagesUpdate -> processCommentaryMessage(event.message)
             }
         }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }

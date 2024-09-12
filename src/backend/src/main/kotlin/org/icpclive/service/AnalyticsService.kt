@@ -7,29 +7,40 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import org.icpclive.admin.ApiActionException
 import org.icpclive.api.*
+import org.icpclive.api.AnalyticsMessage
+import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
 import org.icpclive.data.*
-import org.icpclive.service.analytics.AnalyticsGenerator
 import kotlin.time.Duration
 
 sealed class AnalyticsAction {
-    abstract val messageId: String
-    data class CreateAdvertisement(override val messageId: String, val ttl: Duration?) : AnalyticsAction()
-    data class DeleteAdvertisement(override val messageId: String, val expectedId: Int? = null) : AnalyticsAction()
-    data class CreateTickerMessage(override val messageId: String, val ttl: Duration?) : AnalyticsAction()
-    data class DeleteTickerMessage(override val messageId: String, val expectedId: Int? = null) : AnalyticsAction()
-    data class MakeRunFeatured(override val messageId: String, val mediaType: TeamMediaType) : AnalyticsAction()
-    data class MakeRunNotFeatured(override val messageId: String) : AnalyticsAction()
+    abstract val messageId: AnalyticsMessageId
+
+    sealed class AnalyticsCommentaryAction : AnalyticsAction() {
+        abstract val commentId: CommentaryMessageId
+    }
+
+    data class CreateAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
+    data class DeleteAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
+        AnalyticsCommentaryAction()
+
+    data class CreateTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
+    data class DeleteTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
+        AnalyticsCommentaryAction()
+
+    data class MakeRunFeatured(override val messageId: AnalyticsMessageId, val mediaType: TeamMediaType) : AnalyticsAction()
+    data class MakeRunNotFeatured(override val messageId: AnalyticsMessageId) : AnalyticsAction()
 }
 
 
-class AnalyticsService(val generator: AnalyticsGenerator) : Service {
+class AnalyticsService : Service {
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
-    private val messages = mutableMapOf<String, AnalyticsMessage>()
+    private var contestInfo: ContestInfo? = null
+    private val messages = mutableMapOf<AnalyticsMessageId, AnalyticsMessage>()
 
     private val resultFlow = MutableSharedFlow<AnalyticsEvent>(
         extraBufferCapacity = 50000,
@@ -38,129 +49,241 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
 
     private val subscriberFlow = MutableStateFlow(0)
 
-    private suspend fun modifyMessage(message: AnalyticsMessage) {
-        messages[message.id] = message
-        resultFlow.emit(ModifyAnalyticsMessageEvent(message))
+    private fun AnalyticsAction.MakeRunFeatured.getMediaForFeatured(run: RunInfo): MediaType? {
+        val team = contestInfo?.teams?.get(run.teamId) ?: return null
+        if (mediaType == TeamMediaType.REACTION_VIDEO) {
+            if (run.reactionVideos.isNotEmpty()) {
+                return run.reactionVideos[0]
+            }
+        } else {
+            val media = team.medias[mediaType]
+            if (media != null) return media
+        }
+        log.warning { "Can't make run ${run.id} with missing media $mediaType" }
+        return null
     }
 
     private suspend fun <S : ObjectSettings, T : TypeWithId> AnalyticsCompanionPreset.hide(controller: PresetsController<S, T>) {
         controller.hideIfExists(this.presetId)
     }
 
-
     private suspend fun Action.process(featuredRunsFlow: FlowCollector<FeaturedRunAction>) {
         val message = messages[action.messageId]
         if (message == null) {
-            log.warning { "Message with id ${action.messageId} not found" }
-            return
-        }
-        if (message !is AnalyticsCommentaryEvent) {
-            log.warning { "Unsupported action for analytics message $message" }
+            log.warning { "AnalyticsMessage with id ${action.messageId} not found" }
             return
         }
         when (action) {
-            is AnalyticsAction.CreateAdvertisement -> {
-                message.advertisement?.hide(Controllers.advertisement)
-                val presetId = Controllers.advertisement.createWidget(
-                    AdvertisementSettings(message.message),
-                    action.ttl,
-                    onDelete = { internalActions.emit(AnalyticsAction.DeleteAdvertisement(action.messageId, it)) }
-                )
-                Controllers.advertisement.show(presetId)
-                modifyMessage(
-                    message.copy(
-                        advertisement = AnalyticsCompanionPreset(
-                            presetId,
-                            action.ttl?.let { Clock.System.now() + it }
-                        )
-                    )
-                )
-            }
-
-            is AnalyticsAction.DeleteAdvertisement -> {
-                if (action.expectedId == null || message.advertisement?.presetId == action.expectedId) {
-                    message.advertisement?.hide(Controllers.advertisement)
-                    modifyMessage(message.copy(advertisement = null))
+            is AnalyticsAction.AnalyticsCommentaryAction -> {
+                val comment = message.comments.find { it.id == action.commentId }
+                if (comment == null) {
+                    log.warning { "AnalyticsMessageCommentary with id ${action.messageId} (${message.id}) not found" }
+                    return
                 }
-            }
 
-            is AnalyticsAction.CreateTickerMessage -> {
-                message.tickerMessage?.hide(Controllers.tickerMessage)
-                val presetId = Controllers.tickerMessage.createWidget(
-                    TextTickerSettings(TickerPart.LONG, 30000, message.message),
-                    action.ttl,
-                    onDelete = { internalActions.emit(AnalyticsAction.DeleteTickerMessage(action.messageId, it)) }
-                )
-                Controllers.tickerMessage.show(presetId)
-                modifyMessage(
-                    message.copy(
-                        tickerMessage = AnalyticsCompanionPreset(
-                            presetId,
-                            action.ttl?.let { Clock.System.now() + it }
-                        )
-                    )
-                )
-            }
+                updateMessage(
+                    message,
+                    comment = when (action) {
+                        is AnalyticsAction.CreateAdvertisement -> {
+                            comment.advertisement?.hide(Controllers.advertisement)
+                            val presetId = Controllers.advertisement.createWidget(
+                                AdvertisementSettings(comment.message),
+                                action.ttl,
+                                onDelete = { internalActions.emit(AnalyticsAction.DeleteAdvertisement(action.messageId, action.commentId, it)) }
+                            )
+                            Controllers.advertisement.show(presetId)
+                            comment.copy(advertisement = AnalyticsCompanionPreset(presetId, action.ttl?.let { Clock.System.now() + it }))
+                        }
 
-            is AnalyticsAction.DeleteTickerMessage -> {
-                if (action.expectedId == null || message.tickerMessage?.presetId == action.expectedId) {
-                    message.tickerMessage?.hide(Controllers.tickerMessage)
-                    modifyMessage(message.copy(tickerMessage = null))
-                }
+                        is AnalyticsAction.DeleteAdvertisement -> {
+                            if (action.expectedId == null || comment.advertisement?.presetId == action.expectedId) {
+                                comment.advertisement?.hide(Controllers.advertisement)
+                                comment.copy(advertisement = null)
+                            } else {
+                                comment
+                            }
+                        }
+
+                        is AnalyticsAction.CreateTickerMessage -> {
+                            comment.tickerMessage?.hide(Controllers.tickerMessage)
+                            val presetId = Controllers.tickerMessage.createWidget(
+                                TextTickerSettings(TickerPart.LONG, 30000, comment.message),
+                                action.ttl,
+                                onDelete = { internalActions.emit(AnalyticsAction.DeleteTickerMessage(action.messageId, action.commentId, it)) }
+                            )
+                            Controllers.tickerMessage.show(presetId)
+                            comment.copy(tickerMessage = AnalyticsCompanionPreset(presetId, action.ttl?.let { Clock.System.now() + it }))
+                        }
+
+                        is AnalyticsAction.DeleteTickerMessage -> {
+                            if (action.expectedId == null || comment.tickerMessage?.presetId == action.expectedId) {
+                                comment.tickerMessage?.hide(Controllers.tickerMessage)
+                                comment.copy(tickerMessage = null)
+                            } else {
+                                comment
+                            }
+                        }
+                    }
+                )
             }
 
             is AnalyticsAction.MakeRunFeatured -> {
-                if (message.runIds.size != 1 || message.teamIds.size != 1) {
+                val run = message.runInfo
+                if (run == null) {
                     log.warning { "Can't make run featured caused by message ${message.id}" }
                     return
                 }
-                // TODO: it should be passed from above
-                val team = DataBus.currentContestInfo().teams[message.teamIds[0]] ?: return
-                val media = team.medias[action.mediaType] ?: return
-                val request = FeaturedRunAction.MakeFeatured(message.runIds[0], media)
+                val media = action.getMediaForFeatured(run) ?: return
+                val request = FeaturedRunAction.MakeFeatured(run.id, media)
                 featuredRunsFlow.emit(request)
                 val companionRun = request.result.await() ?: return
-                modifyMessage(message.copy(featuredRun = companionRun))
+                updateMessage(message, featuredRun = companionRun)
             }
 
             is AnalyticsAction.MakeRunNotFeatured -> {
-                if (message.runIds.size != 1) {
+                val run = message.runInfo
+                if (run == null) {
                     log.warning { "Can't make run not featured caused by message ${message.id}" }
                     return
                 }
-                featuredRunsFlow.emit(FeaturedRunAction.MakeNotFeatured(message.runIds[0]))
-                modifyMessage(message.copy(featuredRun = null))
+                featuredRunsFlow.emit(FeaturedRunAction.MakeNotFeatured(run.id))
+                updateMessage(message, featuredRunRemove = true)
             }
         }
     }
+
+    private suspend fun updateMessage(
+        message: AnalyticsMessage,
+        run: RunInfo? = null,
+        comment: AnalyticsMessageComment? = null,
+        commentEvent: CommentaryMessage? = null,
+        featuredRun: AnalyticsCompanionRun? = null,
+        featuredRunRemove: Boolean? = false,
+    ) {
+        var updateTime = message.lastUpdateTime
+        var time = message.time
+        var relativeTime = message.relativeTime
+        var teamId = message.teamId
+        var runInfo = message.runInfo
+        var comments = message.comments
+        val tags = message.tags.toMutableSet()
+        if (commentEvent != null) {
+            updateTime = maxOf(updateTime, commentEvent.time)
+            comments = comments.updateComment(AnalyticsMessageComment(commentEvent.id, commentEvent.message, creationTime = commentEvent.time))
+            tags += commentEvent.tags
+        }
+        if (run != null) {
+            teamId = run.teamId
+            runInfo = run
+        }
+        runInfo?.let { // actual time of run
+            time = contestInfo?.instantAt(it.time) ?: time
+            relativeTime = it.time
+            updateTime = maxOf(updateTime, time)
+            tags += "submission"
+            val icpcResult = it.result as? RunResult.ICPC
+            if (icpcResult?.verdict?.isAccepted == true) {
+                tags += "accepted"
+            }
+            if (icpcResult?.isFirstToSolveRun == true) {
+                tags += "first-to-solved"
+            }
+        }
+
+        if (comment != null) {
+            comments = comments.updateComment(comment)
+        }
+        val newMessage = message.copy(
+            lastUpdateTime = updateTime,
+            time = time,
+            relativeTime = relativeTime,
+            teamId = teamId,
+            runInfo = runInfo,
+            comments = comments,
+            featuredRun = featuredRun ?: message.featuredRun.takeIf { featuredRunRemove != true },
+            tags = tags,
+        )
+        messages[message.id] = newMessage
+        resultFlow.emit(UpdateAnalyticsMessageEvent(newMessage))
+    }
+
+    private fun List<AnalyticsMessageComment>.updateComment(comment: AnalyticsMessageComment) =
+        (filterNot { it.id == comment.id } + comment).sortedByDescending { it.creationTime }
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         launch {
             val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
             val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
             log.info { "Analytics service is started" }
-            merge(generator.getFlow(flow).map(::Message), subscriberFlow.map { Subscribe }, actionFlow)
-                .collect { event ->
-                    when (event) {
-                        is Message -> {
-                            val message = event.message
-                            messages[message.id] = message
-                            resultFlow.emit(AddAnalyticsMessageEvent(message))
-                        }
+            merge(
+                subscriberFlow.map { Subscribe },
+                actionFlow,
+                flow.map { ContestUpdate(it.state.lastEvent) }
+            ).collect { event ->
+                when (event) {
+                    is ContestUpdate -> {
+                        when (val update = event.update) {
+                            is InfoUpdate -> {
+                                contestInfo = update.newInfo
+                            }
 
-                        is Action -> {
-                            try {
-                                event.process(featuredRunFlow)
-                            } catch (e: ApiActionException) {
-                                log.error(e) { "Failed during processing action: $event" }
+                            is RunUpdate -> {
+
+                                val run = update.newInfo
+                                if (run.isHidden) return@collect
+                                val messageId = run.id.toAnalyticsMessageId()
+
+                                val timeInstant = contestInfo?.instantAt(run.time) ?: Clock.System.now()
+                                val message = messages[messageId] ?: AnalyticsMessage(
+                                    id = messageId,
+                                    lastUpdateTime = timeInstant,
+                                    time = timeInstant,
+                                    relativeTime = run.time
+                                )
+                                updateMessage(message, run = run)
+
+                            }
+
+                            is CommentaryMessagesUpdate -> {
+                                val analyticsMessage = update.message
+                                for (runId in analyticsMessage.runIds) {
+                                    val messageId = runId.toAnalyticsMessageId()
+                                    val message = messages[messageId] ?: AnalyticsMessage(
+                                        id = messageId,
+                                        lastUpdateTime = analyticsMessage.time,
+                                        time = analyticsMessage.time,
+                                        relativeTime = analyticsMessage.relativeTime
+                                    )
+                                    updateMessage(message, commentEvent = analyticsMessage)
+                                }
+                                // also we can iterate of teamId in Commentary message and create Analytics message for each team
+                                if (analyticsMessage.runIds.isEmpty()) {
+                                    val messageId = analyticsMessage.id.toAnalyticsMessageId()
+                                    val message = messages[messageId] ?: AnalyticsMessage(
+                                        id = messageId,
+                                        lastUpdateTime = analyticsMessage.time,
+                                        time = analyticsMessage.time,
+                                        relativeTime = analyticsMessage.relativeTime
+                                    )
+                                    updateMessage(message, commentEvent = analyticsMessage /* todo: team??? */)
+                                }
                             }
                         }
+                    }
 
-                        is Subscribe -> {
-                            resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))
+                    is Action -> {
+                        try {
+                            event.process(featuredRunFlow)
+                        } catch (e: ApiActionException) {
+                            log.error(e) { "Failed during processing action: $event" }
                         }
                     }
+
+                    is Subscribe -> {
+                        resultFlow.emit(AnalyticsMessageSnapshotEvent(messages.values.sortedBy { it.relativeTime }))
+                    }
                 }
+            }
         }
     }
 
@@ -182,7 +305,7 @@ class AnalyticsService(val generator: AnalyticsGenerator) : Service {
         val log by getLogger()
 
         private sealed class AnalyticsProcessTrigger
-        private data class Message(val message: AnalyticsMessage) : AnalyticsProcessTrigger()
+        private data class ContestUpdate(val update: org.icpclive.cds.ContestUpdate) : AnalyticsProcessTrigger()
         private data class Action(val action: AnalyticsAction) : AnalyticsProcessTrigger()
         private data object Subscribe : AnalyticsProcessTrigger()
     }

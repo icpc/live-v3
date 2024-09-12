@@ -43,6 +43,6 @@ public fun Flow<ContestState>.removeFrozenSubmissions(): Flow<ContestUpdate> = t
             }
         }
 
-        is AnalyticsUpdate -> emit(it.lastEvent)
+        is CommentaryMessagesUpdate -> emit(it.lastEvent)
     }
 }
