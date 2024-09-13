@@ -1,5 +1,4 @@
-// import PropTypes from "prop-types";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { css, CSSObject, Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
@@ -12,7 +11,7 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, RunInfo, Widget } from "@shared/api";
+import { Award, LocationRectangle, RunInfo, Widget } from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 
@@ -40,7 +39,6 @@ const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(({ bottom, righ
   width: ${({ horizontal }) => horizontal ? (c.QUEUE_ROW_WIDTH + "px") : "100%"};
 
   position: absolute;
-//   transition-property: ${({ horizontal }) => horizontal ? "right" : "bottom"};
   transition-duration: ${({ fts }) => fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
   transition-timing-function: linear;
   animation: ${({ animation }) => animation} ${c.QUEUE_ROW_APPEAR_TIME}ms linear; /* dissapear is also linear for now. FIXME */
@@ -132,6 +130,7 @@ type QueueState = {
     currentRuns: { [runId: string]: string }; // runId => batchDelegateId
     batches: { [delegateId: string]: QueueBatchInfo };
     batchOrder: string[]; // list of deligate ids from newest to oldest
+    ftsPositions: { [runId: string]: number };
 };
 
 const useVerticalQueueRowsData = ({
@@ -147,10 +146,7 @@ const useVerticalQueueRowsData = ({
 }): [QueueRowInfo | null, QueueRowInfo[]] => {
     const bottomPosition = useCallback((index: number) => {
         const actual = horizontal ? Math.floor(index / c.QUEUE_HORIZONTAL_HEIGHT_NUM) : index;
-        return (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * actual;
-    }, [horizontal]);
-    const rightPosition = useCallback((index: number) => {
-        return (c.QUEUE_ROW_WIDTH + c.QUEUE_ROW_HORIZONTAL_PADDING) * (horizontal ? (index % c.QUEUE_HORIZONTAL_HEIGHT_NUM) : 0);
+        return (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_Y_PADDING) * actual;
     }, [horizontal]);
     const allowedMaxRows = useMemo(() => {
         return Math.min((width / c.QUEUE_ROW_WIDTH) * (height / c.QUEUE_ROW_HEIGHT), c.QUEUE_MAX_ROWS);
@@ -194,17 +190,10 @@ const useVerticalQueueRowsData = ({
     let regularRowCount = 0;
     rows.forEach((row) => {
         if (row.isFts) {
-            if (horizontal) {
-                row.bottom = height - c.QUEUE_ROW_HEIGHT - 3 - bottomPosition(totalFts - ftsRowCount - 1);
-                row.right = width - c.QUEUE_ROW_WIDTH - rightPosition(totalFts - ftsRowCount - 1);
-            } else {
-                row.bottom = height - bottomPosition(totalFts - ftsRowCount) + 3;
-                row.right = 0;
-            }
+            row.bottom = height - bottomPosition(totalFts - ftsRowCount) + 3;
             ftsRowCount++;
         } else  {
             row.bottom = bottomPosition(regularRowCount);
-            row.right = rightPosition(regularRowCount);
             regularRowCount++;
         }
     });
@@ -215,54 +204,78 @@ const useVerticalQueueRowsData = ({
     return [featured, rows];
 };
 
-
+const horizontalQueueRowGridOffsetX = c.QUEUE_ROW_WIDTH + c.QUEUE_HORIZONTAL_ROW_X_PADDING;
+const horizontalQueueRowGridOffsetY = c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING;
 const useHorizontalQueueRowsData = ({
     width,
     height,
+    ftsRowWidth,
     basicZIndex = c.QUEUE_BASIC_ZINDEX,
-    // horizontalSize = 1
 }: {
     width: number,
     height: number,
+    ftsRowWidth: number,
     basicZIndex?: number,
-    // horizontalSize?: number,
-}) => {
+}): [QueueRowInfo | null, QueueRowInfo[]] => {
     const bottomPosition = useCallback((index: number) => {
-        return (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_PADDING) * index;
+        return (c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING) * index;
     }, []);
     const rightPosition = useCallback((index: number) => {
-        return (c.QUEUE_ROW_WIDTH + c.QUEUE_ROW_HORIZONTAL_PADDING) * index;
+        return horizontalQueueRowGridOffsetX * index;
     }, []);
-    const allowedMaxRows = useMemo(() => {
-        return Math.min((width / c.QUEUE_ROW_WIDTH) * (height / c.QUEUE_ROW_HEIGHT), c.QUEUE_MAX_ROWS);
+    const allowedMaxBatches = useMemo(() => {
+        return Math.floor(height / horizontalQueueRowGridOffsetY) - 1;
     }, [width, height]);
+    const allowedFts = useMemo(() => {
+        return Math.floor(ftsRowWidth / horizontalQueueRowGridOffsetX) * horizontalQueueRowGridOffsetX;
+    }, [ftsRowWidth]);
 
     const { queue, totalQueueItems } = useAppSelector(state => state.queue);
-    const queueStateRef = useRef<QueueState>({ currentRuns: {}, batches: {}, batchOrder: [] });
-    const rows = useMemo(() => {
+    const [loadedMediaRun, setLoadedMediaRun] = useState(null);
+
+    const queueStateRef = useRef<QueueState>({ currentRuns: {}, batches: {}, batchOrder: [], ftsPositions: {} });
+    return useMemo(() => {
         const newState: QueueState = {
             currentRuns: {},
             batches: {},
-            batchOrder: [...queueStateRef.current.batchOrder],
+            batchOrder: [ ...queueStateRef.current.batchOrder ],
+            ftsPositions: { ...queueStateRef.current.ftsPositions },
         };
-        for (let [dId, bi] of Object.entries(queueStateRef.current.batches)) {
+        for (const [dId, bi] of Object.entries(queueStateRef.current.batches)) {
             newState.batches[dId] = { ...bi };
         }
-        for (let run of queue) {
+        for (const run of queue) {
+            if (run.featuredRunMedia !== undefined || newState.ftsPositions[run.id] !== undefined) {
+                continue;
+            } else if (isFTS(run)) {
+                const usedPositions = Object.values(newState.ftsPositions);
+                let selectedPosition: number | null = null;
+                for (let i = 0; i < allowedFts; i++) {
+                    if (!usedPositions.includes(i)) {
+                        selectedPosition = i;
+                        break;
+                    }
+                }
+                if (selectedPosition !== null) {
+                    console.info(`Make run ${run.id} fts with position ${selectedPosition}`, run);
+                    newState.ftsPositions[run.id] = selectedPosition;
+                    continue;
+                }
+            }
             const delegateId = queueStateRef.current.currentRuns[run.id];
             if (delegateId) {
                 newState.currentRuns[run.id] = delegateId;
             } else {
-                // console.info("New run in queue", run);
-                if (newState.batchOrder.length === 0) { // no butch yet
+                console.info("New run in queue", run);
+                if (newState.batchOrder.length === 0) { // no any batch yet
                     newState.batchOrder.splice(0, 0, run.id);
                     newState.batches[run.id] = { [run.id]: 0 };
                 } else {
-                    const usedPositions = Object.values(newState.batches[newState.batchOrder[0]])
-                    if (usedPositions.length >= c.QUEUE_HORIZONTAL_HEIGHT_NUM) {
+                    const usedPositions = Object.values(newState.batches[newState.batchOrder[0]]);
+                    if (usedPositions.length >= c.QUEUE_HORIZONTAL_HEIGHT_NUM) { // allocate new batch
                         newState.batchOrder.splice(0, 0, run.id);
                         newState.batches[run.id] = { [run.id]: 0 };
-                    } else {
+                    } else { // put in existing butch
                         for (let i = 0; i < c.QUEUE_HORIZONTAL_HEIGHT_NUM; i++) {
                             if (!usedPositions.includes(i)) {
                                 newState.batches[newState.batchOrder[0]][run.id] = i;
@@ -274,40 +287,67 @@ const useHorizontalQueueRowsData = ({
                 newState.currentRuns[run.id] = newState.batchOrder[0];
             }
         }
-        for (let [runId, dId] of Object.entries(queueStateRef.current.currentRuns)) {
-            if (queue.find(r => r.id === runId) === undefined) {
+        for (const [runId, dId] of Object.entries(queueStateRef.current.currentRuns)) {
+            if (queue.find(r =>
+                r.id === runId && r.featuredRunMedia === undefined && newState.ftsPositions[runId] === undefined
+            ) == undefined) { // where remove run or make featured or make fts
                 delete newState.currentRuns[runId];
                 delete newState.batches[dId][runId];
-                if (Object.keys(newState.batches[dId]).length === 0) {
-                    newState.batchOrder = newState.batchOrder.filter(bId => dId);
+                if (Object.keys(newState.batches[dId]).length === 0) { // remove batch, if it empty
+                    newState.batchOrder = newState.batchOrder.filter(bId => bId !== dId);
                 }
-                // console.info("Drop run in queue", runId);
             }
         }
+        for (const runId of Object.keys(newState.ftsPositions)) {
+            if (queue.find(r => r.id === runId) === undefined) { // if remove run, but it was fts
+                delete newState.ftsPositions[runId];
+                console.info("Drop fts run in queue", runId);
+            }
+        }
+
         // console.log("NewState", newState);
         queueStateRef.current = newState;
 
         // console.log("New runs", queue.map(r => r.id).join(","))
-        return queue.map((run, runIndex) => {
-            const delegateId = newState.currentRuns[run.id];
-            const right = newState.batches[delegateId][run.id];
-            const bottom = newState.batchOrder.findIndex(id => id == delegateId);
-            // console.log(run.id, delegateId, right, bottom, newState.batches[delegateId])
+        let featured: QueueRowInfo | null = null;
+        const rows: QueueRowInfo[] = [];
+        queue.forEach((run, runIndex) => {
             const row: QueueRowInfo = {
                 ...run,
                 zIndex: basicZIndex - runIndex + totalQueueItems,
-                bottom: bottomPosition(bottom + 3),
-                right: rightPosition(c.QUEUE_HORIZONTAL_HEIGHT_NUM - 1 - right),
+                bottom: 0,
+                right: 0,
                 isFeatured: false,
                 isFeaturedRunMediaLoaded: false,
                 isFts: isFTS(run),
                 setIsFeaturedRunMediaLoaded: null,
             };
-            return row;
+            if (run.featuredRunMedia !== undefined) {
+                row.isFeatured = true;
+                row.isFeaturedRunMediaLoaded = loadedMediaRun === run.id;
+                row.setIsFeaturedRunMediaLoaded = (state) => {
+                    setLoadedMediaRun(state ? run.id : null);
+                };
+                featured = row;
+                return;
+            } else if (newState.ftsPositions[run.id] !== undefined) {
+                row.bottom = height - c.QUEUE_HORIZONTAL_ROW_Y_PADDING - c.QUEUE_ROW_HEIGHT;
+                row.right = rightPosition(newState.ftsPositions[run.id]);
+                rows.push(row);
+                return;
+            }
+            const delegateId = newState.currentRuns[run.id];
+            const right = newState.batches[delegateId][run.id];
+            const bottom = newState.batchOrder.findIndex(id => id == delegateId);
+            if (bottom >= allowedMaxBatches) { // skip run, no vertical overflow
+                return;
+            }
+            row.bottom = bottomPosition(bottom);
+            row.right = rightPosition(c.QUEUE_HORIZONTAL_HEIGHT_NUM - 1 - right);
+            rows.push(row);
         });
-    }, [queue]);
-    // console.log("hh", rows);
-    return rows;
+        return [featured, rows];
+    }, [queue, loadedMediaRun, setLoadedMediaRun, height]);
 };
 
 const QueueRankLabel = styled(RankLabel)`
@@ -413,14 +453,15 @@ export const QueueRow = ({ runInfo,
     </StyledQueueRow>;
 };
 
-const QueueWrap = styled.div`
+const QueueWrap = styled.div<{ hasFeatured: boolean }>`
   width: 100%;
   height: 100%;
   position: absolute;
   background-color: ${c.QUEUE_BACKGROUND_COLOR};
   background-repeat: no-repeat;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
-  padding: ${c.QUEUE_ROW_HORIZONTAL_PADDING}px;
+  border-top-right-radius: ${props => props.hasFeatured ? "0" : c.GLOBAL_BORDER_RADIUS};
+  padding: ${c.QUEUE_WRAP_PADDING}px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -428,9 +469,15 @@ const QueueWrap = styled.div`
 `;
 
 const RowsContainer = styled.div`
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+`;
+const HorizontalRowsContainer = styled.div`
+  position: absolute;
+  width: calc(100% - ${c.QUEUE_WRAP_PADDING * 2}px);
+  height: calc(100% - ${c.QUEUE_WRAP_PADDING * 2}px);
   overflow: hidden;
 `;
 
@@ -439,7 +486,8 @@ const QueueHeader = styled.div`
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   line-height: ${c.QUEUE_HEADER_LINE_HEIGHT};
   color: white;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   display: flex;
 `;
 
@@ -487,106 +535,174 @@ export const Featured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     </TransitionGroup>;
 };
 
-type QueueRowsProps = {
-    width: number;
-    height: number | null;
+
+const StyledHorizontalFeatured = styled.div<{additional: CSSObject}>`
+  width: 334px;
+  position: absolute;
+
+  right: 0;
+  bottom: 100%;
+  padding: ${c.QUEUE_WRAP_PADDING}px;
+
+  background-color: ${c.QUEUE_BACKGROUND_COLOR};
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: ${c.QUEUE_ROW_FEATURED_RUN_PADDING}px;
+
+  ${({ additional }) => additional}
+`;
+
+export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
+    return <TransitionGroup component={null}>
+        {runInfo && <Transition timeout={c.QUEUE_ROW_FEATURED_RUN_APPEAR_TIME} key={runInfo.id}>
+            {state => {
+                const realState = runInfo.isFeaturedRunMediaLoaded ? state : "exited";
+                return (
+                    <StyledHorizontalFeatured additional={appearStatesFeatured[realState]}>
+                        <TeamMediaHolder
+                            media={runInfo.featuredRunMedia}
+                            onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}
+                        />
+                        <QueueRow runInfo={runInfo}/>
+                    </StyledHorizontalFeatured>
+                );
+            }}
+        </Transition>
+        }
+    </TransitionGroup>;
 };
-const VerticalQueueRows = ({ height, width }: QueueRowsProps) => {
-    const [_, queueRows] = useVerticalQueueRowsData({ height, width });
-    return (
-        <TransitionGroup component={null}>
-            {queueRows.map(row => (
-                <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
-                    {state => {
-                        return state !== "exited" && (
-                            <QueueRowAnimator
-                                bottom={row.bottom}
-                                right={row.right}
-                                zIndex={row.zIndex}
-                                fts={row.isFts}
-                                horizontal={false}
-                                {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
-                            >
-                                {/*<FeaturedRunRow2*/}
-                                {/*    isFeatured={row.isFeatured}*/}
-                                {/*    media={row.featuredRunMedia}*/}
-                                {/*    isLoaded={row.isFeaturedShown}*/}
-                                {/*    setIsLoaded={row.setIsFeaturedRunMediaLoaded}*/}
-                                {/*    height={row.featuredRunMediaHeight}*/}
-                                {/*    zIndex={QUEUE_BASIC_ZINDEX + 20}*/}
-                                {/*/>*/}
-                                <QueueRow runInfo={row}
-                                    // isEven={row.isEven} // not used atm.
-                                    // flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded} // not used atm.
-                                />
-                            </QueueRowAnimator>
-                        );
-                    }}
-                </Transition>
-            ))}
-        </TransitionGroup>
-    );
+
+type VerticalQueueProps = {
+    location: LocationRectangle;
+    shouldShow: boolean;
 }
-const HorizontalQueueRows = ({ height, width }: QueueRowsProps) => {
-    const queueRows = useHorizontalQueueRowsData({ height, width });
+const VerticalQueue = ({ location, shouldShow }: VerticalQueueProps) => {
+    const [height, setHeight] = useState<number>(location.sizeY - 200);
+    const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
+    const [featured, queueRows] = useVerticalQueueRowsData({ height, width });
+
     return (
-        <TransitionGroup>
-            {queueRows.map(row => (
-                <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
-                    {state => {
-                        return state !== "exited" && (
-                            <QueueRowAnimator
-                                bottom={row.bottom}
-                                right={row.right}
-                                zIndex={row.zIndex}
-                                fts={row.isFts}
-                                horizontal={true}
-                                {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
-                            >
-                                <QueueRow runInfo={row}/>
-                            </QueueRowAnimator>
-                        );
-                    }}
-                </Transition>
-            ))}
-        </TransitionGroup>
+        <>
+            <Featured runInfo={featured}/>
+            <QueueWrap hasFeatured={!!featured}>
+                <QueueHeader>
+                    <Title>
+                        {c.QUEUE_TITLE}
+                    </Title>
+                    <Caption>
+                        {c.QUEUE_CAPTION}
+                    </Caption>
+                </QueueHeader>
+                <RowsContainer ref={(el) => {
+                    if (el != null) {
+                        const bounding = el.getBoundingClientRect();
+                        // setWidth(bounding.width);
+                        setHeight(bounding.height);
+                    }
+                }}>
+                    <TransitionGroup component={null}>
+                        {shouldShow && queueRows.map(row => (
+                            <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
+                                {state => {
+                                    return state !== "exited" && (
+                                        <QueueRowAnimator
+                                            bottom={row.bottom}
+                                            right={row.right}
+                                            zIndex={row.zIndex}
+                                            fts={row.isFts}
+                                            horizontal={false}
+                                            {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
+                                        >
+                                            {/*<FeaturedRunRow2*/}
+                                            {/*    isFeatured={row.isFeatured}*/}
+                                            {/*    media={row.featuredRunMedia}*/}
+                                            {/*    isLoaded={row.isFeaturedShown}*/}
+                                            {/*    setIsLoaded={row.setIsFeaturedRunMediaLoaded}*/}
+                                            {/*    height={row.featuredRunMediaHeight}*/}
+                                            {/*    zIndex={QUEUE_BASIC_ZINDEX + 20}*/}
+                                            {/*/>*/}
+                                            <QueueRow runInfo={row}
+                                                // isEven={row.isEven} // not used atm.
+                                                // flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded} // not used atm.
+                                            />
+                                        </QueueRowAnimator>
+                                    );
+                                }}
+                            </Transition>
+                        ))}
+                    </TransitionGroup>
+                    {/* {shouldShow && horizontal && (
+                        <HorizontalQueueRows width={width} height={height} />
+                    )} */}
+                </RowsContainer>
+            </QueueWrap>
+        </>
     );
-}
+};
+const HorizontalQueue = ({ location, shouldShow }: VerticalQueueProps) => {
+    const [height, setHeight] = useState<number>();
+    const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
+    const [headerWidth, setHeaderWidth] = useState<number>(0);
+    const [featured, queueRows] = useHorizontalQueueRowsData({ height, width, ftsRowWidth: width - headerWidth });
+
+    return (
+        <>
+            <HorizontalFeatured runInfo={featured}/>
+            <QueueWrap hasFeatured={!!featured}>
+                <QueueHeader ref={(el) => (el != null) && setHeaderWidth(el.getBoundingClientRect().width)}>
+                    <Title>
+                        {c.QUEUE_TITLE}
+                    </Title>
+                    <Caption>
+                        {c.QUEUE_CAPTION}
+                    </Caption>
+                </QueueHeader>
+                <HorizontalRowsContainer ref={(el) => {
+                    if (el != null) {
+                        const bounding = el.getBoundingClientRect();
+                        // setWidth(bounding.width);
+                        setHeight(bounding.height);
+                    }
+                }}>
+                    <TransitionGroup>
+                        {shouldShow && queueRows.map(row => (
+                            <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
+                                {state => {
+                                    return state !== "exited" && (
+                                        <QueueRowAnimator
+                                            bottom={row.bottom}
+                                            right={row.right}
+                                            zIndex={row.zIndex}
+                                            fts={row.isFts}
+                                            horizontal={true}
+                                            {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
+                                        >
+                                            <QueueRow runInfo={row}/>
+                                        </QueueRowAnimator>
+                                    );
+                                }}
+                            </Transition>
+                        ))}
+                    </TransitionGroup>
+                </HorizontalRowsContainer>
+            </QueueWrap>
+        </>
+    );
+};
 
 type QueueProps = {
     widgetData: Widget.QueueWidget,
 };
 export const Queue = ({ widgetData: { settings: { horizontal }, location } }: QueueProps) => {
-    const [height, setHeight] = useState<number>(location.sizeY - 200);
-    const width = location.sizeX - c.QUEUE_ROW_HORIZONTAL_PADDING * 2;
     const shouldShow = useDelayedBoolean(300);
-    return <>
-        {/* <Featured runInfo={featured}/> */}
-        <QueueWrap>
-            <QueueHeader>
-                <Title>
-                    {c.QUEUE_TITLE}
-                </Title>
-                <Caption>
-                    {c.QUEUE_CAPTION}
-                </Caption>
-            </QueueHeader>
-            <RowsContainer ref={(el) => {
-                if (el != null) {
-                    const bounding = el.getBoundingClientRect();
-                    // setWidth(bounding.width);
-                    setHeight(bounding.height);
-                }
-            }}>
-                {shouldShow && !horizontal && (
-                    <VerticalQueueRows width={width} height={height} />
-                )}
-                {shouldShow && horizontal && (
-                    <HorizontalQueueRows width={width} height={height} />
-                )}
-            </RowsContainer>
-        </QueueWrap>
-    </>;
+    return (
+        <>
+            {!horizontal && <VerticalQueue location={location} shouldShow={shouldShow} />}
+            {horizontal && <HorizontalQueue location={location} shouldShow={shouldShow} />}
+        </>
+    );
 };
 Queue.shouldCrop = false;
 Queue.zIndex=1;
