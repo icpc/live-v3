@@ -278,14 +278,11 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
     useEffect(() => {
         if (settings.teamId != curSettings.teamId) {
             setNextSettings(settings);
-            console.log("Got next settings: ", settings, " cur settings: ", curSettings, "transition state", transitionState);
         }
     }, [settings]);
 
     const onNextLoaded = () => {
-        console.log("Next loaded: ", nextSettings, " cur loaded: ", curSettings, "transition state", transitionState);
         setTimeout(() => {
-            console.log("change", "transition state", transitionState);
             setCurSettings(nextSettings);
             setNextSettings(null);
         }, c.TEAM_VIEW_APPEAR_TIME);
@@ -293,7 +290,7 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
 
     return <>
         {/** Current */}
-        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ settings: curSettings, ...restProps }} transitionState={transitionState} onLoaded={() => console.log("Loaded cur!!")}/> 
+        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ settings: curSettings, ...restProps }} transitionState={transitionState} onLoaded={}/> 
         {/** Next */}
         {nextSettings && <TeamViewSingleContent key={nextSettings?.teamId} widgetData={{ settings: nextSettings, ...restProps }} transitionState={transitionState} onLoaded={onNextLoaded}/> }
     </>;
