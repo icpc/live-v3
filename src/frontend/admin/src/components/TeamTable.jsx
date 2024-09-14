@@ -13,6 +13,10 @@ const gridButton = {
     mx: "2px",
 };
 
+const timeFormat = (seconds) => {
+    return Math.floor(seconds / 60) + ":" + seconds % 60;
+}
+
 export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
     id: PropTypes.string,
     shown: PropTypes.bool.isRequired,
@@ -24,7 +28,7 @@ export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
     }).isRequired,
 });
 
-const TeamTableRow = ({ rowData, onClick, tStyle }) => {
+const TeamTableRow = ({ rowData, onClick, tStyle, usageStats }) => {
     return (<Grid sx={{ display: "flex", width: "100%", height: "100%" }}>
         <Box
             key={rowData.id}
@@ -47,7 +51,9 @@ const TeamTableRow = ({ rowData, onClick, tStyle }) => {
         >
             {rowData.id && `${rowData.id} :`}
             {rowData.id === null && <AutoModeIcon sx={{ mr: 1 }} />}
-            {" " + rowData.shortName}
+            {" " + rowData.shortName + " " + (usageStats?.byTeam[rowData.id]
+                                            ? timeFormat(usageStats?.byTeam[rowData.id].totalShownTimeSeconds)
+                                            : "0:0")}
         </Box>
     </Grid>);
 };
@@ -184,7 +190,7 @@ TeamViewSettingsPanel.defaultProps = {
     ]
 };
 
-export function SelectTeamTable({ teams, RowComponent, onClickHandler, tStyle }) {
+export function SelectTeamTable({ teams, RowComponent, onClickHandler, tStyle, usageStats }) {
     return (<Box sx={{
         display: "grid",
         gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(2, 6fr)", "xs": "repeat(1, 6fr)" },
@@ -193,6 +199,7 @@ export function SelectTeamTable({ teams, RowComponent, onClickHandler, tStyle })
             <RowComponent
                 tStyle={tStyle}
                 rowData={row}
+                usageStats={usageStats}
                 key={row.id}
                 onClick={onClickHandler}
             />)}

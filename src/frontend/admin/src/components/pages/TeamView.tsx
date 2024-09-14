@@ -240,7 +240,7 @@ const TeamViewManager = () => {
     const splitService = useTeamViewWidgetService("split", setStatus);
     const usageStats = useTeamViewWidgetUsageStats(singleService);
     useEffect(() => {
-        console.log("Stats", usageStats);
+        console.log("Stats", usageStats?.byTeam);
     }, [usageStats]);
 
     const [variant, setVariant] = useState<TeamViewContentType>(undefined);
@@ -370,7 +370,8 @@ const TeamViewManager = () => {
                                 variant="outlined"
                                 fullWidth
                             />
-                            <SelectTeamTable teams={teams} onClickHandler={setSelectedTeamId} />
+                            <SelectTeamTable teams={teams} onClickHandler={setSelectedTeamId}
+                                             usageStats={usageStats}/>
                         </Box>
                     )}
                     {selectedTeamId !== undefined && (
