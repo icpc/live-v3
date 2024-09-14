@@ -3,13 +3,12 @@
   <component name="JsonSchemaMappingsProjectConfiguration">
     <state>
       <map>
-        <entry key="ICPC live advanced.json">
+        <entry key="advanced.schema">
           <value>
             <SchemaInfo>
               <option name="generatedName" value="New Schema" />
-              <option name="name" value="ICPC live advanced.json" />
+              <option name="name" value="advanced.schema" />
               <option name="relativePathToSchema" value="schemas/advanced.schema.json" />
-              <option name="schemaVersion" value="JSON Schema version 7" />
               <option name="patterns">
                 <list>
                   <Item>
@@ -22,13 +21,12 @@
             </SchemaInfo>
           </value>
         </entry>
-        <entry key="ICPC live settings">
+        <entry key="settings.schema">
           <value>
             <SchemaInfo>
               <option name="generatedName" value="New Schema" />
-              <option name="name" value="ICPC live settings" />
+              <option name="name" value="settings.schema" />
               <option name="relativePathToSchema" value="schemas/settings.schema.json" />
-              <option name="schemaVersion" value="JSON Schema version 7" />
               <option name="patterns">
                 <list>
                   <Item>
