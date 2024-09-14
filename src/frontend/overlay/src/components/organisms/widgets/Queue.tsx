@@ -126,31 +126,26 @@ interface QueueRowInfo extends RunInfo {
 }
 
 type QueueBatchInfo = { [runId: string]: number; };
+type DelegateId = string;
 type QueueState = {
-    currentRuns: { [runId: string]: string }; // runId => batchDelegateId
-    batches: { [delegateId: string]: QueueBatchInfo };
-    batchOrder: string[]; // list of deligate ids from newest to oldest
+    currentRuns: { [runId: string]: DelegateId }; // runId => batchDelegateId
+    batches: { [delegateId: DelegateId]: QueueBatchInfo };
+    batchOrder: DelegateId[]; // list of deligate ids from newest to oldest
     ftsPositions: { [runId: string]: number };
 };
 
 const useVerticalQueueRowsData = ({
     width,
     height,
-    basicZIndex = c.QUEUE_BASIC_ZINDEX,
-    horizontal = false
+    basicZIndex = c.QUEUE_BASIC_ZINDEX
 }: {
     width: number,
     height: number,
     basicZIndex?: number,
     horizontal?: boolean,
 }): [QueueRowInfo | null, QueueRowInfo[]] => {
-    const bottomPosition = useCallback((index: number) => {
-        const actual = horizontal ? Math.floor(index / c.QUEUE_HORIZONTAL_HEIGHT_NUM) : index;
-        return (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_Y_PADDING) * actual;
-    }, [horizontal]);
-    const allowedMaxRows = useMemo(() => {
-        return Math.min((width / c.QUEUE_ROW_WIDTH) * (height / c.QUEUE_ROW_HEIGHT), c.QUEUE_MAX_ROWS);
-    }, [width, height]);
+    const bottomPosition = (index: number) => (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_Y_PADDING) * index;
+    const allowedMaxRows = Math.min((width / c.QUEUE_ROW_WIDTH) * (height / c.QUEUE_ROW_HEIGHT), c.QUEUE_MAX_ROWS);
 
     const { queue, totalQueueItems } = useAppSelector(state => state.queue);
 
@@ -359,7 +354,6 @@ const QueueRankLabel = styled(RankLabel)`
 
 const QueueTeamNameLabel = styled(ShrinkingBox)`
   flex-grow: 1;
-  /* flex-shrink: 0; */
 `;
 const QueueRunStatusLabel = styled(RunStatusLabel)`
   width: 46px;
@@ -410,27 +404,8 @@ const QueueRightPart = styled.div`
   display: flex;
   flex-wrap: nowrap;
 `;
-// const QueueFTSStartProblemWrap = styled.div`
-//   width: 28px;
-//   height: 100%;
-//   position: relative;
-//   background: ${props => "black"};
-//
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//
-//   flex-shrink: 0;
-//   mask: url(${star}) 50% 50% no-repeat;
-//   mask-origin: content-box;
-//   mask-clip: border-box;
-//   mask-size: 25px;
-//   padding: 2px;
-// `;
 
-export const QueueRow = ({ runInfo,
-    // flashing
-}) => {
+export const QueueRow = ({ runInfo }) => {
     const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[runInfo.teamId]);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[runInfo.teamId]);
     const probData = useAppSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
@@ -438,9 +413,7 @@ export const QueueRow = ({ runInfo,
     const rank = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rankById[runInfo.teamId]);
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun || runInfo?.result?.type === "IOI" && runInfo.result.isFirstBestRun;
-    return <StyledQueueRow
-        // flashing={flashing}
-    >
+    return <StyledQueueRow>
         <QueueRankLabel rank={rank} medal={medal?.medalColor}/>
         <QueueTeamNameLabel text={teamData?.shortName ?? "??"}/>
         <QueueScoreLabel align={"right"}
@@ -573,80 +546,17 @@ export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
         }
     </TransitionGroup>;
 };
-
-type VerticalQueueProps = {
+type QueueComponentProps = {
     location: LocationRectangle;
     shouldShow: boolean;
 }
-const VerticalQueue = ({ location, shouldShow }: VerticalQueueProps) => {
-    const [height, setHeight] = useState<number>(location.sizeY - 200);
-    const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
-    const [featured, queueRows] = useVerticalQueueRowsData({ height, width });
-
-    return (
-        <>
-            <Featured runInfo={featured}/>
-            <QueueWrap hasFeatured={!!featured}>
-                <QueueHeader>
-                    <Title>
-                        {c.QUEUE_TITLE}
-                    </Title>
-                    <Caption>
-                        {c.QUEUE_CAPTION}
-                    </Caption>
-                </QueueHeader>
-                <RowsContainer ref={(el) => {
-                    if (el != null) {
-                        const bounding = el.getBoundingClientRect();
-                        // setWidth(bounding.width);
-                        setHeight(bounding.height);
-                    }
-                }}>
-                    <TransitionGroup component={null}>
-                        {shouldShow && queueRows.map(row => (
-                            <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
-                                {state => {
-                                    return state !== "exited" && (
-                                        <QueueRowAnimator
-                                            bottom={row.bottom}
-                                            right={row.right}
-                                            zIndex={row.zIndex}
-                                            fts={row.isFts}
-                                            horizontal={false}
-                                            {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
-                                        >
-                                            {/*<FeaturedRunRow2*/}
-                                            {/*    isFeatured={row.isFeatured}*/}
-                                            {/*    media={row.featuredRunMedia}*/}
-                                            {/*    isLoaded={row.isFeaturedShown}*/}
-                                            {/*    setIsLoaded={row.setIsFeaturedRunMediaLoaded}*/}
-                                            {/*    height={row.featuredRunMediaHeight}*/}
-                                            {/*    zIndex={QUEUE_BASIC_ZINDEX + 20}*/}
-                                            {/*/>*/}
-                                            <QueueRow runInfo={row}
-                                                // isEven={row.isEven} // not used atm.
-                                                // flashing={row.isFeatured && !row.isFeaturedRunMediaLoaded} // not used atm.
-                                            />
-                                        </QueueRowAnimator>
-                                    );
-                                }}
-                            </Transition>
-                        ))}
-                    </TransitionGroup>
-                    {/* {shouldShow && horizontal && (
-                        <HorizontalQueueRows width={width} height={height} />
-                    )} */}
-                </RowsContainer>
-            </QueueWrap>
-        </>
-    );
-};
-const HorizontalQueue = ({ location, shouldShow }: VerticalQueueProps) => {
-    const [height, setHeight] = useState<number>();
+const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ location, shouldShow }: QueueComponentProps) => {
+    const [height, setHeight] = useState<number>(VARIANT === "horizontal" ? undefined : location.sizeY - 200);
     const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
     const [headerWidth, setHeaderWidth] = useState<number>(0);
-    const [featured, queueRows] = useHorizontalQueueRowsData({ height, width, ftsRowWidth: width - headerWidth });
-
+    const [featured, queueRows] = VARIANT === "horizontal" ? useHorizontalQueueRowsData({ height, width, ftsRowWidth: width - headerWidth }):
+        useVerticalQueueRowsData({ height, width });
+    const RowsContainerComponent = VARIANT === "horizontal" ? HorizontalRowsContainer : RowsContainer;
     return (
         <>
             <HorizontalFeatured runInfo={featured}/>
@@ -659,10 +569,9 @@ const HorizontalQueue = ({ location, shouldShow }: VerticalQueueProps) => {
                         {c.QUEUE_CAPTION}
                     </Caption>
                 </QueueHeader>
-                <HorizontalRowsContainer ref={(el) => {
+                <RowsContainerComponent ref={(el) => {
                     if (el != null) {
                         const bounding = el.getBoundingClientRect();
-                        // setWidth(bounding.width);
                         setHeight(bounding.height);
                     }
                 }}>
@@ -686,11 +595,14 @@ const HorizontalQueue = ({ location, shouldShow }: VerticalQueueProps) => {
                             </Transition>
                         ))}
                     </TransitionGroup>
-                </HorizontalRowsContainer>
+                </RowsContainerComponent>
             </QueueWrap>
         </>
     );
 };
+
+const VerticalQueue = QueueComponent("vertical");
+const HorizontalQueue = QueueComponent("horizontal");
 
 type QueueProps = {
     widgetData: Widget.QueueWidget,
