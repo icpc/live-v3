@@ -21,5 +21,10 @@
   "engines": {
     "node": ">=20",
     "npm": ">=10.2.4"
-  }
+  },
+  "pnpm": {
+		"overrides": {
+			"caniuse-lite": "1.0.30001653"
+		}
+	}
 }
