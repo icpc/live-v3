@@ -14,16 +14,6 @@ kotlin {
 }
 
 publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/icpc/live-v3")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
     publications {
         val libName = name
         create<MavenPublication>("mavenJava${libName}") {
@@ -52,7 +42,7 @@ publishing {
                 }
             }
             from(components["java"])
-            groupId = "org.icpclive"
+            groupId = "com.github.icpc.live-v3"
             version = rootProject.findProperty("build_version")!!.toString()
             artifactId = "org.icpclive.cds.${libName}"
         }
