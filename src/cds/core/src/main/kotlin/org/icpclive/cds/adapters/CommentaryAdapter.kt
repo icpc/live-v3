@@ -20,8 +20,8 @@ public fun Flow<ContestStateWithScoreboard>.generateCommentary(
                 scoreboardRowsAfter = it.scoreboardRowsAfter,
                 scoreboardRowsBefore = it.scoreboardRowsBefore,
                 scoreboardRowsChanged = it.scoreboardRowsChanged,
-                rankingBefore = it.rankingAfter,
-                rankingAfter = it.rankingBefore,
+                rankingBefore = it.rankingBefore,
+                rankingAfter = it.rankingAfter,
                 lastSubmissionTime = it.lastSubmissionTime
             )
         )
