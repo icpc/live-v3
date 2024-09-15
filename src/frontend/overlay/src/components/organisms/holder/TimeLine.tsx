@@ -36,7 +36,6 @@ const TimeLineContainer = styled.div`
     width: 100%;
     border-top-right-radius: ${c.TIMELINE_BORDER_RADIUS};
     border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
-    border-bottom-right-radius: ${c.TIMELINE_BORDER_RADIUS};;
     display: grid;
     height: ${c.TIMELINE_WRAP_HEIGHT}px;
     background-color: ${props => props.color};
