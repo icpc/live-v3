@@ -7,6 +7,7 @@ import { RankLabel } from "../../atoms/ContestLabels";
 import { formatScore, useFormatPenalty } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
 import { Award } from "@shared/api";
+import { isShouldUseDarkColor } from "@/utils/colors";
 
 
 const ContestantInfoLabel = styled(RankLabel)`
@@ -22,7 +23,7 @@ const ContestantInfoTeamNameLabel = styled(ShrinkingBox)`
 `;
 
 
-const ContestantInfoWrap = styled.div<{round: boolean}>`
+const ContestantInfoWrap = styled.div<{round: boolean, bg_color: string, color: string}>`
   overflow: hidden;
   display: flex;
   gap: 5px;
@@ -32,9 +33,9 @@ const ContestantInfoWrap = styled.div<{round: boolean}>`
   height: ${c.CONTESTER_ROW_HEIGHT};
 
   font-size: ${c.CONTESTER_FONT_SIZE};
-  color: white;
+  color: ${props => props.color};
 
-  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
+  background-color: ${props => props.bg_color};
   border-radius: ${c.GLOBAL_BORDER_RADIUS} ${props => props.round ? c.GLOBAL_BORDER_RADIUS : "0px"} ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS};
 `;
 
@@ -54,8 +55,10 @@ export const ContestantInfo = ({ teamId, roundBR= true, className = null }) => {
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const formatPenalty = useFormatPenalty();
-    return <ContestantInfoWrap round={roundBR} className={className}>
-        <ContestantInfoLabel rank={rank} medal={medal?.medalColor}/>
+    const darkText = isShouldUseDarkColor(teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR);
+
+    return <ContestantInfoWrap round={roundBR} className={className} bg_color={teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR} color={darkText ? "#000" : "#FFF"}>
+        <ContestantInfoLabel rank={rank} medal={medal?.medalColor} bg_color={teamData?.color}/>
         <ContestantInfoTeamNameLabel text={teamData?.shortName ?? "??"}/>
         <ContestantInfoScoreLabel align={"right"}
             text={scoreboardData === null ? "??" : formatScore(scoreboardData?.totalScore ?? 0.0, 1)}/>

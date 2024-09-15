@@ -4,13 +4,15 @@ import { DateTime } from "luxon";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ScoreboardTaskResultLabel } from "../../organisms/widgets/Scoreboard";
-import { ProblemResult } from "@shared/api";
+import { ProblemResult, TeamInfo } from "@shared/api";
+import { isShouldUseDarkColor } from "@/utils/colors";
 
 
 const TimeCell = styled.div`
   flex-basis: 70%;
   width: 50px;
   text-align: center;
+
 `;
 
 const QueueProblemLabel = styled(ProblemLabel)`
@@ -19,7 +21,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
 `;
 
-const SubmissionRowWrap = styled.div`
+const SubmissionRowWrap = styled.div<{bg_color: string, color: string}>`
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -28,12 +30,12 @@ const SubmissionRowWrap = styled.div`
   height: ${c.CONTESTER_ROW_HEIGHT};
 
   font-size: ${c.CONTESTER_FONT_SIZE};
-  color: white;
+  color: ${props => props.color};
 
-  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
+  background-color: ${props => props.bg_color};
 `;
 
-const SubmissionColumnWrap = styled.div`
+const SubmissionColumnWrap = styled.div<{bg_color: string, darkText: boolean}>`
   overflow: hidden;
   display: grid;
   grid-auto-flow: row;
@@ -44,9 +46,9 @@ const SubmissionColumnWrap = styled.div`
   width: 100%;
 
   font-size: ${c.CONTESTER_FONT_SIZE};
-  color: white;
+  color: ${({ darkText }) => darkText ? "#000" : "#FFF"};
 
-  background-color: ${c.CONTESTER_BACKGROUND_COLOR};
+  background-color: ${props => props.bg_color ? props.bg_color : c.CONTESTER_BACKGROUND_COLOR};
 `;
 // border-top-left-radius: ${props => props.roundB ? "16px" : "0px"};
 //   border-top-right-radius: ${props => props.roundB ? "16px" : "0px"};
@@ -58,8 +60,8 @@ const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
   text-align: center;
 `;
 
-export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor }) => {
-    return <SubmissionRowWrap>
+export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, bg_color, color }) => {
+    return <SubmissionRowWrap bg_color={bg_color} color={color}>
         <TimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</TimeCell>
         <QueueProblemLabel letter={problemLetter} problemColor={problemColor} />
         <SubmissionRowTaskResultLabel problemResult={result} minScore={minScore} maxScore={maxScore}/>
@@ -82,6 +84,7 @@ const PVPTimeCell = styled(TimeCell)`
 `;
 
 export type VerticalSubmissionRowProps = {
+    teamData: TeamInfo;
     result: ProblemResult;
     lastSubmitTimeMs?: number;
     minScore?: number;
@@ -91,15 +94,16 @@ export type VerticalSubmissionRowProps = {
     isTop?: boolean;
 }
 
-export const VerticalSubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }: VerticalSubmissionRowProps) => {
+export const VerticalSubmissionRow = ({ teamData, result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }: VerticalSubmissionRowProps) => {
+    const dark = isShouldUseDarkColor(teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR);
     if (!result || !problemColor || !problemLetter || !lastSubmitTimeMs) {
-        return <SubmissionColumnWrap>
+        return <SubmissionColumnWrap bg_color={teamData?.color} darkText={dark}>
             <div style={{ order: isTop ? 1 : 3 }}/>
             <div style={{ order: 2 }}/>
             <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
         </SubmissionColumnWrap>;
     }
-    return <SubmissionColumnWrap>
+    return <SubmissionColumnWrap bg_color={teamData?.color} darkText={dark}>
         <PVPResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isTop={isTop}/>
         <PVPTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</PVPTimeCell>
         <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>

@@ -69,6 +69,7 @@ export const ContestantViewLine = ({ teamId, tasksContainerY, className, isTop }
         state.scoreboard[OptimismLevel.normal]?.ids && state.scoreboard[OptimismLevel.normal].ids[teamId]);
     const tasks = aboba(useAppSelector(state => state.contestInfo?.info?.problems));
     const contestData = useAppSelector((state) => state.contestInfo?.info);
+    const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
 
     const [top, bottom] = isTop ? [null, "0"] : ["0", null];
 
@@ -84,6 +85,7 @@ export const ContestantViewLine = ({ teamId, tasksContainerY, className, isTop }
                     $isTop={isTop}
                 >
                     <VerticalSubmissionRow
+                        teamData={teamData}
                         isTop={isTop}
                         result={result}
                         problemLetter={tasks && tasks[i]?.letter}
