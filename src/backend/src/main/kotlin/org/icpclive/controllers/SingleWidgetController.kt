@@ -9,7 +9,10 @@ import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.ObjectSettings
 import org.icpclive.api.ObjectStatus
 import org.icpclive.api.TypeWithId
+import org.icpclive.cds.util.getLogger
 import org.icpclive.data.Manager
+
+private val logger by getLogger()
 
 abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : TypeWithId>(
     private var settings: SettingsType,
@@ -34,6 +37,10 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
 
     open suspend fun createWidgetAndShow(settings: SettingsType) {
         val widget = constructWidget(settings)
+        if (overlayWidgetId != null && overlayWidgetId != widget.id) {
+            logger.warning { "Controller $id is currently showing ${overlayWidgetId}, but was asked to show ${widget.id}, would hide first one silently." }
+            manager.remove(overlayWidgetId!!)
+        }
         manager.add(widget)
         overlayWidgetId = widget.id
     }
