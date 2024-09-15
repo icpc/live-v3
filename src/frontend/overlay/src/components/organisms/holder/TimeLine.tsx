@@ -6,6 +6,7 @@ import { getIOIColor } from "@/utils/statusInfo";
 import { RunResult } from "@shared/api";
 import { getStartTime } from "@/components/molecules/Clock";
 import { DateTime } from "luxon";
+import { isShouldUseDarkColor } from "@/utils/colors";
 
 const ChangeProblemAnimation = keyframes`
     0% {
@@ -44,12 +45,14 @@ const TimeLineContainer = styled.div`
 
 interface LineProps {
     lineWidth: number;
+    left: number;
 }
 
 
-const Line = styled.div.attrs<LineProps>(({ lineWidth }) => ({
+const Line = styled.div.attrs<LineProps>(({ lineWidth, left }) => ({
     style: {
         width: `${lineWidth}%`,
+        left: `${left}%`,
     },
 }))<LineProps>`
     height: ${c.TIMELINE_LINE_HEIGHT};
@@ -128,9 +131,9 @@ const Text = styled.div`
     text-align: center;
 `;
 
-const TimeBorder = styled.div<{ left: string }>`
+const TimeBorder = styled.div<{ left: string, color: string }>`
     height: ${c.TIMELINE_WRAP_HEIGHT}px;
-    background-color: ${c.TIMELINE_TIMEBORDER_COLOR};
+    background-color: ${({ color }) => isShouldUseDarkColor(color) ? "#000" : "#fff"};
     width: 2px;
     position: absolute;
     left: ${({ left }) => left};
@@ -231,11 +234,12 @@ export const TimeLine = ({ teamId, className = null }) => {
 
     return (
         <TimeLineContainer className={className} color={teamData?.color ? teamData?.color : c.CONTEST_COLOR}>
-            <Line lineWidth={lineWidth} />
-            <CircleAtEnd lineWidth={lineWidth}/>
-            {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>
-                <TimeBorder key={elem}
-                    left={((elem + 1) * 3600000 / contestInfo.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH + "%"} />)}
+            <Line lineWidth={lineWidth} left={c.TIMELINE_LEFT_TIME_PADDING} />
+            <CircleAtEnd lineWidth={lineWidth + c.TIMELINE_LEFT_TIME_PADDING} />
+            {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000 + 1).keys()).map(elem => {
+                return (<TimeBorder key={elem}
+                    color={teamData?.color ?? "#000"}
+                    left={(((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH + (elem === 0 ? c.TIMELINE_LEFT_TIME_PADDING : 0)) + "%"} />); })}
             {runsResults?.map((problemResult, index) => (
                 <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
                     animationKey={animationKey}/>
