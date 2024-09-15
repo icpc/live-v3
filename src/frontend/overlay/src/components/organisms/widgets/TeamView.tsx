@@ -1,8 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
 import { LocationRectangle, OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
-import { OverlayWidgetC } from "@/components/organisms/widgets/types";
+import { OverlayWidgetC, OverlayWidgetProps } from "@/components/organisms/widgets/types";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 import TimeLine from "@/components/organisms/holder/TimeLine";
 import { ContestantViewCorner } from "@/components/molecules/info/ContestantViewCorner";
@@ -37,7 +37,7 @@ const TeamViewContainer = styled.div<{ show: boolean; animation?: Keyframes; ani
     flex-direction: column;
     justify-content: start;
     align-items: flex-end;
-    position: relative;
+    position: absolute;
     animation: ${props => props.animation} ${c.TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
     animation-fill-mode: forwards;
 `;
@@ -271,7 +271,36 @@ const SplitContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSeconda
     );
 };
 
-export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { settings, location }, transitionState }) => {
+export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { settings, ...restProps }, transitionState }) => {
+    const [curSettings, setCurSettings] = useState<OverlayTeamViewSettings>(settings);
+    const [nextSettings, setNextSettings] = useState<OverlayTeamViewSettings>(null);
+
+    useEffect(() => {
+        if (settings.teamId != curSettings.teamId) {
+            setNextSettings(settings);
+        }
+    }, [settings]);
+
+    const onNextLoaded = () => {
+        setTimeout(() => {
+            setCurSettings(nextSettings);
+            setNextSettings(null);
+        }, c.TEAM_VIEW_APPEAR_TIME);
+    };
+
+    return <>
+        {/** Current */}
+        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ settings: curSettings, ...restProps }} transitionState={transitionState}/> 
+        {/** Next */}
+        {nextSettings && <TeamViewSingleContent key={nextSettings?.teamId} widgetData={{ settings: nextSettings, ...restProps }} transitionState={transitionState} onLoaded={onNextLoaded}/> }
+    </>;
+};
+
+type TeamViewSingleContentProps = OverlayWidgetProps<Widget.TeamViewWidget> & {
+    onLoaded?: () => void
+}
+
+export const TeamViewSingleContent = ({ widgetData: { settings, location }, transitionState, onLoaded }: TeamViewSingleContentProps) => {
     const { primary, secondary, achievement, position } = settings;
     const variant = teamViewVariant(position);
 
@@ -281,6 +310,12 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
     const isLoaded = (!primary || primaryLoaded) && (!secondary || secondaryLoaded || true)
         && (variant === "single" || !achievement || achievementLoaded);
 
+    useLayoutEffect(() => {
+        if (isLoaded && onLoaded) {
+            onLoaded();
+        }
+    }, [isLoaded]);
+
     const props = { ...settings, setPrimaryLoaded, setSecondaryLoaded, setAchievementLoaded, location };
 
     return (
@@ -288,6 +323,7 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
             show={isLoaded}
             animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
             animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
+            data-teamid={settings?.teamId}
         >
             {variant === "single" && <SingleContent {...props} />}
             {variant === "pvp" && <PVPContent {...props} />}
