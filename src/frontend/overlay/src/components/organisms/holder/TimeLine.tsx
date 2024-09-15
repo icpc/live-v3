@@ -39,7 +39,7 @@ const TimeLineContainer = styled.div`
     border-bottom-right-radius: ${c.TIMELINE_BORDER_RADIUS};;
     display: grid;
     height: ${c.TIMELINE_WRAP_HEIGHT}px;
-    background-color: ${c.CONTEST_COLOR};
+    background-color: ${props => props.color};
     position: relative;
 `;
 
@@ -228,9 +228,10 @@ export const TimeLine = ({ teamId, className = null }) => {
         };
     }, [contestInfo]);
 
+    const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
 
     return (
-        <TimeLineContainer className={className}>
+        <TimeLineContainer className={className} color={teamData?.color ? teamData?.color : c.CONTEST_COLOR}>
             <Line lineWidth={lineWidth} />
             <CircleAtEnd lineWidth={lineWidth}/>
             {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000).keys()).map(elem =>

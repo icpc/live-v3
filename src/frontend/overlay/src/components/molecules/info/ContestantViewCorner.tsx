@@ -6,6 +6,7 @@ import SubmissionRow from "./SubmissionRow";
 import styled from "styled-components";
 import c from "../../../config";
 import { useAppSelector } from "@/redux/hooks";
+import { isShouldUseDarkColor } from "@/utils/colors";
 
 const ContestantViewCornerWrap = styled.div<{isSmall: boolean}>`
   display: grid;
@@ -67,6 +68,9 @@ export const ContestantViewCorner = ({ teamId, isSmall = false, className = null
     const results = _.sortBy(problemResults, "lastSubmitTimeMs")
         .filter(result => result.lastSubmitTimeMs !== undefined);
     // const results = [...results2, ...results2];
+    const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
+    const darkText = isShouldUseDarkColor(teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR);
+
     return <ContestantViewCornerWrap isSmall={isSmall} className={className}>
         <TasksContainer>
             {results.map((result, i) =>
@@ -78,6 +82,8 @@ export const ContestantViewCorner = ({ teamId, isSmall = false, className = null
                         lastSubmitTimeMs={result?.lastSubmitTimeMs}
                         minScore={contestData?.problems[i]?.minScore}
                         maxScore={contestData?.problems[i]?.maxScore}
+                        color={darkText ? "#000" : "#FFF"}
+                        bg_color={teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR}
                     />
                 </TaskRow>
             )}
