@@ -85,6 +85,7 @@ private fun MediaType.toClicsMedia() = when (this) {
 private fun TeamInfo.toClicsTeam() = Team(
     id = id.value,
     name = fullName,
+    displayName = displayName,
     hidden = isHidden,
     groupIds = groups.map { it.value },
     organizationId = organizationId?.value,
