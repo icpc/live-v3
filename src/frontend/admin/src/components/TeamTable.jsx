@@ -8,14 +8,15 @@ import TeamAchievementIcon from "@mui/icons-material/StarHalf";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AutoModeIcon from "@mui/icons-material/AutoMode";
+import Typography from "@mui/material/Typography";
 
 const gridButton = {
     mx: "2px",
 };
 
-const timeFormat = (seconds) => {
-    return Math.floor(seconds / 60) + ":" + seconds % 60;
-}
+const formatTeamUsageTime = (seconds) => {
+    return `${(Math.floor(seconds / 60)).toString().padStart(2, "0")}:${(seconds % 60).toString().padStart(2, "0")}`;
+};
 
 export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
     id: PropTypes.string,
@@ -29,6 +30,8 @@ export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
 });
 
 const TeamTableRow = ({ rowData, onClick, tStyle, usageStats }) => {
+    const teamStat = rowData.id !== null ? usageStats?.byTeam[rowData.id]?.totalShownTimeSeconds : undefined;
+    console.log("Hello ", rowData.id, teamStat);
     return (<Grid sx={{ display: "flex", width: "100%", height: "100%" }}>
         <Box
             key={rowData.id}
@@ -46,14 +49,17 @@ const TeamTableRow = ({ rowData, onClick, tStyle, usageStats }) => {
                 cursor: "pointer",
                 margin: "4px",
                 borderBottom: "1px solid rgba(224, 224, 224, 1)",
-                color: (rowData.selected || rowData.shown ? grey[900] : grey[700]) }}
+                color: (rowData.selected || rowData.shown ? grey[900] : grey[700]),
+                justifyContent: "space-between",
+            }}
             onClick={() => onClick(rowData.id)}
         >
-            {rowData.id && `${rowData.id} :`}
-            {rowData.id === null && <AutoModeIcon sx={{ mr: 1 }} />}
-            {" " + rowData.shortName + " " + (usageStats?.byTeam[rowData.id]
-                                            ? timeFormat(usageStats?.byTeam[rowData.id].totalShownTimeSeconds)
-                                            : "0:0")}
+            <Typography variant="text" component="div">
+                {rowData.id && `${rowData.id} :`}
+                {rowData.id === null && <AutoModeIcon sx={{ mr: 1 }} />}
+                {" " + rowData.shortName + " "}
+            </Typography>
+            {teamStat && <Typography variant="caption" component="div">{formatTeamUsageTime(teamStat)}</Typography>}
         </Box>
     </Grid>);
 };
@@ -190,7 +196,13 @@ TeamViewSettingsPanel.defaultProps = {
     ]
 };
 
-export function SelectTeamTable({ teams, RowComponent, onClickHandler, tStyle, usageStats }) {
+const defaultTableStyle = {
+    selectedColor: grey.A200,
+    activeColor: lightBlue[100],
+    inactiveColor: "white",
+};
+
+export function SelectTeamTable({ teams, RowComponent = TeamTableRow, onClickHandler, tStyle = defaultTableStyle, usageStats }) {
     return (<Box sx={{
         display: "grid",
         gridTemplateColumns: { "md": "repeat(4, 6fr)", "sm": "repeat(2, 6fr)", "xs": "repeat(1, 6fr)" },
@@ -213,12 +225,4 @@ SelectTeamTable.propTypes = {
         activeColor: PropTypes.string,
         inactiveColor: PropTypes.string,
     }),
-};
-SelectTeamTable.defaultProps = {
-    tStyle: {
-        selectedColor: grey.A200,
-        activeColor: lightBlue[100],
-        inactiveColor: "white",
-    },
-    RowComponent: TeamTableRow,
 };

@@ -56,7 +56,7 @@ const AUTOMODE_TEAM: TeamInfoWithStatus = {
     groups: [],
     organizationId: "",
     // TODO:
-    medias: { [TeamMediaType.camera]: null, [TeamMediaType.screen]: null, [TeamMediaType.photo]: null, [TeamMediaType.reactionVideo]: null, [TeamMediaType.record]: null, [TeamMediaType.achievement]: null },
+    medias: { [TeamMediaType.camera]: null, [TeamMediaType.screen]: null, [TeamMediaType.photo]: null, [TeamMediaType.reactionVideo]: null, [TeamMediaType.record]: null, [TeamMediaType.achievement]: null, [TeamMediaType.audio]: null },
     customFields: {},
     isHidden: false,
     isOutOfContest: false,
@@ -239,9 +239,6 @@ const TeamViewManager = () => {
     const pvpService = useTeamViewWidgetService("pvp", setStatus);
     const splitService = useTeamViewWidgetService("split", setStatus);
     const usageStats = useTeamViewWidgetUsageStats(singleService);
-    useEffect(() => {
-        console.log("Stats", usageStats?.byTeam);
-    }, [usageStats]);
 
     const [variant, setVariant] = useState<TeamViewContentType>(undefined);
 
@@ -370,8 +367,11 @@ const TeamViewManager = () => {
                                 variant="outlined"
                                 fullWidth
                             />
-                            <SelectTeamTable teams={teams} onClickHandler={setSelectedTeamId}
-                                             usageStats={usageStats}/>
+                            <SelectTeamTable
+                                teams={teams}
+                                onClickHandler={setSelectedTeamId}
+                                usageStats={usageStats}
+                            />
                         </Box>
                     )}
                     {selectedTeamId !== undefined && (
