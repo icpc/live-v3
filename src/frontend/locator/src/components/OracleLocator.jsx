@@ -128,6 +128,7 @@ const useOracleList = (oracleLocatorService) => {
 const OracleViewManager = ({ service }) => {
     const oracles = useOracleList(service);
     const [oracle, setOracle] = useState(1);
+    const [minRadius, setMinRadius] = useState(200);
 
     const [rawTeams, setRawTeams] = useState([]);
     const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, {});
@@ -157,7 +158,7 @@ const OracleViewManager = ({ service }) => {
         console.log("OnMove", selectedTeamCdsId)
         const settings = {
             oracleId: oracle,
-            teamId: selectedTeamCdsId,
+            teamId: selectedTeamCdsId
         };
         service.moveWithSettings(settings);
     }, [selectedInstance, selectedTeamId, service]);
@@ -166,6 +167,7 @@ const OracleViewManager = ({ service }) => {
         const settings = {
             oracleId: oracle,
             teamId: selectedTeamCdsId,
+            minRadius: minRadius,
         };
         service.showWithSettings(settings);
     }, [selectedInstance, selectedTeamId, service]);
@@ -229,11 +231,16 @@ const OracleViewManager = ({ service }) => {
                                     onClick={onShow}>Show locator
                                 </Button>
                                 <Button
-                                    color="error"
+                                    color="error"   
                                     variant="contained"
                                     onClick={onHide}>Hide
                                 </Button>
                             </ButtonGroup>
+                            <TextField
+                                size="small"
+                                value={minRadius}
+                                onChange={(e) => setMinRadius(parseInt(e.target.value))}
+                            />
                         </>
                     )}
                 </Paper>
