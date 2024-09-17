@@ -3,7 +3,7 @@ package org.icpclive.oracle
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class OracleRequest(val oracleId: Int, val teamId: String)
+data class OracleRequest(val oracleId: Int, val teamId: String, val minRadius: Int? = null)
 
 @Serializable
 data class TeamLocatorCircleSettings(

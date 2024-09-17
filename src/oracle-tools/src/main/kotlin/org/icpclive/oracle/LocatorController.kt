@@ -4,7 +4,7 @@ object LocatorController {
     private const val WIDTH = 1920
     private const val HEIGHT = 1080
 
-    suspend fun getLocatorWidgetConfig(oracleNumber: Int, teamIds: Set<String>): TeamLocatorSettings {
+    suspend fun getLocatorWidgetConfig(oracleNumber: Int, teamIds: Set<String>, minRadius: Int?): TeamLocatorSettings {
         val allPoints = Util.loadLocatorPoints(oracleNumber)
         var d = 1e100
         for (p1 in allPoints) {
@@ -23,7 +23,7 @@ object LocatorController {
                 TeamLocatorCircleSettings(
                     x = it.x.toInt(),
                     y = it.y.toInt(),
-                    radius = it.r.toInt(),
+                    radius = maxOf(it.r.toInt(), minRadius ?: 100),
                     teamId = it.id,
                 )
             }

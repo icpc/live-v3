@@ -26,7 +26,7 @@ fun Route.setupRouting() {
     post("/show_with_settings") {
         call.adminApiAction {
             val request = call.receive<OracleRequest>()
-            val locatorSettings = LocatorController.getLocatorWidgetConfig(request.oracleId, setOf(request.teamId))
+            val locatorSettings = LocatorController.getLocatorWidgetConfig(request.oracleId, setOf(request.teamId), request.minRadius)
             println("request: " + "${config.overlayURL}/api/admin/teamLocator/show_with_settings")
             val showRequest = Util.httpClient.post("${config.overlayURL}/api/admin/teamLocator/show_with_settings") {
                 headers {
