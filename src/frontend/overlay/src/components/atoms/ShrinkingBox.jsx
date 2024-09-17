@@ -38,21 +38,33 @@ export const ShrinkingBox = memo(({
     className
 }) => {
     const boxRef = useRef(null);
-    const updateScale = useCallback((newCellRef) => {
-        if (newCellRef !== null) {
-            boxRef.current = newCellRef;
-            newCellRef.children[0].style.transform = "";
-            const styles = getComputedStyle(newCellRef);
+    const updateScale = useCallback(() => {
+        const cellRef = boxRef.current;
+        if (cellRef !== null) {
+            cellRef.children[0].style.transform = "";
+            const styles = getComputedStyle(cellRef);
+            console.log(text, styles.width);
             const textWidth = getTextWidth(text, `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`);
             const haveWidth = (parseFloat(styles.width));
             const scaleFactor = Math.min(1, haveWidth / textWidth);
-            newCellRef.children[0].style.transform = `scaleX(${scaleFactor})`;
+            cellRef.children[0].style.transform = `scaleX(${scaleFactor})`;
         }
     }, [align, fontFamily, fontSize, text]);
     useEffect(() => {
-        updateScale(boxRef.current);
+        updateScale();
     }, [text]);
-    return <TextShrinkingWrap ref={updateScale} align={align} className={className}>
+    const bindObserver = useCallback((cellRef) => {
+        boxRef.current = cellRef;
+        const observer = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                if (entry.target === cellRef) {
+                    updateScale(cellRef);
+                }
+            }
+        });
+        observer.observe(cellRef);
+    });
+    return <TextShrinkingWrap ref={bindObserver} align={align} className={className}>
         <TextShrinkingContainer align={align}>
             {text}
         </TextShrinkingContainer>
