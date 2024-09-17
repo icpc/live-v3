@@ -9,3 +9,10 @@ Examples:
 
 
 - `https://host/overlay?forceWidgets=[{"type":"ScoreboardWidget","widgetId":"scoreboard","location":{"positionX":16,"positionY":16,"sizeX":1488,"sizeY":984},"settings":{"isInfinite":true,"startFromRow":1,"optimismLevel":"normal","group":"all"}}]`
+
+## forceVisualConfig
+
+You can pass forces visual config using the forceVisualConfig 
+
+Examples:
+- `http://host/overelay?forceVisualConfig=`

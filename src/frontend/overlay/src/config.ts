@@ -7,6 +7,9 @@ const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
 const VISUAL_CONFIG_URL = import.meta.env.VITE_VISUAL_CONFIG_URL ?? `${window.location.protocol}//${window.location.hostname}:${WS_PORT}/api/overlay/visualConfig.json`;
 
+const urlParams = new URLSearchParams(window.location.search);
+const queryVisualConfig = JSON.parse(urlParams.get("forceVisualConfig") ?? "{}");
+
 const visualConfig = await fetch(VISUAL_CONFIG_URL)
     .then(r => r.json())
     .catch((e) => console.error("failed to load visual config: " + e)) ?? {};
@@ -17,10 +20,10 @@ const config_: typeof config = {};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const config: Record<string, any> = new Proxy(config_, {
     get(target, key) {
-        return visualConfig[key] ?? target[key as string];
+        return queryVisualConfig[key] ?? visualConfig[key] ?? target[key as string];
     },
     set(target, key, value) {
-        target[key as string] = visualConfig[key] ?? value;
+        target[key as string] = queryVisualConfig[key] ?? visualConfig[key] ?? value;
         return true;
     }
 });
