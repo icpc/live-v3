@@ -38,6 +38,7 @@ export const ShrinkingBox = memo(({
     className
 }) => {
     const boxRef = useRef(null);
+    const observerRef = useRef(null);
     const updateScale = useCallback(() => {
         const cellRef = boxRef.current;
         if (cellRef !== null) {
@@ -54,14 +55,21 @@ export const ShrinkingBox = memo(({
     }, [text]);
     const bindObserver = useCallback((cellRef) => {
         boxRef.current = cellRef;
-        const observer = new ResizeObserver((entries) => {
+        observerRef.current = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 if (entry.target === cellRef) {
                     updateScale(cellRef);
                 }
             }
         });
-        observer.observe(cellRef);
+        observerRef.current.observe(cellRef);
+    });
+    useEffect(() => {
+        return () => {
+            if(observerRef.current !== null) {
+                observerRef.disconnect();
+            }
+        };
     });
     return <TextShrinkingWrap ref={bindObserver} align={align} className={className}>
         <TextShrinkingContainer align={align}>
