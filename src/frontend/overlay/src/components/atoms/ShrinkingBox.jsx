@@ -69,7 +69,7 @@ export const ShrinkingBox = memo(({
     useEffect(() => {
         return () => {
             if(observerRef.current !== null) {
-                observerRef.disconnect();
+                observerRef.current.disconnect();
             }
         };
     });
