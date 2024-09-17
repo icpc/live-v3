@@ -43,7 +43,6 @@ export const ShrinkingBox = memo(({
         if (cellRef !== null) {
             cellRef.children[0].style.transform = "";
             const styles = getComputedStyle(cellRef);
-            console.log(text, styles.width);
             const textWidth = getTextWidth(text, `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`);
             const haveWidth = (parseFloat(styles.width));
             const scaleFactor = Math.min(1, haveWidth / textWidth);
