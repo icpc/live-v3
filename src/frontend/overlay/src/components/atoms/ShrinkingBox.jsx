@@ -55,14 +55,16 @@ export const ShrinkingBox = memo(({
     }, [text]);
     const bindObserver = useCallback((cellRef) => {
         boxRef.current = cellRef;
-        observerRef.current = new ResizeObserver((entries) => {
-            for (const entry of entries) {
-                if (entry.target === cellRef) {
-                    updateScale(cellRef);
+        if (cellRef !== null) {
+            observerRef.current = new ResizeObserver((entries) => {
+                for (const entry of entries) {
+                    if (entry.target === cellRef) {
+                        updateScale(cellRef);
+                    }
                 }
-            }
-        });
-        observerRef.current.observe(cellRef);
+            });
+            observerRef.current.observe(cellRef);
+        }
     });
     useEffect(() => {
         return () => {
