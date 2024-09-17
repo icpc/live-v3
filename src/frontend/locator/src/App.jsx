@@ -15,7 +15,7 @@ function App() {
                     <AppNav/>
                     <Routes>
                         <Route path="/" element={<OracleLocator/>}/>
-                        <Route path="/oracleLocator" element={<OracleLocator/>}/>
+                        <Route path="/locator" element={<OracleLocator/>}/>
                         <Route path="/oracleCalibrator" element={<Calibrator/>}/>
                     </Routes>
                 </div>

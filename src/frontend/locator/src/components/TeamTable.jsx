@@ -15,7 +15,7 @@ const gridButton = {
 
 export const TEAM_FIELD_STRUCTURE = PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    contestSystemId: PropTypes.string,
+    teamId: PropTypes.string,
     shown: PropTypes.bool.isRequired,
     selected: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
@@ -46,8 +46,8 @@ const TeamTableRow = ({ rowData, onClick, tStyle }) => {
                 color: (rowData.selected || rowData.shown ? grey[900] : grey[700]) }}
             onClick={() => onClick(rowData.id)}
         >
-            {rowData.contestSystemId && `${rowData.contestSystemId} :`}
-            {rowData.contestSystemId === null && <AutoModeIcon sx={{ mr: 1 }} />}
+            {rowData.teamId && `${rowData.teamId} :`}
+            {rowData.teamId === null && <AutoModeIcon sx={{ mr: 1 }} />}
             {" " + rowData.name}
         </Box>
     </Grid>);

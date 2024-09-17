@@ -24,7 +24,7 @@ object LocatorController {
                     x = it.x.toInt(),
                     y = it.y.toInt(),
                     radius = it.r.toInt(),
-                    cdsTeamId = it.id,
+                    teamId = it.id,
                 )
             }
         )

@@ -26,7 +26,7 @@ const isTeamSatisfiesSearch = (team, searchValue) => {
     if (searchValue === "" || team.id === null) {
         return true;
     }
-    return (team.contestSystemId + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
+    return (team.id + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
 };
 
 const useTeamsList = (rawTeams, status) => {
@@ -34,7 +34,7 @@ const useTeamsList = (rawTeams, status) => {
     const teamsWithStatus = useMemo(
         () => rawTeams.map(t => ({
             ...t,
-            shown: Object.values(status).some(s => s.shown && s.settings.teamId === t.id),
+            shown: Object.values(status).some(s => s.shown && s.settings.id === t.id),
             selected: t.id === selectedTeamId,
         })),
         [rawTeams, status, selectedTeamId]);
@@ -150,10 +150,11 @@ const OracleViewManager = ({ service }) => {
             return ["", null];
         }
         const team = teams.find(team => team.id === selectedTeamId);
-        return [team?.name ?? "", team?.contestSystemId];
+        return [team?.name ?? "", team?.id];
     }, [teams, selectedTeamId]);
 
     const onMove = useCallback(() => {
+        console.log("OnMove", selectedTeamCdsId)
         const settings = {
             oracleId: oracle,
             teamId: selectedTeamCdsId,

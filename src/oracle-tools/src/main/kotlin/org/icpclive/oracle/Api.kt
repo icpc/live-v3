@@ -10,7 +10,7 @@ data class TeamLocatorCircleSettings(
     val x: Int,
     val y: Int,
     val radius: Int,
-    val cdsTeamId: String,
+    val teamId: String,
 )
 
 @Serializable
