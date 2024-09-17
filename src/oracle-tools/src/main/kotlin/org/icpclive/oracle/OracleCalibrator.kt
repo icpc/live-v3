@@ -36,7 +36,8 @@ class OracleCalibrator(private val url: String, private val configPath: Path) : 
     var currentTeamMonitor = Object()
     private fun run() {
         try {
-            readInput()
+//            readInput()
+            readCoordinates()
             startPlayer()
             synchronized(currentTeamMonitor) {
                 while (true) {
@@ -156,9 +157,11 @@ class OracleCalibrator(private val url: String, private val configPath: Path) : 
         var id: String
         var p: LocatorPoint
 
-        constructor(id: String, x: Int, y: Int) {
+        constructor(id: String, x: Int, y: Int)  : this(id, x.toDouble(), y.toDouble())
+
+        constructor(id: String, x: Double, y: Double) {
             this.id = id
-            p = LocatorPoint(x.toDouble(), y.toDouble(), 0.0)
+            p = LocatorPoint(x, y, 0.0)
         }
 
         constructor(id: String, p: LocatorPoint) {
@@ -185,6 +188,42 @@ class OracleCalibrator(private val url: String, private val configPath: Path) : 
                 }
             }
             x++
+        }
+    }
+
+    /* download file from cds /api/contests/{contest}/teams to opendata.json and then process it using
+import json
+from contextlib import redirect_stdout
+# Open and read the JSON file
+with 'opendata.json', 'r') as file:
+    data = json.load(file)
+
+with open('input.txt', 'w') as file:
+    with redirect_stdout(file):
+        for i in range(len(data)):
+            print(data[i]['id'], data[i]['location']['x'], data[i]['location']['y'])
+     */
+    @Throws(IOException::class)
+    fun readCoordinates() {
+        val regex = "(\\S+) (\\d+\\..\\d) (\\d+\\..\\d*)".toRegex()
+        val reader = configPath.resolve("input.txt").bufferedReader()
+        reader.use {
+            while (true) {
+                val s = reader.readLine() ?: break
+                val match = regex.matchEntire(s)
+                if (match == null || match.groupValues.size != 4) {
+                    println("Failed to parse team location info $s, ingorred")
+                    continue
+                }
+                val id = match.groups[1]!!.value
+                val x = match.groups[2]!!.value.toDoubleOrNull()
+                val y = match.groups[3]!!.value.toDoubleOrNull()
+                if (x == null || y == null) {
+                    println("Failed to parse team location x or y (not double)")
+                    continue
+                }
+                input.add(Position(id, x, y))
+            }
         }
     }
 
