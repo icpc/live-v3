@@ -306,6 +306,7 @@ const TeamViewManager = () => {
             if (rawTeams.some(t => t.medias.achievement)) {
                 setAchievementShown(true);
             }
+            setTimeLineShown(true);
         }
     }, [status, mediaType1, setMediaType1, mediaType2, setMediaType2, setAchievementShown, rawTeams, variant, allowedMediaTypes]);
 
@@ -413,7 +414,7 @@ const TeamViewManager = () => {
                                     <TeamMediaSwitcher
                                         switchedMediaType={mediaType2}
                                         onSwitch={ts => setMediaType2(ts)}
-                                        disabledMediaTypes={[...disableMediaTypes, mediaType1]}
+                                        disabledMediaTypes={[...disableMediaTypes, mediaType1].filter(t => t !== null)}
                                     />
                                 </Grid>
                                 <Grid item xs={10} sm={4}>

@@ -18,10 +18,12 @@ import {
     ProblemInfo,
     RunResult,
     TeamInfo,
-    TeamMediaType
+    TeamMediaType,
+    TeamViewPosition
 } from "@shared/api.ts";
 import TeamMediaSwitcher from "@/components/controls/TeamMediaSwitcher";
 import ButtonGroup from "@/components/atoms/ButtonGroup";
+import { CommonTeamViewInstancesState, useTeamViewWidgetService } from "@/services/teamViewService";
 
 const featuredRunMediaTypes = [
     TeamMediaType.screen, TeamMediaType.camera, TeamMediaType.record, TeamMediaType.photo, TeamMediaType.reactionVideo
@@ -225,6 +227,43 @@ const FeaturedRunControl = ({ selectedEvent, makeFeaturedRun, featuredRunStatus,
     );
 };
 
+type TeamViewControlProps  = {
+    selectedEvent?: AnalyticsMessage;
+};
+const TeamViewControl = ({ selectedEvent }: TeamViewControlProps) => {
+    const [status, setStatus] = useState<CommonTeamViewInstancesState>({});
+    const teamViewService = useTeamViewWidgetService("single", setStatus);
+
+    return (
+        <>
+            <ButtonGroup>
+                <Button
+                    color="primary"
+                    variant={"outlined"}
+                    startIcon={<ArrowForwardIcon/>}
+                    disabled={selectedEvent?.teamId === undefined}
+                    onClick={() => teamViewService.showWithSettings(TeamViewPosition.SINGLE, {
+                        teamId: selectedEvent.teamId,
+                        mediaTypes: [TeamMediaType.camera, TeamMediaType.screen],
+                        showTaskStatus: true,
+                        showAchievement: true,
+                        showTimeLine: true,
+                    })}
+                >
+                    TeamView
+                </Button>
+                <Button
+                    color="error"
+                    disabled={status[TeamViewPosition.SINGLE]?.shown !== true}
+                    onClick={() => teamViewService.hide(TeamViewPosition.SINGLE)}
+                >
+                    Hide
+                </Button>
+            </ButtonGroup>
+        </>
+    );
+};
+
 function Analytics() {
     const {
         messagesMap,
@@ -335,6 +374,8 @@ function Analytics() {
                         Hide
                     </Button>
                 </ButtonGroup>
+                &nbsp;
+                <TeamViewControl selectedEvent={selectedEvent}/>
             </Box>
             <Box sx={{ mb: 1 }}>
                 <FeaturedRunControl
