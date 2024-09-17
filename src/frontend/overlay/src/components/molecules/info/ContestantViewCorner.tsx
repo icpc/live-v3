@@ -44,6 +44,7 @@ const TasksContainer = styled.div`
 
 const TaskRow = styled.div`
   display: flex;
+  width: 150px;
   flex: 0 0 ${c.QUEUE_ROW_HEIGHT}px; 
   /* css trick for perfect TaskRow overflowing: arrange the columns from bottom to top from right to left */
   transform: scale(-1);
