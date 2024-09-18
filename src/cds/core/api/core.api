@@ -73,6 +73,7 @@ public final class org/icpclive/cds/adapters/AutoFinalizeKt {
 
 public final class org/icpclive/cds/adapters/CommentaryAdapterKt {
 	public static final fun generateCommentary (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun processCommentaryTags (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class org/icpclive/cds/adapters/ContestStateKt {
