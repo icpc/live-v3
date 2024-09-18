@@ -126,6 +126,9 @@ export const MainLayout = () => {
                 if (params.get("scene") && obj.type !== "TeamLocatorWidget") {
                     return null;
                 }
+                if (params.get("onlyWidgets") && !params.get("onlyWidgets").split(",").includes(obj.widgetId)) {
+                    return null;
+                }
                 return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? c.WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
