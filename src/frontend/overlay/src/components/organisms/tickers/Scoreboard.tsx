@@ -30,6 +30,7 @@ const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(({ top }) => (
 
 const TickerScoreboardContestantInfo = styled(ContestantInfo)`
     height: 48px;
+
 `;
 
 export const Scoreboard = ({ tickerSettings, state }) => {
@@ -54,7 +55,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
     return (
         <ScoreboardWrap nrows={nrows*2} top={`calc(${-row * 100 }% - ${row * 2}px)`}>
             {order.map((teamId) => (
-                <TickerScoreboardContestantInfo key={teamId} teamId={teamId}/>
+                <TickerScoreboardContestantInfo key={teamId} teamId={teamId} useBG={false}/>
             ))}
         </ScoreboardWrap>
     );

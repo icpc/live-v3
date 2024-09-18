@@ -47,7 +47,7 @@ const ContestantInfoScoreLabel = styled(ShrinkingBox)`
 `;
 
 
-export const ContestantInfo = ({ teamId, roundBR= true, className = null }) => {
+export const ContestantInfo = ({ teamId, roundBR= true, className = null, useBG = true }) => {
     const contestInfo = useAppSelector((state) => state.contestInfo.info);
     const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
     const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
@@ -55,9 +55,9 @@ export const ContestantInfo = ({ teamId, roundBR= true, className = null }) => {
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const formatPenalty = useFormatPenalty();
-    const darkText = isShouldUseDarkColor(teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR);
+    const darkText = isShouldUseDarkColor((teamData?.color && useBG) ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR);
 
-    return <ContestantInfoWrap round={roundBR} className={className} bg_color={teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR} color={darkText ? "#000" : "#FFF"}>
+    return <ContestantInfoWrap round={roundBR} className={className} bg_color={(teamData?.color && useBG) ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR} color={darkText ? "#000" : "#FFF"}>
         <ContestantInfoLabel rank={rank} medal={medal?.medalColor} bg_color={teamData?.color}/>
         <ContestantInfoTeamNameLabel text={teamData?.shortName ?? "??"}/>
         <ContestantInfoScoreLabel align={"right"}
