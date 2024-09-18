@@ -236,7 +236,7 @@ export const TimeLine = ({ teamId, className = null }) => {
         <TimeLineContainer className={className} color={teamData?.color ? teamData?.color : c.CONTEST_COLOR}>
             <Line lineWidth={lineWidth} left={c.TIMELINE_LEFT_TIME_PADDING} />
             <CircleAtEnd lineWidth={lineWidth + c.TIMELINE_LEFT_TIME_PADDING} />
-            {Array.from(Array((contestInfo?.contestLengthMs ?? 0) / 3600000 + 1).keys()).map(elem => {
+            {Array.from(Array((Math.floor((contestInfo?.contestLengthMs ?? 0) / 3600000) + 1)).keys()).map(elem => {
                 return (<TimeBorder key={elem}
                     color={teamData?.color ?? "#000"}
                     left={(((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH + (elem === 0 ? c.TIMELINE_LEFT_TIME_PADDING : 0)) + "%"} />); })}
