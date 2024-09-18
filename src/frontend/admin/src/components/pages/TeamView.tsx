@@ -122,7 +122,7 @@ const VariantSelect = ({ variant, setVariant }: VariantSelectProps) => {
         >
             <ToggleButton value={"single"}><SingleTeamViewIcon />Single</ToggleButton>
             <ToggleButton value={"pvp"}><PVPTeamViewIcon />PVP</ToggleButton>
-            <ToggleButton value={"splitScreen"}><SplitTeamViewIcon />SplitScreen</ToggleButton>
+            <ToggleButton value={"split"}><SplitTeamViewIcon />SplitScreen</ToggleButton>
         </ToggleButtonGroup>
     );
 };
