@@ -100,6 +100,7 @@ fun Application.module() {
             .calculateScoreDifferences()
             .addFirstToSolves()
             .selectProblemColors()
+            .processCommentaryTags()
 
         val emptyVisualConfig = JsonObject(emptyMap())
         DataBus.visualConfigFlow.completeOrThrow(
