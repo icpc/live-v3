@@ -16,3 +16,10 @@ You can pass forces visual config using the forceVisualConfig
 
 Examples:
 - `http://host/overelay?forceVisualConfig=`
+
+## onlyWidgets
+You can pass onlyWidgets query params to show only the widgets that are passed in the query params by their id.
+
+Examples:
+- `http://host/overlay?onlyWidgets=queue`  
+   show only queue

@@ -71,9 +71,9 @@ const WidgetWrap = styled.div.attrs<WidgetWrapProps>(
 `;
 
 const MainLayoutWrap = styled.div`
-  width: 1920px;
-  height: 1080px;
-  background: ${DEBUG ? `url(${bg})` : undefined};
+  width: ${c.SCREEN_WIDTH}px;
+  height: ${c.SCREEN_HEIGHT}px;
+  background: ${c.BACKGROUND ?? (DEBUG ? `url(${bg})` : undefined)};
 `;
 
 const transitionProps = {
@@ -126,9 +126,13 @@ export const MainLayout = () => {
                 if (params.get("scene") && obj.type !== "TeamLocatorWidget") {
                     return null;
                 }
+                if (params.get("onlyWidgets") && !params.get("onlyWidgets").split(",").includes(obj.widgetId)) {
+                    return null;
+                }
                 return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? c.WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
+                            data-widget-id={obj.widgetId}
                             left={obj.location.positionX}
                             top={obj.location.positionY}
                             width={obj.location.sizeX}

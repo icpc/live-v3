@@ -6,9 +6,9 @@ import c from "../../../config";
 const ClockWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 
-  padding-top: 240px;
-
+  height: 100%;
   font-family: ${c.FULL_SCREEN_CLOCK_FONT_FAMILY};
   font-size: ${c.FULL_SCREEN_CLOCK_FONT_SIZE};
   font-weight: bold;
