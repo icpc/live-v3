@@ -1,0 +1,7 @@
+{
+    "type": "cf",
+    "contestId": 2015,
+    "apiKey": "$creds.codeforces_key",
+    "apiSecret": "$creds.codeforces_secret",
+    "asManager": true
+}

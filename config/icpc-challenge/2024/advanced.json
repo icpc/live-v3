@@ -1,0 +1,25 @@
+{
+  "scoreboardOverrides": {
+    "showTeamsWithoutSubmissions": false
+  },
+  "problemOverrides": {
+    "0": {
+      "color": "#CF0A2C"
+    }
+  },
+  "teamIdRegexes": {
+    "groupRegex": {
+      "team": "^.*team.*",
+      "coach": "^.*coach.*"
+    }
+  },
+  "teamOverrides": {
+    "g30428=team46039": {
+      "shortname": "46: IIT (ISM), Dhanbad"
+    }
+  },
+  "queueSettings": {
+    "maxQueueSize": 20,
+    "maxUntestedRun": 5
+  }
+}
