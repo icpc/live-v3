@@ -1,14 +1,14 @@
 {
   "queue": {
     "positionX": 1520,
-    "positionY": 248,
+    "positionY": 664,
     "sizeX": 384,
     "sizeY": 400
   },
   "ticker": {
     "positionX": 16,
     "positionY": 1016,
-    "sizeX": 1488,
+    "sizeX": 1489,
     "sizeY": 48
   }
 }
