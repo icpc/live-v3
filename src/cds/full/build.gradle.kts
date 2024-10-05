@@ -1,3 +1,5 @@
+import org.gradle.api.internal.catalog.DelegatingProjectDependency
+
 plugins {
     id("live.library-conventions")
 }
@@ -6,24 +8,34 @@ apiValidation {
     validationDisabled = true
 }
 
+dokka {
+    dokkaPublicationDirectory.set(rootProject.layout.projectDirectory.dir("_site").dir("cds"))
+    moduleName.set("ICPC-live contest data parser")
+}
+
 dependencies {
-    api(projects.cds.plugins.allcups)
-    api(projects.cds.plugins.atcoder)
-    api(projects.cds.plugins.cats)
-    api(projects.cds.plugins.clics)
-    api(projects.cds.plugins.cms)
-    api(projects.cds.plugins.codedrills)
-    api(projects.cds.plugins.codeforces)
-    api(projects.cds.plugins.dmoj)
-    api(projects.cds.plugins.ejudge)
-    api(projects.cds.plugins.eolymp)
-    api(projects.cds.plugins.krsu)
-    api(projects.cds.plugins.noop)
-    api(projects.cds.plugins.nsu)
-    api(projects.cds.plugins.pcms)
-    api(projects.cds.plugins.testsys)
-    api(projects.cds.plugins.yandex)
-    api(projects.cds.ktor)
-    api(projects.cds.cli)
-    api(projects.cds.utils)
+    fun apiAndDokka(dep: DelegatingProjectDependency) {
+        api(dep)
+        dokka(dep)
+    }
+    apiAndDokka(projects.cds.plugins.allcups)
+    apiAndDokka(projects.cds.plugins.atcoder)
+    apiAndDokka(projects.cds.plugins.cats)
+    apiAndDokka(projects.cds.plugins.clics)
+    apiAndDokka(projects.cds.plugins.cms)
+    apiAndDokka(projects.cds.plugins.codedrills)
+    apiAndDokka(projects.cds.plugins.codeforces)
+    apiAndDokka(projects.cds.plugins.dmoj)
+    apiAndDokka(projects.cds.plugins.ejudge)
+    apiAndDokka(projects.cds.plugins.eolymp)
+    apiAndDokka(projects.cds.plugins.krsu)
+    apiAndDokka(projects.cds.plugins.noop)
+    apiAndDokka(projects.cds.plugins.nsu)
+    apiAndDokka(projects.cds.plugins.pcms)
+    apiAndDokka(projects.cds.plugins.testsys)
+    apiAndDokka(projects.cds.plugins.yandex)
+    apiAndDokka(projects.cds.ktor)
+    apiAndDokka(projects.cds.cli)
+    apiAndDokka(projects.cds.utils)
+    apiAndDokka(projects.cds.core)
 }
