@@ -1,8 +1,7 @@
 package org.icpclive.generator.schema
 
 
-import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.core.subcommands
+import com.github.ajalt.clikt.core.*
 
 
 class MainCommand : CliktCommand() {

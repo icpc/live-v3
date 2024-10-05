@@ -10,7 +10,8 @@ import com.github.ajalt.clikt.parameters.types.path
 import org.icpclive.server.LoggingOptions
 import org.icpclive.server.ServerOptions
 
-object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = false) {
+object Config : CliktCommand(name = "java -jar live-v3.jar") {
+    override val printHelpOnEmptyArgs: Boolean = true
     val configDirectory by option(
         "-c", "--config-directory",
         help = "Path to config directory",

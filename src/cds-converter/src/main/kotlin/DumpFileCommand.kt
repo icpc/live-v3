@@ -1,6 +1,7 @@
 package org.icpclive
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.groups.*
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
@@ -18,11 +19,14 @@ import kotlin.io.path.isDirectory
 
 abstract class DumpFileCommand(
     name: String,
-    help: String,
+    val help: String,
     defaultFileName: String,
     outputHelp: String
-) : CliktCommand(name = name, help = help, printHelpOnEmptyArgs = true) {
+) : CliktCommand(name = name) {
     abstract fun format(info: ContestInfo, runs: List<RunInfo>): String
+
+    override fun help(context: Context) = help
+    override val printHelpOnEmptyArgs = true
 
     private val cdsOptions by CdsCommandLineOptions()
     private val loggingOptions by LoggingOptions(logfileDefaultPrefix = "converter")

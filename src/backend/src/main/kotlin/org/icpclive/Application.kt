@@ -1,5 +1,6 @@
 package org.icpclive
 
+import com.github.ajalt.clikt.core.main
 import io.ktor.serialization.kotlinx.json.*
 import org.icpclive.util.completeOrThrow
 import io.ktor.server.application.*

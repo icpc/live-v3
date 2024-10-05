@@ -15,7 +15,8 @@ import org.icpclive.server.LoggingOptions
 import org.icpclive.server.ServerOptions
 import org.icpclive.util.FlowLogger
 
-object Config : CliktCommand(name = "java -jar live-v3.jar", printHelpOnEmptyArgs = true) {
+object Config : CliktCommand(name = "java -jar live-v3.jar") {
+    override val printHelpOnEmptyArgs = true
     val cdsSettings by CdsCommandLineOptions()
     private val serverSettings by ServerOptions()
     private val loggingSettings by LoggingOptions(logfileDefaultPrefix = "icpclive")

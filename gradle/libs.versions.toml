@@ -1,29 +1,29 @@
 [versions]
 ktor = "2.3.12"                    # https://ktor.io/
-datetime = "0.6.0"                 # https://github.com/Kotlin/kotlinx-datetime
-serialization = "1.7.1"            # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "2.0.0"
-ksp = "2.0.0-1.0.23"               # https://github.com/google/ksp
-slf4j = "2.0.13"                   # https://www.slf4j.org/download.html
-logback = "1.5.6"                  # https://logback.qos.ch/download.html
-node-plugin = "7.0.2"              # https://github.com/node-gradle/gradle-node-plugin
-coroutines = "1.8.1"               # https://github.com/Kotlin/kotlinx.coroutines/
-exposed = "0.52.0"                 # https://github.com/JetBrains/Exposed
-telegram-bot = "6.1.0"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
-shadow-plugin = "8.1.1"            # https://github.com/johnrengelman/shadow
-sqlite = "3.46.0.0"                # https://github.com/xerial/sqlite-jdbc
-clikt = "4.4.0"                    # https://ajalt.github.io/clikt/
-immutable = "0.3.7"                # https://github.com/Kotlin/kotlinx.collections.immutable
+datetime = "0.6.1"                 # https://github.com/Kotlin/kotlinx-datetime
+serialization = "1.7.3"            # https://github.com/Kotlin/kotlinx.serialization
+kotlin = "2.0.20"
+ksp = "2.0.20-1.0.25"              # https://github.com/google/ksp
+slf4j = "2.0.16"                   # https://www.slf4j.org/download.html
+logback = "1.5.8"                  # https://logback.qos.ch/download.html
+node-plugin = "7.1.0"              # https://github.com/node-gradle/gradle-node-plugin
+coroutines = "1.9.0"               # https://github.com/Kotlin/kotlinx.coroutines/
+exposed = "0.55.0"                 # https://github.com/JetBrains/Exposed
+telegram-bot = "6.2.0"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
+shadow-plugin = "8.3.3"            # https://github.com/GradleUp/shadow
+sqlite = "3.46.1.3"                # https://github.com/xerial/sqlite-jdbc
+clikt = "5.0.0"                    # https://ajalt.github.io/clikt/
+immutable = "0.3.8"                # https://github.com/Kotlin/kotlinx.collections.immutable
 protobuf-plugin = "0.9.4"          # https://github.com/google/protobuf-gradle-plugin
-protobuf = "4.27.1"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
-grpc = "1.65.0"                    # https://github.com/grpc/grpc
+protobuf = "4.28.2"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+grpc = "1.68.0"                    # https://github.com/grpc/grpc
 grpc-kotlin = "1.4.1"              # https://github.com/grpc/grpc-kotlin
 dokka = "2.0.0-Beta"               # https://github.com/Kotlin/dokka
 retrofit = "2.11.0"                # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
-apache-commons-csv = "1.11.0"      # https://commons.apache.org/proper/commons-csv/
-graphql = "7.1.4"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
-bcv = "0.15.1"                     # https://github.com/Kotlin/binary-compatibility-validator
+apache-commons-csv = "1.12.0"      # https://commons.apache.org/proper/commons-csv/
+graphql = "8.1.0"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
+bcv = "0.16.3"                     # https://github.com/Kotlin/binary-compatibility-validator
 
 [libraries]
 
@@ -86,7 +86,7 @@ graphql-ktor-client = { version.ref = "graphql", group = "com.expediagroup", nam
 ksp = { version.ref = "ksp", group = "com.google.devtools.ksp", name = "symbol-processing-api" }
 
 gradleplugin-kotlin-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-gradleplugin-shadow = { group = "com.github.johnrengelman", name = "shadow", version.ref = "shadow-plugin" }
+gradleplugin-shadow = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version.ref = "shadow-plugin" }
 gradleplugin-dokka = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka"}
 gradleplugin-bcv = { group = "org.jetbrains.kotlinx.binary-compatibility-validator", name = "org.jetbrains.kotlinx.binary-compatibility-validator.gradle.plugin", version.ref = "bcv" }
 gradleplugin-ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "ksp"}

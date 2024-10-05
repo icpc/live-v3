@@ -6,6 +6,8 @@ import com.github.ajalt.clikt.core.*
 import com.github.ajalt.clikt.output.MordantHelpFormatter
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.multiple
+import com.github.ajalt.mordant.terminal.danger
+import com.github.ajalt.mordant.terminal.info
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -21,12 +23,14 @@ import org.icpclive.server.setupDefaultKtorPlugins
 import kotlin.system.exitProcess
 
 
-object MainCommand : CliktCommand(name = "java -jar cds-converter.jar", invokeWithoutSubcommand = true, treatUnknownOptionsAsArgs = true) {
+object MainCommand : CliktCommand(name = "java -jar cds-converter.jar") {
     init {
         context {
             helpFormatter = { MordantHelpFormatter(it, showRequiredTag = true, showDefaultValues = true)}
         }
     }
+    override val invokeWithoutSubcommand = true
+    override val treatUnknownOptionsAsArgs = true
     val unused by argument().multiple()
     override fun run() {
         if (currentContext.invokedSubcommand == null) {
