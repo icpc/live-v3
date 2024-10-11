@@ -9,7 +9,9 @@ apiValidation {
 }
 
 dokka {
-    dokkaPublicationDirectory.set(rootProject.layout.projectDirectory.dir("_site").dir("cds"))
+    dokkaPublications.named("html").configure {
+        outputDirectory.set(rootProject.layout.projectDirectory.dir("_site").dir("cds"))
+    }
     moduleName.set("ICPC-live contest data parser")
 }
 
