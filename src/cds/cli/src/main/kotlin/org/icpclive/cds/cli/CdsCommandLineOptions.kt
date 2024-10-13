@@ -20,7 +20,7 @@ import java.nio.file.Paths
 import kotlin.io.path.exists
 import kotlin.io.path.name
 
-public class CdsCommandLineOptions : OptionGroup("CDS options") {
+public open class CdsCommandLineOptions : OptionGroup("CDS options") {
     public val configDirectory: Path by option(
         "-c", "--config-directory",
         help = "Path to config directory"

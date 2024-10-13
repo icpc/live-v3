@@ -1,4 +1,4 @@
-public final class org/icpclive/cds/cli/CdsCommandLineOptions : com/github/ajalt/clikt/parameters/groups/OptionGroup {
+public class org/icpclive/cds/cli/CdsCommandLineOptions : com/github/ajalt/clikt/parameters/groups/OptionGroup {
 	public fun <init> ()V
 	public final fun getAdvancedJsonPath ()Ljava/nio/file/Path;
 	public final fun getConfigDirectory ()Ljava/nio/file/Path;

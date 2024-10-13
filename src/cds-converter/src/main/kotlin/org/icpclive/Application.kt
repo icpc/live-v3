@@ -16,8 +16,9 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.plus
+import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.export.clics.ClicsExporter
-import org.icpclive.export.icpc.csv.IcpcCsvExporter
+import org.icpclive.export.icpc.IcpcCsvExporter
 import org.icpclive.export.pcms.PCMSExporter
 import org.icpclive.server.setupDefaultKtorPlugins
 import kotlin.system.exitProcess
@@ -60,6 +61,10 @@ fun Application.module() {
     }
 
     val loaded = ServerCommand.cdsOptions.toFlow()
+        .addComputedData {
+            submissionResultsAfterFreeze = !ServerCommand.cdsOptions.freeze
+            submissionsAfterEnd = ServerCommand.cdsOptions.upsolving
+        }
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     routing {

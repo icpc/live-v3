@@ -1,10 +1,12 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
 import org.icpclive.cds.CommentaryMessagesUpdate
 import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.adapters.applyEvent
+import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.CommentaryMessage
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.api.ContestState
@@ -14,11 +16,12 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.getLogger
 
 
-public fun Flow<ContestStateWithScoreboard>.generateCommentary(
+internal fun generateCommentary(
+    flow: Flow<ContestStateWithScoreboard>,
     generator: (ContestStateWithScoreboard) -> List<CommentaryMessage>
 ) : Flow<ContestStateWithScoreboard> {
     var contestState: ContestState? = null
-    return transform {
+    return flow.transform {
         contestState = contestState.applyEvent(it.state.lastEvent)
         emit(
             ContestStateWithScoreboard(
@@ -53,7 +56,7 @@ private val teamRegex = Regex("\\{ *teams? *: *([^}]+) *}")
 private val problemsRegex = Regex("\\{ *problems? *: *([^}]+) *}")
 private val logger by getLogger()
 
-public fun Flow<ContestUpdate>.processCommentaryTags(): Flow<ContestUpdate> {
+internal fun processCommentaryTags(flow: Flow<ContestUpdate>): Flow<ContestUpdate> {
     fun String.processMessageTags(info: ContestInfo) : String {
         return this
             .replace(teamRegex) {
@@ -77,7 +80,7 @@ public fun Flow<ContestUpdate>.processCommentaryTags(): Flow<ContestUpdate> {
                 }
             }
     }
-    return contestState().map {
+    return flow.contestState().map {
         when (it.lastEvent) {
             is CommentaryMessagesUpdate -> {
                 if (it.infoAfterEvent == null)

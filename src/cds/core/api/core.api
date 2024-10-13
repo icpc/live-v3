@@ -60,8 +60,24 @@ public final class org/icpclive/cds/RunUpdate : org/icpclive/cds/ContestUpdate {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/cds/adapters/AdvancedPropertiesAdapterKt {
+public final class org/icpclive/cds/adapters/AdaptersKt {
+	public static final fun addComputedData (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public static synthetic fun addComputedData$default (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun addFirstToSolves (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun addPreviousDaysByResults (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun addPreviousDaysBySettings (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun applyAdvancedProperties (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun applyCustomFieldsMap (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun calculateScoreDifferences (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun generateCommentary (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun hideHiddenGroupsTeams (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun hideHiddenProblemsRuns (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun hideHiddenTeamsRuns (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun processCommentaryTags (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun removeAfterEndSubmissions (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun removeFrozenSubmissionsResults (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun selectProblemColors (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun toEmulationFlow (Lkotlinx/coroutines/flow/Flow;Lorg/icpclive/cds/settings/EmulationSettings;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class org/icpclive/cds/adapters/AutoFinalizeKt {
@@ -71,49 +87,27 @@ public final class org/icpclive/cds/adapters/AutoFinalizeKt {
 	public static final fun finalContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class org/icpclive/cds/adapters/CommentaryAdapterKt {
-	public static final fun generateCommentary (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun processCommentaryTags (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+public final class org/icpclive/cds/adapters/ComputedDataConfig {
+	public final fun getFirstToSolves ()Z
+	public final fun getIoiScoreDifferences ()Z
+	public final fun getPropagateHidden ()Z
+	public final fun getReplaceCommetaryTags ()Z
+	public final fun getSubmissionResultsAfterFreeze ()Z
+	public final fun getSubmissionsAfterEnd ()Z
+	public final fun getUnhideColorWhenSolved ()Z
+	public final fun setFirstToSolves (Z)V
+	public final fun setIoiScoreDifferences (Z)V
+	public final fun setPropagateHidden (Z)V
+	public final fun setReplaceCommetaryTags (Z)V
+	public final fun setSubmissionResultsAfterFreeze (Z)V
+	public final fun setSubmissionsAfterEnd (Z)V
+	public final fun setUnhideColorWhenSolved (Z)V
 }
 
 public final class org/icpclive/cds/adapters/ContestStateKt {
 	public static final fun applyEvent (Lorg/icpclive/cds/api/ContestState;Lorg/icpclive/cds/ContestUpdate;)Lorg/icpclive/cds/api/ContestState;
 	public static final fun contestState (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun transformContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/CustomFieldsAdapterKt {
-	public static final fun applyCustomFieldsMap (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/DifferenceAdapterKt {
-	public static final fun calculateScoreDifferences (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/FirstToSolveAdapterKt {
-	public static final fun addFirstToSolves (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/HiddenProblemsAdapterKt {
-	public static final fun processHiddenProblems (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/HiddenTeamsAdapterKt {
-	public static final fun processHiddenTeamsAndGroups (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/PreviousDayAdapterKt {
-	public static final fun addPreviousDaysResults (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun addPreviousDaysSettings (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/RemoveFrozenSubmissionsAdapterKt {
-	public static final fun removeAfterEndSubmissions (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun removeFrozenSubmissionsResults (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
-}
-
-public final class org/icpclive/cds/adapters/SelectProblemColorAdapterKt {
-	public static final fun selectProblemColors (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class org/icpclive/cds/api/AnalyticsKt {

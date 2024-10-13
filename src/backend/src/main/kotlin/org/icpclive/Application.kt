@@ -93,15 +93,9 @@ fun Application.module() {
     }
 
     launch(handler) {
-        val loader = config.cdsSettings.toFlow()
-            .removeFrozenSubmissionsResults()
-            .removeAfterEndSubmissions()
-            .processHiddenTeamsAndGroups()
-            .processHiddenProblems()
-            .calculateScoreDifferences()
-            .addFirstToSolves()
-            .selectProblemColors()
-            .processCommentaryTags()
+        val loader = config.cdsSettings
+            .toFlow()
+            .addComputedData()
 
         val emptyVisualConfig = JsonObject(emptyMap())
         DataBus.visualConfigFlow.completeOrThrow(

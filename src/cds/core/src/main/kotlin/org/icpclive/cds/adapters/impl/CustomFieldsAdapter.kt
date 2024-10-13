@@ -1,11 +1,10 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.getLogger
-import org.icpclive.cds.util.logger
 
 private val logger by getLogger()
 
@@ -26,7 +25,7 @@ private fun applyCustomFieldsMap(ci: ContestInfo, cf: Map<TeamId, Map<String, St
     )
 }
 
-public fun Flow<ContestUpdate>.applyCustomFieldsMap(customFieldsFlow: Flow<Map<TeamId, Map<String, String>>>): Flow<ContestUpdate> =
+internal fun applyCustomFieldsMap(flow: Flow<ContestUpdate>, customFieldsFlow: Flow<Map<TeamId, Map<String, String>>>): Flow<ContestUpdate> =
     flow {
         coroutineScope {
             val customFieldStateFlow = customFieldsFlow.stateIn(this)
@@ -38,7 +37,7 @@ public fun Flow<ContestUpdate>.applyCustomFieldsMap(customFieldsFlow: Flow<Map<T
                 emit(InfoUpdate(applyCustomFieldsMap(ci, cf)))
             }
             merge(
-                this@applyCustomFieldsMap.map { CustomFieldsAdapterEvent.Update(it) },
+                flow.map { CustomFieldsAdapterEvent.Update(it) },
                 customFieldStateFlow.map { CustomFieldsAdapterEvent.Trigger },
             ).collect {
                 when (it) {

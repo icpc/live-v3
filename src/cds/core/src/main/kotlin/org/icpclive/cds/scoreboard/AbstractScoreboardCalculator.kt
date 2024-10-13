@@ -221,7 +221,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
             }
         }
         val teamsReallyAffected = teamsAffected.filter {
-            val newRow = calculator.getScoreboardRow(info, runsByTeamId.getRuns(it).filterNot { it.isHidden })
+            val newRow = calculator.getScoreboardRow(info, runsByTeamId.getRuns(it))
             val oldRow = rows[it]
             rows = rows.put(it, newRow)
             newRow != oldRow

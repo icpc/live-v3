@@ -1,4 +1,4 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import io.ktor.http.*
 import kotlinx.coroutines.*
@@ -48,7 +48,7 @@ private fun MediaType.applyTemplate(valueProvider: (String) -> String?) = when (
 }
 
 
-public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> =
+internal fun applyAdvancedProperties(flow: Flow<ContestUpdate>, advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> =
     flow {
         val triggerFlow = Channel<AdvancedAdapterEvent.Trigger>()
         val submittedTeams = mutableSetOf<TeamId>()
@@ -56,7 +56,7 @@ public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<A
         coroutineScope {
             val advancedPropsStateFlow = advancedPropsFlow.stateIn(this)
             var contestInfo: ContestInfo? = null
-            suspend fun triggerAt(time: Instant) {
+            fun triggerAt(time: Instant) {
                 if (time < Clock.System.now()) return
                 if (triggers.add(time)) {
                     launch {
@@ -75,7 +75,7 @@ public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<A
                 triggerAt(startOverride + ci.contestLength)
             }
             merge(
-                this@applyAdvancedProperties.map { AdvancedAdapterEvent.Update(it) },
+                flow.map { AdvancedAdapterEvent.Update(it) },
                 triggerFlow.receiveAsFlow().conflate(),
                 advancedPropsStateFlow.map { AdvancedAdapterEvent.Trigger },
             ).collect {

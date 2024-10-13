@@ -1,8 +1,9 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
 import org.icpclive.cds.*
+import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.*
 import kotlin.time.Duration
 
@@ -37,12 +38,12 @@ internal fun Flow<ContestUpdate>.processByTimeCut(
     }
 }
 
-public fun Flow<ContestUpdate>.removeFrozenSubmissionsResults(): Flow<ContestUpdate> =
-    processByTimeCut(
+internal fun removeFrozenSubmissionsResults(flow: Flow<ContestUpdate>): Flow<ContestUpdate> =
+    flow.processByTimeCut(
         timeCut = { it?.freezeTime ?: Duration.INFINITE },
     ) { it.copy(result = RunResult.InProgress(0.0)) }
 
-public fun Flow<ContestUpdate>.removeAfterEndSubmissions(): Flow<ContestUpdate> =
-    processByTimeCut(
+internal fun removeAfterEndSubmissions(flow: Flow<ContestUpdate>): Flow<ContestUpdate> =
+    flow.processByTimeCut(
         timeCut = { it?.contestLength ?: Duration.INFINITE },
     ) { it.copy(isHidden = true) }

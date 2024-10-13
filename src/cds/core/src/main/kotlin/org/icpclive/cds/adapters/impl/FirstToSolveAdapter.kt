@@ -1,4 +1,4 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,9 +18,8 @@ private sealed class RunType {
     data object NotBest : RunType()
 }
 
-public fun Flow<ContestUpdate>.addFirstToSolves(): Flow<ContestUpdate> = withGroupedRuns(
+internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = flow.withGroupedRuns(
     selector = {
-
         when (it.result) {
             is RunResult.ICPC -> when {
                 it.result.verdict.isAccepted && !it.isHidden -> RunType.ICPCBest(it.problemId)

@@ -42,8 +42,9 @@ class Bot(
     private val cds = cdsOptions.toFlow()
         .removeFrozenSubmissionsResults()
         .removeAfterEndSubmissions()
-        .processHiddenTeamsAndGroups()
-        .processHiddenProblems()
+        .hideHiddenGroupsTeams()
+        .hideHiddenTeamsRuns()
+        .hideHiddenProblemsRuns()
     private val storage = Storage()
     private val bot = bot {
         logLevel = LogLevel.Error
