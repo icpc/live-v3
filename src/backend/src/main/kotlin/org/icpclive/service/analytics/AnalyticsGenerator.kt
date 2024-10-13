@@ -60,7 +60,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
             }
             is RunResult.ICPC -> {
                 if (runResult.isFirstToSolveRun) {
-                    messagesTemplates.firstToSolveRun.applyTemplate(substitute)
+                    return messagesTemplates.firstToSolveRun.applyTemplate(substitute)
                 } else if (runResult.verdict.isAccepted) {
                     return if (substitute["{result.solvedProblems}"] != "") {
                         messagesTemplates.acceptedWithSolvedProblemsRun.applyTemplate(substitute)
