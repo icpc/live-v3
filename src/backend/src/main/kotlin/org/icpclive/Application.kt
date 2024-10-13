@@ -94,8 +94,8 @@ fun Application.module() {
 
     launch(handler) {
         val loader = config.cdsSettings.toFlow()
-            .contestState()
-            .removeFrozenSubmissions()
+            .removeFrozenSubmissionsResults()
+            .removeAfterEndSubmissions()
             .processHiddenTeamsAndGroups()
             .processHiddenProblems()
             .calculateScoreDifferences()

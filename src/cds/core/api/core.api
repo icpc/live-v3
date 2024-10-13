@@ -108,7 +108,8 @@ public final class org/icpclive/cds/adapters/PreviousDayAdapterKt {
 }
 
 public final class org/icpclive/cds/adapters/RemoveFrozenSubmissionsAdapterKt {
-	public static final fun removeFrozenSubmissions (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun removeAfterEndSubmissions (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun removeFrozenSubmissionsResults (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class org/icpclive/cds/adapters/SelectProblemColorAdapterKt {
