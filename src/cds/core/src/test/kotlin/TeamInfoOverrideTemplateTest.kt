@@ -1,4 +1,4 @@
-import org.icpclive.cds.adapters.instantiateTemplate
+import org.icpclive.cds.adapters.impl.instantiateTemplate
 import org.icpclive.cds.api.MediaType
 import org.icpclive.cds.api.TeamMediaType
 import org.icpclive.cds.tunning.TeamOverrideTemplate

@@ -1,16 +1,10 @@
 package org.icpclive.export.pcms
 
 import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.*
-import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.getScoreboardCalculator
 import org.icpclive.cds.util.createChild
+import org.icpclive.export.SingleFileExporter
 import org.w3c.dom.Element
 import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilderFactory
@@ -21,7 +15,7 @@ import javax.xml.transform.stream.StreamResult
 import kotlin.time.Duration
 
 
-object PCMSExporter {
+object PCMSExporter : SingleFileExporter("standings.xml", ContentType.Text.Xml) {
 
     private fun convertOutcome(outcome: Verdict?) = when (outcome) {
         null -> "undefined"
@@ -130,7 +124,7 @@ object PCMSExporter {
     }
 
 
-    fun format(info: ContestInfo, runs: List<RunInfo>) : String {
+    override fun format(info: ContestInfo, runs: List<RunInfo>) : String {
         val runsByTeam = runs.groupBy { it.teamId }
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
         val documentFactory = DocumentBuilderFactory.newInstance()!!
@@ -170,23 +164,4 @@ object PCMSExporter {
         return output.toString()
     }
 
-    fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
-        val stateFlow = contestUpdates
-            .contestState()
-            .stateIn(scope, SharingStarted.Eagerly, null)
-            .filterNotNull()
-            .filter { it.infoAfterEvent != null }
-        get {
-            call.respondRedirect("/pcms/standings.xml", permanent = true)
-        }
-        get("standings.xml") {
-            call.respondText(contentType = ContentType.Text.Xml) {
-                val state = stateFlow.first()
-                format(
-                    state.infoAfterEvent!!,
-                    state.runsAfterEvent.values.toList()
-                )
-            }
-        }
-    }
 }

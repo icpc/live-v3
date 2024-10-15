@@ -1,4 +1,4 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
@@ -26,7 +26,7 @@ private fun ContestInfo.applyColors(problems: Set<Pair<ProblemId, Boolean?>>): C
     }
 }
 
-public fun Flow<ContestUpdate>.selectProblemColors(): Flow<ContestUpdate> = withGroupedRuns({ run: RunInfo ->
+internal fun selectProblemColors(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = flow.withGroupedRuns({ run: RunInfo ->
     run.problemId to run.shouldDiscloseColor()
 }).transform {
     when (it.event) {

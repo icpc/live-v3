@@ -1,20 +1,14 @@
-package org.icpclive.export.icpc.csv
+package org.icpclive.export.icpc
 
 import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.*
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVPrinter
-import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.getScoreboardCalculator
+import org.icpclive.export.SingleFileExporter
 
 
-object IcpcCsvExporter {
+object IcpcCsvExporter : SingleFileExporter("standings.csv", ContentType.Text.CSV) {
     val fields = listOf(
         "teamId",
         "rank",
@@ -30,7 +24,7 @@ object IcpcCsvExporter {
 
     fun TeamInfo.icpcId() = customFields["icpc_id"] ?: id.value
 
-    fun format(info: ContestInfo, runs: List<RunInfo>) : String {
+    override fun format(info: ContestInfo, runs: List<RunInfo>): String {
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
         val runsByTeam = runs.groupBy { it.teamId }
         val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
@@ -61,25 +55,5 @@ object IcpcCsvExporter {
             "",
             ""
         )
-    }
-
-    fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
-        val stateFlow = contestUpdates
-            .contestState()
-            .stateIn(scope, SharingStarted.Eagerly, null)
-            .filterNotNull()
-            .filter { it.infoAfterEvent != null }
-        get {
-            call.respondRedirect("/icpc/standings.csv", permanent = true)
-        }
-        get("standings.csv") {
-            call.respondText(contentType = ContentType.Text.CSV) {
-                val state = stateFlow.first()
-                format(
-                    state.infoAfterEvent!!,
-                    state.runsAfterEvent.values.toList()
-                )
-            }
-        }
     }
 }

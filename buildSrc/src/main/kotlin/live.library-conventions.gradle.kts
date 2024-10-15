@@ -49,18 +49,16 @@ publishing {
     }
 }
 
-tasks {
-    withType<DokkaTaskPartial>().configureEach {
-        dokkaSourceSets.configureEach {
-            perPackageOption {
-                matchingRegex.set(".*")
-                reportUndocumented.set(true)
-                sourceLink {
-                    val projectDir = "https://github.com/icpc/live-v3/tree/main/"
-                    localDirectory.set(rootProject.projectDir)
-                    remoteUrl.set(URI(projectDir).toURL())
-                    remoteLineSuffix.set("#L")
-                }
+dokka {
+    dokkaSourceSets.configureEach {
+        perPackageOption {
+            matchingRegex.set(".*")
+            reportUndocumented.set(true)
+            sourceLink {
+                val projectDir = "https://github.com/icpc/live-v3/tree/main/"
+                localDirectory.set(rootProject.projectDir)
+                remoteUrl.set(URI(projectDir))
+                remoteLineSuffix.set("#L")
             }
         }
     }

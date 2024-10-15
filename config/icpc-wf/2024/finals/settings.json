@@ -1,0 +1,18 @@
+{
+  "type": "clics",
+  "network": { "allowUnsecureConnections": true },
+  "feeds": [
+    {
+      "source": ".",
+      "contestId": "",
+      "eventFeedPath": "",
+      "eventFeedName": "event-feed-admin.ndjson"
+    },
+    {
+      "source": ".",
+      "contestId": "",
+      "eventFeedPath": "",
+      "eventFeedName": "event-feed-comments.ndjson"
+    }
+  ]
+}

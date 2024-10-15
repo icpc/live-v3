@@ -16,7 +16,7 @@ Also, it sometimes contains some abilities to modify received data.
 
 You can use [json schema file](https://github.com/icpc/live-v3/tree/main/schemas/settings.schema.json) in your text editor to get help with writing config. 
 
-[Here](https://icpc.io/live-v3/cds/core/org.icpclive.cds.settings/-c-d-s-settings/index.html) 
+[Here](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.settings/-c-d-s-settings/index.html) 
 is the full list of supported properties for all systems.
 
 Typical config should look like that
@@ -46,7 +46,7 @@ Whenever you need to put some url in config, you can put it in several ways:
 * As just a string. Then it would be interpreted as url, if it starts with `http://` or `https://`,
   otherwise, it would be interpreted as local file, which is useful for testing.
 * As an object with url, login, and password
-* As an object with url and full [auth](https://icpc.io/live-v3/cds/core/org.icpclive.cds.settings/-auth/index.html) object.
+* As an object with url and full [auth](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.settings/-auth/index.html) object.
 
 A separate creds file is needed to avoid accidental publishing of your keys. 
 If you don't plan to publish a config file, you can just put the key into it instead of a separate file.

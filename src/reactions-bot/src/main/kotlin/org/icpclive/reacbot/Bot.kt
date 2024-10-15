@@ -1,6 +1,6 @@
 package org.icpclive.reacbot
 
-import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.*
 import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
@@ -40,10 +40,11 @@ class Bot(
     @OptIn(ExperimentalCoroutinesApi::class)
     private val reactionsProcessingPool = Dispatchers.IO.limitedParallelism(loaderThreads)
     private val cds = cdsOptions.toFlow()
-        .contestState()
-        .removeFrozenSubmissions()
-        .processHiddenTeamsAndGroups()
-        .processHiddenProblems()
+        .removeFrozenSubmissionsResults()
+        .removeAfterEndSubmissions()
+        .hideHiddenGroupsTeams()
+        .hideHiddenTeamsRuns()
+        .hideHiddenProblemsRuns()
     private val storage = Storage()
     private val bot = bot {
         logLevel = LogLevel.Error

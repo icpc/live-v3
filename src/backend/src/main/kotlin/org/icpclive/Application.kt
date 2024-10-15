@@ -1,5 +1,6 @@
 package org.icpclive
 
+import com.github.ajalt.clikt.core.main
 import io.ktor.serialization.kotlinx.json.*
 import org.icpclive.util.completeOrThrow
 import io.ktor.server.application.*
@@ -92,15 +93,9 @@ fun Application.module() {
     }
 
     launch(handler) {
-        val loader = config.cdsSettings.toFlow()
-            .contestState()
-            .removeFrozenSubmissions()
-            .processHiddenTeamsAndGroups()
-            .processHiddenProblems()
-            .calculateScoreDifferences()
-            .addFirstToSolves()
-            .selectProblemColors()
-            .processCommentaryTags()
+        val loader = config.cdsSettings
+            .toFlow()
+            .addComputedData()
 
         val emptyVisualConfig = JsonObject(emptyMap())
         DataBus.visualConfigFlow.completeOrThrow(

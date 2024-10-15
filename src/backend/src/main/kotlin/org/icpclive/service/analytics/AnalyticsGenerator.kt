@@ -50,28 +50,24 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
             "{result.ioiDifference}" to (analyse.run.result as? RunResult.IOI)?.difference?.toString().orEmpty(),
             "{result.ioiScore}" to (analyse.run.result as? RunResult.IOI)?.scoreAfter?.toString().orEmpty(),
         )
-        return when (val runResult = analyse.run.result) {
-            is RunResult.IOI -> {
-                if (runResult.difference > 0) {
-                    return messagesTemplates.ioiJudgedPositiveDiffRun.applyTemplate(substitute)
+        val template = when (val runResult = analyse.run.result) {
+            is RunResult.IOI -> if (runResult.difference > 0) {
+                messagesTemplates.ioiJudgedPositiveDiffRun
+            } else {
+                messagesTemplates.ioiJudgedRun
+            }
+            is RunResult.ICPC -> when {
+                runResult.isFirstToSolveRun -> messagesTemplates.firstToSolveRun
+                runResult.verdict.isAccepted -> if (substitute["{result.solvedProblems}"].isNullOrEmpty()) {
+                    messagesTemplates.acceptedRun
                 } else {
-                    return messagesTemplates.ioiJudgedRun.applyTemplate(substitute)
+                    messagesTemplates.acceptedWithSolvedProblemsRun
                 }
+                else -> messagesTemplates.rejectedRun
             }
-            is RunResult.ICPC -> {
-                if (runResult.isFirstToSolveRun) {
-                    messagesTemplates.firstToSolveRun.applyTemplate(substitute)
-                } else if (runResult.verdict.isAccepted) {
-                    return if (substitute["{result.solvedProblems}"] != "") {
-                        messagesTemplates.acceptedWithSolvedProblemsRun.applyTemplate(substitute)
-                    } else {
-                        messagesTemplates.acceptedRun.applyTemplate(substitute)
-                    }
-                }
-                return messagesTemplates.rejectedRun.applyTemplate(substitute)
-            }
-            is RunResult.InProgress -> messagesTemplates.submittedRun.applyTemplate(substitute)
+            is RunResult.InProgress -> messagesTemplates.submittedRun
         }
+        return template.applyTemplate(substitute)
     }
 
     private fun getTags(

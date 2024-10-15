@@ -5,7 +5,7 @@ import org.gradle.kotlin.dsl.register
 plugins {
     application
     id("live.kotlin-conventions")
-    id("com.github.johnrengelman.shadow")
+    id("com.gradleup.shadow")
 }
 
 tasks.named<Jar>("jar") {

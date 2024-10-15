@@ -19,7 +19,7 @@ To support your contest system in icpc-live, we would need to provide an API wit
 * Contest name
 * Contest logos
 * Awards distribution description
-* Everything else supported [here](https://icpc.io/live-v3/cds/core/org.icpclive.cds.api/-contest-info/index.html)
+* Everything else supported [here](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.api/-contest-info/index.html)
 
 # Information about problems
 ### Must have:
@@ -42,7 +42,7 @@ To support your contest system in icpc-live, we would need to provide an API wit
 * Official team name
 * Link to team photos/screen/webcam/etc
 * University/ICPC region/other reasonable grouping
-* Everything else supported [here](https://icpc.io/live-v3/cds/core/org.icpclive.cds.api/-team-info/index.html)
+* Everything else supported [here](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.api/-team-info/index.html)
 
 # Information about runs
 ### Must-have

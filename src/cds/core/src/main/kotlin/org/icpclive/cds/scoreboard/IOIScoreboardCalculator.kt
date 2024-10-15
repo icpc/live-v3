@@ -18,7 +18,7 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
             info.penaltyRoundingMode,
             info.penaltyPerWrongAttempt
         )
-        val runsByProblem = runs.groupBy { it.problemId }
+        val runsByProblem = runs.filterNot { it.isHidden }.groupBy { it.problemId }
         val problemResults = info.scoreboardProblems.map { problem ->
             val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
             val finalRunIndex = problemRuns.indexOfLast { it.result is RunResult.IOI && it.result.difference != 0.0 }

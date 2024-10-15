@@ -11,7 +11,7 @@ import org.icpclive.cds.adapters.applyAdvancedProperties
 import org.icpclive.cds.api.*
 import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.tunning.TeamInfoOverride
-import org.icpclive.export.icpc.csv.IcpcCsvExporter
+import org.icpclive.export.icpc.IcpcCsvExporter
 
 object IcpcCSVDumpCommand : DumpFileCommand(
     name = "icpc-csv",

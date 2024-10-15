@@ -1,10 +1,11 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.*
+import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.api.*
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.AdvancedProperties
@@ -12,7 +13,7 @@ import kotlin.time.Duration
 
 @OptIn(InefficientContestInfoApi::class)
 @JvmName("addPreviousDaysResults")
-public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>): Flow<ContestUpdate> {
+internal fun addPreviousDays(flow: Flow<ContestUpdate>, previousDays: List<ContestState>): Flow<ContestUpdate> {
     val allProblems = mutableListOf<ProblemInfo>()
     val allRuns = mutableListOf<RunInfo>()
 
@@ -39,9 +40,9 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
         }
     }
 
-    return transform { update ->
+    return flow.transform { update ->
         when (update) {
-            is CommentaryMessagesUpdate -> emit(update)
+            is CommentaryMessagesUpdate -> this.emit(update)
             is InfoUpdate -> {
                 val info = update.newInfo
                 val newProblems = info.problemList.sortedBy { it.ordinal }.mapIndexed { index, problem ->
@@ -50,7 +51,7 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                         ordinal = allProblems.size + index
                     )
                 }
-                emit(
+                this.emit(
                     InfoUpdate(
                         info.copy(
                             problemList = allProblems + newProblems
@@ -58,20 +59,20 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
                     )
                 )
                 for (i in allRuns) {
-                    emit(RunUpdate(i))
+                    this.emit(RunUpdate(i))
                 }
                 allRuns.clear()
             }
 
-            is RunUpdate -> emit(update)
+            is RunUpdate -> this.emit(update)
         }
     }
 }
 
 
 @JvmName("addPreviousDaysSettings")
-public fun Flow<ContestUpdate>.addPreviousDays(settings: List<PreviousDaySettings>): Flow<ContestUpdate> {
-    if (settings.isEmpty()) return this
+internal fun addPreviousDays(flow: Flow<ContestUpdate>, settings: List<PreviousDaySettings>): Flow<ContestUpdate> {
+    if (settings.isEmpty()) return flow
     return flow {
         val results = coroutineScope {
             settings.mapIndexed { index, it ->
@@ -84,12 +85,12 @@ public fun Flow<ContestUpdate>.addPreviousDays(settings: List<PreviousDaySetting
                             it
                         } else {
                             val advanced = advancedJsonPath.value.toFile().inputStream().use { Json.decodeFromStream<AdvancedProperties>(it) }
-                            it.applyAdvancedProperties(flowOf(advanced))
+                            applyAdvancedProperties(it, flowOf(advanced))
                         }
                     }.finalContestState()
                 }
             }.awaitAll()
         }
-        emitAll(addPreviousDays(results))
+        emitAll(addPreviousDays(flow, results))
     }
 }

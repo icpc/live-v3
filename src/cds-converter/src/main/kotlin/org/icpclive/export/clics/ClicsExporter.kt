@@ -382,7 +382,6 @@ object ClicsExporter  {
 
     fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
         val scoreboardFlow = updates
-            .addFirstToSolves()
             .calculateScoreboard(OptimismLevel.NORMAL)
             .stateIn(scope, SharingStarted.Eagerly, null)
             .filterNotNull()

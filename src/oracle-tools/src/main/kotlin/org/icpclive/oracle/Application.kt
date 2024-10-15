@@ -1,5 +1,6 @@
 package org.icpclive.oracle
 
+import com.github.ajalt.clikt.core.main
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*

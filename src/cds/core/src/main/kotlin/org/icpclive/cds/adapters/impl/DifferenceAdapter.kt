@@ -1,4 +1,4 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -60,7 +60,7 @@ private class SumScoreAccumulator : ScoreAccumulator {
     }
 }
 
-public fun Flow<ContestUpdate>.calculateScoreDifferences(): Flow<ContestUpdate> = withGroupedRuns(
+internal fun calculateScoreDifferences(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = flow.withGroupedRuns(
     selector = { it.problemId to it.teamId },
     needUpdateGroup = { new, old, key ->
         new.problems[key.first]?.scoreMergeMode != old?.problems?.get(key.first)?.scoreMergeMode

@@ -1,7 +1,6 @@
 package org.icpclive.cds.adapters
 
 import kotlinx.coroutines.flow.*
-import kotlinx.datetime.Clock
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*

@@ -1,4 +1,4 @@
-package org.icpclive.cds.adapters
+package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -7,8 +7,8 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.api.ProblemId
 import org.icpclive.cds.utils.withGroupedRuns
 
-public fun Flow<ContestUpdate>.processHiddenProblems(): Flow<ContestUpdate> =
-    withGroupedRuns(
+internal fun hideHiddenProblemsRuns(flow: Flow<ContestUpdate>): Flow<ContestUpdate> =
+    flow.withGroupedRuns(
         { it.problemId },
         { key, _, original, info ->
             val problem = info?.problems?.get(key)
