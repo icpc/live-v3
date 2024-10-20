@@ -28,8 +28,8 @@ public sealed interface PCMSSettings : CDSSettings {
     override fun toDataSource(): ContestDataSource = PCMSDataSource(this)
 }
 
-internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {
-    private val dataLoader = DataLoader.xml(settings.network) { settings.source }
+internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(if (settings.jobsSources != null) 500.milliseconds else 5.seconds) {
+    private val dataLoader = DataLoader.xml(settings.network) { settings.source }.cached(5.seconds)
     private val jobsDataLoader = settings.jobsSources?.let { DataLoader.xml(settings.network) { it } }
 
     private val resultType = settings.resultType
