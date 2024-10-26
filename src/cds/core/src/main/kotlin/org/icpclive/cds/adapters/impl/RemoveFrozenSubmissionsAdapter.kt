@@ -1,7 +1,6 @@
 package org.icpclive.cds.adapters.impl
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.*
@@ -13,10 +12,11 @@ internal fun Flow<ContestUpdate>.processByTimeCut(
     process: (RunInfo) -> RunInfo
 ): Flow<ContestUpdate> = contestState().transform {
     suspend fun emit(info: RunInfo, cut: Duration) {
+        println("${info.id} ${info.time} ${info.result} $cut ${it.lastEvent}")
         if (info.time > cut) {
             emit(RunUpdate(process(info)))
         } else {
-            emit(it.lastEvent)
+            emit(RunUpdate(info))
         }
     }
     when (it.lastEvent) {
@@ -31,12 +31,13 @@ internal fun Flow<ContestUpdate>.processByTimeCut(
             if (oldCut != newCut) {
                 it.runsAfterEvent.values
                     .filter { run -> (run.time > oldCut) != (run.time > newCut) }
+                    .also { println("Updated runs: ${it.map { run -> run.id }}")}
                     .forEach { run -> emit(run, newCut) }
             }
         }
         is CommentaryMessagesUpdate -> emit(it.lastEvent)
     }
-}
+}.onEach { if (it is RunUpdate) println("${it.newInfo.id} ${it.newInfo.time} ${it.newInfo.result}") }
 
 internal fun removeFrozenSubmissionsResults(flow: Flow<ContestUpdate>): Flow<ContestUpdate> =
     flow.processByTimeCut(
