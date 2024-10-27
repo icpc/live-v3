@@ -12,7 +12,7 @@ internal fun Flow<ContestUpdate>.processByTimeCut(
     process: (RunInfo) -> RunInfo
 ): Flow<ContestUpdate> = contestState().transform {
     suspend fun emit(info: RunInfo, cut: Duration) {
-        println("${info.id} ${info.time} ${info.result} $cut ${it.lastEvent}")
+//        println("${info.id} ${info.time} ${info.result} $cut ${it.lastEvent}")
         if (info.time > cut) {
             emit(RunUpdate(process(info)))
         } else {
