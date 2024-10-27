@@ -176,11 +176,17 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             .mapIndexed { index, it -> parseRunInfo(it, teamId, problemId, index) }
     }
 
+    private fun parsePartyAliasFromJobId(element: Element): TeamId {
+        val parts = element.getAttribute("id").split(".")
+        return parts[parts.size - 4].toTeamId()
+    }
+
     private fun parseRunFromJob(job: Element): RunInfo {
         val verdict = getVerdict(job)
         val testNo = job.getAttribute("test-no").toInt()
         val problemId = job.getAttribute("problem-alias").toProblemId()
         val problemTestNo = maxTestsPerProblem[problemId]
+        val teamId = job.getAttribute("party-alias").takeIf { it.isNotBlank() }?.toTeamId() ?: parsePartyAliasFromJobId(job)
         return RunInfo(
             id = job.getAttribute("id").replaceAfterLast(".", "").removeSuffix(".").toRunId(),
             result = when (resultType) {
@@ -199,7 +205,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 RunResult.InProgress(if (problemTestNo == null) 0.0 else testNo.toDouble() / problemTestNo)
             },
             problemId = problemId,
-            teamId = job.getAttribute("party-alias").toTeamId(),
+            teamId = teamId,
             time = job.getAttribute("time").toLong().milliseconds,
             languageId = job.getAttribute("language-id").takeIf { it.isNotEmpty() }?.toLanguageId()
         )
