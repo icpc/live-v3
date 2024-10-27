@@ -31,13 +31,13 @@ internal fun Flow<ContestUpdate>.processByTimeCut(
             if (oldCut != newCut) {
                 it.runsAfterEvent.values
                     .filter { run -> (run.time > oldCut) != (run.time > newCut) }
-                    .also { println("Updated runs: ${it.map { run -> run.id }}")}
+//                    .also { println("Updated runs: ${it.map { run -> run.id }}")}
                     .forEach { run -> emit(run, newCut) }
             }
         }
         is CommentaryMessagesUpdate -> emit(it.lastEvent)
     }
-}.onEach { if (it is RunUpdate) println("${it.newInfo.id} ${it.newInfo.time} ${it.newInfo.result}") }
+}.onEach { /* if (it is RunUpdate) println("${it.newInfo.id} ${it.newInfo.time} ${it.newInfo.result}") */ }
 
 internal fun removeFrozenSubmissionsResults(flow: Flow<ContestUpdate>): Flow<ContestUpdate> =
     flow.processByTimeCut(
