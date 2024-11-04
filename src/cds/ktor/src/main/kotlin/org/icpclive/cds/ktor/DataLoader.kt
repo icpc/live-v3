@@ -107,8 +107,8 @@ public fun <T:Any> DataLoader<T>.cached(interval: Duration) = object : DataLoade
     lateinit var cache: T
     override suspend fun load(): T {
         if (nextLoad?.hasPassedNow() != false) {
-            nextLoad = TimeSource.Monotonic.markNow() + interval
             cache = this@cached.load()
+            nextLoad = TimeSource.Monotonic.markNow() + interval
         } else {
             logger(DataLoader::class.java).info {
                 "Not loading because of cache"
