@@ -27,7 +27,7 @@ const defaultPages = {
     "Spotlight": "teamSpotlight",
     "Advanced": "advancedJson",
     "Media": "media",
-    "Contest": "contest",
+    "Info": "contestInfo",
     "Backend Log": "log",
 };
 
