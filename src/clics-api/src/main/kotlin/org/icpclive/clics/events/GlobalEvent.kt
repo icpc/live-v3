@@ -1,5 +1,5 @@
 package org.icpclive.clics.events
 
-public interface GlobalEvent<out T> {
+public sealed interface GlobalEvent<out T> : Event {
     public val data: T?
 }

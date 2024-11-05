@@ -176,6 +176,8 @@ public data class ContestInfo(
     val penaltyRoundingMode: PenaltyRoundingMode,
     @Required val emulationSpeed: Double = 1.0,
     @Required val awardsSettings: AwardsSettings = AwardsSettings(),
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("penaltyPerWrongAttemptSeconds")
     @Required val penaltyPerWrongAttempt: Duration = 20.minutes,
     @Required val queueSettings: QueueSettings = QueueSettings(),
     @Transient val cdsSupportsFinalization: Boolean = false,

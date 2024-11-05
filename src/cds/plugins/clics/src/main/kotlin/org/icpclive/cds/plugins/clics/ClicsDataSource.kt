@@ -20,7 +20,8 @@ import kotlin.time.Duration.Companion.seconds
 public enum class FeedVersion {
     `2020_03`,
     `2022_07`,
-    `2023_06`
+    `2023_06`,
+    DRAFT
 }
 
 @Serializable
@@ -70,23 +71,27 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
     ) {
         val loaders = feeds.map { getEventFeedLoader(it, settings.network) }
 
-        fun priority(event: UpdateContestEvent) = if (event.isFinalEvent) Int.MAX_VALUE else when (event) {
+        fun priority(event: Event) = if (event.isFinalEvent) Int.MAX_VALUE else when (event) {
+            // events about contest info
             is ContestEvent -> 0
             is StateEvent -> 1
-            is JudgementTypeEvent -> 2
-            is LanguageEvent -> 3
-            is OrganizationEvent -> 4
-            is GroupEvent -> 5
-            is TeamEvent -> 6
-            is ProblemEvent -> 7
+            is JudgementTypeEvent, is BatchJudgementTypeEvent -> 2
+            is LanguageEvent, is BatchLanguageEvent -> 3
+            is OrganizationEvent, is BatchOrganizationEvent -> 4
+            is GroupEvent, is BatchGroupEvent -> 5
+            is TeamEvent, is BatchTeamEvent -> 6
+            is ProblemEvent, is BatchProblemEvent -> 7
             is PreloadFinishedEvent -> throw IllegalStateException()
-            is AwardEvent, is AccountEvent, is PersonEvent -> 8
-        }
-
-        fun priority(event: UpdateRunEvent) = when (event) {
-            is SubmissionEvent -> 0
-            is JudgementEvent -> 1
-            is RunEvent -> 2
+            is AwardEvent, is BatchAwardEvent -> 8
+            is AccountEvent, is BatchAccountEvent -> 8
+            is PersonEvent, is BatchPersonEvent -> 8
+            is BatchClarificationEvent, is ClarificationEvent -> 8
+            // events about runs
+            is SubmissionEvent, is BatchSubmissionEvent -> 100
+            is JudgementEvent, is BatchJudgementEvent -> 101
+            is RunEvent, is BatchRunEvent -> 102
+            // events about comments
+            is CommentaryEvent, is BatchCommentaryEvent -> 200
         }
 
         fun Flow<Event>.sortedPrefix() = flow {
@@ -103,14 +108,10 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         break
                     }
                 }
-                val contestEvents = prefix.filterIsInstance<UpdateContestEvent>().sortedBy { priority(it) }
-                val runEvents = prefix.filterIsInstance<UpdateRunEvent>().sortedBy { priority(it) }
-                val otherEvents = prefix.filter { it !is UpdateContestEvent && it !is UpdateRunEvent }
-                contestEvents.filter { !it.isFinalEvent }.forEach { emit(it) }
-                runEvents.forEach { emit(it) }
-                otherEvents.forEach { emit(it) }
+                val events = prefix.sortedBy { priority(it) }
+                events.filter { !it.isFinalEvent }.forEach { emit(it) }
                 emit(PreloadFinishedEvent(EventToken("")))
-                contestEvents.filter { it.isFinalEvent }.forEach { emit(it) }
+                events.filter { it.isFinalEvent }.forEach { emit(it) }
                 for (event in channel) {
                     emit(event)
                 }
@@ -120,53 +121,15 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         var preloadFinished = false
 
         suspend fun processEvent(it: Event) {
-            when (it) {
-                is UpdateContestEvent -> {
-                    when (it) {
-                        is ContestEvent -> model.processContest(it.data!!)
-                        is ProblemEvent -> model.processProblem(it.id, it.data)
-                        is OrganizationEvent -> model.processOrganization(it.id, it.data)
-                        is TeamEvent -> model.processTeam(it.id, it.data)
-                        is StateEvent -> model.processState(it.data!!)
-                        is JudgementTypeEvent -> model.processJudgementType(it.id, it.data)
-                        is GroupEvent -> model.processGroup(it.id, it.data)
-                        is LanguageEvent -> model.processLanguage(it.id, it.data)
-                        is PreloadFinishedEvent -> {
-                            preloadFinished = true
-                        }
-
-                        is AwardEvent, is AccountEvent, is PersonEvent -> {}
-                    }
-                    if (preloadFinished) {
-                        onContestInfo(model.contestInfo)
-                        if (it is PreloadFinishedEvent) {
-                            for (run in model.getAllRuns()) {
-                                onRun(run)
-                            }
-                        }
-                    }
+            if (it is PreloadFinishedEvent) {
+                if (!preloadFinished) {
+                    preloadFinished = true
+                    model.addContestInfoListener(onContestInfo)
+                    model.addRunInfoListener(onRun)
+                    model.addCommentaryMessageListener(onComment)
                 }
-
-                is UpdateRunEvent -> {
-                    when (it) {
-                        is SubmissionEvent -> model.processSubmission(it.data!!)
-                        is JudgementEvent -> model.processJudgement(it.id, it.data)
-                        is RunEvent -> model.processRun(it.id, it.data)
-                    }.also { run ->
-                        if (preloadFinished && run != null) {
-                            onRun(run)
-                        }
-                    }
-                }
-
-                is CommentaryEvent -> {
-                    it.data?.let { comment ->
-                        onComment(
-                            model.processCommentary(comment)
-                        )
-                    }
-                }
-                is ClarificationEvent -> {}
+            } else {
+                model.processEvent(it)
             }
         }
 
@@ -181,7 +144,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             .filterNot { it.token in idSet }
             .onEach { processEvent(it) }
             .takeWhile { !it.isFinalEvent }
-            .onEach { idSet.add(it.token) }
+            .onEach { it.token?.let(idSet::add) }
             .logAndRetryWithDelay(5.seconds) {
                 log.error(it) { "Exception caught in CLICS parser. Will restart in 5 seconds." }
                 preloadFinished = false

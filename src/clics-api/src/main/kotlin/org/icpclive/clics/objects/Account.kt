@@ -4,7 +4,6 @@ import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2022_07`)
 @EventSerialName("accounts")
-@UpdateContestEvent
 public interface Account {
     @Required public val id: String
     @Required public val username: String

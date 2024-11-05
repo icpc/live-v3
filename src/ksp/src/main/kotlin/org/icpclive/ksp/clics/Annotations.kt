@@ -4,6 +4,7 @@ enum class FeedVersion {
     `2020_03`,
     `2022_07`,
     `2023_06`,
+    DRAFT,
 
     ;
 
@@ -17,23 +18,11 @@ annotation class SinceClics(val feedVersion: FeedVersion)
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)
+annotation class LongMinutesBefore(val feedVersion: FeedVersion)
+
+@Retention(AnnotationRetention.SOURCE)
+@Target(AnnotationTarget.PROPERTY)
 annotation class InlinedBefore(val feedVersion: FeedVersion, val prefix: String)
-
-@Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.PROPERTY)
-annotation class RequiredSince(val feedVersion: FeedVersion)
-
-@Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.PROPERTY)
-annotation class NameIn(val name: String, vararg val feedVersions: FeedVersion)
-
-@Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.CLASS)
-annotation class UpdateContestEvent
-
-@Retention(AnnotationRetention.SOURCE)
-@Target(AnnotationTarget.CLASS)
-annotation class UpdateRunEvent
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)

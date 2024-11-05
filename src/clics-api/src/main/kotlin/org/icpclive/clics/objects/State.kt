@@ -4,7 +4,6 @@ import kotlinx.datetime.Instant
 import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2020_03`)
-@UpdateContestEvent
 @EventSerialName("state")
 public interface State {
     public val started: Instant?

@@ -405,7 +405,7 @@
         "penaltyRoundingMode": "sum_down_to_minute",
         "emulationSpeed": 1.0,
         "awardsSettings": {},
-        "penaltyPerWrongAttempt": "PT20M",
+        "penaltyPerWrongAttemptSeconds": 1200,
         "queueSettings": {}
     },
     "runs": [
