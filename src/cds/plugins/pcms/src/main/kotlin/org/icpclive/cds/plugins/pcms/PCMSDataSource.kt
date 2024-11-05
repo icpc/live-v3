@@ -4,6 +4,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.api.RunResult
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.ktor.*
@@ -17,34 +18,50 @@ import kotlin.time.Duration.Companion.seconds
 @Builder("pcms")
 public sealed interface PCMSSettings : CDSSettings {
     public val source: UrlOrLocalPath
+    public val jobsSources: UrlOrLocalPath?
+        get() = null
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC
+    public val allowResultsFromJobs: Boolean
+        get() = false
 
     override fun toDataSource(): ContestDataSource = PCMSDataSource(this)
 }
 
-internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(5.seconds) {
-    private val dataLoader = DataLoader.xml(settings.network) { settings.source }
+internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDataSource(if (settings.jobsSources != null) 500.milliseconds else 5.seconds) {
+    private val dataLoader = DataLoader.xml(settings.network) { settings.source }.cached(5.seconds)
+    private val jobsDataLoader = settings.jobsSources?.let { DataLoader.xml(settings.network) { it } }
 
     private val resultType = settings.resultType
     private var startTime = Instant.fromEpochMilliseconds(0)
+    private val maxTestsPerProblem = mutableMapOf<ProblemId, Int>()
+
+    fun Element.attr(name: String) = getAttribute(name).takeIf { it.isNotEmpty() }
+
 
     override suspend fun loadOnce(): ContestParseResult {
-        return parseAndUpdateStandings(dataLoader.load().documentElement)
+        return parseAndUpdateStandings(
+            dataLoader.load().documentElement,
+            jobsDataLoader?.load()?.documentElement
+        )
     }
 
-    private fun parseAndUpdateStandings(element: Element) =
-        parseContestInfo(element.child("contest"))
+    private fun parseAndUpdateStandings(
+        mainElement: Element,
+        jobsElement: Element?
+    ) =
+        parseContestInfo(
+            mainElement.child("contest"),
+            jobsElement
+        )
 
-    private suspend fun loadCustomProblems(problemsUrl: UrlOrLocalPath): Element {
-        val problemsLoader = DataLoader.xml(networkSettings = settings.network) { problemsUrl }
-        return problemsLoader.load().documentElement
-    }
-
-    private fun parseContestInfo(element: Element): ContestParseResult {
-        val statusStr = element.getAttribute("status")
-        val contestTime = element.getAttribute("time").toLong().milliseconds
-        val contestLength = element.getAttribute("length").toInt().milliseconds
+    private fun parseContestInfo(
+        mainElement: Element,
+        jobsElement: Element?
+    ): ContestParseResult {
+        val statusStr = mainElement.attr("status")!!
+        val contestTime = mainElement.attr("time")!!.toLong().milliseconds
+        val contestLength = mainElement.attr("length")!!.toInt().milliseconds
         if (statusStr != "before" && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
@@ -53,18 +70,18 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             "before" -> ContestStatus.BEFORE(scheduledStartAt = startTime)
             "running" -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime + freezeTime else null)
             "over" -> ContestStatus.OVER(startedAt = startTime, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime + freezeTime else null, finishedAt = startTime + contestLength)
-            else -> error("Unknown contest status ${statusStr}")
+            else -> error("Unknown contest status $statusStr")
         }
 
-        val problemsElement = element.child("challenge")
+        val problemsElement = mainElement.child("challenge")
 
         val problems = problemsElement
             .children("problem")
             .mapIndexed { index, it ->
                 ProblemInfo(
-                    id = (it.getAttribute("id").takeIf { it.isNotEmpty() } ?: it.getAttribute("alias")).toProblemId(),
-                    displayName = it.getAttribute("alias"),
-                    fullName = it.getAttribute("name"),
+                    id = it.attr("alias")!!.toProblemId(),
+                    displayName = it.attr("alias")!!,
+                    fullName = it.attr("name")!!,
                     ordinal = index,
                     minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
                     maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
@@ -72,18 +89,34 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                 )
             }.toList()
 
-        val teamsAndRuns = element
+        val teamsAndRuns = mainElement
             .children("session")
-            .map { parseTeamInfo(it, contestTime) }
+            .map { it.parseTeamInfo(contestTime) }
             .toList()
         if (status is ContestStatus.RUNNING) {
             log.info { "Loaded contestInfo for time = $contestTime" }
         }
         val teams = teamsAndRuns.map { it.first }.sortedBy { it.id.value }
-        val runs = teamsAndRuns.flatMap { it.second }
+        val mainRuns = teamsAndRuns.flatMap { it.second }
+        jobsElement?.let {
+            for (job in it.children("job")) {
+                val problem =  job.attr("problem-alias")?.toProblemId() ?: continue
+                val testNo = job.attr("test-no")?.toIntOrNull() ?: continue
+                maxTestsPerProblem[problem] = maxOf(maxTestsPerProblem[problem] ?: 0, testNo)
+            }
+        }
+        val jobsRuns = jobsElement?.let {
+            it.children("job")
+                .filter { it.hasAttribute("problem-alias") }
+                .map { parseRunFromJob(it) }
+                .toList()
+        } ?: emptyList()
+        val runs = (mainRuns + jobsRuns).groupBy { it.id }.values.map {
+            it.firstOrNull { it.result !is RunResult.InProgress } ?: it.first()
+        }
         return ContestParseResult(
             ContestInfo(
-                name = element.getAttribute("name"),
+                name = mainElement.attr("name")!!,
                 status = status,
                 resultType = resultType,
                 contestLength = contestLength,
@@ -103,8 +136,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         )
     }
 
-    private fun parseTeamInfo(element: Element, contestTime: Duration): Pair<TeamInfo, List<RunInfo>> {
-        fun attr(name: String) = element.getAttribute(name).takeIf { it.isNotEmpty() }
+    private fun Element.parseTeamInfo(contestTime: Duration): Pair<TeamInfo, List<RunInfo>> {
         val alias = attr("alias")!!
         val team = TeamInfo(
             id = alias.toTeamId(),
@@ -122,11 +154,11 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             organizationId = null
         )
         val runs =
-            element.children("problem").flatMap { problem ->
+            children("problem").flatMap { problem ->
                 parseProblemRuns(
                     problem,
                     team.id,
-                    problem.getAttribute("alias").toProblemId(),
+                    problem.attr("alias")!!.toProblemId(),
                     contestTime
                 )
             }.toList()
@@ -142,6 +174,41 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         return element.children()
             .filter { it.getAttribute("time").toLong().milliseconds <= contestTime }
             .mapIndexed { index, it -> parseRunInfo(it, teamId, problemId, index) }
+    }
+
+    private fun parsePartyAliasFromJobId(element: Element): TeamId {
+        val parts = element.getAttribute("id").split(".")
+        return parts[parts.size - 4].toTeamId()
+    }
+
+    private fun parseRunFromJob(job: Element): RunInfo {
+        val verdict = getVerdict(job)
+        val testNo = job.getAttribute("test-no").toInt()
+        val problemId = job.getAttribute("problem-alias").toProblemId()
+        val problemTestNo = maxTestsPerProblem[problemId]
+        val teamId = job.getAttribute("party-alias").takeIf { it.isNotBlank() }?.toTeamId() ?: parsePartyAliasFromJobId(job)
+        return RunInfo(
+            id = job.getAttribute("id").replaceAfterLast(".", "").removeSuffix(".").toRunId(),
+            result = when (resultType) {
+                ContestResultType.IOI -> {
+                    when (verdict) {
+                        null -> null
+                        Verdict.Accepted -> if (settings.allowResultsFromJobs) RunResult.IOI(listOf(job.attr("score")!!.toDouble())) else RunResult.InProgress(1.0)
+                        else -> RunResult.IOI(score = emptyList(), wrongVerdict = verdict)
+                    }
+                }
+                ContestResultType.ICPC -> when (verdict) {
+                    null -> null
+                    else -> if (settings.allowResultsFromJobs) verdict.toICPCRunResult() else RunResult.InProgress(1.0)
+                }
+            } ?: run {
+                RunResult.InProgress(if (problemTestNo == null) 0.0 else testNo.toDouble() / problemTestNo)
+            },
+            problemId = problemId,
+            teamId = teamId,
+            time = job.getAttribute("time").toLong().milliseconds,
+            languageId = job.getAttribute("language-id").takeIf { it.isNotEmpty() }?.toLanguageId()
+        )
     }
 
     private fun parseRunInfo(

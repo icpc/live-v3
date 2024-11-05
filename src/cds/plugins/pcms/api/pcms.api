@@ -1,4 +1,6 @@
 public abstract interface class org/icpclive/cds/plugins/pcms/PCMSSettings : org/icpclive/cds/settings/CDSSettings {
+	public fun getAllowResultsFromJobs ()Z
+	public fun getJobsSources ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public abstract fun getSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
@@ -8,12 +10,16 @@ public final class org/icpclive/cds/plugins/pcms/PCMSSettingsBuilder : org/icpcl
 	public fun <init> (Lorg/icpclive/cds/plugins/pcms/PCMSSettings;)V
 	public fun <init> (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/pcms/PCMSSettings;
+	public fun getAllowResultsFromJobs ()Z
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getJobsSources ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun setAllowResultsFromJobs (Z)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setJobsSources (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V

@@ -4,14 +4,19 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.Clock
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.logger
 import org.w3c.dom.Document
 import java.io.File
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.time.Duration
+import kotlin.time.TimeMark
+import kotlin.time.TimeSource
 
 public fun interface DataLoader<out T> {
     public suspend fun load(): T
@@ -97,3 +102,18 @@ public fun interface DataLoader<out T> {
 }
 
 public inline fun <T, R> DataLoader<T>.map(crossinline f: suspend (T) -> R): DataLoader<R> = DataLoader { f(this@map.load()) }
+public fun <T:Any> DataLoader<T>.cached(interval: Duration) = object : DataLoader<T> {
+    var nextLoad: TimeMark? = null
+    lateinit var cache: T
+    override suspend fun load(): T {
+        if (nextLoad?.hasPassedNow() != false) {
+            cache = this@cached.load()
+            nextLoad = TimeSource.Monotonic.markNow() + interval
+        } else {
+            logger(DataLoader::class.java).info {
+                "Not loading because of cache"
+            }
+        }
+        return cache
+    }
+}

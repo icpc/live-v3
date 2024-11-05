@@ -24,6 +24,7 @@ public final class org/icpclive/cds/ktor/DataLoader$Companion {
 }
 
 public final class org/icpclive/cds/ktor/DataLoaderKt {
+	public static final fun cached-HG0u8IE (Lorg/icpclive/cds/ktor/DataLoader;J)Lorg/icpclive/cds/ktor/DataLoader;
 	public static final fun map (Lorg/icpclive/cds/ktor/DataLoader;Lkotlin/jvm/functions/Function2;)Lorg/icpclive/cds/ktor/DataLoader;
 }
 

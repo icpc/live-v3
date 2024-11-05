@@ -655,8 +655,14 @@
                 "source": {
                     "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
                 },
+                "jobsSources": {
+                    "$ref": "#/$defs/UrlOrLocalPath<org.icpclive.cds.settings.UrlOrLocalPathSurrogate.Raw,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithLoginPassword,org.icpclive.cds.settings.UrlOrLocalPathSurrogate.WithWholeAuth>"
+                },
                 "resultType": {
                     "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
+                },
+                "allowResultsFromJobs": {
+                    "type": "boolean"
                 },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"

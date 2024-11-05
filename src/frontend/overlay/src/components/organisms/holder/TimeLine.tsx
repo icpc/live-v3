@@ -161,7 +161,7 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const problemsCount = contestInfo?.problems.length;
     const height = Math.max(c.TIMELINE_WRAP_HEIGHT - 2 * c.TIMELINE_PADDING - c.TIMELINE_ELEMENT_DIAMETER, 0);
     const top = height / (problemsCount - 1) * problemNumber + c.TIMELINE_PADDING + c.TIMELINE_ELEMENT_DIAMETER / 2;
-    const left = (100 * problemResult.time / contestLengthMs) * c.TIMELINE_REAL_WIDTH + 1.5;
+    const left = (100 * problemResult.time / contestLengthMs + c.TIMELINE_LEFT_TIME_PADDING) * c.TIMELINE_REAL_WIDTH;
     const color = getColor(problemResult, contestInfo);
     const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
 
@@ -239,7 +239,7 @@ export const TimeLine = ({ teamId, className = null }) => {
             {Array.from(Array((Math.floor((contestInfo?.contestLengthMs ?? 0) / 3600000) + 1)).keys()).map(elem => {
                 return (<TimeBorder key={elem}
                     color={teamData?.color ?? "#000"}
-                    left={(((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH + (elem === 0 ? c.TIMELINE_LEFT_TIME_PADDING : 0)) + "%"} />); })}
+                    left={(((elem) * 3600000 / contestInfo?.contestLengthMs * 100 + c.TIMELINE_LEFT_TIME_PADDING) * c.TIMELINE_REAL_WIDTH) + "%"} />); })}
             {runsResults?.map((problemResult, index) => (
                 <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
                     animationKey={animationKey}/>

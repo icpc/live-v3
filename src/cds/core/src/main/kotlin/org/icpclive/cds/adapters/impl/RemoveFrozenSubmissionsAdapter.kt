@@ -1,7 +1,6 @@
 package org.icpclive.cds.adapters.impl
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.*
@@ -16,7 +15,7 @@ internal fun Flow<ContestUpdate>.processByTimeCut(
         if (info.time > cut) {
             emit(RunUpdate(process(info)))
         } else {
-            emit(it.lastEvent)
+            emit(RunUpdate(info))
         }
     }
     when (it.lastEvent) {
