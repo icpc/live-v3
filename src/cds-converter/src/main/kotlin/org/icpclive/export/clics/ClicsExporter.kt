@@ -144,7 +144,7 @@ object ClicsExporter  {
         duration = info.contestLength,
         scoreboardFreezeDuration = info.freezeTime?.let { info.contestLength - it },
         scoreboardType = "pass-fail",
-        penaltyTime = info.penaltyPerWrongAttempt.inWholeMinutes,
+        penaltyTime = info.penaltyPerWrongAttempt
     )
 
     private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diffChange(
@@ -488,7 +488,7 @@ object ClicsExporter  {
                 ScoreboardRow(
                     rank,
                     teamId.value,
-                    ScoreboardRowScore(row.totalScore.toInt(), row.penalty.inWholeMinutes),
+                    ScoreboardRowScore(row.totalScore.toInt(), row.penalty),
                     row.problemResults.mapIndexed { index, v ->
                         val iv = v as ICPCProblemResult
                         ScoreboardRowProblem(

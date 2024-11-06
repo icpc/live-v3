@@ -17,10 +17,24 @@ private fun KSType.render(feedVersion: FeedVersion?) : String = render {
 
 class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
 
-    private val objects = mutableMapOf<FeedVersion, MutableList<String>>()
-    private val alternativeNames = mutableMapOf<FeedVersion, MutableMap<String, String>>()
-    private val events = mutableMapOf<FeedVersion, MutableList<String>>()
+    enum class EventType {
+        NO, ID, GLOBAL,
+    }
+
+    class ObjectDescription(
+        val names: List<String>,
+        val qualifiedName: String,
+        val simpleName: String,
+        val eventType: EventType,
+        val sinceVersion: FeedVersion,
+        val eventName: String,
+        val batchEventName: String,
+        val containingFile: KSFile,
+        val declaration: KSClassDeclaration,
+    )
+
     private val files = mutableListOf<KSFile>()
+    private val allObjects = mutableListOf<ObjectDescription>()
 
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
@@ -29,32 +43,57 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
 
         files.addAll(toProcess.map { it.containingFile!! })
 
-        for (obj in toProcess) {
-            val isNoEvent = obj.isAnnotationPresent(NoEvent::class)
-            val isIdEvent = obj.getAllProperties().any { it.simpleName.asString() == "id" } && obj.simpleName.asString() != "Contest"
-            val superName = if (isIdEvent)
-                "IdEvent"
-            else
-                "GlobalEvent"
-            val eventSubtree = when {
-                obj.isAnnotationPresent(UpdateContestEvent::class) -> "UpdateContestEvent"
-                obj.isAnnotationPresent(UpdateRunEvent::class) -> "UpdateRunEvent"
-                else -> "Event"
+        val objects = toProcess.map {
+            val isNoEvent = it.isAnnotationPresent(NoEvent::class)
+            val classSerialNames = it.getAnnotationsByType(EventSerialName::class).singleOrNull()?.names?.toList()?.takeIf { it.isNotEmpty() } ?: run {
+                if (!isNoEvent) {
+                    logger.error("class ${it} must have @EventSerialName")
+                }
+                listOf("")
             }
+            val isIdEvent = it.getAllProperties().any { it.simpleName.asString() == "id" } && it.simpleName.asString() != "Contest"
+            ObjectDescription(
+                names = classSerialNames,
+                qualifiedName = it.qualifiedName!!.asString(),
+                simpleName = it.simpleName.asString(),
+                eventType = when {
+                    isNoEvent -> EventType.NO
+                    isIdEvent -> EventType.ID
+                    else -> EventType.GLOBAL
+                },
+                sinceVersion = it.getAnnotationsByType(SinceClics::class).single().feedVersion,
+                eventName = "${it.simpleName.asString()}Event",
+                batchEventName = "Batch${it.simpleName.asString()}Event",
+                containingFile = it.containingFile!!,
+                declaration = it
+            )
+        }
 
-            val eventName = "${obj.simpleName.asString()}Event"
-
-            if (!isNoEvent) generateEventInterface(obj, eventName, eventSubtree, superName)
-
-            val sinceValue = obj.getAnnotationsByType(SinceClics::class).single()
-
-            for (feedVersion in FeedVersion.entries) {
-                if (sinceValue.feedVersion > feedVersion) continue
-                if (!isNoEvent) generateVersionEventClass(obj, feedVersion, eventName, isIdEvent)
-
+        for (obj in objects) {
+            for (feedVersion in FeedVersion.entries.filter { it >= obj.sinceVersion }) {
                 genetateVersionObjectClass(feedVersion, obj)
             }
         }
+        for (obj in objects.filter { it.eventType != EventType.NO }) {
+            generator.generateFile(
+                dependencies = Dependencies(true, obj.containingFile),
+                packageName = "org.icpclive.clics.events",
+                fileName = obj.eventName
+            ) {
+                if (obj.eventType == EventType.ID) {
+                    +"public interface ${obj.eventName} : IdEvent<${obj.qualifiedName}>"
+                    +"public interface Batch${obj.eventName} : BatchEvent<${obj.qualifiedName}>"
+                } else {
+                    +"public interface ${obj.eventName} : GlobalEvent<${obj.qualifiedName}>"
+
+                }
+            }
+
+            for (feedVersion in FeedVersion.entries.filter { it >= obj.sinceVersion }) {
+                generateVersionEventClass(feedVersion, obj)
+            }
+        }
+        allObjects.addAll(objects)
         return ret
     }
 
@@ -63,8 +102,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
     }
 
     @OptIn(KspExperimental::class)
-    private fun genetateVersionObjectClass(feedVersion: FeedVersion, obj: KSClassDeclaration) {
-        objects.getOrPut(feedVersion) { mutableListOf() }.add(obj.simpleName.asString())
+    private fun genetateVersionObjectClass(feedVersion: FeedVersion, obj: ObjectDescription) {
         fun KSPropertyDeclaration.hiddenIn(feedVersion: FeedVersion) =
             getAnnotationsByType(SinceClics::class).any { it.feedVersion > feedVersion }
 
@@ -86,23 +124,34 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
             }
         }
 
-        val serialProperties = process(obj.getAllProperties(), "").toList()
+        val serialProperties = process(obj.declaration.getAllProperties(), "").toList()
 
         generator.generateFile(
-            dependencies = Dependencies(true, obj.containingFile!!),
+            dependencies = Dependencies(true, obj.containingFile),
             packageName = "org.icpclive.clics.${feedVersion.packageName}.objects",
-            fileName = obj.simpleName.asString()
+            fileName = obj.simpleName
         ) {
             imports("kotlinx.serialization.*", "kotlinx.datetime.*", "kotlin.time.*")
 
             +"@Serializable"
             withParameters(
-                "public ${if (serialProperties.isNotEmpty()) "data " else ""}class ${obj.simpleName.asString()}",
+                "public ${if (serialProperties.isNotEmpty()) "data " else ""}class ${obj.simpleName}",
                 serialProperties,
                 { (i, serialName) ->
                     +"@SerialName(\"$serialName\")"
-                    serilizableWith(i.type.resolve())
-                    if (i.parentDeclaration == obj) {
+                    when (i.type.resolve().declaration.qualifiedName!!.asString()) {
+                        "org.icpclive.clics.Url" -> +"@Contextual"
+                        "kotlinx.datetime.Instant" -> serializable("org.icpclive.clics.time.InstantSerializer")
+                        "kotlin.time.Duration" -> {
+                            val longBefore = i.getAnnotationsByType(LongMinutesBefore::class).singleOrNull()
+                            if (longBefore != null && feedVersion < longBefore.feedVersion) {
+                                serializable("org.icpclive.cds.util.serializers.DurationInMinutesSerializer")
+                            } else {
+                                serializable("org.icpclive.clics.time.DurationSerializer")
+                            }
+                        }
+                    }
+                    if (i.parentDeclaration == obj.declaration) {
                         property(
                             listOf(Modifier.OVERRIDE),
                             i.simpleName.asString(),
@@ -115,9 +164,9 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                         property(emptyList(), "_${i.simpleName.asString()}", i.type.resolve().render(feedVersion))
                     }
                 },
-                " : ${obj.qualifiedName!!.asString()}"
+                " : ${obj.qualifiedName}"
             ) {
-                for (i in obj.getAllProperties()) {
+                for (i in obj.declaration.getAllProperties()) {
                     fun defaultProperty(i: KSPropertyDeclaration) {
                         val type = i.type.resolve()
                         +"override val ${i.simpleName.asString()}: ${type.render(feedVersion)} get() = ${defaultTypeValue(type, i.qualifiedName!!.asString())}"
@@ -156,79 +205,58 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
     }
 
 
-    @OptIn(KspExperimental::class)
     private fun generateVersionEventClass(
-        obj: KSClassDeclaration,
         feedVersion: FeedVersion,
-        eventName: String,
-        isIdEvent: Boolean,
+        obj: ObjectDescription
     ) {
-        events.getOrPut(feedVersion) { mutableListOf() }.add(eventName)
-        val classSerialNames = obj.getAnnotationsByType(EventSerialName::class).singleOrNull()?.names?.toList()?.takeIf { it.isNotEmpty() } ?: run {
-            logger.error("class ${obj} must have @EventSerialName")
-            listOf("")
-        }
-        if (classSerialNames.size > 1) {
-            for (i in classSerialNames.drop(1)) {
-                alternativeNames.getOrPut(feedVersion) { mutableMapOf() }[i] = "org.icpclive.clics.${feedVersion.packageName}.events.${eventName}"
-            }
-        }
-
         generator.generateFile(
-            dependencies = Dependencies(true, obj.containingFile!!),
+            dependencies = Dependencies(true, obj.containingFile),
             packageName = "org.icpclive.clics.${feedVersion.packageName}.events",
-            fileName = eventName
+            fileName = obj.eventName
         ) {
             imports("kotlinx.serialization.*")
             +"@Serializable"
-            +"@SerialName(\"${classSerialNames[0]}\")"
             withParameters(
-                "public class $eventName",
+                "public class ${obj.eventName}",
                 buildList {
                     if (feedVersion != FeedVersion.`2020_03`) {
-                        if (isIdEvent) {
+                        if (obj.eventType == EventType.ID) {
                             add("override val id: String")
                         }
-                        add("@Contextual override val token: org.icpclive.clics.events.EventToken")
-                        add("@Contextual override val data: ${obj.qualifiedName!!.asString()}?")
+                        add("@Contextual override val token: org.icpclive.clics.events.EventToken? = null")
+                        add("@Contextual override val data: ${obj.qualifiedName}?")
                     } else {
-                        add("@SerialName(\"id\") @Contextual override val token: org.icpclive.clics.events.EventToken")
+                        add("@SerialName(\"id\") @Contextual override val token: org.icpclive.clics.events.EventToken? = null")
                         add("private val op: Operation")
-                        add("@Contextual @SerialName(\"data\") private val _data: ${obj.qualifiedName!!.asString()}")
+                        add("@Contextual @SerialName(\"data\") private val _data: ${obj.qualifiedName}")
                     }
                 },
                 { +it },
-                end = " : org.icpclive.clics.events.$eventName"
+                end = " : org.icpclive.clics.events.${obj.eventName}"
             ) {
                 if (feedVersion == FeedVersion.`2020_03`) {
-                    property(listOf(Modifier.OVERRIDE), "data", "${obj.qualifiedName!!.asString()}?") {
+                    property(listOf(Modifier.OVERRIDE), "data", "${obj.qualifiedName}?") {
                         +"get() = _data.takeIf { op != Operation.DELETE }"
                     }
-                    if (isIdEvent) {
+                    if (obj.eventType == EventType.ID) {
                         property(listOf(Modifier.OVERRIDE), "id", "String") {
                             +"get() = _data.id"
                         }
                     }
                 }
             }
-        }
-    }
-
-    private fun generateEventInterface(obj: KSClassDeclaration, eventName: String, eventSubtree: String, superName: String) {
-        generator.generateFile(
-            dependencies = Dependencies(true, obj.containingFile!!),
-            packageName = "org.icpclive.clics.events",
-            fileName = eventName
-        ) {
-            +"public interface ${eventName} : $eventSubtree, $superName<${obj.qualifiedName!!.asString()}>"
-        }
-    }
-
-    private fun MyCodeGenerator.serilizableWith(resolve: KSType) {
-        when (resolve.declaration.qualifiedName!!.asString()) {
-            "org.icpclive.clics.Url" -> +"@Contextual"
-            "kotlinx.datetime.Instant" -> serializable("org.icpclive.clics.time.InstantSerializer")
-            "kotlin.time.Duration" -> serializable("org.icpclive.clics.time.DurationSerializer")
+            if (feedVersion >= FeedVersion.`2022_07` && obj.eventType == EventType.ID) {
+                +"@Serializable"
+                withParameters(
+                    "public class ${obj.batchEventName}",
+                    buildList {
+                        add("@Contextual override val token: org.icpclive.clics.events.EventToken? = null")
+                        add("override val data: kotlin.collections.List<@Contextual ${obj.qualifiedName}>")
+                    },
+                    { +it },
+                    end = " : org.icpclive.clics.events.${obj.batchEventName}"
+                )
+            }
         }
     }
 
@@ -243,31 +271,70 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                 imports(
                     "kotlinx.serialization.*", "kotlinx.serialization.encoding.*", "kotlinx.serialization.modules.*",
                     "org.icpclive.cds.util.serializers.*", "org.icpclive.clics.*",
-                    "org.icpclive.cds.util.*"
+                    "org.icpclive.cds.util.*", "kotlinx.serialization.json.*"
                 )
-                withCodeBlock("internal fun serializersModule(): SerializersModule = SerializersModule") {
-                    for (i in objects[feedVersion] ?: emptyList()) {
-                        withCodeBlock("contextual(org.icpclive.clics.objects.${i}::class)") {
-                            +"org.icpclive.clics.${feedVersion.packageName}.objects.${i}.serializer().asSuperClass()"
+                val goodObjects = allObjects.filter { it.sinceVersion <= feedVersion }
+                val objects = goodObjects.map {
+                    "org.icpclive.clics.${feedVersion.packageName}.objects.${it.simpleName}" to "org.icpclive.clics.objects.${it.simpleName}"
+                }
+                val events = buildList {
+                    for (i in goodObjects) {
+                        if (i.eventType != EventType.NO) {
+                            add("org.icpclive.clics.${feedVersion.packageName}.events.${i.eventName}" to "org.icpclive.clics.events.${i.eventName}")
+                        }
+                        if (i.eventType == EventType.ID && feedVersion != FeedVersion.`2020_03`) {
+                            add("org.icpclive.clics.${feedVersion.packageName}.events.${i.batchEventName}" to "org.icpclive.clics.events.${i.batchEventName}")
                         }
                     }
-                    for (i in events[feedVersion] ?: emptyList()) {
-                        withCodeBlock("contextual(org.icpclive.clics.events.${i}::class)") {
-                            +"org.icpclive.clics.${feedVersion.packageName}.events.${i}.serializer().asSuperClass()"
-                        }
-                    }
-                    withCodeBlock("polymorphic(org.icpclive.clics.events.Event::class)") {
-                        for (i in events[feedVersion] ?: emptyList()) {
-                            +"subclass(org.icpclive.clics.${feedVersion.packageName}.events.${i}::class)"
-                        }
-                        withCodeBlock("defaultDeserializer") {
-                            withCodeBlock("when (it)") {
-                                for ((key, value) in alternativeNames[feedVersion] ?: emptyMap()) {
-                                    +"\"$key\" -> ${value}.serializer()"
+                }
+
+                withCodeBlock("private object EventSerializer : JsonContentPolymorphicSerializer<org.icpclive.clics.events.Event>(org.icpclive.clics.events.Event::class)") {
+                    withCodeBlock("override fun selectDeserializer(element: JsonElement): DeserializationStrategy<org.icpclive.clics.events.Event>") {
+                        +"if (element !is JsonObject) throw SerializationException(\"Event expected to be object\")"
+                        +"val typeElement = element[\"type\"] ?: throw SerializationException(\"Event expected to have type\")"
+                        +"if (typeElement !is JsonPrimitive || !typeElement.isString) throw SerializationException(\"type expected to be string\")"
+                        +"val id = element[\"id\"] ?: JsonNull"
+                        withCodeBlock("if (id is JsonNull)") {
+                            withCodeBlock("return when (typeElement.content)") {
+                                for (obj in goodObjects) {
+                                    if (obj.eventType == EventType.NO) continue
+                                    if (obj.eventType == EventType.ID && feedVersion == FeedVersion.`2020_03`) continue
+                                    for (name in obj.names) {
+                                        +"\"$name\" -> org.icpclive.clics.${feedVersion.packageName}.events.${if (obj.eventType == EventType.ID) obj.batchEventName else obj.eventName}.serializer()"
+                                    }
                                 }
-                                +"else -> null"
+                                +"else -> throw SerializationException(\"Unknown event type \${typeElement.content}\")"
                             }
                         }
+                        withCodeBlock("return when (typeElement.content)") {
+                            for (obj in goodObjects) {
+                                if (obj.eventType == EventType.NO) continue
+                                for (name in obj.names) {
+                                    +"\"$name\" -> org.icpclive.clics.${feedVersion.packageName}.events.${obj.eventName}.serializer()"
+                                }
+                            }
+                            +"else -> throw SerializationException(\"Unknown event type \${typeElement.content}\")"
+                        }
+                    }
+                }
+                +"@Suppress(\"UNCHECKED_CAST\")"
+                withCodeBlock("internal fun serializersModule(): SerializersModule = SerializersModule") {
+                    for ((childClass, superClass) in objects + events) {
+                        withCodeBlock("contextual(${superClass}::class)") {
+                            +"${childClass}.serializer() as KSerializer<org.icpclive.clics.events.Event>"
+                        }
+                    }
+                    withCodeBlock("polymorphicDefaultSerializer(org.icpclive.clics.events.Event::class)") {
+                        withCodeBlock("when (it)") {
+                            for ((childClass, _) in events) {
+                                +"is $childClass -> $childClass.serializer() as SerializationStrategy<org.icpclive.clics.events.Event>"
+                            }
+                            +"else -> null"
+                        }
+                    }
+
+                    withCodeBlock("polymorphicDefaultDeserializer(org.icpclive.clics.events.Event::class)") {
+                        +"EventSerializer"
                     }
                 }
             }

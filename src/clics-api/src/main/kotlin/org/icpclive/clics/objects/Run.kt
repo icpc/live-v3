@@ -5,7 +5,6 @@ import org.icpclive.ksp.clics.*
 import kotlin.time.Duration
 
 @SinceClics(FeedVersion.`2020_03`)
-@UpdateRunEvent
 @EventSerialName("runs")
 public interface Run {
     @Required public val id: String

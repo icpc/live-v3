@@ -3,7 +3,6 @@ package org.icpclive.clics.objects
 import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2022_07`)
-@UpdateContestEvent
 @EventSerialName("persons")
 public interface Person {
     @Required public val id: String

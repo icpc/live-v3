@@ -27,6 +27,7 @@ const defaultPages = {
     "Spotlight": "teamSpotlight",
     "Advanced": "advancedJson",
     "Media": "media",
+    "Info": "contestInfo",
     "Backend Log": "log",
 };
 
@@ -66,19 +67,19 @@ const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                         <IconButton size="large" aria-label="account of current user"
-                            aria-controls="menu-appbar" aria-haspopup="true"
-                            onClick={handleOpenNavMenu} color="inherit"><MenuIcon/></IconButton>
+                                    aria-controls="menu-appbar" aria-haspopup="true"
+                                    onClick={handleOpenNavMenu} color="inherit"><MenuIcon/></IconButton>
                         <Menu id="menu-appbar" anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: "bottom",
-                                horizontal: "left",
-                            }} keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "left",
-                            }} open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{ display: { xs: "block", md: "none" } }}>
+                              anchorOrigin={{
+                                  vertical: "bottom",
+                                  horizontal: "left",
+                              }} keepMounted
+                              transformOrigin={{
+                                  vertical: "top",
+                                  horizontal: "left",
+                              }} open={Boolean(anchorElNav)}
+                              onClose={handleCloseNavMenu}
+                              sx={{ display: { xs: "block", md: "none" } }}>
                             {Object.entries(pages).map(([name, url]) => (
                                 <MenuItem key={url} onClick={() => {
                                     navigate(url);
@@ -90,20 +91,20 @@ const ResponsiveAppBar = ({ showOrHideOverlayPerview }) => {
                         </Menu>
                     </Box>
                     <Typography variant="h6" noWrap component="div" onClick={() => navigate("/")}
-                        sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, color: "text.primary" }}>
+                                sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, color: "text.primary" }}>
                         ICPC Live 3
                     </Typography>
 
                     <Box sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
                         <Typography variant="h5" noWrap onClick={() => navigate("/")}
-                            sx={{ mr: 2, display: { xs: "none", md: "flex" }, color: "text.primary" }}>
+                                    sx={{ mr: 2, display: { xs: "none", md: "flex" }, color: "text.primary" }}>
                             ICPC Live 3
                         </Typography>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         {Object.entries(pages).map(([name, url]) =>
                             <Button key={url} onClick={() => navigate(url)}
-                                sx={{ my: 2, color: "text.primary", display: "block" }}>
+                                    sx={{ my: 2, color: "text.primary", display: "block" }}>
                                 {name === "Backend Log" ? <NotesIcon/> : name}
                             </Button>)}
                         <Button onClick={showOrHideOverlayPerview} sx={{ my: 2, color: "text.primary", display: "block" }}>

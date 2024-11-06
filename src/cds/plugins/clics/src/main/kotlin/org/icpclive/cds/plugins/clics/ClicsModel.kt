@@ -4,18 +4,24 @@ import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.plugins.clics.model.ClicsOrganizationInfo
+import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
 internal class ClicsModel {
+    private val contestInfoListeners = mutableListOf<suspend (ContestInfo) -> Unit>()
+    private val runInfoListeners = mutableListOf<suspend (RunInfo) -> Unit>()
+    private val commentaryMessageListeners = mutableListOf<suspend (CommentaryMessage) -> Unit>()
+
     private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
     private val problems = mutableMapOf<String, Problem>()
     private val languages = mutableMapOf<String, Language>()
     private val organizations = mutableMapOf<String, ClicsOrganizationInfo>()
     private val teams = mutableMapOf<String, Team>()
     private val submissions = mutableMapOf<String, Submission>()
+    private val commentaries = mutableMapOf<String, Commentary>()
     private val submissionJudgmentIds = mutableMapOf<String, MutableSet<String>>()
     private val judgements = mutableMapOf<String, Judgement>()
     private val runs = mutableMapOf<String, Run>()
@@ -30,7 +36,40 @@ internal class ClicsModel {
     private var holdBeforeStartTime: Duration? = null
     private var name: String = ""
 
-    fun getAllRuns() = submissions.values.map { it.toApi() }
+    suspend fun addContestInfoListener(callback: suspend (ContestInfo) -> Unit) {
+        contestInfoListeners.add(callback)
+        callback(contestInfo)
+    }
+    suspend fun addRunInfoListener(callback: suspend (RunInfo) -> Unit) {
+        runInfoListeners.add(callback)
+        for (i in submissions.values) {
+            callback(i.toApi())
+        }
+    }
+    suspend fun addCommentaryMessageListener(callback: suspend (CommentaryMessage) -> Unit) {
+        commentaryMessageListeners.add(callback)
+        for (i in commentaries.values) {
+            callback(i.toApi())
+        }
+    }
+    private suspend fun contestInfoUpdated() {
+        val info = contestInfo
+        for (listener in contestInfoListeners) {
+            listener(info)
+        }
+    }
+    private suspend fun submissionUpdated(id: String?) {
+        val info = submissions[id]?.toApi() ?: return
+        for (listener in runInfoListeners) {
+            listener(info)
+        }
+    }
+    private suspend fun commentaryUpdated(id: String) {
+        val info = commentaries[id]!!.toApi()
+        for (listener in commentaryMessageListeners) {
+            listener(info)
+        }
+    }
 
     private fun mediaType(file: File?): MediaType? {
         val mime = file?.mime ?: return null
@@ -147,40 +186,44 @@ internal class ClicsModel {
             cdsSupportsFinalization = true
         )
 
-    fun processContest(contest: Contest) {
-        name = contest.formalName ?: ""
+    private suspend fun processContest(contest: Contest?) {
+        require(contest != null) { "Removing contest is not supported" }
+        name = contest.formalName ?: contest.name ?: "Unknown"
         startTime = contest.startTime
         contestLength = contest.duration
         freezeTime = contestLength - (contest.scoreboardFreezeDuration ?: Duration.ZERO)
         holdBeforeStartTime = contest.countdownPauseTime
-        penaltyPerWrongAttempt = (contest.penaltyTime ?: 20).minutes
+        penaltyPerWrongAttempt = (contest.penaltyTime ?: 20.minutes)
         if (status is ContestStatus.BEFORE) {
             status = ContestStatus.BEFORE(
                 scheduledStartAt = startTime,
                 holdTime = holdBeforeStartTime
             )
         }
+        contestInfoUpdated()
     }
 
-    fun processLanguage(id: String, language: Language?) {
+    private suspend fun processLanguage(id: String, language: Language?) {
         if (language == null) {
             languages.remove(id)
         } else {
             require(id == language.id)
             languages[language.id] = language
         }
+        contestInfoUpdated()
     }
 
-    fun processProblem(id: String, problem: Problem?) {
+    private suspend fun processProblem(id: String, problem: Problem?) {
         if (problem == null) {
             problems.remove(id)
         } else {
             require(id == problem.id)
             problems[problem.id] = problem
         }
+        contestInfoUpdated()
     }
 
-    fun processOrganization(id: String, organization: Organization?) {
+    private suspend fun processOrganization(id: String, organization: Organization?) {
         if (organization == null) {
             organizations.remove(id)
         } else {
@@ -194,18 +237,20 @@ internal class ClicsModel {
                 country = organization.country
             )
         }
+        contestInfoUpdated()
     }
 
-    fun processTeam(id: String, team: Team?) {
+    private suspend fun processTeam(id: String, team: Team?) {
         if (team == null) {
             teams.remove(id)
         } else {
             require(id == team.id)
             teams[id] = team
         }
+        contestInfoUpdated()
     }
 
-    fun processJudgementType(id: String, judgementType: JudgementType?) {
+    private suspend fun processJudgementType(id: String, judgementType: JudgementType?) {
         if (judgementType == null) {
             judgementTypes.remove(id)
         } else {
@@ -216,28 +261,34 @@ internal class ClicsModel {
                 isAddingPenalty = judgementType.penalty,
             )
         }
+        for ((_, submission) in submissions) {
+            if (submissionJudgmentIds[submission.id]?.any { judgements[it]?.judgementTypeId == id } == true) {
+                submissionUpdated(submission.id)
+            }
+        }
     }
 
-    fun processGroup(id: String, group: Group?) {
+    private suspend fun processGroup(id: String, group: Group?) {
         if (group == null) {
             groups.remove(id)
         } else {
             require(id == group.id)
             groups[id] = group
         }
+        contestInfoUpdated()
     }
 
-    fun processSubmission(submission: Submission): RunInfo {
-        submissions[submission.id] = submission
-        return submission.toApi()
+    private suspend fun processSubmission(id: String, submission: Submission?) {
+        require(submission != null) { "Removing submissions is not supported" }
+        submissions[id] = submission
+        submissionUpdated(id)
     }
 
-    fun processJudgement(id: String, judgement: Judgement?): RunInfo? {
+    private suspend fun processJudgement(id: String, judgement: Judgement?) {
         val oldJudgment = judgements[id]
-        if (judgement == oldJudgment) return null
+        if (judgement == oldJudgment) return
         val submissionId = (judgement ?: oldJudgment)!!.submissionId
         if (judgement != null && oldJudgment != null) require(judgement.submissionId == oldJudgment.submissionId) { "Judgment ${judgement.id} submission id changed from ${oldJudgment.submissionId} to ${judgement.submissionId}" }
-        val submission = submissions[submissionId]
         if (judgement == null) {
             judgements.remove(id)
             submissionJudgmentIds[submissionId]?.remove(id)
@@ -245,18 +296,17 @@ internal class ClicsModel {
             judgements[judgement.id] = judgement
             submissionJudgmentIds.getOrPut(submissionId) { mutableSetOf() }.add(judgement.id)
         }
-        return submission?.toApi()
+        submissionUpdated(submissionId)
     }
 
-    fun processRun(id: String, run: Run?): RunInfo? {
+    private suspend fun processRun(id: String, run: Run?) {
         val oldRun = runs[id]
         if (oldRun == run) {
-            return null
+            return
         }
         val judgementId = (run ?: oldRun)!!.judgementId
         if (oldRun != null && run != null) require(run.judgementId == oldRun.judgementId) { "Run $id judgment id changed from ${oldRun.id} to ${run.id}" }
         val judgement = judgements[judgementId]
-        val submission = submissions[judgement?.submissionId]
         if (run == null) {
             judgmentRunIds[judgementId]?.remove(id)
             runs.remove(id)
@@ -264,21 +314,29 @@ internal class ClicsModel {
             runs[id] = run
             judgmentRunIds.getOrPut(judgementId) { mutableSetOf() }.add(id)
         }
-        return submission?.toApi()
+        submissionUpdated(judgement?.submissionId)
     }
 
-    fun processCommentary(commentary: Commentary) =
-        CommentaryMessage(
-            commentary.id.toCommentaryMessageId(),
-            commentary.message,
-            commentary.time,
-            commentary.contestTime,
-            commentary.teamIds?.map { it.toTeamId() } ?: emptyList(),
-            commentary.submissionIds?.map { it.toRunId() } ?: emptyList(),
-        )
+    private suspend fun processCommentary(id: String, commentary: Commentary?) {
+        if (commentary == null) {
+            commentaries.remove(id)
+        } else {
+            commentaries[id] = commentary
+        }
+        commentaryUpdated(id)
+    }
 
+    private fun Commentary.toApi() = CommentaryMessage(
+        id.toCommentaryMessageId(),
+        message,
+        time,
+        contestTime,
+        teamIds?.map { it.toTeamId() } ?: emptyList(),
+        submissionIds?.map { it.toRunId() } ?: emptyList(),
+    )
 
-    fun processState(state: State) {
+    private suspend fun processState(state: State?) {
+        require(state != null) { "Removing state is not supported" }
         status = when {
             state.endOfUpdates != null -> ContestStatus.FINALIZED(
                 startedAt = state.started!!,
@@ -302,6 +360,46 @@ internal class ClicsModel {
                 scheduledStartAt = startTime,
                 holdTime = holdBeforeStartTime
             )
+        }
+        contestInfoUpdated()
+    }
+
+    private suspend fun <T> processBatch(batch: List<T>, keys: Set<String>, single: suspend (String, T?) -> Unit, id: T.() -> String) {
+        for (kid in keys.toSet() - batch.map { it.id() }.toSet()) {
+            single(kid, null)
+        }
+        for (e in batch) {
+            single(e.id(), e)
+        }
+    }
+
+    suspend fun processEvent(event: Event) {
+        when (event) {
+            is BatchCommentaryEvent -> processBatch(event.data, commentaries.keys, ::processCommentary, Commentary::id)
+            is BatchGroupEvent -> processBatch(event.data, groups.keys, ::processGroup, Group::id)
+            is BatchJudgementEvent -> processBatch(event.data, judgements.keys, ::processJudgement, Judgement::id)
+            is BatchJudgementTypeEvent ->  processBatch(event.data, judgementTypes.keys, ::processJudgementType, JudgementType::id)
+            is BatchLanguageEvent -> processBatch(event.data, languages.keys, ::processLanguage, Language::id)
+            is BatchOrganizationEvent -> processBatch(event.data, organizations.keys, ::processOrganization, Organization::id)
+            is BatchProblemEvent -> processBatch(event.data, problems.keys, ::processProblem, Problem::id)
+            is BatchRunEvent -> processBatch(event.data, runs.keys, ::processRun, Run::id)
+            is BatchSubmissionEvent -> processBatch(event.data, submissions.keys, ::processSubmission, Submission::id)
+            is BatchTeamEvent -> processBatch(event.data, teams.keys, ::processTeam, Team::id)
+            is ContestEvent -> processContest(event.data)
+            is ProblemEvent -> processProblem(event.id, event.data)
+            is OrganizationEvent -> processOrganization(event.id, event.data)
+            is TeamEvent -> processTeam(event.id, event.data)
+            is StateEvent -> processState(event.data)
+            is JudgementTypeEvent -> processJudgementType(event.id, event.data)
+            is GroupEvent -> processGroup(event.id, event.data)
+            is LanguageEvent -> processLanguage(event.id, event.data)
+            is SubmissionEvent -> processSubmission(event.id, event.data)
+            is JudgementEvent -> processJudgement(event.id, event.data)
+            is RunEvent -> processRun(event.id, event.data)
+            is CommentaryEvent -> processCommentary(event.id, event.data)
+            is PreloadFinishedEvent -> {}
+            is AwardEvent, is AccountEvent, is PersonEvent, is ClarificationEvent -> {}
+            is BatchAccountEvent, is BatchAwardEvent, is BatchPersonEvent, is BatchClarificationEvent -> {}
         }
     }
 

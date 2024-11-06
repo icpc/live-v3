@@ -114,6 +114,15 @@ fun Route.configureAdminApiRouting() {
             }
         }
 
+
+        get("/contestInfo") {
+            run {
+                call.respondText(contentType = ContentType.Application.Json) {
+                    Json.encodeToString(DataBus.currentContestInfo())
+                }
+            }
+        }
+
         webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
         webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
 

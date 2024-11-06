@@ -12,7 +12,7 @@ export interface ContestInfo {
   penaltyRoundingMode: PenaltyRoundingMode;
   emulationSpeed: number;
   awardsSettings: AwardsSettings;
-  penaltyPerWrongAttempt: string;
+  penaltyPerWrongAttemptSeconds: number;
   queueSettings: QueueSettings;
 }
 
