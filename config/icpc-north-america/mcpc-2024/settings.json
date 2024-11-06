@@ -1,0 +1,14 @@
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://mcpc24.kattis.com/api/clics/",
+        "login": "$creds.kattis_lperovskaya",
+        "password": "$creds.kattis_mcpc24"
+      },
+      "contestId": "mcpc24",
+      "feedVersion": "2023_06"
+    }
+  ]
+}
