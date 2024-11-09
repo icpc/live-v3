@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": {
-        "url": "https://mcpc24.kattis.com/api/clics/",
+        "url": "https://ncna24.kattis.com/api/clics/",
         "login": "$creds.kattis_lperovskaya",
-        "password": "$creds.kattis_mcpc24"
+        "password": "$creds.kattis_ncna24"
       },
-      "contestId": "mcpc24",
+      "contestId": "ncna24",
       "feedVersion": "DRAFT"
     }
   ]

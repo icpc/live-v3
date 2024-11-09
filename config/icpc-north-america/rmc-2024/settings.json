@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": {
-        "url": "https://mcpc24.kattis.com/api/clics/",
+        "url": "https://rmc24.kattis.com/api/clics/",
         "login": "$creds.kattis_lperovskaya",
-        "password": "$creds.kattis_mcpc24"
+        "password": "$creds.kattis_rmc24"
       },
-      "contestId": "mcpc24",
+      "contestId": "rmc24",
       "feedVersion": "DRAFT"
     }
   ]

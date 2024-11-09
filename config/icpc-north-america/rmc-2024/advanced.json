@@ -1,0 +1,176 @@
+{    
+    "scoreboardOverrides": {
+        "penaltyPerWrongAttempt": 20,
+        "showTeamsWithoutSubmissions": false
+
+    },
+    "queueSettings": {
+        "maxQueueSize": 5
+    },    
+
+   "teamOverrides": {
+        "15": {
+            "displayName": "U of Alberta: Amber"
+        },
+        "16": {
+            "displayName": "U of Alberta: Fuchsia"
+        },
+        "21": {
+            "displayName": "U of Alberta: Gold"
+        },
+        "14": {
+            "displayName": "U of Alberta: Sapphire"
+        },
+        "1": {
+            "displayName": "Brigham Young U: #0000ff"
+        },
+        "2": {
+            "displayName": "Brigham Young U: Cyantax"
+        },
+        "9": {
+            "displayName": "Brigham Young U: Deep Blue"
+        },
+        "12": {
+            "displayName": "Brigham Young U: HexadeciBlue"
+        },
+        "40": {
+            "displayName": "Brigham Young U: IndiCODE"
+        },
+        "10": {
+            "displayName": "Brigham Young U: Midnight"
+        },
+        "11": {
+            "displayName": "Brigham Young U: SkyNET"
+        },
+        "44": {
+            "displayName": "Colorado Mesa U: OOP"
+        },
+        "8": {
+            "displayName": "U of Colorado Denver: Alpha"
+        },
+        "7": {
+            "displayName": "U of Colorado Denver: Beta"
+        },
+        "53": {
+            "displayName": "Colorado School of Mines: Blaster"
+        },
+        "47": {
+            "displayName": "Colorado School of Mines: Albatross"
+        },
+        "35": {
+            "displayName": "Northern Arizona U: LumberJacks"
+        },
+        "49": {
+            "displayName": "U of Calgary: Codefrogs Respawned"
+        },
+        "48": {
+            "displayName": "U of Calgary: Eduroam"
+        },
+        "52": {
+            "displayName": "U of Calgary: Fred's Angels"
+        },
+        "51": {
+            "displayName": "U of Calgary: Narayana's Cow"
+        },
+        "50": {
+            "displayName": "U of Calgary: Radiohead"
+        },
+        "17": {
+            "displayName": "U of Lethbridge: 1"
+        },
+        "18": {
+            "displayName": "U of Lethbridge: 2"
+        },
+        "19": {
+            "displayName": "U of Lethbridge: 3"
+        },
+        "20": {
+            "displayName": "U of Lethbridge: 4"
+        },
+        "43": {
+            "displayName": "U of Arizona: 1"
+        },
+        "46": {
+            "displayName": "U of Arizona: 2"
+        },
+        "45": {
+            "displayName": "U of Arizona: 3"
+        }
+    },    
+    "teamOverrideTemplate": {"displayName": "{orgDisplayName}: {clicsTeamDisplayName}"},
+    "organizationOverrides": {
+        "utahtech.edu": {
+            "displayName": "Utah Tech U"
+        },
+        "mines.edu": {
+            "displayName": "Colorado School of Mines"
+        },
+        "ualberta.ca": {
+            "displayName": "U of Alberta"
+        },
+        "asu.edu": {
+            "displayName": "Arizona State U"
+        },
+        "uvu.edu": {
+            "displayName": "Utah Valley U"
+        },
+        "utah.edu": {
+            "displayName": "U of Utah"
+        },
+        "byu.edu": {
+            "displayName": "Brigham Young U"
+        },
+        "coloradomesa.edu": {
+            "displayName": "Colorado Mesa U"
+        },
+        "ucdenver.edu": {
+            "displayName": "U of Colorado Denver"
+        },
+        "nau.edu": {
+            "displayName": "Northern Arizona U"
+        },
+        "ucalgary.ca": {
+            "displayName": "U of Calgary"
+        },
+        "uleth.ca": {
+            "displayName": "U of Lethbridge"
+        },
+        "arizona.edu": {
+            "displayName": "U of Arizona"
+        },
+        "unco.edu": {
+            "displayName": "U of Northern Colorado"
+        },
+        "usask.ca": {
+            "displayName": "U of Saskatchewan"
+        }
+    },
+  "problemOverrides": {
+        "airfaregrants": {"color":"#e6194B"
+        },
+        "alwaysknowwhereyourtowelis": {"color":"#3cb44b"
+        },
+        "bigand": {"color":"#ffe119"
+        },
+        "emoticons2": {"color":"#4363d8"
+        },
+        "enchantedmaze": {"color":"#f58231"
+        },
+        "garagedoorcode": {"color":"#42d4f4"
+        },
+        "palindromicwordsearch": {"color":"#f032e6"
+        },
+        "pillowstacking": {"color":"#fabed4"
+        },
+        "rectangletiling": {"color":"#469990"
+        },
+        "rockymountain": {"color":"#dcbeff"
+        },
+        "sandwichart": {"color":"#9A6324"
+        },
+        "sauna": {"color":"#fffac8"
+        },
+        "spaceelevator": {"color":"#800000"
+        }    
+  }        
+}
