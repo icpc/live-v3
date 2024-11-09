@@ -2,12 +2,13 @@ package org.icpclive.admin
 
 import io.ktor.http.*
 import io.ktor.http.content.*
-import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
+import io.ktor.util.cio.*
+import io.ktor.utils.io.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -18,7 +19,6 @@ import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.tunning.toAdvancedProperties
 import org.icpclive.data.*
 import org.icpclive.util.sendFlow
-import java.nio.file.Files
 import kotlin.io.path.notExists
 
 fun Route.configureAdminApiRouting() {
@@ -143,10 +143,8 @@ fun Route.configureAdminApiRouting() {
                     val multipart = call.receiveMultipart()
                     multipart.forEachPart { partData ->
                         if (partData is PartData.FileItem) {
-                            Files.write(
-                                Config.mediaDirectory.resolve(partData.storeName),
-                                partData.streamProvider().readBytes()
-                            )
+                            val file = Config.mediaDirectory.resolve(partData.storeName).toFile()
+                            partData.provider().copyAndClose(file.writeChannel())
                             uploadedFileUrls += partData.storeName
                         }
                     }

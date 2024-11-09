@@ -1,5 +1,5 @@
 [versions]
-ktor = "2.3.12"                    # https://ktor.io/
+ktor = "3.0.1"                     # https://ktor.io/
 datetime = "0.6.1"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.7.3"            # https://github.com/Kotlin/kotlinx.serialization
 kotlin = "2.0.20"

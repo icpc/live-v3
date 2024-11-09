@@ -18,7 +18,7 @@ import java.security.MessageDigest
 
 
 @Serializable
-data class User(val name: String, val pass: String, val confirmed: Boolean) : Principal
+data class User(val name: String, val pass: String, val confirmed: Boolean)
 
 interface UsersController {
     suspend fun validateAdminApiCredits(name: String, password: String): User?

@@ -66,7 +66,7 @@ fun Route.setupRouting() {
                 headers {
                     append(HttpHeaders.Authorization, BasicAuthKey.key)
                 }
-            }.readBytes(),
+            }.readRawBytes(),
             contentType = ContentType.Application.Json,
         )
     }
