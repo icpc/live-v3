@@ -26,9 +26,9 @@ tasks {
         from(configDir) {
             into("examples")
             include("creds.json.example")
-            include("visualConfig.json.*")
-            include("analyticsTemplate.json.*")
-            include("widget_positions.json.*")
+            include("visual-config*.json")
+            include("analytics*.json")
+            include("widget-positions*.json")
             rename { it.removeSuffix(".example") }
         }
         from(project(":backend").tasks.named("shadowJar")) {
