@@ -41,6 +41,9 @@ publishing {
                     fromResolutionResult()
                 }
             }
+            java {
+                withSourcesJar()
+            }
             from(components["java"])
             groupId = "com.github.icpc.live-v3"
             version = rootProject.findProperty("build_version")!!.toString()
