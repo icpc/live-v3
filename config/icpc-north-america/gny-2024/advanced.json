@@ -1,0 +1,38 @@
+{
+    "startTime": "2024-11-10T16:00:00Z",
+    "scoreboardOverrides": {
+        "showTeamsWithoutSubmissions": false
+    },
+    "queueSettings": {
+        "maxQueueSize": 10
+    },        
+    "problemOverrides": {
+        "astackofgold": {"color":"#e6194B"
+        },
+        "averagesubstringvalue": {"color":"#3cb44b"
+        },
+        "balancingart": {"color":"#ffe119"
+        },
+        "brownianbears": {"color":"#4363d8"
+        },
+        "fencesmakegoodneighbors": {"color":"#f58231"
+        },
+        "leapfrogencryption": {"color":"#42d4f4"
+        },
+        "letterballoons": {"color":"#f032e6"
+        },
+        "marchingorders": {"color":"#fabed4"
+        },
+        "ooohisee": {"color":"#469990"
+        },
+        "pascalmeetsboole": {"color":"#dcbeff"
+        },
+        "ponylessexpress": {"color":"#9A6324"
+        },
+        "repetitiveroutes": {"color":"#fffac8"
+        },
+        "smartpasswordvalidation": {"color":"#800000"
+        }
+  }        
+
+}

@@ -1,0 +1,14 @@
+{
+    "type":"clics",
+    "feeds": [
+      {
+        "source": {
+          "url": "https://naeast24.kattis.com/api/clics/",
+          "login": "$creds.kattis_lperovskaya",
+          "password": "$creds.kattis_naeast24"
+        },
+        "contestId": "naeast24",
+        "feedVersion": "DRAFT"
+      }
+    ]
+  }

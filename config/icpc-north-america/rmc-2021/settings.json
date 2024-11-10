@@ -3,7 +3,7 @@
   "feeds": [
     {
       "source": {
-        "url": "https://open.kattis.com/clics-api",
+        "url": "https://rmc21.kattis.com/api/clics/",
         "login": "$creds.kattis_login",
         "password": "$creds.kattis_token"
       },

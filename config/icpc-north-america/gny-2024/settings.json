@@ -1,0 +1,16 @@
+{
+    "type": "clics",
+     "network": { "allowUnsecureConnections": true },
+     "feeds": [
+       {
+         "source": {
+           "url": "https://gnyserver.icpc-vcss.org:50445/contest",
+           "login": "icpclive",
+           "password": "password"
+         },
+         "eventFeedPath": "",
+         "contestId": "",
+         "feedVersion": "2020_03"
+       }
+     ]
+   }
