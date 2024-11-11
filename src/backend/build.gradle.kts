@@ -27,15 +27,18 @@ tasks {
 
     // Not the best way of doing this, but should work out.
     processResources {
-        into("schemas") {
-            from(project(":schema-generator").tasks.named("generateAllSchemas"))
+        from(project(":schema-generator").tasks.named("generateAllSchemas")) {
+            into("schemas")
         }
         if (project.properties["live.dev.embedFrontend"] == "true") {
-            into("admin") {
-                from(project(":frontend").tasks.named("pnpm_run_buildAdmin"))
+            from(project(":frontend").tasks.named("pnpm_run_buildAdmin")) {
+                into("admin")
             }
-            into("overlay") {
-                from(project(":frontend").tasks.named("pnpm_run_buildOverlay"))
+            from(project(":frontend").tasks.named("pnpm_run_buildOverlay")) {
+                into("overlay")
+            }
+            from(project(":frontend").projectDir.resolve("main")) {
+                into("main")
             }
         }
     }
