@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .link-container {
+            text-align: center;
+        }
+        .link {
+            font-size: 2em;
+            margin: 10px 0;
+            display: block;
+            color: #333;
+            text-decoration: none;
+        }
+        .link:hover {
+            color: #007acc;
+        }
+    </style>
+</head>
+<body>
+    <div class="link-container">
+        <a href="/admin" class="link">/admin</a>
+        <a href="/overlay?noStatus" class="link">/overlay?noStatus</a>
+        <a href="/api/admin/advancedJsonPreview?fields=all" class="link">/api/admin/advancedJsonPreview?fields=all</a>
+        <a href="https://github.com/icpc/live-v3" class="link">https://github.com/icpc/live-v3</a>
+    </div>
+</body>
+</html>
