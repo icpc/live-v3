@@ -18,6 +18,16 @@ maven("https://jitpack.io") {
 }
 ```
 
+Plugins for specific CDSs are loaded with ServiceLoader. If you are using shadow gradle plugin, 
+it would break it by default. To preverve required files don't forget to add 
+```kotlin
+    shadowJar {
+        mergeServiceFiles()
+    }
+```
+
+in your shadowJar task definition. 
+
 # Adding a full library
 
 Add the following dependency to make everything accessible: 
