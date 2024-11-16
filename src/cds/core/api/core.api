@@ -91,14 +91,14 @@ public final class org/icpclive/cds/adapters/ComputedDataConfig {
 	public final fun getFirstToSolves ()Z
 	public final fun getIoiScoreDifferences ()Z
 	public final fun getPropagateHidden ()Z
-	public final fun getReplaceCommetaryTags ()Z
+	public final fun getReplaceCommentaryTags ()Z
 	public final fun getSubmissionResultsAfterFreeze ()Z
 	public final fun getSubmissionsAfterEnd ()Z
 	public final fun getUnhideColorWhenSolved ()Z
 	public final fun setFirstToSolves (Z)V
 	public final fun setIoiScoreDifferences (Z)V
 	public final fun setPropagateHidden (Z)V
-	public final fun setReplaceCommetaryTags (Z)V
+	public final fun setReplaceCommentaryTags (Z)V
 	public final fun setSubmissionResultsAfterFreeze (Z)V
 	public final fun setSubmissionsAfterEnd (Z)V
 	public final fun setUnhideColorWhenSolved (Z)V

@@ -43,7 +43,7 @@ public class ComputedDataConfig internal constructor() {
     public var submissionResultsAfterFreeze: Boolean = false
     public var propagateHidden: Boolean = true
     public var unhideColorWhenSolved: Boolean = true
-    public var replaceCommetaryTags: Boolean = true
+    public var replaceCommentaryTags: Boolean = true
 }
 
 private inline fun Flow<ContestUpdate>.applyIf(cond: Boolean, adapter: Flow<ContestUpdate>.() -> Flow<ContestUpdate>) = if (cond) adapter() else this
@@ -59,5 +59,5 @@ public fun Flow<ContestUpdate>.addComputedData(configure: ComputedDataConfig.() 
         .applyIf(config.propagateHidden) { hideHiddenProblemsRuns() }
         .applyIf(config.firstToSolves) { addFirstToSolves() }
         .applyIf(config.ioiScoreDifferences) { calculateScoreDifferences() }
-        .applyIf(config.replaceCommetaryTags) { processCommentaryTags() }
+        .applyIf(config.replaceCommentaryTags) { processCommentaryTags() }
 }
