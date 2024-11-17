@@ -1,0 +1,14 @@
+{
+    "type":"clics",
+    "feeds": [
+      {
+        "source": {
+          "url": "https://nasouth24.kattis.com/api/clics/",
+          "login": "$creds.kattis_lperovskaya",
+          "password": "$creds.kattis_nasouth24"
+        },
+        "contestId": "nasouth24d1",
+        "feedVersion": "DRAFT"
+      }
+    ]
+  }

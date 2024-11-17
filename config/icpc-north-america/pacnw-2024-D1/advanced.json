@@ -1,21 +1,44 @@
 {
-  "startTime": "2024-02-24T19:10:16.279",
-  "problemOverrides": {
-    "A": {"color": "#e6194B"},
-    "B": {"color": "#3cb44b"},
-    "C": {"color": "#ffe119"},
-    "D": {"color": "#4363d8"},
-    "E": {"color": "#f58231"},
-    "F": {"color": "#42d4f4"},
-    "G": {"color": "#f032e6"},
-    "H": {"color": "#fabed4"},
-    "I": {"color": "#469990"},
-    "J": {"color": "#dcbeff"},
-    "K": {"color": "#9A6324"},
-    "L": {"color": "#fffac8"},
-    "M": {"color": "#800000"},
-    "N": {"color": "#aaffc3"},
-    "O": {"color": "#000075"},
-    "P": {"color": "#a9a9a9"}
-  }
+    "startTime": "2024-11-16T21:00:00Z",
+    "problemOverrides": {
+        "abcstring-1": {
+            "color": "#000000ff"
+        },
+        "acappellarecording-1": {
+            "color": "#ff00ffff"
+        },
+        "acceptableseatingarrangements-1": {
+            "color": "#daa520ff"
+        },
+        "balancedtreepath-1": {
+            "color": "#ff0000ff"
+        },
+        "candyfactory-1": {
+            "color": "#00ff00ff"
+        },
+        "champernowneverification-1": {
+            "color": "#808080ff"
+        },
+        "fourdierolls-1": {
+            "color": "#800080ff"
+        },
+        "itemselection-1": {
+            "color": "#ffff00ff"
+        },
+        "magiccube-1": {
+            "color": "#ffa500ff"
+        },
+        "orderedproblemset-1": {
+            "color": "#ffffffff"
+        },
+        "sequenceguessing-1": {
+            "color": "#0000ffff"
+        },
+        "training-1": {
+            "color": "#008000ff"
+        },
+        "triplesevens-1": {
+            "color": "#000000ff"
+        }
+    }
 }

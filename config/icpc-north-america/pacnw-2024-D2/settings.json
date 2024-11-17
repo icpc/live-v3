@@ -4,7 +4,7 @@
   "feeds": [
     {
       "source": {
-        "url": "https://gnyserver.icpc-vcss.org:50443",
+        "url": "https://pacnwpractice.icpc-vcss.org:50444",
         "login": "icpclive",
         "password": "1"
       },
