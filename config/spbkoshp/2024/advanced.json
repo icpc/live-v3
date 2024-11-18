@@ -25,7 +25,7 @@
       }
     }
   },
-  "freezeTimeSeconds": 144000,
+  "freezeTimeSeconds": 14400,
   "queueSettings": {
     "maxQueueSize": 20
   },
@@ -36,14 +36,14 @@
         "peerName": "{comp}",
         "url": "http://192.168.1.33:13478",
         "streamType": "desktop",
-        "credential": "masha-party-once"
+        "credential": "live"
       },
       "camera": {
         "type": "WebRTCGrabberConnection",
         "url": "http://192.168.1.33:13478",
         "peerName": "{comp}",
         "streamType": "webcam",
-        "credential": "masha-party-once"
+        "credential": "live"
       },
       "achievement": {
         "type": "Image",

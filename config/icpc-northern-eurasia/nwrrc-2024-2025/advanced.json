@@ -7,14 +7,14 @@
         "peerName": "{comp}",
         "url": "http://192.168.1.33:13478",
         "streamType": "desktop",
-        "credential": "masha-party-once"
+        "credential": "live"
       },
       "camera": {
         "type": "WebRTCGrabberConnection",
         "url": "http://192.168.1.33:13478",
         "peerName": "{comp}",
         "streamType": "webcam",
-        "credential": "masha-party-once"
+        "credential": "live"
       },
       "achievement": {
         "type": "Image",
@@ -137,7 +137,7 @@
     "spb519": { "displayName": "SPb ITMO: Yokarniy babay" },
     "spb511": { "displayName": "SPb ITMO: defeCTive team" }
   },
-  "freezeTimeSeconds": 18000000,
+  "freezeTimeSeconds": 14400,
   "problemOverrides": {
     "A": { "color": "#A6406E" },
     "B": { "color": "#BB7190" },
