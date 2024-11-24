@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.serializers.RegexSerializer
 import org.icpclive.cds.util.serializers.*
 import java.io.InputStream
@@ -176,7 +177,36 @@ internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.t
 
 @Serializable
 @JvmInline
-public value class RegexSet(public val regexes: Map<Regex, String>)
+public value class RegexSet(public val regexes: Map<Regex, String>) {
+    public fun applyTo(data: String): String? {
+        val matched = regexes.entries.filter { data.matches(it.key) }
+        return when (matched.size) {
+            0 -> {
+                logger.warning { "None of regexes ${regexes.map { it.key }} didn't match $this" }
+                null
+            }
+
+            1 -> {
+                val (regex, replace) = matched.single()
+                try {
+                    data.replace(regex, replace)
+                } catch (e: RuntimeException) {
+                    logger.warning { "Failed to apply $regex -> $replace to ${this}: ${e.message}" }
+                    null
+                }
+            }
+
+            else -> {
+                logger.warning { "Multiple regexes ${matched.map { it.key }} match $this" }
+                null
+            }
+        }
+    }
+
+    private companion object {
+        val logger by getLogger()
+    }
+}
 
 /**
  * In some cases, the contest system provides some useful information as part of the team name.

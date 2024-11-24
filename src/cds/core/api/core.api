@@ -2289,7 +2289,7 @@ public final class org/icpclive/cds/tunning/RankingSettings$Companion {
 }
 
 public final class org/icpclive/cds/tunning/RegexSet {
-	public static final field Companion Lorg/icpclive/cds/tunning/RegexSet$Companion;
+	public static final fun applyTo-impl (Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
 	public static final synthetic fun box-impl (Ljava/util/Map;)Lorg/icpclive/cds/tunning/RegexSet;
 	public static fun constructor-impl (Ljava/util/Map;)Ljava/util/Map;
 	public fun equals (Ljava/lang/Object;)Z
@@ -2312,10 +2312,6 @@ public synthetic class org/icpclive/cds/tunning/RegexSet$$serializer : kotlinx/s
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize-OL6087w (Lkotlinx/serialization/encoding/Encoder;Ljava/util/Map;)V
 	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/RegexSet$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/tunning/TeamInfoOverride {

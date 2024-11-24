@@ -50,11 +50,12 @@ val cdsPlugins = listOf(
     "ejudge",
     "eolymp",
     "krsu",
+    "merger",
     "noop",
     "nsu",
     "pcms",
     "testsys",
-    "yandex"
+    "yandex",
 )
 
 for (projectName in simpleProjects) {

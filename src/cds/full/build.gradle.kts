@@ -31,6 +31,7 @@ dependencies {
     apiAndDokka(projects.cds.plugins.ejudge)
     apiAndDokka(projects.cds.plugins.eolymp)
     apiAndDokka(projects.cds.plugins.krsu)
+    apiAndDokka(projects.cds.plugins.merger)
     apiAndDokka(projects.cds.plugins.noop)
     apiAndDokka(projects.cds.plugins.nsu)
     apiAndDokka(projects.cds.plugins.pcms)
