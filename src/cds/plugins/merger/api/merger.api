@@ -1,0 +1,52 @@
+public abstract interface class org/icpclive/cds/plugins/merger/MergerSettings : org/icpclive/cds/settings/CDSSettings {
+	public abstract fun getSources ()Ljava/util/List;
+	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
+}
+
+public final class org/icpclive/cds/plugins/merger/MergerSettingsBuilder : org/icpclive/cds/plugins/merger/MergerSettings {
+	public fun <init> (Ljava/util/List;)V
+	public fun <init> (Lorg/icpclive/cds/plugins/merger/MergerSettings;)V
+	public final fun build ()Lorg/icpclive/cds/plugins/merger/MergerSettings;
+	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
+	public fun getPreviousDays ()Ljava/util/List;
+	public fun getSources ()Ljava/util/List;
+	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
+	public fun setPreviousDays (Ljava/util/List;)V
+	public fun setSources (Ljava/util/List;)V
+}
+
+public final class org/icpclive/cds/plugins/merger/MergerSettingsImplKt {
+	public static final fun MergerSettings (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/merger/MergerSettings;
+	public static synthetic fun MergerSettings$default (Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/merger/MergerSettings;
+	public static final fun copy (Lorg/icpclive/cds/plugins/merger/MergerSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/merger/MergerSettings;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/merger/MergerSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/merger/MergerSettings;
+}
+
+public final class org/icpclive/cds/plugins/merger/SubFeed {
+	public static final field Companion Lorg/icpclive/cds/plugins/merger/SubFeed$Companion;
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/icpclive/cds/settings/CDSSettings;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getGroupIdRegex-0vPN_Lw ()Ljava/util/Map;
+	public final fun getLanguageIdRegex-0vPN_Lw ()Ljava/util/Map;
+	public final fun getOrganizationIdRegex-0vPN_Lw ()Ljava/util/Map;
+	public final fun getProblemIdRegex-0vPN_Lw ()Ljava/util/Map;
+	public final fun getRunIdRegex-0vPN_Lw ()Ljava/util/Map;
+	public final fun getSettings ()Lorg/icpclive/cds/settings/CDSSettings;
+	public final fun getTeamIdRegex-0vPN_Lw ()Ljava/util/Map;
+}
+
+public synthetic class org/icpclive/cds/plugins/merger/SubFeed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/plugins/merger/SubFeed$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/plugins/merger/SubFeed;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/plugins/merger/SubFeed;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/plugins/merger/SubFeed$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+

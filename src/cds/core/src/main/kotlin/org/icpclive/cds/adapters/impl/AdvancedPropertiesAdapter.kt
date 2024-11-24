@@ -169,32 +169,6 @@ private fun List<TeamInfo>.filterNotSubmitted(show: Boolean?, submittedTeams: Se
     }
 }
 
-private fun String.matchRegexSet(regexes: RegexSet?): String? {
-    if (regexes == null) return null
-    val matched = regexes.regexes.entries.filter { this.matches(it.key) }
-    return when (matched.size) {
-        0 -> {
-            logger.warning { "None of regexes ${regexes.regexes.map { it.key }} didn't match $this" }
-            null
-        }
-
-        1 -> {
-            val (regex, replace) = matched.single()
-            try {
-                this.replace(regex, replace)
-            } catch (e: RuntimeException) {
-                logger.warning { "Failed to apply $regex -> $replace to ${this}: ${e.message}" }
-                null
-            }
-        }
-
-        else -> {
-            logger.warning { "Multiple regexes ${matched.map { it.key }} match $this" }
-            null
-        }
-    }
-}
-
 private fun applyRegex(
     teams: List<TeamInfo>,
     regexOverrides: TeamRegexOverrides?,
@@ -202,12 +176,12 @@ private fun applyRegex(
 ): List<TeamInfo> {
     if (regexOverrides == null) return teams
     return teams.map { team ->
-        val newOrg = team.key().matchRegexSet(regexOverrides.organizationRegex)?.toOrganizationId()
+        val newOrg = regexOverrides.organizationRegex?.applyTo(team.key())?.toOrganizationId()
         val newGroups = regexOverrides.groupRegex?.entries?.filter { (_, regex) ->
             regex.matches(team.key())
         }?.map { it.key.toGroupId() }.orEmpty()
         val newCustomFields = regexOverrides.customFields?.mapValues { (_, regex) ->
-            team.key().matchRegexSet(regex)
+            regex.applyTo(team.key())
         }?.filterValues { it != null }?.mapValues { it.value!! }.orEmpty()
 
         team.copy(
