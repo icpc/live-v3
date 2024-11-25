@@ -18,7 +18,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("yandex")
-public sealed interface YandexSettings : CDSSettings {
+public sealed interface YandexSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val apiKey: Credential
     public val loginRegex: Regex
     public val contestId: Int

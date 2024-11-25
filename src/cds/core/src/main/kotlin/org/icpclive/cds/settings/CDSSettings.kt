@@ -40,8 +40,6 @@ public class PreviousDaySettings(
 public interface CDSSettings {
     public val emulation: EmulationSettings?
         get() = null
-    public val network: NetworkSettings
-        get() = NetworkSettings()
     public val previousDays: List<PreviousDaySettings>
         get() = emptyList()
 

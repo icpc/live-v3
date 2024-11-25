@@ -5,15 +5,13 @@ import org.icpclive.cds.api.*
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.plugins.cms.model.*
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.getLogger
 import kotlin.time.Duration
-import kotlin.time.Duration.Companion.INFINITE
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("cms")
-public sealed interface CmsSettings : CDSSettings {
+public sealed interface CmsSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val source: UrlOrLocalPath.Url
     public val activeContest: String
     public val otherContests: List<String>

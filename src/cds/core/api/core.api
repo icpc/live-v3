@@ -2001,7 +2001,6 @@ public final class org/icpclive/cds/settings/Authorization$Companion {
 public abstract interface class org/icpclive/cds/settings/CDSSettings {
 	public static final field Companion Lorg/icpclive/cds/settings/CDSSettings$Companion;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
-	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
 	public abstract fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
@@ -2056,29 +2055,6 @@ public final class org/icpclive/cds/settings/EmulationSettings$Companion {
 
 public final class org/icpclive/cds/settings/EntrypointKt {
 	public static final fun fromFile (Lorg/icpclive/cds/settings/CDSSettings$Companion;Ljava/nio/file/Path;Lorg/icpclive/cds/settings/CredentialProvider;)Lorg/icpclive/cds/settings/CDSSettings;
-}
-
-public final class org/icpclive/cds/settings/NetworkSettings {
-	public static final field Companion Lorg/icpclive/cds/settings/NetworkSettings$Companion;
-	public fun <init> ()V
-	public fun <init> (Z)V
-	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAllowUnsecureConnections ()Z
-}
-
-public synthetic class org/icpclive/cds/settings/NetworkSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/settings/NetworkSettings$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/NetworkSettings;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/NetworkSettings;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/settings/NetworkSettings$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/settings/PreviousDaySettings {

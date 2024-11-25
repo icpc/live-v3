@@ -44,7 +44,7 @@ internal class ContestData(
 )
 
 @Builder("atcoder")
-public sealed interface AtcoderSettings : CDSSettings {
+public sealed interface AtcoderSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val contestId: String
     public val sessionCookie: Credential
     @Human

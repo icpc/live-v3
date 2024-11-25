@@ -35,7 +35,7 @@ public class ClicsFeed(
 )
 
 @Builder("clics")
-public sealed interface ClicsSettings : CDSSettings {
+public sealed interface ClicsSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val feeds: List<ClicsFeed>
     override fun toDataSource(): ContestDataSource = ClicsDataSource(this)
 }

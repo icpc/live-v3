@@ -7,11 +7,10 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
 import org.icpclive.ksp.cds.Builder
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("dmoj")
-public sealed interface DmojSettings : CDSSettings {
+public sealed interface DmojSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val source: UrlOrLocalPath.Url
     public val contestId: String
     public val apiKey: Credential

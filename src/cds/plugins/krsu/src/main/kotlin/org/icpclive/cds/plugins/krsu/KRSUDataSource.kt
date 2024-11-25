@@ -5,14 +5,14 @@ import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.DataLoader
+import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
+import org.icpclive.cds.settings.*
 import org.icpclive.ksp.cds.Builder
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("krsu")
-public sealed interface KRSUSettings : CDSSettings {
+public sealed interface KRSUSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val submissionsSource: UrlOrLocalPath
     public val contestSource: UrlOrLocalPath
     public val timeZone: TimeZone

@@ -16,7 +16,7 @@ import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("pcms")
-public sealed interface PCMSSettings : CDSSettings {
+public sealed interface PCMSSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val source: UrlOrLocalPath
     public val jobsSources: UrlOrLocalPath?
         get() = null

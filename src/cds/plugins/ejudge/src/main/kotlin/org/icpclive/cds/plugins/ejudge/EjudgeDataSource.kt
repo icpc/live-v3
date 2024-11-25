@@ -7,8 +7,7 @@ import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.child
 import org.icpclive.cds.util.children
 import org.w3c.dom.Element
@@ -18,7 +17,7 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("ejudge")
-public sealed interface EjudgeSettings : CDSSettings {
+public sealed interface EjudgeSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val source: UrlOrLocalPath
     public val resultType: ContestResultType
         get() = ContestResultType.ICPC

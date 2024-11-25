@@ -1,4 +1,4 @@
-public abstract interface class org/icpclive/cds/plugins/yandex/YandexSettings : org/icpclive/cds/settings/CDSSettings {
+public abstract interface class org/icpclive/cds/plugins/yandex/YandexSettings : org/icpclive/cds/ktor/KtorNetworkSettingsProvider, org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getApiKey ()Lorg/icpclive/cds/settings/Credential;
 	public abstract fun getContestId ()I
 	public abstract fun getLoginRegex ()Lkotlin/text/Regex;
@@ -14,14 +14,14 @@ public final class org/icpclive/cds/plugins/yandex/YandexSettingsBuilder : org/i
 	public fun getContestId ()I
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getLoginRegex ()Lkotlin/text/Regex;
-	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/ktor/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun setApiKey (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setContestId (I)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setLoginRegex (Lkotlin/text/Regex;)V
-	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/ktor/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
 }

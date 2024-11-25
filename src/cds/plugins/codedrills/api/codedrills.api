@@ -13,14 +13,12 @@ public final class org/icpclive/cds/plugins/codedrills/CodeDrillsSettingsBuilder
 	public fun getAuthKey ()Lorg/icpclive/cds/settings/Credential;
 	public fun getContestId ()Ljava/lang/String;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
-	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getPort ()I
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getUrl ()Ljava/lang/String;
 	public fun setAuthKey (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setContestId (Ljava/lang/String;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
-	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
 	public fun setPort (I)V
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setUrl (Ljava/lang/String;)V

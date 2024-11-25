@@ -58,7 +58,7 @@ private suspend fun GraphQLKtorClient.teams(contestId: String, after: String?, c
 
 
 @Builder("eolymp")
-public sealed interface EOlympSettings : CDSSettings {
+public sealed interface EOlympSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val url: String
     public val token: Credential
     public val contestId: String
