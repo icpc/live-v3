@@ -6,15 +6,14 @@ import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
-import org.icpclive.cds.settings.CDSSettings
-import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.settings.*
 import java.nio.charset.Charset
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("testsys")
-public sealed interface TestSysSettings : CDSSettings {
+public sealed interface TestSysSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val source: UrlOrLocalPath
     public val timeZone: TimeZone
         get() = TimeZone.of("Europe/Moscow")

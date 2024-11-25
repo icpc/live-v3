@@ -17,7 +17,7 @@ import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("cf")
-public sealed interface CFSettings : CDSSettings {
+public sealed interface CFSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val contestId: Int
     public val apiKey: Credential
     public val apiSecret: Credential

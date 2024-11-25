@@ -755,7 +755,7 @@ public final class com/eolymp/graphql/judgecontestteams/PageInfo$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public abstract interface class org/icpclive/cds/plugins/eolymp/EOlympSettings : org/icpclive/cds/settings/CDSSettings {
+public abstract interface class org/icpclive/cds/plugins/eolymp/EOlympSettings : org/icpclive/cds/ktor/KtorNetworkSettingsProvider, org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getContestId ()Ljava/lang/String;
 	public fun getPreviousDaysContestIds ()Ljava/util/List;
 	public abstract fun getToken ()Lorg/icpclive/cds/settings/Credential;
@@ -769,14 +769,14 @@ public final class org/icpclive/cds/plugins/eolymp/EOlympSettingsBuilder : org/i
 	public final fun build ()Lorg/icpclive/cds/plugins/eolymp/EOlympSettings;
 	public fun getContestId ()Ljava/lang/String;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
-	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/ktor/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getPreviousDaysContestIds ()Ljava/util/List;
 	public fun getToken ()Lorg/icpclive/cds/settings/Credential;
 	public fun getUrl ()Ljava/lang/String;
 	public fun setContestId (Ljava/lang/String;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
-	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/ktor/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setPreviousDaysContestIds (Ljava/util/List;)V
 	public fun setToken (Lorg/icpclive/cds/settings/Credential;)V

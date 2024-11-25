@@ -14,7 +14,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 @Builder("allcups")
-public sealed interface AllCupsSettings : CDSSettings {
+public sealed interface AllCupsSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val contestId: Int
     public val token: Credential
     public val contestName: String

@@ -7,10 +7,8 @@ public final class org/icpclive/cds/plugins/noop/NoopSettingsBuilder : org/icpcl
 	public fun <init> (Lorg/icpclive/cds/plugins/noop/NoopSettings;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/noop/NoopSettings;
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
-	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
-	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
 }
 

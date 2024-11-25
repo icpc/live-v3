@@ -33,7 +33,7 @@ private object SubmissionTimeSerializer : FormatterInstantSerializer(DateTimeCom
 })
 
 @Builder("cats")
-public sealed interface CatsSettings : CDSSettings {
+public sealed interface CatsSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val login: Credential
     public val password: Credential
     public val source: UrlOrLocalPath.Url

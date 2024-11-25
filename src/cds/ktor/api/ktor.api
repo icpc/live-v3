@@ -13,14 +13,14 @@ public abstract interface class org/icpclive/cds/ktor/DataLoader {
 }
 
 public final class org/icpclive/cds/ktor/DataLoader$Companion {
-	public final fun byteArray (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun byteArray (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun json (Lkotlinx/serialization/DeserializationStrategy;Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun lineFlow (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lkotlinx/coroutines/flow/Flow;
-	public final fun string (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun string (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun xml (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
-	public final fun xml (Lorg/icpclive/cds/settings/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun byteArray (Lorg/icpclive/cds/ktor/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun byteArray (Lorg/icpclive/cds/ktor/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun json (Lkotlinx/serialization/DeserializationStrategy;Lorg/icpclive/cds/ktor/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun lineFlow (Lorg/icpclive/cds/ktor/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lkotlinx/coroutines/flow/Flow;
+	public final fun string (Lorg/icpclive/cds/ktor/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun string (Lorg/icpclive/cds/ktor/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun xml (Lorg/icpclive/cds/ktor/NetworkSettings;Lkotlin/jvm/functions/Function0;)Lorg/icpclive/cds/ktor/DataLoader;
+	public final fun xml (Lorg/icpclive/cds/ktor/NetworkSettings;Lorg/icpclive/cds/settings/UrlOrLocalPath;)Lorg/icpclive/cds/ktor/DataLoader;
 }
 
 public final class org/icpclive/cds/ktor/DataLoaderKt {
@@ -28,13 +28,40 @@ public final class org/icpclive/cds/ktor/DataLoaderKt {
 	public static final fun map (Lorg/icpclive/cds/ktor/DataLoader;Lkotlin/jvm/functions/Function2;)Lorg/icpclive/cds/ktor/DataLoader;
 }
 
+public abstract interface class org/icpclive/cds/ktor/KtorNetworkSettingsProvider {
+	public fun getNetwork ()Lorg/icpclive/cds/ktor/NetworkSettings;
+}
+
 public final class org/icpclive/cds/ktor/LiveSSLExceptionKt {
 	public static final fun wrapIfSSLError (Ljava/lang/Throwable;)Ljava/lang/Throwable;
 	public static final fun wrapIfSSLError (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 
+public final class org/icpclive/cds/ktor/NetworkSettings {
+	public static final field Companion Lorg/icpclive/cds/ktor/NetworkSettings$Companion;
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAllowUnsecureConnections ()Z
+}
+
+public synthetic class org/icpclive/cds/ktor/NetworkSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/ktor/NetworkSettings$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/ktor/NetworkSettings;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/ktor/NetworkSettings;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/ktor/NetworkSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/ktor/NetworkUtilsKt {
-	public static final fun createHttpClient (Lorg/icpclive/cds/settings/NetworkSettings;)Lio/ktor/client/HttpClient;
-	public static final fun createHttpClient (Lorg/icpclive/cds/settings/NetworkSettings;Lkotlin/jvm/functions/Function1;)Lio/ktor/client/HttpClient;
+	public static final fun createHttpClient (Lorg/icpclive/cds/ktor/NetworkSettings;)Lio/ktor/client/HttpClient;
+	public static final fun createHttpClient (Lorg/icpclive/cds/ktor/NetworkSettings;Lkotlin/jvm/functions/Function1;)Lio/ktor/client/HttpClient;
 }
 

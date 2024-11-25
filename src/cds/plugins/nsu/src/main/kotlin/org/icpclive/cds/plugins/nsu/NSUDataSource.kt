@@ -22,7 +22,7 @@ import kotlin.time.Duration.Companion.seconds
 
 
 @Builder("nsu")
-public sealed interface NSUSettings : CDSSettings {
+public sealed interface NSUSettings : CDSSettings, KtorNetworkSettingsProvider {
     public val source: UrlOrLocalPath.Url
     public val olympiadId: Int
     public val tourId: Int

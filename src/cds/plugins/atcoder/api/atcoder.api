@@ -1,4 +1,4 @@
-public abstract interface class org/icpclive/cds/plugins/atcoder/AtcoderSettings : org/icpclive/cds/settings/CDSSettings {
+public abstract interface class org/icpclive/cds/plugins/atcoder/AtcoderSettings : org/icpclive/cds/ktor/KtorNetworkSettingsProvider, org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getContestId ()Ljava/lang/String;
 	public abstract fun getContestLength-UwyO8pc ()J
 	public abstract fun getSessionCookie ()Lorg/icpclive/cds/settings/Credential;
@@ -13,14 +13,14 @@ public final class org/icpclive/cds/plugins/atcoder/AtcoderSettingsBuilder : org
 	public fun getContestId ()Ljava/lang/String;
 	public fun getContestLength-UwyO8pc ()J
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
-	public fun getNetwork ()Lorg/icpclive/cds/settings/NetworkSettings;
+	public fun getNetwork ()Lorg/icpclive/cds/ktor/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getSessionCookie ()Lorg/icpclive/cds/settings/Credential;
 	public fun getStartTime ()Lkotlinx/datetime/Instant;
 	public fun setContestId (Ljava/lang/String;)V
 	public fun setContestLength-LRDsOJo (J)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
-	public fun setNetwork (Lorg/icpclive/cds/settings/NetworkSettings;)V
+	public fun setNetwork (Lorg/icpclive/cds/ktor/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setSessionCookie (Lorg/icpclive/cds/settings/Credential;)V
 	public fun setStartTime (Lkotlinx/datetime/Instant;)V
