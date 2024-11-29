@@ -13,8 +13,9 @@ export const useLocalStorageState = <T> (key: string, defaultValue: T): [T, (new
     return [state, saveState];
 };
 
-export const timeMsToDuration = (timeMs: number) => DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
-export const unixTimeMsToLocalTime = (timeMs: number) => DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss");
+export const timeSecondsToDuration = (timeMs?: number) => timeMs && DateTime.fromSeconds(timeMs, { zone: "utc" }).toFormat("H:mm:ss") || "??";
+export const timeMsToDuration = (timeMs?: number) => timeMs && DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss") || "??";
+export const unixTimeMsToLocalTime = (timeMs?: number) => timeMs && DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss") || "??";
 
 export const useWebsocket = <T, R>(wsUrl: string, handleMessage: (message: MessageEvent<T>) => R) => {
     const [isConnected, setIsConnected] = useState(false);
