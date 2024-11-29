@@ -115,6 +115,7 @@ internal class ClicsModel {
                 put("clicsTeamFullName", name)
                 put("clicsTeamDisplayName", displayName ?: name)
                 label?.let { put("clicsTeamLabel", it) }
+                icpcId?.let { put("icpc_id", it) }
             }
         )
     }

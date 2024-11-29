@@ -7,6 +7,7 @@ import org.icpclive.ksp.clics.*
 public interface Team {
     @Required public val id: String
     @Required public val name: String
+    public val icpcId: String?
     public val organizationId: String?
     public val groupIds: List<String>
     public val label: String?
