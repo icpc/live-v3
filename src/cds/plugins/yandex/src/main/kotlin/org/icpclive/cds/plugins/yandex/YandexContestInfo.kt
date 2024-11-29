@@ -18,6 +18,7 @@ private fun Problem.toApi(index: Int, resultType: ContestResultType) = ProblemIn
 )
 
 internal class YandexContestInfo(
+    private val loginRegex: Regex,
     contestDescription: ContestDescription,
     problems: List<Problem>,
     participants: List<Participant>,
@@ -28,8 +29,8 @@ internal class YandexContestInfo(
     private val startTime = Instant.parse(contestDescription.startTime)
     private val duration = contestDescription.duration.seconds
     private val freezeTime = (contestDescription.freezeTime ?: contestDescription.duration).seconds
-    private val problems = problems.mapIndexed { index, it -> it.toApi(index, resultType) }
-    private val teams =  participants.map { it.toTeamInfo() }.sortedBy { it.id.value }
+    private val problems = problems.sortedBy { it.alias }.mapIndexed { index, it -> it.toApi(index, resultType) }
+    private val teams =  participants.map { it.toTeamInfo(loginRegex) }.sortedBy { it.id.value }
     private val teamIds = participants.associate { it.id to it.login }
     private val testCountByProblem = problems.associate { it.id to it.testCount }
 

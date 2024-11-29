@@ -1,8 +1,5 @@
 package org.icpclive.cds.plugins.yandex
 
-import io.ktor.client.call.*
-import io.ktor.client.plugins.*
-import io.ktor.client.request.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.Json
@@ -33,12 +30,8 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
         .withOAuth(settings.apiKey)
 
     private val contestDescriptionLoader = DataLoader.json<ContestDescription>(settings.network, contestBaseUrl)
-    private val problemLoader = DataLoader.json<Problems>(settings.network, contestBaseUrl.subDir("problems")).map {
-        it.problems.sortedBy { it.alias }
-    }
-    private val participantLoader = DataLoader.json<List<Participant>>(settings.network, contestBaseUrl.subDir("participants")) .map {
-        it.filter { participant -> participant.login.matches(settings.loginRegex) }
-    }
+    private val problemLoader = DataLoader.json<Problems>(settings.network, contestBaseUrl.subDir("problems")).map { it.problems }
+    private val participantLoader = DataLoader.json<List<Participant>>(settings.network, contestBaseUrl.subDir("participants"))
     private val allSubmissionsLoader = DataLoader.json<Submissions>(settings.network, contestBaseUrl.subDir("submissions?locale=ru&page=1&pageSize=100000")).map {
         it.submissions.reversed()
     }
@@ -51,6 +44,7 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
                 { log.error(it) { "Failed to reload contest info" } }
             ) {
                 YandexContestInfo(
+                    settings.loginRegex,
                     contestDescriptionLoader.load(),
                     problemLoader.load(),
                     participantLoader.load(),
@@ -101,7 +95,6 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
     private fun newSubmissionsFlow(
         period: Duration,
     ): Flow<List<Submission>> {
-        val formatter = Json { ignoreUnknownKeys = true }
         var pendingRunId = 0L
 
         return loopFlow(

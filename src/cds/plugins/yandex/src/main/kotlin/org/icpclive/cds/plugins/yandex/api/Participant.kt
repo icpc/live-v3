@@ -10,7 +10,7 @@ internal data class Participant(
     val login: String,
     val uid: String?,
 ) {
-    fun toTeamInfo() = TeamInfo(
+    fun toTeamInfo(loginRegex: Regex) = TeamInfo(
         id = login.toTeamId(),
         fullName = name,
         displayName = name,
@@ -18,7 +18,7 @@ internal data class Participant(
         hashTag = null,
         medias = emptyMap(),
         isOutOfContest = false,
-        isHidden = false,
+        isHidden = !loginRegex.matches(login),
         organizationId = null
     )
 }
