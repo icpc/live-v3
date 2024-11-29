@@ -49,7 +49,7 @@ class StatisticsService : Service {
 
     private fun computeIOIStatistics(it: ContestStateWithScoreboard): SolutionsStatistic? {
         val info = it.state.infoAfterEvent ?: return null
-        val problems = info.problems.size
+        val problems = info.scoreboardProblems.size
         return IOISolutionsStatistic(
             it.rankingAfter.order.size,
             List(problems) { problemId ->
