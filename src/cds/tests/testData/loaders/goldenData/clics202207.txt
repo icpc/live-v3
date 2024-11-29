@@ -178,7 +178,8 @@
                 "organizationId": "451",
                 "customFields": {
                     "clicsTeamFullName": "gETHyped",
-                    "clicsTeamDisplayName": "gETHyped"
+                    "clicsTeamDisplayName": "gETHyped",
+                    "icpc_id": "731947"
                 }
             },
             {
@@ -201,7 +202,8 @@
                 "organizationId": "2079",
                 "customFields": {
                     "clicsTeamFullName": "The Fan Team",
-                    "clicsTeamDisplayName": "The Fan Team"
+                    "clicsTeamDisplayName": "The Fan Team",
+                    "icpc_id": "794450"
                 }
             },
             {
@@ -224,7 +226,8 @@
                 "organizationId": "7083",
                 "customFields": {
                     "clicsTeamFullName": "Fallback Solutions",
-                    "clicsTeamDisplayName": "Fallback Solutions"
+                    "clicsTeamDisplayName": "Fallback Solutions",
+                    "icpc_id": "777529"
                 }
             },
             {
@@ -247,7 +250,8 @@
                 "organizationId": "8483",
                 "customFields": {
                     "clicsTeamFullName": "Top Of The Mountain",
-                    "clicsTeamDisplayName": "Top Of The Mountain"
+                    "clicsTeamDisplayName": "Top Of The Mountain",
+                    "icpc_id": "795517"
                 }
             },
             {
@@ -270,7 +274,8 @@
                 "organizationId": "8886",
                 "customFields": {
                     "clicsTeamFullName": "J'en perds deux",
-                    "clicsTeamDisplayName": "J'en perds deux"
+                    "clicsTeamDisplayName": "J'en perds deux",
+                    "icpc_id": "745993"
                 }
             },
             {
@@ -293,7 +298,8 @@
                 "organizationId": "8450",
                 "customFields": {
                     "clicsTeamFullName": "WalkLike3Egyptians",
-                    "clicsTeamDisplayName": "WalkLike3Egyptians"
+                    "clicsTeamDisplayName": "WalkLike3Egyptians",
+                    "icpc_id": "763538"
                 }
             },
             {
@@ -316,7 +322,8 @@
                 "organizationId": "10678",
                 "customFields": {
                     "clicsTeamFullName": "dQw4w9WgXcQ",
-                    "clicsTeamDisplayName": "dQw4w9WgXcQ"
+                    "clicsTeamDisplayName": "dQw4w9WgXcQ",
+                    "icpc_id": "737600"
                 }
             },
             {
@@ -339,7 +346,8 @@
                 "organizationId": "2122",
                 "customFields": {
                     "clicsTeamFullName": "Greedy2SAES",
-                    "clicsTeamDisplayName": "Greedy2SAES"
+                    "clicsTeamDisplayName": "Greedy2SAES",
+                    "icpc_id": "767293"
                 }
             },
             {
@@ -362,7 +370,8 @@
                 "organizationId": "5282",
                 "customFields": {
                     "clicsTeamFullName": "UBIdé",
-                    "clicsTeamDisplayName": "UBIdé"
+                    "clicsTeamDisplayName": "UBIdé",
+                    "icpc_id": "781062"
                 }
             },
             {
@@ -385,7 +394,8 @@
                 "organizationId": "3409",
                 "customFields": {
                     "clicsTeamFullName": "ENSLip",
-                    "clicsTeamDisplayName": "ENSLip"
+                    "clicsTeamDisplayName": "ENSLip",
+                    "icpc_id": "750196"
                 }
             },
             {
@@ -408,7 +418,8 @@
                 "organizationId": "11111",
                 "customFields": {
                     "clicsTeamFullName": "Jokers",
-                    "clicsTeamDisplayName": "Jokers"
+                    "clicsTeamDisplayName": "Jokers",
+                    "icpc_id": "796904"
                 }
             },
             {
@@ -431,7 +442,8 @@
                 "organizationId": "16191",
                 "customFields": {
                     "clicsTeamFullName": "CPU",
-                    "clicsTeamDisplayName": "CPU"
+                    "clicsTeamDisplayName": "CPU",
+                    "icpc_id": "792386"
                 }
             },
             {
@@ -454,7 +466,8 @@
                 "organizationId": "443",
                 "customFields": {
                     "clicsTeamFullName": "X Gonna Code It to Ya",
-                    "clicsTeamDisplayName": "X Gonna Code It to Ya"
+                    "clicsTeamDisplayName": "X Gonna Code It to Ya",
+                    "icpc_id": "789250"
                 }
             },
             {
@@ -477,7 +490,8 @@
                 "organizationId": "20085",
                 "customFields": {
                     "clicsTeamFullName": "CUNEF-1",
-                    "clicsTeamDisplayName": "CUNEF-1"
+                    "clicsTeamDisplayName": "CUNEF-1",
+                    "icpc_id": "779718"
                 }
             },
             {
@@ -500,7 +514,8 @@
                 "organizationId": "2257",
                 "customFields": {
                     "clicsTeamFullName": "Genova 1",
-                    "clicsTeamDisplayName": "Genova 1"
+                    "clicsTeamDisplayName": "Genova 1",
+                    "icpc_id": "795880"
                 }
             },
             {
@@ -523,7 +538,8 @@
                 "organizationId": "11205",
                 "customFields": {
                     "clicsTeamFullName": "JIS",
-                    "clicsTeamDisplayName": "JIS"
+                    "clicsTeamDisplayName": "JIS",
+                    "icpc_id": "768620"
                 }
             },
             {
@@ -546,7 +562,8 @@
                 "organizationId": "5282",
                 "customFields": {
                     "clicsTeamFullName": "UBIk",
-                    "clicsTeamDisplayName": "UBIk"
+                    "clicsTeamDisplayName": "UBIk",
+                    "icpc_id": "781063"
                 }
             },
             {
@@ -569,7 +586,8 @@
                 "organizationId": "3236",
                 "customFields": {
                     "clicsTeamFullName": "SIGKILL",
-                    "clicsTeamDisplayName": "SIGKILL"
+                    "clicsTeamDisplayName": "SIGKILL",
+                    "icpc_id": "772776"
                 }
             },
             {
@@ -592,7 +610,8 @@
                 "organizationId": "5687",
                 "customFields": {
                     "clicsTeamFullName": "ECL 1",
-                    "clicsTeamDisplayName": "ECL 1"
+                    "clicsTeamDisplayName": "ECL 1",
+                    "icpc_id": "780113"
                 }
             },
             {
@@ -615,7 +634,8 @@
                 "organizationId": "8869",
                 "customFields": {
                     "clicsTeamFullName": "flag[11]",
-                    "clicsTeamDisplayName": "flag[11]"
+                    "clicsTeamDisplayName": "flag[11]",
+                    "icpc_id": "774411"
                 }
             },
             {
@@ -638,7 +658,8 @@
                 "organizationId": "478",
                 "customFields": {
                     "clicsTeamFullName": "Rated C++",
-                    "clicsTeamDisplayName": "Rated C++"
+                    "clicsTeamDisplayName": "Rated C++",
+                    "icpc_id": "777725"
                 }
             },
             {
@@ -661,7 +682,8 @@
                 "organizationId": "742",
                 "customFields": {
                     "clicsTeamFullName": "INSA 1",
-                    "clicsTeamDisplayName": "INSA 1"
+                    "clicsTeamDisplayName": "INSA 1",
+                    "icpc_id": "777241"
                 }
             },
             {
@@ -684,7 +706,8 @@
                 "organizationId": "2273",
                 "customFields": {
                     "clicsTeamFullName": "UPC-3",
-                    "clicsTeamDisplayName": "UPC-3"
+                    "clicsTeamDisplayName": "UPC-3",
+                    "icpc_id": "776734"
                 }
             },
             {
@@ -707,7 +730,8 @@
                 "organizationId": "8869",
                 "customFields": {
                     "clicsTeamFullName": "flag[10]",
-                    "clicsTeamDisplayName": "flag[10]"
+                    "clicsTeamDisplayName": "flag[10]",
+                    "icpc_id": "754602"
                 }
             },
             {
@@ -730,7 +754,8 @@
                 "organizationId": "10640",
                 "customFields": {
                     "clicsTeamFullName": "DROP TABLE",
-                    "clicsTeamDisplayName": "DROP TABLE"
+                    "clicsTeamDisplayName": "DROP TABLE",
+                    "icpc_id": "766731"
                 }
             },
             {
@@ -753,7 +778,8 @@
                 "organizationId": "11538",
                 "customFields": {
                     "clicsTeamFullName": "Polychotomy",
-                    "clicsTeamDisplayName": "Polychotomy"
+                    "clicsTeamDisplayName": "Polychotomy",
+                    "icpc_id": "746211"
                 }
             },
             {
@@ -776,7 +802,8 @@
                 "organizationId": "11111",
                 "customFields": {
                     "clicsTeamFullName": "Bestagons",
-                    "clicsTeamDisplayName": "Bestagons"
+                    "clicsTeamDisplayName": "Bestagons",
+                    "icpc_id": "789252"
                 }
             },
             {
@@ -799,7 +826,8 @@
                 "organizationId": "10678",
                 "customFields": {
                     "clicsTeamFullName": "CoffeLimitExceeded",
-                    "clicsTeamDisplayName": "CoffeLimitExceeded"
+                    "clicsTeamDisplayName": "CoffeLimitExceeded",
+                    "icpc_id": "738477"
                 }
             },
             {
@@ -822,7 +850,8 @@
                 "organizationId": "6379",
                 "customFields": {
                     "clicsTeamFullName": "Un CE más",
-                    "clicsTeamDisplayName": "Un CE más"
+                    "clicsTeamDisplayName": "Un CE más",
+                    "icpc_id": "780116"
                 }
             },
             {
@@ -845,7 +874,8 @@
                 "organizationId": "10689",
                 "customFields": {
                     "clicsTeamFullName": "Sorbonne Rouge",
-                    "clicsTeamDisplayName": "Sorbonne Rouge"
+                    "clicsTeamDisplayName": "Sorbonne Rouge",
+                    "icpc_id": "780334"
                 }
             },
             {
@@ -868,7 +898,8 @@
                 "organizationId": "742",
                 "customFields": {
                     "clicsTeamFullName": "INSA 3",
-                    "clicsTeamDisplayName": "INSA 3"
+                    "clicsTeamDisplayName": "INSA 3",
+                    "icpc_id": "777243"
                 }
             },
             {
@@ -891,7 +922,8 @@
                 "organizationId": "8246",
                 "customFields": {
                     "clicsTeamFullName": "team name goes here",
-                    "clicsTeamDisplayName": "team name goes here"
+                    "clicsTeamDisplayName": "team name goes here",
+                    "icpc_id": "796540"
                 }
             },
             {
@@ -914,7 +946,8 @@
                 "organizationId": "20085",
                 "customFields": {
                     "clicsTeamFullName": "CUNEF-A",
-                    "clicsTeamDisplayName": "CUNEF-A"
+                    "clicsTeamDisplayName": "CUNEF-A",
+                    "icpc_id": "779719"
                 }
             },
             {
@@ -937,7 +970,8 @@
                 "organizationId": "3236",
                 "customFields": {
                     "clicsTeamFullName": "Pr3s3nTati0n_3Rr0r",
-                    "clicsTeamDisplayName": "Pr3s3nTati0n_3Rr0r"
+                    "clicsTeamDisplayName": "Pr3s3nTati0n_3Rr0r",
+                    "icpc_id": "767388"
                 }
             },
             {
@@ -960,7 +994,8 @@
                 "organizationId": "7083",
                 "customFields": {
                     "clicsTeamFullName": "Toroidal Polihedrons",
-                    "clicsTeamDisplayName": "Toroidal Polihedrons"
+                    "clicsTeamDisplayName": "Toroidal Polihedrons",
+                    "icpc_id": "777528"
                 }
             },
             {
@@ -983,7 +1018,8 @@
                 "organizationId": "10689",
                 "customFields": {
                     "clicsTeamFullName": "Sorbonne Blanc",
-                    "clicsTeamDisplayName": "Sorbonne Blanc"
+                    "clicsTeamDisplayName": "Sorbonne Blanc",
+                    "icpc_id": "780333"
                 }
             },
             {
@@ -1006,7 +1042,8 @@
                 "organizationId": "443",
                 "customFields": {
                     "clicsTeamFullName": "In eXtremis",
-                    "clicsTeamDisplayName": "In eXtremis"
+                    "clicsTeamDisplayName": "In eXtremis",
+                    "icpc_id": "789251"
                 }
             },
             {
@@ -1029,7 +1066,8 @@
                 "organizationId": "9745",
                 "customFields": {
                     "clicsTeamFullName": "x^3",
-                    "clicsTeamDisplayName": "x^3"
+                    "clicsTeamDisplayName": "x^3",
+                    "icpc_id": "791224"
                 }
             },
             {
@@ -1052,7 +1090,8 @@
                 "organizationId": "2261",
                 "customFields": {
                     "clicsTeamFullName": "UniTN MindsHub",
-                    "clicsTeamDisplayName": "UniTN MindsHub"
+                    "clicsTeamDisplayName": "UniTN MindsHub",
+                    "icpc_id": "794434"
                 }
             },
             {
@@ -1075,7 +1114,8 @@
                 "organizationId": "2170",
                 "customFields": {
                     "clicsTeamFullName": "Hackbulla",
-                    "clicsTeamDisplayName": "Hackbulla"
+                    "clicsTeamDisplayName": "Hackbulla",
+                    "icpc_id": "759152"
                 }
             },
             {
@@ -1098,7 +1138,8 @@
                 "organizationId": "8460",
                 "customFields": {
                     "clicsTeamFullName": "Slippin' Jimmies",
-                    "clicsTeamDisplayName": "Slippin' Jimmies"
+                    "clicsTeamDisplayName": "Slippin' Jimmies",
+                    "icpc_id": "761016"
                 }
             },
             {
@@ -1121,7 +1162,8 @@
                 "organizationId": "9635",
                 "customFields": {
                     "clicsTeamFullName": "7uring_net7",
-                    "clicsTeamDisplayName": "7uring_net7"
+                    "clicsTeamDisplayName": "7uring_net7",
+                    "icpc_id": "792281"
                 }
             },
             {
@@ -1144,7 +1186,8 @@
                 "organizationId": "8246",
                 "customFields": {
                     "clicsTeamFullName": "AFL",
-                    "clicsTeamDisplayName": "AFL"
+                    "clicsTeamDisplayName": "AFL",
+                    "icpc_id": "796541"
                 }
             },
             {
@@ -1167,7 +1210,8 @@
                 "organizationId": "2079",
                 "customFields": {
                     "clicsTeamFullName": "de Morgan",
-                    "clicsTeamDisplayName": "de Morgan"
+                    "clicsTeamDisplayName": "de Morgan",
+                    "icpc_id": "795882"
                 }
             },
             {
@@ -1190,7 +1234,8 @@
                 "organizationId": "11111",
                 "customFields": {
                     "clicsTeamFullName": "TempName",
-                    "clicsTeamDisplayName": "TempName"
+                    "clicsTeamDisplayName": "TempName",
+                    "icpc_id": "787163"
                 }
             },
             {
@@ -1213,7 +1258,8 @@
                 "organizationId": "10685",
                 "customFields": {
                     "clicsTeamFullName": "Télégendaire",
-                    "clicsTeamDisplayName": "Télégendaire"
+                    "clicsTeamDisplayName": "Télégendaire",
+                    "icpc_id": "734761"
                 }
             },
             {
@@ -1236,7 +1282,8 @@
                 "organizationId": "2263",
                 "customFields": {
                     "clicsTeamFullName": "Gli informagici",
-                    "clicsTeamDisplayName": "Gli informagici"
+                    "clicsTeamDisplayName": "Gli informagici",
+                    "icpc_id": "795847"
                 }
             },
             {
@@ -1259,7 +1306,8 @@
                 "organizationId": "2273",
                 "customFields": {
                     "clicsTeamFullName": "UPC-1",
-                    "clicsTeamDisplayName": "UPC-1"
+                    "clicsTeamDisplayName": "UPC-1",
+                    "icpc_id": "776732"
                 }
             },
             {
@@ -1282,7 +1330,8 @@
                 "organizationId": "444",
                 "customFields": {
                     "clicsTeamFullName": "EPFL 1",
-                    "clicsTeamDisplayName": "EPFL 1"
+                    "clicsTeamDisplayName": "EPFL 1",
+                    "icpc_id": "774821"
                 }
             },
             {
@@ -1305,7 +1354,8 @@
                 "organizationId": "7990",
                 "customFields": {
                     "clicsTeamFullName": "LaStatale Blue",
-                    "clicsTeamDisplayName": "LaStatale Blue"
+                    "clicsTeamDisplayName": "LaStatale Blue",
+                    "icpc_id": "731295"
                 }
             },
             {
@@ -1328,7 +1378,8 @@
                 "organizationId": "789",
                 "customFields": {
                     "clicsTeamFullName": "The Outlaws",
-                    "clicsTeamDisplayName": "The Outlaws"
+                    "clicsTeamDisplayName": "The Outlaws",
+                    "icpc_id": "760211"
                 }
             },
             {
@@ -1351,7 +1402,8 @@
                 "organizationId": "10689",
                 "customFields": {
                     "clicsTeamFullName": "Sorbonne Bleu",
-                    "clicsTeamDisplayName": "Sorbonne Bleu"
+                    "clicsTeamDisplayName": "Sorbonne Bleu",
+                    "icpc_id": "780332"
                 }
             },
             {
@@ -1374,7 +1426,8 @@
                 "organizationId": "11205",
                 "customFields": {
                     "clicsTeamFullName": "Overflow",
-                    "clicsTeamDisplayName": "Overflow"
+                    "clicsTeamDisplayName": "Overflow",
+                    "icpc_id": "768626"
                 }
             },
             {
@@ -1397,7 +1450,8 @@
                 "organizationId": "19561",
                 "customFields": {
                     "clicsTeamFullName": "Javaman",
-                    "clicsTeamDisplayName": "Javaman"
+                    "clicsTeamDisplayName": "Javaman",
+                    "icpc_id": "792642"
                 }
             },
             {
@@ -1420,7 +1474,8 @@
                 "organizationId": "2166",
                 "customFields": {
                     "clicsTeamFullName": "ETSINF-1",
-                    "clicsTeamDisplayName": "ETSINF-1"
+                    "clicsTeamDisplayName": "ETSINF-1",
+                    "icpc_id": "779474"
                 }
             },
             {
@@ -1443,7 +1498,8 @@
                 "organizationId": "2261",
                 "customFields": {
                     "clicsTeamFullName": "UniTN Fenwick Treento",
-                    "clicsTeamDisplayName": "UniTN Fenwick Treento"
+                    "clicsTeamDisplayName": "UniTN Fenwick Treento",
+                    "icpc_id": "794443"
                 }
             },
             {
@@ -1466,7 +1522,8 @@
                 "organizationId": "2263",
                 "customFields": {
                     "clicsTeamFullName": "MastersOfBreaks",
-                    "clicsTeamDisplayName": "MastersOfBreaks"
+                    "clicsTeamDisplayName": "MastersOfBreaks",
+                    "icpc_id": "795845"
                 }
             },
             {
@@ -1489,7 +1546,8 @@
                 "organizationId": "6369",
                 "customFields": {
                     "clicsTeamFullName": "UPV-EHU-2",
-                    "clicsTeamDisplayName": "UPV-EHU-2"
+                    "clicsTeamDisplayName": "UPV-EHU-2",
+                    "icpc_id": "768255"
                 }
             },
             {
@@ -1512,7 +1570,8 @@
                 "organizationId": "3409",
                 "customFields": {
                     "clicsTeamFullName": "ENSheep",
-                    "clicsTeamDisplayName": "ENSheep"
+                    "clicsTeamDisplayName": "ENSheep",
+                    "icpc_id": "750193"
                 }
             },
             {
@@ -1535,7 +1594,8 @@
                 "organizationId": "444",
                 "customFields": {
                     "clicsTeamFullName": "EPFL 2",
-                    "clicsTeamDisplayName": "EPFL 2"
+                    "clicsTeamDisplayName": "EPFL 2",
+                    "icpc_id": "774822"
                 }
             },
             {
@@ -1558,7 +1618,8 @@
                 "organizationId": "2170",
                 "customFields": {
                     "clicsTeamFullName": "pik2s",
-                    "clicsTeamDisplayName": "pik2s"
+                    "clicsTeamDisplayName": "pik2s",
+                    "icpc_id": "759593"
                 }
             },
             {
@@ -1581,7 +1642,8 @@
                 "organizationId": "10706",
                 "customFields": {
                     "clicsTeamFullName": "Risi&&Bisi",
-                    "clicsTeamDisplayName": "Risi&&Bisi"
+                    "clicsTeamDisplayName": "Risi&&Bisi",
+                    "icpc_id": "779541"
                 }
             },
             {
@@ -1604,7 +1666,8 @@
                 "organizationId": "8886",
                 "customFields": {
                     "clicsTeamFullName": "Serge",
-                    "clicsTeamDisplayName": "Serge"
+                    "clicsTeamDisplayName": "Serge",
+                    "icpc_id": "796931"
                 }
             },
             {
@@ -1627,7 +1690,8 @@
                 "organizationId": "5687",
                 "customFields": {
                     "clicsTeamFullName": "ECL 2",
-                    "clicsTeamDisplayName": "ECL 2"
+                    "clicsTeamDisplayName": "ECL 2",
+                    "icpc_id": "780114"
                 }
             },
             {
@@ -1650,7 +1714,8 @@
                 "organizationId": "2257",
                 "customFields": {
                     "clicsTeamFullName": "Genova 2",
-                    "clicsTeamDisplayName": "Genova 2"
+                    "clicsTeamDisplayName": "Genova 2",
+                    "icpc_id": "795881"
                 }
             },
             {
@@ -1673,7 +1738,8 @@
                 "organizationId": "2273",
                 "customFields": {
                     "clicsTeamFullName": "UPC-2",
-                    "clicsTeamDisplayName": "UPC-2"
+                    "clicsTeamDisplayName": "UPC-2",
+                    "icpc_id": "776733"
                 }
             },
             {
@@ -1696,7 +1762,8 @@
                 "organizationId": "11205",
                 "customFields": {
                     "clicsTeamFullName": "SaintGermainDesPres1",
-                    "clicsTeamDisplayName": "SaintGermainDesPres1"
+                    "clicsTeamDisplayName": "SaintGermainDesPres1",
+                    "icpc_id": "768625"
                 }
             },
             {
@@ -1719,7 +1786,8 @@
                 "organizationId": "451",
                 "customFields": {
                     "clicsTeamFullName": "Save water - shower togETHer",
-                    "clicsTeamDisplayName": "Save water - shower togETHer"
+                    "clicsTeamDisplayName": "Save water - shower togETHer",
+                    "icpc_id": "731949"
                 }
             },
             {
@@ -1742,7 +1810,8 @@
                 "organizationId": "478",
                 "customFields": {
                     "clicsTeamFullName": "Heroes of the C",
-                    "clicsTeamDisplayName": "Heroes of the C"
+                    "clicsTeamDisplayName": "Heroes of the C",
+                    "icpc_id": "800567"
                 }
             },
             {
@@ -1765,7 +1834,8 @@
                 "organizationId": "8488",
                 "customFields": {
                     "clicsTeamFullName": "Code Force One",
-                    "clicsTeamDisplayName": "Code Force One"
+                    "clicsTeamDisplayName": "Code Force One",
+                    "icpc_id": "738630"
                 }
             },
             {
@@ -1788,7 +1858,8 @@
                 "organizationId": "10678",
                 "customFields": {
                     "clicsTeamFullName": "bogosolving",
-                    "clicsTeamDisplayName": "bogosolving"
+                    "clicsTeamDisplayName": "bogosolving",
+                    "icpc_id": "737601"
                 }
             },
             {
@@ -1811,7 +1882,8 @@
                 "organizationId": "11538",
                 "customFields": {
                     "clicsTeamFullName": "error 2F4U",
-                    "clicsTeamDisplayName": "error 2F4U"
+                    "clicsTeamDisplayName": "error 2F4U",
+                    "icpc_id": "747399"
                 }
             },
             {
@@ -1834,7 +1906,8 @@
                 "organizationId": "460",
                 "customFields": {
                     "clicsTeamFullName": "ensipc",
-                    "clicsTeamDisplayName": "ensipc"
+                    "clicsTeamDisplayName": "ensipc",
+                    "icpc_id": "792316"
                 }
             },
             {
@@ -1857,7 +1930,8 @@
                 "organizationId": "5282",
                 "customFields": {
                     "clicsTeamFullName": "jUBIleu",
-                    "clicsTeamDisplayName": "jUBIleu"
+                    "clicsTeamDisplayName": "jUBIleu",
+                    "icpc_id": "781190"
                 }
             },
             {
@@ -1880,7 +1954,8 @@
                 "organizationId": "6369",
                 "customFields": {
                     "clicsTeamFullName": "UPV-EHU-1",
-                    "clicsTeamDisplayName": "UPV-EHU-1"
+                    "clicsTeamDisplayName": "UPV-EHU-1",
+                    "icpc_id": "768254"
                 }
             },
             {
@@ -1903,7 +1978,8 @@
                 "organizationId": "2263",
                 "customFields": {
                     "clicsTeamFullName": "Quickbits",
-                    "clicsTeamDisplayName": "Quickbits"
+                    "clicsTeamDisplayName": "Quickbits",
+                    "icpc_id": "795846"
                 }
             },
             {
@@ -1926,7 +2002,8 @@
                 "organizationId": "3436",
                 "customFields": {
                     "clicsTeamFullName": "ENS Ulm 3",
-                    "clicsTeamDisplayName": "ENS Ulm 3"
+                    "clicsTeamDisplayName": "ENS Ulm 3",
+                    "icpc_id": "730882"
                 }
             },
             {
@@ -1949,7 +2026,8 @@
                 "organizationId": "3409",
                 "customFields": {
                     "clicsTeamFullName": "E N S p a c e",
-                    "clicsTeamDisplayName": "E N S p a c e"
+                    "clicsTeamDisplayName": "E N S p a c e",
+                    "icpc_id": "750197"
                 }
             },
             {
@@ -1972,7 +2050,8 @@
                 "organizationId": "7083",
                 "customFields": {
                     "clicsTeamFullName": "Overkill",
-                    "clicsTeamDisplayName": "Overkill"
+                    "clicsTeamDisplayName": "Overkill",
+                    "icpc_id": "777527"
                 }
             },
             {
@@ -1995,7 +2074,8 @@
                 "organizationId": "15696",
                 "customFields": {
                     "clicsTeamFullName": "Brogrammers",
-                    "clicsTeamDisplayName": "Brogrammers"
+                    "clicsTeamDisplayName": "Brogrammers",
+                    "icpc_id": "762385"
                 }
             },
             {
@@ -2018,7 +2098,8 @@
                 "organizationId": "2122",
                 "customFields": {
                     "clicsTeamFullName": "Don't you C?",
-                    "clicsTeamDisplayName": "Don't you C?"
+                    "clicsTeamDisplayName": "Don't you C?",
+                    "icpc_id": "767292"
                 }
             },
             {
@@ -2041,7 +2122,8 @@
                 "organizationId": "789",
                 "customFields": {
                     "clicsTeamFullName": "FantasticoDebug",
-                    "clicsTeamDisplayName": "FantasticoDebug"
+                    "clicsTeamDisplayName": "FantasticoDebug",
+                    "icpc_id": "760212"
                 }
             },
             {
@@ -2064,7 +2146,8 @@
                 "organizationId": "7435",
                 "customFields": {
                     "clicsTeamFullName": "UNIBOis",
-                    "clicsTeamDisplayName": "UNIBOis"
+                    "clicsTeamDisplayName": "UNIBOis",
+                    "icpc_id": "766832"
                 }
             },
             {
@@ -2087,7 +2170,8 @@
                 "organizationId": "2260",
                 "customFields": {
                     "clicsTeamFullName": "SapienzaWhite",
-                    "clicsTeamDisplayName": "SapienzaWhite"
+                    "clicsTeamDisplayName": "SapienzaWhite",
+                    "icpc_id": "780200"
                 }
             },
             {
@@ -2110,7 +2194,8 @@
                 "organizationId": "10685",
                 "customFields": {
                     "clicsTeamFullName": "Telecoders",
-                    "clicsTeamDisplayName": "Telecoders"
+                    "clicsTeamDisplayName": "Telecoders",
+                    "icpc_id": "734760"
                 }
             },
             {
@@ -2133,7 +2218,8 @@
                 "organizationId": "8450",
                 "customFields": {
                     "clicsTeamFullName": "USInchronous",
-                    "clicsTeamDisplayName": "USInchronous"
+                    "clicsTeamDisplayName": "USInchronous",
+                    "icpc_id": "780518"
                 }
             },
             {
@@ -2156,7 +2242,8 @@
                 "organizationId": "20090",
                 "customFields": {
                     "clicsTeamFullName": "C--",
-                    "clicsTeamDisplayName": "C--"
+                    "clicsTeamDisplayName": "C--",
+                    "icpc_id": "779210"
                 }
             },
             {
@@ -2179,7 +2266,8 @@
                 "organizationId": "742",
                 "customFields": {
                     "clicsTeamFullName": "INSA 2",
-                    "clicsTeamDisplayName": "INSA 2"
+                    "clicsTeamDisplayName": "INSA 2",
+                    "icpc_id": "777242"
                 }
             },
             {
@@ -2202,7 +2290,8 @@
                 "organizationId": "7990",
                 "customFields": {
                     "clicsTeamFullName": "LaStatale Green",
-                    "clicsTeamDisplayName": "LaStatale Green"
+                    "clicsTeamDisplayName": "LaStatale Green",
+                    "icpc_id": "731294"
                 }
             },
             {
@@ -2225,7 +2314,8 @@
                 "organizationId": "9745",
                 "customFields": {
                     "clicsTeamFullName": "I eat PHP for breakfast",
-                    "clicsTeamDisplayName": "I eat PHP for breakfast"
+                    "clicsTeamDisplayName": "I eat PHP for breakfast",
+                    "icpc_id": "791223"
                 }
             },
             {
@@ -2248,7 +2338,8 @@
                 "organizationId": "6379",
                 "customFields": {
                     "clicsTeamFullName": "Unidad Computacional de Macacos",
-                    "clicsTeamDisplayName": "Unidad Computacional de Macacos"
+                    "clicsTeamDisplayName": "Unidad Computacional de Macacos",
+                    "icpc_id": "780117"
                 }
             },
             {
@@ -2271,7 +2362,8 @@
                 "organizationId": "8246",
                 "customFields": {
                     "clicsTeamFullName": "C_aramba",
-                    "clicsTeamDisplayName": "C_aramba"
+                    "clicsTeamDisplayName": "C_aramba",
+                    "icpc_id": "796539"
                 }
             },
             {
@@ -2294,7 +2386,8 @@
                 "organizationId": "7032",
                 "customFields": {
                     "clicsTeamFullName": "Late submission",
-                    "clicsTeamDisplayName": "Late submission"
+                    "clicsTeamDisplayName": "Late submission",
+                    "icpc_id": "800561"
                 }
             },
             {
@@ -2317,7 +2410,8 @@
                 "organizationId": "9009",
                 "customFields": {
                     "clicsTeamFullName": "FDS-UM",
-                    "clicsTeamDisplayName": "FDS-UM"
+                    "clicsTeamDisplayName": "FDS-UM",
+                    "icpc_id": "780517"
                 }
             },
             {
@@ -2340,7 +2434,8 @@
                 "organizationId": "2261",
                 "customFields": {
                     "clicsTeamFullName": "UniTN Send Nodes",
-                    "clicsTeamDisplayName": "UniTN Send Nodes"
+                    "clicsTeamDisplayName": "UniTN Send Nodes",
+                    "icpc_id": "794432"
                 }
             },
             {
@@ -2363,7 +2458,8 @@
                 "organizationId": "366",
                 "customFields": {
                     "clicsTeamFullName": "0xC0FFEE++",
-                    "clicsTeamDisplayName": "0xC0FFEE++"
+                    "clicsTeamDisplayName": "0xC0FFEE++",
+                    "icpc_id": "791745"
                 }
             },
             {
@@ -2386,7 +2482,8 @@
                 "organizationId": "10685",
                 "customFields": {
                     "clicsTeamFullName": "Télécode of Duty",
-                    "clicsTeamDisplayName": "Télécode of Duty"
+                    "clicsTeamDisplayName": "Télécode of Duty",
+                    "icpc_id": "734762"
                 }
             },
             {
@@ -2409,7 +2506,8 @@
                 "organizationId": "2260",
                 "customFields": {
                     "clicsTeamFullName": "SapienzaBlack",
-                    "clicsTeamDisplayName": "SapienzaBlack"
+                    "clicsTeamDisplayName": "SapienzaBlack",
+                    "icpc_id": "743838"
                 }
             },
             {
@@ -2432,7 +2530,8 @@
                 "organizationId": "2170",
                 "customFields": {
                     "clicsTeamFullName": "Teamto de Verano",
-                    "clicsTeamDisplayName": "Teamto de Verano"
+                    "clicsTeamDisplayName": "Teamto de Verano",
+                    "icpc_id": "759148"
                 }
             },
             {
@@ -2455,7 +2554,8 @@
                 "organizationId": "460",
                 "customFields": {
                     "clicsTeamFullName": "ensipc2",
-                    "clicsTeamDisplayName": "ensipc2"
+                    "clicsTeamDisplayName": "ensipc2",
+                    "icpc_id": "796436"
                 }
             },
             {
@@ -2478,7 +2578,8 @@
                 "organizationId": "7435",
                 "customFields": {
                     "clicsTeamFullName": "UNIBOiis",
-                    "clicsTeamDisplayName": "UNIBOiis"
+                    "clicsTeamDisplayName": "UNIBOiis",
+                    "icpc_id": "766833"
                 }
             },
             {
@@ -2501,7 +2602,8 @@
                 "organizationId": "2122",
                 "customFields": {
                     "clicsTeamFullName": "SWERC Chaos",
-                    "clicsTeamDisplayName": "SWERC Chaos"
+                    "clicsTeamDisplayName": "SWERC Chaos",
+                    "icpc_id": "767291"
                 }
             },
             {
@@ -2524,7 +2626,8 @@
                 "organizationId": "5687",
                 "customFields": {
                     "clicsTeamFullName": "ECL 3",
-                    "clicsTeamDisplayName": "ECL 3"
+                    "clicsTeamDisplayName": "ECL 3",
+                    "icpc_id": "780115"
                 }
             },
             {
@@ -2547,7 +2650,8 @@
                 "organizationId": "7990",
                 "customFields": {
                     "clicsTeamFullName": "LaStatale Red",
-                    "clicsTeamDisplayName": "LaStatale Red"
+                    "clicsTeamDisplayName": "LaStatale Red",
+                    "icpc_id": "731296"
                 }
             },
             {
@@ -2570,7 +2674,8 @@
                 "organizationId": "10640",
                 "customFields": {
                     "clicsTeamFullName": "PBI",
-                    "clicsTeamDisplayName": "PBI"
+                    "clicsTeamDisplayName": "PBI",
+                    "icpc_id": "766721"
                 }
             },
             {
@@ -2593,7 +2698,8 @@
                 "organizationId": "2166",
                 "customFields": {
                     "clicsTeamFullName": "ETSINF-2",
-                    "clicsTeamDisplayName": "ETSINF-2"
+                    "clicsTeamDisplayName": "ETSINF-2",
+                    "icpc_id": "779475"
                 }
             },
             {
@@ -2616,7 +2722,8 @@
                 "organizationId": "451",
                 "customFields": {
                     "clicsTeamFullName": "dETHerminant",
-                    "clicsTeamDisplayName": "dETHerminant"
+                    "clicsTeamDisplayName": "dETHerminant",
+                    "icpc_id": "731948"
                 }
             },
             {
@@ -2639,7 +2746,8 @@
                 "organizationId": "8488",
                 "customFields": {
                     "clicsTeamFullName": "SigSegv Squad",
-                    "clicsTeamDisplayName": "SigSegv Squad"
+                    "clicsTeamDisplayName": "SigSegv Squad",
+                    "icpc_id": "738631"
                 }
             },
             {
@@ -2662,7 +2770,8 @@
                 "organizationId": "3545",
                 "customFields": {
                     "clicsTeamFullName": "Boystdcouts",
-                    "clicsTeamDisplayName": "Boystdcouts"
+                    "clicsTeamDisplayName": "Boystdcouts",
+                    "icpc_id": "775252"
                 }
             },
             {
@@ -2685,7 +2794,8 @@
                 "organizationId": "3436",
                 "customFields": {
                     "clicsTeamFullName": "ENS Ulm 1",
-                    "clicsTeamDisplayName": "ENS Ulm 1"
+                    "clicsTeamDisplayName": "ENS Ulm 1",
+                    "icpc_id": "730880"
                 }
             },
             {
@@ -2708,7 +2818,8 @@
                 "organizationId": "7435",
                 "customFields": {
                     "clicsTeamFullName": "UNIBOiiis",
-                    "clicsTeamDisplayName": "UNIBOiiis"
+                    "clicsTeamDisplayName": "UNIBOiiis",
+                    "icpc_id": "766834"
                 }
             },
             {
@@ -2731,7 +2842,8 @@
                 "organizationId": "3545",
                 "customFields": {
                     "clicsTeamFullName": "Venta de pantalones",
-                    "clicsTeamDisplayName": "Venta de pantalones"
+                    "clicsTeamDisplayName": "Venta de pantalones",
+                    "icpc_id": "775251"
                 }
             },
             {
@@ -2754,7 +2866,8 @@
                 "organizationId": "11538",
                 "customFields": {
                     "clicsTeamFullName": "Polydata",
-                    "clicsTeamDisplayName": "Polydata"
+                    "clicsTeamDisplayName": "Polydata",
+                    "icpc_id": "747398"
                 }
             },
             {
@@ -2777,7 +2890,8 @@
                 "organizationId": "8450",
                 "customFields": {
                     "clicsTeamFullName": "fUSIlli",
-                    "clicsTeamDisplayName": "fUSIlli"
+                    "clicsTeamDisplayName": "fUSIlli",
+                    "icpc_id": "763539"
                 }
             },
             {
@@ -2800,7 +2914,8 @@
                 "organizationId": "9745",
                 "customFields": {
                     "clicsTeamFullName": "P+P+P",
-                    "clicsTeamDisplayName": "P+P+P"
+                    "clicsTeamDisplayName": "P+P+P",
+                    "icpc_id": "791222"
                 }
             },
             {
@@ -2823,7 +2938,8 @@
                 "organizationId": "2260",
                 "customFields": {
                     "clicsTeamFullName": "SapienzaRed",
-                    "clicsTeamDisplayName": "SapienzaRed"
+                    "clicsTeamDisplayName": "SapienzaRed",
+                    "icpc_id": "743839"
                 }
             },
             {
@@ -2846,7 +2962,8 @@
                 "organizationId": "8818",
                 "customFields": {
                     "clicsTeamFullName": "Carovana Fighters",
-                    "clicsTeamDisplayName": "Carovana Fighters"
+                    "clicsTeamDisplayName": "Carovana Fighters",
+                    "icpc_id": "800562"
                 }
             },
             {
@@ -2869,7 +2986,8 @@
                 "organizationId": "3545",
                 "customFields": {
                     "clicsTeamFullName": "GetName",
-                    "clicsTeamDisplayName": "GetName"
+                    "clicsTeamDisplayName": "GetName",
+                    "icpc_id": "775253"
                 }
             },
             {
@@ -2892,7 +3010,8 @@
                 "organizationId": "3436",
                 "customFields": {
                     "clicsTeamFullName": "ENS Ulm 2",
-                    "clicsTeamDisplayName": "ENS Ulm 2"
+                    "clicsTeamDisplayName": "ENS Ulm 2",
+                    "icpc_id": "730881"
                 }
             },
             {
@@ -2915,7 +3034,8 @@
                 "organizationId": "8886",
                 "customFields": {
                     "clicsTeamFullName": "Jean Perrin",
-                    "clicsTeamDisplayName": "Jean Perrin"
+                    "clicsTeamDisplayName": "Jean Perrin",
+                    "icpc_id": "745992"
                 }
             }
         ],
