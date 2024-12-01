@@ -78,6 +78,7 @@ function App() {
 
     return (
         <>
+            {c.EXTRA_CSS && <style type="text/css">{c.EXTRA_CSS}</style>}
             <MainLayout/>
             {noStatus ? null : <StatusLayout/>}
         </>

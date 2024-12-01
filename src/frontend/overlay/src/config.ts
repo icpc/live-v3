@@ -1,4 +1,3 @@
-// Strings
 import { setFavicon } from "@shared/setFavicon";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { faviconTemplate } from "@/consts";
@@ -76,6 +75,9 @@ config.GLOBAL_DEFAULT_FONT = config.GLOBAL_DEFAULT_FONT_SIZE + " " + config.GLOB
 config.GLOBAL_BACKGROUND_COLOR = "#242425";
 config.GLOBAL_TEXT_COLOR = "#FFF";
 config.GLOBAL_BORDER_RADIUS = "16px";
+
+// Extra CSS configurations
+config.EXTRA_CSS = null; // Additional CSS that can be injected
 
 config.VERDICT_OK = "#3bba6b";
 config.VERDICT_NOK = "#CB2E28";
@@ -238,7 +240,7 @@ config.PVP_TEAM_STATUS_TASK_WIDTH = 50;
 config.CIRCLE_PROBLEM_SIZE = "28px";
 config.CIRCLE_PROBLEM_LINE_WIDTH = "3.5px";
 
-config.CELL_INFO_VERDICT_WIDTH= "100px"; // css property
+config.CELL_INFO_VERDICT_WIDTH = "100px"; // css property
 
 // layers (z-indexes)
 config.QUEUE_BASIC_ZINDEX = 20;
