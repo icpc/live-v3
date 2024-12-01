@@ -15,7 +15,7 @@ const AdvertisementContainer = styled.div`
 const AdvertisementWrap = styled.div`
   padding: 13px 20px;
 
-  font-family: Urbanist, Passageway, serif;
+  font-family: ${c.ADVERTISEMENT_FONT_FAMILY}, serif;
   font-size: 24pt;
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   color: ${c.ADVERTISEMENT_COLOR};

@@ -62,7 +62,7 @@ const PicturesContainer = styled.div`
 
 
 const PicturesCaptionWrap = styled.div`
-  font-family: Passageway, serif;
+  font-family: ${c.PICTURE_NAME_FONT_FAMILY}, serif;
   font-size: ${c.PICTURE_NAME_FONT_SIZE};
   color: ${c.PICTURE_NAME_FONT_COLOR};
 `;

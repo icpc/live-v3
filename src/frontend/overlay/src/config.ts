@@ -67,7 +67,7 @@ config.STATISTICS_CELL_MORPH_TIME = 200; //ms
 config.CELL_FLASH_PERIOD = 500; //ms
 
 // Styles > Global
-config.GLOBAL_DEFAULT_FONT_FAMILY = "JetBrains Mono, serif"; // css-property
+config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
 config.GLOBAL_DEFAULT_FONT_SIZE = "22px"; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT = 400; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD = 700; // css-property
@@ -184,6 +184,7 @@ config.PICTURE_NAME_BACKGROUND_COLOR = config.CONTEST_COLOR;
 config.PICTURE_NAME_FONT_COLOR = "#FFFFFF";
 config.PICTURE_NAME_FONT_SIZE = "22pt";
 config.PICTURE_BORDER_SIZE = "5px";
+config.PICTURE_NAME_FONT_FAMILY = config.GLOBAL_DEFAULT_FONT_FAMILY;
 
 
 // not used
@@ -195,6 +196,7 @@ config.FULL_SCREEN_CLOCK_FONT_FAMILY = "Helvetica; monospace";
 
 config.ADVERTISEMENT_BACKGROUND = "#FFFFFF"; // hex value.
 config.ADVERTISEMENT_COLOR = isShouldUseDarkColor(config.ADVERTISEMENT_BACKGROUND) ? "black" : "white";
+config.ADVERTISEMENT_FONT_FAMILY = config.GLOBAL_DEFAULT_FONT_FAMILY;
 
 config.STAR_SIZE = 33; // px
 
