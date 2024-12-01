@@ -38,6 +38,7 @@ const ScoreboardHeader = styled.div`
 
   font-size: ${c.SCOREBOARD_CAPTION_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
   font-style: normal;
 `;
 
@@ -86,6 +87,7 @@ const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
 
   font-size: ${c.SCOREBOARD_ROW_FONT_SIZE};
   font-weight: ${c.SCOREBOARD_TABLE_ROW_FONT_WEIGHT};
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
   font-style: normal;
 
   border-top: ${c.SCOREBOARD_ROWS_DIVIDER_COLOR} solid 1px;
@@ -272,16 +274,19 @@ const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
 const ScoreboardTableHeaderCell = styled.div`
   padding: 0 8px;
   text-align: center;
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
   background-color: ${c.SCOREBOARD_HEADER_BACKGROUND_COLOR};
 `;
 
 const ScoreboardTableHeaderNameCell = styled(ScoreboardTableHeaderCell)`
   text-align: left;
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY}
 `;
 
 
 const ScoreboardProblemLabel = styled(ProblemLabel)`
   width: unset;
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
 `;
 
 const ScoreboardTableHeader = () => {
@@ -291,7 +296,7 @@ const ScoreboardTableHeader = () => {
         <ScoreboardTableHeaderCell>#</ScoreboardTableHeaderCell>
         <ScoreboardTableHeaderNameCell>Name</ScoreboardTableHeaderNameCell>
         <ScoreboardTableHeaderCell>Σ</ScoreboardTableHeaderCell>
-        {needPenalty && <ScoreboardTableHeaderCell>Penalty</ScoreboardTableHeaderCell>}
+        {needPenalty && <ScoreboardTableHeaderCell><ShrinkingBox text={"Penalty"}/></ScoreboardTableHeaderCell>}
         {problems && problems.map((probData) => <ScoreboardProblemLabel key={probData.name} letter={probData.letter}
             problemColor={probData.color}/>
         )}

@@ -7,7 +7,7 @@ const TextShrinkingWrap = styled.div`
   display: flex;
   justify-content: ${props => props.align};
 
-  font-family: Arial, sans-serif;
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
   font-kerning: none; /* Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed. */
 `;
 

@@ -381,6 +381,7 @@ const QueueScoreLabel = styled(ShrinkingBox)`
 const QueueProblemLabel = styled(ProblemLabel)`
   width: 28px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
   line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
   background-image: ${({ isFts }) => isFts ? `url(${star})` : null};
@@ -457,6 +458,7 @@ const HorizontalRowsContainer = styled.div`
 const QueueHeader = styled.div`
   font-size: ${c.QUEUE_HEADER_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
   line-height: ${c.QUEUE_HEADER_LINE_HEIGHT};
   color: white;
   width: fit-content;

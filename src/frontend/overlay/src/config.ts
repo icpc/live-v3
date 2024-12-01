@@ -67,7 +67,7 @@ config.STATISTICS_CELL_MORPH_TIME = 200; //ms
 config.CELL_FLASH_PERIOD = 500; //ms
 
 // Styles > Global
-config.GLOBAL_DEFAULT_FONT_FAMILY = "Helvetica, serif"; // css-property
+config.GLOBAL_DEFAULT_FONT_FAMILY = "JetBrains Mono, serif"; // css-property
 config.GLOBAL_DEFAULT_FONT_SIZE = "22px"; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT = 400; // css-property
 config.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD = 700; // css-property
