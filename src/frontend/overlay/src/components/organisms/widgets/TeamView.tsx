@@ -64,12 +64,12 @@ const AchievementWrapper = styled(PrimaryMediaWrapper)`
     z-index: 2;
 `;
 
-const TeamViewGrid = styled.div<{ $achievementY: number }>`
+const TeamViewGrid = styled.div<{ $secondaryY: number; $achievementY: number }>`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr ${props => props.$achievementY * 2 / 9 * 16}px;
-    grid-template-rows: 1fr ${props => props.$achievementY}px ${props => props.$achievementY}px ${props => props.$achievementY}px;
+    grid-template-columns: 1fr ${props => props.$secondaryY * 2 / 9 * 16}px;
+    grid-template-rows: 1fr ${props => props.$secondaryY}px ${props => props.$secondaryY}px ${props => props.$achievementY}px;
     z-index: 3;
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
@@ -109,6 +109,7 @@ const teamViewVariant = (position: TeamViewPosition | undefined) => {
 
 const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location }: CommonContentProps) => {
     const achievementY = location.sizeY - location.sizeX / 16 * 9;
+    const secondaryY = achievementY > 0 ? achievementY : (location.sizeY * c.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR / 2);
     return (
         <>
             {primary && (
@@ -121,7 +122,7 @@ const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
                     <TeamMediaHolder media={achievement} onLoadStatus={setAchievementLoaded} />
                 </AchievementWrapper>
             )}
-            <TeamViewGrid $achievementY={achievementY}>
+            <TeamViewGrid $secondaryY={secondaryY} $achievementY={achievementY}>
                 {secondary && (
                     <SecondaryMediaWrapper withAchievement={!!achievement}>
                         <RoundedTeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
@@ -257,7 +258,7 @@ const SplitContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSeconda
                     <RoundedTeamMediaHolder media={primary} onLoadStatus={setPrimaryLoaded} />
                 </PrimaryMediaWrapper>
             )}
-            <SplitScreenGrid $secondaryY={location.sizeY * 0.39}>
+            <SplitScreenGrid $secondaryY={location.sizeY * c.SPLITSCREEN_SECONDARY_FACTOR}>
                 {secondary && (
                     <SecondaryMediaWrapper withAchievement={false}>
                         <RoundedTeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
