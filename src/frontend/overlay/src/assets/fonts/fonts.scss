@@ -40,3 +40,16 @@
   src: local('Urbanist'), url(./Urbanist-Italic-VariableFont_wght.ttf) format('truetype');
 }
 
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  src: local('JetBrainsMono'), url('./JetBrainsMono-Regular.woff2') format("truetype-variations");
+  font-weight: 1 999;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: italic;
+  src: local('JetBrainsMono'), url('./JetBrainsMono-Italic.woff2') format("truetype-variations");
+  font-weight: 1 999;
+}

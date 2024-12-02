@@ -15,6 +15,9 @@ const storage = window.localStorage;
 export const getTextWidth = (text, font) => {
     const stringText = text + "";
     const key = stringText + ";" + font;
+    // TODO: Maybe delete this, need to test
+    const fontChecker = document.fonts && document.fonts.check(font);
+    // console.log(fontChecker);
     const cached = storage.getItem(key);
     if (cached) {
         return cached;
@@ -26,7 +29,9 @@ export const getTextWidth = (text, font) => {
         context.fontKerning = "none"; // Remove after https://bugs.chromium.org/p/chromium/issues/detail?id=1192834 is fixed.
         const metrics = context.measureText(stringText);
         const result = metrics.width;
-        storage.setItem(key, result);
+        if (fontChecker) {
+            storage.setItem(key, result);
+        }
         return result;
     }
 };
@@ -44,9 +49,11 @@ export const ShrinkingBox = memo(({
         if (cellRef !== null) {
             cellRef.children[0].style.transform = "";
             const styles = getComputedStyle(cellRef);
-            const textWidth = getTextWidth(text, `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`);
+            const font = `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+            const textWidth = getTextWidth(text, font);
             const haveWidth = (parseFloat(styles.width));
             const scaleFactor = Math.min(1, haveWidth / textWidth);
+            // console.log(`Shrinking, ${text}, font=${font}, width=${textWidth}, have=${haveWidth}, scale=${scaleFactor} debug=${haveWidth / textWidth}`);
             cellRef.children[0].style.transform = `scaleX(${scaleFactor})`;
         }
     }, [align, fontFamily, fontSize, text]);
