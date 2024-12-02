@@ -1,0 +1,14 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://swerc.vps.tecnico.ulisboa.pt/domjudge/api",
+        "login": "lidia",
+        "password": "pass"
+      },
+      "contestId": "4",
+      "feedVersion": "2023_06"
+    }
+  ]
+}
