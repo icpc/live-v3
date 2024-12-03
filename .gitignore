@@ -355,6 +355,7 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/react,intellij+all,macos,linux,kotlin,java,gradle,node
 
 .idea
+.vscode
 artifacts
 /test-results/
 /playwright-report/
