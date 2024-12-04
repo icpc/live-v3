@@ -379,7 +379,7 @@ const QueueScoreLabel = styled(ShrinkingBox)`
   flex-direction: row-reverse;
 `;
 const QueueProblemLabel = styled(ProblemLabel)`
-  width: 28px;
+  width: ${c.QUEUE_ROW_PROBLEM_LABEL_WIDTH}px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
   font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
   line-height: ${c.QUEUE_ROW_HEIGHT}px;
