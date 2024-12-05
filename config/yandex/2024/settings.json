@@ -1,0 +1,38 @@
+{
+  "type": "merged",
+  "sources": [
+      {
+          "settings": {
+            "type": "yandex",
+            "apiKey": "$creds.yandex",
+            "contestId": 72057,
+            "resultType": "IOI",
+            "loginRegex": "(ecnerwal|ksun481|isaf27|pikmike98|bqi343|hos.lyric|potato167|maspypy@gmail.com|sakuyahiiragi|maroonrk|hitonanode|kotatsugame|egork.spb|dnsmstf|nagibin.vv@phystech.edu|NIGO2007|k.kudryashov.2004|fedor.romaschov|yahordubovik|koosaga@gmail.com|abdullingimran|vadimlagernoi|sunrayll|loseff.pit|MACNEILFIFA|vasiliev.aa@students.sch2.ru|makravio|ivanovnil2007|Yavanow|plyusnin.4r|mHuman|magor1744|komendantyan.artem|mirali.agaev04|ikira.57|gad.olg|sushinaleksander|MVLevin|apacheejava)"
+          },
+          "teamIdRegex": {"^(.*)$": "MAIN.$1"},
+          "runIdRegex": {"^(.*)$": "MAIN.$1"}
+      },
+      {
+          "settings": {
+            "type": "yandex",
+            "apiKey": "$creds.yandex",
+            "contestId": 72060,
+            "resultType": "IOI",
+            "loginRegex": "(ecnerwal|ksun481|isaf27|pikmike98|bqi343|hos.lyric|potato167|maspypy@gmail.com|sakuyahiiragi|maroonrk|hitonanode|kotatsugame|egork.spb|dnsmstf|nagibin.vv@phystech.edu|NIGO2007|k.kudryashov.2004|fedor.romaschov|yahordubovik|koosaga@gmail.com|abdullingimran|vadimlagernoi|sunrayll|loseff.pit|MACNEILFIFA|vasiliev.aa@students.sch2.ru|makravio|ivanovnil2007|Yavanow|plyusnin.4r|mHuman|magor1744|komendantyan.artem|mirali.agaev04|ikira.57|gad.olg|sushinaleksander|MVLevin|apacheejava)"
+          },
+          "teamIdRegex": {"^(.*)$": "STAFF.$1"},
+          "runIdRegex": {"^(.*)$": "STAFF.$1"}
+      },
+      {
+          "settings": {
+            "type": "yandex",
+            "apiKey": "$creds.yandex",
+            "contestId": 72058,
+            "resultType": "IOI",
+            "loginRegex": "(ecnerwal|ksun481|isaf27|pikmike98|bqi343|hos.lyric|potato167|maspypy@gmail.com|sakuyahiiragi|maroonrk|hitonanode|kotatsugame|egork.spb|dnsmstf|nagibin.vv@phystech.edu|NIGO2007|k.kudryashov.2004|fedor.romaschov|yahordubovik|koosaga@gmail.com|abdullingimran|vadimlagernoi|sunrayll|loseff.pit|MACNEILFIFA|vasiliev.aa@students.sch2.ru|makravio|ivanovnil2007|Yavanow|plyusnin.4r|mHuman|magor1744|komendantyan.artem|mirali.agaev04|ikira.57|gad.olg|sushinaleksander|MVLevin|apacheejava)"
+          },
+          "teamIdRegex": {"^(.*)$": "JUNIOR.$1"},
+          "runIdRegex": {"^(.*)$": "JUNIOR.$1"}
+      }
+  ]
+}
