@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.auth)
     implementation(libs.ktor.server.contentNegotiation)
+    implementation(libs.ktor.server.conditionalHeaders)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.websockets)
     implementation(libs.logback)

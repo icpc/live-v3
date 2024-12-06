@@ -3,6 +3,7 @@ package org.icpclive.server
 import io.ktor.server.application.*
 import io.ktor.server.plugins.autohead.*
 import io.ktor.server.plugins.calllogging.*
+import io.ktor.server.plugins.compression.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.statuspages.*
@@ -21,6 +22,9 @@ fun Application.setupDefaultKtorPlugins() {
             call.application.environment.log.error("Query ${call.url()} failed with exception", ex)
             throw ex
         }
+    }
+    install(Compression) {
+        minimumSize(1024)
     }
     install(AutoHeadResponse)
     install(IgnoreTrailingSlash)

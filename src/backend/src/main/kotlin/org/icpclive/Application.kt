@@ -24,6 +24,7 @@ import org.icpclive.server.setupDefaultKtorPlugins
 import org.icpclive.service.launchServices
 import kotlin.system.exitProcess
 import kotlin.time.Duration.Companion.seconds
+import io.ktor.server.plugins.conditionalheaders.*
 
 
 fun main(args: Array<String>): Unit = Config.main(args)
@@ -65,22 +66,20 @@ fun Application.module() {
 
     routing {
         staticFiles("/media", Config.mediaDirectory.toFile())
-        staticResources("/schemas", "schemas")
-        staticResources("/", "main", index = "main.html")
-        singlePageApplication {
-            useResources = true
-            applicationRoute = "admin"
-            react("admin")
-        }
-        singlePageApplication {
-            useResources = true
-            applicationRoute = "overlay"
-            react("overlay")
-        }
-        singlePageApplication {
-            useResources = true
-            applicationRoute = "overlay2"
-            react("overlay2")
+        route("/") {
+            install(ConditionalHeaders)
+            staticResources("/schemas", "schemas")
+            staticResources("/", "main", index = "main.html")
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin"
+                react("admin")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "overlay"
+                react("overlay")
+            }
         }
         route("/api") {
             route("/admin") { configureAdminApiRouting() }

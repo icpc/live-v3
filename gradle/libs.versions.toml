@@ -44,6 +44,8 @@ ktor-server-cors                = { version.ref = "ktor", group = "io.ktor", nam
 ktor-server-defaultHeaders      = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-default-headers" }
 ktor-server-netty               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-netty" }
 ktor-server-statusPages         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-status-pages" }
+ktor-server-conditionalHeaders  = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-conditional-headers" }
+ktor-server-compression         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-compression" }
 ktor-server-tests               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-tests" }
 ktor-server-websockets          = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-websockets" }
 
