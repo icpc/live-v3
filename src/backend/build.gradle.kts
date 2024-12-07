@@ -13,6 +13,41 @@ application {
 }
 
 tasks {
+    val gitVersionFiles by registering {
+        val branch = layout.buildDirectory.file("git_branch")
+        val commit = layout.buildDirectory.file("git_commit")
+        val description = layout.buildDirectory.file("git_description")
+        outputs.files(branch, commit, description)
+        outputs.upToDateWhen { false }
+        doLast {
+            branch.get().asFile.outputStream().use { stream ->
+                exec {
+                    executable = "git"
+                    args = listOf("rev-parse", "--abbrev-ref", "HEAD")
+                    standardOutput = stream
+                    isIgnoreExitValue = true
+                }
+            }
+            commit.get().asFile.outputStream().use { stream ->
+                exec {
+                    executable = "git"
+                    args = listOf("rev-parse", "HEAD")
+                    standardOutput = stream
+                    isIgnoreExitValue = true
+                }
+            }
+            description.get().asFile.outputStream().use { stream ->
+                exec {
+                    executable = "git"
+                    args = listOf("describe", "--all", "--always", "--dirty", "--match=origin/*", "--match=v*")
+                    standardOutput = stream
+                    isIgnoreExitValue = true
+                }
+            }
+        }
+    }
+
+
     runTask {
         this.args = listOfNotNull(
             "--no-auth",
@@ -38,6 +73,9 @@ tasks {
                 into("overlay")
             }
             from(project(":frontend").projectDir.resolve("main")) {
+                into("main")
+            }
+            from(gitVersionFiles) {
                 into("main")
             }
         }

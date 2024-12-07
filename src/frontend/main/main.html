@@ -29,10 +29,34 @@
 </head>
 <body>
     <div class="link-container">
+        <div id="git-commit">Commit: loading...</div>
+        <div id="git-branch">Branch: loading...</div>
+        <div id="git-description">Version: loading...</div>
         <a href="/admin" class="link">/admin</a>
         <a href="/overlay?noStatus" class="link">/overlay?noStatus</a>
         <a href="/api/admin/advancedJsonPreview?fields=all" class="link">/api/admin/advancedJsonPreview?fields=all</a>
         <a href="https://github.com/icpc/live-v3" class="link">https://github.com/icpc/live-v3</a>
     </div>
+    <script>
+        fetch('/git_commit')
+            .then(response => response.text())
+            .then(commit => {
+                document.getElementById('git-commit').innerText = `Commit: ${commit}`
+            })
+            .catch(error => console.error('Error fetching git commit:', error));
+        fetch('/git_branch')
+            .then(response => response.text())
+            .then(branch => {
+                document.getElementById('git-branch').innerText = `Branch: ${branch}`
+            })
+            .catch(error => console.error('Error fetching git branch:', error));
+        fetch('/git_description')
+            .then(response => response.text())
+            .then(version => {
+                document.getElementById('git-description').innerText = `Version: ${version}`
+            })
+            .catch(error => console.error('Error fetching git branch:', error));
+    </script>
+
 </body>
 </html>
