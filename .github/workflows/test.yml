@@ -73,7 +73,7 @@ jobs:
           script: |
             const images_grid = '${{steps.pr_playwright-upload.outputs.pr_playwright_images}}'
               .split(',')
-              .map(i => '<img src="' + i.replace("https://i.ibb.co/", "https://kbats.ru/imgbb/") + '" width="400" />')
+              .map(i => '<img src="' + i + '" width="400" />') // .replace("https://i.ibb.co/", "https://kbats.ru/imgbb/")
               .join(' ');
 
             github.rest.issues.createComment({

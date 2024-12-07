@@ -381,7 +381,7 @@ const QueueScoreLabel = styled(ShrinkingBox)`
 const QueueProblemLabel = styled(ProblemLabel)`
   width: ${c.QUEUE_ROW_PROBLEM_LABEL_WIDTH}px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
-  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
   line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
   background-image: ${({ isFts }) => isFts ? `url(${star})` : null};
@@ -427,11 +427,11 @@ export const QueueRow = ({ runInfo }) => {
     </StyledQueueRow>;
 };
 
-const QueueWrap = styled.div<{ hasFeatured: boolean }>`
+const QueueWrap = styled.div<{ hasFeatured: boolean; variant: "vertical" | "horizontal" }>`
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: ${c.QUEUE_BACKGROUND_COLOR};
+  background-color: ${({ variant }) => variant === "horizontal" ? c.QUEUE_HORIZONTAL_BACKGROUND_COLOR : c.QUEUE_BACKGROUND_COLOR};
   background-repeat: no-repeat;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
   border-top-right-radius: ${props => props.hasFeatured ? "0" : c.GLOBAL_BORDER_RADIUS};
@@ -458,7 +458,7 @@ const HorizontalRowsContainer = styled.div`
 const QueueHeader = styled.div`
   font-size: ${c.QUEUE_HEADER_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
-  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
   line-height: ${c.QUEUE_HEADER_LINE_HEIGHT};
   color: white;
   width: fit-content;
@@ -562,7 +562,7 @@ const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ location, shou
     return (
         <>
             <HorizontalFeatured runInfo={featured}/>
-            <QueueWrap hasFeatured={!!featured}>
+            <QueueWrap hasFeatured={!!featured} variant={VARIANT}>
                 <QueueHeader ref={(el) => (el != null) && setHeaderWidth(el.getBoundingClientRect().width)}>
                     <Title>
                         {c.QUEUE_TITLE}
